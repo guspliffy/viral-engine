@@ -1,0 +1,782 @@
+{
+ "id": "eg-sphinxpit",
+ "title": "Egypt EP05 Sphinx pit bench",
+ "idea": "Props bench for the Sphinx enclosure, temples and causeway, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9cc4e6",
+  "floor": "none"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spudA"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spudA",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    -7.2
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudT",
+   "character": "potatobrawl/spud",
+   "at": [
+    33.5,
+    4.5
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudB",
+   "character": "potatobrawl/spud",
+   "at": [
+    306.1,
+    -6.7
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "pitA",
+   "kind": "sphinxpit",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "boxA",
+   "kind": "limeblock",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "size": [
+    29.2,
+    8,
+    7.6
+   ],
+   "look": "weathered"
+  },
+  {
+   "id": "temA",
+   "kind": "sphinxtemple",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "era": "ruin"
+  },
+  {
+   "id": "valA",
+   "kind": "khafrevalley",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "pitB",
+   "kind": "sphinxpit",
+   "x": 300,
+   "y": 0,
+   "z": 0,
+   "match": true
+  },
+  {
+   "id": "temB",
+   "kind": "sphinxtemple",
+   "x": 300,
+   "y": 0,
+   "z": 0,
+   "era": "ruin",
+   "match": true
+  },
+  {
+   "id": "pitC",
+   "kind": "sphinxpit",
+   "x": 600,
+   "y": 0,
+   "z": 0,
+   "ramp": true
+  },
+  {
+   "id": "temC",
+   "kind": "sphinxtemple",
+   "x": 600,
+   "y": 0,
+   "z": 0,
+   "era": "quarry"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1,
+   "text": "a: the pit from the north-east rim (Sphinx = a box)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1.1,
+   "to": 2,
+   "text": "a3: the whole enclosure from the north-east, high (not in the brief)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2.1,
+   "to": 3,
+   "text": "a2: the north wall from inside, whole grooves",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3.1,
+   "to": 4,
+   "text": "b: the north wall grooves, Spud at (0, -7.2)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4.1,
+   "to": 5,
+   "text": "c: wet 1, flow 0.5",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5.1,
+   "to": 6,
+   "text": "c2: wet 1, flow 0.5, the north wall from inside",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6.1,
+   "to": 7,
+   "text": "c3: wet 1, flow 0.8, foot of the wall: ribbons, pools and mud",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7.1,
+   "to": 8,
+   "text": "d: panel 17, match true on both: the witness block and the wall's return",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 8.1,
+   "to": 9,
+   "text": "d2: panel 17 wider: witness block (left) and the wall's return (right)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9.1,
+   "to": 10,
+   "text": "e: the half-cut north blocks",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 10.1,
+   "to": 11,
+   "text": "f: the temple ruin from the east",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11.1,
+   "to": 12,
+   "text": "g1: quarry 1 (12 cells)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12.1,
+   "to": 13,
+   "text": "g2: temple era quarry, build 0.47",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 13.1,
+   "to": 14,
+   "text": "h: valley temple + causeway from high",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 14.1,
+   "to": 15,
+   "text": "i: quarry 0.34 (5 cells) + the east ramp",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 15.1,
+   "to": 16,
+   "text": "j: temple era quarry, build 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 16.1,
+   "to": 17,
+   "text": "v1: the valley temple from the east: portals, casing, roof (not in the brief)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 17.1,
+   "to": 18,
+   "text": "v2: inside the T hall from the stem (not in the brief)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 18.1,
+   "to": 19,
+   "text": "h2: the causeway running up the plateau (not in the brief)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 19.1,
+   "to": 20,
+   "text": "k: the causeway climbing past the south-west corner",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "a",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     22,
+     9,
+     -14
+    ],
+    "look": [
+     0,
+     2,
+     0
+    ],
+    "fov": 50
+   },
+   "do": []
+  },
+  {
+   "name": "a3",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     34,
+     16,
+     -28
+    ],
+    "look": [
+     0,
+     1,
+     2
+    ],
+    "fov": 62
+   },
+   "do": []
+  },
+  {
+   "name": "a2",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -6,
+     3,
+     -4.3
+    ],
+    "look": [
+     -5,
+     2.6,
+     -8.6
+    ],
+    "fov": 62
+   },
+   "do": []
+  },
+  {
+   "name": "b",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2,
+     1.2,
+     -6.2
+    ],
+    "look": [
+     -3,
+     1.6,
+     -8.6
+    ],
+    "fov": 45
+   },
+   "do": []
+  },
+  {
+   "name": "c",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2,
+     1.2,
+     -6.2
+    ],
+    "look": [
+     -3,
+     1.6,
+     -8.6
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pitA",
+     "set": {
+      "wet": 1,
+      "flow": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "c2",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -6,
+     3,
+     -4.3
+    ],
+    "look": [
+     -5,
+     2.6,
+     -8.6
+    ],
+    "fov": 62
+   },
+   "do": []
+  },
+  {
+   "name": "c3",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -13,
+     2.2,
+     -4.6
+    ],
+    "look": [
+     -9,
+     0.8,
+     -8.6
+    ],
+    "fov": 70
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pitA",
+     "set": {
+      "flow": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "d",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     306.6,
+     1.6,
+     -6.2
+    ],
+    "look": [
+     306.4,
+     1.6,
+     -8.2
+    ],
+    "fov": 35
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pitA",
+     "set": {
+      "wet": 0,
+      "flow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "d2",
+   "at": 8.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     307.4,
+     1.7,
+     -4.9
+    ],
+    "look": [
+     306.9,
+     1.7,
+     -8
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pitA",
+     "set": {
+      "wet": 0,
+      "flow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "e",
+   "at": 9.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     11.5,
+     2.2,
+     -4.8
+    ],
+    "look": [
+     11.5,
+     0.8,
+     -8
+    ],
+    "fov": 45
+   },
+   "do": []
+  },
+  {
+   "name": "f",
+   "at": 10.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     4,
+     0
+    ],
+    "look": [
+     25.6,
+     1,
+     0
+    ],
+    "fov": 50
+   },
+   "do": []
+  },
+  {
+   "name": "g1",
+   "at": 11.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     614,
+     8,
+     -13
+    ],
+    "look": [
+     594,
+     1,
+     -5
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pitC",
+     "set": {
+      "quarry": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "g2",
+   "at": 12.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     640,
+     6,
+     6
+    ],
+    "look": [
+     625.6,
+     1,
+     0
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "temC",
+     "set": {
+      "build": 0.47
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "h",
+   "at": 13.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     25,
+     40
+    ],
+    "look": [
+     0,
+     0,
+     0
+    ],
+    "fov": 55
+   },
+   "do": []
+  },
+  {
+   "name": "i",
+   "at": 14.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     620,
+     4,
+     11
+    ],
+    "look": [
+     611,
+     0.3,
+     5.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pitC",
+     "set": {
+      "quarry": 0.34
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "j",
+   "at": 15.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     640,
+     7,
+     -8
+    ],
+    "look": [
+     625.6,
+     1,
+     0
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "temC",
+     "set": {
+      "build": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "v1",
+   "at": 16.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     52,
+     4,
+     19.6
+    ],
+    "look": [
+     25.6,
+     1.4,
+     19.6
+    ],
+    "fov": 56
+   },
+   "do": []
+  },
+  {
+   "name": "v2",
+   "at": 17.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     31.6,
+     1.2,
+     19.6
+    ],
+    "look": [
+     24.6,
+     1.3,
+     19.6
+    ],
+    "fov": 66
+   },
+   "do": []
+  },
+  {
+   "name": "h2",
+   "at": 18.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20,
+     22,
+     60
+    ],
+    "look": [
+     -55,
+     4,
+     0
+    ],
+    "fov": 62
+   },
+   "do": []
+  },
+  {
+   "name": "k",
+   "at": 19.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -30,
+     12,
+     22
+    ],
+    "look": [
+     -10,
+     4,
+     8
+    ],
+    "fov": 55
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/05-sphinx/bench/make-eg-sphinxpit.mjs (props bench, no reviews)."
+}

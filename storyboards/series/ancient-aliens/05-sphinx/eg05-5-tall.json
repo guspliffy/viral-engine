@@ -1,0 +1,863 @@
+{
+ "far": 300,
+ "id": "eg05-5-tall",
+ "title": "Sphinx (5: next door)",
+ "idea": "seg 5 of 9",
+ "set": {
+  "type": "plain",
+  "color": "#eb9775",
+  "floor": "none",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -9.945,
+    1.045,
+    0
+   ],
+   "light": "#ffb070",
+   "shadow": "#5a4a7a",
+   "exposure": 0.92
+  }
+ },
+ "cast": [
+  {
+   "id": "arch",
+   "character": "ancient-aliens/archaeologist",
+   "at": [
+    10.8,
+    -6.45
+   ],
+   "face": 145,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    12.15,
+    -6.2
+   ],
+   "face": 220,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "aasky",
+   "x": 20,
+   "z": 0,
+   "time": "sunset",
+   "sun": [
+    270,
+    2.2
+   ]
+  },
+  {
+   "id": "sky2",
+   "kind": "aasky",
+   "x": 1010,
+   "z": 0,
+   "time": "dusk",
+   "staged": "panel 20's dusk sky, moved in at its cut"
+  },
+  {
+   "id": "ground",
+   "kind": "gizaplateau",
+   "x": 0,
+   "y": -0.1,
+   "z": 0,
+   "seed": 1,
+   "rubble": 0,
+   "clear": 40,
+   "staged": "the plateau ground itself"
+  },
+  {
+   "id": "pit",
+   "kind": "sphinxpit",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "the enclosure itself (floor, walls, terrace)",
+   "quarry": 0
+  },
+  {
+   "id": "sphinx",
+   "kind": "sphinx",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "stele": true,
+   "flakeAt": [
+    5.4,
+    0.5,
+    3.22
+   ],
+   "staged": "carved out of the bedrock: its body is the pit's rock"
+  },
+  {
+   "id": "temple",
+   "kind": "sphinxtemple",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "era": "ruin",
+   "staged": "the temple ruin on the terrace in front of the Sphinx"
+  },
+  {
+   "id": "valley",
+   "kind": "khafrevalley",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "Khafre's valley temple next door"
+  },
+  {
+   "id": "pyramids",
+   "kind": "gizatoday",
+   "x": -37.5,
+   "y": -60,
+   "z": -89.9,
+   "s": 0.22,
+   "sunAz": 270,
+   "staged": "far scenery on the plateau behind"
+  },
+  {
+   "id": "tempQ",
+   "kind": "sphinxtemple",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "era": "quarry",
+   "staged": "the Sphinx temple being finished (past)"
+  },
+  {
+   "id": "khafre",
+   "kind": "pyramid",
+   "x": -188.6,
+   "y": 6.8,
+   "z": -24,
+   "s": 0.34,
+   "state": "finished",
+   "sunAz": 270,
+   "sunEl": 3,
+   "staged": "Khafre's pyramid, new (past)"
+  },
+  {
+   "id": "brush",
+   "kind": "archbrush",
+   "tip": 25,
+   "x": 11.389,
+   "y": 0.07,
+   "z": -6.489,
+   "rot": 325,
+   "staged": "already in her hand: the fist closes on it in the first frames"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "pit",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "sphinx",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "valley",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "temple",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "tempQ",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "hall",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "pit",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "sphinx",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "valley",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "temple",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "tempQ",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "hall",
+   "from": 0,
+   "to": 11.4,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
+   "from": 6.1,
+   "to": 11.4,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "panels 19-20: the brush hangs at rest by her hip, the other hand points; seen in the stills"
+  }
+ ],
+ "notes": "Generated by make-sphinx.mjs, segment 5 (story 42.0-53.4): past 18, present 19-20.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "music": {
+  "file": "ancient-aliens/aa05-score.ogg",
+  "from": 0,
+  "skip": 42,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "captions": [
+  {
+   "from": 3.8,
+   "to": 6.1,
+   "text": "4,500 YEARS AGO",
+   "pos": 1000,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 9.6,
+   "to": 15.93,
+   "text": "Then why does it stare at the exact spot where the Lion rose at sunrise... twelve and a half thousand years ago?",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "18 next door",
+   "at": 0,
+   "len": 6.1,
+   "shot": {
+    "pos": [
+     40,
+     22,
+     30
+    ],
+    "look": [
+     -20,
+     2,
+     -2
+    ],
+    "fov": 55,
+    "to": {
+     "pos": [
+      37,
+      20,
+      28
+     ]
+    },
+    "dur": 6.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.03
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       0.045,
+       0.02,
+       0.054
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.03
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "night": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sky2",
+     "set": {
+      "night": 0.25
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 0.35,
+      "flake": 0,
+      "wet": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "wet": 0,
+      "flow": 0,
+      "quarry": 0.34
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "temple",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "tempQ",
+     "set": {
+      "build": 0.91
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.33
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.42
+    },
+    {
+     "who": "arch",
+     "do": "grab",
+     "prop": "brush",
+     "hand": "R",
+     "grip": [
+      0.063,
+      0.165,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.54
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.08
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "quarry": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.08
+    },
+    {
+     "do": "prop",
+     "id": "temple",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.08
+    },
+    {
+     "do": "prop",
+     "id": "tempQ",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.08
+    },
+    {
+     "do": "prop",
+     "id": "khafre",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.08
+    },
+    {
+     "do": "prop",
+     "id": "pyramids",
+     "set": {
+      "y": 4.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.08
+    }
+   ]
+  },
+  {
+   "name": "19 left where they stopped",
+   "at": 6.1,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     12,
+     1,
+     -4
+    ],
+    "look": [
+     11.3,
+     1,
+     -7.5
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      11.95,
+      1,
+      -4.2
+     ]
+    },
+    "dur": 3.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0.25,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "brow": 0.6
+     },
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.15
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.15
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "x": 1020
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "do": "prop",
+     "id": "sky2",
+     "set": {
+      "x": 20
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      13.8,
+      7.37
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.18
+    },
+    {
+     "who": "arch",
+     "do": "move",
+     "to": [
+      14.4,
+      6.56
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.18
+    },
+    {
+     "who": "arch",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.18
+    }
+   ]
+  },
+  {
+   "name": "20 one more thing",
+   "at": 9.3,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     16.3,
+     0.85,
+     8.55
+    ],
+    "look": [
+     12.4,
+     1.75,
+     4.9
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      16,
+      0.84,
+      8.35
+     ]
+    },
+    "dur": 2.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 100,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "lid": 0.55,
+      "brow": -0.3
+     },
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.55,
+       0.28
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Then why does it stare at the exact spot where the Lion rose at sunrise... twelve and a half thousand years ago?",
+     "tone": "question",
+     "dur": 5.93,
+     "voice": "reaper-quick",
+     "caption": false,
+     "at": 0.3
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "surface": "sand",
+  "room": "open",
+  "guard": true
+ }
+}

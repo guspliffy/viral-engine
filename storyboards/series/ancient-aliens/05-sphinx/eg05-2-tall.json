@@ -1,0 +1,1056 @@
+{
+ "far": 300,
+ "id": "eg05-2-tall",
+ "title": "Sphinx (2: salt)",
+ "idea": "seg 2 of 9",
+ "set": {
+  "type": "plain",
+  "color": "#88bbe3",
+  "floor": "none",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    5.417,
+    6.428,
+    5.417
+   ],
+   "light": "#fff4dc",
+   "shadow": "#7f8fc0",
+   "exposure": 1
+  }
+ },
+ "cast": [
+  {
+   "id": "arch",
+   "character": "ancient-aliens/archaeologist",
+   "at": [
+    5.4,
+    4.05
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    4.65,
+    4.6
+   ],
+   "face": 150,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "aasky",
+   "x": 10,
+   "z": 0,
+   "time": "day"
+  },
+  {
+   "id": "ground",
+   "kind": "gizaplateau",
+   "x": 0,
+   "y": -0.1,
+   "z": 0,
+   "seed": 1,
+   "rubble": 0,
+   "clear": 40,
+   "staged": "the plateau ground itself"
+  },
+  {
+   "id": "pit",
+   "kind": "sphinxpit",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "the enclosure itself (floor, walls, terrace)"
+  },
+  {
+   "id": "sphinx",
+   "kind": "sphinx",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "stele": true,
+   "flakeAt": [
+    5.4,
+    0.5,
+    3.22
+   ],
+   "staged": "carved out of the bedrock: its body is the pit's rock"
+  },
+  {
+   "id": "temple",
+   "kind": "sphinxtemple",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "era": "ruin",
+   "staged": "the temple ruin on the terrace in front of the Sphinx"
+  },
+  {
+   "id": "valley",
+   "kind": "khafrevalley",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "Khafre's valley temple next door"
+  },
+  {
+   "id": "pyramids",
+   "kind": "gizatoday",
+   "x": -37.5,
+   "y": 4.8,
+   "z": -89.9,
+   "s": 0.22,
+   "sunAz": 120,
+   "staged": "far scenery on the plateau behind"
+  },
+  {
+   "id": "salt",
+   "kind": "saltslice",
+   "x": 60,
+   "y": 0,
+   "z": 0,
+   "staged": "the cutaway: a slice of the rock, set apart for its close-up"
+  },
+  {
+   "id": "brush",
+   "kind": "archbrush",
+   "tip": 25,
+   "x": 5.86,
+   "y": 0.07,
+   "z": 3.68,
+   "rot": 360,
+   "staged": "already in her hand: the fist closes on it in the first frames"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "pit",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "sphinx",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "valley",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "temple",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "tempQ",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "hall",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "pit",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "sphinx",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "valley",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "temple",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "tempQ",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "hall",
+   "from": 0,
+   "to": 13,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "sphinx",
+   "from": 0,
+   "to": 1.6,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "panel 07: her brush hand works right on the stone"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
+   "from": 0.6,
+   "to": 0.9,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "panel 07: the first brush stroke, the palm 3 cm into the handle for 3 frames while she is crouched behind it (to see in the strip)"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
+   "from": 7.6,
+   "to": 11.1,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "panel 09: the camera is behind her raised arm; the brush points up the line of sight at the head, so it is short on screen (seen in the stills)"
+  }
+ ],
+ "notes": "Generated by make-sphinx.mjs, segment 2 (story 12.0-25.0).",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "music": {
+  "file": "ancient-aliens/aa05-score.ogg",
+  "from": 0,
+  "skip": 12,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.55,
+   "text": "Salt did this.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 1.6,
+   "to": 7.55,
+   "text": "Water rises from the ground. Salt crystals grow inside the soft rock, and burst it.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 7.7,
+   "to": 11.15,
+   "text": "The head is harder stone. That's why it held up.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 11.2,
+   "to": 15.05,
+   "text": "Then what about the secret room? A library, hidden under its paw.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "07 the flake",
+   "at": 0,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     7.2,
+     0.65,
+     3.85
+    ],
+    "look": [
+     5.3,
+     0.5,
+     3.75
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      7.05,
+      0.64,
+      3.85
+     ]
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.03
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.03
+    },
+    {
+     "who": "arch",
+     "do": "crouch",
+     "to": 0.5,
+     "dur": 0.4,
+     "at": 0.05
+    },
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "night": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 0,
+      "flake": 0,
+      "wet": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "wet": 0,
+      "flow": 0,
+      "quarry": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "salt",
+     "set": {
+      "damp": 0,
+      "grow": 0,
+      "pop": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "arch",
+     "line": "Salt did this.",
+     "tone": "calm",
+     "dur": 1.33,
+     "voice": "archaeologist",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.33
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.42
+    },
+    {
+     "who": "arch",
+     "do": "grab",
+     "prop": "brush",
+     "hand": "R",
+     "grip": [
+      0.063,
+      0.165,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.54
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.06,
+       0.26,
+       0.44
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "flake": 1
+     },
+     "dur": 1,
+     "ease": "in",
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/cookie-scrape",
+     "gain": 0.08,
+     "dur": 0.8,
+     "reason": "bristles on soft stone, grit falling",
+     "at": 0.6
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.04,
+       0.27,
+       0.44
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.3
+    }
+   ]
+  },
+  {
+   "name": "08 salt",
+   "at": 1.6,
+   "len": 6,
+   "shot": {
+    "pos": [
+     60.6,
+     0.92,
+     2.6
+    ],
+    "look": [
+     60.6,
+     0.88,
+     0.33
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      60.75,
+      0.98,
+      2.15
+     ]
+    },
+    "dur": 6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "arch",
+     "line": "Water rises from the ground. Salt crystals grow inside the soft rock, and burst it.",
+     "tone": "calm",
+     "dur": 5.93,
+     "voice": "archaeologist",
+     "caption": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "salt",
+     "set": {
+      "damp": 1
+     },
+     "dur": 2.5,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "salt",
+     "set": {
+      "grow": 1
+     },
+     "dur": 2.8,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "salt",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.9,
+     "ease": "in",
+     "at": 4.6
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.14,
+     "reason": "a thin flake of stone crumbles off",
+     "at": 4.65
+    },
+    {
+     "who": "arch",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 5.95
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 5.95
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.95
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.95
+    },
+    {
+     "who": "arch",
+     "do": "move",
+     "to": [
+      8.4,
+      6.9
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.98
+    },
+    {
+     "who": "arch",
+     "do": "turn",
+     "to": 250,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.98
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      60,
+      60
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.98
+    }
+   ]
+  },
+  {
+   "name": "09 the hard head",
+   "at": 7.6,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     10.6,
+     0.8,
+     8.5
+    ],
+    "look": [
+     4.6,
+     3.6,
+     1.6
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      10.4,
+      0.85,
+      8.3
+     ]
+    },
+    "dur": 3.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0.3,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "arch",
+     "line": "The head is harder stone. That's why it held up.",
+     "tone": "calm",
+     "dur": 3.23,
+     "voice": "archaeologist",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.45
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.45
+    },
+    {
+     "who": "arch",
+     "do": "move",
+     "to": [
+      11,
+      4.85
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.48
+    },
+    {
+     "who": "arch",
+     "do": "turn",
+     "to": 100,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.48
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      11.55,
+      4.1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.48
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 75,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.48
+    }
+   ]
+  },
+  {
+   "name": "10 the secret room",
+   "at": 11.1,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     15.4,
+     0.72,
+     4.9
+    ],
+    "look": [
+     11.4,
+     0.6,
+     3.9
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      15,
+      0.7,
+      4.8
+     ]
+    },
+    "dur": 1.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 0.18,
+     "dur": 0.4,
+     "quiet": true,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "lid": 0.55,
+      "brow": -0.4
+     },
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Then what about the secret room? A library, hidden under its paw.",
+     "tone": "question",
+     "dur": 3.6403,
+     "voice": "reaper-quick",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.55,
+       0.28
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.36,
+       0.3,
+       0.32
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.45,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.8
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "surface": "sand",
+  "room": "open",
+  "guard": true
+ }
+}

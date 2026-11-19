@@ -1,0 +1,523 @@
+{
+ "id": "eg-sphinx",
+ "title": "Egypt EP05 Sphinx bench",
+ "idea": "Props bench for the Great Sphinx (kind sphinx), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#8fc3ee",
+  "floor": "none"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "sphinx"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    12.5,
+    0
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "aasky",
+   "x": 0,
+   "z": 0,
+   "time": "day"
+  },
+  {
+   "id": "ground",
+   "kind": "gizaplateau",
+   "x": 0,
+   "y": -0.1,
+   "z": 0,
+   "seed": 1,
+   "rubble": 0,
+   "clear": 40
+  },
+  {
+   "id": "sphinx",
+   "kind": "sphinx",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1,
+   "text": "a: high view from the north-east rim",
+   "pos": 1760,
+   "pop": false,
+   "kinetic": false,
+   "size": 36
+  },
+  {
+   "from": 1.1,
+   "to": 2,
+   "text": "b: low between the front paws, Spud at (12.5, 0)",
+   "pos": 1760,
+   "pop": false,
+   "kinetic": false,
+   "size": 36
+  },
+  {
+   "from": 2.1,
+   "to": 3,
+   "text": "b2: the head and nemes from low in front, right of the paws",
+   "pos": 1760,
+   "pop": false,
+   "kinetic": false,
+   "size": 36
+  },
+  {
+   "from": 3.1,
+   "to": 4,
+   "text": "c: the south flank, six ledges and recesses",
+   "pos": 1760,
+   "pop": false,
+   "kinetic": false,
+   "size": 36
+  },
+  {
+   "from": 4.1,
+   "to": 5,
+   "text": "d: the face, missing nose, nemes stripes",
+   "pos": 1760,
+   "pop": false,
+   "kinetic": false,
+   "size": 36
+  },
+  {
+   "from": 5.1,
+   "to": 6,
+   "text": "e: rough 1, the quarry state with the apron",
+   "pos": 1760,
+   "pop": false,
+   "kinetic": false,
+   "size": 36
+  },
+  {
+   "from": 6.1,
+   "to": 7,
+   "text": "f: wet 1, rain runoff",
+   "pos": 1760,
+   "pop": false,
+   "kinetic": false,
+   "size": 36
+  },
+  {
+   "from": 7.1,
+   "to": 8,
+   "text": "g: flake 1 beside the paw, Spud for scale",
+   "pos": 1760,
+   "pop": false,
+   "kinetic": false,
+   "size": 36
+  },
+  {
+   "from": 8.1,
+   "to": 9,
+   "text": "h: the Dream Stele between the paws",
+   "pos": 1760,
+   "pop": false,
+   "kinetic": false,
+   "size": 36
+  }
+ ],
+ "beats": [
+  {
+   "name": "a_hi",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     22,
+     9,
+     -14
+    ],
+    "look": [
+     0,
+     3,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      30,
+      30
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b_paws",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     15.5,
+     0.5,
+     0
+    ],
+    "look": [
+     6,
+     6,
+     0
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      12.5,
+      0
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b2_head",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     13,
+     1.2,
+     6
+    ],
+    "look": [
+     5,
+     5.5,
+     0
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      30,
+      30
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "c_flank",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2,
+     2.5,
+     16
+    ],
+    "look": [
+     -2,
+     3,
+     0
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      30,
+      30
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "d_face",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     11,
+     5.65,
+     0
+    ],
+    "look": [
+     4,
+     5.55,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      30,
+      30
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "e_rough1",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     22,
+     9,
+     -14
+    ],
+    "look": [
+     0,
+     3,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      30,
+      30
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "f_wet1",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20,
+     7,
+     13
+    ],
+    "look": [
+     1,
+     3.2,
+     0
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 0,
+      "wet": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "g_flake1",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     7.4,
+     1.1,
+     6.2
+    ],
+    "look": [
+     5.5,
+     0.35,
+     3.5
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "wet": 0,
+      "flake": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      4.3,
+      4.3
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "h_stele",
+   "at": 8.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     11,
+     0.9,
+     0.4
+    ],
+    "look": [
+     6.9,
+     0.8,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "flake": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      30,
+      30
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/05-sphinx/bench/make-eg-sphinx.mjs (props bench, no reviews)."
+}

@@ -1,0 +1,2721 @@
+{
+ "far": 300,
+ "id": "eg05-4-tall",
+ "title": "Sphinx (4: the evidence)",
+ "idea": "seg 4 of 9",
+ "set": {
+  "type": "plain",
+  "color": "#88bbe3",
+  "floor": "none",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    5.417,
+    6.428,
+    5.417
+   ],
+   "light": "#fff4dc",
+   "shadow": "#7f8fc0",
+   "exposure": 1
+  }
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    11,
+    4.73
+   ],
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.2
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    9.35,
+    7.75
+   ],
+   "face": 290,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.7
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    90,
+    90
+   ],
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "arch",
+   "character": "ancient-aliens/archaeologist",
+   "at": [
+    15.6,
+    5
+   ],
+   "face": 250,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "w1",
+   "character": "ancient-aliens/worker-a",
+   "at": [
+    92,
+    90
+   ],
+   "face": 270,
+   "expr": "angry",
+   "seed": 5.1
+  },
+  {
+   "id": "w2",
+   "character": "ancient-aliens/worker-b",
+   "at": [
+    94,
+    90
+   ],
+   "face": 270,
+   "expr": "angry",
+   "seed": 5.4
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "aasky",
+   "x": 10,
+   "z": 0,
+   "time": "day"
+  },
+  {
+   "id": "ground",
+   "kind": "gizaplateau",
+   "x": 0,
+   "y": -0.1,
+   "z": 0,
+   "seed": 1,
+   "rubble": 0,
+   "clear": 40,
+   "staged": "the plateau ground itself"
+  },
+  {
+   "id": "pit",
+   "kind": "sphinxpit",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "the enclosure itself (floor, walls, terrace)",
+   "match": true
+  },
+  {
+   "id": "sphinx",
+   "kind": "sphinx",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "stele": true,
+   "flakeAt": [
+    5.4,
+    0.5,
+    3.22
+   ],
+   "staged": "carved out of the bedrock: its body is the pit's rock"
+  },
+  {
+   "id": "temple",
+   "kind": "sphinxtemple",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "era": "ruin",
+   "staged": "the temple ruin on the terrace in front of the Sphinx",
+   "match": true
+  },
+  {
+   "id": "valley",
+   "kind": "khafrevalley",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "Khafre's valley temple next door"
+  },
+  {
+   "id": "pyramids",
+   "kind": "gizatoday",
+   "x": -37.5,
+   "y": 4.8,
+   "z": -89.9,
+   "s": 0.22,
+   "sunAz": 120,
+   "staged": "far scenery on the plateau behind"
+  },
+  {
+   "id": "survey",
+   "kind": "surveykit",
+   "x": 11,
+   "y": 0,
+   "z": 5.65,
+   "staged": "the survey crew's radar cart, drill rig and core table on the pit floor"
+  },
+  {
+   "id": "chip-hat",
+   "kind": "strawhat",
+   "wear": "chip",
+   "fit": "potatobrawl/chip",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "wedge-hat",
+   "kind": "strawhat",
+   "wear": "wedge",
+   "fit": "potatobrawl/wedge",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "tempQ",
+   "kind": "sphinxtemple",
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "era": "quarry",
+   "staged": "the temple being built, hidden until panel 16"
+  },
+  {
+   "id": "sledge",
+   "kind": "sledge",
+   "x": 11.6,
+   "y": -60,
+   "z": 5.2,
+   "rot": -90,
+   "ropes": true,
+   "staged": "on the ramp, hidden until panel 16"
+  },
+  {
+   "id": "load",
+   "kind": "limeblock",
+   "x": 11.6,
+   "y": -60,
+   "z": 5.2,
+   "rot": -90,
+   "size": [
+    2.24,
+    0.98,
+    1.12
+   ],
+   "look": "core",
+   "staged": "rests on the sledge"
+  },
+  {
+   "id": "haul",
+   "kind": "egypthaul",
+   "x": 12.92,
+   "y": -60,
+   "z": 5.2,
+   "rot": -90,
+   "along": 0,
+   "staged": "the hauling crew, hidden until panel 16"
+  },
+  {
+   "id": "brush",
+   "kind": "archbrush",
+   "tip": 25,
+   "x": 15.41,
+   "y": 0.07,
+   "z": 4.441,
+   "rot": 430,
+   "staged": "already in her hand: the fist closes on it in the first frames"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "pit",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "sphinx",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "valley",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "temple",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "tempQ",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "hall",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "pit",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "sphinx",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "valley",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "temple",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "tempQ",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "hall",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "chip",
+   "with": "pit",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "chip",
+   "with": "sphinx",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "chip",
+   "with": "valley",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "chip",
+   "with": "temple",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "chip",
+   "with": "tempQ",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "chip",
+   "with": "hall",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "wedge",
+   "with": "pit",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "wedge",
+   "with": "sphinx",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "wedge",
+   "with": "valley",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "wedge",
+   "with": "temple",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "wedge",
+   "with": "tempQ",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "wedge",
+   "with": "hall",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w1",
+   "with": "pit",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w1",
+   "with": "sphinx",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w1",
+   "with": "valley",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w1",
+   "with": "temple",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w1",
+   "with": "tempQ",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w1",
+   "with": "hall",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w2",
+   "with": "pit",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w2",
+   "with": "sphinx",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w2",
+   "with": "valley",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w2",
+   "with": "temple",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w2",
+   "with": "tempQ",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "w2",
+   "with": "hall",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
+   "from": 5.4,
+   "to": 15,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "panels 14-17: the brush hangs at rest by her hip while she turns and the other hand points (she is out of the past shots); seen in the stills"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
+   "from": 5.4,
+   "to": 7.3,
+   "checks": [
+    "arm-in-prop"
+   ],
+   "reason": "panel 14: the resting brush brushes her sleeve 3 cm as she turns; to see in the strip"
+  },
+  {
+   "who": "chip",
+   "with": "chip-hat",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell",
+    "arm-in-prop"
+   ],
+   "reason": "the straw hat is worn on the head; the wide brim passes over the shoulders as the arms push"
+  },
+  {
+   "who": "wedge",
+   "with": "wedge-hat",
+   "from": 0,
+   "to": 15,
+   "checks": [
+    "clipping",
+    "shell",
+    "arm-in-prop"
+   ],
+   "reason": "the straw hat is worn on the head; the wide brim passes over the shoulders as the arms push"
+  }
+ ],
+ "notes": "Generated by make-sphinx.mjs, segment 4 (story 27.0-42.0): past 15 and 16 by params and hidden props.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "music": {
+  "file": "ancient-aliens/aa05-score.ogg",
+  "from": 0,
+  "skip": 27,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 4.35,
+   "text": "People have scanned and dug around it for decades. Nothing.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 4.4,
+   "to": 5.188,
+   "text": "Yet.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 5.5,
+   "to": 7.35,
+   "text": "Then explain the temple.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 7.4,
+   "to": 9.6,
+   "text": "4,500 YEARS AGO",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 540
+  },
+  {
+   "from": 7.4,
+   "to": 11.35,
+   "text": "Its wall blocks were cut out of this pit. Same layers.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 11.5,
+   "to": 15,
+   "text": "4,500 YEARS AGO",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 540
+  },
+  {
+   "from": 11.4,
+   "to": 18.75,
+   "text": "They carved the Sphinx, and built the temple from what they cut away. Right after King Khafre's temple next door.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "12 the survey",
+   "at": 0,
+   "len": 4.2,
+   "shot": {
+    "pos": [
+     14.8,
+     1.5,
+     8.4
+    ],
+    "look": [
+     10.6,
+     0.6,
+     5.5
+    ],
+    "fov": 54,
+    "to": {
+     "pos": [
+      14.5,
+      1.45,
+      8.2
+     ]
+    },
+    "dur": 4.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.03
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       0.04,
+       0.02,
+       -0.057
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.03
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "night": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 0,
+      "flake": 0,
+      "wet": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "wet": 0,
+      "flow": 0,
+      "quarry": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "survey",
+     "set": {
+      "roll": 0,
+      "drill": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "tempQ",
+     "set": {
+      "build": 0.47
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "haul",
+     "set": {
+      "along": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "arch",
+     "line": "People have scanned and dug around it for decades. Nothing.",
+     "tone": "calm",
+     "dur": 4.03,
+     "voice": "archaeologist",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       -0.46
+      ]
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.12
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       -0.46
+      ]
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "survey",
+     "set": {
+      "roll": 1
+     },
+     "dur": 3.6,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "survey",
+     "set": {
+      "drill": 1
+     },
+     "dur": 3.9,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      11,
+      5.58
+     ],
+     "dur": 3.6,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       -0.389
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       -0.389
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.2,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.1,
+     "dur": 3.9,
+     "reason": "the drill rig turning into the rock",
+     "at": 0.2
+    },
+    {
+     "sfx": "freewheel",
+     "gain": 0.12,
+     "dur": 3.6,
+     "reason": "the radar cart rolling over sand",
+     "at": 0.2
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.33
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.42
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       -0.318
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       -0.318
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "who": "arch",
+     "do": "grab",
+     "prop": "brush",
+     "hand": "R",
+     "grip": [
+      0.063,
+      0.165,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.54
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       -0.248
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.75
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       -0.248
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.75
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       -0.177
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       -0.177
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       -0.106
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.35
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       -0.106
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.35
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       -0.035
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.65
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       -0.035
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.65
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       0.036
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.95
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       0.036
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.95
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       0.107
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 2.25
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       0.107
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 2.25
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       0.177
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 2.55
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       0.177
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 2.55
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       0.248
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 2.85
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       0.248
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 2.85
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       0.319
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 3.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       0.319
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 3.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       -0.15,
+       0.69,
+       0.39
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 3.45
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "survey",
+      "grip": [
+       0.15,
+       0.69,
+       0.39
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 3.45
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.15
+    },
+    {
+     "do": "prop",
+     "id": "survey",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      12.25,
+      4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 75,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      96,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      98,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    }
+   ]
+  },
+  {
+   "name": "13 yet",
+   "at": 4.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     13.6,
+     0.75,
+     5.4
+    ],
+    "look": [
+     12.3,
+     0.9,
+     3.75
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      13.5,
+      0.75,
+      5.25
+     ]
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "lid": 0.45,
+      "brow": -0.6
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.6,
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Yet.",
+     "tone": "calm",
+     "dur": 0.3885,
+     "voice": "reaper-quick",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.1,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "14 the temple",
+   "at": 5.4,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     12.4,
+     0.9,
+     6.6
+    ],
+    "look": [
+     17.5,
+     1.4,
+     3.6
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      12.7,
+      0.9,
+      6.4
+     ]
+    },
+    "dur": 1.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "arch",
+     "do": "turn",
+     "to": 300,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "arch",
+     "line": "Then explain the temple.",
+     "tone": "calm",
+     "dur": 1.73,
+     "voice": "archaeologist",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.4,
+       0.45
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0.1,
+      0.1
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.85
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.85
+    },
+    {
+     "who": "arch",
+     "do": "move",
+     "to": [
+      6.95,
+      -6.62
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "who": "arch",
+     "do": "turn",
+     "to": 135,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 1,
+      "flake": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "quarry": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "do": "prop",
+     "id": "temple",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "do": "prop",
+     "id": "pyramids",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "who": "w1",
+     "do": "move",
+     "to": [
+      0.25,
+      -6.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "who": "w1",
+     "do": "turn",
+     "to": 270,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "who": "w2",
+     "do": "move",
+     "to": [
+      0.3,
+      -4.35
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "who": "w2",
+     "do": "turn",
+     "to": 270,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    }
+   ]
+  },
+  {
+   "name": "15 cut from the pit",
+   "at": 7.3,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     4.5,
+     4.5,
+     -6
+    ],
+    "look": [
+     0,
+     0.8,
+     -5.5
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      4.1,
+      4.2,
+      -6
+     ]
+    },
+    "dur": 2.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.2,
+       0.48
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "arch",
+     "line": "Its wall blocks were cut out of this pit. Same layers.",
+     "tone": "calm",
+     "dur": 3.755,
+     "voice": "archaeologist",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 0.28
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.2,
+       0.48
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.12,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.38
+    },
+    {
+     "sfx": "kenney/impact-wood-medium",
+     "gain": 0.12,
+     "reason": "a stone pounder on limestone",
+     "at": 0.5
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.12,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.56
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.2,
+       0.48
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 0.78
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.2,
+       0.48
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.12,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.88
+    },
+    {
+     "sfx": "kenney/impact-wood-medium",
+     "gain": 0.12,
+     "reason": "a stone pounder on limestone",
+     "at": 1
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.12,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 1.06
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 1.1
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.2,
+       0.48
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 1.28
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.2,
+       0.48
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.12,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 1.38
+    },
+    {
+     "sfx": "kenney/impact-wood-medium",
+     "gain": 0.12,
+     "reason": "a stone pounder on limestone",
+     "at": 1.5
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.12,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 1.56
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.2,
+       0.48
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.28,
+     "ease": "out",
+     "at": 1.78
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.2,
+       0.48
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.12,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 1.88
+    },
+    {
+     "sfx": "kenney/impact-wood-medium",
+     "gain": 0.12,
+     "reason": "a stone pounder on limestone",
+     "at": 2
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.12,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 2.06
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "who": "w1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "who": "w2",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.28
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "quarry": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.28
+    },
+    {
+     "do": "prop",
+     "id": "temple",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.28
+    },
+    {
+     "do": "prop",
+     "id": "pyramids",
+     "set": {
+      "y": 4.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.28
+    },
+    {
+     "who": "w1",
+     "do": "move",
+     "to": [
+      92,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "w1",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "w2",
+     "do": "move",
+     "to": [
+      94,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "w2",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    }
+   ]
+  },
+  {
+   "name": "17 same layers",
+   "at": 9.6,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     8.8,
+     0.8,
+     -6.5
+    ],
+    "look": [
+     6.3,
+     1.3,
+     -7.5
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      8.65,
+      0.8,
+      -6.55
+     ]
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0.1,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.62,
+       0.4
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.62,
+       0.42
+      ]
+     },
+     "dur": 1.1,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      -0.25,
+      0.6
+     ],
+     "dur": 1.1,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 0.35
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "quarry": 0.34
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "temple",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "pyramids",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "arch",
+     "do": "move",
+     "to": [
+      100,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.78
+    },
+    {
+     "who": "arch",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "tempQ",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "sledge",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "haul",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "load",
+     "set": {
+      "y": 0.19
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "16 the haul",
+   "at": 11.4,
+   "len": 3.6,
+   "shot": {
+    "pos": [
+     8,
+     2.4,
+     8.6
+    ],
+    "look": [
+     15,
+     1,
+     4
+    ],
+    "fov": 56,
+    "to": {
+     "pos": [
+      8.4,
+      2.35,
+      8.4
+     ]
+    },
+    "dur": 3.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "arch",
+     "line": "They carved the Sphinx, and built the temple from what they cut away. Right after King Khafre's temple next door.",
+     "tone": "calm",
+     "dur": 7.18,
+     "voice": "archaeologist",
+     "caption": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tempQ",
+     "set": {
+      "build": 0.6
+     },
+     "dur": 3.5,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "haul",
+     "set": {
+      "along": 1
+     },
+     "dur": 3.5,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "sledge",
+     "set": {
+      "x": 13.43
+     },
+     "dur": 3.5,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "load",
+     "set": {
+      "x": 13.43
+     },
+     "dur": 3.5,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "sfx": "ai/bag-drag",
+     "gain": 0.28,
+     "dur": 3.4,
+     "reason": "the sledge drags over the ramp",
+     "at": 0.1
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "surface": "sand",
+  "room": "open",
+  "guard": true
+ }
+}

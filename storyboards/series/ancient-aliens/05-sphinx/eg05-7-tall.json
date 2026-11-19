@@ -1,0 +1,554 @@
+{
+ "far": 300,
+ "id": "eg05-7-tall",
+ "title": "Sphinx (7: no answer)",
+ "idea": "seg 7 of 9",
+ "set": {
+  "type": "plain",
+  "color": "#6a5a8a",
+  "floor": "none",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -9.962,
+    0.872,
+    0
+   ],
+   "light": "#e6a076",
+   "shadow": "#3e3a66",
+   "exposure": 0.78
+  }
+ },
+ "cast": [
+  {
+   "id": "arch",
+   "character": "ancient-aliens/archaeologist",
+   "at": [
+    14.4,
+    6.56
+   ],
+   "face": 330,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    13.8,
+    7.37
+   ],
+   "face": 100,
+   "expr": "happy",
+   "follow": 0.2,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "aasky",
+   "x": 20,
+   "z": 0,
+   "time": "dusk"
+  },
+  {
+   "id": "ground",
+   "kind": "gizaplateau",
+   "x": 0,
+   "y": -0.1,
+   "z": 0,
+   "seed": 1,
+   "rubble": 0,
+   "clear": 40,
+   "staged": "the plateau ground itself"
+  },
+  {
+   "id": "pit",
+   "kind": "sphinxpit",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "the enclosure itself (floor, walls, terrace)"
+  },
+  {
+   "id": "sphinx",
+   "kind": "sphinx",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "stele": true,
+   "flakeAt": [
+    5.4,
+    0.5,
+    3.22
+   ],
+   "staged": "carved out of the bedrock: its body is the pit's rock"
+  },
+  {
+   "id": "temple",
+   "kind": "sphinxtemple",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "era": "ruin",
+   "staged": "the temple ruin on the terrace in front of the Sphinx"
+  },
+  {
+   "id": "valley",
+   "kind": "khafrevalley",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "Khafre's valley temple next door"
+  },
+  {
+   "id": "pyramids",
+   "kind": "gizatoday",
+   "x": -37.5,
+   "y": 4.8,
+   "z": -89.9,
+   "s": 0.22,
+   "sunAz": 270,
+   "staged": "far scenery on the plateau behind"
+  },
+  {
+   "id": "brush",
+   "kind": "archbrush",
+   "tip": 25,
+   "x": 13.817,
+   "y": 0.07,
+   "z": 6.65,
+   "rot": 510,
+   "staged": "already in her hand: the fist closes on it in the first frames"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "pit",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "sphinx",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "valley",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "temple",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "tempQ",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "hall",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "pit",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "sphinx",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "valley",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "temple",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "tempQ",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "hall",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "panel 23: the brush hangs at rest by her hip while her other hand half rises; seen in the stills"
+  }
+ ],
+ "notes": "Generated by make-sphinx.mjs, segment 7 (story 58.3-60.6).",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "music": {
+  "file": "ancient-aliens/aa05-score.ogg",
+  "from": 0,
+  "skip": 58.3,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "captions": [],
+ "beats": [
+  {
+   "name": "23 no answer",
+   "at": 0,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     15.95,
+     0.76,
+     8.55
+    ],
+    "look": [
+     14.1,
+     0.62,
+     6.8
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      15.8,
+      0.75,
+      8.4
+     ]
+    },
+    "dur": 2.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0.1,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "lid": 0.85
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.03
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.049,
+       0.02,
+       -0.049
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.03
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "night": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 0,
+      "flake": 0,
+      "wet": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "wet": 0,
+      "flow": 0,
+      "quarry": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "night": 0.42
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.32,
+       0.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "arch",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.33
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.42
+    },
+    {
+     "who": "arch",
+     "do": "grab",
+     "prop": "brush",
+     "hand": "R",
+     "grip": [
+      0.063,
+      0.165,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.54
+    },
+    {
+     "who": "arch",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.4
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "surface": "sand",
+  "room": "open",
+  "guard": true
+ }
+}

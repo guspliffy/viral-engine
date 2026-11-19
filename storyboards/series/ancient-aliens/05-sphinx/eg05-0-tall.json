@@ -1,0 +1,975 @@
+{
+ "far": 300,
+ "id": "eg05-0-tall",
+ "title": "Sphinx (0: the grooves)",
+ "idea": "seg 0 of 9",
+ "set": {
+  "type": "plain",
+  "color": "#88bbe3",
+  "floor": "none",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    5.417,
+    6.428,
+    5.417
+   ],
+   "light": "#fff4dc",
+   "shadow": "#7f8fc0",
+   "exposure": 1
+  }
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2,
+    -7.4
+   ],
+   "face": 180,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "arch",
+   "character": "ancient-aliens/archaeologist",
+   "at": [
+    -0.95,
+    -7.02
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "aasky",
+   "x": 10,
+   "z": 0,
+   "time": "day"
+  },
+  {
+   "id": "ground",
+   "kind": "gizaplateau",
+   "x": 0,
+   "y": -0.1,
+   "z": 0,
+   "seed": 1,
+   "rubble": 0,
+   "clear": 40,
+   "staged": "the plateau ground itself"
+  },
+  {
+   "id": "pit",
+   "kind": "sphinxpit",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "the enclosure itself (floor, walls, terrace)"
+  },
+  {
+   "id": "sphinx",
+   "kind": "sphinx",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "stele": true,
+   "flakeAt": [
+    5.4,
+    0.5,
+    3.22
+   ],
+   "staged": "carved out of the bedrock: its body is the pit's rock"
+  },
+  {
+   "id": "temple",
+   "kind": "sphinxtemple",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "era": "ruin",
+   "staged": "the temple ruin on the terrace in front of the Sphinx"
+  },
+  {
+   "id": "valley",
+   "kind": "khafrevalley",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "Khafre's valley temple next door"
+  },
+  {
+   "id": "pyramids",
+   "kind": "gizatoday",
+   "x": -37.5,
+   "y": 4.8,
+   "z": -89.9,
+   "s": 0.22,
+   "sunAz": 120,
+   "staged": "far scenery on the plateau behind"
+  },
+  {
+   "id": "brush",
+   "kind": "archbrush",
+   "tip": 25,
+   "x": -0.49,
+   "y": 0.07,
+   "z": -7.39,
+   "rot": 360,
+   "staged": "already in her hand: the fist closes on it in the first frames"
+  }
+ ],
+ "hook": {
+  "show": [
+   "sphinx",
+   "pit"
+  ],
+  "hint": 0,
+  "what": "the Great Sphinx in its pit, deep vertical grooves in the walls, two small figures at the wall"
+ },
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "pit",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "sphinx",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "valley",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "temple",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "tempQ",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "hall",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "pit",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "sphinx",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "valley",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "temple",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "tempQ",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "arch",
+   "with": "hall",
+   "from": 0,
+   "to": 8.9,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on"
+  },
+  {
+   "who": "spud",
+   "with": "pit",
+   "from": 2.3,
+   "to": 4.6,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "panel 02: his palm runs down inside a groove of the wall"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
+   "from": 0,
+   "to": 2.3,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "panel 01: she is 120 px tall far below the camera; the brush is a few pixels either way"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
+   "from": 4.6,
+   "to": 7.3,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "panel 03: both tiny between the paws under the giant, seen from behind; the brush is a few pixels"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
+   "from": 7.3,
+   "to": 8.9,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "panel 04: Spud has the moment; her brush hangs at rest by her hip on the far side"
+  }
+ ],
+ "notes": "Generated by make-sphinx.mjs, segment 0 (story 0-8.9).",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "music": {
+  "file": "ancient-aliens/aa05-score.ogg",
+  "from": 0,
+  "skip": 0,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "captions": [
+  {
+   "from": 0.2,
+   "to": 7.25,
+   "text": "These are rain scars. Egypt hasn't seen rain like this in five thousand years. How old is the Sphinx really?",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 0.05,
+   "to": 2.3,
+   "text": "GIZA, EGYPT",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 540
+  },
+  {
+   "from": 2.9,
+   "to": 4.6,
+   "text": "5,000 YEARS",
+   "pos": 1550,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.4,
+   "to": 11.026,
+   "text": "Rain did this. Years of it. It was here before the desert!",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 the pit",
+   "at": 0,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     11,
+     8.5,
+     -3.2
+    ],
+    "look": [
+     -3.5,
+     2.2,
+     -5.2
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      8,
+      6.5,
+      -4.4
+     ]
+    },
+    "dur": 2.3,
+    "ease": "out"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.03
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.03
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "night": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sphinx",
+     "set": {
+      "rough": 0,
+      "flake": 0,
+      "wet": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "wet": 0,
+      "flow": 0,
+      "quarry": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "narrator",
+     "line": "These are rain scars. Egypt hasn't seen rain like this in five thousand years. How old is the Sphinx really?",
+     "tone": "calm",
+     "dur": 6.8416,
+     "voice": "narrator-trailer-quick",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.33
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.42
+    },
+    {
+     "who": "arch",
+     "do": "grab",
+     "prop": "brush",
+     "hand": "R",
+     "grip": [
+      0.063,
+      0.165,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.54
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "who": "arch",
+     "do": "move",
+     "to": [
+      -3.3,
+      -6.9
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "arch",
+     "do": "turn",
+     "to": 140,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 the grooves",
+   "at": 2.3,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     -6.5
+    ],
+    "look": [
+     -2,
+     0.9,
+     -7.8
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -0.2,
+      1,
+      -6.6
+     ]
+    },
+    "dur": 2.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.14,
+       0.55,
+       0.42
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.15,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.14,
+       0.12,
+       0.44
+      ]
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/cookie-scrape",
+     "gain": 0.08,
+     "dur": 1.4,
+     "reason": "his palm over the dry, sandy limestone",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.1
+     ],
+     "dur": 1.4,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      8.7,
+      0.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 270,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "arch",
+     "do": "move",
+     "to": [
+      7.95,
+      -0.25
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "arch",
+     "do": "turn",
+     "to": 270,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    }
+   ]
+  },
+  {
+   "name": "03 the giant",
+   "at": 4.6,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     16.4,
+     0.5,
+     0.15
+    ],
+    "look": [
+     6.5,
+     5.4,
+     0
+    ],
+    "fov": 60,
+    "to": {
+     "pos": [
+      15.9,
+      0.55,
+      0.12
+     ]
+    },
+    "dur": 2.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0,
+      0.75
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.65
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.95,
+      -6.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 200,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    },
+    {
+     "who": "arch",
+     "do": "move",
+     "to": [
+      -1.95,
+      -6.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    },
+    {
+     "who": "arch",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    }
+   ]
+  },
+  {
+   "name": "04 rain did this",
+   "at": 7.3,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.4,
+     0.85,
+     -3.8
+    ],
+    "look": [
+     -1.45,
+     0.55,
+     -6.5
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -0.45,
+      0.84,
+      -3.95
+     ]
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "open": 0.4,
+      "brow": 0.8
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 300,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.3,
+       0.22
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.3,
+       0.22
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Rain did this. Years of it. It was here before the desert!",
+     "tone": "excited",
+     "dur": 3.2262,
+     "voice": "reaper-quick",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "arch",
+     "do": "face",
+     "browR": 0.5,
+     "dur": 0.18,
+     "at": 0.3
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "surface": "sand",
+  "room": "open",
+  "guard": true
+ }
+}
