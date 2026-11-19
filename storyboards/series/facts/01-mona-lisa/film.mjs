@@ -113,7 +113,7 @@ export const SCENES = [
   // 1 HOOK: the Louvre, 1911; visitors stroll past without a look; push in on her
   { id: "01 nobody stops", act: "hook", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
     layout: { v1: [-0.9, 1.25, 90], v2: [-2.6, 1.25, 90], v3: [0.2, 0.45, 90], v4: [-1.7, 0.45, 90] },
-    shot: { t: "wide", at: [5.2, 0.75, 0], h: 4.0, az: -12 }, card: ["How did one thief make\nthe Mona Lisa famous?", 5.2], seq: [
+    shot: { t: "wide", at: [5.2, 0.75, 0], h: 4.0, az: -12 }, seq: [
       ["walk", "v1", [2.0, 1.25], 4.4], ["walk", "v2", [0.3, 1.25], 4.4], ["walk", "v3", [3.1, 0.45], 4.4], ["walk", "v4", [1.2, 0.45], 4.4],
       ["sfx", "step", { gain: 0.3 }],
       ["n", "Nineteen eleven. Nobody stops for the Mona Lisa."],

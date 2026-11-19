@@ -277,17 +277,6 @@
    "text": "He knows every door in this museum.",
    "pos": 470,
    "pop": false
-  },
-  {
-   "from": 0,
-   "to": 5.2,
-   "text": "How did one thief make\nthe Mona Lisa famous?",
-   "pos": 175,
-   "pop": false,
-   "size": 68,
-   "kinetic": false,
-   "color": "#ffffff",
-   "stroke": "#1d1b20"
   }
  ],
  "beats": [
