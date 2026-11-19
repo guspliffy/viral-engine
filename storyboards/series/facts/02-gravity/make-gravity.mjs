@@ -15,7 +15,7 @@ import { readFileSync } from "node:fs";
 const LEN = JSON.parse(readFileSync(new URL("./lines.json", import.meta.url), "utf8"));
 const c = clip({ faces: "strong" }), { A, sfx, prop, cap, see } = c;
 const END = 69.0;
-const F = { SUB: 490, CARD: 330, HUDY: 220 };
+const F = { SUB: 575, CARD: 455, HUDY: 340 };   // the counter's box starts at the safe zone's top (250 px)
 const T = {
   g2: 1.0, g3: 6.0, g4: 11.0, g5: 16.0, slump: 19.5, wake: 21.0, g15: 26.0, g20: 31.0, g25: 36.0, g30: 41.0, g35: 46.0,
   g40: 51.0, g45: 56.0, g50: 61.0, black: 65.5, g1: 66.5, fling: 68.27,
@@ -23,24 +23,24 @@ const T = {
 
 // ---------------------------------------------------------------- places (DESIGN.md section 1)
 const SOFA = [0.2, -1.61], SPUD = [0.46, -1.47], SEAT = 0.45;
-const PH_HELD = { x: 0.46, y: 1.17, z: -1.08, rot: 180, tip: -58 };   // in both hands, above his face, screen to him
-const PH_FACE = { x: 0.46, y: 1.0, z: -1.27, rot: 180, tip: -72 };    // slammed onto his face
-const PH_SEAT = { x: 0.9, z: -1.36, rot: 160, tip: -90 };             // slid off him onto the seat beside him (y per step)
+const PH_HELD = { x: 0.64, y: 1.2, z: -0.95, rot: 185, tip: -35 };   // up in his right hand, beside his face   // in both hands, above his face, screen to him
+const PH_FACE = { x: 0.46, y: 1.07, z: -1.15, rot: 180, tip: -66 };   // slammed flat onto his face (on its surface)    // slammed onto his face
+const PH_SEAT = { x: -0.55, z: -1.3, rot: 160, tip: -90 };            // slid off him onto the seat on his left, clear of him when he is widest (y: the seat top)
 
 // ---------------------------------------------------------------- cameras (DESIGN.md section 9; B and C re-aimed for a seated Spud)
 const CAM = {
-  A: { pos: [0.05, 1.52, 3.18], look: [0.03, 1.32, -2.65], fov: 51 },
-  A2: { pos: [0.11, 1.42, 2.72], look: [0.16, 1.25, -2.65], fov: 51 },
+  A: { pos: [0.22, 1.3, 1.5], look: [0.36, 1.0, -1.6], fov: 52 },   // closer than DESIGN.md: Spud fills the lower half (panel 1)
+  A2: { pos: [0.26, 1.24, 1.2], look: [0.4, 0.96, -1.6], fov: 50 },
   B4: { pos: [0.4, 1.02, 0.15], look: [0.46, 1.0, -1.6], fov: 46 },
-  A6: { pos: [0.09, 1.31, 2.67], look: [0.15, 1.12, -2.65], fov: 52 },
-  C7: { pos: [0.28, 1.23, 0.33], look: [0.72, 1.62, -2.65], fov: 66 },
-  C8: { pos: [0.2, 1.42, 0.53], look: [0.12, 1.37, -2.65], fov: 67 },
-  B9: { pos: [0.42, 1.0, -0.35], look: [0.46, 0.82, -1.6], fov: 50 },
-  C10: { pos: [0.21, 1.23, 0.4], look: [0.16, 1.71, -2.65], fov: 68 },
-  B11: { pos: [0.4, 1.05, -0.3], look: [0.46, 0.84, -1.6], fov: 52 },
-  D12: { pos: [-0.84, 1.33, 0.39], look: [-1.52, 1.06, -0.96], fov: 59 },
-  C13: { pos: [0.16, 1.24, 0.46], look: [0.05, 1.87, -2.65], fov: 69 },
-  C14: { pos: [0.16, 1.24, 0.46], look: [0.1, 2.0, -2.65], fov: 72 },
+  A6: { pos: [0.22, 1.2, 1.3], look: [0.36, 0.86, -1.6], fov: 52 },
+  C7: { pos: [0.46, 1.23, 0.33], look: [0.82, 1.62, -2.65], fov: 66 },
+  C8: { pos: [0.46, 1.42, 0.53], look: [0.3, 1.37, -2.65], fov: 67 },
+  B9: { pos: [0.42, 0.97, 0.3], look: [0.46, 0.86, -0.95], fov: 40 },
+  C10: { pos: [0.46, 1.23, 0.4], look: [0.3, 1.71, -2.65], fov: 68 },
+  B11: { pos: [0.38, 1.0, 0.25], look: [0.46, 0.84, -0.92], fov: 44 },
+  D12: { pos: [-0.23, 0.97, 0.95], look: [-1.52, 0.86, -0.96], fov: 45 },   // square on to the screen (yaw 34), the whole picture in frame
+  C13: { pos: [0.46, 1.24, 0.46], look: [0.2, 1.75, -2.65], fov: 69 },
+  C14: { pos: [0.46, 1.24, 0.46], look: [0.25, 1.8, -2.65], fov: 72 },
 };
 const camOnly = (k) => ({ pos: CAM[k].pos, look: CAM[k].look, fov: CAM[k].fov });
 // a slow push (constant motion): the camera creeps k of the way toward its look point over the shot
@@ -56,19 +56,21 @@ const props = [
   { id: "lamp", kind: "glamp", x: 1.45, y: 0, z: -2.12 },
   { id: "plant", kind: "gplant", x: 1.8, y: 0, z: -1.6 },
   { id: "rug", kind: "grug", x: 0.18, y: 0, z: 0.11 },
-  { id: "phone", kind: "phone", ...PH_HELD, scale: 1.35, case: "#3e383b" },
+  { id: "phone", kind: "phone", ...PH_HELD, scale: 1.8, case: "#3e383b", staged: "in his raised right hand, then on his face, then lying on the sofa seat (the cushion is its support)" },
   { id: "street", kind: "gstreet", x: 0, y: 0, z: 0 },
   { id: "tower", kind: "gtower", x: 0, y: 0, z: 0, fall: 0, dust: 1 },
   { id: "city", kind: "gcity", x: 0, y: 0, z: 0 },
   { id: "horizon", kind: "ghorizon", x: 0, y: 0, z: 0 },
   { id: "sky", kind: "gsky", x: 0, y: 0, z: 0 },
-  { id: "moon", kind: "gmoon", x: 0, y: 0, z: 0, moon: 0, cracks: 0 },
-  { id: "sats", kind: "gsats", x: 0, y: 0, z: 0, t: 0 },
-  { id: "clouds", kind: "gclouds", x: 0, y: 0, z: 0, sink: 0, drift: 0 },
-  { id: "haze", kind: "ghaze", x: 0, y: 0, z: 0, haze: 0 },
+  { id: "moon", kind: "gmoon", staged: "the Moon in the sky", x: 0, y: 0, z: 0, moon: 0, cracks: 0, crackW: 3 },
+  // nine trails read thin in a 5 s shot: a second copy, shifted and later, doubles them; the big one shows its panels
+  { id: "sats", kind: "gsats", staged: "falling satellites, kilometres up in the sky", x: 0, y: 0, z: 0, t: -1, satScale: 10, cam: { pos: [0.46, 1.23, 0.4], look: [0.3, 1.71, -2.65] } },
+  { id: "sats2", kind: "gsats", staged: "falling satellites, kilometres up in the sky", x: -260, y: 60, z: 0, t: -1, cam: { pos: [0.46, 1.23, 0.4], look: [0.3, 1.71, -2.65] } },
+  { id: "clouds", kind: "gclouds", staged: "clouds in the sky, then a cloud sea over the street", x: 0, y: 0, z: 0, sink: 0, drift: 0 },
+  { id: "haze", kind: "ghaze", staged: "haze filling the room air", x: 0, y: 0, z: 0, haze: 0 },
   // two camera-attached black cards: the 5 g tunnel on shot B, the blackout on the last Moon shot
-  { id: "tunB", kind: "gtunnel", x: 0, y: 0, z: 0, cam: { ...camOnly("B4") }, r: 2000, cx: 545, cy: 1250, feather: 84 },
-  { id: "tunE", kind: "gtunnel", x: 0, y: 0, z: 0, cam: { ...camOnly("C14") }, r: 2000 },
+  { id: "tunB", kind: "gtunnel", staged: "a black card on the camera lens (tunnel vision)", x: 0, y: 0, z: 0, cam: { ...camOnly("B4") }, r: 2000, cx: 560, cy: 1070, feather: 84 },
+  { id: "tunE", kind: "gtunnel", staged: "a black card on the camera lens (the blackout)", x: 0, y: 0, z: 0, cam: { ...camOnly("C14") }, r: 2000 },
 ];
 const cast = [{ id: "spud", character: "potatobrawl/spud", at: SPUD, face: 0, expr: "kind", follow: 0, seed: 2.9 }];
 
@@ -87,26 +89,28 @@ for (const [t, line] of LINES) narr(t, line);
 const PER = {
   0: { f: 0, sink: 0.012, pitch: -22 }, [T.g2]: { f: 0.04, sink: 0.024, pitch: -24 }, [T.g3]: { f: 0.075, sink: 0.043, pitch: -26 },
   [T.g4]: { f: 0.105, sink: 0.058, pitch: -27 }, [T.g5]: { f: 0.13, sink: 0.07, pitch: -28 }, [T.slump]: { f: 0.16, sink: 0.084, pitch: -42 },
-  [T.wake]: { f: 0.31, sink: 0.109, pitch: -42 }, [T.g15]: { f: 0.41, sink: 0.123, pitch: -42 }, [T.g20]: { f: 0.51, sink: 0.135, pitch: -42 },
-  [T.g25]: { f: 0.72, sink: 0.152, pitch: -42 }, [T.g30]: { f: 0.74, sink: 0.156, pitch: -42 }, [T.g35]: { f: 0.75, sink: 0.158, pitch: -42 },
-  [T.g40]: { f: 0.76, sink: 0.159, pitch: -42 }, [T.g45]: { f: 0.78, sink: 0.162, pitch: -42 }, [T.g50]: { f: 0.81, sink: 0.164, pitch: -42 },
+  [T.wake]: { f: 0.25, sink: 0.109, pitch: -42 }, [T.g15]: { f: 0.33, sink: 0.123, pitch: -42 }, [T.g20]: { f: 0.4, sink: 0.135, pitch: -42 },
+  [T.g25]: { f: 0.48, sink: 0.152, pitch: -42 }, [T.g30]: { f: 0.5, sink: 0.156, pitch: -42 }, [T.g35]: { f: 0.52, sink: 0.158, pitch: -42 },
+  [T.g40]: { f: 0.53, sink: 0.159, pitch: -42 }, [T.g45]: { f: 0.55, sink: 0.162, pitch: -42 }, [T.g50]: { f: 0.57, sink: 0.164, pitch: -42 },
 };
 const seatY = (sink) => r3(SEAT - sink);
+// sink into the cushion: a glide in place (a second "sit" would nudge him 3 cm forward each time); y = seat - 0.12 (sit's leg offset)
+const sinkTo = (t, sink, dur, ease = "out") => A(t, "spud", "move", { to: SPUD, y: r3(seatY(sink) - 0.12), dur, steps: 0, ease });
 A(0, "spud", "sit", { rot: 0, height: seatY(PER[0].sink), dur: 0, hands: "keep" });
 A(0, "spud", "pitch", { to: PER[0].pitch, dur: 0 });
 A(0, "spud", "flat", { to: 0, dur: 0 });
 for (const k of Object.keys(PER).map(Number).filter((k) => k > 0).sort((a, b) => a - b)) {
   const P = PER[k], d = k === T.slump ? 0.5 : 0.18;
   A(k, "spud", "flat", { to: P.f, dur: d, ease: "out" });
-  A(k, "spud", "sit", { rot: 0, height: seatY(P.sink), dur: d, hands: "keep" });
+  sinkTo(k, P.sink, d);
   A(k, "spud", "pitch", { to: P.pitch, dur: d, ease: "out" });
   prop(k, "sofa", { sink: P.sink }, d, "out");
-  if (k >= T.g3 && k < T.black) prop(r3(k + 0.02), "phone", { ...PH_SEAT, y: r3(SEAT - 0.5 * P.sink + 0.006) }, d, "out");
   if (k !== T.slump) A(k, "spud", "squash", { amount: 0.1, dur: 0.22 });   // each step lands as a jolt
 }
 
 // ================================================================ 0-6 HOOK: 1 g, the phone over his face; 2 g at 1.0 slams it down
-arms(0, [0.1, 0.58, 0.42], 0); A(0, "spud", "grip", { side: "R", shape: "hold", dur: 0 }); A(0, "spud", "grip", { side: "L", shape: "hold", dur: 0 });
+const HOLD = (t, dur, ease) => { c.arm(t, "spud", "R", { o: [-0.1, 0.62, 0.52] }, dur, ease); c.arm(t, "spud", "L", { o: [-0.22, 0.25, 0.3] }, dur, ease); };
+HOLD(0, 0); A(0, "spud", "grip", { side: "R", shape: "hold", dur: 0 });
 expr(0, "kind", { eye: 0.85 }, 0); look(0, [0, 0.35], 0);
 cap(0, 4.75, "WHAT IF GRAVITY KEPT GROWING?", F.CARD, false, { size: 66, kinetic: false, color: "#ffffff", stroke: "#1d1b20" });
 prop(T.g2, "phone", PH_FACE, 0.07, "in");
@@ -116,8 +120,11 @@ A(r3(T.g2 + 0.07), "spud", "face", { lid: 0.85, dur: 0.06 });
 sfx(r3(T.g2 + 0.07), "kenney/impact-soft-medium", { gain: 0.8, reason: "the phone smacks onto his face" });
 sfx(r3(T.g2 + 0.1), "kenney/impact-wood-light", { gain: 0.35, reason: "the sofa frame knocks as he sinks" });
 // the phone slides off his face onto the seat, his arms sink to the cushion
-prop(1.3, "phone", { ...PH_SEAT, y: r3(SEAT - 0.5 * PER[T.g2].sink + 0.006) }, 0.7, "in");
-arms(1.3, [0.3, 0.05, 0.12], 0.6, "inOut");
+// it slides off the front of his face and drops onto the seat beside him (round his body, never through it)
+prop(1.3, "phone", { x: 0.18, y: 0.98, z: -0.86, rot: 170, tip: -80 }, 0.35, "inOut");
+prop(1.66, "phone", { ...PH_SEAT, y: r3(SEAT + 0.006) }, 0.4, "in");
+A(1.3, "spud", "grip", { side: "R", shape: "open", dur: 0.25 });
+arms(1.3, [0.05, 0.38, 0.32], 0.3, "inOut"); arms(1.62, [0.3, 0.05, 0.12], 0.9, "inOut");
 A(1.95, "spud", "face", { lid: 0.3, dur: 0.3 });
 expr(1.95, "annoyed", { eye: 0.7 }, 0.3); look(1.95, [0, 0.1], 0.3);
 see(0, T.g2, ["spud.face", "phone"], "frame 0: you on the sofa, the phone held over your face; the counter reads 1 g");
@@ -197,13 +204,15 @@ see(T.g25, T.g30, ["spud.face"], "25 g: pancake flat, a calm wink on 'Good thing
 
 // ================================================================ 41-46 30 g: satellites burn across the sky
 expr(T.g30, "shocked", { open: 0.3, eye: 1.1 }, 0.15); look(T.g30, [0, 0.6], 0.2);
+prop(0, "sats", { t: -1 }, 0, "linear"); prop(0, "sats2", { t: -1 }, 0, "linear");
 prop(T.g30, "sats", { t: 0 }, 0, "linear"); prop(r3(T.g30 + 0.01), "sats", { t: 5 }, 4.99, "linear");
+prop(T.g30, "sats2", { t: -1.4 }, 0, "linear"); prop(r3(T.g30 + 0.01), "sats2", { t: 3.6 }, 4.99, "linear");
 sfx(r3(T.g30 + 0.9), "ai/thunder", { gain: 0.2, dur: 2.5, reason: "distant reports through the glass as they burn in" });
 see(T.g30, T.g35, ["sats"], "30 g: every satellite falls, burning trails across the dusk sky");
 
 // ================================================================ 46-51 35 g: thick air, haze, he gasps
 expr(T.g35, "terrified", { open: 0.7 }, 0.15); look(T.g35, [0, 0.15], 0.2);
-prop(T.g35, "haze", { haze: 1 }, 1.8, "inOut");
+prop(T.g35, "haze", { haze: 0.7 }, 1.8, "inOut");   // 1 hides him on shot B
 for (const g of [46.15, 47.35, 48.55, 49.75]) { A(g, "spud", "squash", { amount: 0.05, dur: 0.5 }); sfx(g, "ai/surface-gasp", { gain: 0.3, reason: "he gasps for air in the thick haze" }); }
 see(T.g35, T.g40, ["spud.face"], "35 g: the air thickens to a haze, he gasps");
 
@@ -234,10 +243,10 @@ see(T.g50, T.black, ["moon"], "50 g: the Moon fills the window, cracking");
 
 // ================================================================ 66.5-69 1 g: back to normal; the cushion flings the phone back into his hands
 prop(T.g1, "tunE", { r: 2000, feather: 84 }, 0, "linear");
-for (const [id, set] of [["tower", { fall: 0, dust: 1 }], ["clouds", { sink: 0 }], ["moon", { moon: 0, cracks: 0 }], ["sats", { t: 0 }], ["haze", { haze: 0 }], ["tv", { crumble: 0 }], ["sofa", { damage: 0 }]]) prop(T.g1, id, set, 0, "linear");
+for (const [id, set] of [["tower", { fall: 0, dust: 1 }], ["clouds", { sink: 0 }], ["moon", { moon: 0, cracks: 0 }], ["sats", { t: -1 }], ["sats2", { t: -1 }], ["haze", { haze: 0 }], ["tv", { crumble: 0 }], ["sofa", { damage: 0 }]]) prop(T.g1, id, set, 0, "linear");
 A(T.g1, "spud", "flat", { to: 0, dur: 0.16, ease: "back" });
 A(T.g1, "spud", "pitch", { to: PER[0].pitch, dur: 0.25, ease: "out" });
-A(T.g1, "spud", "sit", { rot: 0, height: seatY(PER[T.g50].sink), dur: 0.16, hands: "keep" });
+sinkTo(T.g1, PER[T.g50].sink, 0.16);
 A(T.g1, "spud", "droop", { to: 0, dur: 0.3, ease: "back" });
 A(T.g1, "spud", "face", { lid: 0, dur: 0.1 });
 expr(T.g1, "shocked", { open: 0.45, eye: 1.25 }, 0.1); look(r3(T.g1 + 0.1), [0, 0.1], 0.1);
@@ -245,10 +254,10 @@ sfx(T.g1, "ai/cushion-poof", { gain: 0.5, reason: "he pops back round, the sofa 
 look(67.6, [0.35, -0.3], 0.25);   // he spots the phone on the seat
 // 68.27 the dented cushion springs back and flings the phone up; he raises his hands and it lands in them (= frame 0)
 prop(T.fling, "sofa", { sink: PER[0].sink }, 0.28, "out");
-A(T.fling, "spud", "sit", { rot: 0, height: seatY(PER[0].sink), dur: 0.28, hands: "keep" });
-prop(T.fling, "phone", { x: 0.6, y: 1.55, z: -1.15, rot: 175, tip: -20 }, 0.36, "out");
+sinkTo(T.fling, PER[0].sink, 0.28);
+prop(T.fling, "phone", { x: 0.02, y: 1.62, z: -1.0, rot: 175, tip: -20 }, 0.36, "out");
 prop(r3(T.fling + 0.36), "phone", PH_HELD, r3(END - T.fling - 0.37), "in");
-arms(68.35, [0.1, 0.58, 0.42], 0.5, "out");
+HOLD(68.05, 0.8, "inOut");
 look(68.3, [0.2, 0.45], 0.15); look(68.65, [0, 0.35], 0.2);
 expr(68.6, "kind", { eye: 0.85 }, 0.3);
 sfx(T.fling, "ai/cushion-poof", { gain: 0.4, reason: "the cushion springs back up" });
@@ -295,8 +304,9 @@ write(import.meta.url, {
   hook: { show: ["spud", "phone"], hint: 0, what: "you on the sofa, phone over your face, the counter at 1 g and the question on screen; at 1.0 s the phone slams down" },
   cast, props, captions: c.captions, beats, visible: c.visible,
   allowClip: [
-    { who: "spud", with: "sofa", from: 0, to: END, reason: "he sits sunk into the sofa: gravity presses him into the cushion (the dip is drawn by the sofa's sink)" },
-    { who: "spud", with: "phone", from: 0.9, to: 2.1, reason: "the phone lies on his face after the 2 g slam, then slides off" },
+    { who: "spud", with: "sofa", from: 0, to: END, checks: ["shell", "clipping", "arm-in-prop", "costume-in-prop", "hand-in-prop", "limb-in-prop"], reason: "he sits sunk into the sofa: gravity presses him into the cushion (the dip is drawn by the sofa's sink); his widening body spreads into the seat and back cushion" },
+    { who: "spud", with: "spud", from: 36.0, to: 66.5, checks: ["payoff-face"], reason: "25 g: pancake flat, his rolled collar spreads over his mouth; the wink (the payoff) is in the eyes, which stay clear" },
+    { who: "spud", with: "phone", from: 0.9, to: 2.1, checks: ["shell", "clipping"], reason: "the phone lies on his face after the 2 g slam, then slides off" },
   ],
   notes: "Generated by storyboards/series/facts/02-gravity/make-gravity.mjs.",
 });

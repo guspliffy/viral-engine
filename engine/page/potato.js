@@ -109,6 +109,14 @@ export function handTarget(pose, sx, rx, H, t, LH = LEG_H) {
 const ELBOW_OUT = { hips: 0.24, shrug: 0.06, up: 0.1, cast: 0.1 };
 const elbowOut = (q) => (q && q.mix ? elbowOut(q.mix.from) + (elbowOut(q.mix.pose) - elbowOut(q.mix.from)) * q.mix.p : typeof q === "string" ? ELBOW_OUT[q] ?? 0.13 : q ? q.elbow ?? 0.1 : 0.13);   // an object pose may set its own elbow: (m out from the shoulder-hand line; Pebble's hanging arms)
 
+// the body's scale from its squash (pulses times the held "flat" on its own height) and the held "flat" axis z (front to
+// back), volume kept. A held flat spreads mostly sideways (x by fy^-0.75, z by fy^-0.25): a pancake under gravity widens,
+// it doesn't push its face toward the camera (gravity what-if, 19 Nov 2026). Without a held flat: as before.
+function flatScale(st) {
+  const sq = st.squash ?? 1, fz = 1 - (st.flatZ || 0), fy = 1 - (st.flat || 0), p = sq / fy;
+  return new THREE.Vector3(fy ** -0.75 / Math.sqrt(p * fz), sq / Math.sqrt(fz), (fz / Math.sqrt(p)) * fy ** -0.25);
+}
+
 export class Character {
   constructor(def, key) {
     this.def = def; this.key = key;
@@ -580,7 +588,7 @@ export class Character {
         const tk = Math.round((t + (dir * k) / 30) * 1e6) / 1e6, st = stAt(tk);
         if (!st || !st.arms || Math.hypot(st.x - prev.x, st.z - prev.z) > 0.25 || Math.abs(st.y - prev.y) > 0.25 || Math.abs(Math.atan2(Math.sin(st.yaw - prev.yaw), Math.cos(st.yaw - prev.yaw))) > 1) break;
         prev = st;
-        const sq = st.squash ?? 1, fz = 1 - (st.flatZ || 0), S = new THREE.Vector3(1 / Math.sqrt(sq * fz), sq / Math.sqrt(fz), fz / Math.sqrt(sq)), ai = this._armIn(st, tk, s, S);
+        const S = flatScale(st), ai = this._armIn(st, tk, s, S);
         const qk = this._orient2(U, ai.mid, ai.h, ai.sx, ai.gr, ai.ax, this._palms(ai.a, S, ai.from, ai.to), ai.sh, ai.fr);
         const w = ker(k) * (1 + HOLD * qk.hold) * (qk.dot(q0) < 0 ? -1 : 1);
         acc[0] += qk.x * w; acc[1] += qk.y * w; acc[2] += qk.z * w; acc[3] += qk.w * w;
@@ -976,7 +984,7 @@ export class Character {
     R.position.set(st.x, st.y - 0.1 * (st.kneel || 0), st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
     R.visible = st.visible !== false;
     this.bodyGroup.visible = !st.pov;   // first person (timeline.js "pov"): only the limbs are drawn
-    const sq = st.squash, fz = 1 - (st.flatZ || 0); this.bodyGroup.scale.set(1 / Math.sqrt(sq * fz), sq / Math.sqrt(fz), fz / Math.sqrt(sq));   // flatZ: timeline "flat" axis z (held, volume kept)
+    this.bodyGroup.scale.copy(flatScale(st));   // squash + the held "flat" (timeline.js), volume kept
     // planted feet (timeline.js st.plant): where the last step left them, in the world; drawn in the body's frame
     const pl = st.plant && st.plant.w < 1 ? st.plant : null;
     if (pl) {

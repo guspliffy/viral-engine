@@ -177,7 +177,7 @@
      1
     ]
    ],
-   "y": 220
+   "y": 340
   }
  },
  "music": {
@@ -273,13 +273,14 @@
   {
    "id": "phone",
    "kind": "phone",
-   "x": 0.46,
-   "y": 1.17,
-   "z": -1.08,
-   "rot": 180,
-   "tip": -58,
-   "scale": 1.35,
-   "case": "#3e383b"
+   "x": 0.64,
+   "y": 1.2,
+   "z": -0.95,
+   "rot": 185,
+   "tip": -35,
+   "scale": 1.8,
+   "case": "#3e383b",
+   "staged": "in his raised right hand, then on his face, then lying on the sofa seat (the cushion is its support)"
   },
   {
    "id": "street",
@@ -321,23 +322,61 @@
   {
    "id": "moon",
    "kind": "gmoon",
+   "staged": "the Moon in the sky",
    "x": 0,
    "y": 0,
    "z": 0,
    "moon": 0,
-   "cracks": 0
+   "cracks": 0,
+   "crackW": 3
   },
   {
    "id": "sats",
    "kind": "gsats",
+   "staged": "falling satellites, kilometres up in the sky",
    "x": 0,
    "y": 0,
    "z": 0,
-   "t": 0
+   "t": -1,
+   "satScale": 10,
+   "cam": {
+    "pos": [
+     0.46,
+     1.23,
+     0.4
+    ],
+    "look": [
+     0.3,
+     1.71,
+     -2.65
+    ]
+   }
+  },
+  {
+   "id": "sats2",
+   "kind": "gsats",
+   "staged": "falling satellites, kilometres up in the sky",
+   "x": -260,
+   "y": 60,
+   "z": 0,
+   "t": -1,
+   "cam": {
+    "pos": [
+     0.46,
+     1.23,
+     0.4
+    ],
+    "look": [
+     0.3,
+     1.71,
+     -2.65
+    ]
+   }
   },
   {
    "id": "clouds",
    "kind": "gclouds",
+   "staged": "clouds in the sky, then a cloud sea over the street",
    "x": 0,
    "y": 0,
    "z": 0,
@@ -347,6 +386,7 @@
   {
    "id": "haze",
    "kind": "ghaze",
+   "staged": "haze filling the room air",
    "x": 0,
    "y": 0,
    "z": 0,
@@ -355,6 +395,7 @@
   {
    "id": "tunB",
    "kind": "gtunnel",
+   "staged": "a black card on the camera lens (tunnel vision)",
    "x": 0,
    "y": 0,
    "z": 0,
@@ -372,25 +413,26 @@
     "fov": 46
    },
    "r": 2000,
-   "cx": 545,
-   "cy": 1250,
+   "cx": 560,
+   "cy": 1070,
    "feather": 84
   },
   {
    "id": "tunE",
    "kind": "gtunnel",
+   "staged": "a black card on the camera lens (the blackout)",
    "x": 0,
    "y": 0,
    "z": 0,
    "cam": {
     "pos": [
-     0.16,
+     0.46,
      1.24,
      0.46
     ],
     "look": [
-     0.1,
-     2,
+     0.25,
+     1.8,
      -2.65
     ],
     "fov": 72
@@ -403,105 +445,105 @@
    "from": 0.1,
    "to": 4.871,
    "text": "Every five seconds, gravity gets stronger. In twenty, you black out.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 6.1,
    "to": 10.428,
    "text": "Three g. A rocket launch. Astronauts lie down for this.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 11.1,
    "to": 14.979,
    "text": "Four g. Blood leaves your head. Your eyes go grey.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 16.1,
    "to": 20.463,
    "text": "Five g. Pilots need special suits for this. You don't.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 21.1,
    "to": 25.187,
    "text": "Ten g. Lying flat, blood reaches your head again.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 26.1,
    "to": 30.299,
    "text": "Fifteen. Buildings only hold about twice their weight.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 31.1,
    "to": 35.933,
    "text": "Twenty. The air gets squeezed down. Clouds sink to the street.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 36.1,
    "to": 40.983,
    "text": "Twenty-five. No human survives this. Good thing you're a potato.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 41.1,
    "to": 45.246,
    "text": "Thirty. Every satellite is too slow now. They all fall.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 46.1,
    "to": 50.021,
    "text": "Thirty-five. Air this thick turns oxygen into poison.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 51.1,
    "to": 54.711,
    "text": "Forty. Mountains crush under their own weight.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 56.1,
    "to": 59.513,
    "text": "Forty-five. Even the Moon is falling.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 61.1,
    "to": 64.914,
    "text": "Fifty. It hits in seventeen hours.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 66.6,
    "to": 67.813,
    "text": "Back to one g.",
-   "pos": 490,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 0,
    "to": 4.75,
    "text": "WHAT IF GRAVITY KEPT GROWING?",
-   "pos": 330,
+   "pos": 455,
    "pop": false,
    "size": 66,
    "kinetic": false,
@@ -516,28 +558,28 @@
    "len": 6,
    "shot": {
     "pos": [
-     0.05,
-     1.52,
-     3.18
+     0.22,
+     1.3,
+     1.5
     ],
     "look": [
-     0.03,
-     1.32,
-     -2.65
+     0.36,
+     1,
+     -1.6
     ],
-    "fov": 51,
+    "fov": 52,
     "to": {
      "pos": [
-      0.049,
-      1.508,
-      2.83
+      0.228,
+      1.282,
+      1.314
      ],
      "look": [
-      0.03,
-      1.32,
-      -2.65
+      0.36,
+      1,
+      -1.6
      ],
-     "fov": 51
+     "fov": 52
     },
     "dur": 6,
     "ease": "linear"
@@ -572,9 +614,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.1,
-       0.58,
-       0.42
+       -0.1,
+       0.62,
+       0.52
       ]
      },
      "dur": 0,
@@ -586,9 +628,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.1,
-       0.58,
-       0.42
+       -0.22,
+       0.25,
+       0.3
       ]
      },
      "dur": 0,
@@ -598,14 +640,6 @@
      "who": "spud",
      "do": "grip",
      "side": "R",
-     "shape": "hold",
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
      "shape": "hold",
      "dur": 0,
      "at": 0
@@ -632,12 +666,32 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sats2",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
      "macro": "narrate",
      "line": "Every five seconds, gravity gets stronger. In twenty, you black out.",
      "voice": "narrator-quick",
      "dur": 4.6213,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -651,11 +705,15 @@
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.426,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.306,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 1
     },
     {
@@ -688,10 +746,10 @@
      "id": "phone",
      "set": {
       "x": 0.46,
-      "y": 1,
-      "z": -1.27,
+      "y": 1.07,
+      "z": -1.15,
       "rot": 180,
-      "tip": -72
+      "tip": -66
      },
      "dur": 0.07,
      "ease": "in",
@@ -762,14 +820,52 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.444
+      "x": 0.18,
+      "y": 0.98,
+      "z": -0.86,
+      "rot": 170,
+      "tip": -80
      },
-     "dur": 0.7,
-     "ease": "in",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.38,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.38,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
      "at": 1.3
     },
     {
@@ -783,9 +879,9 @@
        0.12
       ]
      },
-     "dur": 0.6,
+     "dur": 0.9,
      "ease": "inOut",
-     "at": 1.3
+     "at": 1.62
     },
     {
      "who": "spud",
@@ -798,9 +894,23 @@
        0.12
       ]
      },
-     "dur": 0.6,
+     "dur": 0.9,
      "ease": "inOut",
-     "at": 1.3
+     "at": 1.62
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "x": -0.55,
+      "z": -1.3,
+      "rot": 160,
+      "tip": -90,
+      "y": 0.456
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 1.66
     },
     {
      "who": "spud",
@@ -839,28 +949,28 @@
    "len": 5,
    "shot": {
     "pos": [
-     0.11,
-     1.42,
-     2.72
+     0.26,
+     1.24,
+     1.2
     ],
     "look": [
-     0.16,
-     1.25,
-     -2.65
+     0.4,
+     0.96,
+     -1.6
     ],
-    "fov": 51,
+    "fov": 50,
     "to": {
      "pos": [
-      0.113,
-      1.41,
-      2.398
+      0.268,
+      1.223,
+      1.032
      ],
      "look": [
-      0.16,
-      1.25,
-      -2.65
+      0.4,
+      0.96,
+      -1.6
      ],
-     "fov": 51
+     "fov": 50
     },
     "dur": 5,
     "ease": "linear"
@@ -876,11 +986,15 @@
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.407,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.287,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -928,26 +1042,12 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.435
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Three g. A rocket launch. Astronauts lie down for this.",
      "voice": "narrator-quick",
      "dur": 4.178,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -1013,28 +1113,28 @@
    "len": 5,
    "shot": {
     "pos": [
-     0.11,
-     1.42,
-     2.72
+     0.26,
+     1.24,
+     1.2
     ],
     "look": [
-     0.16,
-     1.25,
-     -2.65
+     0.4,
+     0.96,
+     -1.6
     ],
-    "fov": 51,
+    "fov": 50,
     "to": {
      "pos": [
-      0.115,
-      1.403,
-      2.183
+      0.274,
+      1.212,
+      0.92
      ],
      "look": [
-      0.16,
-      1.25,
-      -2.65
+      0.4,
+      0.96,
+      -1.6
      ],
-     "fov": 51
+     "fov": 50
     },
     "dur": 5,
     "ease": "linear"
@@ -1050,11 +1150,15 @@
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.392,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.272,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -1114,26 +1218,12 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.427
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Four g. Blood leaves your head. Your eyes go grey.",
      "voice": "narrator-quick",
      "dur": 3.7288,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     }
@@ -1167,11 +1257,15 @@
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.38,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.26,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -1256,26 +1350,12 @@
      "at": 0.01
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.421
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Five g. Pilots need special suits for this. You don't.",
      "voice": "narrator-quick",
      "dur": 4.2132,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -1333,11 +1413,15 @@
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.366,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.246,
      "dur": 0.5,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 3.5
     },
     {
@@ -1427,20 +1511,6 @@
      "at": 3.5
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.414
-     },
-     "dur": 0.5,
-     "ease": "out",
-     "at": 3.52
-    },
-    {
      "sfx": "ai/cushion-poof",
      "gain": 0.45,
      "reason": "he drops into the cushion",
@@ -1454,16 +1524,16 @@
    "len": 1.2,
    "shot": {
     "pos": [
-     0.05,
-     1.52,
-     3.18
+     0.22,
+     1.3,
+     1.5
     ],
     "look": [
-     0.03,
-     1.32,
-     -2.65
+     0.36,
+     1,
+     -1.6
     ],
-    "fov": 51
+    "fov": 52
    },
    "do": [
     {
@@ -1485,26 +1555,26 @@
    "len": 5,
    "shot": {
     "pos": [
-     0.09,
-     1.31,
-     2.67
+     0.22,
+     1.2,
+     1.3
     ],
     "look": [
-     0.15,
-     1.12,
-     -2.65
+     0.36,
+     0.86,
+     -1.6
     ],
     "fov": 52,
     "to": {
      "pos": [
-      0.094,
-      1.299,
-      2.351
+      0.228,
+      1.18,
+      1.126
      ],
      "look": [
-      0.15,
-      1.12,
-      -2.65
+      0.36,
+      0.86,
+      -1.6
      ],
      "fov": 52
     },
@@ -1515,18 +1585,22 @@
     {
      "who": "spud",
      "do": "flat",
-     "to": 0.31,
+     "to": 0.25,
      "dur": 0.18,
      "ease": "out",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.341,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.221,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -1607,26 +1681,12 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.402
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Ten g. Lying flat, blood reaches your head again.",
      "voice": "narrator-quick",
      "dur": 3.9371,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -1678,24 +1738,24 @@
    "len": 5,
    "shot": {
     "pos": [
-     0.28,
+     0.46,
      1.23,
      0.33
     ],
     "look": [
-     0.72,
+     0.82,
      1.62,
      -2.65
     ],
     "fov": 66,
     "to": {
      "pos": [
-      0.298,
+      0.474,
       1.246,
       0.211
      ],
      "look": [
-      0.72,
+      0.82,
       1.62,
       -2.65
      ],
@@ -1708,18 +1768,22 @@
     {
      "who": "spud",
      "do": "flat",
-     "to": 0.41,
+     "to": 0.33,
      "dur": 0.18,
      "ease": "out",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.327,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.207,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -1780,26 +1844,12 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.395
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Fifteen. Buildings only hold about twice their weight.",
      "voice": "narrator-quick",
      "dur": 4.0485,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -1830,24 +1880,24 @@
    "len": 5,
    "shot": {
     "pos": [
-     0.2,
+     0.46,
      1.42,
      0.53
     ],
     "look": [
-     0.12,
+     0.3,
      1.37,
      -2.65
     ],
     "fov": 67,
     "to": {
      "pos": [
-      0.197,
+      0.454,
       1.418,
       0.403
      ],
      "look": [
-      0.12,
+      0.3,
       1.37,
       -2.65
      ],
@@ -1860,18 +1910,22 @@
     {
      "who": "spud",
      "do": "flat",
-     "to": 0.51,
+     "to": 0.4,
      "dur": 0.18,
      "ease": "out",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.315,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.195,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -1948,26 +2002,12 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.389
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Twenty. The air gets squeezed down. Clouds sink to the street.",
      "voice": "narrator-quick",
      "dur": 4.6828,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     }
@@ -1980,27 +2020,27 @@
    "shot": {
     "pos": [
      0.42,
-     1,
-     -0.35
+     0.97,
+     0.3
     ],
     "look": [
      0.46,
-     0.82,
-     -1.6
+     0.86,
+     -0.95
     ],
-    "fov": 50,
+    "fov": 40,
     "to": {
      "pos": [
       0.423,
-      0.986,
-      -0.45
+      0.961,
+      0.2
      ],
      "look": [
       0.46,
-      0.82,
-      -1.6
+      0.86,
+      -0.95
      ],
-     "fov": 50
+     "fov": 40
     },
     "dur": 5,
     "ease": "linear"
@@ -2009,18 +2049,22 @@
     {
      "who": "spud",
      "do": "flat",
-     "to": 0.72,
+     "to": 0.48,
      "dur": 0.18,
      "ease": "out",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.298,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.178,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -2076,26 +2120,12 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.38
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Twenty-five. No human survives this. Good thing you're a potato.",
      "voice": "narrator-quick",
      "dur": 4.7327,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2140,24 +2170,24 @@
    "len": 5,
    "shot": {
     "pos": [
-     0.21,
+     0.46,
      1.23,
      0.4
     ],
     "look": [
-     0.16,
+     0.3,
      1.71,
      -2.65
     ],
     "fov": 68,
     "to": {
      "pos": [
-      0.208,
+      0.454,
       1.249,
       0.278
      ],
      "look": [
-      0.16,
+      0.3,
       1.71,
       -2.65
      ],
@@ -2170,18 +2200,22 @@
     {
      "who": "spud",
      "do": "flat",
-     "to": 0.74,
+     "to": 0.5,
      "dur": 0.18,
      "ease": "out",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.294,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.174,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -2243,6 +2277,16 @@
     },
     {
      "do": "prop",
+     "id": "sats2",
+     "set": {
+      "t": -1.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "sats",
      "set": {
       "t": 5
@@ -2253,17 +2297,13 @@
     },
     {
      "do": "prop",
-     "id": "phone",
+     "id": "sats2",
      "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.378
+      "t": 3.6
      },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
+     "dur": 4.99,
+     "ease": "linear",
+     "at": 0.01
     },
     {
      "macro": "narrate",
@@ -2271,7 +2311,7 @@
      "voice": "narrator-quick",
      "dur": 3.9961,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2290,28 +2330,28 @@
    "len": 5,
    "shot": {
     "pos": [
-     0.4,
-     1.05,
-     -0.3
+     0.38,
+     1,
+     0.25
     ],
     "look": [
      0.46,
      0.84,
-     -1.6
+     -0.92
     ],
-    "fov": 52,
+    "fov": 44,
     "to": {
      "pos": [
-      0.404,
-      1.037,
-      -0.378
+      0.385,
+      0.99,
+      0.18
      ],
      "look": [
       0.46,
       0.84,
-      -1.6
+      -0.92
      ],
-     "fov": 52
+     "fov": 44
     },
     "dur": 5,
     "ease": "linear"
@@ -2320,18 +2360,22 @@
     {
      "who": "spud",
      "do": "flat",
-     "to": 0.75,
+     "to": 0.52,
      "dur": 0.18,
      "ease": "out",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.292,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.172,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -2384,25 +2428,11 @@
      "do": "prop",
      "id": "haze",
      "set": {
-      "haze": 1
+      "haze": 0.7
      },
      "dur": 1.8,
      "ease": "inOut",
      "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.377
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
     },
     {
      "macro": "narrate",
@@ -2410,7 +2440,7 @@
      "voice": "narrator-quick",
      "dur": 3.7714,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2474,28 +2504,28 @@
    "len": 5,
    "shot": {
     "pos": [
-     -0.84,
-     1.33,
-     0.39
+     -0.23,
+     0.97,
+     0.95
     ],
     "look": [
      -1.52,
-     1.06,
+     0.86,
      -0.96
     ],
-    "fov": 59,
+    "fov": 45,
     "to": {
      "pos": [
-      -0.908,
-      1.303,
-      0.255
+      -0.359,
+      0.959,
+      0.759
      ],
      "look": [
       -1.52,
-      1.06,
+      0.86,
       -0.96
      ],
-     "fov": 59
+     "fov": 45
     },
     "dur": 5,
     "ease": "linear"
@@ -2504,18 +2534,22 @@
     {
      "who": "spud",
      "do": "flat",
-     "to": 0.76,
+     "to": 0.53,
      "dur": 0.18,
      "ease": "out",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.291,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.171,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -2564,26 +2598,12 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.377
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Forty. Mountains crush under their own weight.",
      "voice": "narrator-quick",
      "dur": 3.4609,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2602,25 +2622,25 @@
    "len": 5,
    "shot": {
     "pos": [
-     0.16,
+     0.46,
      1.24,
      0.46
     ],
     "look": [
-     0.05,
-     1.87,
+     0.2,
+     1.75,
      -2.65
     ],
     "fov": 69,
     "to": {
      "pos": [
-      0.156,
-      1.265,
+      0.45,
+      1.26,
       0.336
      ],
      "look": [
-      0.05,
-      1.87,
+      0.2,
+      1.75,
       -2.65
      ],
      "fov": 69
@@ -2632,18 +2652,22 @@
     {
      "who": "spud",
      "do": "flat",
-     "to": 0.78,
+     "to": 0.55,
      "dur": 0.18,
      "ease": "out",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.288,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.168,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -2730,26 +2754,12 @@
      "at": 0.01
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.375
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Forty-five. Even the Moon is falling.",
      "voice": "narrator-quick",
      "dur": 3.2633,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2767,13 +2777,13 @@
    "len": 5.5,
    "shot": {
     "pos": [
-     0.16,
+     0.46,
      1.24,
      0.46
     ],
     "look": [
-     0.1,
-     2,
+     0.25,
+     1.8,
      -2.65
     ],
     "fov": 72
@@ -2782,18 +2792,22 @@
     {
      "who": "spud",
      "do": "flat",
-     "to": 0.81,
+     "to": 0.57,
      "dur": 0.18,
      "ease": "out",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.286,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.166,
      "dur": 0.18,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -2842,26 +2856,12 @@
      "at": 0.01
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 0.9,
-      "z": -1.36,
-      "rot": 160,
-      "tip": -90,
-      "y": 0.374
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "macro": "narrate",
      "line": "Fifty. It hits in seventeen hours.",
      "voice": "narrator-quick",
      "dur": 3.6638,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2913,16 +2913,16 @@
    "len": 2.5,
    "shot": {
     "pos": [
-     0.05,
-     1.52,
-     3.18
+     0.22,
+     1.3,
+     1.5
     ],
     "look": [
-     0.03,
-     1.32,
-     -2.65
+     0.36,
+     1,
+     -1.6
     ],
-    "fov": 51
+    "fov": 52
    },
    "do": [
     {
@@ -2972,7 +2972,17 @@
      "do": "prop",
      "id": "sats",
      "set": {
-      "t": 0
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sats2",
+     "set": {
+      "t": -1
      },
      "dur": 0,
      "ease": "linear",
@@ -3026,11 +3036,15 @@
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.286,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.166,
      "dur": 0.16,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 0
     },
     {
@@ -3071,7 +3085,7 @@
      "voice": "narrator-quick",
      "dur": 1.0625,
      "caption": false,
-     "pos": 490,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -3098,6 +3112,36 @@
      "at": 1.1
     },
     {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.1,
+       0.62,
+       0.52
+      ]
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.22,
+       0.25,
+       0.3
+      ]
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
      "do": "prop",
      "id": "sofa",
      "set": {
@@ -3109,20 +3153,24 @@
     },
     {
      "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.438,
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.318,
      "dur": 0.28,
-     "hands": "keep",
+     "steps": 0,
+     "ease": "out",
      "at": 1.77
     },
     {
      "do": "prop",
      "id": "phone",
      "set": {
-      "x": 0.6,
-      "y": 1.55,
-      "z": -1.15,
+      "x": 0.02,
+      "y": 1.62,
+      "z": -1,
       "rot": 175,
       "tip": -20
      },
@@ -3149,36 +3197,6 @@
     },
     {
      "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.1,
-       0.58,
-       0.42
-      ]
-     },
-     "dur": 0.5,
-     "ease": "out",
-     "at": 1.85
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.1,
-       0.58,
-       0.42
-      ]
-     },
-     "dur": 0.5,
-     "ease": "out",
-     "at": 1.85
-    },
-    {
-     "who": "spud",
      "do": "expr",
      "expr": "kind",
      "set": {
@@ -3191,11 +3209,11 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "x": 0.46,
-      "y": 1.17,
-      "z": -1.08,
-      "rot": 180,
-      "tip": -58
+      "x": 0.64,
+      "y": 1.2,
+      "z": -0.95,
+      "rot": 185,
+      "tip": -35
      },
      "dur": 0.36,
      "ease": "in",
@@ -3360,13 +3378,35 @@
    "with": "sofa",
    "from": 0,
    "to": 69,
-   "reason": "he sits sunk into the sofa: gravity presses him into the cushion (the dip is drawn by the sofa's sink)"
+   "checks": [
+    "shell",
+    "clipping",
+    "arm-in-prop",
+    "costume-in-prop",
+    "hand-in-prop",
+    "limb-in-prop"
+   ],
+   "reason": "he sits sunk into the sofa: gravity presses him into the cushion (the dip is drawn by the sofa's sink); his widening body spreads into the seat and back cushion"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 36,
+   "to": 66.5,
+   "checks": [
+    "payoff-face"
+   ],
+   "reason": "25 g: pancake flat, his rolled collar spreads over his mouth; the wink (the payoff) is in the eyes, which stay clear"
   },
   {
    "who": "spud",
    "with": "phone",
    "from": 0.9,
    "to": 2.1,
+   "checks": [
+    "shell",
+    "clipping"
+   ],
    "reason": "the phone lies on his face after the 2 g slam, then slides off"
   }
  ],
