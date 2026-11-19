@@ -31,5 +31,5 @@ build('lc10-21-hill', 'lc10-thumb-b', {
     'spud': ([0.2, -2.0], 0, 'focused', {"brow": 0.5}),
     'mash': ([-0.75, -2.3], 14, 'happy', {"curve": 0.8}),
     'wedge': ([1.15, -2.3], -14, 'deadpan', {})},
-    {"pos": [0.2, 0.72, 0.55], "look": [0.2, 0.82, -2.3], "fov": 40}, set_extra={"leaves": 0})
+    {"pos": [0.2, 0.72, 0.55], "look": [0.2, 1.08, -2.3], "fov": 40}, set_extra={"leaves": 0})
 print('ok')
