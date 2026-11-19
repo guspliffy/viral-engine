@@ -25,3 +25,20 @@ reused as built; seven shot types (wide, two, group, close, over-the-shoulder, a
 stage, with a slow push or pull on every shot; character lines are captioned gibberish; one film score from library
 takes (`score.py`); no new design, no hand or foot polish, no holds (props sit on tables).
 No character names on screen (relations only). Real sounds only.
+
+## Draft 2 (Jonny 19 Nov 06:15: "the story as such holds", boring over time, slow cuts, scenes without movement, speed up;
+## 06:17: use yesterday's storytelling lessons, PR #263, on trial)
+
+| Lesson (PR #263) | In this film |
+|---|---|
+| A turn every 10-20 s, one moving number | every scene ends on a new number or a flip; the moving number is the best friend's count (211, 212, 213, 214, 215), seen over his head |
+| Plant early, pay back at the end | the buns ("delicious" -> terrible -> his cake is terrible too), "rain on Friday" (it rains), nothing over your own head (1, then 2), "the bus" (his present), "fresh today" (the fresh ones went in the cake) |
+| "Remember that number" | NEW: "Remember that number." after 212; paid at the party: "Remember two hundred and twelve? Every 'delicious'..." |
+| Second loop at ~70 % | the whole town lies about his birthday (~69 %) |
+| A laugh at the low point, one break in the ladder | "fewer lies, technically"; "they were terrible"; the ladder of +1s breaks on the friend with zero |
+| Narrator with a predictable opinion | a dry counter: he reads every number flatly ("Four." "Thirty-eight." "Zero. Not once. Not ever." "Twice.") |
+| Contrast in the hook | best friend smiling "Delicious!" vs his number ticking up |
+| Never the same outcome twice | unlike EP09b (rescue) and the laugh-strength episode (he gets crushed), this one ends on a kind lie and a choice |
+
+Picture (draft 2): lines near back to back; no shot over ~3 s; every line cuts to the speaker and gets a gesture;
+every shot has a slow arc + push; the narrator lines read too fast get a second take.

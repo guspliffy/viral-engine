@@ -91,7 +91,7 @@
     ],
     "show": [
      0,
-     22.61
+     17.12
     ],
     "free": true
    }
@@ -100,7 +100,7 @@
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 465.05,
+  "skip": 390.82,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -131,8 +131,8 @@
  },
  "creative": {
   "length": [
-   22.61,
-   22.61
+   17.12,
+   17.12
   ]
  },
  "cast": [
@@ -188,8 +188,8 @@
  "props": [],
  "captions": [
   {
-   "from": 6.85,
-   "to": 9.4,
+   "from": 5.12,
+   "to": 7.67,
    "text": "Trust me. the cake is terrible.",
    "pos": 128,
    "pop": false,
@@ -197,8 +197,8 @@
    "kinetic": false
   },
   {
-   "from": 10.7,
-   "to": 12.55,
+   "from": 8.26,
+   "to": 9.96,
    "text": "Next year, i bake!",
    "pos": 128,
    "pop": false,
@@ -206,8 +206,8 @@
    "kinetic": false
   },
   {
-   "from": 12.55,
-   "to": 14.5,
+   "from": 9.96,
+   "to": 11.91,
    "text": "Trust me. please don't.",
    "pos": 128,
    "pop": false,
@@ -219,7 +219,7 @@
   {
    "name": "31 the sunset wide",
    "at": 0,
-   "len": 22.61,
+   "len": 5.12,
    "shot": {
     "pos": [
      0.2,
@@ -235,11 +235,24 @@
     "to": {
      "pos": [
       0.2,
-      0.914,
-      1.068
+      0.892,
+      0.891
      ]
     },
-    "dur": 22.61
+    "dur": 5.12,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       5.12,
+       4
+      ]
+     ],
+     "pivot": 3.572
+    }
    },
    "do": [
     {
@@ -391,7 +404,56 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 2.15
+     "at": 1.35
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset close",
+   "at": 5.12,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     1.4,
+     0.86,
+     -4.148
+    ],
+    "look": [
+     1.4,
+     0.6,
+     -2.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.4,
+      0.834,
+      -3.963
+     ]
+    },
+    "dur": 2.3,
+    "yaw": {
+     "keys": [
+      [
+       5.12,
+       0
+      ],
+      [
+       7.42,
+       -4
+      ]
+     ],
+     "pivot": 1.866
+    }
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.25,
+     "at": 0
     },
     {
      "who": "wedge",
@@ -401,8 +463,57 @@
      "dur": 2.15,
      "blink": false,
      "voice": false,
-     "at": 6.85
+     "at": 0
     },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.2
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset close",
+   "at": 7.42,
+   "len": 0.84,
+   "shot": {
+    "pos": [
+     0.6,
+     1.02,
+     -4.148
+    ],
+    "look": [
+     0.6,
+     0.76,
+     -2.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.6,
+      0.994,
+      -3.963
+     ]
+    },
+    "dur": 0.84,
+    "yaw": {
+     "keys": [
+      [
+       7.42,
+       0
+      ],
+      [
+       8.26,
+       4
+      ]
+     ],
+     "pivot": 1.866
+    }
+   },
+   "do": [
     {
      "who": "mash",
      "do": "expr",
@@ -411,7 +522,63 @@
       "curve": 0.6
      },
      "dur": 0.25,
-     "at": 9.3
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset close",
+   "at": 8.26,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     -1,
+     0.6,
+     -4.148
+    ],
+    "look": [
+     -1,
+     0.34,
+     -2.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1,
+      0.574,
+      -3.963
+     ]
+    },
+    "dur": 1.7,
+    "yaw": {
+     "keys": [
+      [
+       8.26,
+       0
+      ],
+      [
+       9.96,
+       -4
+      ]
+     ],
+     "pivot": 1.866
+    }
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 1,
+     "height": 0.05,
+     "at": 0
     },
     {
      "who": "chip",
@@ -421,14 +588,71 @@
      "dur": 1.55,
      "blink": false,
      "voice": false,
-     "at": 10.7
+     "at": 0
     },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.6
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset close",
+   "at": 9.96,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     1.974,
+     0.912,
+     -4.442
+    ],
+    "look": [
+     1.4,
+     0.6,
+     -2.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.917,
+      0.88,
+      -4.228
+     ]
+    },
+    "dur": 2.3,
+    "yaw": {
+     "keys": [
+      [
+       9.96,
+       0
+      ],
+      [
+       12.26,
+       4
+      ]
+     ],
+     "pivot": 2.239
+    }
+   },
+   "do": [
     {
      "who": "wedge",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.25,
-     "at": 12.55
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.25,
+     "at": 0
     },
     {
      "who": "wedge",
@@ -438,8 +662,57 @@
      "dur": 1.55,
      "blink": false,
      "voice": false,
-     "at": 12.55
+     "at": 0
     },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.6
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset wide",
+   "at": 12.26,
+   "len": 4.86,
+   "shot": {
+    "pos": [
+     0.693,
+     0.935,
+     1.211
+    ],
+    "look": [
+     0.2,
+     0.5,
+     -2.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.644,
+      0.892,
+      0.86
+     ]
+    },
+    "dur": 4.86,
+    "yaw": {
+     "keys": [
+      [
+       12.26,
+       0
+      ],
+      [
+       17.12,
+       -4
+      ]
+     ],
+     "pivot": 3.572
+    }
+   },
+   "do": [
     {
      "macro": "narrate",
      "line": "You've got some catching up to do.",
@@ -449,15 +722,15 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 15.4
+     "at": 0
     }
    ]
   }
  ],
  "visible": [],
  "story": {
-  "T0": 465.05,
-  "T1": 487.66
+  "T0": 390.82,
+  "T1": 407.94
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 465.05-487.66 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 390.82-407.94 s)."
 }

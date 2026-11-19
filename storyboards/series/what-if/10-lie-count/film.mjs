@@ -52,7 +52,7 @@ export function shotOf(P, spec, pos, len) {
   const S = stage(P), az0 = S.facing, t = (id) => { const [x, z] = pos(id); return [x, floorY(P, x) + (HEADS[id] ?? 0.55), z]; };
   const toward = (a, b, k) => a + (((b - a + 540) % 360) - 180) * k;
   const mid = (ids) => { const ps = ids.map(t); return [0, 1, 2].map((i) => r3(ps.reduce((s, p) => s + p[i], 0) / ps.length)); };
-  const push = spec.push ?? 0.05, dur = r3(Math.max(0.5, len));
+  const push = spec.push ?? 0.1, dur = r3(Math.max(0.5, len));
   const o = (target, a) => frame(target, { az: a.az ?? az0, el: a.el ?? 4, h: a.h, fov: a.fov ?? 36, push, dur });
   switch (spec.t) {
     case "wide": return o(mid(spec.who ?? []).map((v, i) => (spec.who ? v : [P.c[0], floorY(P, P.c[0]) + 0.5, P.c[1]][i])), { h: spec.h ?? P.wideH, el: spec.el ?? 7, fov: 40, az: az0 + (spec.az ?? 0) });
@@ -60,7 +60,7 @@ export function shotOf(P, spec, pos, len) {
       const ids = spec.who, ps = ids.map(pos), spread = Math.max(...ps.map((p) => Math.hypot(p[0] - ps[0][0], p[1] - ps[0][1])));
       return o(mid(ids), { h: spec.h ?? Math.max(1.5, spread + 1.0), el: 5, fov: 36, az: az0 + (spec.az ?? 0) });
     }
-    case "close": { const [who] = spec.who; return o(t(who), { h: spec.h ?? 0.8, el: spec.el ?? 3, fov: 30, az: toward(az0, spec.face ?? az0, 0.4) + (spec.az ?? 0) }); }   // between the front and his face: the partner stays out of the lens
+    case "close": { const [who] = spec.who; return o(t(who), { h: spec.h ?? 0.8, el: spec.el ?? 3, fov: 30, az: (spec.front ? (spec.face ?? az0) : toward(az0, spec.face ?? az0, 0.4)) + (spec.az ?? 0) }); }   // front: straight into his face (a cast turned away from the stage front)   // between the front and his face: the partner stays out of the lens
     case "ots": {   // over fg's shoulder onto bg's face
       const [fg, bg] = spec.who, a = yawTo(pos(bg), pos(fg));
       return o(t(bg), { h: spec.h ?? 1.5, el: 6, fov: 32, az: a + (spec.az ?? 30) });
@@ -73,6 +73,9 @@ export function shotOf(P, spec, pos, len) {
 
 // ---------------------------------------------------------------- voices + music
 export const NARRATOR = "narrator";   // voice 1 "deep storyteller" (Jonny's pick for voiceovers), dry
+// the narrator take per line where take 1 read rushed (takes.json: line -> take; take 1 if missing)
+import { existsSync as _ex, readFileSync as _rd } from "node:fs";
+export const TAKES = _ex(new URL("./takes.json", import.meta.url)) ? JSON.parse(_rd(new URL("./takes.json", import.meta.url), "utf8")) : {};
 export const WPS = 0.45;              // voice 1 reads ~0.45 s a word (story.md); measured lengths replace it (lines.json)
 export const SCORE = (T0) => ({ file: "score-film/lies-score.ogg", from: 0, skip: r3(T0), seam: true, gain: 0.5, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false });
 export const LEVEL = -9.7;
@@ -98,7 +101,7 @@ export const SCENES = [
       ["s", "mash", "delicious!", "excited", { lie: true }], ["card", "212", 2.6],
       ["n", "What if you could see how many times everyone has lied to you?"],
       ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "focused", { brow: 0.3 }],
-      ["n", "Your best friend just hit two hundred and twelve."],
+      ["n", "Your best friend just hit two hundred and twelve."], ["n", "Remember that number."],
       ["cut", { t: "two", who: ["spud", "mash"], az: -8 }], ["bite", "bun", 0.55], ["e", "mash", "happy", { curve: 0.6 }],
       ["n", "All about your cinnamon buns."], ["wait", 0.6] ] },
   { id: "02 the morning", act: "hook", place: "terrace", layout: { spud: [-0.5, 0, ["to", "mash"]], mash: [0.5, 0, ["to", "spud"]], baker: [1.6, 1.0, "cam"] }, table: true,
@@ -131,7 +134,7 @@ export const SCENES = [
 
   // ---------------------------------------------------------------- ACT 2: USING IT (glee)
   { id: "07 fresh today", act: "use", place: "counter", layout: { spud: [0, -0.7, 0], baker: [0, 0.7, "cam"] }, baker: true,
-    shot: { t: "ots", who: ["spud", "baker"] }, seq: [
+    shot: { t: "close", who: ["baker"], face: 0, az: 25, el: 14, h: 1.3 }, seq: [
       ["n", "At first, it was the best power in the world."],
       ["s", "baker", "all baked this morning!", "excited", { lie: true }], ["arm", "spud", "R", "point"], ["e", "spud", "smug"],
       ["cut", { t: "close", who: ["baker"], face: 0, az: 25, el: 14 }], ["e", "baker", "annoyed"], ["s", "baker", "...half price.", "sad"],
@@ -175,7 +178,7 @@ export const SCENES = [
       ["n", "So you tested your best friend."],
       ["s", "spud", "do you actually like my buns?", "question"], ["e", "mash", "happy"], ["s", "mash", "love them.", "calm", { lie: true }],
       ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "sad"], ["n", "Two hundred and fourteen."], ["wait", 0.8] ] },
-  { id: "14b asked around", act: "catch", place: "river", layout: { spud: [-0.4, 0, ["to", "chip"]], chip: [0.4, 0, ["to", "spud"]], wedge: [1.3, 0.6, ["to", "spud"]] },
+  { id: "14b asked around", act: "catch", place: "river", layout: { spud: [-0.4, 0, ["to", "chip"]], chip: [0.4, 0, ["to", "spud"]], wedge: [-1.3, 0.5, ["to", "spud"]] },
     shot: { t: "two", who: ["spud", "chip"] }, seq: [
       ["n", "So you asked around."], ["s", "spud", "why does he lie to me so much?", "question"],
       ["e", "chip", "shocked", { open: 0.2 }], ["s", "chip", "him? he never lies!", "excited", { lie: true }],
@@ -275,7 +278,7 @@ export const SCENES = [
     shot: { t: "two", who: ["spud", "mash"] }, seq: [
       ["e", "mash", "kind"], ["s", "mash", "every friday. here. learning to bake.", "calm"], ["s", "mash", "your buns. but... a cake.", "calm"],
       ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "sad", { curve: 0.2 }],
-      ["n", "Every 'I'm busy'. Every 'I'm sleeping'."], ["n", "Two hundred and fifteen lies."],
+      ["n", "Remember two hundred and twelve?"], ["n", "Every 'delicious'. Every 'I'm busy'. Every 'I'm sleeping'."],
       ["cut", { t: "close", who: ["mash"] }], ["n", "And every single one of them... was for you."], ["wait", 1.4] ] },
   { id: "29b confessions", act: "party", place: "room", layout: { spud: [0.45, 0.4, ["to", "chip"]], mash: [-0.45, 0.3, ["to", "spud"]], chip: [-1.3, -0.1, ["to", "spud"]], baker: [1.3, -0.2, ["to", "spud"]], wedge: [1.1, 0.9, ["to", "spud"]], mover: [2.0, 0.2, ["to", "spud"]] }, party: true,
     shot: { t: "close", who: ["chip"] }, seq: [
@@ -295,10 +298,12 @@ export const SCENES = [
       ["wait", 0.6], ["n", "And for the first time... you lied too."], ["wait", 0.8],
       ["cut", { t: "two", who: ["spud", "mash"] }], ["e", "mash", "delighted"], ["s", "mash", "really?", "question"], ["cut", { t: "close", who: ["spud"] }], ["s", "spud", "really.", "calm"], ["spudtag"], ["wait", 0.8],
       ["n", "Twice."], ["wait", 1.5] ] },
-  { id: "31 the sunset", act: "end", place: "hill", layout: { chip: [-1.2, 0, 180], spud: [-0.4, 0, 180], mash: [0.4, 0, 180], wedge: [1.2, 0, 180] },
+  { id: "31 the sunset", act: "end", place: "hill", nocover: true, layout: { chip: [-1.2, 0, 180], spud: [-0.4, 0, 180], mash: [0.4, 0, 180], wedge: [1.2, 0, 180] },
     shot: { t: "wide", h: 2.6 }, seq: [
       ["wait", 2.0], ["n", "Two hundred and fifteen to two."], ["wait", 1.2],
-      ["s", "wedge", "trust me. the cake is terrible.", "calm"], ["e", "mash", "happy", { curve: 0.6 }], ["wait", 1.4],
-      ["s", "chip", "next year, i bake!", "excited"], ["e", "wedge", "deadpan"], ["s", "wedge", "trust me. please don't.", "calm"], ["wait", 1.0],
-      ["n", "You've got some catching up to do."], ["wait", 3.5] ] },
+      ["cut", { t: "close", who: ["wedge"], front: true, az: 0, el: 8, h: 1.0 }], ["s", "wedge", "trust me. the cake is terrible.", "calm"],
+      ["cut", { t: "close", who: ["mash"], front: true, az: 0, el: 8, h: 1.0 }], ["e", "mash", "happy", { curve: 0.6 }], ["wait", 1.4],
+      ["cut", { t: "close", who: ["chip"], front: true, az: 0, el: 8, h: 1.0 }], ["s", "chip", "next year, i bake!", "excited"],
+      ["cut", { t: "close", who: ["wedge"], front: true, az: -15, el: 8, h: 1.2 }], ["e", "wedge", "deadpan"], ["s", "wedge", "trust me. please don't.", "calm"], ["wait", 1.0],
+      ["cut", { t: "wide", h: 2.6, az: 8 }], ["n", "You've got some catching up to do."], ["wait", 3.5] ] },
 ];

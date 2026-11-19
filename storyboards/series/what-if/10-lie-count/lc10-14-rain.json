@@ -71,7 +71,7 @@
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 220.36,
+  "skip": 188.9,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -98,8 +98,8 @@
  },
  "creative": {
   "length": [
-   41.83,
-   41.83
+   33.2,
+   33.2
   ]
  },
  "cast": [
@@ -143,8 +143,8 @@
  "props": [],
  "captions": [
   {
-   "from": 11.03,
-   "to": 12.68,
+   "from": 8.43,
+   "to": 10.08,
    "text": "Told you. rain.",
    "pos": 128,
    "pop": false,
@@ -156,7 +156,7 @@
   {
    "name": "17 you followed him wide",
    "at": 0,
-   "len": 10.88,
+   "len": 3.2,
    "shot": {
     "pos": [
      -3.229,
@@ -171,12 +171,25 @@
     "fov": 40,
     "to": {
      "pos": [
-      -3.142,
-      0.977,
-      4.522
+      -3.056,
+      0.952,
+      4.337
      ]
     },
-    "dur": 10.88
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       3.2,
+       4
+      ]
+     ],
+     "pivot": 4.121
+    }
    },
    "do": [
     {
@@ -284,7 +297,7 @@
      "do": "turn",
      "to": 96.618,
      "dur": 0.25,
-     "at": 3.43
+     "at": 2.98
     },
     {
      "who": "mash",
@@ -295,8 +308,49 @@
      ],
      "y": 0,
      "dur": 4,
-     "at": 3.53
+     "at": 3.08
+    }
+   ]
+  },
+  {
+   "name": "17 you followed him close +",
+   "at": 3.2,
+   "len": 2.54,
+   "shot": {
+    "pos": [
+     -3.332,
+     0.608,
+     2.106
+    ],
+    "look": [
+     -2.896,
+     0.53,
+     0.68
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -3.288,
+      0.6,
+      1.963
+     ]
     },
+    "dur": 2.54,
+    "yaw": {
+     "keys": [
+      [
+       3.2,
+       0
+      ],
+      [
+       5.74,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
     {
      "macro": "narrate",
      "line": "The bakery. After closing time.",
@@ -306,12 +360,53 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 5.03
+     "at": 0.74
+    }
+   ]
+  },
+  {
+   "name": "17 you followed him close +",
+   "at": 5.74,
+   "len": 2.54,
+   "shot": {
+    "pos": [
+     -4.243,
+     0.635,
+     2.176
+    ],
+    "look": [
+     -2.896,
+     0.53,
+     0.68
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -4.108,
+      0.625,
+      2.026
+     ]
     },
+    "dur": 2.54,
+    "yaw": {
+     "keys": [
+      [
+       5.74,
+       0
+      ],
+      [
+       8.28,
+       4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": [
     {
      "who": "mash",
      "do": "hide",
-     "at": 9.268
+     "at": 1.748
     },
     {
      "who": "mash",
@@ -325,13 +420,13 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 9.268
+     "at": 1.748
     },
     {
      "sfx": "knock-tap",
      "reason": "the story's own sound",
      "gain": 0.4,
-     "at": 9.28
+     "at": 1.76
     },
     {
      "who": "spud",
@@ -345,7 +440,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 10.868
+     "at": 2.528
     },
     {
      "who": "spud",
@@ -354,17 +449,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 10.868
+     "at": 2.528
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 10.868
+     "at": 2.528
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 10.868
+     "at": 2.528
     },
     {
      "who": "mash",
@@ -378,7 +473,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 10.868
+     "at": 2.528
     },
     {
      "who": "wedge",
@@ -392,7 +487,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 10.868
+     "at": 2.528
     },
     {
      "who": "wedge",
@@ -401,19 +496,19 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 10.868
+     "at": 2.528
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 10.868
+     "at": 2.528
     }
    ]
   },
   {
    "name": "18 told you two",
-   "at": 10.88,
-   "len": 7.38,
+   "at": 8.28,
+   "len": 3.02,
    "shot": {
     "pos": [
      -3.647,
@@ -428,12 +523,25 @@
     "fov": 36,
     "to": {
      "pos": [
-      -3.58,
-      0.83,
-      3.509
+      -3.512,
+      0.816,
+      3.365
      ]
     },
-    "dur": 7.38
+    "dur": 3.02,
+    "yaw": {
+     "keys": [
+      [
+       8.28,
+       0
+      ],
+      [
+       11.3,
+       -4
+      ]
+     ],
+     "pivot": 3.2
+    }
    },
    "do": [
     {
@@ -459,6 +567,14 @@
     },
     {
      "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
      "do": "talk",
      "line": "told you. rain.",
      "tone": "calm",
@@ -466,6 +582,14 @@
      "blink": false,
      "voice": false,
      "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.45
     },
     {
      "macro": "narrate",
@@ -476,8 +600,49 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 1.7
+     "at": 1.55
+    }
+   ]
+  },
+  {
+   "name": "18 told you close +",
+   "at": 11.3,
+   "len": 3.02,
+   "shot": {
+    "pos": [
+     -2.158,
+     0.608,
+     2.313
+    ],
+    "look": [
+     -1.772,
+     0.53,
+     0.873
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -2.119,
+      0.6,
+      2.169
+     ]
     },
+    "dur": 3.02,
+    "yaw": {
+     "keys": [
+      [
+       11.3,
+       0
+      ],
+      [
+       14.32,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
     {
      "who": "spud",
      "do": "move",
@@ -490,7 +655,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 7.368
+     "at": 3.008
     },
     {
      "who": "spud",
@@ -499,17 +664,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 7.368
+     "at": 3.008
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 7.368
+     "at": 3.008
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 7.368
+     "at": 3.008
     },
     {
      "who": "mash",
@@ -523,12 +688,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 7.368
+     "at": 3.008
     },
     {
      "who": "wedge",
      "do": "hide",
-     "at": 7.368
+     "at": 3.008
     },
     {
      "who": "wedge",
@@ -542,14 +707,14 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 7.368
+     "at": 3.008
     }
    ]
   },
   {
    "name": "18b one hour alone",
-   "at": 18.26,
-   "len": 8.41,
+   "at": 14.32,
+   "len": 3.105,
    "shot": {
     "pos": [
      -3.931,
@@ -564,12 +729,25 @@
     "fov": 40,
     "to": {
      "pos": [
-      -3.84,
-      1.54,
-      4.6
+      -3.75,
+      1.487,
+      4.407
      ]
     },
-    "dur": 8.41
+    "dur": 3.105,
+    "yaw": {
+     "keys": [
+      [
+       14.32,
+       0
+      ],
+      [
+       17.425,
+       -4
+      ]
+     ],
+     "pivot": 4.396
+    }
    },
    "do": [
     {
@@ -589,7 +767,48 @@
      "pos": 128,
      "gain": 4,
      "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "18b one hour close +",
+   "at": 17.425,
+   "len": 3.105,
+   "shot": {
+    "pos": [
+     -2.564,
+     0.608,
+     2.354
+    ],
+    "look": [
+     -2.128,
+     0.53,
+     0.928
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -2.52,
+      0.6,
+      2.211
+     ]
     },
+    "dur": 3.105,
+    "yaw": {
+     "keys": [
+      [
+       17.425,
+       0
+      ],
+      [
+       20.53,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
     {
      "macro": "narrate",
      "line": "He didn't come out.",
@@ -599,7 +818,7 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 4.02
+     "at": 0.145
     },
     {
      "who": "spud",
@@ -613,7 +832,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 8.398
+     "at": 3.093
     },
     {
      "who": "spud",
@@ -622,17 +841,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 8.398
+     "at": 3.093
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 8.398
+     "at": 3.093
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 8.398
+     "at": 3.093
     },
     {
      "who": "mash",
@@ -646,12 +865,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 8.398
+     "at": 3.093
     },
     {
      "who": "wedge",
      "do": "hide",
-     "at": 8.398
+     "at": 3.093
     },
     {
      "who": "wedge",
@@ -665,14 +884,14 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 8.398
+     "at": 3.093
     }
    ]
   },
   {
    "name": "19 fogged windows close",
-   "at": 26.67,
-   "len": 15.16,
+   "at": 20.53,
+   "len": 3.2,
    "shot": {
     "pos": [
      -2.371,
@@ -687,12 +906,25 @@
     "fov": 30,
     "to": {
      "pos": [
-      -2.34,
-      0.604,
-      3.275
+      -2.308,
+      0.6,
+      3.207
      ]
     },
-    "dur": 15.16
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       20.53,
+       0
+      ],
+      [
+       23.73,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
    },
    "do": [
     {
@@ -712,7 +944,48 @@
      "pos": 128,
      "gain": 4,
      "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "19 fogged windows close +",
+   "at": 23.73,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     -1.741,
+     0.635,
+     4.004
+    ],
+    "look": [
+     -1.741,
+     0.53,
+     1.991
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.741,
+      0.625,
+      3.802
+     ]
     },
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       23.73,
+       0
+      ],
+      [
+       26.93,
+       4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": [
     {
      "who": "spud",
      "do": "expr",
@@ -721,7 +994,7 @@
       "brow": 0.5
      },
      "dur": 0.25,
-     "at": 6.8
+     "at": 3.15
     },
     {
      "macro": "narrate",
@@ -732,8 +1005,89 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 6.8
+     "at": 3.15
+    }
+   ]
+  },
+  {
+   "name": "19 fogged windows close +",
+   "at": 26.93,
+   "len": 3.135,
+   "shot": {
+    "pos": [
+     -3.283,
+     0.635,
+     3.285
+    ],
+    "look": [
+     -1.741,
+     0.53,
+     1.991
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -3.129,
+      0.625,
+      3.155
+     ]
     },
+    "dur": 3.135,
+    "yaw": {
+     "keys": [
+      [
+       26.93,
+       0
+      ],
+      [
+       30.065,
+       -4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "19 fogged windows close +",
+   "at": 30.065,
+   "len": 3.135,
+   "shot": {
+    "pos": [
+     -1.741,
+     0.635,
+     4.004
+    ],
+    "look": [
+     -1.741,
+     0.53,
+     1.991
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.741,
+      0.625,
+      3.802
+     ]
+    },
+    "dur": 3.135,
+    "yaw": {
+     "keys": [
+      [
+       30.065,
+       0
+      ],
+      [
+       33.2,
+       4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": [
     {
      "macro": "narrate",
      "line": "That was enough.",
@@ -743,15 +1097,15 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 11.59
+     "at": 0.915
     }
    ]
   }
  ],
  "visible": [],
  "story": {
-  "T0": 220.36,
-  "T1": 262.19
+  "T0": 188.9,
+  "T1": 222.1
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 220.36-262.19 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 188.9-222.1 s)."
 }

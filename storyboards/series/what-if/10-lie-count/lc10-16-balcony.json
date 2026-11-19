@@ -53,7 +53,7 @@
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 289.77,
+  "skip": 243.99,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -80,8 +80,8 @@
  },
  "creative": {
   "length": [
-   41.67,
-   41.67
+   36.52,
+   36.52
   ]
  },
  "cast": [
@@ -130,7 +130,7 @@
   {
    "name": "22 nobody called alone",
    "at": 0,
-   "len": 8.54,
+   "len": 3.2,
    "shot": {
     "pos": [
      1.456,
@@ -145,12 +145,25 @@
     "fov": 40,
     "to": {
      "pos": [
-      1.428,
-      1.288,
-      4.493
+      1.4,
+      1.248,
+      4.335
      ]
     },
-    "dur": 8.54
+    "dur": 7.32,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       7.32,
+       4
+      ]
+     ],
+     "pivot": 3.297
+    }
    },
    "do": [
     {
@@ -208,24 +221,13 @@
      "pos": 128,
      "gain": 4,
      "at": 0.15
-    },
-    {
-     "macro": "narrate",
-     "line": "So you ate your cinnamon buns. Alone.",
-     "voice": "narrator",
-     "take": 1,
-     "dur": 3.72,
-     "caption": true,
-     "pos": 128,
-     "gain": 4,
-     "at": 4.12
     }
    ]
   },
   {
-   "name": "22 nobody called close",
-   "at": 8.54,
-   "len": 9.69,
+   "name": "22 nobody called close +",
+   "at": 3.2,
+   "len": 2.06,
    "shot": {
     "pos": [
      1.056,
@@ -240,12 +242,117 @@
     "fov": 30,
     "to": {
      "pos": [
-      1.048,
-      0.604,
-      2.908
+      1.04,
+      0.6,
+      2.834
      ]
     },
-    "dur": 9.69
+    "dur": 4.12,
+    "yaw": {
+     "keys": [
+      [
+       3.2,
+       0
+      ],
+      [
+       7.32,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "So you ate your cinnamon buns. Alone.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.72,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "22 nobody called close +",
+   "at": 5.26,
+   "len": 2.06,
+   "shot": {
+    "pos": [
+     0.245,
+     0.635,
+     3.403
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.31,
+      0.625,
+      3.213
+     ]
+    },
+    "dur": 2.06,
+    "yaw": {
+     "keys": [
+      [
+       5.26,
+       0
+      ],
+      [
+       7.32,
+       -4
+      ]
+     ],
+     "pivot": 2.015
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "22 nobody called close",
+   "at": 7.32,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     1.056,
+     0.608,
+     2.983
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.04,
+      0.6,
+      2.834
+     ]
+    },
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       7.32,
+       0
+      ],
+      [
+       10.52,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
    },
    "do": [
     {
@@ -267,7 +374,7 @@
       "brow": 0.4
      },
      "dur": 0.25,
-     "at": 0.6
+     "at": 0.36
     },
     {
      "macro": "narrate",
@@ -278,8 +385,49 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 1.6
+     "at": 0.96
+    }
+   ]
+  },
+  {
+   "name": "22 nobody called close +",
+   "at": 10.52,
+   "len": 1.985,
+   "shot": {
+    "pos": [
+     1.937,
+     0.635,
+     3.225
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.833,
+      0.625,
+      3.053
+     ]
     },
+    "dur": 1.985,
+    "yaw": {
+     "keys": [
+      [
+       10.52,
+       0
+      ],
+      [
+       12.505,
+       4
+      ]
+     ],
+     "pivot": 2.015
+    }
+   },
+   "do": [
     {
      "macro": "narrate",
      "line": "They had always been terrible.",
@@ -289,8 +437,49 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 5.65
+     "at": 1.12
+    }
+   ]
+  },
+  {
+   "name": "22 nobody called close +",
+   "at": 12.505,
+   "len": 1.985,
+   "shot": {
+    "pos": [
+     0.245,
+     0.635,
+     3.403
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.31,
+      0.625,
+      3.213
+     ]
     },
+    "dur": 1.985,
+    "yaw": {
+     "keys": [
+      [
+       12.505,
+       0
+      ],
+      [
+       14.49,
+       -4
+      ]
+     ],
+     "pivot": 2.015
+    }
+   },
+   "do": [
     {
      "who": "spud",
      "do": "move",
@@ -303,7 +492,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 9.678
+     "at": 1.973
     },
     {
      "who": "spud",
@@ -312,19 +501,19 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 9.678
+     "at": 1.973
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 9.678
+     "at": 1.973
     }
    ]
   },
   {
    "name": "23 every week close",
-   "at": 18.23,
-   "len": 17.82,
+   "at": 14.49,
+   "len": 3.2,
    "shot": {
     "pos": [
      0.693,
@@ -339,12 +528,25 @@
     "fov": 30,
     "to": {
      "pos": [
-      0.703,
-      0.604,
-      2.902
+      0.713,
+      0.6,
+      2.829
      ]
     },
-    "dur": 17.82
+    "dur": 18.08,
+    "yaw": {
+     "keys": [
+      [
+       14.49,
+       0
+      ],
+      [
+       32.57,
+       4
+      ]
+     ],
+     "pivot": 1.492
+    }
    },
    "do": [
     {
@@ -371,7 +573,48 @@
      "pos": 128,
      "gain": 4,
      "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "23 every week close +",
+   "at": 17.69,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     1.318,
+     0.635,
+     3.469
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.277,
+      0.625,
+      3.272
+     ]
     },
+    "dur": 14.88,
+    "yaw": {
+     "keys": [
+      [
+       17.69,
+       0
+      ],
+      [
+       32.57,
+       4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": [
     {
      "macro": "narrate",
      "line": "And every week, you baked them again.",
@@ -381,19 +624,141 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 4.18
+     "at": 0.53
+    }
+   ]
+  },
+  {
+   "name": "23 every week close +",
+   "at": 20.89,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     1.318,
+     0.635,
+     3.469
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.277,
+      0.625,
+      3.272
+     ]
     },
+    "dur": 11.68,
+    "yaw": {
+     "keys": [
+      [
+       20.89,
+       0
+      ],
+      [
+       32.57,
+       -4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": [
     {
      "macro": "narrate",
      "line": "You tried to remember his lies. Two hundred and fifteen. You could only think of a few.",
      "voice": "narrator",
-     "take": 1,
-     "dur": 5.69,
+     "take": 2,
+     "dur": 8.07,
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 7.5
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "23 every week close +",
+   "at": 24.09,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     1.318,
+     0.635,
+     3.469
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.277,
+      0.625,
+      3.272
+     ]
     },
+    "dur": 8.48,
+    "yaw": {
+     "keys": [
+      [
+       24.09,
+       0
+      ],
+      [
+       32.57,
+       4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "23 every week close +",
+   "at": 27.29,
+   "len": 2.64,
+   "shot": {
+    "pos": [
+     1.318,
+     0.635,
+     3.469
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.277,
+      0.625,
+      3.272
+     ]
+    },
+    "dur": 5.28,
+    "yaw": {
+     "keys": [
+      [
+       27.29,
+       0
+      ],
+      [
+       32.57,
+       -4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": [
     {
      "macro": "narrate",
      "line": "And every one of them came with a smile.",
@@ -403,14 +768,54 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 13.89
+     "at": 2.12
     }
    ]
   },
   {
+   "name": "23 every week close +",
+   "at": 29.93,
+   "len": 2.64,
+   "shot": {
+    "pos": [
+     1.318,
+     0.635,
+     3.469
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.277,
+      0.625,
+      3.272
+     ]
+    },
+    "dur": 2.64,
+    "yaw": {
+     "keys": [
+      [
+       29.93,
+       0
+      ],
+      [
+       32.57,
+       4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": []
+  },
+  {
    "name": "23 every week alone",
-   "at": 36.05,
-   "len": 5.62,
+   "at": 32.57,
+   "len": 1.975,
    "shot": {
     "pos": [
      1.594,
@@ -430,7 +835,20 @@
       5.556
      ]
     },
-    "dur": 5.62
+    "dur": 1.975,
+    "yaw": {
+     "keys": [
+      [
+       32.57,
+       0
+      ],
+      [
+       34.545,
+       -4
+      ]
+     ],
+     "pivot": 4.121
+    }
    },
    "do": [
     {
@@ -445,12 +863,52 @@
      "at": 0
     }
    ]
+  },
+  {
+   "name": "23 every week close +",
+   "at": 34.545,
+   "len": 1.975,
+   "shot": {
+    "pos": [
+     1.056,
+     0.608,
+     2.983
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.04,
+      0.6,
+      2.834
+     ]
+    },
+    "dur": 1.975,
+    "yaw": {
+     "keys": [
+      [
+       34.545,
+       0
+      ],
+      [
+       36.52,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": []
   }
  ],
  "visible": [],
  "story": {
-  "T0": 289.77,
-  "T1": 331.44
+  "T0": 243.99,
+  "T1": 280.51
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 289.77-331.44 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 243.99-280.51 s)."
 }

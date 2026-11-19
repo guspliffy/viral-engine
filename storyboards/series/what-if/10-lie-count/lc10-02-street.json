@@ -73,7 +73,7 @@
       37
      ],
      [
-      10.83,
+      9.13,
       38
      ]
     ],
@@ -94,7 +94,7 @@
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 27.36,
+  "skip": 27.12,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -125,8 +125,8 @@
  },
  "creative": {
   "length": [
-   41.96,
-   41.96
+   35.1,
+   35.1
   ]
  },
  "cast": [
@@ -201,8 +201,8 @@
    "kinetic": false
   },
   {
-   "from": 9.13,
-   "to": 11.38,
+   "from": 7.43,
+   "to": 9.68,
    "text": "Sorry! the bus was late!",
    "pos": 128,
    "pop": false,
@@ -210,8 +210,8 @@
    "kinetic": false
   },
   {
-   "from": 19.16,
-   "to": 22.31,
+   "from": 15.43,
+   "to": 18.58,
    "text": "Trust me. it's going to rain on friday.",
    "pos": 128,
    "pop": false,
@@ -219,8 +219,8 @@
    "kinetic": false
   },
   {
-   "from": 22.21,
-   "to": 24.61,
+   "from": 18.33,
+   "to": 20.73,
    "text": "0",
    "pos": 880,
    "pop": false,
@@ -234,7 +234,7 @@
   {
    "name": "03 strangers wide",
    "at": 0,
-   "len": 7.98,
+   "len": 3.2,
    "shot": {
     "pos": [
      1,
@@ -250,11 +250,24 @@
     "to": {
      "pos": [
       1,
-      0.977,
-      5.086
+      0.952,
+      4.881
      ]
     },
-    "dur": 7.98
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       3.2,
+       4
+      ]
+     ],
+     "pivot": 4.121
+    }
    },
    "do": [
     {
@@ -374,6 +387,14 @@
     },
     {
      "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "mover",
      "do": "talk",
      "line": "not heavy at all!",
      "tone": "calm",
@@ -394,6 +415,14 @@
      "at": 0.25
     },
     {
+     "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.75
+    },
+    {
      "macro": "narrate",
      "line": "Strangers had small numbers. They hadn't had the time.",
      "voice": "narrator",
@@ -402,8 +431,49 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 2
+     "at": 1.85
+    }
+   ]
+  },
+  {
+   "name": "03 strangers close +",
+   "at": 3.2,
+   "len": 3.48,
+   "shot": {
+    "pos": [
+     0.11,
+     0.608,
+     2.358
+    ],
+    "look": [
+     -0.2,
+     0.53,
+     0.9
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.079,
+      0.6,
+      2.212
+     ]
     },
+    "dur": 3.48,
+    "yaw": {
+     "keys": [
+      [
+       3.2,
+       0
+      ],
+      [
+       6.68,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
     {
      "who": "spud",
      "do": "move",
@@ -416,7 +486,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 7.968
+     "at": 3.468
     },
     {
      "who": "spud",
@@ -425,17 +495,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 7.968
+     "at": 3.468
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 7.968
+     "at": 3.468
     },
     {
      "who": "mover",
      "do": "hide",
-     "at": 7.968
+     "at": 3.468
     },
     {
      "who": "mover",
@@ -449,7 +519,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 7.968
+     "at": 3.468
     },
     {
      "who": "chip",
@@ -463,7 +533,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 7.968
+     "at": 3.468
     },
     {
      "who": "chip",
@@ -472,17 +542,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 7.968
+     "at": 3.468
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 7.968
+     "at": 3.468
     },
     {
      "who": "wedge",
      "do": "hide",
-     "at": 7.968
+     "at": 3.468
     },
     {
      "who": "wedge",
@@ -496,14 +566,14 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 7.968
+     "at": 3.468
     }
    ]
   },
   {
    "name": "04 the loud one wide",
-   "at": 7.98,
-   "len": 1.15,
+   "at": 6.68,
+   "len": 0.75,
    "shot": {
     "pos": [
      0.55,
@@ -519,11 +589,24 @@
     "to": {
      "pos": [
       0.55,
-      1.007,
-      5.086
+      0.982,
+      4.881
      ]
     },
-    "dur": 1.15
+    "dur": 0.75,
+    "yaw": {
+     "keys": [
+      [
+       6.68,
+       0
+      ],
+      [
+       7.43,
+       4
+      ]
+     ],
+     "pivot": 4.121
+    }
    },
    "do": [
     {
@@ -562,8 +645,8 @@
   },
   {
    "name": "04 the loud one two",
-   "at": 9.13,
-   "len": 5.69,
+   "at": 7.43,
+   "len": 2.545,
    "shot": {
     "pos": [
      1.025,
@@ -579,11 +662,24 @@
     "to": {
      "pos": [
       1.025,
-      0.683,
-      4.04
+      0.67,
+      3.89
      ]
     },
-    "dur": 5.69
+    "dur": 5.09,
+    "yaw": {
+     "keys": [
+      [
+       7.43,
+       0
+      ],
+      [
+       12.52,
+       -4
+      ]
+     ],
+     "pivot": 3
+    }
    },
    "do": [
     {
@@ -591,6 +687,21 @@
      "do": "expr",
      "expr": "eager",
      "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 1,
+     "height": 0.05,
      "at": 0
     },
     {
@@ -604,6 +715,14 @@
      "at": 0
     },
     {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.9
+    },
+    {
      "macro": "narrate",
      "line": "Your loudest friend. Thirty-eight.",
      "voice": "narrator",
@@ -612,14 +731,54 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 2.15
+     "at": 2
     }
    ]
   },
   {
+   "name": "04 the loud one close +",
+   "at": 9.975,
+   "len": 2.545,
+   "shot": {
+    "pos": [
+     1.185,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.121,
+      0.6,
+      2.414
+     ]
+    },
+    "dur": 2.545,
+    "yaw": {
+     "keys": [
+      [
+       9.975,
+       0
+      ],
+      [
+       12.52,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": []
+  },
+  {
    "name": "04 the loud one wide",
-   "at": 14.82,
-   "len": 4.19,
+   "at": 12.52,
+   "len": 2.76,
    "shot": {
     "pos": [
      1.025,
@@ -635,11 +794,24 @@
     "to": {
      "pos": [
       1.025,
-      0.912,
-      5.086
+      0.887,
+      4.881
      ]
     },
-    "dur": 4.19
+    "dur": 2.76,
+    "yaw": {
+     "keys": [
+      [
+       12.52,
+       0
+      ],
+      [
+       15.28,
+       4
+      ]
+     ],
+     "pivot": 4.121
+    }
    },
    "do": [
     {
@@ -651,7 +823,7 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 0.4
+     "at": 0.24
     },
     {
      "who": "spud",
@@ -665,7 +837,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "spud",
@@ -674,17 +846,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "mover",
      "do": "hide",
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "mover",
@@ -698,7 +870,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "chip",
@@ -712,7 +884,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "chip",
@@ -721,12 +893,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "wedge",
@@ -740,7 +912,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "wedge",
@@ -749,19 +921,19 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 4.178
+     "at": 2.748
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 4.178
+     "at": 2.748
     }
    ]
   },
   {
    "name": "05 trust me two",
-   "at": 19.01,
-   "len": 7.85,
+   "at": 15.28,
+   "len": 3.2,
    "shot": {
     "pos": [
      1.025,
@@ -777,11 +949,24 @@
     "to": {
      "pos": [
       1.025,
-      0.813,
-      4.04
+      0.8,
+      3.89
      ]
     },
-    "dur": 7.85
+    "dur": 7.25,
+    "yaw": {
+     "keys": [
+      [
+       15.28,
+       0
+      ],
+      [
+       22.53,
+       4
+      ]
+     ],
+     "pivot": 3
+    }
    },
    "do": [
     {
@@ -814,6 +999,14 @@
     },
     {
      "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
      "do": "talk",
      "line": "trust me. it's going to rain on friday.",
      "tone": "calm",
@@ -821,6 +1014,14 @@
      "blink": false,
      "voice": false,
      "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.95
     },
     {
      "macro": "narrate",
@@ -831,14 +1032,94 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 3.2
+     "at": 3.05
     }
    ]
   },
   {
+   "name": "05 trust me close +",
+   "at": 18.48,
+   "len": 2.025,
+   "shot": {
+    "pos": [
+     1.185,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.121,
+      0.6,
+      2.414
+     ]
+    },
+    "dur": 4.05,
+    "yaw": {
+     "keys": [
+      [
+       18.48,
+       0
+      ],
+      [
+       22.53,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "05 trust me close +",
+   "at": 20.505,
+   "len": 2.025,
+   "shot": {
+    "pos": [
+     0.557,
+     0.635,
+     3.213
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.556,
+      0.625,
+      3.011
+     ]
+    },
+    "dur": 2.025,
+    "yaw": {
+     "keys": [
+      [
+       20.505,
+       0
+      ],
+      [
+       22.53,
+       4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": []
+  },
+  {
    "name": "05 trust me close",
-   "at": 26.86,
-   "len": 5.1,
+   "at": 22.53,
+   "len": 2.325,
    "shot": {
     "pos": [
      0.865,
@@ -853,12 +1134,25 @@
     "fov": 30,
     "to": {
      "pos": [
-      0.897,
-      0.674,
-      2.481
+      0.929,
+      0.67,
+      2.414
      ]
     },
-    "dur": 5.1
+    "dur": 4.65,
+    "yaw": {
+     "keys": [
+      [
+       22.53,
+       0
+      ],
+      [
+       27.18,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
    },
    "do": [
     {
@@ -875,9 +1169,49 @@
    ]
   },
   {
+   "name": "05 trust me two +",
+   "at": 24.855,
+   "len": 2.325,
+   "shot": {
+    "pos": [
+     1.025,
+     0.827,
+     4.189
+    ],
+    "look": [
+     1.025,
+     0.565,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.025,
+      0.8,
+      3.89
+     ]
+    },
+    "dur": 2.325,
+    "yaw": {
+     "keys": [
+      [
+       24.855,
+       0
+      ],
+      [
+       27.18,
+       -4
+      ]
+     ],
+     "pivot": 3
+    }
+   },
+   "do": []
+  },
+  {
    "name": "05 trust me close",
-   "at": 31.96,
-   "len": 1.4,
+   "at": 27.18,
+   "len": 0.66,
    "shot": {
     "pos": [
      1.185,
@@ -892,12 +1226,25 @@
     "fov": 30,
     "to": {
      "pos": [
-      1.153,
-      0.604,
-      2.481
+      1.121,
+      0.6,
+      2.414
      ]
     },
-    "dur": 1.4
+    "dur": 0.66,
+    "yaw": {
+     "keys": [
+      [
+       27.18,
+       0
+      ],
+      [
+       27.84,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
    },
    "do": [
     {
@@ -922,7 +1269,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "spud",
@@ -931,17 +1278,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "mover",
      "do": "hide",
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "mover",
@@ -955,7 +1302,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "chip",
@@ -969,7 +1316,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "chip",
@@ -978,12 +1325,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "wedge",
@@ -997,7 +1344,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "wedge",
@@ -1006,19 +1353,19 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 0.648
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 1.388
+     "at": 0.648
     }
    ]
   },
   {
    "name": "05b your own head close",
-   "at": 33.36,
-   "len": 8.6,
+   "at": 27.84,
+   "len": 3.2,
    "shot": {
     "pos": [
      0.706,
@@ -1033,12 +1380,25 @@
     "fov": 30,
     "to": {
      "pos": [
-      0.698,
-      0.604,
-      2.608
+      0.69,
+      0.6,
+      2.534
      ]
     },
-    "dur": 8.6
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       27.84,
+       0
+      ],
+      [
+       31.04,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
    },
    "do": [
     {
@@ -1078,25 +1438,106 @@
      "do": "expr",
      "expr": "focused",
      "dur": 0.25,
-     "at": 2.26
+     "at": 1.81
     },
     {
      "macro": "narrate",
      "line": "Nothing. Apparently, you were the only honest one in town.",
      "voice": "narrator",
-     "take": 1,
-     "dur": 3.04,
+     "take": 2,
+     "dur": 3.82,
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 3.06
+     "at": 2.29
+    }
+   ]
+  },
+  {
+   "name": "05b your own head two +",
+   "at": 31.04,
+   "len": 2.03,
+   "shot": {
+    "pos": [
+     1.25,
+     0.769,
+     4.762
+    ],
+    "look": [
+     1.25,
+     0.435,
+     0.95
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.25,
+      0.735,
+      4.381
+     ]
     },
+    "dur": 2.03,
+    "yaw": {
+     "keys": [
+      [
+       31.04,
+       0
+      ],
+      [
+       33.07,
+       -4
+      ]
+     ],
+     "pivot": 3.827
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "05b your own head two +",
+   "at": 33.07,
+   "len": 2.03,
+   "shot": {
+    "pos": [
+     2.861,
+     0.769,
+     4.405
+    ],
+    "look": [
+     1.25,
+     0.435,
+     0.95
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      2.7,
+      0.735,
+      4.059
+     ]
+    },
+    "dur": 2.03,
+    "yaw": {
+     "keys": [
+      [
+       33.07,
+       0
+      ],
+      [
+       35.1,
+       4
+      ]
+     ],
+     "pivot": 3.827
+    }
+   },
+   "do": [
     {
      "who": "spud",
      "do": "expr",
      "expr": "smug",
      "dur": 0.25,
-     "at": 6.8
+     "at": 1.13
     }
    ]
   }
@@ -1107,13 +1548,13 @@
    "who": "mover",
    "with": "mcap",
    "from": 0,
-   "to": 41.96,
+   "to": 35.1,
    "reason": "the flat cap is worn"
   }
  ],
  "story": {
-  "T0": 27.36,
-  "T1": 69.32
+  "T0": 27.12,
+  "T1": 62.22
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 27.36-69.32 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 27.12-62.22 s)."
 }

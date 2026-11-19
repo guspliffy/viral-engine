@@ -75,7 +75,7 @@
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 192.13,
+  "skip": 165.86,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -106,8 +106,8 @@
  },
  "creative": {
   "length": [
-   17.54,
-   17.54
+   14.39,
+   14.39
   ]
  },
  "cast": [
@@ -151,8 +151,8 @@
  "props": [],
  "captions": [
   {
-   "from": 2.51,
-   "to": 4.66,
+   "from": 2.06,
+   "to": 4.06,
    "text": "Are you lying right now?",
    "pos": 128,
    "pop": false,
@@ -160,8 +160,8 @@
    "kinetic": false
   },
   {
-   "from": 4.66,
-   "to": 5.66,
+   "from": 4.06,
+   "to": 4.91,
    "text": "No!",
    "pos": 128,
    "pop": false,
@@ -169,8 +169,8 @@
    "kinetic": false
   },
   {
-   "from": 5.66,
-   "to": 6.91,
+   "from": 4.91,
+   "to": 6.01,
    "text": "And now?",
    "pos": 128,
    "pop": false,
@@ -178,8 +178,8 @@
    "kinetic": false
   },
   {
-   "from": 6.91,
-   "to": 8.01,
+   "from": 6.01,
+   "to": 7.11,
    "text": "...no!",
    "pos": 128,
    "pop": false,
@@ -187,8 +187,8 @@
    "kinetic": false
   },
   {
-   "from": 9.91,
-   "to": 12.16,
+   "from": 8.06,
+   "to": 10.31,
    "text": "Trust me. that was weird.",
    "pos": 128,
    "pop": false,
@@ -200,7 +200,7 @@
   {
    "name": "15 are you lying group",
    "at": 0,
-   "len": 9.91,
+   "len": 2.06,
    "shot": {
     "pos": [
      1.333,
@@ -216,11 +216,24 @@
     "to": {
      "pos": [
       1.333,
-      0.852,
-      5.209
+      0.833,
+      4.991
      ]
     },
-    "dur": 9.91
+    "dur": 8.06,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       8.06,
+       4
+      ]
+     ],
+     "pivot": 4.377
+    }
    },
    "do": [
     {
@@ -338,6 +351,63 @@
      "pos": 128,
      "gain": 4,
      "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "15 are you lying close +",
+   "at": 2.06,
+   "len": 2.05,
+   "shot": {
+    "pos": [
+     1.035,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.4,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.971,
+      0.6,
+      2.414
+     ]
+    },
+    "dur": 6,
+    "yaw": {
+     "keys": [
+      [
+       2.06,
+       0
+      ],
+      [
+       8.06,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
     },
     {
      "who": "spud",
@@ -347,14 +417,45 @@
      "dur": 1.85,
      "blink": false,
      "voice": false,
-     "at": 2.51
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.9
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.25,
-     "at": 4.66
+     "at": 2
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.25,
+     "at": 2
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 1,
+     "height": 0.05,
+     "at": 2
     },
     {
      "who": "chip",
@@ -364,7 +465,72 @@
      "dur": 0.7,
      "blink": false,
      "voice": false,
-     "at": 4.66
+     "at": 2
+    }
+   ]
+  },
+  {
+   "name": "15 are you lying group +",
+   "at": 4.11,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     3.175,
+     0.871,
+     5.018
+    ],
+    "look": [
+     1.333,
+     0.49,
+     1.067
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      2.991,
+      0.833,
+      4.623
+     ]
+    },
+    "dur": 3.95,
+    "yaw": {
+     "keys": [
+      [
+       4.11,
+       0
+      ],
+      [
+       8.06,
+       -4
+      ]
+     ],
+     "pivot": 4.376
+    }
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0.8
     },
     {
      "who": "spud",
@@ -374,7 +540,79 @@
      "dur": 0.95,
      "blink": false,
      "voice": false,
-     "at": 5.66
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "15 are you lying close +",
+   "at": 6.01,
+   "len": 2.05,
+   "shot": {
+    "pos": [
+     0.765,
+     0.418,
+     2.549
+    ],
+    "look": [
+     1.4,
+     0.34,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.829,
+      0.41,
+      2.414
+     ]
+    },
+    "dur": 2.05,
+    "yaw": {
+     "keys": [
+      [
+       6.01,
+       0
+      ],
+      [
+       8.06,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 1,
+     "height": 0.05,
+     "at": 0
     },
     {
      "who": "chip",
@@ -384,21 +622,29 @@
      "dur": 0.7,
      "blink": false,
      "voice": false,
-     "at": 6.91
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.75
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "angry",
      "dur": 0.25,
-     "at": 7.91
+     "at": 0.85
     },
     {
      "who": "chip",
      "do": "turn",
      "to": 102.995,
      "dur": 0.25,
-     "at": 7.91
+     "at": 0.85
     },
     {
      "who": "chip",
@@ -409,12 +655,12 @@
      ],
      "y": 0,
      "dur": 2.2,
-     "at": 8.01
+     "at": 0.95
     },
     {
      "who": "chip",
      "do": "hide",
-     "at": 9.898
+     "at": 2.038
     },
     {
      "who": "chip",
@@ -428,14 +674,14 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 9.898
+     "at": 2.038
     }
    ]
   },
   {
    "name": "15 are you lying two",
-   "at": 9.91,
-   "len": 7.63,
+   "at": 8.06,
+   "len": 3.165,
    "shot": {
     "pos": [
      1.3,
@@ -451,17 +697,38 @@
     "to": {
      "pos": [
       1.3,
-      0.927,
-      5.142
+      0.908,
+      4.924
      ]
     },
-    "dur": 7.63
+    "dur": 3.165,
+    "yaw": {
+     "keys": [
+      [
+       8.06,
+       0
+      ],
+      [
+       11.225,
+       -4
+      ]
+     ],
+     "pivot": 4.377
+    }
    },
    "do": [
     {
      "who": "wedge",
      "do": "expr",
      "expr": "deadpan",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
      "dur": 0.25,
      "at": 0
     },
@@ -476,6 +743,14 @@
      "at": 0
     },
     {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.9
+    },
+    {
      "macro": "narrate",
      "line": "Even he agreed. And he doesn't lie.",
      "voice": "narrator",
@@ -484,15 +759,55 @@
      "caption": true,
      "pos": 128,
      "gain": 4,
-     "at": 2.15
+     "at": 2
     }
    ]
+  },
+  {
+   "name": "15 are you lying close +",
+   "at": 11.225,
+   "len": 3.165,
+   "shot": {
+    "pos": [
+     1.096,
+     0.608,
+     2.518
+    ],
+    "look": [
+     0.4,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.027,
+      0.6,
+      2.386
+     ]
+    },
+    "dur": 3.165,
+    "yaw": {
+     "keys": [
+      [
+       11.225,
+       0
+      ],
+      [
+       14.39,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": []
   }
  ],
  "visible": [],
  "story": {
-  "T0": 192.13,
-  "T1": 209.67
+  "T0": 165.86,
+  "T1": 180.25
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 192.13-209.67 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 165.86-180.25 s)."
 }

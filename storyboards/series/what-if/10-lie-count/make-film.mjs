@@ -4,7 +4,7 @@
 //   node storyboards/series/what-if/10-lie-count/make-film.mjs
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { clip, write } from "../../../lib/clip.mjs";
-import { F, PLACES, CAST, START, SCENES, ACTS, NARRATOR, WPS, SCORE, LEVEL, stage, shotOf, floorY, r3, yawTo } from "./film.mjs";
+import { F, PLACES, CAST, START, SCENES, ACTS, NARRATOR, TAKES, WPS, SCORE, LEVEL, stage, shotOf, floorY, r3, yawTo } from "./film.mjs";
 
 const LJ = new URL("./lines.json", import.meta.url);
 const MEASURED = existsSync(LJ) ? JSON.parse(readFileSync(LJ, "utf8")) : {};
@@ -12,6 +12,39 @@ const words = (s) => s.split(/\s+/).filter(Boolean).length;
 const nDur = (text) => MEASURED[text] ?? r3(words(text) * WPS + 0.4);
 const sDur = (text) => r3(Math.max(0.7, words(text) * 0.3 + 0.35));
 const EXPR = { excited: "eager", calm: "kind", question: "focused", sad: "sad" };
+
+// ---------------------------------------------------------------- draft 2 coverage (Jonny 19 Nov: "many slow cuts and scenes
+// without movement"): a line in a wide/two/group/ots shot cuts to the speaker's close-up and back; any shot still over
+// MAXSHOT is split into alternating variants (a size step or 25 degrees, never a jump cut). Positions: the snapshot of
+// the cut before (walk targets).
+const MAXSHOT = 3.2;
+function coverage(sc, ev, T1, S) {
+  if (sc.nocover) return;   // the scene cuts by hand (e.g. faces away from the stage front)
+  const cast = Object.keys(sc.layout), many = cast.length > 1 && !sc.baker;
+  const cutsOf = () => ev.filter((e) => e[1] === "cut").sort((a, b) => a[0] - b[0]);
+  const at = (t) => cutsOf().filter((c) => c[0] <= t + 1e-6).pop();
+  if (many) for (const e of ev.filter((q) => q[1] === "s")) {
+    const [ts, , who, , d] = e, cur = at(ts);
+    if (!cur || !["wide", "two", "group", "ots"].includes(cur[2].t) || ts - cur[0] < 1.2) continue;
+    const next = cutsOf().find((c) => c[0] > ts + 1e-6), back = ts + d + 0.2;
+    ev.push([r3(ts), "cut", { t: "close", who: [who], auto: 1 }, cur[3]]);
+    if (!next || next[0] - back > 1.4) ev.push([r3(back), "cut", { ...cur[2], az: (cur[2].az ?? 0) + 25, auto: 1 }, cur[3]]);
+  }
+  let k = 0;
+  for (let guard = 0; guard < 60; guard++) {
+    const cs = cutsOf(), i = cs.findIndex((c, j) => (cs[j + 1]?.[0] ?? T1) - c[0] > MAXSHOT + 0.6);
+    if (i < 0) break;
+    const c = cs[i], s = c[2], at2 = r3(c[0] + Math.min(MAXSHOT, ((cs[i + 1]?.[0] ?? T1) - c[0]) / 2));
+    const lead = s.who?.[0] ?? (cast.includes("spud") ? "spud" : cast[0]);
+    const b = s.base ?? s, base = { base: b };   // variants turn from the scene's own angle, never from a variant (no drift into walls)
+    const other = cast.find((w) => w !== lead);
+    let v;
+    if (s.t === "close") v = many && other && k % 2 === 0 ? { t: "two", who: [lead, other].sort((a, b) => cast.indexOf(a) - cast.indexOf(b)) } : { ...b, ...base, az: (b.az ?? 0) + (b.az ? 20 : (k % 2 ? -25 : 25)), h: (b.h ?? 0.8) * 1.35 }   // a set angle (counter) only turns further from the partner;
+    else if (s.t === "alone") v = { t: "close", who: [lead] };
+    else v = k % 2 === 0 ? { t: "close", who: [lead] } : { ...b, ...base, az: (b.az ?? 0) + 25, h: b.h ? b.h * 0.75 : undefined };
+    ev.push([at2, "cut", { ...v, auto: 1 }, c[3]]); k++;
+  }
+}
 
 // ---------------------------------------------------------------- pass 1: the story clock
 const LIES = Object.fromEntries(Object.entries(START).map(([k, v]) => [k, [[0, v]]]));
@@ -28,19 +61,20 @@ for (const sc of SCENES) {
   let t = T + 0.15;
   for (const it of sc.seq) {
     const [k] = it;
-    if (k === "n") { const d = nDur(it[1]); ev.push([t, "n", it[1], d]); t += d + 0.7; }
+    if (k === "n") { const d = nDur(it[1]); ev.push([t, "n", it[1], d]); t += d + 0.25; }   // draft 2 (Jonny 19 Nov: "boring over time", "could get speed up"): lines near back to back
     else if (k === "s") {
       const [, who, line, tone, o = {}] = it, d = sDur(line);
       ev.push([t, "s", who, line, d, tone, o]);
       if (o.lie) { const tk = r3(t + d - 0.15); LIES[who].push([tk, val(who) + 1]); }
-      t += d + 0.3;
+      t += d + 0.15;
     } else if (k === "cut") ev.push([t, "cut", it[1], { ...posNow }]);
-    else if (k === "wait") t += it[1];
+    else if (k === "wait") t += r3(it[1] * 0.6);
     else if (k === "walk") { posNow[it[1]] = S.w(it[2]); ev.push([t, ...it]); }
     else if (k === "spudtag") { if (spudTag == null) spudTag = r3(t); SPUD.push([r3(t - 0.3), SPUD.length + 1]); ev.push([t, "spudtag"]); }
     else ev.push([t, ...it]);
   }
-  T = r3(t + 0.8);
+  T = r3(t + 0.3);
+  coverage(sc, ev, T, S);
   timed.push({ sc, T0: r3(T0), T1: T, ev });
 }
 console.log(`story: ${T.toFixed(1)} s (${(T / 60).toFixed(2)} min), ${SCENES.length} scenes`);
@@ -116,11 +150,17 @@ runs.forEach((run, ri) => {
         const sp = { ...spec }; if (sp.t === "close" && sp.face == null) sp.face = (sc.baker && sp.who[0] === "baker") ? 0 : (sc.baker && sp.who[0] === "spud") ? 180 : faceOf(sc.layout[sp.who[0]]?.[2] ?? "cam", sp.who[0], cp);
         const shot = shotOf(P2, sp, (id) => cp[id] ?? live[id], len);
         if (sc.baker) { shot.pos[1] = r3(shot.pos[1] + 0.12); shot.look[1] = r3(shot.look[1] + 0.12); if (shot.to?.pos) shot.to.pos[1] = r3(shot.to.pos[1] + 0.12); }
-        cuts.push([`${sc.id} ${spec.t}`, uu, shot]);
-      } else if (k === "n") c.at(uu, { macro: "narrate", line: e[2], voice: NARRATOR, take: 1, dur: e[3], caption: true, pos: F.SUB, gain: 4.0 });
+        const sg = (cuts.length % 2 ? -1 : 1) * 4, pv = r3(Math.hypot(...shot.pos.map((v, i) => v - shot.look[i])));
+        if (!shot.yaw) shot.yaw = { keys: [[uu, 0], [r3(uu + len), sg]], pivot: pv };   // a slow arc on every shot
+        cuts.push([`${sc.id} ${spec.t}${spec.auto ? " +" : ""}`, uu, shot]);
+      } else if (k === "n") c.at(uu, { macro: "narrate", line: e[2], voice: NARRATOR, take: TAKES[e[2]] ?? 1, dur: e[3], caption: true, pos: F.SUB, gain: 4.0 });
       else if (k === "s") {
         const [, , id, line, d, tone, o] = e;
         if (o.expr) A(uu, id, "expr", { expr: o.expr, dur: 0.15 });
+        // draft 2: every line is acted (a gesture by tone, back to rest after it)
+        const G = { excited: ["R", "up"], question: ["B", "shrug"], calm: ["R", "point"], sad: null }[tone];
+        if (G && !sc.baker) { for (const sd of G[0] === "B" ? ["R", "L"] : [G[0]]) { c.arm(uu, id, sd, G[1], 0.25); c.arm(r3(uu + d + 0.05), id, sd, "rest", 0.35); } }
+        if (tone === "excited") A(uu, id, "hop", { count: 1, height: 0.05 });
         c.say(uu, id, line, d, tone, { voice: false, sub: line.charAt(0).toUpperCase() + line.slice(1), pos: F.SUB });
       } else if (k === "card") c.cap(uu, Math.min(END - 0.05, r3(uu + e[3])), e[2], F.CARD, false, { size: 170, kinetic: false, color: "#f3dc8c", stroke: "#24232b" });
       else if (k === "e") A(uu, e[2], "expr", { expr: e[3], ...(e[4] && { set: e[4] }), dur: 0.25 });
