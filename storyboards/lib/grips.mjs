@@ -146,6 +146,15 @@ const SIZE = {
   chipbag: { w: 0.28, h: 0.33, t: 0.1 },
   mashbowl: { rim: 0.16, wall: [[0, 0.1], [0.02, 0.118], [0.05, 0.153], [0.09, 0.185], [0.13, 0.202], [0.16, 0.205]] },
   courtspoon: { len: 0.3, r: 0.0105 },
+  // props-hella.js (Potato Desk 09 Hell Reviews): reviewtablet = box hold (palms on the two side edges, y 0.253; screen on -z); cloche = thin pinch on the knob (len 0.325 puts the default
+  // from 0.6 at y 0.195 = the knob's centre); ketchupbottle = mug hold at the neck (0.66 x 0.26 = y 0.17); pitchfork and palmleaf = the R hand's mug hold on the shaft (fist at y 0.132 / 0.19),
+  // the L hand through HELLA_GRIPS arm poses; drinkglass = mug hold round the body (fist at y 0.106)
+  reviewtablet: { w: 0.34, h: 0.46, d: 0.02 },
+  cloche: { len: 0.325, r: 0.025 },
+  ketchupbottle: { r: 0.03, h: 0.26 },
+  pitchfork: { r: 0.01, h: 0.2 },
+  palmleaf: { r: 0.01, h: 0.288 },
+  drinkglass: { r: 0.035, h: 0.16 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

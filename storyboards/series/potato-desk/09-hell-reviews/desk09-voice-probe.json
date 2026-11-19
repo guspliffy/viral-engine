@@ -1,0 +1,380 @@
+{
+ "id": "desk09-voice-probe",
+ "title": "Potato Desk 09 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   73.8,
+   73.8
+  ]
+ },
+ "cast": [
+  {
+   "id": "reaper",
+   "character": "potatobrawl/reaper",
+   "at": [
+    -1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "devil",
+   "character": "potatobrawl/devil",
+   "at": [
+    0.7,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 73.8,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "reaper",
+     "macro": "say",
+     "line": "Heaven or hell?",
+     "tone": "calm",
+     "style": "flat, dry, bored, a clerk",
+     "dur": 1.7,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Hell. Five stars!",
+     "tone": "excited",
+     "style": "bright, fast, eager, sure of himself",
+     "dur": 1.7,
+     "caption": false,
+     "at": 2.9
+    },
+    {
+     "who": "reaper",
+     "macro": "say",
+     "line": "You're sure?",
+     "tone": "calm",
+     "style": "flat, dry, slow, a little amused",
+     "dur": 1.3,
+     "caption": false,
+     "at": 5.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Look at the reviews!",
+     "tone": "excited",
+     "style": "bright, fast, eager, pointing",
+     "dur": 2.1,
+     "caption": false,
+     "at": 7.9
+    },
+    {
+     "who": "reaper",
+     "macro": "say",
+     "line": "Funny. Everyone picks hell.",
+     "tone": "calm",
+     "style": "flat, dry, slow, knowing",
+     "dur": 2.1,
+     "caption": false,
+     "at": 11
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Welcome to five-star hell!",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, loud, arms wide",
+     "dur": 2.1,
+     "caption": false,
+     "at": 14.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "That's lava!",
+     "tone": "excited",
+     "style": "shocked, outraged, high, fast",
+     "dur": 1.3,
+     "caption": false,
+     "at": 17.2
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "It's hot. It's a tub.",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, matter-of-fact",
+     "dur": 2.5,
+     "caption": false,
+     "at": 19.5
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Those are potatoes!",
+     "tone": "excited",
+     "style": "horrified, outraged, high, fast",
+     "dur": 1.7,
+     "caption": false,
+     "at": 23
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Ketchup?",
+     "tone": "question",
+     "style": "bright, quick, warm game-show host, always smiling, helpful",
+     "dur": 0.9,
+     "caption": false,
+     "at": 25.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ow! Ow!",
+     "tone": "excited",
+     "style": "short sharp yelps of pain",
+     "dur": 1.3,
+     "caption": false,
+     "at": 27.6
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Deep tissue.",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, soothing",
+     "dur": 1.3,
+     "caption": false,
+     "at": 29.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "It's the same song!",
+     "tone": "excited",
+     "style": "exasperated, outraged, fast",
+     "dur": 2.1,
+     "caption": false,
+     "at": 32.2
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Forever!",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, delighted",
+     "dur": 0.9,
+     "caption": false,
+     "at": 35.3
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Nice view, right?",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, proud",
+     "dur": 1.7,
+     "caption": false,
+     "at": 37.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Five stars?! This is the worst!",
+     "tone": "excited",
+     "style": "furious, outraged, loud, fast",
+     "dur": 2.9,
+     "caption": false,
+     "at": 39.9
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Before you go... rate your stay!",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, sweet, pushy",
+     "dur": 2.9,
+     "caption": false,
+     "at": 43.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "One star.",
+     "tone": "calm",
+     "style": "cold, flat, firm, slow",
+     "dur": 1.3,
+     "caption": false,
+     "at": 47.7
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "W-wait! One?!",
+     "tone": "excited",
+     "style": "panicked, stammering, voice cracking, the smile slipping",
+     "dur": 1.3,
+     "caption": false,
+     "at": 50
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Hot tub! A real one!",
+     "tone": "excited",
+     "style": "desperate, eager to please, fast",
+     "dur": 2.5,
+     "caption": false,
+     "at": 52.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Two stars.",
+     "tone": "calm",
+     "style": "unimpressed, flat, slow",
+     "dur": 1.3,
+     "caption": false,
+     "at": 55.8
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Two?!",
+     "tone": "excited",
+     "style": "panicked, high, voice cracking",
+     "dur": 0.9,
+     "caption": false,
+     "at": 58.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Hmm. Three.",
+     "tone": "calm",
+     "style": "unimpressed, considering, slow",
+     "dur": 1.3,
+     "caption": false,
+     "at": 60
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Four stars.",
+     "tone": "calm",
+     "style": "relaxed, lazy, content, slow",
+     "dur": 1.3,
+     "caption": false,
+     "at": 62.3
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Four...",
+     "tone": "sad",
+     "style": "sobbing, crying, heartbroken, wailing",
+     "dur": 0.9,
+     "caption": false,
+     "at": 64.6
+    },
+    {
+     "who": "reaper",
+     "macro": "say",
+     "line": "Heaven or hell?",
+     "tone": "calm",
+     "style": "flat, dry, bored, a clerk",
+     "dur": 1.7,
+     "caption": false,
+     "at": 66.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hell. One star.",
+     "tone": "calm",
+     "style": "low, slow, grinning, sly",
+     "dur": 1.7,
+     "caption": false,
+     "at": 69.2
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Nooo.",
+     "tone": "sad",
+     "style": "whimpering, quiet, crying",
+     "dur": 0.9,
+     "caption": false,
+     "at": 71.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 09: makes and measures every take."
+}
