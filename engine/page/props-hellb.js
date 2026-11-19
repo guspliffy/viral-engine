@@ -44,7 +44,7 @@ import { clamp, rng } from "./util.js";
 // curtainwindow origin: the floor under the window's centre ON the wall face (place at -1.60, 0, -1.30). Opening 1.00 x 1.50 (y 0.35..1.85), frame 0.06 #d9a93a, sill, a glass
 //               plane with one diagonal sheen stroke at 12 %, rod y 1.95, two velvet panels #8f1f1c (5 folds each #6f1616) 0.60 wide closed. open 0..1 (TWEENS,
 //               spec.open) slides each panel to 0.18 wide (the director sets 10 frames). Cord with tassel at local x +0.56 (world -1.04); pull 0..1 drops it 0.06.
-// heavenisland  0.90 x 0.45 x 0.40, origin the CENTRE of its box (place at -2.05, 1.62, -7.5): cloud, sun disc r 0.12 #fff1c2, 3 flat dancing potatoes 0.12 high
+// heavenisland  0.90 x 0.45 x 0.40, origin the CENTRE of its box (place at -2.05, 1.62, -7.5): cloud, sun disc r 0.12 #fff1c2, 3 flat dancing potatoes 0.20 high (#c47a2c)
 //               #e2a95c, 3 balloons r 0.04, a gold arch. Unlit (full sun). Bobs 0.02 m at 1 Hz x the state's bob.
 // beachview     1.6 x 1.2 x 0.6, origin the CENTRE of its box (place at -2.05, 1.05, -7.5): sand #f2d59a, sea #3f8fb0 with 3 wave lines, half sun r 0.22 #ffcf5a,
 //               one palm 0.55 high. The sand slab runs 0.85 m below the box (to y -0.40 in place): the window's lowest sight line from B-L passes y -0.23 there.
@@ -585,14 +585,14 @@ export const HELLB_KINDS = {
 
   // ---- outside the window (far pieces: unlit, one flat plane or a few cut-out shapes) --------------------------------------------------
   heavenisland(P) {
-    const S = P.spec, cloud = basic("#f7fafc"), shade = basic("#dde9f2"), potato = basic("#e2a95c"), gold = basic("#d9a93a"), root = new THREE.Group(); P.whole.add(root);
+    const S = P.spec, cloud = basic("#f7fafc"), shade = basic("#dde9f2"), potato = basic("#c47a2c"), gold = basic("#d9a93a"), root = new THREE.Group(); P.whole.add(root);
     const body = new THREE.Group(); body.scale.x = 0.92; root.add(body);
     [[-0.33, -0.095, 0.00, 0.12], [-0.14, -0.085, 0.02, 0.15], [0.06, -0.08, 0.00, 0.16], [0.26, -0.09, 0.02, 0.14], [0.38, -0.11, 0.00, 0.07], [-0.42, -0.12, 0.0, 0.07], [-0.04, -0.12, 0.12, 0.11], [0.17, -0.12, 0.11, 0.10], [-0.24, -0.13, 0.10, 0.08], [0.0, -0.13, -0.12, 0.12]]
       .forEach(([x, y, z, r], i) => { const o = mesh(new THREE.SphereGeometry(r, 16, 12), i % 4 === 3 ? shade : cloud, body, x, y, z); o.scale.y = 0.7; o.userData.solid = false; });
     const sun = mesh(new THREE.CircleGeometry(0.12, 28), basic("#fff1c2"), root, 0.27, 0.12, -0.17); sun.castShadow = false;
     // three flat dancing potatoes: a body disc with two arms and two legs that swing on the clip clock
     const figs = [[-0.16, 0.0], [0.02, 0.01], [0.17, 0.005]].map(([x, z], i) => {
-      const g = new THREE.Group(); g.position.set(x, 0.0, z + 0.02); root.add(g);
+      const g = new THREE.Group(); g.position.set(x, 0.0, z + 0.02); g.scale.setScalar(1.7); root.add(g);   // 1.7x and a darker skin: they read as dancers from the lobby (Sol r2 #6)
       const b = mesh(new THREE.SphereGeometry(0.03, 12, 10), potato, g, 0, 0.055, 0); b.scale.set(1, 1.2, 0.2);
       const eye = basic("#3b2a20"); for (const s of [-1, 1]) mesh(new THREE.SphereGeometry(0.0045, 6, 5), eye, g, s * 0.01, 0.065, 0.007);
       const limb = (sx, sy, len) => { const a = new THREE.Group(); a.position.set(sx, sy, 0); g.add(a); mesh(new THREE.BoxGeometry(0.008, len, 0.006), potato, a, 0, -len / 2, 0); return a; };

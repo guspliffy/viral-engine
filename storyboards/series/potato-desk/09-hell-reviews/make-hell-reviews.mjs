@@ -37,7 +37,7 @@ const BX = 40;                                   // set B's world offset along x
 const B = (x, z) => [r3(BX + x), z];             // a set-B floor point
 const TER = 0.40;                                // the cloud terrace's top (set A)
 // set A marks (DESIGN §2)
-const REAP = [-0.82, 0.30], CHIP_A = [0.70, 0.10], DEV_DOOR = [0.80, -0.92], DEV_PEEK = [0.90, -2.15];   // DEV_PEEK: inside the hot box behind the hell door
+const REAP = [-0.82, 0.30], CHIP_A = [0.70, 0.10], DEV_DOOR = [0.80, -0.92], DEV_PEEK = [0.91, -2.15];   // a little left of the door centre, turned to the gap: both eyes in it, the arms inside the doorway (Sol r1 #1, r2 #4)   // DEV_PEEK: inside the hot box behind the hell door
 const REAP_YAW = 35, CHIP_YAW = -35;
 // parking spots far off camera (hidden there too)
 const PARK = { chip: [-30, 5], devil: [-34, 5], imp: [-38, 5], wedge: [-42, 5] };
@@ -64,7 +64,7 @@ const KETCHUP_AT = [BX + 1.20, 0.16, -0.40];   // in his hand by his side from t
 const KETCHUP = { id: "ketchup", staged: "parked under the world until a hand takes it on a cut", kind: "ketchupbottle", ...grips.placeFor("ketchupbottle", [BX + 1.20, AWAY, -0.40], -20) };
 const FORK = { id: "fork", staged: "parked under the world until a hand takes it on a cut", kind: "pitchfork", ...at3(BX + 0.62, AWAY, 0.30), rot: 90 };
 const TABD = { id: "tabletD", staged: "parked under the world until a hand takes it on a cut", kind: "reviewtablet", ...at3(BX + 1.15, AWAY, 0.30), rot: 135, scale: 0.8, lit: 0, hover: 0 };
-const TABR = { id: "tabletR", staged: "propped on the tub's rim", kind: "reviewtablet", ...at3(BX - 0.86, AWAY, 0.98), rot: 180, scale: 0.75, lit: 3, hover: 0 };   // front rim, screen to camera (Sol r1 #3)
+const TABR = { id: "tabletR", staged: "propped on the tub's rim", kind: "reviewtablet", ...at3(BX - 0.82, AWAY, 0.74), rot: 150, scale: 0.75, lit: 3, hover: 0 };   // on the rim at his right side, screen turned between him and the camera: his hand meets the screen from the front (Sol r1 #3, r2 #2)
 const LEAF = { id: "leaf", staged: "parked under the world until a hand takes it on a cut", kind: "palmleaf", ...at3(BX - 0.45, AWAY, 0.55), rot: 135 };
 const props = [
   // set A: the crossroads desk (DESIGN §2)
@@ -92,6 +92,13 @@ const props = [
   { id: "exit", staged: "set in the back wall", kind: "exitdoor", ...at3(BX + 1.10, 0, -1.30) },
   { id: "exitsign", staged: "screwed to the back wall", kind: "officesign", ...at3(BX + 1.10, 1.84, -1.27), w: 0.50, h: 0.20, lines: [["EXIT", 0.12]], plate: "#1f7a3a", ink: "#f3ead2", frame: "#d9a93a" },
   { id: "lights", staged: "hung on the wall", kind: "partylights", ...at3(BX, 0, -1.25) },
+  // party light (Sol r2 #7): soft additive colour pools on the wall and floor, and one faint wash in front of the two of
+  // them (the toon materials take no scene light), all off until the party snap
+  { id: "glowW1", staged: "light on the back wall", kind: "lightpool", ...at3(BX - 0.35, 1.20, -1.22), face: "z", w: 1.4, d: 1.1, color: "#ff5fa8", on: 0 },
+  { id: "glowW2", staged: "light on the back wall", kind: "lightpool", ...at3(BX + 0.85, 1.05, -1.22), face: "z", w: 1.2, d: 1.0, color: "#4fc8ff", on: 0 },
+  { id: "glowF1", staged: "light on the floor", kind: "lightpool", ...at3(BX - 0.10, 0, 0.55), w: 1.8, d: 1.1, color: "#ffcf2e", on: 0 },
+  { id: "glowF2", staged: "light on the floor", kind: "lightpool", ...at3(BX - 0.95, 0, 1.05), w: 1.2, d: 0.8, color: "#b06cff", on: 0 },
+  { id: "glowC", staged: "light falling on the two of them", kind: "lightpool", ...at3(BX - 0.15, 0.55, 1.45), face: "z", w: 1.6, d: 1.3, color: "#ff7ab8", on: 0 },
   { id: "tub", staged: "stands on the floor", kind: "lavatub", ...at3(BX - 1.30, 0, 0.50), glow: 1 },
   { id: "duck", staged: "floats on the tub", kind: "rubberduck", ...at3(BX - 1.12, 0.10, 0.42) },
   { id: "table", staged: "stands on the floor", kind: "buffettable", ...at3(BX + 1.63, 0, 0.25) },
@@ -122,12 +129,17 @@ const look = (t, who, to, dur = 0.2) => A(t, who, "look", { to, dur });
 const turn = (t, who, to, dur = 0.3) => A(t, who, "turn", { to, dur });
 const expr = (t, who, e, dur = 0.2) => A(t, who, "expr", { expr: e, dur });
 // placing someone on a cut (clip lessons: dur 0.01, linear, sync, at t - 0.02)
-const place = (t, who, to, yaw, y = 0) => {
+// at a cut the body is hidden for one gait sample (1/120 s, between two drawn frames) just before the jump: the step
+// planner's look-ahead stops at an off-feet moment but not at a teleport, so the feet strode toward the next shot's
+// spot in the last frames before the cut (Sol r2 #8). Skipped for park (it hides anyway).
+const place = (t, who, to, yaw, y = 0, blink = true) => {
+  if (blink && CUTS.has(t) && !HIDDEN.has(who)) { A(r3(t - 0.029), who, "hide"); A(r3(t - 0.02), who, "show"); }
   A(r3(t - 0.02), who, "move", { to, dur: 0.01, ease: "linear", sync: true, ...(y != null && { y }) });
   A(r3(t - 0.02), who, "turn", { to: yaw, dur: 0.01, ease: "linear", sync: true });
 };
-const park = (t, who) => { place(t, who, PARK[who], 0); A(r3(t - 0.02), who, "hide"); };
-const unpark = (t, who, to, yaw, y = 0) => { place(t, who, to, yaw, y); A(r3(t - 0.02), who, "show"); };
+const HIDDEN = new Set(["imp", "wedge", "devil"]);   // who is hidden now, in the order this file writes the clip (a blink must not show them)
+const park = (t, who) => { place(t, who, PARK[who], 0, 0, false); A(r3(t - 0.02), who, "hide"); HIDDEN.add(who); };
+const unpark = (t, who, to, yaw, y = 0) => { HIDDEN.add(who); place(t, who, to, yaw, y); A(r3(t - 0.02), who, "show"); HIDDEN.delete(who); };
 const poof = (t, pos, size = 0.45) => {
   c.at(r3(t), { fx: "poof", pos, dur: 0.4, color: "#f7fafc", puffs: 9, sparks: 0, size, lift: 0.08, sound: false });
   sfx(r3(t), "ai/cushion-poof", { gain: 0.55 });
@@ -153,14 +165,14 @@ const showProp = (t, id, y) => c.prop(t, id, { y }, 0);
 const camAt = (x, y = 1.45, fov = 26) => ({ pos: [r3(x), y, 10.4], look: [r3(x), y, 0], fov });
 const A_WIDE = camAt(0);
 const A_BADGE = { pos: [0.86, 2.03, 3.6], look: [0.86, 2.03, -1.3], fov: 24 };
-const A_PEEK = { pos: [0.90, 1.25, 2.3], look: [0.90, 1.15, -1.5], fov: 22 };   // square on the door: the Devil deep in the hot box fits inside the doorway (Sol r1 #1: he showed beside the jamb)   // the tag's insert: the Devil in the hell door's gap
+const A_PEEK = { pos: [0.80, 1.55, 3.4], look: [0.80, 1.50, -1.5], fov: 24 };   // the whole badge on top, his face in the gap below it (Sol r2 #4)   // square on the door: the Devil deep in the hot box fits inside the doorway (Sol r1 #1: he showed beside the jamb)   // the tag's insert: the Devil in the hell door's gap
 const B_C = camAt(BX), B_L = camAt(BX - 0.75), B_R = camAt(BX + 0.75);
 const B_GLASS = { pos: [BX - 1.60, 0.62, -4.3], look: [BX - 1.60, 0.50, -1.3], fov: 24 };
 const B_TAB = { pos: [BX + 0.62, 0.75, 4.7], look: [BX + 0.62, 0.75, 0.3], fov: 24 };
-const B_PAR = { pos: [BX + 0.15, 1.6, 8.6], look: [BX + 0.15, 1.2, 0], fov: 28 };   // the conga: closer and lower than the B_R massage shot before it
-const B_VIEW = { pos: [BX - 0.80, 1.45, 7.6], look: [BX - 0.80, 1.25, 0], fov: 26 };   // the view: a step closer than the party wide (B_C to B_L read as a skipped frame)
-const B_MAS = { pos: [BX + 0.55, 1.0, 6.4], look: [BX + 0.55, 0.75, 0], fov: 26 };   // massage: closer than the buffet's B_R (Sol r1 #6: the same framing read as a pop)
-const B_TUB = { pos: [BX - 0.80, 1.3, 6.0], look: [BX - 0.80, 0.6, 0], fov: 26 };   // four stars: closer and lower than B_L, so the cut from snap party reads as a cut
+const B_PAR = { pos: [BX + 0.15, 1.82, 8.6], look: [BX + 0.15, 1.42, 0], fov: 28 };   // (Sol r2 #5: raised 0.22 so the board sits under the caption line)   // the conga: closer and lower than the B_R massage shot before it
+const B_VIEW = { pos: [BX - 0.80, 1.65, 7.6], look: [BX - 0.80, 1.45, 0], fov: 26 };   // (raised 0.2: caption clear of the board, Sol r2 #5)   // the view: a step closer than the party wide (B_C to B_L read as a skipped frame)
+const B_MAS = { pos: [BX + 0.55, 0.66, 6.4], look: [BX + 0.55, 0.41, 0], fov: 26 };   // (lowered 0.34: the board rides up above the caption line, the caption sits on the wall under it, Sol r2 #5)   // massage: closer than the buffet's B_R (Sol r1 #6: the same framing read as a pop)
+const B_TUB = { pos: [BX - 0.92, 1.3, 6.0], look: [BX - 0.92, 0.6, 0], fov: 26 };   // four stars: closer and lower than B_L, so the cut from snap party reads as a cut
 const B_DEVIL = { pos: [BX + 0.40, 0.78, 4.6], look: [BX - 0.28, 0.66, 0.3], fov: 24 };   // from the right: the window, the balloons and the beach behind him, not the board
 const shots = [];
 // cuts on the 2-frame grid animeTiming draws (a cut on an odd frame shows the old drawing one frame into the new shot)
@@ -274,7 +286,7 @@ t = r3(t + 0.55);
 // 8 MASSAGE (B-R): on the mat, the imp pokes his back with the pitchfork; he hops on each. X on row 3
 const MAS = shot("massage", t, B_MAS);
 dropHidden(MAS, "devil", "ketchup");
-place(MAS, "chip", B(0.20, 0.40), -70); place(MAS, "devil", B(1.30, -0.70), -30);
+place(MAS, "chip", B(0.20, 0.40), -90); place(MAS, "devil", B(1.30, -0.70), -30);   // he stands in pure profile: his back is the right edge, the prongs meet it in plain view (Sol r2 #3)
 arm(MAS, "chip", "both", "rest", 0.01); grip(MAS, "chip", "both", "open", 0.01);
 arm(MAS, "devil", "both", "rest", 0.01); grip(MAS, "devil", "both", "relaxed", 0.01);
 const IMP = B(1.05, 0.40), IMP_YAW = -90;
@@ -285,9 +297,11 @@ const FORK_AT = [r3(IMP[0] - 0.02), 0, r3(IMP[1] - 0.12)];
 c.prop(r3(MAS - 0.02), "fork", { ...grips.placeFor("pitchfork", FORK_AT, IMP_YAW) }, 0);
 const hf = grips.mug(c, "imp", { ...FORK, ...grips.placeFor("pitchfork", FORK_AT, IMP_YAW) }, { side: "R" });
 hf.take(r3(MAS - 0.015), { reach: 0.01, settle: 0.01 });
-e = hf.carry(r3(MAS + 0.1), [r3(IMP[0] - 0.12), 0.16, r3(IMP[1] - 0.05)], 0.7, "inOut", { tip: -68 });   // the head at his back, y ~0.35
-for (let k = 0; k < 4; k++) {
+const FORK_BACK = [r3(IMP[0] - 0.12), 0.16, r3(IMP[1])], FORK_JAB = [r3(IMP[0] - 0.22), 0.16, r3(IMP[1])];
+e = hf.carry(r3(MAS + 0.1), FORK_BACK, 0.7, "inOut", { tip: -68 });   // the head a hand off his back, y ~0.35
+for (let k = 0; k < 4; k++) {   // each poke: the whole fork jabs 10 cm in, he hops on that contact, it pulls back (Sol r2 #3: the shaft barely moved)
   const p = r3(e + 0.1 + k * 0.5);
+  hf.carry(p, FORK_JAB, 0.12, "out", { tip: -68 }); hf.carry(r3(p + 0.14), FORK_BACK, 0.22, "inOut", { tip: -68 });
   A(p, "imp", "lean", { to: 10, dur: 0.12, ease: "out" }); A(r3(p + 0.15), "imp", "lean", { to: 0, dur: 0.2 });
   A(r3(p + 0.12), "chip", "hop", { count: 1, height: 0.04, quiet: true });
   sfx(r3(p + 0.12), "kenney/impact-soft-medium", { gain: 0.5 });
@@ -305,10 +319,11 @@ dropHidden(PAR, "imp", "fork"); park(PAR, "imp");
 // the conga (Sol r1 #13: two backs; in profile the faces didn't read either): one diagonal lane toward us and to the
 // right, so both faces show three-quarter; the little one in front (the subject owns the front), the Devil 0.75 m behind
 // him, arms up, herding him on: a conga he can't leave
-const LANE = 49, ld = [Math.sin(LANE * Math.PI / 180), Math.cos(LANE * Math.PI / 180)], P0 = B(-0.30, 0.20), RUN = 0.95;
-const laneAt = (k) => [r3(P0[0] + k * ld[0]), r3(P0[1] + k * ld[1])];
-place(PAR, "chip", laneAt(0), LANE); A(r3(PAR + 0.05), "chip", "move", { to: laneAt(RUN), dur: 2.7 });
-place(PAR, "devil", laneAt(-0.75), LANE); A(r3(PAR + 0.05), "devil", "move", { to: laneAt(RUN - 0.75), dur: 2.7 });
+const LANE = 15, ld = [Math.sin(LANE * Math.PI / 180), Math.cos(LANE * Math.PI / 180)], P0 = B(-0.05, 0.15), RUN = 0.95;   // down the carpet toward us (Sol r2 #9)
+const laneAt = (k, side = 0) => [r3(P0[0] + k * ld[0] + side), r3(P0[1] + k * ld[1])];
+// one shared conga step: the same cadence and bob for both (Sol r2 #9), the Devil a step to the left so his face shows
+place(PAR, "chip", laneAt(0), LANE); A(r3(PAR + 0.05), "chip", "move", { to: laneAt(RUN), dur: 2.7, steps: 3, bob: 0.03 });
+place(PAR, "devil", laneAt(-0.75, -0.30), LANE); A(r3(PAR + 0.05), "devil", "move", { to: laneAt(RUN - 0.75, -0.30), dur: 2.7, steps: 3, bob: 0.03 });
 arm(PAR, "devil", "both", { o: [0.30, 0.85, 0.10] }, 0.01); arm(PAR, "chip", "both", "rest", 0.01);
 expr(PAR, "chip", "annoyed", 0.01);
 for (let k = 0; k < 4; k++) { sfx(r3(PAR + k * 0.9), "kenney/low-three-tone", { gain: 0.7 }); c.prop(r3(PAR + k * 0.9), "speaker", { puff: 1 }, 0.08, "out"); c.prop(r3(PAR + k * 0.9 + 0.1), "speaker", { puff: 0 }, 0.15); }
@@ -362,7 +377,7 @@ const tdAt0 = TABD_AT(DEV_IN[0], DEV_IN[1], DEV_IN_YAW);
 c.prop(r3(EXI - 0.02), "tabletD", { ...grips.placeFor("reviewtablet", tdAt0, DEV_IN_YAW) }, 0);
 const htd = grips.box(c, "devil", { ...TABD, ...grips.placeFor("reviewtablet", tdAt0, DEV_IN_YAW) });
 htd.take(r3(EXI - 0.015), { reach: 0.01, settle: 0.01 });
-const CHIP_X = B(0.20, 0.34);   // in reach of the Devil's tablet (Sol r1 #2: the finger missed it)
+const CHIP_X = B(0.25, 0.38);   // in reach of the Devil's tablet (Sol r1 #2: the finger missed it)
 step(EXI, "chip", CHIP_X, 0.9, { steps: 3 });
 const DEV_BLOCK = B(0.95, 0.0);
 step(r3(EXI + 0.3), "devil", DEV_BLOCK, 0.5); turn(r3(EXI + 0.3), "devil", -45, 0.4);
@@ -389,7 +404,7 @@ t = say(18, r3(TAB2 + 0.05));
 // the tablet slips out of his hands in the shock and clatters to the floor (Sol r1 #7: it used to jump into the little
 // one's hands on the cut; a hand-over put hands in faces, workflow rule 5: restage simpler). Rated by voice from here.
 // an aimed drop with a forward tumble (a plain let-go landed it standing on its edge): it falls flat, face down
-const DROP_AT = [r3(tdAt0[0] - 0.5 * 0.25), 0.0, r3(tdAt0[2] + 0.866 * 0.25)];
+const DROP_AT = [r3(BX + 0.58), 0.0, 0.52];   // in front of him, between them (tdAt0 was stale: it threw the tablet back under his tail, Sol r2 #8)
 A(r3(T[18] + 0.25), "devil", "release", { prop: "tabletD", to: DROP_AT, dur: 0.4, spin: [5.2, 0, 3.0] });
 arm(r3(T[18] + 0.29), "devil", "both", { o: [0.32, 0.75, 0.18] }, 0.2, "out"); grip(r3(T[18] + 0.25), "devil", "both", "open", 0.15);
 sfx(r3(T[18] + 0.62), "kenney/impact-generic-light", { gain: 0.45 });
@@ -399,7 +414,7 @@ see(TAB2, t, ["devil.face", "chip.face"], "the Devil's smile cracks; the tablet 
 // 13 snap 1 (B-L): the lava turns into a bubble bath with the duck; X peels off HOT TUB. He holds the tablet now (1 star)
 const S1 = shot("snap tub", r3(t + 0.15), B_L);
 c.prop(r3(S1 - 0.03), "tabletD", { scale: 0.001 }, 0);   // the dropped tablet goes on the cut (it lay where he stands in this shot)
-const CHIP_S = B(0.22, 1.05), CHIP_S_YAW = -30;
+const CHIP_S = B(0.08, 1.10), CHIP_S_YAW = -30;
 place(S1, "devil", B(-0.32, 0.45), -40); place(S1, "chip", CHIP_S, CHIP_S_YAW);
 arm(S1, "devil", "both", "rest", 0.01); grip(S1, "devil", "both", "relaxed", 0.01);
 arm(S1, "chip", "both", "rest", 0.01); grip(S1, "chip", "both", "relaxed", 0.01);
@@ -446,6 +461,7 @@ e = snap(r3(S3 + 0.1));
 poof(e, [BX - 1.60, 1.10, -1.0], 0.8);
 poof(e, [BX - 0.80, 1.20, -1.0], 0.75);   // Sol r1 #14: the balloons came in above the puff
 c.prop(r3(e + 0.03), "lights", { on: 1 }, 0.1); c.prop(r3(e + 0.03), "room", { bright: 1 }, 0.5);
+for (const [id, on] of [["glowW1", 1], ["glowW2", 1], ["glowF1", 0.8], ["glowF2", 0.8], ["glowC", 0.3]]) c.prop(r3(e + 0.03), id, { on }, 0.3, "out");
 c.prop(r3(e + 0.03), "balloon", { cluster: 1 }, 0.1);
 hideProp(r3(e + 0.03), "island"); hideProp(r3(e + 0.03), "rock");
 showProp(r3(e + 0.03), "beach", 1.05); showProp(r3(e + 0.03), "sunset", 1.0);
@@ -458,9 +474,9 @@ see(S3, t, ["chip.face", "board", "window"], "a real party and a sunset beach; t
 
 // 16 four stars (B-L): he lounges in the foam; the Devil fans him, sweating; he taps the tablet on the rim
 const S4 = shot("four stars", r3(t + 0.3), B_TUB);
-const CHIP_TUB = B(-1.24, 0.66);   // forward in the tub: the rim tablet in arm's reach
+const CHIP_TUB = B(-1.20, 0.42);   // in the middle of the foam (Sol r2 #10: at the front rim he hid it), the rim tablet in arm's reach
 place(S4, "chip", CHIP_TUB, 30, -0.06);   // sits in the foam: head top about y 0.61, the foam to his chest
-showProp(r3(S4 - 0.02), "tabletR", 0.08);
+showProp(r3(S4 - 0.02), "tabletR", 0.14);
 const DEV_FAN = B(-0.28, 0.30), DEV_FAN_YAW = -60;
 place(S4, "devil", DEV_FAN, DEV_FAN_YAW); arm(S4, "devil", "L", "rest", 0.01);   // R holds the leaf from the cut
 const leafAt = [r3(DEV_FAN[0] + 0.46 * Math.sin(DEV_FAN_YAW * Math.PI / 180)), 0.30, r3(DEV_FAN[1] + 0.46 * Math.cos(DEV_FAN_YAW * Math.PI / 180))];
@@ -499,7 +515,7 @@ see(SOB, r3(t + 0.2), ["devil.face"], "the Devil sobs: four stars");
 const TAG = shot("tag", r3(t + 0.4), A_WIDE, "payoff");
 park(TAG, "chip"); arm(TAG, "devil", "both", "rest", 0.01); grip(TAG, "devil", "both", "relaxed", 0.01);
 c.prop(r3(TAG - 0.02), "doorX", { open: 0, glow: 0 }, 0.01);
-place(TAG, "devil", DEV_PEEK, 0, TER); A(r3(TAG - 0.02), "devil", "hide"); A(TAG, "devil", "face", { lid: 0.2, brow: 0.5, corner: -0.5, tear: 0.6, dur: 0.01 });
+place(TAG, "devil", DEV_PEEK, -20, TER, false); A(r3(TAG - 0.02), "devil", "hide"); HIDDEN.add("devil"); A(TAG, "devil", "face", { lid: 0.2, brow: 0.5, corner: -0.5, tear: 0.6, dur: 0.01 });
 expr(TAG, "devil", "sad", 0.01);
 unpark(TAG, "wedge", [0.88, 0.10], CHIP_YAW);
 look(TAG, "reaper", [0.6, -0.1], 0.01); A(TAG, "reaper", "face", { lid: 0, dur: 0.01 });
@@ -511,9 +527,10 @@ t = say(26, r3(t + 0.2), {}, r3(t + 0.2 + DUR[26] + 0.06));
 see(TAG, t, ["wedge.face", "reaper.face", "badgeX"], "the next one already knows: Hell. One star.");
 // the insert: the hell door opens a crack; the Devil's wet eyes in the gap
 const PEEK = shot("peek", r3(t + 0.1), A_PEEK);
-A(r3(PEEK - 0.02), "devil", "show"); A(r3(PEEK - 0.02), "wedge", "hide"); hideProp(r3(PEEK - 0.02), "scythe");
-c.prop(PEEK, "doorX", { open: 0.75 }, 0.3, "out"); sfx(PEEK, "door-creak", { gain: 0.6 });
+A(r3(PEEK - 0.02), "devil", "show"); A(r3(PEEK - 0.02), "wedge", "hide"); HIDDEN.delete("devil"); HIDDEN.add("wedge"); hideProp(r3(PEEK - 0.02), "scythe");
+c.prop(PEEK, "doorX", { open: 0.55 }, 0.3, "out");   // a half-open gap (Sol r2 #4: 0.75 swung the door out of frame) sfx(PEEK, "door-creak", { gain: 0.6 });
 look(PEEK, "devil", AT_US, 0.01);
+arm(r3(PEEK - 0.02), "devil", "both", { o: [-0.02, 0.40, 0.26] }, 0.01);   // hands together in front: no glove pokes past the jamb
 t = say(27, r3(PEEK + 0.35), { soft: true });
 const END = F2(t + 0.8);
 see(PEEK, END, ["devil.face"], "...Nooo.");
