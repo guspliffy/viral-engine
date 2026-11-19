@@ -1,0 +1,424 @@
+{
+ "id": "eg-past-nile",
+ "title": "EP04 past places bench: the Nile",
+ "idea": "Props bench for EP04 past places part 1 (memphiscourt, palm, apisbier, nilebarge, nilebanks), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "frame": "wide",
+ "set": {
+  "type": "plain",
+  "color": "#d8956c",
+  "floor": "shadow",
+  "shadow": 0,
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    1.89,
+    1.392,
+    9.721
+   ],
+   "light": "#ffb070",
+   "shadow": "#6a5a8a",
+   "exposure": 0.95
+  }
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    60,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "aasky",
+   "x": 0.2,
+   "z": 10.9,
+   "time": "sunset",
+   "sun": [
+    11,
+    5
+   ]
+  },
+  {
+   "id": "nile",
+   "kind": "nilewater",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "size": [
+    180,
+    115
+   ],
+   "reflect": [
+    [
+     0.2,
+     2.4,
+     9.5,
+     5
+    ]
+   ],
+   "wake": [
+    [
+     -4.6,
+     0,
+     0.9
+    ]
+   ]
+  },
+  {
+   "id": "banks",
+   "kind": "nilebanks",
+   "x": 0,
+   "z": 0,
+   "sunset": true,
+   "trackFrom": [
+    0.2,
+    10.9
+   ],
+   "sunAz": 11
+  },
+  {
+   "id": "barge",
+   "kind": "nilebarge",
+   "x": 0,
+   "y": -0.42,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "n09",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     2.16,
+     10.9
+    ],
+    "look": [
+     0.21,
+     1.67,
+     0
+    ],
+    "fov": 31
+   },
+   "do": []
+  },
+  {
+   "name": "bow",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.2,
+     1.7,
+     4.2
+    ],
+    "look": [
+     -3.4,
+     1,
+     0.5
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barge",
+     "set": {
+      "row": 0.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "oars25",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.5,
+     1.2,
+     6.4
+    ],
+    "look": [
+     0.5,
+     0.7,
+     0
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barge",
+     "set": {
+      "row": 0.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "oars75",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.5,
+     1.2,
+     6.4
+    ],
+    "look": [
+     0.5,
+     0.7,
+     0
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barge",
+     "set": {
+      "row": 0.75
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "oars50",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.5,
+     1.4,
+     5.5
+    ],
+    "look": [
+     2.4,
+     0.7,
+     0.4
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barge",
+     "set": {
+      "row": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "cargo",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.6,
+     3.6,
+     5.8
+    ],
+    "look": [
+     0.3,
+     2.2,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barge",
+     "set": {
+      "row": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sail",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3.6,
+     3.2,
+     6
+    ],
+    "look": [
+     -1.9,
+     3.1,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "stern",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.4,
+     2.4,
+     -3.4
+    ],
+    "look": [
+     3.6,
+     1.4,
+     -0.6
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "waterline",
+   "at": 8.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     0.55,
+     4.6
+    ],
+    "look": [
+     0.5,
+     0.45,
+     0
+    ],
+    "fov": 38
+   },
+   "do": []
+  },
+  {
+   "name": "deck",
+   "at": 9.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     5.2,
+     3.2
+    ],
+    "look": [
+     0.3,
+     1.1,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "banks",
+   "at": 10.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.6,
+     10.9
+    ],
+    "look": [
+     -9,
+     2.2,
+     -30
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barge",
+     "set": {
+      "drift": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bankWide",
+   "at": 11.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -10,
+     3,
+     14
+    ],
+    "look": [
+     10,
+     2,
+     -40
+    ],
+    "fov": 50
+   },
+   "do": []
+  }
+ ],
+ "allowClip": [],
+ "notes": "Generated by storyboards/series/ancient-aliens/04-serapeum/bench/make-eg-past.mjs (props bench, no reviews)."
+}

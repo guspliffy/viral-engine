@@ -1,0 +1,732 @@
+{
+ "id": "eg-pharaoh",
+ "title": "Pharaoh bench",
+ "idea": "Cast bench for the Pharaoh and the Memphis priests (T1), not a clip",
+ "frame": "wide",
+ "far": 900,
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#bcd4ea",
+  "floor": "shadow"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "phA",
+   "spudA"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "phA",
+   "character": "ancient-aliens/pharaoh",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "spudA",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.4,
+    0.2
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "phB",
+   "character": "ancient-aliens/pharaoh",
+   "at": [
+    40,
+    40
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "phC",
+   "character": "ancient-aliens/pharaoh",
+   "at": [
+    80,
+    80
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "phD",
+   "character": "ancient-aliens/pharaoh",
+   "at": [
+    120,
+    120
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "phE",
+   "character": "ancient-aliens/pharaoh",
+   "at": [
+    160,
+    160
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "phF",
+   "character": "ancient-aliens/pharaoh",
+   "at": [
+    200,
+    200
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "phG",
+   "character": "ancient-aliens/pharaoh",
+   "at": [
+    240,
+    240
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "phH",
+   "character": "ancient-aliens/pharaoh",
+   "at": [
+    280,
+    280
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "wkI",
+   "character": "ancient-aliens/worker-a",
+   "at": [
+    318.5,
+    320.1
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5.5
+  },
+  {
+   "id": "prI1",
+   "character": "ancient-aliens/priest",
+   "at": [
+    319.5,
+    320
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5.5
+  },
+  {
+   "id": "prI2",
+   "character": "ancient-aliens/priest",
+   "at": [
+    320.5,
+    320
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5.5
+  },
+  {
+   "id": "plI",
+   "character": "ancient-aliens/priest-leopard",
+   "at": [
+    321.5,
+    320
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5.5
+  },
+  {
+   "id": "wkJ",
+   "character": "ancient-aliens/worker-a",
+   "at": [
+    358.5,
+    360.1
+   ],
+   "face": 30,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5.5
+  },
+  {
+   "id": "prJ1",
+   "character": "ancient-aliens/priest",
+   "at": [
+    359.5,
+    360
+   ],
+   "face": 30,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5.5
+  },
+  {
+   "id": "plJ",
+   "character": "ancient-aliens/priest-leopard",
+   "at": [
+    360.7,
+    360
+   ],
+   "face": 30,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5.5
+  },
+  {
+   "id": "phK",
+   "character": "ancient-aliens/pharaoh",
+   "at": [
+    400,
+    400
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1,
+   "text": "A front, Spud beside him for scale",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 1.1,
+   "to": 2,
+   "text": "B three-quarter",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 2.1,
+   "to": 3,
+   "text": "C side (his left)",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 3.1,
+   "to": 4,
+   "text": "D face close-up: kohl lids, raised brow, thin mouth, plait under the chin",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 4.1,
+   "to": 5,
+   "text": "E eyes slide sideways (look 0.7, lids 0.47)",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 5.1,
+   "to": 6,
+   "text": "F cough into the right wrapped hand",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 6.1,
+   "to": 7,
+   "text": "G arms spread wide, palms to the camera",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 7.1,
+   "to": 8,
+   "text": "H from behind: nemes tail, bands, free ends",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 8.1,
+   "to": 9,
+   "text": "I a worker, two priests, the leopard priest",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 9.1,
+   "to": 10,
+   "text": "J worker, priest, leopard priest: three-quarter",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 10.1,
+   "to": 11,
+   "text": "K hands and wraps close: right fist, left point",
+   "pos": 1860,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  }
+ ],
+ "beats": [
+  {
+   "name": "A",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.7,
+     0.716,
+     3.168
+    ],
+    "look": [
+     -0.7,
+     0.55,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "B",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     41.545,
+     0.78,
+     41.978
+    ],
+    "look": [
+     40,
+     0.56,
+     40
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "C",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     82.516,
+     0.692,
+     80
+    ],
+    "look": [
+     80,
+     0.56,
+     80
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "D",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     120,
+     0.74,
+     121.357
+    ],
+    "look": [
+     120,
+     0.74,
+     120.2
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "E",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     160,
+     0.72,
+     161.655
+    ],
+    "look": [
+     160,
+     0.72,
+     160.2
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "phE",
+     "do": "look",
+     "to": [
+      0.7,
+      0
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phE",
+     "do": "face",
+     "lidL": 0.47,
+     "lidR": 0.47,
+     "dur": 0.01,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "F",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     200.573,
+     0.737,
+     201.724
+    ],
+    "look": [
+     200,
+     0.62,
+     200.15
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "phF",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.34,
+       0.455,
+       0.35
+      ],
+      "frame": {
+       "y": [
+        0.1,
+        1,
+        0.1
+       ],
+       "z": [
+        0.35,
+        0,
+        -1
+       ],
+       "elbow": 1
+      }
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phF",
+     "do": "face",
+     "lidL": 1,
+     "lidR": 1,
+     "browL": -0.3,
+     "browR": -0.3,
+     "dur": 0.01,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "G",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     240,
+     0.696,
+     242.895
+    ],
+    "look": [
+     240,
+     0.55,
+     240.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "phG",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.3,
+       0.12
+      ],
+      "frame": {
+       "y": [
+        0,
+        0.4,
+        0.9
+       ],
+       "z": [
+        0,
+        1,
+        0
+       ]
+      }
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phG",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.3,
+       0.12
+      ],
+      "frame": {
+       "y": [
+        0,
+        0.4,
+        0.9
+       ],
+       "z": [
+        0,
+        1,
+        0
+       ]
+      }
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phG",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phG",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "H",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     280,
+     0.736,
+     277.487
+    ],
+    "look": [
+     280,
+     0.56,
+     280
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "I",
+   "at": 8.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     320,
+     0.684,
+     324.472
+    ],
+    "look": [
+     320,
+     0.45,
+     320
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "J",
+   "at": 9.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     361.977,
+     0.667,
+     362.787
+    ],
+    "look": [
+     359.8,
+     0.42,
+     360
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "K",
+   "at": 10.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     400,
+     0.493,
+     402.17
+    ],
+    "look": [
+     400,
+     0.4,
+     400.4
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "phK",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.3,
+       0.5
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phK",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       0.3,
+       0.5
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phK",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phK",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.01,
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/04-serapeum/bench/make-eg-pharaoh.mjs (cast bench, no reviews)."
+}
