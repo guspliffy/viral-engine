@@ -124,8 +124,7 @@
    "text": "Granite. From the south. By boat.",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 0,

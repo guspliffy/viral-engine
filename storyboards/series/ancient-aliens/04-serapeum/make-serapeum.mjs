@@ -44,10 +44,10 @@ const gallery = (o = {}) => ({ id: "gallery", kind: "gallery", x: 0, z: 0, lids:
 const box = (id, bay, o = {}) => ({ id, kind: "granitebox", x: 1.55, y: -0.18, z: BAY(bay), rot: -90, lidSlide: 0, ...o });
 
 // ---- one segment: its own clip, its times written in story seconds (t0 = the segment's first frame)
-function segment(F, t0, t1, fill, story) {   // story = where the segment starts in the cut (its music slice); times inside are design times
-  const c = clip({ faces: "strong" }), T = (t) => r3(t - t0);
+function segment(F, t0, t1, fill, story, warp = (t) => t) {   // story = where the segment starts in the cut (its music slice); times inside are design times; warp = re-times the design (seg1: shorter box shot)
+  const c = clip({ faces: "strong" }), T = (t) => r3(warp(t) - t0);
   const S = {
-    c, F, T, END: r3(t1 - t0),
+    c, F, T, END: r3(warp(t1) - t0),
     A: (t, who, what, o) => c.at(T(t), { who, do: what, ...o }),
     place(t, who, xz, yaw, y = 0) { S.A(t - 0.02, who, "move", { to: xz, y, dur: 0.01, steps: 0, ease: "linear", sync: true }); S.A(t - 0.02, who, "turn", { to: yaw, dur: 0.01, ease: "linear", sync: true }); },
     walk: (t, who, xz, dur, o = {}) => S.A(t, who, "move", { to: xz, dur, ...o }),
@@ -61,7 +61,7 @@ function segment(F, t0, t1, fill, story) {   // story = where the segment starts
     say(t, k, next) {
       const [who, line, tone, take] = LINES[k], d = DUR[k], hold = next == null ? 0.4 : Math.max(0, Math.min(0.4, r3(next - t - d - 0.05)));
       c.at(T(t), { macro: "say", who, line, tone, dur: d, voice: VOICE[who], caption: false, ...(take && { take }) });
-      c.cap(T(t), T(t + d + hold), line, F.SUB, false, { size: F.subSize, kinetic: false });
+      c.cap(T(t), T(t + d + hold), line, F.SUB, false, { size: F.subSize });   // kinetic: each word appears as it is said (Jonny 19 Nov: the lettering showed before the spoken word)
       return r3(t + d);
     },
     num: (a, b, text, { y = F.NUM, ...o } = {}) => c.cap(T(a), T(b), text, y, false, { size: F.numSize, kinetic: false, ...o }),
@@ -85,36 +85,55 @@ const LIPS = { o: [-0.37, 0.4, 0.56], frame: { y: [0.1, 1, 0.1], z: [0.35, 0, -1
 const cam = (pos, look, fov, to, dur, ease = "inOut") => ({ pos, look, fov, ...(to && { to, dur, ease }) });
 const tv = (F, w, t) => (F.key === "tall" ? t : w);
 
-// ================================================================= 0. SAQQARA TODAY 0-3.9 (draft 2, Jonny 18 Nov: "expect that the viewer knows nothing")
-// a crane from the step pyramid down to the cliff and the tunnel mouth; Spud walks in: "Egypt. Under this desert lies a secret tunnel."
-const seg0 = (F) => segment(F, 0, 3.9, (S) => {
-  const cast = [{ id: "spud", character: CAST.spud, at: [2.0, 4.0], face: 212, expr: "neutral", follow: 0.2, seed: 4.1 }];
+// ================================================================= THE OPENING (Jonny 19 Nov): one narrator line, take 3, played as two
+// recordings so it can run across the cut from the desert into the tunnel (voice/eg04-open-a.flac + -b.flac, cut in the pause
+// after "Egypt:"): "Under Egypt: | twenty-four sixty-tonne boxes. All empty. Who really put them there?", then straight
+// into "All that... for one dead cow?"
+const OPEN_A = { line: "Under Egypt:", file: "storyboards/series/ancient-aliens/04-serapeum/voice/eg04-open-a.flac", dur: 0.88 };
+const OPEN_B = { line: "Twenty-four sixty-tonne boxes. All empty. Who really put them there?", file: "storyboards/series/ancient-aliens/04-serapeum/voice/eg04-open-b.flac", dur: 3.87 };
+const rec = (S, t, o, next) => {
+  S.c.at(S.T(t), { macro: "say", who: "spud", line: o.line, rec: o.file, dur: o.dur, caption: false });
+  S.c.cap(S.T(t), S.T(next), o.line, S.F.SUB, false, { size: S.F.subSize });   // kinetic: each word as it is said
+};
+
+// ================================================================= 0. SAQQARA TODAY 0-1.0: "Under Egypt:"
+// the crane dives from the step pyramid down to the cliff and the dark tunnel mouth
+const seg0 = (F) => segment(F, 0, 1.0, (S) => {
+  const cast = [{ id: "spud", character: CAST.spud, at: [1.0, 2.2], face: 212, expr: "neutral", follow: 0.2, seed: 4.1 }];
   const props = [{ id: "sky", kind: "aasky", time: "day" }, { id: "desert", kind: "saqqara", x: 0, z: 0, mouth: true, staged: "the ground itself (desert slab and cliff)" },
     { id: "djoser", kind: "djoser", x: -48, y: 2.6, z: -40, rot: 14, staged: "stands on a far rise behind the cliff (DESIGN.md), 60 m away" }, host("spud", 1)];
   S.look(0, "spud", [0, 0.1], 0.01);
-  S.walk(0.1, "spud", [0.4, 1.4], 3.6, { ease: "linear" });
-  S.say(0.15, "n01", 3.9);
-  S.c.cap(S.T(0.3), S.T(3.9), "SAQQARA, EGYPT", S.F.tag.y, false, { style: "label", size: S.F.tag.size, kinetic: false, x: S.F.W / 2 });   // the place, centred (the left tag spot is too narrow)
-  S.shot("00 Saqqara", 0, cam([6.9, 6.0, 5.8], [-6, 3.0, -5], tv(S.F, 46, 60), { pos: [3.4, 2.1, 4.6], look: [0, 1.1, 0] }, 3.9), "hook");
+  S.walk(0.05, "spud", [0.6, 1.5], 0.95, { ease: "linear" });
+  rec(S, 0.1, OPEN_A, 1.0);
+  S.c.cap(S.T(0.05), S.T(1.0), "SAQQARA, EGYPT", S.F.tag.y, false, { style: "label", size: S.F.tag.size, kinetic: false, x: S.F.W / 2 });   // the place, centred (the left tag spot is too narrow)
+  S.shot("00 Saqqara", 0, cam([6.9, 6.0, 5.8], [-6, 3.0, -5], tv(S.F, 46, 60), { pos: [3.6, 2.6, 5.2], look: [0, 1.1, 0] }, 1.0, "in"), "hook");
   return { id: `eg04-0-${S.F.key}`, title: "Sixty tonnes (0: Saqqara)", idea: "seg 0 of 7", set: DAY, cast, props,
     sound: { signature: false, sfx: 0.6, ambience: 0.06, surface: "sand", room: "open", guard: true },
-    hook: { show: ["spud"], hint: 0, what: "the step pyramid, a desert cliff with a dark tunnel mouth; Spud walks toward it" },
+    hook: { show: ["spud"], hint: 0, what: "the step pyramid, a desert cliff with a dark tunnel mouth; the camera dives toward it" },
     allowClip: [...lampClip(["spud"], S.END)],
-    notes: "Generated by make-serapeum.mjs, segment 0 (story 0-3.9)." };
-}, 0);
+    notes: "Generated by make-serapeum.mjs, segment 0 (story 0-1.0)." };
+}, 2.9);   // music from 2.9 s: the cut is 2.9 s shorter than before, the score after it keeps its place
 
-// ================================================================= 1. TUNNEL 0-8: the box, the corridor, the Pharaoh steps out
-const seg1 = (F) => segment(F, 0, 13.9, (S) => {
+// ================================================================= 1. TUNNEL 1.0-17.8: the boxes, the tunnel, the corridor, the Pharaoh steps out
+// The opening shots are written in segment time (N), the older beats keep their design times: warp drops the old box shot
+// (design 0-4) and starts the corridor beat at 4.0 s into the segment (Jonny 19 Nov: no 350 m tunnel shot).
+const seg1 = (F) => segment(F, -4.0, 13.9, (S) => {
+  const N = (t) => r3(t - 4.0);   // segment time -> design time (4.0 = frame 120: the old beats' "place" 0.02 s before a cut lands inside the frame before it)
   const cast = [
-    { id: "spud", character: CAST.spud, at: [0.2, 0.37], face: 90, expr: "neutral", follow: 0.2, seed: 4.1 },
-    { id: "pharaoh", character: CAST.pharaoh, at: [-1.55, -4.4], y: -0.18, face: 70, expr: "neutral", seed: 7.3 },
+    { id: "spud", character: CAST.spud, at: [0.3, 0.37], face: 90, expr: "neutral", follow: 0.2, seed: 4.1 },
+    { id: "pharaoh", character: CAST.pharaoh, at: [-1.55, -60], y: -0.18, face: 70, expr: "neutral", seed: 7.3, staged: "waits out of sight until his chamber beat" },
   ];
-  const props = [gallery({ omit: ["R0", "R4", "L1"] }), box("boxR0", 0, { reflect: true }), box("boxR4", 4, { lidSlide: 0.324111 }), ...LAMPS, host("spud", 1)];
-  // 01 (0-4): his lamp on a box the size of a van: "Inside: twenty-four stone boxes. Sixty tonnes each."
-  S.look(0, "spud", [0.1, 0.45], 0.01); S.expr(0, "spud", "neutral", { brow: 0.7, lid: 0.2 }, 0.01);
-  S.say(0.15, "s01a", 4.0);
-  S.num(2.2, 4.0, "60 t", { y: tv(S.F, 250, S.F.NUM) });   // over Spud's head (camfit: only 210 is free in the tall frame, 265 = inside the safe zone)
-  S.shot("01 the box", 0, cam([-0.75, 1.3, 2.2], [1.05, 0.78, -0.1], tv(S.F, 42, 56), { pos: [-0.65, 1.27, 1.95] }, 4.0));   // Spud whole on the left (Sol: a sliver at the edge)
+  const props = [gallery({ omit: ["R0", "R4", "L1"] }), box("boxR0", 0, { reflect: true }), box("boxR4", 4, { lidSlide: 0.6 }), ...LAMPS, host("spud", 1)];   // lid well open: "All empty." looks into it
+  rec(S, N(0.0), OPEN_B, N(3.98));   // (N(4.0) = design 0 = the dropped old box shot)
+  S.A(N(0.02), "spud", "noblink", { dur: 6.7 });
+  // B1 (0-1.9) "twenty-four sixty-tonne boxes.": the camera flies down the aisle, a black box in every chamber
+  S.num(N(0.5), N(2.75), "60 t", { y: tv(S.F, 250, S.F.NUM) });
+  S.shot("B1 the aisle", N(0), cam([-0.55, 2.0, -1.5], [0.7, 0.7, -11.5], tv(S.F, 52, 66), { pos: [-0.55, 1.9, -11.0], look: [0.7, 0.6, -21.0] }, 1.9, "linear"));
+  // B2 (1.9-2.75) "All empty.": over the open lid, black inside
+  S.shot("B2 the open lid", N(1.9), cam([0.1, 2.95, -18.5], [1.35, 0.5, -17.3], tv(S.F, 50, 64), { pos: [0.15, 2.85, -18.4] }, 0.85));   // the camera of the late "Where's the cow?" shot: straight into the open box
+  // B3 (2.75-4.0) "Who really put them there?": Spud small at the foot of a box, looking up at it
+  S.look(N(2.7), "spud", [1.55, 0], 0.01); S.expr(N(2.7), "spud", "surprised", { open: 0.35, brow: 0.9 }, 0.01);
+  S.shot("B3 Spud and the box", N(2.75), cam([-0.7, 0.85, 2.9], [1.35, 1.25, -0.1], tv(S.F, 46, 54), { pos: [-0.65, 0.8, 2.7] }, 1.25));
   // 02 (4-6.8): the corridor, a box in every chamber; the counter runs to 24: "All that... for one dead cow?"
   S.place(4.0, "spud", [-0.2, 0.93], 180);
   S.look(4.05, "spud", [0, 0.1], 0.15); S.walk(4.2, "spud", [-0.2, 0.3], 1.6);
@@ -123,22 +142,23 @@ const seg1 = (F) => segment(F, 0, 13.9, (S) => {
   S.shot("02 twenty-four boxes", 4.0, cam([0.22, 1.3, -3.4], [-0.2, 0.85, 0.7], tv(S.F, 44, 58), { pos: [0.2, 1.28, -3.0] }, 2.8));   // ahead of him: his face on the question (Sol), boxes both sides
   // 03 (6.8-13.9): out of a dark chamber, dust falling from his wraps: "Not a cow. The holy bull Apis." "To us, he was a god."
   S.place(6.8, "spud", [-0.4, -2.2], 180); S.look(6.8, "spud", [-0.1, 0.1], 0.01);
+  S.place(6.7, "pharaoh", [-1.55, -4.4], 70, -0.18);   // into his dark chamber just before the cut (hidden far away while the camera flies down the aisle)
   S.look(6.72, "pharaoh", [0.5, 0], 0.15); S.walk(6.85, "pharaoh", [0.05, -3.75], 1.1, { y: 0 });
   S.turn(6.9, "pharaoh", 20, 0.8);
   S.A(7.1, "spud", "move", { to: [-0.42, -1.95], dur: 0.35, ease: "out" }); S.expr(7.05, "spud", "surprised", { open: 0.3 }, 0.12);
   S.turn(7.9, "pharaoh", 345, 0.5); S.look(7.2, "pharaoh", [0, 0.05], 0.3);   // to Spud (Sol: he answered the camera)
   S.expr(7.8, "pharaoh", "neutral", null, 0.2);
   S.say(7.6, "p03", 11.75); S.say(11.75, "p03b", 13.9);
-  S.A(7.6, "pharaoh", "noblink", { dur: 6.2 }); S.A(0.02, "spud", "noblink", { dur: 6.7 }); S.A(6.5, "pharaoh", "noblink", { dur: 0.3 });
+  S.A(7.6, "pharaoh", "noblink", { dur: 6.2 }); S.A(6.5, "pharaoh", "noblink", { dur: 0.3 });
   S.sfx(6.9, "step-concrete", { gain: 0.25, dur: 1.1, reason: "his wrapped feet on the stone" });
   S.shot("03 the Pharaoh", 6.8, cam([0.75, 1.05, -0.6], [-0.12, 0.78, -3.1], tv(S.F, 50, 70), { pos: [0.68, 1.03, -0.9] }, 7.1));
-  return { id: `eg04-1-${S.F.key}`, title: "Sixty tonnes (1: the box)", idea: "seg 1 of 7", set: TUNNEL, cast, props,
+  return { id: `eg04-1-${S.F.key}`, title: "Sixty tonnes (1: the boxes)", idea: "seg 1 of 7", set: TUNNEL, cast, props,
     sound: { signature: false, sfx: 0.6, ambience: 0.05, surface: "stone", room: "open", guard: true },
-    hook: { show: ["spud"], hint: 0, what: "Spud's lamp on a giant black granite box in a dark tunnel; 60 t on screen" },
-    allowClip: [...lampClip(["spud"], S.END), ...tv(S.F, [{ who: "spud", with: "gallery", from: 7.3, to: 13.9, checks: ["hand-in-prop", "arm-in-prop"], reason: "wide frame: walking close to the dark side wall, his fingertips brush it 2-3 cm" }], []), { who: "spud", with: "gallery", from: 0, to: S.END, checks: ["clipping", "shell"], reason: "the gallery is the room he stands in (floor, walls, vault as one prop); hand and costume checks stay on" },
+    hook: { show: ["spud"], hint: 0, what: "the camera flies down a dark tunnel past giant black granite boxes; 60 t on screen" },
+    allowClip: [...lampClip(["spud"], S.END), ...tv(S.F, [{ who: "spud", with: "gallery", from: S.T(7.3), to: S.T(13.9), checks: ["hand-in-prop", "arm-in-prop"], reason: "wide frame: walking close to the dark side wall, his fingertips brush it 2-3 cm" }], []), { who: "spud", with: "gallery", from: 0, to: S.END, checks: ["clipping", "shell"], reason: "the gallery is the room he stands in (floor, walls, vault as one prop); hand and costume checks stay on" },
       { who: "pharaoh", with: "gallery", from: 0, to: S.END, checks: ["clipping", "shell"], reason: "the gallery is the room; he steps up out of the side chamber (floor -0.18) into the aisle" }],
-    notes: "Generated by make-serapeum.mjs, segment 1 (story 3.9-17.8)." };
-}, 3.9);
+    notes: "Generated by make-serapeum.mjs, segment 1 (cut 1.0-14.9, music 3.9-17.8)." };
+}, 3.9, (t) => (t < 0 ? t : r3(t - 4)));   // music: the opening plays the score from 2.9 s so the rest stays where it was
 
 // ================================================================= 2. MEMPHIS 8-12: the dead god-bull; 70 days
 const seg2 = (F) => segment(F, 8, 13, (S) => {
@@ -207,7 +227,8 @@ const seg4 = (F) => segment(F, 18, 20.5, (S) => {
   const props = [{ id: "sky", kind: "aasky", time: "day" }, { id: "quarry", kind: "aswanquarry", x: 0, z: -3 }, { id: "block", kind: "roughgranite", x: 0.6, z: 0 },
     { id: "cutter", kind: "granitecutter", x: 0, z: 0, slide: 0.2, cut: 1, pedestal: [-1.4, 0, 1.6] },
     { id: "pd1", kind: "pounder", x: 0.1, z: 2.2 }, { id: "pd2", kind: "pounder", x: 1.9, z: 2.2 }];
-  S.prop(18.0, "cutter", { slide: 0.2, cut: 1 }, 0.01);   // cut has no propState default: without this the beam was off (Sol d3: no contact) S.prop(18.05, "cutter", { slide: 0.75 }, 2.4, "linear");   // one slow continuous pass (Sol: it jumped)
+  S.prop(18.0, "cutter", { slide: 0.2, cut: 1 }, 0.01);   // cut has no propState default: without this the beam was off (Sol d3: no contact)
+  S.prop(18.05, "cutter", { slide: 0.75 }, 2.4, "linear");   // one slow continuous pass (Sol: it jumped)
   S.arm(18.1, "crew1", "R", PANEL, 0.3);
   S.say(18.35, "s08", 20.5);
   S.sfx(18.2, "kenney/space-engine-low", { gain: 0.3, dur: 2.2, reason: "the cutter's hum" });
@@ -382,7 +403,9 @@ const seg7 = (F) => segment(F, 32.5, 66.3, (S) => {
   S.say(59.0, "s22", 61.5);
   S.shot("22 they took the cows", 58.5, cam([0, 1.05, -14.2], [0, 0.92, -16.6], tv(S.F, 54, 74)));
   // 23 (61.5-63.5): the cough, a puff of dust
-  S.arm(61.75, "pharaoh", "R", LIPS, 0.27); S.expr(62.0, "pharaoh", "shocked", { lid: 0.85 }, 0.08);   // mouth wide, eyes squeezed ("pain" is not an expression) S.A(61.95, "pharaoh", "lean", { to: 12, dur: 0.1 }); S.A(62.08, "pharaoh", "lean", { to: 2, dur: 0.12 }); S.A(62.22, "pharaoh", "lean", { to: 12, dur: 0.1 }); S.A(62.4, "pharaoh", "lean", { to: 0, dur: 0.35 });   // two hacking jolts   // hand to the mouth, a jolt (Sol: unreadable)
+  S.arm(61.75, "pharaoh", "R", LIPS, 0.27);   // hand to the mouth, a jolt (Sol: unreadable)
+  S.expr(62.0, "pharaoh", "shocked", { lid: 0.85 }, 0.08);   // mouth wide, eyes squeezed ("pain" is not an expression)
+  S.A(61.95, "pharaoh", "lean", { to: 12, dur: 0.1 }); S.A(62.08, "pharaoh", "lean", { to: 2, dur: 0.12 }); S.A(62.22, "pharaoh", "lean", { to: 12, dur: 0.1 }); S.A(62.4, "pharaoh", "lean", { to: 0, dur: 0.35 });   // two hacking jolts
   S.prop(62.04, "puff", { age: 1 }, 0.8, "linear"); S.sfx(62.0, "ai/wet-cough", { gain: 0.35, reason: "a dry, dusty cough" });
   S.arm(62.75, "pharaoh", "R", "rest", 0.5); S.expr(62.9, "pharaoh", "neutral", null, 0.2);
   S.shot("23 cough", 61.5, cam([-0.45, 1.0, -15.65], [0.5, 0.72, -16.5], tv(S.F, 40, 54)));   // square on to his face, so the hand at his mouth reads
