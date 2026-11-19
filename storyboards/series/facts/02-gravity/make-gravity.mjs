@@ -301,7 +301,7 @@ write(import.meta.url, {
   grade,
   hud: { gforce: { keys: STEPS, y: F.HUDY } },
   music: { file: "score-film/gravity-score.ogg", from: 0, gain: 0.75, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false },
-  sound: { signature: false, sfx: 0.65, ambience: 0.05, surface: "wood", room: "small", guard: true, level: -9.7 },
+  sound: { signature: false, sfx: 0.65, ambience: 0.05, surface: "wood", room: "livingroom", guard: true, level: -9.7 },
   creative: { length: [END, END] },
   hook: { show: ["spud", "phone"], hint: 0, what: "you on the sofa, phone over your face, the counter at 1 g and the question on screen; at 1.0 s the phone slams down" },
   cast, props, captions: c.captions, beats, visible: c.visible,
