@@ -76,7 +76,7 @@ function sheenTex(W, D) {
   const t = tex(c); t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping; return t;
 }
 
-function buildLights(g) {
+function buildLights(g, S = {}) {
   const k = GRAVROOM.keyRay, dir = new THREE.Vector3(k[0], k[1], k[2]).normalize(), target = new THREE.Vector3(0, 0.8, 0.3);
   const key = new THREE.DirectionalLight("#FFB479", 2.1);
   key.name = "gravroom-key"; key.position.copy(target).addScaledVector(dir, -9);
@@ -85,13 +85,13 @@ function buildLights(g) {
   key.target.position.copy(target); g.add(key); g.add(key.target);
   const hemi = new THREE.HemisphereLight("#90A7D8", "#60463E", 0.74); hemi.name = "gravroom-fill"; g.add(hemi);
   const bounce = new THREE.DirectionalLight("#E6A06B", 0.15 * 2.1); bounce.name = "gravroom-bounce"; bounce.position.set(0.3, -6, -1.5); bounce.target.position.set(0, 0, 0); bounce.castShadow = false; g.add(bounce); g.add(bounce.target);
-  const lamp = new THREE.PointLight("#FFD19A", LAMP_I, 3.2, 2); lamp.name = "gravroom-lamp"; lamp.position.set(...GRAVROOM.lampLight); lamp.castShadow = false; g.add(lamp);
+  const lamp = new THREE.PointLight("#FFD19A", LAMP_I, 3.2, 2); lamp.name = "gravroom-lamp"; lamp.position.set(...(S.lampLight || GRAVROOM.lampLight));   // spec.lampLight: where the clip stood its lamp lamp.castShadow = false; g.add(lamp);
 }
 
 export function buildGravroom(scene, S = {}) {
   const g = new THREE.Group(); g.name = "gravroom"; scene.add(g);
   scene.background = new THREE.Color("#6c5a7c");   // a dusk violet where no sky is built (the sky is another builder's)
-  buildLights(g);
+  buildLights(g, S);
   if (S.bare) return g;
 
   const R = GRAVROOM, win = R.win, WZ = R.wallZ, Z0 = WZ - 0.12, Zlen = R.frontZ - Z0, Zc = (R.frontZ + Z0) / 2, W = R.x1 - R.x0;
