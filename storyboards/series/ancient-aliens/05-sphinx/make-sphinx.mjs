@@ -1,17 +1,18 @@
-// EGYPT EP05 "How old is the Sphinx really?" (tall, ~63.6 s natural, ~56 s after the 1.05x / 1.15x speed-up): the first DEBATE
+// EGYPT EP05 "How old is the Sphinx really?" (tall, ~67.5 s natural, ~60 s after the 1.05x / 1.15x speed-up): the first DEBATE
 // episode (Jonny 19 Nov 2026): Spud = the ancient-alien believer, the archaeologist = the evidence. No Pharaoh, no names on screen.
 // Story + panels: /mnt/project-files/videos/ancient-aliens/05-sphinx/STORY.md (24 panels on sheets/sphinx-05-sheet-1b.png + -2.png),
 // design: DESIGN.md here (GPT-6.2 Sol). Lines: lines.mjs (measured in lines.json). The cast light is one value per storyboard, so the
 // episode is NINE segment storyboards cut together on story time, each with its slice of the one score (score.py -> aa05-score.ogg):
 //   0 day     0-8.9    P01-04  the grooved wall, the paws, "Rain did this"
 //   1 storm   8.9-12   P05-06  Spud's version: green savanna in the rain, water cutting the grooves
-//   2 day     12-25    P07-10  salt: the flake, the salt slice, the hard head, "the secret room?"
-//   3 hall    25-27    P11     Spud's version: the hall of records under the paw
-//   4 day     27-42    P12-17  the survey, "Yet.", the temple, the past quarry and haul, the stripes match
-//   5 sunset  42-53.4  P18-20  Khafre's temple next door (past), the unfinished blocks, Spud turns back
-//   6 night   53.4-58.3 P21-22 the Lion rising in the Sphinx's gaze
+//   2 day     12-25.7  P07-10  salt: the flake, the salt slice, the hard head, "the secret room?"
+//   3 hall    25-27.7  P11     Spud's version: the hall of records under the paw
+//   4 day     27-42.4  P12-17  the survey, "Yet.", the temple, the past quarry and haul, the stripes match
+//   5 sunset  42-56.38 P18-21 Khafre's temple next door (past), the unfinished blocks, Spud turns back, the Sphinx's gaze
+//   6 night   53.4-57.4 P22   the Lion rising in the Sphinx's gaze
 //   7 dusk    58.3-60.6 P23    no answer
 //   8 dawn    60.6-63.6 P24    both between the paws, "WHO'S RIGHT?"
+// (each segment's times are its own story seconds; in the film they follow one another: SPANS / START, 67.5 s natural)
 //   node storyboards/series/ancient-aliens/05-sphinx/make-sphinx.mjs [--seg=0,2]   -> eg05-<seg>-tall.json
 import { clip, write, r3 } from "../../../lib/clip.mjs";
 import { existsSync, readFileSync } from "node:fs";
@@ -21,6 +22,8 @@ import { LINES } from "./lines.mjs";
 import { VOICE } from "./voice.mjs";
 
 const MEASURED = new URL("./lines.json", import.meta.url);
+// lines that run across a scene join, cut in two at their own pause (split-lines.mjs): "<key>:1" ends a segment, "<key>:2" opens the next
+const SPL = JSON.parse(readFileSync(new URL("./splits.json", import.meta.url), "utf8"));
 const DUR = existsSync(MEASURED) ? JSON.parse(readFileSync(MEASURED, "utf8")) : Object.fromEntries(Object.entries(LINES).map(([k, l]) => [k, r3(0.3 + l[1].split(/\s+/).length * 0.36)]));
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { hand: 2, eyes: 2, hold: 2 };
 const CAST = { spud: "potatobrawl/spud", arch: "ancient-aliens/archaeologist", wa: "ancient-aliens/worker-a", wb: "ancient-aliens/worker-b", chip: "potatobrawl/chip", wedge: "potatobrawl/wedge" };
@@ -39,8 +42,14 @@ const DAWN = light("#f0b98a", [270, 3], { light: "#ffd29c", shadow: "#6a5a8a", e
 const score = (storyTime) => ({ file: "ancient-aliens/aa05-score.ogg", from: 0, skip: storyTime, gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, mood: "dramatic" });
 const SOUND = { signature: false, sfx: 0.6, ambience: 0.06, surface: "sand", room: "open", guard: true };
 
-// ---- one segment: its own clip, its times written in story seconds (t0 = the segment's first frame = its music slice)
-function segment(t0, t1, fill) {
+// ---- the segments' spans in their own story seconds [t0, t1] (times inside a segment are written from its t0). Rough draft 2
+// (Jonny 19 Nov: lines were cut at the joins, Spud now talks at her pace) made some longer than story 1; each starts in the
+// film (and the score) where the one before ends: START.
+const SPANS = [[0, 8.9], [8.9, 12.0], [12.0, 25.7], [25.0, 27.7], [27.0, 42.4], [42.0, 56.38], [53.4, 57.4], [58.3, 60.6], [60.6, 63.6]];
+const START = SPANS.map((_, i) => r3(SPANS.slice(0, i).reduce((a, [x, y]) => a + y - x, 0)));
+// ---- one segment: its own clip, its times written in story seconds (t0 = the segment's first frame; its music slice starts at START)
+function segment(n, fill) {
+  const [t0, t1] = SPANS[n];
   const c = clip({ faces: "strong" }), T = (t) => r3(t - t0);
   const S = {
     c, F, T, END: r3(t1 - t0),
@@ -60,6 +69,19 @@ function segment(t0, t1, fill) {
       c.cap(T(t), T(t + d + hold), line, F.SUB, false, { size: F.subSize });
       return r3(t + d);
     },
+    // a line cut at a join (SPL): its first part ends this segment (placed so the second part starts 0.03 s into the next one,
+    // the take's own pause between them), its second part opens the next segment
+    tail(k) {
+      const a = SPL[`${k}:1`], rel = r3(S.END + 0.03 - SPL[`${k}:2`].off);
+      c.at(rel, { macro: "say", who: a.who, line: a.line, rec: a.file, age: "age-none", dur: a.dur, caption: false });
+      c.cap(rel, S.END, a.line, F.SUB, false, { size: F.subSize });
+      return r3(t0 + rel);
+    },
+    head(k, next) {
+      const b = SPL[`${k}:2`];
+      c.at(0.03, { macro: "say", who: b.who, line: b.line, rec: b.file, age: "age-none", dur: b.dur, caption: false });
+      c.cap(0.03, Math.min(S.END, r3(0.03 + b.dur + 0.4), next == null ? S.END : r3(next - t0 - 0.05)), b.line, F.SUB, false, { size: F.subSize });
+    },
     num: (a, b, text, { y = 1000, ...o } = {}) => c.cap(T(a), T(b), text, y, false, { size: F.numSize, kinetic: false, ...o }),
     label: (a, b, text) => c.cap(T(a), T(b), text, F.tag.y, false, { style: "label", size: F.tag.size, kinetic: false, x: F.W / 2 }),
     shots: [],
@@ -68,7 +90,7 @@ function segment(t0, t1, fill) {
   const o = fill(S);
   const beats = c.beats(S.shots, S.END);
   return { ...o, fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic", castLook: "sheet", cleanStart: true,
-    motion: MOTION, rig: RIG, physics: false, loopIdle: false, music: score(t0), captions: c.captions, beats, visible: c.visible, sound: o.sound ?? SOUND };
+    motion: MOTION, rig: RIG, physics: false, loopIdle: false, music: score(START[n]), captions: c.captions, beats, visible: c.visible, sound: o.sound ?? SOUND };
 }
 const cam = (pos, look, fov, to, dur, ease = "inOut") => ({ pos, look, fov, ...(to && { to, dur, ease }) });
 const PARK = (i) => [90 + i * 2, 90];
@@ -102,7 +124,7 @@ const SPREAD = { o: [0.5, 0.3, 0.22] }, FINGER = { o: [0.12, 0.55, 0.28] }, POIN
 
 // ===================================================================== 0. DAY 0-8.9: the grooved wall, the paws, "Rain did this"
 // (the hook, opener B: the narrator's line over the high view, the grooves close, the giant between the paws)
-const seg0 = () => segment(0, 8.9, (S) => {
+const seg0 = () => segment(0, (S) => {
   const WALL = { spud: [-2.0, -7.4], arch: [-0.95, -7.02] }, PAWS = { spud: [8.7, 0.2], arch: [7.95, -0.25] };
   const cast = [
     { id: "spud", character: CAST.spud, at: WALL.spud, face: 180, expr: "neutral", follow: 0.2, seed: 4.1 },
@@ -117,27 +139,26 @@ const seg0 = () => segment(0, 8.9, (S) => {
   S.label(0.05, 2.3, "GIZA, EGYPT");
   S.shot("01 the pit", 0, cam([11, 8.5, -3.2], [-3.5, 2.2, -5.2], 50, { pos: [8, 6.5, -4.4] }, 2.3, "out"), "hook");
   // P02 (2.3-4.6) "Egypt hasn't seen rain like this in five thousand years.": along the wall, his hand traces one groove top to bottom
-  S.arm(2.25, "arch", "R", "rest", 0.01); S.place(2.3, "arch", [-3.3, -6.9], 140);
+  S.arm(2.285, "arch", "R", "rest", 0.01); S.place(2.3, "arch", [-3.3, -6.9], 140);
   S.arm(2.35, "spud", "R", { o: [0.14, 0.55, 0.42] }, 0.35); S.A(2.4, "spud", "grip", { side: "R", shape: "open", dur: 0.15 });
   S.arm(2.8, "spud", "R", { o: [0.14, 0.12, 0.44] }, 1.6, "inOut");
   S.look(2.35, "spud", [0.15, 0.3], 0.2); S.look(2.9, "spud", [0.15, -0.1], 1.4);
-  S.num(2.9, 4.6, "5,000 YEARS", { y: 1550 });
   S.sfx(2.8, "ai/cookie-scrape", { gain: 0.08, dur: 1.4, reason: "his palm over the dry, sandy limestone" });
   S.shot("02 the grooves", 2.3, cam([0.0, 1.0, -6.5], [-2.0, 0.9, -7.8], 42, { pos: [-0.2, 1.0, -6.6] }, 2.3));
   // P03 (4.6-7.3) "How old is the Sphinx really?": low between the paws, the giant above, both tiny, looking up
-  S.arm(4.55, "spud", "R", "rest", 0.01);
+  S.arm(4.585, "spud", "R", "rest", 0.01);
   S.place(4.6, "spud", PAWS.spud, 270); S.place(4.6, "arch", PAWS.arch, 270);
   S.look(4.6, "spud", [0, 0.8], 0.01); S.look(4.6, "arch", [0, 0.75], 0.01);
   S.expr(4.6, "spud", "surprised", { open: 0.25 }, 0.01);
   S.shot("03 the giant", 4.6, cam([16.4, 0.5, 0.15], [6.5, 5.4, 0], 60, { pos: [15.9, 0.55, 0.12] }, 2.7));
   // P04 (7.3-8.9) "Rain did this. ...": by the wall, he spins to her, arms wide, leaf up; she calm, one brow up
-  S.arm(7.25, "arch", "R", "rest", 0.01); S.place(7.3, "spud", [-0.95, -6.7], 200); S.place(7.3, "arch", [-1.95, -6.3], 70);
+  S.arm(7.285, "arch", "R", "rest", 0.01); S.place(7.3, "spud", [-0.95, -6.7], 200); S.place(7.3, "arch", [-1.95, -6.3], 70);
   S.look(7.3, "spud", [0, 0], 0.01); S.look(7.3, "arch", [0, 0], 0.01);
   S.expr(7.3, "spud", "happy", { open: 0.4, brow: 0.8 }, 0.01);
   S.turn(7.32, "spud", 300, 0.3);
   S.arm(7.35, "spud", "L", SPREAD, 0.3, "out"); S.arm(7.35, "spud", "R", SPREAD, 0.3, "out");
   S.A(7.6, "arch", "face", { browR: 0.5, dur: 0.18 });
-  S.say(7.4, "s02", 12.1);
+  S.tail("s02");   // "Rain did this." (the rest opens segment 1)
   S.shot("04 rain did this", 7.3, cam([-0.4, 0.85, -3.8], [-1.45, 0.55, -6.5], 44, { pos: [-0.45, 0.84, -3.95] }, 1.6));
   return { id: "eg05-0-tall", title: "Sphinx (0: the grooves)", idea: "seg 0 of 9", set: DAY, cast, props,
     hook: { show: ["sphinx", "pit"], hint: 0, what: "the Great Sphinx in its pit, deep vertical grooves in the walls, two small figures at the wall" },
@@ -149,7 +170,7 @@ const seg0 = () => segment(0, 8.9, (S) => {
 });
 
 // ===================================================================== 1. STORM 8.9-12.0: Spud's version
-const seg1 = () => segment(8.9, 12.0, (S) => {
+const seg1 = () => segment(1, (S) => {
   const cast = [{ id: "spud", character: CAST.spud, at: PARK(0), face: 0, expr: "neutral", seed: 4.1, staged: "voice over" }];
   const props = [SKY("afternoon", 0, 0), GROUND(), SPHINX({ stele: false }),
     { id: "savA", kind: "savanna", x: 0, y: 0, z: 0, cover: true, storm: true, staged: "the green plain of Spud's imagined past" },
@@ -158,6 +179,7 @@ const seg1 = () => segment(8.9, 12.0, (S) => {
     { id: "savB", kind: "savanna", x: 0, y: -60, z: 0, cover: false, storm: true, staged: "panel 06's storm sky, hidden until then" },
     { id: "rainB", kind: "rainbox", x: 0, y: -60, z: 0, box: [39, 13, 23], n: 1050, slant: [0, 0.194], alpha: 0.46 }];
   S.prop(9.0, "sky", { night: 0 }); S.prop(9.0, "sphinx", { rough: 0, flake: 0, wet: 0.78 }); S.prop(9.0, "savA", { gust: 0 }); S.prop(9.0, "savB", { gust: 0 }); S.prop(9.0, "pit", { wet: 1, flow: 0, quarry: 0 });
+  S.head("s02");   // "Years of it. It was here before the desert!"
   // P05 (8.9-10.6) "Years of it.": the Sphinx alone on a green plain, acacias, sheets of rain
   S.prop(9.02, "savA", { gust: 1 }, 1.6, "linear");
   S.sfx(8.9, "ai/storm-wind", { gain: 0.25, dur: 3.1, reason: "the storm over the plain" });
@@ -176,7 +198,7 @@ const seg1 = () => segment(8.9, 12.0, (S) => {
 });
 
 // ===================================================================== 2. DAY 12.0-25.0: salt
-const seg2 = () => segment(12.0, 25.0, (S) => {
+const seg2 = () => segment(2, (S) => {
   const FLAKE = { arch: [5.4, 4.05], spud: [4.65, 4.6] };
   const cast = [
     { id: "arch", character: CAST.arch, at: FLAKE.arch, face: 180, expr: "kind", follow: 0.2, seed: 1.3 },
@@ -211,7 +233,7 @@ const seg2 = () => segment(12.0, 25.0, (S) => {
   S.say(19.7, "a03c", 23.2);
   S.shot("09 the hard head", 19.6, cam([10.6, 0.8, 8.5], [4.6, 3.6, 1.6], 58, { pos: [10.4, 0.85, 8.3] }, 3.5));
   // P10 (23.1-25.0) "Then what about the secret room? ...": he hops in front of her, finger up, sly, pointing at the paw (screen right)
-  S.arm(23.05, "arch", "L", "rest", 0.01); S.arm(23.05, "arch", "R", "rest", 0.01);
+  S.arm(23.085, "arch", "L", "rest", 0.01); S.arm(23.085, "arch", "R", "rest", 0.01);
   S.place(23.1, "arch", [11.0, 4.85], 100); S.place(23.1, "spud", [11.55, 4.1], 75);
   S.look(23.1, "arch", [0, 0], 0.01);
   S.A(23.12, "spud", "hop", { height: 0.18, dur: 0.4, quiet: true });
@@ -219,8 +241,8 @@ const seg2 = () => segment(12.0, 25.0, (S) => {
   S.arm(23.3, "spud", "L", FINGER, 0.3); S.A(23.3, "spud", "grip", { side: "L", shape: "point", dur: 0.15 });
   S.arm(23.9, "spud", "L", { o: [0.36, 0.3, 0.32] }, 0.35);
   S.look(23.9, "spud", [0.45, 0], 0.25);
-  S.say(23.2, "s04", 27.1);
-  S.shot("10 the secret room", 23.1, cam([15.4, 0.72, 4.9], [11.4, 0.6, 3.9], 46, { pos: [15.0, 0.7, 4.8] }, 1.9));
+  S.tail("s04");   // "Then what about the secret room?" (the rest opens the hall)
+  S.shot("10 the secret room", 23.1, cam([15.4, 0.72, 4.9], [11.4, 0.6, 3.9], 46, { pos: [15.0, 0.7, 4.8] }, 2.6));
   return { id: "eg05-2-tall", title: "Sphinx (2: salt)", idea: "seg 2 of 9", set: DAY, cast, props,
     allowClip: [...inPit(["spud", "arch"], S.END), { who: "arch", with: "sphinx", from: 0, to: S.T(13.6), checks: ["hand-in-prop", "arm-in-prop"], reason: "panel 07: her brush hand works right on the stone" },
       { who: "arch", with: "brush", from: S.T(12.6), to: S.T(12.9), checks: ["hand-in-prop", "arm-in-prop"], reason: "panel 07: the first brush stroke, the palm 3 cm into the handle for 3 frames while she is crouched behind it (to see in the strip)" },
@@ -229,18 +251,19 @@ const seg2 = () => segment(12.0, 25.0, (S) => {
 });
 
 // ===================================================================== 3. HALL 25.0-27.0: the hall of records (Spud's version)
-const seg3 = () => segment(25.0, 27.0, (S) => {
+const seg3 = () => segment(3, (S) => {
   const cast = [{ id: "spud", character: CAST.spud, at: PARK(0), face: 0, expr: "neutral", seed: 4.1, staged: "voice over" }];
   const props = [{ id: "hall", kind: "hiddenhall", x: 0, y: 0, z: 0, staged: "the imagined hall under the right paw (its own shell)" }];
-  S.prop(25.1, "hall", { lamp: 0 }); S.prop(25.12, "hall", { lamp: 1 }, 1.85, "linear");
-  S.shot("11 the hall of records", 25.0, cam([11.3, -3.0, 6.4], [11.3, -3.9, 0.6], 60, { pos: [11.3, -3.25, 5.2] }, 2.0, "out"));
+  S.prop(25.1, "hall", { lamp: 0 }); S.prop(25.12, "hall", { lamp: 1 }, 2.4, "linear");
+  S.head("s04");   // "A library, hidden under its paw."
+  S.shot("11 the hall of records", 25.0, cam([11.3, -3.0, 6.4], [11.3, -3.9, 0.6], 60, { pos: [11.3, -3.25, 5.2] }, 2.7, "out"));
   return { id: "eg05-3-tall", title: "Sphinx (3: the hall)", idea: "seg 3 of 9", set: HALL, cast, props, allowClip: [],
     sound: { ...SOUND, surface: "stone", ambience: 0.04 },
     notes: "Generated by make-sphinx.mjs, segment 3 (story 25.0-27.0): Spud's imagined hall, his line as a voice over." };
 });
 
 // ===================================================================== 4. DAY 27.0-42.0: the survey, "Yet.", the temple, the quarry, the match, the haul
-const seg4 = () => segment(27.0, 42.0, (S) => {
+const seg4 = () => segment(4, (S) => {
   const KIT = [11.0, 5.65], P13 = [12.25, 4.0], P14 = [15.6, 5.0];
   const cast = [
     { id: "chip", character: CAST.chip, at: [KIT[0], r3(KIT[1] - 0.92)], face: 0, expr: "neutral", follow: 0.2, seed: 2.2 },
@@ -273,7 +296,7 @@ const seg4 = () => segment(27.0, 42.0, (S) => {
   S.sfx(27.2, "rumble", { gain: 0.1, dur: 3.9, reason: "the drill rig turning into the rock" }); S.sfx(27.2, "freewheel", { gain: 0.12, dur: 3.6, reason: "the radar cart rolling over sand" });
   S.shot("12 the survey", 27.0, cam([14.8, 1.5, 8.4], [10.6, 0.6, 5.5], 54, { pos: [14.5, 1.45, 8.2] }, 4.2));
   // P13 (31.2-32.4) "Yet.": Spud alone at the paw, squinting at the stone, not giving up
-  for (const s of ["L", "R"]) S.arm(31.15, "chip", s, "rest", 0.01);
+  for (const s of ["L", "R"]) S.arm(31.185, "chip", s, "rest", 0.01);
   S.prop(31.18, "survey", { y: -60 });
   S.place(31.2, "spud", P13, 75); S.place(31.2, "chip", PARK(3), 0); S.place(31.2, "wedge", PARK(4), 0);
   S.look(31.2, "spud", [-0.45, -0.15], 0.01); S.look(31.7, "spud", [-0.1, 0], 0.25); S.expr(31.2, "spud", "angry", { lid: 0.45, brow: -0.6 }, 0.01);
@@ -287,7 +310,7 @@ const seg4 = () => segment(27.0, 42.0, (S) => {
   S.say(32.5, "a05", 34.4);
   S.shot("14 the temple", 32.4, cam([12.4, 0.9, 6.6], [17.5, 1.4, 3.6], 52, { pos: [12.7, 0.9, 6.4] }, 1.9));
   // P15 (34.3-36.6) PAST "Its wall blocks were cut out of this pit.": workers cut blocks; the rough Sphinx behind
-  S.arm(34.25, "arch", "L", "rest", 0.01); S.arm(34.25, "arch", "R", "rest", 0.01);
+  S.arm(34.285, "arch", "L", "rest", 0.01); S.arm(34.285, "arch", "R", "rest", 0.01);
   S.place(34.3, "arch", [6.95, -6.62], 135);   // waits for 17 at the witness block (out of the past shots' frames)
   S.prop(34.28, "sphinx", { rough: 1, flake: 0 }); S.prop(34.28, "pit", { quarry: 1 }); S.prop(34.28, "temple", { y: -60 }); S.prop(34.28, "pyramids", { y: -60 });
   S.place(34.3, "w1", [0.25, -6.3], 270); S.place(34.3, "w2", [0.3, -4.35], 270);
@@ -302,24 +325,24 @@ const seg4 = () => segment(27.0, 42.0, (S) => {
   S.shot("15 cut from the pit", 34.3, cam([4.5, 4.5, -6.0], [0.0, 0.8, -5.5], 50, { pos: [4.1, 4.2, -6.0] }, 2.3));
   // P17 (36.6-38.4) "Same layers.": the witness block beside the wall's return, the stripes run on; her brush follows one
   S.prop(36.58, "sphinx", { rough: 0 }); S.prop(36.58, "pit", { quarry: 0 }); S.prop(36.58, "temple", { y: 0 }); S.prop(36.58, "pyramids", { y: 4.8 });
-  for (const w of ["w1", "w2"]) { S.arm(36.55, w, "R", "rest", 0.01); S.arm(36.55, w, "L", "rest", 0.01); S.place(36.6, w, PARK(w === "w1" ? 1 : 2), 0); }
+  for (const w of ["w1", "w2"]) { S.arm(36.585, w, "R", "rest", 0.01); S.arm(36.585, w, "L", "rest", 0.01); S.place(36.6, w, PARK(w === "w1" ? 1 : 2), 0); }
   S.look(36.6, "arch", [0.1, 0.6], 0.01);
   S.arm(36.7, "arch", "L", { o: [0.3, 0.62, 0.4] }, 0.35); S.A(36.7, "arch", "grip", { side: "L", shape: "point", dur: 0.15 });
   S.arm(37.1, "arch", "L", { o: [-0.12, 0.62, 0.42] }, 1.1, "inOut");
   S.look(37.1, "arch", [-0.25, 0.6], 1.1);
   S.shot("17 same layers", 36.6, cam([8.8, 0.8, -6.5], [6.3, 1.3, -7.5], 48, { pos: [8.65, 0.8, -6.55] }, 1.8), "reveal");
   // P16 (38.4-42.0) PAST "They carved the Sphinx, and built the temple from what they cut away.": a block hauled up out of the pit to the rising temple
-  S.arm(38.35, "arch", "L", "rest", 0.01); S.arm(38.35, "arch", "R", "rest", 0.01);
+  S.arm(38.385, "arch", "L", "rest", 0.01); S.arm(38.385, "arch", "R", "rest", 0.01);
   S.prop(38.38, "sphinx", { rough: 0.35 }); S.prop(38.38, "pit", { quarry: 0.34 }); S.prop(38.38, "temple", { y: -60 }); S.prop(38.38, "pyramids", { y: -60 });
   S.place(38.4, "arch", PARK(5), 0);
   for (const id of ["tempQ", "sledge", "haul"]) S.prop(38.38, id, { y: 0 }); S.prop(38.38, "load", { y: 0.19 });
-  S.prop(38.42, "tempQ", { build: 0.6 }, 3.5, "linear");
-  S.prop(38.45, "haul", { along: 1 }, 3.5, "linear");
-  for (const id of ["sledge", "load"]) S.prop(38.45, id, { x: r3(11.6 + 1.83) }, 3.5, "linear");
-  S.label(38.5, 42.0, "4,500 YEARS AGO");
-  S.sfx(38.5, "ai/bag-drag", { gain: 0.28, dur: 3.4, reason: "the sledge drags over the ramp" });
-  S.say(38.4, "a05c", 45.8);
-  S.shot("16 the haul", 38.4, cam([8.0, 2.4, 8.6], [15.0, 1.0, 4.0], 56, { pos: [8.4, 2.35, 8.4] }, 3.6));
+  S.prop(38.42, "tempQ", { build: 0.6 }, 3.9, "linear");
+  S.prop(38.45, "haul", { along: 1 }, 3.9, "linear");
+  for (const id of ["sledge", "load"]) S.prop(38.45, id, { x: r3(11.6 + 1.83) }, 3.9, "linear");
+  S.label(38.5, 42.4, "4,500 YEARS AGO");
+  S.sfx(38.5, "ai/bag-drag", { gain: 0.28, dur: 3.8, reason: "the sledge drags over the ramp" });
+  S.tail("a05c");   // "They carved the Sphinx, and built the temple from what they cut away." (the rest opens segment 5)
+  S.shot("16 the haul", 38.4, cam([8.0, 2.4, 8.6], [15.0, 1.0, 4.0], 56, { pos: [8.4, 2.35, 8.4] }, 4.0));
   return { id: "eg05-4-tall", title: "Sphinx (4: the evidence)", idea: "seg 4 of 9", set: DAY, cast, props,
     allowClip: [...inPit(["spud", "arch", "chip", "wedge", "w1", "w2"], S.END), { who: "arch", with: "brush", from: S.T(32.4), to: S.END, checks: ["thin-prop-hidden"], reason: "panels 14-17: the brush hangs at rest by her hip while she turns and the other hand points (she is out of the past shots); seen in the stills" },
       { who: "arch", with: "brush", from: S.T(32.4), to: S.T(34.3), checks: ["arm-in-prop"], reason: "panel 14: the resting brush brushes her sleeve 3 cm as she turns; to see in the strip" },
@@ -327,8 +350,8 @@ const seg4 = () => segment(27.0, 42.0, (S) => {
     notes: "Generated by make-sphinx.mjs, segment 4 (story 27.0-42.0): past 15 and 16 by params and hidden props." };
 });
 
-// ===================================================================== 5. SUNSET 42.0-53.4: Khafre's temple next door; the unfinished blocks; Spud turns back
-const seg5 = () => segment(42.0, 53.4, (S) => {
+// ===================================================================== 5. SUNSET 42.0-56.38: Khafre's temple next door; the unfinished blocks; Spud turns back
+const seg5 = () => segment(5, (S) => {
   const P19 = { arch: [10.8, -6.45], spud: [12.15, -6.2] }, P20 = { spud: [13.8, 7.37], arch: [14.4, 6.56] };
   const cast = [
     { id: "arch", character: CAST.arch, at: P19.arch, face: 145, expr: "kind", follow: 0.2, seed: 1.3 },
@@ -341,53 +364,57 @@ const seg5 = () => segment(42.0, 53.4, (S) => {
   props.push(brush(S, P19.arch, 145, 42.03));
   S.prop(42.1, "sky", { night: 0 }); S.prop(42.1, "sky2", { night: 0.25 }); S.prop(42.1, "sphinx", { rough: 0.35, flake: 0, wet: 0 }); S.prop(42.1, "pit", { wet: 0, flow: 0, quarry: 0.34 });
   S.prop(42.1, "temple", { y: -60 }); S.prop(42.1, "tempQ", { build: 0.91 });
-  // P18 (42.0-48.1) PAST "Right after King Khafre's temple next door. Four and a half thousand years ago.": the valley temple, the causeway, the new pyramid, sunset
-  S.num(45.8, 48.1, "4,500 YEARS AGO", { size: 96 });
-  S.shot("18 next door", 42.0, cam([40, 22, 30], [-20, 2, -2], 55, { pos: [37, 20, 28] }, 6.1));
-  // P19 (48.1-51.3) "Some blocks are still lying where they left them.": the half-cut blocks; her brush up at one; his leaf droops
-  S.prop(48.08, "sphinx", { rough: 0 }); S.prop(48.08, "pit", { quarry: 0 }); S.prop(48.08, "temple", { y: 0 }); S.prop(48.08, "tempQ", { y: -60 }); S.prop(48.08, "khafre", { y: -60 }); S.prop(48.08, "pyramids", { y: 4.8 });
-  S.look(48.1, "arch", [0.25, 0.55], 0.01); S.look(48.1, "spud", [-0.2, 0.2], 0.01);
-  S.arm(48.3, "arch", "L", { o: [0.18, 0.45, 0.3] }, 0.7); S.A(48.3, "arch", "grip", { side: "L", shape: "point", dur: 0.15 });
-  S.expr(48.5, "spud", "sad", { brow: 0.6 }, 0.3);
-  S.shot("19 left where they stopped", 48.1, cam([12.0, 1.0, -4.0], [11.3, 1.0, -7.5], 52, { pos: [11.95, 1.0, -4.2] }, 3.2));
-  // P20 (51.3-53.4) "Then why does it stare...": dusk; he turns back to her, one finger up, a sly smile
-  S.prop(51.28, "sky", { x: 1020 }); S.prop(51.28, "sky2", { x: 20 });
-  S.arm(51.25, "arch", "L", "rest", 0.01); S.arm(51.25, "arch", "R", "rest", 0.01);
-  S.place(51.3, "spud", P20.spud, 40); S.place(51.3, "arch", P20.arch, 40);
-  S.look(51.3, "arch", [0, 0], 0.01); S.look(51.3, "spud", [0.3, 0], 0.01);
-  S.turn(51.35, "spud", 100, 0.5);
-  S.expr(51.4, "spud", "happy", { lid: 0.55, brow: -0.3 }, 0.2);
-  S.arm(51.6, "spud", "R", FINGER, 0.35); S.A(51.6, "spud", "grip", { side: "R", shape: "point", dur: 0.15 });
-  S.say(51.6, "s06", 58.4);
-  S.shot("20 one more thing", 51.3, cam([16.3, 0.85, 8.55], [12.4, 1.75, 4.9], 50, { pos: [16.0, 0.84, 8.35] }, 2.1));
+  // P18 (42.0-46.8) PAST "Right after King Khafre's temple next door. Four and a half thousand years ago.": the valley temple, the causeway, the new pyramid, sunset
+  S.head("a05c", 44.8);   // "Right after King Khafre's temple next door."
+  S.say(44.8, "a05d", 50.5);   // "Four and a half thousand years ago. Some blocks are still lying where they left them."
+  S.num(44.8, 46.8, "4,500 YEARS AGO", { size: 96 });
+  S.shot("18 next door", 42.0, cam([40, 22, 30], [-20, 2, -2], 55, { pos: [37, 20, 28] }, 4.8));
+  // P19 (46.8-50.2) "Some blocks are still lying where they left them.": the half-cut blocks; her hand up at one; his leaf droops
+  S.prop(46.78, "sphinx", { rough: 0 }); S.prop(46.78, "pit", { quarry: 0 }); S.prop(46.78, "temple", { y: 0 }); S.prop(46.78, "tempQ", { y: -60 }); S.prop(46.78, "khafre", { y: -60 }); S.prop(46.78, "pyramids", { y: 4.8 });
+  S.look(46.8, "arch", [0.25, 0.55], 0.01); S.look(46.8, "spud", [-0.2, 0.2], 0.01);
+  S.arm(47.0, "arch", "L", { o: [0.18, 0.45, 0.3] }, 0.7); S.A(47.0, "arch", "grip", { side: "L", shape: "point", dur: 0.15 });
+  S.expr(47.2, "spud", "sad", { brow: 0.6 }, 0.3);
+  S.shot("19 left where they stopped", 46.8, cam([12.0, 1.0, -4.0], [11.3, 1.0, -7.5], 52, { pos: [11.95, 1.0, -4.2] }, 3.4));
+  // P20 (50.2-53.2) "Then why does it stare at the exact spot...": dusk; he turns back to her, one finger up, a sly smile (framed on him, draft 2)
+  S.prop(50.18, "sky", { x: 1020 }); S.prop(50.18, "sky2", { x: 20 });
+  S.arm(50.15, "arch", "L", "rest", 0.01); S.arm(50.15, "arch", "R", "rest", 0.01);
+  S.place(50.2, "spud", P20.spud, 40); S.place(50.2, "arch", P20.arch, 40);
+  S.look(50.2, "arch", [0, 0], 0.01); S.look(50.2, "spud", [0.3, 0], 0.01);
+  S.turn(50.25, "spud", 100, 0.5);
+  S.expr(50.3, "spud", "happy", { lid: 0.55, brow: -0.3 }, 0.2);
+  S.arm(50.5, "spud", "R", FINGER, 0.35); S.A(50.5, "spud", "grip", { side: "R", shape: "point", dur: 0.15 });
+  S.tail("s06");   // "Then why does it stare at the exact spot where the Lion rose at sunrise..." (the rest opens the night)
+  S.shot("20 one more thing", 50.2, cam([16.6, 0.85, 8.7], [14.15, 1.0, 6.95], 50, { pos: [16.4, 0.85, 8.55] }, 3.0));
+  // P21 (53.2-56.38) "...where the Lion rose at sunrise...": at "the exact spot", the Sphinx from behind, gazing east into the dusk
+  // (the night segment opens on the same gaze, so the sky turns to stars where it looks)
+  S.look(53.2, "spud", [0.1, 0.5], 0.3); S.look(53.2, "arch", [0.1, 0.4], 0.3);
+  S.shot("21 its gaze", 53.2, cam([-5.5, 9.4, 2.2], [30, 6.5, -0.5], 56, { pos: [-4.6, 9.1, 1.8] }, 3.2));
   return { id: "eg05-5-tall", title: "Sphinx (5: next door)", idea: "seg 5 of 9", set: SUNSET, cast, props,
-    allowClip: [...inPit(["spud", "arch"], S.END), { who: "arch", with: "brush", from: S.T(48.1), to: S.END, checks: ["thin-prop-hidden"], reason: "panels 19-20: the brush hangs at rest by her hip, the other hand points; seen in the stills" }],
-    notes: "Generated by make-sphinx.mjs, segment 5 (story 42.0-53.4): past 18, present 19-20." };
+    allowClip: [...inPit(["spud", "arch"], S.END), { who: "arch", with: "brush", from: S.T(46.8), to: S.END, checks: ["thin-prop-hidden"], reason: "panels 19-21: the brush hangs at rest by her hip, the other hand points; seen in the stills" }],
+    notes: "Generated by make-sphinx.mjs, segment 5 (story 42.0-56.38): past 18, present 19-21." };
 });
 
-// ===================================================================== 6. NIGHT 53.4-58.3: the Lion rising in the Sphinx's gaze
-const seg6 = () => segment(53.4, 58.3, (S) => {
+// ===================================================================== 6. NIGHT 53.4-57.4: the Lion rising in the Sphinx's gaze
+const seg6 = () => segment(6, (S) => {
   const cast = [{ id: "spud", character: CAST.spud, at: PARK(0), face: 0, expr: "neutral", seed: 4.1, staged: "voice over" }];
   const props = [SKY("night", 0, 0), { id: "stars", kind: "starfield", x: 0, z: 0, n: 5000, hole: [90, 8, 19], seed: 2, staged: "the stars on the sky dome" }, GROUND({ night: 1 }),
     PIT(), SPHINX({ stele: false }), TEMPLE(), { id: "leo", kind: "leo", x: 0, y: 0, z: 0, staged: "the Lion's stars on the sky dome" }];
-  S.prop(53.5, "sky", { night: 1 }); S.prop(53.5, "stars", { show: 0.86 }); S.prop(53.5, "ground", { night: 1 }); S.prop(53.5, "leo", { show: 0, lines: 0, rise: 0 });
-  S.prop(53.5, "sphinx", { rough: 0, flake: 0, wet: 0 }); S.prop(53.5, "pit", { wet: 0, flow: 0, quarry: 0 });
-  // P21 (53.4-55.3) "...at the exact spot where the Lion rose at sunrise": the Sphinx from behind, looking east under the stars
-  S.shot("21 its gaze", 53.4, cam([-5.5, 9.4, 2.2], [30, 6.5, -0.5], 56, { pos: [-4.6, 9.1, 1.8] }, 1.9));
-  // P22 (55.3-58.3) "...twelve and a half thousand years ago?": the Lion rises in line with its gaze, a first glow beneath
-  S.prop(55.3, "leo", { show: 0.88, lines: 0 }); S.prop(55.6, "leo", { lines: 0.82 }, 0.8, "inOut");
-  S.prop(55.32, "leo", { rise: 1 }, 2.9, "inOut");
-  S.prop(55.3, "sky", { night: 0.83 }); S.prop(55.32, "sky", { night: 0.69 }, 2.9, "linear");
-  S.prop(55.3, "stars", { show: 0.68 }); S.prop(55.32, "stars", { show: 0.46 }, 2.9, "linear");
-  S.num(56.0, 58.3, "12,500 YEARS AGO", { size: 96 });
-  S.shot("22 the Lion rises", 55.3, cam([-6.5, 9.2, 4.2], [40, 13.5, -1.5], 56, { pos: [-6.0, 9.1, 3.9] }, 3.0), "peak");
+  S.prop(53.41, "ground", { night: 1 }); S.prop(53.41, "sphinx", { rough: 0, flake: 0, wet: 0 }); S.prop(53.41, "pit", { wet: 0, flow: 0, quarry: 0 });
+  // P22 (53.4-57.4) "...twelve and a half thousand years ago?": the Lion rises in line with its gaze, a first glow beneath
+  S.head("s06");   // "twelve and a half thousand years ago?"
+  S.prop(53.41, "leo", { show: 0.88, lines: 0, rise: 0 }); S.prop(53.7, "leo", { lines: 0.82 }, 0.8, "inOut");
+  S.prop(53.44, "leo", { rise: 1 }, 3.4, "inOut");
+  S.prop(53.41, "sky", { night: 0.83 }); S.prop(53.44, "sky", { night: 0.69 }, 3.4, "linear");
+  S.prop(53.41, "stars", { show: 0.68 }); S.prop(53.44, "stars", { show: 0.46 }, 3.4, "linear");
+  S.num(53.9, 57.4, "12,500 YEARS AGO", { size: 96 });
+  S.shot("22 the Lion rises", 53.4, cam([-6.5, 9.2, 4.2], [40, 13.5, -1.5], 56, { pos: [-6.0, 9.1, 3.9] }, 4.0), "peak");
   return { id: "eg05-6-tall", title: "Sphinx (6: the Lion)", idea: "seg 6 of 9", set: NIGHT, cast, props, allowClip: inPit(["spud"], S.END),
     sound: { ...SOUND, ambience: 0.04 },
-    notes: "Generated by make-sphinx.mjs, segment 6 (story 53.4-58.3): Spud's last card as a voice over." };
+    notes: "Generated by make-sphinx.mjs, segment 6 (story 53.4-57.4): Spud's last card as a voice over." };
 });
 
 // ===================================================================== 7. DUSK 58.3-60.6: no answer
-const seg7 = () => segment(58.3, 60.6, (S) => {
+const seg7 = () => segment(7, (S) => {
   const P = { spud: [13.8, 7.37], arch: [14.4, 6.56] };
   const cast = [
     { id: "arch", character: CAST.arch, at: P.arch, face: 330, expr: "kind", follow: 0.2, seed: 1.3 },
@@ -410,7 +437,7 @@ const seg7 = () => segment(58.3, 60.6, (S) => {
 });
 
 // ===================================================================== 8. DAWN 60.6-63.6: both between the paws; "WHO'S RIGHT?"
-const seg8 = () => segment(60.6, 63.6, (S) => {
+const seg8 = () => segment(8, (S) => {
   const P = { spud: [12.9, -0.3], arch: [12.3, 0.3] };
   const cast = [
     { id: "arch", character: CAST.arch, at: P.arch, face: 90, expr: "kind", follow: 0.2, seed: 1.3 },

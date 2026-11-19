@@ -139,7 +139,7 @@
    "who": "spud",
    "with": "pit",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -150,7 +150,7 @@
    "who": "spud",
    "with": "sphinx",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -161,7 +161,7 @@
    "who": "spud",
    "with": "valley",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -172,7 +172,7 @@
    "who": "spud",
    "with": "temple",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -183,7 +183,7 @@
    "who": "spud",
    "with": "tempQ",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -194,7 +194,7 @@
    "who": "spud",
    "with": "hall",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -205,7 +205,7 @@
    "who": "arch",
    "with": "pit",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -216,7 +216,7 @@
    "who": "arch",
    "with": "sphinx",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -227,7 +227,7 @@
    "who": "arch",
    "with": "valley",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -238,7 +238,7 @@
    "who": "arch",
    "with": "temple",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -249,7 +249,7 @@
    "who": "arch",
    "with": "tempQ",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -260,7 +260,7 @@
    "who": "arch",
    "with": "hall",
    "from": 0,
-   "to": 13,
+   "to": 13.7,
    "checks": [
     "clipping",
     "shell"
@@ -359,9 +359,9 @@
    "size": 62
   },
   {
-   "from": 11.2,
-   "to": 15.05,
-   "text": "Then what about the secret room? A library, hidden under its paw.",
+   "from": 11.216,
+   "to": 13.7,
+   "text": "Then what about the secret room?",
    "pos": 400,
    "pop": false,
    "size": 62
@@ -861,24 +861,6 @@
     },
     {
      "who": "arch",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 3.45
-    },
-    {
-     "who": "arch",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 3.45
-    },
-    {
-     "who": "arch",
      "do": "move",
      "to": [
       11,
@@ -922,13 +904,31 @@
      "ease": "linear",
      "sync": true,
      "at": 3.48
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.485
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.485
     }
    ]
   },
   {
    "name": "10 the secret room",
    "at": 11.1,
-   "len": 1.9,
+   "len": 2.6,
    "shot": {
     "pos": [
      15.4,
@@ -948,7 +948,7 @@
       4.8
      ]
     },
-    "dur": 1.9,
+    "dur": 2.6,
     "ease": "inOut"
    },
    "do": [
@@ -985,12 +985,12 @@
     {
      "macro": "say",
      "who": "spud",
-     "line": "Then what about the secret room? A library, hidden under its paw.",
-     "tone": "question",
-     "dur": 3.6403,
-     "voice": "reaper-quick",
+     "line": "Then what about the secret room?",
+     "rec": "storyboards/series/ancient-aliens/05-sphinx/voice/s04-1.flac",
+     "age": "age-none",
+     "dur": 2.102,
      "caption": false,
-     "at": 0.1
+     "at": 0.116
     },
     {
      "who": "spud",

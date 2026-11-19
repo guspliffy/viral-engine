@@ -299,7 +299,7 @@
  "music": {
   "file": "ancient-aliens/aa05-score.ogg",
   "from": 0,
-  "skip": 60.6,
+  "skip": 64.48,
   "gain": 0.6,
   "lowCut": 90,
   "dip": false,

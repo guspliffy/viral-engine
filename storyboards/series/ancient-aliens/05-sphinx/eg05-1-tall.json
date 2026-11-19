@@ -242,7 +242,16 @@
   },
   "mood": "dramatic"
  },
- "captions": [],
+ "captions": [
+  {
+   "from": 0.03,
+   "to": 3.1,
+   "text": "Years of it. It was here before the desert!",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  }
+ ],
  "beats": [
   {
    "name": "05 green Sahara",
@@ -284,6 +293,16 @@
      "dur": 3.1,
      "reason": "heavy rain (the closest rain bed in the library)",
      "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Years of it. It was here before the desert!",
+     "rec": "storyboards/series/ancient-aliens/05-sphinx/voice/s02-2.flac",
+     "age": "age-none",
+     "dur": 3.004,
+     "caption": false,
+     "at": 0.03
     },
     {
      "do": "prop",

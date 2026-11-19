@@ -294,7 +294,7 @@
  "music": {
   "file": "ancient-aliens/aa05-score.ogg",
   "from": 0,
-  "skip": 58.3,
+  "skip": 62.18,
   "gain": 0.6,
   "lowCut": 90,
   "dip": false,

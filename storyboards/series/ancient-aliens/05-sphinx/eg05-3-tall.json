@@ -78,7 +78,7 @@
  "music": {
   "file": "ancient-aliens/aa05-score.ogg",
   "from": 0,
-  "skip": 25,
+  "skip": 25.7,
   "gain": 0.6,
   "lowCut": 90,
   "dip": false,
@@ -87,12 +87,21 @@
   },
   "mood": "dramatic"
  },
- "captions": [],
+ "captions": [
+  {
+   "from": 0.03,
+   "to": 2.7,
+   "text": "A library, hidden under its paw.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  }
+ ],
  "beats": [
   {
    "name": "11 the hall of records",
    "at": 0,
-   "len": 2,
+   "len": 2.7,
    "shot": {
     "pos": [
      11.3,
@@ -112,10 +121,20 @@
       5.2
      ]
     },
-    "dur": 2,
+    "dur": 2.7,
     "ease": "out"
    },
    "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "A library, hidden under its paw.",
+     "rec": "storyboards/series/ancient-aliens/05-sphinx/voice/s04-2.flac",
+     "age": "age-none",
+     "dur": 2.574,
+     "caption": false,
+     "at": 0.03
+    },
     {
      "do": "prop",
      "id": "hall",
@@ -132,7 +151,7 @@
      "set": {
       "lamp": 1
      },
-     "dur": 1.85,
+     "dur": 2.4,
      "ease": "linear",
      "at": 0.12
     }

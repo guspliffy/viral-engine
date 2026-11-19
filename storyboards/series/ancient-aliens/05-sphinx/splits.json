@@ -1,0 +1,58 @@
+{
+ "s02:1": {
+  "line": "Rain did this.",
+  "file": "storyboards/series/ancient-aliens/05-sphinx/voice/s02-1.flac",
+  "who": "spud",
+  "off": 0,
+  "dur": 1.139
+ },
+ "s02:2": {
+  "line": "Years of it. It was here before the desert!",
+  "file": "storyboards/series/ancient-aliens/05-sphinx/voice/s02-2.flac",
+  "who": "spud",
+  "off": 1.47,
+  "dur": 3.004
+ },
+ "s04:1": {
+  "line": "Then what about the secret room?",
+  "file": "storyboards/series/ancient-aliens/05-sphinx/voice/s04-1.flac",
+  "who": "spud",
+  "off": 0,
+  "dur": 2.102
+ },
+ "s04:2": {
+  "line": "A library, hidden under its paw.",
+  "file": "storyboards/series/ancient-aliens/05-sphinx/voice/s04-2.flac",
+  "who": "spud",
+  "off": 2.514,
+  "dur": 2.574
+ },
+ "a05c:1": {
+  "line": "They carved the Sphinx, and built the temple from what they cut away.",
+  "file": "storyboards/series/ancient-aliens/05-sphinx/voice/a05c-1.flac",
+  "who": "arch",
+  "off": 0,
+  "dur": 3.824
+ },
+ "a05c:2": {
+  "line": "Right after King Khafre's temple next door.",
+  "file": "storyboards/series/ancient-aliens/05-sphinx/voice/a05c-2.flac",
+  "who": "arch",
+  "off": 3.884,
+  "dur": 2.639
+ },
+ "s06:1": {
+  "line": "Then why does it stare at the exact spot where the Lion rose at sunrise...",
+  "file": "storyboards/series/ancient-aliens/05-sphinx/voice/s06-1.flac",
+  "who": "spud",
+  "off": 0,
+  "dur": 5.361
+ },
+ "s06:2": {
+  "line": "twelve and a half thousand years ago?",
+  "file": "storyboards/series/ancient-aliens/05-sphinx/voice/s06-2.flac",
+  "who": "spud",
+  "off": 5.908,
+  "dur": 2.402
+ }
+}
