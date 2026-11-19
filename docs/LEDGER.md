@@ -95,6 +95,14 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   two steps differ is a pop like any other (warn over 8, fail over 30). Should keep one-frame flashes found at the
   join at 0. Proof: of the film's 25 wide finals it flags exactly b2-b6 (frame 0 without actors or HUD: 57, 44, 77,
   14, 65), all real, and nothing in A, C or D.
+- Made-up words in a voice take fail preflight (19 Nov, from the Mona Lisa fact story; waits for Jonny's word):
+  `engine/voice/tts.py` keeps what Whisper heard in each VoxCPM2 take's cache entry (`heard`), `withSpeech` lists
+  every take heard as other words (`misreads`), and `qa/preflight.mjs` judges them on every run (`misread`): two or
+  more words beyond the line fail, any other difference warns. The narrator's first take of "He lifts her off four
+  hooks..." went on after a silence with "this clear."; tts.py prints such a take once, when it is first read in a
+  batch of 35 lines, and it went by unseen; Sol only sees frames; Jonny heard "a weird noise" on draft 3 (a round). Should keep voice notes
+  by Jonny's ear at 0. Proof: the hooks storyboard with that take's words fails `misread` (2 made-up words), with
+  "take": 2 it passes; entries made before this have no `heard` and are not judged; no render changes.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
