@@ -296,7 +296,10 @@ function gaitTrack(sb, actor, def) {
 // h (lift), q (the gait phase at touch down: R whole, L half) } and "off" spans where the feet go with the body
 function gaitPlan(sb, actor, def) {
   let per = GPLANS.get(sb); if (!per) { per = new Map(); GPLANS.set(sb, per); }
-  let P = per.get(actor.id); if (P) return P;
+  // legs.stride (opt-in, the human friends 19 Nov): a plan per stride, so a caller without the character file (a
+  // footstep count) never hands its potato-length steps to one that has it
+  const GS = def?.legs?.stride ?? 1, PK = GS === 1 ? actor.id : `${actor.id}|${GS}`;
+  let P = per.get(PK); if (P) return P;
   const K = gaitTrack(sb, actor, def), n = K.n, dt = GAIT.dt, G = GAIT;
   const PRE = GAIT.pre, at = (arr, u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return arr[i] + (arr[i + 1] - arr[i]) * r; };
   const yawAt = (u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return K.yaw[i] + angD(K.yaw[i + 1], K.yaw[i]) * r; };
@@ -321,9 +324,11 @@ function gaitPlan(sb, actor, def) {
     // the pace: the fastest the body goes over the next quarter second (a dash gets quick steps from its first one)
     let ve = 0, rn = K.run[i];
     for (let j = i; j < Math.min(n, i + 30); j++) { ve = Math.max(ve, K.v[j] + G.hx * K.sc[j] * Math.abs(K.yr[j])); if (j < i + 12) rn = rn || K.run[j]; }
-    const sc = K.sc[i], run = rn || ve > G.vRun * sc;
-    const ST = run ? G.runST : G.walkST, c0 = K.steps[i] || (run ? G.runCad : G.cad);
-    const L = clamp(ve / c0, G.Lmin * sc, (run ? G.runLmax : G.Lmax) * sc), cad = clamp(ve / L, G.minCad, G.maxCad);
+    // legs.stride (opt-in, the human friends 19 Nov): a character with long legs takes steps that many times a potato's
+    // length, at a cadence that many times slower (GS 1: exactly as before)
+    const sc = K.sc[i] * GS, run = rn || ve > G.vRun * sc;
+    const ST = run ? G.runST : G.walkST, c0 = K.steps[i] || (run ? G.runCad : G.cad) / GS;
+    const L = clamp(ve / c0, G.Lmin * sc, (run ? G.runLmax : G.Lmax) * sc), cad = clamp(ve / L, G.minCad / GS, G.maxCad);
     const Tsw = (1 - ST) / cad, Tst = ST / cad;
     // a standing foot left far behind (a move faster than the feet can follow): note it for the checks
     for (const s of ["R", "L"]) if (foot[s].t1 <= u) { const h = homeAt(s, u), e = Math.hypot(h[0] - foot[s].p[0], h[1] - foot[s].p[1]); if (e > G.reach * sc && (!warn.length || u - warn[warn.length - 1].t > 0.3)) warn.push({ t: u, foot: s, m: e }); }
@@ -398,7 +403,7 @@ function gaitPlan(sb, actor, def) {
   const bouts = [];
   for (const e of steps) { const b = bouts[bouts.length - 1]; if (b && e.t0 - b.t1 < 0.4) { b.t1 = Math.max(b.t1, e.t1); b.n++; } else bouts.push({ t0: e.t0, t1: e.t1, n: 1 }); e.b = bouts.length - 1; }
   P = { K, ev, steps, bouts, warn, at, yawAt, tune: (typeof sb.motion === "object" && sb.motion.feetTune) || {}, roll: rollOf(sb, def) };
-  per.set(actor.id, P);
+  per.set(PK, P);
   return P;
 }
 // the gait that natApply and the arm swing read at time t: its phase from the touch downs, how much of it shows (eased

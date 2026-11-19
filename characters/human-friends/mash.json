@@ -1,0 +1,155 @@
+{
+  "id": "human-friends/mash",
+  "name": "Mash (human)",
+  "franchise": "Human friends",
+  "tts": "mash",
+  "source": "Jonny's pick 19 Nov 2026: line-up Mix 1 and the two Codex Sol sheets (/mnt/project-files/characters/human-friends/round3/mash-turnaround.png, mash-faces-details.png). Proportions measured off the turnaround sheet.",
+  "rig": "potato",
+  "build": "core",
+  "body": {
+    "color": "#64625f",
+    "height": 0.46,
+    "width": 0.37,
+    "depth": 0.27,
+    "lump": 0,
+    "seed": 67,
+    "taper": -0.06,
+    "square": 2.6,
+    "specks": 0,
+    "gloss": 0,
+    "keepSkin": true
+  },
+  "head": {
+    "color": "#f6c890",
+    "keepSkin": true,
+    "width": 0.47,
+    "height": 0.47,
+    "depth": 0.43,
+    "square": 2.25,
+    "taper": 0.1,
+    "neck": -0.02,
+    "neckR": 0.07,
+    "faceUp": -0.08,
+    "faceWide": 1.25,
+    "nose": {
+      "w": 0.014,
+      "h": 0.011,
+      "d": 0.012,
+      "v": -0.12
+    },
+    "ears": {
+      "w": 0.04,
+      "h": 0.052,
+      "d": 0.02,
+      "v": -0.1
+    }
+  },
+  "legs": { "stride": 2,
+    "height": 0.5,
+    "width": 0.052,
+    "hipX": 0.085,
+    "footX": 0.095
+  },
+  "limbs": {
+    "color": "#f6c890",
+    "role": "skin",
+    "width": 0.048,
+    "shoulder": 0.62,
+    "rest": {
+      "o": [
+        0.075,
+        -0.1,
+        0.02
+      ],
+      "elbow": 0.035
+    }
+  },
+  "hands": {
+    "type": "mitten",
+    "size": 0.95,
+    "keep": true
+  },
+  "face": {
+    "size": 0.6,
+    "default": "kind",
+    "iris": "#4b2c1e",
+    "brow": "#4a4463",
+    "cheeks": "#f29b86",
+    "neutral": {
+      "curve": -0.05,
+      "open": 0,
+      "eye": 1.0
+    },
+    "eye": {
+      "flick": 0.2
+    },
+    "browShape": {
+      "arch": -0.02,
+      "thick": 1.3
+    },
+    "blush": 0.9,
+    "final": {
+      "iris": "#4b2c1e",
+      "brow": "#4a4463",
+      "freckles": 0,
+      "eye": {
+        "oval": 1.25,
+        "iris": 0.8
+      },
+      "browShape": {
+        "arch": -0.01,
+        "thick": 1.5,
+        "clear": 0.02
+      },
+      "rest": {
+        "smirk": 0,
+        "curve": -0.08,
+        "tilt": -0.25
+      },
+      "neutral": {
+        "lidL": 0.2,
+        "lidR": 0.2
+      },
+      "blush": 1.1,
+      "layout": {
+        "eyeU": 0.5,
+        "eyeV": 0.12,
+        "mouthV": -0.5,
+        "cheekU": 0.78,
+        "cheekV": -0.2,
+        "browV": 0.52
+      }
+    }
+  },
+  "sprout": {
+    "placement": "none"
+  },
+  "costume": {
+    "type": "human-mash",
+    "skin": "#f6c890",
+    "hair": "#5d5674",
+    "hoodie": "#64625f",
+    "rib": "#54524f",
+    "denim": "#9aa1b6",
+    "shoe": "#45435c",
+    "sole": "#f2e3c6",
+    "phones": "#86bde6",
+    "phonesDark": "#5c9bcb",
+    "shoeSize": [
+      0.08,
+      0.055,
+      0.125
+    ]
+  },
+  "personality": "The human version of Mash, the friend who never looks up from his phone. Tallest of the four, thin, slouched. Catchphrase: \"One sec.\"",
+  "voice": {
+    "pitch": 108,
+    "rate": 2.6,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 97
+  },
+  "notes": "Core build (torso + separate head). Hair, hoodie parts, headphones, trousers and shoes come from engine/page/costumes-human-friends.js. The phone is a prop a clip hands him."
+}

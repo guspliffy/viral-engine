@@ -1220,7 +1220,7 @@ export function soundEvents(sb, chars) {
       if (f.do === "poof" && f.sound !== false) ev.push({ kind: "poof", at: f.at, pan: f.who ? panOf(f.who) : 0, gain: 0.5 });
     }
   }
-  if (cfg.auto !== false && cfg.foley !== false) ev.push(...foley(sb, panOf));
+  if (cfg.auto !== false && cfg.foley !== false) ev.push(...foley(sb, panOf, chars));
   // the leads' signature sounds on their entrance and on the payoff (engine/sfx/signature.mjs)
   if (cfg.auto !== false) {
     let defs = chars; if (!defs) try { defs = loadCharacters(sb); } catch { defs = {}; }
@@ -1255,7 +1255,7 @@ function natSteps(sb, a) {
   return out;
 }
 
-function foley(sb, panOf) {
+function foley(sb, panOf, chars) {
   const ev = [], step = surfaceOf(sb), ownSteps = (sb.sfx || []).some((s) => /^step/.test(s.sound));
   const acts = [...(sb.actions || [])].sort((p, q) => p.at - q.at), air = {};
   // the planted gait (timeline.js, "motion": { "feet": 2 }): a footstep on each real touch down, softer for a short
@@ -1264,7 +1264,7 @@ function foley(sb, panOf) {
   // (a step whose length isn't a number is a normal step: on the sound clock a hit-stop made every move's target NaN
   // until 9 Nov (engine/shared/holds.js soundClock), so a step's gain was NaN and the effects and the music went
   // silent from it on, Never Has Money 04)
-  if (planted) for (const c of sb.cast || []) for (const f of footfalls(sb, c)) {
+  if (planted) for (const c of sb.cast || []) for (const f of footfalls(sb, c, chars?.[c.character] || {})) {   // the character file: a long-legged cast member's own stride (legs.stride)
     if (!Number.isFinite(f.at) || f.at > (sb.storyDuration ?? sb.duration ?? Infinity)) continue;
     const len = Number.isFinite(f.len) ? f.len : 0.15;
     ev.push({ kind: step, at: f.at, pan: panOf(c.id), gain: (f.run ? 0.75 : 1) * (0.5 + 0.5 * Math.min(1, len / 0.15)) });

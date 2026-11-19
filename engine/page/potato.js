@@ -890,7 +890,10 @@ export class Character {
   // turn and the arm curve's pull point (S: the body's squash scale)
   _armIn(st, t, s, S) {
     const sx = s === "R" ? -1 : 1, a = st.arms[s];
-    const from = handTarget(a.from, sx, this.rx, this.H, t, this.legH), to = handTarget(a.pose, sx, this.rx, this.H, t, this.legH);
+    // limbs.rest (opt-in, the human friends 19 Nov 2026): where this character's hands hang at rest, { o: [out, up, fwd], elbow },
+    // read like a pose object (out from the body's side, up as a share of the body's height above the legs, forward)
+    const RP = this.def.limbs?.rest, own = (q) => (RP && (q == null || q === "rest") ? RP : q);
+    const from = handTarget(own(a.from), sx, this.rx, this.H, t, this.legH), to = handTarget(own(a.pose), sx, this.rx, this.H, t, this.legH);
     const h = new THREE.Vector3().fromArray(arcLerp(from, to, a.p, sx));
     // natural gait (timeline.js natMove): an arm hanging at rest swings against its own side's leg, along the walk
     // (a pose object with `swing` swings too: a character's own walking arms, e.g. Pebble's, instead of the generic rest)
@@ -915,7 +918,7 @@ export class Character {
     const fr = this._frame(a);
     // the elbow (the arm curve's pull point) for the hand at h
     const elbowFor = (h) => {
-      const out = elbowOut(a.pose) * a.p + elbowOut(a.from) * (1 - a.p);
+      const out = elbowOut(own(a.pose)) * a.p + elbowOut(own(a.from)) * (1 - a.p);
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
       // a hand closed on a staff or handle: the elbow drops below the shoulder-hand line, so the forearm comes out from the
       // body into the side of the fist, square to the handle, instead of running down alongside it
