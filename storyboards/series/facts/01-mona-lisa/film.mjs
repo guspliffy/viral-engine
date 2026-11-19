@@ -140,7 +140,7 @@ export const SCENES = [
   { id: "03 closet", act: "theft", place: "corridor", extra: [], props: {},
     layout: { thief: [0.4, 0.4, 150], g1: [-0.3, 5.0, 0] },
     shot: { t: "wide", at: [0.3, 0.8, 1.6], h: 2.6, az: -18 }, seq: [
-      ["walk", "thief", [0.95, 1.0], 1.2], ["n", "Sunday night, he hides in a closet."], ["sfx", "latch", { gain: 0.5 }], ["hide", "thief"],
+      ["walk", "thief", [0.95, 1.0], 1.2], ["n", "Sunday night, he hides in a closet."], ["cut", { t: "wide", who: ["g1"], h: 2.8 }], ["sfx", "latch", { gain: 0.5 }], ["hide", "thief"],   // hidden on the cut, never on screen
       ["walk", "g1", [-0.2, 0.2], 2.6], ["sfx", "step", { gain: 0.4 }], ["wait", 1.2] ] },
   // 4 MONDAY: closed; off four hooks
   { id: "04 off the wall", act: "theft", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
