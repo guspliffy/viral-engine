@@ -25,7 +25,7 @@ for (const sc of SCENES) {
   for (const it of sc.seq) {
     const [k] = it;
     if (k === "n") { const d = nDur(it[1]); ev.push([t, "n", it[1], d]); t += d + 0.18; }
-    else if (k === "s") { const [, who, line, tone] = it, d = sDur(line); ev.push([t, "s", who, line, d, tone]); t += d + 0.1; }
+    else if (k === "s") { const [, who, line, tone] = it, d = sDur(line); ev.push([t, "s", who, line, d, tone]); t += d + 0.45; }
     else if (k === "cut") ev.push([t, "cut", it[1], { ...posNow }]);
     else if (k === "wait") t += it[1];
     else if (k === "walk") { posNow[it[1]] = S.w(it[2]); ev.push([t, ...it]); }
@@ -104,7 +104,13 @@ runs.forEach((run, ri) => {
         const sg = (cuts.length % 2 ? -1 : 1) * 5, pv = r3(Math.hypot(...shot.pos.map((v, i) => v - shot.look[i])));
         if (!shot.yaw) shot.yaw = { keys: [[uu, 0], [r3(uu + len), sg]], pivot: pv };   // a slow arc on every shot
         cuts.push([`${sc.id} ${spec.t}${spec.auto ? " +" : ""}`, uu, shot]);
-      } else if (k === "n") c.at(uu, { macro: "narrate", line: e[2], voice: NARRATOR, dur: e[3], caption: true, pos: F.SUB, gain: 4.0 });
+      } else if (k === "n") {
+        // the caption is the clip's own (absolute), not the macro's: a macro caption ends with its beat, so a line that
+        // starts just before a cut lost its subtitle (draft 2: "The dealer calls the police."); it ends 0.15 s after the
+        // voice, before the next narrator line (0.18 s gap)
+        c.at(uu, { macro: "narrate", line: e[2], voice: NARRATOR, dur: e[3], caption: false, pos: F.SUB, gain: 4.0 });
+        c.cap(uu, Math.min(r3(uu + e[3] + 0.15), END), e[2], F.SUB);
+      }
       else if (k === "s") {
         const [, , id, line, d, tone] = e;
         c.say(uu, id, line, d, tone, { voice: false, sub: line.charAt(0).toUpperCase() + line.slice(1), pos: F.SUB });

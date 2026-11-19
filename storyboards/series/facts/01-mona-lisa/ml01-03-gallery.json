@@ -194,7 +194,22 @@
    "r": 0.19
   }
  ],
- "captions": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 2.22,
+   "text": "Monday, the Louvre is closed.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 2.25,
+   "to": 4.997,
+   "text": "He lifts her off four hooks...",
+   "pos": 470,
+   "pop": false
+  }
+ ],
  "beats": [
   {
    "name": "04 off the wall wide",
@@ -325,7 +340,7 @@
      "line": "Monday, the Louvre is closed.",
      "voice": "narrator-quick",
      "dur": 1.9699,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0.1
@@ -421,7 +436,7 @@
      "line": "He lifts her off four hooks...",
      "voice": "narrator-quick",
      "dur": 2.5965,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0

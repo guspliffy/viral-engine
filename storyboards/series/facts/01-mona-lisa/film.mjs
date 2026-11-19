@@ -112,12 +112,12 @@ const ATML = [ML.x - 0.05, ML.y + ML.h / 2, ML.z];   // the face of the painting
 export const SCENES = [
   // 1 HOOK: the Louvre, 1911; visitors stroll past without a look; push in on her
   { id: "01 nobody stops", act: "hook", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
-    layout: { v1: [-0.9, 1.05, 90], v2: [-2.6, 1.05, 90], v3: [1.0, 0.8, -90], v4: [2.7, 0.8, -90] },
+    layout: { v1: [-0.9, 1.25, 90], v2: [-2.6, 1.25, 90], v3: [0.2, 0.45, 90], v4: [-1.7, 0.45, 90] },
     shot: { t: "wide", at: [5.2, 0.75, 0], h: 4.0, az: -12 }, card: ["How did one thief make\nthe Mona Lisa famous?", 5.2], seq: [
-      ["walk", "v1", [2.0, 1.05], 4.4], ["walk", "v2", [0.3, 1.05], 4.4], ["walk", "v3", [-2.0, 0.8], 4.2], ["walk", "v4", [-0.4, 0.8], 4.2],
+      ["walk", "v1", [2.0, 1.25], 4.4], ["walk", "v2", [0.3, 1.25], 4.4], ["walk", "v3", [3.1, 0.45], 4.4], ["walk", "v4", [1.2, 0.45], 4.4],
       ["sfx", "step", { gain: 0.3 }],
       ["n", "Nineteen eleven. Nobody stops for the Mona Lisa."],
-      ["cut", { t: "insert", at: ATML, h: 0.75, push: 0.25 }],
+      ["cut", { t: "insert", at: ATML, h: 0.75, push: 0.25 }], ["hide", "v1"], ["hide", "v2"], ["hide", "v3"], ["hide", "v4"],
       ["n", "In two days, the whole world will be hunting for her."] ] },
   // 2 PLANT: the man who put the glass on her
   { id: "02 the glass man", act: "hook", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
@@ -199,10 +199,10 @@ export const SCENES = [
   // 10 THE EMPTY WALL (the second hook)
   { id: "10 empty wall", act: "wall", place: "gallery", extra: [HOOKS], props: {},
     layout: { v1: [-0.3, 1.05, 165], v2: [0.55, 0.75, 175], v3: [-1.15, 0.55, 160], v4: [1.4, 0.3, -170], v5: [-2.0, 0.1, 150] },
-    shot: { t: "wide", at: [5.2, 0.6, 0], h: 3.0, az: -70, el: 10 }, seq: [
+    shot: { t: "wide", at: [5.6, 0.8, 0], h: 3.4, az: -40, el: 38 }, seq: [
       ["n", "When it reopens, thousands queue..."],
       ["walk", "v5", [-1.8, 0.2], 2.0], ["walk", "v3", [-1.05, 0.6], 1.8],
-      ["cut", { t: "wide", at: [5.2, 0.7, 0], h: 2.8, az: 60, el: 8 }],
+      ["cut", { t: "wide", at: [5.6, 0.8, 0], h: 3.0, az: 35, el: 34 }],
       ["n", "...to stare at an empty wall."], ["wait", 0.5] ] },
   // 11 HIS ROOM: the knock, the search, the trunk a metre away; two years
   { id: "11 his room", act: "room", place: "room", extra: [{ id: "trunk", kind: "trunk", x: -1.25, y: 0, z: -1.6, rot: 0, open: 0 }], props: {},
@@ -220,11 +220,11 @@ export const SCENES = [
   // 12 FLORENCE: the dealer
   { id: "12 dealer", act: "caught", place: "shop", extra: [{ id: "trunk", kind: "trunk", x: 0.3, y: 0, z: 0.1, rot: 0, open: 0 }, { id: "ml", kind: "painting", x: 0.3, y: 0.15, z: 0.05, rot: 0, tip: -90, cover: 0 }],
     props: {},
-    layout: { thief: [-0.6, 0.6, 30], dealer: [0.75, 0.75, -35] },
+    layout: { thief: [-0.95, 0.75, 30], dealer: [0.95, 0.85, -35] },
     shot: { t: "two", who: ["thief", "dealer"], h: 2.4 }, seq: [
       ["n", "Then he tries to sell her in Florence."], ["prop", "trunk", { open: 1 }, 0.8, "out"], ["sfx", "creak", { gain: 0.4 }],
       ["prop", "ml", { y: 0.42, tip: -45 }, 0.8, "out"],
-      ["cut", { t: "close", who: ["dealer"], az: 10 }], ["e", "dealer", "shocked", { eye: 1.3 }], ["wait", 0.3], ["e", "dealer", "kind"], ["s", "dealer", "leave it with me.", "calm"],
+      ["cut", { t: "close", who: ["dealer"], h: 2.1, az: 10 }], ["e", "dealer", "shocked", { eye: 1.3 }], ["wait", 0.3], ["e", "dealer", "kind"], ["s", "dealer", "leave it with me.", "calm"],
       ["n", "The dealer calls the police."], ["wait", 0.3] ] },
   // 13 CAUGHT, CHEERED
   { id: "13 seven months", act: "caught", place: "street", extra: [], props: {},
@@ -239,10 +239,10 @@ export const SCENES = [
       { id: "crowd", kind: "visitorcrowd", x: ML.x, y: 0, z: 0, rot: 0, n: 30, arc: [1.7, -145, -35], h: 0.85, seed: 3 },
       { id: "rope", kind: "exhibitrope", x: ML.x - 1.3, y: 0, z: 0, posts: [[0, -1.2], [0, 0], [0, 1.2]] }],
     props: { ml: PAINT.ml },
-    layout: { spud: [-0.8, 0.4, 170], chip: [0.05, 0.2, 180], wedge: [0.95, 0.5, -170], mash: [-1.65, 0.1, 160] },
+    layout: {},
     shot: { t: "wide", at: [5.2, 0.7, 0], h: 3.0, az: -10 }, seq: [
-      ["arm", "spud", "R", "up"], ["arm", "wedge", "L", "up"], ["arm", "mash", "R", "up"], ["arm", "chip", "R", "up"], ["sfx", "notify", { gain: 0.25 }],
-      ["n", "Nobody used to stop for her."], ["walk", "chip", [0.05, 0.45], 1.0],
+      ["sfx", "notify", { gain: 0.25 }],
+      ["n", "Nobody used to stop for her."],
       ["n", "Now, nobody can get close."],
       ["cut", { t: "insert", at: ATML, h: 1.3, el: 30, push: 0.3 }],
       ["n", "All because one man carried her out under his smock."], ["wait", 1.0] ] },

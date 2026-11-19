@@ -84,7 +84,7 @@
    "id": "v1",
    "character": "potatobrawl/duchess",
    "at": [
-    5.35,
+    5.55,
     -0.9
    ],
    "face": 0,
@@ -96,7 +96,7 @@
    "id": "v2",
    "character": "potatobrawl/dauphin",
    "at": [
-    5.35,
+    5.55,
     -2.6
    ],
    "face": 0,
@@ -108,10 +108,10 @@
    "id": "v3",
    "character": "potatobrawl/agent",
    "at": [
-    5.1,
-    1
+    4.75,
+    0.2
    ],
-   "face": -180,
+   "face": 0,
    "expr": "kind",
    "follow": 0.3,
    "seed": 3.7
@@ -120,10 +120,10 @@
    "id": "v4",
    "character": "potatobrawl/tot",
    "at": [
-    5.1,
-    2.7
+    4.75,
+    -1.7
    ],
-   "face": -180,
+   "face": 0,
    "expr": "kind",
    "follow": 0.3,
    "seed": 5
@@ -251,6 +251,34 @@
  ],
  "captions": [
   {
+   "from": 0.1,
+   "to": 3.37,
+   "text": "Nineteen eleven. Nobody stops for the Mona Lisa.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 3.4,
+   "to": 6.256,
+   "text": "In two days, the whole world will be hunting for her.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 6.536,
+   "to": 8.267,
+   "text": "This man put the glass on her.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 8.297,
+   "to": 10.748,
+   "text": "He knows every door in this museum.",
+   "pos": 470,
+   "pop": false
+  },
+  {
    "from": 0,
    "to": 5.2,
    "text": "How did one thief make\nthe Mona Lisa famous?",
@@ -306,7 +334,7 @@
      "who": "v1",
      "do": "move",
      "to": [
-      5.35,
+      5.55,
       -0.9
      ],
      "dur": 0.01,
@@ -356,7 +384,7 @@
      "who": "v2",
      "do": "move",
      "to": [
-      5.35,
+      5.55,
       -2.6
      ],
      "dur": 0.01,
@@ -406,8 +434,8 @@
      "who": "v3",
      "do": "move",
      "to": [
-      5.1,
-      1
+      4.75,
+      0.2
      ],
      "dur": 0.01,
      "steps": 0,
@@ -418,7 +446,7 @@
     {
      "who": "v3",
      "do": "turn",
-     "to": -180,
+     "to": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -456,8 +484,8 @@
      "who": "v4",
      "do": "move",
      "to": [
-      5.1,
-      2.7
+      4.75,
+      -1.7
      ],
      "dur": 0.01,
      "steps": 0,
@@ -468,7 +496,7 @@
     {
      "who": "v4",
      "do": "turn",
-     "to": -180,
+     "to": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -565,14 +593,14 @@
     {
      "who": "v3",
      "do": "turn",
-     "to": 180,
+     "to": 0,
      "dur": 0.2,
      "at": 0.1
     },
     {
      "who": "v4",
      "do": "turn",
-     "to": 180,
+     "to": 0,
      "dur": 0.2,
      "at": 0.1
     },
@@ -587,7 +615,7 @@
      "line": "Nineteen eleven. Nobody stops for the Mona Lisa.",
      "voice": "narrator-quick",
      "dur": 3.1203,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0.1
@@ -596,7 +624,7 @@
      "who": "v1",
      "do": "move",
      "to": [
-      5.35,
+      5.55,
       2
      ],
      "dur": 4.4,
@@ -606,7 +634,7 @@
      "who": "v2",
      "do": "move",
      "to": [
-      5.35,
+      5.55,
       0.3
      ],
      "dur": 4.4,
@@ -616,20 +644,20 @@
      "who": "v3",
      "do": "move",
      "to": [
-      5.1,
-      -2
+      4.75,
+      3.1
      ],
-     "dur": 4.2,
+     "dur": 4.4,
      "at": 0.18
     },
     {
      "who": "v4",
      "do": "move",
      "to": [
-      5.1,
-      -0.4
+      4.75,
+      1.2
      ],
-     "dur": 4.2,
+     "dur": 4.4,
      "at": 0.18
     }
    ]
@@ -672,7 +700,80 @@
      "pivot": 4.506
     }
    },
-   "do": []
+   "do": [
+    {
+     "who": "v1",
+     "do": "hide",
+     "at": 1.688
+    },
+    {
+     "who": "v1",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.688
+    },
+    {
+     "who": "v2",
+     "do": "hide",
+     "at": 1.688
+    },
+    {
+     "who": "v2",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.688
+    },
+    {
+     "who": "v3",
+     "do": "hide",
+     "at": 1.688
+    },
+    {
+     "who": "v3",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.688
+    },
+    {
+     "who": "v4",
+     "do": "hide",
+     "at": 1.688
+    },
+    {
+     "who": "v4",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.688
+    }
+   ]
   },
   {
    "name": "01 nobody stops insert",
@@ -718,7 +819,7 @@
      "line": "In two days, the whole world will be hunting for her.",
      "voice": "narrator-quick",
      "dur": 2.7057,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0
@@ -947,7 +1048,7 @@
      "line": "This man put the glass on her.",
      "voice": "narrator-quick",
      "dur": 1.5808,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0.1
@@ -1031,7 +1132,7 @@
      "line": "He knows every door in this museum.",
      "voice": "narrator-quick",
      "dur": 2.3009,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0

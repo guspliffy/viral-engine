@@ -130,7 +130,15 @@
    "badge": false
   }
  ],
- "captions": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 2.884,
+   "text": "Sunday night, he hides in a closet.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
  "beats": [
   {
    "name": "03 closet wide",
@@ -283,7 +291,7 @@
      "line": "Sunday night, he hides in a closet.",
      "voice": "narrator-quick",
      "dur": 2.6339,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0.1

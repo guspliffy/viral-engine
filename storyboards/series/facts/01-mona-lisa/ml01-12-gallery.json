@@ -46,7 +46,7 @@
  "music": {
   "file": "score-film/monalisa-score.ogg",
   "from": 0,
-  "skip": 78.805,
+  "skip": 79.855,
   "seam": true,
   "gain": 0.55,
   "lowCut": 90,
@@ -72,56 +72,7 @@
    8.797
   ]
  },
- "cast": [
-  {
-   "id": "spud",
-   "character": "potatobrawl/spud",
-   "at": [
-    4.7,
-    -0.8
-   ],
-   "face": 80,
-   "expr": "kind",
-   "follow": 0.3,
-   "seed": 1.1
-  },
-  {
-   "id": "chip",
-   "character": "potatobrawl/chip",
-   "at": [
-    4.5,
-    0.05
-   ],
-   "face": 90,
-   "expr": "kind",
-   "follow": 0.3,
-   "seed": 2.4000000000000004
-  },
-  {
-   "id": "wedge",
-   "character": "potatobrawl/wedge",
-   "at": [
-    4.8,
-    0.95
-   ],
-   "face": 100,
-   "expr": "kind",
-   "follow": 0.3,
-   "seed": 3.7
-  },
-  {
-   "id": "mash",
-   "character": "potatobrawl/mash",
-   "at": [
-    4.4,
-    -1.65
-   ],
-   "face": 70,
-   "expr": "kind",
-   "follow": 0.3,
-   "seed": 5
-  }
- ],
+ "cast": [],
  "props": [
   {
    "id": "hall",
@@ -258,7 +209,29 @@
    ]
   }
  ],
- "captions": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.769,
+   "text": "Nobody used to stop for her.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 1.799,
+   "to": 4.118,
+   "text": "Now, nobody can get close.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 4.148,
+   "to": 7.618,
+   "text": "All because one man carried her out under his smock.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
  "beats": [
   {
    "name": "14 today wide",
@@ -299,206 +272,6 @@
     }
    },
    "do": [
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      4.7,
-      -0.8
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "turn",
-     "to": 80,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "move",
-     "to": [
-      4.5,
-      0.05
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "move",
-     "to": [
-      4.8,
-      0.95
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "turn",
-     "to": 100,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "move",
-     "to": [
-      4.4,
-      -1.65
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "turn",
-     "to": 70,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
     {
      "do": "prop",
      "id": "ml",
@@ -554,38 +327,6 @@
      "at": 0
     },
     {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.3,
-     "at": 0.1
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "L",
-     "pose": "up",
-     "dur": 0.3,
-     "at": 0.1
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.3,
-     "at": 0.1
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.3,
-     "at": 0.1
-    },
-    {
      "sfx": "notify",
      "reason": "the story's own sound",
      "gain": 0.25,
@@ -596,37 +337,20 @@
      "line": "Nobody used to stop for her.",
      "voice": "narrator-quick",
      "dur": 1.519,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0.1
-    },
-    {
-     "who": "chip",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.2,
-     "at": 1.799
     },
     {
      "macro": "narrate",
      "line": "Now, nobody can get close.",
      "voice": "narrator-quick",
      "dur": 2.1687,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 1.799
-    },
-    {
-     "who": "chip",
-     "do": "move",
-     "to": [
-      4.75,
-      0.05
-     ],
-     "dur": 1,
-     "at": 1.879
     }
    ]
   },
@@ -714,7 +438,7 @@
      "line": "All because one man carried her out under his smock.",
      "voice": "narrator-quick",
      "dur": 3.3197,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0
@@ -764,8 +488,8 @@
  ],
  "visible": [],
  "story": {
-  "T0": 78.805,
-  "T1": 87.602
+  "T0": 79.855,
+  "T1": 88.652
  },
- "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 78.805-87.602 s)."
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 79.855-88.652 s)."
 }

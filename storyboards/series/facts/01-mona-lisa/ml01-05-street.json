@@ -129,7 +129,22 @@
    "r": 0.19
   }
  ],
- "captions": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.799,
+   "text": "He walks out into Paris.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 1.828,
+   "to": 3.242,
+   "text": "Nobody notices.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
  "beats": [
   {
    "name": "07 paris wide",
@@ -385,7 +400,7 @@
      "line": "He walks out into Paris.",
      "voice": "narrator-quick",
      "dur": 1.5485,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0.1
@@ -425,7 +440,7 @@
      "line": "Nobody notices.",
      "voice": "narrator-quick",
      "dur": 1.2639,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 1.828

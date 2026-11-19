@@ -145,7 +145,43 @@
    "r": 0.19
   }
  ],
- "captions": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 2.376,
+   "text": "...pulls off the frame in a stairwell...",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 2.406,
+   "to": 3.959,
+   "text": "...and wraps her in his smock.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 4.539,
+   "to": 7.495,
+   "text": "But the door is locked. The knob is gone.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 7.525,
+   "to": 9.13,
+   "text": "Then a plumber walks by...",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 9.16,
+   "to": 10.462,
+   "text": "...and opens it for him.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
  "beats": [
   {
    "name": "05 frame off two",
@@ -325,7 +361,7 @@
      "line": "...pulls off the frame in a stairwell...",
      "voice": "narrator-quick",
      "dur": 2.1259,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0.1
@@ -412,7 +448,7 @@
      "line": "...and wraps her in his smock.",
      "voice": "narrator-quick",
      "dur": 1.4032,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0
@@ -648,7 +684,7 @@
      "line": "But the door is locked. The knob is gone.",
      "voice": "narrator-quick",
      "dur": 2.8058,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0.1
@@ -722,7 +758,7 @@
      "line": "Then a plumber walks by...",
      "voice": "narrator-quick",
      "dur": 1.4551,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0
@@ -814,7 +850,7 @@
      "line": "...and opens it for him.",
      "voice": "narrator-quick",
      "dur": 1.1524,
-     "caption": true,
+     "caption": false,
      "pos": 470,
      "gain": 4,
      "at": 0
