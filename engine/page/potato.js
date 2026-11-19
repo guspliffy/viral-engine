@@ -285,6 +285,13 @@ export class Character {
       index = piv(0.032, 0.04, 0.004); const ix = new THREE.Mesh(cap(0.017, 0.036), M("#f5e020")); ix.position.y = 0.032; ix.castShadow = true; index.add(ix);
       thumb = piv(0.042, -0.008, 0.016); const th = new THREE.Mesh(cap(0.019, 0.03), M("#e020e0"));
       th.position.set(0.026, 0.012, 0); th.rotation.z = -1.0; th.castShadow = true; thumb.add(th);
+      // hands.plain (opt-in, the human friends): the hand is one smooth egg with a small thumb lobe on its side (the
+      // sheets' mitten). The palm is that egg; the finger mass and the index stay as unseen pivots for the grips, so a
+      // resting curl raises no knuckle bump
+      if (this.def.hands?.plain) {
+        ix.visible = mitt.visible = false; palm.userData.rest = [0.92, 1.2, 0.88]; palm.scale.fromArray(palm.userData.rest); palm.position.y = 0.022;
+        th.scale.set(1.2, 0.8, 1.1); th.position.set(0.022, 0.016, 0);
+      }
       // hands.wrist: the heel of the hand, a short cone from the forearm's wrist out to the palm
       if (this.def.hands?.wrist) {
         const w = (this.def.limbs.width * 0.78) / g.userData.size, heel = new THREE.Mesh(new THREE.CylinderGeometry(0.046, w, 0.055, 20, 1), M("#e03030"));
@@ -897,11 +904,13 @@ export class Character {
     const h = new THREE.Vector3().fromArray(arcLerp(from, to, a.p, sx));
     // natural gait (timeline.js natMove): an arm hanging at rest swings against its own side's leg, along the walk
     // (a pose object with `swing` swings too: a character's own walking arms, e.g. Pebble's, instead of the generic rest)
-    const sw_ = (p) => (p === "rest" ? 1 : p && typeof p === "object" && p.swing ? +p.swing : 0);
+    // limbs.rest.swing (opt-in, the human friends): how many times the potato swing a long hanging arm takes
+    const sw_ = (p) => (p === "rest" ? RP?.swing ?? 1 : p && typeof p === "object" && p.swing ? +p.swing : 0);
     const g = st.gait, rw = g ? sw_(a.pose) * a.p + sw_(a.from) * (1 - a.p) : 0;
     if (rw > 0) {
       const u = g.ph + (s === "R" ? 0 : 0.5), sw = -0.055 * g.amt * Math.min(1.5, Math.max(0.6, g.sd)) * Math.cos(2 * Math.PI * u) * rw;
       h.x += sw * g.dir[0]; h.z += sw * g.dir[1];
+      if (RP?.swing) h.y += (sw * sw) / 0.9;   // a long arm swings like a pendulum: the hand rises a little at each end
     }
     // timeline.js a.nudge ([x, y, z], this unscaled frame): the hand's drag and settle and the contact solver's push
     if (a.nudge) { h.x += a.nudge[0]; h.y += a.nudge[1]; h.z += a.nudge[2]; }

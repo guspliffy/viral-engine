@@ -3,11 +3,11 @@
   "name": "Mash (human)",
   "franchise": "Human friends",
   "tts": "mash",
-  "source": "Jonny's pick 19 Nov 2026 20:03: line-up 'a touch more South Park' (/mnt/project-files/characters/human-friends/round5/humans-sp-1-PICKED.png), proportions measured off it; backs and details from the round 3 sheets (round3/mash-turnaround.png, mash-faces-details.png).",
+  "source": "Jonny's pick 19 Nov 2026 20:03: line-up 'a touch more South Park' (/mnt/project-files/characters/human-friends/round5/humans-sp-1-PICKED.png), proportions measured off it; back, hands and colours from the round 6 sheets in that look (round6/mash-turnaround.png, mash-faces-details.png, DESIGN-NOTES.md).",
   "rig": "potato",
   "build": "core",
   "body": {
-    "color": "#35343c",
+    "color": "#5c5356",
     "height": 0.46,
     "width": 0.36,
     "depth": 0.26,
@@ -56,7 +56,18 @@
     "knees": {
       "crouch": 0.5,
       "bend": 1
-    }
+    },
+    "roll": {
+      "on": true,
+      "peel": 0.6,
+      "strike": 0.36,
+      "len": 0.45,
+      "settle": 0.12,
+      "lead": 0.2
+    },
+    "heel": 0.1,
+    "toe": 0.16,
+    "sole": 0.035
   },
   "limbs": {
     "color": "#f9c98f",
@@ -69,13 +80,15 @@
         -0.2,
         0.02
       ],
-      "elbow": 0.03
+      "elbow": 0.03,
+      "swing": 2.4
     }
   },
   "hands": {
     "type": "mitten",
     "size": 0.95,
-    "keep": true
+    "keep": true,
+    "plain": true
   },
   "face": {
     "size": 0.4,
@@ -143,20 +156,21 @@
   "costume": {
     "type": "human-mash",
     "skin": "#f9c98f",
-    "hair": "#6b6088",
-    "hoodie": "#35343c",
-    "rib": "#2b2a31",
-    "denim": "#8090b8",
-    "shoe": "#2f3668",
-    "sole": "#f3e6c8",
-    "phones": "#5fb4ec",
-    "phonesDark": "#3d94d2",
+    "hair": "#795d7f",
+    "hoodie": "#5c5356",
+    "rib": "#4a4245",
+    "denim": "#839abf",
+    "shoe": "#444b71",
+    "sole": "#fae3c6",
+    "phones": "#69c2ee",
+    "phonesDark": "#3d9bd6",
     "shoeSize": [
       0.085,
       0.055,
       0.125
     ],
-    "band": "#2b2a31"
+    "band": "#69c2ee",
+    "hairLow": "#674e6e"
   },
   "personality": "The human version of Mash, the friend who never looks up from his phone. Tallest of the four, thin, slouched. Catchphrase: \"One sec.\"",
   "voice": {

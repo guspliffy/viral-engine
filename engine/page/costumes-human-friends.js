@@ -128,16 +128,19 @@ const HUMAN = {
     const TH = [[0, 0.04], [0.8, 0.05], [1.3, 0.075], [1.8, 0.085], [3.1416, 0.085]], CR = 0.2, thickAt = (az, el) => table(TH, Math.abs(wrap(az))) + CR * sstep(0.1, 1.2, el);
     H.group.add(hairShell(ch, {
       thickAz: TH, crown: CR, hang: 0.5,
-      line: [[0, 0.24], [0.6, 0.24], [0.9, 0.14], [1.2, 0.04], [1.5, -0.02], [1.8, -0.18], [2.2, -0.42], [3.1416, -0.52]],
+      line: [[0, 0.24], [0.6, 0.24], [0.9, 0.14], [1.2, 0.04], [1.5, -0.02], [1.8, -0.1], [2.2, -0.2], [3.1416, -0.22]],
       locks: [[0.03, 0.34, 0.74, 0.03], [0.52, 0.16, 0.3, 0.02], [-0.6, 0.13, 0.16, 0.015], [1.02, 0.17, 0.2, 0.012], [-1.02, 0.17, 0.2, 0.012],
-        [1.9, 0.2, 0.2, 0.03], [-1.9, 0.2, 0.2, 0.03], [2.5, 0.24, 0.22, 0.03], [-2.5, 0.24, 0.22, 0.03], [3.1416, 0.26, 0.26, 0.03]],
+        [1.85, 0.2, 0.24, 0.03], [-1.9, 0.2, 0.22, 0.03], [2.5, 0.27, 0.28, 0.03], [-2.55, 0.27, 0.3, 0.03], [3.1416, 0.25, 0.26, 0.03]],
       tufts: [[0.5, 1.15, 0.03, 0.3], [-0.6, 1.05, 0.03, 0.3], [2.6, 0.9, 0.03, 0.35], [-2.4, 1.0, 0.03, 0.35]],
     }, hairM));
+    // the lower mass (the round 6 sheet's back): a thinner, darker layer under the cap's zigzag hem, wrapping behind
+    // the ears and tapering to one point at the nape
+    H.group.add(hairShell(ch, { thick: 0.05, hang: 0.5, line: [[0, 1.7], [1.55, 1.7], [1.8, -0.15], [2.2, -0.5], [3.1416, -0.56]], locks: [[3.1416, 0.85, 0.3, 0]] },
+      clothMat(C.hairLow || C.hair || "#57506f", { roughness: 0.85 })));
     { const at = (az, el, out) => { const d = dirOf(az, el), q = ch.headPoint(d).addScaledVector(d, out); return [q.x, q.y, q.z]; };
       // [azimuth, elevation, length past the mass, root radius, droop (rad)]; mirrored, the two sides a little unlike
-      const SP = C.spikes || [[1.3, 0.22, 0.085, 0.1, 0.4], [1.8, 0.12, 0.1, 0.11, 0.44], [2.35, 0.02, 0.095, 0.11, 0.42], [2.9, -0.05, 0.09, 0.11, 0.4],
-        [1.1, 0.6, 0.09, 0.105, 0.42], [1.62, 0.56, 0.105, 0.12, 0.46], [2.2, 0.52, 0.1, 0.12, 0.44], [2.75, 0.48, 0.095, 0.12, 0.42],
-        [1.5, 0.98, 0.075, 0.11, 0.4], [2.4, 0.94, 0.075, 0.11, 0.4]];
+      // only where they break the outline from the front and the back (the sides); the back itself is the smooth cap
+      const SP = C.spikes || [[1.3, 0.22, 0.085, 0.1, 0.4], [1.75, 0.14, 0.1, 0.11, 0.44], [1.1, 0.6, 0.09, 0.105, 0.42], [1.62, 0.56, 0.105, 0.12, 0.46], [1.45, 0.95, 0.07, 0.11, 0.4]];
       // each lies along the mass like a roof tile (its root half sunk in), its point lifting off and down
       SP.forEach(([az, el, len, r, drop], i) => { for (const sd of [-1, 1]) {
         const a = sd * az + (sd < 0 ? 0.13 : 0), e = el + (sd < 0 ? 0.06 : 0) * ((i % 3) - 1), T = thickAt(a, e);
@@ -171,12 +174,12 @@ const HUMAN = {
       for (let i = 0; i <= 20; i++) { const a = (62 + (236 * i) / 20) * Math.PI / 180, fr = Math.max(0, Math.cos(a)); pts.push(new THREE.Vector3(Math.sin(a) * 0.15, y0 - 0.1 * fr, Math.cos(a) * (0.13 + 0.06 * fr) - 0.01)); }
       P.add(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 48, 0.017, 10), flat(C.band || C.phonesDark || "#5c9bcb", 0.6)));
       for (const sd of [-1, 1]) {
-        const cup = new THREE.Group(), n = new THREE.Vector3(sd * 0.3, 0.12, 0.95).normalize();
+        const cup = new THREE.Group(), n = new THREE.Vector3(sd * 0.42, 0.1, 0.9).normalize();
         const shell = mesh(new THREE.SphereGeometry(1, 28, 18), blue); shell.scale.set(0.082, 0.034, 0.082); cup.add(shell);
         const base = mesh(new THREE.CylinderGeometry(0.078, 0.082, 0.034, 28), blue); base.position.y = -0.014; cup.add(base);
         const pad = mesh(new THREE.TorusGeometry(0.06, 0.024, 10, 28), blueD); pad.rotation.x = Math.PI / 2; pad.position.y = -0.036; cup.add(pad);
         const dot = mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.006, 24), blueD, false); dot.position.y = 0.032; cup.add(dot);
-        cup.position.set(sd * 0.15, top - 0.105, ch.rz * 0.72 + 0.05); cup.quaternion.setFromUnitVectors(_y, n); P.add(cup);
+        cup.scale.setScalar(0.88); cup.position.set(sd * 0.105, top - 0.09, ch.rz * 0.72 + 0.055); cup.quaternion.setFromUnitVectors(_y, n); P.add(cup);
       } }
     shoes(ch, flat(C.shoe || "#45435c", 0.8), flat(C.sole || "#f2e3c6", 0.8), null, C.shoeSize);
     return [limbsCloth(ch, { sleeve: hood, cuff: rib, trouser: denim, sleeveR: 1.32, cuffR: 1.42, trouserR: 1.3 })];
