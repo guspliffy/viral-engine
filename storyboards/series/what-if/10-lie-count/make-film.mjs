@@ -80,7 +80,7 @@ runs.forEach((run, ri) => {
     c.prop(0, "bun", { bite: 0 }, 0, "linear");
   }
   if (anyPlate) {
-    const [x, z] = S.w([0.55, 0.05]);
+    const [x, z] = S.w([0.8, 0.2]);
     props.push({ id: "ctab", kind: "cafetable", x, y: 0, z, h: 0.46, r: 0.25 }, { id: "plate", kind: "dessertplate", x, y: 0.46, z }, { id: "bun", kind: "cinnabun", x, y: 0.468, z, rot: 0, bite: 0 });
     c.prop(0, "bun", { bite: 0 }, 0, "linear");
   }

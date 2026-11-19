@@ -200,7 +200,7 @@ export const SCENES = [
     shot: { t: "wide" }, seq: [
       ["n", "So on Friday, you followed him."], ["walk", "mash", [0.4, 2.0], 4.0], ["wait", 1.6],
       ["n", "The bakery. After closing time."], ["wait", 0.6], ["hide", "mash"], ["sfx", "knock-tap", { gain: 0.4 }], ["wait", 0.8] ] },
-  { id: "18 told you", act: "friday", place: "rain", layout: { spud: [-0.4, 0, 25], wedge: [-1.1, -0.2, ["to", "spud"]] },
+  { id: "18 told you", act: "friday", place: "rain", layout: { spud: [-0.3, 0, 25], wedge: [-1.35, -0.25, ["to", "spud"]] },
     shot: { t: "two", who: ["spud", "wedge"] }, seq: [
       ["e", "wedge", "deadpan"], ["s", "wedge", "told you. rain.", "calm"],
       ["n", "He was right about the rain. He's always right."], ["wait", 0.6] ] },

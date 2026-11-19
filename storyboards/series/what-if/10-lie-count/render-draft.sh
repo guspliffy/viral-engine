@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Renders every segment of the lie-count film as a draft (two at a time on 4 cores) and joins them into one rough
 # draft: out/lc10-draft/lc10-ROUGH.mp4 (1280x720, small enough for the project folder). Segments already rendered
-# are kept (delete out/lc10-draft/<id>*.mp4 to redo one).
+# are kept (delete out/lc10-draft/<id>*.mp4 to redo one). FORCE=1 passes --force: only for the ROUGH story-check draft
+# (workflow rule 2: glitches are hunted after Jonny's story OK), never for the final.
 #   bash storyboards/series/what-if/10-lie-count/render-draft.sh
 set -uo pipefail
 cd "$(dirname "$0")/../../../.."
@@ -12,7 +13,7 @@ one() {
   local id=$1
   if ls "$O"/$id-*draft.mp4 >/dev/null 2>&1; then echo "have $id"; return; fi
   local s=$(date +%s)
-  node engine/render.mjs "$D/$id.json" --draft --out "$O" > "$O/$id.log" 2>&1 && echo "done $id $(( $(date +%s) - s ))s" || { echo "FAIL $id"; tail -5 "$O/$id.log"; }
+  node engine/render.mjs "$D/$id.json" --draft ${FORCE:+--force} --out "$O" > "$O/$id.log" 2>&1 && echo "done $id $(( $(date +%s) - s ))s" || { echo "FAIL $id"; tail -5 "$O/$id.log"; }
 }
 export -f one; export O D
 echo $IDS | tr ' ' '\n' | xargs -P 2 -I{} bash -c 'one {}'
