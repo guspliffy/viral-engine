@@ -312,6 +312,26 @@
     "arch": 0.05
    }
   },
+  "archaeologist": {
+   "rest": {
+    "tilt": 0,
+    "browY": 0.004,
+    "curve": 0.5,
+    "open": 0,
+    "eye": 1.08,
+    "pupil": 1.05,
+    "smirk": 0.12,
+    "raise": 0.0
+   },
+   "lids": [
+    0.1,
+    0.1
+   ],
+   "browShape": {
+    "thick": 0.7,
+    "arch": 0.04
+   }
+  },
   "egyptworker": {
    "rest": {
     "tilt": 0,
