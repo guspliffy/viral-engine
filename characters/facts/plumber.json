@@ -62,5 +62,10 @@
    "root": 0.35
   }
  },
- "notes": ""
+ "notes": "",
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "none",
+  "leaves": 1
+ }
 }

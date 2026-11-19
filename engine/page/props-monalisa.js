@@ -13,7 +13,7 @@ import { clamp } from "./util.js";
 //               a wall in the local xy plane, facing +z; hang it with y = centre height - h/2). Params: `cover` 0..1 = how much of the frame + glass is left
 //               (1 = framed, 0 = the bare panel; jumps unless tweened: seed it). spec.src another picture (repo path).
 //               Held by the box hold on its two side edges (GRIPS.painting.L/R at the panel's half height). Param `wrap` 0..1
-//               wraps the bare panel in his white knit smock from the bottom up to 0.7 h (her face peeks out).
+//               wraps the bare panel in his white knit smock from the bottom up (1 = all of it).
 //   mlwall      Today's display: a dark blue free wall 2.6 x 2.8 with a glazed bronze-edged case round the painting.
 //   frameonly   The empty gilt frame with its glass, lying or leaning: spec.w/h as the painting's, origin the middle of its back.
 //   wallhooks   Four iron wall hooks (two up, two low) round where the painting hung, spec.w 0.34 x spec.h 0.5, and a slightly
@@ -68,7 +68,7 @@ export const MONALISA_KINDS = {
     const face = mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: picTex(S.src || SRC), roughness: 0.7 }), G, 0, 0, 0.0205); face.castShadow = false;
     const fr = frameGroup(w, h, fw, S.frame); G.add(fr);
     const gl = S.glass !== false ? glassPane(w + 0.01, h + 0.01, 0.05) : null; if (gl) G.add(gl);
-    // the smock: white knit cloth wrapped round the bare panel from the bottom up to 0.7 h (her face still peeks out)
+    // the smock: white knit cloth wrapped round the bare panel from the bottom up (wrap 1 covers all of her: Sol r2 #2)
     const cloth = new THREE.Group(); cloth.position.y = -h / 2 - 0.02; G.add(cloth);
     const knit = mat("#ece6d6", { roughness: 1 });
     mesh(new THREE.BoxGeometry(w + 0.05, 1, 0.07), knit, cloth, 0, 0.5, 0.01);
@@ -77,7 +77,7 @@ export const MONALISA_KINDS = {
       grip: h / 2,
       apply(ps) {
         const on = (ps.cover ?? S.cover ?? 1) > 0.5; fr.visible = on; if (gl) gl.visible = on;
-        const k = clamp(ps.wrap ?? S.wrap ?? 0, 0, 1); cloth.visible = k > 0.01; cloth.scale.y = Math.max(0.001, k * (0.7 * h + 0.02));
+        const k = clamp(ps.wrap ?? S.wrap ?? 0, 0, 1); cloth.visible = k > 0.01; cloth.scale.y = Math.max(0.001, k * (h + 0.04));
       },
     };
   },
