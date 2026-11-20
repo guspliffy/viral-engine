@@ -191,9 +191,9 @@ function buildStairs(P) {
   root.add(seam);
   // 3. gold skin, white strip, sheen: dynamic subsets
   const gTop = C("#ffd76a"), gRis = C("#f2b63a");
-  const gm = (c) => mat(c, { emissive: new THREE.Color(c), emissiveIntensity: 0.35, roughness: 0.5 });
+  const gm = (c) => mat(c, { emissive: new THREE.Color(c), emissiveIntensity: 0.18, roughness: 0.5 });   // 0.35 bloomed his feet and the tread edges away in the ride close-ups (Sol r1 #11)
   const skin = new THREE.InstancedMesh(unit, [gm(gRis), gm(gRis), gm(gTop), gm(gRis), gm(gRis), gm(gRis)], 100); skin.visible = false; skin.count = 0; root.add(skin);
-  const strip = new THREE.InstancedMesh(flatTop, basic("#ffd76a", { transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false }), 100); strip.visible = false; strip.count = 0; strip.renderOrder = 3; root.add(strip);
+  const strip = new THREE.InstancedMesh(flatTop, basic("#ffd76a", { transparent: true, opacity: 0.28, blending: THREE.AdditiveBlending, depthWrite: false }), 100); strip.visible = false; strip.count = 0; strip.renderOrder = 3; root.add(strip);
   const sheen = new THREE.InstancedMesh(flatTop, basic("#ffffff", { transparent: true, opacity: 0.15, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 }), 100); sheen.visible = false; sheen.count = 0; sheen.renderOrder = 3; root.add(sheen);
   for (const m of [skin, strip, sheen]) { m.instanceMatrix.setUsage(THREE.DynamicDrawUsage); }
 
@@ -337,7 +337,7 @@ function buildStairs(P) {
       if (lit[n]) { put(skin, nl, st, a, st.cx, 0.003, 0.003, st.w + 0.01, RISE + 0.006, Dz + 0.006); put(strip, nl, st, a, st.cx, 0.0045, -Dz / 2, 0.9, 1, Dz * 0.92); nl++; }
       nosing.setColorAt(n - 1, lit[n] ? C("#fff3b0") : colNose(n));
       if (a > 0.6) { put(sheen, nf, st, a, st.cx, 0.004, -Dz / 2, 0.30, 1, Dz); nf++; }
-      if (groups[n]) { groups[n].matrix.copy(noseM(st, a)).multiply(L.makeScale(1, 1, 1 + STR * a)); groups[n].matrixWorldNeedsUpdate = true; }
+      if (groups[n]) { groups[n].matrix.copy(noseM(st, a)).multiply(L.makeScale(1, 1 - 0.95 * a, 1 + STR * a)); groups[n].matrixWorldNeedsUpdate = true; }   // the riser number squashes into the nose as its riser folds (numerals bunched on one face mid-unfold, Sol r1 #9)
     }
     for (const m of [...Object.values(zoneMesh), nosing, seam]) { m.instanceMatrix.needsUpdate = true; }
     nosing.instanceColor.needsUpdate = true;

@@ -110,14 +110,14 @@ const MEGA = { id: "mega", staged: "parked until his hand has it on a cut", kind
 props.push(CASE, QUILL_A, QUILL_B, CAN, PHONE, COIN, MEGA);
 
 // ---------------------------------------------------------------- helpers
-const SUB = 486, CAPPOS = { 7: 300, 9: 300, 11: 300, 14: 300, 15: 300, 16: 300 };   // close-ups: the band top, cameras raised so heads sit under it (preflight caption-overlap, draft 4)
+const SUB = 486, CAPPOS = { 7: 240, 9: 300, 11: 300, 14: 300, 15: 300, 16: 300 };   // close-ups: the band top, cameras raised so heads sit under it (preflight caption-overlap, draft 4)
 const SUB0 = SUB;   // captions: rows 486-608 (DESIGN section 0), the sky band over every face
 const CAPTEXT = { 0: "Hundred points to get in. You've got *ninety-nine.*", 4: "Bragging. *Minus ten.*", 6: "Posting it? *Minus thirty.*", 9: "*Minus sixty.*", 13: "Hell has *4.9 stars*, buddy.", 14: "...Heaven has *3.1.*", 18: "*Minus one.*" };
 const say = (i, at, extra = {}, capTo = null) => {
   T[i] = r3(at);
   const [who, line, tone, style, o = {}] = LINES[i];
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false, ...extra });
-  cap(T[i], capTo ?? r3(END_OF(i) + 0.3), CAPTEXT[i] ?? line, CAPPOS[i] ?? SUB0, false, { size: 64 });
+  cap(T[i], capTo ?? r3(END_OF(i) + 0.3), CAPTEXT[i] ?? line, CAPPOS[i] ?? SUB0, false, { size: i === 7 ? 56 : 64 });   // 7: smaller and higher, clear of the 70 riser (Sol r1 #28)
   return END_OF(i);
 };
 const arm = (t, who, side, pose, dur = 0.3, ease = "inOut") => A(t, who, "arm", { side, pose, dur, ease });
@@ -189,8 +189,8 @@ qA.secure(0, 0.001);
 const write1 = (t, n) => {   // he writes the minus BEFORE he says it: one stroke on the right page, the ledger counts on
   expr(r3(t - 0.1), "angel", "focused"); look(r3(t - 0.1), "angel", LEDGER, 0.15);
   // body-frame poses (o: out, up from the body's bottom, fwd): world points made his arm cross his face (layout 3)
-  arm(t, "angel", "R", { o: [0.10, 0.40, 0.56] }, 0.18, "out");
-  arm(r3(t + 0.18), "angel", "R", { o: [0.01, 0.40, 0.56] }, 0.12, "linear");
+  arm(t, "angel", "R", { o: [0.10, 0.28, 0.62] }, 0.18, "out");
+  arm(r3(t + 0.18), "angel", "R", { o: [0.01, 0.28, 0.62] }, 0.27, "linear");   // the nib on the page while the digits appear (Sol r1 #22)
   c.prop(r3(t + 0.18), "ledger", { count: n }, 0.27, "linear");
   sfx(r3(t + 0.18), "ai-package/cardboard-rustle", { gain: 0.25 });
   arm(r3(t + 0.45), "angel", "R", { o: [0.30, 0.36, 0.20] }, 0.25, "inOut");
@@ -222,9 +222,10 @@ arm(r3(S3 - 0.02), "spud", "L", "rest", 0.01); expr(r3(S3 - 0.02), "spud", "eage
 step(r3(S3 + 0.05), "spud", s97, 0.32, { steps: 3 });
 hS.carry(r3(S3 + 0.05), CASE_SPUD_AT(s97, Y_SPUD_CLIMB), 0.32);
 const TRIP = r3(S3 + 0.42);
-step(TRIP, "spud", [s98[0], s98[1], r3(s98[2] + 0.12)], 0.2, { steps: 4 });
+step(TRIP, "spud", s98, 0.2, { steps: 4 });   // on the tread, not its edge (a shoe hung below it, Sol r1 #15)
 A(r3(TRIP + 0.12), "spud", "pitch", { to: 28, dur: 0.14, ease: "in" });
 A(r3(TRIP + 0.2), "spud", "crouch", { to: 1, dur: 0.12 });
+A(r3(TRIP + 0.45), "spud", "pitch", { to: 0, dur: 0.25 }); A(r3(TRIP + 0.5), "spud", "crouch", { to: 0.4, dur: 0.25 });   // he recovers, sitting up (Sol r1 #15)
 expr(r3(TRIP + 0.12), "spud", "shocked", 0.08);
 sfx(r3(TRIP + 0.25), "kenney/impact-plank-medium", { gain: 0.5 });
 // the case leaves his hand and lands on 98 at Chip's feet
@@ -266,7 +267,7 @@ const B6 = shot("brag", r3(G5 + 1.0), cam("T", [0.55, 0.72, 7.00], [0.55, 0.72, 
 // on the cut the case is Spud's again: he stands on the terrace and walks into the light
 A(r3(B6 - 0.03), "chip", "release", { prop: "case", dur: 0 }); arm(r3(B6 - 0.02), "chip", "both", "rest", 0.01); grip(r3(B6 - 0.02), "chip", "both", "relaxed", 0.01);
 A(r3(B6 - 0.025), "spud", "crouch", { to: 0, dur: 0.01 }); A(r3(B6 - 0.025), "spud", "pitch", { to: 0, dur: 0.01 });
-const SPUD_T = W("T", -0.80, 0, -0.85), SPUD_IN = W("T", -0.25, 0, -3.1);
+const SPUD_T = W("T", -0.78, 0, -0.55), SPUD_IN = W("T", -0.25, 0, -3.1);   // right beside him: the case was just handed over (a jump from 98 to the gate edge, Sol r1 #6)
 place(B6, "spud", SPUD_T, 175);
 const CASE_T = CASE_SPUD_AT(SPUD_T, 175);
 putProp(r3(B6 - 0.03), "case", CASE_T, { rot: grips.placeFor("soulcase", CASE_T, 175).rot, tip: 0 });
@@ -309,12 +310,12 @@ const N10 = shot("landing 90", r3(SL1 + 0.98), cam("N", [2.50, 0.75, 5.60], [-0.
 sfx(r3(SL1 + 1.12), "kenney/impact-generic-light", { gain: 0.5 }); A(r3(SL1 + 1.12), "chip", "squash", { amount: -0.08, dur: 0.06 }); A(r3(SL1 + 1.2), "chip", "squash", { amount: 0, dur: 0.15 });
 expr(r3(N10 + 0.3), "chip", "annoyed"); look(r3(N10 + 0.3), "chip", [-0.6, -0.3]);
 // cut: he stands at the flower, can in the right glove (screen left), phone up in the left (screen right)
-const N11 = shot("flower", r3(N10 + 0.75), cam("N", [2.00, 0.60, 4.30], [-0.38, 0.42, -0.80], 19), both(push(0.05), crane(0.22)));   // tighter: can, phone and flower read (draft 1)
+const N11 = shot("flower", r3(N10 + 0.75), cam("N", [2.00, 0.60, 4.30], [-0.25, 0.45, -0.80], 23), both(push(0.05), crane(0.22)));   // tighter: can, phone and flower read (draft 1)
 rideOff(r3(N11 - 0.03), "chip");
 const CHIP_N = W("N", -0.10, 0, -0.75), Y_N = -25;
 place(N11, "chip", CHIP_N, Y_N);
 arm(r3(N11 - 0.02), "chip", "both", "rest", 0.01);
-const CAN_AT = W("N", -0.52, 0.30, -0.82), CAN_POUR = W("N", -0.56, 0.36, -0.84);
+const CAN_AT = W("N", -0.52, 0.30, -0.82), CAN_POUR = W("N", -0.44, 0.36, -0.84);   // spout over the pot (the drops fell left of it, Sol r1 #21)
 putProp(r3(N11 - 0.03), "can", CAN_AT, { rot: 90, tip: 0, on: 0 });
 const hCan = grips.mug(c, "chip", { ...CAN, ...at3(CAN_AT), rot: 90 }, { side: "R" });
 hCan.secure(r3(N11 - 0.02), 0.001);
@@ -342,7 +343,7 @@ hPh.carry(r3(L2 + 0.1), [PH_AT[0], r3(PH_AT[1] + 0.22), r3(PH_AT[2] - 0.7)], 0.2
 liftDone(r3(L2 + 0.52), "chip");
 expr(r3(L2 + 0.3), "chip", "delighted");
 // insert: the quill writes -30
-const P12 = shot("page", r3(L2 + 0.45), cam("T", [1.60, 2.45, -0.25], [1.05, 0.46, -0.80], 40), push(0.03));
+const P12 = shot("page", r3(L2 + 0.45), cam("T", [1.60, 2.45, -0.25], [1.08, 0.46, -0.86], 22), push(0.03));   // tight on the page: his short arm can't bring the nib down to it from this angle (Sol r1 #22)
 write1(r3(P12 + 0.05), 2);
 e = say(6, r3(P12 + 0.2));
 const N12b = shot("caught", r3(P12 + 0.95), cam("N", [0.9, 0.62, 2.9], [-0.15, 0.48, -1.45], 30), push(0.05));
@@ -355,8 +356,8 @@ A(r3(F13 + 0.06), "chip", "release", { prop: "phone", dur: 0 }); A(r3(F13 + 0.06
 arm(r3(F13 + 0.06), "chip", "both", { o: [0.3, 0.45, 0.1] }, 0.15, "out"); grip(r3(F13 + 0.06), "chip", "both", "open", 0.1);
 const PH1 = [PH_AT[0], r3(PH_AT[1] + 0.34), r3(PH_AT[2] - 0.72)];
 path_("phone", [[r3(F13 + 0.08), PH1], [r3(F13 + 0.3), [r3(PH1[0] - 0.9), r3(PH1[1] + 0.3), r3(PH1[2] - 0.2)], { rot: 200, tip: 90 }, "out"], [r3(F13 + 0.6), [r3(PH1[0] - 1.8), r3(PH1[1] - 1.6), r3(PH1[2] - 0.4)], { rot: 400, tip: 300 }, "in"]]);
-path_("can", [[r3(F13 + 0.08), [CAN_AT[0], r3(CAN_AT[1] + 0.22), r3(CAN_AT[2] - 0.7)]], [r3(F13 + 0.5), [r3(CAN_AT[0] - 0.6), r3(CAN_AT[1] - 0.9), r3(CAN_AT[2] - 0.1)], { tip: 160, rot: 30 }, "in"]]);
-hideProp(r3(F13 + 0.62), "phone"); hideProp(r3(F13 + 0.52), "can");
+path_("can", [[r3(F13 + 0.08), [CAN_AT[0], r3(CAN_AT[1] + 0.22), r3(CAN_AT[2] - 0.7)]], [r3(F13 + 0.26), [r3(CAN_AT[0] + 0.25), r3(CAN_AT[1] + 0.6), r3(CAN_AT[2] - 0.4)], { tip: 120, rot: 60 }, "out"], [r3(F13 + 0.48), [r3(CAN_AT[0] + 0.6), r3(CAN_AT[1] - 0.2), r3(CAN_AT[2] - 0.2)], { tip: 260, rot: 120 }, "in"]]);   // up and out in view (it was gone at once, Sol r1 #16)
+hideProp(r3(F13 + 0.62), "phone"); hideProp(r3(F13 + 0.62), "can");
 
 const SL2 = r3(F13 + 0.3);   // the tread tips under him first (he left the shot at once, draft 1)
 putProp(r3(SL2 - 0.02), "sled", [CHIP_91[0], r3(CHIP_91[1] + 0.06), CHIP_91[2]], { pop: 0, glow: 0, fade: 1 });
@@ -376,7 +377,8 @@ const L14 = shot("long slide", r3(F13 + 0.5), cam("N", [6.70, -2.80, 20.60], [0.
 turn(r3(SL2 + 0.6), "chip", -40, 0.4); turn(r3(SL2 + 1.3), "chip", -20, 0.3);
 
 // ================================================================ 5 the donation: quietly (+1)... then the megaphone. Minus sixty.
-const M15 = shot("step 61", r3(SL2 + 1.45), cam("M", [-1.60, 0.90, 5.20], [-0.10, 0.40, -0.30], 26), drift(0.20));
+const M15 = shot("step 61", r3(SL2 + 1.45), cam("M", [-2.00, 0.90, 5.40], [-0.45, 0.40, -0.30], 28), drift(0.20));   // he was half out at the right (Sol r1 #7)
+rideOff(r3(SL2 + 1.7), "chip"); hideProp(r3(SL2 + 1.72), "sled"); step(r3(SL2 + 1.7), "chip", LAND61, 0.2);   // he stands up on 61 (Sol r1 #7)
 sfx(r3(SL2 + 1.6), "kenney/impact-generic-light", { gain: 0.5 }); expr(r3(SL2 + 1.65), "chip", "dizzy", 0.15);
 look(r3(M15 + 0.45), "chip", [0.5, -0.2]); expr(r3(M15 + 0.55), "chip", "focused");
 // cut: on the box, the coin held up in his left glove (screen right), the jar below it
@@ -387,7 +389,7 @@ place(M16, "chip", CHIP_BOX, Y_M);
 arm(r3(M16 - 0.02), "chip", "R", "rest", 0.01);
 // the left hand in his body frame (o: out, up, fwd); the coin's world point from the same numbers (yaw 25, feet on the box)
 const bodyPt = (p, yaw, [out, up, fwd], side = "L") => { const a = (yaw * Math.PI) / 180, sx = side === "L" ? 1 : -1; return [r3(p[0] + sx * out * Math.cos(a) + fwd * Math.sin(a)), r3(p[1] + 0.14 + up), r3(p[2] - sx * out * Math.sin(a) + fwd * Math.cos(a))]; };
-const O_UP = [0.24, 0.60, 0.18], O_JAR = [0.30, 0.42, 0.12];
+const O_UP = [0.24, 0.60, 0.18], O_JAR = [0.30, 0.36, 0.12];   // lower over the jar mouth (Sol r1 #20)
 const COIN_UP = bodyPt(CHIP_BOX, Y_M, O_UP), COIN_JAR = bodyPt(CHIP_BOX, Y_M, O_JAR);
 arm(r3(M16 - 0.02), "chip", "L", { o: O_UP }, 0.01); grip(r3(M16 - 0.02), "chip", "L", "pinch", 0.01);
 putProp(r3(M16 - 0.03), "coin", COIN_UP, { shine: 1, flat: 0 });
@@ -397,8 +399,9 @@ c.prop(r3(M16 + 0.2), "coin", { shine: 0 }, 0.1);
 arm(r3(M16 + 0.25), "chip", "L", { o: O_JAR }, 0.3);
 const DROP = r3(M16 + 0.6);
 A(DROP, "chip", "release", { prop: "coin", dur: 0 }); grip(DROP, "chip", "L", "open", 0.1);
-path_("coin", [[r3(DROP + 0.01), COIN_JAR], [r3(DROP + 0.2), W("M", 0.37, 0.025, -0.27), { flat: 1 }, "in"]]);
-sfx(r3(DROP + 0.2), "tink", { gain: 0.6 });
+path_("coin", [[r3(DROP + 0.01), COIN_JAR], [r3(DROP + 0.15), W("M", 0.37, 0.30, -0.27), {}, "in"], [r3(DROP + 0.3), W("M", 0.37, 0.025, -0.27), { flat: 1 }, "in"]]);   // a visible fall through the rim (Sol r1 #20)
+hideProp(r3(DROP + 0.32), "coin");   // the jar shows its own coin inside; ours lay big outside it (Sol r1 #19)
+sfx(r3(DROP + 0.3), "tink", { gain: 0.6 });
 look(r3(DROP), "chip", [0.4, -0.3]);
 // the lift 61 -> 62: box and Chip ride the plate (the jar stays on 61)
 const L3 = r3(DROP + 0.4);
@@ -419,6 +422,8 @@ for (let k = 0; k < 9; k++) { A(r3(TREM + k * 0.1), "chip", "squash", { amount: 
 A(r3(TREM + 0.9), "chip", "squash", { amount: 0, dur: 0.05 });
 
 // cut: the megaphone at his mouth (it was lying on the box: picked up between the shots)
+putProp(r3(W16 - 0.03), "mega", [r3(BOX62[0] + 0.2), r3(CHIP_BOX62[1] + 0.05), r3(BOX62[2] + 0.12)], { rot: 70, tip: 90 });   // lying on the box by his feet: the cut reads as him grabbing it (Sol r1 #18)
+look(r3(TREM + 0.55), "chip", [0.3, -0.6], 0.15);
 const M16b = shot("i donated", r3(TREM + 0.95), cam("M", [-1.25, 0.95, 4.4], [0.20, 0.74, -0.75], 26), push(0.05));
 place(M16b, "chip", CHIP_BOX62, Y_M);   // a move on the cut keeps the hands on the beat (timing offsets shift a hand-only change; layout 4: hands moved 3 frames early)
 const MEGA_AT = bodyPt(CHIP_BOX62, Y_M, [0.10, 0.12, 0.20], "R");   // at his mouth on the box (on 62: it covered his eyes, layout 5)
@@ -437,8 +442,8 @@ look(r3(T[9]), "angel", [-0.3, 0.1]);
 // the fold 62..3: box, megaphone and Chip pitch forward; the tumble; arrival on step 2 at hell's door
 const F18 = shot("fold 62", r3(e + 0.05), cam("M", [1.90, 1.90, 2.60], [0.05, 0.70, -0.80], 30), tilt(6));
 const FD3 = fold(r3(F18 + 0.04), 62, 60);
-A(r3(F18 + 0.06), "chip", "release", { prop: "mega", dur: 0 });
-path_("mega", [[r3(F18 + 0.08), MEGA_AT], [r3(F18 + 0.38), W("M", 2.6, 0.9, 0.2), { rot: 300, tip: 200 }, "linear"]]);   // out of frame before it hides (an "in" exit at the edge read as a pop, draft 3)
+A(r3(F18 - 0.03), "chip", "release", { prop: "mega", dur: 0 }); arm(r3(F18 - 0.02), "chip", "R", { o: [0.3, 0.45, 0.1] }, 0.01); grip(r3(F18 - 0.02), "chip", "R", "open", 0.01);   // free of the bell before the front angle (fingers through it, Sol r1 #17)
+path_("mega", [[r3(F18 - 0.02), MEGA_AT], [r3(F18 + 0.38), W("M", 2.6, 0.9, 0.2), { rot: 300, tip: 200 }, "linear"]]);   // out of frame before it hides (an "in" exit at the edge read as a pop, draft 3)
 path_("soapbox", [[r3(F18 + 0.08), BOX62], [r3(F18 + 0.3), W("M", 0.25, 0.30, -0.35), { rot: 15, tip: 35 }, "in"], [r3(F18 + 0.5), W("M", 0.6, 0.10, 0.25), { rot: 35, tip: 80 }, "linear"]]);
 hideProp(r3(F18 + 0.48), "mega");
 const SL3 = r3(F18 + 0.08);
@@ -449,13 +454,14 @@ arm(SL3, "chip", "both", "up", 0.15, "out"); grip(SL3, "chip", "both", "open", 0
 sfx(r3(SL3 + 0.1), "whoosh", { gain: 0.4 });
 // down flights 61..51 seen from the top (M-TUMBLE), then cut to the last flight at the bottom
 path_("sled", [[SL3, [CHIP_BOX62[0], r3(CHIP_BOX62[1] - 0.12), CHIP_BOX62[2]]], [r3(SL3 + 0.25), [1.0, 13.3, -33.2]], [r3(SL3 + 0.45), [0.6, 13.2, -32.5]], [r3(SL3 + 1.05), [0, 11.4, -28.4]]]);   // ends before the next shot re-places the sled (overlapping tweens moved him early, layout 4)
-const U19 = shot("tumble", r3(F18 + 0.5), cam("M", [0.90, 2.10, -1.20], [-0.40, -3.60, 9.50], 34), tilt(8));
+const U19 = shot("tumble", r3(F18 + 0.5), cam("M", [0.40, 2.70, -2.40], [-0.70, -0.90, 3.60], 34), toCam(cam("M", [0.10, 1.60, 0.60], [-1.20, -2.90, 6.90], 34)));   // follows him down the middle (he was a sliver at the edge, Sol r1 #1)
 hideProp(r3(U19 - 0.02), "soapbox");
 for (let k = 0; k < 4; k++) A(r3(U19 + 0.05 + k * 0.17), "chip", "pitch", { to: k % 2 ? 10 : 40, dur: 0.17 });
 const B20 = shot("step 2", r3(U19 + 0.7), cam("B", [0.50, 3.00, 7.80], [-0.10, 0.50, 0.60], 30), crane(-0.40));
-const LAND2 = W("B", -0.50, 0.44, -0.20);
+const LAND2 = W("B", -0.50, 0.44, -0.32);   // feet on tread 2, not over the riser (Sol r1 #8)
 blinkAt(B20, "chip");
-path_("sled", [[r3(B20 - 0.02), [0, 4.4, -12.1]], [r3(B20 + 0.4), [-0.35, 1.0, -2.4]], [r3(B20 + 0.62), [LAND2[0], r3(LAND2[1] + 0.04), LAND2[2]], {}, "out"]]);
+path_("sled", [[r3(B20 - 0.02), [0, 5.2, -12.1]], [r3(B20 + 0.4), [-0.35, 1.55, -2.4]],   // on the folded slope (0.5-0.8 m under it before: his body cut into the ramp, Sol r1 #8)
+  [r3(B20 + 0.62), [LAND2[0], r3(LAND2[1] + 0.04), LAND2[2]], {}, "out"]]);
 rideOn(r3(B20 - 0.019), "chip", "sled", 25, { sit: true, dur: 0.01 });   // a fresh ride on the cut (a sled jump under a running ride read as a body jump, layout 5)
 A(r3(B20 + 0.6), "chip", "pitch", { to: 0, dur: 0.12 });
 arm(r3(B20 + 0.6), "chip", "both", "rest", 0.25);
@@ -468,11 +474,11 @@ see(B20, r3(B20 + 0.9), ["chip", "hatch"], "he lands on step 2, at hell's door")
 // ================================================================ 6 hell's door: Come on down! the climb; the temptation
 const DEVIL_CHAIR = W("B", 0.50, 0, 0.95);
 const B21 = shot("come on down", r3(B20 + 1.0), cam("B", [0.10, 1.60, 8.20], [0.05, 0.62, 0], 26), push(0.05));
-c.prop(r3(B21 + 0.1), "hatch", { open: 0.35 }, 0.3, "out");
-unpark(r3(B21 + 0.1), "imp", W("B", -0.65, -0.36, 1.62), 15);
+c.prop(r3(B21 + 0.1), "hatch", { open: 0.55 }, 0.3, "out");
+unpark(r3(B21 + 0.1), "imp", W("B", -0.65, -0.12, 1.62), 15);   // face over the rim: he is the speaker (Sol r1 #4)
 arm(r3(B21 + 0.1), "imp", "both", "up", 0.01); expr(r3(B21 + 0.1), "imp", "delighted", 0.01);
 sfx(r3(B21 + 0.1), "creak", { gain: 0.3 });
-arm(r3(B21), "devil", "L", "wave", 0.25); grip(r3(B21), "devil", "L", "open");
+arm(r3(B21 + 0.5), "devil", "L", { o: [0.30, 0.45, 0.18] }, 0.3); grip(r3(B21 + 0.5), "devil", "L", "open");   // a bent wave after the imp speaks (the wave pose stretched the arm, Sol r1 #23)
 e = say(10, r3(B21 + 0.12));
 look(r3(B21 + 0.2), "chip", [0.5, 0]); expr(r3(B21 + 0.3), "chip", "annoyed");
 arm(r3(e + 0.2), "devil", "L", "rest", 0.4);
@@ -509,7 +515,7 @@ expr(r3(D24 + 0.1), "chip", "sad");
 expr(r3(D24), "devil", "smug"); A(r3(D24 + 0.1), "devil", "lean", { to: -12, dur: 0.35 });
 look(r3(D24 + 0.1), "devil", [-0.7, -0.05]);
 e = say(13, r3(D24 + 0.2));
-arm(r3(T[13] + 0.5), "devil", "R", { o: [0.25, 0.55, 0.25] }, 0.3); grip(r3(T[13] + 0.6), "devil", "R", "point");
+arm(r3(T[13] + 0.5), "devil", "R", { o: [0.34, 0.60, 0.25] }, 0.3);   // clear of the chair arm (3 cm in it, Sol r1 pass) grip(r3(T[13] + 0.6), "devil", "R", "point");
 arm(r3(e + 0.2), "devil", "R", "rest", 0.4); grip(r3(e + 0.3), "devil", "R", "relaxed");
 const D25 = shot("3.1", r3(e + 0.1), cam("B", [-0.95, 1.03, 4.60], [-0.50, 0.80, -0.20], 24), push(0.07));
 look(r3(D25), "chip", [-0.2, 0.6], 0.3);   // up at heaven, far away
@@ -533,7 +539,8 @@ step(r3(GO + 0.45), "chip", STEP1, 0.4, { steps: 2 });
 see(D26, r3(GO + 0.8), ["chip.face", "hatch", "devil.face"], "the Devil opens the hatch: hot tub's warm; he steps toward it");
 
 // ================================================================ 7 the quill falls to him; he holds it UP (silent). ...Humility.
-const SLIP = shot("slip", r3(GO + 0.55), cam("T", [-0.70, 0.75, 4.40], [0.75, 0.62, -0.60], 26), drift(0.15));
+const SLIP = shot("slip", r3(GO + 0.95),   // after his step down (Sol r1 #13)
+  cam("T", [-0.70, 0.75, 4.40], [0.75, 0.62, -0.60], 26), drift(0.15));
 // the Angel pushes his glasses up with the quill hand; the quill slips (oops)
 const PUSH_AT = W("T", 1.03, 0.92, -1.08);
 arm(r3(SLIP + 0.02), "angel", "R", { o: [0.10, 0.78, 0.30] }, 0.2);
@@ -555,7 +562,7 @@ path_("quillB", [[r3(Q24 - 0.02), W("B", -0.4, 5.6, -16.0), { tip: 0, rot: 0 }],
   [r3(Q24 + 0.8), W("B", -0.9, 1.3, -1.8), { tip: 900 }], [r3(Q24 + 1.0), QLAND, { tip: 1080 }, "in"]]);
 sfx(r3(Q24 + 1.0), "hit-wood", { gain: 0.6 });
 c.prop(r3(Q24 + 1.0), "quillB", { tilt: 8 }, 0.06); c.prop(r3(Q24 + 1.06), "quillB", { tilt: -5 }, 0.06); c.prop(r3(Q24 + 1.12), "quillB", { tilt: 0 }, 0.1);
-c.prop(r3(Q24 + 1.05), "hatch", { open: 0 }, 0.17, "in"); sfx(r3(Q24 + 1.2), "slam", { gain: 0.35 }); park(r3(Q24 + 1.25), "imp");
+step(r3(Q24 + 0.1), "imp", W("B", -0.65, -0.6, 1.62), 0.25); c.prop(r3(Q24 + 0.3), "hatch", { open: 0 }, 0.25, "in"); c.prop(r3(Q24 + 0.3), "hatch", { glow: 0 }, 0.25); sfx(r3(Q24 + 0.55), "slam", { gain: 0.3 }); park(r3(Q24 + 0.6), "imp");   // shut while we look up the stairs (it jumped shut in the next shot, Sol r1 #14)
 look(r3(Q24 + 1.0), "chip", [-0.3, -0.5]); expr(r3(Q24 + 1.0), "chip", "shocked", 0.1);
 // he looks at it, plucks it, stands and holds it UP; the Devil pushes his shades up
 const P25 = shot("holds it up", r3(Q24 + 1.1), cam("B", [-0.38, 1.05, 7.20], [-0.42, 0.95, 0], 30), push(0.04));   // left 0.48: the quill was off the left edge (stills 1)
@@ -576,7 +583,7 @@ expr(r3(S26 - 0.02), "angel", "kind", 0.01); A(r3(S26 - 0.02), "angel", "face", 
 e = say(16, r3(S26 + 0.15));
 
 // ================================================================ 8 the escalator: gold climbs, the Devil lunges, the ride, the gate
-const G27 = shot("gold", r3(e + 0.05), cam("B", [-2.10, 1.30, 5.40], [-0.25, 1.45, -1.40], 34), tilt(-8));   // from the left: the DESIGN angle put the lunging Devil over him and a cloud over half the frame (stills 1)
+const G27 = shot("gold", r3(e + 0.05), cam("B", [-2.10, 1.30, 5.40], [-0.10, 1.05, -1.20], 40), tilt(-8));   // wider and lower: the lunge, the chair, his rise (Sol r1 #10)   // from the left: the DESIGN angle put the lunging Devil over him and a cloud over half the frame (stills 1)
 const GOLD = r3(G27 + 0.05);
 // the ride, told in three pieces joined by cuts (one 64 m ride in 2 s moved 1 m a frame: rig-jump, layout 1):
 // up the first red flight (B-GOLD), flight 41-50 with a camera that rides along (X-RIDE), the last flight onto 100 (T-ARRIVE).
@@ -597,7 +604,7 @@ const LUNGE = r3(GOLD + 0.35);
 A(LUNGE, "devil", "stand", { dur: 0.15 });
 step(r3(LUNGE + 0.12), "devil", W("B", 0.15, 0, 0.50), 0.3, { steps: 0 });
 A(r3(LUNGE + 0.12), "devil", "lean", { to: 25, dur: 0.25 });
-arm(r3(LUNGE + 0.12), "devil", "both", { o: [0.15, 0.35, 0.5] }, 0.25, "out"); grip(r3(LUNGE + 0.2), "devil", "both", "open");
+arm(r3(LUNGE + 0.12), "devil", "both", { o: [0.15, 0.48, 0.5] }, 0.25, "out");   // over the hatch rim grip(r3(LUNGE + 0.2), "devil", "both", "open");
 grip(r3(LUNGE + 0.5), "devil", "both", "fist", 0.1); expr(r3(LUNGE + 0.1), "devil", "angry");
 c.prop(r3(LUNGE + 0.15), "chair", { tip: -70 }, 0.35, "in"); sfx(r3(LUNGE + 0.5), "kenney/impact-plank-medium", { gain: 0.4 });
 shot("ride", X28a, RIDE_CAM(P41), (s, dur) => ({ ...s, to: RIDE_CAM(P50), dur, ease: "linear" }));
@@ -606,6 +613,14 @@ expr(r3(X28a), "chip", "delighted");
 prop(r3(X28a - 0.02), "lift", { glow: 0.3 }, 0);   // the plate's full glow washed his face out in the close ride shots (draft 5)
 // T-ARRIVE: the last flight onto 100, the gate opens, the gold drains
 const R29 = shot("arrive", X28b, cam("T", [0.90, 0.95, 7.60], [0.45, 0.75, -0.50], 26), push(0.05));
+// the quill goes to his LEFT glove on this cut (his back is to us): the podium is on that side, and a swap on the
+// give-back cut read as a jump (Sol r1 #5)
+const QUP = bodyPt([P93[0], r3(P93[1] + 0.035), P93[2]], 180, [0.12, 0.55, 0.14], "L");
+A(r3(X28b - 0.03), "chip", "release", { prop: "quillB", dur: 0 }); arm(r3(X28b - 0.02), "chip", "R", "rest", 0.01); grip(r3(X28b - 0.02), "chip", "R", "relaxed", 0.01);
+putProp(r3(X28b - 0.03), "quillB", QUP, { tip: 0, tilt: 0, rot: 0 });
+const hQL = grips.thin(c, "chip", { ...QUILL_B, ...at3(QUP) }, { side: "L" });
+hQL.secure(r3(X28b - 0.02), 0.001);
+arm(X28b, "chip", "L", { o: [0.12, 0.62, 0.14] }, 0.01);   // body frame: it rides up with him
 blinkAt(X28b, "chip"); putProp(r3(X28b - 0.02), "lift", P93); rideOn(r3(X28b - 0.02), "chip", "lift", 180); c.prop(X28b, "lift", at3(CHIP_100), r3(ARR - X28b), "out");
 c.prop(r3(ARR - 0.1), "gate", { open: 1.04 }, 0.47, "out"); c.prop(r3(ARR + 0.37), "gate", { open: 1 }, 0.2, "settle");
 sfx(r3(ARR - 0.1), "creak", { gain: 0.25 });
@@ -616,15 +631,8 @@ turn(r3(ARR + 0.2), "chip", Y_CHIP_A, 0.35);   // after he gets off: getting off
 look(r3(ARR + 0.2), "chip", AT_ANGEL); expr(r3(ARR + 0.2), "chip", "kind");
 // he holds the quill out across the podium, vane first (the Angel has it after the cut)
 const Q30 = shot("gives it back", r3(ARR + 0.75), cam("T", [0.20, 0.62, 6.40], [0.62, 0.62, -0.50], 26), drift(0.10));
-// on the cut the quill goes to his LEFT glove (the podium is on that side: the right arm crossed his chest, layout 3)
 blinkAt(Q30, "chip");
-A(r3(Q30 - 0.03), "chip", "release", { prop: "quillB", dur: 0 });
-arm(r3(Q30 - 0.02), "chip", "R", "rest", 0.01); grip(r3(Q30 - 0.02), "chip", "R", "relaxed", 0.01);
-const QL = bodyPt(CHIP_100, Y_CHIP_A, [0.20, 0.30, 0.12], "L");
-putProp(r3(Q30 - 0.03), "quillB", [QL[0], r3(QL[1] - 0.07), QL[2]], { tip: 0, tilt: 0, rot: 0 });
-const hQL = grips.thin(c, "chip", { ...QUILL_B, ...at3([QL[0], r3(QL[1] - 0.07), QL[2]]) }, { side: "L" });
-hQL.secure(r3(Q30 - 0.02), 0.001);
-const QOUT = W("T", 0.62, 0.42, -0.50);
+const QOUT = W("T", 0.55, 0.42, -0.45);   // short of the Angel's glove (they overlapped, Sol r1 #5)
 hQL.carry(r3(Q30 + 0.1), QOUT, 0.4, "inOut", { tip: -60 });
 look(r3(Q30), "angel", [-0.5, -0.2]); expr(r3(Q30 + 0.1), "angel", "deadpan");
 // T-HUMBLE: thumb at himself. On the cut the quill is the Angel's again
@@ -644,13 +652,14 @@ write1(r3(M32 + 0.02), 4);
 e = say(18, r3(M32 + 0.2));
 const L33 = shot("loop", r3(e + 0.02), cam("T", [0.15, 0.89, 9.60], [0.15, 0.89, 0], 26), (s, dur) => ({ ...s, to: { pos: [0.45, s.pos[1], s.pos[2]], look: [0.45, s.look[1], s.look[2]], fov: 26 }, dur, ease: "out" }));
 const FD5 = fold(r3(L33 + 0.02), 100, 1);
-step(r3(L33 + 0.04), "chip", CHIP_A, 0.24, { steps: 0, ease: "inOut" });
-A(r3(L33 + 0.25), "chip", "squash", { amount: -0.07, dur: 0.06 }); A(r3(L33 + 0.32), "chip", "squash", { amount: 0, dur: 0.1 });
-c.prop(r3(L33 + 0.1), "gate", { open: -0.03 }, 0.17, "in"); c.prop(r3(L33 + 0.27), "gate", { open: 0 }, 0.07, "out");
-sfx(r3(L33 + 0.25), "slam", { gain: 0.6 });
+step(r3(L33 + 0.1), "chip", CHIP_A, 0.4, { steps: 0, ease: "inOut" });   // the tread hinges first, then the glide reads (Sol r1 #24)
+qA.carry(r3(L33 + 0.1), QUILL_A_REST, 0.4); expr(r3(L33 + 0.3), "angel", "deadpan", 0.2);   // the opening pose at the seam (Sol r1 #25)
+A(r3(L33 + 0.5), "chip", "squash", { amount: -0.07, dur: 0.06 }); A(r3(L33 + 0.57), "chip", "squash", { amount: 0, dur: 0.1 });
+c.prop(r3(L33 + 0.35), "gate", { open: -0.03 }, 0.17, "in"); c.prop(r3(L33 + 0.52), "gate", { open: 0 }, 0.07, "out");
+sfx(r3(L33 + 0.5), "slam", { gain: 0.6 });
 expr(r3(L33 + 0.3), "chip", "cocky"); look(r3(L33 + 0.3), "chip", AT_ANGEL);
 look(r3(L33 + 0.2), "angel", LEDGER);
-const END = F(r3(T[18] + DUR[18] + 0.8));
+const END = F(r3(T[18] + DUR[18] + 1.05));
 
 // ---------------------------------------------------------------- the Angel's oops and the Devil's shades (costume keys by time)
 const ANGEL_CH = variant("angel-hs", "potatobrawl/angel", (d) => { d.costume = { ...d.costume, slip: [[0, 0], [OOPS, 0], [r3(OOPS + 0.2), 1], [r3(H31 - 0.03), 1], [r3(H31 - 0.02), 0]], flap: [[0, 0], [OOPS, 0], [r3(OOPS + 0.2), 1], [r3(OOPS + 0.8), 0]], tilt: [[0, 0], [OOPS, 0], [r3(OOPS + 0.2), 20], [r3(H31 - 0.03), 20], [r3(H31 - 0.02), 0]] }; });
@@ -667,14 +676,16 @@ shots.sort((a, b) => a.at - b.at);
 const beats = c.beats(shots.map((s, i) => { const dur = r3((shots[i + 1]?.at ?? END) - s.at); return [s.name, s.at, s.move(s.s, dur), s.kind]; }), END);
 
 // a subtitle ends where the next one starts (two stood on each other for 6 frames at 2.95 s, preflight draft 4)
-{ const subs = c.captions.filter((k) => !k.pop && k.size === 64).sort((x, y) => x.from - y.from);
-  for (let k = 0; k + 1 < subs.length; k++) if (subs[k].to > subs[k + 1].from) subs[k].to = subs[k + 1].from; }
+{ const subs = c.captions.filter((k) => !k.pop && (k.size === 64 || k.size === 56)).sort((x, y) => x.from - y.from);
+  for (let k = 0; k + 1 < subs.length; k++) if (subs[k].to > subs[k + 1].from) subs[k].to = subs[k + 1].from;
+  // and ends on a cut that comes in its last 0.35 s (it carried over the next shot's face, Sol r1 #26, #27)
+  for (const k of subs) { const cut = [...CUTS].filter((x) => x > k.from + 0.5 && x < k.to && x >= k.to - 0.35).sort((a, b) => a - b)[0]; if (cut != null) k.to = r3(cut - 0.02); } }
 write(import.meta.url, {
   id: "heaven-steps",
   title: "100 points for heaven. He has 99.",
   idea: "Potato Desk: the stairway to heaven has 100 steps, one per point; the little one stands on 99. Every good deed lifts him a step, every brag folds the steps into a slide, down to hell's door. Only a quiet deed brings him back up, and he brags about it.",
   fps: 30, look: "anime-pro", profile: "short", loop: true,
-  captionBand: [300, 1360], captionStyle: "kinetic",
+  captionBand: [240, 1360], captionStyle: "kinetic",
   castLook: "sheet", cleanStart: true,
   motion: { feet: 2, overlap: true, timing: true, solve: true },
   rig: { hand: 2, eyes: 2, hold: 2 },
@@ -687,10 +698,11 @@ write(import.meta.url, {
   hook: { show: ["chip", "angel", "gate", "ledger"], hint: 0, what: "a little one on step 99 under heaven's gate; the clerk: 100 points to get in, you've got 99" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
-    ...["hell", "hatch"].map((w) => ({ who: "imp", with: w, from: r3(B21 + 0.05), to: r3(Q24 + 1.3), checks: ["clipping", "arm-in-prop", "hand-in-prop", "face-hidden"], reason: "the small demon stands on the rung INSIDE the hatch's shaft, under hell's floor, and holds the lid up (DESIGN section 3)" })),
-    { who: "angel", with: "podium", from: 0, to: END, checks: ["clipping"], reason: "the clerk stands right behind his podium: the drum's back sits under the robe's front hem, never seen from the front cameras (stills 1); further back he can't reach the ledger" },
+    ...["hell", "hatch"].map((w) => ({ who: "imp", with: w, from: r3(B21 + 0.05), to: r3(Q24 + 1.3), checks: ["clipping", "shell", "arm-in-prop", "hand-in-prop", "face-hidden"], reason: "the small demon stands on the rung INSIDE the hatch's shaft, under hell's floor, and holds the lid up (DESIGN section 3)" })),
+    { who: "angel", with: "podium", from: 0, to: END, checks: ["clipping", "shell"], reason: "the clerk stands right behind his podium: the drum's back sits under the robe's front hem, never seen from the front cameras (stills 1); further back he can't reach the ledger" },
     { who: "chip", with: "mega", from: r3(F18), to: r3(F18 + 0.5), checks: ["clipping", "shell"], reason: "the step tips: the megaphone leaves his glove and flies past him over the parapet (0.2 s)" },
     { who: "chip", with: "quillB", from: r3(P25), to: r3(P25 + 1.2), checks: ["hand-in-prop"], reason: "he plucks the stuck quill: the glove closes round the 1.4 cm gold shaft" },
+    { who: "devil", with: "chair", from: 31.6, to: 32.1, checks: ["hand-in-prop"], reason: "seated, his glove brushes the deck chair's armrest as he points (3 cm, under the sleeve)" },
     { who: "devil", with: "chair", from: r3(LUNGE - 0.05), to: r3(LUNGE + 0.5), checks: ["clipping", "shell"], reason: "the Devil springs out of his deck chair, which tips over behind him" },
     { who: "devil", with: "devil", from: r3(B21 - 0.05), to: r3(DEV_SHADES + 0.3), checks: ["face-hidden"], reason: "the Devil's black shades cover his eyes until he pushes them up at the quill (DESIGN section 1/5: mouth, brows and the wave carry him)" },
   ],
