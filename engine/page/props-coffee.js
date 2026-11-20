@@ -19,8 +19,26 @@ import { mat, basic, mesh, canvasTex } from "./props-trend.js";
 //               (+z) faces the room. The door (nearly the whole front) is hinged on the left (-x) edge; the chrome
 //               handle stands on its right (opening) edge at spec.handle [y0, y1] (0.72..1.05). About spec.notes (62) IOU
 //               notes on the door, a dozen more on the right side. Inside: shelves, eggs, a jar, greens (the milk bottle
-//               is its own prop). Params:
-//                 open 0..1   the door swings toward camera-left on its hinge, to 105 degrees
+//               is its own prop). Opt-in spec keys (every default is today's look; Potato Desk 10 "lunch trial" uses them):
+//                 color "#f2b51f"  the paint (body and doors)     radius 0.11   the shell's corner radius (the door's own is 0.035)
+//                 badge true       false drops the chrome badge at the top
+//                 split null       y of a freezer split (1.22): the door above it never opens, the door below it does;
+//                                  spec.freezerHandle [y0, y1] (null = none) is the freezer door's own bar. With a split the
+//                                  opening is y 0.18..split-0.06 (the freezer is solid behind its door)
+//                 inside "default" | "empty": empty = a pale lining "#eef3e6" (x -0.45..+0.45, z about -0.26..+0.25 from the
+//                                  origin) and two glass shelves with tops at y 0.50 and 0.86, 0.295 deep at the back (a chrome
+//                                  lip at each front), no eggs, jar, greens or jam; the cold light strip is kept
+//                 notesStyle "iou" | "scribble": scribble = marker scribbles, no letters: eight hands (three wavy lines; two
+//                                  lines and a double underline; a frowning face and a line; a down arrow and a scribble; a
+//                                  crossed-out fork; an angry zigzag; one short line; a lunch box with a cross) on 55 % pale
+//                                  yellow / 30 % pink / 15 % aged paper, ink 60 % blue / 40 % black, stroke 0.006, size
+//                                  spec.noteSize 0.15, scattered with gaps (densest at y 0.25..1.05 and round the handle), one in
+//                                  five curling, tilt +-12 deg (freezer +-20). spec.notes (34) = the lower door's count; the
+//                                  freezer door gets round(notes*12/34) and the right side round(notes*8/34). "iou" ignores
+//                                  spec.notes (rows of IOU notes as ever). spec.seed shuffles the scatter.
+//                 handle [0.72, 1.05]  the opening door's bar (y0, y1), as ever
+//               Params:
+//                 open 0..1   the door swings toward camera-left on its hinge, to 105 degrees (0.86 = 90 degrees)
 //                 fall 0..1   the avalanche: the door's notes let go (in the first quarter, from the opening edge
 //                             toward the hinge) where the door was, then fall rocking into the heap; 0 they are on the door
 //                 drop 0..1   the heap round spec.pile slumps from its top to spec.pile.low (he digs himself out)
@@ -43,7 +61,10 @@ import { mat, basic, mesh, canvasTex } from "./props-trend.js";
 //   kitchentable a wooden table along x (spec.w, spec.d, spec.h) with a red-checked runner down its length.
 //   fruitbowl   a shallow wooden bowl of red apples (table dressing).
 //   kitchencounter a run of cream kitchen cupboards with a butcher-block worktop (spec.w, spec.d, spec.h), a moka pot,
-//               a little radio and a jar of spoons on it.
+//               a little radio and a jar of spoons on it. Opt-in: spec.colors { top "#c38a52", carcass "#efe3c8", door
+//               "#f5ecd6", pull "#8a6a45", plinth (none: set it and a 0.10 plinth recessed 0.06 carries the carcass, the
+//               doors start at 0.11) }; spec.dressing true (false drops the moka pot, radio and spoon jar). Origin: floor
+//               under its middle, front +z, the worktop top at h (default 0.5).
 //   wrapscarf   a chunky knitted scarf (worn: spec.wear, in the body's frame; its origin the wrap's middle) wound once round the body
 //               with radii spec.rx, spec.rz (the body's there, plus the knit's thickness), its two ends hanging
 //               down the front at the right, a fringe at their ends. spec.color (purple).
@@ -139,18 +160,68 @@ function oldNoteMats() {
   return OLD;
 }
 
+// The scribble notes of the lunch trial fridge: marker pictograms, never letters, digits or punctuation. Eight hands, each
+// drawn once per paper and ink it is used with (cached). Stroke 0.04 of the note's width (0.006 m on a 0.15 m note).
+const SCRIB_PAPER = ["#fdf3a6", "#f9c9d6", "#efe2a0"], SCRIB_INK = ["#2c4a9a", "#1f1f22"], SCRIB = new Map();
+function drawScribble(g, w, h, hand, paper, ink) {
+  const r = rng(300 + hand * 17 + paper * 5 + ink), j = (a) => (r() - 0.5) * a * w;
+  g.fillStyle = SCRIB_PAPER[paper]; g.fillRect(0, 0, w, h);
+  g.fillStyle = "rgba(160,120,0,0.10)"; g.fillRect(0, 0, w, h * 0.16);   // the glue strip
+  if (paper === 2) { const gr = g.createLinearGradient(0, h * 0.6, 0, h); gr.addColorStop(0, "rgba(150,110,20,0)"); gr.addColorStop(1, "rgba(150,110,20,0.16)"); g.fillStyle = gr; g.fillRect(0, h * 0.6, w, h * 0.4); }
+  g.strokeStyle = SCRIB_INK[ink]; g.fillStyle = SCRIB_INK[ink]; g.lineCap = "round"; g.lineJoin = "round"; g.lineWidth = w * 0.04;
+  const X = (u) => u * w, Y = (v) => v * h;
+  const line = (x0, y0, x1, y1) => { g.beginPath(); g.moveTo(X(x0) + j(0.02), Y(y0) + j(0.02)); g.lineTo(X(x1) + j(0.02), Y(y1) + j(0.02)); g.stroke(); };
+  const wavy = (x0, x1, y, amp, n) => { g.beginPath(); for (let i = 0; i <= 24; i++) { const u = i / 24, px = X(x0 + (x1 - x0) * u), py = Y(y) + Math.sin(u * n * Math.PI * 2) * amp * h; i ? g.lineTo(px, py) : g.moveTo(px, py); } g.stroke(); };
+  const zig = (x0, x1, y0, y1, n) => { g.beginPath(); for (let i = 0; i <= n; i++) { const px = X(x0 + (x1 - x0) * i / n) + j(0.02), py = Y(i % 2 ? y1 : y0) + j(0.02); i ? g.lineTo(px, py) : g.moveTo(px, py); } g.stroke(); };
+  if (hand === 0) { wavy(0.16, 0.84, 0.32, 0.035, 2.2); wavy(0.16, 0.8, 0.54, 0.035, 2.6); wavy(0.16, 0.7, 0.76, 0.035, 1.8); }
+  else if (hand === 1) { line(0.16, 0.30, 0.82, 0.31); line(0.16, 0.48, 0.7, 0.47); line(0.16, 0.68, 0.6, 0.68); line(0.16, 0.80, 0.6, 0.8); }
+  else if (hand === 2) {
+    g.beginPath(); g.arc(X(0.5), Y(0.4), w * 0.18, 0, Math.PI * 2); g.stroke();
+    for (const dx of [-0.07, 0.07]) { g.beginPath(); g.arc(X(0.5 + dx), Y(0.36), w * 0.012, 0, Math.PI * 2); g.fill(); }
+    g.beginPath(); g.arc(X(0.5), Y(0.56), w * 0.08, Math.PI * 1.15, Math.PI * 1.85); g.stroke();   // a frown
+    line(0.22, 0.82, 0.78, 0.82);
+  }
+  else if (hand === 3) {
+    line(0.24, 0.26, 0.24, 0.78); line(0.12, 0.64, 0.24, 0.78); line(0.36, 0.64, 0.24, 0.78);
+    g.beginPath(); for (let i = 0; i < 4; i++) { const px = X(0.46 + i * 0.12), py = Y(i % 2 ? 0.34 : 0.7); i ? g.lineTo(px, py) : g.moveTo(px, py); } g.stroke();
+    g.beginPath(); g.ellipse(X(0.66), Y(0.52), w * 0.12, h * 0.12, 0.4, 0, Math.PI * 1.7); g.stroke();
+  }
+  else if (hand === 4) {
+    line(0.5, 0.5, 0.5, 0.82); line(0.34, 0.26, 0.34, 0.44); line(0.5, 0.26, 0.5, 0.44); line(0.66, 0.26, 0.66, 0.44);
+    g.beginPath(); g.moveTo(X(0.34), Y(0.44)); g.quadraticCurveTo(X(0.34), Y(0.52), X(0.5), Y(0.52)); g.quadraticCurveTo(X(0.66), Y(0.52), X(0.66), Y(0.44)); g.stroke();
+    line(0.18, 0.24, 0.84, 0.84); line(0.84, 0.24, 0.18, 0.84);   // crossed out
+  }
+  else if (hand === 5) { zig(0.12, 0.88, 0.3, 0.62, 7); zig(0.2, 0.7, 0.72, 0.84, 5); }
+  else if (hand === 6) line(0.24, 0.5, 0.74, 0.52);
+  else {
+    g.strokeRect(X(0.2), Y(0.44), w * 0.6, h * 0.34); line(0.2, 0.54, 0.8, 0.54);
+    g.beginPath(); g.moveTo(X(0.38), Y(0.44)); g.lineTo(X(0.42), Y(0.34)); g.lineTo(X(0.58), Y(0.34)); g.lineTo(X(0.62), Y(0.44)); g.stroke();
+    line(0.28, 0.5, 0.74, 0.86); line(0.74, 0.5, 0.28, 0.86);   // the cross
+  }
+}
+function scribMat(hand, paper, ink) {
+  const key = `${hand}|${paper}|${ink}`;
+  if (!SCRIB.has(key)) {
+    const t = canvasTex(192, 192, (g, w, h) => drawScribble(g, w, h, hand, paper, ink));
+    const m = mat("#ffffff", { map: t, roughness: 0.9, side: THREE.DoubleSide }); m.userData.noHatch = true;
+    SCRIB.set(key, m);
+  }
+  return SCRIB.get(key);
+}
+
 export const COFFEE_GRIPS = {};
 
 export const COFFEE_KINDS = {
   ioufridge(P) {
-    const S = P.spec, F = { ...COFFEE.fridge, ...S }, W = F.w, D = F.d, H = F.h, R = 0.11;
+    const S = P.spec, F = { ...COFFEE.fridge, ...S }, W = F.w, D = F.d, H = F.h, R = S.radius ?? 0.11;
+    const SPLIT = S.split ?? null, SCR = S.notesStyle === "scribble", EMPTY = S.inside === "empty";
     const [hy0, hy1] = S.handle ?? [0.72, 1.05], NW = S.noteSize ?? 0.15, rnd = rng(S.seed ?? 7);
     const yolk = mat(S.color ?? YOLK, { roughness: 0.32, metalness: 0.05 }), chrome = CHROME(), white = mat("#f6f4ee", { roughness: 0.4 }), dark = mat("#3a3530", { roughness: 0.6 });
     // the cabinet: a rounded shell open at the front (a back, two sides, a top and a floor), white inside
     const DT = 0.08;   // the door's thickness: the cabinet's box stops behind it
     const BD = D - DT;
     // the opening, seen when the door swings: a white lined hole through the front of the shell
-    const IW = W - 0.1, IH = H - 0.3, ID = BD - 0.06, iy = 0.08 + 0.1 + IH / 2;
+    const IW = W - 0.1, IH = SPLIT != null ? SPLIT - 0.06 - 0.18 : H - 0.3, ID = BD - 0.06, iy = 0.08 + 0.1 + IH / 2;
     // the shell: the rounded front outline with the opening cut out, run back the cabinet's depth (two sides, a top and
     // a floor, solid walls round an open hole), and a back panel. A hand reaching for the milk goes into the hole, not
     // into a closed box
@@ -160,7 +231,7 @@ export const COFFEE_KINDS = {
     const back = mesh(new THREE.BoxGeometry(W - 0.04, H - 0.12, 0.04), yolk, P.whole, 0, by, -DT / 2 - BD / 2 + 0.03);
     back.userData.solid = true;
     const inner = new THREE.Group(); P.whole.add(inner);
-    const lining = mesh(new THREE.BoxGeometry(IW, IH, ID), new THREE.MeshStandardMaterial({ color: "#eef3f4", roughness: 0.5, side: THREE.BackSide }), inner, 0, iy, BD / 2 - DT / 2 - ID / 2 + 0.002);
+    const lining = mesh(new THREE.BoxGeometry(IW, IH, ID), new THREE.MeshStandardMaterial({ color: EMPTY ? "#eef3e6" : "#eef3f4", roughness: 0.5, side: THREE.BackSide }), inner, 0, iy, BD / 2 - DT / 2 - ID / 2 + 0.002);
     lining.userData.solid = false;
     // the cold light inside (it glows only while the door is open)
     const glowM = basic({ color: "#e9f6ff", transparent: true, opacity: 0 });
@@ -169,6 +240,11 @@ export const COFFEE_KINDS = {
     const glass = mat("#dfeef2", { roughness: 0.1, transparent: true, opacity: 0.5 });
     const shelfY = [0.42, 0.78, 1.12].map((v) => 0.08 + v * (IH / 1.4));
     const zMid = BD / 2 - DT / 2 - ID / 2;
+    if (EMPTY) {
+      // two shallow glass shelves (tops at y 0.50 and 0.86), only 0.295 deep at the back, a chrome lip at each front
+      const SD = 0.295, zb = zMid - ID / 2 + 0.005;
+      for (const top of [0.5, 0.86]) { const sh = mesh(new THREE.BoxGeometry(IW - 0.01, 0.012, SD), glass, inner, 0, top - 0.006, zb + SD / 2); sh.userData.solid = false; const lip = mesh(new THREE.BoxGeometry(IW - 0.01, 0.014, 0.012), chrome, inner, 0, top + 0.001, zb + SD - 0.006); lip.userData.solid = false; }
+    } else {
     for (const y of shelfY) { const sh = mesh(new THREE.BoxGeometry(IW - 0.01, 0.012, ID - 0.02), glass, inner, 0, y, zMid); sh.userData.solid = false; const lip = mesh(new THREE.BoxGeometry(IW - 0.01, 0.014, 0.012), chrome, inner, 0, y + 0.006, zMid + ID / 2 - 0.01); lip.userData.solid = false; }
     const egg = mat("#f7ecd9", { roughness: 0.6 }), carton = mat("#c9b79a", { roughness: 0.9 });
     const ec = mesh(new THREE.BoxGeometry(0.26, 0.04, 0.11), carton, inner, -0.1, shelfY[2] + 0.026, zMid + 0.06); ec.userData.solid = false;
@@ -178,21 +254,31 @@ export const COFFEE_KINDS = {
     const greens = mat("#5fae3e", { roughness: 0.8 });
     for (let i = 0; i < 5; i++) { const l = mesh(new THREE.IcosahedronGeometry(0.045, 1), greens, inner, 0.12 + (rnd() - 0.5) * 0.12, shelfY[0] + 0.05 + rnd() * 0.03, zMid - 0.03 + (rnd() - 0.5) * 0.1); l.userData.solid = false; }
     const jam = mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.09, 14), mat("#8e1f3a", { roughness: 0.3 }), inner, -0.2, shelfY[0] + 0.05, zMid - 0.05); jam.userData.solid = false;
+    }
     // the kick plate and the little chrome badge at the top
     mesh(new THREE.BoxGeometry(W - 0.12, 0.08, 0.04), dark, P.whole, 0, 0.04, D / 2 - DT - 0.04).userData.solid = false;
 
     // THE DOOR: hinged on the left edge of the front; nearly the whole front
     const hinge = new THREE.Group(); hinge.position.set(-W / 2 + 0.01, 0, D / 2 - DT); P.whole.add(hinge);
-    const DW = W - 0.02, DH = H - 0.12, dy = 0.1 + DH / 2;
+    const DW = W - 0.02, DH = SPLIT != null ? SPLIT - 0.006 - 0.1 : H - 0.12, dy = 0.1 + DH / 2;
     const door = mesh(softBox(DW, DH, DT, 0.035), yolk, hinge, DW / 2, dy, DT / 2);
     door.userData.solid = true;
+    // with a split: the freezer door above it, fixed (never opens), on a group at the hinge's place that never turns
+    const FY0 = (SPLIT ?? 0) + 0.006, FY1 = H - 0.02, fz = new THREE.Group(); fz.position.set(-W / 2 + 0.01, 0, D / 2 - DT); if (SPLIT != null) P.whole.add(fz);
+    if (SPLIT != null) mesh(softBox(DW, FY1 - FY0, DT, 0.035), yolk, fz, DW / 2, (FY0 + FY1) / 2, DT / 2).userData.solid = true;
     // the inside of the door: white, with a bottle rail
     const din = mesh(new THREE.BoxGeometry(DW - 0.1, DH - 0.12, 0.01), white, hinge, DW / 2, dy, 0.004); din.userData.solid = false;
-    for (const y of [0.45, 0.85, 1.2]) { const rail = mesh(new THREE.BoxGeometry(DW - 0.14, 0.05, 0.05), white, hinge, DW / 2, y, -0.03); rail.userData.solid = false; }
+    for (const y of [0.45, 0.85, 1.2].filter((v) => v < 0.1 + DH - 0.05)) { const rail = mesh(new THREE.BoxGeometry(DW - 0.14, 0.05, 0.05), white, hinge, DW / 2, y, -0.03); rail.userData.solid = false; }
     // the chrome handle: a bar on two posts at the opening edge
     const hx = DW - 0.055, hz = DT + 0.045, hl = hy1 - hy0;
     const bar = mesh(new THREE.CylinderGeometry(0.014, 0.014, hl, 12), chrome, hinge, hx, (hy0 + hy1) / 2, hz); bar.userData.solid = true;
     for (const y of [hy0 + 0.02, hy1 - 0.02]) { const post = mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.05, 8), chrome, hinge, hx, y, DT + 0.022); post.rotation.x = Math.PI / 2; post.userData.solid = true; }
+    // the freezer door's own bar (spec.freezerHandle [y0, y1])
+    if (SPLIT != null && S.freezerHandle) {
+      const [fy0, fy1] = S.freezerHandle;
+      mesh(new THREE.CylinderGeometry(0.014, 0.014, fy1 - fy0, 12), chrome, fz, hx, (fy0 + fy1) / 2, hz).userData.solid = true;
+      for (const y of [fy0 + 0.02, fy1 - 0.02]) { const post = mesh(new THREE.CylinderGeometry(0.01, 0.01, 0.05, 8), chrome, fz, hx, y, DT + 0.022); post.rotation.x = Math.PI / 2; post.userData.solid = true; }
+    }
     // the fresh note he sticks on the handle (shown from `tagged`: it rides the door from then on); his note prop is
     // let go exactly here and hidden on the same frame
     const tagT = canvasTex(256, 256, (g, w, h) => drawIOU(g, w, h, { seed: S.tagSeed ?? 3, fresh: true }));
@@ -200,12 +286,12 @@ export const COFFEE_KINDS = {
     const TAG = S.tag ?? { y: 0.9, size: COFFEE.note };
     const tag = mesh(new THREE.PlaneGeometry(TAG.size, TAG.size, 2, 2), tagM, hinge, hx, TAG.y, hz + 0.016); tag.userData.solid = false; tag.castShadow = false; tag.visible = false;
     // a chrome badge near the top
-    const badge = mesh(new THREE.BoxGeometry(0.16, 0.035, 0.008), chrome, hinge, DW / 2, DH + 0.02, DT + 0.004); badge.userData.solid = false;
+    if (S.badge !== false) { const badge = mesh(new THREE.BoxGeometry(0.16, 0.035, 0.008), chrome, SPLIT != null ? fz : hinge, DW / 2, SPLIT != null ? H - 0.1 : DH + 0.02, DT + 0.004); badge.userData.solid = false; }
 
     // THE NOTES on the door: rows from the bottom up, each row overlapping the top of the one below (feathers);
     // crooked, a few with a curled corner; the newest (top rows) the most crooked. In the door's frame.
     const mats = oldNoteMats(), notes = [];
-    const rowsY = []; for (let y = 0.2 + NW; y < DH + 0.07; y += NW * 0.72) rowsY.push(y);
+    const rowsY = []; if (!SCR) for (let y = 0.2 + NW; y < DH + 0.07; y += NW * 0.72) rowsY.push(y);
     const pmat = rng((S.seed ?? 7) + 3);
     rowsY.forEach((y, ri) => {
       const cols = Math.round((DW - 0.04) / (NW * 0.82));
@@ -215,6 +301,36 @@ export const COFFEE_KINDS = {
         notes.push({ x, y: y + (pmat() - 0.5) * 0.05, ri, tilt: (pmat() - 0.5) * (0.34 + ri * 0.025), m: mats[Math.floor(pmat() * mats.length)], curl: pmat() < 0.2 ? 0.6 + pmat() * 0.6 : 0, side: pmat() < 0.5 ? -1 : 1 });
       }
     });
+    // scribble notes (spec.notesStyle "scribble"): scattered with gaps, not feathered; the lower door's go in `notes` (they
+    // fall like the others), the freezer door's and the side's stay put
+    const sideNotes = [];
+    if (SCR) {
+      const sr = rng((S.seed ?? 7) + 101), nLow = S.notes ?? 34, nFrz = SPLIT != null ? Math.round(nLow * 12 / 34) : 0, nSide = Math.round(nLow * 8 / 34);
+      const scatter = (n, x0, x1, y0, y1, weight) => {
+        const pts = [];
+        for (let i = 0; i < n; i++) {
+          let best = null, bs = -1;
+          for (let c = 0; c < 14; c++) {
+            const x = x0 + sr() * (x1 - x0), y = y0 + sr() * (y1 - y0);
+            let md = 0.5; for (const q of pts) md = Math.min(md, Math.hypot(q.x - x, q.y - y));
+            const sc = md * weight(x, y);
+            if (sc > bs) { bs = sc; best = { x, y }; }
+          }
+          pts.push(best);
+        }
+        return pts;
+      };
+      const paperOf = () => { const v = sr(); return v < 0.55 ? 0 : v < 0.85 ? 1 : 2; };
+      const make = (pt, i, tiltMax, hOff) => ({ x: pt.x, y: pt.y + NW / 2, ri: i * 0.25, tilt: (sr() * 2 - 1) * tiltMax, m: scribMat((i * 3 + hOff) % 8, paperOf(), sr() < 0.6 ? 0 : 1), curl: sr() < 0.2 ? 0.6 + sr() * 0.6 : 0, side: sr() < 0.5 ? -1 : 1 });
+      const nearH = (x, y, y0, y1) => (Math.abs(x - (DW - 0.055)) < 0.22 && y > y0 - 0.15 && y < y1 + 0.15 ? 1.7 : 1);
+      const xa = 0.03 + NW / 2, xb = DW - 0.03 - NW / 2;
+      scatter(nLow, xa, xb, 0.1 + NW / 2 + 0.01, 0.1 + DH - NW / 2 - 0.01, (x, y) => (y > 0.25 && y < 1.05 ? 1 : 0.5) * nearH(x, y, hy0, hy1)).forEach((pt, i) => notes.push(make(pt, i, 0.21, 0)));
+      if (nFrz) {
+        const [f0, f1] = S.freezerHandle ?? [0, 0];
+        scatter(nFrz, xa, xb, FY0 + NW / 2 + 0.01, FY1 - NW / 2 - 0.02, (x, y) => (S.freezerHandle ? nearH(x, y, f0, f1) : 1)).forEach((pt, i) => { const n = make(pt, i, 0.35, 5); n.fz = true; sideNotes.push(n); });
+      }
+      scatter(nSide, -BD / 2 + NW / 2 + 0.02, BD / 2 - NW / 2 - 0.02, 0.2 + NW / 2, H - 0.12 - NW / 2, () => 1).forEach((pt, i) => { const n = make(pt, i, 0.21, 2); n.fz = false; sideNotes.push(n); });
+    }
     // the door's notes as their own meshes (each one falls on its own path)
     const flyer = new THREE.Group(); P.whole.add(flyer);
     for (const [i, n] of notes.entries()) {
@@ -225,7 +341,12 @@ export const COFFEE_KINDS = {
     }
     // a dozen more on the right side of the cabinet (they stay: the door's swing never reaches them)
     const sideG = new THREE.Group(); sideG.position.set(W / 2 + 0.002, 0, -DT / 2); sideG.rotation.y = Math.PI / 2; P.whole.add(sideG);
-    for (let y = 0.25 + NW; y < H - 0.15; y += NW * 0.75) for (let x = -BD / 2 + NW / 2 + 0.03; x < BD / 2 - NW / 2; x += NW * 0.85) {
+    if (SCR) for (const [i, n] of sideNotes.entries()) {
+      const o = new THREE.Mesh(noteGeo(NW, { lift: 0.01, curl: n.curl, side: n.side }), n.m);
+      o.userData.solid = false; o.castShadow = false; o.receiveShadow = true; o.rotation.z = n.tilt;
+      if (n.fz) { o.position.set(n.x, n.y, DT + 0.002 + n.ri * 0.0012); fz.add(o); } else { o.position.set(n.x, n.y, 0.002 + i * 0.0003); sideG.add(o); }
+    }
+    else for (let y = 0.25 + NW; y < H - 0.15; y += NW * 0.75) for (let x = -BD / 2 + NW / 2 + 0.03; x < BD / 2 - NW / 2; x += NW * 0.85) {
       if (pmat() < 0.25) continue;
       const o = mesh(noteGeo(NW, { lift: 0.01, curl: pmat() < 0.2 ? 0.8 : 0, side: 1 }), mats[Math.floor(pmat() * mats.length)], sideG, x + (pmat() - 0.5) * 0.03, y, 0.002 + y * 0.001);
       o.rotation.z = (pmat() - 0.5) * 0.25; o.userData.solid = false; o.castShadow = false;
@@ -468,17 +589,21 @@ export const COFFEE_KINDS = {
   },
 
   kitchencounter(P) {
-    const S = P.spec, W = S.w ?? 1.4, D = S.d ?? 0.55, H = S.h ?? 0.5;
-    const cream = mat("#efe3c8", { roughness: 0.6 }), top = mat("#c38a52", { roughness: 0.45 }), knob = mat("#8a6a45", { roughness: 0.4 });
-    mesh(new THREE.BoxGeometry(W, H - 0.04, D - 0.03), cream, P.whole, 0, (H - 0.04) / 2, -0.015);
+    const S = P.spec, W = S.w ?? 1.4, D = S.d ?? 0.55, H = S.h ?? 0.5, C = S.colors ?? {}, dressing = S.dressing !== false, PL = C.plinth ? 0.1 : 0;
+    const cream = mat(C.carcass ?? "#efe3c8", { roughness: 0.6 }), top = mat(C.top ?? "#c38a52", { roughness: 0.45 }), knob = mat(C.pull ?? "#8a6a45", { roughness: 0.4 }), doorM = mat(C.door ?? "#f5ecd6", { roughness: 0.55 });
+    if (PL) {   // a recessed plinth under the carcass
+      mesh(new THREE.BoxGeometry(W - 0.02, PL, D - 0.09), mat(C.plinth, { roughness: 0.7 }), P.whole, 0, PL / 2, -0.015 - 0.03);
+      mesh(new THREE.BoxGeometry(W, H - 0.04 - PL, D - 0.03), cream, P.whole, 0, PL + (H - 0.04 - PL) / 2, -0.015);
+    } else mesh(new THREE.BoxGeometry(W, H - 0.04, D - 0.03), cream, P.whole, 0, (H - 0.04) / 2, -0.015);
     mesh(new THREE.BoxGeometry(W + 0.03, 0.04, D + 0.02), top, P.whole, 0, H - 0.02, 0);
     const n = Math.max(1, Math.round(W / 0.45));
     for (let i = 0; i < n; i++) {
       const x = -W / 2 + (W / n) * (i + 0.5);
-      const pn = mesh(new THREE.BoxGeometry(W / n - 0.03, H - 0.12, 0.012), mat("#f5ecd6", { roughness: 0.55 }), P.whole, x, (H - 0.04) / 2 + 0.01, D / 2 - 0.02);
+      const pn = mesh(new THREE.BoxGeometry(W / n - 0.03, H - 0.12 - PL, 0.012), doorM, P.whole, x, (H - 0.04) / 2 + 0.01 + PL / 2, D / 2 - 0.02);
       pn.userData.solid = false;
       mesh(new THREE.SphereGeometry(0.014, 10, 8), knob, P.whole, x + (i % 2 ? -1 : 1) * (W / n / 2 - 0.06), H - 0.14, D / 2 - 0.005).userData.solid = false;
     }
+    if (!dressing) return { grip: H };
     // the moka pot, a little radio, a jar of wooden spoons (dressing, at spec.items x offsets)
     const steel = mat("#b9bec4", { roughness: 0.25, metalness: 0.7 });
     const mx = S.moka ?? W / 2 - 0.2;

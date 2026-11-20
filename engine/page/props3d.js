@@ -395,7 +395,9 @@ const KINDS = {
       },
     };
   },
-  // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` lights the screen;
+  // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` 0..1 lights the screen
+  // (spec.glow starts it, a prop `set` tweens it); spec.scale (1, the generic prop scale: 0.078 x 0.155 at 1, 0.117 x 0.233
+  // at 1.5); spec.halo (off; metres across, e.g. 0.22) + `glow` = a soft light wash round the screen, opacity spec.haloK (0.55) x glow;
   // spec.case colours its back and sides (a phone case), so it reads against dark mitten hands. style "iphone" builds
   // a modern iPhone instead (iphone() below), the one that can play pictures on its screen
   phone(P) {
