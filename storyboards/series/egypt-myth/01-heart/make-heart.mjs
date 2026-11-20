@@ -37,7 +37,7 @@ const CHIP_TALK_YAW = 35, SPUD_TALK_YAW = -40;   // by the scale (2.4-17 s): che
 const STOOL = (i) => [-5.2, r3(2.0 + 0.95 * (i - 1))];
 const CHIP_J = [-3.6, 3.4], SPUD_J = [-2.45, 2.45];   // the answer line (1.6 m off the stools: room for a camera between), Spud by the scale side
 const JYAW = (i) => r3(Math.atan2(STOOL(i)[0] - CHIP_J[0], STOOL(i)[1] - CHIP_J[1]) / D2R);   // Chip turned to judge i
-const SLAP = [-1.33, 0.86];   // Spud's mark at the heart pan (tilt -0.8: the heart's top 0.47 high)
+const SLAP = [-1.45, 0.86];   // Spud's mark at the heart pan (tilt -0.8: the heart's top 0.47 high)
 const CHIP_E = [-0.68, 1.55], SPUD_E = [-1.70, 1.33];   // the end: by the scale, the doors behind it
 const CASE_X = 400;
 const AWAY = -60;
@@ -78,8 +78,8 @@ const props = [
   { id: "juice", kind: "heartjuice", x: S_EAT[0], y: S_EAT[1], z: 0, floor: -S_EAT[1], mouth: [0, 0.10, 0.12], shoeY: 0.05,
     shoes: ["R", "L"].map((sd) => { const p = shoeAt(CHIP0, CHIP0_YAW, sd); return [r3(p.x - S_EAT[0]), r3(p.z)]; }),
     cheek: [r3(CHIP0[0] - S_EAT[0] - 0.05), r3(0.385 - S_EAT[1]), r3(CHIP0[1] + 0.2)], burst: 0, pool: 0 },
-  { id: "shoeR", kind: "heartjuiceshoe", side: "R", ...shoeAt(CHIP0, CHIP0_YAW, "R"), scale: 0.001 },
-  { id: "shoeL", kind: "heartjuiceshoe", side: "L", ...shoeAt(CHIP0, CHIP0_YAW, "L"), scale: 0.001 },
+  { id: "shoeR", kind: "heartjuiceshoe", side: "R", ...shoeAt(CHIP0, CHIP0_YAW, "R"), scale: 0.001, staged: "a juice print on the top of his trainer: it sits on the shoe, not the floor" },
+  { id: "shoeL", kind: "heartjuiceshoe", side: "L", ...shoeAt(CHIP0, CHIP0_YAW, "L"), scale: 0.001, staged: "a juice print on the top of his trainer: it sits on the shoe, not the floor" },
   { id: "cheek", kind: "heartjuicecheek", wear: "chip", x: -0.16, y: 0.385, z: 0.25, rot: -35, scale: 0.001 },
   { id: "case", kind: "heartcase", x: CASE_X, y: 0, z: 0 },
 ];
@@ -327,6 +327,7 @@ say(29);
 L(30, 0.15);
 say(30);
 const WALK = r3(T[30] + 1.6), WALK_END = r3(WALK + 2.0);
+arm(WALK - 0.55, "spud", "R", { o: [0.2, 0.4, 0.22] }, 0.35);   // the beetle comes in to his side before he turns and walks (a hand pinned to its pick-up spot reached back across him)
 turn(WALK - 0.45, "spud", 132, 0.35); A(WALK, "spud", "move", { to: SLAP, dur: 2.0, ease: "inOut" }); turn(WALK_END + 0.05, "spud", 180, 0.35);
 P(WALK - 0.2, "monster", { low: 0.35, breath: 0 }, 0.6);   // she lifts her head off the pan as he comes
 look(WALK, "chip", [0.7, 0.0], 0.4);
@@ -376,10 +377,10 @@ P(DOORS, "hall", { doors: 1 }, 1.2, "inOut"); P(DOORS, "hall", { torch: 0.5 }, 1
 sfx(DOORS, "door-creak", { gain: 0.5 });
 see(DOORS, r3(DOORS + 1.2), ["hall"], "the great doors swing open onto golden fields of reeds");
 L(33, r3(DOORS + 0.9 - now));   // CHIP: So I'm safe?
-turn(T[33] - 0.3, "chip", 255, 0.35); look(T[33] - 0.2, "chip", [-0.4, 0.3]);
+turn(T[33] - 0.3, "chip", 300, 0.35); look(T[33] - 0.2, "chip", [-0.4, 0.3]);   // to Spud, three-quarters to the camera
 say(33);
 L(34, 0.12);   // SPUD: Forever.
-turn(T[34] - 0.25, "spud", 100, 0.35); look(T[34] - 0.1, "spud", [0.3, -0.2]); expr(T[34], "spud", "happy");
+turn(T[34] - 0.25, "spud", 60, 0.35); look(T[34] - 0.1, "spud", [0.3, -0.2]); expr(T[34], "spud", "happy");
 say(34);
 // SPUD: Thousands of those beetles are in museums today. Everyone cheated.  (the charm on the heart close, then the museum case)
 L(35, 0.12);
@@ -412,7 +413,7 @@ look(T[36] + 0.2, "spud", [0.6, 0.1], 0.2); look(T[36] + 0.3, "chip", [0.5, 0.1]
 see(T[36], r3(END_OF(36) + 1.0), ["jackal", "hspud"], "the jackal points: next; now Spud's own heart sits on the pan");
 // SPUD: ...Can I have my beetle back?
 L(37, 0.35);
-turn(T[37] - 0.35, "spud", 110, 0.35); look(T[37] - 0.2, "spud", [0.3, -0.25]); expr(T[37], "spud", "worried");
+turn(T[37] - 0.35, "spud", 65, 0.35); look(T[37] - 0.2, "spud", [0.3, -0.25]); expr(T[37], "spud", "worried");
 arm(T[37] + 0.2, "spud", "R", { o: [0.3, 0.42, 0.3] }, 0.3); grip(T[37] + 0.25, "spud", "R", "open");   // an open palm out to Chip
 say(37);
 // Chip hides it behind his back
@@ -431,7 +432,7 @@ P(CL5 + 0.15, "hall", { tense: 0.8 }, 0.4);
 look(CL5 + 0.05, "spud", [-0.4, -0.3], 0.12); look(CL5 + 0.1, "chip", [-0.2, 0.3], 0.15);
 // CHIP: Wait... why is YOUR heart on a scale?  (to Spud; then the loop to frame 0)
 L(39, 0.2);
-expr(T[39], "chip", "shocked"); turn(T[39] - 0.2, "chip", 255, 0.3); look(T[39], "chip", [-0.5, 0.35], 0.2);
+expr(T[39], "chip", "shocked"); turn(T[39] - 0.2, "chip", 300, 0.3); look(T[39], "chip", [-0.5, 0.35], 0.2);
 say(39);
 P(T[39] + 0.6, "monster", { lick: 1 }, 0.9, "linear");
 const END = F(END_OF(39) + 0.3);
@@ -453,12 +454,12 @@ const FACE = (C, h = 0.45) => [C[0], h, C[1]];
 // opening
 const O_CHOMP = fr([-1.0, 0.42, 0.25], { az: 150, el: 8, h: 2.2, fov: 40 });   // reverse: the soul's scream, the heart, the jaws from the left
 const O_SPRAY = fr([-1.45, 0.35, 0.75], { az: -70, el: 8, h: 2.0, fov: 44 });   // low: Chip's trainers, the spray, the crumbling soul
-const O_CHIP = fr([CHIP0[0] + 0.05, 0.42, CHIP0[1]], { az: 140, el: 2, h: 1.4, fov: 32, lift: 0.14 });
+const O_CHIP = fr([CHIP0[0] + 0.05, 0.42, CHIP0[1]], { az: 140, el: 2, h: 1.4, fov: 45, lift: 0.14 });
 // the rule
 const VS = { pos: [-0.9, 1.45, 1.9], look: [-1.5, 1.0, 0], fov: 40 };   // the heart near, the feather pan far: "vs"
 const WHIP_S = mv({ pos: [-0.9, 1.45, 1.9], look: [1.5, 1.12, 0], fov: 40 }, { look: [-1.5, 1.0, 0] }, 0.3, "inOut");   // the feather, then the whip to his heart
 const TWO = fr([-1.45, 0.6, 1.45], { az: 0, el: 6, h: 2.6, fov: 36, lift: 0.1 });
-const CHIP_CL = fr([CHIP0[0], 0.42, CHIP0[1]], { az: 20, el: 3, h: 1.4, fov: 30, lift: 0.14 });
+const CHIP_CL = fr([CHIP0[0], 0.42, CHIP0[1]], { az: 20, el: 3, h: 1.4, fov: 40, lift: 0.14 });   // fov 40: the camera stays in front of the queue rope (z 3.6)
 const HEART_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.1, 0], { az: -12, el: 6, h: 0.75, fov: 30 });
 const SPUD_CL = fr([SPUD0[0], 0.72, SPUD0[1]], { az: -25, el: 3, h: 1.9, fov: 32, lift: 0.14 });
 const MONSTER_LICK = fr([-3.0, 1.35, -1.05], { az: 30, el: 0, h: 2.2, fov: 34 });
@@ -467,25 +468,27 @@ const CRANE = { pos: [-3.45, 2.6, -0.3], look: [-5.2, 0.85, 9.0], fov: 40 };
 // the denials
 const JCL = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 70 : 110, el: 10, h: 1.9, fov: 40, lift: 0.12 });   // from the side away from Chip
 const CHIP_J_CL = fr([CHIP_J[0], 0.42, CHIP_J[1]], { az: -80, el: 3, h: 1.1, fov: 50, lift: 0.12 });   // wide lens, close: the camera stays in front of the stools
+const CHIP_J_R = fr([CHIP_J[0], 0.42, CHIP_J[1]], { az: 70, el: 3, h: 1.3, fov: 40, lift: 0.12 });   // when he turns to the scale
 const LINE_WIDE = fr([-4.2, 0.65, 3.6], { az: 25, el: 8, h: 3.6, fov: 38, lift: 0.1 });
 const PAN_IN = (tilt) => { const s = seatAt(tilt); return fr([s[0], s[1] + 0.12, 0], { az: -8, el: 10, h: 0.8, fov: 30 }); };
+const PAN_IN_R = (tilt) => { const s = seatAt(tilt); return fr([s[0], s[1] + 0.12, 0], { az: 50, el: 10, h: 0.8, fov: 30 }); };   // past Spud at the pan
 const PAN_MON = (tilt) => { const s = seatAt(tilt); return fr([s[0] - 0.6, s[1] + 0.3, -0.2], { az: 25, el: 6, h: 2.4, fov: 36 }); };
 const SPUD_J_CL = fr([SPUD_J[0], 0.72, SPUD_J[1]], { az: -40, el: 3, h: 1.9, fov: 32, lift: 0.14 });
 const TWO_J = fr([-3.0, 0.6, 2.9], { az: 10, el: 6, h: 2.6, fov: 36, lift: 0.1 });
-const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1], BEET_AT[2]], { az: -50, el: 4, h: 0.45, fov: 28 });
+const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1] + 0.15, BEET_AT[2]], { az: -35, el: 4, h: 1.1, fov: 34 });
 const WALK_S = fr([-1.9, 0.6, 1.6], { az: -35, el: 10, h: 2.8, fov: 38, lift: 0.1 });   // from his front-left: his face as he walks
 const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 14, h: 1.6, fov: 34 });
 // the pass, the doors, the museum
 const MONT = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 60 : 120, el: 12, h: 1.9, fov: 40, lift: 0.12 });
 const PASS_S = fr([0.75, 1.0, -0.2], { az: 30, el: 4, h: 3.2, fov: 38, lift: 0.08 });
-const SLUMP_S = fr([CHOMP[0] + 0.4, 0.5, CHOMP[1] + 0.4], { az: 30, el: 10, h: 2.2, fov: 36 });
+const SLUMP_S = fr([CHOMP[0] + 0.4, 0.5, CHOMP[1] + 0.4], { az: 60, el: 10, h: 2.2, fov: 36 });
 const DOORS_S = { pos: [-1.0, 0.9, 4.2], look: [-0.6, 2.2, -9.0], fov: 46 };
 const SAFE_S = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 0, el: 6, h: 2.5, fov: 34, lift: 0.12 });
 const CHARM_CL = fr([HEART_LEVEL[0] - 0.04, HEART_LEVEL[1] + 0.07, 0.05], { az: -5, el: 4, h: 0.35, fov: 26 });
 const CASE_S = { pos: [CASE_X, 1.45, 3.9], look: [CASE_X, 1.30, 0.3], fov: 50 };
 const CASE_IN = { pos: [CASE_X, 1.5, 1.9], look: [CASE_X, 1.25, 0.3], fov: 50 };
 // next
-const NEXT_S = fr([-0.3, 0.9, 0.6], { az: 10, el: 6, h: 3.6, fov: 38, lift: 0.08 });
+const NEXT_S = { pos: [0.65, 1.71, 5.45], look: [0.0, 1.19, 0.5], fov: 38 };   // the jackal clear of the pillar, the two at the left edge
 const SPUD_E_CL = fr([SPUD_E[0], 0.72, SPUD_E[1]], { az: 35, el: 3, h: 1.9, fov: 32, lift: 0.14 });
 const HIDE_S = fr([CHIP_E[0], 0.35, CHIP_E[1]], { az: 60, el: 8, h: 1.5, fov: 34, lift: 0.14 });
 const HSPUD_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.12, 0], { az: 12, el: 6, h: 0.8, fov: 30 });
@@ -516,7 +519,7 @@ const beats = c.beats([
   ["this is easy", r3(T[14] - 0.25), drift(LINE_WIDE, -0.12, 1.0)],
   ["he stole fries", r3(T[15] - 0.12), push(PAN_IN(-0.1), 0.12, 1.6), "escalation"],
   ["clunk 1", CL1, push(PAN_MON(-0.3), 0.06, 0.9)],
-  ["snitching", r3(T[16] - 0.05), push(CHIP_J_CL, 0.08, 1.4)],
+  ["snitching", r3(T[16] - 0.05), push(CHIP_J_R, 0.08, 1.4)],
   ["a witness", r3(T[17] - 0.05), drift(SPUD_J_CL, -0.1, 1.9)],
   ["ever angry", r3(T[18] - 0.2), push(JCL(4), 0.06, 2.5)],
   ["no 4", r3(T[19] - 0.05), push(CHIP_J_CL, 0.1, 1.4)],
@@ -531,11 +534,11 @@ const beats = c.beats([
   ["every day", r3(T[27] - 0.08), push(PAN_IN(-0.65), 0.12, 1.1)],
   ["clunk 4", CL4, push(PAN_MON(-0.8), 0.1, 1.5)],
   ["plan b", r3(T[28] - 0.3), push(SPUD_J_CL, 0.08, 0.9)],
-  ["a bug", r3(T[29] - 0.05), push(CHIP_J_CL, 0.08, 0.9)],
+  ["a bug", r3(T[29] - 0.05), push(CHIP_J_R, 0.08, 0.9)],
   ["cheat sheet", r3(T[30] - 0.05), push(BEETLE_CL, 0.1, 1.6), "insert"],
   ["he walks to the pan", r3(WALK - 0.1), drift(WALK_S, 0.2, 2.6)],
   ["don't speak against me", r3(WALK_END + 0.4), push(SLAP_S, 0.08, SLAP_T - WALK_END)],
-  ["sealed", r3(SLAP_T + 0.15), push(PAN_IN(-0.8), 0.12, MM + 0.55 - SLAP_T - 0.15), "payoff"],
+  ["sealed", r3(SLAP_T + 0.15), push(PAN_IN_R(-0.8), 0.12, MM + 0.55 - SLAP_T - 0.15), "payoff"],
   ["no no no 1", r3(NO[0] - 0.12), push(MONT(1), 0.08, 0.9)],
   ["no no no 2", r3(NO[1] - 0.12), push(MONT(3), 0.08, 0.9)],
   ["no no no 3", r3(NO[2] - 0.12), push(MONT(6), 0.08, 0.9)],
@@ -586,7 +589,7 @@ write(import.meta.url, {
   hook: { show: ["monster", "h0", "soul", "scale"], hint: 0, what: "a giant gold scale in a torch-lit hall: a monster bites a screaming ghost's heart off the pan, juice sprays, the ghost crumbles to ash" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
-    ...[1, 2, 3, 4, 5, 6].map((k) => ({ who: `j${k}`, with: "hall", from: 0, to: END, checks: ["clipping", "body-in-prop", "leg-in-prop", "costume-in-prop"], reason: "the judges sit on the hall's stools 1-6 (the stool is part of the hall)" })),
+    ...[1, 2, 3, 4, 5, 6].map((k) => ({ who: `j${k}`, with: "hall", from: 0, to: END, checks: ["clipping", "body-in-prop", "leg-in-prop", "costume-in-prop", "shell"], reason: "the judges sit on the hall's stools 1-6 (the stool is part of the hall); leaning in to ask, the seated robe sinks into the stool top, out of sight below the knees" })),
     ...[1, 2, 3, 4, 5].map((k) => ({ who: `j${k}`, with: `j${k + 1}`, from: 0, to: END, checks: ["character-overlap"], reason: "neighbours on the hall's fixed stools 0.95 m apart: the wide linen robes and sleeves brush when one leans in" })),
     { who: "monster", with: "hall", from: 0, to: END, checks: ["prop-in-prop"], reason: "she sits and slumps on the hall floor (haunches and belly on the stone)" },
     { who: "spud", with: "hchip", from: r3(SLAP_T - 0.4), to: r3(SLAP_T + 0.4), checks: ["hand-in-prop", "arm-in-prop"], reason: "the slap: his hand lands the beetle on the heart" },

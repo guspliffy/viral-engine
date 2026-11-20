@@ -500,7 +500,8 @@
    "y": 0.035,
    "z": 1.393,
    "rot": 120,
-   "scale": 0.001
+   "scale": 0.001,
+   "staged": "a juice print on the top of his trainer: it sits on the shoe, not the floor"
   },
   {
    "id": "shoeL",
@@ -510,7 +511,8 @@
    "y": 0.035,
    "z": 1.167,
    "rot": 120,
-   "scale": 0.001
+   "scale": 0.001,
+   "staged": "a juice print on the top of his trainer: it sits on the shoe, not the floor"
   },
   {
    "id": "cheek",
@@ -1553,28 +1555,28 @@
    "len": 1.29,
    "shot": {
     "pos": [
-     -0.282,
-     0.701,
-     -0.569
+     -0.764,
+     0.675,
+     0.006
     ],
     "look": [
      -1.85,
      0.616,
      1.3
     ],
-    "fov": 32,
+    "fov": 45,
     "to": {
      "pos": [
-      -0.439,
-      0.693,
-      -0.382
+      -0.873,
+      0.669,
+      0.135
      ],
      "look": [
       -1.85,
       0.616,
       1.3
      ],
-     "fov": 32
+     "fov": 45
     },
     "dur": 1.3,
     "ease": "inOut"
@@ -1917,28 +1919,28 @@
    "len": 1.1,
    "shot": {
     "pos": [
-     -1.008,
-     0.753,
-     3.752
+     -1.243,
+     0.717,
+     3.105
     ],
     "look": [
      -1.9,
      0.616,
      1.3
     ],
-    "fov": 30,
+    "fov": 40,
     "to": {
      "pos": [
-      -1.062,
-      0.745,
-      3.605
+      -1.282,
+      0.711,
+      2.997
      ],
      "look": [
       -1.9,
       0.616,
       1.3
      ],
-     "fov": 30
+     "fov": 40
     },
     "dur": 1.8,
     "ease": "inOut"
@@ -2451,28 +2453,28 @@
    "len": 1.75,
    "shot": {
     "pos": [
-     -1.008,
-     0.753,
-     3.752
+     -1.243,
+     0.717,
+     3.105
     ],
     "look": [
      -1.9,
      0.616,
      1.3
     ],
-    "fov": 30,
+    "fov": 40,
     "to": {
      "pos": [
-      -1.079,
-      0.742,
-      3.556
+      -1.296,
+      0.709,
+      2.961
      ],
      "look": [
       -1.9,
       0.616,
       1.3
      ],
-     "fov": 30
+     "fov": 40
     },
     "dur": 1.7,
     "ease": "inOut"
@@ -3720,28 +3722,28 @@
    "len": 1.44,
    "shot": {
     "pos": [
-     -4.76,
-     0.614,
-     3.605
+     -1.924,
+     0.669,
+     4.01
     ],
     "look": [
      -3.6,
-     0.552,
+     0.576,
      3.4
     ],
-    "fov": 50,
+    "fov": 40,
     "to": {
      "pos": [
-      -4.667,
-      0.609,
-      3.589
+      -2.058,
+      0.662,
+      3.961
      ],
      "look": [
       -3.6,
-      0.552,
+      0.576,
       3.4
      ],
-     "fov": 50
+     "fov": 40
     },
     "dur": 1.4,
     "ease": "inOut"
@@ -5553,28 +5555,28 @@
    "len": 0.98,
    "shot": {
     "pos": [
-     -4.76,
-     0.614,
-     3.605
+     -1.924,
+     0.669,
+     4.01
     ],
     "look": [
      -3.6,
-     0.552,
+     0.576,
      3.4
     ],
-    "fov": 50,
+    "fov": 40,
     "to": {
      "pos": [
-      -4.667,
-      0.609,
-      3.589
+      -2.058,
+      0.662,
+      3.961
      ],
      "look": [
       -3.6,
-      0.552,
+      0.576,
       3.4
      ],
-     "fov": 50
+     "fov": 40
     },
     "dur": 0.9,
     "ease": "inOut"
@@ -5617,28 +5619,28 @@
    "len": 1.55,
    "shot": {
     "pos": [
-     -3.512,
-     0.523,
-     3.105
+     -3.851,
+     0.735,
+     3.996
     ],
     "look": [
      -2.822,
-     0.46,
+     0.61,
      2.526
     ],
-    "fov": 28,
+    "fov": 34,
     "to": {
      "pos": [
-      -3.443,
-      0.517,
-      3.047
+      -3.748,
+      0.723,
+      3.849
      ],
      "look": [
       -2.822,
-      0.46,
+      0.61,
       2.526
      ],
-     "fov": 28
+     "fov": 34
     },
     "dur": 1.6,
     "ease": "inOut"
@@ -5665,6 +5667,21 @@
      "dur": 0.15,
      "blink": false,
      "at": 1.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.4,
+       0.22
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.1
     },
     {
      "who": "spud",
@@ -5724,7 +5741,7 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -1.33,
+      -1.45,
       0.86
      ],
      "dur": 2,
@@ -5893,9 +5910,9 @@
    "len": 0.78,
    "shot": {
     "pos": [
-     -1.498,
+     -0.167,
      0.649,
-     1.456
+     0.945
     ],
     "look": [
      -1.293,
@@ -5905,9 +5922,9 @@
     "fov": 30,
     "to": {
      "pos": [
-      -1.473,
+      -0.302,
       0.618,
-      1.281
+      0.832
      ],
      "look": [
       -1.293,
@@ -6497,9 +6514,9 @@
    "len": 0.56,
    "shot": {
     "pos": [
-     -0.783,
+     0.437,
      1.088,
-     2.307
+     1.087
     ],
     "look": [
      -2.45,
@@ -6509,9 +6526,9 @@
     "fov": 36,
     "to": {
      "pos": [
-      -0.663,
+      0.557,
       1.088,
-      2.307
+      1.087
      ],
      "look": [
       -2.39,
@@ -6697,7 +6714,7 @@
     {
      "who": "chip",
      "do": "turn",
-     "to": 255,
+     "to": 300,
      "dur": 0.35,
      "at": 0.6
     },
@@ -6761,7 +6778,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 100,
+     "to": 60,
      "dur": 0.35,
      "at": 0.68
     },
@@ -7101,26 +7118,26 @@
    "len": 1.56,
    "shot": {
     "pos": [
-     0.603,
-     1.734,
-     5.72
+     0.65,
+     1.71,
+     5.45
     ],
     "look": [
-     -0.3,
-     1.188,
-     0.6
+     0,
+     1.19,
+     0.5
     ],
     "fov": 38,
     "to": {
      "pos": [
-      0.549,
-      1.701,
-      5.413
+      0.611,
+      1.679,
+      5.153
      ],
      "look": [
-      -0.3,
-      1.188,
-      0.6
+      0,
+      1.19,
+      0.5
      ],
      "fov": 38
     },
@@ -7224,7 +7241,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 110,
+     "to": 65,
      "dur": 0.35,
      "at": 1.26
     },
@@ -7692,7 +7709,7 @@
     {
      "who": "chip",
      "do": "turn",
-     "to": 255,
+     "to": 300,
      "dur": 0.3,
      "at": 1.98
     }
@@ -8049,9 +8066,10 @@
     "clipping",
     "body-in-prop",
     "leg-in-prop",
-    "costume-in-prop"
+    "costume-in-prop",
+    "shell"
    ],
-   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall)"
+   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall); leaning in to ask, the seated robe sinks into the stool top, out of sight below the knees"
   },
   {
    "who": "j2",
@@ -8062,9 +8080,10 @@
     "clipping",
     "body-in-prop",
     "leg-in-prop",
-    "costume-in-prop"
+    "costume-in-prop",
+    "shell"
    ],
-   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall)"
+   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall); leaning in to ask, the seated robe sinks into the stool top, out of sight below the knees"
   },
   {
    "who": "j3",
@@ -8075,9 +8094,10 @@
     "clipping",
     "body-in-prop",
     "leg-in-prop",
-    "costume-in-prop"
+    "costume-in-prop",
+    "shell"
    ],
-   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall)"
+   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall); leaning in to ask, the seated robe sinks into the stool top, out of sight below the knees"
   },
   {
    "who": "j4",
@@ -8088,9 +8108,10 @@
     "clipping",
     "body-in-prop",
     "leg-in-prop",
-    "costume-in-prop"
+    "costume-in-prop",
+    "shell"
    ],
-   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall)"
+   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall); leaning in to ask, the seated robe sinks into the stool top, out of sight below the knees"
   },
   {
    "who": "j5",
@@ -8101,9 +8122,10 @@
     "clipping",
     "body-in-prop",
     "leg-in-prop",
-    "costume-in-prop"
+    "costume-in-prop",
+    "shell"
    ],
-   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall)"
+   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall); leaning in to ask, the seated robe sinks into the stool top, out of sight below the knees"
   },
   {
    "who": "j6",
@@ -8114,9 +8136,10 @@
     "clipping",
     "body-in-prop",
     "leg-in-prop",
-    "costume-in-prop"
+    "costume-in-prop",
+    "shell"
    ],
-   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall)"
+   "reason": "the judges sit on the hall's stools 1-6 (the stool is part of the hall); leaning in to ask, the seated robe sinks into the stool top, out of sight below the knees"
   },
   {
    "who": "j1",
