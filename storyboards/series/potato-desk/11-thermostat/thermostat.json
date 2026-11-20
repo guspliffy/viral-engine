@@ -47,7 +47,7 @@
   "file": "ai/sneaky/sneaky-01.ogg",
   "lowCut": 150,
   "gain": 0.15,
-  "until": 46.42,
+  "until": 47.433,
   "then": {
    "file": "ai/elevator-bossa/elevator-bossa-01.ogg",
    "from": 0,
@@ -87,6 +87,7 @@
     -0.56,
     -0.92
    ],
+   "y": 0.74,
    "face": 60,
    "expr": "angry",
    "follow": 0.4,
@@ -176,7 +177,7 @@
    "x": 0,
    "y": 1.36,
    "z": -1.3,
-   "dropAt": 45.12
+   "dropAt": 46.117
   },
   {
    "id": "win",
@@ -344,21 +345,14 @@
    "patch": true
   },
   {
-   "id": "chair2",
-   "kind": "officechair",
-   "x": 1.62,
-   "y": 0,
-   "z": -0.3,
-   "rot": -25
-  },
-  {
    "id": "plant",
    "kind": "wiltplant",
    "x": -0.47,
    "y": 0,
    "z": 0.7,
    "scale": 0.5,
-   "bloom": 1
+   "bloom": 1,
+   "heads": "stay"
   },
   {
    "id": "fan",
@@ -673,23 +667,23 @@
  "captions": [
   {
    "from": 0.05,
-   "to": 2.64,
+   "to": 2.637,
    "text": "Nineteen degrees?! Who *touched it?!*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 2.65,
-   "to": 5.41,
+   "from": 2.647,
+   "to": 5.407,
    "text": "Me. It's a sauna in here.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 6.91,
-   "to": 8.62,
+   "from": 6.917,
+   "to": 8.627,
    "text": "Hm. Carry on.",
    "pos": 250,
    "pop": false,
@@ -704,144 +698,144 @@
    "size": 64
   },
   {
-   "from": 9.98,
-   "to": 11.31,
+   "from": 9.983,
+   "to": 11.313,
    "text": "Seventeen.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 11.43,
-   "to": 12.59,
+   "from": 11.433,
+   "to": 12.573,
    "text": "Twenty-five!",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 12.59,
-   "to": 13.56,
+   "from": 12.583,
+   "to": 13.553,
    "text": "Fifteen!",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 14.65,
-   "to": 17.8,
+   "from": 14.653,
+   "to": 17.803,
    "text": "Twenty-one. Both of you. Deal?",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 18.24,
-   "to": 18.83,
+   "from": 18.233,
+   "to": 18.823,
    "text": "...Deal.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 18.84,
-   "to": 19.78,
+   "from": 18.833,
+   "to": 19.773,
    "text": "Deal.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 28.25,
-   "to": 28.87,
+   "from": 29.233,
+   "to": 29.853,
    "text": "Thirty!",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 28.88,
-   "to": 29.78,
+   "from": 29.863,
+   "to": 30.763,
    "text": "Twelve!",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 34.68,
-   "to": 36.49,
+   "from": 35.667,
+   "to": 37.477,
    "text": "Locked. *Twenty-one.*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 37.74,
-   "to": 38.92,
+   "from": 38.717,
+   "to": 39.897,
    "text": "It's still freezing.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 38.93,
-   "to": 40.67,
+   "from": 39.907,
+   "to": 41.647,
    "text": "It's still boiling.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 40.82,
-   "to": 41.76,
+   "from": 41.8,
+   "to": 42.74,
    "text": "Let go!",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 41.77,
-   "to": 42.92,
+   "from": 42.75,
+   "to": 43.9,
    "text": "You let go!",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 45.77,
-   "to": 46.77,
+   "from": 46.767,
+   "to": 47.767,
    "text": "Enough.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 47.42,
-   "to": 48.55,
+   "from": 48.433,
+   "to": 49.563,
    "text": "It's *fake.*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 49.57,
-   "to": 51.01,
+   "from": 50.567,
+   "to": 52.007,
    "text": "...Since when?",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 51.03,
-   "to": 52.46,
+   "from": 52.033,
+   "to": 53.463,
    "text": "Since always.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 52.48,
-   "to": 55.98,
+   "from": 53.467,
+   "to": 56.967,
    "text": "...Then why am I *freezing?*",
    "pos": 250,
    "pop": false,
@@ -852,7 +846,7 @@
   {
    "name": "who touched it",
    "at": 0,
-   "len": 2.57,
+   "len": 2.567,
    "shot": {
     "pos": [
      -0.35,
@@ -878,7 +872,7 @@
      ],
      "fov": 30
     },
-    "dur": 2.57,
+    "dur": 2.567,
     "ease": "inOut"
    },
    "do": [
@@ -1044,6 +1038,23 @@
     },
     {
      "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "thermo",
+      "grip": "btnUp",
+      "off": [
+       0,
+       -0.05,
+       0.05
+      ]
+     },
+     "dur": 0.001,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
      "do": "grip",
      "side": "L",
      "shape": "point",
@@ -1090,63 +1101,14 @@
      "at": 0
     },
     {
-     "who": "chip",
-     "do": "hide",
-     "at": 0.001
-    },
-    {
      "do": "prop",
      "id": "flakes",
      "set": {
-      "clock": 56.833
+      "clock": 57.8
      },
-     "dur": 56.833,
+     "dur": 57.8,
      "ease": "linear",
      "at": 0.001
-    },
-    {
-     "who": "chip",
-     "do": "show",
-     "at": 0.01
-    },
-    {
-     "who": "chip",
-     "do": "move",
-     "to": [
-      -0.56,
-      -0.92
-     ],
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "y": 0.74,
-     "at": 0.01
-    },
-    {
-     "who": "chip",
-     "do": "turn",
-     "to": 60,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0.01
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "thermo",
-      "grip": "btnUp",
-      "off": [
-       0,
-       0,
-       0.09
-      ]
-     },
-     "dur": 0.005,
-     "ease": "inOut",
-     "at": 0.02
     },
     {
      "who": "chip",
@@ -1488,7 +1450,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.55
+     "at": 2.547
     },
     {
      "who": "mash",
@@ -1496,7 +1458,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.01,
-     "at": 2.55
+     "at": 2.547
     },
     {
      "who": "mash",
@@ -1510,15 +1472,15 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 2.55
+     "at": 2.547
     }
    ],
    "kind": "hook"
   },
   {
    "name": "sauna",
-   "at": 2.57,
-   "len": 2.74,
+   "at": 2.567,
+   "len": 2.733,
    "shot": {
     "pos": [
      1.55,
@@ -1544,7 +1506,7 @@
      ],
      "fov": 32
     },
-    "dur": 2.7399999999999998,
+    "dur": 2.7329999999999997,
     "ease": "inOut"
    },
    "do": [
@@ -1601,13 +1563,13 @@
      "who": "spud",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.53
+     "at": 0.533
     },
     {
      "who": "mash",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.63
+     "at": 1.633
     },
     {
      "who": "mash",
@@ -1619,12 +1581,12 @@
       0.5,
       0.3
      ],
-     "at": 2.71
+     "at": 2.703
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 2.711
+     "at": 2.704
     },
     {
      "do": "prop",
@@ -1636,12 +1598,12 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 2.72
+     "at": 2.713
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 2.72
+     "at": 2.713
     },
     {
      "who": "mash",
@@ -1654,7 +1616,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 2.72
+     "at": 2.713
     },
     {
      "who": "mash",
@@ -1663,7 +1625,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.72
+     "at": 2.713
     },
     {
      "who": "mash",
@@ -1672,14 +1634,14 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.72
+     "at": 2.713
     }
    ]
   },
   {
    "name": "the buttons",
-   "at": 5.31,
-   "len": 1.35,
+   "at": 5.3,
+   "len": 1.367,
    "shot": {
     "pos": [
      0,
@@ -1705,7 +1667,7 @@
      ],
      "fov": 30
     },
-    "dur": 1.3500000000000005,
+    "dur": 1.367,
     "ease": "inOut"
    },
    "do": [
@@ -1729,8 +1691,8 @@
       "grip": "btnUp",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -1816,8 +1778,8 @@
       "grip": "btnDown",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -1897,12 +1859,12 @@
     {
      "who": "wedge",
      "do": "hide",
-     "at": 1.321
+     "at": 1.338
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 1.33
+     "at": 1.347
     },
     {
      "who": "wedge",
@@ -1915,7 +1877,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 1.33
+     "at": 1.347
     },
     {
      "who": "wedge",
@@ -1924,14 +1886,14 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.33
+     "at": 1.347
     }
    ]
   },
   {
    "name": "carry on",
-   "at": 6.66,
-   "len": 1.84,
+   "at": 6.667,
+   "len": 1.833,
    "shot": {
     "pos": [
      0.3,
@@ -1957,7 +1919,7 @@
      ],
      "fov": 38
     },
-    "dur": 1.8399999999999999,
+    "dur": 1.8330000000000002,
     "ease": "inOut"
    },
    "do": [
@@ -2027,7 +1989,7 @@
      "who": "chip",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.24
+     "at": 0.233
     },
     {
      "who": "wedge",
@@ -2053,12 +2015,12 @@
     {
      "who": "wedge",
      "do": "hide",
-     "at": 1.811
+     "at": 1.804
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 1.82
+     "at": 1.813
     },
     {
      "who": "wedge",
@@ -2071,7 +2033,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 1.82
+     "at": 1.813
     },
     {
      "who": "wedge",
@@ -2080,7 +2042,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.82
+     "at": 1.813
     },
     {
      "do": "prop",
@@ -2090,14 +2052,14 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.82
+     "at": 1.813
     }
    ]
   },
   {
    "name": "23 scarf",
    "at": 8.5,
-   "len": 1.23,
+   "len": 1.233,
    "shot": {
     "pos": [
      -1.9,
@@ -2123,7 +2085,7 @@
      ],
      "fov": 34
     },
-    "dur": 1.2300000000000004,
+    "dur": 1.2330000000000005,
     "ease": "inOut"
    },
    "do": [
@@ -2165,8 +2127,8 @@
       "grip": "btnUp",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -2412,12 +2374,12 @@
     {
      "who": "mash",
      "do": "hide",
-     "at": 1.201
+     "at": 1.204
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 1.21
+     "at": 1.213
     },
     {
      "who": "mash",
@@ -2430,7 +2392,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 1.21
+     "at": 1.213
     },
     {
      "who": "mash",
@@ -2439,7 +2401,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.21
+     "at": 1.213
     },
     {
      "do": "prop",
@@ -2449,14 +2411,14 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.21
+     "at": 1.213
     }
    ],
    "kind": "escalation"
   },
   {
    "name": "17 fan",
-   "at": 9.73,
+   "at": 9.733,
    "len": 1.5,
    "shot": {
     "pos": [
@@ -2465,11 +2427,11 @@
      3.6
     ],
     "look": [
-     0.45,
-     0.98,
+     0.25,
+     0.95,
      -0.9
     ],
-    "fov": 36,
+    "fov": 40,
     "to": {
      "pos": [
       1.63,
@@ -2477,11 +2439,11 @@
       3.6
      ],
      "look": [
-      0.39,
-      0.98,
+      0.19,
+      0.95,
       -0.9
      ],
-     "fov": 36
+     "fov": 40
     },
     "dur": 1.5,
     "ease": "inOut"
@@ -2528,6 +2490,16 @@
      "at": 0.22
     },
     {
+     "do": "prop",
+     "id": "flurry",
+     "set": {
+      "amount": 0.5
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
      "who": "mash",
      "macro": "say",
      "line": "Seventeen.",
@@ -2536,16 +2508,6 @@
      "dur": 1.13,
      "caption": false,
      "at": 0.25
-    },
-    {
-     "do": "prop",
-     "id": "flurry",
-     "set": {
-      "amount": 0.5
-     },
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 0.35
     },
     {
      "do": "prop",
@@ -2641,8 +2603,8 @@
   },
   {
    "name": "25 heater",
-   "at": 11.23,
-   "len": 1.31,
+   "at": 11.233,
+   "len": 1.3,
    "shot": {
     "pos": [
      -1.55,
@@ -2668,18 +2630,18 @@
      ],
      "fov": 38
     },
-    "dur": 1.3099999999999987,
+    "dur": 1.299999999999999,
     "ease": "inOut"
    },
    "do": [
     {
      "who": "chip",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
       "o": [
-       0.25,
-       0.38,
+       0.22,
+       0.45,
        0.45
       ]
      },
@@ -2690,7 +2652,7 @@
     {
      "who": "chip",
      "do": "grip",
-     "side": "L",
+     "side": "R",
      "shape": "point",
      "dur": 0.12,
      "at": 0
@@ -2699,7 +2661,7 @@
      "who": "chip",
      "do": "look",
      "to": [
-      0.3,
+      -0.1,
       -0.6
      ],
      "dur": 0.2,
@@ -2764,7 +2726,7 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": "rest",
      "dur": 0.3,
      "ease": "inOut",
@@ -2780,12 +2742,12 @@
     {
      "who": "mash",
      "do": "hide",
-     "at": 1.281
+     "at": 1.271
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 1.29
+     "at": 1.28
     },
     {
      "who": "mash",
@@ -2798,7 +2760,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 1.29
+     "at": 1.28
     },
     {
      "who": "mash",
@@ -2807,7 +2769,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.29
+     "at": 1.28
     },
     {
      "do": "prop",
@@ -2817,7 +2779,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.29
+     "at": 1.28
     },
     {
      "do": "prop",
@@ -2827,7 +2789,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.29
+     "at": 1.28
     },
     {
      "do": "prop",
@@ -2837,14 +2799,14 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.29
+     "at": 1.28
     }
    ]
   },
   {
    "name": "15 window",
-   "at": 12.54,
-   "len": 0.94,
+   "at": 12.533,
+   "len": 0.934,
    "shot": {
     "pos": [
      2.2,
@@ -2870,17 +2832,10 @@
      ],
      "fov": 42
     },
-    "dur": 0.9400000000000013,
+    "dur": 0.934000000000001,
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "chip",
-     "do": "lean",
-     "to": -1.5,
-     "dur": 0.05,
-     "at": 0
-    },
     {
      "who": "mash",
      "do": "arm",
@@ -2907,9 +2862,9 @@
     {
      "who": "chip",
      "do": "lean",
-     "to": 1.5,
+     "to": -1.5,
      "dur": 0.05,
-     "at": 0.05
+     "at": 0.01
     },
     {
      "who": "mash",
@@ -2924,16 +2879,16 @@
     {
      "who": "chip",
      "do": "lean",
-     "to": -1.5,
+     "to": 1.5,
      "dur": 0.05,
-     "at": 0.1
+     "at": 0.06
     },
     {
      "who": "chip",
      "do": "lean",
-     "to": 1.5,
+     "to": -1.5,
      "dur": 0.05,
-     "at": 0.15
+     "at": 0.11
     },
     {
      "do": "prop",
@@ -2989,9 +2944,9 @@
     {
      "who": "chip",
      "do": "lean",
-     "to": -1.5,
+     "to": 1.5,
      "dur": 0.05,
-     "at": 0.2
+     "at": 0.16
     },
     {
      "sfx": "ai/storm-wind",
@@ -3001,16 +2956,16 @@
     {
      "who": "chip",
      "do": "lean",
-     "to": 1.5,
+     "to": -1.5,
      "dur": 0.05,
-     "at": 0.25
+     "at": 0.21
     },
     {
      "who": "chip",
      "do": "lean",
-     "to": -1.5,
+     "to": 1.5,
      "dur": 0.05,
-     "at": 0.3
+     "at": 0.26
     },
     {
      "who": "mash",
@@ -3022,23 +2977,23 @@
     {
      "who": "chip",
      "do": "lean",
+     "to": -1.5,
+     "dur": 0.05,
+     "at": 0.31
+    },
+    {
+     "who": "chip",
+     "do": "lean",
      "to": 1.5,
      "dur": 0.05,
-     "at": 0.35
+     "at": 0.36
     },
     {
      "who": "chip",
      "do": "lean",
      "to": -1.5,
      "dur": 0.05,
-     "at": 0.4
-    },
-    {
-     "who": "chip",
-     "do": "lean",
-     "to": 1.5,
-     "dur": 0.05,
-     "at": 0.45
+     "at": 0.41
     },
     {
      "who": "mash",
@@ -3052,26 +3007,33 @@
     {
      "who": "chip",
      "do": "lean",
+     "to": 1.5,
+     "dur": 0.05,
+     "at": 0.46
+    },
+    {
+     "who": "chip",
+     "do": "lean",
      "to": -1.5,
      "dur": 0.05,
-     "at": 0.5
+     "at": 0.51
     },
     {
      "who": "chip",
      "do": "lean",
      "to": 0,
      "dur": 0.05,
-     "at": 0.65
+     "at": 0.66
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 0.911
+     "at": 0.905
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 0.92
+     "at": 0.914
     },
     {
      "who": "mash",
@@ -3084,7 +3046,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 0.92
+     "at": 0.914
     },
     {
      "who": "mash",
@@ -3093,14 +3055,14 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 0.92
+     "at": 0.914
     }
    ]
   },
   {
    "name": "split room",
-   "at": 13.48,
-   "len": 1.05,
+   "at": 13.467,
+   "len": 1.066,
    "shot": {
     "pos": [
      0.17,
@@ -3126,7 +3088,7 @@
      ],
      "fov": 34
     },
-    "dur": 1.049999999999999,
+    "dur": 1.065999999999999,
     "ease": "inOut"
    },
    "do": [
@@ -3341,17 +3303,17 @@
     {
      "who": "chip",
      "do": "hide",
-     "at": 1.021
+     "at": 1.037
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 1.021
+     "at": 1.037
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 1.03
+     "at": 1.046
     },
     {
      "who": "chip",
@@ -3364,7 +3326,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0.74,
-     "at": 1.03
+     "at": 1.046
     },
     {
      "who": "chip",
@@ -3373,12 +3335,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.03
+     "at": 1.046
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 1.03
+     "at": 1.046
     },
     {
      "who": "mash",
@@ -3391,7 +3353,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 1.03
+     "at": 1.046
     },
     {
      "who": "mash",
@@ -3400,40 +3362,40 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.03
+     "at": 1.046
     }
    ]
   },
   {
    "name": "deal?",
-   "at": 14.53,
-   "len": 3.41,
+   "at": 14.533,
+   "len": 3.4,
    "shot": {
     "pos": [
      0,
-     0.95,
+     1.3,
      3.2
     ],
     "look": [
      0,
-     0.95,
-     -0.5
+     0.85,
+     -0.45
     ],
-    "fov": 32,
+    "fov": 34,
     "to": {
      "pos": [
       0,
-      0.95,
-      2.904
+      1.264,
+      2.908
      ],
      "look": [
       0,
-      0.95,
-      -0.5
+      0.85,
+      -0.45
      ],
-     "fov": 32
+     "fov": 34
     },
-    "dur": 3.410000000000002,
+    "dur": 3.4000000000000004,
     "ease": "inOut"
    },
    "do": [
@@ -3469,7 +3431,7 @@
      "do": "lean",
      "to": 0,
      "dur": 0.05,
-     "at": 0.05
+     "at": 0.034
     },
     {
      "who": "spud",
@@ -3477,8 +3439,8 @@
      "side": "R",
      "pose": {
       "o": [
-       0.42,
-       0.42,
+       0.06,
+       0.6,
        0.2
       ]
      },
@@ -3492,9 +3454,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.42,
-       0.42,
-       0.2
+       0,
+       0.62,
+       0.16
       ]
      },
      "dur": 0.3,
@@ -3524,7 +3486,7 @@
      "who": "mash",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.57
+     "at": 0.567
     },
     {
      "who": "spud",
@@ -3557,8 +3519,8 @@
       "grip": "btnUp",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -3628,8 +3590,8 @@
       "grip": "btnUp",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -3688,8 +3650,8 @@
       "grip": "btnUp",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -3769,8 +3731,8 @@
   },
   {
    "name": "handshake",
-   "at": 17.94,
-   "len": 1.76,
+   "at": 17.933,
+   "len": 1.767,
    "shot": {
     "pos": [
      0,
@@ -3796,7 +3758,7 @@
      ],
      "fov": 34
     },
-    "dur": 1.759999999999998,
+    "dur": 1.7669999999999995,
     "ease": "inOut"
    },
    "do": [
@@ -3828,22 +3790,6 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "grip",
-     "side": "L",
-     "shape": "flat",
-     "dur": 0.12,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "grip",
-     "side": "R",
-     "shape": "flat",
-     "dur": 0.12,
      "at": 0
     },
     {
@@ -3884,6 +3830,22 @@
      "expr": "annoyed",
      "dur": 0.2,
      "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0.2
     },
     {
      "who": "chip",
@@ -4029,49 +3991,49 @@
      "who": "spud",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.56
+     "at": 1.567
     },
     {
      "who": "chip",
      "do": "hide",
-     "at": 1.731
+     "at": 1.738
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 1.731
+     "at": 1.738
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "chip",
      "do": "move",
      "to": [
-      -1,
-      -0.36
+      -1.08,
+      0.98
      ],
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "y": 0.26,
-     "at": 1.74
+     "y": 0,
+     "at": 1.747
     },
     {
      "who": "chip",
      "do": "turn",
-     "to": 0,
+     "to": 60,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "mash",
@@ -4084,7 +4046,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "mash",
@@ -4093,7 +4055,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "chip",
@@ -4102,7 +4064,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "chip",
@@ -4110,7 +4072,7 @@
      "side": "both",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "mash",
@@ -4119,7 +4081,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "mash",
@@ -4127,7 +4089,7 @@
      "side": "both",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "spud",
@@ -4136,7 +4098,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.74
+     "at": 1.747
     },
     {
      "who": "spud",
@@ -4144,7 +4106,7 @@
      "side": "both",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.74
+     "at": 1.747
     },
     {
      "do": "prop",
@@ -4154,7 +4116,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.74
+     "at": 1.747
     },
     {
      "do": "prop",
@@ -4164,7 +4126,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.74
+     "at": 1.747
     },
     {
      "do": "prop",
@@ -4174,40 +4136,40 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.74
+     "at": 1.747
     }
    ]
   },
   {
    "name": "quiet",
    "at": 19.7,
-   "len": 1.15,
+   "len": 0.7,
    "shot": {
     "pos": [
-     -1.9,
-     1.7,
-     6.6
+     -0.55,
+     1.3,
+     3.3
     ],
     "look": [
-     0,
-     0.85,
-     -0.3
+     -0.7,
+     0.55,
+     0.4
     ],
-    "fov": 32,
+    "fov": 40,
     "to": {
      "pos": [
-      -1.75,
-      1.7,
-      6.6
+      -0.559,
+      1.255,
+      3.126
      ],
      "look": [
-      0.075,
-      0.85,
-      -0.3
+      -0.7,
+      0.55,
+      0.4
      ],
-     "fov": 32
+     "fov": 40
     },
-    "dur": 1.1500000000000021,
+    "dur": 0.6999999999999993,
     "ease": "inOut"
    },
    "do": [
@@ -4226,6 +4188,42 @@
      "at": 0
     },
     {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "heater",
+      "grip": "top",
+      "off": [
+       0,
+       0.03,
+       0
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "expr",
      "expr": "happy",
@@ -4234,23 +4232,13 @@
     },
     {
      "do": "prop",
-     "id": "fan",
-     "set": {
-      "on": 0
-     },
-     "dur": 0.8,
-     "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
      "id": "heater",
      "set": {
       "on": 0
      },
-     "dur": 0.8,
+     "dur": 0.7,
      "ease": "inOut",
-     "at": 0.1
+     "at": 0.25
     },
     {
      "do": "prop",
@@ -4258,9 +4246,9 @@
      "set": {
       "on": 0
      },
-     "dur": 0.8,
+     "dur": 0.7,
      "ease": "inOut",
-     "at": 0.1
+     "at": 0.25
     },
     {
      "do": "prop",
@@ -4268,19 +4256,24 @@
      "set": {
       "on": 0
      },
-     "dur": 0.8,
+     "dur": 0.7,
      "ease": "inOut",
-     "at": 0.1
+     "at": 0.25
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.35,
+     "at": 0.25
     },
     {
      "do": "prop",
-     "id": "drift1",
+     "id": "flurry",
      "set": {
-      "depth": 0
+      "amount": 0
      },
      "dur": 0.8,
      "ease": "inOut",
-     "at": 0.1
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -4290,89 +4283,91 @@
      },
      "dur": 0.8,
      "ease": "inOut",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "win",
-     "set": {
-      "lift": 0,
-      "open": 0
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "coldF",
-     "set": {
-      "on": 0
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "coldW",
-     "set": {
-      "on": 0
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "spray",
-     "set": {
-      "on": 0
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "flakes",
-     "set": {
-      "amount": 0
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "flurry",
-     "set": {
-      "amount": 0
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0.2
+     "at": 0.3
     },
     {
      "who": "chip",
-     "do": "look",
-     "to": [
-      0.6,
-      0
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.55
+    }
+   ]
+  },
+  {
+   "name": "quiet 2",
+   "at": 20.4,
+   "len": 1.433,
+   "shot": {
+    "pos": [
+     2.05,
+     1.45,
+     3.1
+    ],
+    "look": [
+     1.1,
+     0.95,
+     -0.6
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      1.95,
+      1.45,
+      3.1
      ],
+     "look": [
+      1.05,
+      0.95,
+      -0.6
+     ],
+     "fov": 44
+    },
+    "dur": 1.4329999999999998,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fan",
+      "grip": "button",
+      "off": [
+       0,
+       0.04,
+       0
+      ]
+     },
      "dur": 0.2,
-     "blink": false,
-     "at": 0.2
+     "ease": "out",
+     "at": 0
     },
     {
      "who": "mash",
-     "do": "look",
-     "to": [
-      -0.6,
-      0
-     ],
-     "dur": 0.2,
-     "blink": false,
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "fan",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.8,
+     "ease": "inOut",
      "at": 0.2
     },
     {
@@ -4381,25 +4376,139 @@
      "at": 0.2
     },
     {
-     "sfx": "door-close",
-     "gain": 0.2,
-     "at": 0.45
+     "who": "mash",
+     "do": "move",
+     "to": [
+      1,
+      -0.85
+     ],
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.35
     },
     {
-     "who": "chip",
-     "do": "blink",
-     "dur": 0.22,
+     "who": "mash",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       1.37,
+       1.15,
+       -1.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "win",
+     "set": {
+      "lift": 0,
+      "open": 0
+     },
+     "dur": 0.45,
+     "ease": "inOut",
      "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "coldF",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "coldW",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "spray",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "flakes",
+     "set": {
+      "amount": 0
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "drift1",
+     "set": {
+      "depth": 0
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "sfx": "door-close",
+     "gain": 0.25,
+     "at": 1.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.3
     },
     {
      "who": "chip",
      "do": "hide",
-     "at": 1.121
+     "at": 1.404
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 1.13
+     "at": 1.413
     },
     {
      "who": "chip",
@@ -4412,7 +4521,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0.74,
-     "at": 1.13
+     "at": 1.413
     },
     {
      "who": "chip",
@@ -4421,14 +4530,14 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.13
+     "at": 1.413
     }
    ]
   },
   {
    "name": "sneak 22",
-   "at": 20.85,
-   "len": 1.15,
+   "at": 21.833,
+   "len": 1.134,
    "shot": {
     "pos": [
      -1.45,
@@ -4454,7 +4563,7 @@
      ],
      "fov": 34
     },
-    "dur": 1.1499999999999986,
+    "dur": 1.1340000000000003,
     "ease": "inOut"
    },
    "do": [
@@ -4485,7 +4594,7 @@
       "grip": "btnUp",
       "off": [
        0,
-       -0.08,
+       -0.15,
        0.1
       ]
      },
@@ -4502,8 +4611,8 @@
       "grip": "btnUp",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -4574,26 +4683,26 @@
      "do": "prop",
      "id": "mphone",
      "set": {
-      "x": 0.406,
-      "y": 0.52,
-      "z": -0.626,
+      "x": 0.8,
+      "y": 0.92,
+      "z": -0.62,
       "rot": 300,
       "tip": -35,
       "glow": 0.6
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.12
+     "at": 1.104
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 1.121
+     "at": 1.105
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 1.13
+     "at": 1.114
     },
     {
      "who": "mash",
@@ -4606,7 +4715,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 1.13
+     "at": 1.114
     },
     {
      "who": "mash",
@@ -4615,7 +4724,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.13
+     "at": 1.114
     },
     {
      "who": "mash",
@@ -4631,7 +4740,7 @@
       "palm": true
      },
      "dur": 0,
-     "at": 1.13
+     "at": 1.114
     },
     {
      "who": "mash",
@@ -4639,7 +4748,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.01,
-     "at": 1.13
+     "at": 1.114
     },
     {
      "who": "mash",
@@ -4653,13 +4762,13 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 1.13
+     "at": 1.114
     }
    ]
   },
   {
    "name": "sneak 20",
-   "at": 22,
+   "at": 22.967,
    "len": 1.2,
    "shot": {
     "pos": [
@@ -4686,7 +4795,7 @@
      ],
      "fov": 34
     },
-    "dur": 1.1999999999999993,
+    "dur": 1.2000000000000028,
     "ease": "inOut"
    },
    "do": [
@@ -4717,8 +4826,8 @@
       "grip": "btnDown",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -4842,7 +4951,7 @@
   },
   {
    "name": "beeps",
-   "at": 23.2,
+   "at": 24.167,
    "len": 1.4,
    "shot": {
     "pos": [
@@ -4869,7 +4978,7 @@
      ],
      "fov": 34
     },
-    "dur": 1.4000000000000021,
+    "dur": 1.3999999999999986,
     "ease": "inOut"
    },
    "do": [
@@ -4918,8 +5027,8 @@
       "grip": "btnUp",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -4987,8 +5096,8 @@
       "grip": "btnDown",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -5010,6 +5119,12 @@
      "shape": "relaxed",
      "dur": 0.12,
      "at": 0.38
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.433
     },
     {
      "do": "prop",
@@ -5064,8 +5179,8 @@
       "grip": "btnUp",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -5141,8 +5256,8 @@
       "grip": "btnDown",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -5221,7 +5336,7 @@
   },
   {
    "name": "tape",
-   "at": 24.6,
+   "at": 25.567,
    "len": 2,
    "shot": {
     "pos": [
@@ -5253,12 +5368,6 @@
    },
    "do": [
     {
-     "who": "mash",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0
-    },
-    {
      "who": "chip",
      "do": "arm",
      "side": "L",
@@ -5267,8 +5376,8 @@
       "grip": "btnUp",
       "off": [
        0,
-       0,
-       0.09
+       -0.05,
+       0.05
       ]
      },
      "dur": 0.2,
@@ -5425,6 +5534,14 @@
     },
     {
      "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.12,
+     "at": 0.95
+    },
+    {
+     "who": "mash",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -5432,34 +5549,28 @@
       "grip": "btnDown",
       "off": [
        0,
-       0,
+       -0.05,
        0.05
       ]
      },
-     "dur": 0.12,
+     "dur": 0.1,
      "ease": "out",
-     "at": 1.05
+     "at": 1
     },
     {
-     "who": "mash",
-     "do": "grip",
-     "side": "R",
-     "shape": "point",
-     "dur": 0.12,
-     "at": 1.05
-    },
-    {
-     "who": "mash",
-     "do": "grip",
-     "side": "R",
-     "shape": "point",
-     "dur": 0.12,
-     "at": 1.05
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "shake": 0.15
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 1.1
     },
     {
      "sfx": "kenney/impact-soft-medium",
      "gain": 0.25,
-     "at": 1.17
+     "at": 1.1
     },
     {
      "who": "mash",
@@ -5469,14 +5580,24 @@
       "prop": "thermo",
       "grip": "btnDown",
       "off": [
-       0.02,
-       -0.04,
-       0.14
+       0.04,
+       -0.16,
+       0.2
       ]
      },
-     "dur": 0.12,
+     "dur": 0.14,
      "ease": "inOut",
-     "at": 1.2
+     "at": 1.14
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "shake": 0
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 1.16
     },
     {
      "who": "mash",
@@ -5494,18 +5615,28 @@
       "grip": "btnDown",
       "off": [
        0,
-       0,
+       -0.05,
        0.05
       ]
      },
-     "dur": 0.12,
+     "dur": 0.1,
      "ease": "out",
-     "at": 1.35
+     "at": 1.36
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "shake": 0.15
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 1.46
     },
     {
      "sfx": "kenney/impact-soft-medium",
      "gain": 0.25,
-     "at": 1.47
+     "at": 1.46
     },
     {
      "who": "mash",
@@ -5515,14 +5646,24 @@
       "prop": "thermo",
       "grip": "btnDown",
       "off": [
-       0.02,
-       -0.04,
-       0.14
+       0.04,
+       -0.16,
+       0.2
       ]
      },
-     "dur": 0.12,
+     "dur": 0.14,
      "ease": "inOut",
      "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "shake": 0
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 1.52
     },
     {
      "who": "mash",
@@ -5547,7 +5688,9 @@
      "do": "prop",
      "id": "icebagL",
      "set": {
-      "y": 1.34
+      "x": 0.4,
+      "y": 1.26,
+      "z": -0.98
      },
      "dur": 0,
      "ease": "inOut",
@@ -5561,9 +5704,9 @@
       "prop": "thermo",
       "grip": "coverRight",
       "off": [
-       0.06,
-       0,
-       0.05
+       0.17,
+       -0.08,
+       0.36
       ]
      },
      "dur": 0.01,
@@ -5582,8 +5725,8 @@
   },
   {
    "name": "ice",
-   "at": 26.6,
-   "len": 1.55,
+   "at": 27.567,
+   "len": 1.566,
    "shot": {
     "pos": [
      0.8,
@@ -5609,10 +5752,39 @@
      ],
      "fov": 36
     },
-    "dur": 1.5499999999999972,
+    "dur": 1.565999999999999,
     "ease": "inOut"
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "icebagL",
+     "set": {
+      "x": 0.29,
+      "y": 1.34,
+      "z": -1.2
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "thermo",
+      "grip": "coverRight",
+      "off": [
+       0.06,
+       0,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
     {
      "who": "mash",
      "do": "expr",
@@ -5657,14 +5829,14 @@
      "do": "prop",
      "id": "hotmug",
      "set": {
-      "x": -0.31,
-      "y": 1.03,
-      "z": -1.1,
+      "x": -0.27,
+      "y": 1,
+      "z": -1.04,
       "rot": 115
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.52
+     "at": 1.536
     },
     {
      "who": "chip",
@@ -5672,7 +5844,7 @@
      "side": "L",
      "shape": "open",
      "dur": 0.003,
-     "at": 1.53
+     "at": 1.546
     },
     {
      "who": "chip",
@@ -5694,7 +5866,7 @@
      },
      "dur": 0.003,
      "ease": "inOut",
-     "at": 1.53
+     "at": 1.546
     },
     {
      "who": "chip",
@@ -5711,7 +5883,7 @@
      },
      "dur": 0.003,
      "ease": "settle",
-     "at": 1.533
+     "at": 1.549
     },
     {
      "who": "chip",
@@ -5719,14 +5891,14 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 1.535
+     "at": 1.551
     }
    ]
   },
   {
    "name": "30/12",
-   "at": 28.15,
-   "len": 2.23,
+   "at": 29.133,
+   "len": 2.234,
    "shot": {
     "pos": [
      0,
@@ -5752,7 +5924,7 @@
      ],
      "fov": 36
     },
-    "dur": 2.2300000000000004,
+    "dur": 2.2340000000000018,
     "ease": "inOut"
    },
    "do": [
@@ -5828,21 +6000,11 @@
      "do": "prop",
      "id": "thermo",
      "set": {
-      "temp": 30
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 1.43
-    },
-    {
-     "do": "prop",
-     "id": "thermo",
-     "set": {
       "temp": 12
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.555
+     "at": 0.73
     },
     {
      "do": "prop",
@@ -5852,7 +6014,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.68
+     "at": 1.03
     },
     {
      "do": "prop",
@@ -5862,7 +6024,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.805
+     "at": 1.155
     },
     {
      "do": "prop",
@@ -5872,7 +6034,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.93
+     "at": 1.28
     },
     {
      "do": "prop",
@@ -5882,7 +6044,53 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 2.055
+     "at": 1.405
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.53
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.655
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.867
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.905
     },
     {
      "who": "chip",
@@ -5894,22 +6102,22 @@
       0.5,
       0.4
      ],
-     "at": 2.2
+     "at": 2.204
     },
     {
      "who": "chip",
      "do": "hide",
-     "at": 2.201
+     "at": 2.205
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 2.201
+     "at": 2.205
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 2.21
+     "at": 2.214
     },
     {
      "who": "chip",
@@ -5922,7 +6130,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0.26,
-     "at": 2.21
+     "at": 2.214
     },
     {
      "who": "chip",
@@ -5931,12 +6139,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.21
+     "at": 2.214
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 2.21
+     "at": 2.214
     },
     {
      "who": "mash",
@@ -5949,7 +6157,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 2.21
+     "at": 2.214
     },
     {
      "who": "mash",
@@ -5958,7 +6166,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.21
+     "at": 2.214
     },
     {
      "who": "chip",
@@ -5967,7 +6175,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.21
+     "at": 2.214
     },
     {
      "who": "mash",
@@ -5976,7 +6184,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.21
+     "at": 2.214
     },
     {
      "do": "prop",
@@ -5986,7 +6194,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 2.21
+     "at": 2.214
     },
     {
      "do": "prop",
@@ -5996,7 +6204,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 2.21
+     "at": 2.214
     },
     {
      "do": "prop",
@@ -6006,7 +6214,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 2.21
+     "at": 2.214
     },
     {
      "do": "prop",
@@ -6016,7 +6224,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 2.21
+     "at": 2.214
     },
     {
      "do": "prop",
@@ -6027,7 +6235,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 2.21
+     "at": 2.214
     },
     {
      "do": "prop",
@@ -6038,13 +6246,13 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 2.21
+     "at": 2.214
     }
    ]
   },
   {
    "name": "peak",
-   "at": 30.38,
+   "at": 31.367,
    "len": 2.3,
    "shot": {
     "pos": [
@@ -6302,12 +6510,6 @@
      "to": 1.5,
      "dur": 0.05,
      "at": 0.6
-    },
-    {
-     "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.62
     },
     {
      "who": "chip",
@@ -6657,6 +6859,12 @@
      "at": 1.6
     },
     {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.633
+    },
+    {
      "who": "chip",
      "do": "lean",
      "to": -1.5,
@@ -6764,6 +6972,16 @@
      "at": 2.15
     },
     {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
      "who": "mash",
      "do": "hide",
      "at": 2.271
@@ -6799,7 +7017,7 @@
   },
   {
    "name": "frozen cup",
-   "at": 32.68,
+   "at": 33.667,
    "len": 1.6,
    "shot": {
     "pos": [
@@ -6848,10 +7066,44 @@
      "at": 0
     },
     {
-     "who": "wedge",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.32
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.5
     },
     {
      "who": "spud",
@@ -6885,9 +7137,29 @@
      "at": 0.6
     },
     {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
      "sfx": "ai/crunch",
      "gain": 0.3,
      "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.8
     },
     {
      "who": "spud",
@@ -6895,6 +7167,56 @@
      "expr": "sad",
      "dur": 0.2,
      "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.55
     },
     {
      "who": "wedge",
@@ -6968,49 +7290,39 @@
      "ease": "linear",
      "sync": true,
      "at": 1.58
-    },
-    {
-     "do": "prop",
-     "id": "thermo",
-     "set": {
-      "temp": 21
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 1.58
     }
    ]
   },
   {
    "name": "locked",
-   "at": 34.28,
-   "len": 2.11,
+   "at": 35.267,
+   "len": 2.1,
    "shot": {
     "pos": [
-     -0.4,
-     1.7,
+     -0.1,
+     1.8,
      2
     ],
     "look": [
-     0.3,
+     0.35,
      1.1,
      -1.1
     ],
     "fov": 40,
     "to": {
      "pos": [
-      -0.33,
-      1.64,
+      -0.055,
+      1.73,
       1.69
      ],
      "look": [
-      0.3,
+      0.35,
       1.1,
       -1.1
      ],
      "fov": 40
     },
-    "dur": 2.1099999999999994,
+    "dur": 2.0999999999999943,
     "ease": "inOut"
    },
    "do": [
@@ -7059,6 +7371,16 @@
     },
     {
      "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
      "id": "tbox",
      "set": {
       "on": 1
@@ -7066,6 +7388,26 @@
      "dur": 0.35,
      "ease": "out",
      "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.4
     },
     {
      "who": "wedge",
@@ -7076,6 +7418,16 @@
      "dur": 1.61,
      "caption": false,
      "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "thermo",
+     "set": {
+      "temp": 21
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.45
     },
     {
      "sfx": "latch-click",
@@ -7090,8 +7442,8 @@
       "prop": "tbox",
       "grip": "barrel",
       "off": [
-       0,
-       0,
+       0.03,
+       -0.02,
        0.03
       ]
      },
@@ -7111,9 +7463,9 @@
      "do": "prop",
      "id": "tbox",
      "set": {
-      "key": 1
+      "key": 0.88
      },
-     "dur": 0.4,
+     "dur": 0.5,
      "ease": "inOut",
      "at": 0.75
     },
@@ -7126,16 +7478,63 @@
      "who": "wedge",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
-     "dur": 0.3,
+     "pose": {
+      "prop": "tbox",
+      "grip": "barrel",
+      "off": [
+       0.03,
+       -0.02,
+       0.16
+      ]
+     },
+     "dur": 0.25,
      "ease": "inOut",
-     "at": 1.2
+     "at": 1
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.133
+    },
+    {
+     "do": "prop",
+     "id": "tbox",
+     "set": {
+      "key": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.08
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.78,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.08
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.01,
+     "at": 2.08
     }
    ]
   },
   {
    "name": "pocket",
-   "at": 36.39,
+   "at": 37.367,
    "len": 1.2,
    "shot": {
     "pos": [
@@ -7169,24 +7568,16 @@
     {
      "who": "wedge",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
       "o": [
-       0.18,
-       0.28,
-       0.3
+       -0.1,
+       0.74,
+       0.22
       ]
      },
-     "dur": 0.2,
+     "dur": 0.25,
      "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "L",
-     "shape": "flat",
-     "dur": 0.12,
      "at": 0
     },
     {
@@ -7226,32 +7617,25 @@
      "at": 0
     },
     {
-     "who": "mash",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.01
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 0.25
     },
     {
      "who": "wedge",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
       "o": [
-       0.18,
-       0.34,
-       0.34
+       -0.1,
+       0.74,
+       0.28
       ]
      },
-     "dur": 0.1,
-     "ease": "inOut",
-     "at": 0.3
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.2,
+     "dur": 0.08,
      "ease": "inOut",
      "at": 0.4
     },
@@ -7272,6 +7656,30 @@
      "dur": 0.2,
      "blink": false,
      "at": 0.45
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.1,
+       0.74,
+       0.22
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.75
     },
     {
      "who": "wedge",
@@ -7351,8 +7759,8 @@
   },
   {
    "name": "still freezing",
-   "at": 37.59,
-   "len": 3.03,
+   "at": 38.567,
+   "len": 3.033,
    "shot": {
     "pos": [
      0,
@@ -7378,7 +7786,7 @@
      ],
      "fov": 38
     },
-    "dur": 3.029999999999994,
+    "dur": 3.0330000000000013,
     "ease": "inOut"
    },
    "do": [
@@ -7608,6 +8016,12 @@
      "at": 1.24
     },
     {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.333
+    },
+    {
      "who": "mash",
      "macro": "say",
      "line": "It's still boiling.",
@@ -7638,12 +8052,6 @@
      "dur": 0.2,
      "blink": false,
      "at": 2.28
-    },
-    {
-     "who": "chip",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 2.31
     },
     {
      "who": "chip",
@@ -7695,17 +8103,17 @@
     {
      "who": "chip",
      "do": "hide",
-     "at": 3.001
+     "at": 3.004
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 3.001
+     "at": 3.004
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 3.01
+     "at": 3.013
     },
     {
      "who": "chip",
@@ -7718,21 +8126,21 @@
      "ease": "linear",
      "sync": true,
      "y": 0.74,
-     "at": 3.01
+     "at": 3.013
     },
     {
      "who": "chip",
      "do": "turn",
-     "to": 90,
+     "to": 60,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.01
+     "at": 3.013
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 3.01
+     "at": 3.013
     },
     {
      "who": "mash",
@@ -7745,102 +8153,88 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 3.01
+     "at": 3.013
     },
     {
      "who": "mash",
      "do": "turn",
-     "to": -90,
+     "to": -60,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.01
+     "at": 3.013
     },
     {
-     "who": "chip",
-     "do": "arm",
-     "side": "both",
-     "pose": {
-      "prop": "tbox",
-      "grip": "sideL",
-      "off": [
-       -0.03,
-       0,
-       0.04
-      ]
+     "do": "prop",
+     "id": "blanketD",
+     "set": {
+      "cover": 0
      },
-     "dur": 0.01,
+     "dur": 0,
      "ease": "inOut",
-     "at": 3.01
+     "at": 3.013
     },
     {
-     "who": "mash",
-     "do": "arm",
-     "side": "both",
-     "pose": {
-      "prop": "tbox",
-      "grip": "sideR",
-      "off": [
-       0.03,
-       0,
-       0.04
-      ]
+     "do": "prop",
+     "id": "blanketW",
+     "set": {
+      "cover": 1
      },
-     "dur": 0.01,
+     "dur": 0,
      "ease": "inOut",
-     "at": 3.01
-    },
-    {
-     "who": "chip",
-     "do": "grip",
-     "side": "both",
-     "shape": "flat",
-     "dur": 0.01,
-     "at": 3.01
-    },
-    {
-     "who": "mash",
-     "do": "grip",
-     "side": "both",
-     "shape": "flat",
-     "dur": 0.01,
-     "at": 3.01
+     "at": 3.013
     }
    ]
   },
   {
    "name": "let go",
-   "at": 40.62,
-   "len": 2.85,
+   "at": 41.6,
+   "len": 2.867,
    "shot": {
     "pos": [
-     0,
-     1.35,
-     3
+     0.02,
+     1.45,
+     3.3
     ],
     "look": [
-     0,
-     1.15,
+     0.04,
+     1.12,
      -1
     ],
-    "fov": 38,
+    "fov": 46,
     "to": {
      "pos": [
-      0,
-      1.334,
-      2.68
+      0.022,
+      1.424,
+      2.956
      ],
      "look": [
-      0,
-      1.15,
+      0.04,
+      1.12,
       -1
      ],
-     "fov": 38
+     "fov": 46
     },
-    "dur": 2.8500000000000014,
+    "dur": 2.8669999999999973,
     "ease": "inOut"
    },
    "do": [
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0
+    },
     {
      "who": "spud",
      "do": "arm",
@@ -7899,15 +8293,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       -0.065,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -7916,15 +8311,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       -0.005,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -7996,15 +8392,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       0.005,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8013,15 +8410,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       0.065,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8064,15 +8462,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       -0.065,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8081,15 +8480,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       -0.005,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8132,15 +8532,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       0.005,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8149,15 +8550,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       0.065,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8200,15 +8602,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       -0.065,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8217,15 +8620,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       -0.005,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8278,15 +8682,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       0.005,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8295,15 +8700,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       0.065,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8346,15 +8752,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       -0.065,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8363,15 +8770,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       -0.005,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8414,15 +8822,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       0.005,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8431,15 +8840,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       0.065,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8482,15 +8892,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       -0.065,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8499,15 +8910,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       -0.005,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8550,15 +8962,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       0.005,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8567,15 +8980,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       0.065,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8609,7 +9023,7 @@
   },
   {
    "name": "screws",
-   "at": 43.47,
+   "at": 44.467,
    "len": 1.2,
    "shot": {
     "pos": [
@@ -8673,15 +9087,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       -0.065,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8690,15 +9105,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       -0.005,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8742,15 +9158,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       0.005,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8759,15 +9176,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       0.065,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8806,15 +9224,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       -0.065,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8823,15 +9242,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       -0.005,
+       -0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8870,15 +9290,16 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "both",
+     "side": "L",
      "pose": {
       "prop": "tbox",
       "grip": "sideL",
       "off": [
-       0.005,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8887,15 +9308,16 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "both",
+     "side": "R",
      "pose": {
       "prop": "tbox",
       "grip": "sideR",
       "off": [
-       0.065,
+       0.035,
        0,
-       0.04
-      ]
+       0.01
+      ],
+      "palm": true
      },
      "dur": 0.25,
      "ease": "inOut",
@@ -8935,8 +9357,8 @@
   },
   {
    "name": "rip",
-   "at": 44.67,
-   "len": 2.05,
+   "at": 45.667,
+   "len": 2.066,
    "shot": {
     "pos": [
      0,
@@ -8962,7 +9384,7 @@
      ],
      "fov": 38
     },
-    "dur": 2.049999999999997,
+    "dur": 2.0659999999999954,
     "ease": "inOut"
    },
    "do": [
@@ -9136,6 +9558,24 @@
      "at": 0.6
     },
     {
+     "who": "spud",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.8,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1
+    },
+    {
      "who": "wedge",
      "macro": "say",
      "line": "Enough.",
@@ -9144,6 +9584,12 @@
      "dur": 0.8,
      "caption": false,
      "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.333
     },
     {
      "who": "chip",
@@ -9157,30 +9603,19 @@
      "at": 1.6
     },
     {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      0.6,
-      0.3
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 1.6
-    },
-    {
      "who": "wedge",
      "do": "hide",
-     "at": 2.021
+     "at": 2.037
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 2.021
+     "at": 2.037
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 2.03
+     "at": 2.046
     },
     {
      "who": "wedge",
@@ -9193,7 +9628,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 2.03
+     "at": 2.046
     },
     {
      "who": "wedge",
@@ -9202,19 +9637,19 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.03
+     "at": 2.046
     },
     {
      "who": "chip",
      "do": "turn",
      "to": 60,
      "dur": 0.01,
-     "at": 2.03
+     "at": 2.046
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 2.03
+     "at": 2.046
     },
     {
      "who": "mash",
@@ -9227,7 +9662,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 2.03
+     "at": 2.046
     },
     {
      "who": "mash",
@@ -9236,24 +9671,14 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.03
-    },
-    {
-     "do": "prop",
-     "id": "mug2",
-     "set": {
-      "y": 0.5
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 2.03
+     "at": 2.046
     }
    ]
   },
   {
    "name": "it's fake",
-   "at": 46.72,
-   "len": 1.75,
+   "at": 47.733,
+   "len": 1.734,
    "shot": {
     "pos": [
      0.85,
@@ -9279,7 +9704,7 @@
      ],
      "fov": 46
     },
-    "dur": 1.75,
+    "dur": 1.7340000000000018,
     "ease": "inOut"
    },
    "do": [
@@ -9362,27 +9787,13 @@
      "at": 0.25
     },
     {
-     "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.28
-    },
-    {
      "who": "wedge",
      "do": "arm",
      "side": "R",
-     "pose": {
-      "prop": "thermo",
-      "grip": "coverLow",
-      "off": [
-       0,
-       -0.04,
-       0.02
-      ]
-     },
-     "dur": 0.3,
+     "pose": "rest",
+     "dur": 0.35,
      "ease": "inOut",
-     "at": 0.3
+     "at": 0.45
     },
     {
      "who": "chip",
@@ -9419,6 +9830,14 @@
     },
     {
      "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0.55
+    },
+    {
+     "who": "wedge",
      "macro": "say",
      "line": "It's fake.",
      "tone": "calm",
@@ -9432,7 +9851,7 @@
   },
   {
    "name": "bare plate",
-   "at": 48.47,
+   "at": 49.467,
    "len": 1,
    "shot": {
     "pos": [
@@ -9481,8 +9900,8 @@
   },
   {
    "name": "since when",
-   "at": 49.47,
-   "len": 1.46,
+   "at": 50.467,
+   "len": 1.466,
    "shot": {
     "pos": [
      2.55,
@@ -9544,8 +9963,8 @@
   },
   {
    "name": "since always",
-   "at": 50.93,
-   "len": 1.45,
+   "at": 51.933,
+   "len": 1.434,
    "shot": {
     "pos": [
      0.6,
@@ -9571,7 +9990,7 @@
      ],
      "fov": 36
     },
-    "dur": 1.4500000000000028,
+    "dur": 1.4339999999999975,
     "ease": "inOut"
    },
    "do": [
@@ -9595,6 +10014,12 @@
     },
     {
      "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.067
+    },
+    {
+     "who": "wedge",
      "macro": "say",
      "line": "Since always.",
      "tone": "calm",
@@ -9604,12 +10029,6 @@
      "at": 0.1
     },
     {
-     "who": "wedge",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.07
-    },
-    {
      "do": "prop",
      "id": "flurry",
      "set": {
@@ -9617,7 +10036,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.43
+     "at": 1.414
     },
     {
      "do": "prop",
@@ -9627,7 +10046,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.43
+     "at": 1.414
     },
     {
      "do": "prop",
@@ -9637,14 +10056,14 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.43
+     "at": 1.414
     }
    ]
   },
   {
    "name": "why am I freezing",
-   "at": 52.38,
-   "len": 1.44,
+   "at": 53.367,
+   "len": 1.433,
    "shot": {
     "pos": [
      -0.95,
@@ -9670,7 +10089,7 @@
      ],
      "fov": 34
     },
-    "dur": 1.4399999999999977,
+    "dur": 1.4329999999999998,
     "ease": "inOut"
    },
    "do": [
@@ -9909,7 +10328,7 @@
   },
   {
    "name": "the window",
-   "at": 53.82,
+   "at": 54.8,
    "len": 1.4,
    "shot": {
     "pos": [
@@ -9936,16 +10355,23 @@
      ],
      "fov": 40
     },
-    "dur": 1.3999999999999986,
+    "dur": 1.4000000000000057,
     "ease": "inOut"
    },
    "do": [
     {
      "who": "wedge",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "wedge",
      "do": "look",
      "to": [
-      0.8,
-      0.1
+      0.7,
+      0.3
      ],
      "dur": 0.25,
      "blink": false,
@@ -9956,28 +10382,28 @@
      "do": "lean",
      "to": -1.5,
      "dur": 0.05,
-     "at": 0.01
+     "at": 0.017
     },
     {
      "who": "chip",
      "do": "lean",
      "to": 1.5,
      "dur": 0.05,
-     "at": 0.06
+     "at": 0.067
     },
     {
      "who": "wedge",
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       0.25,
-       0.85,
-       0.25
+      "world": [
+       1.28,
+       0.78,
+       -0.74
       ]
      },
      "dur": 0.3,
-     "ease": "inOut",
+     "ease": "out",
      "at": 0.1
     },
     {
@@ -9993,49 +10419,49 @@
      "do": "lean",
      "to": -1.5,
      "dur": 0.05,
-     "at": 0.11
+     "at": 0.117
     },
     {
      "who": "chip",
      "do": "lean",
      "to": 1.5,
      "dur": 0.05,
-     "at": 0.16
+     "at": 0.167
     },
     {
      "who": "chip",
      "do": "lean",
      "to": -1.5,
      "dur": 0.05,
-     "at": 0.21
+     "at": 0.217
     },
     {
      "who": "chip",
      "do": "lean",
      "to": 1.5,
      "dur": 0.05,
-     "at": 0.26
+     "at": 0.267
     },
     {
      "who": "chip",
      "do": "lean",
      "to": -1.5,
      "dur": 0.05,
-     "at": 0.31
+     "at": 0.317
     },
     {
      "who": "chip",
      "do": "lean",
      "to": 1.5,
      "dur": 0.05,
-     "at": 0.36
+     "at": 0.367
     },
     {
      "who": "chip",
      "do": "lean",
      "to": -1.5,
      "dur": 0.05,
-     "at": 0.41
+     "at": 0.417
     },
     {
      "who": "mash",
@@ -10060,7 +10486,7 @@
      "do": "lean",
      "to": 0,
      "dur": 0.05,
-     "at": 0.56
+     "at": 0.567
     },
     {
      "who": "wedge",
@@ -10069,14 +10495,21 @@
      "pose": "rest",
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.1
+     "at": 1
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.3,
+     "at": 1
     }
    ]
   },
   {
    "name": "end",
-   "at": 55.22,
-   "len": 1.613,
+   "at": 56.2,
+   "len": 1.6,
    "shot": {
     "pos": [
      -1.3,
@@ -10102,7 +10535,7 @@
      ],
      "fov": 42
     },
-    "dur": 1.6129999999999995,
+    "dur": 1.5999999999999943,
     "ease": "inOut"
    },
    "do": [
@@ -10118,21 +10551,28 @@
      "at": 0
     },
     {
-     "who": "chip",
-     "do": "expr",
-     "expr": "deadpan",
-     "dur": 0.2,
+     "who": "spud",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.01,
      "at": 0
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
-      0.9,
-      0.2
+      -0.35,
+      0.9
      ],
      "dur": 0.2,
      "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
      "at": 0
     },
     {
@@ -10157,16 +10597,16 @@
    "why": "an office: the little one on a step at the wall thermostat (19), shouting"
   },
   {
-   "from": 5.31,
-   "to": 6.61,
+   "from": 5.3,
+   "to": 6.6,
    "see": [
     "thermo"
    ],
    "why": "two hands fight over the thermostat's buttons: 21, 19"
   },
   {
-   "from": 6.66,
-   "to": 8.42,
+   "from": 6.667,
+   "to": 8.427,
    "see": [
     "wedge.face",
     "spud.face"
@@ -10174,8 +10614,8 @@
    "why": "the boss walks past, sees the war, lets it run"
   },
   {
-   "from": 13.48,
-   "to": 14.48,
+   "from": 13.467,
+   "to": 14.467,
    "see": [
     "chip.face",
     "spud.face",
@@ -10186,8 +10626,8 @@
    "why": "the room split: heater glowing on one side, snow on the other"
   },
   {
-   "from": 17.94,
-   "to": 19.58,
+   "from": 17.933,
+   "to": 19.573,
    "see": [
     "chip.face",
     "mash.face",
@@ -10197,8 +10637,8 @@
    "why": "they shake on 21 over Spud's head"
   },
   {
-   "from": 26.6,
-   "to": 30.18,
+   "from": 27.567,
+   "to": 31.163,
    "see": [
     "thermo",
     "chip.face",
@@ -10207,8 +10647,8 @@
    "why": "ice bag on one side, hot mug on the other: the number flips 30/12"
   },
   {
-   "from": 30.38,
-   "to": 32.58,
+   "from": 31.367,
+   "to": 33.567,
    "see": [
     "chip.face",
     "spud.face",
@@ -10220,8 +10660,8 @@
    "why": "the peak: fans, heater, blanket, open window, snow and paper everywhere"
   },
   {
-   "from": 34.28,
-   "to": 36.29,
+   "from": 35.267,
+   "to": 37.277,
    "see": [
     "thermo",
     "tbox",
@@ -10230,8 +10670,8 @@
    "why": "the boss locks it in a clear box at 21"
   },
   {
-   "from": 37.59,
-   "to": 40.47,
+   "from": 38.567,
+   "to": 41.447,
    "see": [
     "chip.face",
     "spud.face",
@@ -10240,8 +10680,8 @@
    "why": "locked at 21, and they still feel it: they glare across Spud"
   },
   {
-   "from": 40.62,
-   "to": 42.72,
+   "from": 41.6,
+   "to": 43.7,
    "see": [
     "chip.face",
     "mash.face",
@@ -10251,8 +10691,8 @@
    "why": "tug of war on the locked box"
   },
   {
-   "from": 46.72,
-   "to": 48.35,
+   "from": 47.733,
+   "to": 49.363,
    "see": [
     "thermo",
     "wedge.face",
@@ -10262,8 +10702,8 @@
    "why": "the boss pops the cover off: an empty shell, no wires: it's fake"
   },
   {
-   "from": 52.38,
-   "to": 56.833,
+   "from": 53.367,
+   "to": 57.8,
    "see": [
     "chip.face"
    ],
@@ -10275,7 +10715,7 @@
    "who": "chip",
    "with": "blanketD",
    "from": 0,
-   "to": 56.833,
+   "to": 57.8,
    "checks": [
     "clipping",
     "costume-in-prop",
@@ -10289,7 +10729,7 @@
    "who": "chip",
    "with": "blanketW",
    "from": 0,
-   "to": 56.833,
+   "to": 57.8,
    "checks": [
     "clipping",
     "costume-in-prop",

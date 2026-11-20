@@ -14,10 +14,11 @@
 //              ring lit); a string ("blank") or any pop > 0 shows every segment unlit and no ring.
 //   state up, down  0..1 (default 0): the cap dips 0.006 * value; the LCD ground flashes #C9D4B8 while the value is above 0.7 (a pure function of the tween value, so a 0 -> 1 -> 0
 //              tween of 0.15 s gives about 2 frames). A held value of 1 shows the flash all the time.
-//   spec.tape / state tape  0..1 (default 0): two strips of cream masking tape #EDE2C4 0.17 x 0.034, torn ends, crossed at +-42 degrees over DOWN, the first lands by 0.5, the second by 1
+//   spec.tape / state tape  0..1 (default 0): two strips of grey duct tape #9FA7B0 (Sol r1: cream vanished on the cover) 0.17 x 0.034, torn ends, crossed at +-42 degrees over DOWN, the first lands by 0.5, the second by 1
 //              (each drops 0.05 and shrinks from 1.15 as it lands).
 //   state shake  0..1 (default 0): the cover and all it carries rock +-5 degrees and +-0.012 in x at 9 Hz from the clip time t (the plate stays).
 //   spec.pop / state pop  0..1 (default 0), as the DESIGN: 0..0.2 the cover jumps 0.03 off the plate; 0.2..1 it swings in the wall's plane about its top right clip at (+0.24, +0.22)
+//              (a grey hinge bracket shows there from pop > 0.01)
 //              to 105 degrees and back to 95 (centre ends at (+0.48, 0, 0.105), face to camera, LCD blank, plate bare). Nothing is behind it: no board, no battery.
 //   Grip points (gripPoint(spec, name); props3d.js needs THERMO_GRIPS in its GRIPS, see the report): the numbers are in the frame above. They are static: the
 //   director moves them with the state where it says so.
@@ -129,6 +130,10 @@ function thermostat(P) {
   }
   // everything on the cover lives in `cover` (origin the cover's centre); `coverRoot` swings, `cover` shakes
   const coverRoot = new THREE.Group(); W.add(coverRoot);
+  // the hinge clip (Sol r1 #4, 20 Nov): a grey bracket from the plate's top right corner to the cover's clip, shown once the cover pops, so the
+  // hanging cover reads as clipped on, not balanced in the air
+  const hingeM = mat("#8e959b", { roughness: 0.45, metalness: 0.3 }), hinge = new THREE.Group(); W.add(hinge); hinge.visible = false;
+  box(0.05, 0.05, 0.045, hinge, hingeM, PIV[0] - 0.02, PIV[1] - 0.02, 0.0225); disc(0.012, 0.03, hinge, hingeM, PIV[0], PIV[1], 0.045, 12);
   const cover = new THREE.Group(); coverRoot.add(cover);
   const shell = rr(new THREE.Shape(), 0.48, 0.44, 0.05); shell.holes.push(rr(new THREE.Path(), 0.468, 0.428, 0.044));
   solid(mesh(extrude(shell, 0.063), [coverM, coverM], cover));
@@ -154,7 +159,7 @@ function thermostat(P) {
   };
   const bUp = btn(-0.105, 1), bDown = btn(0.105, -1);
   // the tape X: two torn strips on a bent plane (the middle over the cap, the ends down on the cover)
-  const tapeM = new THREE.MeshStandardMaterial({ color: "#ede2c4", roughness: 0.7, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); tapeM.userData.noHatch = true;
+  const tapeM = new THREE.MeshStandardMaterial({ color: "#9fa7b0", roughness: 0.7, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); tapeM.userData.noHatch = true;
   const tapes = [42, -42].map((deg, i) => {
     const r = rng(31 + i), NX = 16, NY = 4, g = new THREE.PlaneGeometry(0.17, 0.034, NX, NY), p = g.attributes.position;
     for (let k = 0; k < p.count; k++) {
@@ -180,6 +185,7 @@ function thermostat(P) {
       // the pop: jump 0.03 off the plate, then swing about the top right clip to 105 and back to 95 degrees
       const jump = 0.03 * sm(pop / 0.2), s = clamp((pop - 0.2) / 0.8);
       const th = (s < 0.6 ? 105 * Math.sin((Math.PI / 2) * (s / 0.6)) : 105 - 10 * sm((s - 0.6) / 0.4)) * DEG;
+      hinge.visible = pop > 0.01;
       coverRoot.rotation.z = th; coverRoot.position.set(PIV[0] - (PIV[0] * Math.cos(th) - PIV[1] * Math.sin(th)), PIV[1] - (PIV[0] * Math.sin(th) + PIV[1] * Math.cos(th)), jump);
     },
   };
