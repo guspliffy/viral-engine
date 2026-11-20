@@ -349,15 +349,16 @@ arm(r3(t + 0.5), "devil", "R", "rest", 0.4); grip(r3(t + 0.5), "devil", "R", "re
 expr(r3(t + 0.4), "chip", "shocked", 0.1); look(r3(t + 0.4), "chip", [-0.8, 0.6]);
 // he faces where he walks (a move keeps the facing: at -40 he walked sideways), then turns to the glass before the cut
 turn(r3(t + 0.45), "chip", -140, 0.3);
-step(r3(t + 0.6), "chip", B(-0.85, -0.25), 0.7); step(r3(t + 1.4), "chip", B(-1.60, -0.98), 0.9);
-turn(r3(t + 2.3), "chip", 180, 0.3);
-const GLASS = shot("face on the glass", r3(t + 2.7), B_GLASS);
+step(r3(t + 0.6), "chip", B(-0.85, -0.25), 0.7);
+// YouTube cut (Jonny 20 Nov, his retention read: "cut away faster after one thing is finished"): the cut comes on his
+// first step to the glass, not after he has walked there (it held 2.2 s after the line)
+const GLASS = shot("face on the glass", r3(t + 1.15), B_GLASS);
 place(GLASS, "chip", B(-1.60, -0.98), 180);
 showProp(r3(GLASS - 0.02), "lobbyback", 1.2);   // the lobby's far wall behind him, this shot only (Sol r3 #5)
 arm(GLASS, "chip", "both", { o: [0.25, 0.65, 0.28] }, 0.01); grip(GLASS, "chip", "both", "flat", 0.01);
 look(GLASS, "chip", [0, 0.6], 0.01); expr(GLASS, "chip", "sad", 0.01);
-see(GLASS, r3(GLASS + 1.4), ["chip.face"], "from outside: his face on the glass, heaven's party above");
-const VIEWB = shot("worst", r3(GLASS + 1.5), B_L);
+see(GLASS, r3(GLASS + 1.0), ["chip.face"], "from outside: his face on the glass, heaven's party above");
+const VIEWB = shot("worst", r3(GLASS + 1.1), B_L);
 hideProp(r3(VIEWB - 0.02), "lobbyback");
 place(VIEWB, "chip", B(-1.30, -0.60), -10);
 arm(VIEWB, "chip", "both", { o: [0.25, 0.65, 0.2] }, 0.01); grip(VIEWB, "chip", "both", "fist", 0.01);
@@ -458,7 +459,7 @@ arm(r3(e + 0.14), "imp", "R", { o: [0.08, 0.80, 0.17] }, 0.3, "inOut"); arm(r3(e
 hideProp(r3(e + 0.05), "fries"); showProp(r3(e + 0.05), "cake", 0.40);
 for (let k = 0; k < 3; k++) hideProp(r3(e + 0.05), `plate${k}`);   // Sol r1 #9: a fries carton stayed beside the cake
 peelX(r3(e + 0.25), 1);
-for (let k = 0; k < 5; k++) { const p = r3(e + 0.3 + k * 0.45); arm(p, "imp", "R", { o: [0.08, 0.84, 0.22] }, 0.22); arm(p, "imp", "L", { o: [0.08, 0.76, 0.17] }, 0.22); arm(r3(p + 0.22), "imp", "R", { o: [0.08, 0.80, 0.17] }, 0.22); arm(r3(p + 0.22), "imp", "L", { o: [0.08, 0.80, 0.22] }, 0.22); }   // kneading his back (Sol r1 #10)
+for (let k = 0; k < 5; k++) { const p = r3(e + 0.3 + k * 0.45); arm(p, "imp", "R", { o: [0.08, 0.84, 0.205] }, 0.22); arm(p, "imp", "L", { o: [0.08, 0.76, 0.17] }, 0.22); arm(r3(p + 0.22), "imp", "R", { o: [0.08, 0.80, 0.17] }, 0.22); arm(r3(p + 0.22), "imp", "L", { o: [0.08, 0.80, 0.22] }, 0.22); }   // kneading his back (Sol r1 #10)
 A(r3(e + 0.4), "chip", "face", { lid: 0.35, dur: 0.3 }); expr(r3(e + 0.5), "chip", "serene", 0.3);
 peelX(r3(e + 1.25), 2);
 t = say(20, r3(e + 0.9));
@@ -527,7 +528,11 @@ A(r3(SOB + 0.2), "devil", "shake", { amount: 0.01, dur: DUR[24] });
 see(SOB, r3(t + 0.2), ["devil.face"], "the Devil sobs: four stars");
 
 // ================================================================ TAG, set A: the next customer already knows
-const TAG = shot("tag", r3(t + 0.4), A_WIDE, "payoff");
+// YouTube cut: the tag opens on its OWN shot, the next customer close under the HELL badge, the clerk off screen. The
+// posted cut went back to frame 0's desk wide here and lost 28 -> 17 % of viewers in 2 s (TikTok 20 Nov: read as the
+// video starting over)
+const A_TAG = { pos: [0.85, 1.25, 6.6], look: [0.85, 0.63, -0.8], fov: 30 };   // the badge high above the caption line, his face under it
+const TAG = shot("tag", r3(t + 0.4), A_TAG, "payoff");
 park(TAG, "chip"); arm(TAG, "devil", "both", "rest", 0.01); grip(TAG, "devil", "both", "relaxed", 0.01);
 c.prop(r3(TAG - 0.02), "doorX", { open: 0, glow: 0 }, 0.01);
 place(TAG, "devil", DEV_PEEK, -20, TER, false); A(r3(TAG - 0.02), "devil", "hide"); HIDDEN.add("devil"); A(TAG, "devil", "face", { lid: 0.2, brow: 0.5, corner: -0.5, tear: 0.6, dur: 0.01 });
@@ -552,6 +557,13 @@ see(PEEK, END, ["devil.face"], "...Nooo.");
 
 // a caption ends where the next one starts (the 0.3 s tail ran into quick replies: caption-collide in draft 2)
 { const cs = [...c.captions].sort((x, y) => x.from - y.from); for (let k = 0; k + 1 < cs.length; k++) if (cs[k].to > cs[k + 1].from - 0.02) cs[k].to = r3(cs[k + 1].from - 0.02); }
+// YouTube cut (Jonny 20 Nov: "use camera movement ... to keep the video in motion"): every shot but the desk opening
+// pushes in slowly over its whole length (6 % of the way to its look point), so no frame of the clip stands still
+for (let i = 1; i < shots.length; i++) {
+  const [, at, cam] = shots[i], len = r3((shots[i + 1]?.[1] ?? END) - at);
+  if (len < 1 || cam.to) continue;
+  shots[i][2] = { ...cam, to: { pos: cam.pos.map((p, j) => r3(p + (cam.look[j] - p) * 0.06)) }, dur: len, ease: "linear" };
+}
 const beats = c.beats(shots, END);
 
 write(import.meta.url, {
