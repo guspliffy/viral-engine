@@ -13,7 +13,7 @@ const cast = [
 ];
 const beats = c.beats([["probe", 0, { pos: [0, 1.2, 6], look: [0, 0.6, 0], fov: 40 }]], END);
 write(import.meta.url, {
-  id: "desk05-voice-probe", title: "Potato Desk 05 voice probe", idea: "line takes only", fps: 30, look: "anime-pro", profile: "short", loop: false,
+  id: "desk05-voice-probe", title: "Potato Desk 05 voice probe", idea: "line takes only", tool: "voice probe: makes and measures the line takes, never a video", fps: 30, look: "anime-pro", profile: "short", loop: false,
   captionBand: [200, 1360], cleanStart: true, castLook: "sheet",
   set: { type: "plain", color: "#c3ccd0", floor: "#97a3a8" }, sound: { signature: false, sfx: 0.6, ambience: 0.06 },
   creative: { length: [END, END] }, cast, props: [], captions: c.captions, beats, visible: c.visible,

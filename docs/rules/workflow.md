@@ -10,14 +10,16 @@ Jonny: "our videos just get more and more expensive without significant rise in 
 fixed budget per video (length and new things differ too much): the workflow removes wasted work, and the waste is
 counted the same way every time. Where a section below says otherwise, these eight win.
 
-1. **Fixed order, no skipping back.** Story outline, staging stills, rough draft, Jonny's OK, polish, checks on the
-   draft, one full render, delivery. A step back is named with its reason in the clip's notes. For the first clip of
-   a new series the outline is six lines of "X, so Y, so Z" and goes to Jonny before anything is built (Fight, Flight
-   or Freeze 01: three of five drafts rebuilt the story, about a third of its cost).
+1. **Fixed order, no skipping back.** Story outline, staging stills, rough draft, Jonny's story OK, polish, checks on
+   the draft, the Sol check until it passes ("The Sol check" below, on trial), one full render, delivery. A step back
+   is named with its reason in the clip's notes. For the first clip of a new series the outline is six lines of "X, so
+   Y, so Z" and goes to Jonny before anything is built (Fight, Flight or Freeze 01: three of five drafts rebuilt the
+   story, about a third of its cost).
 2. **Decide first, polish last.** The rough draft (`--draft`: story, timing, cameras, captions; only fails that hide
    a beat are fixed) goes to Jonny before any hand or foot polish, on every clip. Nothing is polished that he might
-   still cut; a retiming after polish breaks the hands again (Share or Steal EP01). His OK on the draft replaces
-   review B. Send it and end the turn: no polish while it waits.
+   still cut; a retiming after polish breaks the hands again (Share or Steal EP01). It is his story check: the
+   message says so, and that glitches are hunted after his OK (the Sol check). His OK on the draft replaces review B.
+   Send it and end the turn: no polish while it waits.
 3. **Look a name up once.** The vocabulary sheet and the clip's notes come before any search of the engine, and a
    name found by search goes into the notes (Survive it EP1: about 230 of 853 steps were lookups).
 4. **Batch, don't loop.** Fit all cameras in one pass (`node qa/camfit.mjs`), then lay out once; fix every finding of
@@ -26,9 +28,10 @@ counted the same way every time. Where a section below says otherwise, these eig
    another camera or a cut that hides it, not a third round of tuning (Share or Steal EP01: 20 check rounds).
 6. **Prove new things small.** A new prop a hand holds passes the grip bench, a new flash or effect a one-second
    draft (`--draft --from --to`), a new set its own preflight, before it enters the clip.
-7. **One full render, no waiting steps.** Strips, cut sheets and flash checks run on the draft. A second full render
-   needs its reason in DELIVERY.md. Start a render with one background command and end the turn; titles, merges and
-   post packs happen in a short thread, not in the clip's long one (every step there re-reads the whole thread).
+7. **One full render, no waiting steps.** Strips, cut sheets, flash checks and the Sol check run on the draft; the
+   full render starts only after Sol passed it. A second full render needs its reason in DELIVERY.md. Start a render
+   with one background command and end the turn; titles, merges and post packs happen in a short thread, not in the
+   clip's long one (every step there re-reads the whole thread).
 8. **Count the waste and fix the biggest.** Every video gets one row in `docs/LEDGER.md` with the same five counts:
    lookups, layout runs, check-fix rounds, full renders, waiting steps (counted from the thread's own tool calls and
    the clip's notes, the same way each time), and Jonny's score out of 10 when he gives one. What is done with the
@@ -89,7 +92,9 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
 - **Gate A, brief**: Jonny's brief (ENGINE-PROMPT, video-scripts, storyboard panels) or a BOARD.md he approved. No
   renders before his go when he said so for a series.
 - **Animatic gate, every clip (rule 2 above)**: the draft render (`--draft`: real timing, draft look, scratch
-  sound) goes to Jonny before any polish or full render. His OK replaces review B.
+  sound) goes to Jonny for a story check before any polish or full render. His OK replaces review B.
+- **Sol gate, every clip (on trial, "The Sol check" below)**: after his story OK and the polish, Sol checks the
+  draft for glitches and logic issues, every item is fixed, Sol checks again, and only its PASS starts the full render.
 - **Look gate, new characters, sets or looks only**: 2-3 style frames (draft stills at the final look), checked by the
   creative director against the design, then Jonny. An existing look skips it.
 - **Staging proof, every clip, before any builder starts** (director + creative director, about 30-40 min): write
@@ -105,7 +110,7 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
   every checklist line yes, partial or no against the panel image (not against memory), and get review A on those
   stills plus the panels. Grade the checklist again before the full render; the grades live in PANELS.md. Fix staging until review A has no note that a story beat can't be seen. Only then write the
   BOARD's numbers and brief the builders: they build to proven positions, not guessed ones.
-- **Delivery gate**: full render + checks (+ review B only when Jonny did not see the draft), the gate report + post pack, Jonny's go, PR, "merge it" only
+- **Delivery gate**: full render (after Sol's PASS) + checks (+ review B only when Jonny did not see the draft), the gate report + post pack, Jonny's go, PR, "merge it" only
   when every check on the head is green.
 
 ## Look a name up once (10 Nov 2026, trial)
@@ -298,7 +303,10 @@ waiver for the whole clip.
    changed something. Bigger notes go into the next cut or to Jonny. Why: What if EP03 (9 Nov) found four one-frame
    glitches that every check had passed (a trophy alone in the air for two frames, an arm stepping back, eyes opening
    late, Viking gone 0.2 s early) on the strips and in review B after full render 1: four more farm renders, 42 min.
-6. **Full render, once** on GitHub's free runners (`gh workflow run render.yml -f storyboard=<sb>`, see below) or in
+6. **The Sol check, until it passes** (on trial, see "The Sol check" below): Sol gets the passing draft's sheets and
+   strips, every glitch and logic issue it lists is fixed, the draft and strips are made again, and Sol checks again.
+   Only its PASS opens step 7.
+7. **Full render, once** on GitHub's free runners (`gh workflow run render.yml -f storyboard=<sb>`, see below) or in
    the background here (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
    (earshot listens: hits on their frame, footsteps on the right floor, a synth music bed in a dramatic clip). Look at its contact sheet and phone sheet
    yourself for what only the final look shows (lines, grade, blur, a caption's edge). No second review B unless the
@@ -309,8 +317,8 @@ waiver for the whole clip.
    sleep 30; done`, no check-ins beside it (about 100 of Survive it EP1's 853 steps only waited). Open the pull
    request when the final clip has passed, not during the build (each check event wakes the thread), and run
    `node qa/preflight.mjs <bench> --quick` on every bench the branch adds before that push.
-7. **Deliver** (see "Delivery" below): the MP4, its cover and a `DELIVERY.md` next to it with the one-line check result and Fable's notes in one line each, marked
-   applied or not, plus the five timestamps to check with headphones (`node qa/risky.mjs <clip> --sb <sb>`) and the
+8. **Deliver** (see "Delivery" below): the MP4, its cover and a `DELIVERY.md` next to it with the one-line check result and Fable's notes in one line each, marked
+   applied or not, Sol's rounds (items found, fixed, its last verdict), plus the five timestamps to check with headphones (`node qa/risky.mjs <clip> --sb <sb>`) and the
    viewer read ("would you finish, where would you stop") from review B, and the twelve self-review answers
    (`qa/REVIEW.md`, "Delivering a clip"). For a motion change, add a labelled close-up strip of the moments that changed. Don't post anywhere: Jonny posts by hand.
 
@@ -333,6 +341,38 @@ QUESTIONS: <numbered, each with a default>
 POST PACK: title, caption (line 1 situation, line 2 "Which one are you..."), #funnyanimation #animation +1 tag,
 comment poll, playlist + slot (reach rules v2)
 ```
+
+## The Sol check: glitches and logic before the full render (Jonny, 18 Nov 2026, on trial)
+
+Jonny, 18 Nov 2026: "rough draft to me for story check, if the story is approved, send it to codex sol xhigh to check
+for bugs, glitches and logic issues. then fix the bugs, glitches, send to sol again, if approved full render." The
+same day a draft reached him with 27 glitches a Sol check had already listed "for polish", and he asked why they were
+ignored. So his check stays early and cheap (the story, on a rough draft), and nothing gets a full render until Sol
+has passed it. The order:
+
+1. **Rough draft -> Jonny, story check** (rule 2). Sol does not run before it. No glitch list goes along "for polish".
+2. **Story OK -> polish and the draft checks** (steps 3-5 of the order of work), so Sol sees the version that would
+   be rendered.
+3. **Sol checks the draft** for bugs, glitches and logic issues. Sol is GPT-6.2 Sol on xhigh in the Codex CLI on the
+   producer's PC, signed in to ChatGPT (no Claude tokens; about 10-15 min), run through a Remote Control session:
+   `codex exec --skip-git-repo-check --sandbox workspace-write -m gpt-6.2-sol -c model_reasoning_effort="xhigh" -o answer.md -`
+   with the prompt on stdin. Sol has no checkout of the engine, so the prompt is self-contained: the story chain
+   (one line per beat with its time), Jonny's story notes, and full paths to the draft's contact sheet, phone sheet,
+   cut strips and the 10-15 fps strips of every contact (`qa/contact.mjs`, step 5). Never the video file. Ask for
+   every visible glitch (pops, flicker, a hand or body through a prop, a prop in the air, a face lost) and every logic
+   issue (an effect before its cause, a prop that jumps place, a reaction to something not shown), each with its time,
+   and a last line `VERDICT: PASS` or `VERDICT: FIX <n>`. Sol may write its answer to its own file: collect both.
+4. **Fix every item it lists**, then draft and cut the strips again. A logic fix that would change the story Jonny
+   approved goes to him as a question with a default instead.
+5. **Sol checks again**, with its previous list ("are these fixed, and is anything new?"). Repeat 4-5 until
+   `VERDICT: PASS`; at most three Sol rounds (the same cap as the fix loop), then stop and send Jonny Sol's open
+   items and what was tried.
+6. **PASS -> one full render** (step 7 of the order of work), then delivery. DELIVERY.md names Sol's rounds and
+   items found and fixed; the ledger row counts Sol rounds in its check-fix rounds.
+
+A producer without a ChatGPT plan (a fork) skips steps 3-5, and the delivery says so. **On trial** from 18 Nov 2026:
+the six videos in production that day are the trial. It stays if no glitch Sol saw reaches Jonny and the full renders
+stay at one per video; Jonny decides after those six.
 
 ## Keeping rules in the repo (15 Nov 2026)
 

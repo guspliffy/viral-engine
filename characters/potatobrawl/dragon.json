@@ -44,6 +44,7 @@
     "wing": "#c4772e"
   },
   "personality": "Small dragon with tiny wings. Sweet, wants to be fearsome, isn't yet (proposal).",
+  "tts": "dragon",
   "voice": {
     "pitch": 200,
     "rate": 4.0,

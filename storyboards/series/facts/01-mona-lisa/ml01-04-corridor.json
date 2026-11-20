@@ -1,0 +1,1038 @@
+{
+ "id": "ml01-04-corridor",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "nighthall",
+  "night": true,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 21.037,
+  "seam": true,
+  "gain": 0.7,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "small",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   12.192,
+   12.192
+  ]
+ },
+ "cast": [
+  {
+   "id": "thief",
+   "character": "facts/thief",
+   "at": [
+    0.2,
+    0.8
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "plumber",
+   "character": "facts/plumber",
+   "at": [
+    63,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "door",
+   "kind": "nightdoor",
+   "x": -1.45,
+   "z": -0.7,
+   "rot": 91,
+   "angle": -100
+  },
+  {
+   "id": "closet",
+   "kind": "momdoor",
+   "x": 1.39,
+   "z": 1,
+   "rot": -90,
+   "w": 0.85
+  },
+  {
+   "id": "ml",
+   "kind": "painting",
+   "x": 0,
+   "y": -40,
+   "z": 0,
+   "cover": 1,
+   "wrap": 0
+  },
+  {
+   "id": "frm",
+   "kind": "frameonly",
+   "x": 1.3,
+   "y": -40,
+   "z": 0.3,
+   "rot": 0,
+   "tip": 0
+  },
+  {
+   "id": "cap-thief",
+   "wear": "thief",
+   "x": 0,
+   "y": 1,
+   "z": 0.02,
+   "kind": "flatcap",
+   "r": 0.19
+  },
+  {
+   "id": "cap-plumber",
+   "wear": "plumber",
+   "x": 0,
+   "y": 0.97,
+   "z": 0.02,
+   "kind": "flatcap",
+   "r": 0.19
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.45,
+   "to": 2.726,
+   "text": "...pulls off the frame in a stairwell...",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 3.256,
+   "to": 4.809,
+   "text": "...and wraps her in his smock.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 5.389,
+   "to": 8.345,
+   "text": "But the door is locked. The knob is gone.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 8.375,
+   "to": 9.98,
+   "text": "Then a plumber walks by...",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 10.31,
+   "to": 11.612,
+   "text": "...and opens it for him.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "05 frame off wide",
+   "at": 0,
+   "len": 2.756,
+   "shot": {
+    "pos": [
+     -1.053,
+     1.172,
+     4.406
+    ],
+    "look": [
+     -0.1,
+     0.72,
+     0.85
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.919,
+      1.109,
+      3.908
+     ]
+    },
+    "dur": 2.756,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       2.756,
+       5
+      ]
+     ],
+     "pivot": 3.709
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      0.2,
+      0.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "plumber",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "plumber",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": 0,
+      "y": -40,
+      "z": 0,
+      "rot": 0,
+      "cover": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "frm",
+     "set": {
+      "x": 1.3,
+      "y": -40,
+      "z": 0.3,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": -0.46,
+      "y": 0.13,
+      "z": 0.86,
+      "rot": 360,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "grab",
+     "prop": "ml",
+     "hand": "R",
+     "keep": true,
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.3,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "cover": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "frm",
+     "set": {
+      "x": -0.46,
+      "y": 0.38,
+      "z": 0.9,
+      "rot": 0,
+      "tip": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "frm",
+     "set": {
+      "x": -0.85,
+      "y": 0.04,
+      "z": 1.15,
+      "rot": 25,
+      "tip": -80
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.45
+    },
+    {
+     "sfx": "tink",
+     "reason": "the story's own sound",
+     "gain": 0.5,
+     "at": 0.45
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "macro": "narrate",
+     "line": "...pulls off the frame in a stairwell...",
+     "voice": "narrator-quick",
+     "dur": 2.1259,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.45
+    }
+   ]
+  },
+  {
+   "name": "05 frame off wide",
+   "at": 2.756,
+   "len": 2.533,
+   "shot": {
+    "pos": [
+     0.919,
+     1.152,
+     3.925
+    ],
+    "look": [
+     -0.2,
+     0.75,
+     0.85
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.763,
+      1.096,
+      3.495
+     ]
+    },
+    "dur": 2.533,
+    "yaw": {
+     "keys": [
+      [
+       2.756,
+       0
+      ],
+      [
+       5.289,
+       -5
+      ]
+     ],
+     "pivot": 3.297
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.25,
+       0.14
+      ]
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "wrap": 1
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "flutter",
+     "reason": "the story's own sound",
+     "gain": 0.3,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "macro": "narrate",
+     "line": "...and wraps her in his smock.",
+     "voice": "narrator-quick",
+     "dur": 1.4032,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.5
+    },
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      -0.75,
+      -1.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.521
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.521
+    },
+    {
+     "who": "thief",
+     "do": "show",
+     "at": 2.521
+    },
+    {
+     "who": "plumber",
+     "do": "move",
+     "to": [
+      1.05,
+      1.7
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.521
+    },
+    {
+     "who": "plumber",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.521
+    },
+    {
+     "who": "plumber",
+     "do": "show",
+     "at": 2.521
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "y": -40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.521
+    },
+    {
+     "do": "prop",
+     "id": "frm",
+     "set": {
+      "y": -40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.521
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.521
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.521
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": -1.132,
+      "y": 0.13,
+      "z": -1.842,
+      "rot": 300,
+      "tip": 0,
+      "cover": 0,
+      "wrap": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.521
+    }
+   ]
+  },
+  {
+   "name": "06 locked wide",
+   "at": 5.289,
+   "len": 3.086,
+   "shot": {
+    "pos": [
+     1.083,
+     1.235,
+     1.904
+    ],
+    "look": [
+     -0.95,
+     0.8,
+     -1
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.799,
+      1.174,
+      1.497
+     ]
+    },
+    "dur": 3.086,
+    "yaw": {
+     "keys": [
+      [
+       5.289,
+       0
+      ],
+      [
+       8.375,
+       5
+      ]
+     ],
+     "pivot": 3.571
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "plumber",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "plumber",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "plumber",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "grab",
+     "prop": "ml",
+     "hand": "R",
+     "keep": true,
+     "dur": 0.01,
+     "at": 0.008
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "squeal": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "sfx": "latch",
+     "reason": "the story's own sound",
+     "gain": 0.6,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "squeal": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "But the door is locked. The knob is gone.",
+     "voice": "narrator-quick",
+     "dur": 2.8058,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "06 locked wide",
+   "at": 8.375,
+   "len": 1.635,
+   "shot": {
+    "pos": [
+     0.15,
+     1.146,
+     4.563
+    ],
+    "look": [
+     0.15,
+     0.61,
+     0.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.15,
+      1.071,
+      3.952
+     ]
+    },
+    "dur": 1.635,
+    "yaw": {
+     "keys": [
+      [
+       8.375,
+       0
+      ],
+      [
+       10.01,
+       -5
+      ]
+     ],
+     "pivot": 4.396
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "plumber",
+     "do": "turn",
+     "to": -142.028,
+     "dur": 0.33,
+     "at": 0
+    },
+    {
+     "sfx": "step",
+     "reason": "the story's own sound",
+     "gain": 0.4,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Then a plumber walks by...",
+     "voice": "narrator-quick",
+     "dur": 1.4551,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "plumber",
+     "do": "move",
+     "to": [
+      -0.55,
+      -0.35
+     ],
+     "dur": 2,
+     "at": 0.245
+    }
+   ]
+  },
+  {
+   "name": "06 locked wide",
+   "at": 10.01,
+   "len": 2.182,
+   "shot": {
+    "pos": [
+     -0.29,
+     1.302,
+     3.178
+    ],
+    "look": [
+     -1,
+     0.8,
+     -0.85
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.389,
+      1.232,
+      2.614
+     ]
+    },
+    "dur": 2.182,
+    "yaw": {
+     "keys": [
+      [
+       10.01,
+       0
+      ],
+      [
+       12.192,
+       5
+      ]
+     ],
+     "pivot": 4.121
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 8.322,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "plumber",
+     "do": "turn",
+     "to": -117.678,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "plumber",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.5,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "sfx": "latch",
+     "reason": "the story's own sound",
+     "gain": 0.5,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "creak",
+     "reason": "the story's own sound",
+     "gain": 0.5,
+     "at": 0.3
+    },
+    {
+     "macro": "narrate",
+     "line": "...and opens it for him.",
+     "voice": "narrator-quick",
+     "dur": 1.1524,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.3
+    },
+    {
+     "who": "plumber",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 1.632
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.446,
+     "at": 1.632
+    },
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      -2.25,
+      -1.3
+     ],
+     "dur": 1.2,
+     "at": 1.935
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 12.192,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 12.192,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  },
+  {
+   "who": "plumber",
+   "with": "cap-plumber",
+   "from": 0,
+   "to": 12.192,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "plumber",
+   "with": "cap-plumber",
+   "from": 0,
+   "to": 12.192,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  },
+  {
+   "who": "thief",
+   "with": "frm",
+   "from": 0.4,
+   "to": 0.8,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "he pulls the frame off the panel: his right hand is on the frame (3-5 cm into its moulding for 0.2 s)"
+  }
+ ],
+ "story": {
+  "T0": 21.037,
+  "T1": 33.229
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 21.037-33.229 s)."
+}

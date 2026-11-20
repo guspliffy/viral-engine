@@ -33,8 +33,10 @@ jobs:
           if [ -n "$GIVEN" ]; then files="$GIVEN"
           else files=$(git diff --name-only --diff-filter=AM "origin/$BASE...HEAD" -- 'storyboards/*.json' | grep -v -E '^storyboards/(regress|templates)/' || true)
           fi
-          # episodes only: a storyboard with a cast (not a set, a grip table or a sound list)
-          keep=""; for f in $files; do [ -f "$f" ] && node -e "const j=require('./'+process.argv[1]); process.exit(Array.isArray(j.cast)&&j.cast.length?0:1)" "$f" && keep="$keep $f"; done
+          # episodes only: a storyboard with a cast (not a set, a grip table or a sound list), and not a tool: a storyboard
+          # with "tool" (its reason) is never a video, e.g. a voice probe that only makes and measures the line takes
+          # (Potato Desk 05, 18 Nov 2026: the probe's cast, standing in a row, failed this job's preflight)
+          keep=""; for f in $files; do [ -f "$f" ] && node -e "const j=require('./'+process.argv[1]); process.exit(Array.isArray(j.cast)&&j.cast.length&&!j.tool?0:1)" "$f" && keep="$keep $f"; done
           echo "files=$keep" >> "$GITHUB_OUTPUT"
           echo "episode storyboards: ${keep:-none}"
       - if: steps.list.outputs.files != ''

@@ -6,7 +6,7 @@ is looked up or tried twice. Keep it under 80 lines; it is not the delivery and 
 
 ## Where the build stands
 
-- Step: <staging proof | review A | draft n | fix round n | strips + review B | full render | delivered>
+- Step: <staging proof | review A | draft n | fix round n | strips + review B | Sol round n | full render | delivered>
 - Next: <the one thing to do next>
 - Renders so far: <drafts n, farm renders n>; fix rounds used: <n of 3>
 
