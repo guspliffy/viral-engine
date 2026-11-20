@@ -3569,10 +3569,17 @@
     },
     {
      "who": "chip",
-     "do": "face",
-     "open": 0.75,
+     "do": "expr",
+     "expr": "delighted",
      "dur": 0.08,
-     "at": 0.33
+     "at": 0.27
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "dur": 0.25,
+     "amp": 1.6,
+     "at": 0.3
     },
     {
      "who": "chip",
@@ -3602,13 +3609,6 @@
     },
     {
      "who": "chip",
-     "do": "face",
-     "open": 0,
-     "dur": 0.06,
-     "at": 0.55
-    },
-    {
-     "who": "chip",
      "do": "look",
      "to": [
       0.8,
@@ -3620,10 +3620,10 @@
     },
     {
      "who": "chip",
-     "do": "face",
-     "open": 0.38,
-     "dur": 0.08,
-     "at": 0.6
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.1,
+     "at": 0.57
     },
     {
      "who": "chip",
@@ -3634,10 +3634,10 @@
     },
     {
      "who": "chip",
-     "do": "face",
-     "open": 0,
-     "dur": 0.08,
-     "at": 0.7
+     "do": "talk",
+     "dur": 1,
+     "amp": 1,
+     "at": 0.65
     },
     {
      "who": "chip",
@@ -3655,24 +3655,10 @@
     },
     {
      "who": "chip",
-     "do": "face",
-     "open": 0.38,
-     "dur": 0.08,
-     "at": 0.8
-    },
-    {
-     "who": "chip",
      "do": "squash",
      "amount": -0.06,
      "dur": 0.08,
      "at": 0.8
-    },
-    {
-     "who": "chip",
-     "do": "face",
-     "open": 0,
-     "dur": 0.08,
-     "at": 0.9
     },
     {
      "who": "chip",
@@ -3683,24 +3669,10 @@
     },
     {
      "who": "chip",
-     "do": "face",
-     "open": 0.38,
-     "dur": 0.08,
-     "at": 1
-    },
-    {
-     "who": "chip",
      "do": "squash",
      "amount": -0.06,
      "dur": 0.08,
      "at": 1
-    },
-    {
-     "who": "chip",
-     "do": "face",
-     "open": 0,
-     "dur": 0.08,
-     "at": 1.1
     },
     {
      "who": "chip",
@@ -3711,13 +3683,6 @@
     },
     {
      "who": "chip",
-     "do": "face",
-     "open": 0.38,
-     "dur": 0.08,
-     "at": 1.2
-    },
-    {
-     "who": "chip",
      "do": "squash",
      "amount": -0.06,
      "dur": 0.08,
@@ -3725,24 +3690,10 @@
     },
     {
      "who": "chip",
-     "do": "face",
-     "open": 0,
-     "dur": 0.08,
-     "at": 1.3
-    },
-    {
-     "who": "chip",
      "do": "squash",
      "amount": 0,
      "dur": 0.08,
      "at": 1.3
-    },
-    {
-     "who": "chip",
-     "do": "face",
-     "open": 0.38,
-     "dur": 0.08,
-     "at": 1.4
     },
     {
      "who": "chip",
@@ -3755,13 +3706,6 @@
      "sfx": "gulp",
      "gain": 0.5,
      "at": 1.45
-    },
-    {
-     "who": "chip",
-     "do": "face",
-     "open": 0,
-     "dur": 0.08,
-     "at": 1.5
     },
     {
      "who": "chip",

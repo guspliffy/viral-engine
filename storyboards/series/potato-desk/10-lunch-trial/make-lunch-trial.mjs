@@ -263,11 +263,11 @@ gBoss.secure(r3(TAG - 0.015), 0.001); for (const sd of ["R", "L"]) A(r3(TAG - 0.
 expr(TAG, "chip", "annoyed"); look(TAG, "chip", [0.8, 0.1]);
 const BITE = r3(TAG + 0.25);
 look(r3(BITE - 0.1), "chip", [0, -0.2], 0.2); A(r3(BITE + 0.1), "chip", "squash", { amount: -0.08, dur: 0.1 }); A(r3(BITE + 0.25), "chip", "squash", { amount: 0, dur: 0.12 });
-look(r3(BITE - 0.05), "chip", [0, -0.45], 0.12);   // face down into the box for the bite (Sol 2 #2; lifting the box flipped both palms)   // the box up to his mouth for the bite (Sol 2 #2)   // down into the box: a bite of the boss's pasta (Sol 1 #2)
- A(r3(BITE + 0.08), "chip", "face", { open: 0.75, dur: 0.08 });
-A(r3(BITE + 0.3), "chip", "face", { open: 0, dur: 0.06 });    // the box up to his mouth (a body pitch flipped his palms)
+look(r3(BITE - 0.05), "chip", [0, -0.45], 0.12);   // face down into the box for the bite (Sol 2 #2; lifting the box flipped both palms)
+expr(r3(BITE + 0.02), "chip", "delighted", 0.08); A(r3(BITE + 0.05), "chip", "talk", { dur: 0.25, amp: 1.6 }); expr(r3(BITE + 0.32), "chip", "smug", 0.1);   // the bite: a wide mouth ("face" has no open key: the mouth never moved, Sol 2 #2)
+A(r3(BITE + 0.4), "chip", "talk", { dur: 1.0, amp: 1.0 });   // chewing
 look(r3(BITE + 0.3), "chip", [0.8, 0.15], 0.15);   // chewing, staring at where the boss went
-for (let k = 0; k < 5; k++) { A(r3(BITE + 0.35 + k * 0.2), "chip", "face", { open: 0.38, dur: 0.08 }); A(r3(BITE + 0.45 + k * 0.2), "chip", "face", { open: 0, dur: 0.08 }); A(r3(BITE + 0.35 + k * 0.2), "chip", "squash", { amount: -0.06, dur: 0.08 }); A(r3(BITE + 0.45 + k * 0.2), "chip", "squash", { amount: 0, dur: 0.08 }); }
+for (let k = 0; k < 5; k++) { A(r3(BITE + 0.35 + k * 0.2), "chip", "squash", { amount: -0.06, dur: 0.08 }); A(r3(BITE + 0.45 + k * 0.2), "chip", "squash", { amount: 0, dur: 0.08 }); }
 sfx(r3(BITE + 0.2), "ai/crunch", { gain: 0.25 }); sfx(r3(BITE + 1.2), "gulp", { gain: 0.5 });
 A(r3(TAG + 0.5), "spudg", "pitch", { to: 12, dur: 0.18 }); A(r3(TAG + 0.7), "spudg", "pitch", { to: 0, dur: 0.25 }); expr(TAG, "spudg", "smug");
 const END = F(BITE + 1.75);
