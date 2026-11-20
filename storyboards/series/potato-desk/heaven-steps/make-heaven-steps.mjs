@@ -201,7 +201,7 @@ arm(0, "chip", "both", "rest", 0.01);
 A(0, "angel", "face", { lid: 0.45, dur: 0.01 });
 act.blinksAt(c, "chip", [6.9, 15.6, 27.5, 41.9]); act.blinksAt(c, "angel", [3.6, 12.2, 24.4, 44.6]);
 let t = shot("rule", 0, cam("T", [0.45, 0.89, 9.60], [0.45, 0.89, 0], 26), push(0.09), "hook");
-cap(0, 2.85, "*1 point* from heaven", 300, false, { size: 76 });
+cap(0, 2.85, "Never say *this*\nat heaven's gate?!", 300, false, { size: 68 });   // Jonny 20 Nov 22:00: "more curious" (option 1 of 4); released by "Did you see how humble I was?"
 let e = say(0, 0.05);
 look(1.75, "angel", AT_CHIP_FROM_ANGEL, 0.2);   // the eyes come up over the rims on the number
 see(0, 1.55, ["chip.face", "angel.face", "ledger"], "a little one on step 99 under heaven's gate; the clerk angel: 100 points to get in, you have 99");
@@ -603,6 +603,7 @@ c.prop(r3(LUNGE + 0.15), "chair", { tip: -70 }, 0.35, "in"); sfx(r3(LUNGE + 0.5)
 shot("ride", X28a, RIDE_CAM(P41), (s, dur) => ({ ...s, to: RIDE_CAM(P50), dur, ease: "linear" }));
 blinkAt(X28a, "chip"); putProp(r3(X28a - 0.02), "lift", P41); rideOn(r3(X28a - 0.02), "chip", "lift", 180); c.prop(X28a, "lift", at3(P50), r3(X28b - X28a), "linear");
 expr(r3(X28a), "chip", "delighted");
+prop(r3(X28a - 0.02), "lift", { glow: 0.3 }, 0);   // the plate's full glow washed his face out in the close ride shots (draft 5)
 // T-ARRIVE: the last flight onto 100, the gate opens, the gold drains
 const R29 = shot("arrive", X28b, cam("T", [0.90, 0.95, 7.60], [0.45, 0.75, -0.50], 26), push(0.05));
 blinkAt(X28b, "chip"); putProp(r3(X28b - 0.02), "lift", P93); rideOn(r3(X28b - 0.02), "chip", "lift", 180); c.prop(X28b, "lift", at3(CHIP_100), r3(ARR - X28b), "out");
@@ -680,7 +681,7 @@ write(import.meta.url, {
   physics: false, animeTiming: true, far: 160,
   set: { type: "plain", color: "#9fd0f0", floor: "none", light: "soft", para: 0, aperture: 0,
     lighting: 2, hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
-  music: { file: "ai/sneaky/sneaky-01.ogg", lowCut: 150, gain: 0.2 },   // rough draft: one bed; the score comes after the story check
+  music: { file: "heaven-steps/heaven-steps-score.ogg", lock: false, dip: false, lowCut: 150, gain: 0.24 },   // make-score.mjs (4 beds, changes at each turn)
   sound: { sfx: 0.6, ambience: 0.05, guard: true, signature: false, surface: "outdoor" },
   creative: { length: [50, 66] },
   hook: { show: ["chip", "angel", "gate", "ledger"], hint: 0, what: "a little one on step 99 under heaven's gate; the clerk: 100 points to get in, you've got 99" },

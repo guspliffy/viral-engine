@@ -45,9 +45,11 @@
   "satsuei": true
  },
  "music": {
-  "file": "ai/sneaky/sneaky-01.ogg",
+  "file": "heaven-steps/heaven-steps-score.ogg",
+  "lock": false,
+  "dip": false,
   "lowCut": 150,
-  "gain": 0.2
+  "gain": 0.24
  },
  "sound": {
   "sfx": 0.6,
@@ -528,10 +530,10 @@
   {
    "from": 0,
    "to": 2.85,
-   "text": "*1 point* from heaven",
+   "text": "Never say *this*\nat heaven's gate?!",
    "pos": 300,
    "pop": false,
-   "size": 76
+   "size": 68
   },
   {
    "from": 0.05,
@@ -6682,6 +6684,16 @@
      "do": "expr",
      "expr": "delighted",
      "dur": 0.2,
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "lift",
+     "set": {
+      "glow": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
      "at": 0.98
     }
    ]
