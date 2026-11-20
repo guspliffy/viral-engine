@@ -59,11 +59,12 @@
       213
      ],
      [
-      5.59,
+      4.89,
       214
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    },
    {
     "who": "chip",
@@ -73,11 +74,12 @@
       41
      ],
      [
-      15.01,
+      12.24,
       42
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    },
    {
     "who": "wedge",
@@ -87,14 +89,15 @@
       0
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    }
   ]
  },
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 140.16,
+  "skip": 126.27,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -125,8 +128,8 @@
  },
  "creative": {
   "length": [
-   25.7,
-   25.7
+   21.72,
+   21.72
   ]
  },
  "cast": [
@@ -182,55 +185,55 @@
  "props": [],
  "captions": [
   {
-   "from": 2.49,
-   "to": 4.79,
+   "from": 2.31,
+   "to": 4.07,
    "text": "Do you actually like my buns?",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 4.79,
-   "to": 6.14,
+   "from": 4.09,
+   "to": 5.12,
    "text": "Love them.",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 10.71,
-   "to": 13.61,
+   "from": 9.21,
+   "to": 10.98,
    "text": "Why does he lie to me so much?",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 13.61,
-   "to": 15.56,
+   "from": 11,
+   "to": 12.47,
    "text": "Him? he never lies!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 18.47,
-   "to": 20.47,
+   "from": 15.34,
+   "to": 16.49,
    "text": "Does he lie to me?",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 20.47,
-   "to": 22.72,
+   "from": 16.51,
+   "to": 19.04,
    "text": "Trust me. ask him yourself.",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -240,7 +243,7 @@
   {
    "name": "14 do you like them two",
    "at": 0,
-   "len": 2.49,
+   "len": 2.31,
    "shot": {
     "pos": [
      1.116,
@@ -260,7 +263,7 @@
       1.859
      ]
     },
-    "dur": 5.89,
+    "dur": 5.14,
     "yaw": {
      "keys": [
       [
@@ -268,7 +271,7 @@
        0
       ],
       [
-       5.89,
+       5.14,
        4
       ]
      ],
@@ -391,16 +394,16 @@
      "take": 1,
      "dur": 2.09,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.15
+     "at": 0.1
     }
    ]
   },
   {
    "name": "14 do you like them close +",
-   "at": 2.49,
-   "len": 3.4,
+   "at": 2.31,
+   "len": 2.83,
    "shot": {
     "pos": [
      1.544,
@@ -420,15 +423,15 @@
       0.626
      ]
     },
-    "dur": 3.4,
+    "dur": 2.83,
     "yaw": {
      "keys": [
       [
-       2.49,
+       2.31,
        0
       ],
       [
-       5.89,
+       5.14,
        4
       ]
      ],
@@ -454,12 +457,12 @@
     },
     {
      "who": "spud",
-     "do": "talk",
+     "macro": "say",
      "line": "do you actually like my buns?",
      "tone": "question",
-     "dur": 2.15,
-     "blink": false,
-     "voice": false,
+     "voice": "teo",
+     "dur": 1.68,
+     "caption": false,
      "at": 0
     },
     {
@@ -468,7 +471,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 2.2
+     "at": 1.73
     },
     {
      "who": "spud",
@@ -476,14 +479,14 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 2.2
+     "at": 1.73
     },
     {
      "who": "mash",
      "do": "expr",
      "expr": "happy",
      "dur": 0.25,
-     "at": 2.3
+     "at": 1.78
     },
     {
      "who": "mash",
@@ -491,17 +494,17 @@
      "side": "R",
      "pose": "point",
      "dur": 0.25,
-     "at": 2.3
+     "at": 1.78
     },
     {
      "who": "mash",
-     "do": "talk",
+     "macro": "say",
      "line": "love them.",
      "tone": "calm",
+     "voice": "mash",
      "dur": 0.95,
-     "blink": false,
-     "voice": false,
-     "at": 2.3
+     "caption": false,
+     "at": 1.78
     },
     {
      "who": "mash",
@@ -509,14 +512,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 3.3
+     "at": 2.78
     }
    ]
   },
   {
    "name": "14 do you like them close",
-   "at": 5.89,
-   "len": 2.99,
+   "at": 5.14,
+   "len": 2.42,
    "shot": {
     "pos": [
      1.544,
@@ -536,15 +539,15 @@
       0.626
      ]
     },
-    "dur": 2.99,
+    "dur": 2.42,
     "yaw": {
      "keys": [
       [
-       5.89,
+       5.14,
        0
       ],
       [
-       8.88,
+       7.56,
        -4
       ]
      ],
@@ -566,7 +569,7 @@
      "take": 1,
      "dur": 1.96,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
      "at": 0
     },
@@ -582,7 +585,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "spud",
@@ -591,17 +594,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "mash",
@@ -615,7 +618,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "chip",
@@ -629,7 +632,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "chip",
@@ -638,12 +641,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "wedge",
@@ -657,7 +660,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "wedge",
@@ -666,19 +669,19 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.978
+     "at": 2.408
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 2.978
+     "at": 2.408
     }
    ]
   },
   {
    "name": "14b asked around two",
-   "at": 8.88,
-   "len": 1.83,
+   "at": 7.56,
+   "len": 1.65,
    "shot": {
     "pos": [
      1.116,
@@ -698,15 +701,15 @@
       1.859
      ]
     },
-    "dur": 6.43,
+    "dur": 4.93,
     "yaw": {
      "keys": [
       [
-       8.88,
+       7.56,
        0
       ],
       [
-       15.31,
+       12.49,
        -4
       ]
      ],
@@ -742,16 +745,16 @@
      "take": 1,
      "dur": 1.43,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.15
+     "at": 0.1
     }
    ]
   },
   {
    "name": "14b asked around close +",
-   "at": 10.71,
-   "len": 2.95,
+   "at": 9.21,
+   "len": 3.28,
    "shot": {
     "pos": [
      1.544,
@@ -771,15 +774,15 @@
       0.626
      ]
     },
-    "dur": 4.6,
+    "dur": 3.28,
     "yaw": {
      "keys": [
       [
-       10.71,
+       9.21,
        0
       ],
       [
-       15.31,
+       12.49,
        4
       ]
      ],
@@ -805,12 +808,12 @@
     },
     {
      "who": "spud",
-     "do": "talk",
+     "macro": "say",
      "line": "why does he lie to me so much?",
      "tone": "question",
-     "dur": 2.75,
-     "blink": false,
-     "voice": false,
+     "voice": "teo",
+     "dur": 1.69,
+     "caption": false,
      "at": 0
     },
     {
@@ -819,7 +822,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 2.8
+     "at": 1.74
     },
     {
      "who": "spud",
@@ -827,7 +830,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 2.8
+     "at": 1.74
     },
     {
      "who": "chip",
@@ -837,7 +840,7 @@
       "open": 0.2
      },
      "dur": 0.25,
-     "at": 2.9
+     "at": 1.79
     },
     {
      "who": "chip",
@@ -845,80 +848,39 @@
      "side": "R",
      "pose": "up",
      "dur": 0.25,
-     "at": 2.9
+     "at": 1.79
     },
     {
      "who": "chip",
      "do": "hop",
      "count": 1,
      "height": 0.05,
-     "at": 2.9
+     "at": 1.79
     },
     {
      "who": "chip",
-     "do": "talk",
+     "macro": "say",
      "line": "him? he never lies!",
      "tone": "excited",
-     "dur": 1.55,
-     "blink": false,
-     "voice": false,
-     "at": 2.9
-    }
-   ]
-  },
-  {
-   "name": "14b asked around two +",
-   "at": 13.66,
-   "len": 1.65,
-   "shot": {
-    "pos": [
-     2.307,
-     0.676,
-     2.039
-    ],
-    "look": [
-     1.5,
-     0.435,
-     -0.6
-    ],
-    "fov": 36,
-    "to": {
-     "pos": [
-      2.226,
-      0.652,
-      1.775
-     ]
+     "voice": "chip",
+     "dur": 1.39,
+     "caption": false,
+     "at": 1.79
     },
-    "dur": 1.65,
-    "yaw": {
-     "keys": [
-      [
-       13.66,
-       0
-      ],
-      [
-       15.31,
-       -4
-      ]
-     ],
-     "pivot": 2.77
-    }
-   },
-   "do": [
     {
      "who": "chip",
      "do": "arm",
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.55
+     "at": 3.23
     }
    ]
   },
   {
    "name": "14b asked around close",
-   "at": 15.31,
-   "len": 3.16,
+   "at": 12.49,
+   "len": 2.85,
    "shot": {
     "pos": [
      1.544,
@@ -938,15 +900,15 @@
       0.626
      ]
     },
-    "dur": 3.16,
+    "dur": 2.85,
     "yaw": {
      "keys": [
       [
-       15.31,
+       12.49,
        0
       ],
       [
-       18.47,
+       15.34,
        4
       ]
      ],
@@ -968,7 +930,7 @@
      "take": 1,
      "dur": 2.55,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
      "at": 0
     }
@@ -976,8 +938,8 @@
   },
   {
    "name": "14b asked around two",
-   "at": 18.47,
-   "len": 2,
+   "at": 15.34,
+   "len": 3.19,
    "shot": {
     "pos": [
      0.26,
@@ -997,15 +959,15 @@
       1.807
      ]
     },
-    "dur": 2,
+    "dur": 3.19,
     "yaw": {
      "keys": [
       [
-       18.47,
+       15.34,
        0
       ],
       [
-       20.47,
+       18.53,
        -4
       ]
      ],
@@ -1031,12 +993,12 @@
     },
     {
      "who": "spud",
-     "do": "talk",
+     "macro": "say",
      "line": "does he lie to me?",
      "tone": "question",
-     "dur": 1.85,
-     "blink": false,
-     "voice": false,
+     "voice": "teo",
+     "dur": 1.07,
+     "caption": false,
      "at": 0
     },
     {
@@ -1045,7 +1007,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.9
+     "at": 1.12
     },
     {
      "who": "spud",
@@ -1053,55 +1015,14 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.9
-    }
-   ]
-  },
-  {
-   "name": "14b asked around close +",
-   "at": 20.47,
-   "len": 2.05,
-   "shot": {
-    "pos": [
-     0.517,
-     0.678,
-     0.196
-    ],
-    "look": [
-     0.282,
-     0.6,
-     -1.276
-    ],
-    "fov": 30,
-    "to": {
-     "pos": [
-      0.494,
-      0.67,
-      0.049
-     ]
+     "at": 1.12
     },
-    "dur": 2.05,
-    "yaw": {
-     "keys": [
-      [
-       20.47,
-       0
-      ],
-      [
-       22.52,
-       4
-      ]
-     ],
-     "pivot": 1.493
-    }
-   },
-   "do": [
     {
      "who": "wedge",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.25,
-     "at": 0
+     "at": 1.17
     },
     {
      "who": "wedge",
@@ -1109,25 +1030,66 @@
      "side": "R",
      "pose": "point",
      "dur": 0.25,
-     "at": 0
+     "at": 1.17
     },
     {
      "who": "wedge",
-     "do": "talk",
+     "macro": "say",
      "line": "trust me. ask him yourself.",
      "tone": "calm",
-     "dur": 1.85,
-     "blink": false,
-     "voice": false,
-     "at": 0
+     "voice": "wedge",
+     "dur": 2.45,
+     "caption": false,
+     "at": 1.17
+    }
+   ]
+  },
+  {
+   "name": "14b asked around close +",
+   "at": 18.53,
+   "len": 3.19,
+   "shot": {
+    "pos": [
+     1.544,
+     0.608,
+     0.768
+    ],
+    "look": [
+     1.104,
+     0.53,
+     -0.656
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.5,
+      0.6,
+      0.626
+     ]
     },
+    "dur": 3.19,
+    "yaw": {
+     "keys": [
+      [
+       18.53,
+       0
+      ],
+      [
+       21.72,
+       -4
+      ]
+     ],
+     "pivot": 1.492
+    }
+   },
+   "do": [
     {
      "who": "wedge",
      "do": "arm",
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.9
+     "at": 0.48
     },
     {
      "macro": "narrate",
@@ -1136,57 +1098,17 @@
      "take": 1,
      "dur": 2.2,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 2
+     "at": 0.53
     }
    ]
-  },
-  {
-   "name": "14b asked around two +",
-   "at": 22.52,
-   "len": 3.18,
-   "shot": {
-    "pos": [
-     1.603,
-     0.837,
-     2.009
-    ],
-    "look": [
-     0.693,
-     0.565,
-     -0.966
-    ],
-    "fov": 36,
-    "to": {
-     "pos": [
-      1.512,
-      0.81,
-      1.712
-     ]
-    },
-    "dur": 3.18,
-    "yaw": {
-     "keys": [
-      [
-       22.52,
-       0
-      ],
-      [
-       25.7,
-       -4
-      ]
-     ],
-     "pivot": 3.123
-    }
-   },
-   "do": []
   }
  ],
  "visible": [],
  "story": {
-  "T0": 140.16,
-  "T1": 165.86
+  "T0": 126.27,
+  "T1": 147.99
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 140.16-165.86 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 126.27-147.99 s)."
 }

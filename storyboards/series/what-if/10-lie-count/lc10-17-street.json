@@ -59,6 +59,7 @@
      ]
     ],
     "free": true,
+    "clamp": true,
     "k": 0.85
    },
    {
@@ -69,11 +70,12 @@
       42
      ],
      [
-      13.19,
+      11.18,
       43
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    },
    {
     "who": "mover",
@@ -83,11 +85,12 @@
       2
      ],
      [
-      19.29,
+      15.96,
       3
      ]
     ],
     "free": true,
+    "clamp": true,
     "k": 0.85
    }
   ]
@@ -95,7 +98,7 @@
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 280.51,
+  "skip": 234.71,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -126,8 +129,8 @@
  },
  "creative": {
   "length": [
-   27.47,
-   27.47
+   23.2,
+   23.2
   ]
  },
  "cast": [
@@ -201,55 +204,55 @@
  ],
  "captions": [
   {
-   "from": 3.76,
-   "to": 4.86,
+   "from": 2.92,
+   "to": 4.08,
    "text": "Morning!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 8.44,
-   "to": 10.44,
+   "from": 7.01,
+   "to": 8.27,
    "text": "Guess what day it is!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 10.44,
-   "to": 11.54,
+   "from": 8.29,
+   "to": 9.65,
    "text": "Uh... sunday?",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 11.54,
-   "to": 12.39,
+   "from": 9.67,
+   "to": 10.44,
    "text": "And?",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 12.39,
-   "to": 13.74,
+   "from": 10.46,
+   "to": 11.41,
    "text": "Just sunday!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 16.99,
-   "to": 19.84,
+   "from": 14.43,
+   "to": 16.19,
    "text": "No idea what day it is, mate.",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -259,7 +262,7 @@
   {
    "name": "24 your birthday wide",
    "at": 0,
-   "len": 3.76,
+   "len": 2.92,
    "shot": {
     "pos": [
      1,
@@ -279,7 +282,7 @@
       4.881
      ]
     },
-    "dur": 3.76,
+    "dur": 2.92,
     "yaw": {
      "keys": [
       [
@@ -287,7 +290,7 @@
        0
       ],
       [
-       3.76,
+       2.92,
        4
       ]
      ],
@@ -410,9 +413,9 @@
      "take": 1,
      "dur": 2.04,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -422,14 +425,14 @@
       "curve": 0.4
      },
      "dur": 0.25,
-     "at": 2.44
+     "at": 2.26
     },
     {
      "who": "baker",
      "do": "turn",
      "to": 90,
      "dur": 0.25,
-     "at": 2.44
+     "at": 2.26
     },
     {
      "who": "baker",
@@ -440,14 +443,14 @@
      ],
      "y": 0,
      "dur": 2.6,
-     "at": 2.54
+     "at": 2.36
     }
    ]
   },
   {
    "name": "24 your birthday close +",
-   "at": 3.76,
-   "len": 0.9,
+   "at": 2.92,
+   "len": 1.28,
    "shot": {
     "pos": [
      -0.724,
@@ -467,15 +470,15 @@
       1.785
      ]
     },
-    "dur": 0.9,
+    "dur": 1.28,
     "yaw": {
      "keys": [
       [
-       3.76,
+       2.92,
        0
       ],
       [
-       4.66,
+       4.2,
        -4
       ]
      ],
@@ -493,12 +496,12 @@
     },
     {
      "who": "baker",
-     "do": "talk",
+     "macro": "say",
      "line": "morning!",
      "tone": "calm",
-     "dur": 0.7,
-     "blink": false,
-     "voice": false,
+     "voice": "wizard",
+     "dur": 1.08,
+     "caption": false,
      "at": 0
     },
     {
@@ -507,14 +510,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.75
+     "at": 1.13
     },
     {
      "who": "baker",
      "do": "turn",
      "to": 93.991,
      "dur": 0.25,
-     "at": 0.85
+     "at": 1.18
     },
     {
      "macro": "narrate",
@@ -523,16 +526,16 @@
      "take": 2,
      "dur": 2.05,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.85
+     "at": 1.18
     }
    ]
   },
   {
    "name": "24 your birthday wide +",
-   "at": 4.66,
-   "len": 3.63,
+   "at": 4.2,
+   "len": 2.71,
    "shot": {
     "pos": [
      2.729,
@@ -552,15 +555,15 @@
       4.537
      ]
     },
-    "dur": 3.63,
+    "dur": 2.71,
     "yaw": {
      "keys": [
       [
-       4.66,
+       4.2,
        0
       ],
       [
-       8.29,
+       6.91,
        4
       ]
      ],
@@ -577,12 +580,12 @@
      ],
      "y": 0,
      "dur": 4,
-     "at": 0.05
+     "at": 0
     },
     {
      "who": "baker",
      "do": "hide",
-     "at": 3.318
+     "at": 2.598
     },
     {
      "who": "baker",
@@ -596,7 +599,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.318
+     "at": 2.598
     },
     {
      "who": "spud",
@@ -610,7 +613,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.618
+     "at": 2.698
     },
     {
      "who": "spud",
@@ -619,17 +622,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.618
+     "at": 2.698
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 3.618
+     "at": 2.698
     },
     {
      "who": "baker",
      "do": "hide",
-     "at": 3.618
+     "at": 2.698
     },
     {
      "who": "baker",
@@ -643,7 +646,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.618
+     "at": 2.698
     },
     {
      "who": "chip",
@@ -657,7 +660,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.618
+     "at": 2.698
     },
     {
      "who": "chip",
@@ -666,17 +669,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.618
+     "at": 2.698
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 3.618
+     "at": 2.698
     },
     {
      "who": "mover",
      "do": "hide",
-     "at": 3.618
+     "at": 2.698
     },
     {
      "who": "mover",
@@ -690,14 +693,14 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.618
+     "at": 2.698
     }
    ]
   },
   {
    "name": "25 just sunday two",
-   "at": 8.29,
-   "len": 2.15,
+   "at": 6.91,
+   "len": 1.38,
    "shot": {
     "pos": [
      1,
@@ -717,15 +720,15 @@
       3.821
      ]
     },
-    "dur": 5.2,
+    "dur": 4.52,
     "yaw": {
      "keys": [
       [
-       8.29,
+       6.91,
        0
       ],
       [
-       13.49,
+       11.43,
        -4
       ]
      ],
@@ -752,7 +755,7 @@
      "do": "expr",
      "expr": "happy",
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -760,24 +763,24 @@
      "side": "R",
      "pose": "up",
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "spud",
      "do": "hop",
      "count": 1,
      "height": 0.05,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "spud",
-     "do": "talk",
+     "macro": "say",
      "line": "guess what day it is!",
      "tone": "excited",
-     "dur": 1.85,
-     "blink": false,
-     "voice": false,
-     "at": 0.15
+     "voice": "teo",
+     "dur": 1.18,
+     "caption": false,
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -785,14 +788,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 2.05
+     "at": 1.33
     }
    ]
   },
   {
    "name": "25 just sunday close +",
-   "at": 10.44,
-   "len": 1.15,
+   "at": 8.29,
+   "len": 1.48,
    "shot": {
     "pos": [
      0.815,
@@ -812,15 +815,15 @@
       2.414
      ]
     },
-    "dur": 3.05,
+    "dur": 3.14,
     "yaw": {
      "keys": [
       [
-       10.44,
+       8.29,
        0
       ],
       [
-       13.49,
+       11.43,
        -4
       ]
      ],
@@ -853,12 +856,12 @@
     },
     {
      "who": "chip",
-     "do": "talk",
+     "macro": "say",
      "line": "uh... sunday?",
      "tone": "question",
-     "dur": 0.95,
-     "blink": false,
-     "voice": false,
+     "voice": "chip",
+     "dur": 1.28,
+     "caption": false,
      "at": 0
     },
     {
@@ -867,7 +870,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1
+     "at": 1.33
     },
     {
      "who": "chip",
@@ -875,7 +878,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1
+     "at": 1.33
     },
     {
      "who": "spud",
@@ -883,7 +886,7 @@
      "side": "R",
      "pose": "shrug",
      "dur": 0.25,
-     "at": 1.1
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -891,24 +894,24 @@
      "side": "L",
      "pose": "shrug",
      "dur": 0.25,
-     "at": 1.1
+     "at": 1.38
     },
     {
      "who": "spud",
-     "do": "talk",
+     "macro": "say",
      "line": "and?",
      "tone": "question",
-     "dur": 0.7,
-     "blink": false,
-     "voice": false,
-     "at": 1.1
+     "voice": "teo",
+     "dur": 0.69,
+     "caption": false,
+     "at": 1.38
     }
    ]
   },
   {
    "name": "25 just sunday two +",
-   "at": 11.59,
-   "len": 1.9,
+   "at": 9.77,
+   "len": 1.66,
    "shot": {
     "pos": [
      2.231,
@@ -928,15 +931,15 @@
       3.576
      ]
     },
-    "dur": 1.9,
+    "dur": 1.66,
     "yaw": {
      "keys": [
       [
-       11.59,
+       9.77,
        0
       ],
       [
-       13.49,
+       11.43,
        4
       ]
      ],
@@ -950,7 +953,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.7
+     "at": 0.64
     },
     {
      "who": "spud",
@@ -958,7 +961,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.7
+     "at": 0.64
     },
     {
      "who": "chip",
@@ -966,24 +969,24 @@
      "side": "R",
      "pose": "up",
      "dur": 0.25,
-     "at": 0.8
+     "at": 0.69
     },
     {
      "who": "chip",
      "do": "hop",
      "count": 1,
      "height": 0.05,
-     "at": 0.8
+     "at": 0.69
     },
     {
      "who": "chip",
-     "do": "talk",
+     "macro": "say",
      "line": "just sunday!",
      "tone": "excited",
-     "dur": 0.95,
-     "blink": false,
-     "voice": false,
-     "at": 0.8
+     "voice": "chip",
+     "dur": 0.87,
+     "caption": false,
+     "at": 0.69
     },
     {
      "who": "chip",
@@ -991,14 +994,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.8
+     "at": 1.61
     }
    ]
   },
   {
    "name": "25 just sunday close",
-   "at": 13.49,
-   "len": 3.35,
+   "at": 11.43,
+   "len": 2.9,
    "shot": {
     "pos": [
      1.185,
@@ -1018,15 +1021,15 @@
       2.414
      ]
     },
-    "dur": 3.35,
+    "dur": 2.9,
     "yaw": {
      "keys": [
       [
-       13.49,
+       11.43,
        0
       ],
       [
-       16.84,
+       14.33,
        4
       ]
      ],
@@ -1048,7 +1051,7 @@
      "take": 1,
      "dur": 2.56,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
      "at": 0
     },
@@ -1064,7 +1067,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.338
+     "at": 2.888
     },
     {
      "who": "spud",
@@ -1073,17 +1076,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.338
+     "at": 2.888
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 3.338
+     "at": 2.888
     },
     {
      "who": "baker",
      "do": "hide",
-     "at": 3.338
+     "at": 2.888
     },
     {
      "who": "baker",
@@ -1097,12 +1100,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.338
+     "at": 2.888
     },
     {
      "who": "chip",
      "do": "hide",
-     "at": 3.338
+     "at": 2.888
     },
     {
      "who": "chip",
@@ -1116,7 +1119,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.338
+     "at": 2.888
     },
     {
      "who": "mover",
@@ -1130,7 +1133,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.338
+     "at": 2.888
     },
     {
      "who": "mover",
@@ -1139,19 +1142,19 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.338
+     "at": 2.888
     },
     {
      "who": "mover",
      "do": "show",
-     "at": 3.338
+     "at": 2.888
     }
    ]
   },
   {
    "name": "26 no idea two",
-   "at": 16.84,
-   "len": 2.095,
+   "at": 14.33,
+   "len": 3.19,
    "shot": {
     "pos": [
      1,
@@ -1171,15 +1174,15 @@
       3.916
      ]
     },
-    "dur": 4.19,
+    "dur": 3.19,
     "yaw": {
      "keys": [
       [
-       16.84,
+       14.33,
        0
       ],
       [
-       21.03,
+       17.52,
        -4
       ]
      ],
@@ -1207,66 +1210,25 @@
      "side": "R",
      "pose": "point",
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "mover",
-     "do": "talk",
+     "macro": "say",
      "line": "no idea what day it is, mate.",
      "tone": "calm",
-     "dur": 2.45,
-     "blink": false,
-     "voice": false,
-     "at": 0.15
-    }
-   ]
-  },
-  {
-   "name": "26 no idea close +",
-   "at": 18.935,
-   "len": 2.095,
-   "shot": {
-    "pos": [
-     1.172,
-     0.608,
-     2.531
-    ],
-    "look": [
-     0.5,
-     0.53,
-     1.2
-    ],
-    "fov": 30,
-    "to": {
-     "pos": [
-      1.105,
-      0.6,
-      2.398
-     ]
+     "voice": "viking",
+     "dur": 1.68,
+     "caption": false,
+     "at": 0.1
     },
-    "dur": 2.095,
-    "yaw": {
-     "keys": [
-      [
-       18.935,
-       0
-      ],
-      [
-       21.03,
-       -4
-      ]
-     ],
-     "pivot": 1.493
-    }
-   },
-   "do": [
     {
      "who": "mover",
      "do": "arm",
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.555
+     "at": 1.83
     },
     {
      "macro": "narrate",
@@ -1275,16 +1237,16 @@
      "take": 1,
      "dur": 1.19,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.655
+     "at": 1.88
     }
    ]
   },
   {
    "name": "26 no idea close",
-   "at": 21.03,
-   "len": 3.2,
+   "at": 17.52,
+   "len": 2.84,
    "shot": {
     "pos": [
      1.172,
@@ -1304,15 +1266,15 @@
       2.398
      ]
     },
-    "dur": 3.2,
+    "dur": 2.84,
     "yaw": {
      "keys": [
       [
-       21.03,
+       17.52,
        0
       ],
       [
-       24.23,
+       20.36,
        4
       ]
      ],
@@ -1337,10 +1299,51 @@
      "take": 1,
      "dur": 2.83,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
      "at": 0
+    }
+   ]
+  },
+  {
+   "name": "26 no idea two +",
+   "at": 20.36,
+   "len": 2.84,
+   "shot": {
+    "pos": [
+     1,
+     0.824,
+     4.224
+    ],
+    "look": [
+     1,
+     0.555,
+     1.15
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1,
+      0.797,
+      3.916
+     ]
     },
+    "dur": 2.84,
+    "yaw": {
+     "keys": [
+      [
+       20.36,
+       0
+      ],
+      [
+       23.2,
+       -4
+      ]
+     ],
+     "pivot": 3.086
+    }
+   },
+   "do": [
     {
      "macro": "narrate",
      "line": "...or the whole town was lying about it.",
@@ -1348,51 +1351,11 @@
      "take": 1,
      "dur": 2.21,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 3.08
+     "at": 0.11
     }
    ]
-  },
-  {
-   "name": "26 no idea close +",
-   "at": 24.23,
-   "len": 3.24,
-   "shot": {
-    "pos": [
-     0.563,
-     0.635,
-     3.212
-    ],
-    "look": [
-     0.5,
-     0.53,
-     1.2
-    ],
-    "fov": 30,
-    "to": {
-     "pos": [
-      0.557,
-      0.625,
-      3.01
-     ]
-    },
-    "dur": 3.24,
-    "yaw": {
-     "keys": [
-      [
-       24.23,
-       0
-      ],
-      [
-       27.47,
-       4
-      ]
-     ],
-     "pivot": 2.016
-    }
-   },
-   "do": []
   }
  ],
  "visible": [],
@@ -1401,20 +1364,20 @@
    "who": "baker",
    "with": "toque",
    "from": 0,
-   "to": 27.47,
+   "to": 23.2,
    "reason": "the chef's hat is worn"
   },
   {
    "who": "mover",
    "with": "mcap",
    "from": 0,
-   "to": 27.47,
+   "to": 23.2,
    "reason": "the flat cap is worn"
   }
  ],
  "story": {
-  "T0": 280.51,
-  "T1": 307.98
+  "T0": 234.71,
+  "T1": 257.91
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 280.51-307.98 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 234.71-257.91 s)."
 }

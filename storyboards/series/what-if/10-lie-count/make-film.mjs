@@ -4,13 +4,13 @@
 //   node storyboards/series/what-if/10-lie-count/make-film.mjs
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { clip, write } from "../../../lib/clip.mjs";
-import { F, PLACES, CAST, START, SCENES, ACTS, NARRATOR, TAKES, WPS, SCORE, LEVEL, stage, shotOf, floorY, r3, yawTo } from "./film.mjs";
+import { F, PLACES, CAST, START, SCENES, ACTS, NARRATOR, VOICES, TAKES, WPS, SCORE, LEVEL, stage, shotOf, floorY, r3, yawTo } from "./film.mjs";
 
 const LJ = new URL("./lines.json", import.meta.url);
 const MEASURED = existsSync(LJ) ? JSON.parse(readFileSync(LJ, "utf8")) : {};
 const words = (s) => s.split(/\s+/).filter(Boolean).length;
 const nDur = (text) => MEASURED[text] ?? r3(words(text) * WPS + 0.4);
-const sDur = (text) => r3(Math.max(0.7, words(text) * 0.3 + 0.35));
+const sDur = (who, text) => MEASURED[`${who}|${text}`] ?? r3(Math.max(0.7, words(text) * 0.36 + 0.4));   // draft 3: real voices (measured, lines.json "who|line")
 const EXPR = { excited: "eager", calm: "kind", question: "focused", sad: "sad" };
 
 // ---------------------------------------------------------------- draft 2 coverage (Jonny 19 Nov: "many slow cuts and scenes
@@ -58,22 +58,22 @@ for (const sc of SCENES) {
   const posNow = {};
   for (const [who, [lx, lz]] of Object.entries(sc.layout)) posNow[who] = S.w([lx, lz]);
   ev.push([T, "cut", sc.shot, { ...posNow }]);
-  let t = T + 0.15;
+  let t = T + 0.1;
   for (const it of sc.seq) {
     const [k] = it;
-    if (k === "n") { const d = nDur(it[1]); ev.push([t, "n", it[1], d]); t += d + 0.25; }   // draft 2 (Jonny 19 Nov: "boring over time", "could get speed up"): lines near back to back
+    if (k === "n") { const d = nDur(it[1]); ev.push([t, "n", it[1], d]); t += d + 0.12; }   // draft 3 (Jonny 20 Nov "still too long on quiet scenes"): lines back to back; draft 2 (Jonny 19 Nov: "boring over time", "could get speed up"): lines near back to back
     else if (k === "s") {
-      const [, who, line, tone, o = {}] = it, d = sDur(line);
+      const [, who, line, tone, o = {}] = it, d = sDur(who, line);
       ev.push([t, "s", who, line, d, tone, o]);
       if (o.lie) { const tk = r3(t + d - 0.15); LIES[who].push([tk, val(who) + 1]); }
-      t += d + 0.15;
+      t += d + 0.1;
     } else if (k === "cut") ev.push([t, "cut", it[1], { ...posNow }]);
-    else if (k === "wait") t += r3(it[1] * 0.6);
+    else if (k === "wait") t += r3(it[1] * 0.3);   // draft 3: a third of the written pause (cut 0.1-0.2 s after an action)
     else if (k === "walk") { posNow[it[1]] = S.w(it[2]); ev.push([t, ...it]); }
     else if (k === "spudtag") { if (spudTag == null) spudTag = r3(t); SPUD.push([r3(t - 0.3), SPUD.length + 1]); ev.push([t, "spudtag"]); }
     else ev.push([t, ...it]);
   }
-  T = r3(t + 0.3);
+  T = r3(t + 0.1);
   coverage(sc, ev, T, S);
   timed.push({ sc, T0: r3(T0), T1: T, ev });
 }
@@ -125,6 +125,8 @@ runs.forEach((run, ri) => {
     props.push({ id: "balloons", kind: "balloons", x: -2.5, y: 0, z: -1.5 });
   }
   if (run.scenes.some((x) => x.sc.baker) || who.includes("baker")) props.push({ id: "toque", kind: "toque", wear: "baker", x: 0, y: 0, z: 0 }), allow.push({ who: "baker", with: "toque", from: 0, to: END, reason: "the chef's hat is worn" });
+  // draft 3 (Jonny 20 Nov "in the rain scene, there is no rain"): the set only wets the street; the falling rain is this prop
+  // (the rain itself: set.life.rain below; the rainfall prop did not read on this set)
   if (who.includes("mover")) props.push({ id: "mcap", kind: "flatcap", wear: "mover", fit: "mover", x: 0, y: 0, z: 0 }), allow.push({ who: "mover", with: "mcap", from: 0, to: END, reason: "the flat cap is worn" });
 
   for (const { sc, T0: s0, T1: s1, ev } of run.scenes) {
@@ -161,7 +163,9 @@ runs.forEach((run, ri) => {
         const G = { excited: ["R", "up"], question: ["B", "shrug"], calm: ["R", "point"], sad: null }[tone];
         if (G && !sc.baker) { for (const sd of G[0] === "B" ? ["R", "L"] : [G[0]]) { c.arm(uu, id, sd, G[1], 0.25); c.arm(r3(uu + d + 0.05), id, sd, "rest", 0.35); } }
         if (tone === "excited") A(uu, id, "hop", { count: 1, height: 0.05 });
-        c.say(uu, id, line, d, tone, { voice: false, sub: line.charAt(0).toUpperCase() + line.slice(1), pos: F.SUB });
+        // draft 3 (Jonny 20 Nov "the gibberish is quite annoying"): every line is spoken in the character's own voice
+        c.macro(uu, id, "say", { line, tone, voice: VOICES[id], dur: d, caption: false });
+        c.cap(uu, r3(uu + d + 0.08), line.charAt(0).toUpperCase() + line.slice(1), F.SUB, false, { size: 62, kinetic: false });
       } else if (k === "card") c.cap(uu, Math.min(END - 0.05, r3(uu + e[3])), e[2], F.CARD, false, { size: 170, kinetic: false, color: "#f3dc8c", stroke: "#24232b" });
       else if (k === "e") A(uu, e[2], "expr", { expr: e[3], ...(e[4] && { set: e[4] }), dur: 0.25 });
       else if (k === "walk") {
@@ -178,9 +182,9 @@ runs.forEach((run, ri) => {
   // the number over every head (free tags, no glasses view): keys in clip time
   const tags = who.filter((id) => LIES[id]).map((id) => {
     const keys = []; for (const [t, v] of LIES[id]) { const k2 = r3(t - T0); if (k2 <= 0) { keys.length = 0; keys.push([0, v]); } else if (k2 < END) keys.push([k2, v]); }
-    return { who: id, keys, free: true, ...(["baker", "mover", "driver"].includes(id) && { k: 0.85 }) };
+    return { who: id, keys, free: true, clamp: true, ...(["baker", "mover", "driver"].includes(id) && { k: 0.85 }) };
   });
-  if (spudTag != null && spudTag < T1 && who.includes("spud")) tags.push({ who: "spud", keys: (() => { const k = []; for (const [t, v] of SPUD) { const q = u(t); if (q <= 0) { k.length = 0; k.push([0, v]); } else if (q < END) k.push([q, v]); } return k; })(), show: [u(spudTag), END], free: true });
+  if (spudTag != null && spudTag < T1 && who.includes("spud")) tags.push({ who: "spud", keys: (() => { const k = []; for (const [t, v] of SPUD) { const q = u(t); if (q <= 0) { k.length = 0; k.push([0, v]); } else if (q < END) k.push([q, v]); } return k; })(), show: [u(spudTag), END], free: true, clamp: true });
   const beats = c.beats(cuts.sort((a, b) => a[1] - b[1]), END);
   const id = `lc10-${String(ri + 1).padStart(2, "0")}-${run.place}`;
   write(import.meta.url, {
@@ -190,7 +194,7 @@ runs.forEach((run, ri) => {
     ...F.sb, fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
     cleanStart: T0 === 0, motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 },
     physics: false, animeTiming: true, loopIdle: false,
-    set: { ...P.set, aperture: 0, focus: false, lighting: 2, hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
+    set: { ...P.set, ...(run.place === "rain" && { life: { rain: { n: 1800, speed: 9, len: 0.3, opacity: 0.5, box: [[-5, 4.5], [3, 0.85]] }, wind: false } }), aperture: 0, focus: false, lighting: 2, hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
     score: { view: [], tags },
     music: SCORE(T0),
     sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: P.surface, room: P.room, guard: true, level: LEVEL, nature: (P.nature ?? []).map((n) => ({ id: n, gain: 0.05 })) },

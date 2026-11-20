@@ -13,7 +13,7 @@ export const r3 = (x) => Math.round(x * 1000) / 1000;
 const rad = (d) => (d * Math.PI) / 180;
 export const yawTo = (a, b) => r3((Math.atan2(b[0] - a[0], b[1] - a[1]) * 180) / Math.PI);
 
-export const F = { key: "wide", sb: { frame: "wide" }, W: 1920, H: 1080, SUB: 128, CARD: 880 };
+export const F = { key: "wide", sb: { frame: "wide" }, W: 1920, H: 1080, SUB: 250, CARD: 880 };
 
 const BZ = RV.bridge.z;
 export const PLACES = {
@@ -72,6 +72,9 @@ export function shotOf(P, spec, pos, len) {
 }
 
 // ---------------------------------------------------------------- voices + music
+// the cast's speaking voices (engine/voice/voices.json): the friends their own; Spud, the baker and the mover borrow
+// existing ones (draft 3, Jonny 20 Nov: real voices instead of gibberish)
+export const VOICES = { mash: "mash", chip: "chip", wedge: "wedge", spud: "teo", baker: "wizard", mover: "viking" };
 export const NARRATOR = "narrator";   // voice 1 "deep storyteller" (Jonny's pick for voiceovers), dry
 // the narrator take per line where take 1 read rushed (takes.json: line -> take; take 1 if missing)
 import { existsSync as _ex, readFileSync as _rd } from "node:fs";
@@ -96,10 +99,10 @@ export const ACTS = [
 export const SCENES = [
   // ---------------------------------------------------------------- ACT 1: THE HOOK + THE RULES (curiosity, fun)
   { id: "01 delicious", act: "hook", place: "terrace", layout: { spud: [-0.5, 0, ["to", "mash"]], mash: [0.5, 0, ["to", "spud"]] }, table: true,
-    shot: { t: "two", who: ["spud", "mash"] }, seq: [
-      ["e", "mash", "happy", { curve: 0.5 }], ["s", "mash", "mm-mm!", "excited"], ["bite", "bun", 0.35],
-      ["s", "mash", "delicious!", "excited", { lie: true }], ["card", "212", 2.6],
+    shot: { t: "close", who: ["mash"], h: 1.1 }, seq: [
+      ["e", "mash", "happy", { curve: 0.5 }], ["bite", "bun", 0.35],
       ["n", "What if you could see how many times everyone has lied to you?"],
+      ["s", "mash", "delicious!", "excited", { lie: true }], ["card", "212", 2.2],
       ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "focused", { brow: 0.3 }],
       ["n", "Your best friend just hit two hundred and twelve."], ["n", "Remember that number."],
       ["cut", { t: "two", who: ["spud", "mash"], az: -8 }], ["bite", "bun", 0.55], ["e", "mash", "happy", { curve: 0.6 }],
@@ -199,20 +202,17 @@ export const SCENES = [
       ["n", "Which, technically, meant fewer lies."], ["wait", 1.0] ] },
 
   // ---------------------------------------------------------------- ACT 4: FRIDAY (suspense)
-  { id: "17 you followed him", act: "friday", place: "rain", layout: { spud: [-1.4, -0.3, 20], mash: [-0.9, 1.2, 120] },
+  { id: "17 you followed him", act: "friday", place: "rain", layout: { spud: [-1.4, -0.8, 20], mash: [-0.9, 1.2, 120] },
     shot: { t: "wide" }, seq: [
-      ["n", "So on Friday, you followed him."], ["walk", "mash", [0.4, 2.0], 4.0], ["wait", 1.6],
+      ["e", "spud", "focused"], ["n", "So on Friday, you followed him."], ["walk", "mash", [0.4, 2.0], 4.0], ["wait", 1.6],
       ["n", "The bakery. After closing time."], ["wait", 0.6], ["hide", "mash"], ["sfx", "knock-tap", { gain: 0.4 }], ["wait", 0.8] ] },
-  { id: "18 told you", act: "friday", place: "rain", layout: { spud: [-0.3, 0, 25], wedge: [-1.35, -0.25, ["to", "spud"]] },
+  { id: "18 told you", act: "friday", place: "rain", layout: { spud: [-0.3, -0.5, 25], wedge: [-1.35, -0.75, ["to", "spud"]] },
     shot: { t: "two", who: ["spud", "wedge"] }, seq: [
       ["e", "wedge", "deadpan"], ["s", "wedge", "told you. rain.", "calm"],
       ["n", "He was right about the rain. He's always right."], ["wait", 0.6] ] },
-  { id: "18b one hour", act: "friday", place: "rain", layout: { spud: [-0.6, -0.2, 20] },
-    shot: { t: "alone", who: ["spud"], h: 3.2 }, seq: [
-      ["n", "You waited an hour in the rain."], ["wait", 0.8], ["n", "He didn't come out."], ["wait", 1.2] ] },
-  { id: "19 fogged windows", act: "friday", place: "rain", layout: { spud: [0.2, -1.0, 0] },
+  { id: "19 fogged windows", act: "friday", place: "rain", layout: { spud: [0.2, -1.4, 0] },
     shot: { t: "close", who: ["spud"] }, seq: [
-      ["n", "The windows were fogged. Just shadows... and somebody laughing."], ["e", "spud", "angry", { brow: 0.5 }],
+      ["e", "spud", "sad"], ["n", "You waited an hour in the rain."], ["n", "The windows were fogged. Just shadows... and somebody laughing."], ["e", "spud", "angry", { brow: 0.5 }],
       ["n", "Laughing. While you stood in the rain."], ["wait", 0.6], ["n", "That was enough."], ["wait", 1.0] ] },
   // ---------------------------------------------------------------- ACT 4b: THE FIGHT (anger, regret)
   { id: "20 where were you", act: "fight", place: "bridge", layout: { spud: [0.45, 0, ["to", "mash"]], mash: [-0.45, 0, ["to", "spud"]] },
@@ -223,11 +223,8 @@ export const SCENES = [
       ["cut", { t: "ots", who: ["spud", "mash"] }], ["e", "mash", "shocked"], ["s", "mash", "what?", "question"],
       ["cut", { t: "ots", who: ["mash", "spud"] }], ["s", "spud", "i can see it! every single lie!", "excited"],
       ["cut", { t: "close", who: ["mash"] }], ["e", "mash", "sad"], ["wait", 1.6], ["s", "mash", "...okay.", "sad"],
-      ["cut", { t: "two", who: ["spud", "mash"], h: 2.4 }], ["walk", "mash", [-3.4, 0.2], 4.5], ["wait", 1.2],
-      ["n", "He didn't even try to explain."], ["wait", 1.8], ["hide", "mash"] ] },
-  { id: "21 right about the number", act: "fight", place: "bridge", layout: { spud: [0.45, 0, -40] },
-    shot: { t: "alone", who: ["spud"], push: -0.04 }, seq: [
-      ["n", "You were right about the number."], ["wait", 1.5] ] },
+      ["cut", { t: "two", who: ["spud", "mash"], h: 2.4 }], ["walk", "mash", [-0.4, 3.8], 4.5], ["wait", 1.2],
+      ["n", "He didn't even try to explain."], ["n", "You were right about the number."], ["wait", 1.0], ["hide", "mash"] ] },
 
   // ---------------------------------------------------------------- ACT 5: ALONE (loneliness, the laugh, a first doubt)
   { id: "22 nobody called", act: "alone", place: "balcony", layout: { spud: [0, 0, -10] }, plate: true,
@@ -238,7 +235,7 @@ export const SCENES = [
   { id: "23 every week", act: "alone", place: "balcony", layout: { spud: [0, 0, -10] }, plate: true,
     shot: { t: "close", who: ["spud"], az: -14 }, seq: [
       ["e", "spud", "sad"], ["n", "Every week, he said they were delicious."], ["n", "And every week, you baked them again."],
-      ["n", "You tried to remember his lies. Two hundred and fifteen. You could only think of a few."], ["n", "And every one of them came with a smile."], ["wait", 0.8],
+
       ["cut", { t: "alone", who: ["spud"], h: 3.0, push: -0.03 }], ["n", "Maybe some lies weren't against you."], ["wait", 1.8] ] },
 
   // ---------------------------------------------------------------- ACT 6: THE BIRTHDAY (the second question at ~70 %: confusion, hurt)
@@ -259,9 +256,8 @@ export const SCENES = [
       ["n", "About the same thing."], ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "sad", { brow: 0.4 }],
       ["n", "Either the whole town forgot your birthday..."], ["n", "...or the whole town was lying about it."], ["wait", 1.0] ] },
   { id: "26b stop counting", act: "birthday", place: "bridge", layout: { spud: [0.3, 0, -30] },
-    shot: { t: "alone", who: ["spud"], push: -0.03 }, seq: [
-      ["n", "You stood on the bridge where he'd walked away."], ["wait", 0.6],
-      ["cut", { t: "close", who: ["spud"] }], ["n", "Two hundred and fifteen. You had counted every one."], ["n", "And you still didn't know a single why."], ["wait", 1.2] ] },
+    shot: { t: "close", who: ["spud"] }, seq: [
+      ["n", "Two hundred and fifteen. You had counted every one."], ["n", "And you still didn't know a single why."], ["wait", 1.2] ] },
 
   // ---------------------------------------------------------------- ACT 7: THE PAYOFF (trust, surprise, warmth)
   { id: "27 come with me", act: "party", place: "street", layout: { spud: [-0.45, 0, ["to", "wedge"]], wedge: [0.45, 0, ["to", "spud"]] },

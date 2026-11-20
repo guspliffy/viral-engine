@@ -59,11 +59,12 @@
       211
      ],
      [
-      1.55,
+      4.74,
       212
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    },
    {
     "who": "baker",
@@ -73,11 +74,12 @@
       3
      ],
      [
-      22.05,
+      20.43,
       4
      ]
     ],
     "free": true,
+    "clamp": true,
     "k": 0.85
    }
   ]
@@ -112,8 +114,8 @@
  },
  "creative": {
   "length": [
-   27.12,
-   27.12
+   25,
+   25
   ]
  },
  "hook": {
@@ -198,26 +200,17 @@
  ],
  "captions": [
   {
-   "from": 0.15,
-   "to": 1,
-   "text": "Mm-mm!",
-   "pos": 128,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 1,
-   "to": 2.1,
+   "from": 3.99,
+   "to": 4.97,
    "text": "Delicious!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 1.85,
-   "to": 4.45,
+   "from": 4.99,
+   "to": 7.19,
    "text": "212",
    "pos": 880,
    "pop": false,
@@ -227,10 +220,10 @@
    "stroke": "#24232b"
   },
   {
-   "from": 21.25,
-   "to": 22.6,
+   "from": 19.29,
+   "to": 20.66,
    "text": "Fresh today!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -238,29 +231,29 @@
  ],
  "beats": [
   {
-   "name": "01 delicious two",
+   "name": "01 delicious close",
    "at": 0,
-   "len": 2.935,
+   "len": 2.495,
    "shot": {
     "pos": [
-     -2.795,
-     0.913,
-     3.778
+     -2.622,
+     0.867,
+     2.523
     ],
     "look": [
-     -1.5,
-     0.645,
-     1
+     -1.047,
+     0.76,
+     1.211
     ],
-    "fov": 36,
+    "fov": 30,
     "to": {
      "pos": [
-      -2.666,
-      0.886,
-      3.5
+      -2.464,
+      0.857,
+      2.392
      ]
     },
-    "dur": 5.87,
+    "dur": 4.99,
     "yaw": {
      "keys": [
       [
@@ -268,11 +261,11 @@
        0
       ],
       [
-       5.87,
+       4.99,
        4
       ]
      ],
-     "pivot": 3.077
+     "pivot": 2.053
     }
    },
    "do": [
@@ -383,40 +376,7 @@
       "curve": 0.5
      },
      "dur": 0.25,
-     "at": 0.15
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.25,
-     "at": 0.15
-    },
-    {
-     "who": "mash",
-     "do": "hop",
-     "count": 1,
-     "height": 0.05,
-     "at": 0.15
-    },
-    {
-     "who": "mash",
-     "do": "talk",
-     "line": "mm-mm!",
-     "tone": "excited",
-     "dur": 0.7,
-     "blink": false,
-     "voice": false,
-     "at": 0.15
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 0.9
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -426,40 +386,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 1
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.25,
-     "at": 1
-    },
-    {
-     "who": "mash",
-     "do": "hop",
-     "count": 1,
-     "height": 0.05,
-     "at": 1
-    },
-    {
-     "who": "mash",
-     "do": "talk",
-     "line": "delicious!",
-     "tone": "excited",
-     "dur": 0.7,
-     "blink": false,
-     "voice": false,
-     "at": 1
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 1.75
+     "at": 0.1
     },
     {
      "macro": "narrate",
@@ -468,56 +395,90 @@
      "take": 1,
      "dur": 3.77,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 1.85
+     "at": 0.1
     }
    ]
   },
   {
-   "name": "01 delicious close +",
-   "at": 2.935,
-   "len": 2.935,
+   "name": "01 delicious two +",
+   "at": 2.495,
+   "len": 2.495,
    "shot": {
     "pos": [
-     -1.948,
-     0.608,
-     2.28
+     -2.795,
+     0.913,
+     3.778
     ],
     "look": [
-     -1.953,
-     0.53,
-     0.789
+     -1.5,
+     0.645,
+     1
     ],
-    "fov": 30,
+    "fov": 36,
     "to": {
      "pos": [
-      -1.948,
-      0.6,
-      2.131
+      -2.666,
+      0.886,
+      3.5
      ]
     },
-    "dur": 2.935,
+    "dur": 2.495,
     "yaw": {
      "keys": [
       [
-       2.935,
+       2.495,
        0
       ],
       [
-       5.87,
+       4.99,
        -4
       ]
      ],
-     "pivot": 1.493
+     "pivot": 3.077
     }
    },
-   "do": []
+   "do": [
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.25,
+     "at": 1.495
+    },
+    {
+     "who": "mash",
+     "do": "hop",
+     "count": 1,
+     "height": 0.05,
+     "at": 1.495
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "delicious!",
+     "tone": "excited",
+     "voice": "mash",
+     "dur": 0.9,
+     "caption": false,
+     "at": 1.495
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.445
+    }
+   ]
   },
   {
    "name": "01 delicious close",
-   "at": 5.87,
-   "len": 2.505,
+   "at": 4.99,
+   "len": 2.375,
    "shot": {
     "pos": [
      -1.948,
@@ -537,15 +498,15 @@
       2.131
      ]
     },
-    "dur": 5.01,
+    "dur": 4.75,
     "yaw": {
      "keys": [
       [
-       5.87,
+       4.99,
        0
       ],
       [
-       10.88,
+       9.74,
        -4
       ]
      ],
@@ -570,7 +531,7 @@
      "take": 1,
      "dur": 3.2,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
      "at": 0
     }
@@ -578,8 +539,8 @@
   },
   {
    "name": "01 delicious close +",
-   "at": 8.375,
-   "len": 2.505,
+   "at": 7.365,
+   "len": 2.375,
    "shot": {
     "pos": [
      -2.797,
@@ -599,15 +560,15 @@
       2.433
      ]
     },
-    "dur": 2.505,
+    "dur": 2.375,
     "yaw": {
      "keys": [
       [
-       8.375,
+       7.365,
        0
       ],
       [
-       10.88,
+       9.74,
        4
       ]
      ],
@@ -622,7 +583,7 @@
      "take": 1,
      "dur": 1.31,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
      "at": 0.945
     }
@@ -630,8 +591,8 @@
   },
   {
    "name": "01 delicious two",
-   "at": 10.88,
-   "len": 3.12,
+   "at": 9.74,
+   "len": 2.61,
    "shot": {
     "pos": [
      -3.169,
@@ -651,15 +612,15 @@
       3.314
      ]
     },
-    "dur": 3.12,
+    "dur": 2.61,
     "yaw": {
      "keys": [
       [
-       10.88,
+       9.74,
        0
       ],
       [
-       14,
+       12.35,
        4
       ]
      ],
@@ -694,7 +655,7 @@
      "take": 2,
      "dur": 2.21,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
      "at": 0
     },
@@ -710,7 +671,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.108
+     "at": 2.598
     },
     {
      "who": "spud",
@@ -719,12 +680,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.108
+     "at": 2.598
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 3.108
+     "at": 2.598
     },
     {
      "who": "mash",
@@ -738,7 +699,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.108
+     "at": 2.598
     },
     {
      "who": "mash",
@@ -747,12 +708,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.108
+     "at": 2.598
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 3.108
+     "at": 2.598
     },
     {
      "who": "baker",
@@ -766,7 +727,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.108
+     "at": 2.598
     },
     {
      "who": "baker",
@@ -775,18 +736,18 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.108
+     "at": 2.598
     },
     {
      "who": "baker",
      "do": "show",
-     "at": 3.108
+     "at": 2.598
     }
    ]
   },
   {
    "name": "02 the morning wide",
-   "at": 14,
+   "at": 12.35,
    "len": 3.2,
    "shot": {
     "pos": [
@@ -807,15 +768,15 @@
       4.337
      ]
     },
-    "dur": 7.25,
+    "dur": 6.94,
     "yaw": {
      "keys": [
       [
-       14,
+       12.35,
        0
       ],
       [
-       21.25,
+       19.29,
        -4
       ]
      ],
@@ -851,16 +812,16 @@
      "take": 2,
      "dur": 5.29,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.15
+     "at": 0.1
     }
    ]
   },
   {
    "name": "02 the morning close +",
-   "at": 17.2,
-   "len": 2.025,
+   "at": 15.55,
+   "len": 3.74,
    "shot": {
     "pos": [
      -1.948,
@@ -880,59 +841,19 @@
       2.131
      ]
     },
-    "dur": 4.05,
+    "dur": 3.74,
     "yaw": {
      "keys": [
       [
-       17.2,
+       15.55,
        0
       ],
       [
-       21.25,
+       19.29,
        -4
       ]
      ],
      "pivot": 1.493
-    }
-   },
-   "do": []
-  },
-  {
-   "name": "02 the morning close +",
-   "at": 19.225,
-   "len": 2.025,
-   "shot": {
-    "pos": [
-     -2.797,
-     0.635,
-     2.616
-    ],
-    "look": [
-     -1.953,
-     0.53,
-     0.789
-    ],
-    "fov": 30,
-    "to": {
-     "pos": [
-      -2.713,
-      0.625,
-      2.433
-     ]
-    },
-    "dur": 2.025,
-    "yaw": {
-     "keys": [
-      [
-       19.225,
-       0
-      ],
-      [
-       21.25,
-       4
-      ]
-     ],
-     "pivot": 2.015
     }
    },
    "do": [
@@ -943,16 +864,16 @@
      "take": 1,
      "dur": 1.31,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.465
+     "at": 2.31
     }
    ]
   },
   {
    "name": "02 the morning close",
-   "at": 21.25,
-   "len": 2.935,
+   "at": 19.29,
+   "len": 2.855,
    "shot": {
     "pos": [
      -0.257,
@@ -972,15 +893,15 @@
       1.986
      ]
     },
-    "dur": 2.935,
+    "dur": 2.855,
     "yaw": {
      "keys": [
       [
-       21.25,
+       19.29,
        0
       ],
       [
-       24.185,
+       22.145,
        4
       ]
      ],
@@ -1005,12 +926,12 @@
     },
     {
      "who": "baker",
-     "do": "talk",
+     "macro": "say",
      "line": "fresh today!",
      "tone": "excited",
-     "dur": 0.95,
-     "blink": false,
-     "voice": false,
+     "voice": "wizard",
+     "dur": 1.29,
+     "caption": false,
      "at": 0
     },
     {
@@ -1019,7 +940,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1
+     "at": 1.34
     },
     {
      "macro": "narrate",
@@ -1028,48 +949,48 @@
      "take": 2,
      "dur": 3.98,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 1.1
+     "at": 1.39
     }
    ]
   },
   {
-   "name": "02 the morning two +",
-   "at": 24.185,
-   "len": 2.935,
+   "name": "02 the morning close +",
+   "at": 22.145,
+   "len": 2.855,
    "shot": {
     "pos": [
-     -2.945,
-     1.001,
-     5.401
+     -1.169,
+     0.685,
+     2.064
     ],
     "look": [
-     -0.79,
-     0.555,
-     0.78
+     0.373,
+     0.58,
+     0.77
     ],
-    "fov": 36,
+    "fov": 30,
     "to": {
      "pos": [
-      -2.729,
-      0.956,
-      4.939
+      -1.015,
+      0.675,
+      1.934
      ]
     },
-    "dur": 2.935,
+    "dur": 2.855,
     "yaw": {
      "keys": [
       [
-       24.185,
+       22.145,
        0
       ],
       [
-       27.12,
-       -4
+       25,
+       4
       ]
      ],
-     "pivot": 5.118
+     "pivot": 2.016
     }
    },
    "do": []
@@ -1081,13 +1002,13 @@
    "who": "baker",
    "with": "toque",
    "from": 0,
-   "to": 27.12,
+   "to": 25,
    "reason": "the chef's hat is worn"
   }
  ],
  "story": {
   "T0": 0,
-  "T1": 27.12
+  "T1": 25
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 0-27.12 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 0-25 s)."
 }

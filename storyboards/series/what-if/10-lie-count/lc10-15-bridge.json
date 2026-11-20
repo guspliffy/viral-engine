@@ -59,18 +59,19 @@
       214
      ],
      [
-      6.54,
+      6.77,
       215
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    }
   ]
  },
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 222.1,
+  "skip": 194.64,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -97,8 +98,8 @@
  },
  "creative": {
   "length": [
-   21.89,
-   21.89
+   18.06,
+   18.06
   ]
  },
  "cast": [
@@ -132,26 +133,26 @@
  "props": [],
  "captions": [
   {
-   "from": 3.74,
-   "to": 5.74,
+   "from": 3.56,
+   "to": 4.99,
    "text": "Where were you last night?",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 5.74,
-   "to": 6.84,
+   "from": 5.01,
+   "to": 7,
    "text": "Home. sleeping.",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 6.84,
-   "to": 9.04,
+   "from": 7.02,
+   "to": 9.22,
    "text": "215",
    "pos": 880,
    "pop": false,
@@ -161,37 +162,37 @@
    "stroke": "#24232b"
   },
   {
-   "from": 6.84,
-   "to": 8.54,
+   "from": 7.02,
+   "to": 8.39,
    "text": "Two hundred and fifteen!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 8.54,
-   "to": 9.39,
+   "from": 8.41,
+   "to": 9.23,
    "text": "What?",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 9.39,
-   "to": 12.24,
+   "from": 9.25,
+   "to": 11.37,
    "text": "I can see it! every single lie!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 12.95,
-   "to": 14.05,
+   "from": 11.87,
+   "to": 12.9,
    "text": "...okay.",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -201,7 +202,7 @@
   {
    "name": "20 where were you two",
    "at": 0,
-   "len": 3.74,
+   "len": 3.56,
    "shot": {
     "pos": [
      20.913,
@@ -221,7 +222,7 @@
       -34
      ]
     },
-    "dur": 6.84,
+    "dur": 7.02,
     "yaw": {
      "keys": [
       [
@@ -229,7 +230,7 @@
        0
       ],
       [
-       6.84,
+       7.02,
        4
       ]
      ],
@@ -314,16 +315,16 @@
      "take": 1,
      "dur": 3.34,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.15
+     "at": 0.1
     }
    ]
   },
   {
    "name": "20 where were you close +",
-   "at": 3.74,
-   "len": 3.1,
+   "at": 3.56,
+   "len": 1.55,
    "shot": {
     "pos": [
      19.349,
@@ -343,15 +344,15 @@
       -33.879
      ]
     },
-    "dur": 3.1,
+    "dur": 3.46,
     "yaw": {
      "keys": [
       [
-       3.74,
+       3.56,
        0
       ],
       [
-       6.84,
+       7.02,
        4
       ]
      ],
@@ -384,12 +385,12 @@
     },
     {
      "who": "spud",
-     "do": "talk",
+     "macro": "say",
      "line": "where were you last night?",
      "tone": "question",
-     "dur": 1.85,
-     "blink": false,
-     "voice": false,
+     "voice": "teo",
+     "dur": 1.35,
+     "caption": false,
      "at": 0
     },
     {
@@ -398,7 +399,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.9
+     "at": 1.4
     },
     {
      "who": "spud",
@@ -406,14 +407,14 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.9
+     "at": 1.4
     },
     {
      "who": "mash",
      "do": "expr",
      "expr": "kind",
      "dur": 0.25,
-     "at": 2
+     "at": 1.45
     },
     {
      "who": "mash",
@@ -421,32 +422,73 @@
      "side": "R",
      "pose": "point",
      "dur": 0.25,
-     "at": 2
+     "at": 1.45
     },
     {
      "who": "mash",
-     "do": "talk",
+     "macro": "say",
      "line": "home. sleeping.",
      "tone": "calm",
-     "dur": 0.95,
-     "blink": false,
-     "voice": false,
-     "at": 2
+     "voice": "mash",
+     "dur": 1.91,
+     "caption": false,
+     "at": 1.45
+    }
+   ]
+  },
+  {
+   "name": "20 where were you two +",
+   "at": 5.11,
+   "len": 1.91,
+   "shot": {
+    "pos": [
+     20.64,
+     5.077,
+     -35.231
+    ],
+    "look": [
+     18,
+     4.822,
+     -34
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      20.376,
+      5.051,
+      -35.108
+     ]
     },
+    "dur": 1.91,
+    "yaw": {
+     "keys": [
+      [
+       5.11,
+       0
+      ],
+      [
+       7.02,
+       -4
+      ]
+     ],
+     "pivot": 2.924
+    }
+   },
+   "do": [
     {
      "who": "mash",
      "do": "arm",
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 3
+     "at": 1.86
     }
    ]
   },
   {
    "name": "20 where were you ots",
-   "at": 6.84,
-   "len": 1.7,
+   "at": 7.02,
+   "len": 1.39,
    "shot": {
     "pos": [
      19.301,
@@ -466,15 +508,15 @@
       -32.423
      ]
     },
-    "dur": 1.7,
+    "dur": 1.39,
     "yaw": {
      "keys": [
       [
-       6.84,
+       7.02,
        0
       ],
       [
-       8.54,
+       8.41,
        -4
       ]
      ],
@@ -506,12 +548,12 @@
     },
     {
      "who": "spud",
-     "do": "talk",
+     "macro": "say",
      "line": "two hundred and fifteen!",
      "tone": "excited",
-     "dur": 1.55,
-     "blink": false,
-     "voice": false,
+     "voice": "teo",
+     "dur": 1.29,
+     "caption": false,
      "at": 0
     },
     {
@@ -520,14 +562,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.6
+     "at": 1.34
     }
    ]
   },
   {
    "name": "20 where were you ots",
-   "at": 8.54,
-   "len": 0.85,
+   "at": 8.41,
+   "len": 0.84,
    "shot": {
     "pos": [
      16.699,
@@ -547,15 +589,15 @@
       -35.577
      ]
     },
-    "dur": 0.85,
+    "dur": 0.84,
     "yaw": {
      "keys": [
       [
-       8.54,
+       8.41,
        0
       ],
       [
-       9.39,
+       9.25,
        4
       ]
      ],
@@ -588,12 +630,12 @@
     },
     {
      "who": "mash",
-     "do": "talk",
+     "macro": "say",
      "line": "what?",
      "tone": "question",
-     "dur": 0.7,
-     "blink": false,
-     "voice": false,
+     "voice": "mash",
+     "dur": 0.74,
+     "caption": false,
      "at": 0
     },
     {
@@ -602,7 +644,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.75
+     "at": 0.79
     },
     {
      "who": "mash",
@@ -610,14 +652,14 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 0.75
+     "at": 0.79
     }
    ]
   },
   {
    "name": "20 where were you ots",
-   "at": 9.39,
-   "len": 2.6,
+   "at": 9.25,
+   "len": 2.14,
    "shot": {
     "pos": [
      19.301,
@@ -637,15 +679,15 @@
       -32.423
      ]
     },
-    "dur": 2.6,
+    "dur": 2.14,
     "yaw": {
      "keys": [
       [
-       9.39,
+       9.25,
        0
       ],
       [
-       11.99,
+       11.39,
        -4
       ]
      ],
@@ -670,12 +712,12 @@
     },
     {
      "who": "spud",
-     "do": "talk",
+     "macro": "say",
      "line": "i can see it! every single lie!",
      "tone": "excited",
-     "dur": 2.45,
-     "blink": false,
-     "voice": false,
+     "voice": "teo",
+     "dur": 2.04,
+     "caption": false,
      "at": 0
     },
     {
@@ -684,14 +726,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 2.5
+     "at": 2.09
     }
    ]
   },
   {
    "name": "20 where were you close",
-   "at": 11.99,
-   "len": 1.81,
+   "at": 11.39,
+   "len": 1.53,
    "shot": {
     "pos": [
      19.349,
@@ -711,15 +753,15 @@
       -34.121
      ]
     },
-    "dur": 1.81,
+    "dur": 1.53,
     "yaw": {
      "keys": [
       [
-       11.99,
+       11.39,
        0
       ],
       [
-       13.8,
+       12.92,
        4
       ]
      ],
@@ -736,20 +778,20 @@
     },
     {
      "who": "mash",
-     "do": "talk",
+     "macro": "say",
      "line": "...okay.",
      "tone": "sad",
-     "dur": 0.7,
-     "blink": false,
-     "voice": false,
-     "at": 0.96
+     "voice": "mash",
+     "dur": 0.95,
+     "caption": false,
+     "at": 0.48
     }
    ]
   },
   {
    "name": "20 where were you two",
-   "at": 13.8,
-   "len": 2.3,
+   "at": 12.92,
+   "len": 2.57,
    "shot": {
     "pos": [
      21.679,
@@ -769,15 +811,15 @@
       -34
      ]
     },
-    "dur": 2.3,
+    "dur": 2.57,
     "yaw": {
      "keys": [
       [
-       13.8,
+       12.92,
        0
       ],
       [
-       16.1,
+       15.49,
        -4
       ]
      ],
@@ -788,7 +830,7 @@
     {
      "who": "mash",
      "do": "turn",
-     "to": -3.879,
+     "to": -90.754,
      "dur": 0.25,
      "at": 0
     },
@@ -796,10 +838,10 @@
      "who": "mash",
      "do": "move",
      "to": [
-      17.8,
-      -30.6
+      14.2,
+      -33.6
      ],
-     "y": 4.184,
+     "y": 4.076,
      "dur": 4.5,
      "at": 0.1
     },
@@ -810,16 +852,16 @@
      "take": 1,
      "dur": 2.25,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.72
+     "at": 0.36
     }
    ]
   },
   {
    "name": "20 where were you close +",
-   "at": 16.1,
-   "len": 2.3,
+   "at": 15.49,
+   "len": 2.57,
    "shot": {
     "pos": [
      19.349,
@@ -839,16 +881,16 @@
       -33.879
      ]
     },
-    "dur": 2.3,
+    "dur": 2.57,
     "yaw": {
      "keys": [
       [
-       16.1,
+       15.49,
        0
       ],
       [
-       18.4,
-       -4
+       18.06,
+       4
       ]
      ],
      "pivot": 1.493
@@ -856,137 +898,42 @@
    },
    "do": [
     {
-     "who": "mash",
-     "do": "hide",
-     "at": 1.988
-    },
-    {
-     "who": "mash",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 1.988
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      18,
-      -34.45
-     ],
-     "y": 4.177,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.288
-    },
-    {
-     "who": "spud",
-     "do": "turn",
-     "to": 50,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.288
-    },
-    {
-     "who": "spud",
-     "do": "show",
-     "at": 2.288
-    },
-    {
-     "who": "mash",
-     "do": "hide",
-     "at": 2.288
-    },
-    {
-     "who": "mash",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.288
-    }
-   ]
-  },
-  {
-   "name": "21 right about the number alone",
-   "at": 18.4,
-   "len": 3.49,
-   "shot": {
-    "pos": [
-     22.799,
-     5.903,
-     -34.45
-    ],
-    "look": [
-     18,
-     4.707,
-     -34.45
-    ],
-    "fov": 40,
-    "to": {
-     "pos": [
-      22.991,
-      5.951,
-      -34.45
-     ]
-    },
-    "dur": 3.49,
-    "yaw": {
-     "keys": [
-      [
-       18.4,
-       0
-      ],
-      [
-       21.89,
-       4
-      ]
-     ],
-     "pivot": 4.946
-    }
-   },
-   "do": [
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
      "macro": "narrate",
      "line": "You were right about the number.",
      "voice": "narrator",
      "take": 1,
      "dur": 1.89,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 0.15
+     "at": 0.16
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 2.458
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.458
     }
    ]
   }
  ],
  "visible": [],
  "story": {
-  "T0": 222.1,
-  "T1": 243.99
+  "T0": 194.64,
+  "T1": 212.7
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 222.1-243.99 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 194.64-212.7 s)."
 }

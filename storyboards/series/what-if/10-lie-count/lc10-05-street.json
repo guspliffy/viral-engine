@@ -58,18 +58,19 @@
       38
      ],
      [
-      2.65,
+      2.37,
       39
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    }
   ]
  },
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 84.07,
+  "skip": 76.28,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -100,8 +101,8 @@
  },
  "creative": {
   "length": [
-   10.82,
-   10.82
+   9.31,
+   9.31
   ]
  },
  "cast": [
@@ -133,28 +134,28 @@
  "props": [],
  "captions": [
   {
-   "from": 0.15,
-   "to": 1.85,
+   "from": 0.1,
+   "to": 1.54,
    "text": "Who ate my fries?",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 1.85,
-   "to": 3.2,
+   "from": 1.56,
+   "to": 2.6,
    "text": "Not me!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 3.67,
-   "to": 5.32,
+   "from": 2.98,
+   "to": 4.02,
    "text": "...it was me.",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -164,7 +165,7 @@
   {
    "name": "08 the fries two",
    "at": 0,
-   "len": 1.85,
+   "len": 1.56,
    "shot": {
     "pos": [
      1,
@@ -184,7 +185,7 @@
       3.821
      ]
     },
-    "dur": 2.95,
+    "dur": 2.62,
     "yaw": {
      "keys": [
       [
@@ -192,7 +193,7 @@
        0
       ],
       [
-       2.95,
+       2.62,
        4
       ]
      ],
@@ -276,7 +277,7 @@
      "side": "R",
      "pose": "shrug",
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -284,17 +285,17 @@
      "side": "L",
      "pose": "shrug",
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "spud",
-     "do": "talk",
+     "macro": "say",
      "line": "who ate my fries?",
      "tone": "question",
-     "dur": 1.55,
-     "blink": false,
-     "voice": false,
-     "at": 0.15
+     "voice": "teo",
+     "dur": 1.36,
+     "caption": false,
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -302,7 +303,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.75
+     "at": 1.51
     },
     {
      "who": "spud",
@@ -310,14 +311,14 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.75
+     "at": 1.51
     }
    ]
   },
   {
    "name": "08 the fries close +",
-   "at": 1.85,
-   "len": 1.1,
+   "at": 1.56,
+   "len": 1.06,
    "shot": {
     "pos": [
      0.815,
@@ -337,15 +338,15 @@
       2.414
      ]
     },
-    "dur": 1.1,
+    "dur": 1.06,
     "yaw": {
      "keys": [
       [
-       1.85,
+       1.56,
        0
       ],
       [
-       2.95,
+       2.62,
        -4
       ]
      ],
@@ -377,12 +378,12 @@
     },
     {
      "who": "chip",
-     "do": "talk",
+     "macro": "say",
      "line": "not me!",
      "tone": "excited",
-     "dur": 0.95,
-     "blink": false,
-     "voice": false,
+     "voice": "chip",
+     "dur": 0.96,
+     "caption": false,
      "at": 0
     },
     {
@@ -391,14 +392,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1
+     "at": 1.01
     }
    ]
   },
   {
    "name": "08 the fries close",
-   "at": 2.95,
-   "len": 0.72,
+   "at": 2.62,
+   "len": 0.36,
    "shot": {
     "pos": [
      1.185,
@@ -418,15 +419,15 @@
       2.414
      ]
     },
-    "dur": 0.72,
+    "dur": 0.5,
     "yaw": {
      "keys": [
       [
-       2.95,
+       2.62,
        0
       ],
       [
-       3.67,
+       2.98,
        -4
       ]
      ],
@@ -445,8 +446,8 @@
   },
   {
    "name": "08 the fries two",
-   "at": 3.67,
-   "len": 3.2,
+   "at": 2.98,
+   "len": 3.165,
    "shot": {
     "pos": [
      1,
@@ -466,15 +467,15 @@
       3.821
      ]
     },
-    "dur": 3.2,
+    "dur": 3.165,
     "yaw": {
      "keys": [
       [
-       3.67,
+       2.98,
        0
       ],
       [
-       6.87,
+       6.145,
        4
       ]
      ],
@@ -491,12 +492,12 @@
     },
     {
      "who": "chip",
-     "do": "talk",
+     "macro": "say",
      "line": "...it was me.",
      "tone": "sad",
-     "dur": 1.25,
-     "blink": false,
-     "voice": false,
+     "voice": "chip",
+     "dur": 0.96,
+     "caption": false,
      "at": 0
     },
     {
@@ -506,16 +507,16 @@
      "take": 2,
      "dur": 4.9,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 1.4
+     "at": 1.06
     }
    ]
   },
   {
    "name": "08 the fries close +",
-   "at": 6.87,
-   "len": 1.975,
+   "at": 6.145,
+   "len": 3.165,
    "shot": {
     "pos": [
      1.185,
@@ -535,15 +536,15 @@
       2.414
      ]
     },
-    "dur": 1.975,
+    "dur": 3.165,
     "yaw": {
      "keys": [
       [
-       6.87,
+       6.145,
        0
       ],
       [
-       8.845,
+       9.31,
        4
       ]
      ],
@@ -551,52 +552,12 @@
     }
    },
    "do": []
-  },
-  {
-   "name": "08 the fries close +",
-   "at": 8.845,
-   "len": 1.975,
-   "shot": {
-    "pos": [
-     0.557,
-     0.635,
-     3.213
-    ],
-    "look": [
-     0.55,
-     0.53,
-     1.2
-    ],
-    "fov": 30,
-    "to": {
-     "pos": [
-      0.556,
-      0.625,
-      3.011
-     ]
-    },
-    "dur": 1.975,
-    "yaw": {
-     "keys": [
-      [
-       8.845,
-       0
-      ],
-      [
-       10.82,
-       -4
-      ]
-     ],
-     "pivot": 2.016
-    }
-   },
-   "do": []
   }
  ],
  "visible": [],
  "story": {
-  "T0": 84.07,
-  "T1": 94.89
+  "T0": 76.28,
+  "T1": 85.59
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 84.07-94.89 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 76.28-85.59 s)."
 }

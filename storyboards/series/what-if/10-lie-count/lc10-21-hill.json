@@ -59,7 +59,8 @@
       43
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    },
    {
     "who": "mash",
@@ -69,7 +70,8 @@
       215
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    },
    {
     "who": "wedge",
@@ -79,7 +81,8 @@
       0
      ]
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    },
    {
     "who": "spud",
@@ -91,16 +94,17 @@
     ],
     "show": [
      0,
-     17.12
+     13.82
     ],
-    "free": true
+    "free": true,
+    "clamp": true
    }
   ]
  },
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 390.82,
+  "skip": 330.54,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -131,8 +135,8 @@
  },
  "creative": {
   "length": [
-   17.12,
-   17.12
+   13.82,
+   13.82
   ]
  },
  "cast": [
@@ -188,28 +192,28 @@
  "props": [],
  "captions": [
   {
-   "from": 5.12,
-   "to": 7.67,
+   "from": 3.98,
+   "to": 6.31,
    "text": "Trust me. the cake is terrible.",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 8.26,
-   "to": 9.96,
+   "from": 6.75,
+   "to": 8.25,
    "text": "Next year, i bake!",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 9.96,
-   "to": 11.91,
+   "from": 8.27,
+   "to": 10.02,
    "text": "Trust me. please don't.",
-   "pos": 128,
+   "pos": 250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -219,7 +223,7 @@
   {
    "name": "31 the sunset wide",
    "at": 0,
-   "len": 5.12,
+   "len": 3.98,
    "shot": {
     "pos": [
      0.2,
@@ -239,7 +243,7 @@
       0.891
      ]
     },
-    "dur": 5.12,
+    "dur": 3.98,
     "yaw": {
      "keys": [
       [
@@ -247,7 +251,7 @@
        0
       ],
       [
-       5.12,
+       3.98,
        4
       ]
      ],
@@ -402,16 +406,16 @@
      "take": 1,
      "dur": 2.8,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
-     "at": 1.35
+     "at": 0.7
     }
    ]
   },
   {
    "name": "31 the sunset close",
-   "at": 5.12,
-   "len": 2.3,
+   "at": 3.98,
+   "len": 2.35,
    "shot": {
     "pos": [
      1.4,
@@ -431,15 +435,15 @@
       -3.963
      ]
     },
-    "dur": 2.3,
+    "dur": 2.35,
     "yaw": {
      "keys": [
       [
-       5.12,
+       3.98,
        0
       ],
       [
-       7.42,
+       6.33,
        -4
       ]
      ],
@@ -457,12 +461,12 @@
     },
     {
      "who": "wedge",
-     "do": "talk",
+     "macro": "say",
      "line": "trust me. the cake is terrible.",
      "tone": "calm",
-     "dur": 2.15,
-     "blink": false,
-     "voice": false,
+     "voice": "wedge",
+     "dur": 2.25,
+     "caption": false,
      "at": 0
     },
     {
@@ -471,14 +475,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 2.2
+     "at": 2.3
     }
    ]
   },
   {
    "name": "31 the sunset close",
-   "at": 7.42,
-   "len": 0.84,
+   "at": 6.33,
+   "len": 0.42,
    "shot": {
     "pos": [
      0.6,
@@ -498,15 +502,15 @@
       -3.963
      ]
     },
-    "dur": 0.84,
+    "dur": 0.5,
     "yaw": {
      "keys": [
       [
-       7.42,
+       6.33,
        0
       ],
       [
-       8.26,
+       6.75,
        4
       ]
      ],
@@ -528,8 +532,8 @@
   },
   {
    "name": "31 the sunset close",
-   "at": 8.26,
-   "len": 1.7,
+   "at": 6.75,
+   "len": 1.52,
    "shot": {
     "pos": [
      -1,
@@ -549,15 +553,15 @@
       -3.963
      ]
     },
-    "dur": 1.7,
+    "dur": 1.52,
     "yaw": {
      "keys": [
       [
-       8.26,
+       6.75,
        0
       ],
       [
-       9.96,
+       8.27,
        -4
       ]
      ],
@@ -582,12 +586,12 @@
     },
     {
      "who": "chip",
-     "do": "talk",
+     "macro": "say",
      "line": "next year, i bake!",
      "tone": "excited",
-     "dur": 1.55,
-     "blink": false,
-     "voice": false,
+     "voice": "chip",
+     "dur": 1.42,
+     "caption": false,
      "at": 0
     },
     {
@@ -596,14 +600,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.6
+     "at": 1.47
     }
    ]
   },
   {
    "name": "31 the sunset close",
-   "at": 9.96,
-   "len": 2.3,
+   "at": 8.27,
+   "len": 2.07,
    "shot": {
     "pos": [
      1.974,
@@ -623,15 +627,15 @@
       -4.228
      ]
     },
-    "dur": 2.3,
+    "dur": 2.07,
     "yaw": {
      "keys": [
       [
-       9.96,
+       8.27,
        0
       ],
       [
-       12.26,
+       10.34,
        4
       ]
      ],
@@ -656,12 +660,12 @@
     },
     {
      "who": "wedge",
-     "do": "talk",
+     "macro": "say",
      "line": "trust me. please don't.",
      "tone": "calm",
-     "dur": 1.55,
-     "blink": false,
-     "voice": false,
+     "voice": "wedge",
+     "dur": 1.67,
+     "caption": false,
      "at": 0
     },
     {
@@ -670,14 +674,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 1.6
+     "at": 1.72
     }
    ]
   },
   {
    "name": "31 the sunset wide",
-   "at": 12.26,
-   "len": 4.86,
+   "at": 10.34,
+   "len": 3.48,
    "shot": {
     "pos": [
      0.693,
@@ -697,15 +701,15 @@
       0.86
      ]
     },
-    "dur": 4.86,
+    "dur": 3.48,
     "yaw": {
      "keys": [
       [
-       12.26,
+       10.34,
        0
       ],
       [
-       17.12,
+       13.82,
        -4
       ]
      ],
@@ -720,7 +724,7 @@
      "take": 1,
      "dur": 2.21,
      "caption": true,
-     "pos": 128,
+     "pos": 250,
      "gain": 4,
      "at": 0
     }
@@ -729,8 +733,8 @@
  ],
  "visible": [],
  "story": {
-  "T0": 390.82,
-  "T1": 407.94
+  "T0": 330.54,
+  "T1": 344.36
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 390.82-407.94 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 330.54-344.36 s)."
 }

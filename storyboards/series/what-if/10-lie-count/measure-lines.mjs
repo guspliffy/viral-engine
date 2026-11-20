@@ -3,7 +3,7 @@
 //   node storyboards/series/what-if/10-lie-count/measure-lines.mjs
 import { writeFileSync } from "node:fs";
 import { withSpeech } from "../../../../engine/voice/speech.mjs";
-import { NARRATOR, SCENES, TAKES } from "./film.mjs";
+import { NARRATOR, VOICES, SCENES, TAKES } from "./film.mjs";
 const lines = [...new Set(SCENES.flatMap((s) => s.seq.filter((x) => x[0] === "n").map((x) => x[1])))];
 // in chunks of 10, so every finished chunk is cached in out/speech (a killed run keeps what it read)
 const dur = {};
@@ -12,6 +12,14 @@ for (let i = 0; i < lines.length; i += 10) {
   const out = withSpeech({ beats: [{ at: 0, do: part.map((line) => ({ macro: "narrate", line, voice: NARRATOR, take: TAKES[line] ?? 1 })) }] }, {});
   out.beats[0].do.forEach((it, j) => { dur[part[j]] = it.dur; });
   console.log(`${Math.min(i + 10, lines.length)} of ${lines.length}`);
+}
+// draft 3: the characters' lines in their own voices, keyed "who|line" (same tone as the film, so the cache matches)
+const said = [...new Map(SCENES.flatMap((sc) => sc.seq.filter((x) => x[0] === "s").map((x) => [`${x[1]}|${x[2]}`, x]))).values()];
+for (let i = 0; i < said.length; i += 10) {
+  const part = said.slice(i, i + 10);
+  const out = withSpeech({ beats: [{ at: 0, do: part.map(([, who, line, tone]) => ({ who, macro: "say", line, tone, voice: VOICES[who] })) }] }, {});
+  out.beats[0].do.forEach((it, j) => { dur[`${part[j][1]}|${part[j][2]}`] = it.dur; });
+  console.log(`said ${Math.min(i + 10, said.length)} of ${said.length}`);
 }
 writeFileSync(new URL("./lines.json", import.meta.url), JSON.stringify(dur, null, 1) + "\n");
 const tot = Object.values(dur).reduce((a, b) => a + b, 0);
