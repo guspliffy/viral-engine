@@ -1,0 +1,1537 @@
+{
+ "id": "monster-bench",
+ "title": "Egypt myth 01 monster bench",
+ "idea": "Engine look bench for the heartmonster prop (task T3), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#cdbfa6",
+  "floor": "#7a6e5c",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "m",
+   "kind": "heartmonster",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "low": 0,
+   "rear": 0,
+   "sit": 0,
+   "slump": 0,
+   "jaw": 0,
+   "jawTop": 0.27,
+   "chomp": 0,
+   "chew": 0,
+   "lick": 0,
+   "headYaw": 0,
+   "headPitch": 0,
+   "gait": 0,
+   "breath": 0,
+   "drool": 0.5,
+   "stain": 0,
+   "lids": 0.25,
+   "glow": 0.4,
+   "wag": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "stand34",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.597,
+     2.286,
+     8.744
+    ],
+    "look": [
+     0,
+     0.78,
+     0.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "standP",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     15.034,
+     1.568,
+     0.3
+    ],
+    "look": [
+     0,
+     0.78,
+     0.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "standB",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -7.148,
+     2.741,
+     -8.318
+    ],
+    "look": [
+     0,
+     0.78,
+     0.2
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "low",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     15.034,
+     1.588,
+     0.4
+    ],
+    "look": [
+     0,
+     0.8,
+     0.4
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 1,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "rear",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     15.034,
+     1.838,
+     0.3
+    ],
+    "look": [
+     0,
+     1.05,
+     0.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 1,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "lunge",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.899,
+     1.835,
+     5.431
+    ],
+    "look": [
+     0,
+     0.95,
+     0.6
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 1,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 1,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 1,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sit",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.049,
+     1.883,
+     7.843
+    ],
+    "look": [
+     0,
+     0.85,
+     0.1
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 1,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "slump",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.876,
+     1.563,
+     6.741
+    ],
+    "look": [
+     0,
+     0.45,
+     0.5
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 1,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "gait",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     15.034,
+     1.568,
+     0.3
+    ],
+    "look": [
+     0,
+     0.78,
+     0.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0.3,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "yawL",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.559,
+     2.112,
+     6.718
+    ],
+    "look": [
+     0,
+     1.05,
+     0.9
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 1,
+      "headPitch": -0.6,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "yawR",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.559,
+     2.112,
+     6.718
+    ],
+    "look": [
+     0,
+     1.05,
+     0.9
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": -1,
+      "headPitch": 0.6,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "jawF",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.883,
+     5.094
+    ],
+    "look": [
+     0,
+     0.95,
+     1.35
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 1,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "jawL",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.118,
+     1.609,
+     2.638
+    ],
+    "look": [
+     0,
+     1,
+     1.3
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 1,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "jawR",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.118,
+     1.609,
+     2.638
+    ],
+    "look": [
+     0,
+     1,
+     1.3
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 1,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "jawT",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     4.584,
+     3.232
+    ],
+    "look": [
+     0,
+     0.95,
+     1.3
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 1,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "lick0",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.342,
+     1.45,
+     3.385
+    ],
+    "look": [
+     0,
+     1.02,
+     1.42
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0.1,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "lick1",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.292,
+     1.45,
+     4.19
+    ],
+    "look": [
+     0,
+     1.02,
+     1.42
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0.5,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "lick2",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.342,
+     1.45,
+     3.385
+    ],
+    "look": [
+     0,
+     1.02,
+     1.42
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0.9,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "chew",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.62,
+     1.593,
+     4.422
+    ],
+    "look": [
+     0,
+     1.02,
+     1.3
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0.25,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "lowJaw",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.015,
+     1.02,
+     2.161
+    ],
+    "look": [
+     0,
+     0.7,
+     1.1
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 1,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 1,
+      "jawTop": 1,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "breath",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.933,
+     1.492,
+     2.722
+    ],
+    "look": [
+     0,
+     1,
+     1.5
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 1,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 1,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "drool",
+   "at": 21,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.535,
+     1.273,
+     4.159
+    ],
+    "look": [
+     0,
+     0.95,
+     1.5
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 1,
+      "stain": 1,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "mane",
+   "at": 22,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.412,
+     1.709,
+     3.286
+    ],
+    "look": [
+     0,
+     1.1,
+     0.62
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "eye",
+   "at": 23,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.024,
+     1.535,
+     2.093
+    ],
+    "look": [
+     0.17,
+     1.24,
+     1
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 1,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "claws",
+   "at": 24,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.673,
+     0.52,
+     1.849
+    ],
+    "look": [
+     0.3,
+     0.08,
+     0.7
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "nails",
+   "at": 25,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.099,
+     0.578,
+     0.378
+    ],
+    "look": [
+     0.37,
+     0.08,
+     -0.62
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flank",
+   "at": 26,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.632,
+     1.144,
+     -0.45
+    ],
+    "look": [
+     0,
+     0.75,
+     -0.45
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "rump",
+   "at": 27,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.665,
+     -5.253
+    ],
+    "look": [
+     0,
+     0.95,
+     -1.2
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "topH",
+   "at": 28,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     6.013,
+     2.049
+    ],
+    "look": [
+     0,
+     1.2,
+     1.2
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shut",
+   "at": 29,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.875,
+     1.361,
+     1.32
+    ],
+    "look": [
+     0,
+     1.02,
+     1.32
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 0,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "chomp",
+   "at": 30,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.201,
+     1.457,
+     2.476
+    ],
+    "look": [
+     0,
+     1,
+     1.35
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "low": 0,
+      "rear": 0,
+      "sit": 0,
+      "slump": 0,
+      "jaw": 1,
+      "jawTop": 0.27,
+      "chomp": 0,
+      "chew": 0,
+      "lick": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "gait": 0,
+      "breath": 0,
+      "drool": 0.5,
+      "stain": 0,
+      "lids": 0.25,
+      "glow": 0.4,
+      "wag": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "m",
+     "set": {
+      "jaw": 0
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.1
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/egypt-myth/01-heart/bench/make-monster-bench.mjs (engine bench, no story)."
+}
