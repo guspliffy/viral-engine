@@ -203,7 +203,7 @@ function buildStairs(P) {
   const numMats = [];
   for (const [n, x] of NUMS) {
     const a = numberTex(String(n), false), b = numberTex(String(n), true), m = overlay(a.tex, 0.10);
-    const pl = new THREE.Mesh(new THREE.PlaneGeometry(a.w, a.h), m); pl.position.set(x, -RISE / 2, 0.0025); pl.renderOrder = 2; pl.castShadow = false; grp(n).add(pl);
+    const pl = new THREE.Mesh(new THREE.PlaneGeometry(a.w, a.h), m); pl.position.set(x, -RISE / 2, 0.0085);   // in front of the gold skin (0.003): parts flickered out under it while gold, Sol r2 #12 pl.renderOrder = 2; pl.castShadow = false; grp(n).add(pl);
     numMats.push({ n, m, norm: a.tex, hot: b.tex });
   }
   const markM = (c, o = {}) => basic(c, { side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3, ...o });
