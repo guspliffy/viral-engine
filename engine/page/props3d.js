@@ -92,6 +92,7 @@ import { MONALISA_KINDS, MONALISA_GRIPS } from "./props-monalisa.js";   // fact 
 import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP03 Atlantis, block D (kit/BLOCKS.md)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
+import { LUNCH_KINDS } from "./props-lunch.js";   // potato desk 10 lunch trial: lunchbox, yogurtcup, kitchensink, microwave, beanmachine, corkboard, blindwindow, carpettiles, ceilingtiles, mouldbox, lanyard, collarstain, pocketglow
 import { WHATIF_KINDS } from "./props-whatif.js";   // what if 01 pause time: parkclock, parkbench
 import { RACE_KINDS, RACE_GRIPS } from "./props-race.js";   // what if 03 light-speed race: trophy, finishline, startflag, chalkline, lightstreak, wheatrow, walkingstick
 import { HEIST_KINDS, HEIST_GRIPS } from "./props-heist.js";   // fight flight or freeze 01: eyemask, policecap, moneybag, riotshield, policetorch, policenet
@@ -397,7 +398,9 @@ const KINDS = {
       },
     };
   },
-  // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` lights the screen;
+  // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` 0..1 lights the screen
+  // (spec.glow starts it, a prop `set` tweens it); spec.scale (1, the generic prop scale: 0.078 x 0.155 at 1, 0.117 x 0.233
+  // at 1.5); spec.halo (off; metres across, e.g. 0.22) + `glow` = a soft light wash round the screen, opacity spec.haloK (0.55) x glow;
   // spec.case colours its back and sides (a phone case), so it reads against dark mitten hands. style "iphone" builds
   // a modern iPhone instead (iphone() below), the one that can play pictures on its screen
   phone(P) {
@@ -1463,6 +1466,7 @@ Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);  
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
+Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
 Object.assign(KINDS, WHATIF_KINDS);   // what if 01 pause time (props-whatif.js)
 Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if 03 light-speed race (props-race.js)
 Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight flight or freeze 01 (props-heist.js)

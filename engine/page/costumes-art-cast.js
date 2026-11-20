@@ -1519,6 +1519,7 @@ function spud(C, ch, out) {
     out.apply = (st, t, ...r) => { b0 && b0(st, t, ...r); yarn(st); };
   }
   if (C.rich) richCoat(C, ch, out);   // the rich outfit (spud-rich.json): fur coat, gold chain, aviators on the head
+  if (C.gloves && ch.skinMat) ch.skinMat.color.set(C.gloves);   // costume.gloves (spud-gloves.json, Potato Desk 10): yellow rubber kitchen gloves = the hand skin's colour
   out.sitDepth = 0;
   return out;
 }
