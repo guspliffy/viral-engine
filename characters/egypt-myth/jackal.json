@@ -1,0 +1,76 @@
+{
+  "id": "egypt-myth/jackal",
+  "name": "Jackal judge",
+  "franchise": "EgyptMyth",
+  "tts": "mash",
+  "source": "Egypt myth 01 DESIGN.md section E (20 Nov 2026): Mash's body block unchanged, none of Mash's costume carries over.",
+  "rig": "potato",
+  "body": {
+    "color": "#1b1a21",
+    "height": 1.24,
+    "width": 0.54,
+    "depth": 0.5,
+    "lump": 0.03,
+    "seed": 67,
+    "taper": 0.05
+  },
+  "limbs": {
+    "color": "#d99d3d",
+    "width": 0.032,
+    "shoulder": -0.3
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#e9a820",
+    "cheeks": "#2a2832",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 0.85
+    },
+    "size": 0.72,
+    "layout": {
+      "eyeU": 0.72
+    }
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none",
+    "leaves": 1
+  },
+  "costume": {
+    "type": "mash",
+    "jackal": true
+  },
+  "personality": "The jackal judge at the scale: tall, lean, black, amber eyes, gold collar. Says 'Pass.' and 'Next.' with an arm (DESIGN section E).",
+  "voice": {
+    "pitch": 92,
+    "rate": 2.6,
+    "formant": 0.9,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 211
+  },
+  "voiceNote": "gibberish (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.15,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Costume `jackal` (engine/page/costumes-jackal.js USAGE) on Mash's body (type mash keeps Mash's face style). Black glove hands = limbs colour. Eyes spread to eyeU 0.45 so the gold rims clear each other."
+}
