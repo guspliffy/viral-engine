@@ -87,7 +87,7 @@ const BOX_HOOK = [CHIP0[0], 0.20, CHIP0[1] + 0.40];   // held out at us (overhea
 const BOX_CHEST = [CHIP0[0], 0.18, CHIP0[1] + 0.34];   // he is 0.53 tall: higher, the box hides his eyes
 const PARKED = "held on screen the whole time; parked off set from the cut that leaves it";
 const BOX = { id: "minebox", staged: PARKED, kind: "lunchbox", label: "mine", fill: "empty", lid: 1, ...at3(BOX_HOOK), rot: 0 };
-const YOG_AT = (() => { const p = fwd(SPUD0, Y_SPUD, 0.42, 0.20); return [p[0], 0.36, p[1]]; })();
+const YOG_AT = (() => { const p = fwd(SPUD0, Y_SPUD, 0.40, -0.22); return [p[0], 0.30, p[1]]; })();   // on his right side (side +0.20 put the right arm across his mouth)
 const YOG = { id: "yog", staged: PARKED, kind: "yogurtcup", ...grips.placeFor("yogurtcup", YOG_AT, Y_SPUD) };
 const PHONE_AT = (() => { const p = fwd(MASH0, Y_MASH, 0.36, 0.14); return [p[0], 0.52, p[1]]; })();
 const PHONE = { id: "mphone", kind: "phone", scale: 1.5, case: "#8fb1c5", halo: 0.22, glow: 0, ...grips.placeFor("phone", PHONE_AT, 180 + Y_MASH), tip: -35 };
@@ -169,7 +169,7 @@ say(4);
 arm(END_OF(4) + 0.1, "mash", "L", "rest", 0.5); grip(END_OF(4) + 0.2, "mash", "L", "relaxed");
 // 6 SPUD: I didn't see the label!  (palms up: the yogurt hand too)
 arm(T[5] - 0.15, "spud", "L", { o: [0.34, 0.24, 0.22] }, 0.3, "out");   // below the mouth (0.42 crossed his face) grip(T[5] - 0.1, "spud", "L", "open");
-gYog.carry(T[5] - 0.15, [YOG_AT[0] + 0.04, YOG_AT[1] + 0.06, YOG_AT[2]], 0.3);
+gYog.carry(T[5] - 0.15, [YOG_AT[0] - 0.04, YOG_AT[1] + 0.04, YOG_AT[2]], 0.3);
 turn(T[5] - 0.2, "spud", 25, 0.3); look(T[5] - 0.1, "spud", [0.4, -0.2]);
 say(5, {}, r3(END_OF(5) + 0.03));
 // the box turns: the label faces him (and us) on every side
@@ -182,7 +182,7 @@ shift(6, r3(TURNBOX + 0.75 - T[6]));
 // 7 SPUD (nervous grin, arms wide): I thought it was for everyone!
 expr(T[6] - 0.1, "spud", "happy");
 arm(T[6] - 0.1, "spud", "L", { o: [0.42, 0.30, 0.15] }, 0.3, "out");
-gYog.carry(T[6] - 0.1, [YOG_AT[0] + 0.1, YOG_AT[1] + 0.1, YOG_AT[2] - 0.02], 0.3);
+gYog.carry(T[6] - 0.1, [YOG_AT[0] - 0.08, YOG_AT[1] + 0.06, YOG_AT[2] - 0.02], 0.3);
 say(6);
 expr(END_OF(6) - 0.2, "chip", "angry");
 // 8 CHIP: I emailed everyone.  then the pings: the gossip's phone lights, the boss's pocket glows and he flattens it
