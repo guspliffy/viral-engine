@@ -94,10 +94,9 @@ const say = (i, extra = {}, capTo = null) => {
   const [who, line, tone, style, o = {}] = LINES[i];
   const actor = who in SPEAKER ? SPEAKER[who] ?? JUDGE_OF[i] : who;
   c.macro(T[i], actor, "say", { line, tone, ...(style ? { style } : {}), ...o, dur: DUR[i], caption: false, ...extra });
-  const nxt = T.slice(i + 1).find((x) => x != null);
-  const to = r3(Math.min(END_OF(i) + 0.3, (nxt ?? END_OF(i) + 1.2) - 0.2));
-  cap(T[i], capTo ?? to, CAPTEXT[i] ?? line, SUB, false, { size: 64 });
+  CAPS.push([i, capTo]);
 };
+const CAPS = [];   // laid once every line has its time: a caption ends 0.2 s before the next starts (the kinetic out)
 const JUDGE_OF = { 8: "j1", 10: "j2", 12: "j3", 18: "j4", 21: "j5", 25: "j6" };
 const arm = (t, who, side, pose, dur = 0.3, ease = "inOut") => c.arm(r3(t), who, side, pose, dur, ease);
 const grip = (t, who, side, shape, dur = 0.2) => A(r3(t), who, "grip", { side, shape, dur });
@@ -438,6 +437,11 @@ P(T[39] + 0.6, "monster", { lick: 1 }, 0.9, "linear");
 const END = F(END_OF(39) + 0.3);
 P(END - 0.5, "monster", { jaw: 0.45 }, 0.3);   // jaws open: the cut to the chomp loops
 
+for (const [i, capTo] of CAPS) {
+  const nxt = T.slice(i + 1).find((x) => x != null), to = r3(Math.min(END_OF(i) + 0.3, (nxt ?? END + 0.2) - 0.2));
+  cap(T[i], capTo ?? to, CAPTEXT[i] ?? LINES[i][1], SUB, false, { size: 64 });
+}
+
 // ================================================================= cameras: every shot moves; a new framing on every line
 const mv = (s, to, dur, ease = "inOut") => ({ ...s, to: { pos: to.pos ?? s.pos, look: to.look ?? s.look, fov: to.fov ?? s.fov }, dur, ease });
 const push = (s, k = 0.06, dur = 2) => mv(s, { pos: s.pos.map((v, i) => r3(v + (s.look[i] - v) * k)) }, dur);
@@ -447,53 +451,53 @@ const fr = (target, { lift = 0, ...o }) => { const s = frame([target[0], r3(targ
 const HEART_LEVEL = seatAt(-0.1), HEART_LOW = seatAt(-0.8);
 const FACE = (C, h = 0.45) => [C[0], h, C[1]];
 // opening
-const O_CHOMP = fr([-1.0, 0.42, 0.25], { az: 150, el: 8, h: 1.25, fov: 40 });   // reverse: the soul's scream, the heart, the jaws from the left
-const O_SPRAY = fr([-1.55, 0.32, 0.85], { az: -28, el: 10, h: 1.5, fov: 44 });   // low: Chip's trainers, the spray, the crumbling soul
-const O_CHIP = fr([CHIP0[0] + 0.05, 0.42, CHIP0[1]], { az: 140, el: 2, h: 0.85, fov: 32, lift: 0.14 });
+const O_CHOMP = fr([-1.0, 0.42, 0.25], { az: 150, el: 8, h: 2.2, fov: 40 });   // reverse: the soul's scream, the heart, the jaws from the left
+const O_SPRAY = fr([-1.45, 0.35, 0.75], { az: -70, el: 8, h: 2.0, fov: 44 });   // low: Chip's trainers, the spray, the crumbling soul
+const O_CHIP = fr([CHIP0[0] + 0.05, 0.42, CHIP0[1]], { az: 140, el: 2, h: 1.4, fov: 32, lift: 0.14 });
 // the rule
-const VS = { pos: [-2.35, 1.3, 0.95], look: [0.1, 1.02, 0.0], fov: 40 };   // the heart near, the feather pan far: "vs"
-const WHIP_S = mv({ pos: VS.pos, look: [1.8, 1.4, 1.6], fov: 40 }, { look: VS.look }, 0.22, "out");
-const TWO = fr([-1.45, 0.6, 1.45], { az: 0, el: 6, h: 1.7, fov: 36, lift: 0.1 });
-const CHIP_CL = fr([CHIP0[0], 0.42, CHIP0[1]], { az: 20, el: 3, h: 0.85, fov: 30, lift: 0.14 });
-const HEART_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.1, 0], { az: -12, el: 6, h: 0.42, fov: 30 });
-const SPUD_CL = fr([SPUD0[0], 0.72, SPUD0[1]], { az: -25, el: 3, h: 1.15, fov: 32, lift: 0.14 });
-const MONSTER_LICK = fr([-3.0, 1.35, -1.05], { az: 30, el: 0, h: 1.3, fov: 34 });
-const JACKAL_HAND = fr([0.25, 1.05, -0.15], { az: 25, el: 6, h: 1.5, fov: 34, lift: 0.1 });
+const VS = { pos: [-0.9, 1.45, 1.9], look: [-1.5, 1.0, 0], fov: 40 };   // the heart near, the feather pan far: "vs"
+const WHIP_S = mv({ pos: [-0.9, 1.45, 1.9], look: [1.5, 1.12, 0], fov: 40 }, { look: [-1.5, 1.0, 0] }, 0.3, "inOut");   // the feather, then the whip to his heart
+const TWO = fr([-1.45, 0.6, 1.45], { az: 0, el: 6, h: 2.6, fov: 36, lift: 0.1 });
+const CHIP_CL = fr([CHIP0[0], 0.42, CHIP0[1]], { az: 20, el: 3, h: 1.4, fov: 30, lift: 0.14 });
+const HEART_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.1, 0], { az: -12, el: 6, h: 0.75, fov: 30 });
+const SPUD_CL = fr([SPUD0[0], 0.72, SPUD0[1]], { az: -25, el: 3, h: 1.9, fov: 32, lift: 0.14 });
+const MONSTER_LICK = fr([-3.0, 1.35, -1.05], { az: 30, el: 0, h: 2.2, fov: 34 });
+const JACKAL_HAND = fr([0.25, 1.05, -0.15], { az: 25, el: 6, h: 2.4, fov: 34, lift: 0.1 });
 const CRANE = { pos: [-3.45, 2.6, -0.3], look: [-5.2, 0.85, 9.0], fov: 40 };
 // the denials
-const JCL = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 70 : 110, el: 10, h: 1.0, fov: 40, lift: 0.12 });   // from the side away from Chip
-const CHIP_J_CL = fr([CHIP_J[0], 0.42, CHIP_J[1]], { az: -80, el: 3, h: 0.7, fov: 40, lift: 0.14 });
-const LINE_WIDE = fr([-4.2, 0.65, 3.6], { az: 25, el: 8, h: 2.6, fov: 38, lift: 0.1 });
-const PAN_IN = (tilt) => { const s = seatAt(tilt); return fr([s[0], s[1] + 0.12, 0], { az: -8, el: 10, h: 0.55, fov: 30 }); };
-const PAN_MON = (tilt) => { const s = seatAt(tilt); return fr([s[0] - 0.6, s[1] + 0.3, -0.2], { az: 25, el: 6, h: 1.6, fov: 36 }); };
-const SPUD_J_CL = fr([SPUD_J[0], 0.72, SPUD_J[1]], { az: -40, el: 3, h: 1.15, fov: 32, lift: 0.14 });
-const TWO_J = fr([-3.0, 0.6, 2.9], { az: 10, el: 6, h: 1.8, fov: 36, lift: 0.1 });
-const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1], BEET_AT[2]], { az: -50, el: 4, h: 0.32, fov: 28 });
-const WALK_S = fr([-1.9, 0.6, 1.6], { az: -35, el: 10, h: 2.1, fov: 38, lift: 0.1 });   // from his front-left: his face as he walks
-const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 14, h: 0.9, fov: 34 });
+const JCL = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 70 : 110, el: 10, h: 1.9, fov: 40, lift: 0.12 });   // from the side away from Chip
+const CHIP_J_CL = fr([CHIP_J[0], 0.42, CHIP_J[1]], { az: -80, el: 3, h: 1.1, fov: 50, lift: 0.12 });   // wide lens, close: the camera stays in front of the stools
+const LINE_WIDE = fr([-4.2, 0.65, 3.6], { az: 25, el: 8, h: 3.6, fov: 38, lift: 0.1 });
+const PAN_IN = (tilt) => { const s = seatAt(tilt); return fr([s[0], s[1] + 0.12, 0], { az: -8, el: 10, h: 0.8, fov: 30 }); };
+const PAN_MON = (tilt) => { const s = seatAt(tilt); return fr([s[0] - 0.6, s[1] + 0.3, -0.2], { az: 25, el: 6, h: 2.4, fov: 36 }); };
+const SPUD_J_CL = fr([SPUD_J[0], 0.72, SPUD_J[1]], { az: -40, el: 3, h: 1.9, fov: 32, lift: 0.14 });
+const TWO_J = fr([-3.0, 0.6, 2.9], { az: 10, el: 6, h: 2.6, fov: 36, lift: 0.1 });
+const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1], BEET_AT[2]], { az: -50, el: 4, h: 0.45, fov: 28 });
+const WALK_S = fr([-1.9, 0.6, 1.6], { az: -35, el: 10, h: 2.8, fov: 38, lift: 0.1 });   // from his front-left: his face as he walks
+const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 14, h: 1.6, fov: 34 });
 // the pass, the doors, the museum
-const MONT = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 60 : 120, el: 12, h: 1.1, fov: 40, lift: 0.12 });
-const PASS_S = fr([0.35, 1.0, 0.0], { az: -20, el: 4, h: 2.4, fov: 38, lift: 0.08 });
-const SLUMP_S = fr([CHOMP[0] + 0.4, 0.5, CHOMP[1] + 0.4], { az: 30, el: 10, h: 1.4, fov: 36 });
+const MONT = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 60 : 120, el: 12, h: 1.9, fov: 40, lift: 0.12 });
+const PASS_S = fr([0.75, 1.0, -0.2], { az: 30, el: 4, h: 3.2, fov: 38, lift: 0.08 });
+const SLUMP_S = fr([CHOMP[0] + 0.4, 0.5, CHOMP[1] + 0.4], { az: 30, el: 10, h: 2.2, fov: 36 });
 const DOORS_S = { pos: [-1.0, 0.9, 4.2], look: [-0.6, 2.2, -9.0], fov: 46 };
-const SAFE_S = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 0, el: 6, h: 1.6, fov: 34, lift: 0.12 });
-const CHARM_CL = fr([HEART_LEVEL[0] - 0.04, HEART_LEVEL[1] + 0.07, 0.05], { az: -5, el: 4, h: 0.2, fov: 26 });
+const SAFE_S = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 0, el: 6, h: 2.5, fov: 34, lift: 0.12 });
+const CHARM_CL = fr([HEART_LEVEL[0] - 0.04, HEART_LEVEL[1] + 0.07, 0.05], { az: -5, el: 4, h: 0.35, fov: 26 });
 const CASE_S = { pos: [CASE_X, 1.45, 3.9], look: [CASE_X, 1.30, 0.3], fov: 50 };
 const CASE_IN = { pos: [CASE_X, 1.5, 1.9], look: [CASE_X, 1.25, 0.3], fov: 50 };
 // next
-const NEXT_S = fr([-0.3, 0.9, 0.6], { az: 10, el: 6, h: 2.8, fov: 38, lift: 0.08 });
-const SPUD_E_CL = fr([SPUD_E[0], 0.72, SPUD_E[1]], { az: 35, el: 3, h: 1.15, fov: 32, lift: 0.14 });
-const HIDE_S = fr([CHIP_E[0], 0.35, CHIP_E[1]], { az: 150, el: 8, h: 1.0, fov: 34, lift: 0.14 });
-const HSPUD_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.12, 0], { az: 12, el: 6, h: 0.5, fov: 30 });
-const MON_TURN = fr([-2.0, 0.7, -0.6], { az: 70, el: 4, h: 1.6, fov: 36 });
-const LAST = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 8, el: 4, h: 1.5, fov: 32, lift: 0.12 });
+const NEXT_S = fr([-0.3, 0.9, 0.6], { az: 10, el: 6, h: 3.6, fov: 38, lift: 0.08 });
+const SPUD_E_CL = fr([SPUD_E[0], 0.72, SPUD_E[1]], { az: 35, el: 3, h: 1.9, fov: 32, lift: 0.14 });
+const HIDE_S = fr([CHIP_E[0], 0.35, CHIP_E[1]], { az: 60, el: 8, h: 1.5, fov: 34, lift: 0.14 });
+const HSPUD_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.12, 0], { az: 12, el: 6, h: 0.8, fov: 30 });
+const MON_TURN = fr([-2.0, 0.7, -0.6], { az: 30, el: 4, h: 2.4, fov: 36 });
+const LAST = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 8, el: 4, h: 2.4, fov: 32, lift: 0.12 });
 
 const beats = c.beats([
   ["chomp", 0, push(O_CHOMP, 0.12, 0.6), "hook"],
   ["spray", r3(ASH - 0.1), push(O_SPRAY, 0.08, 0.8)],
   ["she ate his heart", r3(T[1] - 0.04), push(O_CHIP, 0.1, 1.3)],
   ["yours is next", WHIP, WHIP_S],
-  ["vs the feather", r3(WHIP + 0.22), push(VS, 0.1, 2.6)],
+  ["vs the feather", r3(WHIP + 0.3), push(VS, 0.25, 2.5)],
   ["why my heart", r3(T[3] - 0.2), push(CHIP_CL, 0.06, 1.8)],
   ["your heart remembers", r3(T[4] - 0.05), push(HEART_CL, 0.15, 3.5)],
   ["heavier than the feather", r3(T[5] - 0.05), drift(SPUD_CL, 0.12, 1.6)],
