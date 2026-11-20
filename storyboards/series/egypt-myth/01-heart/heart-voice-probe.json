@@ -140,7 +140,7 @@
      "line": "Don't move. Yours is next.",
      "tone": "calm",
      "style": "calm, low, matter-of-fact, a little too relaxed",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 2.5,
      "caption": false,
      "at": 5.6
@@ -162,7 +162,7 @@
      "line": "Down here, your heart remembers everything you ever did.",
      "tone": "calm",
      "style": "calm, knowing, explaining",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 4.1,
      "caption": false,
      "at": 11.8
@@ -173,7 +173,7 @@
      "line": "Heavier than that feather, she eats it. And you're gone. Forever.",
      "tone": "calm",
      "style": "calm, slow on 'forever'",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 4.9,
      "caption": false,
      "at": 16.9
@@ -195,7 +195,7 @@
      "line": "Forty-two judges. One question each. Say no to every one.",
      "tone": "calm",
      "style": "calm, explaining, counting",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 4.5,
      "caption": false,
      "at": 27.1
@@ -306,7 +306,7 @@
      "line": "It's a witness. It saw everything.",
      "tone": "calm",
      "style": "calm, shrugging",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 2.9,
      "caption": false,
      "at": 54.9
@@ -330,7 +330,7 @@
      "tone": "excited",
      "style": "furious, shouting",
      "voice": "chip-clean",
-     "take": 2,
+     "take": 3,
      "dur": 0.9,
      "caption": false,
      "at": 62.3
@@ -385,7 +385,7 @@
      "line": "Thirty-seven to go.",
      "tone": "calm",
      "style": "calm, dry",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 1.7,
      "caption": false,
      "at": 73.4
@@ -429,7 +429,7 @@
      "line": "Plan B.",
      "tone": "calm",
      "style": "calm, decisive",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 1.3,
      "caption": false,
      "at": 82.6
@@ -451,7 +451,7 @@
      "line": "A cheat sheet. They buried people with this on their chest. It tells your heart: don't speak against me.",
      "tone": "calm",
      "style": "low, conspiratorial, explaining",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 8.1,
      "caption": false,
      "at": 87.2
@@ -495,7 +495,7 @@
      "line": "Forever.",
      "tone": "calm",
      "style": "warm, smiling",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 0.9,
      "caption": false,
      "at": 103.6
@@ -506,7 +506,7 @@
      "line": "Thousands of those beetles are in museums today. Everyone cheated.",
      "tone": "calm",
      "style": "dry, amused, telling a secret",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 4.5,
      "caption": false,
      "at": 105.5
@@ -529,7 +529,7 @@
      "line": "...Can I have my beetle back?",
      "tone": "calm",
      "style": "small, uneasy, polite",
-     "voice": "spud",
+     "voice": "spud-quick",
      "dur": 2.9,
      "caption": false,
      "at": 112.9

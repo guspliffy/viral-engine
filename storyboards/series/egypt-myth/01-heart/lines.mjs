@@ -1,8 +1,8 @@
 // Egypt myth 01 "Your heart vs. one feather": the spoken lines, in order (STORY.md v1, Jonny's picks 20 Nov 2026 15:07-15:35 Berlin).
 // [who, line, tone, style (VoxCPM2 acting direction; null = the recipe's base + tone), { voice, take }]
-// No names in any line (Jonny 18 Nov). Voices for the rough draft (Jonny judges by ear): Spud = "spud" (Potato Desk 10 voice),
+// No names in any line (Jonny 18 Nov). Voices for the rough draft (Jonny judges by ear): Spud = "spud-quick" (the Potato Desk 10 voice, 15 % quicker),
 // Chip = "chip-clean", jackal = "dragon" (low, gravelly) read slow, judges alternate "wedge" / "mash", the hearts = "heart".
-const J1 = { voice: "wedge" }, J2 = { voice: "mash" }, CH = { voice: "chip-clean" }, SP = { voice: "spud" }, HE = { voice: "heart" };
+const J1 = { voice: "wedge" }, J2 = { voice: "mash" }, CH = { voice: "chip-clean" }, SP = { voice: "spud-quick" }, HE = { voice: "heart" };
 const JUDGE = "stern, slow, cold, a judge";
 export const LINES = [
   ["soul", "No-", "excited", "a desperate cry cut off", { voice: "teo" }],                                    // 0
@@ -24,7 +24,7 @@ export const LINES = [
   ["chip", "My heart is snitching on me?!", "excited", "outraged, betrayed, high, fast", CH],                   // 16
   ["spud", "It's a witness. It saw everything.", "calm", "calm, shrugging", SP],                               // 17
   ["judge2", "Ever angry for no reason?", "calm", JUDGE, { ...J2, take: 2 }],                                  // 18
-  ["chip", "No!", "excited", "furious, shouting", { ...CH, take: 2 }],                                         // 19
+  ["chip", "No!", "excited", "furious, shouting", { ...CH, take: 3 }],                                         // 19
   ["heart", "Right now.", "calm", null, HE],                                                                   // 20
   ["judge1", "Ever been loud?", "calm", JUDGE, { ...J1, take: 3 }],                                            // 21
   ["chip", "Noooo!", "excited", "screaming at the top of his lungs", CH],                                      // 22
@@ -46,3 +46,5 @@ export const LINES = [
   ["heart", "He let him steal the fries.", "calm", null, { ...HE, take: 2 }],                                 // 38
   ["chip", "Wait... why is YOUR heart on a scale?", "excited", "slow dawning horror", CH],                     // 39
 ];
+// measured spoken lengths (qa/lines.mjs heart-voice-probe.json, 20 Nov 2026), in LINES order
+export const DUR = [0.50, 1.20, 2.49, 0.80, 3.50, 5.35, 1.63, 4.02, 1.05, 0.39, 0.96, 0.36, 1.51, 0.47, 0.71, 1.45, 1.32, 1.85, 2.46, 1.35, 0.98, 1.48, 0.61, 1.08, 1.00, 1.41, 0.51, 1.03, 0.62, 0.83, 7.04, 2.65, 0.71, 0.71, 0.76, 3.90, 1.01, 1.64, 1.88, 2.31];
