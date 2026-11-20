@@ -9,6 +9,7 @@
  "profile": "short",
  "loop": true,
  "captionStyle": "kinetic",
+ "captionLead": 0.12,
  "captionBand": [
   300,
   1360
@@ -516,7 +517,7 @@
  ],
  "captions": [
   {
-   "from": 0.1,
+   "from": 0,
    "to": 2.88,
    "text": "Every five seconds, gravity gets stronger.",
    "pos": 575,
@@ -530,91 +531,91 @@
    "pop": false
   },
   {
-   "from": 4.6,
+   "from": 4.48,
    "to": 5.98,
    "text": "Three g.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 6.1,
+   "from": 6,
    "to": 8.48,
    "text": "Four g. Your eyes go grey.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 8.75,
+   "from": 8.63,
    "to": 12.329,
    "text": "Five g. Most people black out here.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 13.1,
+   "from": 13,
    "to": 16.703,
    "text": "Ten g. Lying flat, your blood comes back.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 18.1,
+   "from": 18,
    "to": 22.299,
    "text": "Fifteen. Buildings only hold about twice their weight.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 23.1,
+   "from": 23,
    "to": 25.973,
    "text": "Twenty. The whole city comes down.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 28.1,
+   "from": 28,
    "to": 32.98,
    "text": "Twenty-five. No human survives this. Good thing you're a potato.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 33.1,
+   "from": 33,
    "to": 36.542,
    "text": "Thirty. Every satellite falls out of the sky.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 38.1,
+   "from": 38,
    "to": 41.237,
    "text": "Thirty-five. The air itself turns poisonous.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 43.1,
+   "from": 43,
    "to": 46.711,
    "text": "Forty. Mountains crush under their own weight.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 48.1,
+   "from": 48,
    "to": 51.513,
    "text": "Forty-five. Even the Moon is falling.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 53.1,
+   "from": 53,
    "to": 56.552,
    "text": "Fifty. Seventeen hours later, it hits.",
    "pos": 575,
    "pop": false
   },
   {
-   "from": 61.6,
+   "from": 61.5,
    "to": 62.94,
    "text": "Back to one g.",
    "pos": 575,

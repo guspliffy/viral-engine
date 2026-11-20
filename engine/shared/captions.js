@@ -8,7 +8,7 @@
 // from the voice model's own phoneme timings; without it, at its share of the line's time, weighted by its
 // syllables. A word nobody says (a narrator's hook without a voice) pops in on a quick stagger instead. When a caption carries on
 // the one before it ("and share a…" then "and share a\nFUN FACT."), the words already on screen stay put and the
-// first caption doesn't play its exit.
+// first caption doesn't play its exit. "captionLead": s moves every word's pop that much earlier (default 0).
 
 export const STAGGER = 0.07;     // seconds between the words of an unspoken caption
 const norm = (w) => w.toLowerCase().replace(/[^\p{L}\p{N}']/gu, "");
@@ -80,6 +80,10 @@ export function timeCaptionWords(sb) {
     // unspoken words pop in on a stagger after the word before them (or the caption's start)
     let last = c.from - STAGGER;
     for (const w of out) { if (w.at == null) w.at = ms(Math.max(c.from, last + STAGGER)); last = Math.max(last, w.at); }
+    // "captionLead" (storyboard, seconds, default 0): every word pops that much before its voice starts, never before the
+    // caption itself (the pop-in takes 0.16 s, so a word timed on the voice reads a beat late; Jonny 20 Nov, gravity)
+    const lead = sb.captionLead || 0;
+    if (lead) out.forEach((w, i) => { if (i < kept) return; w.at = ms(Math.max(c.from, w.at - lead)); if (w.end != null) w.end = ms(Math.max(w.at, w.end - lead)); });
     c.words = out;
   });
   return sb;
