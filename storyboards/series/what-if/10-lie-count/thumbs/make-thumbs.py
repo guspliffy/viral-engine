@@ -20,6 +20,7 @@ def build(src, name, cast, shot, props=None, set_extra=None):
     sb['score'] = {"view": [], "tags": []}; sb['captions'] = []
     sb['beats'] = [{"name": name, "at": 0, "len": 1.0, "shot": shot, "do": do}]
     sb['id'] = name; sb['music'] = None if 'music' in sb else sb.get('music')
+    sb['tool'] = 'thumbnail reference still for Codex (one frame), never a video'   # CI episodes skip a tool storyboard
     json.dump(sb, open(f'{H}/{name}.json', 'w'), indent=1)
 # A: the best friend smiling over the bun, Spud in the foreground, side-eye
 build('lc10-01-terrace', 'lc10-thumb-a', {

@@ -143,7 +143,7 @@ runs.forEach((run, ri) => {
   if (anyParty) {
     const [tx, tz] = S.w([-0.3, 1.25]);
     props.push({ id: "ptab", kind: "cafetable", x: tx, y: 0, z: tz, h: 0.46, r: 0.34 }, { id: "cake", kind: "cake", x: tx, y: 0.46, z: tz });
-    props.push({ id: "banner", kind: "banner", text: "SURPRISE!", width: 1.8, x: -0.6, y: 1.55, z: -2.42, rot: 0 });
+    props.push({ id: "banner", kind: "banner", text: "SURPRISE!", width: 1.8, x: -0.6, y: 1.55, z: -2.42, rot: 0, staged: "pinned to the back wall" });
     props.push({ id: "balloons", kind: "balloons", x: -2.5, y: 0, z: -1.5 });
   }
   if (run.scenes.some((x) => x.sc.cards)) {   // Sol 20 Nov: game night on a bare rug: a pile face down, Chip's four aces turn up on Spud's line

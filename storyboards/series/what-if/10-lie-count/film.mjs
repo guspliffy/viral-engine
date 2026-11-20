@@ -267,7 +267,7 @@ export const SCENES = [
       ["n", "Only one friend still had a zero."], ["cut", { t: "close", who: ["spud"] }], ["n", "So, for the first time, you trusted him."],
       ["cut", { t: "wide", who: ["spud", "wedge"] }], ["walk", "wedge", [3.6, 0.4], 3.2], ["walk", "spud", [2.8, 0.3], 3.4], ["wait", 2.6] ] },
   { id: "28 surprise", act: "party", place: "room", layout: { spud: [1.5, -0.4, ["to", "mash"]], mash: [-0.1, 0.4, ["to", "spud"]], chip: [-1.1, 0.2, ["to", "spud"]], baker: [0.7, 0.6, ["to", "spud"]], wedge: [2.2, -0.9, ["to", "spud"]] }, party: true,
-    shot: { t: "wide", h: 2.2, who: ["chip", "spud"] }, seq: [
+    shot: { t: "wide", h: 2.8, who: ["chip", "spud"] }, seq: [
       ["s", "chip", "surprise!", "excited"], ["e", "mash", "happy", { curve: 0.6 }], ["e", "chip", "delighted"], ["e", "baker", "happy"], ["sfx", "pop", { gain: 0.5 }],
       ["wait", 1.2], ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "shocked", { open: 0.3 }], ["wait", 1.4],
       ["n", "Your best friend. The baker. The loud one. Everyone."], ["cutat", 0.0, { t: "close", who: ["mash"] }], ["cutat", 0.34, { t: "close", who: ["baker"] }],
