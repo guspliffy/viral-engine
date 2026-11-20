@@ -563,8 +563,8 @@ arm(r3(OOPS + 0.1), "angel", "R", "rest", 0.4);
 const Q24 = shot("quill falls", r3(OOPS + 0.6), cam("B", [-0.90, 1.20, 1.20], [-0.35, 3.10, -6.00], 34), tilt(6));
 hideProp(r3(Q24 - 0.03), "quillA");
 const QLAND = W("B", -1.02, 0.22, 0.28);
-path_("quillB", [[r3(Q24 - 0.02), W("B", -0.4, 7.4, -16.0), { tip: 0, rot: 0 }], [r3(Q24 + 0.55), W("B", -0.7, 2.75, -4.2), { tip: 720 }],
-  [r3(Q24 + 0.8), W("B", -0.9, 1.85, -1.8), { tip: 900 }], [r3(Q24 + 0.92), W("B", -1.0, 0.8, -0.05), { tip: 1010 }], [r3(Q24 + 1.0), QLAND, { tip: 1080 }, "in"]]);   // over the step noses all the way (a riser cut it in two, Sol r2 #7)
+path_("quillB", [[r3(Q24 - 0.02), W("B", -0.4, 7.4, -16.0), { tip: 0, rot: 0 }], [r3(Q24 + 0.55), W("B", -0.7, 2.75, -4.2), { tip: 720 }, "in"],
+  [r3(Q24 + 0.77), W("B", -0.9, 1.85, -1.8), { tip: 900 }, "linear"], [r3(Q24 + 0.945), W("B", -1.0, 0.8, -0.05), { tip: 1010 }, "linear"], [r3(Q24 + 1.0), QLAND, { tip: 1080 }, "linear"]]);   // one steady fall (eased legs stalled it at each point, then it jumped: farm pops line 44.13)   // over the step noses all the way (a riser cut it in two, Sol r2 #7)
 sfx(r3(Q24 + 1.0), "hit-wood", { gain: 0.6 });
 c.prop(r3(Q24 + 1.0), "quillB", { tilt: 8 }, 0.06); c.prop(r3(Q24 + 1.06), "quillB", { tilt: -5 }, 0.06); c.prop(r3(Q24 + 1.12), "quillB", { tilt: 0 }, 0.1);
 step(r3(Q24 + 0.7), "imp", W("B", -0.65, -0.6, 1.62), 0.2); c.prop(r3(Q24 + 0.85), "hatch", { open: 0 }, 0.35, "in"); c.prop(r3(Q24 + 0.85), "hatch", { glow: 0 }, 0.35); sfx(r3(Q24 + 1.2), "slam", { gain: 0.3 }); park(r3(Q24 + 1.25), "imp");   // the lid lands as we cut back (open, it hid him in the next shot)   // the imp ducks and the lid comes down in view as he takes the quill (Sol r1 #14, r2 #4)   // shut while we look up the stairs (it jumped shut in the next shot, Sol r1 #14)
