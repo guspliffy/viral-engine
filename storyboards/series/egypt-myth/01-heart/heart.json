@@ -1604,9 +1604,9 @@
     {
      "who": "chip",
      "macro": "say",
-     "line": "She just ATE his heart?!",
+     "line": "She just ate his heart?!",
      "tone": "excited",
-     "style": "shocked, horrified, high, fast",
+     "style": "shocked, horrified, high, fast, stress on ate",
      "voice": "chip-clean",
      "dur": 1.2,
      "caption": false,

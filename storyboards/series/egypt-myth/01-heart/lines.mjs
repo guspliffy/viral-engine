@@ -6,7 +6,7 @@ const J1 = { voice: "wedge" }, J2 = { voice: "mash" }, CH = { voice: "chip-clean
 const JUDGE = "stern, slow, cold, a judge";
 export const LINES = [
   ["soul", "No-", "excited", "a desperate cry cut off", { voice: "teo" }],                                    // 0
-  ["chip", "She just ATE his heart?!", "excited", "shocked, horrified, high, fast", CH],                       // 1
+  ["chip", "She just ate his heart?!", "excited", "shocked, horrified, high, fast, stress on ate", CH],     // 1 (lower case: the TTS spelled ATE out; the caption keeps *ATE*)
   ["spud", "Don't move. Yours is next.", "calm", "calm, low, matter-of-fact, a little too relaxed", SP],       // 2
   ["chip", "Why my heart?", "excited", "panicked, high", CH],                                                 // 3
   ["spud", "Down here, your heart remembers everything you ever did.", "calm", "calm, knowing, explaining", SP], // 4
