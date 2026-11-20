@@ -108,7 +108,7 @@ runs.forEach((run, ri) => {
   const anyTable = run.scenes.some((x) => x.sc.table), anyPlate = run.scenes.some((x) => x.sc.plate), anyParty = run.scenes.some((x) => x.sc.party);
   if (anyTable) {
     const [x, z] = S.w([0, 0.05]);
-    props.push({ id: "ctab", kind: "cafetable", x, y: 0, z, h: 0.46, r: 0.3 });
+    props.push({ id: "ctab", kind: "cafetable", x, y: 0, z, h: 0.46, r: 0.27 });
     const [bx, bz] = S.w([0.18, 0.05]);
     props.push({ id: "plate", kind: "dessertplate", x: bx, y: 0.46, z: bz }, { id: "bun", kind: "cinnabun", x: bx, y: 0.468, z: bz, rot: 0, bite: 0 });
     c.prop(0, "bun", { bite: 0 }, 0, "linear");

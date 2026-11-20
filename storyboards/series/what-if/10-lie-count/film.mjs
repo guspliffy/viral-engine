@@ -63,7 +63,7 @@ export function shotOf(P, spec, pos, len) {
     case "close": { const [who] = spec.who; return o(t(who), { h: spec.h ?? 0.8, el: spec.el ?? 3, fov: 30, az: (spec.front ? (spec.face ?? az0) : toward(az0, spec.face ?? az0, 0.4)) + (spec.az ?? 0) }); }   // front: straight into his face (a cast turned away from the stage front)   // between the front and his face: the partner stays out of the lens
     case "ots": {   // over fg's shoulder onto bg's face
       const [fg, bg] = spec.who, a = yawTo(pos(bg), pos(fg));
-      return o(t(bg), { h: spec.h ?? 1.5, el: 6, fov: 32, az: a + (spec.az ?? 30) });
+      return o(t(bg), { h: spec.h ?? 1.5, el: 6, fov: 32, az: a + (spec.az ?? 38) });
     }
     case "alone": { const [who] = spec.who; return { ...o(t(who), { h: spec.h ?? 3.6, el: 14, fov: 40, az: az0 + (spec.az ?? 0) }), ...(push > 0 ? {} : {}) }; }
     case "insert": return o(spec.at, { h: spec.h ?? 0.5, el: 30, fov: 30, az: az0 + (spec.az ?? 8) });
@@ -98,7 +98,7 @@ export const ACTS = [
 
 export const SCENES = [
   // ---------------------------------------------------------------- ACT 1: THE HOOK + THE RULES (curiosity, fun)
-  { id: "01 delicious", act: "hook", place: "terrace", layout: { spud: [-0.5, 0, ["to", "mash"]], mash: [0.5, 0, ["to", "spud"]] }, table: true,
+  { id: "01 delicious", act: "hook", place: "terrace", layout: { spud: [-0.7, 0, ["to", "mash"]], mash: [0.7, 0, ["to", "spud"]] }, table: true,
     shot: { t: "close", who: ["mash"], h: 1.1 }, seq: [
       ["e", "mash", "happy", { curve: 0.5 }], ["bite", "bun", 0.35],
       ["n", "What if you could see how many times everyone has lied to you?"],
@@ -107,7 +107,7 @@ export const SCENES = [
       ["n", "Your best friend just hit two hundred and twelve."], ["n", "Remember that number."],
       ["cut", { t: "two", who: ["spud", "mash"], az: -8 }], ["bite", "bun", 0.55], ["e", "mash", "happy", { curve: 0.6 }],
       ["n", "All about your cinnamon buns."], ["wait", 0.6] ] },
-  { id: "02 the morning", act: "hook", place: "terrace", layout: { spud: [-0.5, 0, ["to", "mash"]], mash: [0.5, 0, ["to", "spud"]], baker: [1.6, 1.0, "cam"] }, table: true,
+  { id: "02 the morning", act: "hook", place: "terrace", layout: { spud: [-0.7, 0, ["to", "mash"]], mash: [0.7, 0, ["to", "spud"]], baker: [1.8, 1.0, "cam"] }, table: true,
     shot: { t: "wide" }, seq: [
       ["n", "It started this morning. Everyone had a number over their head."], ["n", "And only you could see them."],
       ["cut", { t: "close", who: ["baker"] }], ["s", "baker", "fresh today!", "excited", { lie: true }],
@@ -181,7 +181,7 @@ export const SCENES = [
       ["n", "So you tested your best friend."],
       ["s", "spud", "do you actually like my buns?", "question"], ["e", "mash", "happy"], ["s", "mash", "love them.", "calm", { lie: true }],
       ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "sad"], ["n", "Two hundred and fourteen."], ["wait", 0.8] ] },
-  { id: "14b asked around", act: "catch", place: "river", layout: { spud: [-0.4, 0, ["to", "chip"]], chip: [0.4, 0, ["to", "spud"]], wedge: [-1.3, 0.5, ["to", "spud"]] },
+  { id: "14b asked around", act: "catch", place: "river", layout: { spud: [-0.4, 0, ["to", "chip"]], chip: [0.4, 0, ["to", "spud"]], wedge: [-1.45, -0.2, ["to", "spud"]] },
     shot: { t: "two", who: ["spud", "chip"] }, seq: [
       ["n", "So you asked around."], ["s", "spud", "why does he lie to me so much?", "question"],
       ["e", "chip", "shocked", { open: 0.2 }], ["s", "chip", "him? he never lies!", "excited", { lie: true }],
@@ -193,7 +193,7 @@ export const SCENES = [
       ["n", "And you couldn't stop asking."],
       ["s", "spud", "are you lying right now?", "question"], ["e", "chip", "annoyed"], ["s", "chip", "no!", "excited"],
       ["s", "spud", "and now?", "question"], ["s", "chip", "...no!", "excited"],
-      ["e", "chip", "angry"], ["walk", "chip", [3.0, 0.6], 2.2], ["wait", 2.0], ["hide", "chip"],
+      ["e", "chip", "angry"], ["walk", "chip", [3.0, -0.8], 2.2], ["wait", 2.0], ["hide", "chip"],
       ["cut", { t: "two", who: ["spud", "wedge"] }], ["e", "wedge", "deadpan"], ["s", "wedge", "trust me. that was weird.", "calm"],
       ["n", "Even he agreed. And he doesn't lie."], ["wait", 0.5] ] },
   { id: "16 fewer lies", act: "catch", place: "bridge", layout: { spud: [0, 0, 20] },
@@ -239,10 +239,10 @@ export const SCENES = [
       ["cut", { t: "alone", who: ["spud"], h: 3.0, push: -0.03 }], ["n", "Maybe some lies weren't against you."], ["wait", 1.8] ] },
 
   // ---------------------------------------------------------------- ACT 6: THE BIRTHDAY (the second question at ~70 %: confusion, hurt)
-  { id: "24 your birthday", act: "birthday", place: "street", layout: { spud: [-0.2, 0.1, "cam"], baker: [-2.6, 0.5, 90] },
+  { id: "24 your birthday", act: "birthday", place: "street", layout: { spud: [-0.2, 0.1, "cam"], baker: [-2.6, 1.1, 90] },
     shot: { t: "wide" }, seq: [
       ["n", "Sunday. Your birthday."], ["e", "spud", "happy", { curve: 0.4 }],
-      ["walk", "baker", [-0.9, 0.5], 2.6], ["wait", 2.2], ["s", "baker", "morning!", "calm"], ["walk", "baker", [3.4, 0.8], 4.0],
+      ["walk", "baker", [-0.9, 1.1], 2.6], ["wait", 2.2], ["s", "baker", "morning!", "calm"], ["walk", "baker", [3.4, 1.3], 4.0],
       ["n", "Nobody said a word about it."], ["wait", 1.8], ["hide", "baker"] ] },
   { id: "25 just sunday", act: "birthday", place: "street", layout: { spud: [-0.45, 0, ["to", "chip"]], chip: [0.45, 0, ["to", "spud"]] },
     shot: { t: "two", who: ["spud", "chip"] }, seq: [
@@ -265,7 +265,7 @@ export const SCENES = [
       ["e", "wedge", "kind"], ["s", "wedge", "trust me. come with me.", "calm"],
       ["n", "Only one friend still had a zero."], ["cut", { t: "close", who: ["spud"] }], ["n", "So, for the first time, you trusted him."],
       ["cut", { t: "wide", who: ["spud", "wedge"] }], ["walk", "wedge", [3.6, 0.4], 3.2], ["walk", "spud", [2.8, 0.3], 3.4], ["wait", 2.6] ] },
-  { id: "28 surprise", act: "party", place: "room", layout: { spud: [0.2, -1.1, 180], mash: [-0.1, 0.4, "cam"], chip: [-1.1, 0.2, "cam"], baker: [0.9, 0.3, "cam"], wedge: [1.1, -1.2, ["to", "spud"]] }, party: true,
+  { id: "28 surprise", act: "party", place: "room", layout: { spud: [0.2, -1.1, 180], mash: [-0.1, 0.4, "cam"], chip: [-1.1, 0.2, "cam"], baker: [0.9, 0.3, "cam"], wedge: [1.45, -1.3, ["to", "spud"]] }, party: true,
     shot: { t: "wide", h: 2.2 }, seq: [
       ["s", "chip", "surprise!", "excited"], ["e", "mash", "happy", { curve: 0.6 }], ["e", "chip", "delighted"], ["e", "baker", "happy"], ["sfx", "pop", { gain: 0.5 }],
       ["wait", 1.2], ["cut", { t: "ots", who: ["mash", "spud"], h: 1.2 }], ["e", "spud", "shocked", { open: 0.3 }], ["wait", 1.4],
@@ -276,7 +276,7 @@ export const SCENES = [
       ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "sad", { curve: 0.2 }],
       ["n", "Remember two hundred and twelve?"], ["n", "Every 'delicious'. Every 'I'm busy'. Every 'I'm sleeping'."],
       ["cut", { t: "close", who: ["mash"] }], ["n", "And every single one of them... was for you."], ["wait", 1.4] ] },
-  { id: "29b confessions", act: "party", place: "room", layout: { spud: [0.45, 0.4, ["to", "chip"]], mash: [-0.45, 0.3, ["to", "spud"]], chip: [-1.3, -0.1, ["to", "spud"]], baker: [1.3, -0.2, ["to", "spud"]], wedge: [1.1, 0.9, ["to", "spud"]], mover: [2.0, 0.2, ["to", "spud"]] }, party: true,
+  { id: "29b confessions", act: "party", place: "room", layout: { spud: [0.45, 0.4, ["to", "chip"]], mash: [-0.45, 0.3, ["to", "spud"]], chip: [-1.3, -0.1, ["to", "spud"]], baker: [1.3, -0.2, ["to", "spud"]], wedge: [0.75, 1.35, ["to", "spud"]], mover: [2.2, -0.45, ["to", "spud"]] }, party: true,
     shot: { t: "close", who: ["chip"] }, seq: [
       ["e", "chip", "eager"], ["s", "chip", "the bus! i was buying your present!", "excited"],
       ["cut", { t: "close", who: ["baker"] }], ["e", "baker", "kind"], ["s", "baker", "the buns weren't fresh. i kept the fresh ones for your cake.", "calm"],
@@ -294,7 +294,7 @@ export const SCENES = [
       ["wait", 0.6], ["n", "And for the first time... you lied too."], ["wait", 0.8],
       ["cut", { t: "two", who: ["spud", "mash"] }], ["e", "mash", "delighted"], ["s", "mash", "really?", "question"], ["cut", { t: "close", who: ["spud"] }], ["s", "spud", "really.", "calm"], ["spudtag"], ["wait", 0.8],
       ["n", "Twice."], ["wait", 1.5] ] },
-  { id: "31 the sunset", act: "end", place: "hill", nocover: true, layout: { chip: [-1.2, 0, 180], spud: [-0.4, 0, 180], mash: [0.4, 0, 180], wedge: [1.2, 0, 180] },
+  { id: "31 the sunset", act: "end", place: "hill", nocover: true, layout: { chip: [-1.6, 0, 180], spud: [-0.55, 0, 180], mash: [0.55, 0, 180], wedge: [1.6, 0, 180] },
     shot: { t: "wide", h: 2.6 }, seq: [
       ["wait", 2.0], ["n", "Two hundred and fifteen to two."], ["wait", 1.2],
       ["cut", { t: "close", who: ["wedge"], front: true, az: 0, el: 8, h: 1.0 }], ["s", "wedge", "trust me. the cake is terrible.", "calm"],

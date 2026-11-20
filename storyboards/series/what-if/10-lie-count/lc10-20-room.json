@@ -112,17 +112,17 @@
     "who": "spud",
     "keys": [
      [
-      48.18,
+      47.87,
       1
      ],
      [
-      53.68,
+      53.37,
       2
      ]
     ],
     "show": [
-     48.48,
-     55.62
+     48.17,
+     55.31
     ],
     "free": true,
     "clamp": true
@@ -132,7 +132,7 @@
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 274.92,
+  "skip": 274.24,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -154,8 +154,8 @@
  },
  "creative": {
   "length": [
-   55.62,
-   55.62
+   55.31,
+   55.31
   ]
  },
  "cast": [
@@ -211,10 +211,10 @@
    "id": "wedge",
    "character": "potatobrawl/wedge",
    "at": [
-    0.5,
-    0.7
+    0.85,
+    0.8
    ],
-   "face": -67.438,
+   "face": -69.363,
    "expr": "kind",
    "follow": 0.3,
    "seed": 6.300000000000001
@@ -313,8 +313,8 @@
    "kinetic": false
   },
   {
-   "from": 27.43,
-   "to": 29.49,
+   "from": 27.68,
+   "to": 29.74,
    "text": "The bus! i was buying your present!",
    "pos": 250,
    "pop": false,
@@ -322,8 +322,8 @@
    "kinetic": false
   },
   {
-   "from": 29.51,
-   "to": 33.96,
+   "from": 29.76,
+   "to": 34.21,
    "text": "The buns weren't fresh. i kept the fresh ones for your cake.",
    "pos": 250,
    "pop": false,
@@ -331,8 +331,8 @@
    "kinetic": false
   },
   {
-   "from": 33.98,
-   "to": 36.06,
+   "from": 34.23,
+   "to": 36.31,
    "text": "The box was heavy. it was your present.",
    "pos": 250,
    "pop": false,
@@ -340,8 +340,8 @@
    "kinetic": false
   },
   {
-   "from": 45.96,
-   "to": 46.78,
+   "from": 45.65,
+   "to": 46.47,
    "text": "Well?",
    "pos": 250,
    "pop": false,
@@ -349,8 +349,8 @@
    "kinetic": false
   },
   {
-   "from": 47.16,
-   "to": 48.46,
+   "from": 46.85,
+   "to": 48.15,
    "text": "It's delicious.",
    "pos": 250,
    "pop": false,
@@ -358,8 +358,8 @@
    "kinetic": false
   },
   {
-   "from": 52.46,
-   "to": 53.26,
+   "from": 52.15,
+   "to": 52.95,
    "text": "Really?",
    "pos": 250,
    "pop": false,
@@ -367,8 +367,8 @@
    "kinetic": false
   },
   {
-   "from": 53.28,
-   "to": 53.96,
+   "from": 52.97,
+   "to": 53.65,
    "text": "Really.",
    "pos": 250,
    "pop": false,
@@ -560,8 +560,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      0.5,
-      0.7
+      0.85,
+      0.8
      ],
      "y": 0,
      "dur": 0.01,
@@ -573,7 +573,7 @@
     {
      "who": "wedge",
      "do": "turn",
-     "to": -67.438,
+     "to": -69.363,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -681,9 +681,9 @@
    "len": 3.025,
    "shot": {
     "pos": [
-     -1.774,
+     -1.978,
      0.749,
-     -0.963
+     -0.757
     ],
     "look": [
      -0.4,
@@ -693,9 +693,9 @@
     "fov": 32,
     "to": {
      "pos": [
-      -1.636,
+      -1.82,
       0.727,
-      -0.807
+      -0.621
      ]
     },
     "dur": 3.025,
@@ -1120,7 +1120,7 @@
       0.331
      ]
     },
-    "dur": 8.34,
+    "dur": 9.34,
     "yaw": {
      "keys": [
       [
@@ -1128,7 +1128,7 @@
        0
       ],
       [
-       23.01,
+       24.01,
        4
       ]
      ],
@@ -1150,8 +1150,8 @@
      "macro": "narrate",
      "line": "Remember two hundred and twelve?",
      "voice": "narrator",
-     "take": 1,
-     "dur": 1.8,
+     "take": 2,
+     "dur": 2.77,
      "caption": true,
      "pos": 250,
      "gain": 4,
@@ -1161,19 +1161,19 @@
      "macro": "narrate",
      "line": "Every 'delicious'. Every 'I'm busy'. Every 'I'm sleeping'.",
      "voice": "narrator",
-     "take": 1,
-     "dur": 6.3,
+     "take": 2,
+     "dur": 6.33,
      "caption": true,
      "pos": 250,
      "gain": 4,
-     "at": 1.92
+     "at": 2.89
     }
    ]
   },
   {
    "name": "29 fridays two +",
    "at": 17.87,
-   "len": 2.57,
+   "len": 3.07,
    "shot": {
     "pos": [
      -0.6,
@@ -1193,7 +1193,7 @@
       1.779
      ]
     },
-    "dur": 5.14,
+    "dur": 6.14,
     "yaw": {
      "keys": [
       [
@@ -1201,7 +1201,7 @@
        0
       ],
       [
-       23.01,
+       24.01,
        -4
       ]
      ],
@@ -1212,8 +1212,8 @@
   },
   {
    "name": "29 fridays two +",
-   "at": 20.44,
-   "len": 2.57,
+   "at": 20.94,
+   "len": 3.07,
    "shot": {
     "pos": [
      0.635,
@@ -1233,15 +1233,15 @@
       1.533
      ]
     },
-    "dur": 2.57,
+    "dur": 3.07,
     "yaw": {
      "keys": [
       [
-       20.44,
+       20.94,
        0
       ],
       [
-       23.01,
+       24.01,
        4
       ]
      ],
@@ -1252,8 +1252,8 @@
   },
   {
    "name": "29 fridays close",
-   "at": 23.01,
-   "len": 2.16,
+   "at": 24.01,
+   "len": 3.57,
    "shot": {
     "pos": [
      -0.374,
@@ -1273,15 +1273,15 @@
       0.396
      ]
     },
-    "dur": 2.16,
+    "dur": 3.57,
     "yaw": {
      "keys": [
       [
-       23.01,
+       24.01,
        0
       ],
       [
-       25.17,
+       27.58,
        -4
       ]
      ],
@@ -1293,54 +1293,13 @@
      "macro": "narrate",
      "line": "And every single one of them... was for you.",
      "voice": "narrator",
-     "take": 1,
-     "dur": 3.68,
+     "take": 2,
+     "dur": 2.93,
      "caption": true,
      "pos": 250,
      "gain": 4,
      "at": 0
-    }
-   ]
-  },
-  {
-   "name": "29 fridays two +",
-   "at": 25.17,
-   "len": 2.16,
-   "shot": {
-    "pos": [
-     -0.6,
-     0.901,
-     2.071
-    ],
-    "look": [
-     -0.6,
-     0.645,
-     -0.85
-    ],
-    "fov": 36,
-    "to": {
-     "pos": [
-      -0.6,
-      0.875,
-      1.779
-     ]
     },
-    "dur": 2.16,
-    "yaw": {
-     "keys": [
-      [
-       25.17,
-       0
-      ],
-      [
-       27.33,
-       -4
-      ]
-     ],
-     "pivot": 2.932
-    }
-   },
-   "do": [
     {
      "who": "spud",
      "do": "move",
@@ -1353,7 +1312,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "spud",
@@ -1362,12 +1321,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "mash",
@@ -1381,7 +1340,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "mash",
@@ -1390,12 +1349,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "chip",
@@ -1409,7 +1368,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "chip",
@@ -1418,12 +1377,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "baker",
@@ -1437,7 +1396,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "baker",
@@ -1446,74 +1405,74 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "baker",
      "do": "show",
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "wedge",
      "do": "move",
      "to": [
-      0.5,
-      -1.4
+      0.15,
+      -1.85
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "wedge",
      "do": "turn",
-     "to": -36.702,
+     "to": -12.268,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "mover",
      "do": "move",
      "to": [
-      1.4,
-      -0.7
+      1.6,
+      -0.05
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "mover",
      "do": "turn",
-     "to": -68.146,
+     "to": -81.135,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.148
+     "at": 3.558
     },
     {
      "who": "mover",
      "do": "show",
-     "at": 2.148
+     "at": 3.558
     }
    ]
   },
   {
    "name": "29b confessions close",
-   "at": 27.33,
+   "at": 27.58,
    "len": 2.18,
    "shot": {
     "pos": [
@@ -1538,12 +1497,12 @@
     "yaw": {
      "keys": [
       [
-       27.33,
+       27.58,
        0
       ],
       [
-       29.51,
-       4
+       29.76,
+       -4
       ]
      ],
      "pivot": 1.493
@@ -1636,7 +1595,7 @@
   },
   {
    "name": "29b confessions close",
-   "at": 29.51,
+   "at": 29.76,
    "len": 2.235,
    "shot": {
     "pos": [
@@ -1661,12 +1620,12 @@
     "yaw": {
      "keys": [
       [
-       29.51,
+       29.76,
        0
       ],
       [
-       33.98,
-       -4
+       34.23,
+       4
       ]
      ],
      "pivot": 1.492
@@ -1702,7 +1661,7 @@
   },
   {
    "name": "29b confessions two +",
-   "at": 31.745,
+   "at": 31.995,
    "len": 2.235,
    "shot": {
     "pos": [
@@ -1727,12 +1686,12 @@
     "yaw": {
      "keys": [
       [
-       31.745,
+       31.995,
        0
       ],
       [
-       33.98,
-       4
+       34.23,
+       -4
       ]
      ],
      "pivot": 3.14
@@ -1751,37 +1710,37 @@
   },
   {
    "name": "29b confessions close",
-   "at": 33.98,
+   "at": 34.23,
    "len": 2.1,
    "shot": {
     "pos": [
-     0.717,
+     0.8,
      0.658,
-     0.625
+     1.208
     ],
     "look": [
-     1.4,
+     1.6,
      0.58,
-     -0.7
+     -0.05
     ],
     "fov": 30,
     "to": {
      "pos": [
-      0.785,
+      0.88,
       0.65,
-      0.493
+      1.082
      ]
     },
     "dur": 2.1,
     "yaw": {
      "keys": [
       [
-       33.98,
+       34.23,
        0
       ],
       [
-       36.08,
-       4
+       36.33,
+       -4
       ]
      ],
      "pivot": 1.493
@@ -1818,8 +1777,8 @@
   },
   {
    "name": "29b confessions group",
-   "at": 36.08,
-   "len": 2.595,
+   "at": 36.33,
+   "len": 2.56,
    "shot": {
     "pos": [
      -1.033,
@@ -1839,16 +1798,16 @@
       3.191
      ]
     },
-    "dur": 2.595,
+    "dur": 2.56,
     "yaw": {
      "keys": [
       [
-       36.08,
+       36.33,
        0
       ],
       [
-       38.675,
-       -4
+       38.89,
+       4
       ]
      ],
      "pivot": 4.339
@@ -1870,8 +1829,8 @@
   },
   {
    "name": "29b confessions group +",
-   "at": 38.675,
-   "len": 2.595,
+   "at": 38.89,
+   "len": 2.56,
    "shot": {
     "pos": [
      0.794,
@@ -1891,16 +1850,16 @@
       2.826
      ]
     },
-    "dur": 2.595,
+    "dur": 2.56,
     "yaw": {
      "keys": [
       [
-       38.675,
+       38.89,
        0
       ],
       [
-       41.27,
-       -4
+       41.45,
+       4
       ]
      ],
      "pivot": 4.34
@@ -1911,12 +1870,12 @@
      "macro": "narrate",
      "line": "You'd just never asked.",
      "voice": "narrator",
-     "take": 1,
-     "dur": 1.7,
+     "take": 2,
+     "dur": 1.63,
      "caption": true,
      "pos": 250,
      "gain": 4,
-     "at": 0.435
+     "at": 0.47
     },
     {
      "who": "spud",
@@ -1930,7 +1889,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "spud",
@@ -1939,12 +1898,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "mash",
@@ -1958,7 +1917,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "mash",
@@ -1967,17 +1926,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "mash",
      "do": "show",
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "chip",
      "do": "hide",
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "chip",
@@ -1991,12 +1950,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "baker",
      "do": "hide",
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "baker",
@@ -2010,7 +1969,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "wedge",
@@ -2024,7 +1983,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "wedge",
@@ -2033,17 +1992,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "mover",
      "do": "hide",
-     "at": 2.583
+     "at": 2.548
     },
     {
      "who": "mover",
@@ -2057,14 +2016,14 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.583
+     "at": 2.548
     }
    ]
   },
   {
    "name": "30 the cake close",
-   "at": 41.27,
-   "len": 2.135,
+   "at": 41.45,
+   "len": 3.78,
    "shot": {
     "pos": [
      -0.743,
@@ -2084,16 +2043,16 @@
       0.331
      ]
     },
-    "dur": 4.27,
+    "dur": 3.78,
     "yaw": {
      "keys": [
       [
-       41.27,
+       41.45,
        0
       ],
       [
-       45.54,
-       4
+       45.23,
+       -4
       ]
      ],
      "pivot": 1.493
@@ -2125,54 +2084,13 @@
      "macro": "narrate",
      "line": "Then you tasted his cake.",
      "voice": "narrator",
-     "take": 1,
-     "dur": 2.17,
+     "take": 2,
+     "dur": 1.68,
      "caption": true,
      "pos": 250,
      "gain": 4,
      "at": 0.1
-    }
-   ]
-  },
-  {
-   "name": "30 the cake two +",
-   "at": 43.405,
-   "len": 2.135,
-   "shot": {
-    "pos": [
-     -0.6,
-     0.901,
-     2.071
-    ],
-    "look": [
-     -0.6,
-     0.645,
-     -0.85
-    ],
-    "fov": 36,
-    "to": {
-     "pos": [
-      -0.6,
-      0.875,
-      1.779
-     ]
     },
-    "dur": 2.135,
-    "yaw": {
-     "keys": [
-      [
-       43.405,
-       0
-      ],
-      [
-       45.54,
-       4
-      ]
-     ],
-     "pivot": 2.932
-    }
-   },
-   "do": [
     {
      "who": "spud",
      "do": "expr",
@@ -2182,24 +2100,24 @@
       "brow": 0.5
      },
      "dur": 0.25,
-     "at": 0.555
+     "at": 2.2
     },
     {
      "macro": "narrate",
      "line": "It was terrible.",
      "voice": "narrator",
-     "take": 1,
+     "take": 2,
      "dur": 1.01,
      "caption": true,
      "pos": 250,
      "gain": 4,
-     "at": 0.855
+     "at": 2.5
     }
    ]
   },
   {
    "name": "30 the cake close",
-   "at": 45.54,
+   "at": 45.23,
    "len": 0.42,
    "shot": {
     "pos": [
@@ -2224,12 +2142,12 @@
     "yaw": {
      "keys": [
       [
-       45.54,
+       45.23,
        0
       ],
       [
-       45.96,
-       -4
+       45.65,
+       4
       ]
      ],
      "pivot": 1.493
@@ -2247,7 +2165,7 @@
   },
   {
    "name": "30 the cake close",
-   "at": 45.96,
+   "at": 45.65,
    "len": 0.84,
    "shot": {
     "pos": [
@@ -2272,12 +2190,12 @@
     "yaw": {
      "keys": [
       [
-       45.96,
+       45.65,
        0
       ],
       [
-       46.8,
-       4
+       46.49,
+       -4
       ]
      ],
      "pivot": 1.493
@@ -2337,7 +2255,7 @@
   },
   {
    "name": "30 the cake close",
-   "at": 46.8,
+   "at": 46.49,
    "len": 2.83,
    "shot": {
     "pos": [
@@ -2362,12 +2280,12 @@
     "yaw": {
      "keys": [
       [
-       46.8,
+       46.49,
        0
       ],
       [
-       52.46,
-       -4
+       52.15,
+       4
       ]
      ],
      "pivot": 1.493
@@ -2424,48 +2342,48 @@
    ]
   },
   {
-   "name": "30 the cake close +",
-   "at": 49.63,
+   "name": "30 the cake two +",
+   "at": 49.32,
    "len": 2.83,
    "shot": {
     "pos": [
-     -1.656,
-     0.635,
-     0.436
+     -0.6,
+     0.901,
+     2.071
     ],
     "look": [
-     -0.15,
-     0.53,
-     -0.9
+     -0.6,
+     0.645,
+     -0.85
     ],
-    "fov": 30,
+    "fov": 36,
     "to": {
      "pos": [
-      -1.505,
-      0.625,
-      0.302
+      -0.6,
+      0.875,
+      1.779
      ]
     },
     "dur": 2.83,
     "yaw": {
      "keys": [
       [
-       49.63,
+       49.32,
        0
       ],
       [
-       52.46,
+       52.15,
        -4
       ]
      ],
-     "pivot": 2.016
+     "pivot": 2.932
     }
    },
    "do": []
   },
   {
    "name": "30 the cake two",
-   "at": 52.46,
+   "at": 52.15,
    "len": 0.82,
    "shot": {
     "pos": [
@@ -2490,12 +2408,12 @@
     "yaw": {
      "keys": [
       [
-       52.46,
+       52.15,
        0
       ],
       [
-       53.28,
-       4
+       52.97,
+       -4
       ]
      ],
      "pivot": 2.932
@@ -2555,7 +2473,7 @@
   },
   {
    "name": "30 the cake close",
-   "at": 53.28,
+   "at": 52.97,
    "len": 2.34,
    "shot": {
     "pos": [
@@ -2580,12 +2498,12 @@
     "yaw": {
      "keys": [
       [
-       53.28,
+       52.97,
        0
       ],
       [
-       55.62,
-       -4
+       55.31,
+       4
       ]
      ],
      "pivot": 1.493
@@ -2638,20 +2556,20 @@
    "who": "baker",
    "with": "toque",
    "from": 0,
-   "to": 55.62,
+   "to": 55.31,
    "reason": "the chef's hat is worn"
   },
   {
    "who": "mover",
    "with": "mcap",
    "from": 0,
-   "to": 55.62,
+   "to": 55.31,
    "reason": "the flat cap is worn"
   }
  ],
  "story": {
-  "T0": 274.92,
-  "T1": 330.54
+  "T0": 274.24,
+  "T1": 329.55
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 274.92-330.54 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 274.24-329.55 s)."
 }
