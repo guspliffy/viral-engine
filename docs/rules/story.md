@@ -178,6 +178,10 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Pace**: no shot over ~1.8 s in the first half unless something moves in it; energy high-low-high. Hold the last
   shot ~1.5-2 s after the last line so the ending breathes. Length follows quality: "there is no reason to rush".
   No slow motion under the spoken opening.
+- **Pace up, Happiness series** (Jonny 17-18 Nov, happiness score film): the whole film sped up 1.3x "is more
+  interesting and doesn't feel so slow anymore"; a few scenes felt rushed, which he accepted. Plan Happiness videos
+  tighter from the first draft: lines near back to back, short holds, no waiting on a slow narrator; a long film may
+  still be sped up as a whole at the join. Other series: not decided yet ("for the other video i dont know yet").
 - **Food series**: every potato that gets eaten is ALIVE (face, reaction, ideally a line).
 - **Held cards and phones**: cards face the holder (show a hand with an over-the-shoulder shot); a phone shown to
   others uses the edge hold (`docs/rules/clip-lessons.md`).
