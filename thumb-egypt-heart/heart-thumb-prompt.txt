@@ -1,0 +1,9 @@
+Use the image generation tool once. The built-in image tool IS the gpt-image-2 tool; call it as it is, no model field. Set referenced_image_paths to the full paths of the four reference images in this folder (ref-chip.jpg, ref-monster.jpg, ref-jackal.jpg, ref-heart.jpg). Pass everything below the PROMPT START line to the image tool character for character. Save the result in this folder as heart-thumb.png.
+
+PROMPT START
+A vertical 9:16 YouTube Shorts thumbnail, one dramatic frame, the same characters and style as the references (cute 3D cartoon potato characters with stick arms and white glove hands, soft anime-like shading, warm torch light, a painted golden Egyptian hall with friezes and lotus columns).
+Centre, big: a tall golden balance scale on chains. Its LEFT pan has sunk low and tilts, carrying a small glossy red cartoon heart with a worried face and a sweat drop (from the references). Its RIGHT pan floats high, carrying one single white ostrich feather, light and calm. The tilt must read at a glance: heart down, feather up.
+Under the low pan: the monster from the references (crocodile head, lion mane, hippo belly) crouching with her jaws wide open, crooked teeth and drool, eyes on the heart, waiting to eat it.
+Bottom right foreground, close to the camera: the small yellow-hoodie potato with a green sprout (from the references), terrified, mouth open, both glove hands on his cheeks, staring at his heart on the pan.
+Behind the scale, tall and in shadow: the black jackal-headed judge with the gold and lapis collar and amber eyes (from the references), stern, one hand on the scale.
+Strong contrast: the red heart and the monster's open jaws are the focal points, the feather bright white. Keep the top quarter of the picture calm and dark (shadowed ceiling and upper wall) with no important detail, room for lettering added later. No text, no captions, no logos, no watermark.
