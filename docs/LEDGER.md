@@ -104,6 +104,14 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   by Jonny's ear at 0. Proof: the hooks storyboard with that take's words fails `misread` (2 made-up words), with
   "take": 2 it passes; entries made before this have no `heard` and are not judged; no render changes.
 
+- Feet don't step toward the next shot (19 Nov, from Help Desk 2 hell reviews; waits for Jonny's word): the gait
+  planner's look ahead (`onUntil` in `engine/page/timeline.js`) stopped at a ride or a jump but not at a re-placement,
+  so a body placed somewhere else on a cut strode toward its next shot's spot in the last frames before the cut (a leg
+  in the splits on the Devil before the snap-tub cut). The clip worked round it by hiding each placed body for one
+  sample at every cut. Now the look ahead also stops at a re-placement (over 15 cm in one tick). Should keep the
+  stride-before-cut glitch at 0 without the hide trick. Proof: the clip with the trick taken out, 42.63 and 42.70 s:
+  the Devil's leg reaches across the floor on main and stays planted with the fix (`experiments/gait-stop-at-cut/`).
+
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
 
