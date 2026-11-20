@@ -1,7 +1,10 @@
 # Fact what-if 02: "What if gravity got stronger every five seconds?" (delivery, 20 Nov 2026)
 
-Final: /mnt/project-files/videos/facts/02-gravity/gravity-FINAL.mp4 (64 s, 1080x1920, 30 fps, loops: the last frame is
-frame 0), farm run 44724237933 (16 shards), qa/check PASS (33 creative notes, CHECK-FINAL.txt beside it).
+Final: /mnt/project-files/videos/facts/02-gravity/gravity-FINAL.mp4 (59.8 s = the 64 s render played at 1.07x with
+ffmpeg setpts + atempo, voice pitch kept; 1080x1920, 30 fps, loops), farm run 44736189986, qa/check PASS on the 1x
+render (32 creative notes, CHECK-FINAL.txt beside it).
+Jonny 20 Nov 13:25 Berlin: the hook question is not burned in (he adds it with the TikTok text tool), the g counter
+sits where it was (centre y 445), captions at 575; 7 % faster.
 Post pack: POST-PACK.md beside this file.
 
 ## Rounds
@@ -31,8 +34,8 @@ Post pack: POST-PACK.md beside this file.
 - The blackout shot holds 11.15-14.8 through the wake-up and the sofa-leg snap (a cut there made the sofa jump).
 
 ## Sound (Claude can't hear: Jonny, with headphones)
-0:08.5 heartbeat under the music · 0:18.9 thunder at the tower fall · 0:28.9 street fires · 0:30.3 the payoff "Good
-thing you're a potato" (the wink: does it land, is there a breath before it) · 0:31.1 his flat exhale.
+(1.07x final) 0:07.9 heartbeat under the music · 0:17.7 thunder at the tower fall · 0:27.0 street fires · 0:28.3 the payoff "Good
+thing you're a potato" (the wink: does it land, is there a breath before it) · 0:29.1 his flat exhale.
 The destruction sounds partly come from code-made explosion, thunder and rumble: say if any sound fake.
 
 ## Engine changes on this branch
