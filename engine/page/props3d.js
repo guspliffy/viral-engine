@@ -99,6 +99,7 @@ import { GRAVMOON_KINDS } from "./props-gravmoon.js";   // gravity v2: Moon fall
 import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP03 Atlantis, block D (kit/BLOCKS.md)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
+import { LUNCH_KINDS } from "./props-lunch.js";   // potato desk 10 lunch trial: lunchbox, yogurtcup, kitchensink, microwave, beanmachine, corkboard, blindwindow, carpettiles, ceilingtiles, mouldbox, lanyard, collarstain, pocketglow
 import { WHATIF_KINDS } from "./props-whatif.js";   // what if 01 pause time: parkclock, parkbench
 import { RACE_KINDS, RACE_GRIPS } from "./props-race.js";   // what if 03 light-speed race: trophy, finishline, startflag, chalkline, lightstreak, wheatrow, walkingstick
 import { HEIST_KINDS, HEIST_GRIPS } from "./props-heist.js";   // fight flight or freeze 01: eyemask, policecap, moneybag, riotshield, policetorch, policenet
@@ -136,7 +137,9 @@ import { WAKEFX_KINDS } from "./props-wakeup-fx.js";
 import { WAKEOUT_KINDS } from "./props-wakeup-out.js";
 import { SINKCAR_KINDS } from "./props-sinkcar.js";
 import { SKIPREMOTE_KINDS } from "./props-skipremote.js";
-import { ARCH_KINDS, ARCH_GRIPS } from "./props-archaeologist.js";   // the archaeologist's conservation brush: archbrush
+import { ARCH_KINDS, ARCH_GRIPS } from "./props-archaeologist.js";
+import { HELLA_KINDS, HELLA_GRIPS } from "./props-hella.js";   // potato desk 09 hell reviews: set A (doors, badges, clouds, sky) + tablet + hand props
+import { HELLB_KINDS, HELLB_GRIPS } from "./props-hellb.js";   // potato desk 09 hell reviews: set B (hell resort lobby)   // the archaeologist's conservation brush: archbrush
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
 import { SKIPROOM_KINDS } from "./props-skiproom.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
@@ -402,7 +405,9 @@ const KINDS = {
       },
     };
   },
-  // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` lights the screen;
+  // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` 0..1 lights the screen
+  // (spec.glow starts it, a prop `set` tweens it); spec.scale (1, the generic prop scale: 0.078 x 0.155 at 1, 0.117 x 0.233
+  // at 1.5); spec.halo (off; metres across, e.g. 0.22) + `glow` = a soft light wash round the screen, opacity spec.haloK (0.55) x glow;
   // spec.case colours its back and sides (a phone case), so it reads against dark mitten hands. style "iphone" builds
   // a modern iPhone instead (iphone() below), the one that can play pictures on its screen
   phone(P) {
@@ -1468,6 +1473,7 @@ Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);  
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
+Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
 Object.assign(KINDS, WHATIF_KINDS);   // what if 01 pause time (props-whatif.js)
 Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if 03 light-speed race (props-race.js)
 Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight flight or freeze 01 (props-heist.js)
@@ -1510,6 +1516,7 @@ Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avala
 Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 Object.assign(KINDS, COURT_KINDS);   // potato desk 05 court day (props-court.js)
+Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
