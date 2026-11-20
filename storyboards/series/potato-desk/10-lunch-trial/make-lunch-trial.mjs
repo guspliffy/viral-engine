@@ -52,7 +52,7 @@ const FRIDGE = { id: "fridge", kind: "ioufridge", x: -1.30, y: 0, z: -0.975, w: 
   split: 1.22, freezerHandle: [1.30, 1.52], radius: 0.04, badge: false, inside: "empty", notesStyle: "scribble", notes: 34, open: 0.86 };
 const props = [
   { id: "wall", kind: "officewall", x: 0, y: 0, z: -1.3, w: 4.4, h: 2.6, dado: "#b7c4b8", wall: "#b7c4b8", top: "#b7c4b8", rail: "#aebbaf" },
-  { id: "floor", kind: "carpettiles", x: 0, y: 0, z: 3.2, w: 4.4, d: 9.0 },   // to the wides' bottom edge (Sol 1 #25)
+  { id: "floor", kind: "carpettiles", x: 0, y: 0, z: 4.6, w: 5.0, d: 12.0 },   // to the wides' bottom edge (Sol 1 #25)
   { id: "ceiling", staged: "the office's suspended ceiling", kind: "ceilingtiles", x: 0, y: 2.6, z: 1.5, w: 4.4, d: 5.6 },
   { id: "counter", kind: "kitchencounter", x: 0.51, y: 0, z: -1.025, w: 2.58, d: 0.55, h: 0.86, dressing: false,
     colors: { top: "#a4a9ab", carcass: "#6c747b", door: "#78818a", pull: "#c9ced2", plinth: "#4a5056" } },
@@ -72,11 +72,11 @@ const props = [
   { id: "m6", staged: "on a fridge shelf", kind: "mouldbox", type: "m6", x: -1.08, y: 0.86, z: -1.06 },
   { id: "m4", staged: "on a fridge shelf", kind: "mouldbox", type: "m4", x: -1.56, y: 0.18, z: -1.05 },
   { id: "bossbox", kind: "lunchbox", label: "boss", fill: "pasta", lid: 1, x: -1.07, y: 0.18, z: -1.06, staged: "on the fridge's bottom shelf" },
-  ...[[-1.55, 0.64, -1.05], [-1.02, 0.62, -1.05], [-1.08, 0.98, -1.06], [-1.30, 0.20, -0.75]].map(([x, y, z], k) =>
+  ...[[-1.55, 0.64, -0.82], [-1.02, 0.62, -0.82], [-1.08, 0.98, -0.84], [-1.30, 0.20, -0.75]].map(([x, y, z], k) =>
     ({ id: `haze${k}`, staged: "a smell in the air", kind: "gas", x, y, z, color: "#b7d36a", n: 3, len: 0.35, w: 0.04, seed: 3 + k, puff: 0.6, fade: 0.45 })),
   // worn
   ...["chip", "spud", "mash", "wedge", "spudg"].map((w) => ({ id: `lan-${w}`, kind: "lanyard", wear: w, x: 0, y: w === "spudg" ? AWAY : 0, z: 0, ...((w === "spud" || w === "spudg") && { fit: { cloth: 0.06 } }), ...(w === "wedge" && { fit: { cloth: 0.05 } }) })),   // cards off the knit / jacket (Sol 1 #20)
-  { id: "stain", kind: "collarstain", wear: "wedge", x: 0, y: 0, z: 0 },
+  { id: "stain", kind: "collarstain", wear: "wedge", x: 0, y: 0, z: 0, at: [0.09, 0.0], lift: 0.05, cloth: 0.06 },
   { id: "pglow", kind: "pocketglow", wear: "wedge", x: 0, y: 0, z: 0, glow: 0 },
 ];
 
@@ -90,8 +90,9 @@ const BOX = { id: "minebox", staged: PARKED, kind: "lunchbox", label: "mine", fi
 const YOG_AT = (() => { const p = fwd(SPUD0, Y_SPUD, 0.40, -0.22); return [p[0], 0.30, p[1]]; })();   // on his right side (side +0.20 put the right arm across his mouth)
 const YOG = { id: "yog", staged: PARKED, kind: "yogurtcup", ...grips.placeFor("yogurtcup", YOG_AT, Y_SPUD) };
 const PHONE_AT = (() => { const p = fwd(MASH0, Y_MASH, 0.36, 0.14); return [p[0], 0.52, p[1]]; })();
+const PHONE_LOW = [PHONE_AT[0], r3(PHONE_AT[1] - 0.1), PHONE_AT[2]];   // lowered when he looks up (Sol 2 #24)
 const PHONE = { id: "mphone", kind: "phone", scale: 1.5, case: "#8fb1c5", halo: 0.22, glow: 0, ...grips.placeFor("phone", PHONE_AT, 180 + Y_MASH), tip: -35 };
-const MUG_AT = (() => { const p = fwd(WEDGE0, Y_WEDGE, 0.47, -0.03); return [p[0], 0.44, p[1]]; })();
+const MUG_AT = (() => { const p = fwd(WEDGE0, Y_WEDGE, 0.47, 0.07); return [p[0], 0.38, p[1]]; })();
 const MUG = { id: "mug", staged: PARKED, kind: "teamug", scale: 2.0, color: "#f6f4ee", steam: 0, ...grips.placeFor("teamug", MUG_AT, Y_WEDGE) };
 props.push(BOX, YOG, PHONE, MUG);
 
@@ -158,16 +159,15 @@ expr(INS_END - 0.05, "chip", "annoyed");
 for (const w of ["spud"]) { expr(INS_END - 0.05, w, "annoyed"); A(INS_END, w, "lean", { to: -10, dur: 0.25, ease: "out" }); A(r3(INS_END + 0.7), w, "lean", { to: 0, dur: 0.5 }); }
 see(INS, INS_END, ["fridge"], "the fridge's mouldy inside: the punishment");
 // 4 MASH (looks up from his phone, sly): I'm not one to gossip...
-look(T[3] + 0.05, "mash", [-0.1, 0.05], 0.15); expr(T[3] - 0.15, "mash", "smug");   // eyes up from the phone on the line (Sol 1 #24)
+look(T[3] + 0.05, "mash", [-0.1, 0.25], 0.15); expr(T[3] - 0.15, "mash", "smug"); gPhone.carry(r3(T[3] - 0.05), PHONE_LOW, 0.3);   // eyes up from the phone on the line (Sol 1 #24)
 for (const w of ["chip", "spud", "wedge"]) look(T[3] + 0.1, w, w === "chip" ? [0.1, 0.05] : w === "spud" ? [0.5, 0.1] : [-0.5, 0.1]);
 say(3);
 // 5 MASH points at Spud: But he was at the fridge at eleven.
 look(T[4] + 0.3, "mash", AT_SPUD_FROM_MASH);
-gPhone.carry(r3(T[4] + 0.3), [PHONE_AT[0] - 0.12, PHONE_AT[1] + 0.05, PHONE_AT[2] + 0.08], 0.5);   // the phone hand jabs at Spud (Sol 1 #7)
+arm(T[4] + 0.3, "mash", "L", { o: [-0.05, 0.45, 0.4] }, 0.3, "out"); grip(T[4] + 0.35, "mash", "L", "point"); arm(END_OF(4) + 0.1, "mash", "L", "rest", 0.4); grip(END_OF(4) + 0.15, "mash", "L", "relaxed");   // the free hand points at Spud, the phone stays low (Sol 2 #7: the phone jab covered his face and flipped his palm)   // the phone hand jabs at Spud (Sol 1 #7)
 look(T[4] + 0.6, "chip", [-0.5, 0.05]); look(T[4] + 0.6, "wedge", [-0.7, -0.1]);
 expr(T[4] + 0.9, "spud", "sad"); look(T[4] + 0.5, "spud", [0.5, 0.1]);   // the terrified mouth held one shape with stray corners (Sol 1 #13)
 say(4);
-gPhone.carry(r3(END_OF(4) + 0.1), PHONE_AT, 0.45);
 // 6 SPUD: I didn't see the label!  (palms up: the yogurt hand too)
 arm(T[5] - 0.15, "spud", "L", { o: [0.34, 0.24, 0.22] }, 0.3, "out"); grip(T[5] - 0.1, "spud", "L", "open");   // below the mouth (0.42 crossed his face)
 gYog.carry(T[5] - 0.15, [YOG_AT[0] - 0.04, YOG_AT[1] + 0.04, YOG_AT[2]], 0.3);
@@ -175,13 +175,13 @@ turn(T[5] - 0.2, "spud", 25, 0.3); look(T[5] - 0.1, "spud", [0.4, -0.2]);
 say(5, {}, r3(END_OF(5) + 0.03));
 // the box turns: the label faces him (and us) on every side
 const TURNBOX = r3(END_OF(5) + 0.05);
-turn(TURNBOX - 0.1, "chip", -20, 0.3); look(TURNBOX - 0.1, "chip", [-0.6, 0.05]); expr(TURNBOX, "chip", "deadpan");
-const BOX_THRUST = (() => { const p = fwd(CHIP0, -20, 0.42); return [p[0], 0.18, p[1]]; })();
-gBox.carry(TURNBOX, BOX_THRUST, 0.45, "out");
+ look(TURNBOX - 0.1, "chip", [-0.6, 0.05]); expr(TURNBOX, "chip", "deadpan");
+const BOX_THRUST = (() => { const p = fwd(CHIP0, 0, 0.42); return [p[0], 0.18, p[1]]; })();   // straight out: a body turn with the box flipped his palms on the wider close (Sol 2 #6)
+// no thrust: the box stays at his chest, label to the lens (the thrust ran it into the lens and flipped his palm, Sol 2 #6)
 sfx(TURNBOX + 0.05, "click", { gain: 0.2 });
 shift(6, r3(TURNBOX + 0.75 - T[6]));
 // 7 SPUD (nervous grin, arms wide): I thought it was for everyone!
-expr(T[6] - 0.1, "spud", "happy"); look(T[6] - 0.1, "spud", [-0.3, -0.4]); look(r3(T[6] + 0.6), "spud", [0.4, -0.2]);   // a glance at his own yogurt (Sol 1 #10)
+expr(T[6] - 0.1, "spud", "happy"); look(T[6] - 0.1, "spud", [-0.5, -0.45]); look(r3(T[6] + 1.1), "spud", [0.4, -0.2]);   // a held look at his own yogurt (Sol 2 #10)   // a glance at his own yogurt (Sol 1 #10)
 arm(T[6] - 0.1, "spud", "L", { o: [0.42, 0.30, 0.15] }, 0.3, "out");
 gYog.carry(T[6] - 0.1, [YOG_AT[0] - 0.08, YOG_AT[1] + 0.06, YOG_AT[2] - 0.02], 0.3);
 say(6);
@@ -195,7 +195,7 @@ for (const [k, dt] of [[0, 0], [1, 0.15], [2, 0.3], [3, 0.45]]) sfx(r3(PING + dt
 c.prop(PING, "mphone", { glow: 1 }, 0.08); c.prop(r3(PING + 0.9), "mphone", { glow: 0 }, 0.2);
 look(PING + 0.05, "mash", [0, -0.5]);
 c.prop(r3(PING + 0.15), "pglow", { glow: 1 }, 0.06); c.prop(r3(PING + 0.4), "pglow", { glow: 0.3 }, 0.1); c.prop(r3(PING + 0.55), "pglow", { glow: 1 }, 0.06);
-arm(PING + 0.5, "wedge", "L", { o: [0.18, 0.28, 0.18] }, 0.3); grip(PING + 0.6, "wedge", "L", "flat");
+arm(PING + 0.4, "wedge", "L", { o: [0.18, 0.28, 0.18] }, 0.25); grip(PING + 0.5, "wedge", "L", "flat"); arm(PING + 0.65, "wedge", "L", { o: [0.18, 0.34, 0.24] }, 0.1); arm(PING + 0.75, "wedge", "L", { o: [0.18, 0.28, 0.18] }, 0.1);   // two pats (Sol 2 #9)
 c.prop(r3(PING + 0.8), "pglow", { glow: 0 }, 0.05);
 look(PING + 0.2, "chip", [0.6, 0.0]); look(PING + 0.3, "spud", [0.6, 0.0]);
 expr(PING + 0.3, "wedge", "deadpan");
@@ -215,8 +215,9 @@ const SCRUB = F(END_OF(9) + 0.15), SCRUB_END = F(SCRUB + 0.95);
 A(r3(SCRUB - 0.025), "spud", "release", { prop: "yog", dur: 0, to: [-0.64, 0.86, -0.92] }); A(r3(SCRUB - 0.02), "spud", "hide");   // the yogurt waits on the counter (Sol 1 #23)
 place(SCRUB, "spudg", SPUD_FRIDGE, 180); hideProp(SCRUB - 0.03, "lan-spud"); c.prop(r3(SCRUB - 0.02), "lan-spudg", { y: 0 }, 0);
 A(r3(SCRUB - 0.02), "spudg", "lean", { to: 12, dur: 0.01 }); for (let k = 0; k < 3; k++) { A(r3(SCRUB + 0.1 + k * 0.28), "spudg", "lean", { to: 16, dur: 0.14 }); A(r3(SCRUB + 0.24 + k * 0.28), "spudg", "lean", { to: 12, dur: 0.14 }); }   // no pop at the cut (Sol 1 #5)
-arm(SCRUB - 0.02, "spudg", "R", { o: [0.33, 0.55, 0.30] }, 0.01); arm(SCRUB - 0.02, "spudg", "L", { o: [0.22, 0.5, 0.36] }, 0.01);
-for (let k = 0; k < 3; k++) { arm(SCRUB + 0.1 + k * 0.28, "spudg", "R", { o: [0.22, 0.5, 0.36] }, 0.14); arm(SCRUB + 0.1 + k * 0.28, "spudg", "L", { o: [0.33, 0.55, 0.30] }, 0.14); arm(SCRUB + 0.24 + k * 0.28, "spudg", "R", { o: [0.33, 0.55, 0.30] }, 0.14); arm(SCRUB + 0.24 + k * 0.28, "spudg", "L", { o: [0.22, 0.5, 0.36] }, 0.14); }   // both gloves sweep the walls, out where we see them
+arm(SCRUB - 0.02, "spudg", "R", { o: [0.14, 0.55, 0.32] }, 0.01); arm(SCRUB - 0.02, "spudg", "L", { o: [0.14, 0.5, 0.32] }, 0.01);
+const WIPE_HI = { o: [0.15, 0.72, 0.30] }, WIPE_LO = { o: [0.13, 0.15, 0.36] };   // up-down wipes, the hands opposite: reads as scrubbing (Sol 2 #5)
+for (let k = 0; k < 3; k++) { arm(SCRUB + 0.1 + k * 0.28, "spudg", "R", WIPE_HI, 0.14); arm(SCRUB + 0.1 + k * 0.28, "spudg", "L", WIPE_LO, 0.14); arm(SCRUB + 0.24 + k * 0.28, "spudg", "R", WIPE_LO, 0.14); arm(SCRUB + 0.24 + k * 0.28, "spudg", "L", WIPE_HI, 0.14); }   // both gloves sweep the walls, out where we see them
 sfx(SCRUB + 0.1, "cloth", { gain: 0.6 });
 see(SCRUB, SCRUB_END, ["spudg", "fridge"], "he cleans the mouldy fridge in rubber gloves");
 // Chip and Mash watch, arms crossed (their marks stay; the wide A2 shows them)
@@ -228,25 +229,25 @@ arm(T[10] - 0.02, "spudg", "both", "rest", 0.01);
 look(T[10], "wedge", [0, 0]); expr(T[10], "wedge", "smug");
 say(10);
 const SIP = r3(END_OF(10) + 0.05);
-const MUG_UP = (() => { const p = fwd(WEDGE0, Y_WEDGE, 0.52, -0.17); return [p[0], 0.47, p[1]]; })();   // up to his mouth from his right side: the collar V comes clear   // to the lips, off the collar (Sol 1 #4)
+const MUG_UP = (() => { const p = fwd(WEDGE0, Y_WEDGE, 0.45, -0.08); return [p[0], 0.45, p[1]]; })();   // up to his mouth from his right side: the collar V comes clear   // to the lips, off the collar (Sol 1 #4)
 gMug.carry(SIP, MUG_UP, 0.4, "out");
 A(SIP, "wedge", "face", { lid: 0.8, dur: 0.2 });
 sfx(SIP + 0.4, "ai/sip", { gain: 0.5 });
 const STARE = r3(SIP + 0.45), REVEAL = r3(SIP - 0.03);   // the close starts as the mug lifts (Sol 1 #3)
 for (const w of ["chip", "mash", "spudg"]) { expr(STARE, w, "shocked"); }
-look(STARE, "chip", [0.9, 0.15]);
-look(STARE, "mash", [0.9, 0.0]); look(STARE, "spudg", [0.8, -0.1]);
+look(STARE, "chip", [0.9, 0.4]);
+look(STARE, "mash", [0.9, 0.2]); gPhone.carry(r3(STARE - 0.1), [PHONE_LOW[0], r3(PHONE_LOW[1] - 0.06), PHONE_LOW[2]], 0.3);   // phone down, eyes on the boss (Sol 2 #8) look(STARE, "spudg", [0.8, -0.1]);
 see(STARE, r3(STARE + 0.9), ["wedge", "stain", "chip.face"], "the boss's collar: tomato sauce; everyone stares");
 shift(11, r3(STARE + 0.95 - T[11]));
 // 12 WEDGE lowers the mug, eyes dart: ...Let's take this offline.  then he walks out right, the door swings
 gMug.carry(T[11] - 0.2, MUG_AT, 0.3);
-look(T[11] - 0.2, "chip", [0, -0.35], 0.15); look(r3(T[11] + 0.25), "chip", [0.9, 0.15], 0.15); expr(T[11] - 0.3, "spudg", "shocked");   // his box, then the boss: he gets it (Sol 1 #8, #10)
+look(T[11] - 0.2, "chip", [0.9, 0.45], 0.15); expr(T[11] - 0.3, "spudg", "shocked");   // his box, then the boss: he gets it (Sol 1 #8, #10)
 A(T[11] - 0.2, "wedge", "face", { lid: 0, dur: 0.15 }); expr(T[11] - 0.2, "wedge", "terrified"); look(T[11] - 0.1, "wedge", [-0.6, 0]);
 const EXIT = r3(T[11] + 0.9), TAG = F(EXIT + 0.55);
 say(11, {}, r3(TAG - 0.02));
 turn(EXIT, "wedge", 35, 0.3); A(EXIT, "wedge", "lean", { to: -6, dur: 0.3 });
 sfx(r3(EXIT + 0.45), "creak", { gain: 0.3 });
-for (const w of ["chip", "mash", "spudg"]) look(EXIT + 0.3, w, [0.8, w === "chip" ? 0.15 : 0]);
+for (const w of ["chip", "mash", "spudg"]) look(EXIT + 0.3, w, [0.8, w === "chip" ? 0.4 : 0.1]);
 // 13 TAG (cut): the victim, facing us beside the open fridge, holds the boss's labelled box open and chews, staring at
 // the door; Spud (gloves) nods behind him. No fork: one held prop, the BOSS label to camera (payoff face: 3/4 or closer)
 A(r3(TAG - 0.02), "wedge", "release", { prop: "mug", dur: 0, to: [0, AWAY, 0] }); A(r3(TAG - 0.02), "wedge", "hide"); for (const id of ["stain", "lan-wedge", "pglow"]) hideProp(TAG - 0.02, id);
@@ -261,36 +262,37 @@ const gBoss = grips.box(c, "chip", BOSS, { height: 0.8, gap: 0.02 });
 gBoss.secure(r3(TAG - 0.015), 0.001); for (const sd of ["R", "L"]) A(r3(TAG - 0.015), "chip", "grip", { side: sd, shape: "press", dur: 0 });
 expr(TAG, "chip", "annoyed"); look(TAG, "chip", [0.8, 0.1]);
 const BITE = r3(TAG + 0.25);
-look(r3(BITE - 0.1), "chip", [0, -0.2], 0.2); A(r3(BITE + 0.1), "chip", "squash", { amount: -0.05, dur: 0.1 }); A(r3(BITE + 0.25), "chip", "squash", { amount: 0, dur: 0.12 });   // down into the box: a bite of the boss's pasta (Sol 1 #2)
- A(r3(BITE + 0.12), "chip", "face", { open: 0.45, dur: 0.1 });
+look(r3(BITE - 0.1), "chip", [0, -0.2], 0.2); A(r3(BITE + 0.1), "chip", "squash", { amount: -0.08, dur: 0.1 }); A(r3(BITE + 0.25), "chip", "squash", { amount: 0, dur: 0.12 });
+look(r3(BITE - 0.05), "chip", [0, -0.45], 0.12);   // face down into the box for the bite (Sol 2 #2; lifting the box flipped both palms)   // the box up to his mouth for the bite (Sol 2 #2)   // down into the box: a bite of the boss's pasta (Sol 1 #2)
+ A(r3(BITE + 0.08), "chip", "face", { open: 0.75, dur: 0.08 });
 A(r3(BITE + 0.3), "chip", "face", { open: 0, dur: 0.06 });    // the box up to his mouth (a body pitch flipped his palms)
 look(r3(BITE + 0.3), "chip", [0.8, 0.15], 0.15);   // chewing, staring at where the boss went
-for (let k = 0; k < 4; k++) { A(r3(BITE + 0.35 + k * 0.2), "chip", "face", { open: 0.22, dur: 0.08 }); A(r3(BITE + 0.45 + k * 0.2), "chip", "face", { open: 0, dur: 0.08 }); A(r3(BITE + 0.35 + k * 0.2), "chip", "squash", { amount: -0.03, dur: 0.08 }); A(r3(BITE + 0.45 + k * 0.2), "chip", "squash", { amount: 0, dur: 0.08 }); }
+for (let k = 0; k < 5; k++) { A(r3(BITE + 0.35 + k * 0.2), "chip", "face", { open: 0.38, dur: 0.08 }); A(r3(BITE + 0.45 + k * 0.2), "chip", "face", { open: 0, dur: 0.08 }); A(r3(BITE + 0.35 + k * 0.2), "chip", "squash", { amount: -0.06, dur: 0.08 }); A(r3(BITE + 0.45 + k * 0.2), "chip", "squash", { amount: 0, dur: 0.08 }); }
 sfx(r3(BITE + 0.2), "ai/crunch", { gain: 0.25 }); sfx(r3(BITE + 1.2), "gulp", { gain: 0.5 });
 A(r3(TAG + 0.5), "spudg", "pitch", { to: 12, dur: 0.18 }); A(r3(TAG + 0.7), "spudg", "pitch", { to: 0, dur: 0.25 }); expr(TAG, "spudg", "smug");
-const END = F(BITE + 1.6);
+const END = F(BITE + 1.75);
 see(TAG, END, ["chip.face", "bossbox", "spudg.face"], "the little one eats the boss's labelled lunch; Spud nods");
 
 // ---------------------------------------------------------------- cameras: every shot moves (Jonny 20 Nov 09:44)
 const WIDE = { pos: [-0.18, 1.6, 8.6], look: [-0.18, 0.82, 0], fov: 34 };   // lower than DESIGN (2.05): from 2.05 the downstage hood hid his eyes
 const push = (s, k = 0.06, dur = 2) => ({ ...s, to: { pos: s.pos.map((v, i) => r3(v + (s.look[i] - v) * k)), look: s.look, fov: s.fov }, dur, ease: "inOut" });
 const drift = (s, dx = 0.12, dur = 2) => ({ ...s, to: { pos: [r3(s.pos[0] + dx), s.pos[1], s.pos[2]], look: [r3(s.look[0] + dx * 0.5), s.look[1], s.look[2]], fov: s.fov }, dur, ease: "inOut" });
-const MED_WEDGE = { pos: [1.75, 1.45, 3.6], look: [0.85, 1.05, -0.5], fov: 36 };   // his point and face in, mouth above the mug (Sol 1 #18)
-const FRIDGE_IN = { pos: [-1.12, 0.8, 0.55], look: [-1.12, 0.5, -0.95], fov: 34 };   // BOSS readable (Sol 1 #17)
+const MED_WEDGE = { pos: [1.75, 1.35, 3.6], look: [0.85, 1.28, -0.5], fov: 38 };   // the clock below the caption (Sol 2 #19)   // his point and face in, mouth above the mug (Sol 1 #18)
+const FRIDGE_IN = { pos: [-1.12, 0.63, 0.6], look: [-1.12, 0.31, -0.95], fov: 34 };   // the stepped shadow under the top shelf out of frame (Sol 2 N3)   // BOSS readable (Sol 1 #17)
 const MED_MASH = { pos: [0.6, 1.6, 3.6], look: [0.0, 1.0, -0.3], fov: 34 };   // in front of the victim (from behind him his eyes were hidden)
 const TWO_MASH_SPUD = { pos: [-0.9, 1.3, 3.2], look: [-0.25, 0.7, -0.1], fov: 42 };   // from the left: no victim head in front (Sol 1 #7)
-const MED_SPUD = { pos: [-0.1, 1.0, 3.1], look: [-0.4, 0.68, 0.25], fov: 36 };   // palm and cup in (Sol 1 #14)
+const MED_SPUD = { pos: [-0.25, 1.0, 3.3], look: [-0.38, 0.6, 0.35], fov: 42 };   // open palm and cup both in (Sol 2 #14)   // palm and cup in (Sol 1 #14)
 const SPUD_BUT = { pos: [-0.2, 1.0, 2.9], look: [-0.45, 0.7, 0.28], fov: 34 };
 const CHIP_MED = { pos: [0.1, 1.5, 6.4], look: [0.0, 0.7, 1.2], fov: 30 };
-const BOX_CLOSE = { pos: [-0.55, 0.65, 3.7], look: [0.1, 0.32, 2.55], fov: 32 };   // 3/4 from the suspect's side: the label goes into his eyeline (Sol 1 #6)
+const BOX_CLOSE = { pos: [-0.75, 0.85, 4.15], look: [0.12, 0.28, 2.8], fov: 34 };   // the whole box and label in, from above (Sol 2 #6, #16)   // 3/4 from the suspect's side: the label goes into his eyeline (Sol 1 #6)
 const TWO_SPUD_CHIP = { pos: [-0.5, 1.15, 3.0], look: [-0.48, 0.75, 0.28], fov: 32 };
-const WIDE_B = { pos: [1.4, 1.5, 6.4], look: [0.3, 0.8, 0], fov: 34 };
-const PINGS = { pos: [0.55, 0.95, 2.7], look: [0.5, 0.5, -0.2], fov: 40 };   // the phone screen and the pocket both in (Sol 1 #9)   // the boss's pocket glow, the gossip's phone at the left edge
-const SCRUB_SHOT = { pos: [-0.55, 1.45, 2.5], look: [-1.3, 0.6, -0.5], fov: 36 };   // 3/4 behind his right: the wiping glove (Sol 1 #5)
+const WIDE_B = { pos: [1.9, 2.1, 6.4], look: [-0.05, 0.75, 0], fov: 36 };   // higher: the victim's sprout off Spud's face (Sol 2 N2)
+const PINGS = { pos: [0.65, 0.9, 3.0], look: [0.62, 0.5, 0], fov: 42 };   // the pocket inside the frame (Sol 2 #9)   // the phone screen and the pocket both in (Sol 1 #9)   // the boss's pocket glow, the gossip's phone at the left edge
+const SCRUB_SHOT = { pos: [-0.55, 1.5, 2.7], look: [-1.15, 0.65, -0.5], fov: 44 };   // both gloves and the cup on the counter (Sol 2 #5, #23)   // 3/4 behind his right: the wiping glove (Sol 1 #5)
 const A2 = { pos: [-0.30, 2.05, 7.6], look: [-0.30, 0.90, 0], fov: 34 };
 const MED_WEDGE_SIP = { pos: [1.55, 1.25, 3.6], look: [0.95, 0.85, 0.05], fov: 32 };
 const STAIN_IN = { pos: [1.2, 0.85, 2.3], look: [0.9, 0.55, 0.3], fov: 34 };
-const OFFLINE = { pos: [0.45, 1.5, 6.8], look: [0.35, 0.8, 0], fov: 34 };   // the boss's face in, the room looking at him (Sol 1 #8)
+const OFFLINE = { pos: [0.1, 1.6, 6.8], look: [0.0, 0.75, 0], fov: 38 };   // Spud in too (Sol 2 #8)   // the boss's face in, the room looking at him (Sol 1 #8)
 const TAG_SHOT = { pos: [-0.3, 0.8, 2.7], look: [-0.45, 0.35, 0.2], fov: 40 };   // the whole box and both gloves (Sol 1 #2)
 const beats = c.beats([
   ["who ate my lunch", 0, push(WIDE, 0.05, T[1]), "hook"],
@@ -299,8 +301,8 @@ const beats = c.beats([
   ["gossip", r3(T[3] - 0.1), push(MED_MASH, 0.06, 1.7)],
   ["he was at the fridge", r3(T[4] - 0.05), drift(TWO_MASH_SPUD, -0.1, 1.6), "escalation"],
   ["heads turn", r3(T[4] + 1.55), drift(WIDE_B, -0.12, 1.5)],
-  ["didn't see the label", r3(T[5] - 0.05), push(MED_SPUD, 0.1, 1.8)],
-  ["the label", TURNBOX, push(BOX_CLOSE, 0.12, 0.8)],
+  ["didn't see the label", r3(T[5] - 0.05), push(MED_SPUD, 0.05, 1.8)],
+  ["the label", TURNBOX, push(BOX_CLOSE, 0.06, 0.8)],
   ["for everyone", r3(T[6] - 0.05), push(TWO_SPUD_CHIP, 0.08, 1.9)],
   ["emailed everyone", r3(T[7] - 0.05), push(CHIP_MED, 0.04, 1.5)],
   ["pings", r3(PING - 0.03), push(PINGS, 0.08, 1.1)],
@@ -331,8 +333,8 @@ write(import.meta.url, {
   hook: { show: ["chip", "minebox", "fridge", "wedge"], hint: 0, what: "an office kitchen; a little one holds up his empty labelled lunch box and shouts who ate it" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
-    { from: r3(SCRUB - 0.1), to: r3(SCRUB_END + 0.05), checks: ["hand-in-prop", "arm-in-prop", "costume-in-prop"], reason: "fridge duty: his head, sweater and gloves are inside the open fridge, wiping its walls; the check reads the fridge as a solid block" },
-    { from: r3(BITE), to: r3(BITE + 0.9), checks: ["held-high"], reason: "the tag: the fork goes to his mouth (a bite)" },
+    { who: "spudg", with: "fridge", from: r3(SCRUB - 0.1), to: r3(SCRUB_END + 0.05), checks: ["hand-in-prop", "arm-in-prop", "costume-in-prop"], reason: "fridge duty: his head, sweater and gloves are inside the open fridge, wiping its walls; the check reads the fridge as a solid block" },
+    { who: "chip", with: "bossbox", from: r3(BITE - 0.1), to: r3(BITE + 0.7), checks: ["held-high"], reason: "the tag: the box comes up to his mouth for one bite of the boss's pasta" },
   ],
   notes: "Generated by storyboards/series/potato-desk/10-lunch-trial/make-lunch-trial.mjs.",
 });
