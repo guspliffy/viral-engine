@@ -56,7 +56,7 @@ const GAVEL = { id: "gavel", kind: "axegavel", ...at3(GREST), rot: 0 };
 const MUG = { id: "mug", kind: "campmug", ...grips.placeFor("campmug", [-0.5, DECK, -0.08], 8) };
 // the CV: held up in his left hand from frame 0 to the end, its print turned to the judge (never moves: a held prop that
 // turns with the body flips the palm, lunch trial lesson)
-const CV_AT = (() => { const p = fwd(CHIP0, D_YAW, 0.2, 0.19); return [p[0], 0.2, p[1]]; })();
+const CV_AT = (() => { const p = fwd(CHIP0, D_YAW, 0.25, 0.19); return [p[0], 0.2, p[1]]; })();
 const CV = { id: "cv", kind: "cvsheet", away: true, ...grips.placeFor("cvsheet", CV_AT, D_YAW) };
 const TIE = { id: "tie", kind: "necktie", wear: "chip", x: 0, y: 0.34, z: 0.24, len: 0.15, color: "#24324a", stripe: "#d9b24a" };
 const props = [
@@ -96,7 +96,7 @@ const strike = (t, flipTo, { up = 0.2, gain = 1.3 } = {}) => {
 const step = (t, who, to, dur) => A(t, who, "move", { to, dur });
 const arm = (t, who, side, pose, dur = 0.3, ease = "inOut") => A(t, who, "arm", { side, pose, dur, ease });
 const grip = (t, who, side, shape, dur = 0.2) => A(t, who, "grip", { side, shape, dur });
-const look = (t, who, to, dur = 0.2, blink) => A(t, who, "look", { to, dur, ...(blink === false && { blink: false }) });
+const look = (t, who, to, dur = 0.2) => A(t, who, "look", { to, dur, blink: false });   // blinks only where blinksAt puts them (preflight blink-on-line)
 const expr = (t, who, e, dur = 0.2) => A(t, who, "expr", { expr: e, dur });
 
 
@@ -107,9 +107,9 @@ c.prop(0, "board", { flip: 0 }, 0.01);
 gv.take(0, { reach: 0.01, settle: 0.01 });
 c.arm(0, "chip", "L", { prop: "cv", grip: gcv.hands.L.grip, palm: true }, 0); A(0, "chip", "grip", { side: "L", shape: "hold", dur: 0 });
 A(0, "chip", "grab", { prop: "cv", hand: "L", grip: gcv.hands.L.grip, dur: 0, pose: null });
-look(0, "vik", VIK_AT_CHIP, 0.01, false);
-look(0, "chip", AT_JUDGE, 0.01, false); expr(0, "chip", "delighted", 0.01);
-look(0, "wedge", AT_JUDGE, 0.01, false);
+look(0, "vik", VIK_AT_CHIP, 0.01);
+look(0, "chip", AT_JUDGE, 0.01); expr(0, "chip", "delighted", 0.01);
+look(0, "wedge", AT_JUDGE, 0.01);
 act.blinksAt(c, "vik", [3.6, 9.4, 15.6, 22.1, 30.5, 41.8, 50.2]);
 act.blinksAt(c, "chip", [5.2, 12.1, 19.6, 27.4, 36.2, 47.3]);
 act.blinksAt(c, "wedge", [2.4, 7.9, 14.6, 24.9, 33.1, 45.6]);
@@ -123,7 +123,7 @@ const OPEN = { o: [0.16, 0.3, 0.3] }, CHEST = { o: [-0.1, 0.34, 0.28] }, TIE_AT 
 // ACT 1: the interview. 1 JUDGE: You robbed a bank.
 say(0);
 // 2 CHIP, beaming, right hand out for a handshake: Thank you for having me!
-arm(r3(T[1] - 0.35), "chip", "R", { o: [0.14, 0.42, 0.5] }, 0.45); grip(r3(T[1] - 0.15), "chip", "R", "open");
+arm(r3(T[1] - 0.35), "chip", "R", { o: [0.3, 0.55, 0.36] }, 0.45); grip(r3(T[1] - 0.15), "chip", "R", "open");
 A(r3(T[1] - 0.2), "chip", "squash", { amount: -0.04, dur: 0.25 });
 say(1);
 look(r3(T[1] + 0.4), "vik", VIK_AT_HAND, 0.25); A(r3(T[1] + 0.5), "vik", "expr", { expr: "deadpan", dur: 0.25 });
@@ -143,8 +143,8 @@ hand(r3(T[5] - 0.15), { o: [0.3, 0.3, -0.05] }, "point", 0.4);
 A(r3(T[5] - 0.15), "chip", "turn", { to: D_YAW + 18, dur: 0.3 });
 look(r3(T[5] + 0.3), "vik", VIK_AT_WEDGE, 0.25);
 look(r3(T[5] + 0.35), "wedge", [-0.5, 0.25], 0.15);
-arm(r3(T[5] + 0.45), "wedge", "L", "up", 0.35, "out"); expr(r3(T[5] + 0.45), "wedge", "delighted");
-for (let k = 0; k < 3; k++) A(r3(T[5] + 0.8 + k * 0.22), "wedge", "arm", { side: "L", pose: { o: [k % 2 ? 0.34 : 0.22, 0.95, 0.06] }, dur: 0.2 });
+arm(r3(T[5] + 0.4), "wedge", "L", "up", 0.45, "inOut"); expr(r3(T[5] + 0.45), "wedge", "delighted");
+for (let k = 0; k < 3; k++) A(r3(T[5] + 0.8 + k * 0.26), "wedge", "arm", { side: "L", pose: { o: [k % 2 ? 0.31 : 0.24, 0.95, 0.06] }, dur: 0.26 });
 arm(r3(END_OF(5) + 0.35), "wedge", "L", "rest", 0.5);
 say(5);
 see(T[5], END_OF(5), ["chip.face", "wedge.face"], "his team of two: the accomplice waves");
@@ -156,13 +156,13 @@ say(6);
 hand(r3(T[7] - 0.3), TIE_AT, "pinch");
 A(r3(T[7] + 0.25), "chip", "arm", { side: "R", pose: { o: [-0.04, 0.39, 0.24] }, dur: 0.25 });
 A(r3(T[7] + 0.5), "chip", "arm", { side: "R", pose: TIE_AT, dur: 0.25 });
-expr(r3(T[7] - 0.1), "chip", "smug"); A(r3(T[7] + 0.1), "chip", "pitch", { to: -6, dur: 0.3 });
-look(r3(T[7] + 0.2), "wedge", [-0.55, -0.35], 0.2, false);
-look(r3(END_OF(7) - 0.2), "wedge", [0, -0.75], 0.25, false); expr(r3(END_OF(7) - 0.2), "wedge", "sad", 0.3);
+expr(r3(T[7] - 0.1), "chip", "smug");   // no chin-up pitch: it sank the held CV into his body
+look(r3(T[7] + 0.2), "wedge", [-0.55, -0.35], 0.2);
+look(r3(END_OF(7) - 0.2), "wedge", [0, -0.75], 0.25); expr(r3(END_OF(7) - 0.2), "wedge", "sad", 0.3);
 say(7);
 see(T[7], END_OF(7) + 0.3, ["chip.face", "tie", "wedge.face"], "he straightens his new tie; his accomplice has none");
 // 9 JUDGE (tired): Why were you still in the vault?
-rest(r3(END_OF(7) + 0.05)); A(r3(END_OF(7) + 0.05), "chip", "pitch", { to: 0, dur: 0.3 });
+rest(r3(END_OF(7) + 0.05));
 A(r3(T[8] - 0.2), "vik", "lean", { to: 0, dur: 0.4 }); A(r3(T[8] - 0.2), "vik", "expr", { expr: "deadpan", dur: 0.25 });
 A(r3(T[8] + 0.1), "vik", "face", { lid: 0.45, dur: 0.3 });
 look(r3(T[8]), "wedge", AT_JUDGE, 0.25); expr(r3(T[8]), "wedge", "kind", 0.3);
@@ -174,7 +174,7 @@ say(9);
 // 11 JUDGE, gavel: Ten years.  (tok, the board flips ? -> 10)
 A(r3(T[10] - 0.2), "vik", "face", { lid: 0, dur: 0.15 }); A(r3(T[10] - 0.2), "vik", "expr", { expr: "stern", dur: 0.2 });
 say(10);
-look(r3(T[10] + 0.05), "vik", [-0.3, -0.5], 0.15); look(r3(T[10] + 0.75), "vik", VIK_AT_CHIP, 0.15);
+look(r3(T[10] + 0.05), "vik", [-0.3, -0.3], 0.15); look(r3(T[10] + 0.75), "vik", VIK_AT_CHIP, 0.15);
 const S1 = strike(r3(T[10] + 0.35), 1);
 A(r3(S1 + 0.05), "wedge", "expr", { expr: "shocked", dur: 0.15 });
 see(T[10], r3(S1 + 0.5), ["vik.face", "board"], "ten years: the board flips to 10 YEARS");
@@ -202,7 +202,7 @@ vikLook(T[15], VIK_AT_CHIP, "shocked"); A(r3(T[15]), "vik", "lean", { to: 14, du
 say(15);
 // 17-25 the questions a job applicant asks (an open hand for each), the judge's flat answers
 const ASK = [16, 18, 20, 22, 25], POSES = [OPEN, { o: [0.2, 0.36, 0.3] }, OPEN, TIE_AT, { o: [0.18, 0.28, 0.34] }];
-ASK.forEach((i, k) => { hand(r3(T[i] - 0.25), POSES[k], i === 22 ? "pinch" : "open", 0.3); expr(r3(T[i] - 0.1), "chip", k % 2 ? "focused" : "kind"); });
+ASK.forEach((i, k) => { hand(r3(T[i] - 0.3), POSES[k], i === 22 ? "pinch" : "open", 0.4); expr(r3(T[i] - 0.1), "chip", k % 2 ? "focused" : "kind"); });
 A(r3(T[16] - 0.2), "vik", "lean", { to: 0, dur: 0.4 }); A(r3(T[17] - 0.1), "vik", "expr", { expr: "deadpan", dur: 0.2 });
 for (const i of [16, 17, 18, 19, 20, 21, 22, 23]) say(i);
 // 25 CHIP, vain, chin up: I look great in orange.
@@ -224,7 +224,7 @@ see(T[26], END_OF(27), ["chip.face", "wedge.face"], "no rent: prison beats his l
 // ACT 3: the accomplice wants in. He steps up beside him, hand up: Can I apply too?
 rest(r3(END_OF(27) + 0.1)); A(r3(END_OF(27) + 0.1), "chip", "turn", { to: D_YAW, dur: 0.35 }); look(r3(END_OF(27) + 0.1), "chip", AT_JUDGE, 0.2);
 look(r3(END_OF(27)), "wedge", [-0.6, 0.3], 0.2); expr(r3(END_OF(27) + 0.2), "wedge", "eager");
-step(r3(END_OF(27) + 0.15), "wedge", WEDGE_FWD, WALK);
+A(r3(END_OF(27) + 0.15), "wedge", "move", { to: WEDGE_FWD, dur: WALK, steps: 3 });
 arm(r3(T[28] - 0.2), "wedge", "L", "up", 0.35, "out");
 say(28);
 see(T[28], END_OF(28), ["wedge.face", "chip.face"], "the accomplice steps up and applies too");
@@ -245,7 +245,7 @@ expr(r3(T[32] - 0.1), "wedge", "delighted"); arm(r3(T[32] - 0.15), "wedge", "L",
 say(32);
 arm(r3(END_OF(32) + 0.15), "wedge", "L", "rest", 0.4);
 // 34 CHIP turns on him, outraged: He gets fifteen?!   35 Then I want twenty!
-A(r3(T[33] - 0.2), "chip", "turn", { to: D_YAW + 50, dur: 0.25 }); look(r3(T[33] - 0.2), "chip", [0.6, 0.4], 0.15);
+A(r3(T[33] - 0.2), "chip", "turn", { to: D_YAW + 30, dur: 0.25 }); look(r3(T[33] - 0.2), "chip", [0.6, 0.4], 0.15);
 expr(r3(T[33] - 0.15), "chip", "angry"); hand(r3(T[33] - 0.2), { o: [0.28, 0.42, 0.2] }, "point", 0.3);
 look(r3(T[33]), "wedge", [-0.6, -0.3], 0.15);
 say(33);
@@ -275,7 +275,7 @@ see(T[38], r3(S2 + 0.5), ["vik.face", "chip.face", "wedge.face"], "ENOUGH: the g
 // (Jonny 20 Nov 20:10 Berlin: "in the end the judge should just send them home"; 20:11 "chip and wedge should be upset about it")
 A(r3(T[39] - 0.1), "vik", "expr", { expr: "smug", dur: 0.2 }); look(r3(T[39] - 0.1), "vik", [0.85, -0.45], 0.2);
 say(39);
-look(r3(T[39] + 0.45), "vik", [-0.3, -0.5], 0.15); look(r3(T[39] + 1.15), "vik", [0.85, -0.45], 0.15);
+look(r3(T[39] + 0.45), "vik", [-0.3, -0.3], 0.15); look(r3(T[39] + 1.15), "vik", [0.85, -0.45], 0.15);
 const S3 = strike(r3(T[39] + 0.6), 2);
 for (const w of ["chip", "wedge"]) { expr(r3(S3 + 0.1), w, "shocked", 0.12); look(r3(S3 + 0.1), w, AT_JUDGE, 0.12); }
 see(T[39], r3(S3 + 0.6), ["vik.face", "board"], "case dismissed: the board flips to 0 YEARS");
@@ -283,7 +283,7 @@ see(T[39], r3(S3 + 0.6), ["vik.face", "board"], "case dismissed: the board flips
 expr(r3(T[40] - 0.15), "chip", "terrified"); A(r3(T[40] - 0.05), "chip", "squash", { amount: 0.06, dur: 0.15 }); A(r3(T[40] + 0.35), "chip", "squash", { amount: 0, dur: 0.25 });
 say(40);
 // 42 WEDGE, heartbroken, a hand to his cheek: No dental...
-expr(r3(T[41] - 0.15), "wedge", "sad"); look(r3(T[41] - 0.15), "wedge", [-0.2, -0.6], 0.25, false);
+expr(r3(T[41] - 0.15), "wedge", "sad"); look(r3(T[41] - 0.15), "wedge", [-0.2, -0.6], 0.25);
 arm(r3(T[41] - 0.2), "wedge", "L", "cheeks", 0.4); A(r3(T[41]), "wedge", "pitch", { to: 10, dur: 0.5 });
 A(r3(T[41] + 0.1), "wedge", "face", { lid: 0.5, dur: 0.3 });
 say(41);
@@ -298,16 +298,17 @@ see(T[40], END, ["chip.face", "wedge.face"], "sent home, both are crushed: no de
 // ---------------------------------------------------------------- cameras: every shot moves (Jonny 20 Nov 09:44)
 const push = (s, k = 0.06, dur = 2) => ({ ...s, to: { pos: s.pos.map((v, i) => r3(v + (s.look[i] - v) * k)), look: s.look, fov: s.fov }, dur, ease: "inOut" });
 const drift = (s, dx = 0.12, dur = 2) => ({ ...s, to: { pos: [r3(s.pos[0] + dx), s.pos[1], s.pos[2]], look: [r3(s.look[0] + dx * 0.5), s.look[1], s.look[2]], fov: s.fov }, dur, ease: "inOut" });
-const WIDE = { pos: [0.25, 1.45, 9.6], look: [0.25, 1.3, 0], fov: 28 };   // the accomplice in frame
+const WIDE = { pos: [0.45, 1.45, 9.6], look: [0.45, 1.3, 0], fov: 29 };   // the accomplice in frame
 const CHIP_MED = { pos: [-0.22, 0.55, 3.54], look: [0.32, 0.55, 1.2], fov: 30 };   // camfit: caption top 250 clear
 const VIK_MED = { pos: [0.45, 2.05, 2.08], look: [-0.69, 2.05, -0.48], fov: 32 };   // camfit: caption top 250 clear
 const VIK_LOW = { pos: [-0.25, 2.05, 2.29], look: [-0.69, 2.05, -0.48], fov: 32 };   // camfit: caption top 250 clear
 const TWO = { pos: [-1.21, 0.7, 3.55], look: [0.85, 0.7, 0.6], fov: 32 };   // camfit: caption top 250 clear
 const CHIP_CLOSE = { pos: [-0.1, 0.65, 3.56], look: [0.32, 0.65, 1.2], fov: 28 };   // camfit: caption top 250 clear
-const VERDICT = { pos: [0.15, 1.85, 5.0], look: [0.1, 1.75, -0.6], fov: 36 };
+const VERDICT = { pos: [0.15, 2.0, 5.0], look: [0.1, 1.95, -0.6], fov: 34 };   // the little one's sprout below the frame
 const END_SHOT = { pos: [0.53, 0.7, 3.59], look: [0.32, 0.55, 1.2], fov: 28 };   // camfit: caption top 250 clear; no board corner behind the caption
 const WHISPER = { pos: [-0.9, 0.85, 3.9], look: [0.62, 0.75, 0.95], fov: 30 };   // the two of them, the accomplice at his shoulder
-const PAIR = { pos: [0.1, 0.85, 4.6], look: [0.65, 0.7, 1.2], fov: 32 };   // side by side, facing the judge's side
+const PAIR = { pos: [-0.86, 1.1, 4.59], look: [0.75, 0.8, 1.15], fov: 32 };   // side by side; camfit: caption top 250 clear, looking down: the board out of the caption
+const WEDGE_SAD = { pos: [-0.68, 0.85, 4.39], look: [1.22, 0.85, 1.1], fov: 30 };   // the accomplice's face for "No dental..." (camfit)
 const WIDE_B = { pos: [1.6, 1.9, 7.2], look: [-0.1, 1.2, 0.2], fov: 34 };   // from the right: the bench, the two and the board
 const cutAt = (i) => r3(T[i] - 0.05);
 const beats = c.beats([
@@ -346,7 +347,7 @@ const beats = c.beats([
   ["enough", cutAt(38), push(VIK_LOW, 0.12, 1.0)],
   ["go home", cutAt(39), push(VERDICT, 0.07, 2.6), "payoff"],
   ["home?!", cutAt(40), push(CHIP_CLOSE, 0.08, 0.9)],
-  ["no dental", cutAt(41), push(PAIR, 0.06, 1.6)],
+  ["no dental", cutAt(41), push(WEDGE_SAD, 0.07, 1.6)],
   ["rent there", cutAt(42), push(END_SHOT, 0.08, END - cutAt(42))],
 ], END);
 
