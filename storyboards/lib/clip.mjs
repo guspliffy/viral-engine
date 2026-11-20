@@ -98,6 +98,12 @@ export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
         const n = others.filter((k) => k.from > s.from && k.from < s.to && Math.abs(k.pos - s.pos) < SUB_CLEAR).sort((x, y) => x.from - y.from)[0];
         if (n) s.to = r3(n.from);
       }
+      // every shot starts ON a frame (Potato Desk 11, 20 Nov 2026): the renderer shows a shot from the first frame with
+      // t >= its start, so a start r3 rounded UP (31.36667 -> 31.367) cut one frame late, and every hide, show, place or
+      // prop set a director put at "start - 0.02" (on purpose before the cut) showed on the OLD shot's last frame: Sol
+      // found 6 such one-frame pops in two rounds (costumes, an ice bag, a mug, the LCD). Snap each start down to its frame
+      const onFrame = (x) => (x <= 0 ? x : Math.floor(Math.floor(x * fps + 1e-6) / fps * 1000 + 1e-6) / 1000);
+      shots = shots.map(([name, start, ...rest]) => [name, onFrame(start), ...rest]);
       return shots.map(([name, start, shot, kind], i) => {
         const to = shots[i + 1]?.[1] ?? end;
         const mine = items.filter((x) => x.at >= start - 1e-6 && (i === shots.length - 1 || x.at < to - 1e-6)).map((x) => ({ ...x, at: r3(x.at - start) }));
