@@ -454,7 +454,7 @@ const FACE = (C, h = 0.45) => [C[0], h, C[1]];
 // opening
 const O_CHOMP = fr([-1.0, 0.42, 0.25], { az: 150, el: 8, h: 2.2, fov: 40 });   // reverse: the soul's scream, the heart, the jaws from the left
 const O_SPRAY = fr([-1.45, 0.35, 0.75], { az: -70, el: 8, h: 2.0, fov: 44 });   // low: Chip's trainers, the spray, the crumbling soul
-const O_CHIP = fr([CHIP0[0] + 0.05, 0.42, CHIP0[1]], { az: 140, el: 2, h: 1.4, fov: 45, lift: 0.14 });
+const O_CHIP = fr([CHIP0[0] + 0.05, 0.42, CHIP0[1]], { az: 125, el: 2, h: 1.4, fov: 45, lift: 0.14 });
 // the rule
 const VS = { pos: [-0.9, 1.45, 1.9], look: [-1.5, 1.0, 0], fov: 40 };   // the heart near, the feather pan far: "vs"
 const WHIP_S = mv({ pos: [-0.9, 1.45, 1.9], look: [1.5, 1.12, 0], fov: 40 }, { look: [-1.5, 1.0, 0] }, 0.3, "inOut");   // the feather, then the whip to his heart
@@ -519,21 +519,21 @@ const beats = c.beats([
   ["this is easy", r3(T[14] - 0.25), drift(LINE_WIDE, -0.12, 1.0)],
   ["he stole fries", r3(T[15] - 0.12), push(PAN_IN(-0.1), 0.12, 1.6), "escalation"],
   ["clunk 1", CL1, push(PAN_MON(-0.3), 0.06, 0.9)],
-  ["snitching", r3(T[16] - 0.05), push(TWO_JC, 0.08, 1.4)],
+  ["snitching", r3(Math.max(T[16] - 0.05, CL1 + 0.6)), push(TWO_JC, 0.08, 1.4)],
   ["a witness", r3(T[17] - 0.05), drift(SPUD_J_CL, -0.1, 1.9)],
   ["ever angry", r3(T[18] - 0.2), push(JCL(4), 0.06, 2.5)],
   ["no 4", r3(T[19] - 0.05), push(CHIP_J_CL, 0.1, 1.4)],
   ["right now", r3(T[20] - 0.08), push(PAN_IN(-0.3), 0.12, 1.0)],
   ["clunk 2", CL2, mv(PAN_MON(-0.5), { pos: [PAN_MON(-0.5).pos[0] - 0.3, PAN_MON(-0.5).pos[1], PAN_MON(-0.5).pos[2]] }, 1.3)],
-  ["ever loud", r3(T[21] - 0.2), push(JCL(5), 0.06, 1.6)],
+  ["ever loud", r3(Math.max(T[21] - 0.2, CL2 + 0.6)), push(JCL(5), 0.06, 1.6)],
   ["noooo", r3(T[22] - 0.05), push(CHIP_J_CL, 0.15, 0.7)],
   ["clunk 3", CL3, push(PAN_MON(-0.65), 0.08, 1.4)],
-  ["do something", r3(T[23] - 0.05), push(TWO_J, 0.06, 1.2)],
+  ["do something", r3(Math.max(T[23] - 0.05, CL3 + 0.6)), push(TWO_J, 0.06, 1.2)],
   ["thirty-seven", r3(T[24] - 0.05), push(SPUD_J_CL, 0.08, 1.1)],
   ["eavesdropped", r3(T[25] - 0.2), push(JCL(6), 0.1, 2.3)],
   ["every day", r3(T[27] - 0.08), push(PAN_IN(-0.65), 0.12, 1.1)],
   ["clunk 4", CL4, push(PAN_MON(-0.8), 0.1, 1.5)],
-  ["plan b", r3(T[28] - 0.3), push(SPUD_J_CL, 0.08, 0.9)],
+  ["plan b", r3(Math.max(T[28] - 0.3, CL4 + 0.6)), push(SPUD_J_CL, 0.08, 0.9)],
   ["a bug", r3(T[29] - 0.05), push(TWO_JC, 0.06, 0.9)],
   ["cheat sheet", r3(T[30] - 0.05), push(BEETLE_CL, 0.1, 1.6), "insert"],
   ["he walks to the pan", r3(WALK - 0.1), drift(WALK_S, 0.2, 2.6)],
@@ -543,7 +543,7 @@ const beats = c.beats([
   ["no no no 2", r3(NO[1] - 0.12), push(MONT(3), 0.08, 0.9)],
   ["no no no 3", r3(NO[2] - 0.12), push(MONT(6), 0.08, 0.9)],
   ["level", r3(NO[2] + 0.5), push(PAN_IN(0), 0.1, T[32] - NO[2] - 0.5)],
-  ["pass", r3(T[32] - 0.1), push(PASS_S, 0.06, 0.8)],
+  ["pass", r3(Math.max(T[32] - 0.1, NO[2] + 0.9)), push(PASS_S, 0.06, 0.8)],
   ["she sulks", r3(T[32] + 0.6), drift(SLUMP_S, 0.12, DOORS - T[32] - 0.6)],
   ["the doors", DOORS, mv(DOORS_S, { pos: [-1.0, 0.75, 3.4] }, 1.6)],
   ["so I'm safe", r3(T[33] - 0.1), push(SAFE_S, 0.06, 1.0)],
@@ -553,9 +553,9 @@ const beats = c.beats([
   ["next", NEXT, push(NEXT_S, 0.06, 1.7)],
   ["my beetle back", r3(T[37] - 0.05), push(SPUD_E_CL, 0.1, 1.7)],
   ["behind his back", HIDE, push(HIDE_S, 0.08, 0.6)],
-  ["he let him", r3(T[38] - 0.1), push(HSPUD_CL, 0.12, 2.0)],
+  ["he let him", r3(Math.max(T[38] - 0.1, HIDE + 0.6)), push(HSPUD_CL, 0.12, 2.0)],
   ["she turns", CL5, push(MON_TURN, 0.08, 0.7)],
-  ["why is YOUR heart", r3(T[39] - 0.1), push(LAST, 0.1, END - T[39] + 0.1)],
+  ["why is YOUR heart", r3(Math.max(T[39] - 0.1, CL5 + 0.6)), push(LAST, 0.1, END - T[39] + 0.1)],
 ], END);
 
 // the light per act (DESIGN 10): a keyed grade on the finished picture (looks.js COLOUR ARC)
