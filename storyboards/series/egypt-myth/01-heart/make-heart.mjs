@@ -468,16 +468,16 @@ const CRANE = { pos: [-3.45, 2.6, -0.3], look: [-5.2, 0.85, 9.0], fov: 40 };
 // the denials
 const JCL = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 70 : 110, el: 10, h: 1.9, fov: 40, lift: 0.12 });   // from the side away from Chip
 const CHIP_J_CL = fr([CHIP_J[0], 0.42, CHIP_J[1]], { az: -80, el: 3, h: 1.1, fov: 50, lift: 0.12 });   // wide lens, close: the camera stays in front of the stools
-const CHIP_J_R = fr([CHIP_J[0], 0.42, CHIP_J[1]], { az: 70, el: 3, h: 1.3, fov: 40, lift: 0.12 });   // when he turns to the scale
 const LINE_WIDE = fr([-4.2, 0.65, 3.6], { az: 25, el: 8, h: 3.6, fov: 38, lift: 0.1 });
 const PAN_IN = (tilt) => { const s = seatAt(tilt); return fr([s[0], s[1] + 0.12, 0], { az: -8, el: 10, h: 0.8, fov: 30 }); };
 const PAN_IN_R = (tilt) => { const s = seatAt(tilt); return fr([s[0], s[1] + 0.12, 0], { az: 50, el: 10, h: 0.8, fov: 30 }); };   // past Spud at the pan
 const PAN_MON = (tilt) => { const s = seatAt(tilt); return fr([s[0] - 0.6, s[1] + 0.3, -0.2], { az: 25, el: 6, h: 2.4, fov: 36 }); };
 const SPUD_J_CL = fr([SPUD_J[0], 0.72, SPUD_J[1]], { az: -40, el: 3, h: 1.9, fov: 32, lift: 0.14 });
+const TWO_JC = fr([-3.25, 0.6, 3.1], { az: 20, el: 6, h: 2.6, fov: 36, lift: 0.1 });   // Chip turned to the scale: a front close puts the judges' robes behind his caption
 const TWO_J = fr([-3.0, 0.6, 2.9], { az: 10, el: 6, h: 2.6, fov: 36, lift: 0.1 });
 const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1] + 0.15, BEET_AT[2]], { az: -35, el: 4, h: 1.1, fov: 34 });
 const WALK_S = fr([-1.9, 0.6, 1.6], { az: -35, el: 10, h: 2.8, fov: 38, lift: 0.1 });   // from his front-left: his face as he walks
-const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 14, h: 1.6, fov: 34 });
+const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 20, h: 2.4, fov: 34, lift: 0.2 });   // wide enough for the 4-line caption over him
 // the pass, the doors, the museum
 const MONT = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 60 : 120, el: 12, h: 1.9, fov: 40, lift: 0.12 });
 const PASS_S = fr([0.75, 1.0, -0.2], { az: 30, el: 4, h: 3.2, fov: 38, lift: 0.08 });
@@ -519,7 +519,7 @@ const beats = c.beats([
   ["this is easy", r3(T[14] - 0.25), drift(LINE_WIDE, -0.12, 1.0)],
   ["he stole fries", r3(T[15] - 0.12), push(PAN_IN(-0.1), 0.12, 1.6), "escalation"],
   ["clunk 1", CL1, push(PAN_MON(-0.3), 0.06, 0.9)],
-  ["snitching", r3(T[16] - 0.05), push(CHIP_J_R, 0.08, 1.4)],
+  ["snitching", r3(T[16] - 0.05), push(TWO_JC, 0.08, 1.4)],
   ["a witness", r3(T[17] - 0.05), drift(SPUD_J_CL, -0.1, 1.9)],
   ["ever angry", r3(T[18] - 0.2), push(JCL(4), 0.06, 2.5)],
   ["no 4", r3(T[19] - 0.05), push(CHIP_J_CL, 0.1, 1.4)],
@@ -534,7 +534,7 @@ const beats = c.beats([
   ["every day", r3(T[27] - 0.08), push(PAN_IN(-0.65), 0.12, 1.1)],
   ["clunk 4", CL4, push(PAN_MON(-0.8), 0.1, 1.5)],
   ["plan b", r3(T[28] - 0.3), push(SPUD_J_CL, 0.08, 0.9)],
-  ["a bug", r3(T[29] - 0.05), push(CHIP_J_R, 0.08, 0.9)],
+  ["a bug", r3(T[29] - 0.05), push(TWO_JC, 0.06, 0.9)],
   ["cheat sheet", r3(T[30] - 0.05), push(BEETLE_CL, 0.1, 1.6), "insert"],
   ["he walks to the pan", r3(WALK - 0.1), drift(WALK_S, 0.2, 2.6)],
   ["don't speak against me", r3(WALK_END + 0.4), push(SLAP_S, 0.08, SLAP_T - WALK_END)],
