@@ -97,7 +97,7 @@
  "music": {
   "file": "score-film/lies-score.ogg",
   "from": 0,
-  "skip": 127.22,
+  "skip": 131.07,
   "seam": true,
   "gain": 0.5,
   "lowCut": 90,
@@ -185,57 +185,102 @@
  "props": [],
  "captions": [
   {
-   "from": 2.31,
-   "to": 4.07,
-   "text": "Do you actually like my buns?",
-   "pos": 250,
+   "from": 0.1,
+   "to": 2.24,
+   "text": "So you tested your best friend.",
+   "pos": 246,
    "pop": false,
-   "size": 62,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 2.31,
+   "to": 4.04,
+   "text": "Do you actually like my buns?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
    "kinetic": false
   },
   {
    "from": 4.09,
-   "to": 5.12,
+   "to": 5.09,
    "text": "Love them.",
-   "pos": 250,
+   "pos": 246,
    "pop": false,
-   "size": 62,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 5.14,
+   "to": 7.15,
+   "text": "Two hundred and fourteen.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 7.66,
+   "to": 9.14,
+   "text": "So you asked around.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
    "kinetic": false
   },
   {
    "from": 9.21,
-   "to": 10.98,
+   "to": 10.95,
    "text": "Why does he lie to me so much?",
-   "pos": 250,
+   "pos": 246,
    "pop": false,
-   "size": 62,
+   "size": 54,
    "kinetic": false
   },
   {
    "from": 11,
-   "to": 12.47,
+   "to": 12.44,
    "text": "Him? he never lies!",
-   "pos": 250,
+   "pos": 246,
    "pop": false,
-   "size": 62,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 12.49,
+   "to": 15.09,
+   "text": "Even your friends were lying about him.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
    "kinetic": false
   },
   {
    "from": 15.34,
-   "to": 16.49,
+   "to": 16.46,
    "text": "Does he lie to me?",
-   "pos": 250,
+   "pos": 246,
    "pop": false,
-   "size": 62,
+   "size": 54,
    "kinetic": false
   },
   {
    "from": 16.51,
-   "to": 19.04,
+   "to": 19.01,
    "text": "Trust me. ask him yourself.",
-   "pos": 250,
+   "pos": 246,
    "pop": false,
-   "size": 62,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 19.06,
+   "to": 21.31,
+   "text": "The only straight answer in town.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
    "kinetic": false
   }
  ],
@@ -263,7 +308,7 @@
       1.859
      ]
     },
-    "dur": 5.14,
+    "dur": 2.31,
     "yaw": {
      "keys": [
       [
@@ -271,7 +316,7 @@
        0
       ],
       [
-       5.14,
+       2.31,
        4
       ]
      ],
@@ -393,8 +438,7 @@
      "voice": "narrator",
      "take": 1,
      "dur": 2.09,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 0.1
     }
@@ -403,7 +447,7 @@
   {
    "name": "14 do you like them close +",
    "at": 2.31,
-   "len": 2.83,
+   "len": 1.78,
    "shot": {
     "pos": [
      1.544,
@@ -423,7 +467,7 @@
       0.626
      ]
     },
-    "dur": 2.83,
+    "dur": 1.78,
     "yaw": {
      "keys": [
       [
@@ -431,8 +475,8 @@
        0
       ],
       [
-       5.14,
-       4
+       4.09,
+       -4
       ]
      ],
      "pivot": 1.492
@@ -480,21 +524,68 @@
      "pose": "rest",
      "dur": 0.35,
      "at": 1.73
+    }
+   ]
+  },
+  {
+   "name": "14 do you like them close",
+   "at": 4.09,
+   "len": 3.13,
+   "shot": {
+    "pos": [
+     1.079,
+     0.838,
+     0.703
+    ],
+    "look": [
+     1.896,
+     0.76,
+     -0.544
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.161,
+      0.83,
+      0.579
+     ]
     },
+    "dur": 3.13,
+    "yaw": {
+     "keys": [
+      [
+       4.09,
+       0
+      ],
+      [
+       7.22,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
     {
      "who": "mash",
      "do": "expr",
      "expr": "happy",
      "dur": 0.25,
-     "at": 1.78
+     "at": 0
     },
     {
      "who": "mash",
      "do": "arm",
      "side": "R",
-     "pose": "point",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
      "dur": 0.25,
-     "at": 1.78
+     "at": 0
     },
     {
      "who": "mash",
@@ -504,7 +595,7 @@
      "voice": "mash",
      "dur": 0.95,
      "caption": false,
-     "at": 1.78
+     "at": 0
     },
     {
      "who": "mash",
@@ -512,14 +603,24 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 2.78
+     "at": 1
+    },
+    {
+     "macro": "narrate",
+     "line": "Two hundred and fourteen.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.96,
+     "caption": false,
+     "gain": 4,
+     "at": 1.05
     }
    ]
   },
   {
    "name": "14 do you like them close",
-   "at": 5.14,
-   "len": 2.42,
+   "at": 7.22,
+   "len": 0.34,
    "shot": {
     "pos": [
      1.544,
@@ -539,11 +640,11 @@
       0.626
      ]
     },
-    "dur": 2.42,
+    "dur": 0.5,
     "yaw": {
      "keys": [
       [
-       5.14,
+       7.22,
        0
       ],
       [
@@ -563,17 +664,6 @@
      "at": 0
     },
     {
-     "macro": "narrate",
-     "line": "Two hundred and fourteen.",
-     "voice": "narrator",
-     "take": 1,
-     "dur": 1.96,
-     "caption": true,
-     "pos": 250,
-     "gain": 4,
-     "at": 0
-    },
-    {
      "who": "spud",
      "do": "move",
      "to": [
@@ -585,7 +675,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "spud",
@@ -594,17 +684,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "mash",
      "do": "hide",
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "mash",
@@ -618,7 +708,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "chip",
@@ -632,7 +722,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "chip",
@@ -641,12 +731,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "wedge",
@@ -660,7 +750,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "wedge",
@@ -669,12 +759,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.408
+     "at": 0.328
     },
     {
      "who": "wedge",
      "do": "show",
-     "at": 2.408
+     "at": 0.328
     }
    ]
   },
@@ -701,7 +791,7 @@
       1.859
      ]
     },
-    "dur": 4.93,
+    "dur": 1.65,
     "yaw": {
      "keys": [
       [
@@ -709,8 +799,8 @@
        0
       ],
       [
-       12.49,
-       -4
+       9.21,
+       4
       ]
      ],
      "pivot": 2.769
@@ -744,8 +834,7 @@
      "voice": "narrator",
      "take": 1,
      "dur": 1.43,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 0.1
     }
@@ -754,7 +843,7 @@
   {
    "name": "14b asked around close +",
    "at": 9.21,
-   "len": 3.28,
+   "len": 1.79,
    "shot": {
     "pos": [
      1.544,
@@ -774,7 +863,7 @@
       0.626
      ]
     },
-    "dur": 3.28,
+    "dur": 1.79,
     "yaw": {
      "keys": [
       [
@@ -782,8 +871,8 @@
        0
       ],
       [
-       12.49,
-       4
+       11,
+       -4
       ]
      ],
      "pivot": 1.492
@@ -831,7 +920,48 @@
      "pose": "rest",
      "dur": 0.35,
      "at": 1.74
+    }
+   ]
+  },
+  {
+   "name": "14b asked around close",
+   "at": 11,
+   "len": 1.49,
+   "shot": {
+    "pos": [
+     1.079,
+     0.418,
+     0.703
+    ],
+    "look": [
+     1.896,
+     0.34,
+     -0.544
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.161,
+      0.41,
+      0.579
+     ]
     },
+    "dur": 1.49,
+    "yaw": {
+     "keys": [
+      [
+       11,
+       0
+      ],
+      [
+       12.49,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
     {
      "who": "chip",
      "do": "expr",
@@ -840,22 +970,21 @@
       "open": 0.2
      },
      "dur": 0.25,
-     "at": 1.79
+     "at": 0
     },
     {
      "who": "chip",
      "do": "arm",
      "side": "R",
-     "pose": "up",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
      "dur": 0.25,
-     "at": 1.79
-    },
-    {
-     "who": "chip",
-     "do": "hop",
-     "count": 1,
-     "height": 0.05,
-     "at": 1.79
+     "at": 0
     },
     {
      "who": "chip",
@@ -865,7 +994,7 @@
      "voice": "chip",
      "dur": 1.39,
      "caption": false,
-     "at": 1.79
+     "at": 0
     },
     {
      "who": "chip",
@@ -873,7 +1002,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 3.23
+     "at": 1.44
     }
    ]
   },
@@ -909,7 +1038,7 @@
       ],
       [
        15.34,
-       4
+       -4
       ]
      ],
      "pivot": 1.492
@@ -929,8 +1058,7 @@
      "voice": "narrator",
      "take": 1,
      "dur": 2.55,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 0
     }
@@ -968,13 +1096,20 @@
       ],
       [
        18.53,
-       -4
+       4
       ]
      ],
      "pivot": 3.184
     }
    },
    "do": [
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -63.449,
+     "dur": 0.3,
+     "at": 0
+    },
     {
      "who": "spud",
      "do": "arm",
@@ -1028,7 +1163,13 @@
      "who": "wedge",
      "do": "arm",
      "side": "R",
-     "pose": "point",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
      "dur": 0.25,
      "at": 1.17
     },
@@ -1097,8 +1238,7 @@
      "voice": "narrator",
      "take": 1,
      "dur": 2.2,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 0.53
     }
@@ -1107,8 +1247,8 @@
  ],
  "visible": [],
  "story": {
-  "T0": 127.22,
-  "T1": 148.94
+  "T0": 131.07,
+  "T1": 152.79
  },
- "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 127.22-148.94 s)."
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 131.07-152.79 s)."
 }

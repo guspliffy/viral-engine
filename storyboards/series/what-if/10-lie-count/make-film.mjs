@@ -11,6 +11,23 @@ const MEASURED = existsSync(LJ) ? JSON.parse(readFileSync(LJ, "utf8")) : {};
 const words = (s) => s.split(/\s+/).filter(Boolean).length;
 const nDur = (text) => MEASURED[text] ?? r3(words(text) * WPS + 0.4);
 const sDur = (who, text) => MEASURED[`${who}|${text}`] ?? r3(Math.max(0.7, words(text) * 0.36 + 0.4));   // draft 3: real voices (measured, lines.json "who|line")
+// a caption in parts of at most MAXC letters (one line at F.CAP px in the wide frame), split nearest the middle
+const MAXC = 44;
+function chunks(text) {
+  const w = text.split(/\s+/).filter(Boolean);
+  if (text.length <= MAXC) return [text];
+  let best = null;   // two parts: the split nearest the middle, a sentence end first, then a comma
+  for (let k = 1; k < w.length; k++) {
+    const a = w.slice(0, k).join(" "), b = w.slice(k).join(" ");
+    if (a.length > MAXC || b.length > MAXC) continue;
+    const cost = Math.abs(a.length - b.length) + (/[.?!]$/.test(w[k - 1]) ? 0 : /[,:]$/.test(w[k - 1]) ? 22 : 30) + (((a.match(/(^|\s)'|'(\s|$|[.,])/g) || []).length % 2) * 40);
+    if (!best || cost < best.cost) best = { cost, parts: [a, b] };
+  }
+  if (best) return best.parts;
+  const out = []; let cur = [];
+  for (const x of w) { if (cur.length && [...cur, x].join(" ").length > MAXC) { out.push(cur.join(" ")); cur = []; } cur.push(x); }
+  return [...out, cur.join(" ")];
+}
 const EXPR = { excited: "eager", calm: "kind", question: "focused", sad: "sad" };
 
 // ---------------------------------------------------------------- draft 2 coverage (Jonny 19 Nov: "many slow cuts and scenes
@@ -58,17 +75,19 @@ for (const sc of SCENES) {
   const posNow = {};
   for (const [who, [lx, lz]] of Object.entries(sc.layout)) posNow[who] = S.w([lx, lz]);
   ev.push([T, "cut", sc.shot, { ...posNow }]);
-  let t = T + 0.1;
+  let t = T + 0.1, last = [t, 0];   // last = the latest line [start, length] (cutat)
   for (const it of sc.seq) {
     const [k] = it;
-    if (k === "n") { const d = nDur(it[1]); ev.push([t, "n", it[1], d]); t += d + 0.12; }   // draft 3 (Jonny 20 Nov "still too long on quiet scenes"): lines back to back; draft 2 (Jonny 19 Nov: "boring over time", "could get speed up"): lines near back to back
+    if (k === "n") { const d = nDur(it[1]); ev.push([t, "n", it[1], d]); last = [t, d]; t += d + 0.12; }   // draft 3 (Jonny 20 Nov "still too long on quiet scenes"): lines back to back; draft 2 (Jonny 19 Nov: "boring over time", "could get speed up"): lines near back to back
     else if (k === "s") {
       const [, who, line, tone, o = {}] = it, d = sDur(who, line);
-      ev.push([t, "s", who, line, d, tone, o]);
+      ev.push([t, "s", who, line, d, tone, o]); last = [t, d];
       if (o.lie) { const tk = r3(t + d - 0.15); LIES[who].push([tk, val(who) + 1]); }
       t += d + 0.1;
     } else if (k === "cut") ev.push([t, "cut", it[1], { ...posNow }]);
-    else if (k === "wait") t += r3(it[1] * 0.3);   // draft 3: a third of the written pause (cut 0.1-0.2 s after an action)
+    else if (k === "wait") t += r3(it[1] * 0.3);
+    else if (k === "hold") t += it[1];   // Sol 20 Nov: a full wait (a walk ends before the line starts)
+    else if (k === "cutat") ev.push([r3(last[0] + it[1] * last[1]), "cut", it[2], { ...posNow }]);   // a cut inside the last line (each name on its face)   // draft 3: a third of the written pause (cut 0.1-0.2 s after an action)
     else if (k === "walk") { posNow[it[1]] = S.w(it[2]); ev.push([t, ...it]); }
     else if (k === "spudtag") { if (spudTag == null) spudTag = r3(t); SPUD.push([r3(t - 0.3), SPUD.length + 1]); ev.push([t, "spudtag"]); }
     else ev.push([t, ...it]);
@@ -116,13 +135,18 @@ runs.forEach((run, ri) => {
   if (anyPlate) {
     const [x, z] = S.w([0.8, 0.2]);
     props.push({ id: "ctab", kind: "cafetable", x, y: 0, z, h: 0.46, r: 0.25 }, { id: "plate", kind: "dessertplate", x, y: 0.46, z }, { id: "bun", kind: "cinnabun", x, y: 0.468, z, rot: 0, bite: 0 });
-    c.prop(0, "bun", { bite: 0 }, 0, "linear");
+    c.prop(0, "bun", { bite: 0.6 }, 0, "linear");   // Sol 20 Nov: "you ate your buns" over a whole bun; it is half eaten when we arrive
   }
   if (anyParty) {
     const [tx, tz] = S.w([-0.3, 1.25]);
     props.push({ id: "ptab", kind: "cafetable", x: tx, y: 0, z: tz, h: 0.46, r: 0.34 }, { id: "cake", kind: "cake", x: tx, y: 0.46, z: tz });
     props.push({ id: "banner", kind: "banner", text: "SURPRISE!", width: 1.8, x: -0.6, y: 1.55, z: -2.42, rot: 0 });
     props.push({ id: "balloons", kind: "balloons", x: -2.5, y: 0, z: -1.5 });
+  }
+  if (run.scenes.some((x) => x.sc.cards)) {   // Sol 20 Nov: game night on a bare rug: a pile face down, Chip's four aces turn up on Spud's line
+    const pile = [[-0.12, 0.12, 10, "2h"], [0.02, 0.06, -25, "7s"], [-0.04, 0.2, 40, "Kd"]], aces = ["As", "Ah", "Ad", "Ac"];
+    pile.forEach(([lx, lz, r, card], i) => { const [x, z] = S.w([lx, lz]); props.push({ id: `pc${i}`, kind: "playcard", card, x, y: 0.002, z, rot: r, tip: -90 }); });
+    aces.forEach((card, i) => { const [x, z] = S.w([0.36 + i * 0.13, -0.08]); props.push({ id: `ace${i}`, kind: "playcard", card, x, y: 0.002, z, rot: S.facing, tip: -90 }); });
   }
   if (run.scenes.some((x) => x.sc.baker) || who.includes("baker")) props.push({ id: "toque", kind: "toque", wear: "baker", x: 0, y: 0, z: 0 }), allow.push({ who: "baker", with: "toque", from: 0, to: END, reason: "the chef's hat is worn" });
   // draft 3 (Jonny 20 Nov "in the rain scene, there is no rain"): the set only wets the street; the falling rain is this prop
@@ -142,6 +166,7 @@ runs.forEach((run, ri) => {
       A(u(s0), id, "expr", { expr: "kind", dur: 0.01 });
     }
     const live = { ...pos };
+    ev.sort((a, b) => a[0] - b[0]);   // coverage + cutat cuts in time order (stable: same-time events keep theirs)
     for (const e of ev) {
       const [t, k] = e, uu = u(t);
       if (k === "cut") {
@@ -155,18 +180,25 @@ runs.forEach((run, ri) => {
         const sg = (cuts.length % 2 ? -1 : 1) * 4, pv = r3(Math.hypot(...shot.pos.map((v, i) => v - shot.look[i])));
         if (!shot.yaw) shot.yaw = { keys: [[uu, 0], [r3(uu + len), sg]], pivot: pv };   // a slow arc on every shot
         cuts.push([`${sc.id} ${spec.t}${spec.auto ? " +" : ""}`, uu, shot]);
-      } else if (k === "n") c.at(uu, { macro: "narrate", line: e[2], voice: NARRATOR, take: TAKES[e[2]] ?? 1, dur: e[3], caption: true, pos: F.SUB, gain: 4.0 });
+      } else if (k === "n") {
+        // final (preflight 20 Nov): the narrator's two-line captions reached the eyes in close-ups; one line each, in
+        // the band between the tags (above) and the eyes (below), a long line in parts timed by its letters
+        c.at(uu, { macro: "narrate", line: e[2], voice: NARRATOR, take: TAKES[e[2]] ?? 1, dur: e[3], caption: false, gain: 4.0 });
+        const parts = chunks(e[2]), L = parts.reduce((q, x) => q + x.length, 0); let a0 = uu;
+        parts.forEach((x, j) => { const a1 = j === parts.length - 1 ? r3(uu + e[3] + 0.05) : r3(a0 + (e[3] * x.length) / L); c.cap(r3(a0), a1, x, F.SUB, false, { size: F.CAP, kinetic: false }); a0 = a1; });
+      }
       else if (k === "s") {
         const [, , id, line, d, tone, o] = e;
         if (o.expr) A(uu, id, "expr", { expr: o.expr, dur: 0.15 });
         // draft 2: every line is acted (a gesture by tone, back to rest after it)
-        const G = { excited: ["R", "up"], question: ["B", "shrug"], calm: ["R", "point"], sad: null }[tone];
+        // Sol 20 Nov: "up" and "point" stretched the sleeves past the head and over a partner's eyes: chest-high offers
+        const G = { excited: ["R", { o: [0.16, 0.6, 0.22] }], question: ["B", "shrug"], calm: ["R", { o: [0.12, 0.42, 0.24] }], sad: null }[tone];
         if (G && !sc.baker) { for (const sd of G[0] === "B" ? ["R", "L"] : [G[0]]) { c.arm(uu, id, sd, G[1], 0.25); c.arm(r3(uu + d + 0.05), id, sd, "rest", 0.35); } }
-        if (tone === "excited") A(uu, id, "hop", { count: 1, height: 0.05 });
         // draft 3 (Jonny 20 Nov "the gibberish is quite annoying"): every line is spoken in the character's own voice
         c.macro(uu, id, "say", { line, tone, voice: VOICES[id], dur: d, caption: false });
-        c.cap(uu, r3(uu + d + 0.08), line.charAt(0).toUpperCase() + line.slice(1), F.SUB, false, { size: 62, kinetic: false });
-      } else if (k === "card") c.cap(uu, Math.min(END - 0.05, r3(uu + e[3])), e[2], F.CARD, false, { size: 170, kinetic: false, color: "#f3dc8c", stroke: "#24232b" });
+        { const parts = chunks(line.charAt(0).toUpperCase() + line.slice(1)), L = parts.reduce((q, x) => q + x.length, 0); let a0 = uu;
+          parts.forEach((x, j) => { const a1 = j === parts.length - 1 ? r3(uu + d + 0.05) : r3(a0 + (d * x.length) / L); c.cap(r3(a0), a1, x, F.SUB, false, { size: F.CAP, kinetic: false }); a0 = a1; }); }
+      } else if (k === "card") c.cap(uu, Math.min(END - 0.05, r3(uu + e[3])), e[2], F.CARD, false, { size: 150, kinetic: false, color: "#f3dc8c", stroke: "#24232b" });
       else if (k === "e") A(uu, e[2], "expr", { expr: e[3], ...(e[4] && { set: e[4] }), dur: 0.25 });
       else if (k === "walk") {
         const [, , id, to, dur] = e, w = S.w(to), from = live[id];
@@ -174,6 +206,8 @@ runs.forEach((run, ri) => {
         A(r3(uu + 0.1), id, "move", { to: w, y: floorY(P, w[0]), dur: r3(dur) });
         live[id] = w;
       } else if (k === "arm") c.arm(uu, e[2], e[3], e[4], 0.3);
+      else if (k === "turn") A(uu, e[2], "turn", { to: faceOf(["to", e[3]], e[2], live), dur: 0.3 });
+      else if (k === "prop") for (const pid of e[2] === "aces" ? [0, 1, 2, 3].map((i) => `ace${i}`) : [e[2]]) c.prop(uu, pid, e[3], e[4] ?? 0, "out");
       else if (k === "hide") park(t, e[2]);
       else if (k === "sfx") c.sfx(uu, e[2], { reason: "the story's own sound", ...(e[3] || {}) });
       else if (k === "bite") c.prop(uu, e[2], { bite: e[3] }, 0.2, "out");

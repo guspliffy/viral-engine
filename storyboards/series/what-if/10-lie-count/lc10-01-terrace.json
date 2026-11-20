@@ -200,32 +200,111 @@
  ],
  "captions": [
   {
-   "from": 3.99,
-   "to": 4.97,
-   "text": "Delicious!",
-   "pos": 250,
+   "from": 0.1,
+   "to": 1.954,
+   "text": "What if you could see how many",
+   "pos": 246,
    "pop": false,
-   "size": 62,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 1.954,
+   "to": 3.92,
+   "text": "times everyone has lied to you?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 3.99,
+   "to": 4.94,
+   "text": "Delicious!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
    "kinetic": false
   },
   {
    "from": 4.99,
-   "to": 7.19,
-   "text": "212",
-   "pos": 880,
+   "to": 6.657,
+   "text": "Your best friend just hit",
+   "pos": 246,
    "pop": false,
-   "size": 170,
-   "kinetic": false,
-   "color": "#f3dc8c",
-   "stroke": "#24232b"
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 6.657,
+   "to": 8.24,
+   "text": "two hundred and twelve.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 8.31,
+   "to": 10.27,
+   "text": "Remember that number.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 10.34,
+   "to": 12.6,
+   "text": "All about your cinnamon buns.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 13.05,
+   "to": 15.098,
+   "text": "It started this morning.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 15.098,
+   "to": 18.39,
+   "text": "Everyone had a number over their head.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 18.46,
+   "to": 19.82,
+   "text": "And only you could see them.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
   },
   {
    "from": 19.89,
-   "to": 21.26,
+   "to": 21.23,
    "text": "Fresh today!",
-   "pos": 250,
+   "pos": 246,
    "pop": false,
-   "size": 62,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 21.28,
+   "to": 25.31,
+   "text": "The baker. Four. All of them about bread.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
    "kinetic": false
   }
  ],
@@ -253,7 +332,7 @@
       2.477
      ]
     },
-    "dur": 4.99,
+    "dur": 2.495,
     "yaw": {
      "keys": [
       [
@@ -261,7 +340,7 @@
        0
       ],
       [
-       4.99,
+       2.495,
        4
       ]
      ],
@@ -394,8 +473,7 @@
      "voice": "narrator",
      "take": 1,
      "dur": 3.77,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 0.1
     }
@@ -444,15 +522,14 @@
      "who": "mash",
      "do": "arm",
      "side": "R",
-     "pose": "up",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
      "dur": 0.25,
-     "at": 1.495
-    },
-    {
-     "who": "mash",
-     "do": "hop",
-     "count": 1,
-     "height": 0.05,
      "at": 1.495
     },
     {
@@ -498,7 +575,7 @@
       2.046
      ]
     },
-    "dur": 5.35,
+    "dur": 2.675,
     "yaw": {
      "keys": [
       [
@@ -506,8 +583,8 @@
        0
       ],
       [
-       10.34,
-       -4
+       7.665,
+       4
       ]
      ],
      "pivot": 1.493
@@ -530,8 +607,7 @@
      "voice": "narrator",
      "take": 1,
      "dur": 3.2,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 0
     }
@@ -569,7 +645,7 @@
       ],
       [
        10.34,
-       4
+       -4
       ]
      ],
      "pivot": 2.015
@@ -582,8 +658,7 @@
      "voice": "narrator",
      "take": 2,
      "dur": 1.91,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 0.645
     }
@@ -654,8 +729,7 @@
      "voice": "narrator",
      "take": 2,
      "dur": 2.21,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 0
     },
@@ -768,7 +842,7 @@
       4.337
      ]
     },
-    "dur": 6.94,
+    "dur": 3.2,
     "yaw": {
      "keys": [
       [
@@ -776,7 +850,7 @@
        0
       ],
       [
-       19.89,
+       16.15,
        -4
       ]
      ],
@@ -811,8 +885,7 @@
      "voice": "narrator",
      "take": 2,
      "dur": 5.29,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 0.1
     }
@@ -850,7 +923,7 @@
       ],
       [
        19.89,
-       -4
+       4
       ]
      ],
      "pivot": 1.493
@@ -863,8 +936,7 @@
      "voice": "narrator",
      "take": 1,
      "dur": 1.31,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 2.31
     }
@@ -902,7 +974,7 @@
       ],
       [
        22.745,
-       4
+       -4
       ]
      ],
      "pivot": 1.493
@@ -913,15 +985,14 @@
      "who": "baker",
      "do": "arm",
      "side": "R",
-     "pose": "up",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
      "dur": 0.25,
-     "at": 0
-    },
-    {
-     "who": "baker",
-     "do": "hop",
-     "count": 1,
-     "height": 0.05,
      "at": 0
     },
     {
@@ -948,8 +1019,7 @@
      "voice": "narrator",
      "take": 2,
      "dur": 3.98,
-     "caption": true,
-     "pos": 250,
+     "caption": false,
      "gain": 4,
      "at": 1.39
     }
