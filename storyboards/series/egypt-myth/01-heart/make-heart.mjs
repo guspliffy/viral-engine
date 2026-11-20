@@ -457,7 +457,6 @@ const O_SPRAY = fr([-1.45, 0.35, 0.75], { az: -70, el: 8, h: 2.0, fov: 44 });   
 const O_CHIP = fr([CHIP0[0] + 0.05, 0.42, CHIP0[1]], { az: 125, el: 2, h: 1.4, fov: 45, lift: 0.14 });
 // the rule
 const VS = { pos: [-0.9, 1.45, 1.9], look: [-1.5, 1.0, 0], fov: 40 };   // the heart near, the feather pan far: "vs"
-const WHIP_S = mv({ pos: [-0.9, 1.45, 1.9], look: [1.5, 1.12, 0], fov: 40 }, { look: [-1.5, 1.0, 0] }, 0.3, "inOut");   // the feather, then the whip to his heart
 const TWO = fr([-1.45, 0.6, 1.45], { az: 0, el: 6, h: 2.6, fov: 36, lift: 0.1 });
 const CHIP_CL = fr([CHIP0[0], 0.42, CHIP0[1]], { az: 20, el: 3, h: 1.4, fov: 40, lift: 0.14 });   // fov 40: the camera stays in front of the queue rope (z 3.6)
 const HEART_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.1, 0], { az: -12, el: 6, h: 0.75, fov: 30 });
@@ -499,8 +498,7 @@ const beats = c.beats([
   ["chomp", 0, push(O_CHOMP, 0.12, 0.6), "hook"],
   ["spray", r3(ASH - 0.1), push(O_SPRAY, 0.08, 0.8)],
   ["she ate his heart", r3(T[1] - 0.04), push(O_CHIP, 0.1, 1.3)],
-  ["yours is next", WHIP, WHIP_S],
-  ["vs the feather", r3(WHIP + 0.3), push(VS, 0.25, 2.5)],
+  ["vs the feather", WHIP, push(VS, 0.25, 2.8)],   // a hard cut: the whip pan swept past the jackal and the back wall in 9 frames (draft pops FAIL)
   ["why my heart", r3(T[3] - 0.2), push(CHIP_CL, 0.06, 1.8)],
   ["your heart remembers", r3(T[4] - 0.05), push(HEART_CL, 0.15, 3.5)],
   ["heavier than the feather", r3(T[5] - 0.05), drift(SPUD_CL, 0.12, 1.6)],
