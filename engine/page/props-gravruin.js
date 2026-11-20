@@ -584,6 +584,8 @@ void main(){
 const ROAD_FS = `
 ${GL_COMMON}
 ${GL_FRAG_COMMON}
+uniform float uCol;
+float vn2(vec2 x){ vec2 i = floor(x), f = fract(x); f = f * f * (3. - 2. * f); return mix(mix(h21(i), h21(i + vec2(1., 0.)), f.x), mix(h21(i + vec2(0., 1.)), h21(i + vec2(1., 1.)), f.x), f.y); }
 varying vec3 vN, vCol, vRest; varying float vK, vEr, vHz;
 void main(){
   vec3 N = normalize(vN), alb = vCol; vec2 p = vRest.xz;
@@ -600,7 +602,11 @@ void main(){
     mk += step(-34.5, p.y) * step(p.y, -32.) * step(abs(p.x + 5.), 6.) * step(fract((p.x + 11.) * .85), .5);
     mk += step(-56.5, p.y) * step(p.y, -54.) * step(abs(p.x + 5.), 6.) * step(fract((p.x + 11.) * .85), .5);
     alb = mix(alb, paint, min(mk, 1.) * .97 * step(.5, inRoad));
-  }
+    // director (Sol r2 #2): the collapse dust settles on the street before it tears: a pale coat, thicker at the kerbs, and dark chunks
+    float edge = sst(3., 9., abs(p.x + 5.)), dn = vn2(p * .12) * .6 + vn2(p * .5) * .4, dc = vn2(p * 1.7 + 17.);
+    alb = mix(alb, vec3(.24, .19, .18), uCol * clamp(.35 + .5 * edge + .6 * (dn - .5), 0., 1.) * .85);
+    alb = mix(alb, vec3(.07, .055, .055), uCol * sst(.8 - .1 * edge, .86 - .1 * edge, dc) * .8);
+  } else alb = mix(alb, vec3(.24, .19, .18), uCol * .3);
   float nl = dot(N, uL), gn = bandOf(nl), ao = vK > .5 ? 1. : 1.;
   vec3 c = alb * gn * tintOf(gn) * ao;
   if (vK < .5) c = scorchOf(c, vRest.xz, vEr); else c = mix(c, scorchOf(c, vRest.xz, vEr), .5 * sst(.05, .4, vEr));
@@ -759,7 +765,7 @@ function buildRupture(P) {
     stats: { slabs: slabs.length, tris: vb.idx.length / 3, cars: cars.length, fires: burning.length },
     apply(ps) {
       const t = ps.t ?? S.t ?? -1;
-      U.uT.value = t; U.uSt.value = Pk(...TL.street, t); U.uSF.value = Pk(...TL.streetFire, t);
+      U.uT.value = t; U.uCol.value = Pk(...TL.collapse, t); U.uSt.value = Pk(...TL.street, t); U.uSF.value = Pk(...TL.streetFire, t);
       const a = Pk(...TL.afterglow, t); U.uAfter.value = a < 0.5 ? lerp(1, 0.69, a * 2) : lerp(0.69, 0.25, (a - 0.5) * 2);
     },
   };

@@ -43,13 +43,13 @@ const CAM = {
   C13: { pos: [0.46, 1.24, 0.46], look: [0.2, 1.75, -2.65], fov: 69 },
   C14: { pos: [0.46, 1.24, 0.46], look: [0.25, 1.8, -2.65], fov: 72 },
   // v2 (Sol's DESIGN-v2.md section E, panels P1-P9 of gravity-panels-v2): the world breaks, seen from the room and outside
-  P1: { pos: [0.34, 1.26, -0.02], look: [0.55, 0.5, -8], fov: 59 },   // Sol r1 #6: aimed lower and right of the design so both eyes stay in frame
+  P1: { pos: [0.46, 1.26, -0.02], look: [0.5, 0.5, -8], fov: 65 },   // Sol r2 #1: centred on his face, wider: both eyes in frame   // Sol r1 #6: aimed lower and right of the design so both eyes stay in frame
   P2: { pos: [0.2, 2.55, -2.57], look: [-5.5, -60, -43], fov: 47 },   // Sol r1 #8: aimed 5 m further out, the near edge of the street deck leaves the frame
   P3: { pos: [0.34, 1.18, 0.94], look: [0.55, 2.34, -8], fov: 63 },
-  P4: { pos: [0.34, 1.3, -0.02], look: [0.52, 0.1, -8], fov: 60 },   // Sol r1 #6 (as P1)
+  P4: { pos: [0.46, 1.3, -0.02], look: [0.5, 0.1, -8], fov: 65 },   // Sol r2 #1   // Sol r1 #6 (as P1)
   P5: { pos: [40000, 1308, 930], look: [40000, 1338, -1806], fov: 84 },   // the Alps: props-gravalps.js origin [40000, 0, 0], scale .6
   P6: { pos: [40168, 1566, -348], look: [40366, 1842, -1656], fov: 57 },
-  P7: { pos: [0.34, 1.02, 0.05], look: [0.5, 1.95, -8], fov: 65 },   // Sol r1 #6: a little right and lower: his right eye stays in frame   // closer to the window than Sol's (.34,1.12,.94): from there the window top hid the Moon until 50 s
+  P7: { pos: [0.46, 1.02, 0.05], look: [0.5, 1.95, -8], fov: 70 },   // Sol r2 #1   // Sol r1 #6: a little right and lower: his right eye stays in frame   // closer to the window than Sol's (.34,1.12,.94): from there the window top hid the Moon until 50 s
   P8: { pos: [0.15, 1.91, -2.58], look: [-48, 130, -2500], fov: 53 },
   P9: { pos: [0.48, 1.39, 0.21], look: [0.37, 0.78, -2.3], fov: 71 },
 };
@@ -147,7 +147,7 @@ expr(r3(T.g2 + 0.07), "angry", { eye: 0.1, open: 0.05, curve: -0.7 }, 0.06);
 A(r3(T.g2 + 0.07), "spud", "face", { lid: 0.85, dur: 0.06 });
 sfx(r3(T.g2 + 0.07), "kenney/impact-soft-medium", { gain: 0.8, reason: "his hand and the phone smack onto his face" });
 sfx(r3(T.g2 + 0.1), "kenney/impact-wood-light", { gain: 0.35, reason: "the sofa frame knocks as he sinks" });
-c.arm(1.55, "spud", "L", { o: [0.12, 0.08, 0.32] }, 1.3, "inOut");   // Sol r1 #14: hand and phone come to rest on his lap, in frame c.arm(1.4, "spud", "R", { o: [0.3, 0.05, 0.12] }, 0.6, "inOut");
+c.arm(1.55, "spud", "L", { o: [-0.14, 0.14, 0.44] }, 1.3, "inOut");   // Sol r2 #4: inward, on his thigh   // Sol r1 #14: hand and phone come to rest on his lap, in frame c.arm(1.4, "spud", "R", { o: [0.3, 0.05, 0.12] }, 0.6, "inOut");
 A(1.95, "spud", "face", { lid: 0.3, dur: 0.3 });
 expr(1.95, "annoyed", { eye: 0.7 }, 0.3); look(1.95, [0, 0.1], 0.3);
 see(0, T.g2, ["spud.face", "phone"], "frame 0: you on the sofa, the phone held over your face; the counter reads 1 g");
@@ -284,9 +284,9 @@ sfx(TROOM, "explosion", { gain: 1.2, dur: 1.4, reason: "the blast blows the wind
 sfx(r3(TROOM + 0.02), "ai/glass-smash", { gain: 0.9, reason: "the window bursts into the room" });
 sfx(r3(TROOM + 0.1), "ai/branch-snap", { gain: 0.6, reason: "the shelf and the sofa frame snap" });
 sfx(r3(TROOM + 0.3), "kenney/impact-wood-heavy", { gain: 0.6, reason: "the shelf crashes over" });
-expr(TROOM, "terrified", { open: 0.9, eye: 1.35 }, 0.06); look(TROOM, [0, 0.9], 0.08);
+expr(TROOM, "terrified", { open: 0.15, eye: 1.4 }, 0.06);   // Sol r2 #5: the shock in the eyes, the mouth stays behind the collar look(TROOM, [0, 0.9], 0.08);
 A(TROOM, "spud", "squash", { amount: 0.22, dur: 0.42 });
-prop(0, "sofa", { brk: 0 }, 0, "linear"); prop(TROOM, "sofa", { brk: 1 }, r3(T.black - TROOM), "out");
+prop(0, "sofa", { brk: 0, damage: 0 }, 0, "linear"); prop(TROOM, "sofa", { brk: 1 }, r3(T.black - TROOM), "out");
 see(TROOM, T.black, ["spud.face", "roomhit"], "50 g: the window explodes inward, glass and furniture fly over him, white flash");
 // the lamp and the plant jump (on the cut) to where Sol's design has them in P9, then fly (props-gravmoon.js header numbers)
 const MID = r3((TROOM + T.black) / 2), roomFly = (id, at0, mid, end) => {
@@ -322,24 +322,23 @@ const beats = c.beats([
   ["P02 3 g: pressed into the sofa", T.g3, push("A2", 2.5)],
   ["P03 4 g: the picture greys", T.g4, push("A2", 2.5, 0.1)],
   ["P04 5 g: tunnel vision, black", T.g5, push("B4", r3(T.cutA - T.g5), 0.025)],   // the tunnel card rides 4 cm closer: its hole stays on his face
-  ["P05 the blackout: slumped", T.cutA, push("A", r3(T.wake - T.cutA), 0.03)],
-  ["P06 10 g: lying flat", T.wake, push("A6", 1.8)],
+  ["P05 the blackout: slumped", T.cutA, push("A", r3(14.8 - T.cutA), 0.04)],   // Sol r2 #3: held through the leg snap (a cut at 13.0 made the sofa jump)
   ["P06b 10 g: '... your blood comes back' (punch-in)", 14.8, punch("A6", 3.2, 0.05)],
   ["P07 15 g: the tower cracks", T.g15, push("C7", 1.0, 0.03)],
   ["P07b 15 g: '... twice their weight', it falls (punch-in)", 19.0, punch("C7", 2.65, 0.03, 0.88)],
   ["P07c 15 g: his face, the dust behind (cut .15 s after the fall)", 21.65, push("B9", 1.35, 0.05)],
   ["P08 20 g: the city starts to go", T.g20, push("P1", 0.9, 0.015)],
-  ["P08b 20 g: 'The whole city comes down.' (punch-in)", 23.9, punch("P1", 4.1, 0.02, 0.86)],
+  ["P08b 20 g: 'The whole city comes down.' (punch-in)", 23.9, punch("P1", 4.1, 0.02, 0.94)],
   ["P09 25 g: the street tears open", T.g25, push("P2", 2.3, 0.02)],
   ["P10 25 g: good thing you're a potato", 30.3, push("B9", 2.7, 0.06), "payoff"],
   ["P11 30 g: satellites burn in", T.g30, push("P3", 3, 0.01)],
   ["P12 30 g: a strike, the window cracks", 36, push("P4", 2, 0.012)],
-  ["P12b 35 g: 'The air itself turns poisonous.' (punch-in)", T.g35, punch("P4", 2.5, 0.015, 0.9)],
+  ["P12b 35 g: 'The air itself turns poisonous.' (punch-in)", T.g35, punch("P4", 2.5, 0.015, 0.95)],
   ["P13 35 g: he gasps", 40.5, push("B11", 2.5, 0.06)],
   ["P14 40 g: the Alps crush", T.g40, push("P5", 2.5, 0.03)],
   ["P15 40 g: a summit splits", 45.5, push("P6", 2.5, 0.03)],
   ["P16 45 g: the Moon over the ruins", T.g45, push("P7", 1.1, 0.01)],
-  ["P16b 45 g: 'Even the Moon is falling.' (punch-in)", 49.1, punch("P7", 3.9, 0.012, 0.85)],
+  ["P16b 45 g: 'Even the Moon is falling.' (punch-in)", 49.1, punch("P7", 3.9, 0.012, 0.93)],
   ["P17 50 g: his face", T.g50, push("B9", 1.6, 0.05)],
   ["P18 50 g: the Moon fills the sky", 54.6, push("P7", 1.4, 0.008)],
   ["P19 50 g: contact, the fire wall", 56, push("P8", r3(TROOM - 56), 0.006)],
