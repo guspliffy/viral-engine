@@ -112,8 +112,8 @@ const elbowOut = (q) => (q && q.mix ? elbowOut(q.mix.from) + (elbowOut(q.mix.pos
 // the body's scale from its squash (pulses times the held "flat" on its own height) and the held "flat" axis z (front to
 // back), volume kept. A held flat spreads mostly sideways (x by fy^-0.75, z by fy^-0.25): a pancake under gravity widens,
 // it doesn't push its face toward the camera (gravity what-if, 19 Nov 2026). Without a held flat: as before.
-function flatScale(st) {
-  const sq = st.squash ?? 1, fz = 1 - (st.flatZ || 0), fy = 1 - (st.flat || 0), p = sq / fy;
+function flatScale(st, knees = false) {   // knees (legs.knees): a squash bends the knees instead of scaling the body
+  const sq = knees ? 1 : st.squash ?? 1, fz = 1 - (st.flatZ || 0), fy = 1 - (st.flat || 0), p = sq / fy;
   return new THREE.Vector3(fy ** -0.75 / Math.sqrt(p * fz), sq / Math.sqrt(fz), (fz / Math.sqrt(p)) * fy ** -0.25);
 }
 
@@ -293,6 +293,13 @@ export class Character {
       index = piv(0.032, 0.04, 0.004); const ix = new THREE.Mesh(cap(0.017, 0.036), M("#f5e020")); ix.position.y = 0.032; ix.castShadow = true; index.add(ix);
       thumb = piv(0.042, -0.008, 0.016); const th = new THREE.Mesh(cap(0.019, 0.03), M("#e020e0"));
       th.position.set(0.026, 0.012, 0); th.rotation.z = -1.0; th.castShadow = true; thumb.add(th);
+      // hands.plain (opt-in, the human friends): the hand is one smooth egg with a small thumb lobe on its side (the
+      // sheets' mitten). The palm is that egg; the finger mass and the index stay as unseen pivots for the grips, so a
+      // resting curl raises no knuckle bump
+      if (this.def.hands?.plain) {
+        ix.visible = mitt.visible = false; palm.userData.rest = [0.92, 1.2, 0.88]; palm.scale.fromArray(palm.userData.rest); palm.position.y = 0.022;
+        th.scale.set(1.2, 0.8, 1.1); th.position.set(0.022, 0.016, 0);
+      }
       // hands.wrist: the heel of the hand, a short cone from the forearm's wrist out to the palm
       if (this.def.hands?.wrist) {
         const w = (this.def.limbs.width * 0.78) / g.userData.size, heel = new THREE.Mesh(new THREE.CylinderGeometry(0.046, w, 0.055, 20, 1), M("#e03030"));
@@ -588,7 +595,7 @@ export class Character {
         const tk = Math.round((t + (dir * k) / 30) * 1e6) / 1e6, st = stAt(tk);
         if (!st || !st.arms || Math.hypot(st.x - prev.x, st.z - prev.z) > 0.25 || Math.abs(st.y - prev.y) > 0.25 || Math.abs(Math.atan2(Math.sin(st.yaw - prev.yaw), Math.cos(st.yaw - prev.yaw))) > 1) break;
         prev = st;
-        const S = flatScale(st), ai = this._armIn(st, tk, s, S);
+        const S = flatScale(st, !!this.def.legs?.knees), ai = this._armIn(st, tk, s, S);
         const qk = this._orient2(U, ai.mid, ai.h, ai.sx, ai.gr, ai.ax, this._palms(ai.a, S, ai.from, ai.to), ai.sh, ai.fr);
         const w = ker(k) * (1 + HOLD * qk.hold) * (qk.dot(q0) < 0 ? -1 : 1);
         acc[0] += qk.x * w; acc[1] += qk.y * w; acc[2] += qk.z * w; acc[3] += qk.w * w;
@@ -898,15 +905,20 @@ export class Character {
   // turn and the arm curve's pull point (S: the body's squash scale)
   _armIn(st, t, s, S) {
     const sx = s === "R" ? -1 : 1, a = st.arms[s];
-    const from = handTarget(a.from, sx, this.rx, this.H, t, this.legH), to = handTarget(a.pose, sx, this.rx, this.H, t, this.legH);
+    // limbs.rest (opt-in, the human friends 19 Nov 2026): where this character's hands hang at rest, { o: [out, up, fwd], elbow },
+    // read like a pose object (out from the body's side, up as a share of the body's height above the legs, forward)
+    const RP = this.def.limbs?.rest, own = (q) => (RP && (q == null || q === "rest") ? RP : q);
+    const from = handTarget(own(a.from), sx, this.rx, this.H, t, this.legH), to = handTarget(own(a.pose), sx, this.rx, this.H, t, this.legH);
     const h = new THREE.Vector3().fromArray(arcLerp(from, to, a.p, sx));
     // natural gait (timeline.js natMove): an arm hanging at rest swings against its own side's leg, along the walk
     // (a pose object with `swing` swings too: a character's own walking arms, e.g. Pebble's, instead of the generic rest)
-    const sw_ = (p) => (p === "rest" ? 1 : p && typeof p === "object" && p.swing ? +p.swing : 0);
+    // limbs.rest.swing (opt-in, the human friends): how many times the potato swing a long hanging arm takes
+    const sw_ = (p) => (p === "rest" ? RP?.swing ?? 1 : p && typeof p === "object" && p.swing ? +p.swing : 0);
     const g = st.gait, rw = g ? sw_(a.pose) * a.p + sw_(a.from) * (1 - a.p) : 0;
     if (rw > 0) {
       const u = g.ph + (s === "R" ? 0 : 0.5), sw = -0.055 * g.amt * Math.min(1.5, Math.max(0.6, g.sd)) * Math.cos(2 * Math.PI * u) * rw;
       h.x += sw * g.dir[0]; h.z += sw * g.dir[1];
+      if (RP?.swing) h.y += (sw * sw) / 0.9;   // a long arm swings like a pendulum: the hand rises a little at each end
     }
     // timeline.js a.nudge ([x, y, z], this unscaled frame): the hand's drag and settle and the contact solver's push
     if (a.nudge) { h.x += a.nudge[0]; h.y += a.nudge[1]; h.z += a.nudge[2]; }
@@ -923,7 +935,7 @@ export class Character {
     const fr = this._frame(a);
     // the elbow (the arm curve's pull point) for the hand at h
     const elbowFor = (h) => {
-      const out = elbowOut(a.pose) * a.p + elbowOut(a.from) * (1 - a.p);
+      const out = elbowOut(own(a.pose)) * a.p + elbowOut(own(a.from)) * (1 - a.p);
       const mid = sh.clone().lerp(h, 0.5).add(new THREE.Vector3(sx * out, -0.06, 0.02));
       // a hand closed on a staff or handle: the elbow drops below the shoulder-hand line, so the forearm comes out from the
       // body into the side of the fist, square to the handle, instead of running down alongside it
@@ -984,7 +996,25 @@ export class Character {
     R.position.set(st.x, st.y - 0.1 * (st.kneel || 0), st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
     R.visible = st.visible !== false;
     this.bodyGroup.visible = !st.pov;   // first person (timeline.js "pov"): only the limbs are drawn
-    this.bodyGroup.scale.copy(flatScale(st));   // squash + the held "flat" (timeline.js), volume kept
+    // legs.knees (opt-in, the human friends 19 Nov; { crouch, bend }): a body on real legs. A squash (a hop's crouch and
+    // landing, a nod, a react) no longer scales the body: the hips sink that much and the knees bend. And a standing
+    // leg never stretches past its own length, so the hips sink as the feet spread and rise as they pass: a walk's
+    // own down and up. Everything is a function of this frame's state.
+    const KN = this.def.legs?.knees; this.bodyGroup.scale.copy(flatScale(st, !!KN));   // squash + the held "flat" (timeline.js), volume kept
+    this._crouch = 0;
+    if (KN) {
+      const LG = this.def.legs, q = st.squash ?? 1, K = KN.crouch ?? 0.5, L0 = this.legH + (LG.hipY ?? 0.06) - 0.035, sc = st.scale ?? 1;
+      let D = q < 1 ? (1 - q) * K : (1 - q) * K * 0.3;
+      if (st.feet) {
+        R.updateMatrix(); const inv = new THREE.Matrix4().copy(R.matrix).invert();
+        for (const [s, sx] of [["R", -1], ["L", 1]]) {
+          const ft = st.feet[s], w = ft ? Math.min(1, Math.max(0, ft.w ?? 1)) : 0; if (!w) continue;
+          const p = new THREE.Vector3(ft.x, ft.y, ft.z).applyMatrix4(inv), h = Math.min(L0 * 0.9, Math.hypot(p.x - sx * (LG.hipX ?? 0.12), p.z));
+          D = Math.max(D, (L0 - Math.sqrt(L0 * L0 - h * h) - Math.max(0, p.y - 0.035)) * w);
+        }
+      }
+      this._crouch = D; R.position.y -= D * sc;
+    }
     // planted feet (timeline.js st.plant): where the last step left them, in the world; drawn in the body's frame
     const pl = st.plant && st.plant.w < 1 ? st.plant : null;
     if (pl) {
@@ -1060,6 +1090,7 @@ export class Character {
         else { const w = (u - ST) / (1 - ST); along = -A + 2 * A * (w - Math.sin(2 * Math.PI * w) / (2 * Math.PI)); up = Math.sin(Math.PI * w) * 0.065 * Math.min(1.4, G.sd) * G.amt; }
         foot.set(sx * fX + along * G.dir[0], 0.035 + up + st.tuck * 0.08, 0.04 + along * G.dir[1]);
       }
+      if (this._crouch) foot.y += this._crouch;   // legs.knees: the hips sank, the feet stay on the floor
       // kneeling: the body drops, the feet stay on the floor tucked behind; sitting: the feet stick out in front
       const kn = st.kneel || 0, si = st.sit || 0;
       foot.y += 0.1 * kn; foot.z -= 0.14 * kn;
@@ -1104,8 +1135,15 @@ export class Character {
         this[`_k${s}`] = key;
         this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
         const knee = hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02 + (this.def.legs?.knee ?? 0)));
-        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, knee, foot, this.def.legs?.width ?? this.limbW * 1.1, false, false, 0, this.def.legs?.dome);
-        this.legs[s].hip = hip; this.legs[s].knee = knee;   // the leg's curve, for costume parts that follow it (costumes-core.js)
+        // legs.knees: a thigh and a shin of half the standing leg each; a hip nearer its foot than that pushes the knee forward
+        const KN = this.def.legs?.knees;
+        if (KN) {
+          const L0 = this.legH + (this.def.legs.hipY ?? 0.06) - 0.035, d = hip.distanceTo(foot), hh = d < L0 ? Math.sqrt((L0 * L0 - d * d) / 4) : 0;
+          const u = foot.clone().sub(hip).normalize(), f = new THREE.Vector3(0, 0, 1).addScaledVector(u, -u.z).normalize();
+          knee.addScaledVector(f, hh * (KN.bend ?? 1));
+        }
+        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, knee, foot, this.def.legs?.width ?? this.limbW * 1.1, false, !!KN, 0, this.def.legs?.dome);
+        this.legs[s].hip = hip; this.legs[s].knee = knee; this.legs[s].joint = !!KN;   // the leg's curve, for costume parts that follow it (costumes-core.js)
       }
       // a juice stain on the forearm (face controls stainR / stainL, Vampire vs Juice Box): a wet purple patch wrapped
       // round the arm just above the wrist, rebuilt with the arm
