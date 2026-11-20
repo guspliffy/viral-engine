@@ -18,7 +18,7 @@ const END = 64.0;
 const F = { SUB: 575, CARD: 445, HUDY: 445 };   // Jonny 20 Nov 13:25: the question comes off (he adds it with the TikTok text tool on top), the g counter moves down into its place, captions under it   // the counter's box starts at the safe zone's top (250 px)
 // v2 (Jonny 20 Nov): 1-5 g tick every 2.5 s, blackout at 11; then 5 g steps every 5 s; the Moon hits 56-60.5
 const T = {
-  g2: 1.0, g3: 3.5, g4: 6.0, g5: 8.5, slump: 11.0, cutA: 11.15, wake: 13.0, g15: 18.0, g20: 23.0, g25: 28.0, g30: 33.0, g35: 38.0,
+  g2: 0.2, g3: 3.5, g4: 6.0, g5: 8.5, slump: 11.0, cutA: 11.15, wake: 13.0, g15: 18.0, g20: 23.0, g25: 28.0, g30: 33.0, g35: 38.0,
   g40: 43.0, g45: 48.0, g50: 53.0, black: 60.5, g1: 61.5,
 };
 
@@ -105,17 +105,21 @@ const cast = [{ id: "spud", character: "potatobrawl/spud", at: SPUD, face: 0, ex
 const expr = (t, name, set, dur = 0.2) => A(t, "spud", "expr", { expr: name, ...(set && { set }), dur });
 const look = (t, to, dur = 0.2) => A(t, "spud", "look", { to, dur, blink: false });
 const arms = (t, o, dur = 0.3, ease) => { c.arm(t, "spud", "R", { o }, dur, ease); c.arm(t, "spud", "L", { o }, dur, ease); };
+const LEAD = 0.12;   // storyboard captionLead: each word pops this much before its voice
 const narr = (t, line, text, pos = F.SUB, clampNext = true, split = null) => {
   const d = LEN[line]; if (!d) throw new Error(`no measured length for "${line}" (run measure-lines.mjs)`);
   c.at(t, { macro: "narrate", line, voice: NARRATOR, ...(TAKES[line] && { take: TAKES[line] }), dur: d, caption: false, pos, gain: 4.0 });
   const next = clampNext ? (STEPS.find(([k]) => k > t + 0.05)?.[0] ?? END) : END;   // Sol r1 #7: never under the next counter step
-  const end = Math.min(r3(t + d + 0.15), r3(next - 0.02), END - 0.01);
-  if (!split) { cap(t, end, text, pos); return; }   // spoken "gee", written "g"
+  const nextLine = LINES.find(([k]) => k > t + 0.05)?.[0] ?? END;
+  const end = Math.min(r3(t + d + 0.15), r3(next - 0.02), r3(nextLine - LEAD - 0.02), END - 0.01);   // clear before the next line's caption
+  const t0 = Math.max(0, r3(t - LEAD), [...STEPS].reverse().find(([k]) => k <= t)?.[0] ?? 0);   // never over the shot before the step   // Jonny 20 Nov 20:07: the voice came a beat before the words; they lead it now
+  const said = (txt, k0) => ({ said: line.split(/\s+/).slice(k0, k0 + txt.split(/\s+/).length).join(" ") });   // the words pop with the voice: spoken "gee", written "g" (Jonny 20 Nov 21:19)
+  if (!split) { cap(t0, end, text, pos, false, said(text, 0)); return; }
   // Sol r3 #1: a long line as two captions in the same place (one three-line caption reached down over his sprout)
-  const [at, a, b] = split; cap(t, at, a, pos); cap(at, end, b, pos);
+  const [at, a, b] = split; cap(t0, at, a, pos, false, said(a, 0)); cap(at, end, b, pos, false, said(b, a.split(/\s+/).length));
 };
 // the first line sits under the hook question (two lines from F.CARD), the rest at F.SUB
-LINES.forEach(([t, line, text], i) => narr(t, line, text, F.SUB, i > 0, i === 0 ? [2.88, "Every five seconds, gravity gets stronger.", "In ten, you black out."] : null));   // "In" is spoken at ~2.9 s
+LINES.forEach(([t, line, text], i) => narr(t, line, text, F.SUB, i > 0, i === 0 ? [2.58, "Every five seconds, gravity gets stronger.", "At fifty, the Moon falls."] : null));   // "At" is spoken at ~2.6 s (take 2)
 
 // per step: how flat he is (DESIGN.md section 7 f column), the cushion under him and the pitch of his recline
 const PER = {
@@ -384,7 +388,7 @@ write(import.meta.url, {
   id: "gravity", title: "What if gravity kept growing?",
   idea: "Fact what-if 02: gravity gets stronger every five seconds (1-5 g, then 5 g steps to 50 g): you black out, then the world breaks through the window, then back to 1 g and the phone loops.",
   format: "Fact what-if (vertical, 60 s+)",
-  fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: true, captionStyle: "kinetic",
+  fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: true, captionStyle: "kinetic", captionLead: LEAD,
   captionBand: [300, 1360],
   cleanStart: true, motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 },
   physics: false, animeTiming: true, loopIdle: true, far: 6000,

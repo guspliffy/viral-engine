@@ -9,6 +9,7 @@
  "profile": "short",
  "loop": true,
  "captionStyle": "kinetic",
+ "captionLead": 0.12,
  "captionBand": [
   300,
   1360
@@ -126,7 +127,7 @@
      1
     ],
     [
-     1,
+     0.2,
      2
     ],
     [
@@ -516,109 +517,124 @@
  ],
  "captions": [
   {
-   "from": 0.1,
-   "to": 2.88,
+   "from": 0,
+   "to": 2.58,
    "text": "Every five seconds, gravity gets stronger.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Every five seconds, gravity gets stronger."
   },
   {
-   "from": 2.88,
-   "to": 4.499,
-   "text": "In ten, you black out.",
+   "from": 2.58,
+   "to": 4.46,
+   "text": "At fifty, the Moon falls.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "At fifty, the Moon falls."
   },
   {
-   "from": 4.6,
-   "to": 5.98,
+   "from": 4.48,
+   "to": 5.96,
    "text": "Three g.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Three gee."
   },
   {
-   "from": 6.1,
+   "from": 6,
    "to": 8.48,
    "text": "Four g. Your eyes go grey.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Four gee. Your eyes go grey."
   },
   {
-   "from": 8.75,
+   "from": 8.63,
    "to": 12.329,
    "text": "Five g. Most people black out here.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Five gee. Most people black out here."
   },
   {
-   "from": 13.1,
+   "from": 13,
    "to": 16.703,
    "text": "Ten g. Lying flat, your blood comes back.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Ten gee. Lying flat, your blood comes back."
   },
   {
-   "from": 18.1,
+   "from": 18,
    "to": 22.299,
    "text": "Fifteen. Buildings only hold about twice their weight.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Fifteen. Buildings only hold about twice their weight."
   },
   {
-   "from": 23.1,
+   "from": 23,
    "to": 25.973,
    "text": "Twenty. The whole city comes down.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Twenty. The whole city comes down."
   },
   {
-   "from": 28.1,
-   "to": 32.98,
+   "from": 28,
+   "to": 32.96,
    "text": "Twenty-five. No human survives this. Good thing you're a potato.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Twenty-five. No human survives this. Good thing you're a potato."
   },
   {
-   "from": 33.1,
+   "from": 33,
    "to": 36.542,
    "text": "Thirty. Every satellite falls out of the sky.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Thirty. Every satellite falls out of the sky."
   },
   {
-   "from": 38.1,
+   "from": 38,
    "to": 41.237,
    "text": "Thirty-five. The air itself turns poisonous.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Thirty-five. The air itself turns poisonous."
   },
   {
-   "from": 43.1,
+   "from": 43,
    "to": 46.711,
    "text": "Forty. Mountains crush under their own weight.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Forty. Mountains crush under their own weight."
   },
   {
-   "from": 48.1,
+   "from": 48,
    "to": 51.513,
    "text": "Forty-five. Even the Moon is falling.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Forty-five. Even the Moon is falling."
   },
   {
-   "from": 53.1,
+   "from": 53,
    "to": 56.552,
    "text": "Fifty. Seventeen hours later, it hits.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Fifty. Seventeen hours later, it hits."
   },
   {
-   "from": 61.6,
+   "from": 61.5,
    "to": 62.94,
    "text": "Back to one g.",
    "pos": 575,
-   "pop": false
+   "pop": false,
+   "said": "Back to one gee."
   }
  ],
  "beats": [
@@ -975,9 +991,10 @@
     },
     {
      "macro": "narrate",
-     "line": "Every five seconds, gravity gets stronger. In ten, you black out.",
+     "line": "Every five seconds, gravity gets stronger. At fifty, the Moon falls.",
      "voice": "narrator-quick",
-     "dur": 4.2492,
+     "take": 2,
+     "dur": 4.6425,
      "caption": false,
      "pos": 575,
      "gain": 4,
@@ -989,7 +1006,7 @@
      "to": 0.04,
      "dur": 0.18,
      "ease": "out",
-     "at": 1
+     "at": 0.2
     },
     {
      "who": "spud",
@@ -1002,7 +1019,7 @@
      "dur": 0.18,
      "steps": 0,
      "ease": "out",
-     "at": 1
+     "at": 0.2
     },
     {
      "who": "spud",
@@ -1010,7 +1027,7 @@
      "to": -24,
      "dur": 0.18,
      "ease": "out",
-     "at": 1
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -1020,14 +1037,14 @@
      },
      "dur": 0.18,
      "ease": "out",
-     "at": 1
+     "at": 0.2
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.1,
      "dur": 0.22,
-     "at": 1
+     "at": 0.2
     },
     {
      "who": "spud",
@@ -1042,7 +1059,7 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 1
+     "at": 0.2
     },
     {
      "who": "spud",
@@ -1054,26 +1071,26 @@
       "curve": -0.7
      },
      "dur": 0.06,
-     "at": 1.07
+     "at": 0.27
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.85,
      "dur": 0.06,
-     "at": 1.07
+     "at": 0.27
     },
     {
      "sfx": "kenney/impact-soft-medium",
      "gain": 0.8,
      "reason": "his hand and the phone smack onto his face",
-     "at": 1.07
+     "at": 0.27
     },
     {
      "sfx": "kenney/impact-wood-light",
      "gain": 0.35,
      "reason": "the sofa frame knocks as he sinks",
-     "at": 1.1
+     "at": 0.3
     },
     {
      "who": "spud",
@@ -4513,7 +4530,7 @@
  "visible": [
   {
    "from": 0,
-   "to": 1,
+   "to": 0.2,
    "see": [
     "spud.face",
     "phone"
@@ -4521,7 +4538,7 @@
    "why": "frame 0: you on the sofa, the phone held over your face; the counter reads 1 g"
   },
   {
-   "from": 1,
+   "from": 0.2,
    "to": 3.5,
    "see": [
     "spud.face"
@@ -4704,7 +4721,7 @@
   {
    "who": "spud",
    "with": "phone",
-   "from": 1,
+   "from": 0.2,
    "to": 1.9,
    "checks": [
     "face-hidden"
