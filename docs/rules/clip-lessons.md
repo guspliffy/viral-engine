@@ -40,6 +40,10 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
 - A face prop (mask) is placed per pose and checked in a face crop; a worn prop nobody asked for is a risk.
 - A prop made for one pose (sitting) is not bent into another (lying): build the right prop first.
 - Check the layout's prop `support.state` for anything in `flight` when it shouldn't be.
+- A prop whose `apply()` tweens `material.opacity` keeps its FIRST frame's opacity in a sequential render, while a
+  single `--stills` frame looks right (Egypt EP04: the wet sand patch was invisible in every draft). Grow or fade such
+  props by scale or visibility, and judge any effect prop from a sequential draft, never from one still.
+- Held props don't follow a `place` jump: re-grab after it.
 
 ## Bodies, sets and moves
 
@@ -57,6 +61,14 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
   behind reads as hanging: film a leap side-on, at full speed.
 - Blinks: keep `open` >= 0.3 and 9 frames linear each way, or the strobe check fails in the first second.
 - A caption ends with its beat: start narration inside the shot it should show over.
+- To take a body off screen, walk it out and `hide` it; a `place` far away is a rig-jump FAIL. Keep a walk on one
+  floor height: a `y` change during the walk sinks the feet (step up as its own move).
+- Narrow sets: measure the hands, not the body. In the 1.65 m Serapeum aisle Spud stays within |x| 0.32 and the
+  archaeologist 0.30, or hands go into the wall. Two characters need ~0.85 m between centres. For a close-up, park the
+  other character behind the camera; a higher camera shows the far face over the near shoulder.
+- A wide hat brim hides the brows from above eye height: film brow beats at or below eye height. A negative mouth
+  `curve` on "focused" reads as a mustache: keep it >= 0.
+- Headlamp motes bloom when near the lens: `motes: 45, moteSize: 0.005` (Serapeum gallery motes fade within ~1 m).
 
 ## Process savers (each measured on a long build)
 
@@ -69,3 +81,5 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
   narrator line's take 1 can be misread: check `dur` in out/speech, use take 2.
 - A builder's bench storyboard with a cast runs in CI's episode preflight: casts 1.2 m apart and the episode's windows.
 - Renders cost no tokens; every step in a long thread does. Batch edits; keep title, post pack and merge short.
+- A segment's `ins()` insert points must fall before its pre-cut resets, or the reset fires inside the insert.
+- One Sol glitch round costs ~8 min and ~110k tokens (Egypt EP04: FIX 13, then FIX 10). Settle the topic before them.
