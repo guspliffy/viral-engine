@@ -188,6 +188,10 @@ look(0, "reaper", [0.6, -0.1], 0.01); look(0, "chip", [-0.5, 0.35], 0.01);
 act.blinksAt(c, "reaper", [2.4, 5.6]);
 act.blinksAt(c, "chip", [3.3]);
 shot("heaven or hell", 0, A_WIDE, "hook");
+// YouTube cut B (Jonny 20 Nov, "point 2"): the 10.4 s desk wide lost 1.9 % a second; it is three framings now, each
+// pushing in: the wide for the hook, him under the HELL badge he points at, a closer two-shot for the clerk and the door
+shot("desk him", 3.15, { pos: [1.30, 1.20, 6.0], look: [0.62, 0.70, -0.8], fov: 30 });
+shot("desk two", 5.70, { pos: [0.0, 1.30, 8.0], look: [0.0, 0.71, 0], fov: 26 });   // looking down: the badges ride above the caption line
 see(0, 1.3, ["reaper.face", "chip.face", "badgeH", "badgeX"], "the desk between heaven 3.1 and hell 4.9");
 // 1 REAPER: Heaven or hell?
 let t = say(0, 0.05);
@@ -559,7 +563,7 @@ see(PEEK, END, ["devil.face"], "...Nooo.");
 { const cs = [...c.captions].sort((x, y) => x.from - y.from); for (let k = 0; k + 1 < cs.length; k++) if (cs[k].to > cs[k + 1].from - 0.02) cs[k].to = r3(cs[k + 1].from - 0.02); }
 // YouTube cut (Jonny 20 Nov: "use camera movement ... to keep the video in motion"): every shot but the desk opening
 // pushes in slowly over its whole length (6 % of the way to its look point), so no frame of the clip stands still
-for (let i = 1; i < shots.length; i++) {
+for (let i = 0; i < shots.length; i++) {   // cut B: the desk opening pushes in too
   const [, at, cam] = shots[i], len = r3((shots[i + 1]?.[1] ?? END) - at);
   if (len < 1 || cam.to) continue;
   shots[i][2] = { ...cam, to: { pos: cam.pos.map((p, j) => r3(p + (cam.look[j] - p) * 0.06)) }, dur: len, ease: "linear" };

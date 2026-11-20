@@ -866,7 +866,7 @@
   {
    "name": "heaven or hell",
    "at": 0,
-   "len": 11.133,
+   "len": 3.133,
    "shot": {
     "pos": [
      0,
@@ -878,7 +878,16 @@
      1.45,
      0
     ],
-    "fov": 26
+    "fov": 26,
+    "to": {
+     "pos": [
+      0,
+      1.45,
+      9.776
+     ]
+    },
+    "dur": 3.133,
+    "ease": "linear"
    },
    "do": [
     {
@@ -1128,7 +1137,37 @@
      "lid": 0.42,
      "dur": 0.3,
      "at": 2.91
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "desk him",
+   "at": 3.133,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     1.3,
+     1.2,
+     6
+    ],
+    "look": [
+     0.62,
+     0.7,
+     -0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.259,
+      1.17,
+      5.592
+     ]
     },
+    "dur": 2.6,
+    "ease": "linear"
+   },
+   "do": [
     {
      "who": "reaper",
      "macro": "say",
@@ -1137,13 +1176,13 @@
      "style": "flat, dry, slow, a little amused",
      "dur": 1.04,
      "caption": false,
-     "at": 3.26
+     "at": 0.127
     },
     {
      "who": "chip",
      "do": "blink",
      "dur": 0.22,
-     "at": 3.3
+     "at": 0.167
     },
     {
      "who": "chip",
@@ -1152,7 +1191,7 @@
      "pose": "rest",
      "dur": 0.4,
      "ease": "inOut",
-     "at": 4.35
+     "at": 1.217
     },
     {
      "who": "chip",
@@ -1162,7 +1201,7 @@
       0.35
      ],
      "dur": 0.2,
-     "at": 4.35
+     "at": 1.217
     },
     {
      "who": "chip",
@@ -1170,7 +1209,7 @@
      "side": "L",
      "shape": "open",
      "dur": 0.3,
-     "at": 4.4
+     "at": 1.267
     },
     {
      "who": "chip",
@@ -1182,7 +1221,7 @@
      "take": 2,
      "dur": 1.01,
      "caption": false,
-     "at": 4.45
+     "at": 1.317
     },
     {
      "who": "reaper",
@@ -1192,21 +1231,50 @@
       0.05
      ],
      "dur": 0.25,
-     "at": 5.56
+     "at": 2.427
     },
     {
      "who": "reaper",
      "do": "face",
      "lid": 0.42,
      "dur": 0.2,
-     "at": 5.56
+     "at": 2.427
     },
     {
      "who": "reaper",
      "do": "blink",
      "dur": 0.22,
-     "at": 5.6
+     "at": 2.467
+    }
+   ]
+  },
+  {
+   "name": "desk two",
+   "at": 5.733,
+   "len": 5.4,
+   "shot": {
+    "pos": [
+     0,
+     1.3,
+     8
+    ],
+    "look": [
+     0,
+     0.71,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      0,
+      1.265,
+      7.52
+     ]
     },
+    "dur": 5.4,
+    "ease": "linear"
+   },
+   "do": [
     {
      "who": "reaper",
      "macro": "say",
@@ -1215,14 +1283,14 @@
      "style": "flat, dry, slow, knowing",
      "dur": 2.21,
      "caption": false,
-     "at": 5.81
+     "at": 0.077
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "kind",
      "dur": 0.2,
-     "at": 6.41
+     "at": 0.677
     },
     {
      "who": "chip",
@@ -1232,7 +1300,7 @@
       0.2
      ],
      "dur": 0.2,
-     "at": 6.61
+     "at": 0.877
     },
     {
      "who": "reaper",
@@ -1254,7 +1322,7 @@
      },
      "dur": 0.18,
      "ease": "out",
-     "at": 8.07
+     "at": 2.337
     },
     {
      "who": "reaper",
@@ -1276,12 +1344,12 @@
      },
      "dur": 0.1,
      "ease": "in",
-     "at": 8.29
+     "at": 2.557
     },
     {
      "sfx": "kenney/impact-wood-medium",
      "gain": 1,
-     "at": 8.39
+     "at": 2.657
     },
     {
      "do": "prop",
@@ -1291,12 +1359,12 @@
      },
      "dur": 0.25,
      "ease": "out",
-     "at": 8.39
+     "at": 2.657
     },
     {
      "sfx": "ai/ignite",
      "gain": 0.35,
-     "at": 8.42
+     "at": 2.687
     },
     {
      "who": "reaper",
@@ -1318,7 +1386,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 8.54
+     "at": 2.807
     },
     {
      "do": "prop",
@@ -1328,12 +1396,12 @@
      },
      "dur": 0.17,
      "ease": "out",
-     "at": 8.69
+     "at": 2.957
     },
     {
      "sfx": "door-slam",
      "gain": 0.9,
-     "at": 8.69
+     "at": 2.957
     },
     {
      "fx": "poof",
@@ -1348,7 +1416,7 @@
      "sparks": 0,
      "size": 0.6,
      "lift": 0.2,
-     "at": 8.74
+     "at": 3.007
     },
     {
      "who": "chip",
@@ -1358,21 +1426,21 @@
       0.6
      ],
      "dur": 0.15,
-     "at": 8.79
+     "at": 3.057
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "shocked",
      "dur": 0.15,
-     "at": 8.79
+     "at": 3.057
     },
     {
      "who": "chip",
      "do": "turn",
      "to": -15,
      "dur": 0.3,
-     "at": 8.79
+     "at": 3.057
     },
     {
      "who": "devil",
@@ -1385,7 +1453,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0.4,
-     "at": 8.82
+     "at": 3.087
     },
     {
      "who": "devil",
@@ -1394,12 +1462,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 8.82
+     "at": 3.087
     },
     {
      "who": "devil",
      "do": "show",
-     "at": 8.82
+     "at": 3.087
     },
     {
      "who": "devil",
@@ -1414,7 +1482,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 8.84
+     "at": 3.107
     },
     {
      "who": "devil",
@@ -1422,7 +1490,7 @@
      "side": "both",
      "shape": "open",
      "dur": 0.01,
-     "at": 8.84
+     "at": 3.107
     },
     {
      "who": "reaper",
@@ -1432,7 +1500,7 @@
       0.4
      ],
      "dur": 0.3,
-     "at": 8.89
+     "at": 3.157
     },
     {
      "who": "devil",
@@ -1442,12 +1510,12 @@
      "style": "bright, quick, warm game-show host, always smiling, loud, arms wide",
      "dur": 1.86,
      "caption": false,
-     "at": 9.14
+     "at": 3.407
     },
     {
      "who": "chip",
      "do": "hide",
-     "at": 11.104
+     "at": 5.371
     },
     {
      "who": "devil",
@@ -1460,7 +1528,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "devil",
@@ -1469,17 +1537,17 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "devil",
      "do": "show",
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "chip",
@@ -1492,7 +1560,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "chip",
@@ -1501,7 +1569,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "devil",
@@ -1516,7 +1584,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "chip",
@@ -1526,14 +1594,14 @@
       0.9
      ],
      "dur": 0.01,
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "delighted",
      "dur": 0.01,
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "devil",
@@ -1543,17 +1611,16 @@
       0.05
      ],
      "dur": 0.01,
-     "at": 11.113
+     "at": 5.38
     },
     {
      "who": "devil",
      "do": "expr",
      "expr": "delighted",
      "dur": 0.01,
-     "at": 11.113
+     "at": 5.38
     }
-   ],
-   "kind": "hook"
+   ]
   },
   {
    "name": "welcome",
