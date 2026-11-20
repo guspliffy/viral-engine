@@ -87,11 +87,11 @@
    }
   ],
   [
-   38,
+   40.5,
    {
     "s": 0.84
    },
-   1.8
+   1.2
   ],
   [
    42.97,
@@ -176,6 +176,10 @@
     [
      53,
      50
+    ],
+    [
+     60.5,
+     null
     ],
     [
      61.5,
@@ -288,27 +292,14 @@
    "case": "#3e383b"
   },
   {
-   "id": "street",
-   "kind": "gstreet",
-   "x": 0,
-   "y": 0,
-   "z": 0
-  },
-  {
    "id": "tower",
    "kind": "gtower",
+   "staged": "the glass tower across the street, its base on the city ground 60 m below",
    "x": 0,
    "y": 0,
    "z": 0,
    "fall": 0,
    "dust": 1
-  },
-  {
-   "id": "city",
-   "kind": "gcity",
-   "x": 0,
-   "y": 0,
-   "z": 0
   },
   {
    "id": "horizon",
@@ -336,52 +327,9 @@
    "crackW": 3
   },
   {
-   "id": "sats",
-   "kind": "gsats",
-   "staged": "falling satellites, kilometres up in the sky",
-   "x": 0,
-   "y": 0,
-   "z": 0,
-   "t": -1,
-   "satScale": 10,
-   "cam": {
-    "pos": [
-     0.46,
-     1.23,
-     0.4
-    ],
-    "look": [
-     0.3,
-     1.71,
-     -2.65
-    ]
-   }
-  },
-  {
-   "id": "sats2",
-   "kind": "gsats",
-   "staged": "falling satellites, kilometres up in the sky",
-   "x": -260,
-   "y": 60,
-   "z": 0,
-   "t": -1,
-   "cam": {
-    "pos": [
-     0.46,
-     1.23,
-     0.4
-    ],
-    "look": [
-     0.3,
-     1.71,
-     -2.65
-    ]
-   }
-  },
-  {
    "id": "clouds",
    "kind": "gclouds",
-   "staged": "clouds in the sky, then a cloud sea over the street",
+   "staged": "clouds in the sky",
    "x": 0,
    "y": 22,
    "z": 0,
@@ -396,6 +344,109 @@
    "y": 0,
    "z": 0,
    "haze": 0
+  },
+  {
+   "id": "ruin",
+   "kind": "gruin",
+   "staged": "the city outside: 136 buildings, ground, dust sea; collapses at 20 g, erased by the Moon's wave",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1
+  },
+  {
+   "id": "rupture",
+   "kind": "grupture",
+   "staged": "the street below the window tearing open, cars, fires",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1
+  },
+  {
+   "id": "entry",
+   "kind": "gentry",
+   "staged": "satellites and the space station burning in, kilometres up",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1
+  },
+  {
+   "id": "strike",
+   "kind": "gstrike",
+   "staged": "three falling satellites hitting the city",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1
+  },
+  {
+   "id": "glass",
+   "kind": "gglass",
+   "staged": "cracks in the window glass",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1
+  },
+  {
+   "id": "alps",
+   "kind": "galps",
+   "staged": "the Alps valley, 40 km away in its own sky",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1
+  },
+  {
+   "id": "moonfall",
+   "kind": "gmoonfall",
+   "staged": "the Moon falling onto the Earth",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1
+  },
+  {
+   "id": "firewall",
+   "kind": "gfirewall",
+   "staged": "the impact's fire wall racing across the city",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1
+  },
+  {
+   "id": "roomhit",
+   "kind": "groomhit",
+   "staged": "the window blown in: glass, wood, stuffing, the shelf",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1
+  },
+  {
+   "id": "flash",
+   "kind": "gflash",
+   "staged": "a white flash on the camera lens",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "t": -1,
+   "cam": {
+    "pos": [
+     0.48,
+     1.39,
+     0.21
+    ],
+    "look": [
+     0.37,
+     0.78,
+     -2.3
+    ],
+    "fov": 71
+   }
   },
   {
    "id": "tunB",
@@ -425,22 +476,22 @@
   {
    "id": "tunE",
    "kind": "gtunnel",
-   "staged": "a black card on the camera lens (the blackout)",
+   "staged": "a black card on the camera lens (the black after the hit)",
    "x": 0,
    "y": 0,
    "z": 0,
    "cam": {
     "pos": [
-     0.46,
-     1.24,
-     0.46
+     0.48,
+     1.39,
+     0.21
     ],
     "look": [
-     0.25,
-     1.8,
-     -2.65
+     0.37,
+     0.78,
+     -2.3
     ],
-    "fov": 72
+    "fov": 71
    },
    "r": 2000
   }
@@ -666,9 +717,9 @@
     },
     {
      "do": "prop",
-     "id": "sats",
+     "id": "ruin",
      "set": {
-      "t": -1
+      "t": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -676,9 +727,199 @@
     },
     {
      "do": "prop",
-     "id": "sats2",
+     "id": "ruin",
      "set": {
-      "t": -1
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rupture",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rupture",
+     "set": {
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "entry",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "entry",
+     "set": {
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "strike",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "strike",
+     "set": {
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "alps",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "alps",
+     "set": {
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "moonfall",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "moonfall",
+     "set": {
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "firewall",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "firewall",
+     "set": {
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "roomhit",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "roomhit",
+     "set": {
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 64
+     },
+     "dur": 64,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -1748,33 +1989,33 @@
    ]
   },
   {
-   "name": "P08 20 g: the clouds sink",
+   "name": "P08 20 g: the whole city comes down",
    "at": 23,
    "len": 5,
    "shot": {
     "pos": [
-     0.46,
-     1.42,
-     0.53
+     0.34,
+     1.26,
+     -0.02
     ],
     "look": [
-     0.3,
-     1.37,
-     -2.65
+     0.06,
+     0.95,
+     -8
     ],
-    "fov": 67,
+    "fov": 59,
     "to": {
      "pos": [
-      0.454,
-      1.418,
-      0.403
+      0.336,
+      1.255,
+      -0.14
      ],
      "look": [
-      0.3,
-      1.37,
-      -2.65
+      0.06,
+      0.95,
+      -8
      ],
-     "fov": 67
+     "fov": 59
     },
     "dur": 5,
     "ease": "linear"
@@ -1829,11 +2070,11 @@
     {
      "who": "spud",
      "do": "expr",
-     "expr": "shocked",
+     "expr": "terrified",
      "set": {
-      "open": 0.25
+      "open": 0.45
      },
-     "dur": 0.2,
+     "dur": 0.15,
      "at": 0
     },
     {
@@ -1841,37 +2082,20 @@
      "do": "look",
      "to": [
       0,
-      -0.3
+      0.25
      ],
-     "dur": 0.3,
+     "dur": 0.2,
      "blink": false,
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "clouds",
-     "set": {
-      "sink": 1
-     },
-     "dur": 3.4,
-     "ease": "inOut",
      "at": 0
     },
     {
      "do": "prop",
      "id": "tower",
      "set": {
-      "dust": 0.35
+      "dust": 0.5
      },
      "dur": 2,
      "ease": "inOut",
-     "at": 0
-    },
-    {
-     "sfx": "ai/storm-wind",
-     "gain": 0.12,
-     "dur": 5,
-     "reason": "wind presses on the window as the air sinks",
      "at": 0
     },
     {
@@ -1883,39 +2107,82 @@
      "pos": 525,
      "gain": 4,
      "at": 0.1
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.9,
+     "dur": 5.2,
+     "reason": "a whole city's floors pancaking, a deep rumble through the glass",
+     "at": 0.3
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.7,
+     "reason": "a tower's slabs slam down, far off",
+     "at": 0.6
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.55,
+     "reason": "a tower's slabs slam down, far off",
+     "at": 1.5
+    },
+    {
+     "sfx": "ai/metal-tear",
+     "gain": 0.35,
+     "reason": "steel frames tear across the city",
+     "at": 1.9
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.8,
+     "reason": "a tower's slabs slam down, far off",
+     "at": 2.4
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.5,
+     "reason": "a tower's slabs slam down, far off",
+     "at": 3.3
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.6,
+     "reason": "a tower's slabs slam down, far off",
+     "at": 4.2
     }
    ]
   },
   {
-   "name": "P09 25 g: good thing you're a potato",
+   "name": "P09 25 g: the street tears open",
    "at": 28,
-   "len": 5,
+   "len": 2.3,
    "shot": {
     "pos": [
-     0.42,
-     1,
-     0.6
+     0.2,
+     2.55,
+     -2.57
     ],
     "look": [
-     0.46,
-     0.86,
-     -0.95
+     -5.5,
+     -60,
+     -38
     ],
-    "fov": 44,
+    "fov": 47,
     "to": {
      "pos": [
-      0.423,
-      0.989,
-      0.476
+      0.086,
+      1.299,
+      -3.279
      ],
      "look": [
-      0.46,
-      0.86,
-      -0.95
+      -5.5,
+      -60,
+      -38
      ],
-     "fov": 44
+     "fov": 47
     },
-    "dur": 5,
+    "dur": 2.3,
     "ease": "linear"
    },
    "do": [
@@ -1966,6 +2233,87 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "dust": 0.1
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Twenty-five. No human survives this. Good thing you're a potato.",
+     "voice": "narrator-quick",
+     "dur": 4.7327,
+     "caption": false,
+     "pos": 525,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "sfx": "explosion",
+     "gain": 0.5,
+     "dur": 1.6,
+     "reason": "the asphalt splits with a deep crack below the window",
+     "at": 0.15
+    },
+    {
+     "sfx": "ai/glass-shatter-car",
+     "gain": 0.55,
+     "reason": "car windows burst as the cars are crushed",
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/house-fire",
+     "gain": 0.35,
+     "dur": 1.5,
+     "reason": "fires crackle along the fissure",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/metal-tear",
+     "gain": 0.45,
+     "reason": "car shells crumple",
+     "at": 1
+    }
+   ]
+  },
+  {
+   "name": "P10 25 g: good thing you're a potato",
+   "at": 30.3,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     0.42,
+     1,
+     0.6
+    ],
+    "look": [
+     0.46,
+     0.86,
+     -0.95
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.422,
+      0.992,
+      0.507
+     ],
+     "look": [
+      0.46,
+      0.86,
+      -0.95
+     ],
+     "fov": 44
+    },
+    "dur": 2.7,
+    "ease": "linear"
+   },
+   "do": [
+    {
      "who": "spud",
      "do": "expr",
      "expr": "kind",
@@ -1987,26 +2335,10 @@
      "at": 0
     },
     {
-     "sfx": "kenney/cloth",
-     "gain": 0.35,
-     "reason": "his knit rubs as he settles flatter",
-     "at": 0
-    },
-    {
-     "macro": "narrate",
-     "line": "Twenty-five. No human survives this. Good thing you're a potato.",
-     "voice": "narrator-quick",
-     "dur": 4.7327,
-     "caption": false,
-     "pos": 525,
-     "gain": 4,
-     "at": 0.1
-    },
-    {
      "sfx": "ai-package/flat-exhale",
      "gain": 0.7,
      "reason": "a small breath out before the wink",
-     "at": 3.1
+     "at": 0.8
     },
     {
      "who": "spud",
@@ -2016,7 +2348,7 @@
       "curve": 0.8
      },
      "dur": 0.2,
-     "at": 3.2
+     "at": 0.9
     },
     {
      "who": "spud",
@@ -2024,7 +2356,7 @@
      "lidR": 1,
      "lidL": 0.1,
      "dur": 0.12,
-     "at": 3.25
+     "at": 0.95
     },
     {
      "who": "spud",
@@ -2032,41 +2364,41 @@
      "lidR": 0,
      "lidL": 0,
      "dur": 0.15,
-     "at": 4.4
+     "at": 2.1
     }
    ],
    "kind": "payoff"
   },
   {
-   "name": "P10 30 g: satellites fall",
+   "name": "P11 30 g: satellites burn in",
    "at": 33,
-   "len": 5,
+   "len": 3,
    "shot": {
     "pos": [
-     0.46,
-     1.23,
-     0.4
+     0.34,
+     1.18,
+     0.94
     ],
     "look": [
-     0.3,
-     1.71,
-     -2.65
+     0.55,
+     2.34,
+     -8
     ],
-    "fov": 68,
+    "fov": 63,
     "to": {
      "pos": [
-      0.454,
-      1.249,
-      0.278
+      0.342,
+      1.192,
+      0.851
      ],
      "look": [
-      0.3,
-      1.71,
-      -2.65
+      0.55,
+      2.34,
+      -8
      ],
-     "fov": 68
+     "fov": 63
     },
-    "dur": 5,
+    "dur": 3,
     "ease": "linear"
    },
    "do": [
@@ -2132,51 +2464,11 @@
      "do": "look",
      "to": [
       0,
-      0.6
+      0.4
      ],
      "dur": 0.2,
      "blink": false,
      "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sats",
-     "set": {
-      "t": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sats2",
-     "set": {
-      "t": -1.4
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sats",
-     "set": {
-      "t": 5
-     },
-     "dur": 4.99,
-     "ease": "linear",
-     "at": 0.01
-    },
-    {
-     "do": "prop",
-     "id": "sats2",
-     "set": {
-      "t": 3.6
-     },
-     "dur": 4.99,
-     "ease": "linear",
-     "at": 0.01
     },
     {
      "macro": "narrate",
@@ -2189,18 +2481,146 @@
      "at": 0.1
     },
     {
-     "sfx": "ai/thunder",
-     "gain": 0.2,
-     "dur": 2.5,
-     "reason": "distant reports through the glass as they burn in",
-     "at": 0.9
+     "sfx": "rumble",
+     "gain": 0.45,
+     "dur": 3,
+     "reason": "a far roar of things burning in high up",
+     "at": 0.4
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.3,
+     "reason": "distant pressure cracks from the burning satellites",
+     "at": 0.8
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.3,
+     "reason": "distant pressure cracks from the burning satellites",
+     "at": 1.7
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.3,
+     "reason": "distant pressure cracks from the burning satellites",
+     "at": 2.5
     }
    ]
   },
   {
-   "name": "P11 35 g: thick air",
-   "at": 38,
-   "len": 5,
+   "name": "P12 30 g: a strike, the window cracks",
+   "at": 36,
+   "len": 4.5,
+   "shot": {
+    "pos": [
+     0.34,
+     1.3,
+     -0.02
+    ],
+    "look": [
+     -0.12,
+     0.95,
+     -8
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "sfx": "explosion",
+     "gain": 1,
+     "dur": 3,
+     "reason": "the strike's blast wave hits the building",
+     "at": 1.01
+    },
+    {
+     "sfx": "ai/screen-crack",
+     "gain": 0.8,
+     "reason": "the window glass cracks",
+     "at": 1.05
+    },
+    {
+     "who": "spud",
+     "do": "flat",
+     "to": 0.52,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.46,
+      -1.47
+     ],
+     "y": 0.172,
+     "dur": 0.18,
+     "steps": 0,
+     "ease": "out",
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -42,
+     "dur": 0.18,
+     "ease": "out",
+     "at": 2
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "sink": 0.158
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.22,
+     "at": 2
+    },
+    {
+     "macro": "narrate",
+     "line": "Thirty-five. The air itself turns poisonous.",
+     "voice": "narrator-quick",
+     "dur": 2.9868,
+     "caption": false,
+     "pos": 525,
+     "gain": 4,
+     "at": 2.1
+    },
+    {
+     "sfx": "explosion",
+     "gain": 0.6,
+     "dur": 2.5,
+     "reason": "the second strike's blast, further away",
+     "at": 2.18
+    },
+    {
+     "sfx": "ai/house-fire",
+     "gain": 0.3,
+     "dur": 2.2,
+     "reason": "rubble rains down and fires burn across the city",
+     "at": 2.4
+    },
+    {
+     "sfx": "explosion",
+     "gain": 0.6,
+     "dur": 2.5,
+     "reason": "the third strike's blast",
+     "at": 3.7
+    }
+   ]
+  },
+  {
+   "name": "P13 35 g: the air turns poisonous",
+   "at": 40.5,
+   "len": 2.5,
    "shot": {
     "pos": [
      0.38,
@@ -2226,56 +2646,10 @@
      ],
      "fov": 46
     },
-    "dur": 5,
+    "dur": 2.5,
     "ease": "linear"
    },
    "do": [
-    {
-     "who": "spud",
-     "do": "flat",
-     "to": 0.52,
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      0.46,
-      -1.47
-     ],
-     "y": 0.172,
-     "dur": 0.18,
-     "steps": 0,
-     "ease": "out",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "pitch",
-     "to": -42,
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sofa",
-     "set": {
-      "sink": 0.158
-     },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "squash",
-     "amount": 0.1,
-     "dur": 0.22,
-     "at": 0
-    },
     {
      "who": "spud",
      "do": "expr",
@@ -2303,18 +2677,21 @@
      "set": {
       "haze": 0.7
      },
-     "dur": 1.8,
+     "dur": 1.2,
      "ease": "inOut",
      "at": 0
     },
     {
-     "macro": "narrate",
-     "line": "Thirty-five. The air itself turns poisonous.",
-     "voice": "narrator-quick",
-     "dur": 2.9868,
-     "caption": false,
-     "pos": 525,
-     "gain": 4,
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "sfx": "ai/surface-gasp",
+     "gain": 0.55,
+     "reason": "he gasps for air in the thick haze",
      "at": 0.1
     },
     {
@@ -2322,85 +2699,59 @@
      "do": "squash",
      "amount": 0.05,
      "dur": 0.5,
-     "at": 0.15
+     "at": 1
     },
     {
      "sfx": "ai/surface-gasp",
      "gain": 0.55,
      "reason": "he gasps for air in the thick haze",
-     "at": 0.15
+     "at": 1
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.5,
-     "at": 1.35
+     "at": 1.9
     },
     {
      "sfx": "ai/surface-gasp",
      "gain": 0.55,
      "reason": "he gasps for air in the thick haze",
-     "at": 1.35
-    },
-    {
-     "who": "spud",
-     "do": "squash",
-     "amount": 0.05,
-     "dur": 0.5,
-     "at": 2.55
-    },
-    {
-     "sfx": "ai/surface-gasp",
-     "gain": 0.55,
-     "reason": "he gasps for air in the thick haze",
-     "at": 2.55
-    },
-    {
-     "who": "spud",
-     "do": "squash",
-     "amount": 0.05,
-     "dur": 0.5,
-     "at": 3.75
-    },
-    {
-     "sfx": "ai/surface-gasp",
-     "gain": 0.55,
-     "reason": "he gasps for air in the thick haze",
-     "at": 3.75
+     "at": 1.9
     }
    ]
   },
   {
-   "name": "P12 40 g: the Alps on TV",
+   "name": "P14 40 g: the Alps crush",
    "at": 43,
-   "len": 5,
+   "len": 2.5,
    "shot": {
     "pos": [
-     -0.23,
-     0.97,
-     0.95
+     40000,
+     1308,
+     930
     ],
     "look": [
-     -1.52,
-     0.86,
-     -0.96
+     40000,
+     1338,
+     -1806
     ],
-    "fov": 45,
+    "fov": 84,
     "to": {
      "pos": [
-      -0.359,
-      0.959,
-      0.759
+      40000,
+      1308.9,
+      847.92
      ],
      "look": [
-      -1.52,
-      0.86,
-      -0.96
+      40000,
+      1338,
+      -1806
      ],
-     "fov": 45
+     "fov": 84
     },
-    "dur": 5,
+    "dur": 2.5,
     "ease": "linear"
    },
    "do": [
@@ -2452,22 +2803,12 @@
     },
     {
      "do": "prop",
-     "id": "tv",
-     "set": {
-      "crumble": 1
-     },
-     "dur": 3.6,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
      "id": "haze",
      "set": {
-      "haze": 0.45
+      "haze": 0
      },
-     "dur": 1,
-     "ease": "inOut",
+     "dur": 0,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -2481,42 +2822,115 @@
      "at": 0.1
     },
     {
+     "sfx": "rumble",
+     "gain": 0.9,
+     "dur": 5,
+     "reason": "the valley's avalanches roar, layered and far",
+     "at": 0.1
+    },
+    {
      "sfx": "ai/thunder",
-     "gain": 0.45,
-     "dur": 3.5,
-     "reason": "the avalanche's roar from the TV speaker",
-     "at": 0.2
+     "gain": 0.7,
+     "dur": 4.5,
+     "reason": "cliffs breaking off and rolling down",
+     "at": 0.3
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.35,
+     "reason": "stones shedding off the near slope",
+     "at": 0.5
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.35,
+     "reason": "stones shedding off the near slope",
+     "at": 1.1
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.35,
+     "reason": "stones shedding off the near slope",
+     "at": 1.8
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.35,
+     "reason": "stones shedding off the near slope",
+     "at": 2.3
     }
    ]
   },
   {
-   "name": "P13 45 g: the Moon",
+   "name": "P15 40 g: a summit splits",
+   "at": 45.5,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     40168,
+     1566,
+     -348
+    ],
+    "look": [
+     40366,
+     1842,
+     -1656
+    ],
+    "fov": 57,
+    "to": {
+     "pos": [
+      40173.94,
+      1574.28,
+      -387.24
+     ],
+     "look": [
+      40366,
+      1842,
+      -1656
+     ],
+     "fov": 57
+    },
+    "dur": 2.5,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "explosion",
+     "gain": 0.55,
+     "dur": 2.5,
+     "reason": "the summit splits with a deep report",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "P16 45 g: the Moon falls",
    "at": 48,
    "len": 5,
    "shot": {
     "pos": [
-     0.46,
-     1.24,
-     0.46
+     0.34,
+     1.02,
+     0.05
     ],
     "look": [
-     0.2,
-     1.75,
-     -2.65
+     -0.09,
+     2.12,
+     -8
     ],
-    "fov": 69,
+    "fov": 65,
     "to": {
      "pos": [
-      0.45,
-      1.26,
-      0.336
+      0.336,
+      1.031,
+      -0.03
      ],
      "look": [
-      0.2,
-      1.75,
-      -2.65
+      -0.09,
+      2.12,
+      -8
      ],
-     "fov": 69
+     "fov": 65
     },
     "dur": 5,
     "ease": "linear"
@@ -2569,6 +2983,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "expr",
      "expr": "shocked",
@@ -2591,40 +3015,11 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "moon",
-     "set": {
-      "moon": 0.5
-     },
-     "dur": 0,
-     "ease": "linear",
+     "sfx": "rumble",
+     "gain": 0.6,
+     "dur": 8,
+     "reason": "the falling Moon's long low roar",
      "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "haze",
-     "set": {
-      "haze": 0.25
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "sfx": "kenney/impact-glass-light",
-     "gain": 0.3,
-     "reason": "the window glass flexes",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "moon",
-     "set": {
-      "moon": 0.7
-     },
-     "dur": 4.98,
-     "ease": "in",
-     "at": 0.01
     },
     {
      "macro": "narrate",
@@ -2637,29 +3032,56 @@
      "at": 0.1
     },
     {
-     "sfx": "kenney/impact-plate-light",
-     "gain": 0.25,
-     "reason": "the TV cabinet rattles",
+     "sfx": "thunder",
+     "gain": 0.295,
+     "reason": "burning chunks of Moon crack through the sky",
      "at": 1.5
+    },
+    {
+     "sfx": "ai/screen-crack",
+     "gain": 0.45,
+     "reason": "the cracked window creaks in its frame",
+     "at": 2.5
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.352,
+     "reason": "burning chunks of Moon crack through the sky",
+     "at": 3.4
     }
    ]
   },
   {
-   "name": "P14 50 g: the Moon cracks, black",
+   "name": "P17 50 g: his face",
    "at": 53,
-   "len": 8.5,
+   "len": 1.6,
    "shot": {
     "pos": [
-     0.46,
-     1.24,
-     0.46
+     0.42,
+     1,
+     0.6
     ],
     "look": [
-     0.25,
-     1.8,
-     -2.65
+     0.46,
+     0.86,
+     -0.95
     ],
-    "fov": 72
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.422,
+      0.993,
+      0.523
+     ],
+     "look": [
+      0.46,
+      0.86,
+      -0.95
+     ],
+     "fov": 44
+    },
+    "dur": 1.6,
+    "ease": "linear"
    },
    "do": [
     {
@@ -2709,24 +3131,26 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "moon",
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
      "set": {
-      "moon": 0.86
+      "open": 0.8,
+      "eye": 1.3
      },
-     "dur": 0,
-     "ease": "linear",
+     "dur": 0.12,
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "moon",
-     "set": {
-      "moon": 1
-     },
-     "dur": 3.6,
-     "ease": "in",
-     "at": 0.01
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
     },
     {
      "macro": "narrate",
@@ -2739,33 +3163,261 @@
      "at": 0.1
     },
     {
-     "do": "prop",
-     "id": "moon",
-     "set": {
-      "cracks": 1
-     },
-     "dur": 3.5,
-     "ease": "in",
-     "at": 0.1
+     "sfx": "thunder",
+     "gain": 0.418,
+     "reason": "burning chunks of Moon crack through the sky",
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "P18 50 g: the Moon fills the sky",
+   "at": 54.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.34,
+     1.02,
+     0.05
+    ],
+    "look": [
+     -0.09,
+     2.12,
+     -8
+    ],
+    "fov": 65,
+    "to": {
+     "pos": [
+      0.338,
+      1.026,
+      0.01
+     ],
+     "look": [
+      -0.09,
+      2.12,
+      -8
+     ],
+     "fov": 65
+    },
+    "dur": 1.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "thunder",
+     "gain": 0.45999999999999996,
+     "reason": "burning chunks of Moon crack through the sky",
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "name": "P19 50 g: contact, the fire wall",
+   "at": 56,
+   "len": 3.287,
+   "shot": {
+    "pos": [
+     0.15,
+     1.91,
+     -2.58
+    ],
+    "look": [
+     -48,
+     130,
+     -2500
+    ],
+    "fov": 53
+   },
+   "do": [
+    {
+     "sfx": "ai/grass-fire",
+     "gain": 0.5,
+     "dur": 3.3,
+     "reason": "the fire wall's roar, still far",
+     "at": 0
     },
     {
-     "sfx": "ai/screen-crack",
-     "gain": 0.35,
-     "reason": "the window frame ticks under the strain",
+     "sfx": "rumble",
+     "gain": 0.8,
+     "dur": 2.9,
+     "reason": "the ground shaking as the wave comes",
      "at": 0.4
     },
     {
-     "sfx": "kenney/impact-wood-heavy",
-     "gain": 0.45,
-     "reason": "the floor cracks under the sofa",
-     "at": 1.6
+     "sfx": "kenney/impact-glass-light",
+     "gain": 0.9,
+     "reason": "the cracked window rattles",
+     "at": 2.4
     },
     {
-     "sfx": "ai/thunder",
-     "gain": 0.35,
-     "dur": 2,
-     "reason": "a low vibration through the building",
-     "at": 2.2
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.22
+    }
+   ]
+  },
+  {
+   "name": "P20 50 g: the room blown in",
+   "at": 59.287,
+   "len": 2.213,
+   "shot": {
+    "pos": [
+     0.48,
+     1.39,
+     0.21
+    ],
+    "look": [
+     0.37,
+     0.78,
+     -2.3
+    ],
+    "fov": 71
+   },
+   "do": [
+    {
+     "sfx": "explosion",
+     "gain": 1.2,
+     "dur": 1.4,
+     "reason": "the blast blows the window in",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.9,
+      "eye": 1.35
+     },
+     "dur": 0.06,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.22,
+     "dur": 0.42,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 1
+     },
+     "dur": 1.213,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "rot": 0,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 2.39,
+      "y": 0.91,
+      "z": -1.42,
+      "roll": 38
+     },
+     "dur": 0.606,
+     "ease": "linear",
+     "at": 0.001
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.18,
+      "y": 0.29,
+      "z": -1.84
+     },
+     "dur": 0.606,
+     "ease": "linear",
+     "at": 0.001
+    },
+    {
+     "sfx": "ai/glass-smash",
+     "gain": 0.9,
+     "reason": "the window bursts into the room",
+     "at": 0.02
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.6,
+     "reason": "the shelf and the sofa frame snap",
+     "at": 0.1
+    },
+    {
+     "sfx": "kenney/impact-wood-heavy",
+     "gain": 0.6,
+     "reason": "the shelf crashes over",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 2.71,
+      "y": 1.64,
+      "z": -0.52,
+      "roll": 82
+     },
+     "dur": 0.606,
+     "ease": "linear",
+     "at": 0.607
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.02,
+      "y": 0.04,
+      "z": -1.03
+     },
+     "dur": 0.606,
+     "ease": "linear",
+     "at": 0.607
     },
     {
      "do": "prop",
@@ -2776,12 +3428,183 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 7.5
+     "at": 1.213
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 0,
+      "dust": 1,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0,
+      "cracks": 0,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "haze",
+     "set": {
+      "haze": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "damage": 0,
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": -1.75,
+      "y": 0,
+      "z": -2.35,
+      "rot": 180,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": 1.8,
+      "y": 0,
+      "z": -1.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "rupture",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "entry",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "strike",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "alps",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "moonfall",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "firewall",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "roomhit",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
     }
    ]
   },
   {
-   "name": "P15 1 g: back to normal, the phone loops",
+   "name": "P21 1 g: back to normal, the phone loops",
    "at": 61.5,
    "len": 2.5,
    "shot": {
@@ -2804,88 +3627,6 @@
      "set": {
       "r": 2000,
       "feather": 84
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "tower",
-     "set": {
-      "fall": 0,
-      "dust": 1
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "clouds",
-     "set": {
-      "sink": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "moon",
-     "set": {
-      "moon": 0,
-      "cracks": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sats",
-     "set": {
-      "t": -1
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sats2",
-     "set": {
-      "t": -1
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "haze",
-     "set": {
-      "haze": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "tv",
-     "set": {
-      "crumble": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sofa",
-     "set": {
-      "damage": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -3042,6 +3783,12 @@
      "at": 0.2
     },
     {
+     "sfx": "ai-package/flat-exhale",
+     "gain": 0.5,
+     "reason": "one breath out",
+     "at": 0.5
+    },
+    {
      "who": "spud",
      "do": "look",
      "to": [
@@ -3147,12 +3894,20 @@
    "from": 23,
    "to": 28,
    "see": [
-    "clouds"
+    "spud.face"
    ],
-   "why": "20 g: the clouds sink into a sea at street level; tall roofs stick out"
+   "why": "20 g: behind him every building in the city crushes down into a sea of dust"
   },
   {
    "from": 28,
+   "to": 30.3,
+   "see": [
+    "rupture"
+   ],
+   "why": "25 g: from the window, the street below tears open, cars crushed at its lips, fires"
+  },
+  {
+   "from": 30.3,
    "to": 33,
    "see": [
     "spud.face"
@@ -3161,14 +3916,30 @@
   },
   {
    "from": 33,
+   "to": 36,
+   "see": [
+    "entry"
+   ],
+   "why": "30 g: every satellite falls, fireballs fill the sky, the space station breaks apart"
+  },
+  {
+   "from": 36,
    "to": 38,
    "see": [
-    "sats"
+    "strike"
    ],
-   "why": "30 g: every satellite falls, burning trails across the dusk sky"
+   "why": "30 g: a satellite hits the city: flash, a ring of dust, the window cracks"
   },
   {
    "from": 38,
+   "to": 40.5,
+   "see": [
+    "glass"
+   ],
+   "why": "35 g: the cracked window over the flattened, burning city"
+  },
+  {
+   "from": 40.5,
    "to": 43,
    "see": [
     "spud.face"
@@ -3177,27 +3948,60 @@
   },
   {
    "from": 43,
+   "to": 45.5,
+   "see": [
+    "alps"
+   ],
+   "why": "40 g: real mountains: cliffs fail, avalanches pour into the valley"
+  },
+  {
+   "from": 45.5,
    "to": 48,
    "see": [
-    "tv"
+    "alps"
    ],
-   "why": "40 g: on the TV news the Alps slump and avalanche"
+   "why": "40 g: a summit splits in two, house-sized blocks fly"
   },
   {
    "from": 48,
    "to": 53,
    "see": [
-    "moon"
+    "moonfall"
    ],
-   "why": "45 g: the Moon hangs huge and low over the city"
+   "why": "45 g: the Moon falls, cracking, burning chunks breaking off"
   },
   {
    "from": 53,
+   "to": 54.6,
+   "see": [
+    "spud.face"
+   ],
+   "why": "50 g: he stares up at it"
+  },
+  {
+   "from": 54.6,
+   "to": 56,
+   "see": [
+    "moonfall"
+   ],
+   "why": "50 g: the Moon fills the sky over the ruins"
+  },
+  {
+   "from": 56,
+   "to": 59.287,
+   "see": [
+    "firewall"
+   ],
+   "why": "50 g: the Moon hits behind the city, a wall of fire races at the window"
+  },
+  {
+   "from": 59.287,
    "to": 60.5,
    "see": [
-    "moon"
+    "spud.face",
+    "roomhit"
    ],
-   "why": "50 g: the Moon fills the window, cracking"
+   "why": "50 g: the window explodes inward, glass and furniture fly over him, white flash"
   },
   {
    "from": 61.5,

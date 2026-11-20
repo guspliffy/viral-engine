@@ -74,7 +74,7 @@
 // middle left free for Jonny's in-app title. "bottom": the same strip at y 1288-1356 (clear of one-line subtitles at
 // 1180). "y" puts its top anywhere. Boxes go to the layout as cards, so qa/framing.mjs sees a face under one.
 // The g counter (fact what-if 02 "gravity", 19 Nov 2026), opt-in, nothing changes without it:
-//   "gforce": { "keys": [[0, 1], [1.0, 2], [6.0, 3], ...], "y": 250 }   (or a plain key array)
+//   "gforce": { "keys": [[0, 1], [1.0, 2], [6.0, 3], ...], "y": 250 }   (or a plain key array; a value null hides it from that key)
 // a big "2 g" in the top centre (CapBlack 150 px, cream #fff8ec with a 12 px dark outline, no chip, centre y 250 so the
 // captions at 380+ stay clear). Every step slams in: scale 1.35 -> 1 over 0.25 s (eased back) and a 6 px drop; the
 // number turns amber #ffd25a from 10 and red #ff6a4d from 30; a step DOWN (back to 1) fades in over 0.3 s instead.
@@ -184,7 +184,9 @@ export function hudState(sb, t) {
   if (H.gforce) {
     const G = Array.isArray(H.gforce) ? { keys: H.gforce } : H.gforce, K = [...G.keys].sort((a, b) => a[0] - b[0]);
     let i = -1; for (let j = 0; j < K.length; j++) if (K[j][0] <= t + 1e-9) i = j;
-    if (i >= 0) out.gforce = { v: K[i][1], since: r6(t - K[i][0]), up: i > 0 ? K[i][1] > K[i - 1][1] : null, y: G.y ?? 250 };
+    // a key with value null hides the counter (a black card); the step after it compares with the last shown value
+    let pv = null; for (let j = i - 1; j >= 0 && pv == null; j--) pv = K[j][1];
+    if (i >= 0 && K[i][1] != null) out.gforce = { v: K[i][1], since: r6(t - K[i][0]), up: pv != null ? K[i][1] > pv : null, y: G.y ?? 250 };
   }
   return out;
 }

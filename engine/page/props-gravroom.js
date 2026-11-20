@@ -15,6 +15,9 @@ import { clamp, rng } from "./util.js";
 //                 pillows true (false leaves both out).
 //            params sink 0..0.17 (0) the seat top's depression in metres under the dip centre, bell exp(-(dx/.52)^2 - (dz/.34)^2)
 //                       over both seat cushions (the cushion keeps >= 2 cm); sink .16 is Spud at 35 g.
+//                   brk 0..1 (0) the Moon's room hit (v2, see props-gravmoon.js groomhit): = roomHit P(59.287, 60.5). The back drops .24 (.5) / .43 (1), the
+//                       back panel splits in two, the back cushions and panel halves tip about their lower edge, the seat cushions flare outward .25 m
+//                       at their outer ends (the inner edges stay under Spud), the arms splay 11 deg. 0 renders exactly as before. Seed it: c.prop(0,"sofa",{brk:0},0).
 //                   damage 0..1 (0) DESIGN §7 "Legs and floor": the front legs splay from 4 to 12 degrees, the rear from 4 to 6 (outward,
 //                       away from the middle), the whole frame drops .03 m (seat top .45 -> .42, legs shorten so the feet stay on the
 //                       floor), 3 floor cracks per foot grow to .24 m (dark ribbons on the floor, y .003), wood splinters appear at the
@@ -137,10 +140,12 @@ function sofa(P) {
   const body = new THREE.Group(); G.add(body);
   // frame, arms, back panel
   mesh(roundBox(2.0, 0.12, 0.86, 0.03, 20, 2, 8), fabD, body, 0, 0.2, 0);
-  for (const s of [-1, 1]) mesh(roundBox(0.22, 0.48, 0.91, 0.085, 6, 12, 14), fab, body, s * 0.91, 0.38, 0);
-  mesh(roundBox(1.62, 0.54, 0.08, 0.03, 16, 6, 2), fabD, body, 0, 0.53, -0.415);
+  const arms = [-1, 1].map((s) => mesh(roundBox(0.22, 0.48, 0.91, 0.085, 6, 12, 14), fab, body, s * 0.91, 0.38, 0));
+  const panel = mesh(roundBox(1.62, 0.54, 0.08, 0.03, 16, 6, 2), fabD, body, 0, 0.53, -0.415);
+  // brk (the Moon's room hit): the back panel in two halves (hidden until brk > 0)
+  const halves = [-1, 1].map((s) => { const h = mesh(roundBox(0.81, 0.54, 0.08, 0.03, 8, 6, 2), fabD, body, s * 0.405, 0.53, -0.415); h.visible = false; return h; });
   // back cushions, leaning back a little
-  for (const s of [-1, 1]) { const b = mesh(roundBox(0.79, 0.42, 0.13, 0.055, 16, 10, 4), fab, body, s * 0.4, 0.66, -0.31); b.rotation.x = -0.09; }
+  const backs = [-1, 1].map((s) => { const b = mesh(roundBox(0.79, 0.42, 0.13, 0.055, 16, 10, 4), fab, body, s * 0.4, 0.66, -0.31); b.rotation.x = -0.09; return b; });
   // seat cushions: a fine grid so the dip can bend the top
   const seats = [-1, 1].map((s) => {
     const geo = roundBox(0.795, 0.19, 0.71, 0.06, 28, 8, 22), m = mesh(geo, fab, body, s * 0.4025, 0.355, 0.1);
@@ -178,8 +183,17 @@ function sofa(P) {
   });
   let drawn = "";
   const apply = (ps) => {
-    const sink = clamp(ps.sink ?? S.sink ?? 0, 0, 0.17), dmg = clamp(ps.damage ?? S.damage ?? 0), key = `${sink.toFixed(4)}|${dmg.toFixed(4)}`;
+    const sink = clamp(ps.sink ?? S.sink ?? 0, 0, 0.17), dmg = clamp(ps.damage ?? S.damage ?? 0), brk = clamp(ps.brk ?? S.brk ?? 0), key = `${sink.toFixed(4)}|${dmg.toFixed(4)}|${brk.toFixed(4)}`;
     if (key === drawn) return; drawn = key;
+    // brk 0..1 = the room hit (gravmoon.js groomhit): back drops .24 / .43, panel halves and back cushions tip about their lower edge, seat cushions flare .25 m, arms splay
+    const bdrop = brk < 0.5 ? 0.24 * (brk / 0.5) : 0.24 + 0.19 * ((brk - 0.5) / 0.5);
+    panel.visible = brk <= 0; halves.forEach((h, i) => { h.visible = brk > 0; const s = i ? 1 : -1, th = (i ? 0.75 : 0.45) * brk, hh = 0.27; h.rotation.set(th, 0, -s * 0.1 * brk); h.position.set(s * (0.405 + 0.06 * brk), 0.26 - bdrop * 0.6 + hh * Math.cos(th), -0.415 + hh * Math.sin(th)); });
+    backs.forEach((b, i) => {
+      const s = i ? 1 : -1;
+      if (brk <= 0) { b.rotation.set(-0.09, 0, 0); b.position.set(s * 0.4, 0.66, -0.31); return; }
+      const th = -0.09 + (i ? 0.8 : 1.0) * brk, hh = 0.21; b.rotation.set(th, 0, -s * 0.12 * brk); b.position.set(s * (0.4 + 0.1 * brk), 0.4509 - bdrop * 0.25 + hh * Math.cos(th), -0.2911 + hh * Math.sin(th));
+    });
+    arms.forEach((a, i) => { const s = i ? 1 : -1, th = -s * 0.2 * brk; a.rotation.set(0, 0, th); a.position.set(s * 0.91 - 0.24 * Math.sin(th), 0.14 + 0.24 * Math.cos(th), 0); if (brk <= 0) a.position.set(s * 0.91, 0.38, 0); });
     // frame drop and legs (they pivot at the frame's underside and shorten, so the feet stay on the floor)
     const drop = 0.03 * dmg; body.position.y = -drop;
     for (const L of legs) {
@@ -194,7 +208,8 @@ function sofa(P) {
       const geo = m.geometry, p = geo.attributes.position, n = geo.attributes.normal, b = geo.userData.base, wt = geo.userData.wt, ox = m.position.x, oz = m.position.z;
       for (let i = 0; i < p.count; i++) {
         const ex = (b.pos[i * 3] + ox - dip[0]) / 0.52, ez = (b.pos[i * 3 + 2] + oz - dip[1]) / 0.34, sh = Math.exp(-ex * ex - ez * ez), w = wt[i] * sink * sh;
-        p.setXYZ(i, b.pos[i * 3], b.pos[i * 3 + 1] - w, b.pos[i * 3 + 2]);
+        const wx = brk > 0 ? clamp(Math.abs(b.pos[i * 3] + ox) / 0.8) : 0, fx = Math.sign(ox) * 0.25 * brk * wx * wx, fy = 0.1 * brk * wx * wt[i];   // brk: the outer ends flare, the inner edge stays under Spud
+        p.setXYZ(i, b.pos[i * 3] + fx, b.pos[i * 3 + 1] - w + fy, b.pos[i * 3 + 2]);
         const ny = Math.max(b.nrm[i * 3 + 1], 0), nx = b.nrm[i * 3] + (-2 * ex / 0.52) * w * ny, nz = b.nrm[i * 3 + 2] + (-2 * ez / 0.34) * w * ny, nyy = b.nrm[i * 3 + 1], l = Math.hypot(nx, nyy, nz) || 1;
         n.setXYZ(i, nx / l, nyy / l, nz / l);
       }

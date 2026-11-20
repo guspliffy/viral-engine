@@ -4,7 +4,7 @@
 // different from time to time), the caption writes "g".
 export const NARRATOR = "narrator-quick";   // voice 1 "deep storyteller", 15 % faster (Mona Lisa, 19 Nov)
 export const TAKES = {};
-export const STEPS = [[0, 1], [1.0, 2], [3.5, 3], [6.0, 4], [8.5, 5], [13.0, 10], [18.0, 15], [23.0, 20], [28.0, 25], [33.0, 30], [38.0, 35], [43.0, 40], [48.0, 45], [53.0, 50], [61.5, 1]];
+export const STEPS = [[0, 1], [1.0, 2], [3.5, 3], [6.0, 4], [8.5, 5], [13.0, 10], [18.0, 15], [23.0, 20], [28.0, 25], [33.0, 30], [38.0, 35], [43.0, 40], [48.0, 45], [53.0, 50], [60.5, null], [61.5, 1]];
 export const LINES = [
   [0.1, "Every five seconds, gravity gets stronger. In ten, you black out.", "Every five seconds, gravity gets stronger. In ten, you black out."],
   [6.1, "Four gee. Your eyes go grey.", "Four g. Your eyes go grey."],

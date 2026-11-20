@@ -42,7 +42,18 @@ const CAM = {
   D12: { pos: [-0.23, 0.97, 0.95], look: [-1.52, 0.86, -0.96], fov: 45 },   // square on to the screen (yaw 34), the whole picture in frame
   C13: { pos: [0.46, 1.24, 0.46], look: [0.2, 1.75, -2.65], fov: 69 },
   C14: { pos: [0.46, 1.24, 0.46], look: [0.25, 1.8, -2.65], fov: 72 },
+  // v2 (Sol's DESIGN-v2.md section E, panels P1-P9 of gravity-panels-v2): the world breaks, seen from the room and outside
+  P1: { pos: [0.34, 1.26, -0.02], look: [0.06, 0.95, -8], fov: 59 },
+  P2: { pos: [0.2, 2.55, -2.57], look: [-5.5, -60, -38], fov: 47 },
+  P3: { pos: [0.34, 1.18, 0.94], look: [0.55, 2.34, -8], fov: 63 },
+  P4: { pos: [0.34, 1.3, -0.02], look: [-0.12, 0.95, -8], fov: 60 },
+  P5: { pos: [40000, 1308, 930], look: [40000, 1338, -1806], fov: 84 },   // the Alps: props-gravalps.js origin [40000, 0, 0], scale .6
+  P6: { pos: [40168, 1566, -348], look: [40366, 1842, -1656], fov: 57 },
+  P7: { pos: [0.34, 1.02, 0.05], look: [-0.09, 2.12, -8], fov: 65 },   // closer to the window than Sol's (.34,1.12,.94): from there the window top hid the Moon until 50 s
+  P8: { pos: [0.15, 1.91, -2.58], look: [-48, 130, -2500], fov: 53 },
+  P9: { pos: [0.48, 1.39, 0.21], look: [0.37, 0.78, -2.3], fov: 71 },
 };
+const TROOM = 59.287;   // the fire wall reaches the window (DESIGN-v2 D: 2497.9 m at 760 m/s from contact at 56)
 const camOnly = (k) => ({ pos: CAM[k].pos, look: CAM[k].look, fov: CAM[k].fov });
 // a slow push (constant motion): the camera creeps k of the way toward its look point over the shot
 const push = (k, dur, amt = 0.06) => {
@@ -58,20 +69,27 @@ const props = [
   { id: "plant", kind: "gplant", x: 1.8, y: 0, z: -1.6 },
   { id: "rug", kind: "grug", x: 0.18, y: 0, z: 0.11 },
   { id: "phone", kind: "phone", ...PH_HELD, scale: 1.8, case: "#3e383b" },
-  { id: "street", kind: "gstreet", x: 0, y: 0, z: 0 },
-  { id: "tower", kind: "gtower", x: 0, y: 0, z: 0, fall: 0, dust: 1 },
-  { id: "city", kind: "gcity", x: 0, y: 0, z: 0 },
+  { id: "tower", kind: "gtower", staged: "the glass tower across the street, its base on the city ground 60 m below", x: 0, y: 0, z: 0, fall: 0, dust: 1 },
   { id: "horizon", kind: "ghorizon", x: 0, y: 0, z: 0 },
   { id: "sky", kind: "gsky", x: 0, y: 0, z: 0 },
   { id: "moon", kind: "gmoon", staged: "the Moon in the sky", x: 0, y: 0, z: 0, moon: 0, cracks: 0, crackW: 3 },
-  // nine trails read thin in a 5 s shot: a second copy, shifted and later, doubles them; the big one shows its panels
-  { id: "sats", kind: "gsats", staged: "falling satellites, kilometres up in the sky", x: 0, y: 0, z: 0, t: -1, satScale: 10, cam: { pos: [0.46, 1.23, 0.4], look: [0.3, 1.71, -2.65] } },
-  { id: "sats2", kind: "gsats", staged: "falling satellites, kilometres up in the sky", x: -260, y: 60, z: 0, t: -1, cam: { pos: [0.46, 1.23, 0.4], look: [0.3, 1.71, -2.65] } },
-  { id: "clouds", kind: "gclouds", staged: "clouds in the sky, then a cloud sea over the street", x: 0, y: 22, z: 0, sink: 0, drift: 0 },   // 22 m up: the sea's crest at -11 buries all but the tall towers (at -33 the mid city stood out of it everywhere)
+  { id: "clouds", kind: "gclouds", staged: "clouds in the sky", x: 0, y: 22, z: 0, sink: 0, drift: 0 },
   { id: "haze", kind: "ghaze", staged: "haze filling the room air", x: 0, y: 0, z: 0, haze: 0 },
-  // two camera-attached black cards: the 5 g tunnel on shot B, the blackout on the last Moon shot
+  // v2 world (DESIGN-v2.md): each kind runs on one param t = clip seconds
+  ...[["ruin", "gruin", "the city outside: 136 buildings, ground, dust sea; collapses at 20 g, erased by the Moon's wave"],
+    ["rupture", "grupture", "the street below the window tearing open, cars, fires"],
+    ["entry", "gentry", "satellites and the space station burning in, kilometres up"],
+    ["strike", "gstrike", "three falling satellites hitting the city"],
+    ["glass", "gglass", "cracks in the window glass"],
+    ["alps", "galps", "the Alps valley, 40 km away in its own sky"],
+    ["moonfall", "gmoonfall", "the Moon falling onto the Earth"],
+    ["firewall", "gfirewall", "the impact's fire wall racing across the city"],
+    ["roomhit", "groomhit", "the window blown in: glass, wood, stuffing, the shelf"],
+  ].map(([id, kind, staged]) => ({ id, kind, staged, x: 0, y: 0, z: 0, t: -1 })),
+  { id: "flash", kind: "gflash", staged: "a white flash on the camera lens", x: 0, y: 0, z: 0, t: -1, cam: { pos: CAM.P9.pos, look: CAM.P9.look, fov: CAM.P9.fov } },
+  // two camera-attached black cards: the 5 g tunnel on shot B, the black after the room hit
   { id: "tunB", kind: "gtunnel", staged: "a black card on the camera lens (tunnel vision)", x: 0, y: 0, z: 0, cam: { ...camOnly("B4") }, r: 2000, cx: 560, cy: 1070, feather: 84 },
-  { id: "tunE", kind: "gtunnel", staged: "a black card on the camera lens (the blackout)", x: 0, y: 0, z: 0, cam: { ...camOnly("C14") }, r: 2000 },
+  { id: "tunE", kind: "gtunnel", staged: "a black card on the camera lens (the black after the hit)", x: 0, y: 0, z: 0, cam: { ...camOnly("P9") }, r: 2000 },
 ];
 const cast = [{ id: "spud", character: "potatobrawl/spud", at: SPUD, face: 0, expr: "kind", follow: 0, seed: 2.9 }];
 
@@ -176,7 +194,7 @@ sfx(r3(T.wake + 0.45), "ai/branch-snap", { gain: 0.5, reason: "the second leg cr
 sfx(r3(T.wake + 0.6), "kenney/impact-wood-heavy", { gain: 0.6, reason: "the floor boards creak and split under the feet" });
 see(T.wake, T.g15, ["spud.face", "sofa"], "10 g: awake again, pressed flat; the sofa legs splay and the floor cracks");
 
-// ================================================================ 26-31 15 g: the tower across the street cracks and falls
+// ================================================================ 18-23 15 g: the tower across the street cracks and falls
 expr(T.g15, "shocked", { open: 0.3, eye: 1.1 }, 0.15); look(T.g15, [0.4, 0.3], 0.2);
 prop(T.g15, "tower", { fall: 1 }, 3.5, "linear");
 sfx(r3(T.g15 + 0.2), "ai/glass-smash", { gain: 0.45, reason: "the tower's glass breaks across the street, heard through our window" });
@@ -184,64 +202,98 @@ sfx(r3(T.g15 + 0.9), "ai/thunder", { gain: 0.85, dur: 3.2, reason: "concrete flo
 sfx(r3(T.g15 + 1.4), "ai/metal-tear", { gain: 0.3, reason: "the steel frame tears" });
 see(T.g15, T.g20, ["tower"], "15 g: the glass tower across the street cracks and collapses straight down in dust");
 
-// ================================================================ 31-36 20 g: the clouds sink to the street
-expr(T.g20, "shocked", { open: 0.25 }, 0.2); look(T.g20, [0, -0.3], 0.3);
-prop(T.g20, "clouds", { sink: 1 }, 3.4, "inOut");
-prop(T.g20, "tower", { dust: 0.35 }, 2.0, "inOut");
-sfx(T.g20, "ai/storm-wind", { gain: 0.12, dur: 5, reason: "wind presses on the window as the air sinks" });
-see(T.g20, T.g25, ["clouds"], "20 g: the clouds sink into a sea at street level; tall roofs stick out");
+// the v2 world props all run on clip time (one linear tween of t over the whole clip; reset to -1 at 1 g)
+const WORLD = ["ruin", "rupture", "entry", "strike", "glass", "alps", "moonfall", "firewall", "roomhit", "flash"];
+for (const id of WORLD) { prop(0, id, { t: 0 }, 0, "linear"); prop(0, id, { t: END }, END, "linear"); }
 
-// ================================================================ 36-41 25 g: pancake flat, a wink: "good thing you're a potato"
-expr(T.g25, "kind", { curve: 0.4 }, 0.2); look(T.g25, [0, 0], 0.15);
-expr(r3(T.g25 + 3.2), "smug", { curve: 0.8 }, 0.2);
-A(r3(T.g25 + 3.25), "spud", "face", { lidR: 1, lidL: 0.1, dur: 0.12 });
-A(r3(T.g25 + 4.4), "spud", "face", { lidR: 0, lidL: 0, dur: 0.15 });
-sfx(T.g25, "kenney/cloth", { gain: 0.35, reason: "his knit rubs as he settles flatter" });
-sfx(r3(T.g25 + 3.1), "ai-package/flat-exhale", { gain: 0.7, reason: "a small breath out before the wink" });
-see(T.g25, T.g30, ["spud.face"], "25 g: pancake flat, a calm wink on 'Good thing you're a potato'");
+// ================================================================ 23-28 20 g: the whole city comes down (P1)
+expr(T.g20, "terrified", { open: 0.45 }, 0.15); look(T.g20, [0, 0.25], 0.2);
+prop(T.g20, "tower", { dust: 0.5 }, 2.0, "inOut");
+sfx(r3(T.g20 + 0.3), "rumble", { gain: 0.9, dur: 5.2, reason: "a whole city's floors pancaking, a deep rumble through the glass" });
+for (const [k, g] of [[0.6, 0.7], [1.5, 0.55], [2.4, 0.8], [3.3, 0.5], [4.2, 0.6]]) sfx(r3(T.g20 + k), "thunder", { gain: g, reason: "a tower's slabs slam down, far off" });
+sfx(r3(T.g20 + 1.9), "ai/metal-tear", { gain: 0.35, reason: "steel frames tear across the city" });
+see(T.g20, T.g25, ["spud.face"], "20 g: behind him every building in the city crushes down into a sea of dust");
 
-// ================================================================ 41-46 30 g: satellites burn across the sky
-expr(T.g30, "shocked", { open: 0.3, eye: 1.1 }, 0.15); look(T.g30, [0, 0.6], 0.2);
-prop(0, "sats", { t: -1 }, 0, "linear"); prop(0, "sats2", { t: -1 }, 0, "linear");
-prop(T.g30, "sats", { t: 0 }, 0, "linear"); prop(r3(T.g30 + 0.01), "sats", { t: 5 }, 4.99, "linear");
-prop(T.g30, "sats2", { t: -1.4 }, 0, "linear"); prop(r3(T.g30 + 0.01), "sats2", { t: 3.6 }, 4.99, "linear");
-sfx(r3(T.g30 + 0.9), "ai/thunder", { gain: 0.2, dur: 2.5, reason: "distant reports through the glass as they burn in" });
-see(T.g30, T.g35, ["sats"], "30 g: every satellite falls, burning trails across the dusk sky");
+// ================================================================ 28-33 25 g: the street tears open (P2), then the wink
+prop(T.g25, "tower", { dust: 0.1 }, 0.6, "inOut");   // its own dust would hide the street below (P2)
+sfx(r3(T.g25 + 0.15), "explosion", { gain: 0.5, dur: 1.6, reason: "the asphalt splits with a deep crack below the window" });
+sfx(r3(T.g25 + 0.6), "ai/glass-shatter-car", { gain: 0.55, reason: "car windows burst as the cars are crushed" });
+sfx(r3(T.g25 + 1.0), "ai/metal-tear", { gain: 0.45, reason: "car shells crumple" });
+sfx(r3(T.g25 + 0.9), "ai/house-fire", { gain: 0.35, dur: 1.5, reason: "fires crackle along the fissure" });
+see(T.g25, 30.3, ["rupture"], "25 g: from the window, the street below tears open, cars crushed at its lips, fires");
+expr(30.3, "kind", { curve: 0.4 }, 0.2); look(30.3, [0, 0], 0.15);
+expr(31.2, "smug", { curve: 0.8 }, 0.2);
+A(31.25, "spud", "face", { lidR: 1, lidL: 0.1, dur: 0.12 });
+A(32.4, "spud", "face", { lidR: 0, lidL: 0, dur: 0.15 });
+sfx(31.1, "ai-package/flat-exhale", { gain: 0.7, reason: "a small breath out before the wink" });
+see(30.3, T.g30, ["spud.face"], "25 g: pancake flat, a calm wink on 'Good thing you're a potato'");
 
-// ================================================================ 46-51 35 g: thick air, haze, he gasps
-expr(T.g35, "terrified", { open: 0.7 }, 0.15); look(T.g35, [0, 0.15], 0.2);
-prop(T.g35, "haze", { haze: 0.7 }, 1.8, "inOut");   // 1 hides him on shot B
-for (const g of [0.15, 1.35, 2.55, 3.75].map((k) => r3(T.g35 + k))) { A(g, "spud", "squash", { amount: 0.05, dur: 0.5 }); sfx(g, "ai/surface-gasp", { gain: 0.55, reason: "he gasps for air in the thick haze" }); }
-see(T.g35, T.g40, ["spud.face"], "35 g: the air thickens to a haze, he gasps");
+// ================================================================ 33-38 30 g: satellites burn in (P3), a strike (P4)
+expr(T.g30, "shocked", { open: 0.3, eye: 1.1 }, 0.15); look(T.g30, [0, 0.4], 0.2);
+sfx(r3(T.g30 + 0.4), "rumble", { gain: 0.45, dur: 3, reason: "a far roar of things burning in high up" });
+for (const k of [0.8, 1.7, 2.5]) sfx(r3(T.g30 + k), "thunder", { gain: 0.3, reason: "distant pressure cracks from the burning satellites" });
+see(T.g30, 36, ["entry"], "30 g: every satellite falls, fireballs fill the sky, the space station breaks apart");
+// the flash at 36.00 is silent; its blast arrives a second later (335 m through the air) and cracks the window
+sfx(37.01, "explosion", { gain: 1.0, dur: 3, reason: "the strike's blast wave hits the building" });
+sfx(37.05, "ai/screen-crack", { gain: 0.8, reason: "the window glass cracks" });
+sfx(38.18, "explosion", { gain: 0.6, dur: 2.5, reason: "the second strike's blast, further away" });
+sfx(39.7, "explosion", { gain: 0.6, dur: 2.5, reason: "the third strike's blast" });
+see(36, T.g35, ["strike"], "30 g: a satellite hits the city: flash, a ring of dust, the window cracks");
 
-// ================================================================ 51-56 40 g: the Alps crumble on the TV news
-prop(T.g40, "tv", { crumble: 1 }, 3.6, "inOut");
-prop(T.g40, "haze", { haze: 0.45 }, 1.0, "inOut");
-sfx(r3(T.g40 + 0.2), "ai/thunder", { gain: 0.45, dur: 3.5, reason: "the avalanche's roar from the TV speaker" });
-see(T.g40, T.g45, ["tv"], "40 g: on the TV news the Alps slump and avalanche");
+// ================================================================ 38-43 35 g: the cracked window, then the air turns poisonous
+sfx(38.4, "ai/house-fire", { gain: 0.3, dur: 2.2, reason: "rubble rains down and fires burn across the city" });
+see(T.g35, 40.5, ["glass"], "35 g: the cracked window over the flattened, burning city");
+expr(40.5, "terrified", { open: 0.7 }, 0.15); look(40.5, [0, 0.15], 0.2);
+prop(40.5, "haze", { haze: 0.7 }, 1.2, "inOut");
+for (const g of [40.6, 41.5, 42.4]) { A(g, "spud", "squash", { amount: 0.05, dur: 0.5 }); sfx(g, "ai/surface-gasp", { gain: 0.55, reason: "he gasps for air in the thick haze" }); }
+see(40.5, T.g40, ["spud.face"], "35 g: the air thickens to a haze, he gasps");
 
-// ================================================================ 56-61 45 g: the Moon, low and huge
+// ================================================================ 43-48 40 g: the Alps crush (P5 wide, P6 the split summit)
+prop(T.g40, "haze", { haze: 0 }, 0, "linear");
+sfx(r3(T.g40 + 0.1), "rumble", { gain: 0.9, dur: 5, reason: "the valley's avalanches roar, layered and far" });
+sfx(r3(T.g40 + 0.3), "ai/thunder", { gain: 0.7, dur: 4.5, reason: "cliffs breaking off and rolling down" });
+for (const k of [0.5, 1.1, 1.8, 2.3]) sfx(r3(T.g40 + k), "kenney/impact-mining", { gain: 0.35, reason: "stones shedding off the near slope" });
+sfx(45.5, "explosion", { gain: 0.55, dur: 2.5, reason: "the summit splits with a deep report" });
+see(T.g40, 45.5, ["alps"], "40 g: real mountains: cliffs fail, avalanches pour into the valley");
+see(45.5, T.g45, ["alps"], "40 g: a summit splits in two, house-sized blocks fly");
+
+// ================================================================ 48-56 45-50 g: the Moon falls (P7, his face, P7)
+prop(T.g45, "moon", { scale: 0 }, 0, "linear");   // the falling Moon (gmoonfall) takes over until the reset
 expr(T.g45, "shocked", { open: 0.4, eye: 1.2 }, 0.15); look(T.g45, [0, 0.7], 0.2);
-prop(T.g45, "moon", { moon: 0.5 }, 0, "linear");
-prop(r3(T.g45 + 0.01), "moon", { moon: 0.7 }, 4.98, "in");
-prop(T.g45, "haze", { haze: 0.25 }, 0.6, "inOut");
-sfx(T.g45, "kenney/impact-glass-light", { gain: 0.3, reason: "the window glass flexes" });
-sfx(r3(T.g45 + 1.5), "kenney/impact-plate-light", { gain: 0.25, reason: "the TV cabinet rattles" });
-see(T.g45, T.g50, ["moon"], "45 g: the Moon hangs huge and low over the city");
+sfx(T.g45, "rumble", { gain: 0.6, dur: 8, reason: "the falling Moon's long low roar" });
+for (const k of [1.5, 3.4, 5.6, 7.0]) sfx(r3(T.g45 + k), "thunder", { gain: 0.25 + k * 0.03, reason: "burning chunks of Moon crack through the sky" });
+sfx(50.5, "ai/screen-crack", { gain: 0.45, reason: "the cracked window creaks in its frame" });
+see(T.g45, T.g50, ["moonfall"], "45 g: the Moon falls, cracking, burning chunks breaking off");
+expr(T.g50, "terrified", { open: 0.8, eye: 1.3 }, 0.12); look(T.g50, [0, 0.8], 0.15);
+see(T.g50, 54.6, ["spud.face"], "50 g: he stares up at it");
+see(54.6, 56, ["moonfall"], "50 g: the Moon fills the sky over the ruins");
 
-// ================================================================ 61-65.5 50 g: the Moon fills the window and cracks; black
-prop(T.g50, "moon", { moon: 0.86 }, 0, "linear");
-prop(r3(T.g50 + 0.01), "moon", { moon: 1 }, 3.6, "in");
-prop(r3(T.g50 + 0.1), "moon", { cracks: 1 }, 3.5, "in");
-sfx(r3(T.g50 + 0.4), "ai/screen-crack", { gain: 0.35, reason: "the window frame ticks under the strain" });
-sfx(r3(T.g50 + 1.6), "kenney/impact-wood-heavy", { gain: 0.45, reason: "the floor cracks under the sofa" });
-sfx(r3(T.g50 + 2.2), "ai/thunder", { gain: 0.35, dur: 2.0, reason: "a low vibration through the building" });
+// ================================================================ 56-60.5 50 g: contact, the fire wall (P8), the room blown in (P9)
+sfx(56.0, "ai/grass-fire", { gain: 0.5, dur: 3.3, reason: "the fire wall's roar, still far" });
+sfx(56.4, "rumble", { gain: 0.8, dur: 2.9, reason: "the ground shaking as the wave comes" });
+sfx(58.4, "kenney/impact-glass-light", { gain: 0.9, reason: "the cracked window rattles" });
+prop(59.22, "tower", { scale: 0 }, 0, "linear");   // the wave reaches the near tower's rubble (gruin erases the rest)
+see(56, TROOM, ["firewall"], "50 g: the Moon hits behind the city, a wall of fire races at the window");
+sfx(TROOM, "explosion", { gain: 1.2, dur: 1.4, reason: "the blast blows the window in" });
+sfx(r3(TROOM + 0.02), "ai/glass-smash", { gain: 0.9, reason: "the window bursts into the room" });
+sfx(r3(TROOM + 0.1), "ai/branch-snap", { gain: 0.6, reason: "the shelf and the sofa frame snap" });
+sfx(r3(TROOM + 0.3), "kenney/impact-wood-heavy", { gain: 0.6, reason: "the shelf crashes over" });
+expr(TROOM, "terrified", { open: 0.9, eye: 1.35 }, 0.06); look(TROOM, [0, 0.9], 0.08);
+A(TROOM, "spud", "squash", { amount: 0.22, dur: 0.42 });
+prop(0, "sofa", { brk: 0 }, 0, "linear"); prop(TROOM, "sofa", { brk: 1 }, r3(T.black - TROOM), "out");
+see(TROOM, T.black, ["spud.face", "roomhit"], "50 g: the window explodes inward, glass and furniture fly over him, white flash");
+// the lamp and the plant jump (on the cut) to where Sol's design has them in P9, then fly (props-gravmoon.js header numbers)
+const MID = r3((TROOM + T.black) / 2), roomFly = (id, at0, mid, end) => {
+  prop(TROOM, id, at0, 0, "linear");
+  prop(r3(TROOM + 0.001), id, mid, r3(MID - TROOM - 0.001), "linear"); prop(MID, id, end, r3(T.black - MID), "linear");
+};
+roomFly("lamp", { x: 1.45, y: 0, z: -2.12, rot: 0, roll: 0 }, { x: 2.39, y: 0.91, z: -1.42, roll: 38 }, { x: 2.71, y: 1.64, z: -0.52, roll: 82 });
+roomFly("plant", { x: -1.4, y: 0.09, z: -2.48 }, { x: -1.18, y: 0.29, z: -1.84 }, { x: -1.02, y: 0.04, z: -1.03 });
 prop(T.black, "tunE", { r: 0, feather: 0 }, 0, "linear");
-see(T.g50, T.black, ["moon"], "50 g: the Moon fills the window, cracking");
 
 // ================================================================ 61.5-64 1 g: back to normal; the phone springs back up in his hand
 prop(T.g1, "tunE", { r: 2000, feather: 84 }, 0, "linear");
-for (const [id, set] of [["tower", { fall: 0, dust: 1 }], ["clouds", { sink: 0 }], ["moon", { moon: 0, cracks: 0 }], ["sats", { t: -1 }], ["sats2", { t: -1 }], ["haze", { haze: 0 }], ["tv", { crumble: 0 }], ["sofa", { damage: 0 }]]) prop(T.g1, id, set, 0, "linear");
+for (const [id, set] of [["tower", { fall: 0, dust: 1, scale: 1 }], ["moon", { moon: 0, cracks: 0, scale: 1 }], ["haze", { haze: 0 }], ["sofa", { damage: 0, brk: 0 }], ["lamp", { x: -1.75, y: 0, z: -2.35, rot: 180, roll: 0 }], ["plant", { x: 1.8, y: 0, z: -1.6 }], ...WORLD.map((id) => [id, { t: -1 }])]) prop(r3(T.black + 0.01), id, set, 0, "linear");   // restored under the black
 A(T.g1, "spud", "flat", { to: 0, dur: 0.16, ease: "back" });
 A(T.g1, "spud", "pitch", { to: PER[0].pitch, dur: 0.25, ease: "out" });
 sinkTo(T.g1, PER[T.g50].sink, 0.16);
@@ -249,6 +301,7 @@ A(T.g1, "spud", "droop", { to: 0, dur: 0.3, ease: "back" });
 A(T.g1, "spud", "face", { lid: 0, dur: 0.1 });
 expr(T.g1, "shocked", { open: 0.45, eye: 1.25 }, 0.1); look(r3(T.g1 + 0.1), [0, 0.1], 0.1);
 sfx(T.g1, "ai/cushion-poof", { gain: 0.5, reason: "he pops back round, the sofa sighs" });
+sfx(r3(T.g1 + 0.5), "ai-package/flat-exhale", { gain: 0.5, reason: "one breath out" });
 prop(r3(T.g1 + 0.2), "sofa", { sink: PER[0].sink }, 0.3, "out"); sinkTo(r3(T.g1 + 0.2), PER[0].sink, 0.3);
 // the weight is gone: his arm springs back up with the phone still in his hand (= frame 0)
 HOLD(r3(T.g1 + 0.1), 0.4, "out"); c.arm(r3(T.g1 + 0.1), "spud", "R", { o: [-0.22, 0.25, 0.3] }, 0.9, "inOut");   // the free hand slower: no palm flip
@@ -256,7 +309,7 @@ look(r3(T.g1 + 0.6), [0.2, 0.4], 0.2); look(r3(T.g1 + 1.4), [0, 0.35], 0.2);
 expr(r3(T.g1 + 1.4), "kind", { eye: 0.85 }, 0.4);
 see(T.g1, END, ["spud.face", "phone"], "1 g again: the room is whole, the phone back up in his hand (the loop)");
 
-// ---------------------------------------------------------------- shots, one per panel
+// ---------------------------------------------------------------- shots
 const beats = c.beats([
   ["P01 2 g: the phone slams onto your face", 0, push("A", T.g3), "hook"],
   ["P02 3 g: pressed into the sofa", T.g3, push("A2", 2.5)],
@@ -265,19 +318,25 @@ const beats = c.beats([
   ["P05 the blackout: slumped", T.cutA, camOnly("A")],
   ["P06 10 g: lying flat, the sofa legs break", T.wake, push("A6", 5)],
   ["P07 15 g: the tower falls", T.g15, push("C7", 5, 0.04)],
-  ["P08 20 g: the clouds sink", T.g20, push("C8", 5, 0.04)],
-  ["P09 25 g: good thing you're a potato", T.g25, push("B9", 5, 0.08), "payoff"],
-  ["P10 30 g: satellites fall", T.g30, push("C10", 5, 0.04)],
-  ["P11 35 g: thick air", T.g35, push("B11", 5, 0.06)],
-  ["P12 40 g: the Alps on TV", T.g40, push("D12", 5, 0.1)],
-  ["P13 45 g: the Moon", T.g45, push("C13", 5, 0.04)],
-  ["P14 50 g: the Moon cracks, black", T.g50, camOnly("C14")],
-  ["P15 1 g: back to normal, the phone loops", T.g1, camOnly("A")],
+  ["P08 20 g: the whole city comes down", T.g20, push("P1", 5, 0.015)],
+  ["P09 25 g: the street tears open", T.g25, push("P2", 2.3, 0.02)],
+  ["P10 25 g: good thing you're a potato", 30.3, push("B9", 2.7, 0.06), "payoff"],
+  ["P11 30 g: satellites burn in", T.g30, push("P3", 3, 0.01)],
+  ["P12 30 g: a strike, the window cracks", 36, camOnly("P4")],
+  ["P13 35 g: the air turns poisonous", 40.5, push("B11", 2.5, 0.06)],
+  ["P14 40 g: the Alps crush", T.g40, push("P5", 2.5, 0.03)],
+  ["P15 40 g: a summit splits", 45.5, push("P6", 2.5, 0.03)],
+  ["P16 45 g: the Moon falls", T.g45, push("P7", 5, 0.01)],
+  ["P17 50 g: his face", T.g50, push("B9", 1.6, 0.05)],
+  ["P18 50 g: the Moon fills the sky", 54.6, push("P7", 1.4, 0.005)],
+  ["P19 50 g: contact, the fire wall", 56, camOnly("P8")],
+  ["P20 50 g: the room blown in", TROOM, camOnly("P9")],
+  ["P21 1 g: back to normal, the phone loops", T.g1, camOnly("A")],
 ], END);
 
 // ---------------------------------------------------------------- the grade (DESIGN.md section 8)
 const grade = [[0, { s: 1.1 }], [r3(T.g4 - 0.03), { s: 1.1 }], [T.g4, { s: 0.07 }, 0.38], [r3(T.g5 - 0.03), { s: 0.07 }], [T.g5, { s: 1.0 }], [r3(T.g35 - 0.03), { s: 1.08 }],
-  [T.g35, { s: 0.84 }, 1.8], [r3(T.g40 - 0.03), { s: 0.84 }], [T.g40, { s: 1.0 }], [T.g45, { s: 1.1 }], [T.g1, { s: 1.1 }]];
+  [40.5, { s: 0.84 }, 1.2], [r3(T.g40 - 0.03), { s: 0.84 }], [T.g40, { s: 1.0 }], [T.g45, { s: 1.1 }], [T.g1, { s: 1.1 }]];
 
 write(import.meta.url, {
   id: "gravity", title: "What if gravity kept growing?",
