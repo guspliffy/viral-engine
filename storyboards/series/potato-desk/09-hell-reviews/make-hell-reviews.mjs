@@ -239,15 +239,9 @@ t = say(5, r3(BURST + 0.45));
 see(BURST, t, ["devil.face", "chip.face"], "the Devil bursts out of the hell door");
 
 // ================================================================ SET B: the hell resort (beats 5b-17)
-// 5b B-C: the Devil under the board, arms wide; the little one looks up at it (all five perks unmarked)
-const LOBBY = shot("welcome", F(t + 0.1), B_C);
-unpark(LOBBY, "devil", B(0, 0.20), 0); place(LOBBY, "chip", B(0.80, 0.50), -15);
-arm(LOBBY, "devil", "both", { o: [0.30, 0.62, 0.12] }, 0.01);
-look(LOBBY, "chip", [-0.3, 0.9], 0.01); expr(LOBBY, "chip", "delighted", 0.01);
-look(LOBBY, "devil", AT_US, 0.01); expr(LOBBY, "devil", "delighted", 0.01);
-sfx(LOBBY, "kenney/footstep-carpet", { gain: 0.3 });
-see(LOBBY, r3(LOBBY + 1.4), ["board", "devil.face", "chip.face"], "the perk board: HOT TUB, BUFFET, MASSAGE, PARTY, VIEW");
-t = r3(LOBBY + 1.5);
+// 5b (cut for YouTube, Jonny 20 Nov: "the scene sec 10-12 can be cut out entirely"): the silent welcome under the
+// board is gone; the desk cuts straight to the hot tub
+t = F(t + 0.1);
 
 // 6 HOT TUB (B-L): lava; the duck melts; X on row 1
 const TUB = shot("hot tub", t, B_L);
