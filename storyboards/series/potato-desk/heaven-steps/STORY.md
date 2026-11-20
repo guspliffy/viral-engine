@@ -40,3 +40,12 @@ END ON THE PUNCHLINE (no tag), camera moves on every shot and cuts right after e
 - The stairway set: top (gate, podium, gold-white clouds), middle (grey clouds), bottom (scorched steps, hell hatch).
 - Props: ledger, golden quill, cloud flower + watering can, phone, megaphone + soapbox, donation jar + coin, suitcase.
 - Reused: Chip, Spud, the Devil and the small demon (hell reviews), deck chair if the library has one.
+
+## v2 (Jonny 20 Nov 19:29 Berlin: "add 3 real beats", target 56-60 s; he wants 60+ s videos)
+- Beat 5 gets a turn: he drops the coin QUIETLY ("Anonymous. Totally anonymous."), the lift takes him to 62, he trembles
+  holding it in for two seconds... then grabs the megaphone: "I DONATED! EVERYONE!" "Minus sixty."
+- New beat 5b, the climb: at step 2 he sulks "Fine. I'll walk." and marches up; the steps fold flat under him and he
+  slides back down ("Hnnngh!"). So he cannot earn it by effort either.
+- New beat 5c, the temptation (Desk 09 callback): Devil: "Hell has four point nine stars, buddy." Chip: "...Heaven has
+  three point one." Devil opens the hatch, party glow: "Hot tub's warm!" Chip, beaten, takes a step toward the hatch...
+  and the Angel's quill lands at his feet. Beat 6 (he gives it back up, silent) follows from there.

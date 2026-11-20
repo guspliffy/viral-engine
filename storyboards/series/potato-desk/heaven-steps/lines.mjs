@@ -13,9 +13,15 @@ export const LINES = [
   ["angel", "Bragging. Minus ten.", "calm", `${ANGEL}, unimpressed`, { voice: "reaper" }],                                // 4  shot 7
   ["chip", "Watering a flower, guys!", "excited", "fake sweet influencer voice, filming a selfie", C],                 // 5  shot 11
   ["angel", "Posting it? Minus thirty.", "calm", `${ANGEL}, slow`, { voice: "reaper" }],                                  // 6  shot 12
+  ["chip", "Anonymous. Totally anonymous.", "whisper", "whispering to himself, lips pressed, trying very hard to stay quiet", C],   // 7a shot 16 (Jonny 20 Nov 19:29: +3 beats)
   ["chip", "I DONATED! EVERYONE!", "excited", "shouting into a megaphone, loud, proud, desperate", C],                 // 7  shot 16
   ["angel", "Minus sixty.", "calm", `${ANGEL}, bored`, { voice: "reaper" }],                                              // 8  shot 17
   ["devil", "Come on down!", "excited", "bright, quick, warm game-show host, always smiling, delighted"],               // 9  shot 21
+  ["chip", "Fine. I'll walk.", "calm", "sulky, stubborn, muttering", C],                                             // 9a climb attempt
+  ["chip", "Hnnngh!", "excited", "straining, then slipping", C],                                                     // 9b
+  ["devil", "Hell has four point nine stars, buddy.", "calm", "warm game-show host, smooth, tempting, leaning in"],    // 9c temptation (hell-reviews callback)
+  ["chip", "...Heaven has three point one.", "sad", "small, defeated, quiet, considering it", C],                     // 9d
+  ["devil", "Hot tub's warm!", "excited", "bright, quick, warm game-show host, always smiling, delighted"],          // 9e
   ["angel", "...Humility.", "calm", `${ANGEL}, softer, a little surprised, approving`, { voice: "reaper" }],              // 10 shot 26
   ["chip", "Did you see how humble I was?", "excited", "smug, grinning, fishing for praise", C],                       // 11 shot 31
   ["angel", "Minus one.", "calm", `${ANGEL}, without looking up`, { voice: "reaper" }],                                   // 12 shot 32
