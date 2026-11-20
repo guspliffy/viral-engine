@@ -2400,9 +2400,9 @@
           "do": "prop",
           "id": "can",
           "set": {
-            "x": -1.36,
+            "x": -1.12,
             "y": 19.8,
-            "z": -50.15,
+            "z": -50.22,
             "rot": 90,
             "tip": 0,
             "on": 0
@@ -2450,7 +2450,7 @@
           "do": "prop",
           "id": "sled",
           "set": {
-            "x": -0.7,
+            "x": -0.8,
             "y": 19.9,
             "z": -50.35
           },
@@ -2479,6 +2479,49 @@
         },
         {
           "who": "chip",
+          "do": "ride",
+          "prop": null,
+          "at": 0.223
+        },
+        {
+          "who": "chip",
+          "do": "crouch",
+          "to": 1,
+          "dur": 0.15,
+          "at": 0.223
+        },
+        {
+          "who": "chip",
+          "do": "grip",
+          "side": "R",
+          "shape": "open",
+          "dur": 0.15,
+          "at": 0.223
+        },
+        {
+          "who": "chip",
+          "do": "arm",
+          "side": "R",
+          "pose": {
+            "prop": "can",
+            "grip": [
+              0.056,
+              0.13,
+              0.015
+            ],
+            "palm": "wrap",
+            "off": [
+              0.018,
+              0.02,
+              -0.068
+            ]
+          },
+          "dur": 0.15,
+          "ease": "inOut",
+          "at": 0.223
+        },
+        {
+          "who": "chip",
           "do": "squash",
           "amount": 0,
           "dur": 0.15,
@@ -2501,6 +2544,74 @@
           "dur": 0.2,
           "blink": false,
           "at": 0.3
+        },
+        {
+          "who": "chip",
+          "do": "arm",
+          "side": "R",
+          "pose": {
+            "prop": "can",
+            "grip": [
+              0.056,
+              0.13,
+              0.015
+            ],
+            "palm": "wrap"
+          },
+          "dur": 0.1,
+          "ease": "settle",
+          "at": 0.373
+        },
+        {
+          "who": "chip",
+          "do": "grip",
+          "side": "R",
+          "shape": "hold",
+          "dur": 0.12,
+          "at": 0.433
+        },
+        {
+          "who": "chip",
+          "do": "grab",
+          "prop": "can",
+          "hand": "R",
+          "grip": [
+            0.056,
+            0.13,
+            0.015
+          ],
+          "dur": 0,
+          "pose": null,
+          "at": 0.533
+        },
+        {
+          "who": "chip",
+          "do": "crouch",
+          "to": 0,
+          "dur": 0.16,
+          "at": 0.593
+        },
+        {
+          "who": "chip",
+          "do": "arm",
+          "side": "R",
+          "pose": {
+            "prop": "can",
+            "grip": [
+              0.056,
+              0.13,
+              0.015
+            ],
+            "palm": "wrap",
+            "at": [
+              -1.22,
+              20.1,
+              -50.42
+            ]
+          },
+          "dur": 0.14,
+          "ease": "inOut",
+          "at": 0.593
         },
         {
           "who": "chip",
@@ -4274,6 +4385,54 @@
         },
         {
           "who": "chip",
+          "do": "look",
+          "to": [
+            0.3,
+            -0.6
+          ],
+          "dur": 0.12,
+          "blink": false,
+          "at": 2.34
+        },
+        {
+          "who": "chip",
+          "do": "crouch",
+          "to": 1,
+          "dur": 0.14,
+          "at": 2.34
+        },
+        {
+          "who": "chip",
+          "do": "grip",
+          "side": "R",
+          "shape": "open",
+          "dur": 0.14,
+          "at": 2.34
+        },
+        {
+          "who": "chip",
+          "do": "arm",
+          "side": "R",
+          "pose": {
+            "prop": "mega",
+            "grip": [
+              0.068,
+              -0.05,
+              0.018
+            ],
+            "palm": "wrap",
+            "off": [
+              0.04,
+              0.02,
+              -0.057
+            ]
+          },
+          "dur": 0.14,
+          "ease": "inOut",
+          "at": 2.34
+        },
+        {
+          "who": "chip",
           "do": "squash",
           "amount": -0.03,
           "dur": 0.05,
@@ -4281,14 +4440,28 @@
         },
         {
           "who": "chip",
-          "do": "look",
-          "to": [
-            0.3,
-            -0.6
-          ],
-          "dur": 0.15,
-          "blink": false,
-          "at": 2.49
+          "do": "arm",
+          "side": "R",
+          "pose": {
+            "prop": "mega",
+            "grip": [
+              0.068,
+              -0.05,
+              0.018
+            ],
+            "palm": "wrap"
+          },
+          "dur": 0.08,
+          "ease": "settle",
+          "at": 2.48
+        },
+        {
+          "who": "chip",
+          "do": "grip",
+          "side": "R",
+          "shape": "hold",
+          "dur": 0.12,
+          "at": 2.528
         },
         {
           "who": "chip",
@@ -4299,6 +4472,20 @@
         },
         {
           "who": "chip",
+          "do": "grab",
+          "prop": "mega",
+          "hand": "R",
+          "grip": [
+            0.068,
+            -0.05,
+            0.018
+          ],
+          "dur": 0,
+          "pose": null,
+          "at": 2.62
+        },
+        {
+          "who": "chip",
           "do": "squash",
           "amount": -0.03,
           "dur": 0.05,
@@ -4306,10 +4493,56 @@
         },
         {
           "who": "chip",
+          "do": "crouch",
+          "to": 0,
+          "dur": 0.14,
+          "at": 2.68
+        },
+        {
+          "who": "chip",
+          "do": "arm",
+          "side": "R",
+          "pose": {
+            "prop": "mega",
+            "grip": [
+              0.068,
+              -0.05,
+              0.018
+            ],
+            "palm": "wrap",
+            "at": [
+              1.204,
+              14,
+              -34.2
+            ]
+          },
+          "dur": 0.127,
+          "ease": "inOut",
+          "at": 2.68
+        },
+        {
+          "do": "prop",
+          "id": "mega",
+          "set": {
+            "tip": 0
+          },
+          "dur": 0.127,
+          "ease": "inOut",
+          "at": 2.68
+        },
+        {
+          "who": "chip",
           "do": "squash",
           "amount": 0.04,
           "dur": 0.05,
           "at": 2.74
+        },
+        {
+          "who": "chip",
+          "do": "release",
+          "prop": "mega",
+          "dur": 0,
+          "at": 2.837
         },
         {
           "do": "prop",
@@ -8004,6 +8237,16 @@
         "shell"
       ],
       "reason": "the clerk stands right behind his podium: the drum's back sits under the robe's front hem, never seen from the front cameras (stills 1); further back he can't reach the ledger"
+    },
+    {
+      "who": "chip",
+      "with": "soapbox",
+      "from": 24.823,
+      "to": 25.393,
+      "checks": [
+        "hand-in-prop"
+      ],
+      "reason": "he bends for the megaphone at the box edge: the fingertips dip under the box top behind his own hoodie, never on screen (stills 25.0-25.2)"
     },
     {
       "who": "chip",

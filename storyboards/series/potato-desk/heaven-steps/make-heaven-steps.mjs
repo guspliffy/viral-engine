@@ -300,7 +300,7 @@ sfx(r3(SL1 + 0.1), "whoosh", { gain: 0.35 });
 const S9 = shot("slide", r3(F8 + 0.5), cam("T", [0.30, -1.45, 5.90], [-0.30, 0.45, -1.00], 32), tilt(6));
 c.prop(r3(S9 + 0.05), "gate", { open: -0.03 }, 0.17, "in"); c.prop(r3(S9 + 0.22), "gate", { open: 0 }, 0.07, "out");
 sfx(r3(S9 + 0.2), "slam", { gain: 0.5 });
-const LAND90 = W("N", 0, 0, -0.75);
+const LAND90 = W("N", -0.10, 0, -0.75);   // = CHIP_N: he lands where the flower shot has him
 path_("sled", [[SL1, [CHIP_100[0], r3(CHIP_100[1] + 0.11), CHIP_100[2]]],
   [r3(SL1 + 0.95), [-0.40, 20.02, -50.8]],
   [r3(SL1 + 1.15), [LAND90[0], r3(LAND90[1] + 0.1), LAND90[2]], {}, "out"]]);   // shoes on the tread (Sol r2 #10)
@@ -308,17 +308,26 @@ turn(r3(SL1 + 0.95), "chip", -25, 0.3);
 unfold(r3(SL1 + 0.5), 10);
 
 // ================================================================ 4 the flower: watering it, filming it. Minus thirty. fold to 61
-putProp(r3(SL1 + 0.9), "can", W("N", -0.66, 0, -0.55), { rot: 90, tip: 0, on: 0 });   // waiting by the pot before he picks it up (it appeared in his hand, Sol r2 #11)
+const CAN_WAIT = W("N", -0.42, 0, -0.62);
+putProp(r3(SL1 + 0.9), "can", CAN_WAIT, { rot: 90, tip: 0, on: 0 });   // waiting by the pot; he picks it up in this shot (it jumped into his hand on the cut, Sol r2 #11, farm render 1)
+const N11_AT = r3(SL1 + 0.98 + 0.75), CAN_AT = W("N", -0.52, 0.30, -0.82);
 const N10 = shot("landing 90", r3(SL1 + 0.98), cam("N", [2.50, 0.75, 5.60], [-0.30, 0.38, -0.75], 26), drift(-0.20));
 sfx(r3(SL1 + 1.12), "kenney/impact-generic-light", { gain: 0.5 }); A(r3(SL1 + 1.12), "chip", "squash", { amount: -0.08, dur: 0.06 }); A(r3(SL1 + 1.2), "chip", "squash", { amount: 0, dur: 0.15 });
 expr(r3(N10 + 0.3), "chip", "annoyed"); look(r3(N10 + 0.3), "chip", [-0.6, -0.3]);
+// off the slide, he crouches and takes the can in this shot, so it is in his glove before the cut
+rideOff(r3(SL1 + 1.17), "chip");
+A(r3(SL1 + 1.17), "chip", "crouch", { to: 1, dur: 0.15 });
+const hCan0 = grips.mug(c, "chip", { ...CAN, ...at3(CAN_WAIT), rot: 90 }, { side: "R" });
+const tCan = hCan0.take(r3(SL1 + 1.17), { reach: 0.15, settle: 0.1 });
+A(r3(tCan + 0.02), "chip", "crouch", { to: 0, dur: 0.16 });
+hCan0.carry(r3(tCan + 0.02), CAN_AT, r3(N11_AT - 0.05 - tCan - 0.02));
 // cut: he stands at the flower, can in the right glove (screen left), phone up in the left (screen right)
 const N11 = shot("flower", r3(N10 + 0.75), cam("N", [2.00, 0.60, 4.30], [-0.25, 0.45, -0.80], 23), both(push(0.05), crane(0.22)));   // tighter: can, phone and flower read (draft 1)
 rideOff(r3(N11 - 0.03), "chip");
 const CHIP_N = W("N", -0.10, 0, -0.75), Y_N = -25;
 place(N11, "chip", CHIP_N, Y_N);
 arm(r3(N11 - 0.02), "chip", "both", "rest", 0.01);
-const CAN_AT = W("N", -0.52, 0.30, -0.82), CAN_POUR = W("N", -0.44, 0.36, -0.84);   // spout over the pot (the drops fell left of it, Sol r1 #21)
+const CAN_POUR = W("N", -0.44, 0.36, -0.84);   // spout over the pot (the drops fell left of it, Sol r1 #21)
 putProp(r3(N11 - 0.03), "can", CAN_AT, { rot: 90, tip: 0, on: 0 });
 const hCan = grips.mug(c, "chip", { ...CAN, ...at3(CAN_AT), rot: 90 }, { side: "R" });
 hCan.secure(r3(N11 - 0.02), 0.001);
@@ -425,11 +434,19 @@ for (let k = 0; k < 9; k++) { A(r3(TREM + k * 0.1), "chip", "squash", { amount: 
 A(r3(TREM + 0.9), "chip", "squash", { amount: 0, dur: 0.05 });
 
 // cut: the megaphone at his mouth (it was lying on the box: picked up between the shots)
-putProp(r3(W16 - 0.03), "mega", [r3(BOX62[0] + 0.2), r3(CHIP_BOX62[1] + 0.05), r3(BOX62[2] + 0.12)], { rot: 70, tip: 90 });   // lying on the box by his feet: the cut reads as him grabbing it (Sol r1 #18)
-look(r3(TREM + 0.55), "chip", [0.3, -0.6], 0.15);
+const MEGA_LIE = [r3(BOX62[0] + 0.2), r3(CHIP_BOX62[1] + 0.05), r3(BOX62[2] + 0.12)];
+putProp(r3(W16 - 0.03), "mega", MEGA_LIE, { rot: 70, tip: 90 });   // lying on the box by his feet (Sol r1 #18)
+look(r3(TREM + 0.4), "chip", [0.3, -0.6], 0.12);
+// he bends and takes it in this shot (it jumped into his glove on the cut, farm render 1)
+A(r3(TREM + 0.4), "chip", "crouch", { to: 1, dur: 0.14 });
+const hMega0 = grips.mug(c, "chip", { ...MEGA, ...at3(MEGA_LIE), rot: 70, tip: 90 }, { side: "R" });
+const tMega = hMega0.take(r3(TREM + 0.4), { reach: 0.14, settle: 0.08 });
+A(r3(tMega + 0.02), "chip", "crouch", { to: 0, dur: 0.14 });
 const M16b = shot("i donated", r3(TREM + 0.95), cam("M", [-1.25, 0.95, 4.4], [0.20, 0.74, -0.75], 26), push(0.05));
 place(M16b, "chip", CHIP_BOX62, Y_M);   // a move on the cut keeps the hands on the beat (timing offsets shift a hand-only change; layout 4: hands moved 3 frames early)
 const MEGA_AT = bodyPt(CHIP_BOX62, Y_M, [0.10, 0.12, 0.20], "R");   // at his mouth on the box (on 62: it covered his eyes, layout 5)
+hMega0.carry(r3(tMega + 0.02), bodyPt(CHIP_BOX62, Y_M, [0.12, 0.0, 0.22], "R"), r3(M16b - 0.06 - tMega - 0.02), "inOut", { tip: 0 });   // up to his chest before the cut
+A(r3(M16b - 0.03), "chip", "release", { prop: "mega", dur: 0 });
 putProp(r3(M16b - 0.03), "mega", MEGA_AT, { rot: r3(Y_M + 20), tip: 0 });
 const hMega = grips.mug(c, "chip", { ...MEGA, ...at3(MEGA_AT), rot: r3(Y_M + 20) }, { side: "R" });
 hMega.secure(r3(M16b - 0.02), 0.001);
@@ -706,6 +723,7 @@ write(import.meta.url, {
   allowClip: [
     ...["hell", "hatch"].map((w) => ({ who: "imp", with: w, from: r3(B21 + 0.05), to: r3(Q24 + 1.3), checks: ["clipping", "shell", "arm-in-prop", "hand-in-prop", "face-hidden"], reason: "the small demon stands on the rung INSIDE the hatch's shaft, under hell's floor, and holds the lid up (DESIGN section 3)" })),
     { who: "angel", with: "podium", from: 0, to: END, checks: ["clipping", "shell"], reason: "the clerk stands right behind his podium: the drum's back sits under the robe's front hem, never seen from the front cameras (stills 1); further back he can't reach the ledger" },
+    { who: "chip", with: "soapbox", from: r3(TREM + 0.35), to: r3(tMega + 0.2), checks: ["hand-in-prop"], reason: "he bends for the megaphone at the box edge: the fingertips dip under the box top behind his own hoodie, never on screen (stills 25.0-25.2)" },
     { who: "chip", with: "mega", from: r3(F18), to: r3(F18 + 0.5), checks: ["clipping", "shell"], reason: "the step tips: the megaphone leaves his glove and flies past him over the parapet (0.2 s)" },
     { who: "chip", with: "quillB", from: r3(P25), to: r3(P25 + 1.2), checks: ["hand-in-prop"], reason: "he plucks the stuck quill: the glove closes round the 1.4 cm gold shaft" },
     { who: "devil", with: "chair", from: 31.6, to: 32.1, checks: ["hand-in-prop"], reason: "seated, his glove brushes the deck chair's armrest as he points (3 cm, under the sleeve)" },
