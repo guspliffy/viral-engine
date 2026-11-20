@@ -499,8 +499,15 @@
  "captions": [
   {
    "from": 0.1,
+   "to": 2.88,
+   "text": "Every five seconds, gravity gets stronger.",
+   "pos": 600,
+   "pop": false
+  },
+  {
+   "from": 2.88,
    "to": 4.499,
-   "text": "Every five seconds, gravity gets stronger. In ten, you black out.",
+   "text": "In ten, you black out.",
    "pos": 600,
    "pop": false
   },
