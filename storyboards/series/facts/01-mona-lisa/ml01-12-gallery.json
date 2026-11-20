@@ -1,0 +1,456 @@
+{
+ "id": "ml01-12-gallery",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#d9cfc0",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 82.674,
+  "seam": true,
+  "gain": 0.7,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "large",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   8.797,
+   8.797
+  ]
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "museumhall",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "art0",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 0.95,
+   "z": -1.25,
+   "rot": -90,
+   "w": 0.62,
+   "h": 0.48,
+   "scene": "hills",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art1",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 0.95,
+   "z": 1.25,
+   "rot": -90,
+   "w": 0.62,
+   "h": 0.48,
+   "scene": "sea",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art2",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1.25,
+   "z": -2.6,
+   "rot": -90,
+   "w": 0.95,
+   "h": 0.75,
+   "scene": "forest",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art3",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1.25,
+   "z": 2.6,
+   "rot": -90,
+   "w": 0.95,
+   "h": 0.75,
+   "scene": "hills",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art4",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1,
+   "z": -4.1,
+   "rot": -90,
+   "w": 0.7,
+   "h": 0.55,
+   "scene": "sea",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art5",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1,
+   "z": 4.1,
+   "rot": -90,
+   "w": 0.7,
+   "h": 0.55,
+   "scene": "forest",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "ml",
+   "kind": "painting",
+   "x": 5.89,
+   "y": 0.62,
+   "z": 0,
+   "rot": -90,
+   "tip": 0,
+   "cover": 1
+  },
+  {
+   "id": "mlwall",
+   "kind": "mlwall",
+   "x": 5.95,
+   "y": 0,
+   "z": 0,
+   "rot": -90
+  },
+  {
+   "id": "crowd",
+   "kind": "visitorcrowd",
+   "x": 5.96,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "n": 30,
+   "arc": [
+    1.7,
+    -145,
+    -35
+   ],
+   "h": 0.85,
+   "seed": 3
+  },
+  {
+   "id": "rope",
+   "kind": "exhibitrope",
+   "x": 4.66,
+   "y": 0,
+   "z": 0,
+   "posts": [
+    [
+     0,
+     -1.2
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.2
+    ]
+   ]
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.769,
+   "text": "Nobody used to stop for her.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 1.799,
+   "to": 4.118,
+   "text": "Now, nobody can get close.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 4.148,
+   "to": 7.618,
+   "text": "All because one man carried her out under his smock.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "14 today wide",
+   "at": 0,
+   "len": 1.799,
+   "shot": {
+    "pos": [
+     0.737,
+     1.93,
+     -0.787
+    ],
+    "look": [
+     5.2,
+     0.8,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.362,
+      1.772,
+      -0.677
+     ]
+    },
+    "dur": 1.799,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       1.799,
+       5
+      ]
+     ],
+     "pivot": 4.671
+    }
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": 5.89,
+      "y": 0.62,
+      "z": 0,
+      "rot": -90,
+      "cover": 1,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mlwall",
+     "set": {
+      "x": 5.95,
+      "y": 0,
+      "z": 0,
+      "rot": -90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "crowd",
+     "set": {
+      "x": 5.96,
+      "y": 0,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "x": 4.66,
+      "y": 0,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "notify",
+     "reason": "the story's own sound",
+     "gain": 0.25,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Nobody used to stop for her.",
+     "voice": "narrator-quick",
+     "dur": 1.519,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "14 today wide",
+   "at": 1.799,
+   "len": 2.349,
+   "shot": {
+    "pos": [
+     1.647,
+     2.576,
+     0.911
+    ],
+    "look": [
+     5.3,
+     0.9,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      2.158,
+      2.342,
+      0.783
+     ]
+    },
+    "dur": 2.349,
+    "yaw": {
+     "keys": [
+      [
+       1.799,
+       0
+      ],
+      [
+       4.148,
+       -5
+      ]
+     ],
+     "pivot": 4.121
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Now, nobody can get close.",
+     "voice": "narrator-quick",
+     "dur": 2.1687,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "14 today insert",
+   "at": 4.148,
+   "len": 4.649,
+   "shot": {
+    "pos": [
+     3.087,
+     1.544,
+     0
+    ],
+    "look": [
+     5.66,
+     1.09,
+     0
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      3.859,
+      1.408,
+      0
+     ]
+    },
+    "dur": 4.649,
+    "yaw": {
+     "keys": [
+      [
+       4.148,
+       0
+      ],
+      [
+       8.797,
+       5
+      ]
+     ],
+     "pivot": 2.613
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "All because one man carried her out under his smock.",
+     "voice": "narrator-quick",
+     "dur": 3.3197,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 82.674,
+  "T1": 91.471
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 82.674-91.471 s)."
+}

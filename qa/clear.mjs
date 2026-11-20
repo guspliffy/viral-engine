@@ -23,6 +23,9 @@
 // the body's height puts it (14 Nov 2026: Chip was pulled through a bridge post in the final Jonny saw, There's a catch 09b).
 // A post counts from 12 cm in (or --gap if larger): the ellipse is the body's widest slice and the post is a line, so a body
 // whose back only touches a post reads 4-10 cm here (09b's final, clean in every frame), the post Jonny saw read 24 cm.
+// Arm's reach (18 Nov 2026, Potato Desk 07: 4 preflight rounds went into a gesture hand landing in the other body while
+// the bodies stood clear): a pair whose bodies are clear but closer than ARM (0.3 m) while either one has an arm out of
+// its rest pose is reported too, marked "arm's reach", so a point or a raised hand gets room before the 100 s preflight.
 // Clearance is a staging guide: the layout's contact checks (render.mjs --layout) stay the gate.
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { actorState } from "../engine/page/timeline.js";
@@ -54,6 +57,10 @@ function reach(a, b, yaw, dx, dz) {
   const along = ux * Math.sin(yaw) + uz * Math.cos(yaw), across = ux * Math.cos(yaw) - uz * Math.sin(yaw);
   return 1 / Math.sqrt((across * across) / (a * a) + (along * along) / (b * b));
 }
+
+// an arm out of its rest pose (a point, a raised hand, arms wide): reaches about ARM past the body
+const ARM = 0.3, LOW = new Set(["rest", "hips", "hold", "lap"]);
+const gestures = (s) => Object.values(s.arms || {}).some((m) => m && m.p > 0.5 && m.pose != null && !(typeof m.pose === "string" && LOW.has(m.pose)) && !m.pose.prop);
 
 // every overlap in the storyboard: [{ a, b, from, to, worst, at }] on the video's clock
 export function clearance(sb, chars, { from = 0, to = null, gap = 0.03, props = {} } = {}) {
@@ -89,9 +96,10 @@ export function clearance(sb, chars, { from = 0, to = null, gap = 0.03, props = 
       const A = st[x], B = st[y], dx = B.s.x - A.s.x, dz = B.s.z - A.s.z, d = Math.hypot(dx, dz);
       if (Math.abs((A.s.y ?? 0) - (B.s.y ?? 0)) > 0.5) continue;
       const pen = reach(A.a, A.b, A.s.yaw, dx, dz) + reach(B.a, B.b, B.s.yaw, -dx, -dz) - d;
-      if (pen <= gap) continue;
       if (windowFor(sb, "character-overlap", A.c.id, t, B.c.id) || windowFor(sb, "character-overlap", B.c.id, t, A.c.id)) continue;
-      mark(`${A.c.id} / ${B.c.id}`, t, pen);
+      if (pen > gap) { mark(`${A.c.id} / ${B.c.id}`, t, pen); continue; }
+      const who = [A, B].filter((q) => gestures(q.s)).map((q) => q.c.id);
+      if (who.length && pen + ARM > gap) mark(`${A.c.id} / ${B.c.id} (arm's reach: ${who.join(" and ")} gestures)`, t, pen + ARM);
     }
     const ws = walkers.map((w) => ({ w, at: walkerAt(w, s) })).filter((q) => Math.abs(q.at.y) <= 0.3);
     for (let x = 0; x < ws.length; x++) {
@@ -128,7 +136,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const o = args(), t0 = Date.now(), sb = loadStoryboard(o.sb), chars = loadCharacters(sb);
   const res = clearance(sb, chars, o), checked = (sb.props || []).filter((p) => o.props[p.id] || ((p.h ?? 0) >= 0.1 && (p.y ?? 0) <= 0.3 && (p.r != null || (p.w != null && p.d != null)))).map((p) => p.id);
   if (o.json) { console.log(JSON.stringify(res, null, 2)); process.exit(0); }
-  for (const r of res) console.log(`  ${r.pair}: ${Math.round(r.worst * 100)} cm into each other at ${r.from.toFixed(2)}-${r.to.toFixed(2)} s (worst at ${r.at.toFixed(2)} s)`);
+  for (const r of res) console.log(r.pair.includes("arm's reach") ? `  ${r.pair}: ${Math.round(r.worst * 100)} cm short of an arm's room at ${r.from.toFixed(2)}-${r.to.toFixed(2)} s (worst at ${r.at.toFixed(2)} s)` : `  ${r.pair}: ${Math.round(r.worst * 100)} cm into each other at ${r.from.toFixed(2)}-${r.to.toFixed(2)} s (worst at ${r.at.toFixed(2)} s)`);
   const sets = (sb.props || []).filter((p) => postsOf(p).length).map((p) => p.id);
-  console.log(`${res.length ? `${res.length} overlap${res.length === 1 ? "" : "s"}` : "clear"} on the floor plan (bodies${sets.length ? `, set posts of ${sets.join(", ")}` : ""}${checked.length ? `, floor props ${checked.join(", ")}` : ", no floor prop has a footprint: give one with --prop id=w,d"}) in ${Date.now() - t0} ms`);
+  const nR = res.filter((r) => r.pair.includes("arm's reach")).length, nO = res.length - nR;
+  console.log(`${res.length ? [nO && `${nO} overlap${nO === 1 ? "" : "s"}`, nR && `${nR} arm's-reach run${nR === 1 ? "" : "s"}`].filter(Boolean).join(" + ") : "clear"} on the floor plan (bodies${sets.length ? `, set posts of ${sets.join(", ")}` : ""}${checked.length ? `, floor props ${checked.join(", ")}` : ", no floor prop has a footprint: give one with --prop id=w,d"}) in ${Date.now() - t0} ms`);
 }

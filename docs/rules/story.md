@@ -25,6 +25,9 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Can you picture it?** (15 Nov, on trial): before any work, the idea is written as one title line a stranger can
   picture at once ("world's largest firework" works; "a stock-picking monkey" bombed and no title or thumbnail could
   save it). If the picture is unclear, change the idea, not the packaging.
+- **Topic check** (19 Nov, on trial): right after the title line, run `python3 tools/topic-check.py "<title line>"`
+  and put `TOPIC CHECK: HOP / FLOP / UNCLEAR, <why>` + the 3 closest real videos in the outline. It warns, never
+  decides: a FLOP goes to the producer with the evidence. Rules and the 30-post trial: `docs/research/topic-check/README.md`.
 - **One chain of cause and effect** (10 Nov): every beat happens BECAUSE of the beat before it, written as "X, so Y,
   so Z" from the first second to the last frame. A beat joined by "and then", a time jump or a card is rewritten or
   cut. One mistake or one want starts the video and the last frame answers it. For every outcome ask "what on screen
@@ -129,6 +132,10 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
   follow, share, comment, like or tag a friend ("Follow, or you'll miss part 2.", "Send this to your friend who...").
   The story ends on its payoff. Asks in the post itself (caption question, poll) are posting rules
   (`docs/rules/posting.md`), not part of this line.
+- **No cast names on screen** (18 Nov, every video): viewers don't know our names (Chip, Wedge, Mash, Spud...), so no
+  name in a spoken line, caption, poll or post text; say "you", "he", "my friend", the big one, and point or look.
+  Names stay in scripts and code. Exception: a character whose look says who he is (the Wizard, the Samurai, the
+  Dragon, the Viking) may be called that.
 - **Gibberish is always captioned** with its words, in the speaker's colour, timed to the line.
 - **No title card or freeze mid-video** (9 Nov): the title is added in the app. No silent freeze before a punchline
   (it looked like a playback bug and lost a third of viewers in one second). Hit-stops and slow-motion close-ups are
