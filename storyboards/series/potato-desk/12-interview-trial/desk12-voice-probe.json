@@ -25,8 +25,8 @@
  },
  "creative": {
   "length": [
-   39,
-   39
+   113.3,
+   113.3
   ]
  },
  "cast": [
@@ -67,7 +67,7 @@
   {
    "name": "probe",
    "at": 0,
-   "len": 39,
+   "len": 113.3,
    "shot": {
     "pos": [
      0,
@@ -200,13 +200,316 @@
     {
      "who": "chip",
      "macro": "say",
+     "line": "Ten?",
+     "tone": "calm",
+     "style": "unimpressed, flat, raising an eyebrow, a job offer that is too low",
+     "voice": "chip-clean",
+     "dur": 0.9,
+     "caption": false,
+     "at": 35.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "With my experience?",
+     "tone": "calm",
+     "style": "cool, unimpressed, a tough negotiator",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 37.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I was thinking fifteen.",
+     "tone": "happy",
+     "style": "confident, smooth, a tough negotiator",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 40.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Lower is better!",
+     "tone": "sad",
+     "style": "urgent whisper, panicked, quiet",
+     "dur": 1.7,
+     "caption": false,
+     "at": 43.6
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You want MORE years?",
+     "tone": "angry",
+     "style": "deep, baffled, disbelieving",
+     "dur": 2.1,
+     "caption": false,
+     "at": 46.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "What's included?",
+     "tone": "calm",
+     "style": "businesslike, curious, a job applicant",
+     "voice": "chip-clean",
+     "dur": 1.3,
+     "caption": false,
+     "at": 49.4
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Included?",
+     "tone": "calm",
+     "style": "deep, confused, slow",
+     "dur": 0.9,
+     "caption": false,
+     "at": 51.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Do I get meals?",
+     "tone": "calm",
+     "style": "businesslike, curious",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 53.6
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Three a day.",
+     "tone": "calm",
+     "style": "deep, flat, a judge",
+     "dur": 1.7,
+     "caption": false,
+     "at": 56.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "A room?",
+     "tone": "calm",
+     "style": "businesslike, curious",
+     "voice": "chip-clean",
+     "dur": 1.3,
+     "caption": false,
+     "at": 59.4
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "A cell.",
+     "tone": "calm",
+     "style": "deep, flat, a judge",
+     "dur": 1.3,
+     "caption": false,
+     "at": 61.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "A uniform?",
+     "tone": "calm",
+     "style": "businesslike, curious, touching his tie",
+     "voice": "chip-clean",
+     "dur": 1.3,
+     "caption": false,
+     "at": 64
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Orange.",
+     "tone": "calm",
+     "style": "deep, flat, a judge",
+     "dur": 0.9,
+     "caption": false,
+     "at": 66.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I look great in orange.",
+     "tone": "happy",
+     "style": "smug, pleased, vain",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 68.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Do I pay rent?",
+     "tone": "calm",
+     "style": "careful, hopeful, curious",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 71.7
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "No rent.",
+     "tone": "calm",
+     "style": "deep, flat, a judge",
+     "dur": 1.3,
+     "caption": false,
+     "at": 74.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "No rent!",
+     "tone": "happy",
+     "style": "amazed, delighted, turning to his friend",
+     "voice": "chip-clean",
+     "dur": 1.3,
+     "caption": false,
+     "at": 77.1
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Can I apply too?",
+     "tone": "happy",
+     "style": "eager, hopeful, stepping forward",
+     "dur": 2.1,
+     "caption": false,
+     "at": 79.4
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You're his accomplice!",
+     "tone": "angry",
+     "style": "deep, loud, exasperated",
+     "dur": 1.7,
+     "caption": false,
+     "at": 82.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Is there dental?",
+     "tone": "calm",
+     "style": "hopeful, curious, serious",
+     "dur": 1.7,
+     "caption": false,
+     "at": 85.2
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "There's a nurse.",
+     "tone": "calm",
+     "style": "deep, tired, giving up",
+     "dur": 1.7,
+     "caption": false,
+     "at": 87.9
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I'll take fifteen.",
+     "tone": "happy",
+     "style": "eager, happy, a done deal",
+     "dur": 1.7,
+     "caption": false,
+     "at": 90.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "He gets fifteen?!",
+     "tone": "angry",
+     "style": "outraged, offended, high, loud",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 93.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Then I want twenty!",
+     "tone": "angry",
+     "style": "outraged, competitive, loud",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 96
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Twenty-five!",
+     "tone": "angry",
+     "style": "competitive, loud, eager",
+     "dur": 0.9,
+     "caption": false,
+     "at": 99.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Thirty!",
+     "tone": "angry",
+     "style": "competitive, loud, outbidding",
+     "voice": "chip-clean",
+     "dur": 0.9,
+     "caption": false,
+     "at": 101
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "LIFE!",
+     "tone": "angry",
+     "style": "competitive, very loud, triumphant, outbidding",
+     "dur": 0.9,
+     "caption": false,
+     "at": 102.9
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "ENOUGH!",
+     "tone": "angry",
+     "style": "deep, very loud, a judge shouting",
+     "dur": 0.9,
+     "caption": false,
+     "at": 104.8
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Twenty years. Both of you.",
+     "tone": "calm",
+     "style": "deep, stern, flat, final",
+     "dur": 2.5,
+     "caption": false,
+     "at": 106.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
      "line": "Is that full time?",
      "tone": "happy",
      "style": "hopeful, eager, bright, a job applicant",
      "voice": "chip-clean",
      "dur": 2.1,
      "caption": false,
-     "at": 35.9
+     "at": 110.2
     }
    ]
   }
