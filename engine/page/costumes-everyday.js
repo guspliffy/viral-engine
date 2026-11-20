@@ -4,6 +4,7 @@ import { taperedTube } from "./geo.js";
 import { band, garment, clothMat, liningMat, foldInk, inkMesh, softFollow, sstep } from "./costumes-art.js";
 import { texOf, wash, ribTexture, gridUv, hash2 } from "./costumes-art-cast.js";
 import { skipAge } from "./costumes-skipage.js";
+import { devilKit } from "./costumes-devil.js";
 
 // Spud's everyday friends (Jonny, 12 Nov 2026): Chip, Wedge and Mash. No costume, no weapon, no powers: each one is a
 // friend type the viewer can tag, told apart by body shape and size (characters/potatobrawl/*.json), ONE garment in one
@@ -896,6 +897,7 @@ const KIT = {
   duchess: (C, ch) => duchess(C, ch, { seed: 73.6 }),
   dauphin: (C, ch) => dauphin(C, ch, { seed: 79.2 }),
   archaeologist: (C, ch) => archaeologist(C, ch, { seed: 91.7 }),   // the calm sceptic of the Egypt debate shorts (see the header above her functions)
+  devil: (C, ch) => devilKit(C, ch),   // potato desk 09: the Devil's resort shirt, badge, chit horns, root tail (costumes-devil.js)
   wedge: (C, ch) => { const sl = bomber(C, ch, { color: "#c34732", seed: 12.6, front: -0.3, back: 0.3, vee: 0.6, hem: -1.12, r0: 0.09, r1: 0.066, phase: 0.3 }); shades(C, ch, { size: 2.0, x: 0.04, tip: -0.42, fwd: 0.1, up: -0.035 }); return sl; },
 };
 export const EVERYDAY = Object.keys(KIT);
