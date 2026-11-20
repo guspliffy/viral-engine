@@ -88,7 +88,14 @@ import { PAPER_KINDS, PAPER_GRIPS } from "./props-score-paper.js";   // happines
 import { TRAIN_KINDS, TRAIN_GRIPS } from "./props-score-train.js";   // happiness score film: the train at sunset
 import { SCORE_ITEMS_KINDS, SCORE_ITEMS_GRIPS } from "./props-score-items.js";   // happiness score film: hill bench, kettle, mirror, reflections
 import { SMALL_KINDS, SMALL_GRIPS } from "./props-score-small.js";   // happiness score film: speaker, cups, bun, tape, satchel, hats
-import { MONALISA_KINDS, MONALISA_GRIPS } from "./props-monalisa.js";   // fact story 01 Mona Lisa: painting, hooks, trunk, newspaper, day pad
+import { MONALISA_KINDS, MONALISA_GRIPS } from "./props-monalisa.js";
+import { GRAVROOM_KINDS } from "./props-gravroom.js";   // fact what-if 02 gravity: room props (sofa, TV, tunnel, haze)
+import { GRAVCITY_KINDS } from "./props-gravcity.js";   // fact what-if 02 gravity: street, tower, city
+import { GRAVSKY_KINDS } from "./props-gravsky.js";  // fact what-if 02 gravity: sky, Moon, satellites, clouds   // fact story 01 Mona Lisa: painting, hooks, trunk, newspaper, day pad
+import { GRAVRUIN_KINDS } from "./props-gravruin.js";   // gravity v2: city collapse, street rupture, wave erase
+import { GRAVSTRIKE_KINDS } from "./props-gravstrike.js";   // gravity v2: satellite entry, strikes, window cracks
+import { GRAVALPS_KINDS } from "./props-gravalps.js";   // gravity v2: Alps valley crushing
+import { GRAVMOON_KINDS } from "./props-gravmoon.js";   // gravity v2: Moon fall, fire wall, room hit
 import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP03 Atlantis, block D (kit/BLOCKS.md)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
@@ -1518,6 +1525,7 @@ Object.assign(KINDS, TRAIN_KINDS); Object.assign(GRIPS, TRAIN_GRIPS);   // happi
 Object.assign(KINDS, SCORE_ITEMS_KINDS); Object.assign(GRIPS, SCORE_ITEMS_GRIPS);   // happiness score film (props-score-items.js)
 Object.assign(KINDS, SMALL_KINDS); Object.assign(GRIPS, SMALL_GRIPS);   // happiness score film (props-score-small.js)
 Object.assign(KINDS, MONALISA_KINDS); Object.assign(GRIPS, MONALISA_GRIPS);   // fact story 01 Mona Lisa (props-monalisa.js)
+Object.assign(KINDS, GRAVROOM_KINDS, GRAVCITY_KINDS, GRAVSKY_KINDS, GRAVRUIN_KINDS, GRAVSTRIKE_KINDS, GRAVALPS_KINDS, GRAVMOON_KINDS);   // fact what-if 02 gravity (props-gravroom.js, props-gravcity.js, props-gravsky.js)
 Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS, SPREE_KINDS, TOW_KINDS, HARBOUR_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)

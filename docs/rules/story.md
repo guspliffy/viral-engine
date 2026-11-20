@@ -17,9 +17,18 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
   the same after about ten. So each new episode changes at least one visible thing about its shape from the last one
   in its series (opening, structure, setting, music, who wins), and the delivery names what changed. A series is
   reviewed after about 12 episodes and paused before it goes stale, even when it still does well.
+- **Never the same outcome twice in a series** (18 Nov, ON TRIAL, from YouTube's monetization policy): YouTube does
+  not monetize channels where "characters are put in the same situation over and over again with the same outcome"
+  (templated storylines); a series with a fixed cast is fine when each episode has its own storyline. So a series
+  keeps its format, but each new episode changes the situation AND the way it ends (who wins, what the catch costs,
+  how it resolves), and the outline names how its ending differs from the last two episodes.
 - **Can you picture it?** (15 Nov, on trial): before any work, the idea is written as one title line a stranger can
   picture at once ("world's largest firework" works; "a stock-picking monkey" bombed and no title or thumbnail could
   save it). If the picture is unclear, change the idea, not the packaging.
+- **A topic the audience already knows, with action** (19 Nov, Egypt EP04 Serapeum redo dropped after two glitch
+  rounds; Mona Lisa and unknown-hero facts lost viewers early): before a build or a redo, ask whether OUR viewers know
+  the subject cold and whether it has physical action. An unknown site or a calm documentary debate is dropped before
+  staging, however good the format. Check the topic first; polishing never saves it.
 - **Topic check** (19 Nov, on trial): right after the title line, run `python3 tools/topic-check.py "<title line>"`
   and put `TOPIC CHECK: HOP / FLOP / UNCLEAR, <why>` + the 3 closest real videos in the outline. It warns, never
   decides: a FLOP goes to the producer with the evidence. Rules and the 30-post trial: `docs/research/topic-check/README.md`.
@@ -60,6 +69,23 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **A new turn about every 45 s in long films** (15 Nov, on trial): in a film over ~2 minutes, each block or part
   opens on a new twist, fact or question that re-hooks the viewer (MrBeast: one storyline can't hold a long video
   alone). Put them at the block joins, and say in the outline what each one is.
+- **60 s+ videos: a turn every 10-20 s** (18 Nov, ON TRIAL, from the story study; a rule only once finished videos
+  prove it): the "X, so Y" chain above and the But / Therefore outline now apply to every series, not only mysteries.
+  In a 60-90 s video the outline shows a "but" (it gets worse or flips) every 10-20 s and names the one number that
+  keeps moving in the picture (heat, minutes, money, people left). Model: a 1,120-subscriber channel's 8 min "stuck in
+  a sauna with your crush" got 373K views in 3 days with a new, worse problem every 20-40 s.
+- **Plant early, pay back at the end** (18 Nov, ON TRIAL): write the last line first, then plant 2-3 small things in
+  the first quarter that the ending pays back or makes the viewer re-read (a brand-new wristband, a nickname used too
+  early, an insult that comes back word for word). The outline lists each plant next to its payback.
+- **Second loop at about 70 %** (18 Nov, ON TRIAL): just before the first question is answered, open a new one (a
+  secret "there's something I need to tell you", the catch, a choice) so it carries the viewer through the climax.
+  The outline names it.
+- **A laugh at the low point; one break in every ladder** (18 Nov, ON TRIAL): the worst moment gets a small joke that
+  releases tension without solving anything (the phone dies on the friend's text "How's it going? ;)"). An escalation
+  ladder (the same joke, bigger each time) gets one step that breaks the pattern, so it does not go numb.
+- **A narrator with a predictable opinion** (18 Nov, ON TRIAL): each series' narrator (or Spud) has one fixed attitude
+  the viewer learns to predict; the facts come out of that trait ("when you get nervous, facts fall out of your
+  mouth"). Narrator lines vary in length (short, medium, long), never all the same.
 - **Science staircase** (any story around a real question, 14 Nov): stake and clock on screen, the real method tried
   at rising scale with each number SHOWN as a picture (4 friends fail, 40 creep, 250 make it), it nearly works, fails
   at the last step, then the turn. Real numbers carry a source on screen, own estimates are marked "≈".
@@ -85,6 +111,11 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
   B = cold open, the ~1.5 s most extreme moment, then a clean cut back to the start.
 - **An impossible fact or number opens best** (data, 15 Nov: "One number here should not exist." held 64 % at 0:03).
   Most viewers read German, not English: the first 3 s must read with no English (a number, an icon, a face).
+- **Contrast in the hook** (18 Nov, ON TRIAL): the opening sets what the viewer expects (A) against what happens here
+  (B), said or only shown ("Everything got 10,000x cheaper, except your money"; a sauna door that will not open at
+  88 °C). A picture contrast reads with no English. Check the hook alone: can it be read two ways? Then rewrite.
+- **"Remember that number"** (18 Nov, ON TRIAL): one number in the first 5 s that the narrator tells the viewer to keep
+  ("$4,200. It's everything you have. Remember that number."), and that changes meaning by the end.
 - **A hook caption from frame 0** (29 Oct), at most ~6 words, raising a question without the twist.
 - **A video cut into short parts**: EVERY part opens on its own hook shot the long film does not have (14 Nov); a part
   that just continues the film loses viewers at the start.
@@ -151,6 +182,10 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Pace**: no shot over ~1.8 s in the first half unless something moves in it; energy high-low-high. Hold the last
   shot ~1.5-2 s after the last line so the ending breathes. Length follows quality: "there is no reason to rush".
   No slow motion under the spoken opening.
+- **Pace up, Happiness series** (Jonny 17-18 Nov, happiness score film): the whole film sped up 1.3x "is more
+  interesting and doesn't feel so slow anymore"; a few scenes felt rushed, which he accepted. Plan Happiness videos
+  tighter from the first draft: lines near back to back, short holds, no waiting on a slow narrator; a long film may
+  still be sped up as a whole at the join. Other series: not decided yet ("for the other video i dont know yet").
 - **Food series**: every potato that gets eaten is ALIVE (face, reaction, ideally a line).
 - **Held cards and phones**: cards face the holder (show a hand with an over-the-shoulder shot); a phone shown to
   others uses the edge hold (`docs/rules/clip-lessons.md`).
