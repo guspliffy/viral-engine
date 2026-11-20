@@ -76,7 +76,7 @@ const TL = {
   chunkT: [48.55, 55.2], chunkL: [0.75, 1.7], chunkEnd: 56.5, nChunks: 28, nNotch: 10, nWisps: 18, dia: [18, 98],
   impact: [56, 60.5], v: 760, contact: [56, 56.48], flareD: [40, 460, 160], flareA: [1, 0.95, 0], glareAt: [-52, -38, -2500],
   H: [22, 155, 215], W: [8, 94, 180], eA: [1, 0.96, 0.6], cycle: 0.46,
-  shard: 0.72, hit: [0.24, 0.43], whiteKeys: [[0, 0], [0.12, 0.8], [0.4, 0.4], [0.7, 0.2], [1, 0.12]], whiteLen: 0.52,   // director: lower than the design's .96/.86, which hid the shards for .3 s
+  shard: 0.72, hit: [0.24, 0.43], whiteKeys: [[0, 0.65], [0.12, 0.8], [0.4, 0.4], [0.7, 0.2], [1, 0.12]], whiteLen: 0.52,   // director: lower than the design's .96/.86, which hid the shards for .3 s
 };
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const lerp = (a, b, k) => a + (b - a) * k;
