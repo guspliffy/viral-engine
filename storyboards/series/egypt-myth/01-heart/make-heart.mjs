@@ -368,6 +368,7 @@ for (let k = 0; k < 2; k++) { P(MM + k * 0.22, "hchip", { hop: 0.8 }, 0.06); P(M
 
 // ================================================================= 58-63 THE MONTAGE: No. No. No.  -> Pass.
 L(31, r3(MM + 0.55 - now));
+expr(T[31], "chip", "smug");
 say(31);
 const NO = [0.0, 0.92, 1.85].map((d) => r3(T[31] + d));   // the three "No." in the take (estimated; the subtitle carries the line)
 NO.forEach((t, k) => {
@@ -376,12 +377,11 @@ NO.forEach((t, k) => {
   turn(t - 0.15, "chip", JYAW(+j.slice(1)), 0.15);
   rise(r3(t + 0.45), [-0.55, -0.3, 0][k]);
 });
-expr(T[31], "chip", "smug");
 P(NO[0], "hall", { tense: 0.5 }, 0.3); P(NO[1], "hall", { tense: 0.25 }, 0.3); P(NO[2], "hall", { tense: 0 }, 0.3);
 P(NO[0] + 0.5, "monster", { low: 0.4, jaw: 0, breath: 0 }, 0.5);
 // JACKAL: Pass.  (left arm up, palm flat; the monster slumps and sulks)
 L(32, r3(NO[2] + 0.8 - now));
-arm(T[32] - 0.2, "jackal", "L", { x: [0.5, 0.66, 0.35] }, 0.35, "out"); grip(T[32] - 0.15, "jackal", "L", "flat");
+arm(T[32] - 0.35, "jackal", "L", { x: [0.5, 0.66, 0.35] }, 0.5); grip(T[32] - 0.15, "jackal", "L", "flat");
 say(32); jaw(T[32], DUR[32]);
 P(T[32] + 0.1, "monster", { low: 0, slump: 1, lids: 0.7, glow: 0.3, drool: 0.2 }, 0.8, "inOut"); sfx(T[32] + 0.3, "ai/bear-huff", { gain: 0.4 });
 P(T[32], "scale", { wobble: 0 }, 0.3);
@@ -397,7 +397,7 @@ P(DOORS, "hall", { doors: 1 }, 1.2, "inOut"); P(DOORS, "hall", { torch: 0.5 }, 1
 sfx(DOORS, "door-creak", { gain: 0.5 });
 see(DOORS, r3(DOORS + 1.2), ["hall"], "the great doors swing open onto golden fields of reeds");
 L(33, r3(DOORS + 0.9 - now));   // CHIP: So I'm safe?
-turn(T[33] - 0.3, "chip", 300, 0.35); look(T[33] - 0.2, "chip", [-0.4, 0.3]);   // to Spud, three-quarters to the camera
+turn(T[33] - 0.3, "chip", 330, 0.35); look(T[33] - 0.2, "chip", [-0.4, 0.3]);   // to Spud, three-quarters to the camera
 say(33);
 L(34, 0.12);   // SPUD: Forever.
 turn(T[34] - 0.25, "spud", 60, 0.35); look(T[34] - 0.1, "spud", [0.3, -0.2]); expr(T[34], "spud", "happy");
@@ -421,25 +421,25 @@ turn(NEXT - 0.02, "chip", 200, 0.01); turn(NEXT - 0.02, "spud", 175, 0.01); look
 const FIST_AT = (() => { const a = 200 * D2R; return [r3(CHIP_E[0] + Math.sin(a) * 0.28 + Math.cos(a) * -0.1), 0.22, r3(CHIP_E[1] + Math.cos(a) * 0.28 - Math.sin(a) * -0.1)]; })();
 const FIST = { ...BEETLE, ...grips.placeFor("heartscarab", FIST_AT, 200) };
 P(NEXT - 0.03, "beetle", { x: FIST.x, y: FIST.y, z: FIST.z, rot: FIST.rot }, 0);
-const gFist = grips.mug(c, "chip", FIST, { side: "R", gap: 0.02 });
+const gFist = grips.mug(c, "chip", FIST, { side: "R", gap: 0.04 });   // 0.02 sank the palm 4 cm into it
 gFist.secure(r3(NEXT - 0.025), 0.001); A(r3(NEXT - 0.02), "chip", "grip", { side: "R", shape: "hold", dur: 0 });
 // JACKAL: Next.  (turns to Spud, points at the heart pan)
 L(36, 0.35);
 arm(T[36] - 0.45, "jackal", "R", "rest", 0.3); grip(T[36] - 0.4, "jackal", "R", "relaxed");
 turn(T[36] - 0.35, "jackal", -25, 0.35);   // 35 or more hides the far eye behind the muzzle (face-hidden)
-arm(T[36] - 0.05, "jackal", "L", { x: [-0.17, 0.35, 0.46] }, 0.3); grip(T[36], "jackal", "L", "point");
+arm(T[36] - 0.15, "jackal", "L", { x: [-0.17, 0.35, 0.46] }, 0.45); grip(T[36], "jackal", "L", "point");
 say(36); jaw(T[36], DUR[36]);
 look(T[36] + 0.2, "spud", [0.6, 0.1], 0.2); look(T[36] + 0.3, "chip", [0.5, 0.1], 0.2);
 see(T[36], r3(END_OF(36) + 1.0), ["jackal", "hspud"], "the jackal points: next; now Spud's own heart sits on the pan");
 // SPUD: ...Can I have my beetle back?
 L(37, 0.35);
-turn(T[37] - 0.35, "spud", 65, 0.35); look(T[37] - 0.2, "spud", [0.3, -0.25]); expr(T[37], "spud", "worried");
-arm(T[37] + 0.2, "spud", "R", { o: [0.3, 0.42, 0.3] }, 0.3); grip(T[37] + 0.25, "spud", "R", "open");   // an open palm out to Chip
+turn(T[37] - 0.6, "spud", 65, 0.6); look(T[37] - 0.2, "spud", [0.3, -0.25]); expr(T[37], "spud", "worried");
+arm(T[37] + 0.15, "spud", "R", { o: [0.3, 0.42, 0.3] }, 0.45); grip(T[37] + 0.2, "spud", "R", "open", 0.35);   // an open palm out to Chip
 say(37);
 // Chip hides it behind his back
 const HIDE = r3(END_OF(37) + 0.05);
 expr(HIDE - 0.1, "chip", "smug"); look(HIDE, "chip", [-0.6, 0.35]);
-turn(HIDE, "chip", 235, 0.35);   // he turns the fist away from Spud (a carry behind the back popped the beetle)
+turn(HIDE, "chip", 90, 0.4);   // he turns his back on Spud (left of him), the fist away from him, his smug face to the camera (a carry behind the back popped the beetle)
 // SPUD'S HEART: He let him steal the fries.  CLUNK. The monster's head turns to Spud.
 L(38, 0.3);
 P(T[38] - 0.1, "hspud", { smug: 1, lean: 0.6, sweat: 0 }, 0.2);
@@ -452,7 +452,7 @@ P(CL5 + 0.15, "hall", { tense: 0.8 }, 0.4);
 look(CL5 + 0.05, "spud", [-0.4, -0.3], 0.12); look(CL5 + 0.1, "chip", [-0.2, 0.3], 0.15);
 // CHIP: Wait... why is YOUR heart on a scale?  (to Spud; then the loop to frame 0)
 L(39, 0.2);
-expr(T[39], "chip", "shocked"); turn(T[39] - 0.45, "chip", 300, 0.3); look(T[39], "chip", [-0.5, 0.35], 0.2);
+expr(T[39], "chip", "shocked"); turn(T[39] - 0.45, "chip", 330, 0.3); look(T[39], "chip", [-0.5, 0.35], 0.2);
 say(39);
 P(T[39] + 0.6, "monster", { lick: 1 }, 0.9, "linear");
 const END = F(END_OF(39) + 0.3);
@@ -504,7 +504,7 @@ const WALK_S = fr([-1.9, 0.6, 1.6], { az: -35, el: 10, h: 2.8, fov: 38, lift: 0.
 const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 20, h: 2.4, fov: 34, lift: 0.2 });   // wide enough for the 4-line caption over him
 // the pass, the doors, the museum
 const MONT = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 60 : 120, el: 12, h: 1.9, fov: 40, lift: 0.12 });
-const PASS_S = fr([0.75, 1.1, -0.2], { az: 30, el: 4, h: 2.7, fov: 38, lift: 0.08 });   // closer: his jaw on "Pass." reads
+const PASS_S = fr([0.75, 1.1, -0.2], { az: 12, el: 6, h: 2.7, fov: 38, lift: 0.08 });   // closer: his jaw on "Pass." reads
 const SLUMP_S = fr([-2.07, 0.35, -0.53], { az: -30, el: 12, h: 2.0, fov: 36 });   // Sol 1 (14): az 60 sat in her head; her head in profile, chin on the floor (the pan out of frame)
 const DOORS_S = { pos: [-1.0, 0.9, 4.2], look: [-0.6, 2.2, -9.0], fov: 46 };
 const SAFE_S = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 0, el: 6, h: 2.5, fov: 34, lift: 0.12 });
