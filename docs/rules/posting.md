@@ -32,6 +32,17 @@ OPENER: A or B · STAKE LINE: "<the first narrator line>"
 - Post every video on TikTok, Instagram Reels and YouTube Shorts (the same file); a long film goes to YouTube as a
   16:9 video over 3:00 with its thumbnail as a separate upload, and its vertical parts to TikTok.
 
+## YouTube thumbnails (18 Nov, ON TRIAL, from the thumbnail study)
+
+For every YouTube upload with its own thumbnail (long films, not Shorts covers):
+- It raises a question or a feeling on its own; start by asking what the viewer should wonder and feel.
+- 1-3 big words in the top third that do not repeat the title ("RICHER THAN THE BANK." on "What if everything got
+  10,000x cheaper"). Cover the bottom half: the top half alone must tell the topic (TV shows only the top half).
+- A number or a before/after contrast (DAY 1 -> DAY 30, 0 vs 999+, a thermometer), one obvious main character with a
+  clear face, no clutter, the same layout and lettering per series.
+- Collect 10-15 references first (our best thumbnails, other channels' outliers, posters), then make 2-3 versions and
+  run them in YouTube Studio's Test & Compare; the result goes into the video's `experiments/` note.
+
 ## The 10-second stranger test (the producer's own step, 15 Nov, on trial)
 
 Before posting, the producer may show the first 10 s to one person at a time, in person or by screen share: never in
@@ -43,7 +54,7 @@ Xs) and it goes into the video's `experiments/` note, so the test can be compare
 
 ## How a video is judged (audience data decides, not the producer's score)
 
-- Read each posted video after 24 h. Numbers that matter at our view counts: hold at 0:03 and 0:05, likes per 100
+- Read each posted video after 24 h and add it to `experiments/topic-check-log.md` (topic check trial, 19 Nov). Numbers that matter at our view counts: hold at 0:03 and 0:05, likes per 100
   views (the producer's main measure), finish rate, shares per 1,000 views. Never decide on one post.
 - What the data showed so far (trials, not laws): an impossible fact or number at 0.0 opens best; likes follow the
   payoff, not the hook; the strongest formats were the mystery films, There's a catch and Friends try to; music from

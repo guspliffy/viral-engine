@@ -70,7 +70,7 @@ export function castLook(def, look) {
   if (L.art && def.costume) {
     def.costume.art = true;
     // every fighter gets the seamless 3-finger glove (PR #44/#47), keeping its grips
-    if ((def.hands?.type ?? "mitten") === "mitten") def.hands = { type: "glove", size: 1.7, fingers: 3, seamless: true, cell: 0.0035, blend: { root: 0.35 }, ...(def.hands?.grip ? { grip: def.hands.grip } : {}) };
+    if ((def.hands?.type ?? "mitten") === "mitten" && !def.hands?.keep) def.hands = { type: "glove", size: 1.7, fingers: 3, seamless: true, cell: 0.0035, blend: { root: 0.35 }, ...(def.hands?.grip ? { grip: def.hands.grip } : {}) };
     // the Norse god's brows are white and bushy like his hair (the face study)
     if (def.costume.type === "allfather") { F.brow = def.costume.hair || "#ece9e2"; F.browShape = { ...F.browShape, thick: +((F.browShape?.thick ?? 0.85) * 1.6).toFixed(3) }; }
   }

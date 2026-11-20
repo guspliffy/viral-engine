@@ -1,0 +1,1096 @@
+{
+ "id": "ml01-01-gallery",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#d9cfc0",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 0,
+  "seam": true,
+  "gain": 0.7,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "large",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   10.928,
+   10.928
+  ]
+ },
+ "hook": {
+  "show": [
+   "ml"
+  ],
+  "hint": 0,
+  "what": "the Louvre in 1911: visitors walk past the Mona Lisa without a look; the question on screen"
+ },
+ "cast": [
+  {
+   "id": "v1",
+   "character": "potatobrawl/duchess",
+   "at": [
+    5.35,
+    -0.9
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "v2",
+   "character": "potatobrawl/dauphin",
+   "at": [
+    5.35,
+    -2.6
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "v3",
+   "character": "potatobrawl/agent",
+   "at": [
+    4.75,
+    0.2
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "v4",
+   "character": "potatobrawl/tot",
+   "at": [
+    4.75,
+    -1.7
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  },
+  {
+   "id": "thief",
+   "character": "facts/thief",
+   "at": [
+    72,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 6.300000000000001
+  }
+ ],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "museumhall",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "art0",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 0.95,
+   "z": -1.25,
+   "rot": -90,
+   "w": 0.62,
+   "h": 0.48,
+   "scene": "hills",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art1",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 0.95,
+   "z": 1.25,
+   "rot": -90,
+   "w": 0.62,
+   "h": 0.48,
+   "scene": "sea",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art2",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1.25,
+   "z": -2.6,
+   "rot": -90,
+   "w": 0.95,
+   "h": 0.75,
+   "scene": "forest",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art3",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1.25,
+   "z": 2.6,
+   "rot": -90,
+   "w": 0.95,
+   "h": 0.75,
+   "scene": "hills",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art4",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1,
+   "z": -4.1,
+   "rot": -90,
+   "w": 0.7,
+   "h": 0.55,
+   "scene": "sea",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art5",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1,
+   "z": 4.1,
+   "rot": -90,
+   "w": 0.7,
+   "h": 0.55,
+   "scene": "forest",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "ml",
+   "kind": "painting",
+   "x": 5.96,
+   "y": 0.62,
+   "z": 0,
+   "rot": -90,
+   "tip": 0,
+   "cover": 1
+  },
+  {
+   "id": "hooks",
+   "kind": "wallhooks",
+   "x": 5.9799999999999995,
+   "y": 0.87,
+   "z": 0,
+   "rot": -90
+  },
+  {
+   "id": "cap-thief",
+   "wear": "thief",
+   "x": 0,
+   "y": 1,
+   "z": 0.02,
+   "kind": "flatcap",
+   "r": 0.19
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 2.956,
+   "text": "In two days, the whole world will be hunting for her.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 2.986,
+   "to": 6.256,
+   "text": "Nineteen eleven. Nobody stops for the Mona Lisa.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 6.536,
+   "to": 8.267,
+   "text": "This man put the glass on her.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 8.297,
+   "to": 10.748,
+   "text": "He knows every door in this museum.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 nobody stops insert",
+   "at": 0,
+   "len": 2.986,
+   "shot": {
+    "pos": [
+     4.235,
+     1.157,
+     0
+    ],
+    "look": [
+     5.91,
+     1.04,
+     0
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      4.654,
+      1.128,
+      0
+     ]
+    },
+    "dur": 2.986,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       2.986,
+       5
+      ]
+     ],
+     "pivot": 1.679
+    }
+   },
+   "do": [
+    {
+     "who": "v1",
+     "do": "move",
+     "to": [
+      5.35,
+      -0.9
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "move",
+     "to": [
+      5.35,
+      -2.6
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "move",
+     "to": [
+      4.75,
+      0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "move",
+     "to": [
+      4.75,
+      -1.7
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": 5.96,
+      "y": 0.62,
+      "z": 0,
+      "rot": -90,
+      "cover": 1,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hooks",
+     "set": {
+      "x": 5.9799999999999995,
+      "y": 0.87,
+      "z": 0,
+      "rot": -90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "In two days, the whole world will be hunting for her.",
+     "voice": "narrator-quick",
+     "dur": 2.7057,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "01 nobody stops wide",
+   "at": 2.986,
+   "len": 1.725,
+   "shot": {
+    "pos": [
+     -0.135,
+     1.42,
+     -1.134
+    ],
+    "look": [
+     5.2,
+     0.75,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.612,
+      1.326,
+      -0.975
+     ]
+    },
+    "dur": 1.725,
+    "yaw": {
+     "keys": [
+      [
+       2.986,
+       0
+      ],
+      [
+       4.711,
+       -5
+      ]
+     ],
+     "pivot": 5.495
+    }
+   },
+   "do": [
+    {
+     "who": "v1",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "sfx": "step",
+     "reason": "the story's own sound",
+     "gain": 0.3,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Nineteen eleven. Nobody stops for the Mona Lisa.",
+     "voice": "narrator-quick",
+     "dur": 3.1203,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "move",
+     "to": [
+      5.35,
+      2
+     ],
+     "dur": 4.4,
+     "at": 0.18
+    },
+    {
+     "who": "v2",
+     "do": "move",
+     "to": [
+      5.35,
+      0.3
+     ],
+     "dur": 4.4,
+     "at": 0.18
+    },
+    {
+     "who": "v3",
+     "do": "move",
+     "to": [
+      4.75,
+      3.1
+     ],
+     "dur": 4.4,
+     "at": 0.18
+    },
+    {
+     "who": "v4",
+     "do": "move",
+     "to": [
+      4.75,
+      1.2
+     ],
+     "dur": 4.4,
+     "at": 0.18
+    }
+   ]
+  },
+  {
+   "name": "01 nobody stops wide +",
+   "at": 4.711,
+   "len": 1.725,
+   "shot": {
+    "pos": [
+     0.771,
+     1.299,
+     0.622
+    ],
+    "look": [
+     5.2,
+     0.75,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.391,
+      1.222,
+      0.535
+     ]
+    },
+    "dur": 1.725,
+    "yaw": {
+     "keys": [
+      [
+       4.711,
+       0
+      ],
+      [
+       6.436,
+       5
+      ]
+     ],
+     "pivot": 4.506
+    }
+   },
+   "do": [
+    {
+     "who": "v1",
+     "do": "hide",
+     "at": 1.713
+    },
+    {
+     "who": "v1",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.713
+    },
+    {
+     "who": "v2",
+     "do": "hide",
+     "at": 1.713
+    },
+    {
+     "who": "v2",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.713
+    },
+    {
+     "who": "v3",
+     "do": "hide",
+     "at": 1.713
+    },
+    {
+     "who": "v3",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.713
+    },
+    {
+     "who": "v4",
+     "do": "hide",
+     "at": 1.713
+    },
+    {
+     "who": "v4",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.713
+    },
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      5.45,
+      0.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.713
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 135,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.713
+    },
+    {
+     "who": "thief",
+     "do": "show",
+     "at": 1.713
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": 5.96,
+      "y": 0.62,
+      "z": 0,
+      "rot": -90,
+      "cover": 1,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.713
+    },
+    {
+     "do": "prop",
+     "id": "hooks",
+     "set": {
+      "x": 5.9799999999999995,
+      "y": 0.87,
+      "z": 0,
+      "rot": -90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.713
+    }
+   ]
+  },
+  {
+   "name": "02 the glass man insert",
+   "at": 6.436,
+   "len": 1.861,
+   "shot": {
+    "pos": [
+     3.176,
+     0.971,
+     -1.784
+    ],
+    "look": [
+     5.6,
+     0.75,
+     0.25
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      3.515,
+      0.94,
+      -1.499
+     ]
+    },
+    "dur": 1.861,
+    "yaw": {
+     "keys": [
+      [
+       6.436,
+       0
+      ],
+      [
+       8.297,
+       -5
+      ]
+     ],
+     "pivot": 3.172
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.42,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.14,
+       0.2,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "This man put the glass on her.",
+     "voice": "narrator-quick",
+     "dur": 1.5808,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "02 the glass man close",
+   "at": 8.297,
+   "len": 2.631,
+   "shot": {
+    "pos": [
+     -0.699,
+     0.942,
+     0.5
+    ],
+    "look": [
+     5.45,
+     0.62,
+     0.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.161,
+      0.897,
+      0.5
+     ]
+    },
+    "dur": 2.631,
+    "yaw": {
+     "keys": [
+      [
+       8.297,
+       0
+      ],
+      [
+       10.928,
+       5
+      ]
+     ],
+     "pivot": 6.157
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 250,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.2
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "He knows every door in this museum.",
+     "voice": "narrator-quick",
+     "dur": 2.3009,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "look",
+     "to": [
+      4.3,
+      0.8,
+      -6
+     ],
+     "dur": 0.3,
+     "at": 2.481
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 10.928,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 10.928,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  }
+ ],
+ "story": {
+  "T0": 0,
+  "T1": 10.928
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 0-10.928 s)."
+}

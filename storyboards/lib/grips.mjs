@@ -33,6 +33,7 @@ const SIZE = {
   soupbowl: { rim: 0.1, wall: [[0, 0.07], [0.02, 0.1], [0.05, 0.142], [0.084, 0.162], [0.1, 0.165]] },           // props-chef.js
   parcel: { w: 0.42, h: 0.26, d: 0.3 },            // props-package.js PARCEL
   gift: { w: 0.3, h: 0.24, d: 0.3 },
+  painting: { w: 0.34, h: 0.5, d: 0.05 },          // props-monalisa.js: the bare panel (frame off), held on its side edges
   pencil: { len: 0.255, r: 0.011 },                // props3d.js pencil (len 1): eraser at the bottom, point at the top
   soggyfry: { len: 0.16, r: 0.011 },               // props-zombie.js soggyfry: the bottom end at the origin, the top flops over
   orangefeather: { len: 0.34, r: 0.0065 },            // props-prank.js FEATHER: the quill at the bottom, the vane up to the tip
@@ -146,6 +147,19 @@ const SIZE = {
   chipbag: { w: 0.28, h: 0.33, t: 0.1 },
   mashbowl: { rim: 0.16, wall: [[0, 0.1], [0.02, 0.118], [0.05, 0.153], [0.09, 0.185], [0.13, 0.202], [0.16, 0.205]] },
   courtspoon: { len: 0.3, r: 0.0105 },
+  // props-lunch.js (Potato Desk 10 Lunch Trial): lunchbox = box hold, both palms on the two snap flaps of the short ends (0.47 over the flaps; lid on 0.16 high; flap middle y 0.127 = height 0.8 x h:
+  // pass { height: 0.8 }); yogurtcup = mug hold round its side like papercup (r 0.04 = the mean of 0.045 at the rim and 0.035 at the foot, h 0.095)
+  lunchbox: { w: 0.47, h: 0.16, d: 0.29 },
+  yogurtcup: { r: 0.04, h: 0.095 },
+  // props-hella.js (Potato Desk 09 Hell Reviews): reviewtablet = box hold (palms on the two side edges, y 0.253; screen on -z); cloche = thin pinch on the knob (len 0.325 puts the default
+  // from 0.6 at y 0.195 = the knob's centre); ketchupbottle = mug hold at the neck (0.66 x 0.26 = y 0.17); pitchfork and palmleaf = the R hand's mug hold on the shaft (fist at y 0.132 / 0.19),
+  // the L hand through HELLA_GRIPS arm poses; drinkglass = mug hold round the body (fist at y 0.106)
+  reviewtablet: { w: 0.34, h: 0.46, d: 0.02 },
+  cloche: { len: 0.325, r: 0.025 },
+  ketchupbottle: { r: 0.03, h: 0.26 },
+  pitchfork: { r: 0.01, h: 0.2 },
+  palmleaf: { r: 0.01, h: 0.288 },
+  drinkglass: { r: 0.035, h: 0.16 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
