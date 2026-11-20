@@ -25,6 +25,10 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Can you picture it?** (15 Nov, on trial): before any work, the idea is written as one title line a stranger can
   picture at once ("world's largest firework" works; "a stock-picking monkey" bombed and no title or thumbnail could
   save it). If the picture is unclear, change the idea, not the packaging.
+- **A topic the audience already knows, with action** (19 Nov, Egypt EP04 Serapeum redo dropped after two glitch
+  rounds; Mona Lisa and unknown-hero facts lost viewers early): before a build or a redo, ask whether OUR viewers know
+  the subject cold and whether it has physical action. An unknown site or a calm documentary debate is dropped before
+  staging, however good the format. Check the topic first; polishing never saves it.
 - **Topic check** (19 Nov, on trial): right after the title line, run `python3 tools/topic-check.py "<title line>"`
   and put `TOPIC CHECK: HOP / FLOP / UNCLEAR, <why>` + the 3 closest real videos in the outline. It warns, never
   decides: a FLOP goes to the producer with the evidence. Rules and the 30-post trial: `docs/research/topic-check/README.md`.
