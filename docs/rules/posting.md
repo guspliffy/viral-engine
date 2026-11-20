@@ -43,7 +43,7 @@ Xs) and it goes into the video's `experiments/` note, so the test can be compare
 
 ## How a video is judged (audience data decides, not the producer's score)
 
-- Read each posted video after 24 h. Numbers that matter at our view counts: hold at 0:03 and 0:05, likes per 100
+- Read each posted video after 24 h and add it to `experiments/topic-check-log.md` (topic check trial, 19 Nov). Numbers that matter at our view counts: hold at 0:03 and 0:05, likes per 100
   views (the producer's main measure), finish rate, shares per 1,000 views. Never decide on one post.
 - What the data showed so far (trials, not laws): an impossible fact or number at 0.0 opens best; likes follow the
   payoff, not the hook; the strongest formats were the mystery films, There's a catch and Friends try to; music from
