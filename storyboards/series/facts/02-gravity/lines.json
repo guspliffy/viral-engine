@@ -1,16 +1,15 @@
 {
- "Every five seconds, gravity gets stronger. In twenty, you black out.": 4.6213,
- "Three g. A rocket launch. Astronauts lie down for this.": 4.178,
- "Four g. Blood leaves your head. Your eyes go grey.": 3.7288,
- "Five g. Pilots need special suits for this. You don't.": 4.2132,
- "Ten g. Lying flat, blood reaches your head again.": 3.9371,
- "Twenty. The air gets squeezed down. Clouds sink to the street.": 4.6828,
  "Twenty-five. No human survives this. Good thing you're a potato.": 4.7327,
- "Thirty. Every satellite is too slow now. They all fall.": 3.9961,
- "Thirty-five. Air this thick turns oxygen into poison.": 3.7714,
  "Forty. Mountains crush under their own weight.": 3.4609,
  "Forty-five. Even the Moon is falling.": 3.2633,
- "Fifty. It hits in seventeen hours.": 3.6638,
- "Back to one g.": 1.0625,
- "Fifteen. Buildings only hold about twice their weight.": 4.0485
+ "Fifteen. Buildings only hold about twice their weight.": 4.0485,
+ "Four gee. Your eyes go grey.": 2.4937,
+ "Five gee. Most people black out here.": 3.4289,
+ "Ten gee. Lying flat, your blood comes back.": 3.4532,
+ "Twenty. The whole city comes down.": 2.723,
+ "Thirty. Every satellite falls out of the sky.": 3.292,
+ "Thirty-five. The air itself turns poisonous.": 2.9868,
+ "Fifty. Seventeen hours later, it hits.": 3.3019,
+ "Back to one gee.": 1.1899,
+ "Every five seconds, gravity gets stronger. In ten, you black out.": 4.2492
 }

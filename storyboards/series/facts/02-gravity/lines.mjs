@@ -1,22 +1,22 @@
 // The narrator lines of fact what-if 02 "What if gravity got stronger every five seconds?" (Jonny 19 Nov 2026, thread
-// "Make gravity what-if fact video"): one line per gravity step, each starting 0.1 s after its step. Facts + sources:
-// STORY.md. Step times: 2 g at 1.0 s, then one step every 5 s (3, 4, 5, then 10 ... 50 g), black 65.5, 1 g 66.5.
+// "Make gravity what-if fact video"; v2 20 Nov: 1-5 g go faster, every 2.5 s, then 5 g steps every 5 s; the hook keeps "every five seconds", Jonny: "every few is too undistinguished" and the clip skips time later anyway; the Moon hits).
+// Facts + sources: STORY.md. [start s, spoken text, caption]: the narrator says "gee" (Jonny 20 Nov: "g" came out
+// different from time to time), the caption writes "g".
 export const NARRATOR = "narrator-quick";   // voice 1 "deep storyteller", 15 % faster (Mona Lisa, 19 Nov)
 export const TAKES = {};
-export const STEPS = [[0, 1], [1.0, 2], [6.0, 3], [11.0, 4], [16.0, 5], [21.0, 10], [26.0, 15], [31.0, 20], [36.0, 25], [41.0, 30], [46.0, 35], [51.0, 40], [56.0, 45], [61.0, 50], [66.5, 1]];
+export const STEPS = [[0, 1], [1.0, 2], [3.5, 3], [6.0, 4], [8.5, 5], [13.0, 10], [18.0, 15], [23.0, 20], [28.0, 25], [33.0, 30], [38.0, 35], [43.0, 40], [48.0, 45], [53.0, 50], [61.5, 1]];
 export const LINES = [
-  [0.1, "Every five seconds, gravity gets stronger. In twenty, you black out."],
-  [6.1, "Three g. A rocket launch. Astronauts lie down for this."],
-  [11.1, "Four g. Blood leaves your head. Your eyes go grey."],
-  [16.1, "Five g. Pilots need special suits for this. You don't."],
-  [21.1, "Ten g. Lying flat, blood reaches your head again."],
-  [26.1, "Fifteen. Buildings only hold about twice their weight."],
-  [31.1, "Twenty. The air gets squeezed down. Clouds sink to the street."],
-  [36.1, "Twenty-five. No human survives this. Good thing you're a potato."],
-  [41.1, "Thirty. Every satellite is too slow now. They all fall."],
-  [46.1, "Thirty-five. Air this thick turns oxygen into poison."],
-  [51.1, "Forty. Mountains crush under their own weight."],
-  [56.1, "Forty-five. Even the Moon is falling."],
-  [61.1, "Fifty. It hits in seventeen hours."],
-  [66.6, "Back to one g."],
+  [0.1, "Every five seconds, gravity gets stronger. In ten, you black out.", "Every five seconds, gravity gets stronger. In ten, you black out."],
+  [6.1, "Four gee. Your eyes go grey.", "Four g. Your eyes go grey."],
+  [8.75, "Five gee. Most people black out here.", "Five g. Most people black out here."],
+  [13.1, "Ten gee. Lying flat, your blood comes back.", "Ten g. Lying flat, your blood comes back."],
+  [18.1, "Fifteen. Buildings only hold about twice their weight.", "Fifteen. Buildings only hold about twice their weight."],
+  [23.1, "Twenty. The whole city comes down.", "Twenty. The whole city comes down."],
+  [28.1, "Twenty-five. No human survives this. Good thing you're a potato.", "Twenty-five. No human survives this. Good thing you're a potato."],
+  [33.1, "Thirty. Every satellite falls out of the sky.", "Thirty. Every satellite falls out of the sky."],
+  [38.1, "Thirty-five. The air itself turns poisonous.", "Thirty-five. The air itself turns poisonous."],
+  [43.1, "Forty. Mountains crush under their own weight.", "Forty. Mountains crush under their own weight."],
+  [48.1, "Forty-five. Even the Moon is falling.", "Forty-five. Even the Moon is falling."],
+  [53.1, "Fifty. Seventeen hours later, it hits.", "Fifty. Seventeen hours later, it hits."],
+  [61.6, "Back to one gee.", "Back to one g."],
 ];
