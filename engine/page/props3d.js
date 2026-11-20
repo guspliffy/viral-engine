@@ -1630,7 +1630,7 @@ export function buildProp(spec) {
   const def = kind(P);
   return {
     spec, root, grip: def.grip ?? 0,
-    link: def.link, aim: def.aim,
+    link: def.link, aim: def.aim, anchors: def.anchors,
     apply(ps, t) {
       // tip leans the top toward +z, tilt toward +x (both about the bottom centre); roll is the activity clips' older
       // name for a lean the other way about z (roll = -tilt)

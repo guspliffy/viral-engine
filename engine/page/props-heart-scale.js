@@ -555,7 +555,7 @@ export const HEART_SCALE_KINDS = {
     };
 
     // ---- assemblies (one per beam end), origin = the hang point H on the beam axis; the pan rim centre is 2.00 below
-    const asm = {}, links = [];
+    const asm = {}, links = [], anchors = {};
     for (const side of ["L", "R"]) {
       const g = new THREE.Group(); whole.add(g);
       const sg = side === "L" ? 1 : 2;
@@ -590,6 +590,7 @@ export const HEART_SCALE_KINDS = {
         }
       });
       asm[side] = { g, pan };
+      const seat = new THREE.Object3D(); seat.position.set(0, -2.07, 0); g.add(seat); anchors["seat" + side] = seat;   // HEART SEAT S, riding the pan
     }
     // the chain pitch is L/26 = 0.0728 and the link is stretched to 0.0948 (wire 0.011 hooked into its neighbour): a taut chain's pitch is
     // the inside length, so 26 links of 0.075 could only span 1.4 m of the 1.89 m from the apex to the rim (see NOTES)
@@ -728,6 +729,7 @@ export const HEART_SCALE_KINDS = {
     const smearOn = (e, s) => { const k = sstep(e.d, e.d + 0.45, s * 1.5 - 0.0); e.grp.scale.setScalar(Math.max(1e-4, k)); e.grp.visible = k > 0.002; };
     return {
       grip: 0,
+      anchors,   // seatL / seatR: a prop with spec.ride ["<this id>", "seatL"] sits on the dish with every tilt, wobble and jolt (stage.js)
       apply(ps, t) {
         whole.rotation.z = (ps.tilt ?? 0) * DEG;   // the engine leans a prop by -tilt degrees (props3d): cancel it, tilt here is the beam
         const tilt = clamp(ps.tilt ?? S.tilt ?? 0, -1, 1), wob = clamp(ps.wobble ?? S.wobble ?? 0), jolt = clamp(ps.jolt ?? S.jolt ?? 0), smear = clamp(ps.smear ?? S.smear ?? 0), drip = clamp(ps.drip ?? S.drip ?? 0);
