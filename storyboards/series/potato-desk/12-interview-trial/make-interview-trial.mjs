@@ -8,9 +8,11 @@
 // Chain: he is charged, so he thanks the court for having him; asked why this bank, so "passionate about money"; asked if
 // he acted alone, so he "led a team of two" and his accomplice waves; asked where the money is, so he "invested in
 // himself" (his new tie) and the accomplice sees he got no tie; asked why he was still in the vault, so "I work too hard";
-// so the judge gives ten years, so he asks if that is full time. Cut on the line.
+// so the judge gives ten years. v2 (Jonny's B): so he negotiates for more (meals, a cell, no rent), so his accomplice
+// applies too, so they outbid each other, so the judge sends them home (Jonny 20:10), so both are crushed: home has rent.
+// Jonny 20:11: the final is sped up 5% after the render (ffmpeg setpts + atempo, as 10 Lunch trial).
 // Same set, board, judge and voices as 05 Court Day / 07 Credit for the crime. Not a counter: the board is only the
-// stake (? YEARS from frame 0, 10 on the verdict, 20 at the end). Every shot moves, a new framing per line (Jonny 20 Nov 09:44).
+// stake (? YEARS from frame 0, 10 on the verdict, 0 when he sends them home). Every shot moves, a new framing per line (Jonny 20 Nov 09:44).
 import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
@@ -22,11 +24,11 @@ const F2 = (t) => r3(Math.round(t * 15) / 15);
 
 // measured spoken lengths (node qa/lines.mjs desk12-voice-probe.json), in LINES order
 const DUR = [1.74, 0.85, 1.2, 1.37, 1.25, 1.16, 0.9, 1.2, 1.49, 1.92, 1.18, 0.51, 0.89, 1.2, 1.33, 1.6, 0.81, 0.72, 0.94, 1.6,
-  0.57, 0.62, 0.97, 0.8, 1.33, 0.77, 0.68, 0.86, 1.39, 1.4, 1.53, 1.1, 1.56, 1.0, 1.04, 1.27, 0.49, 0.54, 0.7, 2.16, 0.96];
+  0.57, 0.62, 0.97, 0.8, 1.33, 0.77, 0.68, 0.86, 1.39, 1.4, 1.53, 1.1, 1.56, 1.0, 1.04, 1.27, 0.49, 0.54, 0.7, 1.86, 0.59, 1.23, 1.11];
 // the pause before each line: a volley (0.2-0.3), a beat at each turn (the judge stares at the hand, the verdict, "Ten?",
 // MORE years, the judge thinks before "No rent.", the nurse, the last line)
 const GAP = [0.1, 0.25, 0.6, 0.2, 0.25, 0.2, 0.25, 0.2, 0.3, 0.2, 0.5, 0.65, 0.2, 0.25, 0.3, 0.65, 0.3, 0.35, 0.25, 0.2,
-  0.25, 0.2, 0.3, 0.2, 0.25, 0.3, 0.65, 0.35, 0.5, 0.3, 0.35, 0.5, 0.35, 0.2, 0.25, 0.25, 0.2, 0.2, 0.3, 0.4, 0.6];
+  0.25, 0.2, 0.3, 0.2, 0.4, 0.3, 0.65, 0.35, 0.5, 0.3, 0.35, 0.5, 0.35, 0.35, 0.25, 0.25, 0.2, 0.2, 0.3, 0.7, 0.55, 0.35, 0.3];
 // time for the accomplice's walk forward before "Can I apply too?" (line 28)
 const WALK = 1.2;
 const T = []; { let t = 0; LINES.forEach((_, i) => { t = r3(t + GAP[i] + (i === 28 ? WALK : 0)); T.push(t); t = r3(t + DUR[i]); }); }
@@ -35,7 +37,7 @@ const END_OF = (i) => r3(T[i] + DUR[i]);
 // ---------------------------------------------------------------- places (Court Day's floor: x right, z toward us)
 const DECK = 1.18;
 const VIK = [-0.69, -0.66];
-const CHIP0 = [0.32, 1.2], WEDGE0 = [1.5, -0.1], WEDGE_WHISPER = [0.95, 0.7], WEDGE_FWD = [1.16, 1.12];   // behind his shoulder for the whisper, then beside him to apply
+const CHIP0 = [0.32, 1.2], WEDGE0 = [1.5, -0.1], WEDGE_WHISPER = [0.95, 0.7], WEDGE_FWD = [1.22, 1.1];   // behind his shoulder for the whisper, then beside him to apply
 const D_YAW = -28, W_YAW = -22;
 const AT_JUDGE = [-0.8, 0.6];
 const VIK_AT_CHIP = [0.75, -0.5], VIK_AT_HAND = [0.6, -0.65], VIK_AT_WEDGE = [0.9, -0.35], VIK_AT_US = [0.1, -0.15];
@@ -62,7 +64,7 @@ const props = [
   { id: "wall", kind: "officewall", x: 0, y: 0, z: -1.3, w: 3.8, h: 4.24 },
   { id: "dado", staged: "panels fixed to the back wall", kind: "dadopanels", x: 0, y: 0, z: -1.3, trim: true },
   { id: "board", staged: "screwed to the back wall", kind: "sentenceboard", x: 0.66, y: 2.01, z: -1.255,
-    states: ["?", "10", "20"], units: ["YEARS", "YEARS", "YEARS"], headers: ["SENTENCE", "SENTENCE", "SENTENCE"] },
+    states: ["?", "10", "0"], units: ["YEARS", "YEARS", "YEARS"], headers: ["SENTENCE", "SENTENCE", "SENTENCE"] },
   { id: "bench", kind: "judgebench", x: -0.69, y: 0, z: 0.145 },
   { id: "chair", staged: "on a block on the bench's riser, hidden by the bench", kind: "chair", x: VIK[0], y: 0.72, z: VIK[1], rot: 0 },
   { id: "plate", staged: "fixed to the bench front", kind: "officesign", x: -0.5, y: 1.068, z: 0.49, w: 0.58, h: 0.10, frameW: 0.009, lines: [["JUDGE VIKING", 0.043]], plate: "#24323f", ink: "#f3ead2", frame: "#b08a3c" },
@@ -73,7 +75,7 @@ const props = [
 
 // captions: upper third (rows ~250-350, as 10 Lunch trial); the first line sits under the in-app label's band (0-3 s)
 const SUB = 250, SUB0 = 470;
-const CAPTEXT = { 10: "*Ten years.*", 13: "I was thinking *fifteen.*", 15: "You want *MORE* years?", 26: "*No rent.*", 27: "*No rent!*", 32: "I'll take *fifteen.*", 34: "Then I want *twenty!*", 35: "*Twenty-five!*", 36: "*Thirty!*", 37: "*LIFE!*", 38: "*ENOUGH!*", 39: "*Twenty years.* Both of you.", 40: "Is that *full time?*" };
+const CAPTEXT = { 10: "*Ten years.*", 13: "I was thinking *fifteen.*", 15: "You want *MORE* years?", 26: "*No rent.*", 27: "*No rent!*", 32: "I'll take *fifteen.*", 34: "Then I want *twenty!*", 35: "*Twenty-five!*", 36: "*Thirty!*", 37: "*LIFE!*", 38: "*ENOUGH!*", 39: "Case dismissed. *Go home.*", 40: "*Home?!*", 41: "No *dental...*", 42: "But I pay *rent* there!" };
 const say = (i, extra = {}, capTo = null) => {
   const [who, line, tone, style, o = {}] = LINES[i];
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false, ...extra });
@@ -269,18 +271,29 @@ say(38);
 for (const w of ["chip", "wedge"]) { A(r3(S2), w, "squash", { amount: -0.08, dur: 0.1 }); A(r3(S2 + 0.25), w, "squash", { amount: 0, dur: 0.25 }); expr(r3(S2), w, "shocked", 0.1); }
 for (const [w, sd] of [["chip", "R"], ["wedge", "L"], ["wedge", "R"]]) { grip(r3(S2), w, sd, "open", 0.1); rest(r3(S2 + 0.05), w, sd); }
 see(T[38], r3(S2 + 0.5), ["vik.face", "chip.face", "wedge.face"], "ENOUGH: the gavel, both flinch");
-// 38 JUDGE: Twenty years. Both of you.  (tok on "years", 20 YEARS; the two look at each other, delighted)
-A(r3(T[39] - 0.1), "vik", "expr", { expr: "stern", dur: 0.2 }); look(r3(T[39] - 0.1), "vik", [0.85, -0.45], 0.2);
+// 40 JUDGE: Case dismissed. Go home.  (tok on "dismissed", the board flips to 0 YEARS: the worst sentence for them)
+// (Jonny 20 Nov 20:10 Berlin: "in the end the judge should just send them home"; 20:11 "chip and wedge should be upset about it")
+A(r3(T[39] - 0.1), "vik", "expr", { expr: "smug", dur: 0.2 }); look(r3(T[39] - 0.1), "vik", [0.85, -0.45], 0.2);
 say(39);
-look(r3(T[39] + 0.25), "vik", [-0.3, -0.5], 0.15); look(r3(T[39] + 1.0), "vik", [0.85, -0.45], 0.15);
-const S3 = strike(r3(T[39] + 0.55), 2);
-for (const [w, to] of [["chip", [0.6, 0.35]], ["wedge", [-0.6, -0.3]]]) { look(r3(S3 + 0.2), w, to, 0.15); expr(r3(S3 + 0.25), w, "delighted"); }
-see(T[39], r3(S3 + 0.6), ["vik.face", "board", "chip.face", "wedge.face"], "twenty years for both: the board flips to 20; they look at each other, delighted");
-// 39 CHIP, hopeful, CV still up: Is that full time?   CUT on the line.
-look(r3(T[40] - 0.2), "chip", [-0.7, 0.75], 0.2); expr(r3(T[40] - 0.15), "chip", "eager"); A(r3(T[40] - 0.1), "chip", "squash", { amount: -0.05, dur: 0.25 });
+look(r3(T[39] + 0.45), "vik", [-0.3, -0.5], 0.15); look(r3(T[39] + 1.15), "vik", [0.85, -0.45], 0.15);
+const S3 = strike(r3(T[39] + 0.6), 2);
+for (const w of ["chip", "wedge"]) { expr(r3(S3 + 0.1), w, "shocked", 0.12); look(r3(S3 + 0.1), w, AT_JUDGE, 0.12); }
+see(T[39], r3(S3 + 0.6), ["vik.face", "board"], "case dismissed: the board flips to 0 YEARS");
+// 41 CHIP, horrified: Home?!
+expr(r3(T[40] - 0.15), "chip", "terrified"); A(r3(T[40] - 0.05), "chip", "squash", { amount: 0.06, dur: 0.15 }); A(r3(T[40] + 0.35), "chip", "squash", { amount: 0, dur: 0.25 });
 say(40);
-const END = F(END_OF(40) + 0.5);
-see(T[40], END, ["chip.face", "cv"], "he asks if twenty years is full time");
+// 42 WEDGE, heartbroken, a hand to his cheek: No dental...
+expr(r3(T[41] - 0.15), "wedge", "sad"); look(r3(T[41] - 0.15), "wedge", [-0.2, -0.6], 0.25, false);
+arm(r3(T[41] - 0.2), "wedge", "L", "cheeks", 0.4); A(r3(T[41]), "wedge", "pitch", { to: 10, dur: 0.5 });
+A(r3(T[41] + 0.1), "wedge", "face", { lid: 0.5, dur: 0.3 });
+say(41);
+// 43 CHIP, wailing, pleading to the judge: But I pay rent there!   CUT as they slump.
+expr(r3(T[42] - 0.15), "chip", "sad"); look(r3(T[42] - 0.15), "chip", [-0.7, 0.75], 0.2);
+arm(r3(T[42] - 0.2), "chip", "R", { o: [0.18, 0.5, 0.36] }, 0.35); grip(r3(T[42] - 0.1), "chip", "R", "open");
+say(42);
+rest(r3(END_OF(42) - 0.1)); A(r3(END_OF(42) - 0.1), "chip", "pitch", { to: 10, dur: 0.4 }); A(r3(END_OF(42) - 0.1), "chip", "face", { lid: 0.4, dur: 0.3 });
+const END = F(END_OF(42) + 0.65);
+see(T[40], END, ["chip.face", "wedge.face"], "sent home, both are crushed: no dental, and home has rent");
 
 // ---------------------------------------------------------------- cameras: every shot moves (Jonny 20 Nov 09:44)
 const push = (s, k = 0.06, dur = 2) => ({ ...s, to: { pos: s.pos.map((v, i) => r3(v + (s.look[i] - v) * k)), look: s.look, fov: s.fov }, dur, ease: "inOut" });
@@ -331,14 +344,16 @@ const beats = c.beats([
   ["thirty", cutAt(36), push(CHIP_CLOSE, 0.1, 0.8)],
   ["life", cutAt(37), push(PAIR, 0.04, 0.8)],
   ["enough", cutAt(38), push(VIK_LOW, 0.12, 1.0)],
-  ["twenty years", cutAt(39), push(VERDICT, 0.07, 2.6), "payoff"],
-  ["full time", cutAt(40), push(END_SHOT, 0.08, END - cutAt(40))],
+  ["go home", cutAt(39), push(VERDICT, 0.07, 2.6), "payoff"],
+  ["home?!", cutAt(40), push(CHIP_CLOSE, 0.08, 0.9)],
+  ["no dental", cutAt(41), push(PAIR, 0.06, 1.6)],
+  ["rent there", cutAt(42), push(END_SHOT, 0.08, END - cutAt(42))],
 ], END);
 
 write(import.meta.url, {
   id: "interview-trial",
   title: "He nailed his trial like a job interview",
-  idea: "Potato Desk 12: a robber answers every court question like a job interview, then negotiates his sentence like a salary (prison has meals, a room, no rent); his accomplice applies too; twenty years for both, is that full time?",
+  idea: "Potato Desk 12: a robber answers every court question like a job interview, then negotiates his sentence like a salary (prison has meals, a room, no rent); his accomplice applies too; the judge sends them both home, where they pay rent.",
   fps: 30, look: "anime-pro", profile: "short", loop: false,
   captionBand: [210, 1360], captionStyle: "kinetic",
   castLook: "sheet", cleanStart: true,

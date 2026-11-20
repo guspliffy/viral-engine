@@ -4,7 +4,7 @@
 // interview. No character names in any line. [who, line, tone, style (VoxCPM2 acting direction), { take }]
 // v2 (Jonny 20 Nov 19:26 Berlin: "super short, target 60+ seconds"; 19:32 picked B, the salary negotiation): after the
 // verdict he negotiates his sentence like a salary: prison has meals, a room, no rent, so he wants MORE years; his
-// accomplice wants in too; the judge ends it at twenty for both. Cast: vik = the judge, chip = the robber (tie, CV),
+// accomplice wants in too; the judge ends it by sending them home (Jonny 20:10 Berlin: "in the end the judge should just send them home"): home has rent. 20:11: "chip and wedge should be upset about it". Cast: vik = the judge, chip = the robber (tie, CV),
 // wedge = his accomplice, the "team of two".
 export const LINES = [
   ["vik", "You robbed a bank.", "angry", "deep, stern, flat, a judge reading the charge"],
@@ -46,6 +46,8 @@ export const LINES = [
   ["chip", "Thirty!", "angry", "competitive, loud, outbidding", { voice: "chip-clean" }],
   ["wedge", "LIFE!", "angry", "competitive, very loud, triumphant, outbidding"],
   ["vik", "ENOUGH!", "angry", "deep, very loud, a judge shouting"],
-  ["vik", "Twenty years. Both of you.", "calm", "deep, stern, flat, final"],
-  ["chip", "Is that full time?", "happy", "hopeful, eager, bright, a job applicant", { voice: "chip-clean" }],
+  ["vik", "Case dismissed. Go home.", "calm", "deep, stern, flat, final, the worst punishment"],
+  ["chip", "Home?!", "sad", "horrified, devastated, high, broken", { voice: "chip-clean" }],
+  ["wedge", "No dental...", "sad", "heartbroken, quiet, sobbing, devastated"],
+  ["chip", "But I pay rent there!", "sad", "devastated, wailing, desperate, almost crying", { voice: "chip-clean" }],
 ];

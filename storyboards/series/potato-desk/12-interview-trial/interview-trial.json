@@ -1,7 +1,7 @@
 {
  "id": "interview-trial",
  "title": "He nailed his trial like a job interview",
- "idea": "Potato Desk 12: a robber answers every court question like a job interview, then negotiates his sentence like a salary (prison has meals, a room, no rent); his accomplice applies too; twenty years for both, is that full time?",
+ "idea": "Potato Desk 12: a robber answers every court question like a job interview, then negotiates his sentence like a salary (prison has meals, a room, no rent); his accomplice applies too; the judge sends them both home, where they pay rent.",
  "fps": 30,
  "look": "anime-pro",
  "profile": "short",
@@ -145,7 +145,7 @@
    "states": [
     "?",
     "10",
-    "20"
+    "0"
    ],
    "units": [
     "YEARS",
@@ -439,144 +439,160 @@
   },
   {
    "from": 33.17,
-   "to": 34.22,
+   "to": 34.27,
    "text": "Orange.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 34.22,
-   "to": 35.85,
+   "from": 34.37,
+   "to": 36,
    "text": "I look great in orange.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 35.85,
-   "to": 36.92,
+   "from": 36,
+   "to": 37.07,
    "text": "Do I pay rent?",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 37.27,
-   "to": 38.25,
+   "from": 37.42,
+   "to": 38.4,
    "text": "*No rent.*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 38.3,
-   "to": 39.46,
+   "from": 38.45,
+   "to": 39.61,
    "text": "*No rent!*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 40.86,
-   "to": 42.55,
+   "from": 41.01,
+   "to": 42.7,
    "text": "Can I apply too?",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 42.55,
-   "to": 44.25,
+   "from": 42.7,
+   "to": 44.4,
    "text": "You're his accomplice!",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 44.3,
-   "to": 46.13,
+   "from": 44.45,
+   "to": 46.28,
    "text": "Is there dental?",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 46.33,
-   "to": 47.73,
+   "from": 46.48,
+   "to": 47.88,
    "text": "There's a nurse.",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 47.78,
-   "to": 49.54,
+   "from": 47.93,
+   "to": 49.79,
    "text": "I'll take *fifteen.*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 49.54,
-   "to": 50.79,
+   "from": 49.84,
+   "to": 51.09,
    "text": "He gets fifteen?!",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 50.79,
-   "to": 52.08,
+   "from": 51.09,
+   "to": 52.38,
    "text": "Then I want *twenty!*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 52.08,
-   "to": 53.55,
+   "from": 52.38,
+   "to": 53.85,
    "text": "*Twenty-five!*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 53.55,
-   "to": 54.24,
+   "from": 53.85,
+   "to": 54.54,
    "text": "*Thirty!*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 54.24,
-   "to": 55.08,
+   "from": 54.54,
+   "to": 55.38,
    "text": "*LIFE!*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 55.08,
-   "to": 56.08,
+   "from": 55.38,
+   "to": 56.38,
    "text": "*ENOUGH!*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 56.18,
-   "to": 58.64,
-   "text": "*Twenty years.* Both of you.",
+   "from": 56.78,
+   "to": 58.94,
+   "text": "Case dismissed. *Go home.*",
    "pos": 250,
    "pop": false,
    "size": 64
   },
   {
-   "from": 58.94,
-   "to": 60.2,
-   "text": "Is that *full time?*",
+   "from": 59.19,
+   "to": 60.08,
+   "text": "*Home?!*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 60.13,
+   "to": 61.66,
+   "text": "No *dental...*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 61.66,
+   "to": 63.07,
+   "text": "But I pay *rent* there!",
    "pos": 250,
    "pop": false,
    "size": 64
@@ -2664,7 +2680,7 @@
   {
    "name": "uniform",
    "at": 31.95,
-   "len": 2.22,
+   "len": 2.37,
    "shot": {
     "pos": [
      -0.22,
@@ -2734,20 +2750,20 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 2.12
+     "at": 2.27
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "smug",
      "dur": 0.2,
-     "at": 2.17
+     "at": 2.32
     }
    ]
   },
   {
    "name": "great in orange",
-   "at": 34.17,
+   "at": 34.32,
    "len": 1.63,
    "shot": {
     "pos": [
@@ -2862,7 +2878,7 @@
   },
   {
    "name": "rent",
-   "at": 35.8,
+   "at": 35.95,
    "len": 1.42,
    "shot": {
     "pos": [
@@ -2908,7 +2924,7 @@
      "who": "chip",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.4
+     "at": 0.25
     },
     {
      "who": "vik",
@@ -2921,7 +2937,7 @@
   },
   {
    "name": "no rent",
-   "at": 37.22,
+   "at": 37.37,
    "len": 1.03,
    "shot": {
     "pos": [
@@ -2999,7 +3015,7 @@
   },
   {
    "name": "no rent!",
-   "at": 38.25,
+   "at": 38.4,
    "len": 1.11,
    "shot": {
     "pos": [
@@ -3112,8 +3128,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      1.16,
-      1.12
+      1.22,
+      1.1
      ],
      "dur": 1.2,
      "at": 1.06
@@ -3123,7 +3139,7 @@
   },
   {
    "name": "apply",
-   "at": 39.36,
+   "at": 39.51,
    "len": 3.14,
    "shot": {
     "pos": [
@@ -3184,7 +3200,7 @@
      "who": "vik",
      "do": "blink",
      "dur": 0.22,
-     "at": 2.44
+     "at": 2.29
     },
     {
      "who": "vik",
@@ -3207,7 +3223,7 @@
   },
   {
    "name": "accomplice",
-   "at": 42.5,
+   "at": 42.65,
    "len": 1.75,
    "shot": {
     "pos": [
@@ -3290,7 +3306,7 @@
   },
   {
    "name": "dental",
-   "at": 44.25,
+   "at": 44.4,
    "len": 2.03,
    "shot": {
     "pos": [
@@ -3343,7 +3359,7 @@
      "who": "wedge",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.35
+     "at": 1.2
     },
     {
      "who": "wedge",
@@ -3372,7 +3388,7 @@
   },
   {
    "name": "nurse",
-   "at": 46.28,
+   "at": 46.43,
    "len": 1.45,
    "shot": {
     "pos": [
@@ -3424,7 +3440,7 @@
      "who": "chip",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.02
+     "at": 0.87
     },
     {
      "who": "wedge",
@@ -3452,8 +3468,8 @@
   },
   {
    "name": "fifteen deal",
-   "at": 47.73,
-   "len": 1.76,
+   "at": 47.88,
+   "len": 1.91,
    "shot": {
     "pos": [
      0.1,
@@ -3502,11 +3518,20 @@
      "at": 0.05
     },
     {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.76
+    },
+    {
      "who": "chip",
      "do": "turn",
      "to": 22,
      "dur": 0.25,
-     "at": 1.61
+     "at": 1.76
     },
     {
      "who": "chip",
@@ -3516,7 +3541,7 @@
       0.4
      ],
      "dur": 0.15,
-     "at": 1.61
+     "at": 1.76
     },
     {
      "who": "chip",
@@ -3531,14 +3556,14 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.61
+     "at": 1.76
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "angry",
      "dur": 0.2,
-     "at": 1.66
+     "at": 1.81
     },
     {
      "who": "chip",
@@ -3546,13 +3571,13 @@
      "side": "R",
      "shape": "point",
      "dur": 0.2,
-     "at": 1.71
+     "at": 1.86
     }
    ]
   },
   {
    "name": "he gets fifteen",
-   "at": 49.49,
+   "at": 49.79,
    "len": 2.54,
    "shot": {
     "pos": [
@@ -3585,15 +3610,6 @@
    "do": [
     {
      "who": "wedge",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "wedge",
      "do": "look",
      "to": [
       -0.6,
@@ -3617,7 +3633,7 @@
      "who": "vik",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.71
+     "at": 0.41
     },
     {
      "who": "chip",
@@ -3702,7 +3718,7 @@
   },
   {
    "name": "twenty-five",
-   "at": 52.03,
+   "at": 52.33,
    "len": 1.47,
    "shot": {
     "pos": [
@@ -3768,7 +3784,7 @@
   },
   {
    "name": "thirty",
-   "at": 53.5,
+   "at": 53.8,
    "len": 0.69,
    "shot": {
     "pos": [
@@ -3845,7 +3861,7 @@
   },
   {
    "name": "life",
-   "at": 54.19,
+   "at": 54.49,
    "len": 0.84,
    "shot": {
     "pos": [
@@ -3938,8 +3954,8 @@
   },
   {
    "name": "enough",
-   "at": 55.03,
-   "len": 1.1,
+   "at": 55.33,
+   "len": 1.4,
    "shot": {
     "pos": [
      -0.25,
@@ -3999,7 +4015,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.17
+     "at": 0.137
     },
     {
      "who": "vik",
@@ -4021,40 +4037,40 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 0.4
+     "at": 0.367
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 1.6,
-     "at": 0.47
+     "at": 0.437
     },
     {
      "who": "chip",
      "do": "squash",
      "amount": -0.08,
      "dur": 0.1,
-     "at": 0.48
+     "at": 0.447
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "shocked",
      "dur": 0.1,
-     "at": 0.48
+     "at": 0.447
     },
     {
      "who": "wedge",
      "do": "squash",
      "amount": -0.08,
      "dur": 0.1,
-     "at": 0.48
+     "at": 0.447
     },
     {
      "who": "wedge",
      "do": "expr",
      "expr": "shocked",
      "dur": 0.1,
-     "at": 0.48
+     "at": 0.447
     },
     {
      "who": "chip",
@@ -4062,7 +4078,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.1,
-     "at": 0.48
+     "at": 0.447
     },
     {
      "who": "wedge",
@@ -4070,7 +4086,7 @@
      "side": "L",
      "shape": "open",
      "dur": 0.1,
-     "at": 0.48
+     "at": 0.447
     },
     {
      "who": "wedge",
@@ -4078,7 +4094,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.1,
-     "at": 0.48
+     "at": 0.447
     },
     {
      "who": "chip",
@@ -4087,7 +4103,7 @@
      "pose": "rest",
      "dur": 0.4,
      "ease": "inOut",
-     "at": 0.53
+     "at": 0.497
     },
     {
      "who": "wedge",
@@ -4096,7 +4112,7 @@
      "pose": "rest",
      "dur": 0.4,
      "ease": "inOut",
-     "at": 0.53
+     "at": 0.497
     },
     {
      "who": "wedge",
@@ -4105,28 +4121,28 @@
      "pose": "rest",
      "dur": 0.4,
      "ease": "inOut",
-     "at": 0.53
+     "at": 0.497
     },
     {
      "who": "chip",
      "do": "squash",
      "amount": 0,
      "dur": 0.25,
-     "at": 0.73
+     "at": 0.697
     },
     {
      "who": "wedge",
      "do": "squash",
      "amount": 0,
      "dur": 0.25,
-     "at": 0.73
+     "at": 0.697
     },
     {
      "who": "vik",
      "do": "expr",
-     "expr": "stern",
+     "expr": "smug",
      "dur": 0.2,
-     "at": 1.05
+     "at": 1.35
     },
     {
      "who": "vik",
@@ -4136,14 +4152,14 @@
       -0.45
      ],
      "dur": 0.2,
-     "at": 1.05
+     "at": 1.35
     }
    ]
   },
   {
-   "name": "twenty years",
-   "at": 56.13,
-   "len": 2.76,
+   "name": "go home",
+   "at": 56.73,
+   "len": 2.41,
    "shot": {
     "pos": [
      0.15,
@@ -4176,10 +4192,10 @@
     {
      "who": "vik",
      "macro": "say",
-     "line": "Twenty years. Both of you.",
+     "line": "Case dismissed. Go home.",
      "tone": "calm",
-     "style": "deep, stern, flat, final",
-     "dur": 2.16,
+     "style": "deep, stern, flat, final, the worst punishment",
+     "dur": 1.86,
      "caption": false,
      "at": 0.05
     },
@@ -4191,7 +4207,7 @@
       -0.5
      ],
      "dur": 0.15,
-     "at": 0.3
+     "at": 0.5
     },
     {
      "who": "vik",
@@ -4213,7 +4229,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.603
+     "at": 0.67
     },
     {
      "who": "vik",
@@ -4235,12 +4251,12 @@
      },
      "dur": 0.08,
      "ease": "in",
-     "at": 0.833
+     "at": 0.9
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 1.3,
-     "at": 0.903
+     "at": 0.97
     },
     {
      "do": "prop",
@@ -4250,12 +4266,46 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.903
+     "at": 0.97
     },
     {
      "sfx": "kenney/switch",
      "gain": 0.45,
-     "at": 0.973
+     "at": 1.04
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.12,
+     "at": 1.08
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 1.08
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.12,
+     "at": 1.08
     },
     {
      "who": "vik",
@@ -4265,41 +4315,183 @@
       -0.45
      ],
      "dur": 0.15,
-     "at": 1.05
+     "at": 1.2
     },
     {
      "who": "chip",
-     "do": "look",
-     "to": [
-      0.6,
-      0.35
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 2.31
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "home?!",
+   "at": 59.14,
+   "len": 0.94,
+   "shot": {
+    "pos": [
+     -0.1,
+     0.65,
+     3.56
+    ],
+    "look": [
+     0.32,
+     0.65,
+     1.2
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -0.066,
+      0.65,
+      3.371
      ],
+     "look": [
+      0.32,
+      0.65,
+      1.2
+     ],
+     "fov": 28
+    },
+    "dur": 0.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
      "dur": 0.15,
-     "at": 1.113
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Home?!",
+     "tone": "sad",
+     "style": "horrified, devastated, high, broken",
+     "voice": "chip-clean",
+     "dur": 0.59,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "cheeks",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.79
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.84
     },
     {
      "who": "wedge",
      "do": "look",
      "to": [
-      -0.6,
-      -0.3
+      -0.2,
+      -0.6
      ],
-     "dur": 0.15,
-     "at": 1.113
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.84
+    }
+   ]
+  },
+  {
+   "name": "no dental",
+   "at": 60.08,
+   "len": 1.53,
+   "shot": {
+    "pos": [
+     0.1,
+     0.85,
+     4.6
+    ],
+    "look": [
+     0.65,
+     0.7,
+     1.2
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.133,
+      0.841,
+      4.396
+     ],
+     "look": [
+      0.65,
+      0.7,
+      1.2
+     ],
+     "fov": 32
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "No dental...",
+     "tone": "sad",
+     "style": "heartbroken, quiet, sobbing, devastated",
+     "dur": 1.23,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.38
     },
     {
      "who": "chip",
      "do": "expr",
-     "expr": "delighted",
+     "expr": "sad",
      "dur": 0.2,
-     "at": 1.163
-    },
-    {
-     "who": "wedge",
-     "do": "expr",
-     "expr": "delighted",
-     "dur": 0.2,
-     "at": 1.163
+     "at": 1.43
     },
     {
      "who": "chip",
@@ -4309,29 +4501,22 @@
       0.75
      ],
      "dur": 0.2,
-     "at": 2.61
+     "at": 1.43
     },
     {
      "who": "chip",
-     "do": "expr",
-     "expr": "eager",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
      "dur": 0.2,
-     "at": 2.66
-    },
-    {
-     "who": "chip",
-     "do": "squash",
-     "amount": -0.05,
-     "dur": 0.25,
-     "at": 2.71
+     "at": 1.48
     }
-   ],
-   "kind": "payoff"
+   ]
   },
   {
-   "name": "full time",
-   "at": 58.89,
-   "len": 1.51,
+   "name": "rent there",
+   "at": 61.61,
+   "len": 1.823,
    "shot": {
     "pos": [
      0.53,
@@ -4357,20 +4542,43 @@
      ],
      "fov": 28
     },
-    "dur": 1.509999999999998,
+    "dur": 1.8230000000000004,
     "ease": "inOut"
    },
    "do": [
     {
      "who": "chip",
      "macro": "say",
-     "line": "Is that full time?",
-     "tone": "happy",
-     "style": "hopeful, eager, bright, a job applicant",
+     "line": "But I pay rent there!",
+     "tone": "sad",
+     "style": "devastated, wailing, desperate, almost crying",
      "voice": "chip-clean",
-     "dur": 0.96,
+     "dur": 1.11,
      "caption": false,
      "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.06
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.4,
+     "at": 1.06
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.4,
+     "dur": 0.3,
+     "at": 1.06
     }
    ]
   }
@@ -4416,8 +4624,8 @@
    "why": "ten years: the board flips to 10 YEARS"
   },
   {
-   "from": 37.27,
-   "to": 39.16,
+   "from": 37.42,
+   "to": 39.31,
    "see": [
     "chip.face",
     "wedge.face"
@@ -4425,8 +4633,8 @@
    "why": "no rent: prison beats his life; his friend's eyes go wide"
   },
   {
-   "from": 40.86,
-   "to": 42.25,
+   "from": 41.01,
+   "to": 42.4,
    "see": [
     "wedge.face",
     "chip.face"
@@ -4434,8 +4642,8 @@
    "why": "the accomplice steps up and applies too"
   },
   {
-   "from": 55.08,
-   "to": 56.01,
+   "from": 55.38,
+   "to": 56.277,
    "see": [
     "vik.face",
     "chip.face",
@@ -4444,24 +4652,22 @@
    "why": "ENOUGH: the gavel, both flinch"
   },
   {
-   "from": 56.18,
-   "to": 57.643,
+   "from": 56.78,
+   "to": 58.31,
    "see": [
     "vik.face",
-    "board",
+    "board"
+   ],
+   "why": "case dismissed: the board flips to 0 YEARS"
+  },
+  {
+   "from": 59.19,
+   "to": 63.433,
+   "see": [
     "chip.face",
     "wedge.face"
    ],
-   "why": "twenty years for both: the board flips to 20; they look at each other, delighted"
-  },
-  {
-   "from": 58.94,
-   "to": 60.4,
-   "see": [
-    "chip.face",
-    "cv"
-   ],
-   "why": "he asks if twenty years is full time"
+   "why": "sent home, both are crushed: no dental, and home has rent"
   }
  ],
  "allowClip": [
@@ -4469,7 +4675,7 @@
    "who": "vik",
    "with": "chair",
    "from": 0,
-   "to": 60.4,
+   "to": 63.433,
    "reason": "the judge sits in his chair"
   }
  ],
