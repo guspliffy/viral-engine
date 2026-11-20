@@ -25,6 +25,7 @@ const mirror = ([x, y, z]) => [-x, y, z];
 
 // the sizes the holds need, per prop kind (metres before the prop's scale; engine/page/props*.js)
 const SIZE = {
+  heartscarab: { len: 0.05, r: 0.007, h: 0 },   // egypt myth 01: the heart beetle charm (props-heart-heart.js), thin pinch on the head plate or a fist
   campmug: { r: 0.045, h: 0.085 },                 // props-duo.js campmug: its handle on +x
   shopbag: { r: 0.012, h: 0.62 },                  // props-happy.js shopbag: held by its rope loop (apex 0.41 = the mug hold at 0.66 x h)
   // a bowl's outside, [height, radius] from the foot up to the rim

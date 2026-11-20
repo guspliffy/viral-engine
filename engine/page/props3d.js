@@ -134,10 +134,10 @@ import { HELLA_KINDS, HELLA_GRIPS } from "./props-hella.js";   // potato desk 09
 import { HEART_HALL_KINDS, HEART_HALL_GRIPS, HEART_HALL_STATE } from "./props-heart-hall.js";   // egypt myth 01 heart (DESIGN.md)
 import { HEART_SCALE_KINDS, HEART_SCALE_GRIPS, HEART_SCALE_STATE } from "./props-heart-scale.js";   // egypt myth 01 heart (DESIGN.md)
 import { HEART_MONSTER_KINDS, HEART_MONSTER_GRIPS, HEART_MONSTER_STATE } from "./props-heart-monster.js";   // egypt myth 01 heart (DESIGN.md)
-import { HEART_HEART_KINDS, HEART_HEART_GRIPS } from "./props-heart-heart.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_HEART_KINDS, HEART_HEART_GRIPS, HEART_HEART_STATE } from "./props-heart-heart.js";   // egypt myth 01 heart (DESIGN.md)
 import { HEART_SOUL_KINDS, HEART_SOUL_GRIPS, HEART_SOUL_STATE } from "./props-heart-soul.js";   // egypt myth 01 heart (DESIGN.md)
 import { HEART_JUICE_KINDS, HEART_JUICE_GRIPS, HEART_JUICE_STATE } from "./props-heart-juice.js";   // egypt myth 01 heart (DESIGN.md)
-import { HEART_CASE_KINDS, HEART_CASE_GRIPS } from "./props-heart-case.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_CASE_KINDS, HEART_CASE_GRIPS, HEART_CASE_STATE } from "./props-heart-case.js";   // egypt myth 01 heart (DESIGN.md)
 import { HELLB_KINDS, HELLB_GRIPS } from "./props-hellb.js";   // potato desk 09 hell reviews: set B (hell resort lobby)   // the archaeologist's conservation brush: archbrush
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
 import { SKIPROOM_KINDS } from "./props-skiproom.js";
@@ -1476,7 +1476,7 @@ Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
 Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS, ZFIGHT_KINDS, ZROOF_KINDS, ZSTAIRS_KINDS, ZWAIT_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS, ZFIGHT_GRIPS, ZROOF_GRIPS, ZSTAIRS_GRIPS, ZWAIT_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
-const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE };
+const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, CASINO_KINDS, MIND_KINDS, NIGHTCITY_KINDS, NEONSTREET_KINDS);   // there's a catch 06 (props-casino.js, props-mind.js, props-nightcity.js)
