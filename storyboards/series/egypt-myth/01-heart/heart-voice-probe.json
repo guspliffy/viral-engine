@@ -1,0 +1,564 @@
+{
+ "id": "heart-voice-probe",
+ "title": "Egypt myth 01 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   125.4,
+   125.4
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "j1",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "j2",
+   "character": "potatobrawl/mash",
+   "at": [
+    1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "heart",
+   "character": "potatobrawl/chip",
+   "at": [
+    2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "jackal",
+   "character": "potatobrawl/mash",
+   "at": [
+    3,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 125.4,
+   "shot": {
+    "pos": [
+     0.5,
+     1.2,
+     7
+    ],
+    "look": [
+     0.5,
+     0.6,
+     0
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "No-",
+     "tone": "excited",
+     "style": "a desperate cry cut off",
+     "voice": "teo",
+     "dur": 0.9,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "She just ATE his heart?!",
+     "tone": "excited",
+     "style": "shocked, horrified, high, fast",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Don't move. Yours is next.",
+     "tone": "calm",
+     "style": "calm, low, matter-of-fact, a little too relaxed",
+     "voice": "spud",
+     "dur": 2.5,
+     "caption": false,
+     "at": 5.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Why my heart?",
+     "tone": "excited",
+     "style": "panicked, high",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 9.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Down here, your heart remembers everything you ever did.",
+     "tone": "calm",
+     "style": "calm, knowing, explaining",
+     "voice": "spud",
+     "dur": 4.1,
+     "caption": false,
+     "at": 11.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Heavier than that feather, she eats it. And you're gone. Forever.",
+     "tone": "calm",
+     "style": "calm, slow on 'forever'",
+     "voice": "spud",
+     "dur": 4.9,
+     "caption": false,
+     "at": 16.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Okay. How do I make it light?",
+     "tone": "excited",
+     "style": "nervous, fast, eager",
+     "voice": "chip-clean",
+     "dur": 3.3,
+     "caption": false,
+     "at": 22.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Forty-two judges. One question each. Say no to every one.",
+     "tone": "calm",
+     "style": "calm, explaining, counting",
+     "voice": "spud",
+     "dur": 4.5,
+     "caption": false,
+     "at": 27.1
+    },
+    {
+     "who": "j1",
+     "macro": "say",
+     "line": "Ever stolen?",
+     "tone": "calm",
+     "style": "stern, slow, cold, a judge",
+     "voice": "wedge",
+     "dur": 1.3,
+     "caption": false,
+     "at": 32.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "No.",
+     "tone": "calm",
+     "style": "small, quick, innocent",
+     "voice": "chip-clean",
+     "dur": 0.9,
+     "caption": false,
+     "at": 34.9
+    },
+    {
+     "who": "j2",
+     "macro": "say",
+     "line": "Ever lied?",
+     "tone": "calm",
+     "style": "stern, slow, cold, a judge",
+     "voice": "mash",
+     "dur": 1.3,
+     "caption": false,
+     "at": 36.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "No.",
+     "tone": "calm",
+     "style": "small, quick, innocent",
+     "voice": "chip-clean",
+     "take": 2,
+     "dur": 0.9,
+     "caption": false,
+     "at": 39.1
+    },
+    {
+     "who": "j1",
+     "macro": "say",
+     "line": "Ever killed anyone?",
+     "tone": "calm",
+     "style": "stern, slow, cold, a judge",
+     "voice": "wedge",
+     "take": 2,
+     "dur": 1.7,
+     "caption": false,
+     "at": 41
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "No!",
+     "tone": "excited",
+     "style": "big, earnest, offended",
+     "voice": "chip-clean",
+     "dur": 0.9,
+     "caption": false,
+     "at": 43.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "This is easy.",
+     "tone": "calm",
+     "style": "relaxed, cocky, grinning",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 45.6
+    },
+    {
+     "who": "heart",
+     "macro": "say",
+     "line": "He stole fries.",
+     "tone": "calm",
+     "voice": "heart",
+     "dur": 1.7,
+     "caption": false,
+     "at": 48.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "My heart is snitching on me?!",
+     "tone": "excited",
+     "style": "outraged, betrayed, high, fast",
+     "voice": "chip-clean",
+     "dur": 2.9,
+     "caption": false,
+     "at": 51
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "It's a witness. It saw everything.",
+     "tone": "calm",
+     "style": "calm, shrugging",
+     "voice": "spud",
+     "dur": 2.9,
+     "caption": false,
+     "at": 54.9
+    },
+    {
+     "who": "j2",
+     "macro": "say",
+     "line": "Ever angry for no reason?",
+     "tone": "calm",
+     "style": "stern, slow, cold, a judge",
+     "voice": "mash",
+     "take": 2,
+     "dur": 2.5,
+     "caption": false,
+     "at": 58.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "No!",
+     "tone": "excited",
+     "style": "furious, shouting",
+     "voice": "chip-clean",
+     "take": 2,
+     "dur": 0.9,
+     "caption": false,
+     "at": 62.3
+    },
+    {
+     "who": "heart",
+     "macro": "say",
+     "line": "Right now.",
+     "tone": "calm",
+     "voice": "heart",
+     "dur": 1.3,
+     "caption": false,
+     "at": 64.2
+    },
+    {
+     "who": "j1",
+     "macro": "say",
+     "line": "Ever been loud?",
+     "tone": "calm",
+     "style": "stern, slow, cold, a judge",
+     "voice": "wedge",
+     "take": 3,
+     "dur": 1.7,
+     "caption": false,
+     "at": 66.5
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Noooo!",
+     "tone": "excited",
+     "style": "screaming at the top of his lungs",
+     "voice": "chip-clean",
+     "dur": 0.9,
+     "caption": false,
+     "at": 69.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Do something!",
+     "tone": "excited",
+     "style": "panicked, begging",
+     "voice": "chip-clean",
+     "dur": 1.3,
+     "caption": false,
+     "at": 71.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Thirty-seven to go.",
+     "tone": "calm",
+     "style": "calm, dry",
+     "voice": "spud",
+     "dur": 1.7,
+     "caption": false,
+     "at": 73.4
+    },
+    {
+     "who": "j2",
+     "macro": "say",
+     "line": "Ever eavesdropped?",
+     "tone": "calm",
+     "style": "stern, slow, cold, a judge",
+     "voice": "mash",
+     "take": 3,
+     "dur": 1.3,
+     "caption": false,
+     "at": 76.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "...no.",
+     "tone": "calm",
+     "style": "a tiny guilty whisper",
+     "voice": "chip-clean",
+     "dur": 0.9,
+     "caption": false,
+     "at": 78.4
+    },
+    {
+     "who": "heart",
+     "macro": "say",
+     "line": "Every day.",
+     "tone": "calm",
+     "voice": "heart",
+     "dur": 1.3,
+     "caption": false,
+     "at": 80.3
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Plan B.",
+     "tone": "calm",
+     "style": "calm, decisive",
+     "voice": "spud",
+     "dur": 1.3,
+     "caption": false,
+     "at": 82.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "A bug?!",
+     "tone": "excited",
+     "style": "disbelief, high",
+     "voice": "chip-clean",
+     "dur": 1.3,
+     "caption": false,
+     "at": 84.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "A cheat sheet. They buried people with this on their chest. It tells your heart: don't speak against me.",
+     "tone": "calm",
+     "style": "low, conspiratorial, explaining",
+     "voice": "spud",
+     "dur": 8.1,
+     "caption": false,
+     "at": 87.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "No. No. No.",
+     "tone": "calm",
+     "style": "calm, confident, quick",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 96.3
+    },
+    {
+     "who": "jackal",
+     "macro": "say",
+     "line": "Pass.",
+     "tone": "calm",
+     "style": "deep, slow, solemn",
+     "voice": "dragon",
+     "dur": 0.9,
+     "caption": false,
+     "at": 99
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "So I'm safe?",
+     "tone": "excited",
+     "style": "hopeful, relieved",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 100.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Forever.",
+     "tone": "calm",
+     "style": "warm, smiling",
+     "voice": "spud",
+     "dur": 0.9,
+     "caption": false,
+     "at": 103.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Thousands of those beetles are in museums today. Everyone cheated.",
+     "tone": "calm",
+     "style": "dry, amused, telling a secret",
+     "voice": "spud",
+     "dur": 4.5,
+     "caption": false,
+     "at": 105.5
+    },
+    {
+     "who": "jackal",
+     "macro": "say",
+     "line": "Next.",
+     "tone": "calm",
+     "style": "deep, slow, solemn",
+     "voice": "dragon",
+     "take": 2,
+     "dur": 0.9,
+     "caption": false,
+     "at": 111
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...Can I have my beetle back?",
+     "tone": "calm",
+     "style": "small, uneasy, polite",
+     "voice": "spud",
+     "dur": 2.9,
+     "caption": false,
+     "at": 112.9
+    },
+    {
+     "who": "heart",
+     "macro": "say",
+     "line": "He let him steal the fries.",
+     "tone": "calm",
+     "voice": "heart",
+     "take": 2,
+     "dur": 2.9,
+     "caption": false,
+     "at": 116.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Wait... why is YOUR heart on a scale?",
+     "tone": "excited",
+     "style": "slow dawning horror",
+     "voice": "chip-clean",
+     "dur": 3.7,
+     "caption": false,
+     "at": 120.7
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for egypt myth 01: makes and measures every take."
+}
