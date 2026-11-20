@@ -186,7 +186,7 @@ export const SCENES = [
       ["n", "So you asked around."], ["s", "spud", "why does he lie to me so much?", "question"],
       ["cut", { t: "close", who: ["chip"] }], ["e", "chip", "shocked", { open: 0.2 }], ["s", "chip", "him? he never lies!", "excited", { lie: true }],
       ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "stern"], ["n", "Even your friends were lying about him."], ["wait", 0.6],
-      ["turn", "spud", "wedge"], ["cut", { t: "two", who: ["spud", "wedge"] }], ["s", "spud", "does he lie to me?", "question"], ["e", "wedge", "deadpan"], ["s", "wedge", "trust me. ask him yourself.", "calm"],
+      ["turn", "spud", "wedge"], ["cut", { t: "two", who: ["spud", "wedge"] }], ["s", "spud", "does he lie to me?", "question"], ["cut", { t: "ots", who: ["spud", "wedge"], az: -40 }], ["e", "wedge", "deadpan"], ["s", "wedge", "trust me. ask him yourself.", "calm"],
       ["n", "The only straight answer in town."], ["wait", 0.8] ] },
   { id: "15 are you lying", act: "catch", place: "street", layout: { spud: [-0.6, 0, ["to", "chip"]], chip: [0.4, 0, ["to", "spud"]], wedge: [1.5, 0.6, ["to", "spud"]] },
     shot: { t: "group", who: ["spud", "chip", "wedge"] }, seq: [
@@ -220,7 +220,7 @@ export const SCENES = [
       ["n", "Saturday."], ["e", "spud", "stern"], ["s", "spud", "where were you last night?", "question"],
       ["e", "mash", "kind"], ["s", "mash", "home. sleeping.", "calm", { lie: true }],
       ["cut", { t: "ots", who: ["mash", "spud"] }], ["e", "spud", "angry"], ["s", "spud", "two hundred and fifteen!", "excited"],
-      ["cut", { t: "ots", who: ["spud", "mash"], az: 58 }], ["e", "mash", "shocked"], ["s", "mash", "what?", "question"],
+      ["cut", { t: "ots", who: ["spud", "mash"], az: -40 }], ["e", "mash", "shocked"], ["s", "mash", "what?", "question"],
       ["cut", { t: "ots", who: ["mash", "spud"] }], ["s", "spud", "i can see it! every single lie!", "excited"],
       ["cut", { t: "close", who: ["mash"] }], ["e", "mash", "sad"], ["wait", 1.6], ["s", "mash", "...okay.", "sad"],
       ["cut", { t: "two", who: ["spud", "mash"], h: 2.4 }], ["walk", "mash", [-0.4, 3.8], 4.5], ["wait", 1.2],

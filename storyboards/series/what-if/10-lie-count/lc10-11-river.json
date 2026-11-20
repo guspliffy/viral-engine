@@ -1067,7 +1067,7 @@
   {
    "name": "14b asked around two",
    "at": 15.34,
-   "len": 3.19,
+   "len": 1.17,
    "shot": {
     "pos": [
      0.129,
@@ -1087,7 +1087,7 @@
       2.197
      ]
     },
-    "dur": 3.19,
+    "dur": 1.17,
     "yaw": {
      "keys": [
       [
@@ -1095,7 +1095,7 @@
        0
       ],
       [
-       18.53,
+       16.51,
        4
       ]
      ],
@@ -1151,13 +1151,54 @@
      "pose": "rest",
      "dur": 0.35,
      "at": 1.12
+    }
+   ]
+  },
+  {
+   "name": "14b asked around ots",
+   "at": 16.51,
+   "len": 2.605,
+   "shot": {
+    "pos": [
+     2.108,
+     0.873,
+     0.969
+    ],
+    "look": [
+     0.036,
+     0.6,
+     -0.604
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      1.9,
+      0.846,
+      0.812
+     ]
     },
+    "dur": 2.605,
+    "yaw": {
+     "keys": [
+      [
+       16.51,
+       0
+      ],
+      [
+       19.115,
+       -4
+      ]
+     ],
+     "pivot": 2.616
+    }
+   },
+   "do": [
     {
      "who": "wedge",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.25,
-     "at": 1.17
+     "at": 0
     },
     {
      "who": "wedge",
@@ -1171,7 +1212,7 @@
       ]
      },
      "dur": 0.25,
-     "at": 1.17
+     "at": 0
     },
     {
      "who": "wedge",
@@ -1181,14 +1222,32 @@
      "voice": "wedge",
      "dur": 2.45,
      "caption": false,
-     "at": 1.17
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.5
+    },
+    {
+     "macro": "narrate",
+     "line": "The only straight answer in town.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.2,
+     "caption": false,
+     "gain": 4,
+     "at": 2.55
     }
    ]
   },
   {
    "name": "14b asked around close +",
-   "at": 18.53,
-   "len": 3.19,
+   "at": 19.115,
+   "len": 2.605,
    "shot": {
     "pos": [
      1.544,
@@ -1208,41 +1267,22 @@
       0.626
      ]
     },
-    "dur": 3.19,
+    "dur": 2.605,
     "yaw": {
      "keys": [
       [
-       18.53,
+       19.115,
        0
       ],
       [
        21.72,
-       -4
+       4
       ]
      ],
      "pivot": 1.492
     }
    },
-   "do": [
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 0.48
-    },
-    {
-     "macro": "narrate",
-     "line": "The only straight answer in town.",
-     "voice": "narrator",
-     "take": 1,
-     "dur": 2.2,
-     "caption": false,
-     "gain": 4,
-     "at": 0.53
-    }
-   ]
+   "do": []
   }
  ],
  "visible": [],
