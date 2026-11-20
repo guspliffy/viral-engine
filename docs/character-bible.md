@@ -43,6 +43,16 @@ reference sheets (12 Nov) are on Jonny's PC; their measurements are the numbers 
   built 1.35. Wedge's body stays at or under 0.88 wide, or his hands jump in a turn.
 - Later, not picked yet: Russ (never has money) and Lottie (has it together).
 
+## The archaeologist (Egypt debate shorts)
+
+Jonny 19 Nov 2026: the calm sceptic who answers Spud's ancient-alien claims with one piece of evidence each (Serapeum
+redo, Sphinx episode). `characters/ancient-aliens/archaeologist.json` (`-lamp.json` = tunnel lamp on), costume type
+`archaeologist` (costumes-everyday.js), voice `archaeologist` (Kokoro af_kore, Jonny's pick D). Approved sheet
+`references/cast/archaeologist-reference-sheet-2026-11-19.png`, numeric spec `archaeologist-design-2026-11-19.md`.
+Spud's skin, eyes and hands; a low pear 0.86 of Spud; plum field hat with a lilac rim, leaf through the crown;
+dusty-violet field jacket; deep fig boots; the brush `archbrush` in her RIGHT hand (mug hold), given by the clip.
+Who is who without names: the hat and the low pear. Never a gag: small brows, the brush settles at her hip.
+
 ## The series: Phoenix and Reaper
 
 Their relationship carries the series. **Phoenix reads Reaper's restraint as disapproval. Reaper finds Phoenix

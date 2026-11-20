@@ -1,0 +1,7142 @@
+{
+ "id": "hell-reviews",
+ "title": "Hell has better reviews than heaven",
+ "idea": "Potato Desk 09: the little one picks hell for its five stars; every perk is a catch until he threatens one star, and the vain Devil fixes everything and serves him.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  470,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0f0",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "hell-reviews/hell-reviews-score.ogg",
+  "lock": false,
+  "dip": false,
+  "lowCut": 150,
+  "gain": 0.24
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor",
+  "scenes": [
+   "ui",
+   "jingle"
+  ]
+ },
+ "creative": {
+  "length": [
+   50,
+   66
+  ]
+ },
+ "hook": {
+  "show": [
+   "reaper",
+   "chip",
+   "badgeH",
+   "badgeX"
+  ],
+  "hint": 0,
+  "what": "a desk between heaven 3.1 stars and hell 4.9 stars; heaven or hell?"
+ },
+ "cast": [
+  {
+   "id": "reaper",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    -0.82,
+    0.3
+   ],
+   "face": 35,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.7,
+    0.1
+   ],
+   "face": -35,
+   "expr": "eager",
+   "follow": 0.4,
+   "seed": 2.3
+  },
+  {
+   "id": "devil",
+   "character": "potatobrawl/devil",
+   "at": [
+    -34,
+    5
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 6.6
+  },
+  {
+   "id": "imp",
+   "character": "potatobrawl/devil-imp",
+   "at": [
+    -38,
+    5
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.4
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -42,
+    5
+   ],
+   "face": -35,
+   "expr": "smug",
+   "follow": 0.3,
+   "seed": 3.1
+  }
+ ],
+ "props": [
+  {
+   "id": "skyA",
+   "staged": "far backdrop",
+   "kind": "afterlifesky",
+   "x": 0,
+   "y": -2,
+   "z": -14
+  },
+  {
+   "id": "deck",
+   "staged": "the cloud floor",
+   "kind": "clouddeck",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "puff0",
+   "staged": "cloud on the terrace's front edge",
+   "kind": "cloudpuff",
+   "x": -2.3,
+   "y": 0.255,
+   "z": -0.78,
+   "r": 0.3,
+   "seed": 11
+  },
+  {
+   "id": "puff1",
+   "staged": "cloud on the terrace's front edge",
+   "kind": "cloudpuff",
+   "x": -1.62,
+   "y": 0.221,
+   "z": -0.78,
+   "r": 0.26,
+   "seed": 12
+  },
+  {
+   "id": "puff2",
+   "staged": "cloud on the terrace's front edge",
+   "kind": "cloudpuff",
+   "x": -0.98,
+   "y": 0.272,
+   "z": -0.78,
+   "r": 0.32,
+   "seed": 13
+  },
+  {
+   "id": "puff3",
+   "staged": "cloud on the terrace's front edge",
+   "kind": "cloudpuff",
+   "x": -0.3,
+   "y": 0.204,
+   "z": -0.78,
+   "r": 0.24,
+   "seed": 14
+  },
+  {
+   "id": "puff4",
+   "staged": "cloud on the terrace's front edge",
+   "kind": "cloudpuff",
+   "x": 0.4,
+   "y": 0.281,
+   "z": -0.78,
+   "r": 0.33,
+   "seed": 15
+  },
+  {
+   "id": "puff5",
+   "staged": "cloud on the terrace's front edge",
+   "kind": "cloudpuff",
+   "x": 1.08,
+   "y": 0.23,
+   "z": -0.78,
+   "r": 0.27,
+   "seed": 16
+  },
+  {
+   "id": "puff6",
+   "staged": "cloud on the terrace's front edge",
+   "kind": "cloudpuff",
+   "x": 1.78,
+   "y": 0.264,
+   "z": -0.78,
+   "r": 0.31,
+   "seed": 17
+  },
+  {
+   "id": "puff7",
+   "staged": "cloud on the terrace's front edge",
+   "kind": "cloudpuff",
+   "x": 2.42,
+   "y": 0.213,
+   "z": -0.78,
+   "r": 0.25,
+   "seed": 18
+  },
+  {
+   "id": "counter",
+   "staged": "stands on the cloud floor",
+   "kind": "woodcounter",
+   "x": 0,
+   "y": 0,
+   "z": -0.075,
+   "rot": 90,
+   "w": 1.25,
+   "d": 0.5,
+   "h": 0.5
+  },
+  {
+   "id": "form",
+   "staged": "lies on the counter",
+   "kind": "blankreport",
+   "x": 0.05,
+   "y": 0.505,
+   "z": 0.25
+  },
+  {
+   "id": "stamp",
+   "kind": "rubberstamp",
+   "x": -0.42,
+   "y": 0.66,
+   "z": 0.52,
+   "rot": 215
+  },
+  {
+   "id": "scythe",
+   "staged": "planted in the cloud",
+   "kind": "parkedscythe",
+   "x": 0,
+   "y": 0.59,
+   "z": -0.76
+  },
+  {
+   "id": "doorH",
+   "staged": "stands on the terrace",
+   "kind": "reviewdoor",
+   "x": -0.9,
+   "y": 0.4,
+   "z": -1.3,
+   "side": "heaven"
+  },
+  {
+   "id": "doorX",
+   "staged": "stands on the terrace",
+   "kind": "reviewdoor",
+   "x": 0.9,
+   "y": 0.4,
+   "z": -1.3,
+   "side": "hell",
+   "inside": true,
+   "smoke": true
+  },
+  {
+   "id": "badgeH",
+   "staged": "sits on the heaven door's casing",
+   "kind": "reviewbadge",
+   "x": -0.86,
+   "y": 2.04,
+   "z": -1.26,
+   "side": "heaven"
+  },
+  {
+   "id": "badgeX",
+   "staged": "sits on the hell door's casing",
+   "kind": "reviewbadge",
+   "x": 0.86,
+   "y": 2.04,
+   "z": -1.26,
+   "side": "hell",
+   "flicker": 0
+  },
+  {
+   "id": "room",
+   "staged": "the lobby shell",
+   "kind": "lobbyroom",
+   "x": 40,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "board",
+   "staged": "on two posts bolted to the floor",
+   "kind": "perkboard",
+   "x": 40,
+   "y": 0,
+   "z": -1
+  },
+  {
+   "id": "window",
+   "staged": "set in the back wall",
+   "kind": "curtainwindow",
+   "x": 38.4,
+   "y": 0,
+   "z": -1.3
+  },
+  {
+   "id": "island",
+   "staged": "far outside the window",
+   "kind": "heavenisland",
+   "x": 38.1,
+   "y": 1.4,
+   "z": -4.6,
+   "scale": 1.6
+  },
+  {
+   "id": "rock",
+   "staged": "far backdrop",
+   "kind": "rockshaft",
+   "x": 37.8,
+   "y": 1,
+   "z": -9
+  },
+  {
+   "id": "beach",
+   "staged": "far outside the window",
+   "kind": "beachview",
+   "x": 37.95,
+   "y": -60,
+   "z": -7.5
+  },
+  {
+   "id": "sunset",
+   "staged": "far backdrop",
+   "kind": "sunsetsky",
+   "x": 37.8,
+   "y": -60,
+   "z": -9
+  },
+  {
+   "id": "speaker",
+   "staged": "stands on the floor",
+   "kind": "speakerbox",
+   "x": 39.18,
+   "y": 0,
+   "z": -1.05
+  },
+  {
+   "id": "balloon",
+   "staged": "tied to the speaker",
+   "kind": "balloon",
+   "x": 39.2,
+   "y": 0.56,
+   "z": -1.05
+  },
+  {
+   "id": "exit",
+   "staged": "set in the back wall",
+   "kind": "exitdoor",
+   "x": 41.1,
+   "y": 0,
+   "z": -1.3
+  },
+  {
+   "id": "exitsign",
+   "staged": "screwed to the back wall",
+   "kind": "officesign",
+   "x": 41.1,
+   "y": 1.84,
+   "z": -1.27,
+   "w": 0.5,
+   "h": 0.2,
+   "lines": [
+    [
+     "EXIT",
+     0.12
+    ]
+   ],
+   "plate": "#1f7a3a",
+   "ink": "#f3ead2",
+   "frame": "#d9a93a"
+  },
+  {
+   "id": "lights",
+   "staged": "hung on the wall",
+   "kind": "partylights",
+   "x": 40,
+   "y": 0,
+   "z": -1.25
+  },
+  {
+   "id": "lobbyback",
+   "staged": "the lobby's front wall, up for one shot",
+   "kind": "officesign",
+   "x": 38.4,
+   "y": -60,
+   "z": 1.4,
+   "rot": 180,
+   "w": 3.2,
+   "h": 2.6,
+   "frameW": 0,
+   "lines": [],
+   "plate": "#4a2428",
+   "ink": "#4a2428",
+   "frame": "#4a2428"
+  },
+  {
+   "id": "glowW1",
+   "staged": "light on the back wall",
+   "kind": "lightpool",
+   "x": 39.65,
+   "y": 1.2,
+   "z": -1.22,
+   "face": "z",
+   "w": 1.4,
+   "d": 1.1,
+   "color": "#ff5fa8",
+   "on": 0
+  },
+  {
+   "id": "glowW2",
+   "staged": "light on the back wall",
+   "kind": "lightpool",
+   "x": 40.85,
+   "y": 1.05,
+   "z": -1.22,
+   "face": "z",
+   "w": 1.2,
+   "d": 1,
+   "color": "#4fc8ff",
+   "on": 0
+  },
+  {
+   "id": "glowF1",
+   "staged": "light on the floor",
+   "kind": "lightpool",
+   "x": 39.9,
+   "y": 0,
+   "z": 0.55,
+   "w": 1.8,
+   "d": 1.1,
+   "color": "#ffcf2e",
+   "on": 0
+  },
+  {
+   "id": "glowF2",
+   "staged": "light on the floor",
+   "kind": "lightpool",
+   "x": 39.05,
+   "y": 0,
+   "z": 1.05,
+   "w": 1.2,
+   "d": 0.8,
+   "color": "#b06cff",
+   "on": 0
+  },
+  {
+   "id": "glowC",
+   "staged": "light falling on the two of them",
+   "kind": "lightpool",
+   "x": 39.85,
+   "y": 0.55,
+   "z": 1.45,
+   "face": "z",
+   "w": 1.6,
+   "d": 1.3,
+   "color": "#ff7ab8",
+   "on": 0
+  },
+  {
+   "id": "tub",
+   "staged": "stands on the floor",
+   "kind": "lavatub",
+   "x": 38.7,
+   "y": 0,
+   "z": 0.5,
+   "glow": 1
+  },
+  {
+   "id": "duck",
+   "staged": "floats on the tub",
+   "kind": "rubberduck",
+   "x": 38.88,
+   "y": 0.1,
+   "z": 0.42
+  },
+  {
+   "id": "table",
+   "staged": "stands on the floor",
+   "kind": "buffettable",
+   "x": 41.63,
+   "y": 0,
+   "z": 0.25
+  },
+  {
+   "id": "fries",
+   "staged": "on the table",
+   "kind": "friesmound",
+   "x": 41.63,
+   "y": 0.4,
+   "z": 0
+  },
+  {
+   "id": "cake",
+   "staged": "on the table (swapped in under the poof)",
+   "kind": "cakestack",
+   "x": 41.63,
+   "y": -60,
+   "z": 0
+  },
+  {
+   "id": "plate0",
+   "staged": "on the table",
+   "kind": "buffetplate",
+   "x": 41.63,
+   "y": 0.4,
+   "z": 0.31,
+   "food": "fries"
+  },
+  {
+   "id": "plate1",
+   "staged": "on the table",
+   "kind": "buffetplate",
+   "x": 41.63,
+   "y": 0.4,
+   "z": 0.52,
+   "food": "fries"
+  },
+  {
+   "id": "plate2",
+   "staged": "on the table",
+   "kind": "buffetplate",
+   "x": 41.63,
+   "y": 0.4,
+   "z": 0.73,
+   "food": "fries"
+  },
+  {
+   "id": "ketchup",
+   "staged": "parked under the world until a hand takes it on a cut",
+   "kind": "ketchupbottle",
+   "x": 41.2,
+   "y": -60,
+   "z": -0.4,
+   "rot": 160
+  },
+  {
+   "id": "mat",
+   "staged": "lies on the floor",
+   "kind": "towelmat",
+   "x": 40.2,
+   "y": 0,
+   "z": 0.4
+  },
+  {
+   "id": "fork",
+   "staged": "parked under the world until a hand takes it on a cut",
+   "kind": "pitchfork",
+   "x": 40.62,
+   "y": -60,
+   "z": 0.3,
+   "rot": 90
+  },
+  {
+   "id": "fork2",
+   "staged": "lies on the floor",
+   "kind": "pitchfork",
+   "x": 40.95,
+   "y": -60,
+   "z": 0.75,
+   "tip": 90,
+   "rot": 70
+  },
+  {
+   "id": "tabletD",
+   "staged": "parked under the world until a hand takes it on a cut",
+   "kind": "reviewtablet",
+   "x": 41.15,
+   "y": -60,
+   "z": 0.3,
+   "rot": 135,
+   "scale": 0.8,
+   "lit": 0,
+   "hover": 0
+  },
+  {
+   "id": "tabletR",
+   "staged": "propped on the tub's rim",
+   "kind": "reviewtablet",
+   "x": 39.16,
+   "y": -60,
+   "z": 0.48,
+   "rot": 160,
+   "scale": 0.75,
+   "lit": 3,
+   "hover": 0
+  },
+  {
+   "id": "leaf",
+   "staged": "parked under the world until a hand takes it on a cut",
+   "kind": "palmleaf",
+   "x": 39.55,
+   "y": -60,
+   "z": 0.55,
+   "rot": 135
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 1.46,
+   "text": "Heaven or hell?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 1.48,
+   "to": 3.11,
+   "text": "Hell. Five stars!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 3.26,
+   "to": 4.43,
+   "text": "You're sure?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.45,
+   "to": 5.76,
+   "text": "Look at the reviews!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 5.81,
+   "to": 8.32,
+   "text": "Funny. Everyone picks hell.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 9.14,
+   "to": 11.3,
+   "text": "Welcome to five-star hell!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 12.383,
+   "to": 13.203,
+   "text": "That's lava!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 13.223,
+   "to": 14.803,
+   "text": "It's hot. It's a tub.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 15.817,
+   "to": 17.017,
+   "text": "Those are potatoes!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 17.037,
+   "to": 18.177,
+   "text": "Ketchup?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 19.45,
+   "to": 21.08,
+   "text": "Ow! Ow!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 21.1,
+   "to": 22.26,
+   "text": "Deep tissue.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 23.833,
+   "to": 24.923,
+   "text": "It's the same song!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 24.943,
+   "to": 26.073,
+   "text": "Forever!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 26.483,
+   "to": 27.823,
+   "text": "Nice view, right?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 29.9,
+   "to": 32.13,
+   "text": "Five stars?! This is the worst!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 33.133,
+   "to": 35.923,
+   "text": "Before you go... rate your stay!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 36.283,
+   "to": 37.423,
+   "text": "One star.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 37.85,
+   "to": 39.45,
+   "text": "W-wait! One?!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 40.163,
+   "to": 42.223,
+   "text": "Hot tub! A real one!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 43.463,
+   "to": 44.413,
+   "text": "Two stars.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 44.433,
+   "to": 45.273,
+   "text": "Two?!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 46.43,
+   "to": 47.86,
+   "text": "Hmm. Three.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 48.967,
+   "to": 50.117,
+   "text": "Four stars.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 51,
+   "to": 52.42,
+   "text": "Four...",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 52.633,
+   "to": 54.143,
+   "text": "Heaven or hell?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 54.163,
+   "to": 56.923,
+   "text": "Hell. One star.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 57.283,
+   "to": 58.483,
+   "text": "Nooo.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "heaven or hell",
+   "at": 0,
+   "len": 3.133,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      0,
+      1.45,
+      9.776
+     ]
+    },
+    "dur": 3.133,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "reaper",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "reaper",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap",
+      "off": [
+       0.045,
+       0.02,
+       -0.054
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "imp",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "reaper",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.1
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.35
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "reaper",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "reaper",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "reaper",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "reaper",
+     "macro": "say",
+     "line": "Heaven or hell?",
+     "tone": "calm",
+     "style": "flat, dry, bored, a clerk",
+     "dur": 1.33,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "reaper",
+     "do": "grab",
+     "prop": "stamp",
+     "hand": "L",
+     "grip": [
+      -0.066,
+      0.086,
+      0.018
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.35,
+      0.95
+     ],
+     "dur": 0.2,
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       1,
+       0.12
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 1.18
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Hell. Five stars!",
+     "tone": "excited",
+     "style": "bright, fast, eager, sure of himself",
+     "voice": "chip-clean",
+     "dur": 1.33,
+     "caption": false,
+     "at": 1.48
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.25,
+       0.95,
+       0.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.31
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.9
+     ],
+     "dur": 0.2,
+     "at": 2.31
+    },
+    {
+     "who": "reaper",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.4
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       1,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.86
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.35,
+      0.95
+     ],
+     "dur": 0.2,
+     "at": 2.86
+    },
+    {
+     "who": "reaper",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.15
+     ],
+     "dur": 0.4,
+     "at": 2.91
+    },
+    {
+     "who": "reaper",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 2.91
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "desk him",
+   "at": 3.133,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     1.3,
+     1.2,
+     6
+    ],
+    "look": [
+     0.62,
+     0.7,
+     -0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.259,
+      1.17,
+      5.592
+     ]
+    },
+    "dur": 2.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "reaper",
+     "macro": "say",
+     "line": "You're sure?",
+     "tone": "calm",
+     "style": "flat, dry, slow, a little amused",
+     "dur": 1.04,
+     "caption": false,
+     "at": 0.127
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.167
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.217
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.55,
+      0.35
+     ],
+     "dur": 0.2,
+     "at": 1.217
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.3,
+     "at": 1.267
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Look at the reviews!",
+     "tone": "excited",
+     "style": "bright, fast, eager, pointing",
+     "voice": "chip-clean",
+     "take": 2,
+     "dur": 1.01,
+     "caption": false,
+     "at": 1.317
+    },
+    {
+     "who": "reaper",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.25,
+     "at": 2.427
+    },
+    {
+     "who": "reaper",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.2,
+     "at": 2.427
+    },
+    {
+     "who": "reaper",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.467
+    }
+   ]
+  },
+  {
+   "name": "desk two",
+   "at": 5.733,
+   "len": 5.4,
+   "shot": {
+    "pos": [
+     0,
+     1.3,
+     8
+    ],
+    "look": [
+     0,
+     0.71,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      0,
+      1.265,
+      7.52
+     ]
+    },
+    "dur": 5.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "reaper",
+     "macro": "say",
+     "line": "Funny. Everyone picks hell.",
+     "tone": "calm",
+     "style": "flat, dry, slow, knowing",
+     "dur": 2.21,
+     "caption": false,
+     "at": 0.077
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 0.677
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.2,
+      0.2
+     ],
+     "dur": 0.2,
+     "at": 0.877
+    },
+    {
+     "who": "reaper",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.42,
+       0.74,
+       0.52
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 2.337
+    },
+    {
+     "who": "reaper",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.2,
+       0.505,
+       0.44
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 2.557
+    },
+    {
+     "sfx": "kenney/impact-wood-medium",
+     "gain": 1,
+     "at": 2.657
+    },
+    {
+     "do": "prop",
+     "id": "doorX",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.657
+    },
+    {
+     "sfx": "ai/ignite",
+     "gain": 0.35,
+     "at": 2.687
+    },
+    {
+     "who": "reaper",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       -0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.42,
+       0.66,
+       0.52
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.807
+    },
+    {
+     "do": "prop",
+     "id": "doorX",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.17,
+     "ease": "out",
+     "at": 2.957
+    },
+    {
+     "sfx": "door-slam",
+     "gain": 0.9,
+     "at": 2.957
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.8,
+      0.9,
+      -1.1
+     ],
+     "dur": 0.6,
+     "color": "#8f4a3a",
+     "puffs": 12,
+     "sparks": 0,
+     "size": 0.6,
+     "lift": 0.2,
+     "at": 3.007
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      0.6
+     ],
+     "dur": 0.15,
+     "at": 3.057
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 3.057
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -15,
+     "dur": 0.3,
+     "at": 3.057
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      0.8,
+      -0.92
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.4,
+     "at": 3.087
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.087
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 3.087
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.3,
+       0.62,
+       0.14
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.107
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 3.107
+    },
+    {
+     "who": "reaper",
+     "do": "look",
+     "to": [
+      0.5,
+      0.4
+     ],
+     "dur": 0.3,
+     "at": 3.157
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Welcome to five-star hell!",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, loud, arms wide",
+     "dur": 1.86,
+     "caption": false,
+     "at": 3.407
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 5.371
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 5.371
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 5.38
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      38.7,
+      -0.55
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 5.38
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.38
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 5.38
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      39.6,
+      0.45
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 5.38
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.38
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.3,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.38
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 5.38
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.4
+     ],
+     "dur": 0.01,
+     "at": 5.38
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.01,
+     "at": 5.38
+    }
+   ]
+  },
+  {
+   "name": "hot tub",
+   "at": 11.133,
+   "len": 3.934,
+   "shot": {
+    "pos": [
+     39.25,
+     1.45,
+     10.4
+    ],
+    "look": [
+     39.25,
+     1.45,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      39.25,
+      1.45,
+      9.776
+     ]
+    },
+    "dur": 3.934,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.4,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "duck",
+     "set": {
+      "wilt": 1
+     },
+     "dur": 1,
+     "ease": "in",
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/water-leak-hiss",
+     "gain": 0.35,
+     "at": 0.5
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.15,
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      39.9,
+      0.45
+     ],
+     "dur": 0.3,
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.2
+     ],
+     "dur": 0.2,
+     "at": 1.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "That's lava!",
+     "tone": "excited",
+     "style": "shocked, outraged, high, fast",
+     "voice": "chip-clean",
+     "dur": 0.69,
+     "caption": false,
+     "at": 1.25
+    },
+    {
+     "who": "devil",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.2
+     ],
+     "dur": 0.2,
+     "at": 1.94
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "It's hot. It's a tub.",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, matter-of-fact",
+     "dur": 1.28,
+     "caption": false,
+     "at": 2.09
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "count": 1
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 3.47
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.9,
+     "at": 3.57
+    },
+    {
+     "do": "prop",
+     "id": "ketchup",
+     "set": {
+      "x": 41.2,
+      "y": 0.16,
+      "z": -0.4,
+      "rot": 160
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.904
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 3.905
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 3.905
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 3.909
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ketchup",
+      "grip": [
+       0.077,
+       0.172,
+       0.021
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.057,
+       0.02,
+       -0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.909
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 3.914
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      41.45,
+      -0.68
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.914
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.914
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 3.914
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      40.95,
+      0.25
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.914
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.914
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.914
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.914
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.4
+     ],
+     "dur": 0.01,
+     "at": 3.914
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.01,
+     "at": 3.914
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ketchup",
+      "grip": [
+       0.077,
+       0.172,
+       0.021
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 3.919
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 3.925
+    }
+   ]
+  },
+  {
+   "name": "buffet",
+   "at": 15.067,
+   "len": 3.333,
+   "shot": {
+    "pos": [
+     40.75,
+     1.45,
+     10.4
+    ],
+    "look": [
+     40.75,
+     1.45,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      40.75,
+      1.45,
+      9.776
+     ]
+    },
+    "dur": 3.333,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "do": "grab",
+     "prop": "ketchup",
+     "hand": "R",
+     "grip": [
+      0.077,
+      0.172,
+      0.021
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.055
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.1,
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.15,
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      40.55,
+      0.25
+     ],
+     "dur": 1,
+     "steps": 3,
+     "at": 0.65
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.28,
+       0.55,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.65
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Those are potatoes!",
+     "tone": "excited",
+     "style": "horrified, outraged, high, fast",
+     "voice": "chip-clean",
+     "dur": 1.07,
+     "caption": false,
+     "at": 0.75
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ketchup",
+      "grip": [
+       0.077,
+       0.172,
+       0.021
+      ],
+      "palm": "wrap",
+      "at": [
+       41.1,
+       0.3,
+       -0.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.05
+    },
+    {
+     "who": "devil",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.1
+     ],
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Ketchup?",
+     "tone": "question",
+     "style": "bright, quick, warm game-show host, always smiling, helpful",
+     "dur": 0.84,
+     "caption": false,
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "count": 2
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 2.91
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.9,
+     "at": 3.01
+    },
+    {
+     "who": "devil",
+     "do": "release",
+     "prop": "ketchup",
+     "dur": 0,
+     "at": 3.303
+    },
+    {
+     "do": "prop",
+     "id": "ketchup",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.303
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 3.304
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 3.304
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.313
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.313
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 3.313
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      40.2,
+      0.4
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.313
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.313
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 3.313
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      41.3,
+      -0.7
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.313
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.313
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.313
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 3.313
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.313
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.313
+    },
+    {
+     "who": "imp",
+     "do": "move",
+     "to": [
+      41.05,
+      0.4
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.313
+    },
+    {
+     "who": "imp",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.313
+    },
+    {
+     "who": "imp",
+     "do": "show",
+     "at": 3.313
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "at": 3.313
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 3.313
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "x": 41.03,
+      "y": 0,
+      "z": 0.28,
+      "rot": 90
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.313
+    },
+    {
+     "who": "imp",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 3.318
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "off": [
+       0.018,
+       0.02,
+       -0.068
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.318
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 3.328
+    }
+   ]
+  },
+  {
+   "name": "massage",
+   "at": 18.4,
+   "len": 4.133,
+   "shot": {
+    "pos": [
+     40.55,
+     0.66,
+     6.4
+    ],
+    "look": [
+     40.55,
+     0.41,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      40.55,
+      0.645,
+      6.016
+     ]
+    },
+    "dur": 4.133,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "imp",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.001
+    },
+    {
+     "who": "imp",
+     "do": "grab",
+     "prop": "fork",
+     "hand": "R",
+     "grip": [
+      0.058,
+      0.132,
+      0.016
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.065
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       40.93,
+       0.16,
+       0.4
+      ]
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "tip": -68
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       40.89,
+       0.16,
+       0.4
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "tip": -68
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "who": "imp",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 1,
+     "height": 0.04,
+     "quiet": true,
+     "at": 1.02
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.5,
+     "at": 1.02
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       40.93,
+       0.16,
+       0.4
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.04
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "tip": -68
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.04
+    },
+    {
+     "who": "imp",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.05
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ow! Ow!",
+     "tone": "excited",
+     "style": "short sharp yelps of pain",
+     "voice": "chip-clean",
+     "dur": 1.42,
+     "caption": false,
+     "at": 1.05
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       40.89,
+       0.16,
+       0.4
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "tip": -68
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "imp",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 1,
+     "height": 0.04,
+     "quiet": true,
+     "at": 1.52
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.5,
+     "at": 1.52
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       40.93,
+       0.16,
+       0.4
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.54
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "tip": -68
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.54
+    },
+    {
+     "who": "imp",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.55
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       40.89,
+       0.16,
+       0.4
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "tip": -68
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "imp",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 1,
+     "height": 0.04,
+     "quiet": true,
+     "at": 2.02
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.5,
+     "at": 2.02
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       40.93,
+       0.16,
+       0.4
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.04
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "tip": -68
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.04
+    },
+    {
+     "who": "imp",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 2.05
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       40.89,
+       0.16,
+       0.4
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "tip": -68
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.4
+    },
+    {
+     "who": "imp",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.4
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 1,
+     "height": 0.04,
+     "quiet": true,
+     "at": 2.52
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.5,
+     "at": 2.52
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       40.93,
+       0.16,
+       0.4
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.54
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "tip": -68
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.54
+    },
+    {
+     "who": "imp",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 2.55
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Deep tissue.",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, soothing",
+     "dur": 0.86,
+     "caption": false,
+     "at": 2.7
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "count": 3
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 3.66
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.9,
+     "at": 3.76
+    },
+    {
+     "who": "imp",
+     "do": "release",
+     "prop": "fork",
+     "dur": 0,
+     "at": 4.103
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 4.103
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 4.104
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 4.104
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.113
+    },
+    {
+     "who": "imp",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 4.113
+    },
+    {
+     "who": "imp",
+     "do": "move",
+     "to": [
+      -38,
+      5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 4.113
+    },
+    {
+     "who": "imp",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.113
+    },
+    {
+     "who": "imp",
+     "do": "hide",
+     "at": 4.113
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 4.113
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      39.95,
+      0.15
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 4.113
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.113
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 4.113
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      39.456,
+      -0.574
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 4.113
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.113
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.3,
+       0.85,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.113
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.113
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.01,
+     "at": 4.113
+    }
+   ]
+  },
+  {
+   "name": "party",
+   "at": 22.533,
+   "len": 3.8,
+   "shot": {
+    "pos": [
+     40.15,
+     1.82,
+     8.6
+    ],
+    "look": [
+     40.15,
+     1.42,
+     0
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      40.15,
+      1.796,
+      8.084
+     ]
+    },
+    "dur": 3.8,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "kenney/low-three-tone",
+     "gain": 0.7,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      40.196,
+      1.068
+     ],
+     "dur": 2.7,
+     "steps": 3,
+     "bob": 0.03,
+     "at": 0.05
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      39.702,
+      0.343
+     ],
+     "dur": 2.7,
+     "steps": 3,
+     "bob": 0.03,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "sfx": "kenney/low-three-tone",
+     "gain": 0.7,
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "It's the same song!",
+     "tone": "excited",
+     "style": "exasperated, outraged, fast",
+     "voice": "chip-clean",
+     "dur": 1.01,
+     "caption": false,
+     "at": 1.3
+    },
+    {
+     "sfx": "kenney/low-three-tone",
+     "gain": 0.7,
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "who": "devil",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.2,
+     "at": 2.31
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 2.31
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Forever!",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, delighted",
+     "dur": 0.83,
+     "caption": false,
+     "at": 2.41
+    },
+    {
+     "sfx": "kenney/low-three-tone",
+     "gain": 0.7,
+     "at": 2.7
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 2.7
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 2.8
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "count": 4
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 3.34
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.9,
+     "at": 3.44
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 3.771
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 3.771
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 3.78
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      40,
+      -0.45
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.78
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.78
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 3.78
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      39.7,
+      0.45
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.78
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.78
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.78
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.78
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.3
+     ],
+     "dur": 0.01,
+     "at": 3.78
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.01,
+     "at": 3.78
+    },
+    {
+     "who": "devil",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "at": 3.78
+    }
+   ]
+  },
+  {
+   "name": "view",
+   "at": 26.333,
+   "len": 2.334,
+   "shot": {
+    "pos": [
+     39.2,
+     1.65,
+     7.6
+    ],
+    "look": [
+     39.2,
+     1.45,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      39.2,
+      1.638,
+      7.144
+     ]
+    },
+    "dur": 2.334,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Nice view, right?",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, proud",
+     "dur": 1.04,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.89
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 0.89
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 1.19
+    },
+    {
+     "sfx": "click",
+     "gain": 0.9,
+     "at": 1.21
+    },
+    {
+     "do": "prop",
+     "id": "window",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.24
+    },
+    {
+     "sfx": "kenney/cloth",
+     "gain": 0.6,
+     "at": 1.24
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.59
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.2,
+     "at": 1.59
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -140,
+     "dur": 0.3,
+     "at": 1.64
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.69
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      39.15,
+      -0.25
+     ],
+     "dur": 0.7,
+     "at": 1.79
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 2.305
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 2.314
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      38.4,
+      -0.98
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.314
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.314
+    },
+    {
+     "do": "prop",
+     "id": "lobbyback",
+     "set": {
+      "y": 1.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.314
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.25,
+       0.65,
+       0.28
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.314
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "both",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 2.314
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.01,
+     "at": 2.314
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.01,
+     "at": 2.314
+    }
+   ]
+  },
+  {
+   "name": "face on the glass",
+   "at": 28.667,
+   "len": 1.133,
+   "shot": {
+    "pos": [
+     38.4,
+     0.62,
+     -4.3
+    ],
+    "look": [
+     38.4,
+     0.55,
+     -1.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      38.4,
+      0.616,
+      -4.12
+     ]
+    },
+    "dur": 1.133,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 1.104
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 1.104
+    },
+    {
+     "do": "prop",
+     "id": "lobbyback",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.113
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 1.113
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      38.7,
+      -0.6
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.113
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.113
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.25,
+       0.65,
+       0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.113
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 1.113
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "at": 1.113
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.01,
+     "at": 1.113
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 1.113
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      40,
+      -0.45
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.113
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": 100,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.113
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.113
+    }
+   ]
+  },
+  {
+   "name": "worst",
+   "at": 29.8,
+   "len": 2.533,
+   "shot": {
+    "pos": [
+     39.25,
+     1.45,
+     10.4
+    ],
+    "look": [
+     39.25,
+     1.45,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      39.25,
+      1.45,
+      9.776
+     ]
+    },
+    "dur": 2.533,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Five stars?! This is the worst!",
+     "tone": "excited",
+     "style": "furious, outraged, loud, fast",
+     "voice": "chip-clean",
+     "dur": 1.93,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      41.1,
+      -0.35
+     ],
+     "dur": 1.4,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "count": 5
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 2.08
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.9,
+     "at": 2.18
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 2.504
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 2.513
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      39.7,
+      0.3
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.513
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.513
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      41.1,
+      -0.75
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.513
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.513
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 2.513
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.18,
+       0.4,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.513
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 2.513
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.8,
+      0.1
+     ],
+     "dur": 0.01,
+     "at": 2.513
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.01,
+     "at": 2.513
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 2.513
+    },
+    {
+     "do": "prop",
+     "id": "tabletD",
+     "set": {
+      "x": 40.88,
+      "y": 0.14,
+      "z": -0.369,
+      "rot": 150
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.513
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      40.25,
+      0.38
+     ],
+     "dur": 0.9,
+     "steps": 3,
+     "at": 2.513
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 2.518
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tabletD",
+      "grip": [
+       0.226,
+       0.253,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.054,
+       0.02,
+       -0.066
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.518
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 2.518
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tabletD",
+      "grip": [
+       -0.226,
+       0.253,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.084,
+       0.02,
+       0.014
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.518
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tabletD",
+      "grip": [
+       0.226,
+       0.253,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.528
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tabletD",
+      "grip": [
+       -0.226,
+       0.253,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.528
+    }
+   ]
+  },
+  {
+   "name": "exit",
+   "at": 32.333,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     40.75,
+     1.45,
+     10.4
+    ],
+    "look": [
+     40.75,
+     1.45,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      40.75,
+      1.45,
+      9.776
+     ]
+    },
+    "dur": 3.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.001
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.001
+    },
+    {
+     "who": "devil",
+     "do": "grab",
+     "prop": "tabletD",
+     "hand": "both",
+     "grip": [
+      0,
+      0.253,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.065
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      40.95,
+      0
+     ],
+     "dur": 0.5,
+     "at": 0.3
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -45,
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tabletD",
+      "grip": [
+       0.226,
+       0.253,
+       0
+      ],
+      "palm": true,
+      "at": [
+       40.639,
+       0.14,
+       0.311
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tabletD",
+      "grip": [
+       -0.226,
+       0.253,
+       0
+      ],
+      "palm": true,
+      "at": [
+       40.639,
+       0.14,
+       0.311
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "tabletD",
+     "set": {
+      "rot": 135
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 0.75
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Before you go... rate your stay!",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, sweet, pushy",
+     "dur": 2.49,
+     "caption": false,
+     "at": 0.8
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.25,
+     "at": 0.95
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 3.38
+    }
+   ]
+  },
+  {
+   "name": "one star",
+   "at": 35.733,
+   "len": 1.534,
+   "shot": {
+    "pos": [
+     40.62,
+     0.75,
+     4.7
+    ],
+    "look": [
+     40.62,
+     0.75,
+     0.3
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      40.62,
+      0.75,
+      4.436
+     ]
+    },
+    "dur": 1.534,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tabletD",
+      "grip": [
+       0.116,
+       0.19,
+       -0.04
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "One star.",
+     "tone": "calm",
+     "style": "cold, flat, firm, slow",
+     "voice": "chip-clean",
+     "dur": 0.84,
+     "caption": false,
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "tabletD",
+     "set": {
+      "hover": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.56
+    },
+    {
+     "sfx": "kenney/tick",
+     "gain": 0.45,
+     "at": 0.56
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.44
+    },
+    {
+     "who": "devil",
+     "do": "face",
+     "corner": -0.3,
+     "dur": 0.15,
+     "at": 1.44
+    }
+   ]
+  },
+  {
+   "name": "badge flickers",
+   "at": 37.267,
+   "len": 0.533,
+   "shot": {
+    "pos": [
+     0.86,
+     2.03,
+     3.6
+    ],
+    "look": [
+     0.86,
+     2.03,
+     -1.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "badgeX",
+     "set": {
+      "flicker": 1
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/glitch",
+     "gain": 0.4,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "badgeX",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0.085
+    },
+    {
+     "do": "prop",
+     "id": "badgeX",
+     "set": {
+      "flicker": 1
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "badgeX",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0.255
+    },
+    {
+     "do": "prop",
+     "id": "badgeX",
+     "set": {
+      "flicker": 1
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "do": "prop",
+     "id": "badgeX",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0.03,
+     "ease": "inOut",
+     "at": 0.425
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.513
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0.513
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.01,
+     "at": 0.513
+    }
+   ]
+  },
+  {
+   "name": "wait one",
+   "at": 37.8,
+   "len": 1.533,
+   "shot": {
+    "pos": [
+     40.62,
+     0.75,
+     4.7
+    ],
+    "look": [
+     40.62,
+     0.75,
+     0.3
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      40.62,
+      0.75,
+      4.436
+     ]
+    },
+    "dur": 1.533,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "W-wait! One?!",
+     "tone": "excited",
+     "style": "panicked, stammering, voice cracking, the smile slipping",
+     "dur": 1.3,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "devil",
+     "do": "release",
+     "prop": "tabletD",
+     "to": [
+      40.58,
+      0,
+      0.52
+     ],
+     "dur": 0.4,
+     "spin": [
+      5.2,
+      0,
+      3
+     ],
+     "at": 0.3
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.32,
+       0.75,
+       0.18
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.34
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.4
+     ],
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "sfx": "kenney/impact-generic-light",
+     "gain": 0.45,
+     "at": 0.67
+    },
+    {
+     "do": "prop",
+     "id": "tabletD",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.503
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 1.504
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 1.504
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 1.513
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      39.68,
+      0.45
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.513
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.513
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 1.513
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      40.08,
+      1.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.513
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.513
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.513
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.513
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.513
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.513
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.01,
+     "at": 1.513
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 1.513
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.01,
+     "at": 1.513
+    }
+   ]
+  },
+  {
+   "name": "snap tub",
+   "at": 39.333,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     39.25,
+     1.45,
+     10.4
+    ],
+    "look": [
+     39.25,
+     1.45,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      39.25,
+      1.45,
+      9.776
+     ]
+    },
+    "dur": 2.8,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.45
+    },
+    {
+     "sfx": "click",
+     "gain": 0.9,
+     "at": 0.47
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      38.7,
+      0.35,
+      0.5
+     ],
+     "dur": 0.4,
+     "color": "#f7fafc",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 0.6,
+     "lift": 0.08,
+     "sound": false,
+     "at": 0.48
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.55,
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "tub",
+     "set": {
+      "fix": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.53
+    },
+    {
+     "do": "prop",
+     "id": "duck",
+     "set": {
+      "wilt": 0,
+      "y": 0.22,
+      "x": 38.45,
+      "z": 0.3
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.53
+    },
+    {
+     "sfx": "ai/bubbles-burst",
+     "gain": 0.45,
+     "at": 0.63
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "fall": 1
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.78
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.4,
+     "at": 0.83
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Hot tub! A real one!",
+     "tone": "excited",
+     "style": "desperate, eager to please, fast",
+     "dur": 1.76,
+     "caption": false,
+     "at": 0.83
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 2.771
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 2.771
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 2.78
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      40.95,
+      -0.62
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.78
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      40.1,
+      0.4
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.78
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "imp",
+     "do": "move",
+     "to": [
+      40.52,
+      0.4
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.78
+    },
+    {
+     "who": "imp",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.78
+    },
+    {
+     "who": "imp",
+     "do": "show",
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "scale": 1,
+      "x": 40.5,
+      "y": 0,
+      "z": 0.28,
+      "rot": 90
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "imp",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "imp",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 2.785
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "off": [
+       0.018,
+       0.02,
+       -0.068
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.785
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.795
+    }
+   ]
+  },
+  {
+   "name": "snap buffet",
+   "at": 42.133,
+   "len": 3.067,
+   "shot": {
+    "pos": [
+     40.75,
+     1.45,
+     10.4
+    ],
+    "look": [
+     40.75,
+     1.45,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      40.75,
+      1.45,
+      9.776
+     ]
+    },
+    "dur": 3.067,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "imp",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.001
+    },
+    {
+     "who": "imp",
+     "do": "grab",
+     "prop": "fork",
+     "hand": "R",
+     "grip": [
+      0.058,
+      0.132,
+      0.016
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.065
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.4
+    },
+    {
+     "sfx": "click",
+     "gain": 0.9,
+     "at": 0.42
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      41.63,
+      0.62,
+      0.3
+     ],
+     "dur": 0.4,
+     "color": "#f7fafc",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 0.7,
+     "lift": 0.08,
+     "sound": false,
+     "at": 0.43
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.55,
+     "at": 0.43
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      40.82,
+      -0.22,
+      0.52
+     ],
+     "dur": 0.7,
+     "color": "#f7fafc",
+     "puffs": 16,
+     "sparks": 0,
+     "size": 0.75,
+     "lift": 0,
+     "sound": false,
+     "at": 0.43
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.55,
+     "at": 0.43
+    },
+    {
+     "do": "prop",
+     "id": "fries",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "cake",
+     "set": {
+      "y": 0.4
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "plate0",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "plate1",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "plate2",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "who": "imp",
+     "do": "release",
+     "prop": "fork",
+     "dur": 0,
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.17
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "who": "imp",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.57
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "fall": 2
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.4,
+     "at": 0.73
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.84,
+       0.205
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.73
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.76,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.73
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.35,
+     "dur": 0.3,
+     "at": 0.83
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "serene",
+     "dur": 0.3,
+     "at": 0.93
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.84,
+       0.205
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.76,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Two stars.",
+     "tone": "calm",
+     "style": "unimpressed, flat, slow",
+     "voice": "chip-clean",
+     "dur": 0.89,
+     "caption": false,
+     "at": 1.33
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.84,
+       0.205
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.63
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.76,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.63
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "fall": 3
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.4,
+     "at": 1.73
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.85
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.85
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.84,
+       0.205
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.08
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.76,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.08
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 2.22
+    },
+    {
+     "who": "devil",
+     "do": "squash",
+     "to": 0.05,
+     "dur": 0.2,
+     "at": 2.22
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Two?!",
+     "tone": "excited",
+     "style": "panicked, high, voice cracking",
+     "dur": 0.54,
+     "caption": false,
+     "at": 2.3
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.84,
+       0.205
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.53
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.76,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.53
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.17
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.75
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.75
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 3.038
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 3.038
+    },
+    {
+     "who": "imp",
+     "do": "move",
+     "to": [
+      -38,
+      5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.047
+    },
+    {
+     "who": "imp",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.047
+    },
+    {
+     "who": "imp",
+     "do": "hide",
+     "at": 3.047
+    },
+    {
+     "do": "prop",
+     "id": "fork2",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.047
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 3.047
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      39.6,
+      0.2
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.047
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.047
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 3.047
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      40.08,
+      1.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.047
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.047
+    },
+    {
+     "who": "devil",
+     "do": "squash",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.047
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.047
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 3.047
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.4
+     ],
+     "dur": 0.01,
+     "at": 3.047
+    }
+   ]
+  },
+  {
+   "name": "snap party",
+   "at": 45.2,
+   "len": 2.667,
+   "shot": {
+    "pos": [
+     39.25,
+     1.45,
+     10.4
+    ],
+    "look": [
+     39.25,
+     1.45,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      39.25,
+      1.45,
+      9.776
+     ]
+    },
+    "dur": 2.667,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.4
+    },
+    {
+     "sfx": "click",
+     "gain": 0.9,
+     "at": 0.42
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      38.4,
+      1.1,
+      -1
+     ],
+     "dur": 0.4,
+     "color": "#f7fafc",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 0.8,
+     "lift": 0.08,
+     "sound": false,
+     "at": 0.43
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.55,
+     "at": 0.43
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      39.2,
+      1.2,
+      -1
+     ],
+     "dur": 0.4,
+     "color": "#f7fafc",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 0.75,
+     "lift": 0.08,
+     "sound": false,
+     "at": 0.43
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.55,
+     "at": 0.43
+    },
+    {
+     "do": "prop",
+     "id": "lights",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "room",
+     "set": {
+      "bright": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "glowW1",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "glowW2",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "glowF1",
+     "set": {
+      "on": 0.8
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "glowF2",
+     "set": {
+      "on": 0.8
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "glowC",
+     "set": {
+      "on": 0.3
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "balloon",
+     "set": {
+      "cluster": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "island",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "rock",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "beach",
+     "set": {
+      "y": 1.05
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "sunset",
+     "set": {
+      "y": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "bpm": 112
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "fall": 4
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.73
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.4,
+     "at": 0.78
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.5
+     ],
+     "dur": 0.2,
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "fall": 5
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.93
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.4,
+     "at": 0.98
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Hmm. Three.",
+     "tone": "calm",
+     "style": "unimpressed, considering, slow",
+     "voice": "chip-clean",
+     "dur": 1.13,
+     "caption": false,
+     "at": 1.23
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "x": 39.442,
+      "y": 0.3,
+      "z": 0.53,
+      "rot": 120
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.637
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 2.638
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 2.638
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 2.642
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "leaf",
+      "grip": [
+       0.058,
+       0.19,
+       0.016
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.018,
+       0.02,
+       -0.068
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.642
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 2.647
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      38.8,
+      0.42
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": -0.06,
+     "at": 2.647
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.647
+    },
+    {
+     "do": "prop",
+     "id": "tabletR",
+     "set": {
+      "y": 0.14
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.647
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 2.647
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      39.84,
+      0.3
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.647
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.647
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.647
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "serene",
+     "dur": 0.01,
+     "at": 2.647
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.4,
+     "dur": 0.01,
+     "at": 2.647
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.2
+     ],
+     "dur": 0.01,
+     "at": 2.647
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.01,
+     "at": 2.647
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "leaf",
+      "grip": [
+       0.058,
+       0.19,
+       0.016
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.652
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.658
+    }
+   ]
+  },
+  {
+   "name": "four stars",
+   "at": 47.867,
+   "len": 2.933,
+   "shot": {
+    "pos": [
+     39.08,
+     1.3,
+     6
+    ],
+    "look": [
+     39.08,
+     0.6,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      39.08,
+      1.258,
+      5.64
+     ]
+    },
+    "dur": 2.933,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "do": "grab",
+     "prop": "leaf",
+     "hand": "R",
+     "grip": [
+      0.058,
+      0.19,
+      0.016
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.055
+    },
+    {
+     "fx": "sweat",
+     "who": "devil",
+     "dur": 2.4,
+     "count": 3,
+     "at": 0.1
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "leaf",
+      "grip": [
+       0.058,
+       0.19,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       39.442,
+       0.38,
+       0.53
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "tip": -10
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "bend": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tabletR",
+      "grip": [
+       -0.058,
+       0.19,
+       -0.04
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "leaf",
+      "grip": [
+       0.058,
+       0.19,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       39.442,
+       0.3,
+       0.53
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "bend": -1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "tabletR",
+     "set": {
+      "lit": 4
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "sfx": "kenney/tick",
+     "gain": 0.5,
+     "at": 0.95
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Four stars.",
+     "tone": "calm",
+     "style": "relaxed, lazy, content, slow",
+     "voice": "chip-clean",
+     "dur": 0.85,
+     "caption": false,
+     "at": 1.1
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "leaf",
+      "grip": [
+       0.058,
+       0.19,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       39.442,
+       0.38,
+       0.53
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "tip": -10
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "bend": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "leaf",
+      "grip": [
+       0.058,
+       0.19,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       39.442,
+       0.3,
+       0.53
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "bend": -1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "devil",
+     "do": "release",
+     "prop": "leaf",
+     "dur": 0,
+     "at": 2.903
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.903
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 2.904
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.913
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.913
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 2.913
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      39.72,
+      0.3
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.913
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.913
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.913
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.01,
+     "at": 2.913
+    },
+    {
+     "who": "devil",
+     "do": "face",
+     "lid": 0.55,
+     "brow": 0.6,
+     "corner": -0.7,
+     "tear": 1,
+     "dur": 0.3,
+     "at": 2.913
+    },
+    {
+     "who": "devil",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "at": 2.913
+    }
+   ]
+  },
+  {
+   "name": "sob",
+   "at": 50.8,
+   "len": 1.733,
+   "shot": {
+    "pos": [
+     40.4,
+     0.78,
+     4.6
+    ],
+    "look": [
+     39.72,
+     0.66,
+     0.3
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      40.359,
+      0.773,
+      4.342
+     ]
+    },
+    "dur": 1.733,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Four...",
+     "tone": "sad",
+     "style": "sobbing, crying, heartbroken, wailing",
+     "dur": 1.12,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "devil",
+     "do": "shake",
+     "amount": 0.01,
+     "dur": 1.12,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -30,
+      5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.713
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.713
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 1.713
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.713
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.713
+    },
+    {
+     "do": "prop",
+     "id": "doorX",
+     "set": {
+      "open": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.713
+    },
+    {
+     "who": "devil",
+     "do": "move",
+     "to": [
+      0.88,
+      -2.15
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.4,
+     "at": 1.713
+    },
+    {
+     "who": "devil",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.713
+    },
+    {
+     "who": "devil",
+     "do": "hide",
+     "at": 1.713
+    },
+    {
+     "who": "devil",
+     "do": "face",
+     "lid": 0.2,
+     "brow": 0.5,
+     "corner": -0.5,
+     "tear": 0.6,
+     "dur": 0.01,
+     "at": 1.713
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.01,
+     "at": 1.713
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.88,
+      0.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.713
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.713
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 1.713
+    },
+    {
+     "who": "reaper",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.1
+     ],
+     "dur": 0.01,
+     "at": 1.713
+    },
+    {
+     "who": "reaper",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.01,
+     "at": 1.713
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.3
+     ],
+     "dur": 0.01,
+     "at": 1.713
+    }
+   ]
+  },
+  {
+   "name": "tag",
+   "at": 52.533,
+   "len": 4.4,
+   "shot": {
+    "pos": [
+     0.85,
+     1.25,
+     6.6
+    ],
+    "look": [
+     0.85,
+     0.63,
+     -0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.85,
+      1.213,
+      6.156
+     ]
+    },
+    "dur": 4.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "reaper",
+     "macro": "say",
+     "line": "Heaven or hell?",
+     "tone": "calm",
+     "style": "flat, dry, bored, a clerk",
+     "dur": 1.33,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       1,
+       0.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.48
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 1.53
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 1.53
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hell. One star.",
+     "tone": "calm",
+     "style": "low, slow, grinning, sly",
+     "dur": 2.7,
+     "caption": false,
+     "at": 1.63
+    },
+    {
+     "who": "devil",
+     "do": "show",
+     "at": 4.38
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 4.38
+    },
+    {
+     "do": "prop",
+     "id": "scythe",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 4.38
+    },
+    {
+     "who": "devil",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "at": 4.38
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.4,
+       0.26
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.38
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "peek",
+   "at": 56.933,
+   "len": 2.067,
+   "shot": {
+    "pos": [
+     0.8,
+     2.06,
+     4.3
+    ],
+    "look": [
+     0.8,
+     1.89,
+     -1.5
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      0.8,
+      2.05,
+      3.952
+     ]
+    },
+    "dur": 2.067,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "doorX",
+     "set": {
+      "open": 0.55
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Nooo.",
+     "tone": "sad",
+     "style": "whimpering, quiet, crying",
+     "dur": 0.9,
+     "caption": false,
+     "soft": true,
+     "at": 0.35
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.3,
+   "see": [
+    "reaper.face",
+    "chip.face",
+    "badgeH",
+    "badgeX"
+   ],
+   "why": "the desk between heaven 3.1 and hell 4.9"
+  },
+  {
+   "from": 1.48,
+   "to": 2.81,
+   "see": [
+    "chip.face",
+    "badgeX"
+   ],
+   "why": "he points at hell's five stars"
+  },
+  {
+   "from": 5.81,
+   "to": 8.39,
+   "see": [
+    "reaper.face",
+    "chip.face",
+    "doorX"
+   ],
+   "why": "the gap: everyone picks hell (why?)"
+  },
+  {
+   "from": 8.69,
+   "to": 11,
+   "see": [
+    "devil.face",
+    "chip.face"
+   ],
+   "why": "the Devil bursts out of the hell door"
+  },
+  {
+   "from": 11.133,
+   "to": 14.903,
+   "see": [
+    "chip.face",
+    "devil.face",
+    "tub",
+    "board"
+   ],
+   "why": "the hot tub is lava; X on HOT TUB"
+  },
+  {
+   "from": 15.067,
+   "to": 18.277,
+   "see": [
+    "chip.face",
+    "devil.face",
+    "fries",
+    "board"
+   ],
+   "why": "the buffet is fries (his own kind); X on BUFFET"
+  },
+  {
+   "from": 18.4,
+   "to": 22.36,
+   "see": [
+    "chip.face",
+    "devil.face",
+    "imp",
+    "board"
+   ],
+   "why": "the massage is a pitchfork; X on MASSAGE"
+  },
+  {
+   "from": 22.533,
+   "to": 26.173,
+   "see": [
+    "chip.face",
+    "devil.face",
+    "board",
+    "speaker"
+   ],
+   "why": "the party is one song forever; X on PARTY"
+  },
+  {
+   "from": 28.667,
+   "to": 29.667,
+   "see": [
+    "chip.face"
+   ],
+   "why": "from outside: his face on the glass, heaven's party above"
+  },
+  {
+   "from": 29.8,
+   "to": 32.23,
+   "see": [
+    "chip.face",
+    "board"
+   ],
+   "why": "five stars? this is the worst; all five perks crossed out"
+  },
+  {
+   "from": 32.333,
+   "to": 35.623,
+   "see": [
+    "chip.face",
+    "devil.face",
+    "tabletD"
+   ],
+   "why": "the Devil blocks the exit: rate your stay"
+  },
+  {
+   "from": 37.267,
+   "to": 37.767,
+   "see": [
+    "badgeX"
+   ],
+   "why": "hell's 4.9 flickers to 4.8"
+  },
+  {
+   "from": 37.8,
+   "to": 39.15,
+   "see": [
+    "devil.face",
+    "chip.face"
+   ],
+   "why": "the Devil's smile cracks; the tablet drops"
+  },
+  {
+   "from": 39.333,
+   "to": 41.923,
+   "see": [
+    "devil.face",
+    "tub",
+    "board"
+   ],
+   "why": "snap: a real hot tub; X off HOT TUB"
+  },
+  {
+   "from": 42.133,
+   "to": 44.973,
+   "see": [
+    "chip.face",
+    "devil.face",
+    "cake",
+    "board"
+   ],
+   "why": "cake buffet and a gentle massage: two stars?!"
+  },
+  {
+   "from": 45.2,
+   "to": 47.56,
+   "see": [
+    "chip.face",
+    "board",
+    "window"
+   ],
+   "why": "a real party and a sunset beach; the board is clean: three"
+  },
+  {
+   "from": 47.867,
+   "to": 49.817,
+   "see": [
+    "chip.face",
+    "devil.face",
+    "tabletR"
+   ],
+   "why": "he lounges in the foam; the Devil fans him: four stars"
+  },
+  {
+   "from": 50.8,
+   "to": 52.32,
+   "see": [
+    "devil.face"
+   ],
+   "why": "the Devil sobs: four stars"
+  },
+  {
+   "from": 52.533,
+   "to": 56.863,
+   "see": [
+    "wedge.face",
+    "reaper.face",
+    "badgeX"
+   ],
+   "why": "the next one already knows: Hell. One star."
+  },
+  {
+   "from": 56.933,
+   "to": 59,
+   "see": [
+    "devil.face"
+   ],
+   "why": "...Nooo."
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "reaper",
+   "with": "counter",
+   "from": 8.14,
+   "to": 8.71,
+   "checks": [
+    "arm-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the stamp slams down on the form: the forearm and sleeve brush the counter's top edge for 0.3 s (panel 04)"
+  },
+  {
+   "who": "devil",
+   "with": "chip",
+   "from": 50.75,
+   "to": 50.9,
+   "checks": [
+    "character-overlap",
+    "reach"
+   ],
+   "reason": "the cut to the sob close-up: the Devil is placed for it while the customer sits in the tub off-screen; the frame shows only the Devil"
+  },
+  {
+   "who": "imp",
+   "with": "chip",
+   "from": 42.133,
+   "to": 45.2,
+   "checks": [
+    "character-overlap",
+    "reach"
+   ],
+   "reason": "the imp kneads his back: its hands press into his sweater (Sol r1 #10)"
+  },
+  {
+   "who": "chip",
+   "with": "tub",
+   "from": 47.817,
+   "to": 52.533,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "he sits in the foam of the fixed hot tub (panel 16)"
+  },
+  {
+   "who": "devil",
+   "with": "doorX",
+   "from": 52.483,
+   "to": 59,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "the Devil stands in the hot box behind the hell door and peeks through the gap (panel 18)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/09-hell-reviews/make-hell-reviews.mjs."
+}

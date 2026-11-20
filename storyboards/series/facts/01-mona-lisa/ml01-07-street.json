@@ -1,0 +1,855 @@
+{
+ "id": "ml01-07-street",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 46.641,
+  "seam": true,
+  "gain": 0.7,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   7.173,
+   7.173
+  ]
+ },
+ "cast": [
+  {
+   "id": "g1",
+   "character": "facts/guard",
+   "at": [
+    -0.05,
+    0.05
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "v1",
+   "character": "potatobrawl/duchess",
+   "at": [
+    -0.9,
+    0.8
+   ],
+   "face": 20,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "v2",
+   "character": "potatobrawl/dauphin",
+   "at": [
+    1.4,
+    0.4
+   ],
+   "face": -15,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "insp",
+   "character": "facts/inspector",
+   "at": [
+    2.85,
+    1
+   ],
+   "face": -57.309,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  },
+  {
+   "id": "picasso",
+   "character": "facts/picasso",
+   "at": [
+    1.45,
+    1.2
+   ],
+   "face": 68.691,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 6.300000000000001
+  }
+ ],
+ "props": [
+  {
+   "id": "np0",
+   "kind": "newspaper",
+   "x": 0,
+   "y": -40,
+   "z": 0,
+   "bend": 0.6
+  },
+  {
+   "id": "np1",
+   "kind": "newspaper",
+   "x": 0,
+   "y": -40,
+   "z": 0,
+   "bend": 0.6
+  },
+  {
+   "id": "np2",
+   "kind": "newspaper",
+   "x": 0,
+   "y": -40,
+   "z": 0,
+   "bend": 0.6
+  },
+  {
+   "id": "np3",
+   "kind": "newspaper",
+   "x": 0,
+   "y": -40,
+   "z": 0,
+   "bend": 0.6
+  },
+  {
+   "id": "ferme",
+   "kind": "sign",
+   "x": 0.65,
+   "y": 0,
+   "z": 0.2,
+   "rot": 0,
+   "text": "FERMÉ"
+  },
+  {
+   "id": "cap-g1",
+   "wear": "g1",
+   "x": 0,
+   "y": 1.02,
+   "z": 0.02,
+   "kind": "policecap",
+   "r": 0.19,
+   "badge": false
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.84,
+   "text": "The Louvre shuts for a week.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 1.87,
+   "to": 4.934,
+   "text": "Her face is on every front page on Earth.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 4.964,
+   "to": 6.693,
+   "text": "Police even question Picasso.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "09 front pages wide",
+   "at": 0,
+   "len": 1.87,
+   "shot": {
+    "pos": [
+     1.607,
+     1.136,
+     5.521
+    ],
+    "look": [
+     1,
+     0.6,
+     1.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.522,
+      1.061,
+      4.916
+     ]
+    },
+    "dur": 1.87,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       1.87,
+       5
+      ]
+     ],
+     "pivot": 4.396
+    }
+   },
+   "do": [
+    {
+     "who": "g1",
+     "do": "move",
+     "to": [
+      -0.05,
+      0.05
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "move",
+     "to": [
+      -0.9,
+      0.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "move",
+     "to": [
+      1.4,
+      0.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "turn",
+     "to": -15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "move",
+     "to": [
+      2.85,
+      1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "turn",
+     "to": -57.309,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "picasso",
+     "do": "move",
+     "to": [
+      1.45,
+      1.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "picasso",
+     "do": "turn",
+     "to": 68.691,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "picasso",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "picasso",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "picasso",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "picasso",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "np0",
+     "set": {
+      "x": 0,
+      "y": -40,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "np1",
+     "set": {
+      "x": 0,
+      "y": -40,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "np2",
+     "set": {
+      "x": 0,
+      "y": -40,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "np3",
+     "set": {
+      "x": 0,
+      "y": -40,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ferme",
+     "set": {
+      "x": 0.65,
+      "y": 0,
+      "z": 0.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "np0",
+     "set": {
+      "x": -2,
+      "y": 2.4,
+      "z": 1.5,
+      "rot": 330,
+      "tilt": 40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "sfx": "flutter",
+     "reason": "the story's own sound",
+     "gain": 0.6,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "The Louvre shuts for a week.",
+     "voice": "narrator-quick",
+     "dur": 1.5899,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "np0",
+     "set": {
+      "x": 0.8,
+      "y": 1.15,
+      "z": 2.1,
+      "rot": 360,
+      "tilt": 0
+     },
+     "dur": 2.2,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "np1",
+     "set": {
+      "x": -1.5,
+      "y": 2,
+      "z": 0.6,
+      "rot": 390,
+      "tilt": 40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "np1",
+     "set": {
+      "x": 3.25,
+      "y": 0.02,
+      "z": -0.2,
+      "rot": 360,
+      "tilt": 85
+     },
+     "dur": 2.6,
+     "ease": "out",
+     "at": 0.47
+    },
+    {
+     "do": "prop",
+     "id": "np2",
+     "set": {
+      "x": 4,
+      "y": 2.2,
+      "z": 1,
+      "rot": 330,
+      "tilt": 40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "np2",
+     "set": {
+      "x": -1.7,
+      "y": 0.02,
+      "z": 0.2,
+      "rot": 360,
+      "tilt": 85
+     },
+     "dur": 2.6,
+     "ease": "out",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "np3",
+     "set": {
+      "x": 3.6,
+      "y": 1.8,
+      "z": 1.8,
+      "rot": 390,
+      "tilt": 40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "np3",
+     "set": {
+      "x": -1.34,
+      "y": 0.02,
+      "z": 1,
+      "rot": 360,
+      "tilt": 85
+     },
+     "dur": 2.6,
+     "ease": "out",
+     "at": 1.17
+    }
+   ]
+  },
+  {
+   "name": "09 front pages insert",
+   "at": 1.87,
+   "len": 3.094,
+   "shot": {
+    "pos": [
+     0.8,
+     1.254,
+     3.589
+    ],
+    "look": [
+     0.8,
+     1.15,
+     2.1
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.8,
+      1.233,
+      3.291
+     ]
+    },
+    "dur": 3.094,
+    "yaw": {
+     "keys": [
+      [
+       1.87,
+       0
+      ],
+      [
+       4.964,
+       -5
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Her face is on every front page on Earth.",
+     "voice": "narrator-quick",
+     "dur": 2.9138,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "09 front pages two",
+   "at": 4.964,
+   "len": 2.209,
+   "shot": {
+    "pos": [
+     1.009,
+     1.255,
+     7.569
+    ],
+    "look": [
+     2.15,
+     0.565,
+     1.1
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.169,
+      1.159,
+      6.663
+     ]
+    },
+    "dur": 2.209,
+    "yaw": {
+     "keys": [
+      [
+       4.964,
+       0
+      ],
+      [
+       7.173,
+       5
+      ]
+     ],
+     "pivot": 6.605
+    }
+   },
+   "do": [
+    {
+     "who": "picasso",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Police even question Picasso.",
+     "voice": "narrator-quick",
+     "dur": 1.579,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "fx": "sweat",
+     "who": "picasso",
+     "dur": 1.2,
+     "at": 1.759
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "g1",
+   "with": "cap-g1",
+   "from": 0,
+   "to": 7.173,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "g1",
+   "with": "cap-g1",
+   "from": 0,
+   "to": 7.173,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  }
+ ],
+ "story": {
+  "T0": 46.641,
+  "T1": 53.814
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 46.641-53.814 s)."
+}

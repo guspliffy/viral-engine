@@ -1,0 +1,90 @@
+{
+  "id": "ancient-aliens/archaeologist",
+  "name": "The archaeologist",
+  "franchise": "Ancient Aliens",
+  "source": "Jonny's approved reference sheet, 19 Nov 2026 (references/cast/archaeologist-reference-sheet-2026-11-19.png) and the numeric spec references/cast/archaeologist-design-2026-11-19.md (sections 2-5, 7); where the sheet and the spec differ the sheet wins on look, the spec on numbers",
+  "rig": "potato",
+  "tts": "archaeologist",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.757,
+    "width": 0.8,
+    "depth": 0.658,
+    "lump": 0.03,
+    "seed": 29,
+    "taper": 0.27,
+    "square": 2.6
+  },
+  "legs": {
+    "height": 0.05,
+    "footX": 0.204
+  },
+  "limbs": {
+    "color": "#6b4a2b",
+    "width": 0.032,
+    "shoulder": 0.05
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 0.85
+    },
+    "layout": {
+      "eyeU": 0.42,
+      "eyeV": 0.76,
+      "browV": 1.42,
+      "mouthV": 0.34,
+      "mouthW": 0.2,
+      "cheekU": 0.72,
+      "cheekV": 0.35
+    },
+    "lockLayout": true
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "top",
+    "leaves": 1,
+    "lift": [
+      0.095,
+      0
+    ]
+  },
+  "costume": {
+    "type": "archaeologist",
+    "hat": "#48344F",
+    "hatEdge": "#B2A0C2",
+    "hatUnder": "#34263F",
+    "jacket": "#7965A1",
+    "jacketDark": "#514268",
+    "facing": "#C4B4D7",
+    "buttons": "#D9C9A8",
+    "boots": "#544052",
+    "sole": "#382B3C",
+    "lamp": false
+  },
+  "personality": "The calm sceptic of the Egypt debate shorts (Serapeum tunnel, Sphinx desert). Spud is the believer; she listens still, lifts one eyebrow and delivers the evidence with a trace of amusement. Viewers tell them apart by silhouette alone: the wide plum brim and the low pear body.",
+  "hands": {
+    "type": "glove",
+    "size": 1.3,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Everyday cast, Spud's skin, limbs, hands, eyes, iris, cheeks and sprout. Body: height 0.757 (0.86 x Spud's 0.88), true widest extent 0.851 across and 0.70 deep (body.width / depth here are the generator's own numbers: the pear's taper 0.27 and square 2.6 make the real extent 1.064 x those). Short legs (legs.height 0.05, footX 0.204): the boots take the room Spud's legs have. Hat, field jacket, boots and the optional tunnel lamp are the 'archaeologist' kit in engine/page/costumes-everyday.js. The conservation brush is NOT part of her: it is the prop kind 'archbrush' (engine/page/props-archaeologist.js), given to her right hand by a clip. Face: face.lockLayout + face.layout move the whole face up the pear (eyes at about 0.7 of her height, the mouth above the collar; the spec says 0.75, but the engine's brows rest at the eye's clear height, so higher they sit against the brim and a raised brow hides behind it); the generator puts Spud's face at the egg's middle. limbs.shoulder 0.05: the sleeves come out at the shoulders under the collar and hang to the hands (Spud's -0.32 makes stubs at the hips). The hat is the sheet's soft dome crown with a drooping brim (design 1.34W brim and 4 degree pitch overridden: the sheet wins on look)."
+}

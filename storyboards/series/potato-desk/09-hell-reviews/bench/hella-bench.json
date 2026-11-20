@@ -1,0 +1,645 @@
+{
+ "id": "hella-bench",
+ "title": "Hell Reviews set A + hand props bench",
+ "idea": "Engine look bench for set A and the hand props of 09 (task T2), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#9fd0f0",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "afterlifesky",
+   "x": 0,
+   "y": -2,
+   "z": -14
+  },
+  {
+   "id": "deck",
+   "kind": "clouddeck",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "w": 16
+  },
+  {
+   "id": "fog",
+   "kind": "fogveil",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "box": [
+    [
+     -4,
+     0.02,
+     -2.2
+    ],
+    [
+     4,
+     0.12,
+     4
+    ]
+   ],
+   "n": 36,
+   "size": 1.5,
+   "color": "#f7fafc",
+   "a": 0.4,
+   "drift": [
+    -0.05,
+    0
+   ]
+  },
+  {
+   "id": "puff0",
+   "kind": "cloudpuff",
+   "x": -2.3,
+   "y": 0.255,
+   "z": -0.78,
+   "r": 0.3,
+   "seed": 11
+  },
+  {
+   "id": "puff1",
+   "kind": "cloudpuff",
+   "x": -1.62,
+   "y": 0.221,
+   "z": -0.78,
+   "r": 0.26,
+   "seed": 12
+  },
+  {
+   "id": "puff2",
+   "kind": "cloudpuff",
+   "x": -0.98,
+   "y": 0.272,
+   "z": -0.78,
+   "r": 0.32,
+   "seed": 13
+  },
+  {
+   "id": "puff3",
+   "kind": "cloudpuff",
+   "x": -0.3,
+   "y": 0.204,
+   "z": -0.78,
+   "r": 0.24,
+   "seed": 14
+  },
+  {
+   "id": "puff4",
+   "kind": "cloudpuff",
+   "x": 0.4,
+   "y": 0.281,
+   "z": -0.78,
+   "r": 0.33,
+   "seed": 15
+  },
+  {
+   "id": "puff5",
+   "kind": "cloudpuff",
+   "x": 1.08,
+   "y": 0.23,
+   "z": -0.78,
+   "r": 0.27,
+   "seed": 16
+  },
+  {
+   "id": "puff6",
+   "kind": "cloudpuff",
+   "x": 1.78,
+   "y": 0.264,
+   "z": -0.78,
+   "r": 0.31,
+   "seed": 17
+  },
+  {
+   "id": "puff7",
+   "kind": "cloudpuff",
+   "x": 2.42,
+   "y": 0.213,
+   "z": -0.78,
+   "r": 0.25,
+   "seed": 18
+  },
+  {
+   "id": "counter",
+   "kind": "woodcounter",
+   "x": 0,
+   "y": 0,
+   "z": -0.075,
+   "rot": 90,
+   "w": 1.25,
+   "d": 0.5,
+   "h": 0.5
+  },
+  {
+   "id": "form",
+   "kind": "blankreport",
+   "x": 0.05,
+   "y": 0.505,
+   "z": 0.25
+  },
+  {
+   "id": "stamp",
+   "kind": "rubberstamp",
+   "x": -0.1,
+   "y": 0.5,
+   "z": 0.38,
+   "color": "#b43a23"
+  },
+  {
+   "id": "scythe",
+   "kind": "parkedscythe",
+   "x": 0,
+   "y": 0.59,
+   "z": -0.76
+  },
+  {
+   "id": "doorH",
+   "kind": "reviewdoor",
+   "x": -0.9,
+   "y": 0.4,
+   "z": -1.3,
+   "side": "heaven"
+  },
+  {
+   "id": "doorX",
+   "kind": "reviewdoor",
+   "x": 0.9,
+   "y": 0.4,
+   "z": -1.3,
+   "side": "hell",
+   "inside": true
+  },
+  {
+   "id": "badgeH",
+   "kind": "reviewbadge",
+   "x": -0.86,
+   "y": 2.04,
+   "z": -1.26,
+   "side": "heaven"
+  },
+  {
+   "id": "badgeX",
+   "kind": "reviewbadge",
+   "x": 0.86,
+   "y": 2.04,
+   "z": -1.26,
+   "side": "hell"
+  },
+  {
+   "id": "tab",
+   "kind": "reviewtablet",
+   "x": 6.5,
+   "y": 1.2,
+   "z": 0.3,
+   "rot": 150,
+   "lit": 0,
+   "hover": 1
+  },
+  {
+   "id": "table",
+   "kind": "woodcounter",
+   "x": 3,
+   "y": 0,
+   "z": 0.3,
+   "w": 3.4,
+   "h": 0.4,
+   "d": 0.9
+  },
+  {
+   "id": "h1",
+   "kind": "reviewtablet",
+   "x": 1.85,
+   "y": 0.4,
+   "z": 0.3,
+   "rot": 180,
+   "lit": 3
+  },
+  {
+   "id": "h2",
+   "kind": "cloche",
+   "x": 2.3,
+   "y": 0.4,
+   "z": 0.3,
+   "rot": 180
+  },
+  {
+   "id": "h3",
+   "kind": "ketchupbottle",
+   "x": 2.7199999999999998,
+   "y": 0.4,
+   "z": 0.3,
+   "rot": 180
+  },
+  {
+   "id": "h4",
+   "kind": "pitchfork",
+   "x": 3,
+   "y": 0.4,
+   "z": 0.3,
+   "rot": 180
+  },
+  {
+   "id": "h5",
+   "kind": "palmleaf",
+   "x": 3.25,
+   "y": 0.4,
+   "z": 0.3,
+   "rot": 180
+  },
+  {
+   "id": "h5b",
+   "kind": "palmleaf",
+   "x": 3.7,
+   "y": 0.4,
+   "z": 0.3,
+   "rot": 180,
+   "bend": 1
+  },
+  {
+   "id": "h6",
+   "kind": "drinkglass",
+   "x": 4.05,
+   "y": 0.4,
+   "z": 0.3,
+   "rot": 180
+  },
+  {
+   "id": "h7",
+   "kind": "partyhat",
+   "x": 4.32,
+   "y": 0.4,
+   "z": 0.3
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "awide",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "badgeX",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "h1",
+     "set": {
+      "hover": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "glow",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "doorX",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "open",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "doorX",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "doorX",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.9,
+     1,
+     4.5
+    ],
+    "look": [
+     0.9,
+     1,
+     -1.3
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "doorX",
+     "set": {
+      "open": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "doorH",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.9,
+     1,
+     4.5
+    ],
+    "look": [
+     -0.9,
+     1,
+     -1.3
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "badge0",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.86,
+     2.03,
+     3.6
+    ],
+    "look": [
+     0.86,
+     2.03,
+     -1.3
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "badge1",
+   "at": 6.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.86,
+     2.03,
+     3.6
+    ],
+    "look": [
+     0.86,
+     2.03,
+     -1.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "badgeX",
+     "set": {
+      "flicker": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "badgeH",
+   "at": 7.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.86,
+     2.03,
+     3.6
+    ],
+    "look": [
+     -0.86,
+     2.03,
+     -1.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "badgeX",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tab0",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     6.5,
+     1.6,
+     4.7
+    ],
+    "look": [
+     6.5,
+     1.6,
+     0.3
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "tab4",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     6.5,
+     1.6,
+     4.7
+    ],
+    "look": [
+     6.5,
+     1.6,
+     0.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tab",
+     "set": {
+      "lit": 4,
+      "hover": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "hands",
+   "at": 11,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3,
+     0.9,
+     9.3
+    ],
+    "look": [
+     3,
+     0.7,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "hands2",
+   "at": 12.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.38,
+     0.78,
+     5.4
+    ],
+    "look": [
+     2.42,
+     0.68,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "hands3",
+   "at": 13.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3.8,
+     0.85,
+     5.4
+    ],
+    "look": [
+     3.8,
+     0.78,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/09-hell-reviews/bench/make-hella-bench.mjs (engine bench, no reviews)."
+}
