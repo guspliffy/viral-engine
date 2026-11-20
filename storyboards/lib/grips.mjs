@@ -160,6 +160,10 @@ const SIZE = {
   pitchfork: { r: 0.01, h: 0.2 },
   palmleaf: { r: 0.01, h: 0.288 },
   drinkglass: { r: 0.035, h: 0.16 },
+  // props-carton.js (Potato Desk 11): friescarton = box hold on the two round ends (y 0.10 = 0.55 x 0.182, 0.216 wide there; gap 0.03 for Chip's 1.1 gloves) or the mug hold round one end
+  // low ({ height: 0.33 } = y 0.06, half-width 0.099; gap 0.038 for Wedge's 1.3 gloves); loosefry = the thin pinch at 0.85 of its 0.24 length (from: 0.85 = y 0.204)
+  friescarton: { w: 0.216, h: 0.182, d: 0.087, r: 0.099 },
+  loosefry: { len: 0.24, r: 0.018 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

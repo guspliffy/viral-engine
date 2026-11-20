@@ -129,6 +129,9 @@ export function judge(C, ch, out) {
   };
   if (wantRobe) {
     const robeM = clothMat("#ffffff", { side: THREE.DoubleSide }); robeM.map = robeCanvas(robeC, J.seamColor || "#343840", J.foldColor || "#2C3036", YN);
+    // no outline hull on the shell: under set "ink" the thin double-sided shell's hull drew pale streaks down the robe front
+    // (Desk 11 Sol check, 20 Nov 2026); the sleeves, belt and crest strokes keep their lines
+    robeM.userData.noOutline = true;
     const G = grid(200, 44, (u, v) => { const th = -Math.PI + u * TAU, yt = yTop(th), yl = yt + (yHem(th) - yt) * v; return { p: robePt(th, yl), uv: [u, clamp((yl - Y0) / (Y1 - Y0))] }; });
     const robe = mesh(G, robeM); robe.name = "judge-robe"; parts.add(robe);
     // a drawn line down the crest of each broad fold, in strokes of uneven length (the folds must read on a black robe)
