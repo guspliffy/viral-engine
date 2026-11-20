@@ -475,7 +475,7 @@ const PAN_MON = (tilt) => { const s = seatAt(tilt); return fr([s[0] - 0.6, s[1] 
 const SPUD_J_CL = fr([SPUD_J[0], 0.72, SPUD_J[1]], { az: -40, el: 3, h: 1.9, fov: 32, lift: 0.14 });
 const TWO_JC = fr([-3.25, 0.6, 3.1], { az: 20, el: 6, h: 2.6, fov: 36, lift: 0.1 });   // Chip turned to the scale: a front close puts the judges' robes behind his caption
 const TWO_J = fr([-3.0, 0.6, 2.9], { az: 10, el: 6, h: 2.6, fov: 36, lift: 0.1 });
-const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1] + 0.15, BEET_AT[2]], { az: -35, el: 4, h: 1.1, fov: 34 });
+const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1] + 0.15, BEET_AT[2]], { az: -35, el: 4, h: 1.6, fov: 34, lift: 0.25 });   // Spud and the beetle under a 4-line caption
 const WALK_S = fr([-1.9, 0.6, 1.6], { az: -35, el: 10, h: 2.8, fov: 38, lift: 0.1 });   // from his front-left: his face as he walks
 const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 20, h: 2.4, fov: 34, lift: 0.2 });   // wide enough for the 4-line caption over him
 // the pass, the doors, the museum
