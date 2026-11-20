@@ -276,9 +276,19 @@
   {
    "id": "pendant",
    "kind": "gpendant",
-   "staged": "a pendant lamp hanging from the ceiling over the sofa, out of frame until 3 g",
+   "staged": "a pendant lamp hanging over the sofa, at the top of the frame from frame 0",
    "x": 0.49,
-   "y": 3.2,
+   "y": 2.05,
+   "z": -1.58
+  },
+  {
+   "id": "pcord",
+   "kind": "gpendant",
+   "part": "cord",
+   "len": 1.26,
+   "staged": "the pendant's cord from the ceiling rose",
+   "x": 0.49,
+   "y": 3.55,
    "z": -1.58
   },
   {
@@ -731,10 +741,21 @@
      "id": "pendant",
      "set": {
       "x": 0.49,
-      "y": 3.2,
+      "y": 2.05,
       "z": -1.58,
       "roll": 0,
       "on": 1,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pcord",
+     "set": {
+      "roll": 0,
       "scale": 1
      },
      "dur": 0,
@@ -1202,21 +1223,31 @@
      "do": "prop",
      "id": "pendant",
      "set": {
-      "y": 3.076
+      "y": 1.998
      },
-     "dur": 0.09,
+     "dur": 0.06,
      "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pcord",
+     "set": {
+      "roll": -9
+     },
+     "dur": 0.22,
+     "ease": "inOut",
      "at": 0
     },
     {
      "do": "prop",
      "id": "pendant",
      "set": {
-      "y": 2.704
+      "y": 1.841
      },
-     "dur": 0.09,
+     "dur": 0.06,
      "ease": "linear",
-     "at": 0.09
+     "at": 0.06
     },
     {
      "sfx": "ai-package/flat-exhale",
@@ -1228,9 +1259,19 @@
      "do": "prop",
      "id": "pendant",
      "set": {
-      "y": 2.083
+      "y": 1.58
      },
-     "dur": 0.09,
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 1.215
+     },
+     "dur": 0.06,
      "ease": "linear",
      "at": 0.18
     },
@@ -1242,13 +1283,13 @@
     },
     {
      "do": "prop",
-     "id": "pendant",
+     "id": "pcord",
      "set": {
-      "y": 1.215
+      "roll": 6
      },
-     "dur": 0.09,
-     "ease": "linear",
-     "at": 0.27
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0.22
     },
     {
      "do": "prop",
@@ -1258,7 +1299,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.36
+     "at": 0.24
     },
     {
      "do": "prop",
@@ -1270,21 +1311,21 @@
      },
      "dur": 0.14,
      "ease": "out",
-     "at": 0.36
+     "at": 0.24
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.14,
      "dur": 0.22,
-     "at": 0.36
+     "at": 0.24
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.95,
      "dur": 0.05,
-     "at": 0.36
+     "at": 0.24
     },
     {
      "who": "spud",
@@ -1296,19 +1337,19 @@
       "curve": -0.8
      },
      "dur": 0.06,
-     "at": 0.36
+     "at": 0.24
     },
     {
      "sfx": "kenney/impact-soft-medium",
      "gain": 0.7,
      "reason": "the lamp bonks onto his head",
-     "at": 0.36
+     "at": 0.24
     },
     {
      "sfx": "ai/glass-smash",
      "gain": 0.3,
      "reason": "its bulb bursts",
-     "at": 0.37
+     "at": 0.25
     },
     {
      "do": "prop",
@@ -1320,21 +1361,14 @@
      },
      "dur": 0.24,
      "ease": "in",
-     "at": 0.5
-    },
-    {
-     "who": "spud",
-     "do": "squash",
-     "amount": 0.04,
-     "dur": 0.35,
-     "at": 0.6
+     "at": 0.38
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.25,
      "dur": 0.15,
-     "at": 0.61
+     "at": 0.49
     },
     {
      "who": "spud",
@@ -1346,7 +1380,7 @@
       "curve": -0.6
      },
      "dur": 0.15,
-     "at": 0.61
+     "at": 0.49
     },
     {
      "who": "spud",
@@ -1357,13 +1391,33 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.64
+     "at": 0.52
+    },
+    {
+     "do": "prop",
+     "id": "pcord",
+     "set": {
+      "roll": -3
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0.54
     },
     {
      "sfx": "kenney/impact-wood-light",
-     "gain": 0.65,
+     "gain": 0.9,
      "reason": "the lamp drops onto the cushion",
-     "at": 0.74
+     "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "pcord",
+     "set": {
+      "roll": 1.5
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.86
     }
    ]
   },
@@ -1420,6 +1474,16 @@
      "dur": 0.2,
      "blink": false,
      "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pcord",
+     "set": {
+      "roll": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.06
     },
     {
      "who": "spud",
@@ -3914,6 +3978,16 @@
     },
     {
      "do": "prop",
+     "id": "pcord",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "lamp",
      "set": {
       "x": 1.45,
@@ -4081,10 +4155,21 @@
      "id": "pendant",
      "set": {
       "x": 0.49,
-      "y": 3.2,
+      "y": 2.05,
       "z": -1.58,
       "roll": 0,
       "on": 1,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "pcord",
+     "set": {
+      "roll": 0,
       "scale": 1
      },
      "dur": 0,
