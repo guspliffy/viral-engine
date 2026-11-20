@@ -527,7 +527,8 @@ function fireKind(P_) {
       const t = ps.t ?? S.t ?? -1, on = t >= TL.impact[0] && t < TL.impact[1];
       smoke.reset(); fire.reset(); add.reset(); flare.reset(); band.visible = on;
       if (!on) { smoke.commit(); fire.commit(); add.commit(); flare.commit(); return; }
-      const I = Pk(TL.impact[0], TL.impact[1], t), r = TL.v * (t - TL.impact[0]), H = k3(...TL.H, I), W = k3(...TL.W, I), eA = k3(...TL.eA, I), span = Math.max(3 * W, 2);
+      const I = Pk(TL.impact[0], TL.impact[1], t), r = Math.min(TL.v * (t - TL.impact[0]), -12 - CZ),   // director: the front stops 12 m outside the window (it reaches it at ~59.27 = the room hit); past it the wall's ground band and flame cards sliced through the room (an orange pane over the sofa at 59.53)
+         H = k3(...TL.H, I), W = k3(...TL.W, I), eA = k3(...TL.eA, I), span = Math.max(3 * W, 2);
       // ground band
       for (let j = 0; j < ROWS; j++) {
         const u = BAND_U[j], rr = Math.max(0, r - span * u);
