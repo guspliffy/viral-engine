@@ -15,11 +15,13 @@ import { hash2 } from "./costumes-art-cast.js";
 //            #d9d2c0 (each drawn once by foldInk). Short bell sleeves, diameter 0.24 -> 0.20, 0.16 long, ending far before the wrist.
 //   belt     twisted rope, diameter 0.035 #d9a93a, a twist mark every 0.045 #b3831f, round the robe at y 0.26; a bow at the front (knot,
 //            two loops) with two hanging ends 0.20 and 0.16 long, tassels 0.05 #e8b93a (the ends swing with the body: softFollow).
-//   wings    two, each 0.46 high x 0.32 wide x about 0.04 thick, a curved shell of 5 primaries (0.20-0.26), 5 secondaries and 6 coverts,
-//            #fbf8f0 shading to #e3dccb at the quill, feather lines #cfc6b0; each wing is its own canvas, own feather jitter (not mirrored).
-//            The wing spans body-local y 0.40..0.86 (shoulder to eye height); the root is at x +-0.30, z -0.30; tip to tip 1.24.
-//            Swept back 22 degrees, tips 6 degrees up; idle flutter 6 degrees at 0.4 Hz (the two wings in opposite phase). They sit
-//            behind the shoulder line (z < -0.27), the arms are always in front of it: they never meet.
+//   wings    two bird wings hanging from the shoulder: 0.40 out from the root x 0.44 high, about 0.04 thick, a curved shell of three shingled
+//            rows: 6 coverts (0.11-0.12, in front, white), 5 secondaries (0.20-0.23) and 5 long primaries (0.30-0.34, at the back), the
+//            under rows cool-shaded #dfe3ee to #fbf8f0 at the tips, feather lines #cfc6b0; tips point down and out. Each wing is its
+//            own canvas with its own feather jitter (not mirrored). Top edge at world y 0.80 (shoulder), tips about 0.36 (hip); root at
+//            x +-0.30, z -0.30; each wing shows about 0.2 beyond the body's silhouette (tip to tip about 1.4). Swept back 14 degrees, splayed
+//            12 degrees out; idle flutter 6 degrees at 0.4 Hz (the two wings in opposite phase). They sit behind the shoulder line (z < -0.27),
+//            the arms are always in front of it: they never meet.
 //   halo     gold ring, outer diameter 0.44, tube 0.022, #f6c744, emissive #fff3b0 at 0.6, a soft glow card r 0.30 at 25 % behind it.
 //            Centre 0.07 above the sprout tip (sprout tip 1.50, halo top 1.63), tipped 12 degrees toward the lens, bobs 0.01 at 0.5 Hz,
 //            trails the head by the engine's follow-through (about 3 frames) so it follows head turns, never snaps.
@@ -43,8 +45,8 @@ import { hash2 } from "./costumes-art-cast.js";
 //   flutter    6     degrees of the idle wing flutter (0 = still)
 //   wings      true  false: no wings (a bust shot, a test)
 //   glasses    "#e8b93a" or false (no glasses)
-//   robe "#f8f5ec", robeShade "#e2dccd", trim "#e8b93a", fold "#d9d2c0", rope "#d9a93a", ropeMark "#b3831f", tassel "#e8b93a",
-//   wing "#fbf8f0", wingShade "#e3dccb", wingLine "#cfc6b0", halo "#f6c744", haloGlow "#fff3b0", slipper "#f8f5ec", sole "#e8b93a"   (colours)
+//   robe "#f8f5ec", robeShade "#e3dccb", trim "#e8b93a", fold "#d9d2c0", rope "#d9a93a", ropeMark "#b3831f", tassel "#e8b93a",
+//   wing "#fbf8f0", wingShade "#dfe3ee" (cool under rows), wingLine "#cfc6b0", halo "#f6c744", haloGlow "#fff3b0", slipper "#f8f5ec", sole "#e8b93a"   (colours)
 
 const PI = Math.PI, TAU = PI * 2, V = (x, y, z) => new THREE.Vector3(x, y, z);
 const shade = (hex, k) => `#${new THREE.Color(hex).multiplyScalar(k).getHexString()}`;
@@ -53,6 +55,15 @@ const lerp = (a, b, k) => a + (b - a) * k;
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
 const hs = (i, n = 0) => hash2(i * 3.17 + n * 11.3 + 77, i * 0.71 + n * 1.7 + 31.4);   // a hash 0..1 for mark i, channel n (the angel's seed 77)
 const gold = (c, r = 0.35, m = 0.45) => { const x = new THREE.MeshStandardMaterial({ color: c, roughness: r, metalness: m, side: THREE.DoubleSide }); x.userData.lookRole = "cloth"; return x; };
+// a white cloth that stays white-with-a-warm-grey-shade under the cast look (looks.js ROLE.cloth multiplies the shade by about
+// [0.65, 0.59, 0.77], which turns white cloth lavender): the colour/emissive pair that solves lit = litHex and shade = shadeHex for that ramp
+const WL = [1.04, 1.02, 1.0], WS = [0.65, 0.59, 0.77];
+function whiteMat(litHex, shadeHex, o = {}) {
+  const l = new THREE.Color(litHex), s = new THREE.Color(shadeHex), lc = [l.r, l.g, l.b], sc = [s.r, s.g, s.b], c = [], e = [];
+  for (let i = 0; i < 3; i++) { let ci = (lc[i] - sc[i]) / (WL[i] - WS[i]), ei = lc[i] - ci * WL[i]; if (ei < 0) { ei = 0; ci = lc[i] / WL[i]; } c.push(Math.max(0.02, ci)); e.push(ei); }
+  const m = new THREE.MeshStandardMaterial({ color: new THREE.Color().setRGB(c[0], c[1], c[2]), emissive: new THREE.Color().setRGB(e[0], e[1], e[2]), roughness: 0.95, side: o.side ?? THREE.FrontSide, vertexColors: !!o.vertexColors, map: o.map ?? null, emissiveMap: o.map ?? null });
+  m.userData.lookRole = "cloth"; m.userData.lineColor = o.line || "#a8946a"; return m;   // lineColor: the ink line from the material colour would come out blue
+}
 // a number or keyframes [[t, v], ...] -> a function of the clip time
 const keyed = (spec, def = 0) => {
   const kf = Array.isArray(spec) ? spec : null, base = kf ? 0 : +(spec ?? def);
@@ -91,7 +102,7 @@ function stripOn(G, path, hw, off, mat) {
 
 // ------------------------------------------------------------------ the robe: a wrap robe with a V, gold edges, a rope belt and a bow
 function robe(C, ch, S) {
-  const parts = ch.potatoParts, base = S.base, robeC = C.robe || "#f8f5ec", robeSh = C.robeShade || "#e2dccd", trimC = C.trim || "#e8b93a";
+  const parts = ch.potatoParts, base = S.base, robeC = C.robe || "#f8f5ec", robeSh = C.robeShade || "#e3dccb", shadeC = robeSh, trimC = C.trim || "#e8b93a";
   const phY = (y) => elOfY(ch, base + y), hemPh = phY(0.06);
   // the neckline: the V's point at y 0.36 on the chest, rising to the shoulder line (0.52) at the sides and the back; the mouth (0.50) is clear
   const ctl = [[0, 0.36], [0.4, 0.405], [0.75, 0.45], [1.05, 0.485], [1.6, 0.515], [2.3, 0.53], [PI, 0.54]];
@@ -101,8 +112,8 @@ function robe(C, ch, S) {
   const topPh = (th) => { const q = ((((th % TAU) + TAU) % TAU) / TAU) * TBL, i = Math.min(TBL - 1, Math.floor(q)); return lerp(tbl[i], tbl[i + 1], q - i); };
   const NU = 180, NV = 40, lift = 0.02, thick = 0.01;
   const G = garment(ch, { topFn: topPh, top: topPh(0), hem: hemPh, folds: 4, depth: 0.006, flare: 0.04, lift, lift0: lift, wave: 0.004, thick, phase: 0.7, grad: 0.1, segs: NU, rows: NV });
-  const m = clothMat(robeC, { side: THREE.DoubleSide, vertexColors: true }); m.emissive = new THREE.Color(robeC); m.emissiveIntensity = 0.12;   // keeps the white white in the look's shadow tint
-  parts.add(mesh(G.outer, m)); parts.add(mesh(G.inner, liningMat(robeSh), false)); parts.add(mesh(G.hem, clothMat(robeC, { side: THREE.DoubleSide }), false));
+  const m = whiteMat(robeC, shadeC, { side: THREE.DoubleSide, vertexColors: true });
+  parts.add(mesh(G.outer, m)); parts.add(mesh(G.inner, liningMat(robeSh), false)); parts.add(mesh(G.hem, whiteMat(robeC, shadeC, { side: THREE.DoubleSide }), false));
   { const ig = foldInk(G, { width: 0.0055 }); if (ig) parts.add(inkMesh(ig, robeC, 0.82)); }
   // trim bands 0.035 wide: the collar edge, the wrap edge, the hem
   const tm = gold(trimC), hw = 0.0175, off = thick + 0.004;
@@ -179,37 +190,40 @@ function sleeves(ch, mat, bandMat, SL) {
   };
 }
 
-// ------------------------------------------------------------------ wings: each its own canvas and its own feather jitter
-// the planform (a out from the root, b up, metres) is built flat, then bent into a shell: swept by the group, cupped forward at the tip
+// ------------------------------------------------------------------ wings: bird wings hanging from the shoulder, three shingled rows, each wing its own canvas and feather jitter
+// the planform (a out from the root at the top-inner corner, b up, metres) is built flat, then bent into a shell: swept back by the group, cupped forward at the tip.
+// rows: coverts (short, in front), secondaries (middle), primaries (long, at the back, under rows cool-shaded); tips point down and out.
+const WING_A = 0.40, WING_B = 0.44, WING_TOP = 0.80;   // out from the root, high, and the world height of the top edge (shoulder), tips about hip height
 function wing(C, ch, S, sd) {
   const seed = sd > 0 ? 1 : 2, h = (i, n) => hs(i + seed * 41, n);
-  const PRI = [[-4, 0.26], [-19, 0.255], [-34, 0.24], [-48, 0.225], [-61, 0.205]], SEC = [[14, 0.2], [30, 0.205], [46, 0.2], [61, 0.19], [75, 0.175]], COV = [[-50, 0.12], [-30, 0.125], [-8, 0.13], [14, 0.125], [36, 0.12], [58, 0.11]];
-  const F = [];   // { pts: [[a, b]] outline, base, tip, layer, ang, rachis }
-  const addF = (list, layer, wid, base, i0) => list.forEach(([deg, L0], i) => {
-    const ang = (deg + (h(i0 + i, 1) - 0.5) * 6) * PI / 180, L = L0 * (0.97 + 0.06 * h(i0 + i, 2)), W = wid * (0.92 + 0.16 * h(i0 + i, 3)), curl = (h(i0 + i, 4) - 0.5) * 0.14, m = 12, left = [], right = [];
-    for (let j = 0; j <= m; j++) { const u = j / m, w = (W / 2) * Math.pow(Math.sin(PI * Math.pow(u, 0.62)), 0.4), cc = curl * L * u * u; left.push([u * L, cc - w]); right.push([u * L, cc + w]); }
-    const loc = [...left, ...right.reverse()], ca = Math.cos(ang), sa = Math.sin(ang), bx = base[0] + (layer === 2 ? 0.01 * i : 0), by = base[1];
-    F.push({ pts: loc.map(([s, t]) => [bx + s * ca - t * sa, by + s * sa + t * ca]), base: [bx, by], tip: [bx + L * ca - curl * L * sa, by + L * sa + curl * L * ca], layer, ang, L, W, i: i0 + i });
+  const COV = [[-85, 0.11], [-80, 0.115], [-75, 0.12], [-70, 0.12], [-65, 0.12], [-60, 0.11]], SEC = [[-88, 0.2], [-80, 0.22], [-72, 0.23], [-64, 0.225], [-56, 0.21]], PRI = [[-90, 0.3], [-80, 0.32], [-70, 0.34], [-60, 0.33], [-50, 0.3]];
+  const F = [];   // { pts: outline [[a, b]], base, tip, layer }
+  const addF = (list, layer, wid, base0, step, i0) => list.forEach(([deg, L0], i) => {
+    const ang = (deg + (h(i0 + i, 1) - 0.5) * 5) * PI / 180, L = L0 * (0.97 + 0.06 * h(i0 + i, 2)), W = wid * (0.92 + 0.16 * h(i0 + i, 3)), curl = (h(i0 + i, 4) - 0.5) * 0.12, m = 12, left = [], right = [];
+    for (let j = 0; j <= m; j++) { const u = j / m, w = (W / 2) * Math.pow(Math.sin(PI * Math.pow(u, 0.6)), 0.4), cc = curl * L * u * u; left.push([u * L, cc - w]); right.push([u * L, cc + w]); }
+    const loc = [...left, ...right.reverse()], ca = Math.cos(ang), sa = Math.sin(ang), bx = base0[0] + step * i, by = base0[1] - 0.004 * i;
+    F.push({ pts: loc.map(([s, t]) => [bx + s * ca - t * sa, by + s * sa + t * ca]), base: [bx, by], tip: [bx + L * ca - curl * L * sa, by + L * sa + curl * L * ca], layer, L, W, i: i0 + i });
   });
-  addF(PRI, 0, 0.095, [0.02, 0], 0); addF(SEC, 1, 0.09, [0.02, 0.01], 10); addF(COV, 2, 0.075, [0.045, 0.005], 20);
+  addF(PRI, 0, 0.1, [0.045, -0.02], 0.03, 0); addF(SEC, 1, 0.092, [0.03, -0.012], 0.035, 10); addF(COV, 2, 0.08, [0.025, 0.0], 0.03, 20);
   let a0 = 1e9, a1 = -1e9, b0 = 1e9, b1 = -1e9;
   for (const f of F) for (const [a, b] of f.pts) { a0 = Math.min(a0, a); a1 = Math.max(a1, a); b0 = Math.min(b0, b); b1 = Math.max(b1, b); }
-  const sa_ = 0.32 / (a1 - Math.min(0, a0)), sb_ = 0.46 / (b1 - b0), A0 = Math.min(0, a0) * sa_, B0 = b0 * sb_;   // scale the planform to 0.32 x 0.46 exactly
+  const sa_ = WING_A / (a1 - Math.min(0, a0)), sb_ = WING_B / (b1 - b0), A0 = Math.min(0, a0) * sa_, B0 = b0 * sb_, B1 = b1 * sb_;   // scale the planform to WING_A x WING_B exactly
   for (const f of F) { f.pts = f.pts.map(([a, b]) => [a * sa_, b * sb_]); f.base = [f.base[0] * sa_, f.base[1] * sb_]; f.tip = [f.tip[0] * sa_, f.tip[1] * sb_]; }
-  // the wing's own canvas: each feather shaded from the quill end to the tip, a rachis and barbs, outline
-  const CW = 512, CH = Math.round(CW * 0.46 / 0.32), pad = 0.004, ext = [0.32 + 2 * pad, 0.46 + 2 * pad];
+  // the wing's own canvas: each feather shaded from the quill end to the tip (cool under rows, white coverts), a rachis and barbs, outline
+  const CW = 512, CH = Math.round(CW * WING_B / WING_A), pad = 0.004, ext = [WING_A + 2 * pad, WING_B + 2 * pad];
   const cx = (a) => ((a - A0 + pad) / ext[0]) * CW, cy = (b) => (1 - (b - B0 + pad) / ext[1]) * CH;
   const cv = document.createElement("canvas"); cv.width = CW; cv.height = CH; const g = cv.getContext("2d");
-  const light = C.wing || "#fbf8f0", dark = C.wingShade || "#e3dccb", line = C.wingLine || "#cfc6b0";
-  g.fillStyle = dark; g.fillRect(0, 0, CW, CH); g.lineJoin = "round"; g.lineCap = "round";
+  const light = C.wing || "#fbf8f0", cool = C.wingShade || "#dfe3ee", line = C.wingLine || "#cfc6b0", mixC = (a, b, k) => `#${new THREE.Color(a).lerp(new THREE.Color(b), k).getHexString()}`;
+  g.fillStyle = cool; g.fillRect(0, 0, CW, CH); g.lineJoin = "round"; g.lineCap = "round";
   for (const f of [...F].sort((p, q) => p.layer - q.layer)) {
     g.beginPath(); f.pts.forEach(([a, b], j) => (j ? g.lineTo(cx(a), cy(b)) : g.moveTo(cx(a), cy(b)))); g.closePath();
-    const gr = g.createLinearGradient(cx(f.base[0]), cy(f.base[1]), cx(f.tip[0]), cy(f.tip[1])); gr.addColorStop(0, dark); gr.addColorStop(0.5, light); gr.addColorStop(1, light);
-    g.fillStyle = gr; g.fill(); g.lineWidth = 2; g.strokeStyle = line; g.stroke();
+    const dk = f.layer === 2 ? mixC(cool, light, 0.55) : cool, gr = g.createLinearGradient(cx(f.base[0]), cy(f.base[1]), cx(f.tip[0]), cy(f.tip[1]));
+    gr.addColorStop(0, dk); gr.addColorStop(f.layer === 2 ? 0.55 : 0.8, f.layer === 2 ? light : mixC(cool, light, 0.55)); gr.addColorStop(1, light);
+    g.fillStyle = gr; g.fill(); g.lineWidth = 2.2; g.strokeStyle = line; g.stroke();
     const ux = (f.tip[0] - f.base[0]), uy = (f.tip[1] - f.base[1]), ul = Math.hypot(ux, uy) || 1, nx = -uy / ul, ny = ux / ul;
     g.strokeStyle = line; g.lineWidth = 2.6; g.beginPath(); g.moveTo(cx(f.base[0] + ux * 0.05), cy(f.base[1] + uy * 0.05)); g.lineTo(cx(f.base[0] + ux * 0.92), cy(f.base[1] + uy * 0.92)); g.stroke();
-    const nb = 4 + Math.floor(3 * h(f.i, 5)); g.lineWidth = 1.3; g.globalAlpha = 0.75;
-    for (let k = 1; k <= nb; k++) for (const sg of [-1, 1]) { const u = 0.2 + 0.68 * (k / (nb + 1)), bl = f.W * 0.34 * (0.7 + 0.4 * h(f.i * 7 + k, 6)) * (1 - 0.3 * u); const bx = f.base[0] + ux * u, by = f.base[1] + uy * u;
+    const nb = f.layer === 2 ? 2 : 4 + Math.floor(3 * h(f.i, 5)); g.lineWidth = 1.3; g.globalAlpha = 0.7;
+    for (let k = 1; k <= nb; k++) for (const sg of [-1, 1]) { const u = 0.25 + 0.65 * (k / (nb + 1)), bl = f.W * 0.34 * (0.7 + 0.4 * h(f.i * 7 + k, 6)) * (1 - 0.3 * u); const bx = f.base[0] + ux * u, by = f.base[1] + uy * u;
       g.beginPath(); g.moveTo(cx(bx), cy(by)); g.lineTo(cx(bx + (nx * sg * 0.8 + ux / ul * 0.5) * bl), cy(by + (ny * sg * 0.8 + uy / ul * 0.5) * bl)); g.stroke(); }
     g.globalAlpha = 1;
   }
@@ -223,27 +237,26 @@ function wing(C, ch, S, sd) {
     for (let i = 0; i < P.count; i++) {
       const a = P.getX(i), b = P.getY(i), z = P.getZ(i) - 0.004 + f.layer * 0.012;
       uv[i * 2] = (a - A0 + pad) / ext[0]; uv[i * 2 + 1] = (b - B0 + pad) / ext[1];
-      P.setXYZ(i, sd * a, b, z + 0.35 * a * a);   // x out (mirrored for the left wing), y up from the root pivot, the tip cupped forward
+      P.setXYZ(i, sd * a, b, z + 0.3 * a * a);   // x out (mirrored for the left wing), y up from the root, the tip cupped forward
     }
     eg.setAttribute("uv", new THREE.BufferAttribute(uv, 2)); eg.deleteAttribute("normal"); geos.push(eg);
   }
   const mg = mergeGeometries(geos, false);
   if (sd < 0) { const P = mg.attributes.position, U = mg.attributes.uv; for (let i = 0; i < P.count; i += 3) for (const A of [P, U]) { const n = A.itemSize, t = []; for (let c = 0; c < n; c++) { t.push(A.getComponent(i + 1, c)); A.setComponent(i + 1, c, A.getComponent(i + 2, c)); A.setComponent(i + 2, c, t[c]); } } }
   mg.computeVertexNormals();
-  const mat = new THREE.MeshStandardMaterial({ map: tex, color: "#ffffff", roughness: 0.85, side: THREE.DoubleSide, emissive: new THREE.Color("#ffffff"), emissiveMap: tex, emissiveIntensity: 0.18 });   // lifts the shadow side: the wings stay white behind the body mat.userData.lookRole = "cloth";
+  const mat = whiteMat("#ffffff", "#f0ece2", { side: THREE.DoubleSide, map: tex })   // the canvas carries the colours;
   const grp = new THREE.Group(), m = mesh(mg, mat); m.frustumCulled = false; grp.add(m);
-  // the group's origin is the root (the planform's pivot); the wing's bottom is at b = B0 (below it), so the wing spans body-local y 0.40..0.86
-  grp.position.set(sd * 0.30, S.base + 0.40 - B0, -0.30);
+  grp.position.set(sd * 0.30, WING_TOP - B1, -0.30);   // the group's origin is the root (the planform's pivot); the wing's top edge is at world WING_TOP, the tips WING_B lower
   return { grp, sd };
 }
 function wings(C, ch, S) {
-  const flut = (C.flutter ?? 6) * PI / 180, sweep = 22 * PI / 180, roll = 6 * PI / 180, W = [-1, 1].map((sd) => wing(C, ch, S, sd)), flapAt = keyed(C.flap);
+  const flut = (C.flutter ?? 6) * PI / 180, sweep = 14 * PI / 180, roll = 12 * PI / 180, W = [-1, 1].map((sd) => wing(C, ch, S, sd)), flapAt = keyed(C.flap);
   for (const w of W) ch.potatoParts.add(w.grp);
   return (st, t) => {
     const fl = clamp01(Math.max(flapAt(t), st?.flap || 0, st?.wings || 0));
     for (const { grp, sd } of W) {
       const ph = sd > 0 ? 0 : 1.9, fy = flut * Math.sin(TAU * 0.4 * t + ph);
-      grp.rotation.set(0, sd * (sweep - fl * 25 * PI / 180 + fy), sd * (roll + fl * 0.22));
+      grp.rotation.set(0, sd * (sweep - fl * 25 * PI / 180 + fy), sd * (roll + fl * 0.3));
     }
   };
 }
@@ -293,7 +306,7 @@ function glasses(C, ch) {
 
 // ------------------------------------------------------------------ white slippers with a gold sole band
 function slippers(C, ch) {
-  const upM = clothMat(C.slipper || "#f8f5ec", { roughness: 0.8 }), soleM = clothMat(C.sole || "#e8b93a", { roughness: 0.6 });
+  const upM = whiteMat(C.slipper || "#f8f5ec", C.robeShade || "#e3dccb"), soleM = clothMat(C.sole || "#e8b93a", { roughness: 0.6 });
   const outline = (w, l) => { const s = new THREE.Shape(), n = 36; for (let i = 0; i < n; i++) { const a = (i / n) * TAU, c = Math.cos(a), sn = Math.sin(a), x = Math.sign(c) * Math.abs(c) ** 0.8 * (w / 2) * (sn < 0 ? 1 : 0.86), y = Math.sign(sn) * Math.abs(sn) ** 0.8 * (l / 2); (i ? s.lineTo : s.moveTo).call(s, x, y); } s.closePath(); return s; };
   const soleG = new THREE.ExtrudeGeometry(outline(0.16, 0.25), { depth: 0.012, bevelEnabled: true, bevelSize: 0.002, bevelThickness: 0.0015, bevelSegments: 1, curveSegments: 10 }); soleG.rotateX(-PI / 2);
   const domeG = new THREE.SphereGeometry(1, 28, 12, 0, TAU, 0, PI / 2);
@@ -321,7 +334,7 @@ export function angelKit(C, ch) {
   skinMarks(C, ch);
   slippers(C, ch);
   robe(C, ch, S);
-  const sl = sleeves(ch, clothMat(C.robe || "#f8f5ec", { side: THREE.DoubleSide }), gold(C.trim || "#e8b93a"), { r0: 0.12, r1: 0.1, len: 0.16, back: 0.05 });
+  const sl = sleeves(ch, whiteMat(C.robe || "#f8f5ec", C.robeShade || "#e3dccb", { side: THREE.DoubleSide }), gold(C.trim || "#e8b93a"), { r0: 0.12, r1: 0.1, len: 0.16, back: 0.05 });
   const wingUp = C.wings === false ? () => {} : wings(C, ch, S), haloUp = halo(C, ch), glassUp = glasses(C, ch);
   return { sl, apply: (st, t) => { wingUp(st, t); haloUp(st, t); glassUp.apply(st, t); } };
 }
