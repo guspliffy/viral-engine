@@ -1,0 +1,216 @@
+{
+ "id": "desk12-voice-probe",
+ "title": "Potato Desk 12 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   39,
+   39
+  ]
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 39,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You robbed a bank.",
+     "tone": "angry",
+     "style": "deep, stern, flat, a judge reading the charge",
+     "dur": 2.1,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Thank you for having me!",
+     "tone": "happy",
+     "style": "bright, polite, eager, a job applicant shaking hands",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 3.3
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Why this bank?",
+     "tone": "calm",
+     "style": "deep, stern, slow, a judge",
+     "dur": 1.7,
+     "caption": false,
+     "at": 6.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I'm passionate about money.",
+     "tone": "happy",
+     "style": "sincere, warm, rehearsed, a job interview answer",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 9.5
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Did you act alone?",
+     "tone": "calm",
+     "style": "deep, stern, a judge",
+     "dur": 2.1,
+     "caption": false,
+     "at": 12.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I led a team of two.",
+     "tone": "happy",
+     "style": "proud, confident, professional",
+     "voice": "chip-clean",
+     "dur": 2.9,
+     "caption": false,
+     "at": 15.7
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Where is the money?",
+     "tone": "angry",
+     "style": "deep, stern, sharp",
+     "dur": 2.1,
+     "caption": false,
+     "at": 19.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I invested in myself.",
+     "tone": "happy",
+     "style": "smooth, proud, straightening his tie",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 22.7
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Why were you still in the vault?",
+     "tone": "calm",
+     "style": "deep, stern, tired, a judge",
+     "dur": 3.3,
+     "caption": false,
+     "at": 25.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Honestly? I work too hard.",
+     "tone": "happy",
+     "style": "humble brag, modest, a little smile",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 30.1
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Ten years.",
+     "tone": "calm",
+     "style": "deep, stern, flat, final",
+     "dur": 1.3,
+     "caption": false,
+     "at": 33.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Is that full time?",
+     "tone": "happy",
+     "style": "hopeful, eager, bright, a job applicant",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 35.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 12: makes and measures every take."
+}
