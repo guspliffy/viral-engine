@@ -1,15 +1,17 @@
 # Fact what-if 02: "What if gravity got stronger every five seconds?" (delivery, 20 Nov 2026)
 
 Final: /mnt/project-files/videos/facts/02-gravity/gravity-FINAL.mp4 (58.1 s = the 64 s render with two still tails cut, played at 1.07x with
-ffmpeg setpts + atempo, voice pitch kept; 1080x1920, 30 fps, loops), farm run 44764227102, qa/check PASS on the 1x
+ffmpeg setpts + atempo, voice pitch kept; 1080x1920, 30 fps, loops), farm run 44800719824, qa/check PASS on the 1x
 render (32 creative notes, CHECK-FINAL.txt beside it).
 Jonny 20 Nov 13:25 Berlin: the hook question is not burned in (he adds it with the TikTok text tool), the g counter
 sits where it was (centre y 445), captions at 575; 7 % faster.
 Jonny 20 Nov 15:31: the 3 g step stood still ~2 s (0:03.3-0:05.6). Now a ceiling lamp (new gpendant prop) hangs over him
 from frame 0 (Jonny 16:25: it came out of nothing); at 3 g its shade snaps off, bonks his head, its bulb bursts, it drops beside him; the narrator says "Three gee." on a punch-in.
-Jonny 20 Nov 19:41: still tails at the end of 10 g and 15 g -> cut in the edit (1x times, farm run 44764227102 render):
+Jonny 20 Nov 19:41: still tails at the end of 10 g and 15 g -> cut in the edit (1x times):
 keep 0-16.8, 18.0-22.333, 23.0-64 (16.8-18.0: his face after "... comes back"; 22.333-23.0: after "... their weight";
-15 ms audio fades at each join), then 1.07x. ffmpeg trim/atrim + concat, then setpts=PTS/1.07,fps=30 + atempo=1.07.
+15 ms audio fades at each join), then 1.07x.
+Jonny 20 Nov 20:07: after the cuts the voice came a beat before the words -> captionLead 0.12 (each word pops 0.12 s
+before its voice, never before the cut; new engine key, default 0). ffmpeg trim/atrim + concat, then setpts=PTS/1.07,fps=30 + atempo=1.07.
 Post pack: POST-PACK.md beside this file.
 
 ## Rounds
