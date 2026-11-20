@@ -61,8 +61,8 @@ const CV = { id: "cv", kind: "cvsheet", away: true, ...grips.placeFor("cvsheet",
 const TIE = { id: "tie", kind: "necktie", wear: "chip", x: 0, y: 0.34, z: 0.24, len: 0.15, color: "#24324a", stripe: "#d9b24a" };
 const props = [
   { id: "floor", kind: "courtfloor", x: 0, y: 0, z: 2.1 },
-  { id: "wall", kind: "officewall", x: 0, y: 0, z: -1.3, w: 6.2, h: 4.24 },   // 6.2, not 3.8: the wide angles showed its side edge (Sol r2 #16)
-  { id: "dado", staged: "panels fixed to the back wall", kind: "dadopanels", x: 0, y: 0, z: -1.3, trim: true, trimW: 6.2, xs: [-3, -2.25, -1.5, -0.75, 0, 0.75, 1.5, 2.25, 3] },
+  { id: "wall", kind: "officewall", x: 0, y: 0, z: -1.3, w: 10, h: 6 },   // 10 x 6, not 3.8 x 4.24: the wide angles showed its side edge (Sol r2 #16)
+  { id: "dado", staged: "panels fixed to the back wall", kind: "dadopanels", x: 0, y: 0, z: -1.3, trim: true, trimW: 10, xs: [-4.5, -3.75, -3, -2.25, -1.5, -0.75, 0, 0.75, 1.5, 2.25, 3, 3.75, 4.5] },
   { id: "board", staged: "screwed to the back wall", kind: "sentenceboard", x: 0.3,   // 0.3, not Court Day's 0.66: the two-shots from the left either hold the whole numeral or none of it (Sol r2: a cut "10" read as "0")
     y: 2.01, z: -1.255,
     states: ["?", "10", "0"], units: ["YEARS", "YEARS", "YEARS"], headers: ["SENTENCE", "SENTENCE", "SENTENCE"] },
@@ -251,7 +251,7 @@ restVia(r3(END_OF(30) + 0.1), "wedge", "R", undefined, 0.4, 0.5); A(r3(END_OF(31
 A(r3(T[31] - 0.2), "vik", "lean", { to: 0, dur: 0.4 }); A(r3(T[31] - 0.1), "vik", "expr", { expr: "sad", dur: 0.25 }); A(r3(T[31]), "vik", "face", { lid: 0.5, dur: 0.3 });
 say(31);
 // 33 WEDGE, a done deal, thumbs up: I'll take fifteen.
-expr(r3(T[32] - 0.1), "wedge", "delighted"); arm(r3(T[32] - 0.35), "wedge", "L", { o: [0.04, 0.85, 0.2], elbow: 0.12 }, 0.5); grip(r3(T[32] - 0.05), "wedge", "L", "fist");   // the fist beside his head (Sol r2 #3)
+expr(r3(T[32] - 0.1), "wedge", "delighted"); arm(r3(T[32] - 0.35), "wedge", "L", { o: [-0.2, 0.95, 0.25], elbow: 0.12 }, 0.5); grip(r3(T[32] - 0.05), "wedge", "L", "fist");   // the fist beside his head (Sol r2 #3)
 say(32);
 A(r3(END_OF(32) - 0.1), "wedge", "squash", { amount: -0.05, dur: 0.15 }); A(r3(END_OF(32) + 0.15), "wedge", "squash", { amount: 0, dur: 0.2 });
 arm(r3(END_OF(32) + 0.1), "wedge", "L", "rest", 0.6);
@@ -310,7 +310,7 @@ see(T[40], END, ["chip.face", "wedge.face"], "sent home, both are crushed: no de
 // ---------------------------------------------------------------- cameras: every shot moves (Jonny 20 Nov 09:44)
 const push = (s, k = 0.06, dur = 2) => ({ ...s, to: { pos: s.pos.map((v, i) => r3(v + (s.look[i] - v) * k)), look: s.look, fov: s.fov }, dur, ease: "inOut" });
 const drift = (s, dx = 0.12, dur = 2) => ({ ...s, to: { pos: [r3(s.pos[0] + dx), s.pos[1], s.pos[2]], look: [r3(s.look[0] + dx * 0.5), s.look[1], s.look[2]], fov: s.fov }, dur, ease: "inOut" });
-const WIDE = { pos: [0.45, 1.45, 9.6], look: [0.45, 1.3, 0], fov: 29 };   // the accomplice in frame
+const WIDE = { pos: [0.35, 1.45, 9.6], look: [0.35, 1.3, 0], fov: 34 };   // all three whole with the board at x 0.3 (camfit)   // the accomplice in frame
 const CHIP_MED = { pos: [-0.22, 0.55, 3.54], look: [0.32, 0.55, 1.2], fov: 30 };   // camfit: caption top 250 clear
 const VIK_MED = { pos: [0.45, 2.05, 2.08], look: [-0.8, 2.05, -0.48], fov: 32 };   // aimed left of him: both eyes clear of the edge (Sol r1 #21)   // camfit: caption top 250 clear
 const VIK_LOW = { pos: [-0.25, 2.05, 2.29], look: [-0.8, 2.05, -0.48], fov: 32 };   // camfit: caption top 250 clear
