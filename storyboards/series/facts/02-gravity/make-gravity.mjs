@@ -110,7 +110,8 @@ const narr = (t, line, text, pos = F.SUB, clampNext = true, split = null) => {
   const d = LEN[line]; if (!d) throw new Error(`no measured length for "${line}" (run measure-lines.mjs)`);
   c.at(t, { macro: "narrate", line, voice: NARRATOR, ...(TAKES[line] && { take: TAKES[line] }), dur: d, caption: false, pos, gain: 4.0 });
   const next = clampNext ? (STEPS.find(([k]) => k > t + 0.05)?.[0] ?? END) : END;   // Sol r1 #7: never under the next counter step
-  const end = Math.min(r3(t + d + 0.15), r3(next - 0.02), END - 0.01);
+  const nextLine = LINES.find(([k]) => k > t + 0.05)?.[0] ?? END;
+  const end = Math.min(r3(t + d + 0.15), r3(next - 0.02), r3(nextLine - LEAD - 0.02), END - 0.01);   // clear before the next line's caption
   const t0 = Math.max(0, r3(t - LEAD), [...STEPS].reverse().find(([k]) => k <= t)?.[0] ?? 0);   // never over the shot before the step   // Jonny 20 Nov 20:07: the voice came a beat before the words; they lead it now
   if (!split) { cap(t0, end, text, pos); return; }   // spoken "gee", written "g"
   // Sol r3 #1: a long line as two captions in the same place (one three-line caption reached down over his sprout)

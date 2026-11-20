@@ -525,14 +525,14 @@
   },
   {
    "from": 2.88,
-   "to": 4.499,
+   "to": 4.46,
    "text": "In ten, you black out.",
    "pos": 575,
    "pop": false
   },
   {
    "from": 4.48,
-   "to": 5.98,
+   "to": 5.96,
    "text": "Three g.",
    "pos": 575,
    "pop": false
@@ -574,7 +574,7 @@
   },
   {
    "from": 28,
-   "to": 32.98,
+   "to": 32.96,
    "text": "Twenty-five. No human survives this. Good thing you're a potato.",
    "pos": 575,
    "pop": false
