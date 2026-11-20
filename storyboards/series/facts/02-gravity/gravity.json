@@ -274,6 +274,14 @@
    "z": -1.6
   },
   {
+   "id": "pendant",
+   "kind": "gpendant",
+   "staged": "a pendant lamp hanging from the ceiling over the sofa, out of frame until 3 g",
+   "x": 0.49,
+   "y": 3.2,
+   "z": -1.58
+  },
+  {
    "id": "rug",
    "kind": "grug",
    "x": 0.18,
@@ -512,6 +520,13 @@
    "pop": false
   },
   {
+   "from": 4.6,
+   "to": 5.98,
+   "text": "Three g.",
+   "pos": 575,
+   "pop": false
+  },
+  {
    "from": 6.1,
    "to": 8.48,
    "text": "Four g. Your eyes go grey.",
@@ -709,6 +724,21 @@
      ],
      "dur": 0,
      "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "x": 0.49,
+      "y": 3.2,
+      "z": -1.58,
+      "roll": 0,
+      "on": 1,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -1071,9 +1101,9 @@
    "kind": "hook"
   },
   {
-   "name": "P02 3 g: pressed into the sofa",
+   "name": "P02 3 g: pressed into the sofa, the phone hand thuds down",
    "at": 3.5,
-   "len": 2.5,
+   "len": 1.1,
    "shot": {
     "pos": [
      0.26,
@@ -1099,7 +1129,7 @@
      ],
      "fov": 50
     },
-    "dur": 2.5,
+    "dur": 1.1,
     "ease": "linear"
    },
    "do": [
@@ -1169,10 +1199,40 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 3.076
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 2.704
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.09
+    },
+    {
      "sfx": "ai-package/flat-exhale",
      "gain": 0.5,
      "reason": "he pushes air out under 3 g",
      "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 2.083
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.18
     },
     {
      "sfx": "kenney/cloth",
@@ -1181,25 +1241,192 @@
      "at": 0.2
     },
     {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 1.215
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.36
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "x": 0.2,
+      "y": 1.33,
+      "roll": 35
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
      "who": "spud",
      "do": "squash",
-     "amount": 0.03,
-     "dur": 0.35,
+     "amount": 0.14,
+     "dur": 0.22,
+     "at": 0.36
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.95,
+     "dur": 0.05,
+     "at": 0.36
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.4,
+      "open": 0.3,
+      "curve": -0.8
+     },
+     "dur": 0.06,
+     "at": 0.36
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.7,
+     "reason": "the lamp bonks onto his head",
+     "at": 0.36
+    },
+    {
+     "sfx": "ai/glass-smash",
+     "gain": 0.3,
+     "reason": "its bulb bursts",
+     "at": 0.37
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "x": -0.22,
+      "y": 0.6,
+      "roll": 88
+     },
+     "dur": 0.24,
+     "ease": "in",
      "at": 0.5
     },
     {
      "who": "spud",
      "do": "squash",
-     "amount": 0.03,
+     "amount": 0.04,
      "dur": 0.35,
-     "at": 1.2
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.25,
+     "dur": 0.15,
+     "at": 0.61
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.75,
+      "open": 0.2,
+      "curve": -0.6
+     },
+     "dur": 0.15,
+     "at": 0.61
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.15
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.64
+    },
+    {
+     "sfx": "kenney/impact-wood-light",
+     "gain": 0.65,
+     "reason": "the lamp drops onto the cushion",
+     "at": 0.74
+    }
+   ]
+  },
+  {
+   "name": "P02b 3 g: 'Three gee.' (punch-in)",
+   "at": 4.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.26,
+     1.24,
+     1.2
+    ],
+    "look": [
+     0.4,
+     1.08,
+     -1.6
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.266,
+      1.234,
+      1.088
+     ],
+     "look": [
+      0.4,
+      1.08,
+      -1.6
+     ],
+     "fov": 44
+    },
+    "dur": 1.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Three gee.",
+     "voice": "narrator-quick",
+     "dur": 1.4636,
+     "caption": false,
+     "pos": 575,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
     },
     {
      "who": "spud",
      "do": "squash",
-     "amount": 0.03,
+     "amount": 0.04,
      "dur": 0.35,
-     "at": 1.9
+     "at": 0.4
     }
    ]
   },
@@ -1270,6 +1497,16 @@
      "id": "sofa",
      "set": {
       "sink": 0.058
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.59
      },
      "dur": 0.18,
      "ease": "out",
@@ -1392,6 +1629,16 @@
      "id": "sofa",
      "set": {
       "sink": 0.07
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.588
      },
      "dur": 0.18,
      "ease": "out",
@@ -1554,6 +1801,16 @@
      "at": 2.5
     },
     {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.586
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 2.5
+    },
+    {
      "who": "spud",
      "do": "face",
      "lid": 1,
@@ -1707,6 +1964,16 @@
      "id": "sofa",
      "set": {
       "sink": 0.109
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 1.85
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.581
      },
      "dur": 0.18,
      "ease": "out",
@@ -1931,6 +2198,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.579
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "squash",
      "amount": 0.1,
@@ -2142,6 +2419,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.577
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "squash",
      "amount": 0.1,
@@ -2336,6 +2623,16 @@
      "id": "sofa",
      "set": {
       "sink": 0.152
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.574
      },
      "dur": 0.18,
      "ease": "out",
@@ -2558,6 +2855,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.573
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "squash",
      "amount": 0.1,
@@ -2738,6 +3045,16 @@
      "id": "sofa",
      "set": {
       "sink": 0.158
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.573
      },
      "dur": 0.18,
      "ease": "out",
@@ -2971,6 +3288,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.573
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "squash",
      "amount": 0.1,
@@ -3146,6 +3473,16 @@
      "id": "sofa",
      "set": {
       "sink": 0.162
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.572
      },
      "dur": 0.18,
      "ease": "out",
@@ -3339,6 +3676,16 @@
      "id": "sofa",
      "set": {
       "sink": 0.164
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "y": 0.572
      },
      "dur": 0.18,
      "ease": "out",
@@ -3557,6 +3904,16 @@
     },
     {
      "do": "prop",
+     "id": "pendant",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "lamp",
      "set": {
       "x": 1.45,
@@ -3714,6 +4071,21 @@
       "z": -2.35,
       "rot": 180,
       "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.223
+    },
+    {
+     "do": "prop",
+     "id": "pendant",
+     "set": {
+      "x": 0.49,
+      "y": 3.2,
+      "z": -1.58,
+      "roll": 0,
+      "on": 1,
+      "scale": 1
      },
      "dur": 0,
      "ease": "linear",

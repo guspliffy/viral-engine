@@ -37,6 +37,11 @@ import { clamp, rng } from "./util.js";
 //   glamp    the floor lamp (look only): round base r .14 at the ORIGIN (floor, put at (1.45, 0, -2.12)), pole up, an arc topping at
 //            y 2.31 and coming down onto a drum shade (r .24, height .32, centre (-.29, 2.01, 0) from the origin = world (1.16,2.01,-2.12),
 //            #E8AC63, glowing, a bulb and a soft additive glow). The room's point light is in the SET, not here. Not solid.
+//   gpendant a ceiling pendant lamp (look only, added 20 Nov for Jonny's "something more visual" at the 3 g step): a brass dome shade
+//            (r .17, .14 deep, open below, #C9873E outside, #F3D9A6 inside) with a socket, a bulb and a soft glow, its torn cord (.2 long,
+//            bending toward local -x, so lying on its side it droops onto what it lies on) and the ceiling rose torn off with it.
+//            ORIGIN: the shade's centre (the dome's rim plane), so x/y/z/roll tween the whole lamp as one falling body. Not solid.
+//            params on 0..1 (1) the bulb and its glow; the bulb is gone (shattered) when on < .5.
 //   gplant   a potted plant (look only): pot r .13 -> .18, .34 tall (#A08369), 11 stems with big leaves (#476039 / #81823C), foliage top
 //            y 1.40, radius .28. ORIGIN: the floor under the pot (put it at (1.80, 0, -1.60)). Not solid.
 //   grug     the round braided rug (look only): r 1.03, .018 thick, field #B39171, rings #65756C at r .87 and .92. ORIGIN: its centre on
@@ -463,6 +468,25 @@ function haze(P) {
   };
 }
 
+function pendant(P) {
+  const G = P.whole, brass = mat("#C9873E", { roughness: 0.45, metalness: 0.5 }), inner = mat("#F3D9A6", { roughness: 0.9, side: THREE.BackSide, emissive: "#F3D9A6", emissiveIntensity: 0.35 });
+  const dome = new THREE.SphereGeometry(0.17, 36, 12, 0, Math.PI * 2, 0, Math.PI / 2.4); dome.scale(1, 0.82, 1);
+  mesh(dome, brass, G); mesh(dome.clone(), inner, G).castShadow = false;
+  const rim = mesh(new THREE.TorusGeometry(0.17 * Math.sin(Math.PI / 2.4), 0.006, 6, 40), brass, G, 0, 0.17 * 0.82 * Math.cos(Math.PI / 2.4), 0); rim.rotation.x = Math.PI / 2;
+  mesh(new THREE.CylinderGeometry(0.028, 0.034, 0.07, 16), brass, G, 0, 0.16, 0);
+  const cord = new THREE.CatmullRomCurve3([[0, 0.19, 0], [-0.005, 0.25, 0], [-0.03, 0.3, 0], [-0.07, 0.33, 0.01]].map((p) => new THREE.Vector3(...p)));
+  mesh(new THREE.TubeGeometry(cord, 24, 0.005, 6), mat("#2b2522", { roughness: 0.6 }), G);
+  const rose = mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.025, 20), mat("#EDE3D2"), G, -0.08, 0.335, 0.01); rose.rotation.z = 1.1;
+  const bm = new THREE.MeshBasicMaterial({ color: "#FFE9B8", fog: false }); bm.userData.noOutline = true;
+  const bulb = flat(mesh(new THREE.SphereGeometry(0.045, 14, 10), bm, G, 0, 0.06, 0));
+  const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d"), gr = g.createRadialGradient(64, 64, 2, 64, 64, 64);
+  gr.addColorStop(0, "rgba(255,220,150,0.9)"); gr.addColorStop(0.4, "rgba(255,190,110,0.3)"); gr.addColorStop(1, "rgba(255,170,90,0)"); g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
+  sp.material.userData.noOutline = true; sp.position.set(0, 0.02, 0); sp.scale.set(0.7, 0.7, 1); sp.userData.glow = true; G.add(sp);
+  G.traverse((o) => { if (o.isMesh) o.userData.solid = false; });
+  return { grip: 0, apply(ps) { const on = clamp(ps.on ?? 1); bulb.visible = on > 0.5; sp.material.opacity = 0.45 * on; inner.emissiveIntensity = 0.35 * on; } };
+}
+
 export const GRAVROOM_KINDS = {
-  gsofa: sofa, gtv: tv, glamp: lamp, gplant: plant, grug: rug, gtunnel: tunnel, ghaze: haze,
+  gsofa: sofa, gtv: tv, glamp: lamp, gpendant: pendant, gplant: plant, grug: rug, gtunnel: tunnel, ghaze: haze,
 };

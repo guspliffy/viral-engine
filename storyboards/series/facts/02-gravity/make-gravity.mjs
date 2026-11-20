@@ -73,6 +73,7 @@ const props = [
   { id: "tv", kind: "gtv", x: -1.52, y: 0, z: -0.99, rot: 34, crumble: 0, glow: 1 },
   { id: "lamp", kind: "glamp", x: -1.75, y: 0, z: -2.35, rot: 180 },   // the left corner (DESIGN.md: right): there its shade hung over the tower in every window shot
   { id: "plant", kind: "gplant", x: 1.8, y: 0, z: -1.6 },
+  { id: "pendant", kind: "gpendant", staged: "a pendant lamp hanging from the ceiling over the sofa, out of frame until 3 g", x: 0.49, y: 3.2, z: -1.58 },
   { id: "rug", kind: "grug", x: 0.18, y: 0, z: 0.11 },
   { id: "phone", kind: "phone", ...PH_HELD, scale: 1.8, case: "#3e383b" },
   { id: "tower", kind: "gtower", staged: "the glass tower across the street, its base on the city ground 60 m below", x: 0, y: 0, z: 0, fall: 0, dust: 1 },
@@ -129,12 +130,15 @@ const sinkTo = (t, sink, dur, ease = "out") => A(t, "spud", "move", { to: SPUD, 
 A(0, "spud", "sit", { rot: 0, height: seatY(PER[0].sink), dur: 0, hands: "keep" });
 A(0, "spud", "pitch", { to: PER[0].pitch, dur: 0 });
 A(0, "spud", "flat", { to: 0, dur: 0 });
+// the pendant lamp that falls on him at 3 g (Jonny 20 Nov 15:42); bell: the sofa's sink under its resting spot vs under Spud
+const PD = { x: 0.49, z: -1.58, hang: 3.2, head: 1.215, lieX: -0.22, lie: 0.6, bell: 0.17 };
 for (const k of Object.keys(PER).map(Number).filter((k) => k > 0).sort((a, b) => a - b)) {
   const P = PER[k], d = k === T.slump ? 0.5 : 0.18;
   A(k, "spud", "flat", { to: P.f, dur: d, ease: "out" });
   sinkTo(k, P.sink, d);
   A(k, "spud", "pitch", { to: P.pitch, dur: d, ease: "out" });
   prop(k, "sofa", { sink: P.sink }, d, "out");
+  if (k > T.g3 && k < TROOM) prop(k, "pendant", { y: r3(PD.lie - PD.bell * P.sink) }, d, "out");   // it rides the cushion down
   if (k !== T.slump) A(k, "spud", "squash", { amount: 0.1, dur: 0.22 });   // each step lands as a jolt
 }
 
@@ -159,7 +163,24 @@ see(T.g2, T.g3, ["spud.face"], "2 g: hand and phone slam onto his face");
 // ================================================================ 6-11 3 g: rocket launch strain
 expr(T.g3, "angry", { eye: 0.5, open: 0.25, curve: -0.6 }, 0.15);
 A(T.g3, "spud", "face", { lid: 0.4, dur: 0.15 });
-for (let k = 0; k < 3; k++) A(r3(T.g3 + 0.5 + k * 0.7), "spud", "squash", { amount: 0.03, dur: 0.35 });   // breath against the weight
+// Jonny 20 Nov 15:31: "while we show the 3g lettering nothing happens" (0:03.3-0:05.6 of the 1.07x final: a still face, no voice)
+// -> 15:42 Jonny "maybe a lamp coming from the ceiling": the pendant over him tears out of the ceiling, falls at 3 g (2 m in .36 s,
+// in frame for its last ~.2 s), bonks onto his head (the bulb bursts), bounces off to his left and drops onto the cushion; then
+// "Three gee." on a punch-in. Head top at 3.9 s (camfit): (.49, 1.39, -1.6)
+prop(0, "pendant", { x: PD.x, y: PD.hang, z: PD.z, roll: 0, on: 1, scale: 1 }, 0, "linear");
+const BONK = r3(T.g3 + 0.36), OFF = r3(BONK + 0.14), LIE = r3(OFF + 0.24);
+for (let i = 1; i <= 4; i++) prop(r3(T.g3 + (i - 1) * 0.09), "pendant", { y: r3(PD.hang - (PD.hang - PD.head) * (i / 4) ** 2) }, 0.09, "linear");   // a free fall, y ~ t^2
+prop(BONK, "pendant", { on: 0 }, 0, "linear");
+prop(BONK, "pendant", { x: 0.2, y: 1.33, roll: 35 }, r3(OFF - BONK), "out");
+prop(OFF, "pendant", { x: PD.lieX, y: PD.lie, roll: 88 }, r3(LIE - OFF), "in");
+A(BONK, "spud", "squash", { amount: 0.14, dur: 0.22 });
+A(BONK, "spud", "face", { lid: 0.95, dur: 0.05 }); A(r3(BONK + 0.25), "spud", "face", { lid: 0.25, dur: 0.15 });
+expr(BONK, "angry", { eye: 0.4, open: 0.3, curve: -0.8 }, 0.06); expr(r3(BONK + 0.25), "angry", { eye: 0.75, open: 0.2, curve: -0.6 }, 0.15);
+look(r3(BONK + 0.28), [-0.3, 0.15], 0.15); look(4.6, [0, 0.1], 0.2);   // he glares at it, then back at you for the line
+sfx(BONK, "kenney/impact-soft-medium", { gain: 0.7, reason: "the lamp bonks onto his head" });
+sfx(r3(BONK + 0.01), "ai/glass-smash", { gain: 0.3, reason: "its bulb bursts" });
+sfx(LIE, "kenney/impact-wood-light", { gain: 0.65, reason: "the lamp drops onto the cushion" });
+for (let k = 0; k < 2; k++) A(r3(T.g3 + 0.6 + k * 0.9), "spud", "squash", { amount: 0.04, dur: 0.35 });   // breath against the weight
 sfx(r3(T.g3 + 0.1), "ai-package/flat-exhale", { gain: 0.5, reason: "he pushes air out under 3 g" });
 sfx(r3(T.g3 + 0.2), "kenney/cloth", { gain: 0.35, reason: "the sweater rubs on the sofa" });
 see(T.g3, T.g4, ["spud.face"], "3 g: teeth gritted, pressed into the cushion");
@@ -292,6 +313,7 @@ A(TROOM, "spud", "squash", { amount: 0.22, dur: 0.42 });
 prop(0, "sofa", { brk: 0, damage: 0 }, 0, "linear"); prop(TROOM, "sofa", { brk: 1 }, r3(T.black - TROOM), "out");
 see(TROOM, T.black, ["spud.face", "roomhit"], "50 g: the window explodes inward, glass and furniture fly over him, white flash");
 // the lamp and the plant jump (on the cut) to where Sol's design has them in P9, then fly (props-gravmoon.js header numbers)
+prop(TROOM, "pendant", { scale: 0 }, 0, "linear");   // P9: not in Sol's room-hit design; back on its hook under the black (the loop)
 const MID = r3((TROOM + T.black) / 2), roomFly = (id, at0, mid, end) => {
   prop(TROOM, id, at0, 0, "linear");
   prop(r3(TROOM + 0.001), id, mid, r3(MID - TROOM - 0.001), "linear"); prop(MID, id, end, r3(T.black - MID), "linear");
@@ -302,7 +324,7 @@ prop(T.black, "tunE", { r: 0, feather: 0 }, 0, "linear");
 
 // ================================================================ 61.5-64 1 g: back to normal; the phone springs back up in his hand
 prop(T.g1, "tunE", { r: 2000, feather: 84 }, 0, "linear");
-for (const [id, set] of [["tower", { fall: 0, dust: 1, scale: 1 }], ["moon", { moon: 0, cracks: 0, scale: 1 }], ["haze", { haze: 0 }], ["sofa", { damage: 0, brk: 0 }], ["lamp", { x: -1.75, y: 0, z: -2.35, rot: 180, roll: 0 }], ["plant", { x: 1.8, y: 0, z: -1.6 }], ...WORLD.map((id) => [id, { t: -1 }])]) prop(r3(T.black + 0.01), id, set, 0, "linear");   // restored under the black
+for (const [id, set] of [["tower", { fall: 0, dust: 1, scale: 1 }], ["moon", { moon: 0, cracks: 0, scale: 1 }], ["haze", { haze: 0 }], ["sofa", { damage: 0, brk: 0 }], ["lamp", { x: -1.75, y: 0, z: -2.35, rot: 180, roll: 0 }], ["pendant", { x: PD.x, y: PD.hang, z: PD.z, roll: 0, on: 1, scale: 1 }], ["plant", { x: 1.8, y: 0, z: -1.6 }], ...WORLD.map((id) => [id, { t: -1 }])]) prop(r3(T.black + 0.01), id, set, 0, "linear");   // restored under the black
 A(T.g1, "spud", "flat", { to: 0, dur: 0.16, ease: "back" });
 A(T.g1, "spud", "pitch", { to: PER[0].pitch, dur: 0.25, ease: "out" });
 sinkTo(T.g1, PER[T.g50].sink, 0.16);
@@ -322,7 +344,8 @@ see(T.g1, END, ["spud.face", "phone"], "1 g again: the room is whole, the phone 
 // ---------------------------------------------------------------- shots
 const beats = c.beats([
   ["P01 2 g: the phone slams onto your face", 0, push("A", T.g3), "hook"],
-  ["P02 3 g: pressed into the sofa", T.g3, push("A2", 2.5)],
+  ["P02 3 g: pressed into the sofa, the phone hand thuds down", T.g3, push("A2", 1.1)],
+  ["P02b 3 g: 'Three gee.' (punch-in)", 4.6, punch("A2", 1.4, 0.04, 0.88)],
   ["P03 4 g: the picture greys", T.g4, push("A2", 2.5, 0.1)],
   ["P04 5 g: tunnel vision, black", T.g5, push("B4", r3(T.cutA - T.g5), 0.025)],   // the tunnel card rides 4 cm closer: its hole stays on his face
   ["P05 the blackout: slumped", T.cutA, push("A", r3(14.8 - T.cutA), 0.04)],   // Sol r2 #3: held through the leg snap (a cut at 13.0 made the sofa jump)
