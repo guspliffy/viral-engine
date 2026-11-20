@@ -1,0 +1,187 @@
+{
+  "id": "human-friends/mash",
+  "name": "Mash (human)",
+  "franchise": "Human friends",
+  "tts": "mash",
+  "source": "Jonny's pick 19 Nov 2026 20:03: line-up 'a touch more South Park' (/mnt/project-files/characters/human-friends/round5/humans-sp-1-PICKED.png), proportions measured off it; back, hands and colours from the round 6 sheets in that look (round6/mash-turnaround.png, mash-faces-details.png, DESIGN-NOTES.md).",
+  "rig": "potato",
+  "build": "core",
+  "body": {
+    "color": "#5c5356",
+    "height": 0.46,
+    "width": 0.36,
+    "depth": 0.26,
+    "lump": 0,
+    "seed": 67,
+    "taper": -0.06,
+    "square": 2.6,
+    "specks": 0,
+    "gloss": 0,
+    "keepSkin": true
+  },
+  "head": {
+    "color": "#f9c98f",
+    "keepSkin": true,
+    "width": 0.45,
+    "height": 0.4,
+    "depth": 0.4,
+    "square": 2.8,
+    "taper": 0.06,
+    "neck": 0.0,
+    "neckR": 0.07,
+    "faceUp": -0.08,
+    "faceWide": 1.25,
+    "nose": {
+      "w": 0.008,
+      "h": 0.006,
+      "d": 0.006,
+      "v": -0.16
+    },
+    "ears": {
+      "w": 0.055,
+      "h": 0.065,
+      "d": 0.022,
+      "v": -0.28
+    },
+    "specks": 0,
+    "turn": 0.55,
+    "nod": 0.38
+  },
+  "legs": {
+    "stride": 2,
+    "height": 0.44,
+    "width": 0.052,
+    "hipX": 0.088,
+    "footX": 0.102,
+    "knees": {
+      "crouch": 0.5,
+      "bend": 1
+    },
+    "roll": {
+      "on": true,
+      "peel": 0.6,
+      "strike": 0.36,
+      "len": 0.45,
+      "settle": 0.12,
+      "lead": 0.2
+    },
+    "heel": 0.1,
+    "toe": 0.16,
+    "sole": 0.035,
+    "homeX": 0.102
+  },
+  "limbs": {
+    "color": "#f9c98f",
+    "role": "skin",
+    "width": 0.048,
+    "shoulder": 0.62,
+    "rest": {
+      "o": [
+        0.07,
+        -0.2,
+        0.02
+      ],
+      "elbow": 0.03,
+      "swing": 2.4
+    }
+  },
+  "hands": {
+    "type": "mitten",
+    "size": 0.95,
+    "keep": true,
+    "plain": true
+  },
+  "face": {
+    "size": 0.4,
+    "default": "kind",
+    "iris": "#3a2117",
+    "brow": "#4a3f7c",
+    "cheeks": "#f3a08a",
+    "neutral": {
+      "curve": -0.05,
+      "open": 0,
+      "eye": 1.0
+    },
+    "eye": {
+      "flick": 0.2
+    },
+    "browShape": {
+      "arch": -0.02,
+      "thick": 1.3
+    },
+    "blush": 0.7,
+    "final": {
+      "iris": "#3a2117",
+      "brow": "#4a3f7c",
+      "freckles": 0,
+      "eye": {
+        "oval": 1.22,
+        "iris": 0.86,
+        "white": "#3a2117",
+        "lash": 0.6,
+        "glintSize": 1.9,
+        "glints": 1,
+        "irisShade": false,
+        "corner": 0
+      },
+      "browShape": {
+        "arch": 0.0,
+        "thick": 2.6,
+        "clear": 0.012,
+        "taper": 0.6
+      },
+      "rest": {
+        "smirk": 0,
+        "curve": -0.03,
+        "tilt": -0.3
+      },
+      "neutral": {
+        "lidL": 0.12,
+        "lidR": 0.12
+      },
+      "blush": 0.7,
+      "layout": {
+        "eyeU": 0.3,
+        "eyeV": -0.55,
+        "mouthV": -1.0,
+        "mouthW": 0.1,
+        "cheekU": 0.47,
+        "cheekV": -0.8,
+        "browV": 0.0
+      }
+    }
+  },
+  "sprout": {
+    "placement": "none"
+  },
+  "costume": {
+    "type": "human-mash",
+    "skin": "#f9c98f",
+    "hair": "#795d7f",
+    "hoodie": "#5c5356",
+    "rib": "#4a4245",
+    "denim": "#839abf",
+    "shoe": "#444b71",
+    "sole": "#fae3c6",
+    "phones": "#69c2ee",
+    "phonesDark": "#3d9bd6",
+    "shoeSize": [
+      0.085,
+      0.055,
+      0.125
+    ],
+    "band": "#69c2ee",
+    "hairLow": "#674e6e"
+  },
+  "personality": "The human version of Mash, the friend who never looks up from his phone. Tallest of the four, thin, slouched. Catchphrase: \"One sec.\"",
+  "voice": {
+    "pitch": 108,
+    "rate": 2.6,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 97
+  },
+  "notes": "Core build (torso + separate head). Hair, hoodie parts, headphones, trousers and shoes come from engine/page/costumes-human-friends.js. The phone is a prop a clip hands him."
+}
