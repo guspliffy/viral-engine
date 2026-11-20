@@ -68,6 +68,8 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   so never fade a glow to pass a check.
 - **Captions are never hidden behind a character** for more than a flicker. Each line of text has its own start and
   end, tied to the beat it belongs to. Don't leave the setup text up after the payoff is on screen.
+  A wide film shot in close-ups, where the speaker fills the frame, may set `"captionOverBody": { "reason" }`: a
+  subtitle over a body then only warns, and one within 40 px of an eye still fails (Jonny's OK, lie count film, 20 Nov 2026).
 - **A held prop stays out of its holder's own face** (`prop-in-self`, warns, 7 Nov 2026): a cup, note or spoon more than
   5 cm into its own holder's face at eye height for 0.2 s (the coffee run's Wizard cup over his eye at 9.3-10.6 s), or
   25 cm into the body anywhere. Lips on a cup don't waive it: only a window naming `"prop-in-self"` does.

@@ -219,9 +219,9 @@ export const SCENES = [
     shot: { t: "two", who: ["spud", "mash"] }, seq: [
       ["n", "Saturday."], ["e", "spud", "stern"], ["s", "spud", "where were you last night?", "question"],
       ["e", "mash", "kind"], ["s", "mash", "home. sleeping.", "calm", { lie: true }],
-      ["cut", { t: "ots", who: ["mash", "spud"] }], ["e", "spud", "angry"], ["s", "spud", "two hundred and fifteen!", "excited"],
+      ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "angry"], ["s", "spud", "two hundred and fifteen!", "excited"],
       ["cut", { t: "ots", who: ["spud", "mash"], az: -40 }], ["e", "mash", "shocked"], ["s", "mash", "what?", "question"],
-      ["cut", { t: "ots", who: ["mash", "spud"] }], ["s", "spud", "i can see it! every single lie!", "excited"],
+      ["cut", { t: "close", who: ["spud"] }], ["s", "spud", "i can see it! every single lie!", "excited"],
       ["cut", { t: "close", who: ["mash"] }], ["e", "mash", "sad"], ["wait", 1.6], ["s", "mash", "...okay.", "sad"],
       ["cut", { t: "two", who: ["spud", "mash"], h: 2.4 }], ["walk", "mash", [-0.4, 3.8], 4.5], ["wait", 1.2],
       ["n", "He didn't even try to explain."], ["n", "You were right about the number."], ["wait", 1.0], ["hide", "mash"] ] },

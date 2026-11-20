@@ -125,6 +125,9 @@
   "hint": 0,
   "what": "two potato friends at a cafe table; a glowing 211 over the eater's head ticks to 212 as he says 'delicious'"
  },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
  "cast": [
   {
    "id": "spud",

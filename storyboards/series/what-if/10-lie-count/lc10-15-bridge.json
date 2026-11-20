@@ -102,6 +102,9 @@
    18.06
   ]
  },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
  "cast": [
   {
    "id": "spud",
@@ -507,26 +510,26 @@
    ]
   },
   {
-   "name": "20 where were you ots",
+   "name": "20 where were you close",
    "at": 7.02,
    "len": 1.39,
    "shot": {
     "pos": [
-     19.601,
-     4.98,
-     -32.4
+     19.349,
+     4.785,
+     -33.815
     ],
     "look": [
      18,
      4.707,
      -34.45
     ],
-    "fov": 32,
+    "fov": 30,
     "to": {
      "pos": [
-      19.441,
-      4.953,
-      -32.605
+      19.214,
+      4.777,
+      -33.879
      ]
     },
     "dur": 1.39,
@@ -541,7 +544,7 @@
        -4
       ]
      ],
-     "pivot": 2.615
+     "pivot": 1.493
     }
    },
    "do": [
@@ -677,26 +680,26 @@
    ]
   },
   {
-   "name": "20 where were you ots",
+   "name": "20 where were you close",
    "at": 9.25,
    "len": 2.14,
    "shot": {
     "pos": [
-     19.601,
-     4.98,
-     -32.4
+     19.349,
+     4.785,
+     -33.815
     ],
     "look": [
      18,
      4.707,
      -34.45
     ],
-    "fov": 32,
+    "fov": 30,
     "to": {
      "pos": [
-      19.441,
-      4.953,
-      -32.605
+      19.214,
+      4.777,
+      -33.879
      ]
     },
     "dur": 2.14,
@@ -711,7 +714,7 @@
        -4
       ]
      ],
-     "pivot": 2.615
+     "pivot": 1.493
     }
    },
    "do": [

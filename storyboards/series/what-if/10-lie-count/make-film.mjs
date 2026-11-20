@@ -238,6 +238,8 @@ runs.forEach((run, ri) => {
     sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: P.surface, room: P.room, guard: true, level: LEVEL, nature: (P.nature ?? []).map((n) => ({ id: n, gain: 0.05 })) },
     creative: { length: [END, END] },
     ...(T0 === 0 && { hook: { show: ["mash"], hint: 0, what: "two potato friends at a cafe table; a glowing 211 over the eater's head ticks to 212 as he says 'delicious'" } }),
+    // Jonny 20 Nov (decision card): in this film's close-ups a subtitle may cross a body, never the eyes
+    captionOverBody: { reason: "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes" },
     cast, props, captions: c.captions, beats, visible: c.visible,
     ...(allow.length && { allowClip: allow }),
     story: { T0, T1 },
