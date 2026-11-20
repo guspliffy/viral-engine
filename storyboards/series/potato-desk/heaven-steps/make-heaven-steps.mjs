@@ -110,13 +110,14 @@ const MEGA = { id: "mega", staged: "parked until his hand has it on a cut", kind
 props.push(CASE, QUILL_A, QUILL_B, CAN, PHONE, COIN, MEGA);
 
 // ---------------------------------------------------------------- helpers
-const SUB = 486;   // captions: rows 486-608 (DESIGN section 0), the sky band over every face
+const SUB = 486, CAPPOS = { 7: 300, 9: 300, 11: 300, 14: 300, 15: 300, 16: 300 };   // close-ups: the band top, cameras raised so heads sit under it (preflight caption-overlap, draft 4)
+const SUB0 = SUB;   // captions: rows 486-608 (DESIGN section 0), the sky band over every face
 const CAPTEXT = { 0: "Hundred points to get in. You've got *ninety-nine.*", 4: "Bragging. *Minus ten.*", 6: "Posting it? *Minus thirty.*", 9: "*Minus sixty.*", 13: "Hell has *4.9 stars*, buddy.", 14: "...Heaven has *3.1.*", 18: "*Minus one.*" };
 const say = (i, at, extra = {}, capTo = null) => {
   T[i] = r3(at);
   const [who, line, tone, style, o = {}] = LINES[i];
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false, ...extra });
-  cap(T[i], capTo ?? r3(END_OF(i) + 0.3), CAPTEXT[i] ?? line, SUB, false, { size: 64 });
+  cap(T[i], capTo ?? r3(END_OF(i) + 0.3), CAPTEXT[i] ?? line, CAPPOS[i] ?? SUB0, false, { size: 64 });
   return END_OF(i);
 };
 const arm = (t, who, side, pose, dur = 0.3, ease = "inOut") => A(t, who, "arm", { side, pose, dur, ease });
@@ -408,7 +409,7 @@ liftDone(r3(L3 + 0.5), "chip");
 arm(r3(L3 + 0.1), "chip", "L", "rest", 0.3); grip(r3(L3 + 0.1), "chip", "L", "relaxed");
 expr(r3(L3 + 0.35), "chip", "happy");
 // he whispers to himself, lips pressed, holding it in (close), trembling
-const W16 = shot("holding it in", r3(L3 + 0.55), cam("M", [-0.55, 0.85, 3.0], [0.02, 0.72, -0.75], 26), push(0.06));
+const W16 = shot("holding it in", r3(L3 + 0.55), cam("M", [-0.55, 1.15, 3.0], [0.02, 1.02, -0.75], 26), push(0.06));
 e = say(7, r3(W16 + 0.15));
 A(r3(T[7] - 0.05), "chip", "face", { lid: 0.35, dur: 0.15 });
 look(r3(T[7]), "chip", [-0.3, -0.2]);
@@ -429,7 +430,7 @@ expr(r3(M16b - 0.02), "chip", "delighted", 0.01); look(r3(M16b - 0.02), "chip", 
 e = say(8, r3(M16b + 0.2), { gain: 1.1 });   // after the cut: the line's gesture starts before its voice
 sfx(r3(M16b + 0.05), "feedback", { gain: 0.3 });
 // the Angel's eyes over the rims, the quill scratches -60
-const E17 = shot("minus sixty", r3(e + 0.05), cam("T", [0.75, 0.90, 3.60], [1.10, 0.90, -1.15], 24), push(0.03));
+const E17 = shot("minus sixty", r3(e + 0.05), cam("T", [0.75, 1.18, 3.60], [1.10, 1.18, -1.15], 28), push(0.03));
 write1(r3(E17 + 0.02), 3);
 e = say(9, r3(E17 + 0.3));
 look(r3(T[9]), "angel", [-0.3, 0.1]);
@@ -437,9 +438,9 @@ look(r3(T[9]), "angel", [-0.3, 0.1]);
 const F18 = shot("fold 62", r3(e + 0.05), cam("M", [1.90, 1.90, 2.60], [0.05, 0.70, -0.80], 30), tilt(6));
 const FD3 = fold(r3(F18 + 0.04), 62, 60);
 A(r3(F18 + 0.06), "chip", "release", { prop: "mega", dur: 0 });
-path_("mega", [[r3(F18 + 0.08), MEGA_AT], [r3(F18 + 0.45), W("M", 1.8, 0.3, 0.6), { rot: 300, tip: 200 }, "in"]]);
+path_("mega", [[r3(F18 + 0.08), MEGA_AT], [r3(F18 + 0.38), W("M", 2.6, 0.9, 0.2), { rot: 300, tip: 200 }, "linear"]]);   // out of frame before it hides (an "in" exit at the edge read as a pop, draft 3)
 path_("soapbox", [[r3(F18 + 0.08), BOX62], [r3(F18 + 0.3), W("M", 0.25, 0.30, -0.35), { rot: 15, tip: 35 }, "in"], [r3(F18 + 0.5), W("M", 0.6, 0.10, 0.25), { rot: 35, tip: 80 }, "linear"]]);
-hideProp(r3(F18 + 0.47), "mega");
+hideProp(r3(F18 + 0.48), "mega");
 const SL3 = r3(F18 + 0.08);
 putProp(r3(SL3 - 0.02), "sled", [CHIP_BOX62[0], r3(CHIP_BOX62[1] - 0.12), CHIP_BOX62[2]], { pop: 0, glow: 0, fade: 1 });
 rideOn(SL3, "chip", "sled", Y_M, { sit: true, dur: 0.15 });
@@ -476,7 +477,7 @@ e = say(10, r3(B21 + 0.12));
 look(r3(B21 + 0.2), "chip", [0.5, 0]); expr(r3(B21 + 0.3), "chip", "annoyed");
 arm(r3(e + 0.2), "devil", "L", "rest", 0.4);
 // Fine. I'll walk.  he stands up and marches up the red steps
-const C22 = shot("i'll walk", r3(e + 0.15), cam("B", [-0.95, 0.95, 4.60], [-0.50, 0.72, -0.20], 24), push(0.06));
+const C22 = shot("i'll walk", r3(e + 0.15), cam("B", [-0.95, 1.07, 4.60], [-0.50, 0.84, -0.20], 24), push(0.06));
 expr(r3(C22 + 0.02), "chip", "stern");
 e = say(11, r3(C22 + 0.1));
 const UP = r3(T[11] + 0.6);
@@ -510,12 +511,12 @@ look(r3(D24 + 0.1), "devil", [-0.7, -0.05]);
 e = say(13, r3(D24 + 0.2));
 arm(r3(T[13] + 0.5), "devil", "R", { o: [0.25, 0.55, 0.25] }, 0.3); grip(r3(T[13] + 0.6), "devil", "R", "point");
 arm(r3(e + 0.2), "devil", "R", "rest", 0.4); grip(r3(e + 0.3), "devil", "R", "relaxed");
-const D25 = shot("3.1", r3(e + 0.1), cam("B", [-0.95, 0.95, 4.60], [-0.50, 0.72, -0.20], 24), push(0.07));
+const D25 = shot("3.1", r3(e + 0.1), cam("B", [-0.95, 1.03, 4.60], [-0.50, 0.80, -0.20], 24), push(0.07));
 look(r3(D25), "chip", [-0.2, 0.6], 0.3);   // up at heaven, far away
 e = say(14, r3(D25 + 0.25));
 look(r3(e + 0.1), "chip", [0.5, -0.3], 0.3);
 // Hot tub's warm!  the hatch opens wide, party glow; he gets up and steps down toward it
-const D26 = shot("hot tub", r3(e + 0.25), cam("B", [0.60, 1.25, 5.6], [-0.30, 0.42, 0.9], 28), push(0.05));
+const D26 = shot("hot tub", r3(e + 0.25), cam("B", [0.60, 1.45, 5.6], [-0.30, 0.62, 0.9], 28), push(0.05));
 c.prop(r3(D26 + 0.05), "hatch", { open: 1.05 }, 0.3, "out"); c.prop(r3(D26 + 0.35), "hatch", { open: 1 }, 0.2, "settle");
 c.prop(r3(D26 + 0.05), "hatch", { glow: 1.4 }, 0.3);
 
@@ -569,7 +570,7 @@ expr(r3(tk + 0.3), "chip", "serene", 0.2); look(r3(tk + 0.3), "chip", [-0.1, 0.8
 const DEV_SHADES = r3(tk + 0.4);
 expr(r3(DEV_SHADES), "devil", "shocked");
 see(P25, r3(tk + 1.0), ["chip.face", "quillB", "devil.face"], "he picks up the Angel's quill and quietly holds it up");
-const S26 = shot("humility", r3(tk + 1.0), cam("T", [0.70, 0.88, 4.30], [1.06, 0.88, -1.10], 24), push(0.03));
+const S26 = shot("humility", r3(tk + 1.0), cam("T", [0.70, 1.17, 4.30], [1.06, 1.17, -1.10], 24), push(0.03));
 // the Angel has his hand back on nothing: arm rests, soft face
 expr(r3(S26 - 0.02), "angel", "kind", 0.01); A(r3(S26 - 0.02), "angel", "face", { lid: 0.3, dur: 0.01 }); look(r3(S26 - 0.02), "angel", [-0.4, -0.6], 0.01);
 e = say(16, r3(S26 + 0.15));
@@ -581,7 +582,7 @@ const GOLD = r3(G27 + 0.05);
 // up the first red flight (B-GOLD), flight 41-50 with a camera that rides along (X-RIDE), the last flight onto 100 (T-ARRIVE).
 // The gold wave stays about 8 steps ahead of him in each piece.
 const RIDE_T0 = r3(GOLD + 0.3), X28a = F2(r3(GOLD + 0.95)), X28b = F2(r3(X28a + 1.0)), ARR = r3(X28b + 0.7);
-prop(r3(GOLD - 0.02), "stairs", { rise: 0.02 }, 0);
+prop(r3(GOLD - 0.02), "stairs", { rise: 0 }, 0);   // from 0: steps 1-2 snapping gold in one frame was a pop (draft 3)
 c.prop(GOLD, "stairs", { rise: 0.2 }, r3(X28a - GOLD), "linear");
 prop(r3(X28a - 0.02), "stairs", { rise: 0.5 }, 0); c.prop(X28a, "stairs", { rise: 0.62 }, r3(X28b - X28a), "linear");
 prop(r3(X28b - 0.02), "stairs", { rise: 1 }, 0);
@@ -589,8 +590,8 @@ putProp(r3(RIDE_T0 - 0.15), "lift", STEP1, { pop: 0, glow: 1, fade: 0 });
 c.prop(r3(RIDE_T0 - 0.2), "lift", { pop: 1 }, 0.2, "out");
 rideOn(r3(RIDE_T0 - 0.05), "chip", "lift", 0);
 c.prop(RIDE_T0, "lift", at3(MID(9)), r3(X28a - RIDE_T0 + 0.2), "in");
-const P41 = MID(41), P50 = [OFF[4], TREAD(50), r3(ZR(50) - 0.3)], P93 = MID(93);
-const RIDE_CAM = (p) => ({ pos: [r3(p[0] + 0.5), r3(p[1] + 1.3), r3(p[2] - 3.2)], look: [p[0], r3(p[1] + 0.45), p[2]], fov: 30 });   // lower: from 3 m up the gold steps filled the frame and washed him out (draft 1)
+const P41 = MID(41), P50 = MID(48), P93 = MID(93);   // ends at 48: the landing-50 newel entered the frame (draft 2)
+const RIDE_CAM = (p) => ({ pos: [r3(p[0] + 0.4), r3(p[1] + 2.2), r3(p[2] - 2.8)], look: [p[0], r3(p[1] + 0.45), p[2]], fov: 30 });   // 1 m over the steps uphill of him (from 3 m up they filled the frame, draft 1; 1.3 m up was inside the stair, draft 2)
 // the Devil lunges out of the chair and grabs air; the chair tips; the imp lets the lid drop
 const LUNGE = r3(GOLD + 0.35);
 A(LUNGE, "devil", "stand", { dur: 0.15 });
@@ -664,6 +665,9 @@ props.forEach((p) => { if (["stairsky", "zoneclouds", "hellhatch"].includes(p.ki
 shots.sort((a, b) => a.at - b.at);
 const beats = c.beats(shots.map((s, i) => { const dur = r3((shots[i + 1]?.at ?? END) - s.at); return [s.name, s.at, s.move(s.s, dur), s.kind]; }), END);
 
+// a subtitle ends where the next one starts (two stood on each other for 6 frames at 2.95 s, preflight draft 4)
+{ const subs = c.captions.filter((k) => !k.pop && k.size === 64).sort((x, y) => x.from - y.from);
+  for (let k = 0; k + 1 < subs.length; k++) if (subs[k].to > subs[k + 1].from) subs[k].to = subs[k + 1].from; }
 write(import.meta.url, {
   id: "heaven-steps",
   title: "100 points for heaven. He has 99.",
