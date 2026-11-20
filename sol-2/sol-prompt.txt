@@ -1,0 +1,34 @@
+You are checking a 58-second vertical cartoon draft (1080x1920, 30 fps, 3D potato characters, anime cel look) for VISIBLE GLITCHES and LOGIC ISSUES before its final render. You get still images only (no video). Images in this folder: C:\Users\jonas\Downloads\viral engine\codex-image-trial\out\sol-court-kid-dad\sol-2
+- contact-1fps-a.png (0.5-28.5 s) and contact-1fps-b.png (29.5-57.5 s): one frame per second, the time is printed on each frame.
+- strip-NN-*.png: 12 fps strips of every contact moment and the fixed spots (time on each frame).
+
+Cast: a JUDGE (big potato, white curly wig, black robe, sits behind a high wooden bench "JUDGE VIKING", holds an axe-shaped gavel in his right hand), a KID (small potato, yellow hoodie, green leaf on top) and his DAD (bigger potato, red-brown knit jacket, sunglasses on his head; his LEFT hand holds a full red fries box hidden behind his back from frame 0 until the verdict). A board on the wall reads "KID vs DAD". Fries are plain props, not alive. Captions in the upper third are intended. The producer approved the story; do not suggest story changes, only report what is broken or illogical on screen.
+
+THIS IS ROUND 2. Your round-1 list (VERDICT: FIX 26) is ../sol-answer.md (the folder above this one). Every item was worked on; times after 49 s moved (see the story below). Changes made: lower wide shot so the judge sits behind the bench; captions moved and trimmed to end at each cut, the board raised above the caption band; the kid's carton held lower; wider wall, floor and panelling; the sleeve fry starts inside the sleeve at the elbow; the pocket fries come from his right hip; the kid lifts the carton clear before dropping it; the objection point aimed at the kid; the kid stays frozen "terrified"; the nugget box drops at the kid's side; lower fists in the fight; a full gavel swing on ORDER and a new reaction cut; the illegal strike framed; a slower dad turn; the full carton comes round in front of him over a second, held out on a new wide cut; the kid hugs it at his side so only one carton shows; the judge's fry sits at the corner of his mouth and he bites it; the pale streaks in the robe came from the ink outline of the robe shell, which is now off.
+For each round-1 item say FIXED or STILL THERE (with the time and image), then list anything NEW. Count in the verdict only items still there plus new ones.
+
+Story with times (shot name @ start second, then the spoken line):
+0.00 wide: JUDGE leaning over: "You're suing your own dad?" (kid holds an EMPTY red fries box)
+1.66 KID holds the empty box out: "He ate my fries!"
+3.06 DAD raises one finger: "I took one."
+4.44 insert: the kid tips the empty box toward us: nothing inside
+5.23 JUDGE: "One?"   6.07 DAD sheepish: "One at a time."   7.60 JUDGE: "Why?"
+8.14 DAD, open hand: "I was checking they were hot."   9.93 JUDGE: "All of them?"   10.75 DAD: "Some were cold."
+12.57 JUDGE: "Raise your right hand."   15.10 DAD raises his right hand (an oath): ONE FRY slides out of his sleeve and lands on the floor
+16.20 JUDGE looks down: "Exhibit A."   17.32 DAD: "That one was looking at me."
+19.24 JUDGE: "Empty your pockets."   20.89 DAD pats his right hip: THREE more fries drop out of his pocket   21.89 DAD: "Those were for later."
+23.15 KID drops his empty box to the floor and pleads with both arms: "Every time!"
+24.37 DAD proud, hand on chest: "Daddy tax. Every dad takes it."   27.08 JUDGE, sad, remembering: "My dad took mine too."
+29.28 DAD smug: "See? Tradition."   31.16 JUDGE cold: "Not anymore."
+32.34 DAD turns to the kid and points: "Objection! He ate my nuggets!"   34.85 the KID freezes: an empty white nugget clamshell drops out from under his hoodie
+36.15 KID: "I'm growing!"   37.00 JUDGE: "How many?"   37.90 KID small: "One at a time."   38.87 DAD fist up: "Gotcha!"
+39.67-47.41 family fight face to face, quick cuts: KID "You ate my birthday cake!" / DAD "You ate my pizza!" / KID "You ate my Halloween candy!" / DAD "That was tax!" / KID "Daddy tax isn't real!" / DAD "It's in the constitution!"
+49.08 JUDGE bangs the gavel: "ORDER!" (camera shake)   49.48 cut: KID and DAD jump and turn back to him
+50.38 JUDGE: "Daddy tax and kid tax are now illegal. Give them back." (gavel strike on "illegal")
+53.17 DAD brings his hidden FULL fries box round from behind his back and holds it out to the kid
+54.40 cut: wider, the dad holds the full box out to the kid
+55.07 cut: the KID hugs the full box, delighted (the handover happens on the cut, on purpose)
+55.93 cut: the JUDGE already holds one fry at the corner of his mouth, bites it: "Court tax." The video ends on it.
+
+Report EVERY visible glitch (a pop or flicker, a hand or arm through a body or prop, a prop floating or jumping place, a held prop not in the hand, a foot sliding, a face hidden behind a prop or another body while that character speaks or reacts, a character half outside the room, a caption over a face) and EVERY logic issue (an effect before its cause, a prop that appears/disappears without reason, a reaction to something not shown, a continuity error between cuts such as a prop or pose changing across a cut). For each: the time (from the printed labels), what is wrong, and which image shows it. Ignore the deliberate handover-on-the-cut and the judge having the fry at the cut. Be concrete, no general advice.
+Write your full answer to sol-answer.md in this folder. The last line must be exactly "VERDICT: PASS" or "VERDICT: FIX <n>" (n = number of items to fix).
