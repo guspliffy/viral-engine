@@ -719,6 +719,10 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "pov": st.pov = a.on !== false; st.hatOn = !st.pov; break;
       case "show": st.visible = true; break;
       case "squash": if (p < 1) st.squash *= 1 - (a.amount ?? 0.2) * Math.sin(p * Math.PI); break;
+      // a held flattening (fact what-if 02 "gravity", 19 Nov 2026): to 0..0.85 squashes the body to (1 - to) of its height
+      // and holds it there (the squash widens it to keep its volume); to 0 brings it back over dur
+      // axis "z": along the body's own front-back instead (a body lying on its back is pressed into what it lies on)
+      case "flat": if (a.axis === "z") st.flatZ = lerp(st.flatZ ?? 0, clamp(a.to ?? 0, 0, 0.85), e); else st.flat = lerp(st.flat ?? 0, clamp(a.to ?? 0, 0, 0.85), e); break;
       // Phoenix: 0 folded, 1 spread. side "R" | "L": only that wing, as an offset on top of both (-1 tucks it in, so one
       // wing can hang while the other is up)
       case "wings": if (a.side) { st.wingSide = { R: 0, L: 0, ...st.wingSide }; st.wingSide[a.side] = lerp(st.wingSide[a.side], a.to ?? 0, e); } else st.wings = lerp(st.wings, a.to ?? 1, e); break;
@@ -868,6 +872,7 @@ export function actorState(sb, actor, def, t, raw = false) {
   // top of that (pitch, lean, the follow below, a shake, breathing) doesn't slide them. potato.js draws them there.
   const plant = { x: st.x - shakeDx, y: st.y - 0.1 * (st.kneel || 0), z: st.z, yaw: st.yaw };
   if (st.crouch) { st.y -= 0.09 * st.crouch; st.squash *= 1 - 0.04 * st.crouch; }   // after the plant: the feet stay down
+  if (st.flat) st.squash *= 1 - st.flat;   // "flat": held, on top of every pulse
   st.riding = !!riding;
   // the planted gait (motion.feet 2): the footfalls, bob, sway and lean come from the step plan, for every move and run
   const F2 = feetOn(sb) && !PLANNING ? gaitPlan(sb, c, def) : null;

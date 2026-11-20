@@ -73,6 +73,11 @@
 // pos "top" (default): DAY in the safe zone's top-left corner and the clock + battery in its top-right, y 214-284, the
 // middle left free for Jonny's in-app title. "bottom": the same strip at y 1288-1356 (clear of one-line subtitles at
 // 1180). "y" puts its top anywhere. Boxes go to the layout as cards, so qa/framing.mjs sees a face under one.
+// The g counter (fact what-if 02 "gravity", 19 Nov 2026), opt-in, nothing changes without it:
+//   "gforce": { "keys": [[0, 1], [1.0, 2], [6.0, 3], ...], "y": 250 }   (or a plain key array; a value null hides it from that key)
+// a big "2 g" in the top centre (CapBlack 150 px, cream #fff8ec with a 12 px dark outline, no chip, centre y 250 so the
+// captions at 380+ stay clear). Every step slams in: scale 1.35 -> 1 over 0.25 s (eased back) and a 6 px drop; the
+// number turns amber #ffd25a from 10 and red #ff6a4d from 30; a step DOWN (back to 1) fades in over 0.3 s instead.
 import { clamp, ease, lerp } from "./util.js";
 import { keyed, minutes, nightOf } from "../shared/sky.js";
 import { frameSafe, isWide } from "../shared/frame.js";
@@ -176,6 +181,13 @@ export function hudState(sb, t) {
   if (pl) out.pills = pl;
   if (H.money) { const M = moneyState(H.money, t); if (M) out.money = M; }
   if (H.sun) { const U = sunState(H.sun, t); if (U) out.sun = U; }
+  if (H.gforce) {
+    const G = Array.isArray(H.gforce) ? { keys: H.gforce } : H.gforce, K = [...G.keys].sort((a, b) => a[0] - b[0]);
+    let i = -1; for (let j = 0; j < K.length; j++) if (K[j][0] <= t + 1e-9) i = j;
+    // a key with value null hides the counter (a black card); the step after it compares with the last shown value
+    let pv = null; for (let j = i - 1; j >= 0 && pv == null; j--) pv = K[j][1];
+    if (i >= 0 && K[i][1] != null) out.gforce = { v: K[i][1], since: r6(t - K[i][0]), up: pv != null ? K[i][1] > pv : null, y: G.y ?? 250 };
+  }
   return out;
 }
 
@@ -314,6 +326,7 @@ export function hudBoxes(ctx, sb, t) {
   const L = layout(ctx, S);
   const oy = (S.y ?? 214) - 214;
   const extra = [S.age && AGE_BOX, S.pills && PILLS_BOX].filter(Boolean).map((b) => [b[0], b[1] + oy, b[2], b[3]]);
+  if (S.gforce) extra.push([300, S.gforce.y - 90, 480, 180]);
   return [L.left, L.threat, L.right, L.own, L.train, ...extra, S.money && moneyBox(S.money), S.sun && sunBox(S.sun)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
 }
 
@@ -688,4 +701,16 @@ export function drawHud(ctx, sb, t) {
   ctx.restore();
   if (S.age) drawAge(ctx, S);
   if (S.pills) drawPills(ctx, S);
+  if (S.gforce) drawGforce(ctx, S.gforce);
+}
+const r6 = (x) => Math.round(x * 1e6) / 1e6;
+function drawGforce(ctx, G) {
+  const text = `${G.v} g`, k = G.up ? clamp(G.since / 0.25) : 1, a = G.up === false ? clamp(G.since / 0.3) : 1;
+  const sc = G.up ? 1 + 0.35 * (1 - ease("back")(k)) : 1, dy = G.up ? 6 * Math.sin(k * Math.PI) : 0;
+  const col = G.v >= 30 ? "#ff6a4d" : G.v >= 10 ? "#ffd25a" : TXT;
+  ctx.save(); ctx.globalAlpha = a; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.letterSpacing = "0px";
+  ctx.translate(540, G.y + dy); ctx.scale(sc, sc);
+  ctx.font = '900 150px "CapBlack"'; ctx.lineJoin = "round"; ctx.lineWidth = 24; ctx.strokeStyle = "#1d1b20"; ctx.strokeText(text, 0, 0);
+  ctx.fillStyle = col; ctx.fillText(text, 0, 0);
+  ctx.restore();
 }
