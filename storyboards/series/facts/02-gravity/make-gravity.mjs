@@ -18,7 +18,7 @@ const END = 64.0;
 const F = { SUB: 525, CARD: 445, HUDY: 340 };   // the counter's box starts at the safe zone's top (250 px)
 // v2 (Jonny 20 Nov): 1-5 g tick every 2.5 s, blackout at 11; then 5 g steps every 5 s; the Moon hits 56-60.5
 const T = {
-  g2: 1.0, g3: 3.5, g4: 6.0, g5: 8.5, slump: 11.0, cutA: 11.3, wake: 13.0, g15: 18.0, g20: 23.0, g25: 28.0, g30: 33.0, g35: 38.0,
+  g2: 1.0, g3: 3.5, g4: 6.0, g5: 8.5, slump: 11.0, cutA: 11.15, wake: 13.0, g15: 18.0, g20: 23.0, g25: 28.0, g30: 33.0, g35: 38.0,
   g40: 43.0, g45: 48.0, g50: 53.0, black: 60.5, g1: 61.5,
 };
 
@@ -60,6 +60,12 @@ const push = (k, dur, amt = 0.06) => {
   const C = CAM[k], to = C.pos.map((p, i) => r3(p + (C.look[i] - p) * amt));
   return { ...camOnly(k), to: { pos: to, look: C.look, fov: C.fov }, dur: r3(dur), ease: "linear" };
 };
+
+// Jonny 20 Nov (hell-video data): every shot moves; a punch-in (same axis, tighter lens) on each new line in a long shot;
+// cut 0.1-0.2 s after the action ends. punch: the same camera at fov x k, pushing on from where the push would be at `from`
+const punch = (k, dur, amt = 0.04, fk = 0.78) => { const p = push(k, dur, amt); return { ...p, fov: r3(p.fov * fk), to: { ...p.to, fov: r3(p.fov * fk) } }; };
+// the loop's last shot: from a little inside camera A back out to it, so the last frame is frame 0
+const pullTo = (k, dur, amt = 0.03) => { const C = CAM[k], from = C.pos.map((p, i) => r3(p + (C.look[i] - p) * amt)); return { pos: from, look: C.look, fov: C.fov, to: { pos: C.pos, look: C.look, fov: C.fov }, dur: r3(dur), ease: "out" }; };
 
 // ---------------------------------------------------------------- props
 const props = [
@@ -224,7 +230,7 @@ see(T.g25, 30.3, ["rupture"], "25 g: from the window, the street below tears ope
 expr(30.3, "kind", { curve: 0.4 }, 0.2); look(30.3, [0, 0], 0.15);
 expr(31.2, "smug", { curve: 0.8 }, 0.2);
 A(31.25, "spud", "face", { lidR: 1, lidL: 0.1, dur: 0.12 });
-A(32.4, "spud", "face", { lidR: 0, lidL: 0, dur: 0.15 });
+A(32.7, "spud", "face", { lidR: 0, lidL: 0, dur: 0.15 });   // the wink ends 32.85, the cut at 33.0
 sfx(31.1, "ai-package/flat-exhale", { gain: 0.7, reason: "a small breath out before the wink" });
 see(30.3, T.g30, ["spud.face"], "25 g: pancake flat, a calm wink on 'Good thing you're a potato'");
 
@@ -314,24 +320,30 @@ const beats = c.beats([
   ["P01 2 g: the phone slams onto your face", 0, push("A", T.g3), "hook"],
   ["P02 3 g: pressed into the sofa", T.g3, push("A2", 2.5)],
   ["P03 4 g: the picture greys", T.g4, push("A2", 2.5, 0.1)],
-  ["P04 5 g: tunnel vision, black", T.g5, camOnly("B4")],
-  ["P05 the blackout: slumped", T.cutA, camOnly("A")],
-  ["P06 10 g: lying flat, the sofa legs break", T.wake, push("A6", 5)],
-  ["P07 15 g: the tower falls", T.g15, push("C7", 5, 0.04)],
-  ["P08 20 g: the whole city comes down", T.g20, push("P1", 5, 0.015)],
+  ["P04 5 g: tunnel vision, black", T.g5, push("B4", r3(T.cutA - T.g5), 0.025)],   // the tunnel card rides 4 cm closer: its hole stays on his face
+  ["P05 the blackout: slumped", T.cutA, push("A", r3(T.wake - T.cutA), 0.03)],
+  ["P06 10 g: lying flat", T.wake, push("A6", 1.3)],
+  ["P06b 10 g: '... your blood comes back' (punch-in)", 14.3, punch("A6", 3.7, 0.05)],
+  ["P07 15 g: the tower cracks", T.g15, push("C7", 1.0, 0.03)],
+  ["P07b 15 g: '... twice their weight', it falls (punch-in)", 19.0, punch("C7", 2.65, 0.03, 0.88)],
+  ["P07c 15 g: his face, the dust behind (cut .15 s after the fall)", 21.65, push("B9", 1.35, 0.05)],
+  ["P08 20 g: the city starts to go", T.g20, push("P1", 0.9, 0.015)],
+  ["P08b 20 g: 'The whole city comes down.' (punch-in)", 23.9, punch("P1", 4.1, 0.02, 0.86)],
   ["P09 25 g: the street tears open", T.g25, push("P2", 2.3, 0.02)],
   ["P10 25 g: good thing you're a potato", 30.3, push("B9", 2.7, 0.06), "payoff"],
   ["P11 30 g: satellites burn in", T.g30, push("P3", 3, 0.01)],
-  ["P12 30 g: a strike, the window cracks", 36, camOnly("P4")],
-  ["P13 35 g: the air turns poisonous", 40.5, push("B11", 2.5, 0.06)],
+  ["P12 30 g: a strike, the window cracks", 36, push("P4", 2, 0.012)],
+  ["P12b 35 g: 'The air itself turns poisonous.' (punch-in)", T.g35, punch("P4", 2.5, 0.015)],
+  ["P13 35 g: he gasps", 40.5, push("B11", 2.5, 0.06)],
   ["P14 40 g: the Alps crush", T.g40, push("P5", 2.5, 0.03)],
   ["P15 40 g: a summit splits", 45.5, push("P6", 2.5, 0.03)],
-  ["P16 45 g: the Moon falls", T.g45, push("P7", 5, 0.01)],
+  ["P16 45 g: the Moon over the ruins", T.g45, push("P7", 1.1, 0.01)],
+  ["P16b 45 g: 'Even the Moon is falling.' (punch-in)", 49.1, punch("P7", 3.9, 0.012, 0.85)],
   ["P17 50 g: his face", T.g50, push("B9", 1.6, 0.05)],
-  ["P18 50 g: the Moon fills the sky", 54.6, push("P7", 1.4, 0.005)],
-  ["P19 50 g: contact, the fire wall", 56, camOnly("P8")],
-  ["P20 50 g: the room blown in", TROOM, camOnly("P9")],
-  ["P21 1 g: back to normal, the phone loops", T.g1, camOnly("A")],
+  ["P18 50 g: the Moon fills the sky", 54.6, push("P7", 1.4, 0.008)],
+  ["P19 50 g: contact, the fire wall", 56, push("P8", r3(TROOM - 56), 0.006)],
+  ["P20 50 g: the room blown in", TROOM, push("P9", r3(T.black - TROOM), 0.04)],
+  ["P21 1 g: back to normal, the phone loops", T.g1, pullTo("A", r3(END - T.g1))],
 ], END);
 
 // ---------------------------------------------------------------- the grade (DESIGN.md section 8)
