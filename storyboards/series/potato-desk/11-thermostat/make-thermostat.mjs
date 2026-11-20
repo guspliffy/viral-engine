@@ -22,7 +22,7 @@ import * as grips from "../../../lib/grips.mjs";
 import { LINES } from "./lines.mjs";
 
 const c = clip({ faces: "strong", lines: { sub: false, blink: false } }), { A, sfx, cap, see } = c;
-const F = (t) => r3(Math.round(t * 30) / 30);
+const F = (t) => Math.floor((Math.round(t * 30) / 30) * 1000 + 1e-6) / 1000;   // floor to 3 places: the cut lands ON its frame (Sol r2 #5)
 
 // measured spoken lengths (desk11-voice-probe, 20 Nov 2026), in LINES order
 const DUR = [2.44, 2.56, 1.51, 0.81, 1.13, 0.96, 0.77, 2.95, 0.50, 0.74, 0.51, 0.70, 1.61, 1.09, 1.54, 0.83, 0.95, 0.80, 0.93, 1.24, 1.23, 1.22];
@@ -98,7 +98,7 @@ const FOLDER_AT = (() => { const p = fwd(MASH_DESK, 0, 0.30, -0.24); return [p[0
 const FOLDER = { id: "folder", staged: PARKED, kind: "manilafolder", ...grips.placeFor("phone", FOLDER_AT, 180), tip: -10 };
 const MUGW_AT = (() => { const p = fwd(WEDGE_IN, 90, 0.47, 0.07); return [p[0], 0.38, p[1]]; })();   // in his right hand as he enters
 const MUGW = { id: "mugW", staged: PARKED, kind: "teamug", scale: 2.0, color: "#F6F4EE", steam: 0, ...grips.placeFor("teamug", MUGW_AT, 90), x: 9, y: AWAY };
-const PHONE_AT = [0.80, 0.92, -0.62];   // Sol r1 #19: above the desk, monitors and fan from the S14 camera
+const PHONE_AT = [0.78, 0.74, -0.56];   // Sol r2 #13: chest height in front (0.92 read as at his ear), still clear of monitors and fan   // Sol r1 #19: above the desk, monitors and fan from the S14 camera
 const PHONE = { id: "mphone", staged: PARKED, kind: "phone", scale: 1.5, case: "#8FB1C5", glow: 0, x: 0, y: AWAY, z: 0 };
 const HOTMUG = { id: "hotmug", kind: "teamug", scale: 1.6, color: "#9DB7A0", steam: 1, x: -0.86, y: 0.50, z: 0.40 };
 const MUG2 = { id: "mug2", kind: "teamug", scale: 2.0, color: "#F6F4EE", steam: 0, x: -0.02, y: AWAY, z: 0.42 };
@@ -200,7 +200,7 @@ t = say(3, r3(h5 + 0.05)); SHIVER(S05, t);
 const S06 = F(t + 0.12);
 place(S06, "mash", MASH_DESK, 0); P(r3(S06 - 0.02), "thermo", { temp: 17 }, 0);
 arm(S06, "mash", "R", { prop: "fan", grip: "button", off: [0, 0.04, 0] }, 0.2, "out"); grip(S06, "mash", "R", "point");
-fans(r3(S06 + 0.22), 1); sfx(r3(S06 + 0.22), "kenney/switch", { gain: 0.4 }); P(r3(S06 + 0.25), "flurry", { amount: 0.5 }, 0.35); P(r3(S06 + 0.35), "stackS", { amount: 0.7 }, 0.5);
+fans(r3(S06 + 0.22), 1); sfx(r3(S06 + 0.22), "kenney/switch", { gain: 0.4 }); P(r3(S06 + 0.22), "flurry", { amount: 0.6 }, 0.2); P(r3(S06 + 0.35), "stackS", { amount: 0.7 }, 0.5);
 t = say(4, r3(S06 + 0.25)); arm(r3(S06 + 0.6), "mash", "R", "rest", 0.3);
 A(r3(S06 + 0.5), "spud", "lean", { to: -6, dur: 0.25 }); expr(S06 + 0.4, "spud", "sad"); sfx(r3(S06 + 0.45), "book-flip", { gain: 0.3 });
 // S07: Chip at his desk in the bobble hat points at the heater: 25, the heater lights
@@ -227,7 +227,7 @@ see(S09, r3(S09 + 1.0), ["chip.face", "spud.face", "mash.face", "heater", "win"]
 const S10 = F(S09 + 1.05);
 place(S10, "chip", CHIP_WALL, Y_CHIP_WALL, Y_STEP); place(S10, "mash", R1, Y_MASH_R1);
 arm(S10, "spud", "both", "rest", 0.2);
-arm(r3(S10 + 0.1), "spud", "R", { o: [0.06, 0.6, 0.2] }, 0.3); arm(r3(S10 + 0.1), "spud", "L", { o: [0.0, 0.62, 0.16] }, 0.3);
+arm(r3(S10 + 0.1), "spud", "R", { o: [0.06, 0.6, 0.2] }, 0.3); arm(r3(S10 + 0.1), "spud", "L", { o: [0.02, 0.8, 0.14] }, 0.3);
 grip(S10 + 0.1, "spud", "both", "open"); expr(S10, "spud", "sad"); look(S10, "spud", [0, 0.1]);
 t = say(7, r3(S10 + 0.12));
 look(r3(S10 + 0.8), "spud", [-0.4, 0.5]); look(r3(S10 + 1.6), "spud", [0.4, 0.5]); look(r3(S10 + 2.3), "spud", [0, 0.1]);
@@ -262,7 +262,7 @@ fans(r3(S12B + 0.2), 0, false, 0.8); sfx(r3(S12B + 0.2), "kenney/switch", { gain
 A(r3(S12B + 0.35), "mash", "move", { to: W, dur: 0.45, ease: "inOut" }); turn(r3(S12B + 0.35), "mash", 20, 0.3);
 arm(r3(S12B + 0.75), "mash", "L", { world: [1.37, 1.15, -1.20] }, 0.18, "out"); grip(r3(S12B + 0.75), "mash", "L", "flat");
 cold(r3(S12B + 0.9), 0, 0.45); sfx(r3(S12B + 1.1), "door-close", { gain: 0.25 }); arm(r3(S12B + 1.3), "mash", "L", "rest", 0.25);
-P(r3(S12 + 0.3), "flurry", { amount: 0 }, 0.8); P(r3(S12B + 0.9), "drift1", { depth: 0 }, 0.5); P(r3(S12 + 0.3), "plant", { bloom: 1 }, 0.8);
+P(r3(S12 + 0.3), "flurry", { amount: 0 }, 0.8); P(r3(S12 + 0.3), "plant", { bloom: 1 }, 0.8);
 hideProp(r3(S12 - 0.02), "scarf"); hideProp(r3(S12 - 0.02), "hat"); hideProp(r3(S12 - 0.02), "icebagW");
 expr(S12, "spud", "happy");
 // S13: Chip on the step, eyes on the ceiling, his hand creeps: 22
@@ -277,7 +277,7 @@ const gPhone = grips.phone(c, "mash", { ...PHONE, ...grips.placeFor("phone", PHO
 P(r3(S14 - 0.03), "mphone", { ...grips.placeFor("phone", PHONE_AT, 180 + Y_MASH_R1), tip: -35, glow: 0.6 }, 0);
 c.arm(r3(S14 - 0.02), "mash", "L", { prop: "mphone", grip: gPhone.hands.L.grip, palm: true }, 0); grip(r3(S14 - 0.02), "mash", "L", "hold", 0.01);
 A(r3(S14 - 0.02), "mash", "grab", { prop: "mphone", hand: "L", grip: gPhone.hands.L.grip, dur: 0, pose: null });
-look(S14, "mash", [0.2, -0.5]); expr(S14, "mash", "smug");
+look(S14, "mash", [0.35, -0.6]); expr(S14, "mash", "smug");
 press(r3(S14 + 0.35), "mash", "R", "btnDown", 20, { hold: 0.2 });
 // S15: the close: two fingers, a beep every 0.3 s; Spud's leaf flicks to each
 const S15 = F(S14 + 1.2);
@@ -299,8 +299,8 @@ expr(r3(S16 + 1.2), "mash", "annoyed"); arm(r3(S16 + 1.75), "mash", "R", "rest",
 // S17: Mash holds the ice bag on it: the number runs down to 12
 const S17 = F(S16 + 2.0);
 hideProp(r3(S17 - 0.02), "icebagW"); P(r3(S17 - 0.02), "icebagL", { x: 0.40, y: r3(OY - 0.10), z: -0.98 }); P(S17, "icebagL", { x: 0.29, y: r3(OY - 0.02), z: -1.20 }, 0.2, "out");
-arm(r3(S17 - 0.02), "mash", "R", { prop: "thermo", grip: "coverRight", off: [0.17, -0.08, 0.36] }, 0.01); grip(r3(S17 - 0.02), "mash", "R", "flat", 0.01);
-arm(S17, "mash", "R", { prop: "thermo", grip: "coverRight", off: [0.06, 0, 0.12] }, 0.2, "out");   // Sol r1 #10: the palm on the bag's front, not in it
+arm(r3(S17 - 0.02), "mash", "R", { prop: "thermo", grip: "coverRight", off: [0.17, -0.08, 0.36] }, 0.01); grip(r3(S17 - 0.02), "mash", "R", "hold", 0.01);
+arm(S17, "mash", "R", { prop: "thermo", grip: "coverRight", off: [0.07, 0, 0.09] }, 0.2, "out");   // Sol r1 #10, r2 #12 (fingers round the bag): the palm on the bag's front, not in it
 P(r3(S17 + 0.2), "thermo", { temp: 12 }, 1.2, "linear"); expr(S17, "mash", "smug"); expr(r3(S17 + 0.6), "chip", "shocked"); look(S17, "chip", [0.6, 0.3]);
 sfx(r3(S17 + 0.05), "ai/crunch", { gain: 0.2 });
 // S18: Chip's hot mug on the other side: "Thirty!" / "Twelve!": the number flickers 30/12
@@ -308,9 +308,9 @@ const S18 = F(S17 + 1.55);
 const gHot = grips.mug(c, "chip", HOTMUG, { side: "L" });
 const HOT_AT = [-0.27, 1.00, -1.04];   // Sol r1 #11: out from his profile, rim below the corner
 P(r3(S18 - 0.03), "hotmug", { ...grips.placeFor("teamug", HOT_AT, Y_CHIP_WALL) }, 0); gHot.take(r3(S18 - 0.02), { reach: 0.003, settle: 0.003 });
-P(S18, "thermo", { temp: 30 }, 0.25, "linear");
+P(S18, "thermo", { temp: 30 }, 0.06, "linear");
 t = say(10, r3(S18 + 0.1)); t = say(11, r3(t + 0.12));
-P(T[11], "thermo", { temp: 12 }, 0); for (let k = 0; k < 8; k++) P(r3(T[11] + 0.3 + k * 0.125), "thermo", { temp: k % 2 ? 12 : 30 }, 0);   // Sol r1 #7
+P(T[11], "thermo", { temp: 12 }, 0); for (let k = 0; k < 4; k++) P(r3(END_OF(11) + 0.25 + k * 0.125), "thermo", { temp: k % 2 ? 12 : 30 }, 0);   // Sol r2 #2: flicker after the caption   // Sol r1 #7
 P(r3(S18 + 0.2), "thermo", { shake: 0.3 }, 0.1); expr(S18, "chip", "angry"); expr(r3(S18 + 0.5), "mash", "angry");
 see(S17, r3(t + 0.6), ["thermo", "chip.face", "mash.face"], "ice bag on one side, hot mug on the other: the number flips 30/12");
 // S19 PEAK: wide, everything back on in one cascade: fans (Mash's finger), heater (Chip points), blanket, window; snow and paper build
@@ -319,7 +319,7 @@ place(S19, "chip", CHIP_DESK, 15, Y_BOX); place(S19, "mash", MASH_DESK, 0);
 A(r3(S19 - 0.03), "chip", "release", { prop: "hotmug", dur: 0, to: [-0.86, 0.50, 0.40] }); arm(r3(S19 - 0.02), "chip", "L", "rest", 0.01); arm(r3(S19 - 0.02), "mash", "R", "rest", 0.01);
 hideProp(r3(S19 - 0.02), "icebagL"); showProp(r3(S19 - 0.02), "icebagW", 0); showProp(r3(S19 - 0.02), "scarf", 0); showProp(r3(S19 - 0.02), "hat", 0);
 P(r3(S19 - 0.02), "thermo", { temp: 30, shake: 0 }, 0);
-const FLICK_END = () => r3(F(F(S19 + 2.3) + 1.6) + 0.42);   // S21 + 0.42 (Sol r1 #3: 21 shows when the box lands, not before the boss acts)
+const FLICK_END = () => r3(F(F(S19 + 2.3) + 1.6) + 0.36);   // S21 + 0.42 (Sol r1 #3: 21 shows when the box lands, not before the boss acts)
 for (let k = 0; S19 + 0.1 + k * 0.15 < FLICK_END(); k++) P(r3(S19 + 0.1 + k * 0.15), "thermo", { temp: k % 2 ? 30 : 12 }, 0);
 P(r3(S19 - 0.02), "twin", { x: 1.00, y: 0 });
 arm(S19, "mash", "R", { prop: "fan", grip: "button", off: [0, 0.04, 0] }, 0.15, "out"); grip(S19, "mash", "R", "point"); fans(r3(S19 + 0.15), 1, true, 0.3); sfx(r3(S19 + 0.15), "kenney/switch", { gain: 0.4 });
@@ -343,7 +343,7 @@ sfx(r3(S20 + 0.7), "ai/crunch", { gain: 0.3 });
 // S21 FALSE CLOSE 2: the boss's clear box drops over it, the key turns, out: "Locked. Twenty-one."
 const S21 = F(S20 + 1.6);
 place(S21, "wedge", R1, -30); arm(r3(S21 - 0.02), "spud", "both", "rest", 0.01); place(S21, "mash", R2, -20);   // Mash by his window: the wall lane at his desk is too narrow for the boss
-P(r3(S21 + 0.45), "thermo", { temp: 21 }, 0);
+P(r3(S21 + 0.40), "thermo", { temp: 21 }, 0);   // Sol r2 #4: on the seat
 arm(S21, "wedge", "R", { prop: "tbox", grip: "railR", off: [0, -0.04, 0.02] }, 0.2); grip(S21, "wedge", "R", "flat");
 P(r3(S21 + 0.1), "tbox", { on: 1 }, 0.35, "out"); sfx(r3(S21 + 0.45), "latch-click", { gain: 0.5 });
 arm(r3(S21 + 0.6), "wedge", "R", { prop: "tbox", grip: "barrel", off: [0.03, -0.02, 0.03] }, 0.15); grip(r3(S21 + 0.6), "wedge", "R", "pinch");
@@ -355,9 +355,11 @@ t = say(12, r3(S21 + 0.4));
 see(S21, t, ["thermo", "tbox", "wedge.face"], "the boss locks it in a clear box at 21");
 // S22: Wedge pats his pocket and leaves right along the wall
 const S22 = F(t + 0.1);
-P(r3(S22 - 0.02), "tbox", { key: 1 }, 0);   // the key goes into his chest pocket
-arm(r3(S22 - 0.02), "wedge", "R", { o: [0.05, 0.78, 0.3] }, 0.01); grip(r3(S22 - 0.02), "wedge", "R", "pinch", 0.01);
-arm(S22, "wedge", "R", { o: [-0.10, 0.74, 0.22] }, 0.25); grip(r3(S22 + 0.25), "wedge", "R", "flat"); arm(r3(S22 + 0.4), "wedge", "R", { o: [-0.10, 0.74, 0.28] }, 0.08); arm(r3(S22 + 0.5), "wedge", "R", { o: [-0.10, 0.74, 0.22] }, 0.08); arm(r3(S22 + 0.75), "wedge", "R", "rest", 0.25);
+P(r3(S22 - 0.02), "tbox", { key: 1 }, 0);   // the key goes into his jacket pocket
+// Sol r2 #7: the pat in the clear front lane (behind the desks a monitor or Spud always hid his chest); then he walks off right
+place(S22, "wedge", [0.55, 1.35], -15); turn(r3(S22 + 0.7), "wedge", 90, 0.25); A(r3(S22 + 0.75), "wedge", "move", { to: [1.75, 1.45], dur: 1.0, ease: "in" });
+arm(r3(S22 - 0.02), "wedge", "R", { o: [0.0, 0.38, 0.45] }, 0.01); grip(r3(S22 - 0.02), "wedge", "R", "pinch", 0.01);
+arm(S22, "wedge", "R", { o: [-0.14, 0.34, 0.40] }, 0.25); grip(r3(S22 + 0.25), "wedge", "R", "flat"); arm(r3(S22 + 0.4), "wedge", "R", { o: [-0.14, 0.34, 0.46] }, 0.08); arm(r3(S22 + 0.5), "wedge", "R", { o: [-0.14, 0.34, 0.40] }, 0.08); arm(r3(S22 + 0.75), "wedge", "R", "rest", 0.25);
 expr(r3(S22 + 0.45), "wedge", "smug"); look(r3(S22 + 0.45), "wedge", [0.6, 0.1]);   // he pats the key pocket, smug; the cut takes him away
 look(S22, "chip", [0.5, 0.4]); look(S22, "mash", [-0.3, 0.4]); expr(S22, "chip", "sad"); expr(S22, "mash", "sad");
 // S23: sulking at their desks; their eyes meet across Spud; "It's still freezing." / "It's still boiling."
@@ -379,7 +381,7 @@ place(S24, "chip", CHIP_WALL, Y_CHIP_WALL, Y_STEP); place(S24, "mash", R1, Y_MAS
 P(r3(S24 - 0.02), "blanketD", { cover: 0 }, 0); P(r3(S24 - 0.02), "blanketW", { cover: 1 }, 0);
 grip(S24, "chip", "L", "flat", 0.1); grip(S24, "mash", "R", "flat", 0.1);   // one palm each: the near hand (both hands crossed the body)
 arm(S24, "spud", "R", { o: [0.36, 0.62, 0.05] }, 0.2); arm(S24, "spud", "L", { o: [0.36, 0.62, 0.05] }, 0.2); grip(S24, "spud", "both", "flat"); A(S24, "spud", "face", { lid: 1, dur: 0.15 });
-for (let k = 0; k < 10; k++) { const s = k % 2 ? 1 : -1; P(r3(S24 + k * 0.28), "tbox", { tug: s }, 0.25); for (const [w, g, sd] of [["chip", "sideL", "L"], ["mash", "sideR", "R"]]) arm(r3(S24 + k * 0.28), w, sd, { prop: "tbox", grip: g, off: [r3(0.035 * s), 0, 0.01], palm: true }, 0.25);  P(r3(S24 + k * 0.28), "thermo", { shake: 0.6 }, 0.1); A(r3(S24 + k * 0.28), s < 0 ? "chip" : "mash", "lean", { to: -6, dur: 0.2 }); A(r3(S24 + 0.14 + k * 0.28), s < 0 ? "chip" : "mash", "lean", { to: 0, dur: 0.14 }); }
+for (let k = 0; k < 10; k++) { const s = k % 2 ? 1 : -1; P(r3(S24 + k * 0.28), "tbox", { tug: s }, 0.25); for (const [w, g, sd] of [["chip", "sideL", "L"], ["mash", "sideR", "R"]]) arm(r3(S24 + k * 0.28), w, sd, { prop: "tbox", grip: g, off: [r3(0.035 * s + (w === "chip" ? -0.025 : 0.025)), 0, 0.01], palm: true }, 0.25); A(r3(S24 + k * 0.28), s < 0 ? "chip" : "mash", "lean", { to: -6, dur: 0.2 }); A(r3(S24 + 0.14 + k * 0.28), s < 0 ? "chip" : "mash", "lean", { to: 0, dur: 0.14 }); }
 expr(S24, "chip", "angry"); expr(S24, "mash", "angry"); sfx(S24, "kenney/impact-plate-light", { gain: 0.3 });
 t = say(15, r3(S24 + 0.2)); t = say(16, r3(t + 0.12));
 see(S24, t, ["chip.face", "mash.face", "tbox", "spud.face"], "tug of war on the locked box");
@@ -387,7 +389,7 @@ see(S24, t, ["chip.face", "mash.face", "tbox", "spud.face"], "tug of war on the 
 const S25 = F(Math.max(t + 0.15, S24 + 2.85));
 const FLIP = [27, 14, 29, 13, 25, 16, 30, 12, 28, 15, 26, 18, 24, 21];
 FLIP.forEach((n, k) => P(r3(S25 + k * 0.133), "thermo", { temp: n }, 0));
-P(S25, "tbox", { rip: 0.6 }, 1.2, "linear"); for (let k = 0; k < 4; k++) { const s = k % 2 ? 1 : -1; P(r3(S25 + k * 0.3), "tbox", { tug: s }, 0.25); for (const [w, g, sd] of [["chip", "sideL", "L"], ["mash", "sideR", "R"]]) arm(r3(S25 + k * 0.3), w, sd, { prop: "tbox", grip: g, off: [r3(0.035 * s), 0, 0.01], palm: true }, 0.25); }
+P(S25, "tbox", { rip: 0.6 }, 1.2, "linear"); for (let k = 0; k < 4; k++) { const s = k % 2 ? 1 : -1; P(r3(S25 + k * 0.3), "tbox", { tug: s }, 0.25); for (const [w, g, sd] of [["chip", "sideL", "L"], ["mash", "sideR", "R"]]) arm(r3(S25 + k * 0.3), w, sd, { prop: "tbox", grip: g, off: [r3(0.035 * s + (w === "chip" ? -0.025 : 0.025)), 0, 0.01], palm: true }, 0.25); }
 sfx(S25, "ai/canvas-rip", { gain: 0.2 });
 // S26: the box tears free and drops; Chip rocks back, Mash staggers out right to R2; "Enough." off screen
 const S26 = F(S25 + 1.2), RIP = r3(S26 + 0.3);
@@ -397,7 +399,7 @@ for (const w of ["chip", "mash"]) { arm(RIP, w, "both", "rest", 0.25); grip(RIP,
 A(RIP, "chip", "lean", { to: -5, dur: 0.15 }); turn(RIP, "chip", Y_CHIP_WALL, 0.2); A(r3(RIP + 0.3), "chip", "lean", { to: 0, dur: 0.3 });
 A(RIP, "mash", "move", { to: R2, dur: 0.5, ease: "out" }); expr(RIP, "chip", "shocked"); expr(RIP, "mash", "shocked");
 A(r3(RIP + 0.1), "spud", "face", { lid: 0, dur: 0.1 }); arm(r3(RIP + 0.1), "spud", "both", "rest", 0.3); expr(r3(RIP + 0.1), "spud", "shocked");
-expr(r3(RIP + 0.7), "spud", "stern"); look(r3(RIP + 0.7), "spud", [0.8, 0.2]);   // Sol r1 #17: the line is not his
+expr(r3(RIP + 0.45), "spud", "stern", 0.15); look(r3(RIP + 0.45), "spud", [0.8, 0.2]);   // Sol r1 #17: the line is not his
 t = say(17, r3(RIP + 0.8));
 look(r3(t - 0.3), "chip", [0.7, 0]);
 // S27 REVEAL: Wedge at R1b, one fingertip: the cover swings off; mug on Spud's desk. "It's fake."
@@ -430,7 +432,7 @@ expr(S30, "chip", "sad"); look(S30, "chip", [0.6, 0.3]); SHIVER(S30, r3(S30 + 2.
 t = say(21, r3(S30 + 0.1), r3(S30 + 3.6));
 // S31: the boss tips his sunglasses at the window; Mash, in the snow stream, looks away
 const S31 = F(t + 0.12);
-turn(S31, "wedge", 60, 0.3); look(S31, "wedge", [0.7, 0.3], 0.25); arm(r3(S31 + 0.1), "wedge", "L", { world: [1.28, 0.78, -0.74] }, 0.3, "out"); grip(r3(S31 + 0.1), "wedge", "L", "point");   // Sol r1 #1
+arm(r3(S31 - 0.02), "wedge", "R", "hips", 0.15); turn(S31, "wedge", 45, 0.3); look(S31, "wedge", [0.7, 0.3], 0.25); arm(r3(S31 + 0.1), "wedge", "L", { world: [1.36, 0.60, -0.66] }, 0.3, "out"); grip(r3(S31 + 0.1), "wedge", "L", "point");   // Sol r1 #1
 look(r3(S31 + 0.5), "mash", [0.8, -0.3], 0.25); expr(r3(S31 + 0.5), "mash", "sad");
 arm(r3(S31 + 1.0), "wedge", "L", "rest", 0.3); turn(r3(S31 + 1.0), "wedge", 15, 0.3);
 // S32: Chip and Spud turned to screen-right, the bare plate above Spud; hold 1.5 s after the last line
@@ -444,13 +446,13 @@ see(S30, END, ["chip.face"], "the cold one asks why he is freezing; the boss nod
 const push = (s, k = 0.06, dur = 2) => ({ ...s, to: { pos: s.pos.map((v, i) => r3(v + (s.look[i] - v) * k)), look: s.look, fov: s.fov }, dur, ease: "inOut" });
 const drift = (s, dx = 0.12, dur = 2) => ({ ...s, to: { pos: [r3(s.pos[0] + dx), s.pos[1], s.pos[2]], look: [r3(s.look[0] + dx * 0.5), s.look[1], s.look[2]], fov: s.fov }, dur, ease: "inOut" });
 const cam = (pos, look, fov) => ({ pos, look, fov });
-const beats = c.beats([
+const beatsList = [
   ["who touched it", 0, push(cam([-0.35, 1.45, 3.85], [-0.25, 1.10, -1.30], 30), 0.06, S02), "hook"],
   ["sauna", S02, drift(cam([1.55, 1.25, 3.30], [1.00, 0.85, -0.36], 32), -0.10, S03 - S02)],
   ["the buttons", S03, push(cam([0.00, 1.38, 0.55], [0.00, 1.36, -1.30], 30), 0.08, S04 - S03)],
   ["carry on", S04, drift(cam([0.30, 1.25, 4.40], [0.60, 0.85, 0.00], 38), 0.12, S05 - S04)],
   ["23 scarf", S05, push(cam([-1.90, 1.25, 3.40], [-0.40, 1.10, -1.00], 34), 0.05, S06 - S05), "escalation"],
-  ["17 fan", S06, drift(cam([1.75, 1.25, 3.60], [0.25, 0.95, -0.90], 40), -0.12, S07 - S06)],   // Sol r1 #20: the papers lift in this shot
+  ["17 fan", S06, drift(cam([1.65, 1.30, 3.70], [0.05, 1.05, -0.90], 44), -0.12, S07 - S06)],   // Sol r1 #20: the papers lift in this shot
   ["25 heater", S07, push(cam([-1.55, 1.55, 3.60], [-0.62, 0.72, -0.50], 38), 0.06, S08 - S07)],
   ["15 window", S08, drift(cam([2.20, 1.40, 3.10], [0.78, 1.18, -1.20], 42), -0.15, S09 - S08)],
   ["split room", S09, push(cam([0.17, 1.75, 8.60], [0.17, 0.95, 0.00], 34), 0.04, S10 - S09)],
@@ -467,19 +469,23 @@ const beats = c.beats([
   ["peak", S19, drift(cam([-0.25, 1.55, 8.40], [0.15, 0.95, 0.00], 35), 0.20, S20 - S19)],
   ["frozen cup", S20, { pos: [-0.75, 0.75, 2.40], look: [-0.45, 0.40, 0.60], fov: 30, to: { pos: [0.35, 0.80, 2.40], look: [0.12, 0.62, 0.35], fov: 30 }, dur: S21 - S20, ease: "inOut" }],
   ["locked", S21, push(cam([-0.10, 1.80, 2.00], [0.35, 1.10, -1.10], 40), 0.10, S22 - S21)],
-  ["pocket", S22, drift(cam([-0.70, 2.20, 3.20], [0.45, 0.95, -0.90], 36), 0.12, S23 - S22)],
+  ["pocket", S22, drift(cam([0.05, 1.15, 4.90], [0.70, 0.62, 1.35], 36), 0.12, S23 - S22)],
   ["still freezing", S23, push(cam([0.00, 1.40, 7.40], [0.00, 0.75, 0.00], 38), 0.10, S24 - S23)],
   ["let go", S24, push(cam([0.02, 1.45, 3.30], [0.04, 1.12, -1.00], 46), 0.08, S25 - S24)],   // Sol r1 #6: both faces in
   ["screws", S25, push(cam([-0.35, 1.25, 0.60], [0.02, 1.38, -1.28], 36), 0.06, S26 - S25)],
   ["rip", S26, push(cam([0.00, 1.50, 3.60], [0.00, 1.05, -0.80], 38), 0.05, S27 - S26)],
-  ["it's fake", S27, push(cam([0.85, 2.00, 3.40], [0.25, 1.05, -1.00], 46), 0.06, S28 - S27), "payoff"],
+  ["it's fake", S27, push(cam([0.85, 2.35, 3.40], [0.25, 1.00, -1.00], 46), 0.06, S28 - S27), "payoff"],
   ["bare plate", S28, push(cam([-0.45, 1.40, 1.60], [-0.12, 1.30, -1.25], 44), 0.14, 0.5)],
   ["since when", S29, push(cam([2.55, 1.65, 2.60], [1.78, 0.95, -0.90], 34), 0.12, 0.8)],   // over the monitor: his eyes clear
   ["since always", S29B, push(cam([0.60, 1.75, 2.20], [0.86, 1.00, -0.95], 36), 0.08, S30 - S29B)],
   ["why am I freezing", S30, drift(cam([-0.95, 1.30, 1.30], [-0.56, 1.14, -0.98], 34), 0.08, S31 - S30)],
   ["the window", S31, push(cam([2.20, 1.40, 2.40], [1.20, 1.00, -1.00], 40), 0.06, S32 - S31)],
   ["end", S32, push(cam([-1.30, 1.20, 2.20], [-0.15, 0.95, -0.60], 42), 0.06, END - S32)],
-], END);
+];
+// Sol r2 #9 #10: a caption whose speech has ended (its tail is the 0.2 s linger) never crosses into the next shot
+const CUTS = beatsList.map((b) => b[1]).filter((x) => x > 0);
+for (const k of c.captions) { const cut = CUTS.find((x) => x > k.from + 0.3 && x < k.to); if (cut != null) k.to = r3(cut - 0.01); }
+const beats = c.beats(beatsList, END);
 
 write(import.meta.url, {
   id: "thermostat",
