@@ -131,6 +131,13 @@ import { SINKCAR_KINDS } from "./props-sinkcar.js";
 import { SKIPREMOTE_KINDS } from "./props-skipremote.js";
 import { ARCH_KINDS, ARCH_GRIPS } from "./props-archaeologist.js";
 import { HELLA_KINDS, HELLA_GRIPS } from "./props-hella.js";   // potato desk 09 hell reviews: set A (doors, badges, clouds, sky) + tablet + hand props
+import { HEART_HALL_KINDS, HEART_HALL_GRIPS } from "./props-heart-hall.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_SCALE_KINDS, HEART_SCALE_GRIPS } from "./props-heart-scale.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_MONSTER_KINDS, HEART_MONSTER_GRIPS } from "./props-heart-monster.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_HEART_KINDS, HEART_HEART_GRIPS } from "./props-heart-heart.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_SOUL_KINDS, HEART_SOUL_GRIPS } from "./props-heart-soul.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_JUICE_KINDS, HEART_JUICE_GRIPS } from "./props-heart-juice.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_CASE_KINDS, HEART_CASE_GRIPS } from "./props-heart-case.js";   // egypt myth 01 heart (DESIGN.md)
 import { HELLB_KINDS, HELLB_GRIPS } from "./props-hellb.js";   // potato desk 09 hell reviews: set B (hell resort lobby)   // the archaeologist's conservation brush: archbrush
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
 import { SKIPROOM_KINDS } from "./props-skiproom.js";
@@ -1506,6 +1513,7 @@ Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRI
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 Object.assign(KINDS, COURT_KINDS);   // potato desk 05 court day (props-court.js)
 Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
+Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, HEART_HEART_KINDS, HEART_SOUL_KINDS, HEART_JUICE_KINDS, HEART_CASE_KINDS); Object.assign(GRIPS, HEART_HALL_GRIPS, HEART_SCALE_GRIPS, HEART_MONSTER_GRIPS, HEART_HEART_GRIPS, HEART_SOUL_GRIPS, HEART_JUICE_GRIPS, HEART_CASE_GRIPS);   // egypt myth 01 heart (props-heart-*.js)
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
