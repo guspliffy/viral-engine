@@ -186,7 +186,7 @@
      1
     ]
    ],
-   "y": 340
+   "y": 445
   }
  },
  "music": {
@@ -501,110 +501,99 @@
    "from": 0.1,
    "to": 2.88,
    "text": "Every five seconds, gravity gets stronger.",
-   "pos": 600,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 2.88,
    "to": 4.499,
    "text": "In ten, you black out.",
-   "pos": 600,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 6.1,
    "to": 8.48,
    "text": "Four g. Your eyes go grey.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 8.75,
    "to": 12.329,
    "text": "Five g. Most people black out here.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 13.1,
    "to": 16.703,
    "text": "Ten g. Lying flat, your blood comes back.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 18.1,
    "to": 22.299,
    "text": "Fifteen. Buildings only hold about twice their weight.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 23.1,
    "to": 25.973,
    "text": "Twenty. The whole city comes down.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 28.1,
    "to": 32.98,
    "text": "Twenty-five. No human survives this. Good thing you're a potato.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 33.1,
    "to": 36.542,
    "text": "Thirty. Every satellite falls out of the sky.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 38.1,
    "to": 41.237,
    "text": "Thirty-five. The air itself turns poisonous.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 43.1,
    "to": 46.711,
    "text": "Forty. Mountains crush under their own weight.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 48.1,
    "to": 51.513,
    "text": "Forty-five. Even the Moon is falling.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 53.1,
    "to": 56.552,
    "text": "Fifty. Seventeen hours later, it hits.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
   },
   {
    "from": 61.6,
    "to": 62.94,
    "text": "Back to one g.",
-   "pos": 525,
+   "pos": 575,
    "pop": false
-  },
-  {
-   "from": 0,
-   "to": 4.75,
-   "text": "WHAT IF GRAVITY KEPT GROWING?",
-   "pos": 445,
-   "pop": false,
-   "size": 54,
-   "kinetic": false,
-   "color": "#ffffff",
-   "stroke": "#1d1b20"
   }
  ],
  "beats": [
@@ -939,7 +928,7 @@
      "voice": "narrator-quick",
      "dur": 4.2492,
      "caption": false,
-     "pos": 600,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -1330,7 +1319,7 @@
      "voice": "narrator-quick",
      "dur": 2.4937,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     }
@@ -1477,7 +1466,7 @@
      "voice": "narrator-quick",
      "dur": 3.4289,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.25
     },
@@ -1788,7 +1777,7 @@
      "voice": "narrator-quick",
      "dur": 3.4532,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 1.95
     },
@@ -1986,7 +1975,7 @@
      "voice": "narrator-quick",
      "dur": 4.0485,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2196,7 +2185,7 @@
      "voice": "narrator-quick",
      "dur": 2.723,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2375,7 +2364,7 @@
      "voice": "narrator-quick",
      "dur": 4.7327,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2603,7 +2592,7 @@
      "voice": "narrator-quick",
      "dur": 3.292,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -2767,7 +2756,7 @@
      "voice": "narrator-quick",
      "dur": 2.9868,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -3004,7 +2993,7 @@
      "voice": "narrator-quick",
      "dur": 3.4609,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -3224,7 +3213,7 @@
      "voice": "narrator-quick",
      "dur": 3.2633,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     }
@@ -3390,7 +3379,7 @@
      "voice": "narrator-quick",
      "dur": 3.3019,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },
@@ -3985,7 +3974,7 @@
      "voice": "narrator-quick",
      "dur": 1.1899,
      "caption": false,
-     "pos": 525,
+     "pos": 575,
      "gain": 4,
      "at": 0.1
     },

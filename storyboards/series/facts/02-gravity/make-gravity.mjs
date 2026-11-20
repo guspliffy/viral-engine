@@ -15,7 +15,7 @@ import { readFileSync } from "node:fs";
 const LEN = JSON.parse(readFileSync(new URL("./lines.json", import.meta.url), "utf8"));
 const c = clip({ faces: "strong" }), { A, sfx, prop, cap, see } = c;
 const END = 64.0;
-const F = { SUB: 525, CARD: 445, HUDY: 340 };   // the counter's box starts at the safe zone's top (250 px)
+const F = { SUB: 575, CARD: 445, HUDY: 445 };   // Jonny 20 Nov 13:25: the question comes off (he adds it with the TikTok text tool on top), the g counter moves down into its place, captions under it   // the counter's box starts at the safe zone's top (250 px)
 // v2 (Jonny 20 Nov): 1-5 g tick every 2.5 s, blackout at 11; then 5 g steps every 5 s; the Moon hits 56-60.5
 const T = {
   g2: 1.0, g3: 3.5, g4: 6.0, g5: 8.5, slump: 11.0, cutA: 11.15, wake: 13.0, g15: 18.0, g20: 23.0, g25: 28.0, g30: 33.0, g35: 38.0,
@@ -113,7 +113,7 @@ const narr = (t, line, text, pos = F.SUB, clampNext = true, split = null) => {
   const [at, a, b] = split; cap(t, at, a, pos); cap(at, end, b, pos);
 };
 // the first line sits under the hook question (two lines from F.CARD), the rest at F.SUB
-LINES.forEach(([t, line, text], i) => narr(t, line, text, i === 0 ? 600 : F.SUB, i > 0, i === 0 ? [2.88, "Every five seconds, gravity gets stronger.", "In ten, you black out."] : null));   // "In" is spoken at ~2.9 s
+LINES.forEach(([t, line, text], i) => narr(t, line, text, F.SUB, i > 0, i === 0 ? [2.88, "Every five seconds, gravity gets stronger.", "In ten, you black out."] : null));   // "In" is spoken at ~2.9 s
 
 // per step: how flat he is (DESIGN.md section 7 f column), the cushion under him and the pitch of his recline
 const PER = {
@@ -143,7 +143,7 @@ for (const k of Object.keys(PER).map(Number).filter((k) => k > 0).sort((a, b) =>
 const HOLD = (t, dur, ease) => { c.arm(t, "spud", "L", { o: [-0.16, 0.55, 0.5] }, dur, ease); c.arm(t, "spud", "R", { o: [-0.22, 0.25, 0.3] }, dur, ease); };
 HOLD(0, 0); A(0, "spud", "grab", { prop: "phone", hand: "L", dur: 0, pose: null });
 expr(0, "kind", { eye: 0.85 }, 0); look(0, [0, 0.35], 0);
-cap(0, 4.75, "WHAT IF GRAVITY KEPT GROWING?", F.CARD, false, { size: 54, kinetic: false, color: "#ffffff", stroke: "#1d1b20" });
+// (the hook question "WHAT IF GRAVITY KEPT GROWING?" is added by Jonny in TikTok, not burned in)
 // 2 g: the arm can't hold it: hand and phone drop onto his face, hold there, then slide down to the cushion beside him
 c.arm(T.g2, "spud", "L", { o: [-0.3, 0.42, 0.52] }, 0.08, "in");
 expr(r3(T.g2 + 0.07), "angry", { eye: 0.1, open: 0.05, curve: -0.7 }, 0.06);
