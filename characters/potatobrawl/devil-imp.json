@@ -1,0 +1,75 @@
+{
+  "id": "potatobrawl/devil-imp",
+  "name": "The small poking demon",
+  "franchise": "PotatoBrawl",
+  "source": "Potato Desk 09 Hell Reviews DESIGN.md section 1, 'The small poking demon': the Devil's look at scale 0.37",
+  "rig": "potato",
+  "body": {
+    "color": "#c2493b",
+    "height": 0.34,
+    "width": 0.36,
+    "depth": 0.25,
+    "lump": 0.02,
+    "seed": 66,
+    "taper": 0.22,
+    "specks": 0
+  },
+  "limbs": {
+    "color": "#3a1616",
+    "width": 0.024,
+    "shoulder": -0.3
+  },
+  "legs": {
+    "height": 0.1,
+    "hipX": 0.075,
+    "hipY": 0.04,
+    "footX": 0.08
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f6a",
+    "size": 0.52,
+    "neutral": {
+      "tilt": -0.1,
+      "curve": 0,
+      "smirk": 0,
+      "eye": 1,
+      "lidL": 0.5,
+      "lidR": 0.5
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.05,
+      "thick": 1.0
+    }
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none"
+  },
+  "costume": {
+    "type": "devil",
+    "shirt": false,
+    "badge": false,
+    "hornLen": 0.05,
+    "tailLen": 0.2,
+    "tailDroop": 0
+  },
+  "personality": "The small poking demon: a masseur on his thousandth shift. Bored, lids half down, mouth flat, silent. Holds the pitchfork in both hands (beats 8, 9), kneads the little one's shoulders in beat 14.",
+  "voiceNote": "silent in the clip; no voice",
+  "hands": {
+    "type": "glove",
+    "size": 0.7,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "The Devil's file at scale 0.37: body 0.34 high, 0.36 wide, standing 0.44 m (legs.height 0.10). No shirt, no badge, chit stubs 0.05, tail 0.20. Hands size 0.7 (not 0.37) so the glove can still hold a 0.02 shaft; face size 0.52. Same red skin."
+}

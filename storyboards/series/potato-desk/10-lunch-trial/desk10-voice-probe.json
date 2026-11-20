@@ -1,0 +1,223 @@
+{
+ "id": "desk10-voice-probe",
+ "title": "Potato Desk 10 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   39,
+   39
+  ]
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 39,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Who ate my lunch?!",
+     "tone": "angry",
+     "style": "outraged, loud, shouting across an office kitchen, furious",
+     "dur": 2.1,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Meeting in five. Find the thief.",
+     "tone": "calm",
+     "style": "a busy boss, flat, firm, impatient, no time for this",
+     "dur": 2.9,
+     "caption": false,
+     "at": 3.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Thief cleans the fridge.",
+     "tone": "calm",
+     "style": "a busy boss, firm, final, a little disgusted",
+     "dur": 2.1,
+     "caption": false,
+     "at": 7.2
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "I'm not one to gossip...",
+     "tone": "calm",
+     "style": "smug, sly, quiet, leaning in, enjoying it",
+     "dur": 2.5,
+     "caption": false,
+     "at": 10.3
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "But he was at the fridge at eleven.",
+     "tone": "calm",
+     "style": "smug, sly, pointing someone out, a little too pleased",
+     "dur": 3.7,
+     "caption": false,
+     "at": 13.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I didn't see the label!",
+     "tone": "scared",
+     "style": "nervous, fast, defensive, caught out",
+     "voice": "spud",
+     "dur": 2.5,
+     "caption": false,
+     "at": 18.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I thought it was for everyone!",
+     "tone": "scared",
+     "style": "nervous, high, a forced laugh, digging deeper",
+     "voice": "spud",
+     "dur": 2.9,
+     "caption": false,
+     "at": 22
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I emailed everyone.",
+     "tone": "angry",
+     "style": "cold, flat, furious, slow, every word on its own",
+     "dur": 1.7,
+     "caption": false,
+     "at": 25.9
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Out of time. Fridge.",
+     "tone": "calm",
+     "style": "a busy boss, firm, impatient, pointing",
+     "dur": 2.1,
+     "caption": false,
+     "at": 28.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "But...",
+     "tone": "sad",
+     "style": "small, hurt, protesting, cut off",
+     "voice": "spud",
+     "dur": 0.9,
+     "caption": false,
+     "at": 31.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Case closed.",
+     "tone": "calm",
+     "style": "satisfied, relieved, a boss wrapping up",
+     "dur": 1.3,
+     "caption": false,
+     "at": 33.6
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "...Let's take this offline.",
+     "tone": "scared",
+     "style": "awkward, caught out, fast, quiet, backing away",
+     "dur": 2.1,
+     "caption": false,
+     "at": 35.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 10: makes and measures every take."
+}

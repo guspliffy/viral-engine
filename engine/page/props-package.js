@@ -8,7 +8,14 @@ import { clamp } from "./util.js";
 //              spanning -x). It stands with its outside face toward +z. `open` 0 shut .. 1 swung open by spec.angle
 //              (default 95 deg) INTO the house (-z; spec.swing "out" swings it toward +z). `latch` 0..1 pushes the
 //              latch tongue home (it springs back into the edge while the door swings and shoots out on the latch).
-//              spec: { w, h, color }
+//              spec: { w, h, color }. Opt-in (Potato Desk 10 kitchen door; each default is today's door): spec.flush true drops
+//              the raised panels (a flat slab in spec.color), spec.lever true swaps both brass knobs for steel levers (a round
+//              rose + a 0.11 bar pointing back toward the hinge, "#b9bec4", 0.07 from the free edge; height spec.knobY 0.52),
+//              spec.closer true a door closer box 0.24 x 0.05 x 0.045 "#7d8389" on the outside face at the top hinge corner,
+//              spec.kick true (or a height in m, 0.20) a kick plate "#aab0b5" across the foot of both faces. spec.angle (95)
+//              is the swing in degrees at open 1, and it already was: the hinge axis' yaw is the prop's own rot (hinge "right"
+//              + rot 90 lies the shut leaf along +z from the hinge, and open 1 at angle 90 stands it along -x, outside face
+//              to +z). Params: open 0..1, latch 0..1 as before.
 //   parcel     a kraft cardboard box with one tape seam along the top and down the two ends, no label. Origin = its
 //              bottom centre, its long side along x. Grip "middle" = its centre (held between two hands, `both`);
 //              "lside" / "rside" = the middle of its -x / +x end (a hand on each end). spec: { w, h, d }
@@ -59,17 +66,27 @@ export const PACKAGE_KINDS = {
     for (let i = 0; i < 6; i++) mesh(new THREE.BoxGeometry((W - 0.01) / 6 + 0.001, H - 0.01, T), paint, leaf, u(((W - 0.01) * (i + 0.5)) / 6 / W + 0.005 / W), H / 2, 0);
     // six raised panels on both faces (two tall, two square, two short on top), a darker recess round each
     const panels = [[0.27, 0.22, 0.32, 0.3], [0.73, 0.22, 0.32, 0.3], [0.27, 0.56, 0.32, 0.28], [0.73, 0.56, 0.32, 0.28], [0.27, 0.85, 0.32, 0.18], [0.73, 0.85, 0.32, 0.18]];
-    for (const zs of [1, -1]) for (const [px, py, pw, ph] of panels) {
+    for (const zs of [1, -1]) if (!P.spec.flush) for (const [px, py, pw, ph] of panels) {
       mesh(new THREE.BoxGeometry(W * pw + 0.03, H * ph + 0.03, 0.006), recess, leaf, u(px), H * py, zs * (T / 2 + 0.002)).castShadow = false;
       mesh(new THREE.BoxGeometry(W * pw, H * ph, 0.014), paint, leaf, u(px), H * py, zs * (T / 2 + 0.006)).castShadow = false;
     }
     // a round brass knob on a rose on both faces, near the free edge, at a potato's hand height
     const KY = P.spec.knobY ?? 0.52;
-    for (const zs of [1, -1]) {
+    const steel = mat("#b9bec4", { roughness: 0.25, metalness: 0.85 });
+    if (P.spec.lever) for (const zs of [1, -1]) {   // a steel lever: a round rose and a bar pointing back toward the hinge
+      const lx = u(1) - side * 0.07;
+      const rose = mesh(new THREE.CylinderGeometry(0.026, 0.026, 0.01, 18), steel, leaf, lx, KY, zs * (T / 2 + 0.005)); rose.rotation.x = Math.PI / 2; rose.castShadow = false;
+      const neck = mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.034, 10), steel, leaf, lx, KY, zs * (T / 2 + 0.025)); neck.rotation.x = Math.PI / 2; neck.castShadow = false;
+      const bar = mesh(new THREE.BoxGeometry(0.11, 0.018, 0.014), steel, leaf, lx - side * 0.045, KY, zs * (T / 2 + 0.04)); bar.castShadow = false;
+    }
+    else for (const zs of [1, -1]) {
       const rose = mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.012, 18), brass, leaf, u(1) - side * 0.09, KY, zs * (T / 2 + 0.006)); rose.rotation.x = Math.PI / 2; rose.castShadow = false;
       const neck = mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.04, 10), brass, leaf, u(1) - side * 0.09, KY, zs * (T / 2 + 0.03)); neck.rotation.x = Math.PI / 2; neck.castShadow = false;
       const knob = mesh(new THREE.SphereGeometry(0.032, 18, 14), brass, leaf, u(1) - side * 0.09, KY, zs * (T / 2 + 0.055)); knob.scale.set(1, 1, 0.75); knob.castShadow = false;
     }
+    // a door closer box at the top hinge corner and a kick plate across the foot (the outside face is +z; the kick plate shows on both)
+    if (P.spec.closer) mesh(new THREE.BoxGeometry(0.24, 0.05, 0.045), mat("#7d8389", { roughness: 0.4, metalness: 0.5 }), leaf, u(0.02) + side * 0.12, H - 0.09, T / 2 + 0.0225).castShadow = false;
+    if (P.spec.kick) { const kh = P.spec.kick === true ? 0.2 : P.spec.kick; for (const zs of [1, -1]) mesh(new THREE.BoxGeometry(W - 0.04, kh, 0.004), mat("#aab0b5", { roughness: 0.3, metalness: 0.7 }), leaf, u(0.5), 0.02 + kh / 2, zs * (T / 2 + 0.002)).castShadow = false; }
     // the latch tongue in the free edge: in while the door swings, out when it latches (a tiny brass block)
     const tongue = mesh(new THREE.BoxGeometry(0.02, 0.025, 0.018), brass, leaf, u(1), KY, 0); tongue.castShadow = false;
     return {
