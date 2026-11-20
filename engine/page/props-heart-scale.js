@@ -14,7 +14,7 @@ import { clamp } from "./util.js";
 //   beam 3.24 long with the finials, base r 0.42, pans r 0.40. Solid for the checks: base and pillar ONLY (hands touch the pillar and
 //   the heart, nothing else); every other mesh is userData.solid = false.
 //   spec   seed 1        wear patches, scratches, dents, engraving jitter (hashed)
-//          feather true  false leaves the right pan empty
+//          feather true  false leaves the right pan empty; "stand" stands it upright in a gold socket (reads at any distance)
 //          tilt, wobble  as the state keys below (a spec value is the start value)
 //   STATE KEYS (a "prop" action tweens them; seed jolt, smear and drip with a dur-0 set before the first tween, they are not
 //   propState defaults; HEART_SCALE_STATE below lists all five for KIT_STATE if the director wires it)
@@ -599,9 +599,10 @@ export const HEART_SCALE_KINDS = {
     const featherG = new THREE.Group(); asm.R.pan.grp.add(featherG);
     let featherPivot = 0;
     if (S.feather !== false) {
-      const L = 0.46, WMAX = 0.06, rTip = 0.3985, clr = 0.0075;
+      const L = 0.46, WMAX = 0.06, rTip = 0.3985, clr = 0.0075, STAND = S.feather === "stand";
       // z(a): the spine's place along +z at arclength a from the root, built backward from the tip over the roll and the dish (it may cross the centre)
-      const surf = (r) => dishY(Math.min(Math.abs(r), 0.3999)) + clr;
+      // feather "stand": built straight (no dish under it), then stood upright in a gold socket at the dish centre, its face to +z
+      const surf = STAND ? () => 0 : (r) => dishY(Math.min(Math.abs(r), 0.3999)) + clr;
       const tab = [[rTip, 0]]; let acc = 0, rr = rTip;
       while (acc < L) { const r2 = rr - 0.0015; acc += Math.hypot(0.0015, surf(r2) - surf(rr)); rr = r2; tab.push([rr, acc]); }
       const rOf = (a) => { const t = L - a; let i = 1; while (i < tab.length - 1 && tab[i][1] < t) i++; const [r1, s1] = tab[i - 1], [r2, s2] = tab[i]; return mix(r1, r2, (t - s1) / Math.max(1e-6, s2 - s1)); };
@@ -638,6 +639,13 @@ export const HEART_SCALE_KINDS = {
       const sp = []; for (let k = 0; k <= 40; k++) { const a = (L * k) / 40, q = pos3(a, 0, 0.003); sp.push(new V3(q[0], q[1], q[2])); }
       const qg = sweepTube(sp, (t) => 0.0046 * (1 - t) + 0.0009, 6); paintGeo(qg, () => quillC); mk(qg, FM, featherG, false);
       featherPivot = rOf(0); featherG.position.z = featherPivot; featherG.children.forEach((c) => { c.position.z = -featherPivot; });
+      if (STAND) {   // Egypt myth 01 (Sol check 1, 20 Nov): lying in the dish it read as a white sliver; upright it reads at any distance
+        featherG.children.forEach((c) => { c.position.x = -0.025; });   // the spine over the socket (xo 0.016-0.034)
+        const SOCK = 0.05, gold = new THREE.MeshStandardMaterial({ color: "#d9a441", roughness: 0.4, metalness: 0.6 });
+        const sock = mk(new THREE.CylinderGeometry(0.022, 0.034, SOCK, 16), gold, asm.R.pan.grp, false);
+        sock.position.set(0, dishY(0) + SOCK / 2, 0);
+        featherG.position.set(0, dishY(0) + SOCK - 0.012, 0); featherG.userData.stand = true; featherG.rotation.set(Math.PI / 2 - 0.12, Math.PI, 0);
+      }
     }
 
     // =============================================== JUICE smear on the left pan (outer petals, rim runs, pool)
@@ -747,7 +755,9 @@ export const HEART_SCALE_KINDS = {
         // chain rattle
         if (jolt > 0.001 || links._on) { for (const L of links) { L.m.quaternion.copy(L.q0); if (jolt > 0.001) L.m.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new V3(0, 0, 1), 4 * DEG * jolt * Math.sin(TAU * L.f * t + L.ph))); } links._on = jolt > 0.001; }
         // the feather tip lifts up to 1 cm
-        featherG.rotation.x = -(0.01 / 0.46) * wob * (0.5 + 0.5 * Math.sin(TAU * 1.7 * t - Math.PI / 2)) * 1.0;
+        const fl = (0.01 / 0.46) * wob * (0.5 + 0.5 * Math.sin(TAU * 1.7 * t - Math.PI / 2));
+        if (featherG.userData.stand) featherG.rotation.set(Math.PI / 2 - 0.12 + fl, Math.PI, 0);   // upright, the tip 7 degrees back, sways on the wobble
+        else featherG.rotation.x = -fl;
         // juice
         smearG.visible = smear > 0.002;
         if (smearG.visible) {

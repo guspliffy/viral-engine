@@ -15,7 +15,7 @@ import { clamp, lerp } from "./util.js";
 //                #1a1014 with a 0.005 catch-light, brows 0.018 long 0.012 above, mouth (0, 0.082) 0.022 wide (line and inside #6e0f18,
 //                tongue #ff8a8a). The face reads at 250 px of heart width or more (frame 0.85 m wide or less).
 //                spec keys (all also tween with a "prop" action; seed the ones that are not propState keys with a dur-0 set first):
-//                  who "chip" (default) | "spud"   spud = the whole heart x 1.15 (same colours); spec.scale multiplies on top of it
+//                  who "chip" (default) | "spud"   spud = the whole heart x 1.15 (same colours) + one leaf on top; spec.scale multiplies on top of it
 //                  blink 0..1 (0)   1 = lids shut (a curved line). NOT read from the spec: tween it (propState seeds it at 0)
 //                  mouth 0..1 (0)   talk: 0 a line, 1 an open oval 0.024 x 0.030 with the tongue
 //                  smug 0..1 (0)    half lids, flat brows (one raised), a one-sided smirk
@@ -430,6 +430,12 @@ function heartface(P) {
   const gl = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 10, 0, 6.2832, 0, 1.2), new THREE.MeshStandardMaterial({ color: "#e2b04a", roughness: 0.3, metalness: 0.4 })); gl.scale.set(0.019, 0.004, 0.015); gl.position.set(0, 0.002, 0); gl.rotation.x = Math.PI; gl.visible = false; body.add(gl);
   const face = new THREE.CanvasTexture(Object.assign(document.createElement("canvas"), { width: 1024, height: 1024 })); face.colorSpace = THREE.SRGBColorSpace; face.anisotropy = 8;
   const fm = new THREE.Mesh(FG.g, decal(face)); fm.renderOrder = 2; body.add(fm);
+  // who "spud": one leaf sprouts from the top dip, like his own (Sol check 1, egypt-myth 01: his heart read as Chip's)
+  if (S.who === "spud") {
+    const lm = new THREE.MeshStandardMaterial({ color: "#6cb83a", roughness: 0.6 });
+    const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.0032, 0.0042, 0.034, 8), lm); stem.position.set(0.004, 0.205, 0.004); stem.rotation.z = -0.25; stem.castShadow = true; body.add(stem);
+    const leaf = new THREE.Mesh(new THREE.SphereGeometry(1, 20, 10), lm); leaf.scale.set(0.034, 0.005, 0.017); leaf.position.set(0.03, 0.232, 0.004); leaf.rotation.z = 0.55; leaf.castShadow = true; body.add(leaf);
+  }
   // the charm: the heart scarab on the front, on its own pivot
   const charm = new THREE.Group(); const sc = makeScarab({ green: 0, res: 1, under: false }); charm.add(sc); charm.visible = false; body.add(charm);
   // the sweat bead

@@ -30,6 +30,7 @@ const END_OF = (i) => r3(T[i] + DUR[i]);
 
 // ---------------------------------------------------------------- places (DESIGN A; x right, z toward us; yaw 0 = facing +z)
 const CHOMP = [-2.85, -0.98], M1 = [-3.37, -1.28], SIT = [-3.89, -1.58], MROT = 60;
+const CHOMP_B = [-3.11, -1.13];   // 0.3 back along her line from CHOMP (Sol 1 (8): from the 3rd clunk on her jaws cut the pan)
 const JACKAL = [0.70, -0.25];
 const SOUL = [-0.55, 0.85], SOUL_YAW = -144;
 const CHIP0 = [-1.90, 1.30], CHIP0_YAW = 120, SPUD0 = [-1.02, 1.62], SPUD0_YAW = 170;   // 0.94 apart (0.68 put his arm in Chip)
@@ -66,7 +67,7 @@ const shoeAt = (C, yaw, side) => {   // a trainer's top, outer side, for a body 
 const S_EAT = seatAt(-1);   // the stranger's heart at the chomp
 const props = [
   { id: "hall", kind: "hearthall", x: 0, y: 0, z: 0, rowFrom: 7 },
-  { id: "scale", kind: "heartscale", x: 0, y: 0, z: 0, seed: 1, tilt: -0.85 },
+  { id: "scale", kind: "heartscale", x: 0, y: 0, z: 0, seed: 1, tilt: -0.85, feather: "stand" },
   { id: "monster", kind: "heartmonster", x: CHOMP[0], y: 0, z: CHOMP[1], rot: MROT },
   // the hearts ride the left pan's seat (stage.js spec.ride); squish 1 hides one
   { id: "h0", kind: "heartface", x: 0, y: AWAY, z: 0, ride: ["scale", "seatL"], sweat: 1 },
@@ -93,6 +94,8 @@ const CAPTEXT = { 1: "She just *ATE* his heart?!", 2: "Don't move. *Yours* is ne
 const say = (i, extra = {}, capTo = null) => {
   const [who, line, tone, style, o = {}] = LINES[i];
   const actor = who in SPEAKER ? SPEAKER[who] ?? JUDGE_OF[i] : who;
+  const le = lastExpr[actor];
+  if (le && (OPEN[le[1]] ?? 0) > 0.2) { const t = r3(Math.max(le[0] + 0.02, T[i] - 0.06)); A(t, actor, "expr", { expr: le[1], dur: 0.06, set: { ...(le[2] || {}), open: 0.1 } }); }
   c.macro(T[i], actor, "say", { line, tone, ...(style ? { style } : {}), ...o, dur: DUR[i], caption: false, ...extra });
   CAPS.push([i, capTo]);
 };
@@ -102,8 +105,20 @@ const arm = (t, who, side, pose, dur = 0.3, ease = "inOut") => c.arm(r3(t), who,
 const grip = (t, who, side, shape, dur = 0.2) => A(r3(t), who, "grip", { side, shape, dur });
 const look = (t, who, to, dur = 0.2) => A(r3(t), who, "look", { to, dur, blink: false });
 const turn = (t, who, to, dur = 0.3) => A(r3(t), who, "turn", { to, dur });
-const expr = (t, who, e, dur = 0.2) => A(r3(t), who, "expr", { expr: e, dur });
+// Sol check 1 (2): a face's open mouth wins over the talk (potato.js: max(expr open, talk)), so a line said in "shocked" (0.95) or
+// "terrified" (0.8) froze the mouth open. say() closes it to 0.1 for the line. "worried" is not an engine expression (it kept the
+// last one): it is "sad" with softer corners here.
+const OPEN = { shocked: 0.95, terrified: 0.8, delighted: 0.6, evil: 0.4, happy: 0.35, dizzy: 0.3, eager: 0.25 };
+const lastExpr = {};
+const EXPR_AS = { worried: ["sad", { curve: -0.25, eye: 1.05 }] };
+const expr = (t, who, e, dur = 0.2, set) => {
+  const [name, s0] = EXPR_AS[e] ?? [e, null], st = s0 || set ? { ...(s0 || {}), ...(set || {}) } : null;
+  lastExpr[who] = [r3(t), name, st];
+  A(r3(t), who, "expr", { expr: name, dur, ...(st ? { set: st } : {}) });
+};
 const P = (t, id, st, dur = 0, ease) => c.prop(r3(t), id, st, dur, ease);
+// the jackal's jaw on a one-word line: open on the word, shut after (the face's open drives his jaw, costumes-jackal.js)
+const jaw = (t, d) => { A(r3(t), "jackal", "expr", { expr: "stern", dur: 0.07, set: { open: 0.9 } }); A(r3(t + Math.max(0.2, d * 0.55)), "jackal", "expr", { expr: "stern", dur: 0.12 }); };
 const place = (t, who, to, yaw) => {
   A(r3(t - 0.02), who, "move", { to, dur: 0.01, ease: "linear", sync: true, y: 0, steps: 0 });
   A(r3(t - 0.02), who, "turn", { to: yaw, dur: 0.01, ease: "linear", sync: true });
@@ -155,9 +170,10 @@ for (let k = 1; k <= 6; k++) act.blinksAt(c, `j${k}`, [7.5 + k * 1.3, 30 + k * 2
 // ================================================================= 0.0-2.4 THE GRUESOME OPENING (Jonny: 1.0-1.5 s for the gore)
 L(0, 0);   // SOUL: "No-" (cut off by the crunch)
 P(0, "scale", { tilt: -1 }, 0.22, "in"); P(0, "scale", { jolt: 1 }, 0); P(0.05, "scale", { jolt: 0 }, 0.4, "out");
-const BITE = 0.24, SHUT = r3(BITE + 0.3 * 0.42);   // chomp shuts at 0.35-0.5 of its 0.3 s
-P(BITE, "monster", { jaw: 0 }, 0.04); P(BITE, "monster", { chomp: 1 }, 0.3, "linear");
-P(BITE + 0.06, "h0", { squish: 0.95 }, SHUT - BITE - 0.06, "in"); P(SHUT + 0.01, "h0", { squish: 1 }, 0);
+const CHD = 0.45, BITE = 0.24, SHUT = r3(BITE + CHD * 0.42);   // chomp shuts at 0.35-0.5 of its CHD (Sol 1: 0.3 s squashed the heart before the teeth met)
+const TOUCH = r3(BITE + CHD * 0.36), CLOSED = r3(BITE + CHD * 0.5);
+P(BITE, "monster", { jaw: 0 }, 0.04); P(BITE, "monster", { chomp: 1 }, CHD, "linear");
+P(TOUCH, "h0", { squish: 0.95 }, r3(CLOSED - TOUCH), "in"); P(CLOSED + 0.01, "h0", { squish: 1 }, 0);
 sfx(SHUT - 0.02, "ai/crunch", { gain: 0.9 }); sfx(SHUT, "ai/pot-bite", { gain: 0.6 }); sfx(SHUT + 0.04, "splort", { gain: 0.6 });
 const BURST = r3(SHUT + 0.02);
 P(BURST, "juice", { burst: 1 }, 0.8, "linear"); P(BURST + 0.35, "juice", { pool: 1 }, 0.5, "out");
@@ -206,11 +222,7 @@ arm(T[3] - 0.15, "chip", "R", { o: [0.06, 0.24, 0.2] }, 0.2, "out"); arm(T[3] - 
 grip(T[3] - 0.1, "chip", "R", "flat"); grip(T[3] - 0.1, "chip", "L", "flat");
 look(T[3] - 0.15, "chip", [0, 0.1], 0.1);
 say(3);
-// the drop on his cheek: wiped with the back of his hand (DESIGN 13.8)
-const WIPE = r3(END_OF(3) + 0.1);
-arm(WIPE, "chip", "L", "rest", 0.3); arm(WIPE, "chip", "R", { o: [0.12, 0.40, 0.17] }, 0.2, "out"); grip(WIPE, "chip", "R", "relaxed");
-P(WIPE + 0.22, "cheek", { scale: 0.001 }, 0.05);
-arm(WIPE + 0.3, "chip", "R", "rest", 0.3);
+arm(END_OF(3) + 0.1, "chip", "L", "rest", 0.3); arm(END_OF(3) + 0.1, "chip", "R", "rest", 0.3); grip(END_OF(3) + 0.1, "chip", "R", "relaxed"); grip(END_OF(3) + 0.1, "chip", "L", "relaxed");
 // SPUD: Down here, your heart remembers everything you ever did.  (push in on the heart; it blinks)
 L(4, 0.15);
 look(T[4], "spud", [0.3, -0.25]); expr(T[4], "spud", "kind");
@@ -225,9 +237,14 @@ sfx(LICK + 0.15, "splort", { gain: 0.3 }); sfx(T[5] + 0.3, "ai/bear-huff", { gai
 look(T[5] + 0.3, "chip", [-0.8, 0.1], 0.25); expr(T[5] + 0.5, "chip", "terrified");
 say(5);
 see(LICK, r3(LICK + 1.0), ["monster"], "the monster (croc head, lion mane, hippo body) licks her lips");
-// CHIP: Okay. How do I make it light?
+// CHIP: Okay. How do I make it light?  (on "Okay." he wipes the drop off his cheek with the back of his hand, on camera: DESIGN 13.8;
+// Sol 1 (4): wiped off camera at 6 s it just vanished)
 L(6, 0.15);
 look(T[6] - 0.1, "chip", [0.5, 0.3]); expr(T[6], "chip", "worried");
+const WIPE = r3(T[6] + 0.05);
+arm(WIPE, "chip", "R", { o: [0.12, 0.40, 0.17] }, 0.2, "out");
+P(WIPE + 0.22, "cheek", { scale: 0.001 }, 0.05);
+arm(WIPE + 0.35, "chip", "R", "rest", 0.3);
 say(6);
 // SPUD: Forty-two judges. One question each. Say no to every one.  (crane along the row; Chip and Spud are at the line after it)
 L(7, 0.12);
@@ -240,8 +257,11 @@ look(ROW, "chip", [-0.4, 0.2], 0.01); expr(ROW, "chip", "worried", 0.01); look(R
 
 // ================================================================= 17-27 THE DENIALS (holds)
 const lean = (t, j, to = 22, dur = 0.3) => A(r3(t), j, "lean", { to, dur, ease: "out" });
+// Sol 1 (5): every judge looked +0.3 (his right) though Chip is on the left of judges 3-6. Look x + = the character's right;
+// the judges face +x, so their right is +z.
+const JLOOK = (j) => { const k = +j.slice(1), dz = CHIP_J[1] - STOOL(k)[1], dx = CHIP_J[0] - STOOL(k)[0]; return r3(Math.max(-0.8, Math.min(0.8, Math.atan2(dz, dx) / D2R / 70))); };
 const ask = (i, j, { leanTo = 22 } = {}) => {
-  lean(T[i] - 0.2, j, leanTo); look(T[i] - 0.2, j, [0.3, -0.35]); expr(T[i] - 0.2, j, "stern");
+  lean(T[i] - 0.2, j, leanTo); look(T[i] - 0.2, j, [JLOOK(j), -0.35]); expr(T[i] - 0.2, j, "stern");
   turn(T[i] - 0.25, "chip", JYAW(+j.slice(1)), 0.25);
   say(i);
 };
@@ -292,7 +312,7 @@ L(21, 0.25); ask(21, "j5");
 L(22, 0.1); expr(T[22], "chip", "angry"); A(T[22], "chip", "squash", { amount: -0.08, dur: 0.14 }); A(T[22] + 0.4, "chip", "squash", { amount: 0, dur: 0.2 });
 say(22); back(END_OF(22), "j5");
 const CL3 = r3(END_OF(22) + 0.08); clunk(CL3, -0.65); P(CL3, "hall", { tense: 0.65 }, 0.4);
-P(CL3 + 0.1, "monster", { x: CHOMP[0], z: CHOMP[1], gait: 2 }, 1.1, "linear"); P(CL3 + 1.0, "monster", { low: 0.6, jaw: 0.6 }, 0.5, "inOut");
+P(CL3 + 0.1, "monster", { x: CHOMP_B[0], z: CHOMP_B[1], gait: 1.5 }, 0.8, "linear"); P(CL3 + 1.0, "monster", { low: 0.6, jaw: 0.6 }, 0.5, "inOut");
 sfx(CL3 + 0.4, "thud", { gain: 0.5 }); sfx(CL3 + 0.95, "thud", { gain: 0.5 }); sfx(CL3 + 1.2, "ai/bear-growl", { gain: 0.55 });
 expr(CL3, "chip", "terrified", 0.08);
 // CHIP: Do something!  SPUD: Thirty-seven to go.
@@ -311,7 +331,7 @@ see(CL4, r3(CL4 + 0.8), ["hchip", "monster"], "the pan sinks almost to the floor
 
 // ================================================================= 48-58 PLAN B: the beetle charm
 L(28, 0.3);   // SPUD: Plan B.  (the beetle comes out of his sweater, pinched)
-const BEET_AT = (() => { const a = -60 * D2R; return [r3(SPUD_J[0] + Math.sin(a) * 0.36 + Math.cos(a) * -0.12), 0.46, r3(SPUD_J[1] + Math.cos(a) * 0.36 - Math.sin(a) * -0.12)]; })();
+const BEET_AT = (() => { const a = -60 * D2R; return [r3(SPUD_J[0] + Math.sin(a) * 0.36 + Math.cos(a) * -0.12), 0.52, r3(SPUD_J[1] + Math.cos(a) * 0.36 - Math.sin(a) * -0.12)]; })();
 const BEET0 = { ...BEETLE, ...grips.placeFor("heartscarab", BEET_AT, -60, { turn: 180 }) };
 const gBeet = grips.thin(c, "spud", BEET0, { side: "R" });
 P(T[28] - 0.25, "beetle", { x: BEET0.x, y: BEET0.y, z: BEET0.z, rot: BEET0.rot }, 0);
@@ -333,13 +353,13 @@ P(WALK - 0.2, "monster", { low: 0.35, breath: 0 }, 0.6);   // she lifts her head
 look(WALK, "chip", [0.7, 0.0], 0.4);
 const SLAP_T = r3(END_OF(30) + 0.1), HEART_S = seatAt(-0.8);
 A(SLAP_T - 0.45, "spud", "lean", { to: 24, dur: 0.3, ease: "out" });
-const SLAP_HAND = [HEART_S[0] - 0.02, r3(HEART_S[1] + 0.12), 0.12];
+const SLAP_HAND = [HEART_S[0] - 0.02, r3(HEART_S[1] + 0.17), 0.15];   // Sol 1 (10): at +0.12 the sleeve went through the rim
 gBeet.carry(SLAP_T - 0.4, SLAP_HAND, 0.32, "in");
 A(SLAP_T - 0.06, "spud", "release", { prop: "beetle", dur: 0, to: [0, AWAY, 0] });
 P(SLAP_T - 0.05, "hchip", { charm: 1, seal: 1 }, 0.05);
 sfx(SLAP_T - 0.05, "kenney/impact-soft-medium", { gain: 0.95 });
 P(SLAP_T, "hchip", { sweat: 0 }, 0.2);
-A(SLAP_T + 0.35, "spud", "lean", { to: 0, dur: 0.4 }); arm(SLAP_T + 0.25, "spud", "R", "rest", 0.4);
+A(SLAP_T + 0.1, "spud", "lean", { to: 0, dur: 0.35 }); arm(SLAP_T + 0.06, "spud", "R", "rest", 0.3);
 look(WALK - 0.6, "spud", [0.5, -0.3], 0.15); look(SLAP_T - 0.6, "spud", [0, -0.6], 0.13);
 see(r3(SLAP_T - 0.5), r3(SLAP_T + 0.6), ["hchip", "spud", "beetle"], "he slaps the green beetle charm onto the heart: its mouth seals shut");
 // the heart tries to talk: mm-mm (sealed)
@@ -352,7 +372,7 @@ say(31);
 const NO = [0.0, 0.92, 1.85].map((d) => r3(T[31] + d));   // the three "No." in the take (estimated; the subtitle carries the line)
 NO.forEach((t, k) => {
   const j = ["j1", "j3", "j6"][k];
-  lean(t - 0.15, j, 20, 0.2); back(t + 0.6, j);
+  lean(t - 0.15, j, 20, 0.2); look(t - 0.15, j, [JLOOK(j), -0.35]); back(t + 0.6, j);
   turn(t - 0.15, "chip", JYAW(+j.slice(1)), 0.15);
   rise(r3(t + 0.45), [-0.55, -0.3, 0][k]);
 });
@@ -362,7 +382,7 @@ P(NO[0] + 0.5, "monster", { low: 0.4, jaw: 0, breath: 0 }, 0.5);
 // JACKAL: Pass.  (left arm up, palm flat; the monster slumps and sulks)
 L(32, r3(NO[2] + 0.8 - now));
 arm(T[32] - 0.2, "jackal", "L", { x: [0.5, 0.66, 0.35] }, 0.35, "out"); grip(T[32] - 0.15, "jackal", "L", "flat");
-say(32);
+say(32); jaw(T[32], DUR[32]);
 P(T[32] + 0.1, "monster", { low: 0, slump: 1, lids: 0.7, glow: 0.3, drool: 0.2 }, 0.8, "inOut"); sfx(T[32] + 0.3, "ai/bear-huff", { gain: 0.4 });
 P(T[32], "scale", { wobble: 0 }, 0.3);
 expr(T[32] + 0.2, "chip", "delighted");
@@ -393,10 +413,10 @@ see(MUSEUM, r3(END_OF(35)), ["case"], "a museum glass case full of green beetle 
 // ================================================================= 69-77 NEXT. (the loop)
 const NEXT = r3(END_OF(35) + 0.1);
 // the cut back to the hall: the trial lights, Spud's heart on the pan, the charm in Chip's fist, the monster up again
-P(NEXT - 0.03, "hall", { doors: 0, torch: 0.7, tense: 0.6 }, 0);
+P(NEXT - 0.03, "hall", { torch: 0.7, tense: 0.6 }, 0);   // the doors stay open (Sol 1 (15): they were shut again with no closing)
 P(NEXT - 0.03, "hchip", { squish: 1 }, 0); P(NEXT - 0.03, "hspud", { squish: 0, sweat: 1 }, 0);
 P(NEXT - 0.03, "scale", { tilt: -0.1, wobble: 0.5 }, 0); tiltNow = -0.1;
-P(NEXT - 0.03, "monster", { slump: 0, low: 0.5, jaw: 0.2, lids: 0.2, glow: 0.8, drool: 0.8 }, 0);
+P(NEXT - 0.03, "monster", { x: M1[0], z: M1[1], slump: 0, low: 0.5, jaw: 0.2, lids: 0.2, glow: 0.8, drool: 0.8 }, 0);   // back at M1: the pan is level and high
 turn(NEXT - 0.02, "chip", 200, 0.01); turn(NEXT - 0.02, "spud", 175, 0.01); look(NEXT, "chip", [0.2, 0.4], 0.01); look(NEXT, "spud", [0.2, 0.3], 0.01);
 const FIST_AT = (() => { const a = 200 * D2R; return [r3(CHIP_E[0] + Math.sin(a) * 0.28 + Math.cos(a) * -0.1), 0.22, r3(CHIP_E[1] + Math.cos(a) * 0.28 - Math.sin(a) * -0.1)]; })();
 const FIST = { ...BEETLE, ...grips.placeFor("heartscarab", FIST_AT, 200) };
@@ -408,7 +428,7 @@ L(36, 0.35);
 arm(T[36] - 0.45, "jackal", "R", "rest", 0.3); grip(T[36] - 0.4, "jackal", "R", "relaxed");
 turn(T[36] - 0.35, "jackal", -25, 0.35);   // 35 or more hides the far eye behind the muzzle (face-hidden)
 arm(T[36] - 0.05, "jackal", "L", { x: [-0.17, 0.35, 0.46] }, 0.3); grip(T[36], "jackal", "L", "point");
-say(36);
+say(36); jaw(T[36], DUR[36]);
 look(T[36] + 0.2, "spud", [0.6, 0.1], 0.2); look(T[36] + 0.3, "chip", [0.5, 0.1], 0.2);
 see(T[36], r3(END_OF(36) + 1.0), ["jackal", "hspud"], "the jackal points: next; now Spud's own heart sits on the pan");
 // SPUD: ...Can I have my beetle back?
@@ -432,7 +452,7 @@ P(CL5 + 0.15, "hall", { tense: 0.8 }, 0.4);
 look(CL5 + 0.05, "spud", [-0.4, -0.3], 0.12); look(CL5 + 0.1, "chip", [-0.2, 0.3], 0.15);
 // CHIP: Wait... why is YOUR heart on a scale?  (to Spud; then the loop to frame 0)
 L(39, 0.2);
-expr(T[39], "chip", "shocked"); turn(T[39] - 0.2, "chip", 300, 0.3); look(T[39], "chip", [-0.5, 0.35], 0.2);
+expr(T[39], "chip", "shocked"); turn(T[39] - 0.45, "chip", 300, 0.3); look(T[39], "chip", [-0.5, 0.35], 0.2);
 say(39);
 P(T[39] + 0.6, "monster", { lick: 1 }, 0.9, "linear");
 const END = F(END_OF(39) + 0.3);
@@ -468,22 +488,28 @@ const CRANE = { pos: [-3.45, 2.6, -0.3], look: [-5.2, 0.85, 9.0], fov: 40 };
 const JCL = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 70 : 110, el: 10, h: 1.9, fov: 40, lift: 0.12 });   // from the side away from Chip
 const CHIP_J_CL = fr([CHIP_J[0], 0.42, CHIP_J[1]], { az: -80, el: 3, h: 1.1, fov: 50, lift: 0.12 });   // wide lens, close: the camera stays in front of the stools
 const LINE_WIDE = fr([-4.2, 0.65, 3.6], { az: 25, el: 8, h: 3.6, fov: 38, lift: 0.1 });
-const PAN_IN = (tilt) => { const s = seatAt(tilt); return fr([s[0], s[1] + 0.12, 0], { az: -8, el: 10, h: 0.8, fov: 30 }); };
+// Sol 1 (6): the pan shots followed the pan down, so every clunk looked like a reset. The camera now stays at the level pan's
+// height and only aims down at it: each time the pan is lower in a steeper view. The clunk shots share one fixed frame.
+const PAN_IN = (tilt) => { const s = seatAt(tilt), c0 = fr([s[0], seatAt(-0.1)[1] + 0.12, 0], { az: -8, el: 10, h: 0.8, fov: 30 }); return { pos: c0.pos, look: [s[0], r3(s[1] + 0.12), 0], fov: c0.fov }; };
 const PAN_IN_R = (tilt) => { const s = seatAt(tilt); return fr([s[0], s[1] + 0.12, 0], { az: 50, el: 10, h: 0.8, fov: 30 }); };   // past Spud at the pan
-const PAN_MON = (tilt) => { const s = seatAt(tilt); return fr([s[0] - 0.6, s[1] + 0.3, -0.2], { az: 25, el: 6, h: 2.4, fov: 36 }); };
+const PAN_MON = () => { const s = seatAt(-0.55); return fr([s[0] - 0.6, s[1] + 0.3, -0.2], { az: 25, el: 6, h: 2.4, fov: 36 }); };
 const SPUD_J_CL = fr([SPUD_J[0], 0.72, SPUD_J[1]], { az: -40, el: 3, h: 1.9, fov: 32, lift: 0.14 });
 const TWO_JC = fr([-3.25, 0.6, 3.1], { az: 20, el: 6, h: 2.6, fov: 36, lift: 0.1 });   // Chip turned to the scale: a front close puts the judges' robes behind his caption
 const TWO_J = fr([-3.0, 0.6, 2.9], { az: 10, el: 6, h: 2.6, fov: 36, lift: 0.1 });
-const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1] + 0.15, BEET_AT[2]], { az: -35, el: 4, h: 1.6, fov: 34, lift: 0.25 });   // Spud and the beetle under a 4-line caption
+// Sol 1 (9): from az -35 Chip's leaf stood in front and the beetle sat at the frame edge. From the front Chip is out of frame.
+const PLANB_S = fr([SPUD_J[0], 0.6, SPUD_J[1]], { az: -20, el: 4, h: 1.7, fov: 34, lift: 0.1 });   // az 0 had the queue-rope post in front of him, az 20 his back
+const BUG_S = fr([-3.1, 0.55, 2.95], { az: -25, el: 6, h: 2.8, fov: 36, lift: 0.06 });   // the rope post (-2.4, 3.6) out of frame   // both, the beetle in Spud's raised hand
+const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1] + 0.05, BEET_AT[2]], { az: -25, el: 4, h: 1.05, fov: 34, lift: 0.12 });   // the beetle's back more to us; Chip and the post out of frame   // the beetle mid-frame, his face above
 const WALK_S = fr([-1.9, 0.6, 1.6], { az: -35, el: 10, h: 2.8, fov: 38, lift: 0.1 });   // from his front-left: his face as he walks
 const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 20, h: 2.4, fov: 34, lift: 0.2 });   // wide enough for the 4-line caption over him
 // the pass, the doors, the museum
 const MONT = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 60 : 120, el: 12, h: 1.9, fov: 40, lift: 0.12 });
-const PASS_S = fr([0.75, 1.0, -0.2], { az: 30, el: 4, h: 3.2, fov: 38, lift: 0.08 });
-const SLUMP_S = fr([CHOMP[0] + 0.4, 0.5, CHOMP[1] + 0.4], { az: 60, el: 10, h: 2.2, fov: 36 });
+const PASS_S = fr([0.75, 1.1, -0.2], { az: 30, el: 4, h: 2.7, fov: 38, lift: 0.08 });   // closer: his jaw on "Pass." reads
+const SLUMP_S = fr([-2.07, 0.35, -0.53], { az: -30, el: 12, h: 2.0, fov: 36 });   // Sol 1 (14): az 60 sat in her head; her head in profile, chin on the floor (the pan out of frame)
 const DOORS_S = { pos: [-1.0, 0.9, 4.2], look: [-0.6, 2.2, -9.0], fov: 46 };
 const SAFE_S = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 0, el: 6, h: 2.5, fov: 34, lift: 0.12 });
-const CHARM_CL = fr([HEART_LEVEL[0] - 0.04, HEART_LEVEL[1] + 0.07, 0.05], { az: -5, el: 4, h: 0.35, fov: 26 });
+const CHARM_CL = fr([seatAt(0)[0] - 0.04, seatAt(0)[1] + 0.07, 0.05], { az: -5, el: 18, h: 0.38, fov: 26 });   // Sol 1 (16): the pan is level (1.03) here, not at -0.1: el 4 looked up from under the rim
+const LEVEL_S = fr([0, 1.35, 0], { az: 62, el: 8, h: 3.9, fov: 38 });   // along the beam: both pans in a portrait frame   // Sol 1 (12): both pans in one frame as they come level
 const CASE_S = { pos: [CASE_X, 1.45, 3.9], look: [CASE_X, 1.30, 0.3], fov: 50 };
 const CASE_IN = { pos: [CASE_X, 1.5, 1.9], look: [CASE_X, 1.25, 0.3], fov: 50 };
 // next
@@ -492,7 +518,7 @@ const SPUD_E_CL = fr([SPUD_E[0], 0.72, SPUD_E[1]], { az: 35, el: 3, h: 1.9, fov:
 const HIDE_S = fr([CHIP_E[0], 0.35, CHIP_E[1]], { az: 60, el: 8, h: 1.5, fov: 34, lift: 0.14 });
 const HSPUD_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.12, 0], { az: 12, el: 6, h: 0.8, fov: 30 });
 const MON_TURN = fr([-2.0, 0.7, -0.6], { az: 30, el: 4, h: 2.4, fov: 36 });
-const LAST = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 8, el: 4, h: 2.4, fov: 32, lift: 0.12 });
+const LAST = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 8, el: 14, h: 2.0, fov: 40, lift: 0.08 });   // Sol 1 (18): closer and higher, over the queue rope
 
 const beats = c.beats([
   ["chomp", 0, push(O_CHOMP, 0.12, 0.6), "hook"],
@@ -516,31 +542,32 @@ const beats = c.beats([
   ["no 3", r3(T[13] - 0.05), push(CHIP_J_CL, 0.08, 0.6)],
   ["this is easy", r3(T[14] - 0.25), drift(LINE_WIDE, -0.12, 1.0)],
   ["he stole fries", r3(T[15] - 0.12), push(PAN_IN(-0.1), 0.12, 1.6), "escalation"],
-  ["clunk 1", CL1, push(PAN_MON(-0.3), 0.06, 0.9)],
+  ["clunk 1", CL1, push(PAN_MON(), 0.06, 0.9)],
   ["snitching", r3(Math.max(T[16] - 0.05, CL1 + 0.6)), push(TWO_JC, 0.08, 1.4)],
   ["a witness", r3(T[17] - 0.05), drift(SPUD_J_CL, -0.1, 1.9)],
   ["ever angry", r3(T[18] - 0.2), push(JCL(4), 0.06, 2.5)],
   ["no 4", r3(T[19] - 0.05), push(CHIP_J_CL, 0.1, 1.4)],
   ["right now", r3(T[20] - 0.08), push(PAN_IN(-0.3), 0.12, 1.0)],
-  ["clunk 2", CL2, mv(PAN_MON(-0.5), { pos: [PAN_MON(-0.5).pos[0] - 0.3, PAN_MON(-0.5).pos[1], PAN_MON(-0.5).pos[2]] }, 1.3)],
+  ["clunk 2", CL2, mv(PAN_MON(), { pos: [PAN_MON().pos[0] - 0.3, PAN_MON().pos[1], PAN_MON().pos[2]] }, 1.3)],
   ["ever loud", r3(Math.max(T[21] - 0.2, CL2 + 0.6)), push(JCL(5), 0.06, 1.6)],
   ["noooo", r3(T[22] - 0.05), push(CHIP_J_CL, 0.15, 0.7)],
-  ["clunk 3", CL3, push(PAN_MON(-0.65), 0.08, 1.4)],
+  ["clunk 3", CL3, push(PAN_MON(), 0.08, 1.4)],
   ["do something", r3(Math.max(T[23] - 0.05, CL3 + 0.6)), push(TWO_J, 0.06, 1.2)],
   ["thirty-seven", r3(T[24] - 0.05), push(SPUD_J_CL, 0.08, 1.1)],
-  ["eavesdropped", r3(T[25] - 0.2), push(JCL(6), 0.1, 2.3)],
+  ["eavesdropped", r3(T[25] - 0.2), push(JCL(6), 0.1, 1.2)],
+  ["no 6", r3(T[26] - 0.05), push(CHIP_J_CL, 0.06, 0.8)],   // Sol 1 (7): his "...no" was heard over the judge
   ["every day", r3(T[27] - 0.08), push(PAN_IN(-0.65), 0.12, 1.1)],
-  ["clunk 4", CL4, push(PAN_MON(-0.8), 0.1, 1.5)],
-  ["plan b", r3(Math.max(T[28] - 0.3, CL4 + 0.6)), push(SPUD_J_CL, 0.08, 0.9)],
-  ["a bug", r3(T[29] - 0.05), push(TWO_JC, 0.06, 0.9)],
+  ["clunk 4", CL4, push(PAN_MON(), 0.1, 1.5)],
+  ["plan b", r3(Math.max(T[28] - 0.3, CL4 + 0.6)), push(PLANB_S, 0.08, 0.9)],
+  ["a bug", r3(T[29] - 0.05), push(BUG_S, 0.06, 0.9)],
   ["cheat sheet", r3(T[30] - 0.05), push(BEETLE_CL, 0.1, 1.6), "insert"],
   ["he walks to the pan", r3(WALK - 0.1), drift(WALK_S, 0.2, 2.6)],
   ["don't speak against me", r3(WALK_END + 0.4), push(SLAP_S, 0.08, SLAP_T - WALK_END)],
-  ["sealed", r3(SLAP_T + 0.15), push(PAN_IN_R(-0.8), 0.12, MM + 0.55 - SLAP_T - 0.15), "payoff"],
+  ["sealed", r3(SLAP_T + 0.3), push(PAN_IN_R(-0.8), 0.12, MM + 0.55 - SLAP_T - 0.3), "payoff"],
   ["no no no 1", r3(NO[0] - 0.12), push(MONT(1), 0.08, 0.9)],
   ["no no no 2", r3(NO[1] - 0.12), push(MONT(3), 0.08, 0.9)],
   ["no no no 3", r3(NO[2] - 0.12), push(MONT(6), 0.08, 0.9)],
-  ["level", r3(NO[2] + 0.5), push(PAN_IN(0), 0.1, T[32] - NO[2] - 0.5)],
+  ["level", r3(NO[2] + 0.5), push(LEVEL_S, 0.05, T[32] - NO[2] - 0.5)],
   ["pass", r3(Math.max(T[32] - 0.1, NO[2] + 0.9)), push(PASS_S, 0.06, 0.8)],
   ["she sulks", r3(T[32] + 0.6), drift(SLUMP_S, 0.12, DOORS - T[32] - 0.6)],
   ["the doors", DOORS, mv(DOORS_S, { pos: [-1.0, 0.75, 3.4] }, 1.6)],
