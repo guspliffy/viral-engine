@@ -9,10 +9,10 @@ Which one are you, out cold at 5 g or still awake at 50?
 #funnyanimation #animation #whatif
 POLL: Which one are you? / Out cold at 5 g 😵 / Still awake at 50 g 🥔
 PLAYLIST: Facts you didn't know · SLOT: 07-09 or 22-24 Berlin
-VIDEO: gravity-FINAL.mp4 (58.1 s at 1.07x, loops)
+VIDEO: gravity-FINAL.mp4 (52.2 s at 1.1235x, ends on the Moon hit, loops to frame 0)
 TIKTOK TEXT (yours, top of the frame, 0-4.5 s): WHAT IF GRAVITY KEPT GROWING?
 OPENER: hook first (the question on screen at frame 0) · FIRST LINE: "Every five seconds, gravity gets stronger. In ten, you black out."
-COVER: the Moon filling the sky (0:46, the 45 g shot), no text
+COVER: the Moon filling the sky (0:44, the 45 g shot), no text
 ```
 
 Label it as AI content. Facts and sources: STORY.md (blackout 4-6 g sitting, lying flat helps, building load margins,

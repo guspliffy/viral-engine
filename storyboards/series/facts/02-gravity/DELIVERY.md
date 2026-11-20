@@ -1,6 +1,6 @@
 # Fact what-if 02: "What if gravity got stronger every five seconds?" (delivery, 20 Nov 2026)
 
-Final: /mnt/project-files/videos/facts/02-gravity/gravity-FINAL.mp4 (58.1 s = the 64 s render with two still tails cut, played at 1.07x with
+Final: /mnt/project-files/videos/facts/02-gravity/gravity-FINAL.mp4 (52.2 s = the 64 s render with two still tails and the 1 g reset cut, played at 1.1235x with
 ffmpeg setpts + atempo, voice pitch kept; 1080x1920, 30 fps, loops), farm run 44800719824, qa/check PASS on the 1x
 render (32 creative notes, CHECK-FINAL.txt beside it).
 Jonny 20 Nov 13:25 Berlin: the hook question is not burned in (he adds it with the TikTok text tool), the g counter
@@ -11,7 +11,10 @@ Jonny 20 Nov 19:41: still tails at the end of 10 g and 15 g -> cut in the edit (
 keep 0-16.8, 18.0-22.333, 23.0-64 (16.8-18.0: his face after "... comes back"; 22.333-23.0: after "... their weight";
 15 ms audio fades at each join), then 1.07x.
 Jonny 20 Nov 20:07: after the cuts the voice came a beat before the words -> captionLead 0.12 (each word pops 0.12 s
-before its voice, never before the cut; new engine key, default 0). ffmpeg trim/atrim + concat, then setpts=PTS/1.07,fps=30 + atempo=1.07.
+before its voice, never before the cut; new engine key, default 0).
+Jonny 20 Nov 21:02-21:03: 5 % faster again (1.07 x 1.05 = 1.1235x from the 1x render) and the "back to 1 g" part cut
+(his retention graph: most viewers skip it): the video ends at 60.5 s (1x), the last frame before the black, 40 ms audio
+fade; the loop now goes from the Moon hit straight to frame 0. ffmpeg trim/atrim + concat, then setpts=PTS/1.07,fps=30 + atempo=1.07.
 Post pack: POST-PACK.md beside this file.
 
 ## Rounds
@@ -41,8 +44,8 @@ Post pack: POST-PACK.md beside this file.
 - The blackout shot holds 11.15-14.8 through the wake-up and the sofa-leg snap (a cut there made the sofa jump).
 
 ## Sound (Claude can't hear: Jonny, with headphones)
-(1.07x final) 0:03.5 the lamp bonk + bulb burst · 0:04.3 "Three gee." · 0:07.9 heartbeat under the music · 0:16.5 thunder at the tower fall · 0:25.3 street fires · 0:26.6 the payoff "Good
-thing you're a potato" (the wink: does it land, is there a breath before it) · 0:27.3 his flat exhale.
+(1.1235x final) 0:03.3 the lamp bonk + bulb burst · 0:04.2 "Three gee." · 0:07.5 heartbeat under the music · 0:15.8 thunder at the tower fall · 0:24.1 street fires · 0:25.3 the payoff "Good
+thing you're a potato" (the wink: does it land, is there a breath before it) · 0:26.0 his flat exhale.
 The destruction sounds partly come from code-made explosion, thunder and rumble: say if any sound fake.
 
 ## Engine changes on this branch
