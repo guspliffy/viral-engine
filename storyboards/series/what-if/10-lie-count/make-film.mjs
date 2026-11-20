@@ -40,12 +40,15 @@ function coverage(sc, ev, T1, S) {
   const cast = Object.keys(sc.layout), many = cast.length > 1 && !sc.baker;
   const cutsOf = () => ev.filter((e) => e[1] === "cut").sort((a, b) => a[0] - b[0]);
   const at = (t) => cutsOf().filter((c) => c[0] <= t + 1e-6).pop();
+  // final (20 Nov): where everyone stands at t (walk targets so far), not the snapshot of the cut before: the mover's
+  // line close aimed at his starting spot, an empty wall
+  const posAt = (t, snap) => { const p = { ...snap }; for (const e of ev) if (e[1] === "walk" && e[0] <= t + 1e-6) p[e[2]] = S.w(e[3]); return p; };
   if (many) for (const e of ev.filter((q) => q[1] === "s")) {
     const [ts, , who, , d] = e, cur = at(ts);
     if (!cur || !["wide", "two", "group", "ots"].includes(cur[2].t) || ts - cur[0] < 1.2) continue;
     const next = cutsOf().find((c) => c[0] > ts + 1e-6), back = ts + d + 0.2;
-    ev.push([r3(ts), "cut", { t: "close", who: [who], auto: 1 }, cur[3]]);
-    if (!next || next[0] - back > 1.4) ev.push([r3(back), "cut", { ...cur[2], az: (cur[2].az ?? 0) + 25, auto: 1 }, cur[3]]);
+    ev.push([r3(ts), "cut", { t: "close", who: [who], auto: 1 }, posAt(ts, cur[3])]);
+    if (!next || next[0] - back > 1.4) ev.push([r3(back), "cut", { ...cur[2], az: (cur[2].az ?? 0) + 25, auto: 1 }, posAt(back, cur[3])]);
   }
   let k = 0;
   for (let guard = 0; guard < 60; guard++) {
@@ -59,7 +62,7 @@ function coverage(sc, ev, T1, S) {
     if (s.t === "close") v = many && other && k % 2 === 0 ? { t: "two", who: [lead, other].sort((a, b) => cast.indexOf(a) - cast.indexOf(b)) } : { ...b, ...base, az: (b.az ?? 0) + (b.az ? 20 : (k % 2 ? -25 : 25)), h: (b.h ?? 0.8) * 1.35 }   // a set angle (counter) only turns further from the partner;
     else if (s.t === "alone") v = { t: "close", who: [lead] };
     else v = k % 2 === 0 ? { t: "close", who: [lead] } : { ...b, ...base, az: (b.az ?? 0) + 25, h: b.h ? b.h * 0.75 : undefined };
-    ev.push([at2, "cut", { ...v, auto: 1 }, c[3]]); k++;
+    ev.push([at2, "cut", { ...v, auto: 1 }, posAt(at2, c[3])]); k++;
   }
 }
 
@@ -145,8 +148,8 @@ runs.forEach((run, ri) => {
   }
   if (run.scenes.some((x) => x.sc.cards)) {   // Sol 20 Nov: game night on a bare rug: a pile face down, Chip's four aces turn up on Spud's line
     const pile = [[-0.12, 0.12, 10, "2h"], [0.02, 0.06, -25, "7s"], [-0.04, 0.2, 40, "Kd"]], aces = ["As", "Ah", "Ad", "Ac"];
-    pile.forEach(([lx, lz, r, card], i) => { const [x, z] = S.w([lx, lz]); props.push({ id: `pc${i}`, kind: "playcard", card, x, y: 0.002, z, rot: r, tip: -90 }); });
-    aces.forEach((card, i) => { const [x, z] = S.w([0.36 + i * 0.13, -0.08]); props.push({ id: `ace${i}`, kind: "playcard", card, x, y: 0.002, z, rot: S.facing, tip: -90 }); });
+    pile.forEach(([lx, lz, r, card], i) => { const [x, z] = S.w([lx, lz]); props.push({ id: `pc${i}`, kind: "playcard", card, x, y: 0.02, z, rot: r, tip: -90, scale: 1.8 }); });
+    aces.forEach((card, i) => { const [x, z] = S.w([0.03 + i * 0.22, -0.35]); props.push({ id: `ace${i}`, kind: "playcard", card, x, y: 0.02, z, rot: S.facing, tip: -90, scale: 1.8 }); });   // y 0.02 and 1.8x: at 2 mm and card size they sank into the rug and read as nothing
   }
   if (run.scenes.some((x) => x.sc.baker) || who.includes("baker")) props.push({ id: "toque", kind: "toque", wear: "baker", x: 0, y: 0, z: 0 }), allow.push({ who: "baker", with: "toque", from: 0, to: END, reason: "the chef's hat is worn" });
   // draft 3 (Jonny 20 Nov "in the rain scene, there is no rain"): the set only wets the street; the falling rain is this prop
@@ -174,7 +177,8 @@ runs.forEach((run, ri) => {
         const P2 = sc.baker ? { ...P, deck: false } : P;
         // the next cut's start = this shot's end (for the push)
         const next = ev.find((q) => q[0] > t + 1e-6 && q[1] === "cut"), len = (next ? next[0] : s1) - t;
-        const sp = { ...spec }; if (sp.t === "close" && sp.face == null) sp.face = (sc.baker && sp.who[0] === "baker") ? 0 : (sc.baker && sp.who[0] === "spud") ? 180 : faceOf(sc.layout[sp.who[0]]?.[2] ?? "cam", sp.who[0], cp);
+        const sp = { ...spec }; if (sp.t === "insert" && sp.local) { const [ix, iz] = S.w(sp.local); sp.at = [ix, 0.03, iz]; }
+        if (sp.t === "close" && sp.face == null) sp.face = (sc.baker && sp.who[0] === "baker") ? 0 : (sc.baker && sp.who[0] === "spud") ? 180 : faceOf(sc.layout[sp.who[0]]?.[2] ?? "cam", sp.who[0], cp);
         const shot = shotOf(P2, sp, (id) => cp[id] ?? live[id], len);
         if (sc.baker) { shot.pos[1] = r3(shot.pos[1] + 0.12); shot.look[1] = r3(shot.look[1] + 0.12); if (shot.to?.pos) shot.to.pos[1] = r3(shot.to.pos[1] + 0.12); }
         const sg = (cuts.length % 2 ? -1 : 1) * 4, pv = r3(Math.hypot(...shot.pos.map((v, i) => v - shot.look[i])));

@@ -153,9 +153,8 @@ export const SCENES = [
     shot: { t: "group", who: ["spud", "chip", "wedge"] }, seq: [
       ["n", "Game night. Your friends bluffed."],
       ["e", "chip", "smug"], ["s", "chip", "i've got nothing good. promise.", "calm", { lie: true }],
-      ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "smug"], ["s", "spud", "you've got four aces.", "calm"], ["prop", "aces", { flip: 1 }, 0.3],
-      ["cut", { t: "group", who: ["spud", "chip", "wedge"] }], ["e", "chip", "shocked", { open: 0.3 }],
-      ["n", "You won every game that night."], ["n", "It was the last game night they invited you to."], ["wait", 0.6] ] },
+      ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "smug"], ["s", "spud", "you've got four aces.", "calm"], ["cut", { t: "insert", local: [0.36, -0.35], h: 0.7 }], ["prop", "aces", { flip: 1 }, 0.3],
+      ["e", "chip", "shocked", { open: 0.3 }], ["n", "You won every game that night."], ["cutat", 0.5, { t: "group", who: ["spud", "chip", "wedge"] }], ["n", "It was the last game night they invited you to."], ["wait", 0.6] ] },
   { id: "10 busy friday", act: "use", place: "river", layout: { spud: [-0.4, 0, ["to", "mash"]], mash: [0.4, 0, ["to", "spud"]] },
     shot: { t: "two", who: ["spud", "mash"] }, seq: [
       ["e", "spud", "happy"], ["s", "spud", "movie on friday?", "question"],
@@ -268,7 +267,7 @@ export const SCENES = [
       ["n", "Only one friend still had a zero."], ["cut", { t: "close", who: ["spud"] }], ["n", "So, for the first time, you trusted him."],
       ["cut", { t: "wide", who: ["spud", "wedge"] }], ["walk", "wedge", [3.6, 0.4], 3.2], ["walk", "spud", [2.8, 0.3], 3.4], ["wait", 2.6] ] },
   { id: "28 surprise", act: "party", place: "room", layout: { spud: [1.5, -0.4, ["to", "mash"]], mash: [-0.1, 0.4, ["to", "spud"]], chip: [-1.1, 0.2, ["to", "spud"]], baker: [0.7, 0.6, ["to", "spud"]], wedge: [2.2, -0.9, ["to", "spud"]] }, party: true,
-    shot: { t: "wide", h: 2.2 }, seq: [
+    shot: { t: "wide", h: 2.2, who: ["chip", "spud"] }, seq: [
       ["s", "chip", "surprise!", "excited"], ["e", "mash", "happy", { curve: 0.6 }], ["e", "chip", "delighted"], ["e", "baker", "happy"], ["sfx", "pop", { gain: 0.5 }],
       ["wait", 1.2], ["cut", { t: "close", who: ["spud"] }], ["e", "spud", "shocked", { open: 0.3 }], ["wait", 1.4],
       ["n", "Your best friend. The baker. The loud one. Everyone."], ["cutat", 0.0, { t: "close", who: ["mash"] }], ["cutat", 0.34, { t: "close", who: ["baker"] }],
