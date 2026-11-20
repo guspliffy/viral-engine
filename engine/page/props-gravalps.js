@@ -377,14 +377,17 @@ function galps(P) {
       for (const [on, a, b] of edges) if (on) { const A = up(q[a], lift), B = up(q[b], lift); dyn_.quad(A, B, dn(B), dn(A), mixc(C.cleave, C.fresh, 0.25 + 0.3 * hash(r + a, c)), -1); }
     }
     if (trees) for (const tr of treeList) if (!tr.used && tr.x >= x0 && tr.x <= x1 && tr.z >= z0 && tr.z <= z1) { tr.used = true; addTree(dyn_, tr, lift); }
-    dyn_.end(pt); patches.push({ pt, piv: [cx / n, cy / n, cz / n], ...spec });
+    dyn_.end(pt); const piv = [cx / n, cy / n, cz / n], pa = { pt, piv, hold: 0.25, fall: 1.8, ...spec };
+    if (spec.land) { const tx = floorX(piv[2]) + (spec.dir[0] > 0 ? -150 : 150), tz = piv[2] + 0.35 * Math.abs(tx - piv[0]); pa.tgt = [tx, tY(tx, tz) + 40, tz]; }   // it falls to the valley floor and stops there
+    else { const dl = Math.hypot(spec.dir[0], spec.dir[1]); pa.tgt = [piv[0] + (spec.dir[0] / dl) * spec.dist, piv[1] - spec.drop * spec.dist, piv[2] + (spec.dir[1] / dl) * spec.dist]; }
+    patches.push(pa);
   }
   const gGet = (r, c) => gV[r][c];
   const near = (z) => Math.round((Z0 - z) / (ZS / NZ));
-  addPatch(gGet, near(30), near(-470), 12, 26, dynT, stT, 22, { start: 43.05, dir: [1, 0.35], dist: 560, tilt: 24, drop: 0.5 }, true);
-  addPatch(gGet, near(-60), near(-540), 38, 52, dynT, stT, 22, { start: 43.12, dir: [-1, 0.35], dist: 560, tilt: 24, drop: 0.5 }, true);
-  addPatch(gGet, near(-820), near(-1330), 12, 26, dynT, stT, 22, { start: 43.3, dir: [1, 0.35], dist: 520, tilt: 22, drop: 0.5 }, true);
-  addPatch(gGet, near(-700), near(-1200), 38, 52, dynT, stT, 22, { start: 43.4, dir: [-1, 0.35], dist: 520, tilt: 22, drop: 0.5 }, true);
+  addPatch(gGet, near(30), near(-470), 12, 26, dynT, stT, 22, { start: 43.05, dir: [1, 0.35], dist: 560, tilt: 24, drop: 0.5, land: true, fall: 1.7 }, true);
+  addPatch(gGet, near(-60), near(-540), 38, 52, dynT, stT, 22, { start: 43.12, dir: [-1, 0.35], dist: 560, tilt: 24, drop: 0.5, land: true, fall: 1.7 }, true);
+  addPatch(gGet, near(-820), near(-1330), 12, 26, dynT, stT, 22, { start: 43.3, dir: [1, 0.35], dist: 520, tilt: 22, drop: 0.5, land: true, fall: 1.6 }, true);
+  addPatch(gGet, near(-700), near(-1200), 38, 52, dynT, stT, 22, { start: 43.4, dir: [-1, 0.35], dist: 520, tilt: 22, drop: 0.5, land: true, fall: 1.6 }, true);
   {
     const R2p = peaks[5], Vg = (i, j) => R2p.V[i][((j % R2p.J) + R2p.J) % R2p.J], pg = (i, j) => { const v = Vg(i, j); return v; };
     addPatch(pg, 3, 15, R2p.J - 14, R2p.J - 2, dyn, stR, 20, { start: 43.1, dir: [-0.35, 1], dist: 520, tilt: 18, drop: 0.55 }, false);
@@ -524,12 +527,14 @@ function galps(P) {
         setPart(s.pt, pv[0] + s.dir[0] * st.m, pv[1] - st.dsc * st.m - drop + shake, pv[2] + s.dir[2] * st.m, qt, sc3.set(1, sq, 1), pv[0], pv[1], pv[2]);
       }
       hideQ.identity();
-      for (const pa of patches) {
-        const p = P01(t, pa.start, pa.start + 1.6), e = p * p * (3 - 2 * p), dl = Math.hypot(pa.dir[0], pa.dir[1]), dx = pa.dir[0] / dl, dz = pa.dir[1] / dl;
-        ax3.set(0, 1, 0).cross(dir3.set(dx, 0, dz)).normalize(); qt.setFromAxisAngle(ax3, pa.tilt * DEG * e);
-        setPart(pa.pt, pa.piv[0] + dx * pa.dist * e, pa.piv[1] - pa.drop * pa.dist * e, pa.piv[2] + dz * pa.dist * e, qt, s1, pa.piv[0], pa.piv[1], pa.piv[2]);
-        const pp = P01(t, pa.start, pa.start + 1.6), a = pp <= 0 ? 0 : 0.85 * sstep(0, 0.08, pp) * (1 - 0.55 * sstep(1, 3.2, (t - pa.start) / 1.6)), r = (170 + 260 * e) * PUFF * 0.45;
-        for (let i = 0; i < 4; i++) { const f = [0.1, 0.4, 0.7, 1][i]; setQ(pa.q0 + i, [pa.piv[0] + dx * pa.dist * e * f - dx * 60 + (i - 1.5) * 50 * dz, pa.piv[1] + 140 + 90 * i * e - pa.drop * pa.dist * e * f, pa.piv[2] + dz * pa.dist * e * f - dz * 60 + (i - 1.5) * 50 * dx], a > 0 ? r * (1 - 0.12 * i) : 0, a * (1 - 0.1 * i), 1.1, hash(i, 91) * TAU + t * (i % 2 ? 1 : -1) * 0.9); }
+      for (const pa of patches) {   // let go after a short creep, then fall: distance grows with the square of the time, the tilt grows, it stops on the floor and breaks into powder
+        const el = t - pa.start, u = clamp((el - pa.hold) / pa.fall), g = u * u, tl = pa.start + pa.hold + pa.fall, sink = sstep(0, 0.7, t - tl);
+        const dl = Math.hypot(pa.dir[0], pa.dir[1]), dx = pa.dir[0] / dl, dz = pa.dir[1] / dl, tilt = el <= 0 ? 0 : (3 * sstep(0, pa.hold, el) + (pa.tilt + 18) * g) * DEG, sz = Math.max(0.03, 1 - 0.97 * sink);
+        ax3.set(0, 1, 0).cross(dir3.set(dx, 0, dz)).normalize(); qt.setFromAxisAngle(ax3, tilt);
+        const mx = pa.tgt[0] - pa.piv[0], my = pa.tgt[1] - pa.piv[1], mz = pa.tgt[2] - pa.piv[2];
+        setPart(pa.pt, pa.piv[0] + mx * g, pa.piv[1] + my * g - 6 * sstep(0, pa.hold, el), pa.piv[2] + mz * g, qt, sc3.set(sz, sz, sz), pa.piv[0], pa.piv[1], pa.piv[2]);
+        const burst = sstep(0, 0.9, t - tl), a = el <= 0 ? 0 : 0.85 * sstep(0, 0.1, el) * (1 - 0.6 * sstep(0.2, 2.2, t - tl)), r = (170 + 260 * g + 300 * burst) * PUFF * 0.45;
+        for (let i = 0; i < 4; i++) { const f = [0.1, 0.4, 0.7, 1][i], gg = Math.max(g * f, 0); setQ(pa.q0 + i, [pa.piv[0] + mx * gg - dx * 60 + (i - 1.5) * (50 + 90 * burst) * dz, pa.piv[1] + my * gg + 130 + 90 * i * Math.max(g, burst), pa.piv[2] + mz * gg - dz * 60 + (i - 1.5) * (50 + 90 * burst) * dx], a > 0 ? r * (1 - 0.12 * i) : 0, a * (1 - 0.1 * i), 1.1, hash(i, 91) * TAU + t * (i % 2 ? 1 : -1) * 0.9); }
       }
       for (const b of blocks) {
         const ageT = (t - b.T0) / TAB.rockDur, age = clamp(ageT), q0 = b.q0;

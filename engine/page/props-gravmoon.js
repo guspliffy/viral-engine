@@ -94,7 +94,9 @@ function lookOnly(me, order) { me.castShadow = me.receiveShadow = false; me.frus
 const noLine = (m) => { m.userData.noOutline = true; m.userData.noHatch = true; return m; };
 const memo = new Map(), once = (k, make) => { if (!memo.has(k)) memo.set(k, make()); return memo.get(k); };
 function canvas(w, h) { const c = document.createElement("canvas"); c.width = w; c.height = h; return [c, c.getContext("2d")]; }
-const moonAt = (t) => { const f = Pk(TL.fall[0], TL.fall[1], t); return { f, Y: k3(...TL.Y, f), R: k3(...TL.R, f) }; };
+// director (Sol r1 item 1): after contact the Moon keeps going down into the ground (the opaque ground hides what is below it),
+// so the disc's lower edge never hangs above the flash; 300 m/s from 56 s
+const moonAt = (t) => { const f = Pk(TL.fall[0], TL.fall[1], t); return { f, Y: k3(...TL.Y, f) - 300 * Math.max(0, Math.min(t, TL.end) - TL.fall[1]), R: k3(...TL.R, f) }; };
 const tmpA = [0, 0, 0], tmpB = [0, 0, 0];
 
 // ============================================================================================================== sprite atlas

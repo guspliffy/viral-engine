@@ -35,10 +35,10 @@ import * as THREE from "three";
 //   grupture   The street on x -5 (carriageway x -11..1, 4 m sidewalks, z -12..-182) with the 18 m cross street on z -44 (x -60..60):
 //      asphalt #403B42, concrete #8D7C73, paint #BAA48B, rock #46383C, cut edges #281F27. about 30 independent slabs (15 a side, bevel
 //      strips on every cut edge) around the main fracture (-6,-16) (-4,-28) (-8,-37) (-4,-45) (-6,-62) (-3,-83) (-7,-112) (extended
-//      to z -12 and -182), 6 of the cuts are branches with wider openings. street = P(24.1,28.5): gap 0 / .8 / 2.8-5.4 m, lip offset
+//      to z -12 and -182), 6 of the cuts are branches with wider openings. street = P(28.0,30.2) (director; design 24.1-28.5): gap 0 / .8 / 2.8-5.4 m, lip offset
 //      0 / .28 / 1.25 m, alternate slabs pressed down, visible depth 7 m (floor y -67). 16 vehicles 3.8-4.8 x 1.7-2.0 x 1.3-1.7 on lanes
 //      z -19..-77 ride their slab, roll 0 / 12 / 28 deg toward the fissure, hull height 1 / .55 / .16; the nearest car is at (-8.5,-25).
-//      streetFire = P(26.1,29.3): 0 / 6 / 10 fire clusters beside damaged cars (flame height 0 / 1.2 / 2.8, smoke 0 / 3.4 / 10, fireCycle
+//      streetFire = P(28.6,31.0) (director; design 26.1-29.3): 0 / 6 / 10 fire clusters beside damaged cars (flame height 0 / 1.2 / 2.8, smoke 0 / 3.4 / 10, fireCycle
 //      period .46 s), flames #FFF1B4 / #FFAB52 / #D95831, smoke #635257 / #A88C82. Same wave erase as gruin. Stays until the wave.
 //      spec: fire 1 (0 = no fire), hole 1 (1 = a scorched fill plane replaces the road where the wave has passed).
 //      Origin: world. Draw: opaque road, then transparent sprites (depth tested against the asphalt).
@@ -59,7 +59,7 @@ const HAZE = "#7a5c76";
 
 // ---- the DESIGN's absolute times (one table; the shaders get the same numbers as uniforms or constants)
 const TL = {
-  collapse: [23, 28], street: [24.1, 28.5], streetFire: [26.1, 29.3],
+  collapse: [23, 28], street: [28.0, 30.2], streetFire: [28.6, 31.0],   // director (Sol r1 item 12): the tear happens IN the street shot (28-30.3), not before it
   waveT0: 56, waveV: 760, waveBand: 0.24, contact: [-52, -2500], afterglow: [56, 60.5],
   strikes: [{ T: 36.0, x: -22, z: -335, D: 104 }, { T: 36.36, x: 102, z: -585, D: 72 }, { T: 37.22, x: -175, z: -820, D: 86 }],
 };
