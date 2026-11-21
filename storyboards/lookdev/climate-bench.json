@@ -1,0 +1,772 @@
+{
+ "id": "climate-bench",
+ "title": "Climate props bench",
+ "idea": "Props bench for Potato Desk 11 (T2), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "#6E7680",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    -0.36
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.9
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1,
+    -0.36
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.3
+  }
+ ],
+ "props": [
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 4.6,
+   "h": 2.6,
+   "dado": "#B7C4B8",
+   "wall": "#B7C4B8",
+   "top": "#B7C4B8",
+   "rail": "#AEBBAF"
+  },
+  {
+   "id": "floor",
+   "kind": "carpettiles",
+   "x": 0,
+   "y": 0,
+   "z": 4.6,
+   "w": 5,
+   "d": 12
+  },
+  {
+   "id": "deskL",
+   "kind": "workdesk",
+   "x": -1,
+   "y": 0,
+   "z": 0.255
+  },
+  {
+   "id": "deskM",
+   "kind": "workdesk",
+   "x": 0,
+   "y": 0,
+   "z": 0.255
+  },
+  {
+   "id": "deskR",
+   "kind": "workdesk",
+   "x": 1,
+   "y": 0,
+   "z": 0.255
+  },
+  {
+   "id": "stack",
+   "kind": "paperstack",
+   "x": -0.31,
+   "y": 0.5,
+   "z": 0.25,
+   "amount": 1
+  },
+  {
+   "id": "win",
+   "kind": "blindwindow",
+   "x": 1.65,
+   "y": 1.4,
+   "z": -1.3,
+   "w": 0.6,
+   "h": 0.9,
+   "view": "snow",
+   "seed": 4
+  },
+  {
+   "id": "spray",
+   "kind": "snowspray",
+   "x": 1.65,
+   "y": 0.95,
+   "z": -1.28,
+   "w": 0.6,
+   "h": 0.9,
+   "gaps": [
+    0.2,
+    0.45,
+    0.7
+   ],
+   "amount": 0
+  },
+  {
+   "id": "flakes",
+   "kind": "noterain",
+   "look": "snow",
+   "x": 1.35,
+   "y": 0,
+   "z": -0.3,
+   "n": 200,
+   "r": 0.9,
+   "top": 2,
+   "amount": 0,
+   "clock": 1.3
+  },
+  {
+   "id": "driftWall",
+   "kind": "snowdrift",
+   "x": 1.65,
+   "y": 0,
+   "z": -1.3,
+   "w": 1,
+   "d": 0.5,
+   "depth": 0
+  },
+  {
+   "id": "driftFloor",
+   "kind": "snowdrift",
+   "x": 2.05,
+   "y": 0,
+   "z": 0.7,
+   "rot": -90,
+   "w": 1.6,
+   "d": 1.125,
+   "depth": 0
+  },
+  {
+   "id": "iceSill",
+   "kind": "iciclerow",
+   "x": 1.65,
+   "y": 0.885,
+   "z": -1.26,
+   "len": 0.6,
+   "count": 6,
+   "grow": 0
+  },
+  {
+   "id": "iceDesk",
+   "kind": "iciclerow",
+   "x": 0.3,
+   "y": 0.47,
+   "z": 0.53,
+   "len": 0.3,
+   "count": 4,
+   "grow": 0
+  },
+  {
+   "id": "fan",
+   "kind": "deskfan",
+   "style": "desk",
+   "x": 0.66,
+   "y": 0.5,
+   "z": 0.38,
+   "rot": -75
+  },
+  {
+   "id": "twin",
+   "kind": "deskfan",
+   "style": "twin",
+   "x": 1,
+   "y": 0,
+   "z": 0.8,
+   "rot": -30,
+   "cableTo": [
+    0.66,
+    0.5,
+    0.38
+   ]
+  },
+  {
+   "id": "heater",
+   "kind": "spaceheater",
+   "x": -0.8,
+   "y": 0,
+   "z": 0.74,
+   "rot": 40
+  },
+  {
+   "id": "flurry",
+   "kind": "paperflurry",
+   "x": -0.31,
+   "y": 0.5,
+   "z": 0.25,
+   "amount": 0
+  },
+  {
+   "id": "warmFloor",
+   "kind": "lightpool",
+   "x": -0.7,
+   "y": 0,
+   "z": 0.95,
+   "w": 1.8,
+   "d": 1.2,
+   "color": "#FF8A2A"
+  },
+  {
+   "id": "warmWall",
+   "kind": "lightpool",
+   "face": "z",
+   "x": -1.15,
+   "y": 0.95,
+   "z": -1.285,
+   "w": 1.5,
+   "d": 1.3,
+   "color": "#FFB36B"
+  },
+  {
+   "id": "coldFloor",
+   "kind": "lightpool",
+   "x": 1.2,
+   "y": 0,
+   "z": 0.85,
+   "w": 1.8,
+   "d": 1.3,
+   "color": "#BFE0FF"
+  },
+  {
+   "id": "coldWall",
+   "kind": "lightpool",
+   "face": "z",
+   "x": 1.5,
+   "y": 1.1,
+   "z": -1.285,
+   "w": 1.3,
+   "d": 1.4,
+   "color": "#BFE0FF"
+  },
+  {
+   "id": "lunchWall",
+   "kind": "officewall",
+   "x": 8,
+   "y": 0,
+   "z": -1.3,
+   "w": 2.4,
+   "h": 2.6,
+   "dado": "#B7C4B8",
+   "wall": "#B7C4B8",
+   "top": "#B7C4B8",
+   "rail": "#AEBBAF"
+  },
+  {
+   "id": "lunchWin",
+   "kind": "blindwindow",
+   "x": 8,
+   "y": 1.625,
+   "z": -1.3,
+   "w": 0.5,
+   "h": 1.05
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "allOff",
+   "at": 0,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.17,
+     1.75,
+     8.6
+    ],
+    "look": [
+     0.17,
+     0.95,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "noblink",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "allOn",
+   "at": 2,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.17,
+     1.75,
+     8.6
+    ],
+    "look": [
+     0.17,
+     0.95,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fan",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "twin",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "heater",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "warmFloor",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "warmWall",
+     "set": {
+      "on": 0.35
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "coldFloor",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "coldWall",
+     "set": {
+      "on": 0.35
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "win",
+     "set": {
+      "lift": 1
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "flakes",
+     "set": {
+      "amount": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "flurry",
+     "set": {
+      "amount": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "stack",
+     "set": {
+      "amount": 0.3
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "driftWall",
+     "set": {
+      "depth": 0.35
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "driftFloor",
+     "set": {
+      "depth": 0.35
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "iceSill",
+     "set": {
+      "grow": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "iceDesk",
+     "set": {
+      "grow": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "win",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "spray",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "windowMid",
+   "at": 4,
+   "len": 2,
+   "shot": {
+    "pos": [
+     2.2,
+     1.4,
+     3.1
+    ],
+    "look": [
+     0.78,
+     1.18,
+     -1.2
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "win",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.05
+    }
+   ]
+  },
+  {
+   "name": "lunchWin",
+   "at": 6,
+   "len": 2,
+   "shot": {
+    "pos": [
+     8,
+     1.5,
+     3.3
+    ],
+    "look": [
+     8,
+     1.45,
+     -1.3
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "winBlind",
+   "at": 8,
+   "len": 2,
+   "shot": {
+    "pos": [
+     1.65,
+     1.4,
+     2.4
+    ],
+    "look": [
+     1.65,
+     1.38,
+     -1.3
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "win",
+     "set": {
+      "lift": 0,
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "spray",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "flakes",
+     "set": {
+      "amount": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.02
+    }
+   ]
+  },
+  {
+   "name": "winLifted",
+   "at": 10,
+   "len": 2,
+   "shot": {
+    "pos": [
+     1.65,
+     1.4,
+     2.4
+    ],
+    "look": [
+     1.65,
+     1.38,
+     -1.3
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "win",
+     "set": {
+      "lift": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.02
+    }
+   ]
+  },
+  {
+   "name": "winHalf",
+   "at": 12,
+   "len": 2,
+   "shot": {
+    "pos": [
+     1.65,
+     1.4,
+     2.4
+    ],
+    "look": [
+     1.65,
+     1.38,
+     -1.3
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "win",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.02
+    }
+   ]
+  },
+  {
+   "name": "winOpen",
+   "at": 14,
+   "len": 2,
+   "shot": {
+    "pos": [
+     1.65,
+     1.4,
+     2.4
+    ],
+    "look": [
+     1.65,
+     1.38,
+     -1.3
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "win",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.02
+    }
+   ]
+  },
+  {
+   "name": "flurry",
+   "at": 16,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.5,
+     1.4,
+     4.2
+    ],
+    "look": [
+     -0.7,
+     1.3,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "fans",
+   "at": 18,
+   "len": 2,
+   "shot": {
+    "pos": [
+     1.1,
+     0.95,
+     2.4
+    ],
+    "look": [
+     0.85,
+     0.45,
+     0.5
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "heater",
+   "at": 20,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.5,
+     0.7,
+     2.3
+    ],
+    "look": [
+     -0.8,
+     0.2,
+     0.74
+    ],
+    "fov": 36
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-climate-bench.mjs (engine bench, no reviews)."
+}
