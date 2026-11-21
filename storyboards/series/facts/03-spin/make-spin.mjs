@@ -40,7 +40,7 @@ const CAM = {
   P7: { pos: [0.6, 0.95, 1.55], look: [-0.1, 0.8, -0.6], fov: 50, near: 0.04 },   // draft 0: further back (his face filled the frame)
   P8: { pos: [1.35, 0.85, 1.05], look: [-0.1, 1.45, -0.5], fov: 60, near: 0.04 },   // draft 0: from below he showed only his back; front-right, the lamp above
   P9: { pos: [-0.4, -10.4, -15.6], look: [2.3, -10.0, -19.6], fov: 50, near: 0.3 },   // draft 0: closer (he was tiny)
-  P10: { pos: [0.3, -15.38, -53.4], look: [0, -20.58, -92.4], fov: 55, near: 0.5 },   // Sol r1: 17.4 m down the street with the hops (he ends at the hero post u55)   // draft 0: closer (he was tiny)
+  P10: { pos: [0.3, -15.38, -53.4], look: [1.2, -20.58, -92.4], fov: 55, near: 0.5 },   // Sol r1: 17.4 m down the street with the hops (he ends at the hero post u55)   // draft 0: closer (he was tiny)
   P11: { pos: [-1.9, -16.4, -53.5], look: [2.4, -16.3, -58.5], fov: 50, near: 0.5 },
   P12: { pos: [1.2, -16.2, -50.5], look: [2.6, -18.2, -75], fov: 52, near: 0.5 },   // draft 0: he was cut by the right edge
 };
@@ -320,7 +320,7 @@ const HOPS = [[36.7, 71.4], [38.2, 67], [39.7, 63], [41.2, 58.8], [42.7, 54.5]];
 place(36.7, [-0.1, zOf(71.4)], STREET(71.4), 0);
 expr(36.7, "shocked", { eye: 1.15, open: 0.2 }, 0); look(36.7, [0, 0.2], 0);
 A(36.7, "spud", "arm", { side: "both", pose: { o: [0.32, 0.55, 0.05] }, dur: 0.3 });   // arms out for balance
-A(36.7, "spud", "move", { to: [2.0, zOf(54.5)], y: STREET(54.5), dur: 5.95, steps: 0, ease: "linear" });   // draft 2: one glide under all hops (a glide per hop tipped the body at each stop)
+A(36.7, "spud", "move", { to: [1.5, zOf(54.5)], y: STREET(54.5), dur: 5.95, steps: 0, ease: "linear" });   // draft 2: one glide under all hops (a glide per hop tipped the body at each stop)
 for (let i = 0; i < HOPS.length - 1; i++) {
   const [t0] = HOPS[i], [t1] = HOPS[i + 1];
   A(t0, "spud", "hop", { height: 1.0, count: 1, dur: r3(t1 - t0 - 0.05), quiet: true });
