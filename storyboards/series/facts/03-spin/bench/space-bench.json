@@ -1,0 +1,406 @@
+{
+ "id": "space-bench",
+ "title": "Spin space bench",
+ "idea": "Props bench for fact what-if 03 spin (sstars, searth, sdisc), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "far": 6000,
+ "set": {
+  "type": "gravroom",
+  "bare": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "stars",
+   "kind": "sstars",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "earth",
+   "kind": "searth",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": 60
+  },
+  {
+   "id": "disc",
+   "kind": "sdisc",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": 60
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     80005.77,
+     -23.082,
+     761
+    ],
+    "look": [
+     80005.77,
+     -23.082,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 60
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 60
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 60.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 60.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P15 t 60.5"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     80005.77,
+     -23.082,
+     761
+    ],
+    "look": [
+     80005.77,
+     -23.082,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 63
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 63
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P15 t 63"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     80005.77,
+     -23.082,
+     761
+    ],
+    "look": [
+     80005.77,
+     -23.082,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 65.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 65.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P15 t 65.5"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     80000,
+     -41.857,
+     690
+    ],
+    "look": [
+     80000,
+     -41.857,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 67
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 67
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P16 t 67"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     80000,
+     -41.857,
+     690
+    ],
+    "look": [
+     80000,
+     -41.857,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 70
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 70
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P16 t 70"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     80000,
+     -41.857,
+     690
+    ],
+    "look": [
+     80000,
+     -41.857,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 73
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 73
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P16 t 73"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     79991.166,
+     -88.339,
+     1165
+    ],
+    "look": [
+     79991.166,
+     -88.339,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 74
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 74
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P17 t 74"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     79991.166,
+     -88.339,
+     1165
+    ],
+    "look": [
+     79991.166,
+     -88.339,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 77
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 77
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P17 t 77"
+  }
+ ],
+ "notes": "Generated by storyboards/series/facts/03-spin/bench/make-space-bench.mjs (props bench, no reviews)."
+}
