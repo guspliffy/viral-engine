@@ -1,0 +1,427 @@
+{
+ "id": "heart-bench",
+ "title": "Egypt 01 heart + charm bench",
+ "idea": "Engine look bench for the heart and the beetle charm (task T4), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#8c7a68",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "h0",
+   "kind": "heartface",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "h1",
+   "kind": "heartface",
+   "x": 1,
+   "y": 0,
+   "z": 0,
+   "mouth": 0.85
+  },
+  {
+   "id": "h2",
+   "kind": "heartface",
+   "x": 2,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "h3",
+   "kind": "heartface",
+   "x": 3,
+   "y": 0,
+   "z": 0,
+   "sweat": 1,
+   "sweatPhase": 0.5
+  },
+  {
+   "id": "h4",
+   "kind": "heartface",
+   "x": 4,
+   "y": 0,
+   "z": 0,
+   "smug": 1
+  },
+  {
+   "id": "h5",
+   "kind": "heartface",
+   "x": 5,
+   "y": 0,
+   "z": 0,
+   "seal": 1,
+   "charm": 1
+  },
+  {
+   "id": "h6",
+   "kind": "heartface",
+   "x": 6,
+   "y": 0,
+   "z": 0,
+   "squish": 0.9
+  },
+  {
+   "id": "hc",
+   "kind": "heartface",
+   "x": 6.86,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "hs",
+   "kind": "heartface",
+   "x": 7.15,
+   "y": 0,
+   "z": 0,
+   "who": "spud",
+   "smug": 0,
+   "mouth": 0.4
+  },
+  {
+   "id": "h8",
+   "kind": "heartface",
+   "x": 8,
+   "y": 0,
+   "z": 0,
+   "charm": 1
+  },
+  {
+   "id": "s1",
+   "kind": "heartscarab",
+   "x": 9,
+   "y": 0.05,
+   "z": 0
+  },
+  {
+   "id": "s2",
+   "kind": "heartscarab",
+   "x": 10,
+   "y": 0.05,
+   "z": 0,
+   "rot": 180
+  },
+  {
+   "id": "s3",
+   "kind": "heartscarab",
+   "x": 11,
+   "y": 0.05,
+   "z": 0,
+   "green": 2
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "neutral",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     0.1,
+     0.802
+    ],
+    "look": [
+     0,
+     0.1,
+     0
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "h2",
+     "set": {
+      "blink": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "s3",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "talk",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1,
+     0.1,
+     0.802
+    ],
+    "look": [
+     1,
+     0.1,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "blink",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2,
+     0.1,
+     0.802
+    ],
+    "look": [
+     2,
+     0.1,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "sweat",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3,
+     0.1,
+     0.802
+    ],
+    "look": [
+     3,
+     0.1,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "smug",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     4,
+     0.1,
+     0.802
+    ],
+    "look": [
+     4,
+     0.1,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "sealed",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     5,
+     0.1,
+     0.802
+    ],
+    "look": [
+     5,
+     0.1,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "squish",
+   "at": 6.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     6,
+     0.07,
+     1.103
+    ],
+    "look": [
+     6,
+     0.07,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "pair",
+   "at": 7.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     7,
+     0.1,
+     2.005
+    ],
+    "look": [
+     7,
+     0.1,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "charmfront",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     8,
+     0.1,
+     0.802
+    ],
+    "look": [
+     8,
+     0.1,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "charmside",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     8.782,
+     0.09,
+     0.451
+    ],
+    "look": [
+     8,
+     0.09,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "back",
+   "at": 11,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     9,
+     0.05,
+     0.292
+    ],
+    "look": [
+     9,
+     0.05,
+     0.01
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "under",
+   "at": 12.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     10,
+     0.05,
+     0.282
+    ],
+    "look": [
+     10,
+     0.05,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "glint",
+   "at": 13.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     11,
+     0.05,
+     0.292
+    ],
+    "look": [
+     11,
+     0.05,
+     0.01
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "s3",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/egypt-myth/01-heart/bench/make-heart-bench.mjs (engine bench)."
+}

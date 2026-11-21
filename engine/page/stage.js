@@ -744,6 +744,15 @@ function pose(t0) {
     p.root.position.copy(inFrame(p, w));
     if (p.spec.wearTurn !== false) p.root.quaternion.premultiply(ch.root.getWorldQuaternion(_wq));
   }
+  // a prop that rides another prop's moving point (spec.ride [id, anchor, [dx, dy, dz]?]: the anchor is an Object3D the other prop
+  // exposes in .anchors, e.g. props-heart-scale.js seatL), wherever that point is now: a heart on a swinging pan
+  for (const p of props) if (p.spec.ride) {
+    const [rid, key, off] = p.spec.ride, q = props.find((o) => o.spec.id === rid), o = q && q.anchors && q.anchors[key];
+    if (!o) continue;
+    q.root.updateMatrixWorld(true);
+    const w = o.getWorldPosition(new THREE.Vector3()); if (off) w.add(new THREE.Vector3(...off));
+    p.root.position.copy(inFrame(p, w));
+  }
   // a breath runs from an actor's mouth (spec.mouth) to a point on a prop (spec.target, spec.at in its frame), wherever
   // the head is now (props-candle.js breath)
   for (const p of props) if (p.aim && p.spec.mouth) {

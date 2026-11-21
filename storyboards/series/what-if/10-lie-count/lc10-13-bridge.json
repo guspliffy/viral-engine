@@ -1,0 +1,320 @@
+{
+ "id": "lc10-13-bridge",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreriver",
+  "view": "bridge",
+  "light": "golden",
+  "key": [
+   3.5,
+   5,
+   4.5
+  ],
+  "shadowSize": 12,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": []
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 166.1,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "stream",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   7.5,
+   7.5
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    18,
+    -34
+   ],
+   "face": 110,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1,
+   "y": 4.177
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 3.64,
+   "text": "One by one, people stopped talking to you.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 3.89,
+   "to": 7.03,
+   "text": "Which, technically, meant fewer lies.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "16 fewer lies alone",
+   "at": 0,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     22.799,
+     5.903,
+     -34
+    ],
+    "look": [
+     18,
+     4.707,
+     -34
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      22.991,
+      5.951,
+      -34
+     ]
+    },
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       3.2,
+       4
+      ]
+     ],
+     "pivot": 4.946
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      18,
+      -34
+     ],
+     "y": 4.177,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 110,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "One by one, people stopped talking to you.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.49,
+     "caption": false,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "16 fewer lies close +",
+   "at": 3.2,
+   "len": 2.15,
+   "shot": {
+    "pos": [
+     19.476,
+     4.785,
+     -34.207
+    ],
+    "look": [
+     18,
+     4.707,
+     -34
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      19.329,
+      4.777,
+      -34.187
+     ]
+    },
+    "dur": 2.15,
+    "yaw": {
+     "keys": [
+      [
+       3.2,
+       0
+      ],
+      [
+       5.35,
+       -4
+      ]
+     ],
+     "pivot": 1.492
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Which, technically, meant fewer lies.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 3.09,
+     "caption": false,
+     "gain": 4,
+     "at": 0.69
+    }
+   ]
+  },
+  {
+   "name": "16 fewer lies close +",
+   "at": 5.35,
+   "len": 2.15,
+   "shot": {
+    "pos": [
+     19.925,
+     4.812,
+     -33.412
+    ],
+    "look": [
+     18,
+     4.707,
+     -34
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      19.732,
+      4.802,
+      -33.47
+     ]
+    },
+    "dur": 2.15,
+    "yaw": {
+     "keys": [
+      [
+       5.35,
+       0
+      ],
+      [
+       7.5,
+       4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 166.1,
+  "T1": 173.6
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 166.1-173.6 s)."
+}

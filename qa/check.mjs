@@ -733,7 +733,11 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
 //   caption-safe-zone  a caption leaves RULES.safe (the app's buttons and text cover it there): fail
 //   caption-band       a subtitle (not a text pop or a card) leaves the storyboard's "captionBand": [top, bottom]
 //                      (y px; Jonny's series briefs: [470, 1360]): fail. Without the field it isn't checked
-//   caption-overlap    characters cover over coverFail of a caption for coverFailHold s: fail; over coverWarn: warn
+//   caption-overlap    characters cover over coverFail of a caption for coverFailHold s: fail; over coverWarn: warn.
+//                      A wide film shot in close-ups (the speaker fills the frame, so every subtitle box crosses a body)
+//                      may set "captionOverBody": { "reason": "..." }: the overlap is then a warn, and it fails only
+//                      where a caption box comes within 40 px of an eye (layout eyesPx). Jonny OK'd it for the lie
+//                      count film, 20 Nov 2026 ("subtitles over bodies, never eyes").
 //   caption-collide    a caption (not a text pop or a card) is still up when the next one comes in on top of it:
 //                      their times are staggered (neither holds the other: a label with a tagline under it for
 //                      its whole time is a layout, not a collision) and the smaller box is crossed by over a third
@@ -754,6 +758,7 @@ export function captionResults(sb, layout) {
   if (!layout?.samples?.length) return out;
   const { x0, y0, x1, y1 } = frameSafe(sb), outside = new Map(), held = new Map(), worst = new Map(), band = new Map();
   const B = Array.isArray(sb?.captionBand) && sb.captionBand.length === 2 ? sb.captionBand.map(Number) : null;
+  const OB = sb?.captionOverBody?.reason ? sb.captionOverBody : null, eyeHit = new Map();
   const step = layout.samples.length > 1 ? layout.samples[1].t - layout.samples[0].t : 0.1;
   for (const s of layout.samples) {
     (s.captions || []).forEach((c, i) => {
@@ -763,6 +768,10 @@ export function captionResults(sb, layout) {
       if (c.pop || c.card) return;   // a text pop sits beside its character on purpose, a card or the HUD over the action
       // (12 px of slack: the box carries its padding, about 6 px above a line set at the band's top)
       if (B && (y < B[0] - 12 || y + h > B[1] + 12) && !band.has(key)) band.set(key, { t: s.t, top: y, bottom: y + h });
+      if (OB) for (const ac of s.actors || []) {
+        const e = ac.eyesPx; if (!e) continue;
+        if (e[0] >= x - 40 && e[0] <= x + w + 40 && e[1] >= y - 40 && e[1] <= y + h + 40 && !eyeHit.has(key)) eyeHit.set(key, { t: s.t, who: ac.id });
+      }
       let cov = c.covered;
       if (cov == null) { // fallback: share of the caption box inside any character box
         cov = 0;
@@ -794,7 +803,9 @@ export function captionResults(sb, layout) {
   if (B && !band.size && worst.size) add("pass", "caption-band", `every subtitle inside y ${B[0]}-${B[1]}`);
   for (const [k, w] of worst) {
     const hd = held.get(k), msg = `"${k}": up to ${(w.cov * 100).toFixed(0)}% hidden behind characters at ${w.t.toFixed(2)}s${w.fallback ? " (box estimate)" : ""}`;
-    if (hd.max + 1e-6 >= RULES.coverFailHold) add(w.fallback ? "warn" : "fail", "caption-overlap", `${msg}, held ${hd.max.toFixed(1)}s`);
+    if (OB && eyeHit.has(k)) add("fail", "caption-overlap", `"${k}" comes within 40 px of ${eyeHit.get(k).who}'s eyes at ${eyeHit.get(k).t.toFixed(2)}s ("captionOverBody" allows a body, never the eyes)`);
+    else if (OB && hd.max + 1e-6 >= RULES.coverFailHold) add("warn", "caption-overlap", `${msg}, held ${hd.max.toFixed(1)}s (on a body, clear of the eyes: "captionOverBody")`);
+    else if (hd.max + 1e-6 >= RULES.coverFailHold) add(w.fallback ? "warn" : "fail", "caption-overlap", `${msg}, held ${hd.max.toFixed(1)}s`);
     else if (w.cov > RULES.coverWarn) add("warn", "caption-overlap", msg);
     else add("pass", "caption-overlap", msg);
   }

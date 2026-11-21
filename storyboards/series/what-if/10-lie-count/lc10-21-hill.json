@@ -1,0 +1,770 @@
+{
+ "id": "lc10-21-hill",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorehill",
+  "time": "sunset",
+  "light": "golden",
+  "key": [
+   -2.2,
+   1.6,
+   -4.6
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      43
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   },
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      215
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   },
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      0
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   },
+   {
+    "who": "spud",
+    "keys": [
+     [
+      0,
+      2
+     ]
+    ],
+    "show": [
+     0,
+     13.82
+    ],
+    "free": true,
+    "clamp": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 336.7,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "grass",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   13.82,
+   13.82
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1.4,
+    -2.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.35,
+    -2.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    0.75,
+    -2.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.8,
+    -2.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.7,
+   "to": 3.55,
+   "text": "Two hundred and fifteen to two.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 3.98,
+   "to": 6.28,
+   "text": "Trust me. the cake is terrible.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 6.75,
+   "to": 8.22,
+   "text": "Next year, i bake!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 8.27,
+   "to": 9.99,
+   "text": "Trust me. please don't.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 10.34,
+   "to": 12.6,
+   "text": "You've got some catching up to do.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "31 the sunset wide",
+   "at": 0,
+   "len": 3.98,
+   "shot": {
+    "pos": [
+     0.2,
+     0.935,
+     1.245
+    ],
+    "look": [
+     0.2,
+     0.5,
+     -2.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.2,
+      0.892,
+      0.891
+     ]
+    },
+    "dur": 3.98,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       3.98,
+       4
+      ]
+     ],
+     "pivot": 3.572
+    }
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1.4,
+      -2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.35,
+      -2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0.75,
+      -2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.8,
+      -2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Two hundred and fifteen to two.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.8,
+     "caption": false,
+     "gain": 4,
+     "at": 0.7
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset close",
+   "at": 3.98,
+   "len": 2.35,
+   "shot": {
+    "pos": [
+     1.8,
+     0.86,
+     -4.148
+    ],
+    "look": [
+     1.8,
+     0.6,
+     -2.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.8,
+      0.834,
+      -3.963
+     ]
+    },
+    "dur": 2.35,
+    "yaw": {
+     "keys": [
+      [
+       3.98,
+       0
+      ],
+      [
+       6.33,
+       -4
+      ]
+     ],
+     "pivot": 1.866
+    }
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "trust me. the cake is terrible.",
+     "tone": "calm",
+     "voice": "wedge",
+     "dur": 2.25,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.3
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset close",
+   "at": 6.33,
+   "len": 0.42,
+   "shot": {
+    "pos": [
+     0.75,
+     1.02,
+     -4.148
+    ],
+    "look": [
+     0.75,
+     0.76,
+     -2.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.75,
+      0.994,
+      -3.963
+     ]
+    },
+    "dur": 0.5,
+    "yaw": {
+     "keys": [
+      [
+       6.33,
+       0
+      ],
+      [
+       6.75,
+       4
+      ]
+     ],
+     "pivot": 1.866
+    }
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.25,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset close",
+   "at": 6.75,
+   "len": 1.52,
+   "shot": {
+    "pos": [
+     -1.4,
+     0.6,
+     -4.148
+    ],
+    "look": [
+     -1.4,
+     0.34,
+     -2.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.4,
+      0.574,
+      -3.963
+     ]
+    },
+    "dur": 1.52,
+    "yaw": {
+     "keys": [
+      [
+       6.75,
+       0
+      ],
+      [
+       8.27,
+       -4
+      ]
+     ],
+     "pivot": 1.866
+    }
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "next year, i bake!",
+     "tone": "excited",
+     "voice": "chip",
+     "dur": 1.42,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.47
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset close",
+   "at": 8.27,
+   "len": 2.07,
+   "shot": {
+    "pos": [
+     2.374,
+     0.912,
+     -4.442
+    ],
+    "look": [
+     1.8,
+     0.6,
+     -2.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      2.317,
+      0.88,
+      -4.228
+     ]
+    },
+    "dur": 2.07,
+    "yaw": {
+     "keys": [
+      [
+       8.27,
+       0
+      ],
+      [
+       10.34,
+       4
+      ]
+     ],
+     "pivot": 2.239
+    }
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "trust me. please don't.",
+     "tone": "calm",
+     "voice": "wedge",
+     "dur": 1.67,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.72
+    }
+   ]
+  },
+  {
+   "name": "31 the sunset wide",
+   "at": 10.34,
+   "len": 3.48,
+   "shot": {
+    "pos": [
+     0.693,
+     0.935,
+     1.211
+    ],
+    "look": [
+     0.2,
+     0.5,
+     -2.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.644,
+      0.892,
+      0.86
+     ]
+    },
+    "dur": 3.48,
+    "yaw": {
+     "keys": [
+      [
+       10.34,
+       0
+      ],
+      [
+       13.82,
+       -4
+      ]
+     ],
+     "pivot": 3.572
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "You've got some catching up to do.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.21,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 336.7,
+  "T1": 350.52
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 336.7-350.52 s)."
+}

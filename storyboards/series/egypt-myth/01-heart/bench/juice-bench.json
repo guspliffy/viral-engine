@@ -1,0 +1,732 @@
+{
+ "id": "juice-bench",
+ "title": "Egypt myth 01 juice bench",
+ "idea": "Engine look bench for the juice of 01-heart (task T6), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#6b4e34",
+  "floor": "#1c1b22",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1,
+    1.4
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "juice",
+   "kind": "heartjuice",
+   "x": 0,
+   "y": 0.25,
+   "z": 0,
+   "floor": -0.25,
+   "mouth": [
+    0,
+    0.1,
+    0.12
+   ],
+   "shoes": [
+    [
+     -1.13,
+     1.46
+    ],
+    [
+     -0.87,
+     1.46
+    ]
+   ],
+   "shoeY": 0.05,
+   "cheek": [
+    -1.16,
+    0.135,
+    1.65
+   ],
+   "burst": 0,
+   "pool": 0
+  },
+  {
+   "id": "shoeA",
+   "kind": "heartjuiceshoe",
+   "side": "R",
+   "x": -1.13,
+   "y": 0.035,
+   "z": 1.44
+  },
+  {
+   "id": "shoeB",
+   "kind": "heartjuiceshoe",
+   "side": "L",
+   "x": -0.87,
+   "y": 0.035,
+   "z": 1.44
+  },
+  {
+   "id": "cheek",
+   "kind": "heartjuicecheek",
+   "x": -1.16,
+   "y": 0.385,
+   "z": 1.65,
+   "rot": -35
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "b0",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.375,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b1",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.417,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b2",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.458,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b3",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.5,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b4",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.542,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b5",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.583,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b6",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.625,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b7",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.667,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b8",
+   "at": 8.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.708,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "b9",
+   "at": 9.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.75,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "air",
+   "at": 10.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.218,
+     9.246
+    ],
+    "look": [
+     0,
+     0.55,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0.2,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "land",
+   "at": 11.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     6.14,
+     13.347
+    ],
+    "look": [
+     0,
+     0,
+     1.8
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 1,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "pool",
+   "at": 12.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.359,
+     6.318
+    ],
+    "look": [
+     0,
+     0,
+     0.5
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0,
+      "pool": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "poolC",
+   "at": 13.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.274,
+     1.231,
+     1.602
+    ],
+    "look": [
+     0,
+     0,
+     0.05
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0,
+      "pool": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "smear",
+   "at": 14.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.15,
+     2.046,
+     3.223
+    ],
+    "look": [
+     0.15,
+     0,
+     0.95
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0,
+      "pool": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "splatC",
+   "at": 15.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.063,
+     4.963
+    ],
+    "look": [
+     0,
+     0,
+     1.9
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 1,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shoes",
+   "at": 16.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.656,
+     0.982,
+     2.735
+    ],
+    "look": [
+     -1,
+     0.05,
+     1.45
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shoeR",
+   "at": 17.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.891,
+     0.441,
+     1.795
+    ],
+    "look": [
+     -1.13,
+     0.05,
+     1.44
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shoeL",
+   "at": 18.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.109,
+     0.441,
+     1.795
+    ],
+    "look": [
+     -0.87,
+     0.05,
+     1.44
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "cheek",
+   "at": 19.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1.622,
+     0.37,
+     3.39
+    ],
+    "look": [
+     -1.04,
+     0.37,
+     1.6
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "juice",
+     "set": {
+      "burst": 0,
+      "pool": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/egypt-myth/01-heart/bench/make-juice-bench.mjs (engine bench, no reviews)."
+}

@@ -1,0 +1,481 @@
+{
+ "id": "lc10-04-counter",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": false,
+  "light": "golden",
+  "key": [
+   -5.5,
+   3.6,
+   4.5
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "baker",
+    "keys": [
+     [
+      0,
+      4
+     ],
+     [
+      5.05,
+      5
+     ]
+    ],
+    "free": true,
+    "clamp": true,
+    "k": 0.85
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 70.96,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "small",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   8.82,
+   8.82
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    3,
+    -0.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "baker",
+   "character": "happiness/baker",
+   "at": [
+    3,
+    -1.7
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "toque",
+   "kind": "toque",
+   "wear": "baker",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.755,
+   "text": "At first, it was the",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 1.755,
+   "to": 3.79,
+   "text": "best power in the world.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 3.86,
+   "to": 5.25,
+   "text": "All baked this morning!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 5.3,
+   "to": 6.7,
+   "text": "...half price.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 6.75,
+   "to": 8.5,
+   "text": "Nobody could fool you.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "07 fresh today close",
+   "at": 0,
+   "len": 2.65,
+   "shot": {
+    "pos": [
+     3.995,
+     1.287,
+     0.433
+    ],
+    "look": [
+     3,
+     0.7,
+     -1.7
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      3.895,
+      1.228,
+      0.22
+     ]
+    },
+    "dur": 2.65,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       2.65,
+       4
+      ]
+     ],
+     "pivot": 2.426
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3,
+      -0.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      3,
+      -1.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      3,
+      -1.7
+     ],
+     "y": 0.18,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "At first, it was the best power in the world.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 3.64,
+     "caption": false,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "07 fresh today close +",
+   "at": 2.65,
+   "len": 2.65,
+   "shot": {
+    "pos": [
+     5.247,
+     1.492,
+     0.547
+    ],
+    "look": [
+     3,
+     0.7,
+     -1.7
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      5.022,
+      1.413,
+      0.322
+     ]
+    },
+    "dur": 2.65,
+    "yaw": {
+     "keys": [
+      [
+       2.65,
+       0
+      ],
+      [
+       5.3,
+       -4
+      ]
+     ],
+     "pivot": 3.275
+    }
+   },
+   "do": [
+    {
+     "who": "baker",
+     "macro": "say",
+     "line": "all baked this morning!",
+     "tone": "excited",
+     "voice": "wizard",
+     "dur": 1.34,
+     "caption": false,
+     "at": 1.21
+    }
+   ]
+  },
+  {
+   "name": "07 fresh today close",
+   "at": 5.3,
+   "len": 3.52,
+   "shot": {
+    "pos": [
+     3.612,
+     1.061,
+     -0.387
+    ],
+    "look": [
+     3,
+     0.7,
+     -1.7
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      3.551,
+      1.025,
+      -0.519
+     ]
+    },
+    "dur": 3.52,
+    "yaw": {
+     "keys": [
+      [
+       5.3,
+       0
+      ],
+      [
+       8.82,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "macro": "say",
+     "line": "...half price.",
+     "tone": "sad",
+     "voice": "wizard",
+     "dur": 1.35,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Nobody could fool you.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.7,
+     "caption": false,
+     "gain": 4,
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 3.27
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "baker",
+   "with": "toque",
+   "from": 0,
+   "to": 8.82,
+   "reason": "the chef's hat is worn"
+  }
+ ],
+ "story": {
+  "T0": 70.96,
+  "T1": 79.78
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 70.96-79.78 s)."
+}

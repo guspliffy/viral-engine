@@ -41,6 +41,11 @@ import { hash2, gridUv } from "./costumes-art-cast.js";
 // Face, eyes, hands, limbs: devil.json (Spud's eye build, Chip's glove hands). Crack, sob, sweat and whimper are done with the existing face
 // controls (tears, lids, corners) and fx sweat; nothing is added here.
 //
+//   shades      off     (Potato Desk Heaven Steps, DESIGN.md section 4) black shades #1d1a20 from Wedge's piece (two rounded lenses, a bridge,
+//                       short temples; lens 0.15 x 0.09, a faint glint each). Absent or false: not built at all, the Devil renders exactly as before.
+//                       A number or keyframes [[t0, v0], ...] (clip seconds, linear between, held outside) of a pose: 0 off (hidden), 1 on the eyes
+//                       (in front of the eye bulbs), 2 pushed up on the forehead between the horns (resting on the head, tipped back); between 1
+//                       and 2 they slide up. true / "on" = 1, "up" = 2. Spec keys shadesColor "#1d1a20", shadesGlint "#4a4452".
 //   tailY       0.07    where the tail leaves the back (body-local y); keep it under the hem
 // WHERE THINGS ARE (deviation from the design table): its "V down to y 0.55" and "badge at y 0.62" are at the height of his mouth and eyes on a
 // 0.92 egg (the face is placed on the body's middle: eyes at y 0.52, mouth at 0.41). Here the V's point is at y 0.25, the top edge runs 0.03 under
@@ -321,6 +326,35 @@ function skinMarks(C, ch, S) {
   F.forEach(([th, ph, r], i) => put(frM, th, ph, r, (hs(i, 41) - 0.5) * 3, hs(i, 42)));
 }
 
+// ------------------------------------------------------------------ black shades (key `shades`): on the eyes, or pushed up on the forehead between the horns
+function shadesOn(C, ch) {
+  const col = C.shadesColor || "#1d1a20", lensM = new THREE.MeshStandardMaterial({ color: col, roughness: 0.22, metalness: 0.1 }), frameM = new THREE.MeshStandardMaterial({ color: col, roughness: 0.5 });
+  frameM.userData.lookRole = lensM.userData.lookRole = "cloth";
+  const L = ch.face.layout, pl = ch.face.place(-L.eyeU, L.eyeV), pr = ch.face.place(L.eyeU, L.eyeV);
+  const mid = pl.pos.clone().add(pr.pos).multiplyScalar(0.5), nEye = pl.normal.clone().add(pr.normal).normalize(), hx = pl.pos.distanceTo(pr.pos) / 2;
+  const lw = 0.075, lh = 0.047, r = lh * 0.8, sh = new THREE.Shape();
+  sh.moveTo(-lw + r, -lh); sh.lineTo(lw - r, -lh); sh.quadraticCurveTo(lw, -lh, lw, -lh + r); sh.lineTo(lw, lh - r * 0.6); sh.quadraticCurveTo(lw, lh, lw - r * 0.6, lh); sh.lineTo(-lw + r * 0.6, lh); sh.quadraticCurveTo(-lw, lh, -lw, lh - r * 0.6); sh.lineTo(-lw, -lh + r); sh.quadraticCurveTo(-lw, -lh, -lw + r, -lh);
+  const lensG = new THREE.ExtrudeGeometry(sh, { depth: 0.005, bevelEnabled: true, bevelSize: 0.003, bevelThickness: 0.003, bevelSegments: 2, curveSegments: 8 });
+  const g = new THREE.Group(), glintM = new THREE.MeshBasicMaterial({ color: C.shadesGlint || "#4a4452" }); glintM.userData.noOutline = true;
+  for (const sg of [-1, 1]) {
+    const l = new THREE.Mesh(lensG, lensM); l.position.set(sg * hx, 0, 0); l.rotation.y = sg * 0.16; l.castShadow = true; g.add(l);
+    const glint = new THREE.Mesh(new THREE.PlaneGeometry(lw * 0.7, 0.008), glintM); glint.position.set(sg * hx - lw * 0.2, lh * 0.35, 0.0115); glint.rotation.z = 0.35; g.add(glint);
+    const temple = new THREE.Mesh(new THREE.CapsuleGeometry(0.0055, 0.05, 3, 8), frameM); temple.rotation.x = PI / 2; temple.position.set(sg * (hx + lw + 0.008), 0.004, -0.03); g.add(temple);
+  }
+  const bridge = new THREE.Mesh(new THREE.CapsuleGeometry(0.0055, 2 * (hx - lw) + 0.012, 3, 8), frameM); bridge.rotation.z = PI / 2; bridge.position.set(0, lh * 0.25, 0.005); g.add(bridge);
+  ch.potatoParts.add(g);
+  // the two poses: on the eyes (in front of the bulbs), and up on the forehead (the front of the crown between the horns, tipped back)
+  const Z = V(0, 0, 1), eyeQ = new THREE.Quaternion().setFromUnitVectors(Z, nEye), eyeP = mid.clone().addScaledVector(nEye, 0.045);
+  const up = ch.surf(0, 1.12), upN = up.normal.clone(), upQ = new THREE.Quaternion().setFromUnitVectors(Z, upN), upP = up.pos.clone().addScaledVector(upN, 0.02);
+  const norm = (v) => (v === true || v === "on" ? 1 : v === "up" ? 2 : +v || 0), spec = Array.isArray(C.shades) ? C.shades.map(([t, v]) => [t, norm(v)]) : norm(C.shades);
+  const at = (t) => { if (!Array.isArray(spec)) return spec; if (t <= spec[0][0]) return spec[0][1]; for (let i = 1; i < spec.length; i++) if (t <= spec[i][0]) return lerp(spec[i - 1][1], spec[i][1], (t - spec[i - 1][0]) / Math.max(1e-6, spec[i][0] - spec[i - 1][0])); return spec[spec.length - 1][1]; };
+  return (t) => {
+    const v = Math.max(0, Math.min(2, at(t))); g.visible = v > 0.001; if (!g.visible) return;
+    const p = clamp01(v - 1), e = p * p * (3 - 2 * p);
+    g.position.copy(eyeP).lerp(upP, e).addScaledVector(V(0, 0, 1), 0.03 * Math.sin(PI * e)); g.quaternion.copy(eyeQ).slerp(upQ, e);
+  };
+}
+
 export function devilKit(C, ch) {
   const S = bodySize(ch);
   horns(C, ch, S);
@@ -328,5 +362,6 @@ export function devilKit(C, ch) {
   const tailUp = tail(C, ch, S);
   sandals(C, ch);
   const sl = C.shirt === false ? () => {} : shirt(C, ch, S);
-  return { sl, apply: (st, t) => tailUp(st, t) };
+  const shadesUp = C.shades == null || C.shades === false ? null : shadesOn(C, ch);   // key shades: absent = nothing built, the Devil is unchanged
+  return { sl, apply: (st, t) => { tailUp(st, t); shadesUp && shadesUp(t); } };
 }
