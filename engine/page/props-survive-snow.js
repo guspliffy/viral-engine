@@ -35,6 +35,9 @@ import { mat, mesh, canvasTex, smooth } from "./props-trend.js";
 //   huddleblanket  one patchwork quilt draped over the shoulders and backs of 1-4 potatoes: spec.over [[x, z, height
 //                  (standing, with the sprout), yaw (deg, 0 = faces +z; optional)], ...]. The faces and hands stay free
 //                  in front. `cover` 0..1: 1 on, 0 slid off backward (-z) onto the floor. Cel cloth, no physics.
+//                  spec.pattern "tartan" (Potato Desk 11; default: the patchwork above, unchanged): a two-colour plaid, spec.colors
+//                  [check, ground] (["#8E2F3A", "#EFE3CC"]), spec.check 0.09 (one check, m: the sett repeats every two), spec.fringe 0.03
+//                  (tassel length, m, along the hem in the two colours; 0 = none).
 //   iciclerow      icicles under an edge (spec.len metres, spec.count, origin: the edge's middle, they hang down),
 //                  `grow` 0..1 (to 0.25 m).
 //   icicle         one icicle (origin: its base, the tip down, spec.len 0.14); a physics body when it drops.
@@ -341,8 +344,18 @@ export const SNOW_KINDS = {
 
   // a patchwork quilt over the shoulders and backs of 1-4 potatoes
   huddleblanket(P) {
-    const S = P.spec, over = S.over || [[0, 0, 1.38]], seed = S.seed ?? 3;
-    const tex = canvasTex(256, 256, (g, W, H) => {
+    const S = P.spec, over = S.over || [[0, 0, 1.38]], seed = S.seed ?? 3, tartan = S.pattern === "tartan";
+    const [TC, TG] = S.colors ?? ["#8E2F3A", "#EFE3CC"], CHECK = S.check ?? 0.09, FRINGE = S.fringe ?? 0.03;
+    const tex = tartan ? canvasTex(256, 256, (g, W, H) => {
+      // one sett = two checks across and down: the ground, a colour band each way at 55 %, so the crossing is the deep tone; thin threads in each square
+      g.fillStyle = TG; g.fillRect(0, 0, W, H);
+      g.fillStyle = TC; g.globalAlpha = 0.55; g.fillRect(0, 0, W / 2, H); g.fillRect(0, 0, W, H / 2); g.globalAlpha = 1;
+      g.fillStyle = TC; g.globalAlpha = 0.9; g.fillRect(W * 0.75 - 1.5, H / 2, 3, H / 2); g.fillRect(W / 2, H * 0.75 - 1.5, W / 2, 3);   // a thread in the ground square's lines
+      g.fillStyle = TG; g.globalAlpha = 0.8; g.fillRect(W * 0.25 - 1.5, 0, 3, H / 2); g.fillRect(0, H * 0.25 - 1.5, W / 2, 3); g.globalAlpha = 1;   // a pale thread across the deep one
+      g.fillStyle = TC; g.globalAlpha = 0.35;
+      for (let k = 0; k < 256; k += 4) { g.fillRect(k, (k * 7) % 256, 2, 1); g.fillRect((k * 5) % 256, k, 1, 2); }   // woven speckle
+      g.globalAlpha = 1;
+    }) : canvasTex(256, 256, (g, W, H) => {
       const cols = ["#b83a2f", "#d9a62e", "#7a4a2a", "#c9622e", "#e0b95a", "#9b2f2a"];
       for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
         g.fillStyle = cols[Math.floor(hash(seed * 5 + i * 4 + j) * cols.length)]; g.fillRect(i * 64, j * 64, 64, 64);
@@ -353,7 +366,9 @@ export const SNOW_KINDS = {
       for (let k = 0; k <= 4; k++) { g.beginPath(); g.moveTo(k * 64, 0); g.lineTo(k * 64, H); g.stroke(); g.beginPath(); g.moveTo(0, k * 64); g.lineTo(W, k * 64); g.stroke(); }
     });
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    if (tartan) tex.repeat.set(1 / (1.35 * 2 * CHECK), 1 / (1.35 * 2 * CHECK));   // the cape's uv run about 1.35 per metre: one tile = two checks
     const m = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.95, side: THREE.DoubleSide });
+    if (tartan) m.userData.noHatch = true;
     const capes = over.map(([x, z, h, yaw = 0], n) => {
       const top = h - 0.2, bot = 0.14, cy = (top + bot) / 2, ry = (top - bot) / 2, rx = 0.43, rz = 0.37;
       const NU = 40, NV = 14, pos = [], uv = [], idx = [], ph = hash(seed + n * 3.1) * 6;
@@ -369,6 +384,21 @@ export const SNOW_KINDS = {
       const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
       const pivot = new THREE.Group(), cape = new THREE.Mesh(geo, m); cape.castShadow = cape.receiveShadow = true;
       // the pivot is the potato's back foot (it slides off backward about it); the cape sits at the potato's own place
+      if (tartan && FRINGE > 0) {   // tassels hanging from the hem row (j = NV), three to a segment, alternating the two colours
+        const fp = [], fc = [], fi = [], c1 = new THREE.Color(TC), c2 = new THREE.Color(TG), hb = NV * (NU + 1);
+        let k = 0;
+        for (let i = 0; i < NU; i++) for (let s3 = 0; s3 < 3; s3++, k++) {
+          const ax = pos[(hb + i) * 3], ay = pos[(hb + i) * 3 + 1], az = pos[(hb + i) * 3 + 2], bx = pos[(hb + i + 1) * 3], by = pos[(hb + i + 1) * 3 + 1], bz = pos[(hb + i + 1) * 3 + 2];
+          const f = (s3 + 0.5) / 3, px = ax + (bx - ax) * f, py = ay + (by - ay) * f, pz = az + (bz - az) * f, tx = bx - ax, tz = bz - az, tl = Math.hypot(tx, tz) || 1, w = 0.0065;
+          const L = FRINGE * (0.8 + 0.4 * hash(seed * 13 + k * 1.7 + n)), ox = (hash(k * 3.3 + n) - 0.5) * 0.01, oz = (hash(k * 5.1 + n) - 0.5) * 0.01, col = k % 2 ? c1 : c2, b0 = fp.length / 3;
+          fp.push(px - (tx / tl) * w, py + 0.003, pz - (tz / tl) * w, px + (tx / tl) * w, py + 0.003, pz + (tz / tl) * w, px + (tx / tl) * w * 0.5 + ox, py - L, pz + (tz / tl) * w * 0.5 + oz, px - (tx / tl) * w * 0.5 + ox, py - L, pz - (tz / tl) * w * 0.5 + oz);
+          for (let c = 0; c < 4; c++) fc.push(col.r, col.g, col.b);
+          fi.push(b0, b0 + 1, b0 + 2, b0, b0 + 2, b0 + 3);
+        }
+        const fg = new THREE.BufferGeometry(); fg.setAttribute("position", new THREE.Float32BufferAttribute(fp, 3)); fg.setAttribute("color", new THREE.Float32BufferAttribute(fc, 3)); fg.setIndex(fi); fg.computeVertexNormals();
+        const fm = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, side: THREE.DoubleSide }); fm.userData.noOutline = true; fm.userData.noHatch = true;
+        const fr = new THREE.Mesh(fg, fm); fr.castShadow = false; fr.receiveShadow = true; cape.add(fr);
+      }
       cape.rotation.y = rad(yaw); cape.position.set(0, 0, rz + 0.05); pivot.add(cape); P.whole.add(pivot);
       pivot.position.set(x, 0, z - rz - 0.05);
       return { pivot, z0: z - rz - 0.05 };

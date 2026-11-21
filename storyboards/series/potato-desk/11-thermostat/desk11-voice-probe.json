@@ -1,0 +1,321 @@
+{
+ "id": "desk11-voice-probe",
+ "title": "Potato Desk 11 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   54,
+   54
+  ]
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 54,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Nineteen degrees?! Who touched it?!",
+     "tone": "angry",
+     "style": "outraged, loud, shivering, teeth chattering, shouting across an office",
+     "dur": 2.5,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Me. It's a sauna in here.",
+     "tone": "calm",
+     "style": "smug, hot, sweaty, flat, not sorry at all",
+     "dur": 2.9,
+     "caption": false,
+     "at": 3.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hm. Carry on.",
+     "tone": "calm",
+     "style": "a boss walking past, amused, knowing, quiet, a tiny smirk",
+     "dur": 1.7,
+     "caption": false,
+     "at": 7.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Twenty-three.",
+     "tone": "angry",
+     "style": "stubborn, through gritted teeth, pressing a button",
+     "dur": 0.9,
+     "caption": false,
+     "at": 10.3
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Seventeen.",
+     "tone": "calm",
+     "style": "stubborn, smug, pressing a button",
+     "dur": 0.9,
+     "caption": false,
+     "at": 12.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Twenty-five!",
+     "tone": "angry",
+     "style": "louder, stubborn, getting worked up",
+     "dur": 0.9,
+     "caption": false,
+     "at": 14.1
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Fifteen!",
+     "tone": "angry",
+     "style": "louder, stubborn, getting worked up",
+     "dur": 0.9,
+     "caption": false,
+     "at": 16
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Twenty-one. Both of you. Deal?",
+     "tone": "calm",
+     "style": "tired, patient, the calm one in the middle, a peacemaker, a little pleading",
+     "voice": "spud",
+     "dur": 2.5,
+     "caption": false,
+     "at": 17.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "...Deal.",
+     "tone": "calm",
+     "style": "grudging, sulky, through gritted teeth",
+     "dur": 0.9,
+     "caption": false,
+     "at": 21.4
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Deal.",
+     "tone": "calm",
+     "style": "grudging, flat, not meaning it",
+     "dur": 0.9,
+     "caption": false,
+     "at": 23.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Thirty!",
+     "tone": "angry",
+     "style": "triumphant, shouting, holding a hot mug to it",
+     "dur": 0.9,
+     "caption": false,
+     "at": 25.2
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Twelve!",
+     "tone": "angry",
+     "style": "triumphant, shouting, holding an ice pack to it",
+     "dur": 0.9,
+     "caption": false,
+     "at": 27.1
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Locked. Twenty-one.",
+     "tone": "calm",
+     "style": "a boss, firm, final, a click, walking away",
+     "dur": 1.3,
+     "caption": false,
+     "at": 29
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "It's still freezing.",
+     "tone": "sad",
+     "style": "sulky mutter, arms crossed, shivering, under his breath",
+     "dur": 1.7,
+     "caption": false,
+     "at": 31.3
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "It's still boiling.",
+     "tone": "sad",
+     "style": "sulky mutter, sweaty, flat, under his breath",
+     "dur": 1.7,
+     "caption": false,
+     "at": 34
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Let go!",
+     "tone": "angry",
+     "style": "shouting, struggling, tug of war",
+     "dur": 1.3,
+     "caption": false,
+     "at": 36.7
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "You let go!",
+     "tone": "angry",
+     "style": "shouting, struggling, tug of war",
+     "dur": 1.7,
+     "caption": false,
+     "at": 39
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Enough.",
+     "tone": "calm",
+     "style": "a boss, firm, calm, final",
+     "dur": 0.9,
+     "caption": false,
+     "at": 41.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "It's fake.",
+     "tone": "calm",
+     "style": "a boss, dry, deadpan, almost bored, matter of fact",
+     "dur": 1.3,
+     "caption": false,
+     "at": 43.6
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "...Since when?",
+     "tone": "sad",
+     "style": "stunned, quiet, betrayed, slow",
+     "dur": 1.3,
+     "caption": false,
+     "at": 45.9
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Since always.",
+     "tone": "calm",
+     "style": "a boss, dry, deadpan, a tiny smirk, sipping tea",
+     "dur": 1.3,
+     "caption": false,
+     "at": 48.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "...Then why am I freezing?",
+     "tone": "sad",
+     "style": "small, confused, quiet, wrapped in a scarf, teeth chattering",
+     "dur": 2.5,
+     "caption": false,
+     "at": 50.5
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 11: makes and measures every take."
+}
