@@ -40,7 +40,7 @@ const CAM = {
   P7: { pos: [0.6, 0.95, 1.55], look: [-0.1, 0.8, -0.6], fov: 50, near: 0.04 },   // draft 0: further back (his face filled the frame)
   P8: { pos: [1.35, 0.85, 1.05], look: [-0.1, 1.45, -0.5], fov: 60, near: 0.04 },   // draft 0: from below he showed only his back; front-right, the lamp above
   P9: { pos: [-0.4, -10.4, -15.6], look: [2.3, -10.0, -19.6], fov: 50, near: 0.3 },   // draft 0: closer (he was tiny)
-  P10: { pos: [0.3, -12.6, -36], look: [0, -17.8, -75], fov: 55, near: 0.5 },   // draft 0: closer (he was tiny)
+  P10: { pos: [0.3, -15.38, -53.4], look: [0, -20.58, -92.4], fov: 55, near: 0.5 },   // Sol r1: 17.4 m down the street with the hops (he ends at the hero post u55)   // draft 0: closer (he was tiny)
   P11: { pos: [-1.9, -16.4, -53.5], look: [2.4, -16.3, -58.5], fov: 50, near: 0.5 },
   P12: { pos: [1.2, -16.2, -50.5], look: [2.6, -18.2, -75], fov: 52, near: 0.5 },   // draft 0: he was cut by the right edge
 };
@@ -95,7 +95,7 @@ const props = [
   { id: "sea", kind: "ssea", x: 0, y: 0, z: 0, rot: 0 },
   { id: "high", kind: "shigh", x: 0, y: 0, z: 0, rot: 0 },
   // the street and its weather
-  { id: "street", kind: "sstreet", x: 0, y: 0, z: 0, rot: 0, swish: SWISH, splash: [[41.15, -0.1, 41.3]] },   // Sol r1: at 39.95 it splashed while he was still in the air
+  { id: "street", kind: "sstreet", x: 0, y: 0, z: 0, rot: 0, swish: SWISH, splash: [] },   // Sol r1: the puddle splash fired while he was in the air; his new path crosses no puddle
   { id: "rain", kind: "srain", x: 0, y: 0, z: 0, rot: 0 },
   { id: "blobs", kind: "sblobs", x: 0, y: 0, z: 0, rot: 0 },
   BALL,
@@ -315,11 +315,12 @@ sfx(34.3, "step-concrete", { gain: 0.5, reason: "he lands on the cobbles" });
 see(31.0, 36.7, ["spud.face", "ball"], "11.3x: half his weight gone, he dunks on the street hoop; the sea is lower down the valley");
 
 // ================================================================ 36.7-43.3 P10 13x: every step is a jump; uphill, away from the water
-const HOPS = [[36.7, 54], [38.2, 49.5], [39.7, 45], [41.2, 41.2], [42.7, 37]];
-place(36.7, [-0.1, zOf(54)], STREET(54), 0);
+// Sol r1: he hopped u54 -> 37, past the hero lamp post (u55), then held it in P11: now u71.4 -> 54.5, ending beside the post
+const HOPS = [[36.7, 71.4], [38.2, 67], [39.7, 63], [41.2, 58.8], [42.7, 54.5]];
+place(36.7, [-0.1, zOf(71.4)], STREET(71.4), 0);
 expr(36.7, "shocked", { eye: 1.15, open: 0.2 }, 0); look(36.7, [0, 0.2], 0);
 A(36.7, "spud", "arm", { side: "both", pose: { o: [0.32, 0.55, 0.05] }, dur: 0.3 });   // arms out for balance
-A(36.7, "spud", "move", { to: [-0.1, zOf(37)], y: STREET(37), dur: 5.95, steps: 0, ease: "linear" });   // draft 2: one glide under all hops (a glide per hop tipped the body at each stop)
+A(36.7, "spud", "move", { to: [2.0, zOf(54.5)], y: STREET(54.5), dur: 5.95, steps: 0, ease: "linear" });   // draft 2: one glide under all hops (a glide per hop tipped the body at each stop)
 for (let i = 0; i < HOPS.length - 1; i++) {
   const [t0] = HOPS[i], [t1] = HOPS[i + 1];
   A(t0, "spud", "hop", { height: 1.0, count: 1, dur: r3(t1 - t0 - 0.05), quiet: true });
@@ -328,7 +329,6 @@ for (let i = 0; i < HOPS.length - 1; i++) {
 }
 expr(38.3, "shocked", { eye: 1.2, open: 0.35 }, 0.15); expr(39.9, "happy", { curve: 0.8, eye: 1.1, open: 0.2 }, 0.2);
 look(41.0, [-0.6, 0.0], 0.25); expr(41.0, "shocked", { eye: 1.25, open: 0.3 }, 0.15); look(41.8, [0, 0.15], 0.2);   // a look back at the water
-sfx(41.15, "splash", { gain: 0.5, reason: "his foot lands in the puddle" });
 sfx(36.7, "waves", { gain: 0.4, dur: 6.6, reason: "the flood surf at the bottom of the street" });
 see(36.7, 43.3, ["spud.face", "street"], "13x: each step floats him a metre; the sea is at the bottom of the street");
 
