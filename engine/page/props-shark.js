@@ -15,7 +15,7 @@ import { clamp } from "./util.js";
 //   guardtower a white wooden lifeguard tower (spec.h platform height, spec.w), ladder on its +z side (the front rail
 //              open spec.gap wide over it), an orange and
 //              white umbrella clipped to the back rail; tilt (deg) knocks the umbrella crooked.
-//   megaphone  a white and red megaphone held at its handle (origin: the grip; the bell points along +z).
+//   megaphone  a white and red megaphone held at its handle (origin: the grip; the bell points along +z). Colour keys bell / rim / cap and bellOut (spec, see the kind).
 //   whistle    a small silver pea whistle (origin its body, mouthpiece along +z).
 //   noodle     a striped pool noodle lying on the water.
 //   wakefoam   a white foam ring on the water at its x/z (a wake): on 0..1, size spec.r; it pulses.
@@ -150,11 +150,13 @@ export const SHARK_KINDS = {
 
   megaphone(P) {
     const g = new THREE.Group(); P.whole.add(g);
-    const white = mat("#f6f4ef", { roughness: 0.45 }), red = mat("#d9433a", { roughness: 0.45 });
+    // colour keys (spec, defaults = the original look): bell (the cone) "#f6f4ef", rim (the ring at the mouth) "#d9433a", cap (the back cap) "#d9433a"; Heaven Steps: bell #d3261e, rim #f2c94c, cap #8f1f1c
+    const white = mat(P.spec.bell ?? "#f6f4ef", { roughness: 0.45 }), red = mat(P.spec.rim ?? "#d9433a", { roughness: 0.45 }), capM = mat(P.spec.cap ?? "#d9433a", { roughness: 0.45 });
     mesh(new THREE.CylinderGeometry(0.018, 0.02, 0.1, 10), mat("#333333"), g, 0, -0.05, 0);   // the handle in the fist
-    const bell = mesh(new THREE.CylinderGeometry(0.035, 0.11, 0.26, 20, 1, true), white, g, 0, 0.05, 0.1); bell.rotation.x = Math.PI / 2;
+    // bellOut: true builds the cone the right way round (wide mouth + the ring at +z, the narrow end and the back cap at -z); the default keeps the old look (cone narrowing toward +z) for finished clips
+    const bell = mesh(new THREE.CylinderGeometry(...(P.spec.bellOut ? [0.11, 0.035] : [0.035, 0.11]), 0.26, 20, 1, true), white, g, 0, 0.05, 0.1); bell.rotation.x = Math.PI / 2;
     mesh(new THREE.TorusGeometry(0.11, 0.012, 8, 24), red, g, 0, 0.05, 0.23);
-    mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.08, 14), red, g, 0, 0.05, -0.06).rotation.x = Math.PI / 2;
+    mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.08, 14), capM, g, 0, 0.05, -0.06).rotation.x = Math.PI / 2;
     return { grip: 0.0, apply() {} };
   },
 

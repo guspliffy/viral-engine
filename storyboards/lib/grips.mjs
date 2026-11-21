@@ -162,6 +162,13 @@ const SIZE = {
   pitchfork: { r: 0.01, h: 0.2 },
   palmleaf: { r: 0.01, h: 0.288 },
   drinkglass: { r: 0.035, h: 0.16 },
+  // props-heavenitems.js (Potato Desk Heaven Steps): goldquill = thin pinch (len 0.1167: the default from 0.6 lands 0.07 above the nib tip, on the shaft); soulcase = mug hold on the top handle's
+  // bar (y 0.383 = 0.66 x 0.58; it hangs from the hand, the grip is 0.39 up); goldcan = mug hold on the back handle's vertical bar (the origin's axis; y 0.13 = 0.66 x 0.197);
+  // megaphone (props-shark.js, origin the grip = the handle's top, handle y -0.1..0): mug hold at the handle's middle (negative h on purpose, y -0.05 = 0.66 x -0.0758)
+  goldquill: { len: 0.1167, r: 0.007 },
+  soulcase: { r: 0.008, h: 0.58 },
+  goldcan: { r: 0.008, h: 0.197 },
+  megaphone: { r: 0.02, h: -0.0758 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
