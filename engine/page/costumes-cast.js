@@ -10,6 +10,7 @@ import { aliens, ALIEN_TYPES } from "./costumes-aliens.js";
 import { plato, PLATO_TYPES } from "./costumes-plato.js";
 import { judge } from "./costumes-judge.js";
 import { jackal } from "./costumes-jackal.js";
+import { stnick } from "./costumes-stnick.js";   // krampus myth 01: Saint Nick on Spud's body
 import { assessor } from "./costumes-assessor.js";
 
 // The rest of Jonny's potato fighters in 3D, from his reference portraits (2026-10-24): Astronaut, Viking, Dragon,
@@ -326,6 +327,7 @@ export function castCostume(C, ch) {
   const parts = ch.potatoParts, out = { hat: null, sitDepth: 0, prop: null, extra: [], apply() {} };
   const T = C.type;
   // costume.art (castLook "art"): the detailed, integrated costumes (costumes-art-cast.js)
+  if (C.stnick) return stnick(C, ch, out);   // krampus myth 01: Saint Nick on Spud's body (costumes-stnick.js)
   if (C.jackal) return jackal(C, ch, out);   // egypt myth 01: the jackal judge on Mash's body (costumes-jackal.js)
   if (C.assessor) return assessor(C, ch, out);   // egypt myth 01: the 42 judges on Spud's body (costumes-assessor.js)
   if (EVERYDAY.includes(T)) return everyday(C, ch, out);   // Chip, Wedge, Mash (costumes-everyday.js): the same in every look
