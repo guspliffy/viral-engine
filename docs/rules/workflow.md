@@ -11,7 +11,7 @@ fixed budget per video (length and new things differ too much): the workflow rem
 counted the same way every time. Where a section below says otherwise, these eight win.
 
 1. **Fixed order, no skipping back.** Story outline, staging stills, rough draft, Jonny's story OK, polish, checks on
-   the draft, the Sol check until it passes ("The Sol check" below, on trial), one full render, delivery. A step back
+   the draft, the Sol check (at most two rounds, "The Sol check" below, on trial), one full render, delivery. A step back
    is named with its reason in the clip's notes. For the first clip of a new series the outline is six lines of "X, so
    Y, so Z" and goes to Jonny before anything is built (Fight, Flight or Freeze 01: three of five drafts rebuilt the
    story, about a third of its cost).
@@ -94,7 +94,8 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
 - **Animatic gate, every clip (rule 2 above)**: the draft render (`--draft`: real timing, draft look, scratch
   sound) goes to Jonny for a story check before any polish or full render. His OK replaces review B.
 - **Sol gate, every clip (on trial, "The Sol check" below)**: after his story OK and the polish, Sol checks the
-  draft for glitches and logic issues, every item is fixed, Sol checks again, and only its PASS starts the full render.
+  draft for glitches and logic issues, every item is fixed, Sol checks again; after round 2's items are fixed (or a
+  PASS) the full render starts. A third round runs only on Jonny's own OK.
 - **Look gate, new characters, sets or looks only**: 2-3 style frames (draft stills at the final look), checked by the
   creative director against the design, then Jonny. An existing look skips it.
 - **Staging proof, every clip, before any builder starts** (director + creative director, about 30-40 min): write
@@ -303,9 +304,9 @@ waiver for the whole clip.
    changed something. Bigger notes go into the next cut or to Jonny. Why: What if EP03 (9 Nov) found four one-frame
    glitches that every check had passed (a trophy alone in the air for two frames, an arm stepping back, eyes opening
    late, Viking gone 0.2 s early) on the strips and in review B after full render 1: four more farm renders, 42 min.
-6. **The Sol check, until it passes** (on trial, see "The Sol check" below): Sol gets the passing draft's sheets and
-   strips, every glitch and logic issue it lists is fixed, the draft and strips are made again, and Sol checks again.
-   Only its PASS opens step 7.
+6. **The Sol check, at most two rounds** (on trial, see "The Sol check" below): Sol gets the passing draft's sheets
+   and strips, every glitch and logic issue it lists is fixed, the draft and strips are made again, and Sol checks
+   again. Its PASS, or round 2's items fixed, opens step 7. A third round runs only on Jonny's own OK.
 7. **Full render, once** on GitHub's free runners (`gh workflow run render.yml -f storyboard=<sb>`, see below) or in
    the background here (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
    (earshot listens: hits on their frame, footsteps on the right floor, a synth music bed in a dramatic clip). Look at its contact sheet and phone sheet
@@ -364,10 +365,13 @@ has passed it. The order:
    and a last line `VERDICT: PASS` or `VERDICT: FIX <n>`. Sol may write its answer to its own file: collect both.
 4. **Fix every item it lists**, then draft and cut the strips again. A logic fix that would change the story Jonny
    approved goes to him as a question with a default instead.
-5. **Sol checks again**, with its previous list ("are these fixed, and is anything new?"). Repeat 4-5 until
-   `VERDICT: PASS`; at most three Sol rounds (the same cap as the fix loop), then stop and send Jonny Sol's open
-   items and what was tried.
-6. **PASS -> one full render** (step 7 of the order of work), then delivery. DELIVERY.md names Sol's rounds and
+5. **Sol checks again (round 2)**, with its previous list ("are these fixed, and is anything new?"), and every item
+   it lists is fixed. **Two Sol rounds per video, no more** (Jonny, 20 Nov 2026: "2 rounds of finding bugs with sol
+   should be enough for future videos. i feel the 3rd round is often too much and fixes glitches or bugs i dont even
+   recognize. a 3rd round can be suggested and i need to approve then manually"). A third round is never run on its
+   own: when round 2 still lists items worth another look, suggest round 3 to Jonny with the reason and those items,
+   and run it only after his own OK.
+6. **PASS or round 2's items fixed -> one full render** (step 7 of the order of work), then delivery. DELIVERY.md names Sol's rounds and
    items found and fixed; the ledger row counts Sol rounds in its check-fix rounds.
 
 A producer without a ChatGPT plan (a fork) skips steps 3-5, and the delivery says so. **On trial** from 18 Nov 2026:
