@@ -40,6 +40,8 @@
 //                spec.rim    33  degrees of the head's height where the cuff's lower edge sits (lower = hat lower on the head).
 //                spec.cuff   0.062   cuff height, m.            spec.pomR (0.05 scaled by body width) pom-pom radius, m.
 //                spec.pomAt  [x, z] the pom-pom's place on the crown; default per body (the POM table: away from the leaf).
+//                spec.cuffColor  (the knit colour)  the ribbed cuff's own colour, its two rolled edges too (Potato Desk 11: cream cuff on a maroon hat).
+//                spec.cuffZigzag (none)  a colour: one zigzag row of 48 points in it round the middle of the cuff (needs nothing else; default no row, the hat is unchanged).
 //              Per-body tables inside this file: SPROUT (sprout size: spud 1, chip 1.25, wedge 2.2, mash 2.2), CLOTH (how far a scarf
 //              stands off the skin over the costume: spud .03, chip .03, wedge .075, mash .05), POM. The Wedge hat is lifted and bulged a
 //              little (hatExtra) so his sunglasses do not push through the knit.
@@ -554,11 +556,16 @@ const knitTex = (key, base, cols, rows, W, H, opts = {}) => once(key, () => {
   for (let i = 0; i < 60; i++) { g.strokeStyle = hex(1.3); g.globalAlpha = 0.45; g.lineWidth = 1; const x = rnd(i + 301) * W, y = rnd(i + 302) * H; g.beginPath(); g.moveTo(x, y); g.lineTo(x + 3 + 5 * rnd(i + 303), y + (rnd(i + 304) - 0.5) * 6); g.stroke(); }   // stray fibres
   g.globalAlpha = 1; const t = tex(c); return t;
 });
-const ribTex = (key, base, cols, W, H) => once(key, () => {
+const ribTex = (key, base, cols, W, H, zig = null) => once(key, () => {
   const [c, g] = canvas(W, H), col = new THREE.Color(base), hex = (k) => "#" + col.clone().multiplyScalar(k).getHexString(), cw = W / cols;
   g.fillStyle = hex(0.85); g.fillRect(0, 0, W, H);
   for (let i = 0; i < cols; i += 2) { g.fillStyle = hex(1.1); g.fillRect(i * cw, 0, cw, H); }
   for (let i = 0; i < cols; i++) for (let y = 0; y < H; y += 8) { g.strokeStyle = hex(i % 2 ? 0.7 : 1.28); g.globalAlpha = 0.5; g.lineWidth = 1.2; g.beginPath(); g.moveTo(i * cw + cw * 0.5, y); g.lineTo(i * cw + cw * (i % 2 ? 0.3 : 0.7), y + 6); g.stroke(); }
+  if (zig) {   // one zigzag row round the middle of the cuff (spec.cuffZigzag): 48 points, a thick knitted line
+    g.globalAlpha = 0.96; g.strokeStyle = zig; g.lineWidth = H * 0.13; g.lineJoin = "miter"; g.lineCap = "butt"; g.miterLimit = 4; g.beginPath();
+    for (let i = 0; i <= 48; i++) { const x = (i / 48) * W, y = H * (i % 2 ? 0.7 : 0.3); i ? g.lineTo(x, y) : g.moveTo(x, y); }
+    g.stroke();
+  }
   g.globalAlpha = 1; return tex(c);
 });
 // the fibres of a pom-pom / fringe: thin tapered cards, each its own place, length and direction
@@ -578,8 +585,9 @@ function bobblehat(P) {
   const S = P.spec, BD = wornDef(S), B = wornBody(BD), C = S.color ?? "#c23b3b", POM = S.pom ?? "#f4f1e6";
   const yb = B.frontY(S.rim ?? 33), CUFF = S.cuff ?? 0.062, yt = yb + CUFF;
   const g = new THREE.Group(); P.whole.add(g);
-  const knitM = mat("#ffffff", { map: knitTex("sh-knit-cap" + C, C, 72, 34, 2048, 1024, { seed: 5 }), roughness: 0.95 }), ribM = mat("#ffffff", { map: ribTex("sh-knit-rib" + C, C, 48, 1024, 128), roughness: 0.95 }), edgeM = mat(C, { roughness: 0.95 });
-  for (const m of [knitM, ribM, edgeM]) { m.userData.noHatch = true; m.userData.lineK = 0.7; }
+  const CC = S.cuffColor ?? C, CZ = S.cuffZigzag ?? null;   // the cuff's own colour and optional zigzag row (default: the knit colour, no row)
+  const knitM = mat("#ffffff", { map: knitTex("sh-knit-cap" + C, C, 72, 34, 2048, 1024, { seed: 5 }), roughness: 0.95 }), ribM = mat("#ffffff", { map: ribTex("sh-knit-rib" + CC + (CZ ? "z" + CZ : ""), CC, 48, 1024, 128, CZ), roughness: 0.95 }), edgeM = mat(C, { roughness: 0.95 }), cuffEdgeM = CC === C ? edgeM : mat(CC, { roughness: 0.95 });
+  for (const m of [knitM, ribM, edgeM, cuffEdgeM]) { m.userData.noHatch = true; m.userData.lineK = 0.7; }
   const NA = 288, NC = 384, phis = Math.asin(clamp((yt - B.cy) / B.ry, -1, 1));
   // the slit for the leaf: half sizes by the sprout's size; without it the pom-pom shuts a small round hole
   const ss = BD.sprout, hz = S.slit === false ? 0.012 : 0.010 + 0.0125 * ss, hx = S.slit === false ? 0.012 : hz * 1.35;
@@ -600,7 +608,7 @@ function bobblehat(P) {
   // the cuff: a doubled ribbed band, thicker than the cap, its two edges rolled
   const cuffAt = (u, v) => { const a = u * TAU, y = lerp(yb, yt, v), n = B.normal(a, y), rib = 0.0021 * Math.sin(u * 48 * TAU); return B.ring(a, y).addScaledVector(n, 0.0125 + rib + 0.004 * Math.sin(Math.PI * v)); };
   mesh(surfGrid(cuffAt, NC, 6, false), ribM, g);
-  for (const [y, o] of [[yb, 0.0075], [yt, 0.011]]) { const pts = []; for (let i = 0; i < 96; i++) { const a = (i / 96) * TAU; pts.push(B.ring(a, y).addScaledVector(B.normal(a, y), o + 0.002)); } mesh(tubeGeo(pts, 0.0062, 8, true, 192), edgeM, g); }
+  for (const [y, o] of [[yb, 0.0075], [yt, 0.011]]) { const pts = []; for (let i = 0; i < 96; i++) { const a = (i / 96) * TAU; pts.push(B.ring(a, y).addScaledVector(B.normal(a, y), o + 0.002)); } mesh(tubeGeo(pts, 0.0062, 8, true, 192), cuffEdgeM, g); }
   // the slit's lip: a rolled edge round the hole, and a dark inside so the leaf's stem comes out of the knit
   { const pts = []; for (let i = 0; i < 40; i++) { const u = i / 40, q = capAt(u, 1); pts.push(q.addScaledVector(V(0, 1, 0), 0.0015)); } mesh(tubeGeo(pts, 0.0034, 6, true, 80), edgeM, g); }
   // the pom-pom: a core and a hundred fibres, set on the crown behind the leaf

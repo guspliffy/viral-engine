@@ -1,0 +1,1022 @@
+{
+ "id": "thermo-bench",
+ "title": "Thermostat props bench",
+ "idea": "Props bench for Potato Desk 11 (T1), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "#6E7680",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    -0.36
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.9
+  }
+ ],
+ "props": [
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 10,
+   "y": 0,
+   "z": -1.3,
+   "w": 30,
+   "h": 2.6,
+   "dado": "#B7C4B8",
+   "wall": "#B7C4B8",
+   "top": "#B7C4B8",
+   "rail": "#AEBBAF"
+  },
+  {
+   "id": "floor",
+   "kind": "carpettiles",
+   "x": 10,
+   "y": 0,
+   "z": 4.6,
+   "w": 30,
+   "d": 12
+  },
+  {
+   "id": "stoolHigh",
+   "kind": "stepstool",
+   "h": 0.74,
+   "x": -2.5,
+   "y": 0,
+   "z": -0.98
+  },
+  {
+   "id": "stoolLow",
+   "kind": "stepstool",
+   "h": 0.26,
+   "x": -4,
+   "y": 0,
+   "z": -0.98
+  },
+  {
+   "id": "t19",
+   "kind": "thermostat",
+   "x": 0,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 19
+  },
+  {
+   "id": "t21",
+   "kind": "thermostat",
+   "x": 1.5,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 21
+  },
+  {
+   "id": "t30",
+   "kind": "thermostat",
+   "x": 3,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 30
+  },
+  {
+   "id": "t12",
+   "kind": "thermostat",
+   "x": 4.5,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 12
+  },
+  {
+   "id": "blank",
+   "kind": "thermostat",
+   "x": 6,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": "blank"
+  },
+  {
+   "id": "down",
+   "kind": "thermostat",
+   "x": 7.5,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 19
+  },
+  {
+   "id": "tape",
+   "kind": "thermostat",
+   "x": 9,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 26,
+   "tape": 1
+  },
+  {
+   "id": "pop",
+   "kind": "thermostat",
+   "x": 10.5,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 21,
+   "pop": 1
+  },
+  {
+   "id": "boxOn",
+   "kind": "thermostat",
+   "x": 12,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 21,
+   "key": 0
+  },
+  {
+   "id": "boxOnB",
+   "kind": "thermobox",
+   "x": 12,
+   "y": 1.36,
+   "z": -1.3,
+   "key": 0
+  },
+  {
+   "id": "boxKey",
+   "kind": "thermostat",
+   "x": 13.5,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 21,
+   "key": 0.5
+  },
+  {
+   "id": "boxKeyB",
+   "kind": "thermobox",
+   "x": 13.5,
+   "y": 1.36,
+   "z": -1.3,
+   "key": 0.5
+  },
+  {
+   "id": "boxTug",
+   "kind": "thermostat",
+   "x": 15,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 21,
+   "key": 1
+  },
+  {
+   "id": "boxTugB",
+   "kind": "thermobox",
+   "x": 15,
+   "y": 1.36,
+   "z": -1.3,
+   "key": 1
+  },
+  {
+   "id": "boxRip",
+   "kind": "thermostat",
+   "x": 16.5,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 21,
+   "key": 1,
+   "rip": 1,
+   "dropAt": 0
+  },
+  {
+   "id": "boxRipB",
+   "kind": "thermobox",
+   "x": 16.5,
+   "y": 1.36,
+   "z": -1.3,
+   "key": 1,
+   "rip": 1,
+   "dropAt": 0
+  },
+  {
+   "id": "boxFull",
+   "kind": "thermostat",
+   "x": 18,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 21,
+   "key": 1,
+   "window": 0
+  },
+  {
+   "id": "boxFullB",
+   "kind": "thermobox",
+   "x": 18,
+   "y": 1.36,
+   "z": -1.3,
+   "key": 1,
+   "window": 0
+  },
+  {
+   "id": "shake",
+   "kind": "thermostat",
+   "x": 19.5,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 23
+  },
+  {
+   "id": "up",
+   "kind": "thermostat",
+   "x": 21,
+   "y": 1.36,
+   "z": -1.3,
+   "temp": 12
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "t19-front",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     3.85
+    ],
+    "look": [
+     -0.25,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "down",
+     "set": {
+      "down": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "boxOnB",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "boxKeyB",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "boxTugB",
+     "set": {
+      "on": 1,
+      "tug": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "boxRipB",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "boxFullB",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "shake",
+     "set": {
+      "shake": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "up",
+     "set": {
+      "up": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "t21-front",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.5,
+     1.45,
+     3.85
+    ],
+    "look": [
+     1.25,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "t30-front",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3,
+     1.45,
+     3.85
+    ],
+    "look": [
+     2.75,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "t12-front",
+   "at": 3.3000000000000003,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     4.5,
+     1.45,
+     3.85
+    ],
+    "look": [
+     4.25,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "blank-front",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     6,
+     1.45,
+     3.85
+    ],
+    "look": [
+     5.75,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "down-front",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     7.5,
+     1.45,
+     3.85
+    ],
+    "look": [
+     7.25,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "tape-front",
+   "at": 6.6000000000000005,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     9,
+     1.45,
+     3.85
+    ],
+    "look": [
+     8.75,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "pop-front",
+   "at": 7.700000000000001,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     10.5,
+     1.45,
+     3.85
+    ],
+    "look": [
+     10.25,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxOn-front",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     12,
+     1.45,
+     3.85
+    ],
+    "look": [
+     11.75,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxKey-front",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     13.5,
+     1.45,
+     3.85
+    ],
+    "look": [
+     13.25,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxTug-front",
+   "at": 11,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     15,
+     1.45,
+     3.85
+    ],
+    "look": [
+     14.75,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxRip-front",
+   "at": 12.100000000000001,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     16.5,
+     1.45,
+     3.85
+    ],
+    "look": [
+     16.25,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxFull-front",
+   "at": 13.200000000000001,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     18,
+     1.45,
+     3.85
+    ],
+    "look": [
+     17.75,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "shake-front",
+   "at": 14.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     19.5,
+     1.45,
+     3.85
+    ],
+    "look": [
+     19.25,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "up-front",
+   "at": 15.400000000000002,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     21,
+     1.45,
+     3.85
+    ],
+    "look": [
+     20.75,
+     1.1,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "t19-close",
+   "at": 16.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.38,
+     0.55
+    ],
+    "look": [
+     0,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "t12-close",
+   "at": 17.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     4.5,
+     1.38,
+     0.55
+    ],
+    "look": [
+     4.5,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "down-close",
+   "at": 18.700000000000003,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     7.5,
+     1.38,
+     0.55
+    ],
+    "look": [
+     7.5,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "tape-close",
+   "at": 19.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     9,
+     1.38,
+     0.55
+    ],
+    "look": [
+     9,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "pop-close",
+   "at": 20.900000000000002,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     10.5,
+     1.38,
+     0.55
+    ],
+    "look": [
+     10.5,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxOn-close",
+   "at": 22,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     12,
+     1.38,
+     0.55
+    ],
+    "look": [
+     12,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxKey-close",
+   "at": 23.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     13.5,
+     1.38,
+     0.55
+    ],
+    "look": [
+     13.5,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxTug-close",
+   "at": 24.200000000000003,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     15,
+     1.38,
+     0.55
+    ],
+    "look": [
+     15,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxRip-close",
+   "at": 25.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     16.5,
+     1.38,
+     0.55
+    ],
+    "look": [
+     16.5,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "boxFull-close",
+   "at": 26.400000000000002,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     18,
+     1.38,
+     0.55
+    ],
+    "look": [
+     18,
+     1.36,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "t19-quarter",
+   "at": 27.500000000000004,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.85,
+     2,
+     3.4
+    ],
+    "look": [
+     0.25,
+     1.05,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "down-quarter",
+   "at": 28.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     8.35,
+     2,
+     3.4
+    ],
+    "look": [
+     7.75,
+     1.05,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "tape-quarter",
+   "at": 29.700000000000003,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     9.85,
+     2,
+     3.4
+    ],
+    "look": [
+     9.25,
+     1.05,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "pop-quarter",
+   "at": 30.800000000000004,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     11.35,
+     2,
+     3.4
+    ],
+    "look": [
+     10.75,
+     1.05,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "boxOn-quarter",
+   "at": 31.900000000000002,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     12.85,
+     2,
+     3.4
+    ],
+    "look": [
+     12.25,
+     1.05,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "boxKey-quarter",
+   "at": 33,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     14.35,
+     2,
+     3.4
+    ],
+    "look": [
+     13.75,
+     1.05,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "boxRip-quarter",
+   "at": 34.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     17.35,
+     2,
+     3.4
+    ],
+    "look": [
+     16.75,
+     1.05,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "stools-quarter",
+   "at": 35.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -2,
+     1.7,
+     3
+    ],
+    "look": [
+     -3.2,
+     0.35,
+     -0.98
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "stoolHigh-side",
+   "at": 36.300000000000004,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.9,
+     2.6
+    ],
+    "look": [
+     -2.5,
+     0.4,
+     -0.98
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "stoolLow-side",
+   "at": 37.400000000000006,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -2.6,
+     0.7,
+     2.4
+    ],
+    "look": [
+     -4,
+     0.15,
+     -0.98
+    ],
+    "fov": 36
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-thermo-bench.mjs (engine bench, no reviews)."
+}

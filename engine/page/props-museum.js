@@ -49,7 +49,7 @@ import { clamp, lerp } from "./util.js";
 //                at the stool's middle. Solid. bloom 0..1 (default 0): 0 = seven drooping grey-brown stalks with curled dead
 //                leaves hanging over the rim (top y 0.95); the stalks rise first (0-0.6), the colour turns green, six
 //                pink flowers (0.12 across) pop from 0.5 with a small overshoot; 1 = upright, green, broad leaves, top
-//                y 1.35.
+//                y 1.35. spec.heads "stay": the flowers never vanish (they shrink to 0.55 and droop with the stalks: a wilt, not a vanish).
 export const MUSEUM = { eave: 7, bay: 4, cornice: 7 };
 
 // ------------------------------------------------------------------------------------------------ small helpers
@@ -728,7 +728,7 @@ export const MUSEUM_KINDS = {
     return {
       grip: 0,
       apply(ps) {
-        const b = clamp(ps.bloom ?? P.spec.bloom ?? 0), rise = smooth(0, 0.6, b), col = smooth(0.2, 0.85, b), flw = smooth(0.5, 0.9, b), lf = smooth(0.1, 0.7, b);
+        const b = clamp(ps.bloom ?? P.spec.bloom ?? 0), rise = smooth(0, 0.6, b), col = smooth(0.2, 0.85, b), flw = P.spec.heads === "stay" ? 0.55 + 0.45 * smooth(0.5, 0.9, b) : smooth(0.5, 0.9, b), lf = smooth(0.1, 0.7, b);
         for (const st of stalks) {
           const pts = [], tan = [], q = 1 - rise;
           let x = 0, y = 0;
