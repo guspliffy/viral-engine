@@ -107,7 +107,18 @@ export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
       // every caption ends at the next cut (Potato Desk 11, Sol rounds 1-2, 20 Nov 2026: a line's caption carried into the
       // next shot over a face or the set's board, 6 of 40 findings). A caption made to run across cuts says so: across: true
       const cutAt = shots.map((k) => k[1]).filter((t) => t > 0).sort((x, y) => x - y);
-      for (const k of captions) { if (k.pop || k.card || k.across) continue; const nx = cutAt.find((t) => t > k.from + 0.1); if (nx != null && k.to > nx) k.to = r3(nx - 0.02); }
+      // ... but two cases lost whole narrator lines (Earth spins faster, Sol round 1, 21 Nov 2026: 9 of 29 findings): a line
+      // spoken on a cut, its caption led in 0.12 s before it, was cut to a 0.1 s flash in the old shot and never showed;
+      // a two-sentence line ended at a cut mid-line lost its second sentence. So a caption that starts under 0.3 s before
+      // a cut starts ON the cut, and one the cut would leave under 60 % of its time keeps running across it (the
+      // caption-overlap check still guards the faces of the next shot)
+      for (const k of captions) {
+        if (k.pop || k.card || k.across) continue;
+        const lead = cutAt.find((t) => t > k.from && t - k.from < 0.3 && t < k.to - 0.3);
+        if (lead != null) k.from = r3(lead);
+        const nx = cutAt.find((t) => t > k.from + 0.1);
+        if (nx != null && k.to > nx && (nx - k.from) >= 0.6 * (k.to - k.from)) k.to = r3(nx - 0.02);
+      }
       return shots.map(([name, start, shot, kind], i) => {
         const to = shots[i + 1]?.[1] ?? end;
         const mine = items.filter((x) => x.at >= start - 1e-6 && (i === shots.length - 1 || x.at < to - 1e-6)).map((x) => ({ ...x, at: r3(x.at - start) }));
