@@ -867,7 +867,7 @@ const SEA_FS = GLC + `uniform sampler2D uHm; uniform sampler2D uWc; uniform floa
     float gl = smoothstep(0.9986, 0.9998, dot(reflect(-V, n), uMoon)), sp = step(0.52, n2(vW.xz * 0.7 + uT * 0.8)); col += vec3(0.9, 0.95, 1.0) * gl * sp * 2.5 * smoothstep(0.4, 0.6, N) * step(0.3, uA);
     float fres = pow(1.0 - max(dot(n, V), 0.0), 3.0) * 0.22; col = mix(col, mistCol(N), fres);
     col = mix(col, mistCol(N), mistAmt(vW, 1.0));
-    float al = mix(0.35, 1.0, smoothstep(0.0, 15.0, depth)); al = max(al, clamp(foam, 0.0, 1.0)); al *= smoothstep(-0.2, 0.6, depth);
+    float al = mix(0.35, 1.0, smoothstep(0.0, 15.0, depth)); al = max(al, clamp(foam, 0.0, 1.0)); al *= smoothstep(-0.2, 0.6, min(depth, uSeaY - gh + 2.0));   // fix r0: a swell crest may wash 2 m over a shore but never climbs the street (at 15x the swell is 12 m: a blue wall stood in P11)
     gl_FragColor = vec4(col, al);
     #include <colorspace_fragment>
   }`;
