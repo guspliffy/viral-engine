@@ -1203,7 +1203,7 @@ function shighKind(P) {
   const lobes = Array.from({ length: 96 }, (_, i) => { const bank = i < 48 ? -1 : 1, R_ = (k) => hash(i, k, 55); return { bank, u0: bank * lerp(150, 520, R_(1)), w: lerp(-170, -1700, R_(2) ** 1.4), y: lerp(20, 40, R_(3)), r: lerp(26, 70, R_(4)), s: lerp(0.5, 1.2, R_(5)), ph: R_(6) * TAU }; });
   for (let i = 0; i < NC; i++) spr.col(i, lin("#7C86B8"), lin("#F2F0F4")); for (let i = NC; i < spr.n; i++) spr.col(i, lin("#1F5F7A"), lin("#BFEFF2")); spr.colTouch();
   const blobs = Array.from({ length: NB }, (_, i) => { const m = new THREE.Mesh(blobGeo(i), new THREE.ShaderMaterial({ vertexShader: BLOB_VS, fragmentShader: BLOB_FS, transparent: true, depthWrite: false, side: THREE.DoubleSide, fog: false })); noLine(m.material); lookOnly(m, 13); G.add(m);
-    const R_ = (k) => hash(i, k, 66), d = lerp(8, 60, (i / (NB - 1)) ** 1.3); return { m, d, yaw: (R_(1) - 0.5) * 22 * DEG, pit: (R_(2) - 0.5) * 18 * DEG, size: Math.min([3.2, 4, 1.5, 6, 2.2, 5, 1.8, 4.5, 2.8][i], 0.16 * d + 0.4), rise: lerp(2, 6, R_(3)), ph: R_(4) * TAU }; });
+    const R_ = (k) => hash(i, k, 66), d = lerp(8, 60, (i / (NB - 1)) ** 1.3); return { m, d, yaw: (R_(1) - 0.5) * 22 * DEG, pit: (R_(2) - 0.5) * 18 * DEG, size: Math.min([3.2, 4, 1.5, 6, 2.2, 5, 1.8, 4.5, 2.8][i], 0.16 * d + 0.4), rise: lerp(0.3, 1.3, R_(3)), ph: R_(4) * TAU }; });
   return {
     grip: 0,
     apply(ps) {
@@ -1217,7 +1217,7 @@ function shighKind(P) {
         }
       }
       // the camera of DESIGN G (0, 2400 + height over the surface, 0), pitched down; the blobs ride with it
-      const al = altT(t), hc = keys(al, [[0, 1100], [0.5, 1450], [1, 1784]]), pit = keys(al, [[0, 43.7], [0.5, 48.4], [1, 52]]) * DEG, cy = HI_R + hc, te = t - 55;
+      const hc = 1100, pit = 43.7 * DEG, cy = HI_R + hc, te = t - 55;   // r2: the P14 camera now HOLDS STILL at alt 0 (height 1100, pitch 43.7), so the blobs only drift up (rise .3-1.3 m/s), no phantom climb
       blobs.forEach((b, i) => {
         const pe = pit + b.pit, ya = b.yaw, dx = Math.sin(ya) * Math.cos(pe), dy = -Math.sin(pe), dz = -Math.cos(ya) * Math.cos(pe), bx = dx * b.d, by = cy + dy * b.d + b.rise * te, bz = dz * b.d, rr = (b.size / 2) * (1 + 0.12 * Math.sin(TAU * 0.7 * t + b.ph));
         b.m.position.set(bx, by, bz); b.m.scale.set(rr * (1 + 0.05 * Math.sin(t * 1.3 + i)), rr, rr * (1 - 0.05 * Math.sin(t * 1.3 + i))); b.m.rotation.y = 12 * DEG * t + b.ph;

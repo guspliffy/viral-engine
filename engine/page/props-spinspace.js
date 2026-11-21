@@ -428,7 +428,7 @@ function starsKind(P_) {
 const GLOBE_VS = `uniform sampler2D uPlate; uniform float uLift; varying vec2 vUv; varying vec3 vN; varying vec3 vV;
 void main(){ vUv = uv; float h = texture2D(uPlate, uv).r * uLift; vec3 p = position * (1.0 + h * 0.06); vec4 mv = modelViewMatrix * vec4(p, 1.0); vV = -mv.xyz; vN = normalMatrix * normal; gl_Position = projectionMatrix * mv; }`;
 const GLOBE_FS = `uniform sampler2D uMap; uniform sampler2D uLand; uniform sampler2D uLights; uniform sampler2D uCrack; uniform sampler2D uCloud;
-uniform vec3 uKV; uniform vec3 uKc; uniform float uBelt; uniform float uChar; uniform float uCr; uniform float uFoam; uniform float uFoamW; uniform float uGlow; uniform float uGlowW;
+uniform vec3 uKV; uniform vec3 uKc; uniform float uBelt; uniform float uChar; uniform float uCr; uniform float uSp; uniform float uFoam; uniform float uFoamW; uniform float uGlow; uniform float uGlowW;
 uniform float uCl; uniform float uDryO; uniform vec3 uSeabed; uniform vec3 uDry; uniform vec3 uCharC; uniform vec3 uHalo; uniform vec3 uMid; uniform vec3 uCore; uniform vec3 uGlowC;
 varying vec2 vUv; varying vec3 vN; varying vec3 vV;
 ${COMMON}
@@ -439,7 +439,8 @@ void main(){
   float belt = (1.0 - smoothstep(uBelt - 3.2, uBelt + 3.2, abs(lat) + rag)) * step(0.01, uBelt);
   float lum = dot(base, vec3(0.3, 0.5, 0.2)); base = mix(base, uSeabed * clamp(0.75 + 2.2 * lum, 0.75, 1.3), (1.0 - land) * uDryO);   // 28 (r1): the ocean dries out as the air feeds the ring
   base = mix(base, uDry, belt * 0.85); base = mix(base, uCharC, belt * uChar);
-  vec3 cr = texture2D(uCrack, vUv).rgb; vec3 m = clamp((cr + uCr - 1.0) * 5.0, 0.0, 1.0);
+  vec3 cr = texture2D(uCrack, vUv).rgb; float latA = abs(lat), fr0 = uSp * 34.0, bE = 0.78 * (1.0 - smoothstep(fr0 - 12.0, fr0, latA)) * step(0.001, uSp), eff = uCr + bE * (1.0 - uCr);   // r2: the first branching cracks spread from the equator band toward the poles during 66.0-67.5 s
+  vec3 m = clamp((cr + eff - 1.0) * 5.0, 0.0, 1.0);
   base *= 1.0 - 0.6 * max(m.r * 0.65, max(m.g, m.b));
   vec3 emi = uHalo * m.r * 0.8; emi = mix(emi, uMid * 1.2, m.g); emi = mix(emi, uCore * 1.5, m.b);
   float day = smoothstep(-0.18, 0.04, nl); float lit = mix(0.10, band3(nl), day);
@@ -494,7 +495,7 @@ function earthKind(P_) {
   const E = earthAssets(), CL = cloudAssets(), CK = crackAssets();
   const roll = new THREE.Group(), tilt = new THREE.Group(), spinG = new THREE.Group(); root.add(roll); roll.add(tilt); tilt.add(spinG);
   const U = (v) => ({ value: v });
-  const gu = { uMap: U(E.map), uLand: U(E.land), uLights: U(E.lights), uCrack: U(CK.crack), uCloud: U(CL.tex), uPlate: U(CK.plate), uKV: U(KEY.clone()), uKc: U(KGLOBE), uBelt: U(0), uCl: U(1), uDryO: U(0), uSeabed: U(lin("#7C6450")), uChar: U(0), uCr: U(0), uLift: U(0), uFoam: U(1), uFoamW: U(1.5), uGlow: U(0), uGlowW: U(0.7),
+  const gu = { uMap: U(E.map), uLand: U(E.land), uLights: U(E.lights), uCrack: U(CK.crack), uCloud: U(CL.tex), uPlate: U(CK.plate), uKV: U(KEY.clone()), uKc: U(KGLOBE), uBelt: U(0), uCl: U(1), uDryO: U(0), uSeabed: U(lin("#7C6450")), uChar: U(0), uCr: U(0), uSp: U(0), uLift: U(0), uFoam: U(1), uFoamW: U(1.5), uGlow: U(0), uGlowW: U(0.7),
     uDry: U(lin("#6A5A4A")), uCharC: U(lin("#4A3A34")), uHalo: U(lin("#FF7A2A").multiplyScalar(0.9)), uMid: U(lin("#FFB13C")), uCore: U(lin("#FFF2B0")), uGlowC: U(lin("#FFD27A")) };
   const globe = lookOnly(new THREE.Mesh(new THREE.SphereGeometry(1, 96, 56), noLine(new THREE.ShaderMaterial({ uniforms: gu, vertexShader: GLOBE_VS, fragmentShader: GLOBE_FS, fog: false }))), 0); spinG.add(globe);
   const cu = { uCloud: U(CL.tex), uKV: gu.uKV, uKc: U(KSOFT), uBelt: gu.uBelt, uCl: gu.uCl, uShade: U(lin("#8C9CC8")), uLitC: U(lin("#F6F7F8")) };
@@ -526,7 +527,7 @@ function earthKind(P_) {
       globe.scale.set(rE, rP, rE); clouds.scale.set(rE * 1.012, rP * 1.012, rE * 1.012); air.scale.set(rE * 1.03, rP * 1.03, rE * 1.03);
       CL.draw(1 + 0.25 * (spinOf(tc) - 18));
       gu.uCl.value = 1 - 0.97 * sst(60.5, 66, t); gu.uDryO.value = 0.94 * sst(60.5, 66.5, t); clouds.visible = gu.uCl.value > 0.01;   // 28 (r1): the cloud bands + hurricanes and the blue ocean are gone by ~66 s
-      gu.uBelt.value = keys(pl, [[0, 0], [0.5, 6], [1, 14]]) + 16 * sst(0.2, 0.9, sq); gu.uChar.value = sst(0, 0.7, cr); gu.uCr.value = cr; gu.uLift.value = sst(0.6, 1, cr);
+      gu.uBelt.value = keys(pl, [[0, 0], [0.5, 6], [1, 14]]) + 16 * sst(0.2, 0.9, sq); gu.uChar.value = sst(0, 0.7, cr); gu.uCr.value = cr; gu.uSp.value = P(t, 66.0, 67.4); gu.uLift.value = sst(0.6, 1, cr);
       gu.uFoam.value = 1 - sst(0, 0.25, pl); gu.uGlow.value = sst(0, 0.08, pl) * (0.25 + 0.75 * fadeOut); gu.uGlowW.value = keys(pl, [[0, 0.1], [0.5, 0.69], [1, 1.15]]);
       au.uGain.value = keys(pl, [[0, 1], [0.5, 0.65], [1, 0.35]]); au.uStream.value = sst(0, 0.5, pl);
       const rOut = rE + keys(pl, [[0, 3], [0.5, 50], [1, 140]]), ba = (0.55 + 0.45 * sst(0, 0.3, pl)) * fadeOut;
