@@ -100,6 +100,10 @@ import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { LUNCH_KINDS } from "./props-lunch.js";   // potato desk 10 lunch trial: lunchbox, yogurtcup, kitchensink, microwave, beanmachine, corkboard, blindwindow, carpettiles, ceilingtiles, mouldbox, lanyard, collarstain, pocketglow
+import { THERMO_KINDS, THERMO_GRIPS } from "./props-thermo.js";   // potato desk 11 thermostat war: thermostat, thermobox, stepstool
+import { CLIMATE_KINDS, CLIMATE_GRIPS } from "./props-climate.js";   // potato desk 11: deskfan, spaceheater, paperflurry
+import { OFFICE11_KINDS } from "./props-office11.js";   // potato desk 11: workdesk, officechair, wallnotes, paperstack, manilafolder, icebag
+import { desk11PropKeys } from "./props-desk11-keys.js";   // potato desk 11: temp, up, down, tape, shake, key, rip, lift
 import { WHATIF_KINDS } from "./props-whatif.js";   // what if 01 pause time: parkclock, parkbench
 import { RACE_KINDS, RACE_GRIPS } from "./props-race.js";   // what if 03 light-speed race: trophy, finishline, startflag, chalkline, lightstreak, wheatrow, walkingstick
 import { HEIST_KINDS, HEIST_GRIPS } from "./props-heist.js";   // fight flight or freeze 01: eyemask, policecap, moneybag, riotshield, policetorch, policenet
@@ -176,7 +180,7 @@ export const DESK_Y = 0.42;   // an office desk's top: a standing potato's resti
 const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
   nameplate: { back: [0, 0.06, -0.05] },   // a hand behind its top edge (grabbed from behind, fingers over the front)
-  ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS,
+  ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS, ...THERMO_GRIPS, ...CLIMATE_GRIPS,
   ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS, ...CHEF_GRIPS, ...DUO_GRIPS, ...JUICE_GRIPS, ...PACKAGE_GRIPS, ...CHARGER_GRIPS, ...CANDLE_GRIPS, ...COOKIE_GRIPS, ...GHOSTPHOTO_GRIPS, ...COSTUME_GRIPS, ...PUMPKIN_GRIPS, ...PRANK_GRIPS, ...RAVEN_GRIPS, ...CANDY_GRIPS, ...COPYCAT_GRIPS, ...ENERGY_GRIPS,
 };
 export function gripPoint(spec, grip) {
@@ -1474,6 +1478,7 @@ Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtra
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
 Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
+Object.assign(KINDS, THERMO_KINDS, CLIMATE_KINDS, OFFICE11_KINDS);   // potato desk 11 thermostat war (props-thermo.js, props-climate.js, props-office11.js)
 Object.assign(KINDS, WHATIF_KINDS);   // what if 01 pause time (props-whatif.js)
 Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if 03 light-speed race (props-race.js)
 Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight flight or freeze 01 (props-heist.js)
@@ -1725,7 +1730,7 @@ export function propState(sb, spec, t) {
   // Sprout Man's own numbers (engine/shared/sprout-rig.js): only on his prop, so no other prop's state changes
   if (spec.kind === "sproutman") for (const [k, v] of Object.entries(SPROUT_STATE)) ps[k] = spec[k] ?? v;
   if (spec.kind === "selfieframe") { ps.filter = spec.filter ?? 0; ps.snap = 0; }
-  Object.assign(ps, snowPropKeys(spec));   // amount, dump, grow, trickle, depth, sweep, logs (props-survive-snow.js): so they tween
+  Object.assign(ps, snowPropKeys(spec), desk11PropKeys(spec));   // amount, dump, grow, trickle, depth, sweep, logs (props-survive-snow.js): so they tween
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
