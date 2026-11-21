@@ -1,0 +1,5127 @@
+{
+ "id": "interview-trial",
+ "title": "He nailed his trial like a job interview",
+ "idea": "Potato Desk 12: a robber answers every court question like a job interview, then negotiates his sentence like a salary (prison has meals, a room, no rent); his accomplice applies too; the judge sends them both home, where they pay rent.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  210,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "lowCut": 150,
+  "gain": 0.15
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor"
+ },
+ "creative": {
+  "length": [
+   55,
+   70
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "chip",
+   "cv",
+   "board"
+  ],
+  "hint": 0,
+  "what": "a judge charges a little potato in a tie holding up a CV; the board says ? YEARS"
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.69,
+    -0.66
+   ],
+   "face": 24,
+   "expr": "stern",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.5,
+    -0.1
+   ],
+   "face": -22,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.32,
+    1.2
+   ],
+   "face": -28,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 2.3
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "courtfloor",
+   "x": 0,
+   "y": 0,
+   "z": 2.1
+  },
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 10,
+   "h": 6
+  },
+  {
+   "id": "dado",
+   "staged": "panels fixed to the back wall",
+   "kind": "dadopanels",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "trim": true,
+   "trimW": 10,
+   "xs": [
+    -4.5,
+    -3.75,
+    -3,
+    -2.25,
+    -1.5,
+    -0.75,
+    0,
+    0.75,
+    1.5,
+    2.25,
+    3,
+    3.75,
+    4.5
+   ]
+  },
+  {
+   "id": "board",
+   "staged": "screwed to the back wall",
+   "kind": "sentenceboard",
+   "x": 0.3,
+   "y": 2.01,
+   "z": -1.255,
+   "states": [
+    "?",
+    "10",
+    "0"
+   ],
+   "units": [
+    "YEARS",
+    "YEARS",
+    "YEARS"
+   ],
+   "headers": [
+    "SENTENCE",
+    "SENTENCE",
+    "SENTENCE"
+   ]
+  },
+  {
+   "id": "bench",
+   "kind": "judgebench",
+   "x": -0.69,
+   "y": 0,
+   "z": 0.145
+  },
+  {
+   "id": "chair",
+   "staged": "on a block on the bench's riser, hidden by the bench",
+   "kind": "chair",
+   "x": -0.69,
+   "y": 0.72,
+   "z": -0.66,
+   "rot": 0
+  },
+  {
+   "id": "plate",
+   "staged": "fixed to the bench front",
+   "kind": "officesign",
+   "x": -0.5,
+   "y": 1.068,
+   "z": 0.49,
+   "w": 0.58,
+   "h": 0.1,
+   "frameW": 0.009,
+   "lines": [
+    [
+     "JUDGE VIKING",
+     0.043
+    ]
+   ],
+   "plate": "#24323f",
+   "ink": "#f3ead2",
+   "frame": "#b08a3c"
+  },
+  {
+   "id": "block",
+   "kind": "soundblock",
+   "x": -1.12,
+   "y": 1.18,
+   "z": 0.22
+  },
+  {
+   "id": "marks",
+   "kind": "floormarks",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "bar": [
+    0.32,
+    1.08,
+    0.34,
+    0.09
+   ],
+   "queue": []
+  },
+  {
+   "id": "gavel",
+   "kind": "axegavel",
+   "x": -1.12,
+   "y": 1.57,
+   "z": 0.22,
+   "rot": 0,
+   "tip": 180
+  },
+  {
+   "id": "mug",
+   "kind": "campmug",
+   "x": -0.5,
+   "y": 1.18,
+   "z": -0.08,
+   "rot": 63
+  },
+  {
+   "id": "cv",
+   "kind": "cvsheet",
+   "away": true,
+   "x": 0.333,
+   "y": 0.11,
+   "z": 1.581,
+   "rot": 152
+  },
+  {
+   "id": "tie",
+   "kind": "necktie",
+   "wear": "chip",
+   "x": 0,
+   "y": 0.34,
+   "z": 0.24,
+   "len": 0.15,
+   "color": "#24324a",
+   "stripe": "#d9b24a"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.86,
+   "text": "You robbed a bank.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 2.09,
+   "to": 3.24,
+   "text": "Thank you for having me!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 3.54,
+   "to": 4.71,
+   "text": "Why this bank?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.94,
+   "to": 6.33,
+   "text": "I'm passionate about money.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 6.56,
+   "to": 7.78,
+   "text": "Did you act alone?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 8.01,
+   "to": 9.19,
+   "text": "I led a team of two.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 9.42,
+   "to": 10.29,
+   "text": "Where is the money?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 10.52,
+   "to": 11.79,
+   "text": "I invested in myself.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 12.02,
+   "to": 13.48,
+   "text": "Why were you still in the vault?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 13.71,
+   "to": 15.9,
+   "text": "Honestly? I work too hard.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 16.13,
+   "to": 17.61,
+   "text": "*Ten years.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 17.96,
+   "to": 18.44,
+   "text": "Ten?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 18.67,
+   "to": 19.58,
+   "text": "With my experience?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 19.81,
+   "to": 21.08,
+   "text": "I was thinking *fifteen.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 21.31,
+   "to": 22.94,
+   "text": "Lower is better!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 23.29,
+   "to": 24.96,
+   "text": "You want *MORE* years?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 25.19,
+   "to": 26.12,
+   "text": "What's included?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 26.35,
+   "to": 27.09,
+   "text": "Included?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 27.32,
+   "to": 28.23,
+   "text": "Do I get meals?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 28.46,
+   "to": 30.08,
+   "text": "Three a day.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 30.31,
+   "to": 30.85,
+   "text": "A room?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 31.08,
+   "to": 31.77,
+   "text": "A cell.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 32,
+   "to": 32.94,
+   "text": "A uniform?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 33.17,
+   "to": 34.14,
+   "text": "Orange.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 34.37,
+   "to": 35.77,
+   "text": "I look great in orange.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 36,
+   "to": 37.07,
+   "text": "Do I pay rent?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 37.42,
+   "to": 38.22,
+   "text": "*No rent.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 38.45,
+   "to": 39.61,
+   "text": "*No rent!*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 41.01,
+   "to": 42.47,
+   "text": "Can I apply too?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 42.7,
+   "to": 44.22,
+   "text": "You're his accomplice!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 44.45,
+   "to": 46.25,
+   "text": "Is there dental?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 46.48,
+   "to": 47.7,
+   "text": "There's a nurse.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 47.93,
+   "to": 49.61,
+   "text": "I'll take *fifteen.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 49.84,
+   "to": 50.86,
+   "text": "He gets fifteen?!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 51.09,
+   "to": 52.15,
+   "text": "Then I want *twenty!*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 52.38,
+   "to": 53.62,
+   "text": "*Twenty-five!*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 53.85,
+   "to": 54.31,
+   "text": "*Thirty!*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 54.54,
+   "to": 55.15,
+   "text": "*LIFE!*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 55.38,
+   "to": 56.38,
+   "text": "*ENOUGH!*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 56.78,
+   "to": 58.94,
+   "text": "Case dismissed. *Go home.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 59.19,
+   "to": 59.9,
+   "text": "*Home?!*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 60.13,
+   "to": 61.43,
+   "text": "No *dental...*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 61.66,
+   "to": 63.07,
+   "text": "But I pay *rent* there!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "charge",
+   "at": 0,
+   "len": 2.04,
+   "shot": {
+    "pos": [
+     0.35,
+     1.45,
+     9.6
+    ],
+    "look": [
+     0.35,
+     1.3,
+     0
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.35,
+      1.441,
+      9.024
+     ],
+     "look": [
+      0.35,
+      1.3,
+      0
+     ],
+     "fov": 34
+    },
+    "dur": 2.09,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -28,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -22,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cv",
+      "grip": [
+       -0.11,
+       0.088,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "cv",
+     "hand": "L",
+     "grip": [
+      -0.11,
+      0.088,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "gavel",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.121,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You robbed a bank.",
+     "tone": "angry",
+     "style": "deep, stern, flat, a judge reading the charge",
+     "dur": 1.74,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.45,
+       0.42
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.74
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.25,
+     "at": 1.89
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.94
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "thank you",
+   "at": 2.04,
+   "len": 1.45,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.6,
+     4.2
+    ],
+    "look": [
+     0.05,
+     0.55,
+     1.2
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.322,
+      0.597,
+      3.99
+     ],
+     "look": [
+      0.05,
+      0.55,
+      1.2
+     ],
+     "fov": 34
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Thank you for having me!",
+     "tone": "happy",
+     "style": "bright, polite, eager, a job applicant shaking hands",
+     "voice": "chip-clean",
+     "dur": 0.85,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.36
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.65
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 1
+    }
+   ]
+  },
+  {
+   "name": "why this bank",
+   "at": 3.49,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.45,
+     2.05,
+     2.08
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.375,
+      2.05,
+      1.926
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Why this bank?",
+     "tone": "calm",
+     "style": "deep, stern, slow, a judge",
+     "dur": 1.2,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.11
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.13,
+       0.22,
+       0.34
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 1.35
+    }
+   ]
+  },
+  {
+   "name": "passionate",
+   "at": 4.89,
+   "len": 1.62,
+   "shot": {
+    "pos": [
+     -0.22,
+     0.55,
+     3.54
+    ],
+    "look": [
+     0.32,
+     0.55,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.32,
+      0.55,
+      3.54
+     ],
+     "look": [
+      0.27,
+      0.55,
+      1.2
+     ],
+     "fov": 30
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I'm passionate about money.",
+     "tone": "happy",
+     "style": "sincere, warm, rehearsed, a job interview answer",
+     "voice": "chip-clean",
+     "dur": 1.37,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.6,
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.31
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 1.22
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.47
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 1.47
+    }
+   ]
+  },
+  {
+   "name": "alone",
+   "at": 6.51,
+   "len": 1.45,
+   "shot": {
+    "pos": [
+     -0.25,
+     2.05,
+     2.29
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -0.283,
+      2.05,
+      2.124
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Did you act alone?",
+     "tone": "calm",
+     "style": "deep, stern, a judge",
+     "dur": 1.25,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.02,
+       0.95,
+       -0.04
+      ],
+      "elbow": 0.14
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.3,
+     "at": 1.35
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.39
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.4
+    }
+   ]
+  },
+  {
+   "name": "team of two",
+   "at": 7.96,
+   "len": 1.41,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.8,
+     4.8
+    ],
+    "look": [
+     0.6,
+     0.9,
+     1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.05,
+      0.8,
+      4.8
+     ],
+     "look": [
+      0.675,
+      0.9,
+      1
+     ],
+     "fov": 34
+    },
+    "dur": 1.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "thumb",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I led a team of two.",
+     "tone": "happy",
+     "style": "proud, confident, professional",
+     "voice": "chip-clean",
+     "dur": 1.16,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.9,
+      -0.35
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.25
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.02,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.26,
+     "at": 0.85
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.26,
+     "at": 1.11
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.31
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.36
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -28,
+     "dur": 0.3,
+     "at": 1.36
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 1.36
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.26,
+     "at": 1.37
+    }
+   ]
+  },
+  {
+   "name": "the money",
+   "at": 9.37,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.45,
+     2.05,
+     2.08
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.388,
+      2.05,
+      1.952
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.03
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Where is the money?",
+     "tone": "angry",
+     "style": "deep, stern, sharp",
+     "dur": 0.9,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.35,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.03,
+       0.27,
+       0.33
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 0.95
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 1.05
+    }
+   ]
+  },
+  {
+   "name": "invested",
+   "at": 10.47,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.8,
+     4.8
+    ],
+    "look": [
+     0.6,
+     0.9,
+     1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.11,
+      0.805,
+      4.61
+     ],
+     "look": [
+      0.6,
+      0.9,
+      1
+     ],
+     "fov": 34
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I invested in myself.",
+     "tone": "happy",
+     "style": "smooth, proud, straightening his tie",
+     "voice": "chip-clean",
+     "dur": 1.2,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.03,
+       0.3,
+       0.33
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.03,
+       0.27,
+       0.33
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 1.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.16,
+       0.24,
+       0.42
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 1.35
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 1.35
+    }
+   ]
+  },
+  {
+   "name": "the vault",
+   "at": 11.97,
+   "len": 1.69,
+   "shot": {
+    "pos": [
+     -0.25,
+     2.05,
+     2.29
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -0.288,
+      2.05,
+      2.096
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Why were you still in the vault?",
+     "tone": "calm",
+     "style": "deep, stern, tired, a judge",
+     "dur": 1.49,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.13
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 1.64
+    }
+   ]
+  },
+  {
+   "name": "work too hard",
+   "at": 13.66,
+   "len": 2.42,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.6,
+     4.2
+    ],
+    "look": [
+     0.05,
+     0.55,
+     1.2
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.322,
+      0.597,
+      3.99
+     ],
+     "look": [
+      0.05,
+      0.55,
+      1.2
+     ],
+     "fov": 34
+    },
+    "dur": 1.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Honestly? I work too hard.",
+     "tone": "happy",
+     "style": "humble brag, modest, a little smile",
+     "voice": "chip-clean",
+     "dur": 1.92,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.5,
+       0.26
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.3,
+     "at": 0.65
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "tilt": 0.5,
+     "dur": 0.3,
+     "at": 0.65
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.94
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.94
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 1.97
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.07
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "tilt": 0,
+     "dur": 0.3,
+     "at": 2.07
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.15,
+     "at": 2.27
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 2.27
+    }
+   ]
+  },
+  {
+   "name": "ten years",
+   "at": 16.08,
+   "len": 1.83,
+   "shot": {
+    "pos": [
+     1.5,
+     1.6,
+     7
+    ],
+    "look": [
+     0.2,
+     1.4,
+     -0.2
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      1.435,
+      1.59,
+      6.64
+     ],
+     "look": [
+      0.2,
+      1.4,
+      -0.2
+     ],
+     "fov": 46
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Ten years.",
+     "tone": "calm",
+     "style": "deep, stern, flat, final",
+     "dur": 1.18,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.15,
+       1.77,
+       0.24
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.387
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.57,
+       0.22
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.617
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.3,
+     "at": 0.687
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.687
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.747
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 0.757
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.5
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 1.73
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "brow": 0.6,
+     "dur": 0.2,
+     "at": 1.78
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "ten?",
+   "at": 17.91,
+   "len": 1.85,
+   "shot": {
+    "pos": [
+     -0.1,
+     0.65,
+     3.56
+    ],
+    "look": [
+     0.32,
+     0.65,
+     1.2
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -0.075,
+      0.65,
+      3.418
+     ],
+     "look": [
+      0.32,
+      0.65,
+      1.2
+     ],
+     "fov": 28
+    },
+    "dur": 2.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ten?",
+     "tone": "calm",
+     "style": "unimpressed, flat, raising an eyebrow, a job offer that is too low",
+     "voice": "chip-clean",
+     "dur": 0.51,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.15,
+       0.36,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.46
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.56
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "With my experience?",
+     "tone": "calm",
+     "style": "cool, unimpressed, a tough negotiator",
+     "voice": "chip-clean",
+     "dur": 0.89,
+     "caption": false,
+     "at": 0.76
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.15,
+       0.26,
+       0.355
+      ]
+     },
+     "dur": 0.12,
+     "at": 0.91
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.15,
+       0.36,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "at": 1.11
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.15,
+       0.26,
+       0.355
+      ]
+     },
+     "dur": 0.12,
+     "at": 1.31
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.69
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.13,
+       0.22,
+       0.34
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.8
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 1.8
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.2,
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "fifteen",
+   "at": 19.76,
+   "len": 3.48,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.8,
+     5.4
+    ],
+    "look": [
+     0.6,
+     0.9,
+     1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.08,
+      0.8,
+      5.4
+     ],
+     "look": [
+      0.66,
+      0.9,
+      1
+     ],
+     "fov": 34
+    },
+    "dur": 3.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I was thinking fifteen.",
+     "tone": "happy",
+     "style": "confident, smooth, a tough negotiator",
+     "voice": "chip-clean",
+     "dur": 1.2,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.15,
+     "at": 0.8
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.1,
+      0.75
+     ],
+     "dur": 0.8,
+     "steps": 2,
+     "at": 0.85
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.15,
+       0.37,
+       0.4
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.4,
+     "at": 1.3
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Lower is better!",
+     "tone": "sad",
+     "style": "urgent whisper, panicked, quiet",
+     "dur": 1.33,
+     "caption": false,
+     "at": 1.55
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.35,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.75
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.25,
+     "at": 1.85
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.34
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.88
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.98
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.5,
+     "at": 2.98
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 2.98
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.04,
+       0.27,
+       0.1
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 3.23
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.38
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 3.43
+    }
+   ]
+  },
+  {
+   "name": "more years",
+   "at": 23.24,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     0.45,
+     2.05,
+     2.08
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.363,
+      2.05,
+      1.901
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.35,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You want MORE years?",
+     "tone": "angry",
+     "style": "deep, baffled, disbelieving",
+     "dur": 1.6,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.66
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.75
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 1.75
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 1.85
+    }
+   ]
+  },
+  {
+   "name": "included",
+   "at": 25.14,
+   "len": 1.16,
+   "shot": {
+    "pos": [
+     -0.22,
+     0.55,
+     3.54
+    ],
+    "look": [
+     0.32,
+     0.55,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.3,
+      0.55,
+      3.54
+     ],
+     "look": [
+      0.28,
+      0.55,
+      1.2
+     ],
+     "fov": 30
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "What's included?",
+     "tone": "calm",
+     "style": "businesslike, curious, a job applicant",
+     "voice": "chip-clean",
+     "dur": 0.81,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 1.11
+    }
+   ]
+  },
+  {
+   "name": "included?",
+   "at": 26.3,
+   "len": 0.97,
+   "shot": {
+    "pos": [
+     -0.25,
+     2.05,
+     2.29
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -0.277,
+      2.05,
+      2.152
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 0.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Included?",
+     "tone": "calm",
+     "style": "deep, confused, slow",
+     "dur": 0.72,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.36,
+       0.3
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.72
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.82
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 0.92
+    }
+   ]
+  },
+  {
+   "name": "meals",
+   "at": 27.27,
+   "len": 1.14,
+   "shot": {
+    "pos": [
+     -0.1,
+     0.65,
+     3.56
+    ],
+    "look": [
+     0.32,
+     0.65,
+     1.2
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -0.079,
+      0.65,
+      3.442
+     ],
+     "look": [
+      0.32,
+      0.65,
+      1.2
+     ],
+     "fov": 28
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Do I get meals?",
+     "tone": "calm",
+     "style": "businesslike, curious",
+     "voice": "chip-clean",
+     "dur": 0.94,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.13
+    }
+   ]
+  },
+  {
+   "name": "three a day",
+   "at": 28.41,
+   "len": 1.85,
+   "shot": {
+    "pos": [
+     -0.25,
+     2.05,
+     2.29
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -0.277,
+      2.05,
+      2.152
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Three a day.",
+     "tone": "calm",
+     "style": "deep, flat, a judge",
+     "dur": 1.6,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.7
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "a room",
+   "at": 30.26,
+   "len": 1.69,
+   "shot": {
+    "pos": [
+     1.5,
+     1.6,
+     7
+    ],
+    "look": [
+     0.2,
+     1.4,
+     -0.2
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      1.435,
+      1.59,
+      6.64
+     ],
+     "look": [
+      0.2,
+      1.4,
+      -0.2
+     ],
+     "fov": 46
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "A room?",
+     "tone": "calm",
+     "style": "businesslike, curious",
+     "voice": "chip-clean",
+     "dur": 0.57,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.24
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "A cell.",
+     "tone": "calm",
+     "style": "deep, flat, a judge",
+     "dur": 0.62,
+     "caption": false,
+     "at": 0.82
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.03,
+       0.27,
+       0.33
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.44
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 1.54
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 1.64
+    }
+   ]
+  },
+  {
+   "name": "uniform",
+   "at": 31.95,
+   "len": 1.17,
+   "shot": {
+    "pos": [
+     -0.22,
+     0.55,
+     3.54
+    ],
+    "look": [
+     0.32,
+     0.55,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.188,
+      0.55,
+      3.4
+     ],
+     "look": [
+      0.32,
+      0.55,
+      1.2
+     ],
+     "fov": 30
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "A uniform?",
+     "tone": "calm",
+     "style": "businesslike, curious, touching his tie",
+     "voice": "chip-clean",
+     "dur": 0.97,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.15
+    }
+   ]
+  },
+  {
+   "name": "orange",
+   "at": 33.12,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0.45,
+     2.05,
+     2.08
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.388,
+      2.05,
+      1.952
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Orange.",
+     "tone": "calm",
+     "style": "deep, flat, a judge",
+     "dur": 0.8,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.13,
+       0.22,
+       0.34
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 1.15
+    }
+   ]
+  },
+  {
+   "name": "great in orange",
+   "at": 34.32,
+   "len": 1.63,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.8,
+     4.8
+    ],
+    "look": [
+     0.6,
+     0.9,
+     1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.1,
+      0.8,
+      4.8
+     ],
+     "look": [
+      0.65,
+      0.9,
+      1
+     ],
+     "fov": 34
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I look great in orange.",
+     "tone": "happy",
+     "style": "smug, pleased, vain",
+     "voice": "chip-clean",
+     "dur": 1.33,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.4
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.5,
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.43
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.28,
+       0.34
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.48
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.48
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 1.58
+    }
+   ]
+  },
+  {
+   "name": "rent",
+   "at": 35.95,
+   "len": 1.42,
+   "shot": {
+    "pos": [
+     -0.1,
+     0.65,
+     3.56
+    ],
+    "look": [
+     0.32,
+     0.65,
+     1.2
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -0.079,
+      0.65,
+      3.442
+     ],
+     "look": [
+      0.32,
+      0.65,
+      1.2
+     ],
+     "fov": 28
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Do I pay rent?",
+     "tone": "calm",
+     "style": "careful, hopeful, curious",
+     "voice": "chip-clean",
+     "dur": 0.77,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.2,
+     "at": 1.37
+    }
+   ]
+  },
+  {
+   "name": "no rent",
+   "at": 37.37,
+   "len": 1.03,
+   "shot": {
+    "pos": [
+     0.45,
+     2.05,
+     2.08
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.35,
+      2.05,
+      1.875
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "No rent.",
+     "tone": "calm",
+     "style": "deep, flat, a judge",
+     "dur": 0.68,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 4,
+     "dur": 0.3,
+     "at": 0.88
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.88
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       1.15,
+       0.16
+      ],
+      "elbow": 0.14
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.88
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0.93
+    }
+   ]
+  },
+  {
+   "name": "no rent!",
+   "at": 38.4,
+   "len": 1.11,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.8,
+     5.4
+    ],
+    "look": [
+     0.6,
+     0.9,
+     1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.11,
+      0.805,
+      5.18
+     ],
+     "look": [
+      0.6,
+      0.9,
+      1
+     ],
+     "fov": 34
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.07,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "No rent!",
+     "tone": "happy",
+     "style": "amazed, delighted, turning to his friend",
+     "voice": "chip-clean",
+     "dur": 0.86,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.35,
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.42
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.91
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.22,
+      1.1
+     ],
+     "dur": 1,
+     "steps": 2,
+     "at": 1.06
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "apply",
+   "at": 39.51,
+   "len": 3.14,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.1,
+     5.4
+    ],
+    "look": [
+     0.8,
+     0.9,
+     1
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -1.08,
+      1.088,
+      5.136
+     ],
+     "look": [
+      0.8,
+      0.9,
+      1
+     ],
+     "fov": 38
+    },
+    "dur": 3.3900000000000006,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.7,
+       0.28
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -28,
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -44,
+     "dur": 0.35,
+     "at": 1.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Can I apply too?",
+     "tone": "happy",
+     "style": "eager, hopeful, stepping forward",
+     "dur": 1.39,
+     "caption": false,
+     "at": 1.5
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.29
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.9,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.04
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 3.09
+    }
+   ]
+  },
+  {
+   "name": "accomplice",
+   "at": 42.65,
+   "len": 1.75,
+   "shot": {
+    "pos": [
+     -0.25,
+     2.05,
+     2.29
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -0.288,
+      2.05,
+      2.096
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You're his accomplice!",
+     "tone": "angry",
+     "style": "deep, loud, exasperated",
+     "dur": 1.4,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.14,
+       0.36,
+       0.42
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 1.7
+    }
+   ]
+  },
+  {
+   "name": "dental",
+   "at": 44.4,
+   "len": 2.03,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.1,
+     5.4
+    ],
+    "look": [
+     0.8,
+     0.9,
+     1
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -1.1,
+      1.09,
+      5.18
+     ],
+     "look": [
+      0.8,
+      0.9,
+      1
+     ],
+     "fov": 38
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Is there dental?",
+     "tone": "calm",
+     "style": "hopeful, curious, serious",
+     "dur": 1.53,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.68
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 1.88
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 1.98
+    }
+   ]
+  },
+  {
+   "name": "nurse",
+   "at": 46.43,
+   "len": 1.45,
+   "shot": {
+    "pos": [
+     0.45,
+     2.05,
+     2.08
+    ],
+    "look": [
+     -0.8,
+     2.05,
+     -0.48
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.4,
+      2.05,
+      1.978
+     ],
+     "look": [
+      -0.8,
+      2.05,
+      -0.48
+     ],
+     "fov": 32
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.04,
+       0.27,
+       0.1
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "There's a nurse.",
+     "tone": "calm",
+     "style": "deep, tired, giving up",
+     "dur": 1.1,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -22,
+     "dur": 0.4,
+     "at": 0.85
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.87
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.2,
+       0.95,
+       0.25
+      ],
+      "elbow": 0.12
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 1.4
+    }
+   ]
+  },
+  {
+   "name": "fifteen deal",
+   "at": 47.88,
+   "len": 1.91,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.1,
+     5.4
+    ],
+    "look": [
+     0.8,
+     0.9,
+     1
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -1.1,
+      1.1,
+      5.4
+     ],
+     "look": [
+      0.85,
+      0.9,
+      1
+     ],
+     "fov": 38
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I'll take fifteen.",
+     "tone": "happy",
+     "style": "eager, happy, a done deal",
+     "dur": 1.56,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.9
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "brow": 0.8,
+     "dur": 0.15,
+     "at": 0.9
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.15,
+     "at": 1.51
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.71
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 1.76
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.2,
+     "at": 1.76
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -6,
+     "dur": 0.25,
+     "at": 1.76
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0.4
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.76
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.28,
+       0.42,
+       0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.76
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 1.81
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 1.86
+    }
+   ]
+  },
+  {
+   "name": "he gets fifteen",
+   "at": 49.79,
+   "len": 2.54,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.1,
+     5.4
+    ],
+    "look": [
+     0.8,
+     0.9,
+     1
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -1.28,
+      1.1,
+      5.4
+     ],
+     "look": [
+      0.76,
+      0.9,
+      1
+     ],
+     "fov": 38
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "He gets fifteen?!",
+     "tone": "angry",
+     "style": "outraged, offended, high, loud",
+     "voice": "chip-clean",
+     "dur": 1,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.41
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -28,
+     "dur": 0.25,
+     "at": 1.1
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       1.15,
+       0.16
+      ],
+      "elbow": 0.14
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.1
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Then I want twenty!",
+     "tone": "angry",
+     "style": "outraged, competitive, loud",
+     "voice": "chip-clean",
+     "dur": 1.04,
+     "caption": false,
+     "at": 1.3
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.35,
+     "at": 2.24
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.31
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.39
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.39
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.2,
+     "at": 2.49
+    }
+   ]
+  },
+  {
+   "name": "twenty-five",
+   "at": 52.33,
+   "len": 1.47,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.1,
+     5.4
+    ],
+    "look": [
+     0.8,
+     0.9,
+     1
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -1.04,
+      1.084,
+      5.048
+     ],
+     "look": [
+      0.8,
+      0.9,
+      1
+     ],
+     "fov": 38
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Twenty-five!",
+     "tone": "angry",
+     "style": "competitive, loud, eager",
+     "dur": 1.27,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 1.42
+    }
+   ]
+  },
+  {
+   "name": "thirty",
+   "at": 53.8,
+   "len": 0.69,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.6,
+     4.2
+    ],
+    "look": [
+     0.05,
+     0.55,
+     1.2
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.318,
+      0.596,
+      3.96
+     ],
+     "look": [
+      0.05,
+      0.55,
+      1.2
+     ],
+     "fov": 34
+    },
+    "dur": 0.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Thirty!",
+     "tone": "angry",
+     "style": "competitive, loud, outbidding",
+     "voice": "chip-clean",
+     "dur": 0.49,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.54
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.2,
+     "at": 0.64
+    }
+   ]
+  },
+  {
+   "name": "life",
+   "at": 54.49,
+   "len": 0.84,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.1,
+     5.4
+    ],
+    "look": [
+     0.8,
+     0.9,
+     1
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -1.12,
+      1.092,
+      5.224
+     ],
+     "look": [
+      0.8,
+      0.9,
+      1
+     ],
+     "fov": 38
+    },
+    "dur": 0.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.07,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "LIFE!",
+     "tone": "angry",
+     "style": "competitive, very loud, triumphant, outbidding",
+     "dur": 0.54,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.74
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.79
+    }
+   ]
+  },
+  {
+   "name": "enough",
+   "at": 55.33,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     1.5,
+     1.6,
+     7
+    ],
+    "look": [
+     0.2,
+     1.4,
+     -0.2
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      1.422,
+      1.588,
+      6.568
+     ],
+     "look": [
+      0.2,
+      1.4,
+      -0.2
+     ],
+     "fov": 46
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "ENOUGH!",
+     "tone": "angry",
+     "style": "deep, very loud, a judge shouting",
+     "dur": 0.7,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.15,
+       1.74,
+       0.24
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.137
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.57,
+       0.22
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.367
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.6,
+     "at": 0.437
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.08,
+     "dur": 0.1,
+     "at": 0.447
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.447
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.08,
+     "dur": 0.1,
+     "at": 0.447
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.447
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.447
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.447
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.447
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.7,
+       0.3
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.497
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       0.7,
+       0.3
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.497
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.7,
+       0.3
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.497
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 0.697
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 0.697
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.65,
+     "ease": "inOut",
+     "at": 0.947
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.65,
+     "ease": "inOut",
+     "at": 0.947
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.04,
+       0.27,
+       0.1
+      ]
+     },
+     "dur": 0.65,
+     "ease": "inOut",
+     "at": 0.947
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 1.35
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.85,
+      -0.45
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.35
+    }
+   ]
+  },
+  {
+   "name": "go home",
+   "at": 56.73,
+   "len": 2.41,
+   "shot": {
+    "pos": [
+     -1.3,
+     1.6,
+     6
+    ],
+    "look": [
+     -0.3,
+     1.4,
+     -0.2
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -1.25,
+      1.59,
+      5.69
+     ],
+     "look": [
+      -0.3,
+      1.4,
+      -0.2
+     ],
+     "fov": 42
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Case dismissed. Go home.",
+     "tone": "calm",
+     "style": "deep, stern, flat, final, the worst punishment",
+     "dur": 1.86,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.15,
+       1.77,
+       0.24
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.67
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.57,
+       0.22
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.9
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.3,
+     "at": 0.97
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 2
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.97
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 1.04
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.08
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 1.08
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.08
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.85,
+      -0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 2.31
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "home?!",
+   "at": 59.14,
+   "len": 0.94,
+   "shot": {
+    "pos": [
+     -0.25,
+     0.65,
+     3.56
+    ],
+    "look": [
+     0.2,
+     0.65,
+     1.2
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -0.214,
+      0.65,
+      3.371
+     ],
+     "look": [
+      0.2,
+      0.65,
+      1.2
+     ],
+     "fov": 28
+    },
+    "dur": 0.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Home?!",
+     "tone": "sad",
+     "style": "horrified, devastated, high, broken",
+     "voice": "chip-clean",
+     "dur": 0.59,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "cheeks",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.79
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.84
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.6
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.84
+    }
+   ]
+  },
+  {
+   "name": "no dental",
+   "at": 60.08,
+   "len": 1.53,
+   "shot": {
+    "pos": [
+     -0.68,
+     0.85,
+     4.39
+    ],
+    "look": [
+     1.22,
+     0.85,
+     1.1
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.547,
+      0.85,
+      4.16
+     ],
+     "look": [
+      1.22,
+      0.85,
+      1.1
+     ],
+     "fov": 30
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.5,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "No dental...",
+     "tone": "sad",
+     "style": "heartbroken, quiet, sobbing, devastated",
+     "dur": 1.23,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 1.43
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.75
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.43
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.48
+    }
+   ]
+  },
+  {
+   "name": "rent there",
+   "at": 61.61,
+   "len": 1.823,
+   "shot": {
+    "pos": [
+     0.53,
+     0.7,
+     3.59
+    ],
+    "look": [
+     0.32,
+     0.55,
+     1.2
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      0.513,
+      0.688,
+      3.399
+     ],
+     "look": [
+      0.32,
+      0.55,
+      1.2
+     ],
+     "fov": 28
+    },
+    "dur": 1.8230000000000004,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "But I pay rent there!",
+     "tone": "sad",
+     "style": "devastated, wailing, desperate, almost crying",
+     "voice": "chip-clean",
+     "dur": 1.11,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.5,
+     "at": 0.96
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.5,
+     "at": 1.01
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.06
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.4,
+     "dur": 0.45,
+     "at": 1.16
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.84,
+   "see": [
+    "vik.face",
+    "chip.face",
+    "cv",
+    "board"
+   ],
+   "why": "a judge charges a little potato in a tie who holds up a CV; ? YEARS"
+  },
+  {
+   "from": 8.01,
+   "to": 9.17,
+   "see": [
+    "chip.face",
+    "wedge.face"
+   ],
+   "why": "his team of two: the accomplice waves"
+  },
+  {
+   "from": 10.52,
+   "to": 12.02,
+   "see": [
+    "chip.face",
+    "tie",
+    "wedge.face"
+   ],
+   "why": "he straightens his new tie; his accomplice has none"
+  },
+  {
+   "from": 16.13,
+   "to": 17.277,
+   "see": [
+    "vik.face",
+    "board"
+   ],
+   "why": "ten years: the board flips to 10 YEARS"
+  },
+  {
+   "from": 37.42,
+   "to": 39.31,
+   "see": [
+    "chip.face",
+    "wedge.face"
+   ],
+   "why": "no rent: prison beats his life; his friend's eyes go wide"
+  },
+  {
+   "from": 41.01,
+   "to": 42.4,
+   "see": [
+    "wedge.face",
+    "chip.face"
+   ],
+   "why": "the accomplice steps up and applies too"
+  },
+  {
+   "from": 55.38,
+   "to": 56.277,
+   "see": [
+    "vik.face",
+    "chip.face",
+    "wedge.face"
+   ],
+   "why": "ENOUGH: the gavel, both flinch"
+  },
+  {
+   "from": 56.78,
+   "to": 58.31,
+   "see": [
+    "vik.face",
+    "board"
+   ],
+   "why": "case dismissed: the board flips to 0 YEARS"
+  },
+  {
+   "from": 59.19,
+   "to": 63.433,
+   "see": [
+    "chip.face",
+    "wedge.face"
+   ],
+   "why": "sent home, both are crushed: no dental, and home has rent"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "vik",
+   "with": "chair",
+   "from": 0,
+   "to": 63.433,
+   "reason": "the judge sits in his chair"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/12-interview-trial/make-interview-trial.mjs."
+}

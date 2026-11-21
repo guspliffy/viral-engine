@@ -108,3 +108,39 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const sb = loadStoryboard(file);
   for (const r of cameraLint(sb, loadCharacters(sb))) console.log(`  ${r.level === "pass" ? "ok  " : "note"}  camera${r.rule ? ` ${r.rule}` : ""}: ${r.msg}`);
 }
+
+// sign-cut (Potato Desk 12, 20 Nov 2026): a sign whose number the frame's side edge cuts in two reads as another
+// number. Two-shots from the left kept only the "0" of the board's "10 YEARS" for 20 s of the clip, and the viewer
+// (Sol round 2, item 1) read the sentence as zero before the judge had sent anyone home. Each text box a prop kind
+// names here is projected through the camera every 0.1 s; a stretch of 0.3 s or more with the box cut by the left or
+// right edge (some of it in frame, some out, its height mostly in) warns. Whole in, or whole out, is fine.
+const SIGN_TEXT = {
+  // props-court.js: the number bay of the sentence board (BAY: 0.50 x 0.33 at x -0.31, y -0.135, its face z +0.064)
+  sentenceboard: [{ name: "number", x: -0.31, y: -0.135, z: 0.064, w: 0.5, h: 0.33 }],
+};
+export function signCut(sb) {
+  const out = [], dt = 0.1, T = sb.duration ?? 0, aspect = sb.frame === "wide" ? 16 / 9 : LINT.aspect;
+  for (const p of sb.props || []) for (const box of SIGN_TEXT[p.kind] || []) {
+    const r = ((p.rot ?? 0) * Math.PI) / 180, at = (dx, dy) => { const lx = box.x + dx, lz = box.z; return [(p.x ?? 0) + lx * Math.cos(r) + lz * Math.sin(r), (p.y ?? 0) + box.y + dy, (p.z ?? 0) - lx * Math.sin(r) + lz * Math.cos(r)]; };
+    const corners = [[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([a, b]) => at((a * box.w) / 2, (b * box.h) / 2));
+    let from = null;
+    const close = (t) => { if (from != null && t - from >= 0.3 - 1e-6) out.push({ level: "warn", check: "sign-cut", msg: `${p.id}: its ${box.name} is cut in two by the frame's side edge at ${f2(from)}-${f2(t)} s: what is left can read as another number (a "10" read as "0"); frame it whole or keep it out` }); from = null; };
+    for (let t = 0; t <= T + 1e-9; t += dt) {
+      const c = camAt(sb, t), up = Math.abs(c.dir[1]) > 0.99 ? [0, 0, -1] : [0, 1, 0];
+      const right = norm(cross(c.dir, up)), u = cross(right, c.dir), th = Math.tan((c.fov * Math.PI) / 360), tw = th * aspect;
+      const px = corners.map((q) => { const d = sub(q, c.pos), z = dot(d, c.dir); return z > 0.05 ? [dot(d, right) / z / tw, dot(d, u) / z / th] : null; });
+      let cut = false;
+      if (px.every(Boolean)) {
+        const xs = px.map((q) => q[0]), ys = px.map((q) => q[1]), x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.max(-1, Math.min(...ys)), y1 = Math.min(1, Math.max(...ys));
+        const hIn = y1 > y0 ? (y1 - y0) / (Math.max(...ys) - Math.min(...ys)) : 0;
+        cut = hIn > 0.5 && ((x0 < -1 && x1 > -1) || (x0 < 1 && x1 > 1));
+      }
+      if (cut && from == null) from = t; else if (!cut) close(t);
+    }
+    close(T);
+  }
+  return out;
+}
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const norm = (a) => { const l = len(a) || 1; return a.map((x) => x / l); };

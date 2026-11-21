@@ -272,7 +272,7 @@ export const COURT_KINDS = {
     const atlas = bayAtlas(states), bayM = lit(atlas, 0.3), slots = n + 1, gUp = halfGeo(), gLo = halfGeo(), gFront = halfGeo(), gBack = halfGeo();
     for (const [g, y] of [[gUp, 0.0835], [gLo, -0.0835]]) { const o = new THREE.Mesh(g, bayM); o.position.set(0, y, BAY.back); o.receiveShadow = true; bay.add(o); }
     const leaf = new THREE.Group(); leaf.position.set(0, 0, BAY.hinge); bay.add(leaf);
-    mesh(new THREE.BoxGeometry(BAY.w, 0.163, 0.006), mat("#1a2430", { roughness: 0.6 }), leaf, 0, 0.0835, 0);
+    mesh(new THREE.BoxGeometry(BAY.w, 0.163, 0.004), mat("#1a2430", { roughness: 0.6 }), leaf, 0, 0.0835, 0);   // 0.004: its faces sit 1.1 mm behind the printed planes (0.006 left 0.1 mm: z-fighting bands in wide shots, desk 12 Sol r1)
     const front = new THREE.Mesh(gFront, bayM); front.position.set(0, 0.0835, 0.0031); leaf.add(front);
     const back = new THREE.Mesh(gBack, bayM); back.position.set(0, 0.0835, -0.0031); back.rotation.x = Math.PI; leaf.add(back);
     // the "?" card's axle: pins and blocks stay; the card turns on them
@@ -282,7 +282,7 @@ export const COURT_KINDS = {
       box(0.025, 0.012, 0.15, blockM, P.whole, BAY.x, BAY.y + sy * 0.179, 0.115);
     }
     const cardG = new THREE.Group(); cardG.position.set(BAY.x, BAY.y, BAY.card); P.whole.add(cardG);
-    mesh(new THREE.BoxGeometry(0.20, 0.30, 0.008), blockM, cardG, 0, 0, 0);
+    mesh(new THREE.BoxGeometry(0.20, 0.30, 0.006), blockM, cardG, 0, 0, 0);   // faces 1.1 mm behind the printed planes (see the leaf)
     const ct = cardTex(); plane(0.20, 0.30, lit(ct, 0.3), cardG, 0, 0, 0.0041); plane(0.20, 0.30, lit(ct, 0.3), cardG, 0, 0, -0.0041, Math.PI);
     // spec.units: one plane (0.58 x 0.16) per distinct word where YEARS is printed; the one for the state on show is visible (it changes as the
     // leaf passes half way). A word wider than 0.54 m is squeezed to fit.
