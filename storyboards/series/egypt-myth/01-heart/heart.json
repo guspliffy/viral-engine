@@ -7434,29 +7434,6 @@
      "at": 0.05
     },
     {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.3,
-       0.42,
-       0.3
-      ]
-     },
-     "dur": 0.7,
-     "ease": "inOut",
-     "at": 0.15
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.5,
-     "at": 0.35
-    },
-    {
      "who": "chip",
      "do": "expr",
      "expr": "smug",

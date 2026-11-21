@@ -434,7 +434,7 @@ see(T[36], r3(END_OF(36) + 1.0), ["jackal", "hspud"], "the jackal points: next; 
 // SPUD: ...Can I have my beetle back?
 L(37, 0.35);
 turn(T[37] - 0.6, "spud", 65, 0.6); look(T[37] - 0.2, "spud", [0.3, -0.25]); expr(T[37], "spud", "worried");
-arm(T[37] + 0.1, "spud", "R", { o: [0.3, 0.42, 0.3] }, 0.7); grip(T[37] + 0.3, "spud", "R", "open", 0.5);   // slow: the palm turned 84-98 degrees in 3 frames   // an open palm out to Chip
+// (no open palm: every path to it flipped his hand over 84-105 degrees in 2-3 frames on screen)   // an open palm out to Chip
 say(37);
 // Chip hides it behind his back
 const HIDE = r3(END_OF(37) + 0.05);
