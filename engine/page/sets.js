@@ -22,6 +22,7 @@ import { buildPark } from "./set-park.js";
 import { buildPorch } from "./set-porch.js";
 import { buildCottage } from "./set-cottage.js";
 import { buildApartment } from "./set-apartment.js";
+import { buildGravroom } from "./set-gravroom.js";
 import { buildElevator } from "./set-elevator.js";
 import { buildRoad } from "./set-road.js";
 import { buildStorefront } from "./set-storefront.js";
@@ -111,6 +112,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "porch") return buildPorch(scene, spec);       // set-porch.js
   if (type === "cottage") return buildCottage(scene, spec);   // set-cottage.js
   if (type === "apartment") return buildApartment(scene, spec);   // set-apartment.js
+  if (type === "gravroom") return buildGravroom(scene, spec);   // set-gravroom.js (fact what-if 02 gravity)
   if (type === "elevator") return buildElevator(scene, spec);   // set-elevator.js
   if (type === "road") return buildRoad(scene, spec);   // set-road.js: a treadmill road for the car clips
   if (type === "storefront") return buildStorefront(scene, spec);   // set-storefront.js: the DUO launch-day store

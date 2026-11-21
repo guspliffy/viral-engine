@@ -95,6 +95,10 @@ export async function preflight(sb, lay, { quick = false, sbFile = null } = {}) 
   if (!sb.music?.lock && sb.music !== false) sb.music = lockMusic(sb);   // the grid the render uses (dance moves follow it)
   for (const r of await motionResults(sb, sb.fps ?? 30)) add(r, "motion");
   for (const r of await storyNotes(sb, sb.fps ?? 30)) add(r, "motion");
+  // a voice take Whisper heard as other words (engine/voice/speech.mjs misread): made-up words (two or more heard
+  // beyond the line) fail, any other difference warns. Before this the only sign was one line printed when the take
+  // was first read (Mona Lisa, 19 Nov 2026: a made-up "this clear." reached Jonny's draft)
+  for (const m of sb.misreads || []) add({ level: m.extra >= 2 ? "fail" : "warn", check: "misread", msg: `the voice read "${m.line}" as "${m.heard}"${m.extra >= 2 ? ` (${m.extra} words it made up)` : ""}: listen to it; "take": ${(m.take || 0) + 1} reads it again (a wrong name or number Whisper spells its own way can stay, with a reason)` }, "speech");
   for (const r of cameraLint(sb, chars)) add({ ...r, level: r.level === "pass" ? "pass" : "note" }, "camera");
   // Jonny's panels by number (qa/panelfit.mjs): when the storyboard names its PANELS.md ("panels": { "md": path from
   // the repo root or the storyboard's folder }), each panel's Numbers row against the layout at its time
