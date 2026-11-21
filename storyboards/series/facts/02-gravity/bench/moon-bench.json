@@ -1,0 +1,2112 @@
+{
+ "id": "moon-bench",
+ "title": "Gravity Moon bench",
+ "idea": "Props bench for fact what-if 02 gravity v2 (gmoonfall, gfirewall, groomhit, gflash, gsofa brk), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "far": 6000,
+ "set": {
+  "type": "gravroom",
+  "bare": false
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "gsky",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "from": [
+    0.34,
+    1.12,
+    0.94
+   ]
+  },
+  {
+   "id": "horizon",
+   "kind": "ghorizon",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "ruin",
+   "kind": "gruin",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": -1
+  },
+  {
+   "id": "moon",
+   "kind": "gmoonfall",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": -1
+  },
+  {
+   "id": "fire",
+   "kind": "gfirewall",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": -1
+  },
+  {
+   "id": "hit",
+   "kind": "groomhit",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": -1
+  },
+  {
+   "id": "flash",
+   "kind": "gflash",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": -1,
+   "cam": {
+    "pos": [
+     0.48,
+     1.39,
+     0.21
+    ],
+    "look": [
+     0.37,
+     0.78,
+     -2.3
+    ],
+    "fov": 71
+   }
+  },
+  {
+   "id": "glass",
+   "kind": "gglass",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": -1
+  },
+  {
+   "id": "sofa",
+   "kind": "gsofa",
+   "x": 0.2,
+   "y": 0,
+   "z": -1.61,
+   "rot": 0,
+   "sink": 0.12,
+   "damage": 0.3,
+   "brk": 0
+  },
+  {
+   "id": "plant",
+   "kind": "gplant",
+   "x": -1.4,
+   "y": 0.09,
+   "z": -2.48,
+   "rot": 0
+  },
+  {
+   "id": "lamp",
+   "kind": "glamp",
+   "x": 1.45,
+   "y": 0,
+   "z": -2.12,
+   "rot": 0,
+   "roll": 0
+  },
+  {
+   "id": "spud",
+   "kind": "stoneblock",
+   "x": 0.46,
+   "y": 0.42,
+   "z": -1.5,
+   "rot": 0,
+   "w": 0.8,
+   "h": 0.25,
+   "d": 0.5
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "m1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.34,
+     1.12,
+     0.94
+    ],
+    "look": [
+     -0.09,
+     2.33,
+     -8
+    ],
+    "fov": 65
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "sink": 0.12,
+      "damage": 0.3,
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 48.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 48.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 48.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 48.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 48.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 48.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P7 t 48.2"
+  },
+  {
+   "name": "m2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.34,
+     1.12,
+     0.94
+    ],
+    "look": [
+     -0.09,
+     2.33,
+     -8
+    ],
+    "fov": 65
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 50
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 50
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 50
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 50
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 50
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 50
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P7 t 50"
+  },
+  {
+   "name": "m3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.34,
+     1.12,
+     0.94
+    ],
+    "look": [
+     -0.09,
+     2.33,
+     -8
+    ],
+    "fov": 65
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 52
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 52
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 52
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 52
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 52
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 52
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P7 t 52"
+  },
+  {
+   "name": "m4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.34,
+     1.12,
+     0.94
+    ],
+    "look": [
+     -0.09,
+     2.33,
+     -8
+    ],
+    "fov": 65
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 54
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 54
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 54
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 54
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 54
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 54
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P7 t 54"
+  },
+  {
+   "name": "m5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.34,
+     1.12,
+     0.94
+    ],
+    "look": [
+     -0.09,
+     2.33,
+     -8
+    ],
+    "fov": 65
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 55.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 55.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 55.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 55.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 55.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 55.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P7 t 55.9"
+  },
+  {
+   "name": "m6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.15,
+     1.91,
+     -2.58
+    ],
+    "look": [
+     -48,
+     130,
+     -2500
+    ],
+    "fov": 53
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 56.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 56.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 56.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 56.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 56.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 56.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P8 t 56.1"
+  },
+  {
+   "name": "m7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.15,
+     1.91,
+     -2.58
+    ],
+    "look": [
+     -48,
+     130,
+     -2500
+    ],
+    "fov": 53
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 56.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 56.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 56.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 56.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 56.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 56.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P8 t 56.4"
+  },
+  {
+   "name": "m8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.15,
+     1.91,
+     -2.58
+    ],
+    "look": [
+     -48,
+     130,
+     -2500
+    ],
+    "fov": 53
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 57.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 57.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 57.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 57.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 57.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 57.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P8 t 57.5"
+  },
+  {
+   "name": "m9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.15,
+     1.91,
+     -2.58
+    ],
+    "look": [
+     -48,
+     130,
+     -2500
+    ],
+    "fov": 53
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 58.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 58.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 58.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 58.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 58.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 58.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P8 t 58.6"
+  },
+  {
+   "name": "m10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.15,
+     1.91,
+     -2.58
+    ],
+    "look": [
+     -48,
+     130,
+     -2500
+    ],
+    "fov": 53
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 59.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 59.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 59.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 59.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 59.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 59.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P8 t 59.2"
+  },
+  {
+   "name": "m11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.48,
+     1.39,
+     0.21
+    ],
+    "look": [
+     0.37,
+     0.78,
+     -2.3
+    ],
+    "fov": 71
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 59.25
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 59.25
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 59.25
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 59.25
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 59.25
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 59.25
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.4,
+      "y": 0.09,
+      "z": -2.48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.45,
+      "y": 0,
+      "z": -2.12,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P9 t 59.25"
+  },
+  {
+   "name": "m12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.48,
+     1.39,
+     0.21
+    ],
+    "look": [
+     0.37,
+     0.78,
+     -2.3
+    ],
+    "fov": 71
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 59.35
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 59.35
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 59.35
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 59.35
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 59.35
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 59.35
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0.05193734542456912
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.3771475680131895,
+      "y": 0.11077493816982764,
+      "z": -2.4135201978565517
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.5476422093981899,
+      "y": 0.0945259686727158,
+      "z": -2.047287716405603,
+      "roll": 3.947238252267253
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P9 t 59.35"
+  },
+  {
+   "name": "m13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.48,
+     1.39,
+     0.21
+    ],
+    "look": [
+     0.37,
+     0.78,
+     -2.3
+    ],
+    "fov": 71
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 59.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 59.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 59.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 59.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 59.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 59.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0.17559769167353734
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.3227370156636435,
+      "y": 0.16023907666941495,
+      "z": -2.255234954657872
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 1.7801236603462502,
+      "y": 0.319587798845838,
+      "z": -1.8741632316570478,
+      "roll": 13.345424567188838
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P9 t 59.5"
+  },
+  {
+   "name": "m14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.48,
+     1.39,
+     0.21
+    ],
+    "look": [
+     0.37,
+     0.78,
+     -2.3
+    ],
+    "fov": 71
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 59.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 59.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 59.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 59.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 59.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 59.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0.4229183841714738
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.2139159109645514,
+      "y": 0.25916735366858956,
+      "z": -1.9386644682605136
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 2.2450865622423706,
+      "y": 0.7697114591920824,
+      "z": -1.5279142621599369,
+      "roll": 32.14179719703201
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P9 t 59.8"
+  },
+  {
+   "name": "m15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.48,
+     1.39,
+     0.21
+    ],
+    "look": [
+     0.37,
+     0.78,
+     -2.3
+    ],
+    "fov": 71
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 60.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 60.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 60.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 60.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 60.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 60.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0.7526793075020636
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.0991426215993396,
+      "y": 0.16366034624896822,
+      "z": -1.430659521846657
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 2.5517147568013208,
+      "y": 1.2789117889530128,
+      "z": -0.9651772464962858,
+      "roll": 60.2357790601816
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P9 t 60.2"
+  },
+  {
+   "name": "m16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.48,
+     1.39,
+     0.21
+    ],
+    "look": [
+     0.37,
+     0.78,
+     -2.3
+    ],
+    "fov": 71
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ruin",
+     "set": {
+      "t": 60.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "t": 60.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "t": 60.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hit",
+     "set": {
+      "t": 60.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "flash",
+     "set": {
+      "t": 60.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "t": 60.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sofa",
+     "set": {
+      "brk": 0.9587798845836792
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "x": -1.0331904369332225,
+      "y": 0.060610057708160386,
+      "z": -1.0967765869744397
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": 2.6836191261335545,
+      "y": 1.5798186314921716,
+      "z": -0.5941962077493774,
+      "roll": 78.37262984336377
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P9 t 60.45"
+  }
+ ],
+ "notes": "Generated by storyboards/series/facts/02-gravity/bench/make-moon-bench.mjs (props bench, no reviews)."
+}

@@ -306,8 +306,11 @@ function gaitPlan(sb, actor, def) {
   const PRE = GAIT.pre, at = (arr, u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return arr[i] + (arr[i + 1] - arr[i]) * r; };
   const yawAt = (u) => { const f = clamp((u + PRE) / dt, 0, n - 1), i = Math.min(n - 2, Math.floor(f)), r = f - i; return K.yaw[i] + angD(K.yaw[i + 1], K.yaw[i]) * r; };
   const homeAt = (s, u) => footHome(s, at(K.x, u), at(K.z, u), yawAt(u), at(K.sc, u), HX);
-  // the last time from u up to v the body is still on its feet (a look ahead never steps toward a ride or a jump)
-  const onUntil = (u, v) => { let j = Math.round((u + PRE) / dt); const J = Math.min(n - 1, Math.round((v + PRE) / dt)); while (j < J && !K.off[j + 1]) j++; return Math.max(u, j * dt - PRE); };
+  // the last time from u up to v the body is still on its feet and in the same place: a look ahead never steps toward
+  // a ride, a jump or a re-placement (Help Desk 2, 19 Nov 2026: a body placed elsewhere on a cut strode toward its
+  // next shot's spot in the last frames before the cut)
+  const moved = (j) => Math.hypot(K.x[j] - K.x[j - 1], K.z[j] - K.z[j - 1]) > 0.15;
+  const onUntil = (u, v) => { let j = Math.round((u + PRE) / dt); const J = Math.min(n - 1, Math.round((v + PRE) / dt)); while (j < J && !K.off[j + 1] && !moved(j + 1)) j++; return Math.max(u, j * dt - PRE); };
   const ev = { R: [], L: [] }, foot = {}, warn = [];
   for (const s of ["R", "L"]) foot[s] = { p: homeAt(s, -PRE), y: K.y[0], a: K.yaw[0], t1: -PRE - 1 };
   let next = null, nextLift = 0, bout = false, off = false;
@@ -716,6 +719,10 @@ export function actorState(sb, actor, def, t, raw = false) {
       case "pov": st.pov = a.on !== false; st.hatOn = !st.pov; break;
       case "show": st.visible = true; break;
       case "squash": if (p < 1) st.squash *= 1 - (a.amount ?? 0.2) * Math.sin(p * Math.PI); break;
+      // a held flattening (fact what-if 02 "gravity", 19 Nov 2026): to 0..0.85 squashes the body to (1 - to) of its height
+      // and holds it there (the squash widens it to keep its volume); to 0 brings it back over dur
+      // axis "z": along the body's own front-back instead (a body lying on its back is pressed into what it lies on)
+      case "flat": if (a.axis === "z") st.flatZ = lerp(st.flatZ ?? 0, clamp(a.to ?? 0, 0, 0.85), e); else st.flat = lerp(st.flat ?? 0, clamp(a.to ?? 0, 0, 0.85), e); break;
       // Phoenix: 0 folded, 1 spread. side "R" | "L": only that wing, as an offset on top of both (-1 tucks it in, so one
       // wing can hang while the other is up)
       case "wings": if (a.side) { st.wingSide = { R: 0, L: 0, ...st.wingSide }; st.wingSide[a.side] = lerp(st.wingSide[a.side], a.to ?? 0, e); } else st.wings = lerp(st.wings, a.to ?? 1, e); break;
@@ -865,6 +872,7 @@ export function actorState(sb, actor, def, t, raw = false) {
   // top of that (pitch, lean, the follow below, a shake, breathing) doesn't slide them. potato.js draws them there.
   const plant = { x: st.x - shakeDx, y: st.y - 0.1 * (st.kneel || 0), z: st.z, yaw: st.yaw };
   if (st.crouch) { st.y -= 0.09 * st.crouch; st.squash *= 1 - 0.04 * st.crouch; }   // after the plant: the feet stay down
+  if (st.flat) st.squash *= 1 - st.flat;   // "flat": held, on top of every pulse
   st.riding = !!riding;
   // the planted gait (motion.feet 2): the footfalls, bob, sway and lean come from the step plan, for every move and run
   const F2 = feetOn(sb) && !PLANNING ? gaitPlan(sb, c, def) : null;

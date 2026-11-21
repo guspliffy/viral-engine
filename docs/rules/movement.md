@@ -27,3 +27,12 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   part of a set, write down how it is in nature (spacing, sizes and ages, growth direction, what is dead or broken,
   where it clumps) and build from that: groups and gaps, many small and few big, nothing in a rhythm or alternating.
   Everything that hangs or sticks out is attached to something, and every change in the world has a visible cause.
+
+- **Cameras stay outside the scenery** (Egypt EP05 Sphinx, 19 Nov 2026): a camera inside a world-sized prop (pit
+  wall, a temple, a valley edge) renders solid brown or grey frames, and preflight doesn't see it. Write down each
+  big prop's bounds from its design (the pit's walls, a building's footprint) and check every camera position against
+  them before the layout.
+- **A held prop and a place on the cut**: put the holding arm into its rest pose with dur 0 exactly 0.03 s before the
+  cut (after the shot's last frame, before the place at cut - 0.02). Earlier shows as a hand jump on screen; after the
+  place, the prop slides back into the hand over ~5 frames. A take at a segment's first frame with `reach: 0,
+  settle: 0` puts the fist on the prop from frame 0.

@@ -348,7 +348,7 @@ def vox(jobs, raw):
                 if said(" ".join(w[0] for w in heard)) != said(j["text"]):
                     print(f"vox: \"{j['text']}\" was heard as \"{' '.join(w[0] for w in heard)}\" (a misread? \"take\": 2 reads it again)", file=sys.stderr)
             y, phones = align(y, sr, raw[j["id"]][1], heard)
-            out[j["id"]] = (y, sr, phones)
+            out[j["id"]] = (y, sr, phones, " ".join(w[0] for w in heard) if heard is not None else None)
     return out
 
 
@@ -363,14 +363,18 @@ def main():
     voxed = vox([j for j in req["jobs"] if j.get("vox") and not only_sounds(j["text"])], raw)
     for job in req["jobs"]:
         x, phones = raw[job["id"]]
+        heard = None
         if job["id"] in voxed:
-            y, sr, phones = voxed[job["id"]]
+            y, sr, phones, heard = voxed[job["id"]]
             y, phones = finish(y, sr, phones, job)
         else:
             y, phones = finish(*(converted[job["id"]] if job["id"] in converted else (x, SR_MODEL)), phones, job)
         base = os.path.join(req["cache"], job["id"])
         info = {"id": job["id"], "text": job["text"], "dur": round(len(y) / SR_OUT, 4), "phones": phones,
                 "peak": round(float(np.abs(y).max()), 3), "clipped": int((np.abs(y) >= 0.999).sum())}
+        # what Whisper heard in a VoxCPM2 take, kept with the take: the misread warning above is printed once, when the
+        # line is first read, and scrolls past; qa/preflight.mjs judges it again on every run from here (misread)
+        if heard is not None: info["heard"] = heard
         # the JSON is written last and both files appear whole (rename), so a cache entry is never half-written
         sf.write(base + ".tmp.wav", y, SR_OUT, subtype="PCM_16")
         os.replace(base + ".tmp.wav", base + ".wav")
