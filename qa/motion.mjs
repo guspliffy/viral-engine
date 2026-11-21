@@ -206,6 +206,15 @@ export async function loopSeam(sb, fps = 30) {
 //                  stuck squat; use "fly" for a long lift-off, or shorter hops.
 //   eyes-lead      a walk, turn or reach with no look starting just before it (the character doesn't think first).
 //   reaction-hold  an expression replaced by another within 0.3 s.
+//   expr-unknown   an "expr" naming no expression in engine/page/face.js: the engine keeps the last one, silently (egypt-myth
+//                  01, 20 Nov 2026: "worried" kept "terrified", the mouth wide open, through a line).
+//   mouth-open-line  a line said in a face that holds the mouth open (open over 0.3: shocked 0.95, terrified 0.8, delighted
+//                  0.6, ...): the face's open wins over the talk (potato.js, props.js take the larger), so the mouth stands
+//                  still through the line. Close it for the line: "expr" with set: { open: 0.1 } (egypt-myth 01, Sol check 1).
+//   grab-on-cut    a grab in a shot's first 0.1 s of a prop the same character did not hold just before: the prop
+//                  jumps into the hand on the cut (a re-grab right after a release of the same prop is a hand-over
+//                  of the hold, not reported). Heaven steps, 21 Nov 2026: the watering can and the megaphone did this
+//                  through 2 Sol rounds and farm render 1 with every check green.
 export async function storyNotes(sb, fps = 30) {
   const { actorState } = await import("../engine/page/timeline.js");
   const { hopCrouch } = await import("../engine/page/util.js");
@@ -256,6 +265,30 @@ export async function storyNotes(sb, fps = 30) {
     }
     const ex = mine.filter((a) => a.do === "expr" && a.expr);
     for (let i = 1; i < ex.length; i++) if (ex[i].expr !== ex[i - 1].expr && ex[i].at - ex[i - 1].at < 0.3 && ex[i].at > ex[i - 1].at) out.push({ level: "warn", check: "reaction-hold", msg: `${c.id}: "${ex[i - 1].expr}" at ${ex[i - 1].at.toFixed(2)}s is replaced after ${(ex[i].at - ex[i - 1].at).toFixed(2)}s: hold a reaction 0.3 s or more so it reads` });
+  }
+  const { EXPRESSIONS } = await import("../engine/page/face.js");
+  const unknown = new Map();
+  for (const a of acts) if (a.do === "expr" && a.expr && !EXPRESSIONS[a.expr]) unknown.set(`${a.who}|${a.expr}`, [...(unknown.get(`${a.who}|${a.expr}`) || []), a.at]);
+  for (const [k, ts] of unknown) { const [who, e] = k.split("|"); out.push({ level: "warn", check: "expr-unknown", msg: `${who}: "${e}" at ${ts.map((t) => `${t.toFixed(2)}s`).join(", ")} is no expression (engine/page/face.js EXPRESSIONS): the face keeps the one before it` }); }
+  for (const c of sb.cast || []) {
+    const file = path.join(ROOT, "characters", `${c.character}.json`);
+    if (c.hidden || !fs.existsSync(file)) continue;
+    const def = JSON.parse(fs.readFileSync(file, "utf8"));
+    for (const a of talks) {
+      if (a.who !== c.id) continue;
+      const d = a.dur ?? KEY, opens = [0.35, 0.65].map((k) => actorState(sb, c, def, a.at + d * k)).filter((st) => st.visible !== false).map((st) => st.expr?.open ?? 0);
+      if (opens.length && Math.min(...opens) > 0.3) out.push({ level: "warn", check: "mouth-open-line", msg: `${c.id} says ${a.line ? q(a.line) : "a line"} at ${a.at.toFixed(2)}s in a face with the mouth open ${Math.min(...opens).toFixed(2)}: the talk can't move it. Close it for the line ("expr" with set: { open: 0.1 })` });
+    }
+  }
+  // grab-on-cut (see above)
+  const cuts = (sb.shots || []).map((x) => x.at).filter((t) => t > 0);
+  const holdOf = {}, letGo = {};
+  for (const a of [...acts].filter((x) => (x.do === "grab" || x.do === "release") && x.who).sort((x, y) => x.at - y.at)) {
+    if (a.do === "release") { for (const k of Object.keys(holdOf)) if (holdOf[k] === a.who && (!a.prop || a.prop === k)) { letGo[k] = { who: a.who, at: a.at }; delete holdOf[k]; } continue; }
+    const cut = cuts.find((t) => a.at >= t - 1e-6 && a.at - t < 0.1);
+    const regrab = letGo[a.prop]?.who === a.who && a.at - letGo[a.prop].at < 0.2;
+    if (cut != null && holdOf[a.prop] !== a.who && !regrab) out.push({ level: "warn", check: "grab-on-cut", msg: `${a.who} grabs ${a.prop} ${(a.at - cut).toFixed(2)}s after the cut at ${cut.toFixed(2)}s without holding it before: it jumps into the hand on the cut; take it in view in the shot before (grips take/carry), or start it in the hand in that shot` });
+    holdOf[a.prop] = a.who;
   }
   for (const a of acts) {
     if (a.do !== "hop") continue;

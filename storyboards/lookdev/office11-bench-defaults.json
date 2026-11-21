@@ -1,0 +1,137 @@
+{
+ "id": "office11-bench-defaults",
+ "title": "Office 11 props bench",
+ "idea": "Props bench for Potato Desk 11 (T3), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "#6E7680",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "chip"
+  ],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.9
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    0.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.3
+  }
+ ],
+ "props": [
+  {
+   "id": "hat0",
+   "kind": "bobblehat",
+   "wear": "spud",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "quilt0",
+   "kind": "huddleblanket",
+   "cover": 1,
+   "over": [
+    [
+     0.8,
+     0,
+     1.38
+    ]
+   ]
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "defaults",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.15,
+     0.9,
+     4.4
+    ],
+    "look": [
+     0.15,
+     0.75,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "noblink",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Default bobblehat and huddleblanket (unchanged).",
+ "allowClip": [
+  {
+   "who": "mash",
+   "with": "quilt0",
+   "from": 0,
+   "to": 1.1,
+   "checks": [
+    "clipping",
+    "costume-in-prop",
+    "shell",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "bench: a blanket wrapped round a sitter, worn cloth over the body and arms (as in the clip)"
+  }
+ ]
+}
