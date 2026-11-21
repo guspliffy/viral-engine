@@ -73,8 +73,8 @@ const drift = (C, dur, d) => ({ ...C, to: { pos: C.pos.map((p, i) => r3(p + d[i]
 
 // ---------------------------------------------------------------- props
 const SP0 = [-0.4, -1.3], YAW0 = 60;   // frame 0: at the window, 3/4 to the camera
-const MUG = { id: "mug", kind: "smug", ...grips.placeFor("smug", [-0.235, 0.5, -0.985], YAW0), t0: 0.0, mouth: [-0.227, 0.62, -1.2] };
-const BAG = { id: "bag", kind: "scrisps", ...grips.placeFor("scrisps", [-1.55, 0.45, -2.0], 0), t0: 19.2, from: [0.17, 0.6, -0.1], mouth: [-0.05, 0.6, -0.2], crown: [-0.02, 0.98, -0.42] };
+const MUG = { id: "mug", kind: "smug", ...grips.placeFor("smug", [-0.235, 0.5, -0.985], YAW0), t0: 0.0, mouth: [-0.13, 0.6, -1.13] };   // Sol r1: (-.227, .62, -1.2) sank the mug into his cheek
+const BAG = { id: "bag", kind: "scrisps", ...grips.placeFor("scrisps", [-1.55, 0.45, -2.0], 0), t0: 19.2, from: [0.15, 0.63, 0.03], mouth: [-0.05, 0.53, -0.03], crown: [-0.13, 1.1, -0.33] };   // Sol r1: mouth and crown sat inside his head
 const BALL = { id: "ball", kind: "sball", x: 2.32, y: -11.15, z: -18.72, rot: 0, float: 36.7, fx: 0.9 };
 const SLAM = 13.6, SLAP = 10.5, SMASH = 18.3, BONK = 28.0, SWISH = 33.5;
 const props = [
@@ -95,7 +95,7 @@ const props = [
   { id: "sea", kind: "ssea", x: 0, y: 0, z: 0, rot: 0 },
   { id: "high", kind: "shigh", x: 0, y: 0, z: 0, rot: 0 },
   // the street and its weather
-  { id: "street", kind: "sstreet", x: 0, y: 0, z: 0, rot: 0, swish: SWISH, splash: [[39.95, 0.2, 41.2]] },
+  { id: "street", kind: "sstreet", x: 0, y: 0, z: 0, rot: 0, swish: SWISH, splash: [[41.15, -0.1, 41.3]] },   // Sol r1: at 39.95 it splashed while he was still in the air
   { id: "rain", kind: "srain", x: 0, y: 0, z: 0, rot: 0 },
   { id: "blobs", kind: "sblobs", x: 0, y: 0, z: 0, rot: 0 },
   BALL,
@@ -126,18 +126,22 @@ const place = (t, [x, z], y, face) => {
 const flyTo = (t, [x, y, z], dur, ease = "inOut") => A(r3(t), "spud", "fly", { to: { x: r3(x), y: r3(y), z: r3(z) }, dur: r3(dur), ease });
 const grip = (t, side, shape = "hold", dur = 0.1) => A(t, "spud", "grip", { side, shape, dur });
 const LEAD = 0.12;   // captionLead: each word pops this much before its voice
+// Sol r1: clip.mjs ends every caption at the next cut, so lines spoken across a cut lost their second half and lines on a cut
+// flashed for 0.1 s in the shot before: narrator captions run across cuts (across: true) and start on the cut they are spoken on
+const CUTS = [2.2, 5.0, 9.0, 11.5, 13.78, 15.0, 18.45, 19.0, 21.75, 24.35, 26.7, 28.6, 31.0, 34.3, 36.7, 40.0, 43.3, 46.7, 50.0, 55.0, 60.0, 66.0, 73.3];
+const CAPPOS = { 26.8: 400, 50.0: 1180, 55.2: 760 };   // Sol r1: at 520 the bonk line sat on the lamp; P13/P14 lines moved off his rising face (camfit)
 const narr = (t, line, text) => {
   const d = LEN[line]; if (!d) throw new Error(`no measured length for "${line}" (run measure-lines.mjs)`);
   c.at(t, { macro: "narrate", line, voice: NARRATOR, dur: d, caption: false, pos: F.SUB, gain: 4.0 });
   const nextLine = LINES.find(([k]) => k > t + 0.05)?.[0] ?? END;
   const end = Math.min(r3(t + d + 0.25), r3(nextLine - LEAD - 0.02), END - 0.01);
   const said = (txt, k0) => ({ said: line.split(/\s+/).slice(k0, k0 + txt.split(/\s+/).length).join(" ") });
-  const t0 = Math.max(0, r3(t - LEAD));
+  const t0 = CUTS.find((k) => k > t - LEAD && k <= t) ?? Math.max(0, r3(t - LEAD)), pos = CAPPOS[t] ?? F.SUB;
   // a long line goes up as two captions in the same place, split at its sentence break
-  const parts = text.length > 44 && /[.?] /.test(text) ? text.split(/(?<=[.?:]) /) : [text];
-  if (parts.length === 1) { cap(t0, end, text, F.SUB, false, said(text, 0)); return; }
+  const parts = text.length > 40 && /[.?] /.test(text) ? text.split(/(?<=[.?:]) /) : [text];
+  if (parts.length === 1) { cap(t0, end, text, pos, false, { ...said(text, 0), across: true }); return; }
   const words = text.split(/\s+/).length, k1 = parts[0].split(/\s+/).length, at = r3(t0 + d * (k1 / words));
-  cap(t0, at, parts[0], F.SUB, false, said(parts[0], 0)); cap(at, end, parts.slice(1).join(" "), F.SUB, false, said(parts.slice(1).join(" "), k1));
+  cap(t0, at, parts[0], pos, false, { ...said(parts[0], 0), across: true }); cap(at, end, parts.slice(1).join(" "), pos, false, { ...said(parts.slice(1).join(" "), k1), across: true });
 };
 for (const [t, line, text] of LINES) narr(t, line, text);
 
@@ -196,8 +200,12 @@ A(12.1, "spud", "arm", { side: "R", pose: { world: PULL0 }, dur: 0.3, ease: "out
 A(12.15, "spud", "arm", { side: "L", pose: { world: [0.9, 1.0, -2.5] }, dur: 0.3, ease: "out" });
 grip(12.4, "R"); grip(12.45, "L");
 A(r3(SLAM - 0.35), "spud", "lean", { to: 8, dur: 0.3 });                                            // he braces
-A(SLAM, "spud", "arm", { side: "R", pose: { world: PULL1 }, dur: 0.2, ease: "in" });
-A(SLAM, "spud", "arm", { side: "L", pose: { world: [1.76, 1.0, -2.5] }, dur: 0.2, ease: "in" });
+// Sol r1: the hands lost the sash (ease "in" is t^3, the sash closes on t^2): 4 linear pieces on t^2
+for (const [k, f] of [[0, 0.0625], [1, 0.25], [2, 0.5625], [3, 1]]) {
+  const x = r3(PULL0[0] + f * (PULL1[0] - PULL0[0]));
+  A(r3(SLAM + k * 0.05), "spud", "arm", { side: "R", pose: { world: [x, 0.9, -2.5] }, dur: 0.05, ease: "linear" });
+  A(r3(SLAM + k * 0.05), "spud", "arm", { side: "L", pose: { world: [r3(x - 0.045), 1.0, -2.5] }, dur: 0.05, ease: "linear" });
+}
 A(SLAM, "spud", "move", { to: [1.45, -2.15], dur: 0.2, steps: 0, ease: "in" });
 A(r3(SLAM + 0.2), "spud", "squash", { amount: 0.08, dur: 0.25 });
 A(r3(SLAM + 0.35), "spud", "lean", { to: 0, dur: 0.3 });
@@ -238,13 +246,13 @@ A(18.98, "spud", "stand", { dur: 0, sync: true });   // draft 2: at 18.9 he vani
 place(19.0, [-0.05, -0.4], 0, 0);
 A(18.98, "spud", "face", { lid: 0, dur: 0, sync: true });
 const hb = grips.phone(c, "spud", BAG, { side: "L" });
-prop(18.97, "bag", { x: 0.17, y: 0.34, z: -0.1 }, 0, "linear");   // to his hand's side first (it waits on the sofa)
+prop(18.97, "bag", { x: 0.15, y: 0.34, z: 0.03 }, 0, "linear");   // to his hand's side first (it waits on the sofa)
 hb.take(18.98, { reach: 0.01, settle: 0.01 });   // behind P6's camera: in his hand from P7's first frame
 expr(19.0, "kind", { eye: 1.0 }, 0); look(19.0, [0, 0.1], 0);
-hb.carry(19.12, [0.13, 0.46, -0.28], 0.1, "out"); hb.carry(19.24, [0.13, 0.36, -0.28], 0.25, "inOut");   // the toss
+hb.carry(19.12, [0.15, 0.46, 0.03], 0.1, "out"); hb.carry(19.24, [0.15, 0.36, 0.03], 0.25, "inOut");   // Sol r1: at z -.28 the bag was inside him   // the toss
 expr(19.4, "shocked", { eye: 1.2, open: 0.15 }, 0.15);
 look(19.5, [0.1, 0.6], 0.3); look(20.4, [0.05, 0.35], 0.4); look(21.0, [0, 0.15], 0.3);
-expr(21.0, "shocked", { eye: 1.15, open: 0.6 }, 0.2);                   // mouth open under it
+expr(20.7, "shocked", { eye: 1.15, open: 0.6 }, 0.25);                   // mouth open under it
 A(21.55, "spud", "squash", { amount: 0.05, dur: 0.18 });
 expr(21.6, "happy", { eye: 0.9, open: 0.1, curve: 0.9 }, 0.12);
 for (const k of [0, 0.35, 0.7]) sfx(r3(21.6 + k), "ai/crunch", { gain: 0.55, reason: "he crunches the crisp" });
@@ -263,7 +271,7 @@ see(19.0, 26.7, ["spud.face", "bag"], "7.7x: the crisps float down slowly; he ca
 // ================================================================ 26.7-31.0 P8 10x: the jump, his head bonks the lamp
 expr(26.7, "happy", { curve: 1, eye: 1.05 }, 0); look(26.7, [0, 0.3], 0);
 A(27.3, "spud", "crouch", { to: 0.4, dur: 0.18 }); A(27.48, "spud", "crouch", { to: 0, dur: 0.1 });
-A(27.5, "spud", "hop", { height: 0.95, count: 1, dur: 1.0, quiet: true });
+A(27.5, "spud", "hop", { height: 0.88, count: 1, dur: 1.0, quiet: true });
 A(27.5, "spud", "arm", { side: "both", pose: "shrug", dur: 0.3, ease: "out" });
 A(BONK, "spud", "squash", { amount: 0.16, dur: 0.2 });
 expr(BONK, "shocked", { eye: 1.3, open: 0.35 }, 0.05);
@@ -277,16 +285,17 @@ sfx(28.5, "step", { gain: 0.45, reason: "he lands back on the boards" });
 see(26.7, 31.0, ["spud.face", "lamp"], "10x: a jump from standing takes his head into the ceiling lamp; it swings");
 
 // ================================================================ 31.0-36.7 P9 11.3x: the street, the dunk (false close)
-const D0 = [2.0, -19.0], D1 = [2.48, -19.55];
-place(30.9, D0, STREET(-(D0[1] + 3)), 230);
-expr(30.9, "smug", { curve: 0.9, eye: 0.9 }, 0); look(30.9, [0.3, 0.3], 0);
+const D0 = [2.0, -19.0], D1 = [2.8, -19.3], KERB = 0.14;   // Sol r1: at (2.48, -19.55) on the road his feet hid behind the kerb: he lands on the pavement
+place(31.0, D0, STREET(-(D0[1] + 3)), 230);   // Sol r1: at 30.9 he left the flat in P8b's last frames
+expr(31.0, "smug", { curve: 0.9, eye: 0.9 }, 0); look(31.0, [0.3, 0.3], 0);
 const hball = grips.mug(c, "spud", BALL, { side: "R", height: 0 });
-hball.take(30.9, { reach: 0.01, settle: 0.01 });
+hball.take(30.98, { reach: 0.01, settle: 0.01 });
 hball.carry(31.3, [2.32, -11.05, -18.72], 0.35);   // a bounce in the hand, ready
 A(32.55, "spud", "crouch", { to: 0.45, dur: 0.2 }); A(32.75, "spud", "crouch", { to: 0, dur: 0.1 });
-A(32.8, "spud", "move", { to: D1, y: STREET(-(D1[1] + 3)), dur: 0.7, steps: 0, ease: "linear" });   // the move before the hop: its y would overwrite the hop's lift
+A(32.8, "spud", "move", { to: D1, y: r3(STREET(-(D1[1] + 3)) + KERB), dur: 0.7, steps: 0, ease: "linear" });   // the move before the hop: its y would overwrite the hop's lift
 A(32.8, "spud", "hop", { height: 1.0, count: 1, dur: 1.4, quiet: true });
-hball.carry(32.8, [2.84, -9.3, -19.72], 0.58, "inOut");   // up over the rim
+hball.carry(32.8, [2.84, -9.3, -19.45], 0.4, "inOut");   // up in front of the rim (Sol r1: it went up through it)
+hball.carry(33.2, [2.86, -9.3, -19.74], 0.18, "inOut");   // over the rim
 hball.carry(33.38, [2.86, -9.62, -19.74], 0.12, "in");     // down through it
 expr(33.0, "happy", { curve: 1, eye: 1.1, open: 0.3 }, 0.15);
 A(33.5, "spud", "release", { prop: "ball", dur: 0 }); grip(33.5, "R", "open", 0.15);
@@ -294,12 +303,14 @@ A(33.52, "spud", "arm", { side: "R", pose: { o: [0.34, 0.75, 0.14] }, dur: 0.3, 
 A(34.1, "spud", "arm", { side: "R", pose: "rest", dur: 0.4, ease: "settle" });
 A(33.8, "spud", "turn", { to: 330, dur: 0.4 });                         // round to the camera while he floats down
 // the ball (no physics in this clip): through the net, then long floaty bounces downhill (9.81 w: each hop lasts ~1.8x)
-const BB = [[33.5, 2.86, -9.62, -19.74], [33.95, 2.75, -11.42, -20.2], [34.95, 2.4, -10.6, -21.6], [35.95, 2.0, -11.62, -23.0], [36.7, 1.6, -11.2, -24.2]];
-for (let i = 1; i < BB.length; i++) { const [t0] = BB[i - 1], [t1, x, y, z] = BB[i]; prop(t0, "ball", { x, y, z }, r3(t1 - t0), i % 2 ? "in" : "out"); }
+// Sol r1: a prop tween running across a cut restarts from the last key finished before the cut (the ball jumped back at 34.95):
+// the bounce is split at P09b's cut (34.3) so no tween crosses it
+const BB = [[33.5, 2.86, -9.62, -19.74, ""], [33.95, 2.75, -11.42, -20.2, "in"], [34.3, 2.496, -10.826, -21.215, "out"], [34.95, 2.4, -10.6, -21.6, "out"], [35.95, 2.0, -11.62, -23.0, "in"], [36.7, 1.6, -11.2, -24.2, "out"]];
+for (let i = 1; i < BB.length; i++) { const [t0] = BB[i - 1], [t1, x, y, z, e] = BB[i]; prop(t0, "ball", { x, y, z }, r3(t1 - t0), e); }
 expr(34.4, "smug", { curve: 1, eye: 0.85 }, 0.2); look(34.5, [0, 0.1], 0.2);
 A(35.0, "spud", "arm", { side: "both", pose: "shrug", dur: 0.5 });
 sfx(SWISH, "netshot", { gain: 0.8, reason: "the ball swishes through the net" });
-for (const [t] of BB.slice(1, 4).filter((_, i) => i % 2 === 0)) sfx(t, "thud", { gain: 0.45, reason: "the ball bounces on the cobbles" });
+for (const t of [33.95, 35.95]) sfx(t, "thud", { gain: 0.45, reason: "the ball bounces on the cobbles" });
 sfx(34.3, "step-concrete", { gain: 0.5, reason: "he lands on the cobbles" });
 see(31.0, 36.7, ["spud.face", "ball"], "11.3x: half his weight gone, he dunks on the street hoop; the sea is lower down the valley");
 
@@ -317,14 +328,14 @@ for (let i = 0; i < HOPS.length - 1; i++) {
 }
 expr(38.3, "shocked", { eye: 1.2, open: 0.35 }, 0.15); expr(39.9, "happy", { curve: 0.8, eye: 1.1, open: 0.2 }, 0.2);
 look(41.0, [-0.6, 0.0], 0.25); expr(41.0, "shocked", { eye: 1.25, open: 0.3 }, 0.15); look(41.8, [0, 0.15], 0.2);   // a look back at the water
-sfx(39.95, "splash", { gain: 0.5, reason: "his foot lands in the puddle" });
+sfx(41.15, "splash", { gain: 0.5, reason: "his foot lands in the puddle" });
 sfx(36.7, "waves", { gain: 0.4, dur: 6.6, reason: "the flood surf at the bottom of the street" });
 see(36.7, 43.3, ["spud.face", "street"], "13x: each step floats him a metre; the sea is at the bottom of the street");
 
 // ================================================================ 43.3-46.7 P11 15x: a gust, one hand on the lamp post, flying like a flag
 // L1 hero post at (3.2, pavement -17.66, -58): one fist at 1.52 (y -16.14), two at 1.52 and 1.66 (DESIGN E6)
-const L1 = [3.2, -17.66, -58], FIST1 = [3.14, -16.14, -58], FIST2 = [3.14, -16.0, -58];
-place(43.3, [2.05, -58.05], -16.2, 320);
+const L1 = [3.2, -17.66, -58], FIST1 = [3.14, -16.14, -58], FIST2 = [3.154, -16.0, -57.961];   // Sol r1: the second fist hid behind the first: 40 deg round the pole
+place(43.3, [2.35, -58.05], -16.2, 320);   // Sol r1: at 2.05 the arm stretched past his body width
 A(43.28, "spud", "lean", { to: 80, dur: 0.01, ease: "linear" });
 A(43.28, "spud", "arm", { side: "L", pose: { world: FIST1 }, dur: 0.01, sync: true });
 grip(43.28, "L", "hold", 0.01);
@@ -369,7 +380,7 @@ see(50.0, 55.0, ["spud.face", "rain", "blobs"], "17x: rain falls upward, the sea
 // ================================================================ 55.0-60.0 P14 18.5x: high over Quito, the horizon curving
 // world HI: he rides up with the camera, 7 m in front of it, a little above the frame's middle (DESIGN G: face y ~780)
 const hiSpud = (a) => { const C = hiCam(a), q = C.pitch - (15 * Math.PI) / 180, D = 7;   /* draft 0: 3.6 deg put him on the bottom edge; nearer than 7 m the near plane (4) cuts him */ return [C.pos[0], C.pos[1] - D * Math.sin(q) - 0.45, C.pos[2] - D * Math.cos(q)]; };
-const H0 = hiSpud(0), H1 = hiSpud(1);
+const H0 = [hiSpud(0)[0], r3(hiSpud(0)[1] - 0.6), hiSpud(0)[2]], H1 = [hiSpud(0)[0], r3(hiSpud(0)[1] + 0.6), hiSpud(0)[2]];   // Sol r1: riding a 137 m/s camera drew him in two places on alternate frames
 flyTo(54.98, H0, 0.01, "linear");
 A(54.98, "spud", "turn", { to: 0, dur: 0.01, ease: "linear", sync: true });
 A(54.98, "spud", "lean", { to: 0, dur: 0.01, ease: "linear" });
@@ -427,7 +438,7 @@ const beats = c.beats([
   ["P11 15x: the gust, one hand on the post", 43.3, push(CAM.P11, 3.4, 0.06)],
   ["P12 16x: the rain hangs, 'Hold on.'", 46.7, push(CAM.P12, 3.3, 0.05)],
   ["P13 17x: rain up, the sea lifts, he slips", 50.0, { ...p13(0), to: p13(1), dur: 5.0, ease: "linear" }],
-  ["P14 18.5x: high over Quito", 55.0, { ...hiCam(0), to: hiCam(1), dur: 5.0, ease: "linear" }],
+  ["P14 18.5x: high over Quito", 55.0, { ...hiCam(0), to: { ...hiCam(0), fov: 45 }, dur: 5.0, ease: "linear" }],
   ["P15 20x: oceans and air peel off", 60.0, drift(SPC.P15, 6.0, [0, 0, -25])],
   ["P16 22x: cracks, the poles squash", 66.0, drift(SPC.P16, 7.3, [0, 0, -30])],
   ["P17 24x: the flat disc, the punchline", 73.3, drift(SPC.P17, r3(END - 73.3), [0, 0, -25])],
@@ -442,6 +453,7 @@ write(import.meta.url, {
   format: "Fact what-if (vertical, 60 s+)",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic", captionLead: LEAD,
   captionBand: [300, 1360],
+  captionOverBody: { reason: "close shots where Spud fills the frame (sofa P6, bonk P8, dunk P9b, sky P14): the line sits over his sweater or the top of his head, never within 40 px of an eye (output.md, lie count film rule)" },
   cleanStart: true, motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 },
   physics: false, animeTiming: true, far: 6000,
   set: { type: "spinroom", aperture: 0, focus: false, lighting: 2, hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
@@ -456,7 +468,6 @@ write(import.meta.url, {
     { who: "spud", with: "crt", from: 10.4, to: 10.7, checks: ["clipping", "hand-in-prop", "arm-in-prop"], reason: "the slap: his palm on the side of the TV cabinet" },
     { who: "spud", with: "win", from: 12.3, to: 14.9, checks: ["clipping", "shell", "hand-in-prop", "arm-in-prop"], reason: "both hands on the sash pull and the sash: he slams the window shut" },
     { who: "spud", with: "ball", from: 32.6, to: 33.55, checks: ["held-high"], reason: "the dunk: the ball goes up over the rim" },
-    { who: "spud", with: "spud", from: 54.9, to: 60.05, checks: ["rig-jump"], reason: "P14: he rides up with the camera at ~137 m/s (it climbs 1100 -> 1784 m in 5 s); on screen he holds still" },
     { who: "spud", with: "spud", from: 59.9, to: END, checks: ["rig-jump"], reason: "space: Spud is drawn 95-185x his size (Earth radius = 100 units), so a centimetre of hand motion measures as metres" },
     { who: "spud", with: "quilt", from: 15.0, to: 19.0, checks: ["shell", "clipping", "limb-in-prop", "costume-in-prop"], reason: "P6: he sits on the sofa under the quilt (the quilt lies over the seat and his lap)" },
     { who: "spud", with: "spud", from: 13.55, to: 14.2, checks: ["foot-slide", "rig-jump"], reason: "the gag: the slamming sash drags him 40 cm along the floor in 0.2 s; his feet slide with it, his hands ride the sash" },
