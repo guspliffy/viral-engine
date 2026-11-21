@@ -1,0 +1,53 @@
+// Potato Desk 12 "He nailed his trial like a job interview": the spoken lines, in order (story: STORY.md here; option 3 of
+// /mnt/project-files/videos/potato-desk/11-court-day-new/OPTIONS-v2.md, Jonny 20 Nov 2026 18:02 Berlin "this one is also
+// good", starred hook + ending). The judge only asks real court questions; the little one answers each like a job
+// interview. No character names in any line. [who, line, tone, style (VoxCPM2 acting direction), { take }]
+// v2 (Jonny 20 Nov 19:26 Berlin: "super short, target 60+ seconds"; 19:32 picked B, the salary negotiation): after the
+// verdict he negotiates his sentence like a salary: prison has meals, a room, no rent, so he wants MORE years; his
+// accomplice wants in too; the judge ends it by sending them home (Jonny 20:10 Berlin: "in the end the judge should just send them home"): home has rent. 20:11: "chip and wedge should be upset about it". Cast: vik = the judge, chip = the robber (tie, CV),
+// wedge = his accomplice, the "team of two".
+export const LINES = [
+  ["vik", "You robbed a bank.", "angry", "deep, stern, flat, a judge reading the charge"],
+  ["chip", "Thank you for having me!", "happy", "bright, polite, eager, a job applicant shaking hands", { voice: "chip-clean" }],
+  ["vik", "Why this bank?", "calm", "deep, stern, slow, a judge"],
+  ["chip", "I'm passionate about money.", "happy", "sincere, warm, rehearsed, a job interview answer", { voice: "chip-clean" }],
+  ["vik", "Did you act alone?", "calm", "deep, stern, a judge"],
+  ["chip", "I led a team of two.", "happy", "proud, confident, professional", { voice: "chip-clean" }],
+  ["vik", "Where is the money?", "angry", "deep, stern, sharp"],
+  ["chip", "I invested in myself.", "happy", "smooth, proud, straightening his tie", { voice: "chip-clean" }],
+  ["vik", "Why were you still in the vault?", "calm", "deep, stern, tired, a judge"],
+  ["chip", "Honestly? I work too hard.", "happy", "humble brag, modest, a little smile", { voice: "chip-clean" }],
+  ["vik", "Ten years.", "calm", "deep, stern, flat, final"],
+  ["chip", "Ten?", "calm", "unimpressed, flat, raising an eyebrow, a job offer that is too low", { voice: "chip-clean" }],
+  ["chip", "With my experience?", "calm", "cool, unimpressed, a tough negotiator", { voice: "chip-clean" }],
+  ["chip", "I was thinking fifteen.", "happy", "confident, smooth, a tough negotiator", { voice: "chip-clean" }],
+  ["wedge", "Lower is better!", "sad", "urgent whisper, panicked, quiet"],
+  ["vik", "You want MORE years?", "angry", "deep, baffled, disbelieving"],
+  ["chip", "What's included?", "calm", "businesslike, curious, a job applicant", { voice: "chip-clean" }],
+  ["vik", "Included?", "calm", "deep, confused, slow"],
+  ["chip", "Do I get meals?", "calm", "businesslike, curious", { voice: "chip-clean" }],
+  ["vik", "Three a day.", "calm", "deep, flat, a judge"],
+  ["chip", "A room?", "calm", "businesslike, curious", { voice: "chip-clean" }],
+  ["vik", "A cell.", "calm", "deep, flat, a judge"],
+  ["chip", "A uniform?", "calm", "businesslike, curious, touching his tie", { voice: "chip-clean" }],
+  ["vik", "Orange.", "calm", "deep, flat, a judge"],
+  ["chip", "I look great in orange.", "happy", "smug, pleased, vain", { voice: "chip-clean" }],
+  ["chip", "Do I pay rent?", "calm", "careful, hopeful, curious", { voice: "chip-clean" }],
+  ["vik", "No rent.", "calm", "deep, flat, a judge"],
+  ["chip", "No rent!", "happy", "amazed, delighted, turning to his friend", { voice: "chip-clean" }],
+  ["wedge", "Can I apply too?", "happy", "eager, hopeful, stepping forward"],
+  ["vik", "You're his accomplice!", "angry", "deep, loud, exasperated"],
+  ["wedge", "Is there dental?", "calm", "hopeful, curious, serious"],
+  ["vik", "There's a nurse.", "calm", "deep, tired, giving up"],
+  ["wedge", "I'll take fifteen.", "happy", "eager, happy, a done deal"],
+  ["chip", "He gets fifteen?!", "angry", "outraged, offended, high, loud", { voice: "chip-clean" }],
+  ["chip", "Then I want twenty!", "angry", "outraged, competitive, loud", { voice: "chip-clean" }],
+  ["wedge", "Twenty-five!", "angry", "competitive, loud, eager"],
+  ["chip", "Thirty!", "angry", "competitive, loud, outbidding", { voice: "chip-clean" }],
+  ["wedge", "LIFE!", "angry", "competitive, very loud, triumphant, outbidding"],
+  ["vik", "ENOUGH!", "angry", "deep, very loud, a judge shouting"],
+  ["vik", "Case dismissed. Go home.", "calm", "deep, stern, flat, final, the worst punishment"],
+  ["chip", "Home?!", "sad", "horrified, devastated, high, broken", { voice: "chip-clean" }],
+  ["wedge", "No dental...", "sad", "heartbroken, quiet, sobbing, devastated"],
+  ["chip", "But I pay rent there!", "sad", "devastated, wailing, desperate, almost crying", { voice: "chip-clean" }],
+];
