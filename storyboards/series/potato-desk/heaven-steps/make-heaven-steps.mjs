@@ -696,7 +696,11 @@ props.forEach((p) => { if (["stairsky", "zoneclouds", "hellhatch"].includes(p.ki
 
 // ---------------------------------------------------------------- beats
 shots.sort((a, b) => a.at - b.at);
+// the posted video (21 Nov) was rendered before clip.mjs cut every caption at the next cut (#283): this clip keeps its own
+// rule below (a caption ends on a cut only in its last 0.35 s), so the storyboard stays the video Jonny posted
+for (const k of c.captions) k.across = true;
 const beats = c.beats(shots.map((s, i) => { const dur = r3((shots[i + 1]?.at ?? END) - s.at); return [s.name, s.at, s.move(s.s, dur), s.kind]; }), END);
+for (const k of c.captions) delete k.across;
 
 // a subtitle ends where the next one starts (two stood on each other for 6 frames at 2.95 s, preflight draft 4)
 { const subs = c.captions.filter((k) => !k.pop && (k.size === 64 || k.size === 56)).sort((x, y) => x.from - y.from);
