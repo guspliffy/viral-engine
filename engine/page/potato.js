@@ -798,8 +798,10 @@ export class Character {
     a.skin = new THREE.Mesh(new THREE.BufferGeometry(), this.skinMat);
     a.skin.castShadow = true; a.skin.receiveShadow = !!this.def.hands.selfShadow; a.skin.frustumCulled = false; a.skin.matrixAutoUpdate = false; this.root.add(a.skin);
     const im = inkMaterial(); im.userData.outlineParameters = { visible: false };
-    // the line the look gives the legs (same material as the arms used to have)
-    const line = () => { const op = this.legs[s].mesh?.material?.userData?.outlineParameters; im.uniforms.thickness.value = op && op.visible !== false && op.thickness ? op.thickness : 0; if (op?.color) im.uniforms.color.value.fromArray(op.color); };
+    // the line the look gives the legs (same material as the arms used to have). An ink look (set.ink) gives pixels at a
+    // 1080 short side, which its outline pass converts; this shell pushes in screen units (NDC), so it reads `shell`: as
+    // pixels the push was 2.5 screens and the shell covered the whole frame (egypt-myth 01, 20 Nov)
+    const line = () => { const op = this.legs[s].mesh?.material?.userData?.outlineParameters; im.uniforms.thickness.value = op && op.visible !== false && op.thickness ? op.shell ?? op.thickness : 0; if (op?.color) im.uniforms.color.value.fromArray(op.color); };
     a.ink = new THREE.Mesh(a.skin.geometry, im); a.ink.frustumCulled = false; a.ink.onBeforeRender = line; a.ink.matrixAutoUpdate = false; this.root.add(a.ink);
     // the arm tube: the same ink, instead of three's outline
     this.armMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
