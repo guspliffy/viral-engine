@@ -1,0 +1,1293 @@
+{
+ "id": "sky-bench",
+ "title": "Spin sky bench",
+ "idea": "Props bench for fact what-if 03 spin (ssky, sclouds, sstorm), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "far": 6000,
+ "set": {
+  "type": "gravroom",
+  "bare": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "ssky",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": 0,
+   "trail": 1
+  },
+  {
+   "id": "clouds",
+   "kind": "sclouds",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": 0
+  },
+  {
+   "id": "storm",
+   "kind": "sstorm",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": -1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.55,
+     1.28,
+     0.6
+    ],
+    "look": [
+     0.15,
+     0.1,
+     -8
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 0,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 0,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P1 t 0"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.55,
+     1.28,
+     0.6
+    ],
+    "look": [
+     0.15,
+     0.1,
+     -8
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 1,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P1 t 1"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.55,
+     1.28,
+     0.6
+    ],
+    "look": [
+     0.15,
+     0.1,
+     -8
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 1.57,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 1.57
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P1 t 1.57"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     62,
+     250
+    ],
+    "look": [
+     -60,
+     -170,
+     -1500
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 3.8,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 3.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P2 t 3.8"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.95,
+     -0.55
+    ],
+    "look": [
+     -0.05,
+     0.8,
+     -2.4
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 6.5,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 6.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P6 t 6.5"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.95,
+     -0.55
+    ],
+    "look": [
+     -0.05,
+     0.8,
+     -2.4
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 13,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 13
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P6 t 13"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.95,
+     -0.55
+    ],
+    "look": [
+     -0.05,
+     0.8,
+     -2.4
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 15.34,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 15.34
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P6 t 15.34"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.95,
+     -0.55
+    ],
+    "look": [
+     -0.05,
+     0.8,
+     -2.4
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 15.5,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 15.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P6 t 15.5"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.55,
+     0.8,
+     0.95
+    ],
+    "look": [
+     -0.25,
+     1.05,
+     -1.6
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 26.7,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 26.7
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P7 t 26.7"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.6,
+     -9.9,
+     -13.5
+    ],
+    "look": [
+     2.2,
+     -9.4,
+     -20
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 33,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 33
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P9 t 33"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.9,
+     -16.4,
+     -53.5
+    ],
+    "look": [
+     2.4,
+     -16.3,
+     -58.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 45,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P11 t 45"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2,
+     -16.4,
+     -53
+    ],
+    "look": [
+     1.6,
+     -16.2,
+     -75
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 48,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 48
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P12 t 48"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2,
+     -15.6,
+     -53
+    ],
+    "look": [
+     1.6,
+     -16,
+     -75
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 52,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 52
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P13 t 52"
+  },
+  {
+   "name": "s14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     1,
+     0.05
+    ],
+    "look": [
+     1.05,
+     1.1,
+     -2.65
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 13,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 13
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": 13
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P5 t 13"
+  },
+  {
+   "name": "s15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.9,
+     -16.4,
+     -53.5
+    ],
+    "look": [
+     2.4,
+     -16.3,
+     -58.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 43.2,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 43.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P11 t 43.2"
+  },
+  {
+   "name": "s16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.9,
+     -16.4,
+     -53.5
+    ],
+    "look": [
+     2.4,
+     -16.3,
+     -58.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 43.4,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 43.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P11 t 43.4"
+  },
+  {
+   "name": "s17",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.55,
+     1.28,
+     0.6
+    ],
+    "look": [
+     0.15,
+     0.1,
+     -8
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 1,
+      "trail": 2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P1 t 1"
+  },
+  {
+   "name": "s18",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.55,
+     1.28,
+     0.6
+    ],
+    "look": [
+     0.15,
+     0.1,
+     -8
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 1.2,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 1.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P1 t 1.2"
+  },
+  {
+   "name": "s19",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.55,
+     1.28,
+     0.6
+    ],
+    "look": [
+     0.15,
+     0.1,
+     -8
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 2.2,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 2.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "P1 t 2.2"
+  },
+  {
+   "name": "s20",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     1,
+     0.05
+    ],
+    "look": [
+     1.05,
+     1.1,
+     -2.65
+    ],
+    "fov": 95
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 13,
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 13
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": 13
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 44
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.999
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 44
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.999
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.999
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.999
+    }
+   ],
+   "kind": "P5W t 13"
+  },
+  {
+   "name": "lum20",
+   "at": 20,
+   "len": 4,
+   "shot": {
+    "pos": [
+     2,
+     -16.4,
+     -53
+    ],
+    "look": [
+     1.6,
+     -16.2,
+     -75
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 48
+     },
+     "dur": 4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 48
+     },
+     "dur": 4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 19
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.999
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 19
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.999
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "trail": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.999
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.999
+    }
+   ],
+   "kind": "P12 lum t 44-48"
+  },
+  {
+   "name": "lum24",
+   "at": 24,
+   "len": 4,
+   "shot": {
+    "pos": [
+     0.55,
+     0.8,
+     0.95
+    ],
+    "look": [
+     -0.25,
+     1.05,
+     -1.6
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 23
+     },
+     "dur": 4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 23
+     },
+     "dur": 4,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "P7 lum t 19-23"
+  }
+ ],
+ "notes": "Generated by storyboards/series/facts/03-spin/bench/make-sky-bench.mjs (props bench, no reviews)."
+}

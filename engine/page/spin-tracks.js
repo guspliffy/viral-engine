@@ -19,8 +19,8 @@ export const phi = (t) => 0.16 * t + 0.012 * t * t;                       // fil
 export const psi = (t) => 0.22 + phi(t);
 export const alphaDeg = (t) => 360 * psi(t);                              // wheel angle
 export const isDay = (t) => fract(psi(t)) < 0.5;
-// flicker depth A: 1 up to 7.7x, .50 at 10x, .22 at 13x, .12 from 17x
-export const flicker = (t) => { const s = spin(t); return keys(s, [[7.7, 1], [10, 0.5], [13, 0.22], [17, 0.12]]); };
+// flicker depth A (director, after the sky bench): 1 up to 5.5x, .25 at 7.7x, .22 at 10x, .18 at 13x, .12 from 17x
+export const flicker = (t) => { const s = spin(t); return keys(s, [[5.5, 1], [7.7, 0.25], [10, 0.22], [13, 0.18], [17, 0.12]]); };   // director 21 Nov: DESIGN A table broke B7 (82 % step at 7.7-8.8x on the sky bench)
 
 // B1: a body at wheel radius rho (deg) and wheel angle a (deg): az = rho cos a, el = rho sin a (az + = right)
 export function wheel(rho, aDeg) { const r = aDeg * Math.PI / 180; return { az: rho * Math.cos(r), el: rho * Math.sin(r) }; }
