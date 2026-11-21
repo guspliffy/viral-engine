@@ -16,6 +16,10 @@ import { clamp } from "./util.js";
 //   blankreport  the unwritten report: a sheet with a title and empty lines, lying flat on its origin.
 //   necktie      a tie: a knot and a long blade with diagonal stripes, hanging down from the origin (the knot) along -y
 //                and lying on +z. spec.color, spec.stripe, spec.len. Worn with spec.wear.
+//   cvsheet      a one-page CV standing upright (Potato Desk 12 job interview trial): a big CV heading, a photo box with a
+//                little potato face, name rule and body lines. 0.15 x 0.21 (spec.w, spec.h). Origin: the bottom edge's
+//                middle. Held with the phone hold (grips.mjs SIZE cvsheet); spec.away turns the printed face to -z
+//                (away from the holder, toward whoever he shows it to).
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...o });
 function mesh(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; parent.add(o); return o; }
 function canvasTex(w, h, draw) {
@@ -86,6 +90,24 @@ export const BUSY_KINDS = {
     const o = mesh(new THREE.BoxGeometry(W, 0.004, D), [mat("#f4f2ec"), mat("#f4f2ec"), m, mat("#f4f2ec"), mat("#f4f2ec"), mat("#f4f2ec")], P.whole, 0, 0.002, 0);
     o.castShadow = false;
     return { grip: 0 };
+  },
+
+  cvsheet(P) {
+    const S = P.spec, w = S.w ?? 0.15, h = S.h ?? 0.21;
+    const tex = canvasTex(300, 420, (g, W, H) => {
+      g.fillStyle = "#fbfaf4"; g.fillRect(0, 0, W, H);
+      g.fillStyle = "#1f2a44"; g.font = "900 96px sans-serif"; g.textAlign = "left"; g.fillText("CV", 22, 98);
+      g.fillStyle = "#e9c04a"; g.fillRect(186, 22, 92, 104); g.strokeStyle = "#1f2a44"; g.lineWidth = 5; g.strokeRect(186, 22, 92, 104);
+      g.fillStyle = "#e2a95c"; g.beginPath(); g.ellipse(232, 78, 30, 38, 0, 0, Math.PI * 2); g.fill();
+      g.fillStyle = "#1f2a44"; g.beginPath(); g.arc(222, 72, 4.5, 0, 7); g.arc(242, 72, 4.5, 0, 7); g.fill();
+      g.lineWidth = 4; g.beginPath(); g.arc(232, 86, 10, 0.2, Math.PI - 0.2); g.stroke();
+      g.fillStyle = "#26324a"; g.fillRect(22, 150, 256, 7);
+      g.fillStyle = "#9aa6bf"; for (let y = 190; y < H - 24; y += 32) g.fillRect(22, y, y % 64 ? 230 : 256, 6);
+    });
+    const sheet = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9, side: THREE.DoubleSide }));
+    sheet.position.y = h / 2; sheet.castShadow = true; P.whole.add(sheet);
+    if (S.away) sheet.rotation.y = Math.PI;
+    return { grip: h * 0.5 };
   },
 
   necktie(P) {
