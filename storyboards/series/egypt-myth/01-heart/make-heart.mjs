@@ -500,12 +500,12 @@ const TWO_J = fr([-3.0, 0.6, 2.9], { az: 10, el: 6, h: 2.6, fov: 36, lift: 0.1 }
 // Sol 1 (9): from az -35 Chip's leaf stood in front and the beetle sat at the frame edge. From the front Chip is out of frame.
 const PLANB_S = fr([SPUD_J[0], 0.6, SPUD_J[1]], { az: -20, el: 4, h: 1.7, fov: 34, lift: 0.1 });   // az 0 had the queue-rope post in front of him, az 20 his back
 const BUG_S = fr([-3.1, 0.55, 2.95], { az: -25, el: 6, h: 2.8, fov: 36, lift: 0.06 });   // the rope post (-2.4, 3.6) out of frame   // both, the beetle in Spud's raised hand
-const BEETLE_CL = fr([BEET_AT[0], BEET_AT[1] + 0.05, BEET_AT[2]], { az: -25, el: 4, h: 1.05, fov: 34, lift: 0.12 });   // the beetle's back more to us; Chip and the post out of frame   // the beetle mid-frame, his face above
+const BEETLE_CL = fr([r3((BEET_AT[0] + SPUD_J[0]) / 2), 0.56, r3((BEET_AT[2] + SPUD_J[1]) / 2)], { az: -25, el: 4, h: 1.3, fov: 34, lift: 0.08 });   // the beetle's back more to us; Chip and the post out of frame   // the beetle mid-frame, his face above
 const WALK_S = fr([-1.9, 0.6, 1.6], { az: -35, el: 10, h: 2.8, fov: 38, lift: 0.1 });   // from his front-left: his face as he walks
 const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 20, h: 2.4, fov: 34, lift: 0.2 });   // wide enough for the 4-line caption over him
 // the pass, the doors, the museum
 const MONT = (i) => fr([STOOL(i)[0] + 0.05, 1.0, STOOL(i)[1]], { az: STOOL(i)[1] > CHIP_J[1] ? 60 : 120, el: 12, h: 1.9, fov: 40, lift: 0.12 });
-const PASS_S = fr([0.75, 1.1, -0.2], { az: 12, el: 6, h: 2.7, fov: 38, lift: 0.08 });   // closer: his jaw on "Pass." reads
+const PASS_S = fr([0.75, 1.1, -0.2], { az: 30, el: 6, h: 2.7, fov: 38, lift: 0.08 });   // az 12 foreshortened his muzzle into an egg   // closer: his jaw on "Pass." reads
 
 const DOORS_S = { pos: [-1.0, 0.9, 4.2], look: [-0.6, 2.2, -9.0], fov: 46 };
 const SAFE_S = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 0, el: 6, h: 2.5, fov: 34, lift: 0.12 });
@@ -516,14 +516,14 @@ const CASE_IN = { pos: [CASE_X, 1.5, 1.9], look: [CASE_X, 1.25, 0.3], fov: 50 };
 // next
 const NEXT_S = { pos: [0.65, 1.71, 5.45], look: [0.0, 1.19, 0.5], fov: 38 };   // the jackal clear of the pillar, the two at the left edge
 const SPUD_E_CL = fr([SPUD_E[0], 0.72, SPUD_E[1]], { az: 35, el: 3, h: 1.9, fov: 32, lift: 0.14 });
-const HIDE_S = fr([CHIP_E[0], 0.35, CHIP_E[1]], { az: 235, el: 8, h: 1.2, fov: 34, lift: 0.1 });   // the reverse: his smug face as he turns away from Spud (az 60 saw his back)
+const HIDE_S = fr([CHIP_E[0], 0.35, CHIP_E[1]], { az: 235, el: 8, h: 0.95, fov: 34, lift: 0.1 });   // the reverse (tight: wider had Spud's back filling half the frame): his smug face as he turns away from Spud (az 60 saw his back)
 const HSPUD_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.12, 0], { az: 12, el: 6, h: 0.8, fov: 30 });
 const MON_TURN = fr([-2.0, 0.7, -0.6], { az: -30, el: 4, h: 2.4, fov: 36 });   // az 30 had Spud's head in the foreground
-const LAST = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 8, el: 14, h: 2.0, fov: 40, lift: 0.08 });   // Sol 1 (18): closer and higher, over the queue rope
+const LAST = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 8, el: 14, h: 2.6, fov: 40, lift: 0.1 });   // Sol 1 (18): closer and higher, over the queue rope
 
 const beats = c.beats([
   ["chomp", 0, push(O_CHOMP, 0.12, 0.6), "hook"],
-  ["spray", r3(ASH - 0.1), push(O_SPRAY, 0.08, 0.8)],
+  ["spray", r3(CLOSED + 0.07), push(O_SPRAY, 0.08, 0.7)],   // after the jaws shut on camera (with the 0.45 s chomp, ASH - 0.1 cut before the bite)
   ["she ate his heart", r3(T[1] - 0.04), push(O_CHIP, 0.1, 1.3)],
   ["one feather", WHIP, push(FEATHER_CL, 0.08, 0.8)],
   ["vs the feather", r3(WHIP + 0.8), push(VS, 0.2, 2.0)],   // a hard cut: the whip pan swept past the jackal and the back wall in 9 frames (draft pops FAIL)
