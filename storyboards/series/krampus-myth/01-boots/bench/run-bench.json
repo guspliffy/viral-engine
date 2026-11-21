@@ -1,0 +1,578 @@
+{
+ "id": "run-bench",
+ "title": "Krampus myth 01 run bench",
+ "idea": "Engine look bench for the Krampus-run square (task T-F), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "far": 420,
+ "set": {
+  "type": "plain",
+  "color": "#0e1630",
+  "floor": "none",
+  "night": true,
+  "key": [
+   -0.62,
+   0.47,
+   0.63
+  ],
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "key": [
+    -0.62,
+    0.47,
+    0.63
+   ],
+   "light": "#a8bce8",
+   "shadow": "#3a2a2e",
+   "rim": "#9fb4e8",
+   "exposure": 0.95
+  },
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "run",
+   "kind": "krampusrun",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "panel19",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.4,
+     1.15,
+     7.8
+    ],
+    "look": [
+     0,
+     1.35,
+     -4
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "lowClose",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     0.45,
+     6.4
+    ],
+    "look": [
+     0,
+     1.25,
+     1
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "torchClose",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.9,
+     2,
+     7.2
+    ],
+    "look": [
+     -1.1,
+     2.35,
+     3
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "onlookersR",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.2,
+     1.05,
+     9.5
+    ],
+    "look": [
+     3.5,
+     0.55,
+     -1.5
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "onlookersL",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.2,
+     1.05,
+     9.5
+    ],
+    "look": [
+     -3.5,
+     0.55,
+     -3
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "phones",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.35,
+     0.8,
+     -1.9
+    ],
+    "look": [
+     3.7,
+     0.7,
+     -4.4
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "kids",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.2,
+     0.7,
+     -3
+    ],
+    "look": [
+     3.1,
+     0.55,
+     -0.4
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "midFar",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     3.4,
+     -3
+    ],
+    "look": [
+     0,
+     2.2,
+     -60
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "farEnd",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     -35.5
+    ],
+    "look": [
+     0,
+     5.5,
+     -180
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "church",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5,
+     2,
+     -24
+    ],
+    "look": [
+     9,
+     12,
+     -46
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "houses",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1,
+     1.6,
+     -2
+    ],
+    "look": [
+     -12,
+     2.6,
+     -18
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "housesR",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1,
+     1.6,
+     -2
+    ],
+    "look": [
+     12,
+     2.6,
+     -16
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "fir",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2,
+     1.6,
+     -19
+    ],
+    "look": [
+     -8,
+     3.5,
+     -30
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "plan",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     95,
+     -29
+    ],
+    "look": [
+     0,
+     0,
+     -30
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sky",
+   "at": 14,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     3.5,
+     1.6,
+     10
+    ],
+    "look": [
+     -30,
+     36,
+     -250
+    ],
+    "fov": 64
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "run",
+     "set": {
+      "march": 0,
+      "torch": 1,
+      "ring": 0.8,
+      "cheer": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/krampus-myth/01-boots/bench/make-run-bench.mjs (engine bench, no story)."
+}

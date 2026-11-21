@@ -1,0 +1,746 @@
+{
+ "id": "cat-bench",
+ "title": "Krampus myth 01 cat bench",
+ "idea": "Engine look bench for the ktabby prop (task T-F), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#cdbfa6",
+  "floor": "#7a6e5c",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "cat",
+   "kind": "ktabby",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "run": 0,
+   "streak": 0,
+   "bound": 0,
+   "rate": 0,
+   "tail": 0.5,
+   "lookX": 0,
+   "lookY": 0,
+   "ears": 0,
+   "blink": 0,
+   "crouch": 0
+  },
+  {
+   "id": "k",
+   "kind": "krampus",
+   "x": 6,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "scale": 0
+  },
+  {
+   "id": "kc",
+   "kind": "ktabby",
+   "x": 6,
+   "y": 0,
+   "z": 0.42,
+   "rot": 28,
+   "scale": 0,
+   "run": 0,
+   "streak": 0,
+   "bound": 0,
+   "rate": 0,
+   "tail": 0.5,
+   "lookX": 0,
+   "lookY": 0,
+   "ears": 0,
+   "blink": 0,
+   "crouch": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "side",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.982,
+     0.399,
+     -0.03
+    ],
+    "look": [
+     0,
+     0.19,
+     -0.03
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "front",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.334,
+     2.113
+    ],
+    "look": [
+     0,
+     0.19,
+     0.06
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "three34",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.471,
+     0.709,
+     2.705
+    ],
+    "look": [
+     0,
+     0.19,
+     -0.04
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "back",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.962,
+     0.486,
+     -2.644
+    ],
+    "look": [
+     0,
+     0.19,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.8,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "face",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.189,
+     0.305,
+     0.727
+    ],
+    "look": [
+     0,
+     0.27,
+     0.26
+    ],
+    "fov": 18
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0.2,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "faceSide",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.524,
+     0.298,
+     0.371
+    ],
+    "look": [
+     0,
+     0.27,
+     0.26
+    ],
+    "fov": 18
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0.5,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bound0",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.495,
+     0.406,
+     -0.04
+    ],
+    "look": [
+     0,
+     0.17,
+     -0.04
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 1,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bound25",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.495,
+     0.406,
+     -0.04
+    ],
+    "look": [
+     0,
+     0.17,
+     -0.04
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 1,
+      "streak": 0,
+      "bound": 0.25,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bound50",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.495,
+     0.406,
+     -0.04
+    ],
+    "look": [
+     0,
+     0.17,
+     -0.04
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 1,
+      "streak": 0,
+      "bound": 0.5,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bound75",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.495,
+     0.406,
+     -0.04
+    ],
+    "look": [
+     0,
+     0.17,
+     -0.04
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 1,
+      "streak": 0,
+      "bound": 0.75,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "streak",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.009,
+     0.433,
+     -0.1
+    ],
+    "look": [
+     0,
+     0.17,
+     -0.1
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 1,
+      "streak": 1,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "streakFront",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.325,
+     0.885,
+     3.27
+    ],
+    "look": [
+     0,
+     0.17,
+     -0.05
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 1,
+      "streak": 1,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "alert",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.939,
+     0.514,
+     2.038
+    ],
+    "look": [
+     0,
+     0.2,
+     -0.02
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 1,
+      "lookX": 0,
+      "lookY": 0.6,
+      "ears": 1,
+      "blink": 0,
+      "crouch": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "crouch",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.371,
+     0.464,
+     1.197
+    ],
+    "look": [
+     0,
+     0.15,
+     -0.03
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.1,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": -0.2,
+      "blink": 0,
+      "crouch": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "hooves",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.989,
+     0.526,
+     2.32
+    ],
+    "look": [
+     6,
+     0.28,
+     0.2
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "k",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kc",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cat",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kc",
+     "set": {
+      "run": 0,
+      "streak": 0,
+      "bound": 0,
+      "rate": 0,
+      "tail": 0.5,
+      "lookX": 0,
+      "lookY": 0,
+      "ears": 0,
+      "blink": 0,
+      "crouch": 0,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "k",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "kc",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/krampus-myth/01-boots/bench/make-cat-bench.mjs (engine bench, no story)."
+}
