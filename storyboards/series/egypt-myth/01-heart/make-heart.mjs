@@ -434,12 +434,12 @@ see(T[36], r3(END_OF(36) + 1.0), ["jackal", "hspud"], "the jackal points: next; 
 // SPUD: ...Can I have my beetle back?
 L(37, 0.35);
 turn(T[37] - 0.6, "spud", 65, 0.6); look(T[37] - 0.2, "spud", [0.3, -0.25]); expr(T[37], "spud", "worried");
-arm(T[37] + 0.15, "spud", "R", { o: [0.3, 0.42, 0.3] }, 0.45); grip(T[37] + 0.2, "spud", "R", "open", 0.35);   // an open palm out to Chip
+arm(T[37] + 0.1, "spud", "R", { o: [0.3, 0.42, 0.3] }, 0.7); grip(T[37] + 0.3, "spud", "R", "open", 0.5);   // slow: the palm turned 84-98 degrees in 3 frames   // an open palm out to Chip
 say(37);
 // Chip hides it behind his back
 const HIDE = r3(END_OF(37) + 0.05);
 expr(HIDE - 0.1, "chip", "smug"); look(HIDE, "chip", [-0.6, 0.35]);
-turn(HIDE, "chip", 90, 0.4);   // he turns his back on Spud (left of him), the fist away from him, his smug face to the camera (a carry behind the back popped the beetle)
+turn(HIDE, "chip", 235, 0.35);   // he turns the fist away from Spud (a carry behind the back popped the beetle; a turn to 90 put his arm through his chest); the camera is in front of him
 // SPUD'S HEART: He let him steal the fries.  CLUNK. The monster's head turns to Spud.
 L(38, 0.3);
 P(T[38] - 0.1, "hspud", { smug: 1, lean: 0.6, sweat: 0 }, 0.2);
@@ -516,7 +516,7 @@ const CASE_IN = { pos: [CASE_X, 1.5, 1.9], look: [CASE_X, 1.25, 0.3], fov: 50 };
 // next
 const NEXT_S = { pos: [0.65, 1.71, 5.45], look: [0.0, 1.19, 0.5], fov: 38 };   // the jackal clear of the pillar, the two at the left edge
 const SPUD_E_CL = fr([SPUD_E[0], 0.72, SPUD_E[1]], { az: 35, el: 3, h: 1.9, fov: 32, lift: 0.14 });
-const HIDE_S = fr([CHIP_E[0], 0.35, CHIP_E[1]], { az: 60, el: 8, h: 1.5, fov: 34, lift: 0.14 });
+const HIDE_S = fr([CHIP_E[0], 0.35, CHIP_E[1]], { az: 235, el: 8, h: 1.2, fov: 34, lift: 0.1 });   // the reverse: his smug face as he turns away from Spud (az 60 saw his back)
 const HSPUD_CL = fr([HEART_LEVEL[0], HEART_LEVEL[1] + 0.12, 0], { az: 12, el: 6, h: 0.8, fov: 30 });
 const MON_TURN = fr([-2.0, 0.7, -0.6], { az: -30, el: 4, h: 2.4, fov: 36 });   // az 30 had Spud's head in the foreground
 const LAST = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 8, el: 14, h: 2.0, fov: 40, lift: 0.08 });   // Sol 1 (18): closer and higher, over the queue rope
