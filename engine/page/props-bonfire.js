@@ -12,6 +12,8 @@ import { steamWisps } from "./steam.js";
 //   blanket      a tartan blanket over a seated lap (origin: the chair's origin; spec.color, spec.check). fall 0..1:
 //                left behind on the chair when the sitter stands (it slumps onto the sling).
 //   teamug       a white mug (campmug's size and handle, so the grip library's mug hold fits it); steam 0..1.
+//                Ø0.09 x 0.085 at scale 1. spec.color ("#f4f1ea") paints it; spec.steam (0) the wisps from the start;
+//                spec.scale (1) is the generic prop scale, so spec.scale 2.0 is Ø0.18 x 0.17 and the grip follows it.
 //   toffeeapple  a red toffee apple on a wooden stick: origin the stick's bottom, the apple on top (grips thin).
 //   sandbucket   a red metal bucket of sand for used sparklers, with a wire bail (origin: its bottom middle). glow
 //                0..1: an ember's orange light in the sand; rise 0..1 a small grey ash pile on the sand; open 0..1

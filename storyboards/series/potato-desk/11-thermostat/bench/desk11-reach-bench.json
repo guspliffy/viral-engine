@@ -1,0 +1,610 @@
+{
+ "id": "desk11-reach-bench",
+ "title": "desk11 reach bench",
+ "idea": "reach bench",
+ "tool": "bench",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "castLook": "sheet",
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "motion": {
+  "feet": 2,
+  "solve": true
+ },
+ "set": {
+  "type": "plain",
+  "color": "#b7c4b8",
+  "floor": "none",
+  "light": "soft"
+ },
+ "sound": {
+  "signature": false
+ },
+ "creative": {
+  "length": [
+   6,
+   6
+  ]
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -0.56,
+    -0.98
+   ],
+   "face": 60,
+   "expr": "angry"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    -0.36
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    0.64,
+    -0.95
+   ],
+   "face": -60,
+   "expr": "smug"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    2.6,
+    0.6
+   ],
+   "face": 0,
+   "expr": "stern"
+  }
+ ],
+ "props": [
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 4.6,
+   "h": 2.6,
+   "dado": "#B7C4B8",
+   "wall": "#B7C4B8",
+   "top": "#B7C4B8",
+   "rail": "#AEBBAF"
+  },
+  {
+   "id": "floor",
+   "kind": "carpettiles",
+   "x": 0,
+   "y": 0,
+   "z": 1.5,
+   "w": 5,
+   "d": 6
+  },
+  {
+   "id": "card",
+   "kind": "lightpool",
+   "face": "z",
+   "w": 0.48,
+   "d": 0.44,
+   "color": "#ffffff",
+   "x": 0,
+   "y": 1.36,
+   "z": -1.29,
+   "on": 1
+  },
+  {
+   "id": "mUp",
+   "kind": "snowlump",
+   "r": 0.025,
+   "x": -0.105,
+   "y": 1.205,
+   "z": -1.22
+  },
+  {
+   "id": "mDown",
+   "kind": "snowlump",
+   "r": 0.025,
+   "x": 0.105,
+   "y": 1.205,
+   "z": -1.22
+  },
+  {
+   "id": "mRail",
+   "kind": "snowlump",
+   "r": 0.025,
+   "x": 0.22,
+   "y": 1.07,
+   "z": -1.17
+  },
+  {
+   "id": "mLow",
+   "kind": "snowlump",
+   "r": 0.025,
+   "x": 0.45,
+   "y": 1.08,
+   "z": -1.22
+  },
+  {
+   "id": "mShake",
+   "kind": "snowlump",
+   "r": 0.025,
+   "x": 0,
+   "y": 1.03,
+   "z": -0.92
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "btn-front",
+   "at": 0,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     3.6
+    ],
+    "look": [
+     0,
+     1.15,
+     -1
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "card",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.56,
+      -0.98
+     ],
+     "dur": 0,
+     "y": 0.74,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 60,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.105,
+       1.225,
+       -1.22
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.105,
+       1.225,
+       -1.22
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "btn-left",
+   "at": 0.9,
+   "len": 0.3,
+   "shot": {
+    "pos": [
+     -2.4,
+     1.4,
+     0.6
+    ],
+    "look": [
+     0,
+     1.15,
+     -1
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "btn-right",
+   "at": 1.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.6,
+     1.4,
+     0.4
+    ],
+    "look": [
+     0,
+     1.15,
+     -1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      2.6,
+      -0.2
+     ],
+     "dur": 0,
+     "y": 0,
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0,
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.64,
+      -0.95
+     ],
+     "dur": 0,
+     "y": 0,
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -40,
+     "dur": 0,
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.22,
+       1.09,
+       -1.17
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "rail-front",
+   "at": 2.2,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     3.6
+    ],
+    "look": [
+     0,
+     1.15,
+     -1
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "rail-side",
+   "at": 2.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.6,
+     1.4,
+     0.4
+    ],
+    "look": [
+     0,
+     1.15,
+     -1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.86,
+      -0.95
+     ],
+     "dur": 0,
+     "y": 0,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -30,
+     "dur": 0,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.45,
+       1.1,
+       -1.22
+      ]
+     },
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "low-front",
+   "at": 3.7,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     3.6
+    ],
+    "look": [
+     0,
+     1.15,
+     -1
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "low-side",
+   "at": 4.1,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     2.6,
+     1.4,
+     0.4
+    ],
+    "look": [
+     0,
+     1.15,
+     -1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      2.6,
+      0.6
+     ],
+     "dur": 0,
+     "y": 0,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0,
+     "at": 0.4
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0.64,
+      -0.95
+     ],
+     "dur": 0,
+     "y": 0,
+     "at": 0.4
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -60,
+     "dur": 0,
+     "at": 0.4
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.03,
+       1.05,
+       -0.92
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.5
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.5
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.03,
+       1.05,
+       -0.92
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.5
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.3,
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "shake-front",
+   "at": 5.3,
+   "len": 0.3,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     3.6
+    ],
+    "look": [
+     0,
+     1.15,
+     -1
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "shake-left",
+   "at": 5.6,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     -2.4,
+     1.4,
+     0.6
+    ],
+    "look": [
+     0,
+     1.15,
+     -1
+    ],
+    "fov": 40
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "notes": "reach bench"
+}

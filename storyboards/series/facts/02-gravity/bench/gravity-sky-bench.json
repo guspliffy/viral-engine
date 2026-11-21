@@ -1,0 +1,631 @@
+{
+ "id": "gravity-sky-bench",
+ "title": "Gravity sky bench",
+ "idea": "Props bench for fact what-if 02 gravity (gsky, gmoon, gsats, gclouds), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "far": 6000,
+ "set": {
+  "type": "gravroom",
+  "bare": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "gsky",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "moon",
+   "kind": "gmoon",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "moon": 0,
+   "cracks": 0
+  },
+  {
+   "id": "sats",
+   "kind": "gsats",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t": -1
+  },
+  {
+   "id": "clouds",
+   "kind": "gclouds",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "sink": 0,
+   "drift": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.52,
+     3.18
+    ],
+    "look": [
+     0.03,
+     1.52,
+     -2.65
+    ],
+    "fov": 51
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0,
+      "cracks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0,
+      "cracks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "A normal"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.42,
+     0.53
+    ],
+    "look": [
+     0.12,
+     1.37,
+     -2.65
+    ],
+    "fov": 67
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0,
+      "cracks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0.5,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C8 (panel 8) sink .5"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.42,
+     0.53
+    ],
+    "look": [
+     0.12,
+     1.37,
+     -2.65
+    ],
+    "fov": 67
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0,
+      "cracks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 1,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C8 sink 1"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.21,
+     1.23,
+     0.4
+    ],
+    "look": [
+     0.16,
+     1.71,
+     -2.65
+    ],
+    "fov": 68
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0,
+      "cracks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": 0.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C10 (panel 10) sats t .9"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.21,
+     1.23,
+     0.4
+    ],
+    "look": [
+     0.16,
+     1.71,
+     -2.65
+    ],
+    "fov": 68
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0,
+      "cracks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": 1.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C10 sats t 1.6"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.21,
+     1.23,
+     0.4
+    ],
+    "look": [
+     0.16,
+     1.71,
+     -2.65
+    ],
+    "fov": 68
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0,
+      "cracks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": 2.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C10 sats t 2.5"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.16,
+     1.24,
+     0.46
+    ],
+    "look": [
+     0.05,
+     1.87,
+     -2.65
+    ],
+    "fov": 69
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0.5,
+      "cracks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C13 (panel 13) moon .5"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.16,
+     1.24,
+     0.46
+    ],
+    "look": [
+     0.1,
+     2,
+     -2.65
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 0.86,
+      "cracks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C14 (panel 14) moon .86"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.16,
+     1.24,
+     0.46
+    ],
+    "look": [
+     0.1,
+     2,
+     -2.65
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 1,
+      "cracks": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C14 moon 1 cracks .5"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.16,
+     1.24,
+     0.46
+    ],
+    "look": [
+     0.1,
+     2,
+     -2.65
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "moon": 1,
+      "cracks": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sats",
+     "set": {
+      "t": -1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "sink": 0,
+      "drift": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C14 moon 1 cracks 1"
+  }
+ ],
+ "notes": "Generated by storyboards/series/facts/02-gravity/bench/make-sky-bench.mjs (props bench, no reviews)."
+}

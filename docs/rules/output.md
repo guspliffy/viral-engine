@@ -180,6 +180,14 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   (Wizard charge, Phoenix fly/flare, Reaper slash). Don't add more by hand unless the beat is about who just arrived.
   The sad trombone on a droop and the "dun!" sting on a shocked face are opt-in (`sound.autoTrombone` /
   `sound.autoSting`). The reverb follows the set type (a lift is a box, the haunted house a hall).
+- **A voice line never runs across a segment join** (Egypt EP05 Sphinx, 19 Nov 2026: "the exact spot" was cut off
+  twice): each segment renders only its own sound, so a line's tail past the segment's end is lost. Check every say's
+  end against its segment's end. A line that has to cross a cut is one take, split at its own pause into two
+  recordings, the second opening the next segment.
+- **One character, one voice style**: VoxCPM tone styles change the voice's timbre, not only the delivery, so a
+  character whose lines use different tones sounds like a different person ("the voice is changing over the video").
+  Keep every line of a character on one tone. Two characters in a dialogue speak at a similar rate (about 4.4-4.8
+  syllables a second), or the faster one sounds hurried.
 - **In an experiment, change only what is being tested**: variants of one episode share its music seed, a `say` line
   keeps its voice wherever it moves, and `"voice+0.2"` / `"+0.2"` say whether timing waits for the caption.
 - Renders are deterministic: the same storyboard gives the same video. Keep it that way (no `Math.random`, no wall clock).

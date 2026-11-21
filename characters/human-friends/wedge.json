@@ -1,0 +1,186 @@
+{
+  "id": "human-friends/wedge",
+  "name": "Wedge (human)",
+  "franchise": "Human friends",
+  "tts": "wedge",
+  "source": "Jonny's pick 19 Nov 2026 20:03: line-up 'a touch more South Park' (/mnt/project-files/characters/human-friends/round5/humans-sp-1-PICKED.png); shapes, sizes and colours from the round 6 sheets in that look (round6/wedge-turnaround.png, wedge-faces-details.png, DESIGN-NOTES.md: standing height with Mash at 100 = 73).",
+  "rig": "potato",
+  "build": "core",
+  "body": {
+    "color": "#c93a2e",
+    "height": 0.38,
+    "width": 0.4,
+    "depth": 0.28,
+    "lump": 0,
+    "seed": 67,
+    "taper": -0.1,
+    "square": 2.8,
+    "specks": 0,
+    "gloss": 0,
+    "keepSkin": true
+  },
+  "head": {
+    "color": "#fdc18a",
+    "keepSkin": true,
+    "width": 0.44,
+    "height": 0.39,
+    "depth": 0.38,
+    "square": 3.0,
+    "taper": 0.08,
+    "neck": 0.0,
+    "neckR": 0.075,
+    "faceUp": 0.0,
+    "faceWide": 1.25,
+    "nose": {
+      "w": 0.012,
+      "h": 0.009,
+      "d": 0.008,
+      "v": -0.42
+    },
+    "ears": {
+      "w": 0.055,
+      "h": 0.06,
+      "d": 0.022,
+      "v": -0.25
+    },
+    "specks": 0,
+    "turn": 0.55,
+    "nod": 0.38
+  },
+  "legs": {
+    "stride": 1.3,
+    "height": 0.283,
+    "width": 0.05,
+    "hipX": 0.088,
+    "footX": 0.102,
+    "knees": {
+      "crouch": 0.5,
+      "bend": 1
+    },
+    "roll": {
+      "on": true,
+      "peel": 0.6,
+      "strike": 0.36,
+      "len": 0.45,
+      "settle": 0.12,
+      "lead": 0.2
+    },
+    "heel": 0.085,
+    "toe": 0.145,
+    "sole": 0.035,
+    "homeX": 0.102
+  },
+  "limbs": {
+    "color": "#fdc18a",
+    "role": "skin",
+    "width": 0.045,
+    "shoulder": 0.62,
+    "rest": {
+      "o": [
+        0.07,
+        -0.05,
+        0.02
+      ],
+      "elbow": 0.03,
+      "swing": 2.0
+    }
+  },
+  "hands": {
+    "type": "mitten",
+    "size": 0.9,
+    "keep": true,
+    "plain": true
+  },
+  "face": {
+    "size": 0.45,
+    "default": "kind",
+    "iris": "#3a2117",
+    "brow": "#8e3524",
+    "cheeks": "#f3a08a",
+    "neutral": {
+      "curve": -0.05,
+      "open": 0,
+      "eye": 1.0
+    },
+    "eye": {
+      "flick": 0.2
+    },
+    "browShape": {
+      "arch": -0.02,
+      "thick": 1.3
+    },
+    "blush": 0.7,
+    "final": {
+      "iris": "#3a2117",
+      "brow": "#8e3524",
+      "freckles": 0,
+      "eye": {
+        "oval": 1.22,
+        "iris": 0.72,
+        "white": "#fff8ec",
+        "lash": 0.6,
+        "glintSize": 1.6,
+        "glints": 1,
+        "irisShade": false,
+        "corner": 0
+      },
+      "browShape": {
+        "arch": 0.0,
+        "thick": 2.6,
+        "clear": 0.012,
+        "taper": 0.6
+      },
+      "rest": {
+        "smirk": 0,
+        "curve": 0.1,
+        "tilt": -0.18
+      },
+      "neutral": {
+        "lidL": 0.14,
+        "lidR": 0.14
+      },
+      "blush": 0.7,
+      "layout": {
+        "eyeU": 0.4,
+        "eyeV": -0.5,
+        "mouthV": -1.15,
+        "mouthW": 0.2,
+        "cheekU": 0.6,
+        "cheekV": -0.85,
+        "browV": 0.0
+      }
+    }
+  },
+  "sprout": {
+    "placement": "none"
+  },
+  "costume": {
+    "type": "human-wedge",
+    "skin": "#fdc18a",
+    "hair": "#bb462d",
+    "bomber": "#c93a2e",
+    "knit": "#fedbb4",
+    "waist": "#9e3323",
+    "trouser": "#935840",
+    "shoe": "#b14022",
+    "sole": "#6b2a18",
+    "frame": "#bd6022",
+    "lens": "#633117",
+    "shoeSize": [
+      0.085,
+      0.06,
+      0.115
+    ]
+  },
+  "personality": "The human version of Wedge, the friend who says \"trust me\". The biggest and broadest of the four, sure of every plan he has, wrong about most of them. Catchphrase: \"Trust me.\"",
+  "voice": {
+    "pitch": 98,
+    "rate": 2.8,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 83
+  },
+  "notes": "Core build (torso + separate head). Hair, clothes' parts and shoes come from engine/page/costumes-human-friends.js."
+}

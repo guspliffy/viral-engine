@@ -1,0 +1,183 @@
+{
+  "id": "human-friends/spud",
+  "name": "Spud (human)",
+  "franchise": "Human friends",
+  "source": "Jonny's pick 19 Nov 2026 20:03: line-up 'a touch more South Park' (/mnt/project-files/characters/human-friends/round5/humans-sp-1-PICKED.png); shapes, sizes and colours from the round 6 sheets in that look (round6/spud-turnaround.png, spud-faces-details.png, DESIGN-NOTES.md: standing height with Mash at 100 = 63).",
+  "rig": "potato",
+  "build": "core",
+  "body": {
+    "color": "#4e9291",
+    "height": 0.29,
+    "width": 0.27,
+    "depth": 0.19,
+    "lump": 0,
+    "seed": 67,
+    "taper": 0.0,
+    "square": 2.5,
+    "specks": 0,
+    "gloss": 0,
+    "keepSkin": true
+  },
+  "head": {
+    "color": "#fdc18a",
+    "keepSkin": true,
+    "width": 0.4,
+    "height": 0.37,
+    "depth": 0.35,
+    "square": 2.5,
+    "taper": 0.04,
+    "neck": 0.0,
+    "neckR": 0.05,
+    "faceUp": 0.0,
+    "faceWide": 1.25,
+    "nose": {
+      "w": 0.011,
+      "h": 0.008,
+      "d": 0.007,
+      "v": -0.3
+    },
+    "ears": {
+      "w": 0.045,
+      "h": 0.052,
+      "d": 0.02,
+      "v": -0.2
+    },
+    "specks": 0,
+    "turn": 0.55,
+    "nod": 0.38
+  },
+  "legs": {
+    "stride": 1.2,
+    "height": 0.25,
+    "width": 0.04,
+    "hipX": 0.068,
+    "footX": 0.079,
+    "knees": {
+      "crouch": 0.5,
+      "bend": 1
+    },
+    "roll": {
+      "on": true,
+      "peel": 0.6,
+      "strike": 0.36,
+      "len": 0.45,
+      "settle": 0.12,
+      "lead": 0.2
+    },
+    "heel": 0.065,
+    "toe": 0.125,
+    "sole": 0.035,
+    "homeX": 0.079
+  },
+  "limbs": {
+    "color": "#fdc18a",
+    "role": "skin",
+    "width": 0.034,
+    "shoulder": 0.62,
+    "rest": {
+      "o": [
+        0.05,
+        -0.1,
+        0.02
+      ],
+      "elbow": 0.02,
+      "swing": 2.0
+    }
+  },
+  "hands": {
+    "type": "mitten",
+    "size": 0.78,
+    "keep": true,
+    "plain": true
+  },
+  "face": {
+    "size": 0.42,
+    "default": "kind",
+    "iris": "#3a2117",
+    "brow": "#a8523a",
+    "cheeks": "#f3a08a",
+    "neutral": {
+      "curve": -0.05,
+      "open": 0,
+      "eye": 1.0
+    },
+    "eye": {
+      "flick": 0.2
+    },
+    "browShape": {
+      "arch": -0.02,
+      "thick": 1.3
+    },
+    "blush": 0.7,
+    "final": {
+      "iris": "#3a2117",
+      "brow": "#a8523a",
+      "freckles": 0,
+      "eye": {
+        "oval": 1.22,
+        "iris": 0.74,
+        "white": "#fff8ec",
+        "lash": 0.6,
+        "glintSize": 1.6,
+        "glints": 1,
+        "irisShade": false,
+        "corner": 0
+      },
+      "browShape": {
+        "arch": 0.15,
+        "thick": 0.9,
+        "clear": 0.03,
+        "taper": 0.5
+      },
+      "rest": {
+        "smirk": 0,
+        "curve": 0.65,
+        "tilt": 0.15
+      },
+      "neutral": {
+        "lidL": 0,
+        "lidR": 0
+      },
+      "blush": 0.7,
+      "layout": {
+        "eyeU": 0.44,
+        "eyeV": -0.24,
+        "mouthV": -1.0,
+        "mouthW": 0.3,
+        "cheekU": 0.62,
+        "cheekV": -0.62,
+        "browV": 0.06
+      }
+    }
+  },
+  "sprout": {
+    "placement": "none"
+  },
+  "costume": {
+    "type": "human-spud",
+    "skin": "#fdc18a",
+    "hair": "#b0553f",
+    "knit": "#4e9291",
+    "rib": "#447f7e",
+    "knitLine": "#385c58",
+    "trouser": "#5a508f",
+    "shoe": "#b85c26",
+    "sole": "#8f4319",
+    "shoeSize": [
+      0.065,
+      0.045,
+      0.095
+    ]
+  },
+  "personality": "The human version of Spud, the main character: the one normal friend, kept neutral on purpose. Wants an ordinary day, reacts the way the average person would, goes along with his friends.",
+  "voice": {
+    "pitch": 118,
+    "rate": 3.1,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 57
+  },
+  "notes": "Core build (torso + separate head). Hair, clothes' parts and shoes come from engine/page/costumes-human-friends.js."
+}

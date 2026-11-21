@@ -88,9 +88,22 @@ import { PAPER_KINDS, PAPER_GRIPS } from "./props-score-paper.js";   // happines
 import { TRAIN_KINDS, TRAIN_GRIPS } from "./props-score-train.js";   // happiness score film: the train at sunset
 import { SCORE_ITEMS_KINDS, SCORE_ITEMS_GRIPS } from "./props-score-items.js";   // happiness score film: hill bench, kettle, mirror, reflections
 import { SMALL_KINDS, SMALL_GRIPS } from "./props-score-small.js";   // happiness score film: speaker, cups, bun, tape, satchel, hats
+import { MONALISA_KINDS, MONALISA_GRIPS } from "./props-monalisa.js";
+import { GRAVROOM_KINDS } from "./props-gravroom.js";   // fact what-if 02 gravity: room props (sofa, TV, tunnel, haze)
+import { GRAVCITY_KINDS } from "./props-gravcity.js";   // fact what-if 02 gravity: street, tower, city
+import { GRAVSKY_KINDS } from "./props-gravsky.js";  // fact what-if 02 gravity: sky, Moon, satellites, clouds   // fact story 01 Mona Lisa: painting, hooks, trunk, newspaper, day pad
+import { GRAVRUIN_KINDS } from "./props-gravruin.js";   // gravity v2: city collapse, street rupture, wave erase
+import { GRAVSTRIKE_KINDS } from "./props-gravstrike.js";   // gravity v2: satellite entry, strikes, window cracks
+import { GRAVALPS_KINDS } from "./props-gravalps.js";   // gravity v2: Alps valley crushing
+import { GRAVMOON_KINDS } from "./props-gravmoon.js";   // gravity v2: Moon fall, fire wall, room hit
 import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP03 Atlantis, block D (kit/BLOCKS.md)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
+import { LUNCH_KINDS } from "./props-lunch.js";   // potato desk 10 lunch trial: lunchbox, yogurtcup, kitchensink, microwave, beanmachine, corkboard, blindwindow, carpettiles, ceilingtiles, mouldbox, lanyard, collarstain, pocketglow
+import { THERMO_KINDS, THERMO_GRIPS } from "./props-thermo.js";   // potato desk 11 thermostat war: thermostat, thermobox, stepstool
+import { CLIMATE_KINDS, CLIMATE_GRIPS } from "./props-climate.js";   // potato desk 11: deskfan, spaceheater, paperflurry
+import { OFFICE11_KINDS } from "./props-office11.js";   // potato desk 11: workdesk, officechair, wallnotes, paperstack, manilafolder, icebag
+import { desk11PropKeys } from "./props-desk11-keys.js";   // potato desk 11: temp, up, down, tape, shake, key, rip, lift
 import { WHATIF_KINDS } from "./props-whatif.js";   // what if 01 pause time: parkclock, parkbench
 import { RACE_KINDS, RACE_GRIPS } from "./props-race.js";   // what if 03 light-speed race: trophy, finishline, startflag, chalkline, lightstreak, wheatrow, walkingstick
 import { HEIST_KINDS, HEIST_GRIPS } from "./props-heist.js";   // fight flight or freeze 01: eyemask, policecap, moneybag, riotshield, policetorch, policenet
@@ -128,6 +141,9 @@ import { WAKEFX_KINDS } from "./props-wakeup-fx.js";
 import { WAKEOUT_KINDS } from "./props-wakeup-out.js";
 import { SINKCAR_KINDS } from "./props-sinkcar.js";
 import { SKIPREMOTE_KINDS } from "./props-skipremote.js";
+import { ARCH_KINDS, ARCH_GRIPS } from "./props-archaeologist.js";
+import { HELLA_KINDS, HELLA_GRIPS } from "./props-hella.js";   // potato desk 09 hell reviews: set A (doors, badges, clouds, sky) + tablet + hand props
+import { HELLB_KINDS, HELLB_GRIPS } from "./props-hellb.js";   // potato desk 09 hell reviews: set B (hell resort lobby)   // the archaeologist's conservation brush: archbrush
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
 import { SKIPROOM_KINDS } from "./props-skiproom.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
@@ -164,7 +180,7 @@ export const DESK_Y = 0.42;   // an office desk's top: a standing potato's resti
 const GRIPS = {
   teacup: { handle: [0.12, 0.07, 0] },   // the hand round the outside of the handle (cup on its saucer; -0.012 without)
   nameplate: { back: [0, 0.06, -0.05] },   // a hand behind its top edge (grabbed from behind, fingers over the front)
-  ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS,
+  ...TREND_GRIPS, ...CATCH_GRIPS, ...ROBBED_GRIPS, ...THERMO_GRIPS, ...CLIMATE_GRIPS,
   ...HALLOWEEN_GRIPS, ...HOME_GRIPS, ...ELEVATOR_GRIPS, ...ROAD_GRIPS, ...MAKEUP_GRIPS, ...CHEF_GRIPS, ...DUO_GRIPS, ...JUICE_GRIPS, ...PACKAGE_GRIPS, ...CHARGER_GRIPS, ...CANDLE_GRIPS, ...COOKIE_GRIPS, ...GHOSTPHOTO_GRIPS, ...COSTUME_GRIPS, ...PUMPKIN_GRIPS, ...PRANK_GRIPS, ...RAVEN_GRIPS, ...CANDY_GRIPS, ...COPYCAT_GRIPS, ...ENERGY_GRIPS,
 };
 export function gripPoint(spec, grip) {
@@ -393,7 +409,9 @@ const KINDS = {
       },
     };
   },
-  // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` lights the screen;
+  // a phone, its screen facing +z (rot 180 turns the screen to the holder for a selfie); `glow` 0..1 lights the screen
+  // (spec.glow starts it, a prop `set` tweens it); spec.scale (1, the generic prop scale: 0.078 x 0.155 at 1, 0.117 x 0.233
+  // at 1.5); spec.halo (off; metres across, e.g. 0.22) + `glow` = a soft light wash round the screen, opacity spec.haloK (0.55) x glow;
   // spec.case colours its back and sides (a phone case), so it reads against dark mitten hands. style "iphone" builds
   // a modern iPhone instead (iphone() below), the one that can play pictures on its screen
   phone(P) {
@@ -1459,6 +1477,8 @@ Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);  
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
+Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
+Object.assign(KINDS, THERMO_KINDS, CLIMATE_KINDS, OFFICE11_KINDS);   // potato desk 11 thermostat war (props-thermo.js, props-climate.js, props-office11.js)
 Object.assign(KINDS, WHATIF_KINDS);   // what if 01 pause time (props-whatif.js)
 Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if 03 light-speed race (props-race.js)
 Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight flight or freeze 01 (props-heist.js)
@@ -1491,6 +1511,7 @@ Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 Object.assign(KINDS, WAKECABIN_KINDS, WAKEFX_KINDS, WAKEOUT_KINDS);   // you wake up mid EP01 (props-wakeup-*.js)
 Object.assign(KINDS, SINKCAR_KINDS);   // you wake up mid EP02: cabinwater, carglass, dashglow, headrest, headbeams, lakebubbles (props-sinkcar.js)
 Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
+Object.assign(KINDS, ARCH_KINDS); Object.assign(GRIPS, ARCH_GRIPS);   // the archaeologist: archbrush (props-archaeologist.js)
 Object.assign(KINDS, COASTER_KINDS);   // never looks up 07 (props-coaster.js)
 Object.assign(KINDS, BAND_KINDS);   // never looks up S2 E1 (props-band.js)
 Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)
@@ -1500,6 +1521,7 @@ Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avala
 Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 Object.assign(KINDS, COURT_KINDS);   // potato desk 05 court day (props-court.js)
+Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
@@ -1507,6 +1529,8 @@ Object.assign(KINDS, PAPER_KINDS); Object.assign(GRIPS, PAPER_GRIPS);   // happi
 Object.assign(KINDS, TRAIN_KINDS); Object.assign(GRIPS, TRAIN_GRIPS);   // happiness score film (props-score-train.js)
 Object.assign(KINDS, SCORE_ITEMS_KINDS); Object.assign(GRIPS, SCORE_ITEMS_GRIPS);   // happiness score film (props-score-items.js)
 Object.assign(KINDS, SMALL_KINDS); Object.assign(GRIPS, SMALL_GRIPS);   // happiness score film (props-score-small.js)
+Object.assign(KINDS, MONALISA_KINDS); Object.assign(GRIPS, MONALISA_GRIPS);   // fact story 01 Mona Lisa (props-monalisa.js)
+Object.assign(KINDS, GRAVROOM_KINDS, GRAVCITY_KINDS, GRAVSKY_KINDS, GRAVRUIN_KINDS, GRAVSTRIKE_KINDS, GRAVALPS_KINDS, GRAVMOON_KINDS);   // fact what-if 02 gravity (props-gravroom.js, props-gravcity.js, props-gravsky.js)
 Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS, SPREE_KINDS, TOW_KINDS, HARBOUR_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
@@ -1706,7 +1730,7 @@ export function propState(sb, spec, t) {
   // Sprout Man's own numbers (engine/shared/sprout-rig.js): only on his prop, so no other prop's state changes
   if (spec.kind === "sproutman") for (const [k, v] of Object.entries(SPROUT_STATE)) ps[k] = spec[k] ?? v;
   if (spec.kind === "selfieframe") { ps.filter = spec.filter ?? 0; ps.snap = 0; }
-  Object.assign(ps, snowPropKeys(spec));   // amount, dump, grow, trickle, depth, sweep, logs (props-survive-snow.js): so they tween
+  Object.assign(ps, snowPropKeys(spec), desk11PropKeys(spec));   // amount, dump, grow, trickle, depth, sweep, logs (props-survive-snow.js): so they tween
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

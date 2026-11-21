@@ -1,0 +1,18 @@
+# Sol round 2 (gpt-6.2-sol xhigh, 19 Nov 2026 ~12:08 Berlin, 10.8 min, 139k tokens): VERDICT FIX 16
+Fixed: r11, r13, r18, r19, r21, r22. Still open and new (times in the 1.1x draft 2):
+1 door looks open during "locked", plumber's hand by the thief's face, no visible swing (0:24.3, 0:28.8)
+2 cloth rises by itself, top of the portrait exposed; bundle lost at the door; rigid edge out of the cloth on the street (0:22.6, 0:32.0)
+3 Florence: faces cropped, painting first upright after "Leave it with me" (1:03.5, 1:07.6)
+4 painting pivots edge-on off the hooks, corner near the floor, grip hidden (0:18.6, 0:19.5)
+5 trunk lid opens with the inspector still in the room (0:58.0)
+6 thief vanishes beside the closet in one frame (0:12.7)
+7 question starts over the thief alone; inspector enters late, back turned (0:56.0)
+8 frame falls but his hand never takes it; no stairs for "in a stairwell" (0:20.3)
+9 closure: no readable FERME sign or guard (0:42.2)
+10 captions cross her eyes/face in both close-ups (1:17.3, 0:03.6-0:04.4)
+11 panic: painter idle by the hooks, guard rushes past late (0:41.2)
+12 queue shows ~4 visitors (0:48.8)
+13 painter faces away at the hooks, no reaction (0:36.0)
+14 shrug: guard's outer hand cut off (0:39.2)
+15 plumber still blue sweater + sprout (0:27.6)
+16 coat rack and wall fixture by the jamb vanish between frames (0:28.9)
