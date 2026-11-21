@@ -75,6 +75,7 @@
 // 1180). "y" puts its top anywhere. Boxes go to the layout as cards, so qa/framing.mjs sees a face under one.
 // The g counter (fact what-if 02 "gravity", 19 Nov 2026), opt-in, nothing changes without it:
 //   "gforce": { "keys": [[0, 1], [1.0, 2], [6.0, 3], ...], "y": 250 }   (or a plain key array; a value null hides it from that key)
+//             optional "unit": "x" (spin chip: "2.0x"), "warm" (10) and "hot" (30): the values where it turns amber and red
 // a big "2 g" in the top centre (CapBlack 150 px, cream #fff8ec with a 12 px dark outline, no chip, centre y 250 so the
 // captions at 380+ stay clear). Every step slams in: scale 1.35 -> 1 over 0.25 s (eased back) and a 6 px drop; the
 // number turns amber #ffd25a from 10 and red #ff6a4d from 30; a step DOWN (back to 1) fades in over 0.3 s instead.
@@ -186,7 +187,7 @@ export function hudState(sb, t) {
     let i = -1; for (let j = 0; j < K.length; j++) if (K[j][0] <= t + 1e-9) i = j;
     // a key with value null hides the counter (a black card); the step after it compares with the last shown value
     let pv = null; for (let j = i - 1; j >= 0 && pv == null; j--) pv = K[j][1];
-    if (i >= 0 && K[i][1] != null) out.gforce = { v: K[i][1], since: r6(t - K[i][0]), up: pv != null ? K[i][1] > pv : null, y: G.y ?? 250 };
+    if (i >= 0 && K[i][1] != null) out.gforce = { v: K[i][1], since: r6(t - K[i][0]), up: pv != null ? K[i][1] > pv : null, y: G.y ?? 250, unit: G.unit ?? "g", warm: G.warm ?? 10, hot: G.hot ?? 30 };
   }
   return out;
 }
@@ -705,9 +706,11 @@ export function drawHud(ctx, sb, t) {
 }
 const r6 = (x) => Math.round(x * 1e6) / 1e6;
 function drawGforce(ctx, G) {
-  const text = `${G.v} g`, k = G.up ? clamp(G.since / 0.25) : 1, a = G.up === false ? clamp(G.since / 0.3) : 1;
+  // unit "x" (fact what-if 03 spin, DESIGN I): one decimal under 10 (2.0x), from 10 the shortest form (11x, 11.3x); default "g": "2 g"
+  const v = G.unit === "x" ? (G.v < 10 ? G.v.toFixed(1) : String(Math.round(G.v * 10) / 10)) : G.v;
+  const text = G.unit === "x" ? `${v}x` : `${v} g`, k = G.up ? clamp(G.since / 0.25) : 1, a = G.up === false ? clamp(G.since / 0.3) : 1;
   const sc = G.up ? 1 + 0.35 * (1 - ease("back")(k)) : 1, dy = G.up ? 6 * Math.sin(k * Math.PI) : 0;
-  const col = G.v >= 30 ? "#ff6a4d" : G.v >= 10 ? "#ffd25a" : TXT;
+  const col = G.v >= (G.hot ?? 30) ? "#ff6a4d" : G.v >= (G.warm ?? 10) ? "#ffd25a" : TXT;
   ctx.save(); ctx.globalAlpha = a; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.letterSpacing = "0px";
   ctx.translate(540, G.y + dy); ctx.scale(sc, sc);
   ctx.font = '900 150px "CapBlack"'; ctx.lineJoin = "round"; ctx.lineWidth = 24; ctx.strokeStyle = "#1d1b20"; ctx.strokeText(text, 0, 0);
