@@ -996,7 +996,7 @@ function sseaKind(P) {
         const nx = w.nx, zf = w.z0 + w.v * t, xm = (w.x0 + w.x1) / 2, flat = t > w.tI ? sstep(0, 1.2, t - w.tI) : 0, vis = flat < 1 && t >= 0;
         for (let i = 0; i <= nx; i++) {
           const u = i / nx, x = lerp(w.x0, w.x1, u), zc = zf + 0.00005 * (x - xm) ** 2 + 6 * (vnoise(x / 70, 3, wi) - 0.5), g = Hm(W, x, zc), depth = sy - g, env = Math.min(sstep(0, 0.14, u), sstep(1, 0.86, u));
-          const open = w.bore ? (w.bore + (w.H - w.bore) * sstep(2, 60, depth)) : w.H * sstep(0, 25, depth);
+          const open = w.bore ? (w.bore + (w.H - w.bore) * sstep(2, 60, depth)) : w.H * sstep(0, 8, depth);   // fix r0: full height over any open water (the valley floor is only 12-14 m under at 0 s: sstep(0, 25) gave W1 ~100 m and the terrain edge hid it until 1.2 s)
           w.h[i] = (depth < 0.5 ? 0 : open) * env * (1 + 0.1 * (vnoise(x / 55, 7, wi) - 0.5)) * (1 - flat); w.zc[i] = zc;
         }
         for (let i = 0; i <= nx; i++) { const a = w.h[Math.max(0, i - 1)], b = w.h[i], c = w.h[Math.min(nx, i + 1)]; w.cols[i] = 0.25 * a + 0.5 * b + 0.25 * c; }
