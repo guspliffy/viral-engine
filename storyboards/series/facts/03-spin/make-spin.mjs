@@ -129,7 +129,7 @@ const LEAD = 0.12;   // captionLead: each word pops this much before its voice
 // Sol r1: clip.mjs ends every caption at the next cut, so lines spoken across a cut lost their second half and lines on a cut
 // flashed for 0.1 s in the shot before: narrator captions run across cuts (across: true) and start on the cut they are spoken on
 const CUTS = [2.2, 5.0, 9.0, 11.5, 13.78, 15.0, 18.45, 19.0, 21.75, 24.35, 26.7, 28.6, 31.0, 34.3, 36.7, 40.0, 43.3, 46.7, 50.0, 55.0, 60.0, 66.0, 73.3];
-const CAPPOS = { 26.8: 400, 50.0: 1180, 55.2: 760 };   // Sol r1: at 520 the bonk line sat on the lamp; P13/P14 lines moved off his rising face (camfit)
+const CAPPOS = { 26.8: 400, 50.0: 1180, 55.2: 1150 };   // Sol r1: at 520 the bonk line sat on the lamp; P13/P14 lines moved off his rising face (camfit)
 const narr = (t, line, text) => {
   const d = LEN[line]; if (!d) throw new Error(`no measured length for "${line}" (run measure-lines.mjs)`);
   c.at(t, { macro: "narrate", line, voice: NARRATOR, dur: d, caption: false, pos: F.SUB, gain: 4.0 });
@@ -380,7 +380,7 @@ see(50.0, 55.0, ["spud.face", "rain", "blobs"], "17x: rain falls upward, the sea
 // ================================================================ 55.0-60.0 P14 18.5x: high over Quito, the horizon curving
 // world HI: he rides up with the camera, 7 m in front of it, a little above the frame's middle (DESIGN G: face y ~780)
 const hiSpud = (a) => { const C = hiCam(a), q = C.pitch - (15 * Math.PI) / 180, D = 7;   /* draft 0: 3.6 deg put him on the bottom edge; nearer than 7 m the near plane (4) cuts him */ return [C.pos[0], C.pos[1] - D * Math.sin(q) - 0.45, C.pos[2] - D * Math.cos(q)]; };
-const H0 = [hiSpud(0)[0], r3(hiSpud(0)[1] - 0.6), hiSpud(0)[2]], H1 = [hiSpud(0)[0], r3(hiSpud(0)[1] + 0.6), hiSpud(0)[2]];   // Sol r1: riding a 137 m/s camera drew him in two places on alternate frames
+const H0 = [hiSpud(0)[0], r3(hiSpud(0)[1] - 1.5), hiSpud(0)[2]], H1 = [hiSpud(0)[0], r3(hiSpud(0)[1] - 0.9), hiSpud(0)[2]];   /* draft 3: -.6..+.6 put him right under the chip */   // Sol r1: riding a 137 m/s camera drew him in two places on alternate frames
 flyTo(54.98, H0, 0.01, "linear");
 A(54.98, "spud", "turn", { to: 0, dur: 0.01, ease: "linear", sync: true });
 A(54.98, "spud", "lean", { to: 0, dur: 0.01, ease: "linear" });

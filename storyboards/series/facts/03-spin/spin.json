@@ -767,7 +767,7 @@
    "from": 55.08,
    "to": 56.834,
    "text": "Higher than the clouds.",
-   "pos": 760,
+   "pos": 1150,
    "pop": false,
    "said": "Higher than the clouds.",
    "across": true
@@ -4645,7 +4645,7 @@
      "do": "fly",
      "to": {
       "x": 40000,
-      "y": 3495.588,
+      "y": 3494.688,
       "z": -6.14
      },
      "dur": 0.01,
@@ -4713,7 +4713,7 @@
      "do": "fly",
      "to": {
       "x": 40000,
-      "y": 3496.788,
+      "y": 3495.288,
       "z": -6.14
      },
      "dur": 5,
