@@ -1,0 +1,353 @@
+{
+ "id": "boots-voice-probe",
+ "title": "Krampus myth 01 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   89.4,
+   89.4
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "kid",
+   "character": "potatobrawl/chip",
+   "at": [
+    1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 89.4,
+   "shot": {
+    "pos": [
+     0.5,
+     1.2,
+     7
+    ],
+    "look": [
+     0.5,
+     0.6,
+     0
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "who": "kid",
+     "macro": "say",
+     "line": "I was gonna be good tomorr-",
+     "tone": "excited",
+     "voice": "heart",
+     "dur": 2.9,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "That's number nine. We're number four.",
+     "tone": "calm",
+     "style": "calm, low, matter-of-fact, a little too relaxed",
+     "voice": "spud-quick",
+     "dur": 2.9,
+     "caption": false,
+     "at": 4.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Who are they?!",
+     "tone": "excited",
+     "style": "panicked, high, fast",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Saint Nick reads your whole year from the golden book. Good kids get chocolate.",
+     "tone": "calm",
+     "style": "calm, knowing, explaining",
+     "voice": "spud-quick",
+     "dur": 6.1,
+     "caption": false,
+     "at": 10.7
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Bad kids get him. Krampus.",
+     "tone": "calm",
+     "style": "low, slow on 'Krampus'",
+     "voice": "spud-quick",
+     "dur": 2.5,
+     "caption": false,
+     "at": 17.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "And really bad kids?",
+     "tone": "excited",
+     "style": "small, scared, slow",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 21.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "My boot is dirty. Is that bad?!",
+     "tone": "excited",
+     "style": "horrified, high, fast",
+     "voice": "chip-clean",
+     "dur": 3.3,
+     "caption": false,
+     "at": 24.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Kids clean their boots for him. That's the rule.",
+     "tone": "calm",
+     "style": "calm, explaining",
+     "voice": "spud-quick",
+     "dur": 4.1,
+     "caption": false,
+     "at": 28.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Done. Good kid.",
+     "tone": "calm",
+     "style": "proud, cocky, grinning",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 33.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Oh. He doesn't check the boot. He checks the book.",
+     "tone": "calm",
+     "style": "dry, a small realisation",
+     "voice": "spud-quick",
+     "dur": 4.5,
+     "caption": false,
+     "at": 36.5
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "What's on my page?",
+     "tone": "excited",
+     "style": "nervous, quick",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 42
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "The fries.",
+     "tone": "calm",
+     "style": "dry, deadpan",
+     "voice": "spud-quick",
+     "dur": 1.3,
+     "caption": false,
+     "at": 45.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "That was one time!",
+     "tone": "excited",
+     "style": "outraged, high",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 47.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Every Tuesday.",
+     "tone": "calm",
+     "style": "dry, deadpan",
+     "voice": "spud-quick",
+     "dur": 1.3,
+     "caption": false,
+     "at": 50.5
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Then he doesn't find me.",
+     "tone": "excited",
+     "style": "determined, fast, diving",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 52.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "The bells aren't decoration. They're so you hear him coming.",
+     "tone": "calm",
+     "style": "calm, low, unimpressed",
+     "voice": "spud-quick",
+     "dur": 4.5,
+     "caption": false,
+     "at": 56.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "He can smell me?",
+     "tone": "excited",
+     "style": "a shocked whisper",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 61.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "His name comes from claw.",
+     "tone": "calm",
+     "style": "calm, low, knowing",
+     "voice": "spud-quick",
+     "dur": 2.5,
+     "caption": false,
+     "at": 64.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "This is just a story, right?",
+     "tone": "calm",
+     "style": "small, hopeful, shaky",
+     "voice": "chip-clean",
+     "dur": 2.9,
+     "caption": false,
+     "at": 68.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Every December they still walk the Alps. Hundreds of them.",
+     "tone": "calm",
+     "style": "low, telling a secret",
+     "voice": "spud-quick",
+     "dur": 4.5,
+     "caption": false,
+     "at": 72.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Okay. Last idea.",
+     "tone": "calm",
+     "style": "small, sly, quiet",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 77.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I'm a good kid!",
+     "tone": "excited",
+     "style": "delighted, relieved, high",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 80.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...That's not my picture.",
+     "tone": "calm",
+     "style": "slow, small, dawning",
+     "voice": "spud-quick",
+     "dur": 2.1,
+     "caption": false,
+     "at": 83.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "It is now.",
+     "tone": "calm",
+     "style": "mouth full, innocent, cheeky",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 86.7
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for krampus myth 01: makes and measures every take."
+}
