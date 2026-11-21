@@ -66,6 +66,10 @@ const memo = new Map(), once = (k, make) => { if (!memo.has(k)) memo.set(k, make
 const tOf = (ps, S0) => ps.t ?? S0.t ?? 0;
 const dirOf = (az, el) => [Math.sin(az * DEG) * Math.cos(el * DEG), Math.sin(el * DEG), -Math.cos(az * DEG) * Math.cos(el * DEG)];
 const WIN = 0.22, SEAM_W = 26, LEAN = Math.tan(18 * DEG), BAKE_T = 43.3, DIST = 4000;
+// Fix r1 (item 5, P6 15.4-19 s): spin-tracks flicker() is already down to .62 -> .25 there, so day and night differed too little through the window and the sky read as one dusk.
+// The SKY (dome, clouds, moon) takes its depth from skyA: the track, lifted to .92 over 15.7-18.4 s and eased back onto the track by 21.5 s (no step: the lift starts and ends on the track).
+// About 2 film days a second there, 2 wipes per day, so about 1 big brightness change a second, each a 0.4 s wipe (qa strobe counts frame-to-frame jumps in the mean: none).
+const skyA = (t) => Math.max(flicker(t), keys(t, [[15.0, 0], [15.7, 0.92], [18.4, 0.92], [21.5, 0]]));
 const driftD = (t) => 2 * t + 0.15 * t * t;   // integral of the spin s: metres of drift per unit of (m/s per s)
 
 // =============================================================================================================== keys and tracks
@@ -94,12 +98,13 @@ function nightField(tm, az, el) {
   return tm.mode === 1 ? n : 1 - n;
 }
 const darken = (s) => keys(s, [[15, 1], [16.5, 0.62], [18.5, 0.8]]);   // B3: P12's dark sky, back to .80
-const ghostCount = (s) => 2 + S(P(s, 11.7, 12.3)) + S(P(s, 13.7, 14.3)) + S(P(s, 15.7, 16.3));   // 2 below 12x, 3, 4, 5 from 16x (the new ghost fades in)
+const ghosts0 = (s) => S(P(s, 10, 10.5));   // fix r1 (item 6): no separate sun ghosts and no comb before 10x (26.7 s): one sun with a streak until then
+const ghostCount = (s) => 2 * ghosts0(s) + S(P(s, 11.7, 12.3)) + S(P(s, 13.7, 14.3)) + S(P(s, 15.7, 16.3));   // 2 below 12x, 3, 4, 5 from 16x (the new ghost fades in)
 const trailLen = (s) => keys(s, [[2, 26], [10, 60], [17, 180]]);
 
 // the per-frame dome state shared by the shader uniforms and skyColorAt
 function domeState(t) {
-  const s = spin(t), A = flicker(t), st = storm(t), m = darken(s), tm = terminatorAt(t), sun = sunAt(t);
+  const s = spin(t), A = skyA(t), st = storm(t), m = darken(s), tm = terminatorAt(t), sun = sunAt(t);
   const Kd = [], Kn = [], vs = 0.72 * st;
   for (let i = 0; i < 7; i++) {
     const vc = veilAt(SKY_EL[i]), kd = [], kn = [];
@@ -429,7 +434,7 @@ function skyKind(P0) {
       // comb: 8 discs every 22 deg of wheel angle, drifting along the wheel at 120 deg/s, weight 1 - A
       const base0 = (120 * t) % 22, pulse = 1 + 0.2 * Math.sin(TAU * phi(t));
       for (let j = 0; j < 8; j++) {
-        const wa = base0 + 22 * j, wp = { az: rho * Math.cos(wa * DEG), el: rho * Math.sin(wa * DEG) }, al = 0.55 * pulse * (1 - A) * gain * sstep(0, 5, wp.el) * sstep(0, 6, wa) * (1 - sstep(168, 178, wa));
+        const wa = base0 + 22 * j, wp = { az: rho * Math.cos(wa * DEG), el: rho * Math.sin(wa * DEG) }, al = 0.55 * pulse * (1 - A) * ghosts0(s) * gain * sstep(0, 5, wp.el) * sstep(0, 6, wa) * (1 - sstep(168, 178, wa));
         if (al > 0.003) putQuad(sb, j, wp.az, wp.el, 8, 8, 0, CELL.comb, COMB, al, 0.15); else hideQuad(sb, j);
       }
       // ghosts on the trail: k-th is .82^k the size, alpha .70 x .72^(k-1), stretched 1.25^k along the path
@@ -483,7 +488,7 @@ function cloudsKind(P0) {
   return {
     grip: 0,
     apply(ps) {
-      const t = tOf(ps, S0), st = storm(t), tm = terminatorAt(t), on = t < BAKE_T, A = flicker(t);   // the palette flip eases to the mid palette with A (no cloud strobe at speed)
+      const t = tOf(ps, S0), st = storm(t), tm = terminatorAt(t), on = t < BAKE_T, A = skyA(t);   // the palette flip eases to the mid palette with A (no cloud strobe at speed)
       mesh.visible = on; if (!on) return;
       tab.forEach((it, i) => {
         const p = cloudAt(it, t), hw = p.w / 2, hh = p.h / 2, tx = it.kind ? 1 : ca, ty = it.kind ? 0 : sa;

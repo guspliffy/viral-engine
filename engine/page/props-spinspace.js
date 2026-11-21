@@ -40,6 +40,8 @@ import { clamp, P, S as smooth, keys, spin as spinOf, peel as peelOf, squash as 
 //           glowing face), 8 chunks drifting between the camera and Spud, 36 shed from the rim (12 a second, tangent, spiral out to the ring in 2.5 s); 48 glow sprites on the
 //           inner band, 40 sparkles, 30 bright arc streaks (8-25 deg long, .9 wide: .3 would be under 1 px). spec: eps 17 (disc tilt toward the camera, deg), roll 13, epsRing 24,
 //           rollRing 18, chunkCam [-8.8, -88.3, 1165] (the P17 camera, local: the 8 chunks are placed in screen px at depths 300-780 from it).
+//   28 (r1): from 60.5 s the cloud shell fades (gone by 66 s, 3 % left under the hurricanes' eyes) and the ocean dries to seabed #7C6450 (94 % by 66.5 s); the flat disc is painted
+//           bare: dried seabed with a crack web where the ocean was, land greens baked toward khaki, no cloud streaks (dust arcs), dry channels for the 14 falls.
 //   spec of searth: lon0 -62, lat0 -8, roll0 12 (P15 opening view), lensTilt 10. Nothing else needs setting.
 // CAMERAS (the bench's; fov 40, vertical, look straight down -z, local = world minus origin; px at 1080 x 1920; 1 unit = 2638 / D px at distance D):
 //   P15  pos (5.77, -23.08, 761)    look (5.77, -23.08, 0)   Earth centre (520, 880), disc 700 px across
@@ -427,7 +429,7 @@ const GLOBE_VS = `uniform sampler2D uPlate; uniform float uLift; varying vec2 vU
 void main(){ vUv = uv; float h = texture2D(uPlate, uv).r * uLift; vec3 p = position * (1.0 + h * 0.06); vec4 mv = modelViewMatrix * vec4(p, 1.0); vV = -mv.xyz; vN = normalMatrix * normal; gl_Position = projectionMatrix * mv; }`;
 const GLOBE_FS = `uniform sampler2D uMap; uniform sampler2D uLand; uniform sampler2D uLights; uniform sampler2D uCrack; uniform sampler2D uCloud;
 uniform vec3 uKV; uniform vec3 uKc; uniform float uBelt; uniform float uChar; uniform float uCr; uniform float uFoam; uniform float uFoamW; uniform float uGlow; uniform float uGlowW;
-uniform vec3 uDry; uniform vec3 uCharC; uniform vec3 uHalo; uniform vec3 uMid; uniform vec3 uCore; uniform vec3 uGlowC;
+uniform float uCl; uniform float uDryO; uniform vec3 uSeabed; uniform vec3 uDry; uniform vec3 uCharC; uniform vec3 uHalo; uniform vec3 uMid; uniform vec3 uCore; uniform vec3 uGlowC;
 varying vec2 vUv; varying vec3 vN; varying vec3 vV;
 ${COMMON}
 void main(){
@@ -435,6 +437,7 @@ void main(){
   vec3 base = texture2D(uMap, vUv).rgb; float land = texture2D(uLand, vUv).r; float lat = (vUv.y - 0.5) * 180.0;
   float rag = 2.4 * sin(vUv.x * 61.8 + 2.0) + 1.6 * sin(vUv.x * 173.0 + lat * 0.3);
   float belt = (1.0 - smoothstep(uBelt - 3.2, uBelt + 3.2, abs(lat) + rag)) * step(0.01, uBelt);
+  float lum = dot(base, vec3(0.3, 0.5, 0.2)); base = mix(base, uSeabed * clamp(0.75 + 2.2 * lum, 0.75, 1.3), (1.0 - land) * uDryO);   // 28 (r1): the ocean dries out as the air feeds the ring
   base = mix(base, uDry, belt * 0.85); base = mix(base, uCharC, belt * uChar);
   vec3 cr = texture2D(uCrack, vUv).rgb; vec3 m = clamp((cr + uCr - 1.0) * 5.0, 0.0, 1.0);
   base *= 1.0 - 0.6 * max(m.r * 0.65, max(m.g, m.b));
@@ -442,19 +445,19 @@ void main(){
   float day = smoothstep(-0.18, 0.04, nl); float lit = mix(0.10, band3(nl), day);
   vec3 col = base * lit * mix(vec3(0.55, 0.62, 1.0), uKc, day);
   col *= mix(vec3(1.0), vec3(1.22, 0.84, 0.58), exp(-pow((nl - 0.10) / 0.12, 2.0)) * 0.9);
-  float ocean = (1.0 - land) * (1.0 - belt * 0.8); vec3 hv = normalize(uKV + v); float sp = dot(n, hv);
+  float ocean = (1.0 - land) * (1.0 - belt * 0.8) * (1.0 - uDryO); vec3 hv = normalize(uKV + v); float sp = dot(n, hv);
   col = mix(col, vec3(1.0, 0.95, 0.84), smoothstep(0.984, 0.991, sp) * ocean * 0.7 * day); col += vec3(1.0, 0.93, 0.8) * pow(max(sp, 0.0), 36.0) * 0.18 * ocean * day;
-  float cs = texture2D(uCloud, vUv + vec2(0.0028, -0.0028)).a * (1.0 - belt); col *= 1.0 - 0.24 * cs * day;
-  float ca = texture2D(uCloud, vUv).a;
+  float cs = texture2D(uCloud, vUv + vec2(0.0028, -0.0028)).a * uCl * (1.0 - belt); col *= 1.0 - 0.24 * cs * day;
+  float ca = texture2D(uCloud, vUv).a * uCl;
   col += texture2D(uLights, vUv).rgb * (1.0 - smoothstep(-0.22, -0.02, nl)) * 1.7 * (1.0 - belt) * (1.0 - 0.75 * ca);
   col = mix(col, vec3(0.96, 0.98, 1.0), (1.0 - smoothstep(uFoamW * 0.5, uFoamW, abs(lat))) * uFoam * 0.85);
   col += uGlowC * exp(-pow(lat / max(uGlowW, 0.05), 2.0)) * uGlow * 1.5;
   gl_FragColor = vec4(col + emi, 1.0);
   #include <colorspace_fragment>
 }`;
-const CLOUD_FS = `uniform sampler2D uCloud; uniform vec3 uKV; uniform vec3 uKc; uniform float uBelt; uniform vec3 uShade; uniform vec3 uLitC; varying vec2 vUv; varying vec3 vN; varying vec3 vV;
+const CLOUD_FS = `uniform sampler2D uCloud; uniform vec3 uKV; uniform vec3 uKc; uniform float uBelt; uniform float uCl; uniform vec3 uShade; uniform vec3 uLitC; varying vec2 vUv; varying vec3 vN; varying vec3 vV;
 ${COMMON}
-void main(){ float a = texture2D(uCloud, vUv).a; float lat = (vUv.y - 0.5) * 180.0; float rag = 2.4 * sin(vUv.x * 61.8 + 2.0) + 1.6 * sin(vUv.x * 173.0 + lat * 0.3);
+void main(){ float a = texture2D(uCloud, vUv).a * uCl; float lat = (vUv.y - 0.5) * 180.0; float rag = 2.4 * sin(vUv.x * 61.8 + 2.0) + 1.6 * sin(vUv.x * 173.0 + lat * 0.3);
   float belt = (1.0 - smoothstep(uBelt - 3.2, uBelt + 3.2, abs(lat) + rag)) * step(0.01, uBelt); a *= 1.0 - belt * 0.94; if (a < 0.004) discard;
   vec3 n = normalize(vN); float nl = dot(n, uKV); float day = smoothstep(-0.18, 0.04, nl); float tone = (band3(nl) - 0.5) / 0.5;
   vec3 col = mix(uShade, uLitC, tone) * mix(vec3(0.16, 0.19, 0.34), uKc, day);
@@ -491,10 +494,10 @@ function earthKind(P_) {
   const E = earthAssets(), CL = cloudAssets(), CK = crackAssets();
   const roll = new THREE.Group(), tilt = new THREE.Group(), spinG = new THREE.Group(); root.add(roll); roll.add(tilt); tilt.add(spinG);
   const U = (v) => ({ value: v });
-  const gu = { uMap: U(E.map), uLand: U(E.land), uLights: U(E.lights), uCrack: U(CK.crack), uCloud: U(CL.tex), uPlate: U(CK.plate), uKV: U(KEY.clone()), uKc: U(KGLOBE), uBelt: U(0), uChar: U(0), uCr: U(0), uLift: U(0), uFoam: U(1), uFoamW: U(1.5), uGlow: U(0), uGlowW: U(0.7),
+  const gu = { uMap: U(E.map), uLand: U(E.land), uLights: U(E.lights), uCrack: U(CK.crack), uCloud: U(CL.tex), uPlate: U(CK.plate), uKV: U(KEY.clone()), uKc: U(KGLOBE), uBelt: U(0), uCl: U(1), uDryO: U(0), uSeabed: U(lin("#7C6450")), uChar: U(0), uCr: U(0), uLift: U(0), uFoam: U(1), uFoamW: U(1.5), uGlow: U(0), uGlowW: U(0.7),
     uDry: U(lin("#6A5A4A")), uCharC: U(lin("#4A3A34")), uHalo: U(lin("#FF7A2A").multiplyScalar(0.9)), uMid: U(lin("#FFB13C")), uCore: U(lin("#FFF2B0")), uGlowC: U(lin("#FFD27A")) };
   const globe = lookOnly(new THREE.Mesh(new THREE.SphereGeometry(1, 96, 56), noLine(new THREE.ShaderMaterial({ uniforms: gu, vertexShader: GLOBE_VS, fragmentShader: GLOBE_FS, fog: false }))), 0); spinG.add(globe);
-  const cu = { uCloud: U(CL.tex), uKV: gu.uKV, uKc: U(KSOFT), uBelt: gu.uBelt, uShade: U(lin("#8C9CC8")), uLitC: U(lin("#F6F7F8")) };
+  const cu = { uCloud: U(CL.tex), uKV: gu.uKV, uKc: U(KSOFT), uBelt: gu.uBelt, uCl: gu.uCl, uShade: U(lin("#8C9CC8")), uLitC: U(lin("#F6F7F8")) };
   const clouds = lookOnly(new THREE.Mesh(new THREE.SphereGeometry(1, 64, 40), noLine(new THREE.ShaderMaterial({ uniforms: cu, vertexShader: GLOBE_VS.replace("uniform sampler2D uPlate; uniform float uLift;", "").replace("float h = texture2D(uPlate, uv).r * uLift; vec3 p = position * (1.0 + h * 0.06);", "vec3 p = position;"), fragmentShader: CLOUD_FS, transparent: true, depthWrite: false, fog: false }))), 10); spinG.add(clouds);
   const au = { uCam: U(new THREE.Vector3(0, 0, 10)), uKV: gu.uKV, uGain: U(1), uStream: U(0), uA1: U(lin("#7FB6FF")), uA2: U(lin("#BFE0FF")) };
   const air = lookOnly(new THREE.Mesh(new THREE.SphereGeometry(1, 48, 32), noLine(new THREE.ShaderMaterial({ uniforms: au, vertexShader: AIR_VS, fragmentShader: AIR_FS, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }))), 20); tilt.add(air);
@@ -522,6 +525,7 @@ function earthKind(P_) {
       spinG.rotation.y = (-90 - L) * DEG; roll.rotation.z = (S.roll0 ?? 12) * (1 - sst(0, 1, P(tc, 60, 68))) * DEG; tilt.rotation.x = keys(tc, [[60, S.lat0 ?? -8], [66, -2], [69, S.lensTilt ?? 10]]) * DEG;
       globe.scale.set(rE, rP, rE); clouds.scale.set(rE * 1.012, rP * 1.012, rE * 1.012); air.scale.set(rE * 1.03, rP * 1.03, rE * 1.03);
       CL.draw(1 + 0.25 * (spinOf(tc) - 18));
+      gu.uCl.value = 1 - 0.97 * sst(60.5, 66, t); gu.uDryO.value = 0.94 * sst(60.5, 66.5, t); clouds.visible = gu.uCl.value > 0.01;   // 28 (r1): the cloud bands + hurricanes and the blue ocean are gone by ~66 s
       gu.uBelt.value = keys(pl, [[0, 0], [0.5, 6], [1, 14]]) + 16 * sst(0.2, 0.9, sq); gu.uChar.value = sst(0, 0.7, cr); gu.uCr.value = cr; gu.uLift.value = sst(0.6, 1, cr);
       gu.uFoam.value = 1 - sst(0, 0.25, pl); gu.uGlow.value = sst(0, 0.08, pl) * (0.25 + 0.75 * fadeOut); gu.uGlowW.value = keys(pl, [[0, 0.1], [0.5, 0.69], [1, 1.15]]);
       au.uGain.value = keys(pl, [[0, 1], [0.5, 0.65], [1, 0.35]]); au.uStream.value = sst(0, 0.5, pl);
@@ -563,20 +567,26 @@ function discAssets() {
     const edge = 1 - 6 / 168, R = rngOf(SEED + 131), WF = []; for (let i = 0; i < 14; i++) WF.push(((i + 0.2 + 0.6 * ih(i, 1, 21)) / 14) * TAU);
     A.waterfalls = WF; A.edge = edge;
     A.paintTop = (E) => {
-      const src = E.mapC.getContext("2d").getImageData(0, 0, 2048, 1024).data, im = tg.createImageData(N, N), d = im.data;
+      const src = E.mapC.getContext("2d").getImageData(0, 0, 2048, 1024).data, lsrc = E.landC.getContext("2d").getImageData(0, 0, 2048, 1024).data, im = tg.createImageData(N, N), d = im.data;
       for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
         const dx = (x + 0.5 - 1024) / 1024, dy = (y + 0.5 - 1024) / 1024, rr = Math.hypot(dx, dy); if (rr > edge) continue;
         const lon = (((Math.atan2(-dy, dx) / DEG - 90 + 540) % 360) + 360) % 360 - 180, lat = 90 - (rr / edge) * 155, sx = Math.min(2047, Math.floor(((lon + 180) / 360) * 2048)), sy = Math.min(1023, Math.floor(((90 - lat) / 180) * 1024)), o = (y * N + x) * 4, so = (sy * 2048 + sx) * 4;
-        d[o] = src[so]; d[o + 1] = src[so + 1]; d[o + 2] = src[so + 2]; d[o + 3] = 255;
+        let cr = src[so], cg = src[so + 1], cb = src[so + 2];
+        const wet = lsrc[so] < 128, n1 = fbm(dx * 3.2 + 9, dy * 3.2 + 4, 81, 3), k = 0.8 + 0.4 * n1;
+        if (wet) { cr = 124 * k; cg = 98 * k; cb = 76 * k; }                                   // 28 (r1): the sea is gone, bare seabed
+        else { const l = 0.3 * cr + 0.5 * cg + 0.2 * cb; cr = cr * 0.35 + (150 + 0.25 * l) * 0.65 * k; cg = cg * 0.35 + (124 + 0.2 * l) * 0.65 * k; cb = cb * 0.35 + (88 + 0.1 * l) * 0.65 * k; }   // land baked dry
+        const crk = fbm(dx * 7 + 2.3, dy * 7 + 5.1, 83, 3), cw = 1 - sst(0.0, wet ? 0.03 : 0.022, Math.abs(crk - 0.5));   // the crack web
+        const cm = cw * (wet ? 0.85 : 0.6); cr = cr * (1 - cm) + 42 * cm; cg = cg * (1 - cm) + 28 * cm; cb = cb * (1 - cm) + 24 * cm;
+        d[o] = cr; d[o + 1] = cg; d[o + 2] = cb; d[o + 3] = 255;
       }
       tg.putImageData(im, 0, 0);
-      tg.lineCap = "round"; for (let i = 0; i < 90; i++) { const rr = (0.12 + 0.82 * R()) * 1024, a0 = R() * TAU, ln = (0.12 + 0.6 * R()) * (1.4 - rr / 1024); tg.strokeStyle = `rgba(246,247,248,${0.28 + 0.3 * R()})`; tg.lineWidth = 2 + 5 * R(); tg.beginPath(); tg.arc(1024, 1024, rr, a0, a0 + ln); tg.stroke(); }
+      tg.lineCap = "round"; for (let i = 0; i < 90; i++) { const rr = (0.12 + 0.82 * R()) * 1024, a0 = R() * TAU, ln = (0.12 + 0.6 * R()) * (1.4 - rr / 1024); tg.strokeStyle = `rgba(196,172,148,${0.10 + 0.12 * R()})`; tg.lineWidth = 2 + 5 * R(); tg.beginPath(); tg.arc(1024, 1024, rr, a0, a0 + ln); tg.stroke(); }
       // the ice wall: Antarctica round the whole edge, 6 wide, blue shade on the inside, 48 buttresses, gaps where 14 waterfalls go over
       const ro = 1024, ri = edge * 1024; tg.fillStyle = "#F4F6F8"; tg.beginPath(); tg.arc(1024, 1024, ro, 0, TAU); tg.arc(1024, 1024, ri, 0, TAU, true); tg.fill();
       const gr = tg.createRadialGradient(1024, 1024, ri - 9, 1024, 1024, ri + 14); gr.addColorStop(0, "rgba(185,210,232,0)"); gr.addColorStop(0.5, "rgba(185,210,232,0.9)"); gr.addColorStop(1, "rgba(185,210,232,0)"); tg.fillStyle = gr; tg.beginPath(); tg.arc(1024, 1024, ri + 14, 0, TAU); tg.arc(1024, 1024, ri - 9, 0, TAU, true); tg.fill();
       for (let i = 0; i < 48; i++) { const a = (i / 48) * TAU + (R() - 0.5) * 0.04, w = 0.022 + 0.02 * R(), depth = 12 + 22 * R(); tg.fillStyle = "#F4F6F8"; tg.beginPath(); tg.moveTo(1024 + Math.cos(a - w) * (ri + 6), 1024 + Math.sin(a - w) * (ri + 6)); tg.lineTo(1024 + Math.cos(a - w * 0.3) * (ri - depth), 1024 + Math.sin(a - w * 0.3) * (ri - depth)); tg.lineTo(1024 + Math.cos(a + w * 0.3) * (ri - depth), 1024 + Math.sin(a + w * 0.3) * (ri - depth)); tg.lineTo(1024 + Math.cos(a + w) * (ri + 6), 1024 + Math.sin(a + w) * (ri + 6)); tg.closePath(); tg.fill(); tg.fillStyle = "rgba(185,210,232,0.7)"; tg.beginPath(); tg.moveTo(1024 + Math.cos(a + w) * (ri + 6), 1024 + Math.sin(a + w) * (ri + 6)); tg.lineTo(1024 + Math.cos(a + w * 0.3) * (ri - depth), 1024 + Math.sin(a + w * 0.3) * (ri - depth)); tg.lineTo(1024 + Math.cos(a + w * 0.3) * (ri - depth + 5), 1024 + Math.sin(a + w * 0.3) * (ri - depth + 5)); tg.closePath(); tg.fill(); }
       for (let i = 0; i < 220; i++) { const a = R() * TAU, r0 = ri - 4 + R() * 40; tg.strokeStyle = `rgba(150,185,215,${0.25 + 0.3 * R()})`; tg.lineWidth = 1; tg.beginPath(); tg.moveTo(1024 + Math.cos(a) * r0, 1024 + Math.sin(a) * r0); tg.lineTo(1024 + Math.cos(a + (R() - 0.5) * 0.02) * (r0 + 6 + 14 * R()), 1024 + Math.sin(a + (R() - 0.5) * 0.02) * (r0 + 6 + 14 * R())); tg.stroke(); }
-      for (const a of WF) { tg.fillStyle = "#1E5A9A"; tg.beginPath(); tg.moveTo(1024 + Math.cos(a - 0.012) * (ri - 30), 1024 + Math.sin(a - 0.012) * (ri - 30)); tg.lineTo(1024 + Math.cos(a - 0.012) * ro, 1024 + Math.sin(a - 0.012) * ro); tg.lineTo(1024 + Math.cos(a + 0.012) * ro, 1024 + Math.sin(a + 0.012) * ro); tg.lineTo(1024 + Math.cos(a + 0.012) * (ri - 30), 1024 + Math.sin(a + 0.012) * (ri - 30)); tg.closePath(); tg.fill(); tg.strokeStyle = "rgba(246,250,252,0.9)"; tg.lineWidth = 3; tg.beginPath(); tg.moveTo(1024 + Math.cos(a) * (ri - 50), 1024 + Math.sin(a) * (ri - 50)); tg.lineTo(1024 + Math.cos(a) * ro, 1024 + Math.sin(a) * ro); tg.stroke(); }
+      for (const a of WF) { tg.fillStyle = "#3A2C26"; tg.beginPath(); tg.moveTo(1024 + Math.cos(a - 0.012) * (ri - 30), 1024 + Math.sin(a - 0.012) * (ri - 30)); tg.lineTo(1024 + Math.cos(a - 0.012) * ro, 1024 + Math.sin(a - 0.012) * ro); tg.lineTo(1024 + Math.cos(a + 0.012) * ro, 1024 + Math.sin(a + 0.012) * ro); tg.lineTo(1024 + Math.cos(a + 0.012) * (ri - 30), 1024 + Math.sin(a + 0.012) * (ri - 30)); tg.closePath(); tg.fill(); tg.strokeStyle = "rgba(246,250,252,0.9)"; tg.lineWidth = 3; tg.beginPath(); tg.moveTo(1024 + Math.cos(a) * (ri - 50), 1024 + Math.sin(a) * (ri - 50)); tg.lineTo(1024 + Math.cos(a) * ro, 1024 + Math.sin(a) * ro); tg.stroke(); }
       A.top.needsUpdate = true;
     };
     // rim 2048 x 256: soil, 8 strata, a fracture every 4-9 deg, the lower third glowing, 24 lava drips

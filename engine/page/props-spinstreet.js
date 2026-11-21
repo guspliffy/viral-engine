@@ -1241,8 +1241,12 @@ function buildBall(P_) {
 
 // ================================================================================================ sblobs: F6, the sea lifting off
 const BD = [3.2, 4, 5, 6, 8, 10, 12, 14, 18, 22, 26];
+// dy (fix r1): the swells there stand ~4 m over the mean sea, a blob at level 0 stays under them
 const BLOBS = []; {
-  for (let i = 0; i < 22; i++) { const tb = 50.2 + 0.38 * i, x = i === 0 ? -6 : (hh(30, i, 0) - 0.5) * 520, z = i === 0 ? -88 : -(82 + hh(30, i, 1) * 618); BLOBS.push({ i, tb, R: BD[i % 11] / 2, x, z, close: false }); }
+  for (let i = 0; i < 22; i++) {
+    if (i < 10) { BLOBS.push({ i, tb: 50.5 + 0.28 * i, R: 1.7 + 1.9 * hh(30, i, 2), x: (hh(30, i, 0) - 0.5) * 5.0, z: -(92 + hh(30, i, 1) * 44), close: false, dy: 4 }); continue; }   // fix r1 (item 23): the first 10 rise inside the street's sea gap, 92-136 m out, so P13 (51-55 s) sees the sea lift off
+    const tb = 50.2 + 0.38 * i, x = (hh(30, i, 0) - 0.5) * 520, z = -(82 + hh(30, i, 1) * 618); BLOBS.push({ i, tb, R: BD[i % 11] / 2, x, z, close: false });
+  }
   [[1.2, -3.5, -85, 50.6], [1.7, 2.8, -86, 51.4], [2.2, -1.0, -85.5, 52.3]].forEach(([d, x, z, tb], k) => BLOBS.push({ i: 22 + k, tb, R: d / 2, x, z, close: true }));
   for (const b of BLOBS) { b.lobes = Array.from({ length: 3 + (b.i % 3) }, (_, k) => { const a = hh(31, b.i, k) * TAU, e = -0.75 - 0.2 * hh(31, b.i, k + 9); return new THREE.Vector3(Math.cos(a) * Math.sqrt(1 - e * e), e, Math.sin(a) * Math.sqrt(1 - e * e)); }); b.ph = [hh(32, b.i, 0) * TAU, hh(32, b.i, 1) * TAU, hh(32, b.i, 2) * TAU]; b.lod = b.z < -350 ? 1 : 3; }
 }
@@ -1273,14 +1277,14 @@ function buildBlobs(P_) {
   const pos = new Float32Array(tot * 3), nor = new Float32Array(tot * 3), dirA = new Float32Array(tot * 3), idx = []; let tris = 0;
   BLOBS.forEach((b, j) => { const src = b.lod === 3 ? HI : LO, ix = src.index.array; for (let i = 0; i < ix.length; i++) idx.push(ix[i] + off[j]); b.src = src; });
   const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.BufferAttribute(pos, 3).setUsage(THREE.DynamicDrawUsage)); geo.setAttribute("normal", new THREE.BufferAttribute(nor, 3).setUsage(THREE.DynamicDrawUsage)); geo.setAttribute("aDir", new THREE.BufferAttribute(dirA, 3).setUsage(THREE.DynamicDrawUsage)); geo.setIndex(idx);
-  const U = { uBody: { value: new THREE.Color("#3F9FB4") }, uRim: { value: new THREE.Color("#1F5F7A") }, uVein: { value: new THREE.Color("#9FE0E0") }, uSun: { value: new THREE.Vector3(0, 0.3, -1) }, uSunCol: { value: new THREE.Color("#FFB98A") } };
+  const U = { uBody: { value: new THREE.Color("#86DCE4") }, uRim: { value: new THREE.Color("#2F86AA") }, uVein: { value: new THREE.Color("#E6FFFF") }, uSun: { value: new THREE.Vector3(0, 0.3, -1) }, uSunCol: { value: new THREE.Color("#FFB98A") } };
   const bm = flat(new THREE.ShaderMaterial({ uniforms: U, vertexShader: BLOB_VS, fragmentShader: BLOB_FS, transparent: true, depthWrite: false })); bm.userData.noOutline = true;
   const mesh = dress(new THREE.Mesh(geo, bm), { steam: true, solid: false, order: 5, cull: false }); mesh.name = "blobs"; g.add(mesh);
   // 3 trailing teardrops a blob (75 sprites)
   const NT = NBL * 3, tb = new THREE.PlaneGeometry(2, 1, 1, 1); tb.translate(0, 0.5, 0);
   const ig = new THREE.InstancedBufferGeometry(); ig.index = tb.index; ig.setAttribute("position", tb.attributes.position); ig.instanceCount = NT;
   const tP = new THREE.InstancedBufferAttribute(new Float32Array(NT * 3), 3).setUsage(THREE.DynamicDrawUsage), tA = new THREE.InstancedBufferAttribute(new Float32Array(NT * 2), 2).setUsage(THREE.DynamicDrawUsage); ig.setAttribute("iPos", tP); ig.setAttribute("iA", tA);
-  const tm = flat(new THREE.ShaderMaterial({ uniforms: { uBody: { value: new THREE.Color("#5FB8C8") }, uRim: { value: new THREE.Color("#1F5F7A") } }, vertexShader: TEAR_VS, fragmentShader: TEAR_FS, transparent: true, depthWrite: false, side: THREE.DoubleSide }));
+  const tm = flat(new THREE.ShaderMaterial({ uniforms: { uBody: { value: new THREE.Color("#9BE4EA") }, uRim: { value: new THREE.Color("#2F86AA") } }, vertexShader: TEAR_VS, fragmentShader: TEAR_FS, transparent: true, depthWrite: false, side: THREE.DoubleSide }));
   const tmesh = dress(new THREE.Mesh(ig, tm), { steam: true, solid: false, order: 5, cull: false }); tmesh.name = "teardrops"; g.add(tmesh);
   const q = new THREE.Vector3(), rn = new THREE.Vector3();
   const surfaceY = (t) => seaY(t) - 6 * lift(t);
@@ -1293,7 +1297,7 @@ function buildBlobs(P_) {
         const n = sizes[j], o3 = off[j] * 3, tau = t - b.tb, src = b.src.attributes.position.array;
         if (tau < 0 || t < 50.2) { for (let i = 0; i < n; i++) { pos[o3 + i * 3] = 0; pos[o3 + i * 3 + 1] = -1e4; pos[o3 + i * 3 + 2] = 0; } for (let k = 0; k < 3; k++) { tP.array[(j * 3 + k) * 3 + 1] = -1e4; tA.array[(j * 3 + k) * 2 + 1] = 0; } return; }
         anyLive = true;
-        const R = b.R, y0 = surfaceY(b.tb), t0f = b.tb + 1.5, rise = blobRise(t0f, t), sdome = S(tau / 0.8), sc = S((tau - 0.8) / 0.7), stalk = tau < 1.5 ? sc : 1 - S((tau - 1.5) / 0.25), free = S((tau - 1.5) / 0.4);
+        const R = b.R, y0 = surfaceY(b.tb) + (b.dy || 0), t0f = b.tb + 1.5, rise = blobRise(t0f, t), sdome = S(tau / 0.8), sc = S((tau - 0.8) / 0.7), stalk = tau < 1.5 ? sc : 1 - S((tau - 1.5) / 0.25), free = S((tau - 1.5) / 0.4);
         const k = R * (0.35 + 0.65 * sdome), yc = tau < 0.8 ? y0 + k * 0.25 : lerp(y0 + R * 0.25, y0 + R * 1.7, sc) + (tau >= 1.5 ? rise : 0), spin = (12 * Math.PI / 180) * tau, cs = Math.cos(spin), sn = Math.sin(spin), br = 0.7 * TAU;
         for (let i = 0; i < n; i++) {
           const dx = src[i * 3], dy = src[i * 3 + 1], dz = src[i * 3 + 2], rx = dx * cs - dz * sn, rz = dx * sn + dz * cs;   // the pattern turns, the body is round
