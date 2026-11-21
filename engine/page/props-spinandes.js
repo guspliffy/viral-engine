@@ -920,23 +920,34 @@ const WALL_FS = GLC + `varying vec3 vW; varying vec3 vN; varying vec4 vP;
     #include <colorspace_fragment>
   }`;
 // ---- VALLE's foam: a V on each house's surge (north) side and a ring in its last 6 m, riding the water (lifted a little more with distance to keep clear of the sea's depth)
-const FOAM_VS = `uniform vec4 uSw[3]; uniform vec3 uPh; uniform float uSeaY; attribute vec3 aF; varying vec3 vW; varying vec3 vF; varying float vD;
+const FOAM_VS = `uniform vec4 uSw[3]; uniform vec3 uPh; uniform float uSeaY; attribute vec4 aF; varying vec3 vW; varying vec4 vF; varying float vD;
   float swell(vec2 p){ float y = 0.0; for (int i = 0; i < 3; i++) { float ph = uSw[i].y * (p.x * uSw[i].z + p.y * uSw[i].w) - uPh[i] + float(i) * 1.3; y += uSw[i].x * sin(ph); } return y; }
   void main(){ float sy = uSeaY + swell(position.xz); vec3 p = vec3(position.x, sy, position.z); float d = distance(p, cameraPosition); p.y += 0.3 + 0.0016 * d; vW = p; vF = aF; vD = sy - aF.z; gl_Position = projectionMatrix * viewMatrix * vec4(p, 1.0); }`;
-const FOAM_FS = GLC + `varying vec3 vW; varying vec3 vF; varying float vD;
-  void main(){ float N = nightAt(vW); float lace = 0.55 + 0.45 * n2(vW.xz * 0.9 + uT * 0.6); float a = (vF.y < 0.5 ? pow(1.0 - vF.x, 1.3) : (1.0 - vF.x) * 0.9) * lace * smoothstep(0.0, 1.6, vD) * 0.92; if (a < 0.01) discard;
+// fix r0: the rings and Vs read as rows of white boxes (solid 6 m bands, a filled 18 m triangle). Now LACE: a 4 m ring that breaks into patches (two noise octaves, thresholded) and a V of two thin
+// tapering wake arms; both fade out as the house goes deep (they are surface foam: the roof 12 m down has none), so walls, roofs and the sea show through.
+const FOAM_FS = GLC + `varying vec3 vW; varying vec4 vF; varying float vD;
+  void main(){ float N = nightAt(vW); vec2 q = vW.xz + vec2(uT * 0.6, -uT * 0.4);
+    float lc = smoothstep(0.40, 0.66, 0.6 * n2(q * 1.1) + 0.4 * n2(q * 3.3 + 7.0));
+    float e = 1.0 - vF.x, fall = vF.y < 0.5 ? pow(e, 1.7) : pow(e, 1.1) * (1.0 - vF.w * vF.w);
+    float wet = smoothstep(0.0, 1.6, vD) * (1.0 - 0.45 * smoothstep(3.0, 14.0, vD));
+    float a = fall * lc * wet * 0.9; if (a < 0.02) discard;
     vec3 col = vec3(0.90, 0.95, 0.94) * max(nightK(N), vec3(0.55)); col = mix(col, mistCol(N), mistAmt(vW, 1.0)); gl_FragColor = vec4(col, a);
     #include <colorspace_fragment>
   }`;
-function foamSoup(houses) {   // positions + aF (ring param 0..1, type 0 ring / 1 V, ground y)
-  const pos = [], aF = [];
+function foamSoup(houses) {   // positions + aF (along 0..1: ring inner -> outer, V arm base -> tip; type 0 ring / 1 V arm; ground y; cross -1..1 over an arm)
+  const pos = [], aF = [], put = (p, f, ty, g, cr) => { pos.push(p[0], 0, p[1]); aF.push(f, ty, g, cr); };
   for (const h of houses) {
-    if (h.zone !== "V") continue; const c = Math.cos(h.rot), s = Math.sin(h.rot), hw = h.w / 2 + 0.3, hd = h.d / 2 + 0.3, ow = hw + 6, od = hd + 6, L = (u, v) => [h.x + u * c + v * s, h.z - u * s + v * c], g = h.lo;
+    if (h.zone !== "V") continue; const c = Math.cos(h.rot), s = Math.sin(h.rot), hw = h.w / 2 + 0.3, hd = h.d / 2 + 0.3, ow = hw + 4, od = hd + 4, L = (u, v) => [h.x + u * c + v * s, h.z - u * s + v * c], g = h.lo;
     const ring = [[[-hw, -hd], [hw, -hd], [hw, hd], [-hw, hd]], [[-ow, -od], [ow, -od], [ow, od], [-ow, od]]];
-    for (let i = 0; i < 4; i++) { const a = L(...ring[0][i]), b = L(...ring[0][(i + 1) % 4]), C = L(...ring[1][(i + 1) % 4]), D = L(...ring[1][i]); for (const [p, q, f] of [[a, 0], [b, 0], [C, 1], [a, 0], [C, 1], [D, 1]].map((x) => [x[0], null, x[1]])) { pos.push(p[0], 0, p[1]); aF.push(f, 0, g); } }
-    const apex = L(0, -hd - 18), l = L(-hw - 3, -hd), r = L(hw + 3, -hd); for (const [p, f] of [[l, 0], [r, 0], [apex, 1]]) { pos.push(p[0], 0, p[1]); aF.push(f, 1, g); }
+    for (let i = 0; i < 4; i++) { const a = L(...ring[0][i]), b = L(...ring[0][(i + 1) % 4]), C = L(...ring[1][(i + 1) % 4]), D = L(...ring[1][i]); for (const [p, f] of [[a, 0], [b, 0], [C, 1], [a, 0], [C, 1], [D, 1]]) put(p, f, 0, g, 0); }
+    const apex = L(0, -hd - 16);   // two wake arms from the front corners to the apex, 2.2 m wide at the corner, thin at the tip
+    for (const base of [L(-hw - 1.5, -hd), L(hw + 1.5, -hd)]) {
+      const dx = apex[0] - base[0], dz = apex[1] - base[1], dl = Math.hypot(dx, dz) || 1, nx = -dz / dl, nz = dx / dl, w0 = 1.1, w1 = 0.25;
+      const b0 = [base[0] - nx * w0, base[1] - nz * w0], b1 = [base[0] + nx * w0, base[1] + nz * w0], t0 = [apex[0] - nx * w1, apex[1] - nz * w1], t1 = [apex[0] + nx * w1, apex[1] + nz * w1];
+      for (const [p, f, cr] of [[b0, 0, -1], [b1, 0, 1], [t1, 1, 1], [b0, 0, -1], [t1, 1, 1], [t0, 1, -1]]) put(p, f, 1, g, cr);
+    }
   }
-  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(pos), 3)); g.setAttribute("aF", new THREE.BufferAttribute(new Float32Array(aF), 3)); return g;
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(pos), 3)); g.setAttribute("aF", new THREE.BufferAttribute(new Float32Array(aF), 4)); return g;
 }
 // ---- floating pieces (36): 17 beams, 14 roof slabs, 5 trunks, riding the surge through VALLE
 function piecesSoup() {
