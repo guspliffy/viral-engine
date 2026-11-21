@@ -3,12 +3,12 @@
 // [start s, spoken text, caption]. Every number said matches the chip at that moment (weight lost = 0.35 % x s^2).
 export const NARRATOR = "narrator-quick";   // voice 1 "deep storyteller", 15 % faster (as gravity)
 export const SPIN = (t) => 2 + 0.3 * t;
-export const END = 77.5;   // cut on the punchline
+export const END = 76.1;   // cut 0.15 s after the punchline ends (73.3 + 2.57 + .2)
 export const LINES = [
   [0.1, "Every second, Earth spins faster. In one minute, it rips itself apart.", "Every second, Earth spins faster. In one minute, it rips itself apart."],
-  [5.2, "The oceans run to the equator. Everything low drowns.", "The oceans run to the equator. Everything low drowns."],
-  [9.0, "Satellites drift out of place.", "Satellites drift out of place."],
-  [11.6, "Storms spin faster, and hit harder.", "Storms spin faster, and hit harder."],
+  [5.45, "The oceans run to the equator. Everything low drowns.", "The oceans run to the equator. Everything low drowns."],
+  [9.35, "Satellites drift out of place.", "Satellites drift out of place."],
+  [11.75, "Storms spin faster, and hit harder.", "Storms spin faster, and hit harder."],
   [15.0, "A day lasts under four hours.", "A day lasts under four hours."],
   [19.2, "You're getting lighter.", "You're getting lighter."],
   [26.8, "A third of your weight, gone.", "A third of your weight, gone."],
