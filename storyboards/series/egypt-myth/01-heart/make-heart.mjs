@@ -89,6 +89,7 @@ const BEETLE = { id: "beetle", kind: "heartscarab", x: 0, y: AWAY, z: 0, rot: 0,
 props.push(BEETLE);
 
 // ---------------------------------------------------------------- helpers
+const CAPPOS = { 30: 160 };   // the 4-line cheat-sheet caption starts higher, over the wall, clear of Spud's head
 const SUB = 290;   // captions in the upper third (the capitals and architraves behind them: dark gold)
 const CAPTEXT = { 1: "She just *ATE* his heart?!", 2: "Don't move. *Yours* is next.", 15: "He stole *fries.*", 16: "My heart is *snitching* on me?!", 22: "*Noooo!*", 29: "A *bug?!*", 32: "*Pass.*", 36: "*Next.*", 39: "Wait... why is *YOUR* heart on a scale?" };
 const say = (i, extra = {}, capTo = null) => {
@@ -460,7 +461,7 @@ P(END - 0.5, "monster", { jaw: 0.45 }, 0.3);   // jaws open: the cut to the chom
 
 for (const [i, capTo] of CAPS) {
   const nxt = T.slice(i + 1).find((x) => x != null), to = r3(Math.min(END_OF(i) + 0.3, (nxt ?? END + 0.2) - 0.2));
-  cap(T[i], capTo ?? to, CAPTEXT[i] ?? LINES[i][1], SUB, false, { size: 64 });
+  cap(T[i], capTo ?? to, CAPTEXT[i] ?? LINES[i][1], CAPPOS[i] ?? SUB, false, { size: 64 });
 }
 
 // ================================================================= cameras: every shot moves; a new framing on every line
@@ -500,7 +501,7 @@ const TWO_J = fr([-3.0, 0.6, 2.9], { az: 10, el: 6, h: 2.6, fov: 36, lift: 0.1 }
 // Sol 1 (9): from az -35 Chip's leaf stood in front and the beetle sat at the frame edge. From the front Chip is out of frame.
 const PLANB_S = fr([SPUD_J[0], 0.6, SPUD_J[1]], { az: -20, el: 4, h: 1.7, fov: 34, lift: 0.1 });   // az 0 had the queue-rope post in front of him, az 20 his back
 const BUG_S = fr([-3.1, 0.55, 2.95], { az: -25, el: 6, h: 2.8, fov: 36, lift: 0.06 });   // the rope post (-2.4, 3.6) out of frame   // both, the beetle in Spud's raised hand
-const BEETLE_CL = fr([r3((BEET_AT[0] + SPUD_J[0]) / 2), 0.56, r3((BEET_AT[2] + SPUD_J[1]) / 2)], { az: -25, el: 4, h: 1.3, fov: 34, lift: 0.08 });   // the beetle's back more to us; Chip and the post out of frame   // the beetle mid-frame, his face above
+const BEETLE_CL = fr([r3((BEET_AT[0] + SPUD_J[0]) / 2), 0.56, r3((BEET_AT[2] + SPUD_J[1]) / 2)], { az: -25, el: 4, h: 1.5, fov: 34, lift: 0.22 });   // his head under the 4-line caption   // the beetle's back more to us; Chip and the post out of frame   // the beetle mid-frame, his face above
 const WALK_S = fr([-1.9, 0.6, 1.6], { az: -35, el: 10, h: 2.8, fov: 38, lift: 0.1 });   // from his front-left: his face as he walks
 const SLAP_S = fr([HEART_LOW[0] + 0.05, 0.42, 0.35], { az: 40, el: 20, h: 2.4, fov: 34, lift: 0.2 });   // wide enough for the 4-line caption over him
 // the pass, the doors, the museum
