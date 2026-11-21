@@ -114,7 +114,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "cottage") return buildCottage(scene, spec);   // set-cottage.js
   if (type === "apartment") return buildApartment(scene, spec);   // set-apartment.js
   if (type === "gravroom") return buildGravroom(scene, spec);
-  if (type === "spinroom") return buildSpinroom(scene, spec);   // set-spinroom.js (fact what-if 03 spin)   // set-gravroom.js (fact what-if 02 gravity)
+  if (type === "spinroom") return buildSpinroom(scene, spec);   // set-spinroom.js (fact what-if 03 spin)
   if (type === "elevator") return buildElevator(scene, spec);   // set-elevator.js
   if (type === "road") return buildRoad(scene, spec);   // set-road.js: a treadmill road for the car clips
   if (type === "storefront") return buildStorefront(scene, spec);   // set-storefront.js: the DUO launch-day store
