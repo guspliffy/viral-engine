@@ -41,6 +41,7 @@ import { SHARK_KINDS } from "./props-shark.js";
 import { BUSSTOP_KINDS } from "./props-busstop.js";
 import { DESK_KINDS } from "./props-desk.js";   // potato desk: service counter set
 import { COURT_KINDS } from "./props-court.js";   // potato desk 05 court day: judgebench, dadopanels, floormarks, soundblock, courtfloor, sentenceboard, axegavel, fryfan, chipbag, mashbowl, courtspoon
+import { CARTON_KINDS } from "./props-carton.js";   // potato desk 11 court kid and dad: friescarton, loosefry
 import { IKEA_KINDS } from "./props-ikea.js";   // friends try to, episode 1 (friends-try-to-shared)
 import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode 3: the cat, the plaid bed (friends-try-to-shared)
 import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
@@ -148,7 +149,18 @@ import { SINKCAR_KINDS } from "./props-sinkcar.js";
 import { SKIPREMOTE_KINDS } from "./props-skipremote.js";
 import { ARCH_KINDS, ARCH_GRIPS } from "./props-archaeologist.js";
 import { HELLA_KINDS, HELLA_GRIPS } from "./props-hella.js";   // potato desk 09 hell reviews: set A (doors, badges, clouds, sky) + tablet + hand props
+import { HEART_HALL_KINDS, HEART_HALL_GRIPS, HEART_HALL_STATE } from "./props-heart-hall.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_SCALE_KINDS, HEART_SCALE_GRIPS, HEART_SCALE_STATE } from "./props-heart-scale.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_MONSTER_KINDS, HEART_MONSTER_GRIPS, HEART_MONSTER_STATE } from "./props-heart-monster.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_HEART_KINDS, HEART_HEART_GRIPS, HEART_HEART_STATE } from "./props-heart-heart.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_SOUL_KINDS, HEART_SOUL_GRIPS, HEART_SOUL_STATE } from "./props-heart-soul.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_JUICE_KINDS, HEART_JUICE_GRIPS, HEART_JUICE_STATE } from "./props-heart-juice.js";   // egypt myth 01 heart (DESIGN.md)
+import { HEART_CASE_KINDS, HEART_CASE_GRIPS, HEART_CASE_STATE } from "./props-heart-case.js";   // egypt myth 01 heart (DESIGN.md)
 import { HELLB_KINDS, HELLB_GRIPS } from "./props-hellb.js";   // potato desk 09 hell reviews: set B (hell resort lobby)   // the archaeologist's conservation brush: archbrush
+import { HSTAIRS_KINDS, HSTAIRS_GRIPS } from "./props-heavenstairs.js";   // potato desk heaven steps: the stairway
+import { HTOP_KINDS, HTOP_GRIPS } from "./props-heaventop.js";   // heaven steps: gate, podium, ledger
+import { HSKY_KINDS, HSKY_GRIPS } from "./props-heavensky.js";   // heaven steps: sky, zone clouds, hell floor, hatch, parasol
+import { HITEMS_KINDS, HITEMS_GRIPS } from "./props-heavenitems.js";   // heaven steps: quill, case, flower, can, soapbox, jar
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
 import { SKIPROOM_KINDS } from "./props-skiproom.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
@@ -1490,7 +1502,7 @@ Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
 Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS, ZFIGHT_KINDS, ZROOF_KINDS, ZSTAIRS_KINDS, ZWAIT_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS, ZFIGHT_GRIPS, ZROOF_GRIPS, ZSTAIRS_GRIPS, ZWAIT_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
-const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE };
+const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, CASINO_KINDS, MIND_KINDS, NIGHTCITY_KINDS, NEONSTREET_KINDS);   // there's a catch 06 (props-casino.js, props-mind.js, props-nightcity.js)
@@ -1526,7 +1538,10 @@ Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avala
 Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 Object.assign(KINDS, COURT_KINDS);   // potato desk 05 court day (props-court.js)
+Object.assign(KINDS, CARTON_KINDS);   // potato desk 11: friescarton, loosefry (props-carton.js)
 Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
+Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, HEART_HEART_KINDS, HEART_SOUL_KINDS, HEART_JUICE_KINDS, HEART_CASE_KINDS); Object.assign(GRIPS, HEART_HALL_GRIPS, HEART_SCALE_GRIPS, HEART_MONSTER_GRIPS, HEART_HEART_GRIPS, HEART_SOUL_GRIPS, HEART_JUICE_GRIPS, HEART_CASE_GRIPS);   // egypt myth 01 heart (props-heart-*.js)
+Object.assign(KINDS, HSTAIRS_KINDS, HTOP_KINDS, HSKY_KINDS, HITEMS_KINDS); Object.assign(GRIPS, HSTAIRS_GRIPS, HTOP_GRIPS, HSKY_GRIPS, HITEMS_GRIPS);   // potato desk heaven steps
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
@@ -1645,7 +1660,7 @@ export function buildProp(spec) {
   const def = kind(P);
   return {
     spec, root, grip: def.grip ?? 0,
-    link: def.link, aim: def.aim,
+    link: def.link, aim: def.aim, anchors: def.anchors,
     apply(ps, t) {
       // tip leans the top toward +z, tilt toward +x (both about the bottom centre); roll is the activity clips' older
       // name for a lean the other way about z (roll = -tilt)

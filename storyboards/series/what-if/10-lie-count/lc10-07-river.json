@@ -1,0 +1,662 @@
+{
+ "id": "lc10-07-river",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreriver",
+  "view": "path",
+  "light": "golden",
+  "key": [
+   3.5,
+   5,
+   4.5
+  ],
+  "shadowSize": 12,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      212
+     ],
+     [
+      4.05,
+      213
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 101.9,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "stream",
+    "gain": 0.05
+   },
+   {
+    "id": "birds",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   15.73,
+   15.73
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    1.104,
+    -0.656
+   ],
+   "face": 54.966,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.896,
+    -0.544
+   ],
+   "face": -71.034,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.39,
+   "text": "Movie on friday?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 1.44,
+   "to": 4.25,
+   "text": "Can't. family dinner.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 4.3,
+   "to": 6.46,
+   "text": "Two hundred and thirteen.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 6.53,
+   "to": 9.125,
+   "text": "Family dinner. Every Friday.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 9.125,
+   "to": 10.75,
+   "text": "For a whole year.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 10.82,
+   "to": 13.5,
+   "text": "His family lived three hours away.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 13.57,
+   "to": 15.38,
+   "text": "Now you had a number.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "10 busy friday two",
+   "at": 0,
+   "len": 1.44,
+   "shot": {
+    "pos": [
+     1.116,
+     0.886,
+     2.132
+    ],
+    "look": [
+     1.5,
+     0.645,
+     -0.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.154,
+      0.862,
+      1.859
+     ]
+    },
+    "dur": 1.44,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       1.44,
+       4
+      ]
+     ],
+     "pivot": 2.769
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.104,
+      -0.656
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 54.966,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      1.896,
+      -0.544
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -71.034,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "movie on friday?",
+     "tone": "question",
+     "voice": "teo",
+     "dur": 1.24,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.39
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.39
+    }
+   ]
+  },
+  {
+   "name": "10 busy friday close +",
+   "at": 1.44,
+   "len": 2.86,
+   "shot": {
+    "pos": [
+     1.079,
+     0.838,
+     0.703
+    ],
+    "look": [
+     1.896,
+     0.76,
+     -0.544
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.161,
+      0.83,
+      0.579
+     ]
+    },
+    "dur": 2.86,
+    "yaw": {
+     "keys": [
+      [
+       1.44,
+       0
+      ],
+      [
+       4.3,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "can't. family dinner.",
+     "tone": "calm",
+     "voice": "mash",
+     "dur": 2.76,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.81
+    }
+   ]
+  },
+  {
+   "name": "10 busy friday close",
+   "at": 4.3,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     1.544,
+     0.608,
+     0.768
+    ],
+    "look": [
+     1.104,
+     0.53,
+     -0.656
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.5,
+      0.6,
+      0.626
+     ]
+    },
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       4.3,
+       0
+      ],
+      [
+       7.5,
+       4
+      ]
+     ],
+     "pivot": 1.492
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Two hundred and thirteen.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.11,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 2.23
+    },
+    {
+     "macro": "narrate",
+     "line": "Family dinner. Every Friday. For a whole year.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.17,
+     "caption": false,
+     "gain": 4,
+     "at": 2.23
+    }
+   ]
+  },
+  {
+   "name": "10 busy friday two +",
+   "at": 7.5,
+   "len": 3.32,
+   "shot": {
+    "pos": [
+     1.116,
+     0.886,
+     2.132
+    ],
+    "look": [
+     1.5,
+     0.645,
+     -0.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.154,
+      0.862,
+      1.859
+     ]
+    },
+    "dur": 3.32,
+    "yaw": {
+     "keys": [
+      [
+       7.5,
+       0
+      ],
+      [
+       10.82,
+       -4
+      ]
+     ],
+     "pivot": 2.769
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "10 busy friday two",
+   "at": 10.82,
+   "len": 2.455,
+   "shot": {
+    "pos": [
+     1.116,
+     0.886,
+     2.132
+    ],
+    "look": [
+     1.5,
+     0.645,
+     -0.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.154,
+      0.862,
+      1.859
+     ]
+    },
+    "dur": 2.455,
+    "yaw": {
+     "keys": [
+      [
+       10.82,
+       0
+      ],
+      [
+       13.275,
+       4
+      ]
+     ],
+     "pivot": 2.769
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "His family lived three hours away.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.63,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "10 busy friday two +",
+   "at": 13.275,
+   "len": 2.455,
+   "shot": {
+    "pos": [
+     2.307,
+     0.886,
+     2.039
+    ],
+    "look": [
+     1.5,
+     0.645,
+     -0.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      2.226,
+      0.862,
+      1.775
+     ]
+    },
+    "dur": 2.455,
+    "yaw": {
+     "keys": [
+      [
+       13.275,
+       0
+      ],
+      [
+       15.73,
+       -4
+      ]
+     ],
+     "pivot": 2.77
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Now you had a number.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 1.76,
+     "caption": false,
+     "gain": 4,
+     "at": 0.295
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 101.9,
+  "T1": 117.63
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 101.9-117.63 s)."
+}

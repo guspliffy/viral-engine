@@ -1,0 +1,658 @@
+{
+ "id": "lc10-16-balcony",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebalcony",
+  "night": true,
+  "key": [
+   -3,
+   4,
+   3
+  ],
+  "shadowSize": 8,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": []
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 216.42,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "wind",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   21.98,
+   21.98
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.9,
+    1.5
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "ctab",
+   "kind": "cafetable",
+   "x": 1.653,
+   "y": 0,
+   "z": 1.164,
+   "h": 0.46,
+   "r": 0.25
+  },
+  {
+   "id": "plate",
+   "kind": "dessertplate",
+   "x": 1.653,
+   "y": 0.46,
+   "z": 1.164
+  },
+  {
+   "id": "bun",
+   "kind": "cinnabun",
+   "x": 1.653,
+   "y": 0.468,
+   "z": 1.164,
+   "rot": 0,
+   "bite": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 2.62,
+   "text": "That night, nobody called.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 2.93,
+   "to": 6.67,
+   "text": "So you ate your cinnamon buns. Alone.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 7.22,
+   "to": 10.02,
+   "text": "They were... terrible.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 10.27,
+   "to": 12.26,
+   "text": "They had always been terrible.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 12.71,
+   "to": 16.09,
+   "text": "Every week, he said they were delicious.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 16.16,
+   "to": 18.83,
+   "text": "And every week, you baked them again.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 18.9,
+   "to": 21.27,
+   "text": "Maybe some lies weren't against you.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "22 nobody called alone",
+   "at": 0,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     1.456,
+     1.328,
+     4.65
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.4,
+      1.248,
+      4.335
+     ]
+    },
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       3.2,
+       4
+      ]
+     ],
+     "pivot": 3.297
+    }
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bun",
+     "set": {
+      "bite": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.9,
+      1.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "That night, nobody called.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.47,
+     "caption": false,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "So you ate your cinnamon buns. Alone.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 3.69,
+     "caption": false,
+     "gain": 4,
+     "at": 2.93
+    }
+   ]
+  },
+  {
+   "name": "22 nobody called close +",
+   "at": 3.2,
+   "len": 3.54,
+   "shot": {
+    "pos": [
+     1.056,
+     0.608,
+     2.983
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.04,
+      0.6,
+      2.834
+     ]
+    },
+    "dur": 3.54,
+    "yaw": {
+     "keys": [
+      [
+       3.2,
+       0
+      ],
+      [
+       6.74,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "22 nobody called close",
+   "at": 6.74,
+   "len": 2.935,
+   "shot": {
+    "pos": [
+     1.056,
+     0.608,
+     2.983
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.04,
+      0.6,
+      2.834
+     ]
+    },
+    "dur": 2.935,
+    "yaw": {
+     "keys": [
+      [
+       6.74,
+       0
+      ],
+      [
+       9.675,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1,
+      "brow": 0.4
+     },
+     "dur": 0.25,
+     "at": 0.18
+    },
+    {
+     "macro": "narrate",
+     "line": "They were... terrible.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.75,
+     "caption": false,
+     "gain": 4,
+     "at": 0.48
+    }
+   ]
+  },
+  {
+   "name": "22 nobody called close +",
+   "at": 9.675,
+   "len": 2.935,
+   "shot": {
+    "pos": [
+     0.245,
+     0.635,
+     3.403
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.31,
+      0.625,
+      3.213
+     ]
+    },
+    "dur": 2.935,
+    "yaw": {
+     "keys": [
+      [
+       9.675,
+       0
+      ],
+      [
+       12.61,
+       -4
+      ]
+     ],
+     "pivot": 2.015
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "They had always been terrible.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.94,
+     "caption": false,
+     "gain": 4,
+     "at": 0.595
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.9,
+      1.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.923
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.923
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.923
+    }
+   ]
+  },
+  {
+   "name": "23 every week close",
+   "at": 12.61,
+   "len": 3.145,
+   "shot": {
+    "pos": [
+     0.693,
+     0.608,
+     2.976
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.713,
+      0.6,
+      2.829
+     ]
+    },
+    "dur": 3.145,
+    "yaw": {
+     "keys": [
+      [
+       12.61,
+       0
+      ],
+      [
+       15.755,
+       4
+      ]
+     ],
+     "pivot": 1.492
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Every week, he said they were delicious.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.33,
+     "caption": false,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "23 every week close +",
+   "at": 15.755,
+   "len": 3.145,
+   "shot": {
+    "pos": [
+     1.318,
+     0.635,
+     3.469
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.277,
+      0.625,
+      3.272
+     ]
+    },
+    "dur": 3.145,
+    "yaw": {
+     "keys": [
+      [
+       15.755,
+       0
+      ],
+      [
+       18.9,
+       -4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "And every week, you baked them again.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.62,
+     "caption": false,
+     "gain": 4,
+     "at": 0.405
+    }
+   ]
+  },
+  {
+   "name": "23 every week alone",
+   "at": 18.9,
+   "len": 3.08,
+   "shot": {
+    "pos": [
+     1.594,
+     1.527,
+     5.438
+    ],
+    "look": [
+     0.9,
+     0.53,
+     1.5
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.615,
+      1.557,
+      5.556
+     ]
+    },
+    "dur": 3.08,
+    "yaw": {
+     "keys": [
+      [
+       18.9,
+       0
+      ],
+      [
+       21.98,
+       4
+      ]
+     ],
+     "pivot": 4.121
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Maybe some lies weren't against you.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.32,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 216.42,
+  "T1": 238.4
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 216.42-238.4 s)."
+}

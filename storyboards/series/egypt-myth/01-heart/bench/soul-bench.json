@@ -1,0 +1,514 @@
+{
+ "id": "soul-bench",
+ "title": "Egypt myth 01 soul bench",
+ "idea": "Engine look bench for the soul and ash of 01-heart (task T6), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#6b4e34",
+  "floor": "#1c1b22",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "soul",
+   "kind": "heartsoul",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "reach": 0,
+   "scream": 0,
+   "crumble": 0
+  },
+  {
+   "id": "q1",
+   "kind": "heartsoul",
+   "x": 2.15,
+   "y": 0,
+   "z": 0,
+   "rot": -18,
+   "seed": 1,
+   "sway": 0.02,
+   "ash": false
+  },
+  {
+   "id": "q2",
+   "kind": "heartsoul",
+   "x": 3.05,
+   "y": 0,
+   "z": 0,
+   "rot": -6,
+   "seed": 2,
+   "sway": 0.02,
+   "ash": false
+  },
+  {
+   "id": "q3",
+   "kind": "heartsoul",
+   "x": 3.95,
+   "y": 0,
+   "z": 0,
+   "rot": 6,
+   "seed": 3,
+   "sway": 0.02,
+   "ash": false
+  },
+  {
+   "id": "q4",
+   "kind": "heartsoul",
+   "x": 4.85,
+   "y": 0,
+   "z": 0,
+   "rot": 18,
+   "seed": 4,
+   "sway": 0.02,
+   "ash": false
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "whole",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.52,
+     3.14
+    ],
+    "look": [
+     0,
+     0.52,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "side",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.951,
+     0.52,
+     1.074
+    ],
+    "look": [
+     0,
+     0.52,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "reach",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.55,
+     3.615
+    ],
+    "look": [
+     0,
+     0.55,
+     0.15
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 1,
+      "scream": 1,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "back",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.764,
+     0.5,
+     -3.056
+    ],
+    "look": [
+     0,
+     0.5,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "face0",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.66,
+     1.286
+    ],
+    "look": [
+     0,
+     0.66,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "face1",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.66,
+     1.286
+    ],
+    "look": [
+     0,
+     0.66,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 1,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wrap",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.47,
+     0.76,
+     2.099
+    ],
+    "look": [
+     0,
+     0.4,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "c03",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.912,
+     3.546
+    ],
+    "look": [
+     0,
+     0.55,
+     0.1
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 1,
+      "scream": 1,
+      "crumble": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "c06",
+   "at": 8.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.912,
+     3.546
+    ],
+    "look": [
+     0,
+     0.55,
+     0.1
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 0.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "c10",
+   "at": 9.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.862,
+     3.546
+    ],
+    "look": [
+     0,
+     0.5,
+     0.1
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "cut",
+   "at": 10.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.649,
+     0.561,
+     1.391
+    ],
+    "look": [
+     0,
+     0.4,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 0.45
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "ash",
+   "at": 11.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.556,
+     0.927,
+     2.123
+    ],
+    "look": [
+     0,
+     0.06,
+     0.05
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "queue",
+   "at": 12.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3.5,
+     0.5,
+     8.824
+    ],
+    "look": [
+     3.5,
+     0.5,
+     0
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "soul",
+     "set": {
+      "reach": 0,
+      "scream": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/egypt-myth/01-heart/bench/make-soul-bench.mjs (engine bench, no reviews)."
+}

@@ -1,0 +1,526 @@
+{
+ "id": "hall-bench",
+ "title": "Heart set A hall bench",
+ "idea": "Engine look bench for the hall of 01-heart (task T1), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#06050a",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "hearthall",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "queue",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.35,
+     6.2
+    ],
+    "look": [
+     0.1,
+     3,
+     -9
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0,
+      "rowLight": 0.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.6,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "queueT",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.35,
+     6.2
+    ],
+    "look": [
+     0.1,
+     3,
+     -9
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.8,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "judges",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1.6,
+     1.45,
+     1.8
+    ],
+    "look": [
+     -4.6,
+     1.5,
+     12
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 0.2
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "judgesL",
+   "at": 3.3000000000000003,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1.6,
+     1.45,
+     1.8
+    ],
+    "look": [
+     -4.6,
+     1.5,
+     12
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "judgesN",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -2.9,
+     1.25,
+     4.4
+    ],
+    "look": [
+     -5.2,
+     1,
+     8.6
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "capital",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -3.4,
+     8.3,
+     0.3
+    ],
+    "look": [
+     -6.4,
+     8.9,
+     -2.25
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "frieze",
+   "at": 6.6000000000000005,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -3.6,
+     4.3,
+     -1
+    ],
+    "look": [
+     -8,
+     5.4,
+     -4.4
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "doors0",
+   "at": 7.700000000000001,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     2.6,
+     7
+    ],
+    "look": [
+     0,
+     3.6,
+     -9
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "doors5",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     2.2,
+     5
+    ],
+    "look": [
+     0,
+     3.3,
+     -9
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0.5,
+      "torch": 0.6,
+      "tense": 0,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "doors",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.6,
+     4
+    ],
+    "look": [
+     0,
+     3,
+     -9
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 1,
+      "torch": 0.5,
+      "tense": 0,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "floor",
+   "at": 11,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.5,
+     4.6,
+     1.2
+    ],
+    "look": [
+     0,
+     0,
+     -2.6
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "torch",
+   "at": 12.100000000000001,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -3.7,
+     1.9,
+     -1.4
+    ],
+    "look": [
+     -6,
+     2,
+     -4.5
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "column",
+   "at": 13.200000000000001,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -3.6,
+     2.4,
+     0.6
+    ],
+    "look": [
+     -6.4,
+     2.6,
+     -2.25
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "far",
+   "at": 14.3,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     1.5,
+     12
+    ],
+    "look": [
+     0,
+     3.2,
+     40
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "doors": 0,
+      "torch": 1,
+      "tense": 0.2,
+      "rowLight": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/egypt-myth/01-heart/bench/make-hall-bench.mjs (engine bench, no story)."
+}

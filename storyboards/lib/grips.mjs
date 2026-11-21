@@ -28,6 +28,7 @@ const SIZE = {
   smug: { r: 0.041, h: 0.095 },                    // props-spinroom.js smug (fact what-if 03 spin): handle side TURN -125
   scrisps: { w: 0.19, h: 0.27, t: 0.07 },          // props-spinroom.js scrisps: the crisp bag (held like a phone)
   sball: { r: 0.12, h: 0 },                        // props-spinstreet.js sball: origin at its centre (fact what-if 03 spin dunk)
+  heartscarab: { len: 0.05, r: 0.007, h: 0 },   // egypt myth 01: the heart beetle charm (props-heart-heart.js), thin pinch on the head plate or a fist
   campmug: { r: 0.045, h: 0.085 },                 // props-duo.js campmug: its handle on +x
   shopbag: { r: 0.012, h: 0.62 },                  // props-happy.js shopbag: held by its rope loop (apex 0.41 = the mug hold at 0.66 x h)
   // a bowl's outside, [height, radius] from the foot up to the rim
@@ -70,7 +71,8 @@ const SIZE = {
   archbrush: { len: 0.275, r: 0.0148, h: 0.25 },      // props-archaeologist.js: the archaeologist's conservation brush, bristle tip at the origin (bristles DOWN), 0.316 long (0.42 of her height, the sheet's size). MUG hold: h 0.25 puts the fist at 0.66 x 0.25 = y 0.165 on the lower middle of the handle (r 0.0148 at the belly), the butt 0.12 above it and the ferrule and bristles below. THIN hold: len 0.275 puts the default pinch (0.6) at the same y 0.165
   // props-bonfire.js sandbucket (BUCKET r 0.13 at the rim, h 0.22): carried at the chest in both hands like a full bowl
   sandbucket: { rim: 0.22, wall: [[0, 0.104], [0.22, 0.13]] },
-  manual: { w: 0.34, h: 0.24, t: 0.004 },          // props-ikea.js instruction sheet: held with the phone hold (spec.away: its drawings face away from the holder)
+  manual: { w: 0.34, h: 0.24, t: 0.004 },
+  cvsheet: { w: 0.15, h: 0.21, t: 0.002 },         // props-busy.js one-page CV (job interview trial): the phone hold, spec.away shows it to the judge          // props-ikea.js instruction sheet: held with the phone hold (spec.away: its drawings face away from the holder)
   allenkey: { len: 0.2, r: 0.011 },                // props-ikea.js Allen key: the thin pinch on its long arm, the short arm at the top
   waterglass: { r: 0.038, h: 0.1 },               // props-bistro.js tumbler of water: the mug hold round its middle
   cardreader: { w: 0.078, h: 0.155, t: 0.03 },     // props-bistro.js card machine: held with the phone hold, its screen to the holder
@@ -164,6 +166,17 @@ const SIZE = {
   pitchfork: { r: 0.01, h: 0.2 },
   palmleaf: { r: 0.01, h: 0.288 },
   drinkglass: { r: 0.035, h: 0.16 },
+  // props-carton.js (Potato Desk 11): friescarton = box hold on the two round ends (y 0.10 = 0.55 x 0.182, 0.216 wide there; gap 0.03 for Chip's 1.1 gloves) or the mug hold round one end
+  // low ({ height: 0.33 } = y 0.06, half-width 0.099; gap 0.038 for Wedge's 1.3 gloves); loosefry = the thin pinch at 0.85 of its 0.24 length (from: 0.85 = y 0.204)
+  friescarton: { w: 0.216, h: 0.182, d: 0.087, r: 0.099 },
+  loosefry: { len: 0.24, r: 0.018 },
+  // props-heavenitems.js (Potato Desk Heaven Steps): goldquill = thin pinch (len 0.1167: the default from 0.6 lands 0.07 above the nib tip, on the shaft); soulcase = mug hold on the top handle's
+  // bar (y 0.383 = 0.66 x 0.58; it hangs from the hand, the grip is 0.39 up); goldcan = mug hold on the back handle's vertical bar (the origin's axis; y 0.13 = 0.66 x 0.197);
+  // megaphone (props-shark.js, origin the grip = the handle's top, handle y -0.1..0): mug hold at the handle's middle (negative h on purpose, y -0.05 = 0.66 x -0.0758)
+  goldquill: { len: 0.1167, r: 0.007 },
+  soulcase: { r: 0.008, h: 0.58 },
+  goldcan: { r: 0.008, h: 0.197 },
+  megaphone: { r: 0.02, h: -0.0758 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

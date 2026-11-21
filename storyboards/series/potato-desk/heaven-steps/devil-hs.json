@@ -1,0 +1,90 @@
+{
+  "id": "heaven-steps/devil-hs",
+  "name": "The Devil",
+  "franchise": "PotatoBrawl",
+  "source": "Potato Desk 09 Hell Reviews, storyboards/series/potato-desk/09-hell-reviews/DESIGN.md section 1 (19 Nov 2026) and the panel sheet v1",
+  "rig": "potato",
+  "tts": "gunslinger",
+  "body": {
+    "color": "#c2493b",
+    "height": 0.92,
+    "width": 0.8,
+    "depth": 0.68,
+    "lump": 0.02,
+    "seed": 66,
+    "taper": 0.22,
+    "specks": 0
+  },
+  "limbs": {
+    "color": "#3a1616",
+    "width": 0.032,
+    "shoulder": -0.3
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f6a",
+    "neutral": {
+      "tilt": -0.1,
+      "curve": 0.4,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.05,
+      "thick": 1
+    }
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none"
+  },
+  "costume": {
+    "type": "devil",
+    "shirt": true,
+    "badge": true,
+    "hornLen": 0.16,
+    "tailLen": 0.55,
+    "tailDroop": 0,
+    "shades": [
+      [
+        0,
+        1
+      ],
+      [
+        45.6,
+        1
+      ],
+      [
+        45.9,
+        2
+      ]
+    ]
+  },
+  "personality": "The vain resort host of Hell (Potato Desk 09): a bright, quick game-show host who is always smiling and always the authority, until a 5-star review is on the line. A red potato: chit horns, a root-runner tail, one loud teal flame-flower shirt, a gold badge with one star.",
+  "voice": {
+    "pitch": 122,
+    "rate": 3.3,
+    "formant": 0.96,
+    "range": 5,
+    "breath": 0.06,
+    "vibrato": 0.008,
+    "seed": 66
+  },
+  "voiceNote": "gibberish, warm bright game-show host (a proposal until Jonny has heard it); 'Want to try again?' at half volume, slower",
+  "hands": {
+    "type": "glove",
+    "size": 1,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Standing 1.06 m (horn tips 1.20). Costume keys (shirt, badge, hornLen, tailLen, tailDroop, tailFlick, colours) are documented in the header of engine/page/costumes-devil.js. Skin dimples and freckles are drawn by that kit (the body's own specks are off). No leaf: the horns are chits. Tail droop: costume.tailDroop (number or keyframes) or the timeline action droop."
+}
