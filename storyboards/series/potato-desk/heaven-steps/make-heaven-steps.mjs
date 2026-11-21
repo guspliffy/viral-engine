@@ -740,3 +740,10 @@ write(import.meta.url, {
   b.id = "heaven-steps-B"; b.captions[0].text = "*Rejected*\nat heaven's gate";
   fs.writeFileSync(path.join(HERE, "heaven-steps-B.json"), JSON.stringify(b, null, 2) + "\n");
 }
+
+// Version C (Jonny 21 Nov 07:17: "a version without the first lettering above the speech"): no opening text at all.
+{
+  const p = path.join(HERE, "heaven-steps.json"), b = JSON.parse(fs.readFileSync(p, "utf8"));
+  b.id = "heaven-steps-C"; b.captions = b.captions.slice(1);
+  fs.writeFileSync(path.join(HERE, "heaven-steps-C.json"), JSON.stringify(b, null, 2) + "\n");
+}
