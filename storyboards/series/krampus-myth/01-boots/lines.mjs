@@ -7,7 +7,7 @@ const CH = { voice: "chip-clean" }, SP = { voice: "spud-quick" }, KID = { voice:
 export const LINES = [
   ["kid", "I was gonna be good tomorr-", "excited", null, KID],                                                    // 0 (cut off by the lid)
   ["spud", "That's number nine. We're number four.", "calm", "calm, low, matter-of-fact, a little too relaxed", SP], // 1
-  ["chip", "Who are they?!", "excited", "panicked, high, fast", CH],                                               // 2
+  ["chip", "Who are they?!", "excited", "panicked, high, fast", { ...CH, take: 2 }],                                               // 2
   ["spud", "Saint Nick reads your whole year from the golden book. Good kids get chocolate.", "calm", "calm, knowing, explaining", SP], // 3
   ["spud", "Bad kids get him. Krampus.", "calm", "low, slow on 'Krampus'", SP],                                    // 4
   ["chip", "And really bad kids?", "excited", "small, scared, slow", CH],                                          // 5
