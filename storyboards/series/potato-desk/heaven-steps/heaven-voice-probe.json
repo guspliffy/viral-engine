@@ -1,0 +1,296 @@
+{
+ "id": "heaven-voice-probe",
+ "title": "Heaven steps voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   56.3,
+   56.3
+  ]
+ },
+ "cast": [
+  {
+   "id": "angel",
+   "character": "potatobrawl/reaper",
+   "at": [
+    -1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "devil",
+   "character": "potatobrawl/devil",
+   "at": [
+    0.7,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 56.3,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Hundred points to get in. You've got ninety-nine.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, matter-of-fact",
+     "voice": "reaper",
+     "dur": 3.7,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "One point? Easy.",
+     "tone": "excited",
+     "style": "cocky, bright, quick, sure of himself",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 4.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Here, let me!",
+     "tone": "excited",
+     "style": "eager, bright, showing off a little",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 7.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Did you SEE that?!",
+     "tone": "excited",
+     "style": "proud, loud, bragging, arms up",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 10.3
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Bragging. Minus ten.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, unimpressed",
+     "voice": "reaper",
+     "dur": 1.7,
+     "caption": false,
+     "at": 13.4
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Watering a flower, guys!",
+     "tone": "excited",
+     "style": "fake sweet influencer voice, filming a selfie",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 16.1
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Posting it? Minus thirty.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, slow",
+     "voice": "reaper",
+     "dur": 2.1,
+     "caption": false,
+     "at": 19.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Anonymous. Totally anonymous.",
+     "tone": "whisper",
+     "style": "whispering to himself, lips pressed, trying very hard to stay quiet",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 22.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I DONATED! EVERYONE!",
+     "tone": "excited",
+     "style": "shouting into a megaphone, loud, proud, desperate",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 25
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Minus sixty.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, bored",
+     "voice": "reaper",
+     "dur": 1.3,
+     "caption": false,
+     "at": 27.7
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Come on down!",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, delighted",
+     "dur": 1.7,
+     "caption": false,
+     "at": 30
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Fine. I'll walk.",
+     "tone": "calm",
+     "style": "sulky, stubborn, muttering",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 32.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Hnnngh!",
+     "tone": "excited",
+     "style": "straining, then slipping",
+     "voice": "chip-clean",
+     "dur": 0.9,
+     "caption": false,
+     "at": 35.4
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Hell has four point nine stars, buddy.",
+     "tone": "calm",
+     "style": "warm game-show host, smooth, tempting, leaning in",
+     "dur": 3.3,
+     "caption": false,
+     "at": 37.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "...Heaven has three point one.",
+     "tone": "sad",
+     "style": "small, defeated, quiet, considering it",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 41.6
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Hot tub's warm!",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, delighted",
+     "dur": 1.7,
+     "caption": false,
+     "at": 45.1
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "...Humility.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, softer, a little surprised, approving",
+     "voice": "reaper",
+     "dur": 0.9,
+     "caption": false,
+     "at": 47.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Did you see how humble I was?",
+     "tone": "excited",
+     "style": "smug, grinning, fishing for praise",
+     "voice": "chip-clean",
+     "dur": 3.3,
+     "caption": false,
+     "at": 49.7
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Minus one.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, without looking up",
+     "voice": "reaper",
+     "dur": 1.3,
+     "caption": false,
+     "at": 54
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for heaven steps: makes and measures every take."
+}

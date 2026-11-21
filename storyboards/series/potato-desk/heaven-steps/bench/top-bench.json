@@ -1,0 +1,472 @@
+{
+ "id": "top-bench",
+ "title": "Heaven steps: top of heaven bench",
+ "idea": "Engine look bench for the gate, terrace, podium, ledger and rays (task T2), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#9fd0f0",
+  "floor": "none",
+  "para": 0,
+  "bloom": "emissive",
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "terrace",
+   "kind": "heaventerrace",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "fog",
+   "kind": "fogveil",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "box": [
+    [
+     -2.6,
+     0.01,
+     -4.3
+    ],
+    [
+     2.6,
+     0.09,
+     -0.5
+    ]
+   ],
+   "n": 24,
+   "size": 1.6,
+   "color": "#f7fafc",
+   "a": 0.5,
+   "drift": [
+    -0.03,
+    0
+   ]
+  },
+  {
+   "id": "puff0",
+   "kind": "cloudpuff",
+   "x": -2.85,
+   "y": 0.55,
+   "z": -1,
+   "r": 0.55,
+   "seed": 20
+  },
+  {
+   "id": "puff1",
+   "kind": "cloudpuff",
+   "x": -3,
+   "y": 0.7,
+   "z": -2,
+   "r": 0.62,
+   "seed": 21
+  },
+  {
+   "id": "puff2",
+   "kind": "cloudpuff",
+   "x": -2.9,
+   "y": 0.5,
+   "z": -3,
+   "r": 0.5,
+   "seed": 22
+  },
+  {
+   "id": "puff3",
+   "kind": "cloudpuff",
+   "x": -2.75,
+   "y": 0.6,
+   "z": -3.9,
+   "r": 0.55,
+   "seed": 23
+  },
+  {
+   "id": "puff4",
+   "kind": "cloudpuff",
+   "x": -1.6,
+   "y": 0.65,
+   "z": -4.6,
+   "r": 0.6,
+   "seed": 24
+  },
+  {
+   "id": "puff5",
+   "kind": "cloudpuff",
+   "x": -0.3,
+   "y": 0.75,
+   "z": -4.75,
+   "r": 0.7,
+   "seed": 25
+  },
+  {
+   "id": "puff6",
+   "kind": "cloudpuff",
+   "x": 0.9,
+   "y": 0.6,
+   "z": -4.6,
+   "r": 0.6,
+   "seed": 26
+  },
+  {
+   "id": "puff7",
+   "kind": "cloudpuff",
+   "x": 2,
+   "y": 0.7,
+   "z": -4.7,
+   "r": 0.65,
+   "seed": 27
+  },
+  {
+   "id": "puff8",
+   "kind": "cloudpuff",
+   "x": 3,
+   "y": 0.5,
+   "z": -4.4,
+   "r": 0.5,
+   "seed": 28
+  },
+  {
+   "id": "gate",
+   "kind": "pearlgate",
+   "x": -0.2,
+   "y": 0,
+   "z": -2.3
+  },
+  {
+   "id": "podium",
+   "kind": "cloudpodium",
+   "x": 1.05,
+   "y": 0,
+   "z": -0.8
+  },
+  {
+   "id": "ledger",
+   "kind": "ledger",
+   "x": 1.05,
+   "y": 0.42,
+   "z": -0.8
+  },
+  {
+   "id": "rays",
+   "kind": "gaterays",
+   "x": -0.2,
+   "y": 2.2,
+   "z": -6
+  },
+  {
+   "id": "t100",
+   "kind": "stoneblock",
+   "x": 0.1,
+   "y": -0.22,
+   "z": -0.25,
+   "w": 2.4,
+   "h": 0.22,
+   "d": 0.5
+  },
+  {
+   "id": "t99",
+   "kind": "stoneblock",
+   "x": 0.1,
+   "y": -0.44,
+   "z": 0.25,
+   "w": 2.4,
+   "h": 0.22,
+   "d": 0.5
+  },
+  {
+   "id": "t98",
+   "kind": "stoneblock",
+   "x": 0.1,
+   "y": -0.66,
+   "z": 0.75,
+   "w": 2.4,
+   "h": 0.22,
+   "d": 0.5
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "closed",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.45,
+     0.89,
+     9.6
+    ],
+    "look": [
+     0.45,
+     0.89,
+     0
+    ],
+    "fov": 26
+   },
+   "do": []
+  },
+  {
+   "name": "open05",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.45,
+     0.89,
+     9.6
+    ],
+    "look": [
+     0.45,
+     0.89,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "open1",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.45,
+     0.89,
+     9.6
+    ],
+    "look": [
+     0.45,
+     0.89,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "open": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "gateClose",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.4,
+     0.75,
+     6.6
+    ],
+    "look": [
+     -0.4,
+     0.75,
+     -1
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "open": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "gateShut",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.4,
+     0.75,
+     6.6
+    ],
+    "look": [
+     -0.4,
+     0.75,
+     -1
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "page2",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.6,
+     2.45,
+     -0.25
+    ],
+    "look": [
+     1.05,
+     0.46,
+     -0.8
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ledger",
+     "set": {
+      "count": 2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "page4",
+   "at": 6.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.6,
+     2.45,
+     -0.25
+    ],
+    "look": [
+     1.05,
+     0.46,
+     -0.8
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ledger",
+     "set": {
+      "count": 4
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "pageFront",
+   "at": 7.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.05,
+     1.5,
+     0.55
+    ],
+    "look": [
+     1.05,
+     0.46,
+     -0.8
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ledger",
+     "set": {
+      "count": 3.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "podium",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.05,
+     0.62,
+     3.4
+    ],
+    "look": [
+     1.05,
+     0.38,
+     -0.8
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ledger",
+     "set": {
+      "count": 4
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/heaven-steps/bench/make-top-bench.mjs (engine bench, no cast)."
+}
