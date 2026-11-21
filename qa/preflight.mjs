@@ -35,7 +35,7 @@ import { clipResults, contactResults, captionResults } from "./check.mjs";
 import { GATE } from "./gate.mjs";
 import { motionResults, storyNotes } from "./motion.mjs";
 import { visibility, frontResults, eyesResults } from "./framing.mjs";
-import { cameraLint } from "./camera.mjs";
+import { cameraLint, signCut } from "./camera.mjs";
 import { panelResults } from "./panelfit.mjs";
 import { lockMusic } from "../engine/music.mjs";
 import { sayChanged } from "./say.mjs";
@@ -100,6 +100,7 @@ export async function preflight(sb, lay, { quick = false, sbFile = null } = {}) 
   // was first read (Mona Lisa, 19 Nov 2026: a made-up "this clear." reached Jonny's draft)
   for (const m of sb.misreads || []) add({ level: m.extra >= 2 ? "fail" : "warn", check: "misread", msg: `the voice read "${m.line}" as "${m.heard}"${m.extra >= 2 ? ` (${m.extra} words it made up)` : ""}: listen to it; "take": ${(m.take || 0) + 1} reads it again (a wrong name or number Whisper spells its own way can stay, with a reason)` }, "speech");
   for (const r of cameraLint(sb, chars)) add({ ...r, level: r.level === "pass" ? "pass" : "note" }, "camera");
+  for (const r of signCut(sb)) add(r, "camera");   // a sign's number cut in two by the frame edge (Potato Desk 12)
   // Jonny's panels by number (qa/panelfit.mjs): when the storyboard names its PANELS.md ("panels": { "md": path from
   // the repo root or the storyboard's folder }), each panel's Numbers row against the layout at its time
   if (sb.panels?.md) {
