@@ -150,7 +150,7 @@ turn(0, "chip", -40, 0.01); turn(0, "spud", 30, 0.01);
 look(0, "chip", [-0.6, 0.1], 0.01); look(0, "spud", [-0.6, 0], 0.01);
 // Nick holds the book open at his chest the whole film (grips.box: both palms on its edges)
 const BROT = (yaw) => grips.placeFor("goldenbook", [0, 0, 0], yaw).rot;
-const BOOK_AT = (C, yaw, y = 0, h = 0.36) => { const a = yaw * D2R; return [r3(C[0] + Math.sin(a) * 0.32), r3(y + h), r3(C[1] + Math.cos(a) * 0.32)]; };
+const BOOK_AT = (C, yaw, y = 0, h = 0.22) => { const a = yaw * D2R; return [r3(C[0] + Math.sin(a) * 0.36), r3(y + h), r3(C[1] + Math.cos(a) * 0.36)]; };
 const B0 = { ...BOOK, ...grips.placeFor("goldenbook", BOOK_AT([NICK_AT(9)[0], NICK_AT(9)[2]], 80, Y(9)), 80) };
 P(0, "book", { x: B0.x, y: B0.y, z: B0.z, rot: B0.rot }, 0);
 const gBook = grips.box(c, "nick", B0);
@@ -380,7 +380,7 @@ expr(D4, "spud", "kind", 0.01); expr(D4, "chip", "eager", 0.01); look(D4, "spud"
 // Nick at the yellow boot (now wearing Spud's drawing): he kneels, reads a short glowing page and smiles
 place(D4, "nick", [NICK_Y[0], NICK_Y[2]], 255, 0);
 gBook.carry(r3(FL(D4) - 0.005), BOOK_AT([NICK_Y[0], NICK_Y[2]], 255), 0.004, "linear", { rot: BROT(255) });
-gBook.carry(r3(D4 + 0.05), BOOK_AT([NICK_Y[0], NICK_Y[2]], 255, 0, 0.24), 0.5, "inOut", { rot: BROT(255) });
+gBook.carry(r3(D4 + 0.05), BOOK_AT([NICK_Y[0], NICK_Y[2]], 255, 0, 0.14), 0.5, "inOut", { rot: BROT(255) });
 P(D4 - 0.02, "kr", { x: K4[0], y: 0, z: K4[2], rot: K4ROT, stoop: 0, jam: 0, ring: 0 }, 0);   // DESIGN K4, the teal boot dead ahead at 0.86
 A(D4 + 0.05, "nick", "kneel", { dur: 0.5 });
 P(D4, "book", { spread: "good", page: Math.round(pageNow += 1), glow: 1 }, 0.27);

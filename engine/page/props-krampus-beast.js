@@ -733,7 +733,7 @@ export const KRAMPUS_BEAST_KINDS = {
     const goat = Array.from({ length: 9 }, (_, i) => { const geo = lockGeom(), m = new THREE.Mesh(geo, S.m("#ffffff", { map: goatTex([1, 3, 5, 7].includes(i)), roughness: 0.9, side: DS })); m.frustumCulled = false; m.castShadow = false; root.add(m); return { geo, m, i }; });
     // snow pads on both shoulders and the hump (3 cm), 6 lumps that fall on each jam
     const pads = [[0.36, 1.765, 0.0, 0.09, 0.016, 0.07], [-0.36, 1.765, 0.0, 0.09, 0.016, 0.07], [0, 1.905, -0.10, 0.07, 0.016, 0.05]].map(([x, y, z, rx, ry, rz]) => { const o = mesh(sph(), snowM, chestS, x, y - 0.01, z); o.scale.set(rx, ry, rz); o.castShadow = false; return o; });
-    const lumps = Array.from({ length: 6 }, (_, i) => { const o = mesh(sph(), snowM, root); o.scale.set(0.022 + 0.01 * rnd(i), 0.016, 0.022); o.castShadow = false; return { o, i, x: (i % 2 ? 1 : -1) * (0.30 + 0.06 * (i >> 1)), z: 0.02 - 0.04 * (i % 3) }; });
+    const lumps = Array.from({ length: 6 }, (_, i) => { const o = mesh(sph(), snowM, root); const k = [0.022 + 0.01 * rnd(i), 0.016, 0.022]; o.scale.set(...k); o.castShadow = false; return { o, i, k, x: (i % 2 ? 1 : -1) * (0.30 + 0.06 * (i >> 1)), z: 0.02 - 0.04 * (i % 3) }; });
 
 
     // ---- belt, straps, buckles (leather #4a2c1a; 2 stitch rows, 60 stitches on the belt front; 9 brass rivets on the cross strap; an iron buckle 0.12 square; a BRASS buckle on each basket strap)
@@ -894,7 +894,7 @@ export const KRAMPUS_BEAST_KINDS = {
           wrist.position.set(A.wrist[0] - d[0] * 0.06, A.wrist[1] - d[1] * 0.06 - 0.073, A.wrist[2] - d[2] * 0.06); wrist.rotation.set(0.05 * ring * Math.cos(TAU * 1.1 * tt), 0, 0.07 * ring * Math.sin(TAU * 1.1 * tt));
           wBells.forEach((w, i) => { const ph = 0.8 + i * 1.3, a1 = rad(22) * ring * Math.sin(TAU * 2.9 * tt + ph); w.bell.g.rotation.set(0.4 * a1, 0, a1); w.bell.clap.rotation.z = rad(28) * ring * Math.sin(TAU * 2.9 * tt + ph - Math.PI / 2) + 0.4 * a1; }); }
         // ---- snow lumps that fall on each jam
-        { const p = clamp((Z.jam - 0.72) / 0.28); lumps.forEach((L) => { const q = Z.chestPt([L.x, 1.76, L.z]); L.o.visible = p > 0.001 && p < 0.97; L.o.position.set(q.x, q.y - 0.02 - 1.15 * p * p * (0.7 + 0.1 * L.i), q.z + 0.05 * p * (1 + (L.i % 2))); L.o.scale.setScalar(1 - 0.5 * sstep((p - 0.8) / 0.2)); }); }
+        { const p = clamp((Z.jam - 0.72) / 0.28); lumps.forEach((L) => { const q = Z.chestPt([L.x, 1.76, L.z]); L.o.visible = p > 0.001 && p < 0.97; L.o.position.set(q.x, q.y - 0.02 - 1.15 * p * p * (0.7 + 0.1 * L.i), q.z + 0.05 * p * (1 + (L.i % 2))); { const m = 1 - 0.5 * sstep((p - 0.8) / 0.2); L.o.scale.set(L.k[0] * m, L.k[1] * m, L.k[2] * m); } });   // (was setScalar: a 1 m snow ball for a frame on every jam, Krampus myth 01 draft) }
         // ---- the tongue: hangs plumb from the mouth (0 inside, 0.35 the loll of 0.28 m, 1 unrolled to 0.72 m), a lick stretches it up and forward, round a flake, and snaps back
         { const tg = g("tongue", 0.35), tl = tg <= 0 ? 0 : tg <= 0.35 ? 0.28 * (tg / 0.35) : 0.28 + 0.44 * ((tg - 0.35) / 0.65), lk = g("lick"), lp = lk - Math.floor(lk), lickOn = lp > 1e-4 && lp < 1 - 1e-4;
           tongueMesh.visible = tg > 0.02 || lickOn; const R = Z.jawPlace(TR0), fwd = V3([0, 0, 1]).applyQuaternion(Z.headQ), fh = V3([fwd.x, 0, fwd.z]).normalize();
