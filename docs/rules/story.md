@@ -69,6 +69,10 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **A new turn about every 45 s in long films** (15 Nov, on trial): in a film over ~2 minutes, each block or part
   opens on a new twist, fact or question that re-hooks the viewer (MrBeast: one storyline can't hold a long video
   alone). Put them at the block joins, and say in the outline what each one is.
+- **Plan new ideas at about 80 s** (20 Nov, producer's rule, FUTURE videos only, not ones already in work): he
+  speeds most finished videos up 10-25 %, so an outline is planned at ~80 s at normal speed to stay above 60 s
+  after a 25 % speed-up (80 / 1.25 = 64 s). The extra length comes from real beats (another turn, a plant and
+  payback), never padding, slow holds or repeated lines: a drop is a story problem, not a length problem.
 - **60 s+ videos: a turn every 10-20 s** (18 Nov, ON TRIAL, from the story study; a rule only once finished videos
   prove it): the "X, so Y" chain above and the But / Therefore outline now apply to every series, not only mysteries.
   In a 60-90 s video the outline shows a "but" (it gets worse or flips) every 10-20 s and names the one number that
