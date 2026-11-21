@@ -95,6 +95,11 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   two steps differ is a pop like any other (warn over 8, fail over 30). Should keep one-frame flashes found at the
   join at 0. Proof: of the film's 25 wide finals it flags exactly b2-b6 (frame 0 without actors or HUD: 57, 44, 77,
   14, 65), all real, and nothing in A, C or D.
+- Number tags stay in frame by default (20 Nov, from There's a catch 10 lie count; waits for Jonny's word):
+  `engine/page/score.js` now keeps the whole tag inside the frame unless a tag says `"clamp": false`. In draft 3 Jonny
+  saw "the number above best friend's head is cut off" and "in many scenes are the numbers cut off": every close-up
+  that cuts the head top pushed its tag above the frame, and no check sees a tag. The film's final used the opt-in
+  version in all 21 segments. Should keep "number cut off" notes at 0 in the next number-tag clip.
 - Made-up words in a voice take fail preflight (19 Nov, from the Mona Lisa fact story; waits for Jonny's word):
   `engine/voice/tts.py` keeps what Whisper heard in each VoxCPM2 take's cache entry (`heard`), `withSpeech` lists
   every take heard as other words (`misreads`), and `qa/preflight.mjs` judges them on every run (`misread`): two or
