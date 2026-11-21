@@ -489,7 +489,7 @@
    "y": 1.93,
    "z": -0.45,
    "rot": 0,
-   "tb": 28,
+   "tb": 28.05,
    "slamAt": 13.6,
    "staged": "a pendant lamp hanging from the ceiling on its chain"
   },
@@ -503,7 +503,7 @@
    "t0": 0,
    "mouth": [
     -0.13,
-    0.6,
+    0.52,
     -1.13
    ]
   },
@@ -523,7 +523,7 @@
    "mouth": [
     -0.05,
     0.53,
-    -0.03
+    -0.09
    ],
    "crown": [
     -0.13,
@@ -572,7 +572,7 @@
    "y": 0,
    "z": 0,
    "rot": 0,
-   "swish": 33.5,
+   "swish": 33.82,
    "splash": []
   },
   {
@@ -597,6 +597,16 @@
    "x": 2.32,
    "y": -11.15,
    "z": -18.72,
+   "rot": 0,
+   "float": 36.7,
+   "fx": 0.9
+  },
+  {
+   "id": "ball2",
+   "kind": "sball",
+   "x": 2.86,
+   "y": -9.62,
+   "z": -19.74,
    "rot": 0,
    "float": 36.7,
    "fx": 0.9
@@ -1066,6 +1076,26 @@
     },
     {
      "do": "prop",
+     "id": "ball2",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "earth",
      "set": {
       "t": 0
@@ -1187,6 +1217,16 @@
      "gain": 0.55,
      "dur": 2.2,
      "reason": "the sea wall roaring up the valley below the window",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -1708,7 +1748,7 @@
   {
    "name": "P05 5.5x: the hurricane, the slam",
    "at": 11.5,
-   "len": 2.266,
+   "len": 2.5,
    "shot": {
     "pos": [
      0.5,
@@ -1735,7 +1775,7 @@
      ],
      "fov": 56
     },
-    "dur": 2.28,
+    "dur": 2.5,
     "ease": "linear"
    },
    "do": [
@@ -1968,13 +2008,46 @@
      "dur": 0.05,
      "ease": "linear",
      "at": 2.25
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.25,
+     "at": 2.3
+    },
+    {
+     "sfx": "slam",
+     "gain": 1,
+     "reason": "the sash slams shut",
+     "at": 2.3
+    },
+    {
+     "sfx": "kenney/impact-glass-light",
+     "gain": 0.5,
+     "reason": "the glass rattles in the frame",
+     "at": 2.32
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.2,
+     "dur": 1.2,
+     "reason": "the wind, muffled behind the glass",
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 2.45
     }
    ]
   },
   {
    "name": "P05b 5.5x: 'and hit harder' (punch-in)",
-   "at": 13.766,
-   "len": 1.234,
+   "at": 14,
+   "len": 1,
    "shot": {
     "pos": [
      0.5,
@@ -2001,50 +2074,17 @@
      ],
      "fov": 46.172
     },
-    "dur": 1.22,
+    "dur": 1,
     "ease": "linear"
    },
    "do": [
-    {
-     "who": "spud",
-     "do": "squash",
-     "amount": 0.08,
-     "dur": 0.25,
-     "at": 0.034
-    },
-    {
-     "sfx": "slam",
-     "gain": 1,
-     "reason": "the sash slams shut",
-     "at": 0.034
-    },
-    {
-     "sfx": "kenney/impact-glass-light",
-     "gain": 0.5,
-     "reason": "the glass rattles in the frame",
-     "at": 0.054
-    },
-    {
-     "sfx": "ai/storm-wind",
-     "gain": 0.2,
-     "dur": 1.2,
-     "reason": "the wind, muffled behind the glass",
-     "at": 0.134
-    },
-    {
-     "who": "spud",
-     "do": "lean",
-     "to": 0,
-     "dur": 0.3,
-     "at": 0.184
-    },
     {
      "who": "spud",
      "do": "grip",
      "side": "R",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 0.534
+     "at": 0.3
     },
     {
      "who": "spud",
@@ -2052,7 +2092,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 0.534
+     "at": 0.3
     },
     {
      "who": "spud",
@@ -2061,14 +2101,14 @@
      "pose": "rest",
      "dur": 0.45,
      "ease": "settle",
-     "at": 0.584
+     "at": 0.35
     },
     {
      "who": "spud",
      "do": "turn",
      "to": 150,
      "dur": 0.35,
-     "at": 0.734
+     "at": 0.5
     },
     {
      "who": "spud",
@@ -2078,7 +2118,7 @@
       "eye": 0.8
      },
      "dur": 0.2,
-     "at": 0.734
+     "at": 0.5
     },
     {
      "do": "prop",
@@ -2088,7 +2128,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.204
+     "at": 0.97
     },
     {
      "who": "spud",
@@ -2101,7 +2141,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.214
+     "at": 0.98
     },
     {
      "who": "spud",
@@ -2110,7 +2150,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.214
+     "at": 0.98
     },
     {
      "who": "spud",
@@ -2119,7 +2159,7 @@
      "height": 0.45,
      "dur": 0,
      "hands": "keep",
-     "at": 1.214
+     "at": 0.98
     }
    ]
   },
@@ -2809,7 +2849,7 @@
      "do": "release",
      "prop": "bag",
      "dur": 0,
-     "at": 2.587
+     "at": 2.567
     },
     {
      "who": "spud",
@@ -2817,7 +2857,17 @@
      "side": "L",
      "shape": "open",
      "dur": 0.15,
-     "at": 2.587
+     "at": 2.567
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.567
     }
    ]
   },
@@ -2856,18 +2906,6 @@
    },
    "do": [
     {
-     "do": "prop",
-     "id": "bag",
-     "set": {
-      "x": 0.55,
-      "y": 0,
-      "z": -0.15
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.007
-    },
-    {
      "who": "spud",
      "do": "arm",
      "side": "L",
@@ -2887,7 +2925,7 @@
      },
      "dur": 0.01,
      "ease": "out",
-     "at": 0.027
+     "at": 0.007
     },
     {
      "who": "spud",
@@ -2896,7 +2934,7 @@
      "pose": "rest",
      "dur": 0.4,
      "ease": "settle",
-     "at": 0.037
+     "at": 0.017
     },
     {
      "who": "spud",
@@ -2904,7 +2942,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.3,
-     "at": 0.037
+     "at": 0.017
     },
     {
      "who": "spud",
@@ -3033,7 +3071,7 @@
     {
      "who": "spud",
      "do": "hop",
-     "height": 0.88,
+     "height": 0.81,
      "count": 1,
      "dur": 1,
      "quiet": true,
@@ -3053,7 +3091,7 @@
      "do": "squash",
      "amount": 0.16,
      "dur": 0.2,
-     "at": 1.3
+     "at": 1.35
     },
     {
      "who": "spud",
@@ -3064,33 +3102,33 @@
       "open": 0.35
      },
      "dur": 0.05,
-     "at": 1.3
+     "at": 1.35
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.8,
      "dur": 0.05,
-     "at": 1.3
+     "at": 1.35
     },
     {
      "sfx": "kenney/impact-metal-light",
      "gain": 0.7,
      "reason": "his head bonks the metal lamp shade",
-     "at": 1.3
+     "at": 1.35
     },
     {
      "sfx": "kenney/impact-metal-light",
      "gain": 0.3,
      "reason": "the chain rattles",
-     "at": 1.32
+     "at": 1.37
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0,
      "dur": 0.12,
-     "at": 1.5
+     "at": 1.55
     },
     {
      "sfx": "step",
@@ -3111,24 +3149,24 @@
      1.05
     ],
     "look": [
-     -0.1,
-     1.45,
-     -0.5
+     -0.3,
+     0.95,
+     -0.4
     ],
-    "fov": 51,
+    "fov": 62,
     "near": 0.04,
     "to": {
      "pos": [
-      1.292,
-      0.874,
-      0.988
+      1.268,
+      0.855,
+      0.978
      ],
      "look": [
-      -0.1,
-      1.45,
-      -0.5
+      -0.3,
+      0.95,
+      -0.4
      ],
-     "fov": 49.47
+     "fov": 62
     },
     "dur": 2.4,
     "ease": "linear"
@@ -3387,7 +3425,7 @@
     {
      "who": "spud",
      "do": "hop",
-     "height": 1,
+     "height": 1.1,
      "count": 1,
      "dur": 1.4,
      "quiet": true,
@@ -3406,12 +3444,12 @@
       ],
       "palm": "wrap",
       "at": [
-       2.84,
-       -9.3,
-       -19.45
+       2.7,
+       -9.95,
+       -19.5
       ]
      },
-     "dur": 0.4,
+     "dur": 0.45,
      "ease": "inOut",
      "at": 1.8
     },
@@ -3440,14 +3478,46 @@
       ],
       "palm": "wrap",
       "at": [
+       2.84,
+       -9.3,
+       -19.5
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "macro": "narrate",
+     "line": "Half your weight. Best day ever?",
+     "voice": "narrator-quick",
+     "dur": 2.3898,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ball",
+      "grip": [
+       0.164,
+       0,
+       0.044
+      ],
+      "palm": "wrap",
+      "at": [
        2.86,
        -9.3,
        -19.74
       ]
      },
-     "dur": 0.18,
+     "dur": 0.2,
      "ease": "inOut",
-     "at": 2.2
+     "at": 2.5
     },
     {
      "who": "spud",
@@ -3468,25 +3538,15 @@
       ]
      },
      "dur": 0.12,
-     "ease": "in",
-     "at": 2.38
-    },
-    {
-     "macro": "narrate",
-     "line": "Half your weight. Best day ever?",
-     "voice": "narrator-quick",
-     "dur": 2.3898,
-     "caption": false,
-     "pos": 520,
-     "gain": 4,
-     "at": 2.4
+     "ease": "linear",
+     "at": 2.7
     },
     {
      "who": "spud",
      "do": "release",
      "prop": "ball",
      "dur": 0,
-     "at": 2.5
+     "at": 2.82
     },
     {
      "who": "spud",
@@ -3494,74 +3554,79 @@
      "side": "R",
      "shape": "open",
      "dur": 0.15,
-     "at": 2.5
+     "at": 2.82
     },
     {
      "do": "prop",
      "id": "ball",
      "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.82
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.82
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
       "x": 2.75,
       "y": -11.42,
       "z": -20.2
      },
-     "dur": 0.45,
+     "dur": 0.43,
      "ease": "in",
-     "at": 2.5
+     "at": 2.82
     },
     {
      "sfx": "netshot",
      "gain": 0.8,
      "reason": "the ball swishes through the net",
-     "at": 2.5
+     "at": 2.82
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": {
-      "o": [
-       0.34,
-       0.75,
-       0.14
-      ]
-     },
-     "dur": 0.3,
+     "pose": "up",
+     "dur": 0.35,
      "ease": "out",
-     "at": 2.52
+     "at": 2.84
     },
     {
      "who": "spud",
      "do": "turn",
      "to": 330,
      "dur": 0.4,
-     "at": 2.8
+     "at": 2.95
     },
     {
      "do": "prop",
-     "id": "ball",
+     "id": "ball2",
      "set": {
-      "x": 2.496,
-      "y": -10.826,
-      "z": -21.215
+      "x": 2.4,
+      "y": -10.6,
+      "z": -21.6
      },
-     "dur": 0.35,
+     "dur": 0.95,
      "ease": "out",
-     "at": 2.95
+     "at": 3.25
     },
     {
      "sfx": "thud",
      "gain": 0.45,
      "reason": "the ball bounces on the cobbles",
-     "at": 2.95
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 3.1
+     "at": 3.25
     }
    ]
   },
@@ -3571,51 +3636,48 @@
    "len": 2.4,
    "shot": {
     "pos": [
-     -0.4,
-     -10.4,
-     -15.6
+     -0.2,
+     -9.5,
+     -16
     ],
     "look": [
-     2.3,
-     -10,
-     -19.6
+     2.5,
+     -10.6,
+     -19.4
     ],
-    "fov": 41,
+    "fov": 50,
     "near": 0.3,
     "to": {
      "pos": [
-      -0.265,
-      -10.38,
-      -15.8
+      -0.038,
+      -9.566,
+      -16.204
      ],
      "look": [
-      2.3,
-      -10,
-      -19.6
+      2.5,
+      -10.6,
+      -19.4
      ],
-     "fov": 39.77
+     "fov": 50
     },
     "dur": 2.4,
     "ease": "linear"
    },
    "do": [
     {
-     "do": "prop",
-     "id": "ball",
-     "set": {
-      "x": 2.4,
-      "y": -10.6,
-      "z": -21.6
-     },
-     "dur": 0.65,
-     "ease": "out",
-     "at": 0
-    },
-    {
      "sfx": "step-concrete",
      "gain": 0.5,
      "reason": "he lands on the cobbles",
      "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "settle",
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -3640,18 +3702,6 @@
      "at": 0.2
     },
     {
-     "do": "prop",
-     "id": "ball",
-     "set": {
-      "x": 2,
-      "y": -11.62,
-      "z": -23
-     },
-     "dur": 1,
-     "ease": "in",
-     "at": 0.65
-    },
-    {
      "who": "spud",
      "do": "arm",
      "side": "both",
@@ -3661,21 +3711,33 @@
     },
     {
      "do": "prop",
-     "id": "ball",
+     "id": "ball2",
+     "set": {
+      "x": 2,
+      "y": -11.62,
+      "z": -23
+     },
+     "dur": 0.9,
+     "ease": "in",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
      "set": {
       "x": 1.6,
       "y": -11.2,
       "z": -24.2
      },
-     "dur": 0.75,
+     "dur": 0.6,
      "ease": "out",
-     "at": 1.65
+     "at": 1.8
     },
     {
      "sfx": "thud",
      "gain": 0.45,
      "reason": "the ball bounces on the cobbles",
-     "at": 1.65
+     "at": 1.8
     },
     {
      "who": "spud",
@@ -4259,7 +4321,7 @@
      "pose": {
       "world": [
        3.154,
-       -16,
+       -15.9,
        -57.961
       ]
      },
@@ -4507,6 +4569,21 @@
      "do": "arm",
      "side": "L",
      "pose": {
+      "world": [
+       3.154,
+       -15.78,
+       -57.961
+      ]
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 1.85
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
       "o": [
        0.25,
        1,
@@ -4530,6 +4607,21 @@
      "gain": 0.6,
      "reason": "his upper hand slips off the iron",
      "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       3.14,
+       -16.02,
+       -58
+      ]
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 2.3
     },
     {
      "who": "spud",
@@ -5478,9 +5570,22 @@
   },
   {
    "who": "spud",
+   "with": "ball2",
+   "from": 33.8,
+   "to": 34.1,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop",
+    "costume-in-prop",
+    "clipping"
+   ],
+   "reason": "the let-go: the ball drops out of his open hand through the net"
+  },
+  {
+   "who": "spud",
    "with": "ball",
    "from": 32.6,
-   "to": 33.55,
+   "to": 33.85,
    "checks": [
     "held-high"
    ],
