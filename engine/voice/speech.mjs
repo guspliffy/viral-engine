@@ -111,11 +111,25 @@ export function withSpeech(sb, chars) {
     if (r && (r / rec.rate - 1 > RATE_FAST || 1 - r / rec.rate > RATE_SLOW)) console.warn(`speech: "${item.line}" reads at ${r.toFixed(2)} syllables/s, ${Math.round(Math.abs(r / rec.rate - 1) * 100)} % ${r > rec.rate ? "faster" : "slower"} than this voice's usual ${rec.rate}: it will sound ${r > rec.rate ? "rushed" : "slow"} next to the other lines (and more so in a film sped up at the join); try "take": 2, or a "tempo" for this line`);
     if (item.dur != null && Math.abs(item.dur - info.dur) > 0.25) console.warn(`speech: "${item.line}" lasts ${info.dur}s spoken, not the ${item.dur}s written; using the spoken length`);
     item.dur = info.dur;
+    const mis = misread(item.line, info.heard);
+    if (mis) (out.misreads ||= []).push({ line: item.line, heard: info.heard, extra: mis.extra, take: item.take ?? 0 });
     const words = wordTimes(info.phones, item.line);
     if (!words) console.warn(`speech: "${item.line}" was read as a different number of words, its caption uses the syllable guess`);
     item.speech = { id: j.id, mouth: mouthKeys(info.phones), ...(words ? { words } : {}) };
   }
   return out;
+}
+
+// a VoxCPM2 take Whisper heard as other words than its line (tts.py keeps them in the cache entry as "heard"): null
+// when it heard the line (or no Whisper ran), else { extra: words heard minus words written }. Words are compared as
+// tts.py does (lower case, letters, digits and apostrophes, a hyphen splits). Mona Lisa (19 Nov 2026): the narrator's
+// first take of "He lifts her off four hooks..." went on after a silence with "this clear." Whisper heard it, tts.py
+// printed one warning while 35 lines were read, nobody saw it, and Jonny heard "a weird noise" on the draft.
+const said = (t) => String(t).toLowerCase().replace(/-/g, " ").replace(/[^a-z0-9' ]/g, "").split(/\s+/).filter(Boolean);
+export function misread(line, heard) {
+  if (heard == null) return null;
+  const a = said(line), b = said(heard);
+  return a.join(" ") === b.join(" ") ? null : { extra: b.length - a.length };
 }
 
 // mono samples of a cached line at the engine's rate (tts.py writes 44.1 kHz 16-bit PCM)

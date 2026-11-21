@@ -1,0 +1,368 @@
+{
+ "id": "city-bench",
+ "title": "Gravity city bench",
+ "idea": "Props bench for fact what-if 02 (gstreet, gtower, gcity, ghorizon), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "far": 6000,
+ "set": {
+  "type": "gravroom",
+  "bare": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "tower"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "street",
+   "kind": "gstreet",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "tower",
+   "kind": "gtower",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "fall": 0,
+   "dust": 1
+  },
+  {
+   "id": "city",
+   "kind": "gcity",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "seed": 26031
+  },
+  {
+   "id": "horizon",
+   "kind": "ghorizon",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "a1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.52,
+     3.18
+    ],
+    "look": [
+     0.03,
+     1.52,
+     -2.65
+    ],
+    "fov": 51
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 0,
+      "dust": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 0,
+      "dust": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "A, fall 0"
+  },
+  {
+   "name": "c2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.28,
+     1.23,
+     0.33
+    ],
+    "look": [
+     0.72,
+     1.62,
+     -2.65
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 0,
+      "dust": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C, fall 0"
+  },
+  {
+   "name": "c3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.28,
+     1.23,
+     0.33
+    ],
+    "look": [
+     0.72,
+     1.62,
+     -2.65
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 0.25,
+      "dust": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C, fall 0.25"
+  },
+  {
+   "name": "c4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.28,
+     1.23,
+     0.33
+    ],
+    "look": [
+     0.72,
+     1.62,
+     -2.65
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 0.5,
+      "dust": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C, fall 0.5"
+  },
+  {
+   "name": "c5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.28,
+     1.23,
+     0.33
+    ],
+    "look": [
+     0.72,
+     1.62,
+     -2.65
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 0.75,
+      "dust": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C, fall 0.75"
+  },
+  {
+   "name": "c6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.28,
+     1.23,
+     0.33
+    ],
+    "look": [
+     0.72,
+     1.62,
+     -2.65
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 1,
+      "dust": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C, fall 1"
+  },
+  {
+   "name": "a7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.52,
+     3.18
+    ],
+    "look": [
+     0.03,
+     1.52,
+     -2.65
+    ],
+    "fov": 51
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 1,
+      "dust": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "A, fall 1"
+  },
+  {
+   "name": "d8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -30,
+     -22,
+     -8
+    ],
+    "look": [
+     9.7,
+     -38,
+     -49.5
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 0.5,
+      "dust": 0.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "D, fall 0.5"
+  },
+  {
+   "name": "d9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -30,
+     -22,
+     -8
+    ],
+    "look": [
+     9.7,
+     -38,
+     -49.5
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 1,
+      "dust": 0.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "D, fall 1"
+  }
+ ],
+ "notes": "Generated by storyboards/series/facts/02-gravity/bench/make-city-bench.mjs (props bench, no reviews)."
+}
