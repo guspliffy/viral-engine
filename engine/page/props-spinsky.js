@@ -12,7 +12,7 @@ import { clamp, P, S, keys, spin, phi, flicker, alphaDeg, sunAt, moonAt, sunRho,
 // SKY IS A BACKDROP AT INFINITY. ssky and sclouds are drawn with the camera's ROTATION only (translation dropped): from any world
 // (Q room, P2 at 250 m, the street at -53 m, HI at x 40000) the sun, moon, stars, terminator and streaks stand at the same directions
 // as seen from the room window, so the director never has to move the dome. They draw in the OPAQUE list before everything else
-// (renderOrder -1000..-890, depth test off, depth write off), so any terrain, house, hill, post or room wall drawn later covers them
+// (renderOrder -1000..-890; the dome has depth test off and write off, the sprites test depth at the far plane and never write it), so any terrain, house, hill, post or room wall covers them
 // exactly as a backdrop should. sstorm is real geometry in world Q (depth tested: the room's window frame stands in front of it).
 //
 //   ssky     dome + sun + moon + stars + terminator (one dome shader, 1 draw; the sun, ghosts, comb, moon are 3 more draws)
@@ -289,8 +289,13 @@ function bakeTex() {   // B6: the streaks + cumulus at the state of 43.3 s, draw
 // =============================================================================================================== quad mesh on the sky sphere
 const QUAD_VS = "attribute vec4 aCol; attribute float aAdd; varying vec2 vUv; varying vec4 vC; varying float vA; void main(){ vUv = uv; vC = aCol; vA = aAdd; vec3 p = mat3(viewMatrix) * position; gl_Position = projectionMatrix * vec4(p, 1.0); }";
 const QUAD_FS = "uniform sampler2D uMap; varying vec2 vUv; varying vec4 vC; varying float vA; void main(){ vec4 t = texture2D(uMap, vUv); float a = t.a * vC.a; gl_FragColor = vec4(t.rgb * vC.rgb * a, a * (1.0 - vA));\n#include <colorspace_fragment>\n }";
+// Fix r0 (21 Nov 2026): the sprites (sun, ribbon, moon, clouds) were drawn over the cast and the walls (rough draft 1: streaks over Spud and the mural).
+// They are now DEPTH TESTED at the far plane: the vertex shader pins z to w * .99999 (the quad's own distance means nothing, it is at infinity), so any
+// opaque or depth-writing surface in front covers them whatever the draw order is; nothing writes depth for them and the dome (depth test off, drawn first) is unchanged.
+const FAR_Z = " gl_Position.z = gl_Position.w * 0.99999;";
 function skyMaterial(vs, fs, uniforms) {
-  return noLine(new THREE.ShaderMaterial({ uniforms, vertexShader: vs, fragmentShader: fs, transparent: false, depthTest: false, depthWrite: false, side: THREE.DoubleSide, fog: false, blending: THREE.CustomBlending, blendEquation: THREE.AddEquation, blendSrc: THREE.OneFactor, blendDst: THREE.OneMinusSrcAlphaFactor, blendSrcAlpha: THREE.OneFactor, blendDstAlpha: THREE.OneMinusSrcAlphaFactor }));
+  vs = vs.replace(/\}\s*$/, FAR_Z + " }");
+  return noLine(new THREE.ShaderMaterial({ uniforms, vertexShader: vs, fragmentShader: fs, transparent: false, depthTest: true, depthWrite: false, side: THREE.DoubleSide, fog: false, blending: THREE.CustomBlending, blendEquation: THREE.AddEquation, blendSrc: THREE.OneFactor, blendDst: THREE.OneMinusSrcAlphaFactor, blendSrcAlpha: THREE.OneFactor, blendDstAlpha: THREE.OneMinusSrcAlphaFactor }));
 }
 function quadBuf(n) {
   const pos = new Float32Array(n * 12), uv = new Float32Array(n * 8), col = new Float32Array(n * 16), add = new Float32Array(n * 4), idx = new Uint16Array(n * 6);
