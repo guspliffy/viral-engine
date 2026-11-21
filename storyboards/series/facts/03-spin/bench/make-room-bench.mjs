@@ -44,6 +44,7 @@ const props = [
 const beats = c.beats(BEATS.map(([id, t0, cam, label]) => [id, t0, CAM[cam], label]), END);
 write(import.meta.url, {
   id: "spin-room-bench", title: "Spin room bench", idea: "Props bench for fact what-if 03 spin (spinroom set, swindow, scrt, sclock, spendant, smug, scrisps, squilt, sroomlight), not a clip",
+  tool: "a builder bench for the spinroom props (Spud stands in as a size reference), never a video",
   fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet", physics: false, far: 6000,
   set: { type: "spinroom" }, music: false, sound: { auto: false },
   hook: { show: [], hint: 0, what: "engine test" },
