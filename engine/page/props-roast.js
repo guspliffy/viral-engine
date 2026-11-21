@@ -25,7 +25,9 @@ import { steamWisps } from "./steam.js";
 //   pubstep     a raised wooden floor (spec.w, spec.d, spec.h) the back row stands on.
 //   hopbeam     a dark oak ceiling beam along x (spec.w) with bunches of dried hops hanging off it (spec.n, spec.seed).
 //   fork        a steel dinner fork standing on its tine tips (origin), the handle up +y (len 0.19); the thin hold pinches
-//               it near the top. `food` 0..1 shows a roast potato on the tines (spec.foodSeed shapes it).
+//               it near the top. `food` 0..1 shows a roast potato on the tines (spec.foodSeed shapes it). spec.dish "penne"
+//               (default: the roast potato) puts two penne `#f2cf82` (r 0.007 x 0.04, threaded on the tines) in a red sauce
+//               `#d8321f` on them instead, with the same `food` 0..1 to show or hide it (spec.food starts it; a prop `set` { food } changes it; no faces).
 export const ROAST = { table: { h: 0.4 }, roastie: { r: 0.034 }, fork: { len: 0.25 } };
 
 const CRUST = ["#d98f2b", "#e6a83c", "#c9781f", "#efbb52"];
@@ -230,13 +232,23 @@ export const ROAST_KINDS = {
     mesh(new THREE.BoxGeometry(0.024, 0.012, 0.0035), steel, P.whole, 0, 0.05, 0);
     mesh(new THREE.BoxGeometry(0.008, 0.04, 0.004), steel, P.whole, 0, 0.075, 0);
     mesh(new THREE.BoxGeometry(0.012, L - 0.095, 0.005), steel, P.whole, 0, 0.095 + (L - 0.095) / 2, 0);
-    // a roast potato on the tines
-    const food = new THREE.Mesh(roastieGeo(P.spec.foodSeed ?? 9, ROAST.roastie.r * 0.95), crustMat()); food.castShadow = true;
-    const fg = new THREE.Group(); fg.position.set(0, -0.012, 0); fg.add(food); P.whole.add(fg);
-    // alive (Jonny 7 Nov): the speared one's face, on the tines' front side (the fork's +z)
-    // (a face on both sides: the fork turns in the fist, and a speared one always looks out at us)
-    const faces = P.spec.alive ? [0, Math.PI].map((ry) => { const g = new THREE.Group(); g.rotation.y = ry; fg.add(g); return roastFace(g, ROAST.roastie.r * 0.95, P.spec.foodSeed ?? 9, [0, ROAST.roastie.r * 0.5, 0]); }) : [];
-    return { grip: L * 0.75, apply(ps, t) { const f = clamp(ps.food ?? 0); fg.visible = f > 0.01; fg.scale.setScalar(Math.max(0.01, f)); for (const face of faces) face(ps.fmood ?? 0, ps.fjoy ?? 0, t); } };
+    // a roast potato on the tines (spec.dish "penne": two penne in sauce instead)
+    const fg = new THREE.Group(); fg.position.set(0, -0.012, 0); P.whole.add(fg);
+    let faces = [];
+    if (P.spec.dish === "penne") {
+      const pen = mat("#f2cf82", { roughness: 0.6 }), sauce = mat("#d8321f", { roughness: 0.25 });
+      for (const [y, z, rz] of [[0.024, 0.004, 0.06], [0.046, -0.003, -0.1]]) {
+        const pn = mesh(new THREE.CylinderGeometry(0.007, 0.007, 0.04, 10), pen, fg, 0, y, z); pn.rotation.z = Math.PI / 2 + rz;
+        const sc = mesh(new THREE.CylinderGeometry(0.0078, 0.0078, 0.014, 10), sauce, fg, 0.004, y, z); sc.rotation.z = Math.PI / 2 + rz;   // the sauce over the middle
+        const dr = mesh(new THREE.SphereGeometry(0.004, 8, 6), sauce, fg, 0.004, y - 0.009, z + 0.003); dr.scale.y = 1.5;
+      }
+    } else {
+      const food = new THREE.Mesh(roastieGeo(P.spec.foodSeed ?? 9, ROAST.roastie.r * 0.95), crustMat()); food.castShadow = true; fg.add(food);
+      // alive (Jonny 7 Nov): the speared one's face, on the tines' front side (the fork's +z)
+      // (a face on both sides: the fork turns in the fist, and a speared one always looks out at us)
+      faces = P.spec.alive ? [0, Math.PI].map((ry) => { const g = new THREE.Group(); g.rotation.y = ry; fg.add(g); return roastFace(g, ROAST.roastie.r * 0.95, P.spec.foodSeed ?? 9, [0, ROAST.roastie.r * 0.5, 0]); }) : [];
+    }
+    return { grip: L * 0.75, apply(ps, t) { const f = clamp(ps.food ?? (P.spec.dish === "penne" ? P.spec.food ?? 0 : 0)); fg.visible = f > 0.01; fg.scale.setScalar(Math.max(0.01, f)); for (const face of faces) face(ps.fmood ?? 0, ps.fjoy ?? 0, t); } };
   },
 
   // a dark oak ceiling beam along x (spec.w) with bunches of dried hops tied on along it, hanging down (spec.n bunches,
