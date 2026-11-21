@@ -31,7 +31,7 @@ made with the cast or giving the repo to someone else.
    staging proof, review A.
 5. Rough draft (`--draft`) -> producer's story check and OK (no polish before it).
 6. Polish, checks on the draft, strips, then the Sol check (GPT-6.2 Sol xhigh in Codex, on trial): fix what it lists,
-   check again until it passes (`docs/rules/workflow.md`, "The Sol check").
+   check again; at most two Sol rounds, a third only on the producer's own OK (`docs/rules/workflow.md`, "The Sol check").
 7. One full render (render farm), `qa/check.mjs --ears`.
 8. Delivery: the gate report + post pack (`docs/rules/posting.md`), a pull request on the fork, merge on "merge it"
    with every check green, then one ledger row (`docs/LEDGER.md`) and one next fix offered.
