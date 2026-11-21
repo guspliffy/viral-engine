@@ -1,0 +1,753 @@
+{
+ "id": "lane-bench",
+ "title": "Krampus 01 lane bench",
+ "idea": "Engine look bench for the lane of krampus-myth 01 (task T-A), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "far": 320,
+ "set": {
+  "type": "plain",
+  "color": "#0e1630",
+  "floor": "none",
+  "night": true,
+  "key": [
+   -0.62,
+   0.47,
+   0.63
+  ],
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "key": [
+    -0.62,
+    0.47,
+    0.63
+   ],
+   "light": "#b4c8f4",
+   "shadow": "#34428a",
+   "rim": "#9fb4e8",
+   "exposure": 0.9
+  },
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "lane",
+   "kind": "krampuslane",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "up03",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.2,
+     1.25,
+     3.1
+    ],
+    "look": [
+     -10,
+     2.6,
+     3
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 4,
+      "lit": 9,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "up03snow",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.2,
+     1.25,
+     3.1
+    ],
+    "look": [
+     -10,
+     2.6,
+     3
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 4,
+      "lit": 9,
+      "door4": 0,
+      "snowfall": 1,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "down",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1.6,
+     1.4,
+     3.3
+    ],
+    "look": [
+     14,
+     0.3,
+     3.6
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 4,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door9",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -37.9,
+     5.3,
+     3
+    ],
+    "look": [
+     -38,
+     5.35,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 9,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door8",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -30.299999999999997,
+     4.5,
+     3
+    ],
+    "look": [
+     -30.4,
+     4.550000000000001,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 8,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door7",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -22.699999999999996,
+     3.7,
+     3
+    ],
+    "look": [
+     -22.799999999999997,
+     3.7500000000000004,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 7,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door6",
+   "at": 6.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -15.1,
+     2.9000000000000004,
+     3
+    ],
+    "look": [
+     -15.2,
+     2.95,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door5",
+   "at": 7.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -7.5,
+     2.1,
+     3
+    ],
+    "look": [
+     -7.6,
+     2.1500000000000004,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door4",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.1,
+     1.3,
+     3
+    ],
+    "look": [
+     0,
+     1.35,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door3",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     7.699999999999999,
+     0.5,
+     3
+    ],
+    "look": [
+     7.6,
+     0.55,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door2",
+   "at": 11,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     15.299999999999999,
+     -0.30000000000000004,
+     3
+    ],
+    "look": [
+     15.2,
+     -0.25,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door1",
+   "at": 12.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     22.9,
+     -1.1000000000000003,
+     3
+    ],
+    "look": [
+     22.799999999999997,
+     -1.0500000000000003,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "pile",
+   "at": 13.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.3,
+     0.75,
+     2.9
+    ],
+    "look": [
+     3.1,
+     0.45,
+     0.8
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 4,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "hollow",
+   "at": 14.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.5,
+     0.42,
+     0.9
+    ],
+    "look": [
+     3.2,
+     0.3,
+     0.38
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 4,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "fountain",
+   "at": 15.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1,
+     1.25,
+     3.3
+    ],
+    "look": [
+     -1,
+     0.8,
+     6.4
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "peaks",
+   "at": 16.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     3.5
+    ],
+    "look": [
+     -60,
+     22,
+     1.5
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 4,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "pool",
+   "at": 17.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.8,
+     0.45,
+     3.4
+    ],
+    "look": [
+     0.8,
+     0.1,
+     0.9
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shake",
+   "at": 18.7,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -5.8,
+     1.5,
+     4
+    ],
+    "look": [
+     -7.6,
+     3.2,
+     0.5
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "visited": 10,
+      "lit": 4,
+      "door4": 0,
+      "snowfall": 0,
+      "shake": 0.6,
+      "trickle": 0.3,
+      "smoke": 1,
+      "tense": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/krampus-myth/01-boots/bench/make-lane-bench.mjs (engine bench, no story)."
+}
