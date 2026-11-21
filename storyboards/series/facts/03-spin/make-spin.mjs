@@ -31,12 +31,12 @@ const zOf = (u) => r3(-(u + 3));
 
 // ---------------------------------------------------------------- cameras (DESIGN J; the director owns them)
 const CAM = {
-  P1: { pos: [0.75, 1.12, 0.45], look: [-0.2, 0.58, -3.6], fov: 58, near: 0.04 },   // draft 0: DESIGN's P1 showed only the back of his head; he turns 3/4 to us
+  P1: { pos: [-0.25, 1.25, 0.55], look: [0.3, 0.35, -3.6], fov: 58, near: 0.04 },   // draft 1: he stands left, the sea wall right of him in the window   // draft 0: DESIGN's P1 showed only the back of his head; he turns 3/4 to us
   P2: { pos: [40, 62, 250], look: [-60, -170, -1500], fov: 50, near: 4 },
   P3: { pos: [800, -60, -900], look: [800, -286, -1250], fov: 44, near: 4 },
   P4: { pos: [-1.3, 1.05, 0.9], look: [1.57, 0.8, -1.11], fov: 52, near: 0.04 },
   P5: { pos: [0.5, 1.0, 0.05], look: [1.05, 1.1, -2.65], fov: 56, near: 0.04 },
-  P6: { pos: [1.3, 1.0, -0.2], look: [-0.35, 0.7, -2.25], fov: 52, near: 0.04 },   // draft 0: DESIGN's P6 sat inside his head; from the front-right, clock and window behind
+  P6: { pos: [0.9, 1.2, -0.75], look: [-0.3, 0.7, -2.2], fov: 64, near: 0.04 },   // draft 1: (1.3, 1.0, -.2) stood inside the TV   // draft 0: DESIGN's P6 sat inside his head; from the front-right, clock and window behind
   P7: { pos: [0.6, 0.95, 1.55], look: [-0.1, 0.8, -0.6], fov: 50, near: 0.04 },   // draft 0: further back (his face filled the frame)
   P8: { pos: [1.35, 0.85, 1.05], look: [-0.1, 1.45, -0.5], fov: 60, near: 0.04 },   // draft 0: from below he showed only his back; front-right, the lamp above
   P9: { pos: [-0.4, -10.4, -15.6], look: [2.3, -10.0, -19.6], fov: 50, near: 0.3 },   // draft 0: closer (he was tiny)
@@ -72,8 +72,8 @@ const punch = (C, dur, amt = 0.04, fk = 0.8) => { const p = push(C, dur, amt); r
 const drift = (C, dur, d) => ({ ...C, to: { pos: C.pos.map((p, i) => r3(p + d[i])), look: C.look.map((p, i) => r3(p + d[i])), fov: C.fov }, dur: r3(dur), ease: "linear" });
 
 // ---------------------------------------------------------------- props
-const SP0 = [-0.05, -1.15], YAW0 = 70;   // frame 0: at the window, 3/4 to the camera
-const MUG = { id: "mug", kind: "smug", ...grips.placeFor("smug", [0.167, 0.5, -0.868], YAW0), t0: 0.0, mouth: [0.14, 0.62, -1.08] };
+const SP0 = [-0.4, -1.3], YAW0 = 60;   // frame 0: at the window, 3/4 to the camera
+const MUG = { id: "mug", kind: "smug", ...grips.placeFor("smug", [-0.235, 0.5, -0.985], YAW0), t0: 0.0, mouth: [-0.227, 0.62, -1.2] };
 const BAG = { id: "bag", kind: "scrisps", ...grips.placeFor("scrisps", [-1.55, 0.45, -2.0], 0), t0: 19.2, from: [0.17, 0.6, -0.1], mouth: [-0.05, 0.6, -0.2], crown: [-0.02, 0.98, -0.42] };
 const BALL = { id: "ball", kind: "sball", x: 2.32, y: -11.15, z: -18.72, rot: 0, float: 36.7, fx: 0.9 };
 const SLAM = 13.6, SLAP = 10.5, SMASH = 18.3, BONK = 28.0, SWISH = 33.5;
@@ -109,6 +109,7 @@ const WORLD = ["sky", "clouds", "storm", "roomlight", "andes", "sea", "high", "s
 for (const id of WORLD) { prop(0, id, { t: 0 }, 0, "linear"); prop(0, id, { t: END }, END, "linear"); }
 // the starfield dome is camera-pinned: only in space; the Earth sky leaves there
 prop(59.98, "stars", { scale: 1 }, 0, "linear");
+prop(0, "quilt", { scale: 0 }, 0, "linear"); prop(14.97, "quilt", { scale: 1 }, 0, "linear"); prop(19.0, "quilt", { scale: 0 }, 0, "linear");   // only P6 needs it (he stands against the sofa in P1)
 for (const id of ["sky", "clouds"]) prop(59.98, id, { scale: 0 }, 0, "linear");
 prop(0, "andes", { centro: 1 }, 0, "linear");
 prop(0, "clouds", { scale: 0 }, 0, "linear");   // draft 0: sclouds drew over Spud and the street (a builder fix is due); off until then
@@ -261,7 +262,7 @@ see(19.0, 26.7, ["spud.face", "bag"], "7.7x: the crisps float down slowly; he ca
 expr(26.7, "happy", { curve: 1, eye: 1.05 }, 0); look(26.7, [0, 0.3], 0);
 A(27.3, "spud", "crouch", { to: 0.4, dur: 0.18 }); A(27.48, "spud", "crouch", { to: 0, dur: 0.1 });
 A(27.5, "spud", "hop", { height: 0.95, count: 1, dur: 1.0, quiet: true });
-A(27.5, "spud", "arm", { side: "R", pose: "up", dur: 0.3, ease: "out" });   // the bag stays low in the other hand
+A(27.5, "spud", "arm", { side: "R", pose: "shrug", dur: 0.3, ease: "out" });   // the bag stays low in the other hand
 A(BONK, "spud", "squash", { amount: 0.16, dur: 0.2 });
 expr(BONK, "shocked", { eye: 1.3, open: 0.35 }, 0.05);
 A(BONK, "spud", "face", { lid: 0.8, dur: 0.05 }); A(r3(BONK + 0.2), "spud", "face", { lid: 0, dur: 0.12 });
@@ -355,7 +356,7 @@ expr(50.0, "terrified", { eye: 1.3, open: 0.3 }, 0.12); look(50.0, [-0.3, 0.6], 
 A(50.6, "spud", "fly", { to: { x: 2.93, y: -17.25, z: -58 }, dur: 1.6, ease: "inOut" });   // his toes lift
 A(52.2, "spud", "arm", { side: "L", pose: { o: [0.25, 1.0, 0.1] }, dur: 0.3, ease: "out" }); grip(52.2, "L", "open", 0.1);
 A(52.6, "spud", "arm", { side: "R", pose: { o: [0.3, 1.0, 0.15] }, dur: 0.3, ease: "out" }); grip(52.6, "R", "open", 0.1);
-flyTo(52.62, [1.9, -14.4, -57.4], 2.4, "in");
+flyTo(52.62, [1.9, -14.4, -57.4], 2.4, "out");
 A(52.7, "spud", "lean", { to: -18, dur: 1.2 });
 expr(52.6, "terrified", { eye: 1.4, open: 0.5 }, 0.08);
 for (let k = 0; k < 4; k++) A(r3(53.0 + k * 0.5), "spud", "arm", { side: "both", pose: k % 2 ? { o: [0.34, 1.0, 0.0] } : "shrug", dur: 0.45 });   // flailing
@@ -368,7 +369,7 @@ see(50.0, 55.0, ["spud.face", "rain", "blobs"], "17x: rain falls upward, the sea
 
 // ================================================================ 55.0-60.0 P14 18.5x: high over Quito, the horizon curving
 // world HI: he rides up with the camera, 7 m in front of it, a little above the frame's middle (DESIGN G: face y ~780)
-const hiSpud = (a) => { const C = hiCam(a), q = C.pitch - (14 * Math.PI) / 180, D = 3.5;   /* draft 0: 3.6 deg put him on the bottom edge */ return [C.pos[0], C.pos[1] - D * Math.sin(q) - 0.45, C.pos[2] - D * Math.cos(q)]; };
+const hiSpud = (a) => { const C = hiCam(a), q = C.pitch - (15 * Math.PI) / 180, D = 7;   /* draft 0: 3.6 deg put him on the bottom edge; nearer than 7 m the near plane (4) cuts him */ return [C.pos[0], C.pos[1] - D * Math.sin(q) - 0.45, C.pos[2] - D * Math.cos(q)]; };
 const H0 = hiSpud(0), H1 = hiSpud(1);
 flyTo(54.98, H0, 0.01, "linear");
 A(54.98, "spud", "turn", { to: 0, dur: 0.01, ease: "linear", sync: true });
@@ -406,9 +407,10 @@ see(73.3, END, ["disc", "spud.face"], "24x: Earth is a flat disc with a ring; th
 
 // ---------------------------------------------------------------- shots (16 cuts; each moves, cut .1-.2 s after the action)
 const beats = c.beats([
-  ["P01 2.0x: the sea wall, the coffee spit", 0, push(CAM.P1, 2.2, 0.05), "hook"],
+  ["P01 2.0x: the sea wall in the window, the coffee spit", 0, push(CAM.P1, 2.2, 0.05), "hook"],
   ["P02 2.7x: Quito, every valley a sea", 2.2, push(CAM.P2, 2.8, 0.08)],
-  ["P03 3.5x: the valley town drowning", 5.0, { ...CAM.P3, to: { pos: CAM.P3.pos, look: CAM.P3.look, fov: 36 }, dur: 4.0, ease: "linear" }],
+  // draft 1: DESIGN P3 (the valley town) drew its drowning houses as white blocks; a second, closer P2 push until the builder fixes it
+  ["P03 3.5x: the valleys drowning", 5.0, { pos: [60, 70, 260], look: [120, -230, -1500], fov: 44, near: 4, to: { pos: [50, 60, 150], look: [120, -230, -1500], fov: 38 }, dur: 4.0, ease: "linear" }],
   ["P04 4.7x: TV static, the slap", 9.0, push(CAM.P4, 2.5, 0.06)],
   ["P05 5.5x: the hurricane, the slam", 11.5, push(CAM.P5, r3(SLAM + 0.18 - 11.5), 0.08)],
   ["P05b 5.5x: 'and hit harder' (punch-in)", r3(SLAM + 0.18), punch(CAM.P5, r3(15.0 - SLAM - 0.18), 0.05, 0.85)],
