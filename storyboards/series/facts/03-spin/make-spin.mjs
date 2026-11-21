@@ -86,10 +86,10 @@ const props = [
   // the flat's moving things
   { id: "win", kind: "swindow", x: 0, y: 0, z: 0, rot: 0, slamAt: SLAM },
   { id: "crt", kind: "scrt", x: 1.45, y: 0, z: -0.25, rot: -48, driftAt: 9.0, staticAt: 9.5, slapAt: SLAP },
-  { id: "clock", kind: "sclock", x: 0.23, y: 0, z: -2.22, rot: 0, ringFrom: 16.27, smashAt: SMASH, fist: [0.15, 0.66, -2.02] },
-  { id: "lamp", kind: "spendant", x: 0, y: 1.93, z: -0.45, rot: 0, tb: BONK, slamAt: SLAM },
+  { id: "clock", kind: "sclock", x: 0.23, y: 0, z: -2.22, rot: 0, ringFrom: 16.27, smashAt: SMASH, fist: [0.15, 0.66, -2.02], staged: "the alarm clock stands on the side table (part of the spinroom set)" },
+  { id: "lamp", kind: "spendant", x: 0, y: 1.93, z: -0.45, rot: 0, tb: BONK, slamAt: SLAM, staged: "a pendant lamp hanging from the ceiling on its chain" },
   MUG, BAG,
-  { id: "quilt", kind: "squilt", x: -1.0, y: 0, z: -2.03, rot: 0 },
+  { id: "quilt", kind: "squilt", x: -1.0, y: 0, z: -2.03, rot: 0, staged: "the quilt lies over the sofa seat (part of the spinroom set)" },
   // Quito, the Andes, the sea, the high view
   { id: "andes", kind: "sandes", x: 0, y: 0, z: 0, rot: 0, centro: 1 },
   { id: "sea", kind: "ssea", x: 0, y: 0, z: 0, rot: 0 },
@@ -112,7 +112,6 @@ prop(59.98, "stars", { scale: 1 }, 0, "linear");
 prop(0, "quilt", { scale: 0 }, 0, "linear"); prop(14.97, "quilt", { scale: 1 }, 0, "linear"); prop(19.0, "quilt", { scale: 0 }, 0, "linear");   // only P6 needs it (he stands against the sofa in P1)
 for (const id of ["sky", "clouds"]) prop(59.98, id, { scale: 0 }, 0, "linear");
 prop(0, "andes", { centro: 1 }, 0, "linear");
-prop(0, "clouds", { scale: 0 }, 0, "linear");   // draft 0: sclouds drew over Spud and the street (a builder fix is due); off until then
 
 const cast = [{ id: "spud", character: "potatobrawl/spud", at: SP0, face: YAW0, expr: "shocked", follow: 0, seed: 3.17 }];
 
@@ -148,7 +147,7 @@ const hm = grips.mug(c, "spud", MUG, { side: "R" });
 hm.take(0, { reach: 0.01, settle: 0.01 });
 expr(0, "shocked", { open: 0.6, eye: 1.25 }, 0);
 A(0, "spud", "noblink", { dur: 0 });
-for (const b of [8.75, 18.9, 22.6, 24.5, 30.5, 36.3, 42.8, 49.4]) A(b, "spud", "blink", { dur: 0.6 });   // blinks only between lines (no blink on a key line)
+for (const b of [8.75, 18.9, 22.6, 24.5, 30.5, 36.3, 42.8, 49.4]) A(b, "spud", "blink", {});   // draft 2: dur .6 drew a slow sleepy sin blink (eyes-readable); a plain blink. Blinks only between lines (no blink on a key line)
 look(0, [0.1, -0.15], 0);
 A(0.1, "spud", "squash", { amount: 0.12, dur: 0.3 });
 A(0.12, "spud", "lean", { to: -6, dur: 0.2, ease: "out" });
@@ -235,12 +234,12 @@ sfx(r3(SMASH + 0.4), "kenney/impact-metal-light", { gain: 0.35, reason: "a bell 
 see(15.0, 19.0, ["spud.face", "clock", "win"], "6.5x: half day, half night through the glass; the alarm rings, he smashes it");
 
 // ================================================================ 19.0-26.7 P7 7.7x: crisps float down, he catches one in his mouth
-A(18.9, "spud", "stand", { dur: 0 });
-place(18.92, [-0.05, -0.4], 0, 0);
-A(18.92, "spud", "face", { lid: 0, dur: 0 });
+A(18.98, "spud", "stand", { dur: 0, sync: true });   // draft 2: at 18.9 he vanished off the sofa in P6's last frames
+place(19.0, [-0.05, -0.4], 0, 0);
+A(18.98, "spud", "face", { lid: 0, dur: 0, sync: true });
 const hb = grips.phone(c, "spud", BAG, { side: "L" });
-prop(18.9, "bag", { x: 0.17, y: 0.34, z: -0.1 }, 0, "linear");   // to his hand's side first (it waits on the sofa)
-hb.take(18.92, { reach: 0.01, settle: 0.01 });   // behind P6's camera: in his hand from P7's first frame
+prop(18.97, "bag", { x: 0.17, y: 0.34, z: -0.1 }, 0, "linear");   // to his hand's side first (it waits on the sofa)
+hb.take(18.98, { reach: 0.01, settle: 0.01 });   // behind P6's camera: in his hand from P7's first frame
 expr(19.0, "kind", { eye: 1.0 }, 0); look(19.0, [0, 0.1], 0);
 hb.carry(19.12, [0.13, 0.46, -0.28], 0.1, "out"); hb.carry(19.24, [0.13, 0.36, -0.28], 0.25, "inOut");   // the toss
 expr(19.4, "shocked", { eye: 1.2, open: 0.15 }, 0.15);
@@ -250,8 +249,11 @@ A(21.55, "spud", "squash", { amount: 0.05, dur: 0.18 });
 expr(21.6, "happy", { eye: 0.9, open: 0.1, curve: 0.9 }, 0.12);
 for (const k of [0, 0.35, 0.7]) sfx(r3(21.6 + k), "ai/crunch", { gain: 0.55, reason: "he crunches the crisp" });
 sfx(19.22, "crinkle", { gain: 0.5, reason: "the foil bag rustles as he tosses" });
-look(22.6, [0.3, 0.4], 0.3); look(23.4, [-0.2, 0.3], 0.3); look(24.2, [0, 0.1], 0.2);
+look(22.6, [0.3, 0.25], 0.3); look(23.4, [-0.2, 0.3], 0.3); look(24.2, [0, 0.1], 0.2);
 expr(24.2, "smug", { curve: 0.8, eye: 0.8 }, 0.2);
+// draft 2: the bag is held at a world point, so in the hops it stayed behind (long sleeve, hand flip): it goes on the cut to P07c
+hb.release(24.32, { rest: "rest", back: 0.01 });
+prop(24.34, "bag", { x: 0.55, y: 0, z: -0.15 }, 0, "linear");
 // a test hop: he barely tries and floats up slow
 A(24.9, "spud", "hop", { height: 0.35, count: 1, dur: 1.2, quiet: true });
 expr(25.2, "shocked", { eye: 1.2, open: 0.2 }, 0.15); expr(26.15, "happy", { curve: 1, eye: 1 }, 0.2);
@@ -262,7 +264,7 @@ see(19.0, 26.7, ["spud.face", "bag"], "7.7x: the crisps float down slowly; he ca
 expr(26.7, "happy", { curve: 1, eye: 1.05 }, 0); look(26.7, [0, 0.3], 0);
 A(27.3, "spud", "crouch", { to: 0.4, dur: 0.18 }); A(27.48, "spud", "crouch", { to: 0, dur: 0.1 });
 A(27.5, "spud", "hop", { height: 0.95, count: 1, dur: 1.0, quiet: true });
-A(27.5, "spud", "arm", { side: "R", pose: "shrug", dur: 0.3, ease: "out" });   // the bag stays low in the other hand
+A(27.5, "spud", "arm", { side: "both", pose: "shrug", dur: 0.3, ease: "out" });
 A(BONK, "spud", "squash", { amount: 0.16, dur: 0.2 });
 expr(BONK, "shocked", { eye: 1.3, open: 0.35 }, 0.05);
 A(BONK, "spud", "face", { lid: 0.8, dur: 0.05 }); A(r3(BONK + 0.2), "spud", "face", { lid: 0, dur: 0.12 });
@@ -276,8 +278,6 @@ see(26.7, 31.0, ["spud.face", "lamp"], "10x: a jump from standing takes his head
 
 // ================================================================ 31.0-36.7 P9 11.3x: the street, the dunk (false close)
 const D0 = [2.0, -19.0], D1 = [2.48, -19.55];
-hb.release(30.4, { rest: "rest", back: 0.03 });                      // off screen: the bag stays in the flat
-prop(30.86, "bag", { x: 0.55, y: 0, z: -0.15 }, 0, "linear");
 place(30.9, D0, STREET(-(D0[1] + 3)), 230);
 expr(30.9, "smug", { curve: 0.9, eye: 0.9 }, 0); look(30.9, [0.3, 0.3], 0);
 const hball = grips.mug(c, "spud", BALL, { side: "R", height: 0 });
@@ -297,8 +297,7 @@ A(33.8, "spud", "turn", { to: 330, dur: 0.4 });                         // round
 const BB = [[33.5, 2.86, -9.62, -19.74], [33.95, 2.75, -11.42, -20.2], [34.95, 2.4, -10.6, -21.6], [35.95, 2.0, -11.62, -23.0], [36.7, 1.6, -11.2, -24.2]];
 for (let i = 1; i < BB.length; i++) { const [t0] = BB[i - 1], [t1, x, y, z] = BB[i]; prop(t0, "ball", { x, y, z }, r3(t1 - t0), i % 2 ? "in" : "out"); }
 expr(34.4, "smug", { curve: 1, eye: 0.85 }, 0.2); look(34.5, [0, 0.1], 0.2);
-A(35.0, "spud", "arm", { side: "both", pose: "shrug", dur: 0.3 });
-A(35.9, "spud", "arm", { side: "both", pose: "rest", dur: 0.4, ease: "settle" });
+A(35.0, "spud", "arm", { side: "both", pose: "shrug", dur: 0.5 });
 sfx(SWISH, "netshot", { gain: 0.8, reason: "the ball swishes through the net" });
 for (const [t] of BB.slice(1, 4).filter((_, i) => i % 2 === 0)) sfx(t, "thud", { gain: 0.45, reason: "the ball bounces on the cobbles" });
 sfx(34.3, "step-concrete", { gain: 0.5, reason: "he lands on the cobbles" });
@@ -309,9 +308,9 @@ const HOPS = [[36.7, 54], [38.2, 49.5], [39.7, 45], [41.2, 41.2], [42.7, 37]];
 place(36.7, [-0.1, zOf(54)], STREET(54), 0);
 expr(36.7, "shocked", { eye: 1.15, open: 0.2 }, 0); look(36.7, [0, 0.2], 0);
 A(36.7, "spud", "arm", { side: "both", pose: { o: [0.32, 0.55, 0.05] }, dur: 0.3 });   // arms out for balance
+A(36.7, "spud", "move", { to: [-0.1, zOf(37)], y: STREET(37), dur: 5.95, steps: 0, ease: "linear" });   // draft 2: one glide under all hops (a glide per hop tipped the body at each stop)
 for (let i = 0; i < HOPS.length - 1; i++) {
-  const [t0] = HOPS[i], [t1, u1] = HOPS[i + 1], x = i % 2 ? -0.1 : 0.2;
-  A(t0, "spud", "move", { to: [x, zOf(u1)], y: STREET(u1), dur: r3(t1 - t0 - 0.05), steps: 0, ease: "linear" });
+  const [t0] = HOPS[i], [t1] = HOPS[i + 1];
   A(t0, "spud", "hop", { height: 1.0, count: 1, dur: r3(t1 - t0 - 0.05), quiet: true });
   sfx(r3(t1 - 0.05), "step-concrete", { gain: 0.5, reason: "he lands a floaty step on the wet cobbles" });
   A(r3(t0 + 0.4), "spud", "lean", { to: i % 2 ? 7 : -7, dur: 0.5 });
@@ -340,7 +339,7 @@ sfx(44.4, "ai/rain-car-roof", { gain: 0.3, dur: 2.3, reason: "rain slapping the 
 see(43.3, 46.7, ["spud.face", "street"], "15x: a gust; one hand on the lamp post, his body blown out like a flag");
 
 // ================================================================ 46.7-50.0 P12 16x: the rain hangs still, both hands on the post
-place(46.7, [2.93, -58.0], -17.41, 90);
+place(46.7, [2.93, -58.0], -17.41, 55);   // draft 2: 90 put his face 103 deg off P12/P13; at 35 his right arm crossed his chest to the post
 A(46.68, "spud", "lean", { to: 0, dur: 0.01, ease: "linear" });
 A(46.68, "spud", "arm", { side: "L", pose: { world: FIST2 }, dur: 0.01, sync: true });
 A(46.68, "spud", "arm", { side: "R", pose: { world: FIST1 }, dur: 0.01, sync: true });
@@ -460,6 +459,8 @@ write(import.meta.url, {
     { who: "spud", with: "spud", from: 54.9, to: 60.05, checks: ["rig-jump"], reason: "P14: he rides up with the camera at ~137 m/s (it climbs 1100 -> 1784 m in 5 s); on screen he holds still" },
     { who: "spud", with: "spud", from: 59.9, to: END, checks: ["rig-jump"], reason: "space: Spud is drawn 95-185x his size (Earth radius = 100 units), so a centimetre of hand motion measures as metres" },
     { who: "spud", with: "quilt", from: 15.0, to: 19.0, checks: ["shell", "clipping", "limb-in-prop", "costume-in-prop"], reason: "P6: he sits on the sofa under the quilt (the quilt lies over the seat and his lap)" },
+    { who: "spud", with: "spud", from: 13.55, to: 14.2, checks: ["foot-slide", "rig-jump"], reason: "the gag: the slamming sash drags him 40 cm along the floor in 0.2 s; his feet slide with it, his hands ride the sash" },
+    { who: "spud", with: "spud", from: 46.6, to: 55.0, checks: ["payoff-face"], reason: "P12/P13: both hands on the post at his side, his face in 3/4 profile (~68 deg) toward it, both eyes in view; turning further puts his right arm through his chest" },
     { who: "spud", with: "street", from: 31.0, to: 55.0, checks: ["shell", "clipping", "limb-in-prop", "hand-in-prop", "arm-in-prop"], reason: "the street is the whole Quito street as one prop: its ground and lamp post are what he stands on and holds" },
   ],
   notes: "Generated by storyboards/series/facts/03-spin/make-spin.mjs.",

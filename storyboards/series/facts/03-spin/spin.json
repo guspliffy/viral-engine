@@ -476,7 +476,8 @@
     0.15,
     0.66,
     -2.02
-   ]
+   ],
+   "staged": "the alarm clock stands on the side table (part of the spinroom set)"
   },
   {
    "id": "lamp",
@@ -486,7 +487,8 @@
    "z": -0.45,
    "rot": 0,
    "tb": 28,
-   "slamAt": 13.6
+   "slamAt": 13.6,
+   "staged": "a pendant lamp hanging from the ceiling on its chain"
   },
   {
    "id": "mug",
@@ -532,7 +534,8 @@
    "x": -1,
    "y": 0,
    "z": -2.03,
-   "rot": 0
+   "rot": 0,
+   "staged": "the quilt lies over the sofa seat (part of the spinroom set)"
   },
   {
    "id": "andes",
@@ -1089,16 +1092,6 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "clouds",
-     "set": {
-      "scale": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
      "who": "spud",
      "do": "grip",
      "side": "R",
@@ -1448,7 +1441,6 @@
     {
      "who": "spud",
      "do": "blink",
-     "dur": 0.6,
      "at": 3.75
     },
     {
@@ -2264,14 +2256,26 @@
     {
      "who": "spud",
      "do": "blink",
-     "dur": 0.6,
      "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "x": 0.17,
+      "y": 0.34,
+      "z": -0.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.52
     },
     {
      "who": "spud",
      "do": "stand",
      "dur": 0,
-     "at": 0.45
+     "sync": true,
+     "at": 0.53
     },
     {
      "who": "spud",
@@ -2285,7 +2289,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 0.45
+     "at": 0.53
     },
     {
      "who": "spud",
@@ -2294,26 +2298,15 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 0.45
-    },
-    {
-     "do": "prop",
-     "id": "bag",
-     "set": {
-      "x": 0.17,
-      "y": 0.34,
-      "z": -0.1
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.45
+     "at": 0.53
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0,
      "dur": 0,
-     "at": 0.47
+     "sync": true,
+     "at": 0.53
     },
     {
      "who": "spud",
@@ -2321,7 +2314,7 @@
      "side": "L",
      "shape": "open",
      "dur": 0.01,
-     "at": 0.47
+     "at": 0.53
     },
     {
      "who": "spud",
@@ -2343,7 +2336,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.47
+     "at": 0.53
     },
     {
      "who": "spud",
@@ -2360,7 +2353,7 @@
      },
      "dur": 0.01,
      "ease": "settle",
-     "at": 0.48
+     "at": 0.54
     },
     {
      "who": "spud",
@@ -2368,7 +2361,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.486
+     "at": 0.546
     }
    ]
   },
@@ -2418,20 +2411,6 @@
     },
     {
      "who": "spud",
-     "do": "grab",
-     "prop": "bag",
-     "hand": "L",
-     "grip": [
-      -0.13,
-      0.113,
-      -0.01
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0
-    },
-    {
-     "who": "spud",
      "do": "expr",
      "expr": "kind",
      "set": {
@@ -2450,6 +2429,20 @@
      "dur": 0,
      "blink": false,
      "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "bag",
+     "hand": "L",
+     "grip": [
+      -0.13,
+      0.113,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
     },
     {
      "who": "spud",
@@ -2642,7 +2635,6 @@
     {
      "who": "spud",
      "do": "blink",
-     "dur": 0.6,
      "at": 0.85
     },
     {
@@ -2650,7 +2642,7 @@
      "do": "look",
      "to": [
       0.3,
-      0.4
+      0.25
      ],
      "dur": 0.3,
      "blink": false,
@@ -2688,6 +2680,33 @@
      },
      "dur": 0.2,
      "at": 2.45
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "bag",
+     "dur": 0,
+     "at": 2.57
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 2.57
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "x": 0.55,
+      "y": 0,
+      "z": -0.15
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.59
     }
    ]
   },
@@ -2727,8 +2746,46 @@
    "do": [
     {
      "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.13,
+       0.113,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       -0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
      "do": "blink",
-     "dur": 0.6,
      "at": 0.15
     },
     {
@@ -2862,7 +2919,7 @@
     {
      "who": "spud",
      "do": "arm",
-     "side": "R",
+     "side": "both",
      "pose": "shrug",
      "dur": 0.3,
      "ease": "out",
@@ -3002,75 +3059,8 @@
     },
     {
      "who": "spud",
-     "do": "release",
-     "prop": "bag",
-     "dur": 0,
-     "at": 1.8
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.8
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "bag",
-      "grip": [
-       -0.13,
-       0.113,
-       -0.01
-      ],
-      "palm": true,
-      "off": [
-       0.06,
-       0.02,
-       -0.04
-      ]
-     },
-     "dur": 0.03,
-     "ease": "out",
-     "at": 1.84
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 1.87
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 1.87
-    },
-    {
-     "who": "spud",
      "do": "blink",
-     "dur": 0.6,
      "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "bag",
-     "set": {
-      "x": 0.55,
-      "y": 0,
-      "z": -0.15
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 2.26
     },
     {
      "who": "spud",
@@ -3509,17 +3499,8 @@
      "do": "arm",
      "side": "both",
      "pose": "shrug",
-     "dur": 0.3,
+     "dur": 0.5,
      "at": 0.7
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "both",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 1.6
     },
     {
      "do": "prop",
@@ -3542,7 +3523,6 @@
     {
      "who": "spud",
      "do": "blink",
-     "dur": 0.6,
      "at": 2
     },
     {
@@ -3645,11 +3625,11 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.2,
-      -52.5
+      -0.1,
+      -40
      ],
-     "y": -16.92,
-     "dur": 1.45,
+     "y": -14.92,
+     "dur": 5.95,
      "steps": 0,
      "ease": "linear",
      "at": 0
@@ -3695,19 +3675,6 @@
     },
     {
      "who": "spud",
-     "do": "move",
-     "to": [
-      -0.1,
-      -48
-     ],
-     "y": -16.2,
-     "dur": 1.45,
-     "steps": 0,
-     "ease": "linear",
-     "at": 1.5
-    },
-    {
-     "who": "spud",
      "do": "hop",
      "height": 1,
      "count": 1,
@@ -3738,19 +3705,6 @@
      "gain": 0.5,
      "reason": "he lands a floaty step on the wet cobbles",
      "at": 2.95
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      0.2,
-      -44.2
-     ],
-     "y": -15.592,
-     "dur": 1.45,
-     "steps": 0,
-     "ease": "linear",
-     "at": 3
     },
     {
      "who": "spud",
@@ -3852,19 +3806,6 @@
     },
     {
      "who": "spud",
-     "do": "move",
-     "to": [
-      -0.1,
-      -40
-     ],
-     "y": -14.92,
-     "dur": 1.45,
-     "steps": 0,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "who": "spud",
      "do": "hop",
      "height": 1,
      "count": 1,
@@ -3899,7 +3840,6 @@
     {
      "who": "spud",
      "do": "blink",
-     "dur": 0.6,
      "at": 2.8
     },
     {
@@ -4147,7 +4087,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 90,
+     "to": 55,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -4314,7 +4254,6 @@
     {
      "who": "spud",
      "do": "blink",
-     "dur": 0.6,
      "at": 2.7
     }
    ]
@@ -5428,6 +5367,27 @@
     "costume-in-prop"
    ],
    "reason": "P6: he sits on the sofa under the quilt (the quilt lies over the seat and his lap)"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 13.55,
+   "to": 14.2,
+   "checks": [
+    "foot-slide",
+    "rig-jump"
+   ],
+   "reason": "the gag: the slamming sash drags him 40 cm along the floor in 0.2 s; his feet slide with it, his hands ride the sash"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 46.6,
+   "to": 55,
+   "checks": [
+    "payoff-face"
+   ],
+   "reason": "P12/P13: both hands on the post at his side, his face in 3/4 profile (~68 deg) toward it, both eyes in view; turning further puts his right arm through his chest"
   },
   {
    "who": "spud",
