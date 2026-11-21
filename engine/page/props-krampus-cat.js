@@ -214,7 +214,7 @@ export function ktabbyPoints(params = {}, at = {}) {
 }
 
 // ================================================================================================ the kind
-export const KRAMPUS_CAT_STATE = { ktabby: { run: 0, streak: 0, bound: 0, rate: 3.4, tail: 0.5, lookX: 0, lookY: 0, ears: 0, blink: 0, crouch: 0 } };
+export const KRAMPUS_CAT_STATE = { ktabby: { run: 0, streak: 0, bound: 0, rate: 3.4, tail: 0.5, lookX: 0, lookY: 0, ears: 0, blink: 0, crouch: 0, show: 1 } };
 export const KRAMPUS_CAT_GRIPS = {};
 export const KRAMPUS_CAT_KINDS = {
   ktabby(P) {
@@ -276,6 +276,7 @@ export const KRAMPUS_CAT_KINDS = {
       }
     };
     update({}, 0);
-    return { grip: 0, apply: update };
+    // show 0: the cat is off (hidden, not posed) until its shot
+    return { grip: 0, apply(ps, t) { const on = (ps.show ?? spec.show ?? 1) > 0.5; P.whole.visible = on; if (on) update(ps, t); } };
   },
 };

@@ -71,10 +71,10 @@ const props = [
   { id: "kr", kind: "krampus", x: KR_AT(9)[0], y: Y(9), z: KR_AT(9)[2], rot: 270, mirror: true },
   { id: "shadow", kind: "krampusshadow", x: X(9), y: Y(9), z: 0.07, rot: 0 },
   TEAL_B, YEL_B, D9, D8,
-  { id: "nt", kind: "bootnote", who: "spud", ...N_SPUD0 },
-  { id: "ny", kind: "bootnote", who: "chip", ...N_CHIP0 },
+  { id: "nt", kind: "bootnote", who: "spud", ...N_SPUD0, staged: "pinned on a peg at the boot's top (DESIGN E)" },
+  { id: "ny", kind: "bootnote", who: "chip", ...N_CHIP0, staged: "pinned on a peg at the boot's top (DESIGN E)" },
   BOOK,
-  { id: "cat", kind: "ktabby", x: 0, y: AWAY, z: 0, rot: 270 },
+  { id: "cat", kind: "ktabby", x: 0, y: AWAY, z: 0, rot: 270, staged: "off the set (show 0) until its one bolt across the snow" },
   { id: "run", kind: "krampusrun", x: 400, y: 0, z: 0 },
 ];
 
@@ -140,8 +140,8 @@ P(0, "by", { mud: 1, shine: 0, sticks: 0, treats: 0, droop: 0, glint: 0, shade: 
 P(0, "b9", { sticks: 0, shade: 1 }, 0); P(0, "b8", { sticks: 0, shine: 1 }, 0);
 P(0, "nt", { flutter: 0.1, swing: 0, kink: 0 }, 0); P(0, "ny", { flutter: 0.1, swing: 0, kink: 0 }, 0);
 P(0, "book", { open: 1, page: 0, glow: 0.6, run: 0, spread: "plain" }, 0);
-P(0, "cat", { run: 0, streak: 0, bound: 0, rate: 4.2, tail: 0.5, ears: 0 }, 0);
-P(0, "run", { march: 0, torch: 1, ring: 0.8, cheer: 0.5 }, 0);
+P(0, "cat", { run: 0, streak: 0, bound: 0, rate: 4.2, tail: 0.5, ears: 0, show: 0 }, 0);
+P(0, "run", { march: 0, torch: 1, ring: 0.8, cheer: 0.5, show: 0 }, 0);
 for (const w of ["chip", "spud", "nick", "kv"]) A(0, w, "noblink");
 turn(0, "chip", -40, 0.01); turn(0, "spud", 30, 0.01);
 look(0, "chip", [-0.6, 0.1], 0.01); look(0, "spud", [-0.6, 0], 0.01);
@@ -312,10 +312,10 @@ see(SNIFF, r3(SNIFF + 2.4), ["kr"], "up the lane the Krampus stops in the fallin
 // the cat bolts out of the pile past his hooves; he watches it go and moves on
 const CAT = r3(SNIFF + 2.5);
 const CAT_A = [r3(KR_AT(6)[0] + 2.2), Y(6), r3(KR_AT(6)[2] + 1.6)], CAT_B = [r3(KR_AT(6)[0] - 2.6), Y(6), r3(KR_AT(6)[2] + 1.2)];
-P(CAT - 0.02, "cat", { x: CAT_A[0], y: CAT_A[1], z: CAT_A[2], rot: 265, run: 1, streak: 1, ears: -1 }, 0);
+P(CAT - 0.02, "cat", { x: CAT_A[0], y: CAT_A[1], z: CAT_A[2], rot: 265, run: 1, streak: 1, ears: -1, show: 1 }, 0);
 P(CAT, "cat", { x: CAT_B[0], z: CAT_B[2] }, 0.8, "linear");
 P(CAT + 0.1, "kr", { headYaw: -0.4 }, 0.5); sfx(CAT + 0.05, "kenney/footstep-snow", { gain: 0.3 }); sfx(CAT + 0.3, "kenney/footstep-snow", { gain: 0.25 });
-P(CAT + 0.85, "cat", { y: AWAY }, 0);
+P(CAT + 0.85, "cat", { y: AWAY, show: 0 }, 0);
 see(CAT, r3(CAT + 0.85), ["cat", "kr"], "a grey tabby cat bolts out past his hooves; he turns to watch it go");
 // CHIP crawls out: He can SMELL me?  SPUD: His name comes from claw.
 const OUT = r3(CAT + 1.1);
@@ -341,11 +341,12 @@ L(18, NEXT5 + 1.0 - now); say(18);
 L(19, 0.15);
 const RUN_SQ = r3(T[19] + 0.9);
 say(19);
-P(RUN_SQ - 0.02, "run", { march: 0.15 }, 0); P(RUN_SQ, "run", { march: 0.75 }, r3(END_OF(19) + 0.2 - RUN_SQ), "linear");
+P(RUN_SQ - 0.02, "run", { march: 0.15, show: 1 }, 0); P(RUN_SQ, "run", { march: 0.75 }, r3(END_OF(19) + 0.2 - RUN_SQ), "linear");
 see(RUN_SQ, END_OF(19), ["run"], "a real Alpine Krampus run at night: dozens of horned, furry runners with torches and cowbells parade through a snowy square past potato onlookers");
 for (let k = 0; k < 6; k++) sfx(r3(RUN_SQ + k * 0.4), "bell-heavy", { gain: 0.25 });
 // CHIP: Okay. Last idea.  (Spud turns to watch the street; Chip looks down at the two boots)
 const SWAP0 = r3(END_OF(19) + 0.15);
+P(SWAP0 - 0.02, "run", { show: 0 }, 0);
 place(SWAP0, "spud", [0.05, 1.45], -75); place(SWAP0, "chip", [1.10, 1.45], 180);
 look(SWAP0, "spud", [-0.8, 0.3], 0.01); expr(SWAP0, "spud", "stern", 0.01);
 L(20, SWAP0 + 0.2 - now);

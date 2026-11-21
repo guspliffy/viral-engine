@@ -1482,6 +1482,11 @@ export const KRAMPUS_LANE_KINDS = {
     // lookOnly on every mesh: the engine's contact oval for a prop is as big as the prop's box (a 250 m slab at y 0.008) and would darken everything under y 0
     // (door 3's lower leaf, the lane below door 4, the valley); no oval, no hand ray onto the lane (as props-aa-site.js `big`)
     root.traverse((o) => { if (o.isMesh) o.userData.lookOnly = true; });
+    // surfaceOnly on every big merged mesh (the lane's slabs, slopes, house shells, the valley, the sky): its box holds every
+    // body that stands on the lane, so the clipping check judges it by its surface alone (stage.js; Krampus myth 01 layout:
+    // every character "100 % into the lane" on its box)
+    { root.updateMatrixWorld(true); const bb = new THREE.Box3(), sz = new THREE.Vector3();
+      root.traverse((o) => { if (!o.isMesh || !o.geometry) return; if (!o.geometry.boundingBox) o.geometry.computeBoundingBox(); bb.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld).getSize(sz); if (sz.x > 2.5 || sz.z > 2.5 || sz.y > 4) o.userData.surfaceOnly = true; }); }
     let hooked = false, last = {};
     const skyAt = (cam) => { if (!cam || !cam.isPerspectiveCamera) return; const p = root.worldToLocal(cam.getWorldPosition(new THREE.Vector3())); c.sky.position.set(p.x, p.y, p.z); };
     const tmp = new THREE.Object3D();

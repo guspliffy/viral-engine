@@ -455,7 +455,7 @@ function buildFigure(f, parent, c) {
 }
 
 // ================================================================================================================ the kind
-export const KRAMPUS_RUN_STATE = { krampusrun: { march: 0, torch: 1, ring: 0.8, cheer: 0.5 } };
+export const KRAMPUS_RUN_STATE = { krampusrun: { march: 0, torch: 1, ring: 0.8, cheer: 0.5, show: 1 } };
 export const KRAMPUS_RUN_GRIPS = {};
 export const KRAMPUS_RUN_KINDS = {
   krampusrun(P) {
@@ -521,6 +521,9 @@ export const KRAMPUS_RUN_KINDS = {
     return {
       grip: 0,
       apply(ps, tm) {
+        // show 0: the whole square is off (hidden, nothing posed): a clip keeps it on only for its shot (posing 96 runners
+        // each layout sample cost ~3 s a sample in Krampus myth 01's 68 s clip)
+        const on = (ps.show ?? spec.show ?? 1) > 0.5; P.whole.visible = on; if (!on) return;
         const t = tm ?? 0, m = ps.march ?? spec.march ?? 0, tq = clamp(ps.torch ?? spec.torch ?? 1), rg = clamp(ps.ring ?? spec.ring ?? 0.8), ch = clamp(ps.cheer ?? spec.cheer ?? 0.5);
         // runners: advance 1.10 m a gait cycle; every beast is posed by its own apply
         for (const r of run) { r.zNow = r.z0 + PL.stride * m; r.g.position.set(r.x, 0, r.zNow); r.g.rotation.y = r.yaw * DEG;
