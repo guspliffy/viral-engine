@@ -1,0 +1,879 @@
+{
+ "id": "lc10-12-street",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      42
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   },
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      0
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 152.79,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   13.31,
+   13.31
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.4,
+    1.2
+   ],
+   "face": 63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    1.4,
+    1.2
+   ],
+   "face": -63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    2.5,
+    0.6
+   ],
+   "face": -51.838,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.85,
+   "text": "And you couldn't stop asking.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 1.92,
+   "to": 3.18,
+   "text": "Are you lying right now?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 3.23,
+   "to": 3.89,
+   "text": "No!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 3.94,
+   "to": 4.6,
+   "text": "And now?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 4.65,
+   "to": 5.44,
+   "text": "...no!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 7.09,
+   "to": 9.41,
+   "text": "Trust me. that was weird.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 9.46,
+   "to": 12.99,
+   "text": "Even he agreed. And he doesn't lie.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "15 are you lying group",
+   "at": 0,
+   "len": 1.92,
+   "shot": {
+    "pos": [
+     1.433,
+     0.917,
+     5.881
+    ],
+    "look": [
+     1.433,
+     0.49,
+     1
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.433,
+      0.874,
+      5.393
+     ]
+    },
+    "dur": 1.92,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       1.92,
+       4
+      ]
+     ],
+     "pivot": 4.9
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.4,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.4,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      2.5,
+      0.6
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -51.838,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "And you couldn't stop asking.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 1.7,
+     "caption": false,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "15 are you lying close +",
+   "at": 1.92,
+   "len": 1.41,
+   "shot": {
+    "pos": [
+     1.035,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.4,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.971,
+      0.6,
+      2.414
+     ]
+    },
+    "dur": 1.41,
+    "yaw": {
+     "keys": [
+      [
+       1.92,
+       0
+      ],
+      [
+       3.33,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "are you lying right now?",
+     "tone": "question",
+     "voice": "teo",
+     "dur": 1.21,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.26
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.26
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 1.31
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "at": 1.31
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "no!",
+     "tone": "excited",
+     "voice": "chip",
+     "dur": 0.61,
+     "caption": false,
+     "at": 1.31
+    }
+   ]
+  },
+  {
+   "name": "15 are you lying group +",
+   "at": 3.33,
+   "len": 1.32,
+   "shot": {
+    "pos": [
+     3.496,
+     0.917,
+     5.424
+    ],
+    "look": [
+     1.433,
+     0.49,
+     1
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      3.29,
+      0.874,
+      4.981
+     ]
+    },
+    "dur": 1.32,
+    "yaw": {
+     "keys": [
+      [
+       3.33,
+       0
+      ],
+      [
+       4.65,
+       4
+      ]
+     ],
+     "pivot": 4.9
+    }
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.56
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0.61
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0.61
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "and now?",
+     "tone": "question",
+     "voice": "teo",
+     "dur": 0.61,
+     "caption": false,
+     "at": 0.61
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.27
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.27
+    }
+   ]
+  },
+  {
+   "name": "15 are you lying close +",
+   "at": 4.65,
+   "len": 0.94,
+   "shot": {
+    "pos": [
+     0.765,
+     0.418,
+     2.549
+    ],
+    "look": [
+     1.4,
+     0.34,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.829,
+      0.41,
+      2.414
+     ]
+    },
+    "dur": 0.94,
+    "yaw": {
+     "keys": [
+      [
+       4.65,
+       0
+      ],
+      [
+       5.59,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "...no!",
+     "tone": "excited",
+     "voice": "chip",
+     "dur": 0.74,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.79
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.84
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 77.905,
+     "dur": 0.25,
+     "at": 0.84
+    }
+   ]
+  },
+  {
+   "name": "15 are you lying group +",
+   "at": 5.59,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     8.059,
+     1.14,
+     5.976
+    ],
+    "look": [
+     2.367,
+     0.49,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      7.49,
+      1.075,
+      5.499
+     ]
+    },
+    "dur": 1.5,
+    "yaw": {
+     "keys": [
+      [
+       5.59,
+       0
+      ],
+      [
+       7.09,
+       4
+      ]
+     ],
+     "pivot": 7.459
+    }
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      4.2,
+      1.8
+     ],
+     "y": 0,
+     "dur": 1.6,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 1.488
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.488
+    }
+   ]
+  },
+  {
+   "name": "15 are you lying two",
+   "at": 7.09,
+   "len": 3.11,
+   "shot": {
+    "pos": [
+     1.45,
+     0.992,
+     5.781
+    ],
+    "look": [
+     1.45,
+     0.565,
+     0.9
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.45,
+      0.949,
+      5.293
+     ]
+    },
+    "dur": 3.11,
+    "yaw": {
+     "keys": [
+      [
+       7.09,
+       0
+      ],
+      [
+       10.2,
+       -4
+      ]
+     ],
+     "pivot": 4.9
+    }
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "trust me. that was weird.",
+     "tone": "calm",
+     "voice": "wedge",
+     "dur": 2.27,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.32
+    },
+    {
+     "macro": "narrate",
+     "line": "Even he agreed. And he doesn't lie.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.48,
+     "caption": false,
+     "gain": 4,
+     "at": 2.37
+    }
+   ]
+  },
+  {
+   "name": "15 are you lying close +",
+   "at": 10.2,
+   "len": 3.11,
+   "shot": {
+    "pos": [
+     0.975,
+     0.608,
+     2.575
+    ],
+    "look": [
+     0.4,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.918,
+      0.6,
+      2.438
+     ]
+    },
+    "dur": 3.11,
+    "yaw": {
+     "keys": [
+      [
+       10.2,
+       0
+      ],
+      [
+       13.31,
+       4
+      ]
+     ],
+     "pivot": 1.492
+    }
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 152.79,
+  "T1": 166.1
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 152.79-166.1 s)."
+}

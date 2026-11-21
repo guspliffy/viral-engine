@@ -1,0 +1,414 @@
+{
+ "id": "lc10-09-street",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      40
+     ],
+     [
+      0.85,
+      41
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 122.77,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   4.91,
+   4.91
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.55,
+    1.2
+   ],
+   "face": 63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    1.45,
+    1.2
+   ],
+   "face": -63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.05,
+   "text": "Nice sweater!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 1.28,
+   "to": 4.62,
+   "text": "Every compliment came with a number.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "12 nice sweater two",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1,
+     0.69,
+     4.113
+    ],
+    "look": [
+     1,
+     0.435,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1,
+      0.664,
+      3.821
+     ]
+    },
+    "dur": 1.1,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       1.1,
+       4
+      ]
+     ],
+     "pivot": 2.924
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.45,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "nice sweater!",
+     "tone": "excited",
+     "voice": "chip",
+     "dur": 0.9,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.05
+    }
+   ]
+  },
+  {
+   "name": "12 nice sweater close",
+   "at": 1.1,
+   "len": 1.905,
+   "shot": {
+    "pos": [
+     1.185,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.121,
+      0.6,
+      2.414
+     ]
+    },
+    "dur": 1.905,
+    "yaw": {
+     "keys": [
+      [
+       1.1,
+       0
+      ],
+      [
+       3.005,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Every compliment came with a number.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.29,
+     "caption": false,
+     "gain": 4,
+     "at": 0.18
+    }
+   ]
+  },
+  {
+   "name": "12 nice sweater two +",
+   "at": 3.005,
+   "len": 1.905,
+   "shot": {
+    "pos": [
+     1,
+     0.69,
+     4.113
+    ],
+    "look": [
+     1,
+     0.435,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1,
+      0.664,
+      3.821
+     ]
+    },
+    "dur": 1.905,
+    "yaw": {
+     "keys": [
+      [
+       3.005,
+       0
+      ],
+      [
+       4.91,
+       4
+      ]
+     ],
+     "pivot": 2.924
+    }
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 122.77,
+  "T1": 127.68
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 122.77-127.68 s)."
+}

@@ -1,0 +1,1511 @@
+{
+ "id": "lc10-17-street",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "baker",
+    "keys": [
+     [
+      0,
+      6
+     ]
+    ],
+    "free": true,
+    "clamp": true,
+    "k": 0.85
+   },
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      42
+     ],
+     [
+      11.12,
+      43
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   },
+   {
+    "who": "mover",
+    "keys": [
+     [
+      0,
+      2
+     ],
+     [
+      15.9,
+      3
+     ]
+    ],
+    "free": true,
+    "clamp": true,
+    "k": 0.85
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 238.4,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   23.14,
+   23.14
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.8,
+    1.1
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "baker",
+   "character": "happiness/baker",
+   "at": [
+    -1.6,
+    0.1
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    66,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "mover",
+   "character": "happiness/mover",
+   "at": [
+    69,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  }
+ ],
+ "props": [
+  {
+   "id": "toque",
+   "kind": "toque",
+   "wear": "baker",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "mcap",
+   "kind": "flatcap",
+   "wear": "mover",
+   "fit": "mover",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 2.19,
+   "text": "Sunday. Your birthday.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 2.86,
+   "to": 3.99,
+   "text": "Morning!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 4.04,
+   "to": 6.14,
+   "text": "Nobody said a word about it.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 6.95,
+   "to": 8.18,
+   "text": "Guess what day it is!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 8.23,
+   "to": 9.56,
+   "text": "Uh... sunday?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 9.61,
+   "to": 10.35,
+   "text": "And?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 10.4,
+   "to": 11.32,
+   "text": "Just sunday!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 11.37,
+   "to": 13.98,
+   "text": "And then, the whole town started lying.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 14.37,
+   "to": 16.1,
+   "text": "No idea what day it is, mate.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 16.15,
+   "to": 17.39,
+   "text": "About the same thing.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 17.46,
+   "to": 18.811,
+   "text": "Either the whole town",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 18.811,
+   "to": 20.34,
+   "text": "forgot your birthday...",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 20.41,
+   "to": 22.67,
+   "text": "...or the whole town was lying about it.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "24 your birthday wide",
+   "at": 0,
+   "len": 2.86,
+   "shot": {
+    "pos": [
+     1,
+     1.002,
+     5.29
+    ],
+    "look": [
+     1,
+     0.5,
+     1.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1,
+      0.952,
+      4.881
+     ]
+    },
+    "dur": 2.86,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       2.86,
+       4
+      ]
+     ],
+     "pivot": 4.121
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.8,
+      1.1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      -1.6,
+      0.1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Sunday. Your birthday.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.04,
+     "caption": false,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.4
+     },
+     "dur": 0.25,
+     "at": 2.26
+    },
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": 86.055,
+     "dur": 0.25,
+     "at": 2.26
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      -0.15,
+      0.2
+     ],
+     "y": 0,
+     "dur": 2,
+     "at": 2.36
+    }
+   ]
+  },
+  {
+   "name": "24 your birthday close",
+   "at": 2.86,
+   "len": 1.18,
+   "shot": {
+    "pos": [
+     0.36,
+     0.658,
+     1.601
+    ],
+    "look": [
+     -0.15,
+     0.58,
+     0.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.309,
+      0.65,
+      1.461
+     ]
+    },
+    "dur": 1.18,
+    "yaw": {
+     "keys": [
+      [
+       2.86,
+       0
+      ],
+      [
+       4.04,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": 32.584,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "macro": "say",
+     "line": "morning!",
+     "tone": "calm",
+     "voice": "wizard",
+     "dur": 1.08,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.13
+    }
+   ]
+  },
+  {
+   "name": "24 your birthday wide",
+   "at": 4.04,
+   "len": 2.17,
+   "shot": {
+    "pos": [
+     1,
+     1.002,
+     5.29
+    ],
+    "look": [
+     1,
+     0.5,
+     1.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1,
+      0.952,
+      4.881
+     ]
+    },
+    "dur": 2.17,
+    "yaw": {
+     "keys": [
+      [
+       4.04,
+       0
+      ],
+      [
+       6.21,
+       4
+      ]
+     ],
+     "pivot": 4.121
+    }
+   },
+   "do": [
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": -78.465,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Nobody said a word about it.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 2.05,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      -2.6,
+      0.7
+     ],
+     "y": 0,
+     "dur": 2.4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "24 your birthday close",
+   "at": 6.21,
+   "len": 0.64,
+   "shot": {
+    "pos": [
+     0.8,
+     0.608,
+     2.591
+    ],
+    "look": [
+     0.8,
+     0.53,
+     1.1
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.8,
+      0.6,
+      2.442
+     ]
+    },
+    "dur": 0.64,
+    "yaw": {
+     "keys": [
+      [
+       6.21,
+       0
+      ],
+      [
+       6.85,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": 0.1
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "hide",
+     "at": 0.528
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.528
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.628
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.628
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0.628
+    },
+    {
+     "who": "baker",
+     "do": "hide",
+     "at": 0.628
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.628
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.45,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.628
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.628
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0.628
+    },
+    {
+     "who": "mover",
+     "do": "hide",
+     "at": 0.628
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.628
+    }
+   ]
+  },
+  {
+   "name": "25 just sunday two",
+   "at": 6.85,
+   "len": 1.38,
+   "shot": {
+    "pos": [
+     1,
+     0.69,
+     4.113
+    ],
+    "look": [
+     1,
+     0.435,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1,
+      0.664,
+      3.821
+     ]
+    },
+    "dur": 1.38,
+    "yaw": {
+     "keys": [
+      [
+       6.85,
+       0
+      ],
+      [
+       8.23,
+       4
+      ]
+     ],
+     "pivot": 2.924
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "guess what day it is!",
+     "tone": "excited",
+     "voice": "teo",
+     "dur": 1.18,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.33
+    }
+   ]
+  },
+  {
+   "name": "25 just sunday close +",
+   "at": 8.23,
+   "len": 1.48,
+   "shot": {
+    "pos": [
+     0.815,
+     0.418,
+     2.549
+    ],
+    "look": [
+     1.45,
+     0.34,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.879,
+      0.41,
+      2.414
+     ]
+    },
+    "dur": 1.48,
+    "yaw": {
+     "keys": [
+      [
+       8.23,
+       0
+      ],
+      [
+       9.71,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "uh... sunday?",
+     "tone": "question",
+     "voice": "chip",
+     "dur": 1.28,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.33
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.33
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "and?",
+     "tone": "question",
+     "voice": "teo",
+     "dur": 0.69,
+     "caption": false,
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "25 just sunday two +",
+   "at": 9.71,
+   "len": 1.66,
+   "shot": {
+    "pos": [
+     2.231,
+     0.69,
+     3.84
+    ],
+    "look": [
+     1,
+     0.435,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      2.108,
+      0.664,
+      3.576
+     ]
+    },
+    "dur": 1.66,
+    "yaw": {
+     "keys": [
+      [
+       9.71,
+       0
+      ],
+      [
+       11.37,
+       4
+      ]
+     ],
+     "pivot": 2.924
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.64
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.64
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.69
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "just sunday!",
+     "tone": "excited",
+     "voice": "chip",
+     "dur": 0.87,
+     "caption": false,
+     "at": 0.69
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.61
+    }
+   ]
+  },
+  {
+   "name": "25 just sunday close",
+   "at": 11.37,
+   "len": 2.9,
+   "shot": {
+    "pos": [
+     1.185,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.121,
+      0.6,
+      2.414
+     ]
+    },
+    "dur": 2.9,
+    "yaw": {
+     "keys": [
+      [
+       11.37,
+       0
+      ],
+      [
+       14.27,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "And then, the whole town started lying.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.56,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.5,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.888
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 66.998,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.888
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.888
+    },
+    {
+     "who": "baker",
+     "do": "hide",
+     "at": 2.888
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.888
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 2.888
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.888
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      1.5,
+      1.1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.888
+    },
+    {
+     "who": "mover",
+     "do": "turn",
+     "to": -59.002,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.888
+    },
+    {
+     "who": "mover",
+     "do": "show",
+     "at": 2.888
+    }
+   ]
+  },
+  {
+   "name": "26 no idea two",
+   "at": 14.27,
+   "len": 3.19,
+   "shot": {
+    "pos": [
+     1,
+     0.824,
+     4.224
+    ],
+    "look": [
+     1,
+     0.555,
+     1.15
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1,
+      0.797,
+      3.916
+     ]
+    },
+    "dur": 3.19,
+    "yaw": {
+     "keys": [
+      [
+       14.27,
+       0
+      ],
+      [
+       17.46,
+       4
+      ]
+     ],
+     "pivot": 3.086
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "mover",
+     "macro": "say",
+     "line": "no idea what day it is, mate.",
+     "tone": "calm",
+     "voice": "viking",
+     "dur": 1.68,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.83
+    },
+    {
+     "macro": "narrate",
+     "line": "About the same thing.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 1.19,
+     "caption": false,
+     "gain": 4,
+     "at": 1.88
+    }
+   ]
+  },
+  {
+   "name": "26 no idea close",
+   "at": 17.46,
+   "len": 2.84,
+   "shot": {
+    "pos": [
+     1.172,
+     0.608,
+     2.531
+    ],
+    "look": [
+     0.5,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.105,
+      0.6,
+      2.398
+     ]
+    },
+    "dur": 2.84,
+    "yaw": {
+     "keys": [
+      [
+       17.46,
+       0
+      ],
+      [
+       20.3,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "brow": 0.4
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Either the whole town forgot your birthday...",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.83,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "26 no idea two +",
+   "at": 20.3,
+   "len": 2.84,
+   "shot": {
+    "pos": [
+     1,
+     0.824,
+     4.224
+    ],
+    "look": [
+     1,
+     0.555,
+     1.15
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1,
+      0.797,
+      3.916
+     ]
+    },
+    "dur": 2.84,
+    "yaw": {
+     "keys": [
+      [
+       20.3,
+       0
+      ],
+      [
+       23.14,
+       4
+      ]
+     ],
+     "pivot": 3.086
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "...or the whole town was lying about it.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.21,
+     "caption": false,
+     "gain": 4,
+     "at": 0.11
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "baker",
+   "with": "toque",
+   "from": 0,
+   "to": 23.14,
+   "reason": "the chef's hat is worn"
+  },
+  {
+   "who": "mover",
+   "with": "mcap",
+   "from": 0,
+   "to": 23.14,
+   "reason": "the flat cap is worn"
+  }
+ ],
+ "story": {
+  "T0": 238.4,
+  "T1": 261.54
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 238.4-261.54 s)."
+}

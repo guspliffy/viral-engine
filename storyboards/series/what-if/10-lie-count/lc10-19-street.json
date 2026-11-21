@@ -1,0 +1,499 @@
+{
+ "id": "lc10-19-street",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      0
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 269.39,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   8.79,
+   8.79
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.55,
+    1.2
+   ],
+   "face": 63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.45,
+    1.2
+   ],
+   "face": -63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 2.12,
+   "text": "Trust me. come with me.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 2.17,
+   "to": 5.05,
+   "text": "Only one friend still had a zero.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 5.12,
+   "to": 7.84,
+   "text": "So, for the first time, you trusted him.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "27 come with me two",
+   "at": 0,
+   "len": 2.56,
+   "shot": {
+    "pos": [
+     1,
+     0.82,
+     4.113
+    ],
+    "look": [
+     1,
+     0.565,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1,
+      0.794,
+      3.821
+     ]
+    },
+    "dur": 2.56,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       2.56,
+       4
+      ]
+     ],
+     "pivot": 2.924
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.45,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "trust me. come with me.",
+     "tone": "calm",
+     "voice": "wedge",
+     "dur": 1.97,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.12
+    },
+    {
+     "macro": "narrate",
+     "line": "Only one friend still had a zero.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.83,
+     "caption": false,
+     "gain": 4,
+     "at": 2.17
+    }
+   ]
+  },
+  {
+   "name": "27 come with me close +",
+   "at": 2.56,
+   "len": 2.56,
+   "shot": {
+    "pos": [
+     1.185,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.121,
+      0.6,
+      2.414
+     ]
+    },
+    "dur": 2.56,
+    "yaw": {
+     "keys": [
+      [
+       2.56,
+       0
+      ],
+      [
+       5.12,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "27 come with me close",
+   "at": 5.12,
+   "len": 2.79,
+   "shot": {
+    "pos": [
+     1.185,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.121,
+      0.6,
+      2.414
+     ]
+    },
+    "dur": 2.79,
+    "yaw": {
+     "keys": [
+      [
+       5.12,
+       0
+      ],
+      [
+       7.91,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "So, for the first time, you trusted him.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.67,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "27 come with me wide",
+   "at": 7.91,
+   "len": 0.88,
+   "shot": {
+    "pos": [
+     1,
+     1.067,
+     5.29
+    ],
+    "look": [
+     1,
+     0.565,
+     1.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1,
+      1.017,
+      4.881
+     ]
+    },
+    "dur": 0.88,
+    "yaw": {
+     "keys": [
+      [
+       7.91,
+       0
+      ],
+      [
+       8.79,
+       -4
+      ]
+     ],
+     "pivot": 4.121
+    }
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 97.237,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 95.274,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      4.6,
+      0.8
+     ],
+     "y": 0,
+     "dur": 3.2,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3.8,
+      0.9
+     ],
+     "y": 0,
+     "dur": 3.4,
+     "at": 0.1
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 269.39,
+  "T1": 278.18
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 269.39-278.18 s)."
+}

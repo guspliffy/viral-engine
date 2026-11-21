@@ -1,0 +1,2931 @@
+{
+ "id": "lc10-20-room",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreroom",
+  "state": "party",
+  "light": "golden",
+  "key": [
+   -1.5,
+   2.2,
+   4
+  ],
+  "shadowSize": 5,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      215
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   },
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      43
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   },
+   {
+    "who": "baker",
+    "keys": [
+     [
+      0,
+      6
+     ]
+    ],
+    "free": true,
+    "clamp": true,
+    "k": 0.85
+   },
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      0
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   },
+   {
+    "who": "mover",
+    "keys": [
+     [
+      0,
+      3
+     ]
+    ],
+    "free": true,
+    "clamp": true,
+    "k": 0.85
+   },
+   {
+    "who": "spud",
+    "keys": [
+     [
+      51.08,
+      1
+     ],
+     [
+      56.58,
+      2
+     ]
+    ],
+    "show": [
+     51.38,
+     58.52
+    ],
+    "free": true,
+    "clamp": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 278.18,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "small",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   58.52,
+   58.52
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.9,
+    -0.1
+   ],
+   "face": -81.595,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -0.7,
+    -0.9
+   ],
+   "face": 44.405,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1.7,
+    -0.7
+   ],
+   "face": 53.903,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "baker",
+   "character": "happiness/baker",
+   "at": [
+    0.1,
+    -1.1
+   ],
+   "face": 27.062,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.6,
+    0.4
+   ],
+   "face": -87.877,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 6.300000000000001
+  },
+  {
+   "id": "mover",
+   "character": "happiness/mover",
+   "at": [
+    75,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 7.6
+  }
+ ],
+ "props": [
+  {
+   "id": "ptab",
+   "kind": "cafetable",
+   "x": -0.9,
+   "y": 0,
+   "z": -1.75,
+   "h": 0.46,
+   "r": 0.34
+  },
+  {
+   "id": "cake",
+   "kind": "cake",
+   "x": -0.9,
+   "y": 0.46,
+   "z": -1.75
+  },
+  {
+   "id": "banner",
+   "kind": "banner",
+   "text": "SURPRISE!",
+   "width": 1.8,
+   "x": -0.6,
+   "y": 1.55,
+   "z": -2.42,
+   "rot": 0,
+   "staged": "pinned to the back wall"
+  },
+  {
+   "id": "balloons",
+   "kind": "balloons",
+   "x": -2.5,
+   "y": 0,
+   "z": -1.5
+  },
+  {
+   "id": "toque",
+   "kind": "toque",
+   "wear": "baker",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "mcap",
+   "kind": "flatcap",
+   "wear": "mover",
+   "fit": "mover",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.43,
+   "text": "Surprise!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 2.26,
+   "to": 5.131,
+   "text": "Your best friend. The baker.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 5.131,
+   "to": 7.54,
+   "text": "The loud one. Everyone.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 7.99,
+   "to": 10.603,
+   "text": "Every friday. at the bakery.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 10.603,
+   "to": 12.24,
+   "text": "learning to bake.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 12.29,
+   "to": 15.9,
+   "text": "Your buns. but... a cake.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 15.95,
+   "to": 18.77,
+   "text": "Remember two hundred and twelve?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 18.84,
+   "to": 23.613,
+   "text": "Every 'delicious'. Every 'family dinner'.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 23.613,
+   "to": 26.34,
+   "text": "Every 'home, sleeping'.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 26.41,
+   "to": 29.39,
+   "text": "And every single one of them... was for you.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 30.08,
+   "to": 32.11,
+   "text": "The bus! i was buying your present!",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 32.16,
+   "to": 33.864,
+   "text": "The buns weren't fresh.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 33.864,
+   "to": 36.58,
+   "text": "i kept the fresh ones for your cake.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 36.63,
+   "to": 39.11,
+   "text": "I was late. i was picking up your present.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 39.16,
+   "to": 42.12,
+   "text": "Every number in town had a reason.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 42.19,
+   "to": 44.25,
+   "text": "You just never heard their reasons.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 44.76,
+   "to": 46.49,
+   "text": "Then you tasted his cake.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 47.16,
+   "to": 48.22,
+   "text": "It was terrible.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 48.86,
+   "to": 49.65,
+   "text": "Well?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 50.06,
+   "to": 51.33,
+   "text": "It's delicious.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 51.56,
+   "to": 55.05,
+   "text": "And for the first time... you lied too.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 55.36,
+   "to": 56.13,
+   "text": "Really?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 56.18,
+   "to": 56.83,
+   "text": "Really.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 57.12,
+   "to": 57.9,
+   "text": "Twice.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "28 surprise wide",
+   "at": 0,
+   "len": 1.84,
+   "shot": {
+    "pos": [
+     -0.4,
+     0.904,
+     3.418
+    ],
+    "look": [
+     -0.4,
+     0.435,
+     -0.4
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.4,
+      0.857,
+      3.036
+     ]
+    },
+    "dur": 1.84,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       1.84,
+       4
+      ]
+     ],
+     "pivot": 3.847
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.9,
+      -0.1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -81.595,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -0.7,
+      -0.9
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 44.405,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1.7,
+      -0.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 53.903,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      0.1,
+      -1.1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": 27.062,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.6,
+      0.4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -87.877,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "surprise!",
+     "tone": "excited",
+     "voice": "chip",
+     "dur": 1.28,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.43
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.25,
+     "at": 1.48
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.25,
+     "at": 1.48
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.25,
+     "at": 1.48
+    },
+    {
+     "sfx": "pop",
+     "reason": "the story's own sound",
+     "gain": 0.5,
+     "at": 1.48
+    }
+   ]
+  },
+  {
+   "name": "28 surprise close",
+   "at": 1.84,
+   "len": 0.42,
+   "shot": {
+    "pos": [
+     0.096,
+     0.608,
+     1.155
+    ],
+    "look": [
+     0.9,
+     0.53,
+     -0.1
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.176,
+      0.6,
+      1.03
+     ]
+    },
+    "dur": 0.5,
+    "yaw": {
+     "keys": [
+      [
+       1.84,
+       0
+      ],
+      [
+       2.26,
+       -4
+      ]
+     ],
+     "pivot": 1.492
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.25,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "28 surprise close",
+   "at": 2.26,
+   "len": 1.778,
+   "shot": {
+    "pos": [
+     -0.245,
+     0.838,
+     0.52
+    ],
+    "look": [
+     -0.7,
+     0.76,
+     -0.9
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.291,
+      0.83,
+      0.378
+     ]
+    },
+    "dur": 1.778,
+    "yaw": {
+     "keys": [
+      [
+       2.26,
+       0
+      ],
+      [
+       4.038,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Your best friend. The baker. The loud one. Everyone.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 5.23,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "28 surprise close",
+   "at": 4.038,
+   "len": 1.36,
+   "shot": {
+    "pos": [
+     0.38,
+     0.658,
+     0.364
+    ],
+    "look": [
+     0.1,
+     0.58,
+     -1.1
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.352,
+      0.65,
+      0.218
+     ]
+    },
+    "dur": 1.36,
+    "yaw": {
+     "keys": [
+      [
+       4.038,
+       0
+      ],
+      [
+       5.398,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "28 surprise close",
+   "at": 5.398,
+   "len": 1.255,
+   "shot": {
+    "pos": [
+     -1.152,
+     0.418,
+     0.686
+    ],
+    "look": [
+     -1.7,
+     0.34,
+     -0.7
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.207,
+      0.41,
+      0.548
+     ]
+    },
+    "dur": 1.255,
+    "yaw": {
+     "keys": [
+      [
+       5.398,
+       0
+      ],
+      [
+       6.653,
+       4
+      ]
+     ],
+     "pivot": 1.492
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "28 surprise wide",
+   "at": 6.653,
+   "len": 1.237,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.868,
+     2.5
+    ],
+    "look": [
+     -0.6,
+     0.5,
+     -0.5
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.6,
+      0.831,
+      2.2
+     ]
+    },
+    "dur": 1.237,
+    "yaw": {
+     "keys": [
+      [
+       6.653,
+       0
+      ],
+      [
+       7.89,
+       -4
+      ]
+     ],
+     "pivot": 3.022
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.15,
+      -0.9
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -58.562,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.225
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -1.05,
+      -0.8
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 67.438,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 1.225
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -2,
+      -0.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 1.225
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      0.7,
+      -0.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    },
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    },
+    {
+     "who": "baker",
+     "do": "show",
+     "at": 1.225
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 1.225
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    },
+    {
+     "who": "mover",
+     "do": "hide",
+     "at": 1.225
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.225
+    }
+   ]
+  },
+  {
+   "name": "29 fridays two",
+   "at": 7.89,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.901,
+     2.071
+    ],
+    "look": [
+     -0.6,
+     0.645,
+     -0.85
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.6,
+      0.875,
+      1.779
+     ]
+    },
+    "dur": 2.2,
+    "yaw": {
+     "keys": [
+      [
+       7.89,
+       0
+      ],
+      [
+       10.09,
+       4
+      ]
+     ],
+     "pivot": 2.932
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "every friday. at the bakery. learning to bake.",
+     "tone": "calm",
+     "voice": "mash",
+     "dur": 4.2,
+     "caption": false,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "29 fridays close +",
+   "at": 10.09,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     -0.743,
+     0.608,
+     0.468
+    ],
+    "look": [
+     -0.15,
+     0.53,
+     -0.9
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.683,
+      0.6,
+      0.331
+     ]
+    },
+    "dur": 2.2,
+    "yaw": {
+     "keys": [
+      [
+       10.09,
+       0
+      ],
+      [
+       12.29,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.15
+    }
+   ]
+  },
+  {
+   "name": "29 fridays close +",
+   "at": 12.29,
+   "len": 3.66,
+   "shot": {
+    "pos": [
+     -0.374,
+     0.838,
+     0.529
+    ],
+    "look": [
+     -1.05,
+     0.76,
+     -0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.441,
+      0.83,
+      0.396
+     ]
+    },
+    "dur": 3.66,
+    "yaw": {
+     "keys": [
+      [
+       12.29,
+       0
+      ],
+      [
+       15.95,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "your buns. but... a cake.",
+     "tone": "calm",
+     "voice": "mash",
+     "dur": 3.56,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 3.61
+    }
+   ]
+  },
+  {
+   "name": "29 fridays close",
+   "at": 15.95,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     -0.743,
+     0.608,
+     0.468
+    ],
+    "look": [
+     -0.15,
+     0.53,
+     -0.9
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.683,
+      0.6,
+      0.331
+     ]
+    },
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       15.95,
+       0
+      ],
+      [
+       19.15,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": 0.2
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Remember two hundred and twelve?",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 2.77,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Every 'delicious'. Every 'family dinner'. Every 'home, sleeping'.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 7.45,
+     "caption": false,
+     "gain": 4,
+     "at": 2.89
+    }
+   ]
+  },
+  {
+   "name": "29 fridays close +",
+   "at": 19.15,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     -1.656,
+     0.635,
+     0.436
+    ],
+    "look": [
+     -0.15,
+     0.53,
+     -0.9
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.505,
+      0.625,
+      0.302
+     ]
+    },
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       19.15,
+       0
+      ],
+      [
+       22.35,
+       4
+      ]
+     ],
+     "pivot": 2.016
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "29 fridays two +",
+   "at": 22.35,
+   "len": 2.03,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.901,
+     2.071
+    ],
+    "look": [
+     -0.6,
+     0.645,
+     -0.85
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.6,
+      0.875,
+      1.779
+     ]
+    },
+    "dur": 2.03,
+    "yaw": {
+     "keys": [
+      [
+       22.35,
+       0
+      ],
+      [
+       24.38,
+       -4
+      ]
+     ],
+     "pivot": 2.932
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "29 fridays two +",
+   "at": 24.38,
+   "len": 2.03,
+   "shot": {
+    "pos": [
+     0.635,
+     0.901,
+     1.797
+    ],
+    "look": [
+     -0.6,
+     0.645,
+     -0.85
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.511,
+      0.875,
+      1.533
+     ]
+    },
+    "dur": 2.03,
+    "yaw": {
+     "keys": [
+      [
+       24.38,
+       0
+      ],
+      [
+       26.41,
+       4
+      ]
+     ],
+     "pivot": 2.932
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "29 fridays close",
+   "at": 26.41,
+   "len": 3.57,
+   "shot": {
+    "pos": [
+     -0.374,
+     0.838,
+     0.529
+    ],
+    "look": [
+     -1.05,
+     0.76,
+     -0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.441,
+      0.83,
+      0.396
+     ]
+    },
+    "dur": 3.57,
+    "yaw": {
+     "keys": [
+      [
+       26.41,
+       0
+      ],
+      [
+       29.98,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "And every single one of them... was for you.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 2.93,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.15,
+      -0.9
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -51.838,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 3.558
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -1.05,
+      -0.8
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 67.438,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 3.558
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1.9,
+      -0.4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 74.162,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 3.558
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      0.7,
+      -0.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": -87.653,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "baker",
+     "do": "show",
+     "at": 3.558
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.15,
+      -1.85
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -12.268,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 3.558
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      1.6,
+      -0.05
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "mover",
+     "do": "turn",
+     "to": -81.135,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.558
+    },
+    {
+     "who": "mover",
+     "do": "show",
+     "at": 3.558
+    }
+   ]
+  },
+  {
+   "name": "29b confessions close",
+   "at": 29.98,
+   "len": 2.18,
+   "shot": {
+    "pos": [
+     -1.162,
+     0.418,
+     0.895
+    ],
+    "look": [
+     -1.9,
+     0.34,
+     -0.4
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.236,
+      0.41,
+      0.766
+     ]
+    },
+    "dur": 2.18,
+    "yaw": {
+     "keys": [
+      [
+       29.98,
+       0
+      ],
+      [
+       32.16,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.6,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "the bus! i was buying your present!",
+     "tone": "excited",
+     "voice": "chip",
+     "dur": 1.98,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.13
+    }
+   ]
+  },
+  {
+   "name": "29b confessions close",
+   "at": 32.16,
+   "len": 2.235,
+   "shot": {
+    "pos": [
+     -0.156,
+     0.658,
+     0.92
+    ],
+    "look": [
+     0.7,
+     0.58,
+     -0.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.071,
+      0.65,
+      0.798
+     ]
+    },
+    "dur": 2.235,
+    "yaw": {
+     "keys": [
+      [
+       32.16,
+       0
+      ],
+      [
+       34.395,
+       -4
+      ]
+     ],
+     "pivot": 1.492
+    }
+   },
+   "do": [
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "macro": "say",
+     "line": "the buns weren't fresh. i kept the fresh ones for your cake.",
+     "tone": "calm",
+     "voice": "wizard",
+     "dur": 4.37,
+     "caption": false,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "29b confessions two +",
+   "at": 34.395,
+   "len": 2.235,
+   "shot": {
+    "pos": [
+     0.275,
+     0.829,
+     2.528
+    ],
+    "look": [
+     0.275,
+     0.555,
+     -0.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.275,
+      0.801,
+      2.215
+     ]
+    },
+    "dur": 2.235,
+    "yaw": {
+     "keys": [
+      [
+       34.395,
+       0
+      ],
+      [
+       36.63,
+       4
+      ]
+     ],
+     "pivot": 3.14
+    }
+   },
+   "do": [
+    {
+     "who": "baker",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.185
+    }
+   ]
+  },
+  {
+   "name": "29b confessions close",
+   "at": 36.63,
+   "len": 2.53,
+   "shot": {
+    "pos": [
+     0.8,
+     0.658,
+     1.208
+    ],
+    "look": [
+     1.6,
+     0.58,
+     -0.05
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.88,
+      0.65,
+      1.082
+     ]
+    },
+    "dur": 2.53,
+    "yaw": {
+     "keys": [
+      [
+       36.63,
+       0
+      ],
+      [
+       39.16,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "macro": "say",
+     "line": "i was late. i was picking up your present.",
+     "tone": "calm",
+     "voice": "viking",
+     "dur": 2.43,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.48
+    }
+   ]
+  },
+  {
+   "name": "29b confessions group",
+   "at": 39.16,
+   "len": 2.75,
+   "shot": {
+    "pos": [
+     -1.033,
+     0.921,
+     3.623
+    ],
+    "look": [
+     -1.033,
+     0.543,
+     -0.7
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -1.033,
+      0.883,
+      3.191
+     ]
+    },
+    "dur": 2.75,
+    "yaw": {
+     "keys": [
+      [
+       39.16,
+       0
+      ],
+      [
+       41.91,
+       4
+      ]
+     ],
+     "pivot": 4.339
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Every number in town had a reason.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 2.91,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "29b confessions group +",
+   "at": 41.91,
+   "len": 2.75,
+   "shot": {
+    "pos": [
+     0.794,
+     0.921,
+     3.218
+    ],
+    "look": [
+     -1.033,
+     0.543,
+     -0.7
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.611,
+      0.883,
+      2.826
+     ]
+    },
+    "dur": 2.75,
+    "yaw": {
+     "keys": [
+      [
+       41.91,
+       0
+      ],
+      [
+       44.66,
+       -4
+      ]
+     ],
+     "pivot": 4.34
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "You just never heard their reasons.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.01,
+     "caption": false,
+     "gain": 4,
+     "at": 0.28
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.15,
+      -0.9
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.738
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -58.562,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.738
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.738
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -1.05,
+      -0.8
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.738
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 67.438,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.738
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 2.738
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 2.738
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.738
+    },
+    {
+     "who": "baker",
+     "do": "hide",
+     "at": 2.738
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.738
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.8,
+      -0.45
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.738
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -80.742,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.738
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 2.738
+    },
+    {
+     "who": "mover",
+     "do": "hide",
+     "at": 2.738
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.738
+    }
+   ]
+  },
+  {
+   "name": "30 the cake close",
+   "at": 44.66,
+   "len": 3.78,
+   "shot": {
+    "pos": [
+     -0.743,
+     0.608,
+     0.468
+    ],
+    "look": [
+     -0.15,
+     0.53,
+     -0.9
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.683,
+      0.6,
+      0.331
+     ]
+    },
+    "dur": 3.78,
+    "yaw": {
+     "keys": [
+      [
+       44.66,
+       0
+      ],
+      [
+       48.44,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Then you tasted his cake.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 1.68,
+     "caption": false,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1,
+      "brow": 0.5
+     },
+     "dur": 0.25,
+     "at": 2.2
+    },
+    {
+     "macro": "narrate",
+     "line": "It was terrible.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 1.01,
+     "caption": false,
+     "gain": 4,
+     "at": 2.5
+    }
+   ]
+  },
+  {
+   "name": "30 the cake close",
+   "at": 48.44,
+   "len": 0.42,
+   "shot": {
+    "pos": [
+     0.003,
+     0.678,
+     0.81
+    ],
+    "look": [
+     0.8,
+     0.6,
+     -0.45
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.083,
+      0.67,
+      0.684
+     ]
+    },
+    "dur": 0.5,
+    "yaw": {
+     "keys": [
+      [
+       48.44,
+       0
+      ],
+      [
+       48.86,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "30 the cake close",
+   "at": 48.86,
+   "len": 0.84,
+   "shot": {
+    "pos": [
+     -0.374,
+     0.838,
+     0.529
+    ],
+    "look": [
+     -1.05,
+     0.76,
+     -0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.441,
+      0.83,
+      0.396
+     ]
+    },
+    "dur": 0.84,
+    "yaw": {
+     "keys": [
+      [
+       48.86,
+       0
+      ],
+      [
+       49.7,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "well?",
+     "tone": "question",
+     "voice": "mash",
+     "dur": 0.74,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.79
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.79
+    }
+   ]
+  },
+  {
+   "name": "30 the cake close",
+   "at": 49.7,
+   "len": 2.83,
+   "shot": {
+    "pos": [
+     -0.743,
+     0.608,
+     0.468
+    ],
+    "look": [
+     -0.15,
+     0.53,
+     -0.9
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.683,
+      0.6,
+      0.331
+     ]
+    },
+    "dur": 2.83,
+    "yaw": {
+     "keys": [
+      [
+       49.7,
+       0
+      ],
+      [
+       52.53,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.25,
+     "at": 0.36
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.36
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "it's delicious.",
+     "tone": "calm",
+     "voice": "teo",
+     "dur": 1.22,
+     "caption": false,
+     "at": 0.36
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.63
+    },
+    {
+     "macro": "narrate",
+     "line": "And for the first time... you lied too.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.44,
+     "caption": false,
+     "gain": 4,
+     "at": 1.86
+    }
+   ]
+  },
+  {
+   "name": "30 the cake two +",
+   "at": 52.53,
+   "len": 2.83,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.901,
+     2.071
+    ],
+    "look": [
+     -0.6,
+     0.645,
+     -0.85
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.6,
+      0.875,
+      1.779
+     ]
+    },
+    "dur": 2.83,
+    "yaw": {
+     "keys": [
+      [
+       52.53,
+       0
+      ],
+      [
+       55.36,
+       4
+      ]
+     ],
+     "pivot": 2.932
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "30 the cake two",
+   "at": 55.36,
+   "len": 0.82,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.901,
+     2.071
+    ],
+    "look": [
+     -0.6,
+     0.645,
+     -0.85
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.6,
+      0.875,
+      1.779
+     ]
+    },
+    "dur": 0.82,
+    "yaw": {
+     "keys": [
+      [
+       55.36,
+       0
+      ],
+      [
+       56.18,
+       -4
+      ]
+     ],
+     "pivot": 2.932
+    }
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "really?",
+     "tone": "question",
+     "voice": "mash",
+     "dur": 0.72,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.77
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.77
+    }
+   ]
+  },
+  {
+   "name": "30 the cake close",
+   "at": 56.18,
+   "len": 2.34,
+   "shot": {
+    "pos": [
+     -0.743,
+     0.608,
+     0.468
+    ],
+    "look": [
+     -0.15,
+     0.53,
+     -0.9
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.683,
+      0.6,
+      0.331
+     ]
+    },
+    "dur": 2.34,
+    "yaw": {
+     "keys": [
+      [
+       56.18,
+       0
+      ],
+      [
+       58.52,
+       4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "really.",
+     "tone": "calm",
+     "voice": "teo",
+     "dur": 0.6,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.65
+    },
+    {
+     "macro": "narrate",
+     "line": "Twice.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 0.73,
+     "caption": false,
+     "gain": 4,
+     "at": 0.94
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "baker",
+   "with": "toque",
+   "from": 0,
+   "to": 58.52,
+   "reason": "the chef's hat is worn"
+  },
+  {
+   "who": "mover",
+   "with": "mcap",
+   "from": 0,
+   "to": 58.52,
+   "reason": "the flat cap is worn"
+  }
+ ],
+ "story": {
+  "T0": 278.18,
+  "T1": 336.7
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 278.18-336.7 s)."
+}
