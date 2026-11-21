@@ -163,6 +163,10 @@ const SIZE = {
   pitchfork: { r: 0.01, h: 0.2 },
   palmleaf: { r: 0.01, h: 0.288 },
   drinkglass: { r: 0.035, h: 0.16 },
+  // props-carton.js (Potato Desk 11): friescarton = box hold on the two round ends (y 0.10 = 0.55 x 0.182, 0.216 wide there; gap 0.03 for Chip's 1.1 gloves) or the mug hold round one end
+  // low ({ height: 0.33 } = y 0.06, half-width 0.099; gap 0.038 for Wedge's 1.3 gloves); loosefry = the thin pinch at 0.85 of its 0.24 length (from: 0.85 = y 0.204)
+  friescarton: { w: 0.216, h: 0.182, d: 0.087, r: 0.099 },
+  loosefry: { len: 0.24, r: 0.018 },
   // props-heavenitems.js (Potato Desk Heaven Steps): goldquill = thin pinch (len 0.1167: the default from 0.6 lands 0.07 above the nib tip, on the shaft); soulcase = mug hold on the top handle's
   // bar (y 0.383 = 0.66 x 0.58; it hangs from the hand, the grip is 0.39 up); goldcan = mug hold on the back handle's vertical bar (the origin's axis; y 0.13 = 0.66 x 0.197);
   // megaphone (props-shark.js, origin the grip = the handle's top, handle y -0.1..0): mug hold at the handle's middle (negative h on purpose, y -0.05 = 0.66 x -0.0758)
