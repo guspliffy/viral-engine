@@ -117,5 +117,21 @@
    ]
   }
  ],
- "notes": "Default bobblehat and huddleblanket (unchanged)."
+ "notes": "Default bobblehat and huddleblanket (unchanged).",
+ "allowClip": [
+  {
+   "who": "mash",
+   "with": "quilt0",
+   "from": 0,
+   "to": 1.1,
+   "checks": [
+    "clipping",
+    "costume-in-prop",
+    "shell",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "bench: a blanket wrapped round a sitter, worn cloth over the body and arms (as in the clip)"
+  }
+ ]
 }
