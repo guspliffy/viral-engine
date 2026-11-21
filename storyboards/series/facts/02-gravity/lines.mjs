@@ -3,10 +3,10 @@
 // Facts + sources: STORY.md. [start s, spoken text, caption]: the narrator says "gee" (Jonny 20 Nov: "g" came out
 // different from time to time), the caption writes "g".
 export const NARRATOR = "narrator-quick";   // voice 1 "deep storyteller", 15 % faster (Mona Lisa, 19 Nov)
-export const TAKES = {};
-export const STEPS = [[0, 1], [1.0, 2], [3.5, 3], [6.0, 4], [8.5, 5], [13.0, 10], [18.0, 15], [23.0, 20], [28.0, 25], [33.0, 30], [38.0, 35], [43.0, 40], [48.0, 45], [53.0, 50], [60.5, null], [61.5, 1]];
+export const TAKES = { "Every five seconds, gravity gets stronger. At fifty, the Moon falls.": 2 };   // take 2: 4.6 s (take 1 paused 5.7 s)
+export const STEPS = [[0, 1], [0.2, 2], [3.5, 3], [6.0, 4], [8.5, 5], [13.0, 10], [18.0, 15], [23.0, 20], [28.0, 25], [33.0, 30], [38.0, 35], [43.0, 40], [48.0, 45], [53.0, 50], [60.5, null], [61.5, 1]];
 export const LINES = [
-  [0.1, "Every five seconds, gravity gets stronger. In ten, you black out.", "Every five seconds, gravity gets stronger. In ten, you black out."],
+  [0.1, "Every five seconds, gravity gets stronger. At fifty, the Moon falls.", "Every five seconds, gravity gets stronger. At fifty, the Moon falls."],   // Jonny 20 Nov 21:12: the Moon promise replaces "In ten, you black out."
   [4.6, "Three gee.", "Three g."],   // Jonny 20 Nov 15:31: the 3 g step had no voice (a 2 s silent hold)
   [6.1, "Four gee. Your eyes go grey.", "Four g. Your eyes go grey."],
   [8.75, "Five gee. Most people black out here.", "Five g. Most people black out here."],
