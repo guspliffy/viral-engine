@@ -37,6 +37,12 @@
 //   blindwindow A window with its blind drawn over the wall: spec.w (0.5), spec.h (1.05) = the OPENING (W1 0.50 x 1.05; W2 1.40 x 1.05). Frame 0.045 #E9EBE6, sill, emissive sky
 //               #FFF3CF -> #FFE2A6 on the wall face, slats #F4F4EF every 0.035 (0.03 deep, tilted 35 degrees, 0.012 bright gaps), the bottom rail 0.015 lower at its left end, one slat
 //               kinked 8 degrees over 0.12, a pull cord 0.50 with a bead on the right. Origin: the middle of the opening ON the wall face (z -1.30), everything stands out toward +z.
+//               NEW (Potato Desk 11, all default to the look above): `lift` 0..1 (a propState key) stacks the slats into 0.10 at the head, the bottom rail and the cord rising with it;
+//               `open` 0..1 swings the one sash (a pane in a 0.03 frame, glass tint and a glint) OUTWARD on its right jamb to 80 degrees; the sash exists only with spec.view or spec.sash true.
+//               spec.view "snow": instead of the warm sky, the opening shows sky #C9DDF2 -> #9FB9D8, three fir shapes #7C93AE and 36 flakes falling (a pure function of story time and
+//               spec.seed), drawn on the wall face (z +0.004, overlap 0.025 hidden by the frame): the wall is an opaque plane, so a view behind it could not be seen. The sash is
+//               flattened into the wall plane (a trapezoid narrowing toward the free edge, z +0.0065), so it never pokes into the room, nor shows through a body in front of it.
+//               The glint is gone from open 0.25 up; open, the hole is the view.
 //   carpettiles spec.w (4.4), spec.d (5.1): a thin sheet at y 0.004, tiles 0.50 alternating #6E7680 / #666E78 (spec.b / spec.a), seams 0.006 #5A616A, speckle. Origin: the middle of the
 //               sheet on the floor (design: 0, 0, +1.25). Not solid.
 //   ceilingtiles spec.w (4.4), spec.d (5.6): tiles 0.60 #E3E6DE with T-bars 0.02 #CDD1C8 on the underside of the sheet, one emissive light panel 0.60 x 1.20 #FDFDF4
@@ -625,9 +631,12 @@ export const LUNCH_KINDS = {
     box(W + 2 * FR, FR, FD, P.whole, frameM, 0, H / 2 + FR / 2, FD / 2); box(W + 2 * FR, FR, FD, P.whole, frameM, 0, -H / 2 - FR / 2, FD / 2);
     box(FR, H, FD, P.whole, frameM, -W / 2 - FR / 2, 0, FD / 2); box(FR, H, FD, P.whole, frameM, W / 2 + FR / 2, 0, FD / 2);
     box(W + 2 * FR + 0.05, 0.02, SIL + 0.02, P.whole, frameM, 0, -H / 2 - FR - 0.01, (SIL + 0.02) / 2 + 0.008);
-    const sky = tex(8, 128, (g, w, h) => { const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#fff3cf"); gr.addColorStop(1, "#ffe2a6"); g.fillStyle = gr; g.fillRect(0, 0, w, h); });
-    const sm = new THREE.MeshBasicMaterial({ map: sky }); sm.userData.noOutline = true;
-    decor(mesh(new THREE.PlaneGeometry(W, H), sm, P.whole, 0, 0, 0.004));
+    const view = S.view === "snow";
+    if (!view) {
+      const sky = tex(8, 128, (g, w, h) => { const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#fff3cf"); gr.addColorStop(1, "#ffe2a6"); g.fillStyle = gr; g.fillRect(0, 0, w, h); });
+      const sm = new THREE.MeshBasicMaterial({ map: sky }); sm.userData.noOutline = true;
+      decor(mesh(new THREE.PlaneGeometry(W, H), sm, P.whole, 0, 0, 0.004));
+    }
     // the blind: slats every 0.035, 0.03 deep, tilted 35 degrees (0.012 bright gaps), full height; the bottom rail low at its left end
     const slatM = new THREE.MeshStandardMaterial({ color: "#ecece5", roughness: 0.55, emissive: new THREE.Color("#f4f4ef"), emissiveIntensity: 0.06 }); slatM.userData.noHatch = true;
     const n = Math.floor((H - 0.05) / 0.035), geos = [], kinkAt = Math.floor(n * 0.4), kx = W * 0.18, tilt = 35 * DEG;
@@ -637,14 +646,89 @@ export const LUNCH_KINDS = {
       if (i === kinkAt) { const a = -W / 2 + 0.005, b = kx - 0.06, c = kx + 0.06, e = W / 2 - 0.005; geos.push(slab(b - a, (a + b) / 2, y), slab(0.12, kx, y + 0.0045, 8 * DEG), slab(e - c, (c + e) / 2, y)); }
       else geos.push(slab(W - 0.01, 0, y));
     }
-    mesh(mergeGeometries(geos), slatM, P.whole).castShadow = false;
+    const slats = mesh(mergeGeometries(geos), slatM, P.whole); slats.castShadow = false;
     box(W - 0.006, 0.026, 0.034, P.whole, slatM, 0, H / 2 - 0.013, 0.02).castShadow = false;   // the head rail
-    const rail = box(W - 0.006, 0.014, 0.024, P.whole, slatM, 0, -H / 2 + 0.014, 0.02, 0, 0, Math.atan2(0.015, W)); rail.castShadow = false;
+    const rz0 = Math.atan2(0.015, W), rail = box(W - 0.006, 0.014, 0.024, P.whole, slatM, 0, -H / 2 + 0.014, 0.02, 0, 0, rz0); rail.castShadow = false;
     const cx = W / 2 - 0.045, cy = -H / 2 + 0.014 + 0.0075 - 0.25;
-    cyl(0.0022, 0.0022, 0.5, P.whole, mat("#ede8dc", { roughness: 0.8 }), cx, cy, 0.028, 5).castShadow = false;
-    mesh(new THREE.SphereGeometry(0.007, 10, 8), mat("#ede8dc", { roughness: 0.5 }), P.whole, cx, cy - 0.255, 0.028).castShadow = false;
+    const cord = cyl(0.0022, 0.0022, 0.5, P.whole, mat("#ede8dc", { roughness: 0.8 }), cx, cy, 0.028, 5); cord.castShadow = false;
+    const bead = mesh(new THREE.SphereGeometry(0.007, 10, 8), mat("#ede8dc", { roughness: 0.5 }), P.whole, cx, cy - 0.255, 0.028); bead.castShadow = false;
     P.whole.children.forEach((o) => { o.userData.solid = false; });
-    return { grip: 0 };
+
+    // ---- inner helpers for the new keys (hoisted; kept inside this kind so the file's other kinds are untouched)
+    function smooth3(k) { return k * k * (3 - 2 * k); }
+    // the snow view on the wall face (z +0.004), W+0.05 x H+0.05 so its edge hides in the frame; 36 flakes at z +0.0055
+    function snowView(P, W, H, seed) {
+      const VW = W + 0.05, VH = H + 0.05, PX = 256, PY = Math.round(PX * VH / VW);
+      const t0 = tex(PX, PY, (g, w, h) => {
+        const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, "#c9ddf2"); gr.addColorStop(1, "#9fb9d8"); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+        g.fillStyle = "#7c93ae";
+        // three firs standing on the bottom edge: [centre x, height, width] as shares of the view; tiers of a zigzag triangle
+        for (const [cx, th, tw] of [[0.2, 0.7, 0.34], [0.55, 0.5, 0.26], [0.84, 0.82, 0.38]]) {
+          const x0 = cx * w, hh = th * h, ww = tw * w, tiers = 5; g.beginPath(); g.moveTo(x0, h - hh);
+          for (let i = 0; i < tiers; i++) { const y = h - hh + (i + 1) * (hh / tiers), wd = ww * 0.5 * ((i + 1) / tiers); g.lineTo(x0 + wd, y); g.lineTo(x0 + wd * 0.55, y); }
+          g.lineTo(x0 + ww * 0.08, h); g.lineTo(x0 - ww * 0.08, h);
+          for (let i = tiers - 1; i >= 0; i--) { const y = h - hh + (i + 1) * (hh / tiers), wd = ww * 0.5 * ((i + 1) / tiers); g.lineTo(x0 - wd * 0.55, y); g.lineTo(x0 - wd, y); }
+          g.closePath(); g.fill();
+        }
+      });
+      const vm = new THREE.MeshBasicMaterial({ map: t0 }); vm.userData.noOutline = true;
+      decor(mesh(new THREE.PlaneGeometry(VW, VH), vm, P.whole, 0, 0, 0.004));
+      const NF = 36, fm = new THREE.MeshBasicMaterial({ color: "#ffffff" }); fm.userData.noOutline = true;
+      const im = new THREE.InstancedMesh(new THREE.CircleGeometry(1, 8), fm, NF);
+      im.instanceMatrix.setUsage(THREE.DynamicDrawUsage); im.frustumCulled = false; im.castShadow = false; im.userData.solid = false; im.userData.steam = true; P.whole.add(im);
+      const hs = (a, b) => { const x = Math.sin((a + seed * 7.3) * 127.1 + b * 311.7) * 43758.5453; return x - Math.floor(x); };
+      const M = new THREE.Matrix4(), Q = new THREE.Quaternion(), V = new THREE.Vector3(), SC = new THREE.Vector3();
+      return (t) => {
+        for (let i = 0; i < NF; i++) {
+          const sp = 0.22 + 0.3 * hs(i, 1), c = t * sp / (VH + 0.04) + hs(i, 2), p = c - Math.floor(c), r = 0.005 + 0.007 * hs(i, 3);
+          const x = (hs(i, 4) - 0.5) * VW + 0.015 * Math.sin(TAU * (t * (0.4 + 0.3 * hs(i, 5)) + hs(i, 6))) + 0.05 * p;
+          V.set(x, VH / 2 + 0.02 - p * (VH + 0.04), 0.0055); SC.set(r, r, 1); M.compose(V, Q.identity(), SC); im.setMatrixAt(i, M);
+        }
+        im.instanceMatrix.needsUpdate = true;
+      };
+    }
+    // the one sash, flattened into the wall plane (z +0.0065): hinged on the right jamb, its free edge swings to W/2 - W cos(a) and is drawn shorter (farther away)
+    function windowSash(P, W, H, flakes) {
+      const PX = 256, PY = Math.round(PX * H / W), FW = Math.round(0.03 / W * PX);
+      const t0 = tex(PX, PY, (g, w, h) => {
+        g.clearRect(0, 0, w, h); g.fillStyle = "rgba(220,235,245,0.14)"; g.fillRect(0, 0, w, h);
+        g.fillStyle = "#e9ebe6"; g.fillRect(0, 0, w, FW); g.fillRect(0, h - FW, w, FW); g.fillRect(0, 0, FW, h); g.fillRect(w - FW, 0, FW, h);
+        g.fillStyle = "#9aa0a7"; g.fillRect(FW, h * 0.45, FW * 0.7, h * 0.1);   // the latch on the free edge
+        g.fillStyle = "#cfd3cd"; g.fillRect(w * 0.5 - 2, FW, 4, h - 2 * FW);   // a mullion line down the middle
+      });
+      const t1 = tex(PX, PY, (g, w, h) => {
+        g.clearRect(0, 0, w, h); g.fillStyle = "rgba(255,255,255,0.5)";
+        for (const [x, bw] of [[0.2, 0.1], [0.4, 0.04]]) { g.beginPath(); g.moveTo(x * w, h * 0.12); g.lineTo((x + bw) * w, h * 0.12); g.lineTo((x + bw - 0.28) * w, h * 0.88); g.lineTo((x - 0.28) * w, h * 0.88); g.closePath(); g.fill(); }
+      });
+      const geo = new THREE.BufferGeometry(), pos = new Float32Array(12);
+      geo.setAttribute("position", new THREE.BufferAttribute(pos, 3)); geo.setAttribute("uv", new THREE.BufferAttribute(new Float32Array([0, 1, 1, 1, 0, 0, 1, 0]), 2)); geo.setIndex([0, 2, 1, 1, 2, 3]);
+      const pm = new THREE.MeshBasicMaterial({ map: t0, transparent: true, depthWrite: false, side: THREE.DoubleSide }); pm.userData.noOutline = true;
+      const gm = new THREE.MeshBasicMaterial({ map: t1, transparent: true, depthWrite: false, side: THREE.DoubleSide, opacity: 1 }); gm.userData.noOutline = true;
+      const pane = mesh(geo, pm, P.whole), glint = mesh(geo, gm, P.whole, 0, 0, 0.0003);
+      for (const o of [pane, glint]) { o.castShadow = o.receiveShadow = false; o.userData.solid = false; o.userData.steam = true; o.frustumCulled = false; o.renderOrder = 2; }
+      let last = -1;
+      return { update(open, t) {
+        if (flakes) flakes(t);
+        if (open === last) return; last = open;
+        const a = 80 * DEG * smooth3(open), xf = W / 2 - W * Math.cos(a), fh = (H / 2) * (1 - 0.13 * Math.sin(a)), z = 0.0065;
+        pos.set([xf, fh, z, W / 2, H / 2, z, xf, -fh, z, W / 2, -H / 2, z]); geo.attributes.position.needsUpdate = true; geo.computeBoundingSphere();
+        gm.opacity = 1 - smooth3(clamp(open * 4)); glint.visible = gm.opacity > 0.01;
+      } };
+    }
+    // ---- Potato Desk 11: the snow view, the sash and the lifting blind (nothing here is built without spec.view / spec.sash; lift 0 touches nothing)
+    const sash = view || S.sash ? windowSash(P, W, H, view ? snowView(P, W, H, S.seed ?? 4) : null) : null;
+    const span = (n - 1) * 0.035, y0 = H / 2 - 0.03, railY0 = -H / 2 + 0.014, railY1 = H / 2 - 0.09;
+    let lastLift = 0;
+    return { grip: 0, apply(ps, t = 0) {
+      const e = smooth3(clamp(ps.lift ?? 0));
+      if (e !== lastLift) {
+        lastLift = e;
+        const k = 1 - e * (1 - 0.045 / span), ry = lerp(railY0, railY1, e), dy = ry - railY0;
+        slats.scale.y = k; slats.position.y = y0 * (1 - k); rail.position.y = ry; rail.rotation.z = rz0 * (1 - 0.8 * e);
+        cord.position.y = cy + dy; bead.position.y = cy - 0.255 + dy;
+      }
+      if (sash) sash.update(clamp(ps.open ?? 0), t);
+    } };
   },
 
   // ---------------------------------------------------------------------------------------------- carpettiles
