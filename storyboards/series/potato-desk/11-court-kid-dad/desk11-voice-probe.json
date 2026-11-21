@@ -1,0 +1,423 @@
+{
+ "id": "desk11-voice-probe",
+ "title": "Potato Desk 11 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   97.3,
+   97.3
+  ]
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "stern"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 97.3,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You're suing your own dad?",
+     "tone": "calm",
+     "style": "deep, surprised, leaning in, a judge, a little amused",
+     "dur": 2.5,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "He ate my fries!",
+     "tone": "angry",
+     "style": "outraged, high, loud, a wronged little kid",
+     "dur": 2.1,
+     "caption": false,
+     "at": 3.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I took one.",
+     "tone": "calm",
+     "style": "easy, relaxed, innocent, smiling, a laid-back dad",
+     "dur": 1.7,
+     "caption": false,
+     "at": 6.8
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "One?",
+     "tone": "calm",
+     "style": "deep, skeptical, slow, one eyebrow up",
+     "dur": 0.9,
+     "caption": false,
+     "at": 9.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "One at a time.",
+     "tone": "sad",
+     "style": "sheepish, quiet, caught out, slower",
+     "dur": 2.1,
+     "caption": false,
+     "at": 11.4
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Why?",
+     "tone": "angry",
+     "style": "deep, stern, short, a judge",
+     "take": 2,
+     "dur": 0.9,
+     "caption": false,
+     "at": 14.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I was checking they were hot.",
+     "tone": "calm",
+     "style": "reasonable, helpful, a dad explaining, a little too quick",
+     "dur": 2.9,
+     "caption": false,
+     "at": 16.4
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "All of them?",
+     "tone": "calm",
+     "style": "deep, flat, skeptical, a judge",
+     "dur": 1.7,
+     "caption": false,
+     "at": 20.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Some were cold.",
+     "tone": "sad",
+     "style": "quiet, sheepish, a small shrug in the voice",
+     "dur": 1.7,
+     "caption": false,
+     "at": 23
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Raise your right hand.",
+     "tone": "calm",
+     "style": "deep, formal, slow, a judge swearing in a witness",
+     "dur": 2.1,
+     "caption": false,
+     "at": 25.7
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Exhibit A.",
+     "tone": "calm",
+     "style": "deep, dry, deadpan, unimpressed",
+     "dur": 1.3,
+     "caption": false,
+     "at": 28.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "That one was looking at me.",
+     "tone": "sad",
+     "style": "pleading, innocent, a little desperate, a caught dad",
+     "dur": 2.9,
+     "caption": false,
+     "at": 31.1
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Empty your pockets.",
+     "tone": "calm",
+     "style": "deep, stern, slow, a judge who has had enough",
+     "dur": 1.7,
+     "caption": false,
+     "at": 35
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Those were for later.",
+     "tone": "sad",
+     "style": "quiet, sheepish, a little hurt, a caught dad",
+     "dur": 2.1,
+     "caption": false,
+     "at": 37.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Every time!",
+     "tone": "sad",
+     "style": "whining, pleading, high, an upset little kid",
+     "dur": 1.3,
+     "caption": false,
+     "at": 40.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Daddy tax. Every dad takes it.",
+     "tone": "happy",
+     "style": "proud, matter of fact, explaining the obvious, a warm dad",
+     "dur": 2.9,
+     "caption": false,
+     "at": 43.1
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "My dad took mine too.",
+     "tone": "sad",
+     "style": "deep, quiet, slow, hurt, remembering something painful",
+     "dur": 2.5,
+     "caption": false,
+     "at": 47
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "See? Tradition.",
+     "tone": "happy",
+     "style": "smug, proud, relaxed, a dad who thinks he won",
+     "dur": 1.3,
+     "caption": false,
+     "at": 50.5
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Not anymore.",
+     "tone": "angry",
+     "style": "deep, cold, flat, final, a judge",
+     "dur": 1.3,
+     "caption": false,
+     "at": 52.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Objection! He ate my nuggets!",
+     "tone": "angry",
+     "style": "loud, sudden, pointing, a dad turning the tables",
+     "dur": 2.5,
+     "caption": false,
+     "at": 55.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I'm growing!",
+     "tone": "angry",
+     "style": "high, defensive, quick, a caught little kid",
+     "take": 2,
+     "dur": 1.3,
+     "caption": false,
+     "at": 58.6
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "How many?",
+     "tone": "calm",
+     "style": "deep, slow, suspicious, a judge",
+     "dur": 1.3,
+     "caption": false,
+     "at": 60.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "One at a time.",
+     "tone": "sad",
+     "style": "small, quiet, sheepish, a caught little kid",
+     "dur": 2.1,
+     "caption": false,
+     "at": 63.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Gotcha!",
+     "tone": "happy",
+     "style": "loud, short, triumphant, a dad who won",
+     "dur": 0.9,
+     "caption": false,
+     "at": 66.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "You ate my birthday cake!",
+     "tone": "angry",
+     "style": "high, loud, fast, a kid fighting back",
+     "dur": 2.5,
+     "caption": false,
+     "at": 68.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "You ate my pizza!",
+     "tone": "angry",
+     "style": "loud, fast, a dad fighting back",
+     "dur": 2.1,
+     "caption": false,
+     "at": 71.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "You ate my Halloween candy!",
+     "tone": "angry",
+     "style": "high, louder, fast, a kid shouting",
+     "dur": 2.5,
+     "caption": false,
+     "at": 74.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "That was tax!",
+     "tone": "angry",
+     "style": "loud, fast, proud, a dad shouting back",
+     "dur": 1.7,
+     "caption": false,
+     "at": 78.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Daddy tax isn't real!",
+     "tone": "angry",
+     "style": "high, loud, fast, a kid shouting",
+     "dur": 2.1,
+     "caption": false,
+     "at": 81
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "It's in the constitution!",
+     "tone": "angry",
+     "style": "loud, fast, very sure of himself, a dad shouting",
+     "dur": 2.1,
+     "caption": false,
+     "at": 84.1
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Order!",
+     "tone": "angry",
+     "style": "deep, very loud, short, a judge banging his gavel",
+     "dur": 0.9,
+     "caption": false,
+     "at": 87.2
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Daddy tax and kid tax are now illegal. Give them back.",
+     "tone": "angry",
+     "style": "deep, stern, loud, final, a judge",
+     "dur": 4.9,
+     "caption": false,
+     "at": 89.1
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Court tax.",
+     "tone": "calm",
+     "style": "deep, flat, deadpan, mouth full, chewing",
+     "take": 2,
+     "dur": 1.3,
+     "caption": false,
+     "at": 95
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 11: makes and measures every take."
+}

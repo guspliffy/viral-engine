@@ -1,0 +1,650 @@
+{
+ "id": "carton-bench",
+ "title": "Fries carton bench",
+ "idea": "Engine look bench for the fries carton and the loose fry (Potato Desk 11), not a clip",
+ "tool": "prop bench: no clip, no reviews, no render",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#d9cdb4",
+  "floor": "#8f8a80",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "chip"
+  ],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.3
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.1
+  }
+ ],
+ "props": [
+  {
+   "id": "cEmpty",
+   "kind": "friescarton",
+   "fill": "empty",
+   "x": -0.55,
+   "y": 0,
+   "z": 0.8
+  },
+  {
+   "id": "cFull",
+   "kind": "friescarton",
+   "fill": "full",
+   "x": 0,
+   "y": 0,
+   "z": 0.8
+  },
+  {
+   "id": "cTaken",
+   "kind": "friescarton",
+   "fill": "full",
+   "taken": 1,
+   "x": 0.55,
+   "y": 0,
+   "z": 0.8
+  },
+  {
+   "id": "fry",
+   "kind": "loosefry",
+   "x": 0.75,
+   "y": 0,
+   "z": 0.8
+  },
+  {
+   "id": "fryBite",
+   "kind": "loosefry",
+   "bite": 1,
+   "x": 0.9,
+   "y": 0,
+   "z": 0.8
+  },
+  {
+   "id": "cChip",
+   "kind": "friescarton",
+   "fill": "full",
+   "x": -1.9,
+   "y": 0.1,
+   "z": 0.42,
+   "rot": 180
+  },
+  {
+   "id": "fryHeld",
+   "kind": "loosefry",
+   "x": 2.32,
+   "y": 0.38,
+   "z": 0.32
+  },
+  {
+   "id": "cWedge",
+   "kind": "friescarton",
+   "fill": "full",
+   "x": 1.35,
+   "y": 0.45,
+   "z": 0.3,
+   "rot": 180
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "lead",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.1,
+     7.6
+    ],
+    "look": [
+     0,
+     0.4,
+     0.4
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cChip",
+      "grip": [
+       0.138,
+       0.1,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cChip",
+      "grip": [
+       -0.138,
+       0.1,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cWedge",
+      "grip": [
+       0.132,
+       0.06,
+       0.035
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.011,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fryHeld",
+      "grip": [
+       0,
+       0.204,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       0.04
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cChip",
+      "grip": [
+       0.138,
+       0.1,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cChip",
+      "grip": [
+       -0.138,
+       0.1,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cWedge",
+      "grip": [
+       0.132,
+       0.06,
+       0.035
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fryHeld",
+      "grip": [
+       0,
+       0.204,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.78
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.78
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.78
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.011
+     },
+     "dur": 0.12,
+     "at": 0.78
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "cChip",
+     "hand": "both",
+     "grip": [
+      0,
+      0.1,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.96
+    },
+    {
+     "who": "wedge",
+     "do": "grab",
+     "prop": "cWedge",
+     "hand": "R",
+     "grip": [
+      0.132,
+      0.06,
+      0.035
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.96
+    },
+    {
+     "who": "wedge",
+     "do": "grab",
+     "prop": "fryHeld",
+     "hand": "L",
+     "grip": [
+      0,
+      0.204,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.96
+    }
+   ]
+  },
+  {
+   "name": "wide",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.1,
+     7.6
+    ],
+    "look": [
+     0,
+     0.4,
+     0.4
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "floor",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.2,
+     0.55,
+     2.4
+    ],
+    "look": [
+     0.2,
+     0.15,
+     0.8
+    ],
+    "fov": 26
+   },
+   "do": []
+  },
+  {
+   "name": "empty",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.55,
+     0.75,
+     1.9
+    ],
+    "look": [
+     -0.55,
+     0.12,
+     0.8
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "full",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     0.6,
+     1.9
+    ],
+    "look": [
+     0,
+     0.2,
+     0.8
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "chipF",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1.9,
+     0.55,
+     2.5
+    ],
+    "look": [
+     -1.9,
+     0.3,
+     0.2
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "chipS",
+   "at": 6.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.10000000000000009,
+     0.4,
+     1.6
+    ],
+    "look": [
+     -1.9,
+     0.28,
+     0.25
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "wedgeF",
+   "at": 7.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.7,
+     0.75,
+     3
+    ],
+    "look": [
+     1.7,
+     0.55,
+     0.2
+    ],
+    "fov": 26
+   },
+   "do": []
+  },
+  {
+   "name": "wedgeS",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.5,
+     0.6,
+     1.8
+    ],
+    "look": [
+     1.5,
+     0.5,
+     0.25
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "pinch",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.4,
+     0.55,
+     1.7
+    ],
+    "look": [
+     2.32,
+     0.4,
+     0.32
+    ],
+    "fov": 20
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/bench/carton-bench.mjs (engine bench, no reviews)."
+}
