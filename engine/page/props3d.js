@@ -151,6 +151,15 @@ import { HEART_HEART_KINDS, HEART_HEART_GRIPS, HEART_HEART_STATE } from "./props
 import { HEART_SOUL_KINDS, HEART_SOUL_GRIPS, HEART_SOUL_STATE } from "./props-heart-soul.js";   // egypt myth 01 heart (DESIGN.md)
 import { HEART_JUICE_KINDS, HEART_JUICE_GRIPS, HEART_JUICE_STATE } from "./props-heart-juice.js";   // egypt myth 01 heart (DESIGN.md)
 import { HEART_CASE_KINDS, HEART_CASE_GRIPS, HEART_CASE_STATE } from "./props-heart-case.js";   // egypt myth 01 heart (DESIGN.md)
+import { NORSE_SPEAR_KINDS, NORSE_SPEAR_GRIPS, NORSE_SPEAR_STATE } from "./props-norse-spear.js";   // norse myth 01 wednesday (DESIGN.md)
+import { NORSE_RAVEN_KINDS, NORSE_RAVEN_GRIPS, NORSE_RAVEN_STATE } from "./props-norse-raven.js";   // norse myth 01 wednesday (DESIGN.md)
+import { NORSE_HEAD_KINDS, NORSE_HEAD_GRIPS, NORSE_HEAD_STATE } from "./props-norse-head.js";   // norse myth 01 wednesday (DESIGN.md)
+import { NORSE_CAVE_KINDS, NORSE_CAVE_GRIPS, NORSE_CAVE_STATE } from "./props-norse-cave.js";   // norse myth 01 wednesday (DESIGN.md)
+import { NORSE_WELL_KINDS, NORSE_WELL_GRIPS, NORSE_WELL_STATE } from "./props-norse-well.js";   // norse myth 01 wednesday (DESIGN.md)
+import { NORSE_TREE_KINDS, NORSE_TREE_GRIPS, NORSE_TREE_STATE } from "./props-norse-tree.js";   // norse myth 01 wednesday (DESIGN.md)
+import { NORSE_WIND_KINDS, NORSE_WIND_GRIPS, NORSE_WIND_STATE } from "./props-norse-wind.js";   // norse myth 01 wednesday (DESIGN.md)
+import { NORSE_ITEMS_KINDS, NORSE_ITEMS_GRIPS, NORSE_ITEMS_STATE } from "./props-norse-items.js";   // norse myth 01 wednesday (DESIGN.md)
+import { NORSE_CLASS_KINDS, NORSE_CLASS_GRIPS, NORSE_CLASS_STATE } from "./props-norse-class.js";   // norse myth 01 wednesday (DESIGN.md)
 import { HELLB_KINDS, HELLB_GRIPS } from "./props-hellb.js";   // potato desk 09 hell reviews: set B (hell resort lobby)   // the archaeologist's conservation brush: archbrush
 import { HSTAIRS_KINDS, HSTAIRS_GRIPS } from "./props-heavenstairs.js";   // potato desk heaven steps: the stairway
 import { HTOP_KINDS, HTOP_GRIPS } from "./props-heaventop.js";   // heaven steps: gate, podium, ledger
@@ -1497,7 +1506,7 @@ Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
 Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS, ZFIGHT_KINDS, ZROOF_KINDS, ZSTAIRS_KINDS, ZWAIT_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS, ZFIGHT_GRIPS, ZROOF_GRIPS, ZSTAIRS_GRIPS, ZWAIT_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
-const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE };
+const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE , ...NORSE_SPEAR_STATE, ...NORSE_RAVEN_STATE, ...NORSE_HEAD_STATE, ...NORSE_CAVE_STATE, ...NORSE_WELL_STATE, ...NORSE_TREE_STATE, ...NORSE_WIND_STATE, ...NORSE_ITEMS_STATE, ...NORSE_CLASS_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, CASINO_KINDS, MIND_KINDS, NIGHTCITY_KINDS, NEONSTREET_KINDS);   // there's a catch 06 (props-casino.js, props-mind.js, props-nightcity.js)
@@ -1536,6 +1545,7 @@ Object.assign(KINDS, COURT_KINDS);   // potato desk 05 court day (props-court.js
 Object.assign(KINDS, CARTON_KINDS);   // potato desk 11: friescarton, loosefry (props-carton.js)
 Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
 Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, HEART_HEART_KINDS, HEART_SOUL_KINDS, HEART_JUICE_KINDS, HEART_CASE_KINDS); Object.assign(GRIPS, HEART_HALL_GRIPS, HEART_SCALE_GRIPS, HEART_MONSTER_GRIPS, HEART_HEART_GRIPS, HEART_SOUL_GRIPS, HEART_JUICE_GRIPS, HEART_CASE_GRIPS);   // egypt myth 01 heart (props-heart-*.js)
+Object.assign(KINDS, NORSE_SPEAR_KINDS, NORSE_RAVEN_KINDS, NORSE_HEAD_KINDS, NORSE_CAVE_KINDS, NORSE_WELL_KINDS, NORSE_TREE_KINDS, NORSE_WIND_KINDS, NORSE_ITEMS_KINDS, NORSE_CLASS_KINDS); Object.assign(GRIPS, NORSE_SPEAR_GRIPS, NORSE_RAVEN_GRIPS, NORSE_HEAD_GRIPS, NORSE_CAVE_GRIPS, NORSE_WELL_GRIPS, NORSE_TREE_GRIPS, NORSE_WIND_GRIPS, NORSE_ITEMS_GRIPS, NORSE_CLASS_GRIPS);   // norse myth 01 wednesday (props-norse-*.js)
 Object.assign(KINDS, HSTAIRS_KINDS, HTOP_KINDS, HSKY_KINDS, HITEMS_KINDS); Object.assign(GRIPS, HSTAIRS_GRIPS, HTOP_GRIPS, HSKY_GRIPS, HITEMS_GRIPS);   // potato desk heaven steps
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
