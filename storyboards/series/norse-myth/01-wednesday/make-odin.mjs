@@ -643,7 +643,7 @@ write(import.meta.url, {
     lighting: { v: 2, key: [0.3, 0.8, 0.5], light: "#ffe9c8", shadow: "#3a4a52", rim: "#ffe6b0", exposure: 1.0, measure: false },
     hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true, vignette: 0.25 },
   grade,
-  music: { file: "norse-myth/odin-score.ogg", lock: false, dip: false, lowCut: 90, gain: 0.45 },   // make-score.mjs
+  music: { file: "ai/norse-myth/odin-score-myth.ogg", lock: false, dip: false, lowCut: 90, gain: 0.45 },   // engine/soundgen/score-norse.json (Codex Sol design, Jonny 22 Nov: "more mythical music")
   sound: { sfx: 0.6, ambience: 0.05, guard: true, signature: false, surface: "indoor" },
   creative: { length: [60, 95] },
   hook: { show: ["chip", "odin", "well"], hint: 0, what: "a little potato with a cup asks a tall one-eyed old god with an eyepatch and two ravens on his shoulders, by a glowing well in a misty root cave: what happened to your eye?" },

@@ -138,7 +138,7 @@
   ]
  ],
  "music": {
-  "file": "norse-myth/odin-score.ogg",
+  "file": "ai/norse-myth/odin-score-myth.ogg",
   "lock": false,
   "dip": false,
   "lowCut": 90,
