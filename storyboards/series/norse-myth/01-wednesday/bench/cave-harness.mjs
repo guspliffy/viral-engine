@@ -1,0 +1,20 @@
+import * as THREE from "three";
+const ctx = new Proxy(function(){}, { get: (t, k) => k === "createRadialGradient" || k === "createLinearGradient" ? () => ({ addColorStop() {} }) : k === "createImageData" ? (w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }) : (() => ctx), set: () => true, apply: () => ctx });
+globalThis.document = { createElement: () => ({ width: 0, height: 0, getContext: () => ctx }) };
+globalThis.window = {};
+const t0 = performance.now();
+const { NORSE_CAVE_KINDS } = await import("/home/user/viral-engine/engine/page/props-norse-cave.js");
+const G = new THREE.Group();
+const r = NORSE_CAVE_KINDS.norsecave({ spec: { benchWell: true, benchLights: true }, whole: G });
+console.log("build ms", Math.round(performance.now() - t0));
+let tris = 0, meshes = 0;
+G.traverse((o) => {
+  if (!o.isMesh && !o.isPoints) return; meshes++;
+  const g = o.geometry, p = g.attributes.position; let bad = 0;
+  for (let i = 0; i < p.count * 3; i++) if (!Number.isFinite(p.array[i])) bad++;
+  const n = g.index ? g.index.count / 3 : p.count / 3; tris += n;
+  if (bad || process.argv[2]) console.log(o.name || o.type, "verts", p.count, "tris", Math.round(n), bad ? "NaN: " + bad : "");
+});
+console.log("meshes", meshes, "tris", Math.round(tris));
+const t1 = performance.now(); for (let k = 0; k < 5; k++) r.apply({}, 3 + k * 0.1); console.log("apply ms", (performance.now() - t1) / 5);
+G.traverse((o) => { if (o.name === "cave-gap-trunk") { const p = o.geometry.attributes.position; for (let i = 0; i < p.count * 3; i++) if (!Number.isFinite(p.array[i])) console.log("NaN at vertex", Math.floor(i / 3), "comp", i % 3, "of", p.count); } });

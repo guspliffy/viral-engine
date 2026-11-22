@@ -1,0 +1,1816 @@
+{
+ "id": "well-bench",
+ "title": "Norse 01 well bench",
+ "idea": "Engine look bench for D2 (well, water, well floor), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#06090c",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    301.8,
+    0.1
+   ],
+   "face": -90,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 2.3
+  }
+ ],
+ "props": [
+  {
+   "id": "well",
+   "kind": "norsewell",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "light": 1,
+   "dipAt": [
+    0.45,
+    0.55
+   ],
+   "payAt": [
+    -0.35,
+    0.5
+   ]
+  },
+  {
+   "id": "floor",
+   "kind": "norsefloor",
+   "x": 300,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "rest",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     3.7
+    ],
+    "look": [
+     0,
+     0.18,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      301.8,
+      0.1
+     ],
+     "y": 2.18,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.4,
+       0.15
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.3,
+       0.4,
+       -0.15
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "rest3q",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.7,
+     0.7,
+     2.6
+    ],
+    "look": [
+     0.1,
+     0.15,
+     0.2
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "band",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     0.42,
+     2.15
+    ],
+    "look": [
+     0.05,
+     0.17,
+     1.39
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bandSide",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.6,
+     0.5,
+     0.9
+    ],
+    "look": [
+     1.1,
+     0.17,
+     0.85
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "roundel",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.1,
+     0.22,
+     1.85
+    ],
+    "look": [
+     0,
+     0.16,
+     1.39
+    ],
+    "fov": 12
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sip",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.2,
+     0.75,
+     0.55
+    ],
+    "look": [
+     -1.26,
+     0.25,
+     -0.22
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "capback",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.8,
+     -2.5
+    ],
+    "look": [
+     0,
+     0.28,
+     -1.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "top",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     0.4
+    ],
+    "look": [
+     0,
+     0.22,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bulge",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     3.4
+    ],
+    "look": [
+     0,
+     0.32,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1.3,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 1,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "splash2",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.9,
+     3.4
+    ],
+    "look": [
+     0,
+     0.4,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1.2,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0.2,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "splash5",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.9,
+     3.4
+    ],
+    "look": [
+     0,
+     0.4,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0.5,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "rings",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.2,
+     2.6
+    ],
+    "look": [
+     0,
+     0.22,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0.55,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "rings2",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.2,
+     2.6
+    ],
+    "look": [
+     0,
+     0.22,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 1.9,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "swirl",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3,
+     0.9
+    ],
+    "look": [
+     0,
+     0.22,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0.9,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0.4
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "dip",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.6,
+     2.4
+    ],
+    "look": [
+     0.2,
+     0.22,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0.25,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "pay",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.6,
+     2.4
+    ],
+    "look": [
+     -0.2,
+     0.22,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0.2,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "gold",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     3.7
+    ],
+    "look": [
+     0,
+     0.18,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1.2,
+      "gold": 1,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "cold",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     3.7
+    ],
+    "look": [
+     0,
+     0.18,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 0.8,
+      "gold": 0,
+      "glints": 0,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "floor06",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     299.4,
+     0.32,
+     0.12
+    ],
+    "look": [
+     301.2,
+     0.92,
+     0.12
+    ],
+    "fov": 82
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "eye",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     300.05,
+     0.28,
+     0.62
+    ],
+    "look": [
+     300.25,
+     0.1,
+     0.15
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "eyeBlink",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     300.05,
+     0.28,
+     0.62
+    ],
+    "look": [
+     300.25,
+     0.1,
+     0.15
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0.55,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "eyeShut",
+   "at": 21,
+   "len": 1,
+   "shot": {
+    "pos": [
+     300.05,
+     0.28,
+     0.62
+    ],
+    "look": [
+     300.25,
+     0.1,
+     0.15
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 1,
+      "lookX": 1,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "eyeUp",
+   "at": 22,
+   "len": 1,
+   "shot": {
+    "pos": [
+     300.25,
+     0.62,
+     0.15
+    ],
+    "look": [
+     300.25,
+     0.09,
+     0.15
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 1,
+      "lookY": 0.4,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "pebbles",
+   "at": 23,
+   "len": 1,
+   "shot": {
+    "pos": [
+     299.3,
+     0.9,
+     1.2
+    ],
+    "look": [
+     300,
+     0.05,
+     -0.1
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shaft",
+   "at": 24,
+   "len": 1,
+   "shot": {
+    "pos": [
+     300.1,
+     0.6,
+     0.5
+    ],
+    "look": [
+     299.8,
+     1.8,
+     -0.9
+    ],
+    "fov": 64
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "upward",
+   "at": 25,
+   "len": 1,
+   "shot": {
+    "pos": [
+     300.05,
+     0.25,
+     0.3
+    ],
+    "look": [
+     299.9,
+     2.4,
+     -0.1
+    ],
+    "fov": 70
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "plunge",
+   "at": 26,
+   "len": 1,
+   "shot": {
+    "pos": [
+     300,
+     1.2,
+     0.5
+    ],
+    "look": [
+     300,
+     0.4,
+     -0.1
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0.5,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "peek",
+   "at": 27,
+   "len": 1,
+   "shot": {
+    "pos": [
+     299.8,
+     0.3,
+     0.7
+    ],
+    "look": [
+     300.7,
+     1.9,
+     0
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 0,
+      "peek": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "chipSide",
+   "at": 28,
+   "len": 1,
+   "shot": {
+    "pos": [
+     301.5,
+     2.7,
+     3.2
+    ],
+    "look": [
+     301.5,
+     2.6,
+     0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "chipTop",
+   "at": 29,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     303.4,
+     3.4,
+     2.6
+    ],
+    "look": [
+     301.5,
+     2.5,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "rings": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0,
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/norse-myth/01-wednesday/bench/make-well-bench.mjs (engine bench, no story)."
+}
