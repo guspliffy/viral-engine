@@ -239,7 +239,13 @@ function paintGround(k, T) {
       g.fillStyle = K.cream; g.fillRect(0, 0, W, H);
       for (let i = 0; i < 90; i++) { const x = H2(k, i) * W, y = H2(k + 30, i) * H, r = 0.05 + 0.18 * H2(k + 60, i); const q = g.createRadialGradient(x, y, 0, x, y, r); const c = i % 3 ? "#b9b29c" : "#ece6d4"; q.addColorStop(0, rgba(c, 0.32)); q.addColorStop(1, rgba(c, 0)); g.fillStyle = q; g.fillRect(x - r, y - r, 2 * r, 2 * r); }
       const q = g.createLinearGradient(0, 0, 0, 0.5); q.addColorStop(0, rgba("#8a7f6a", 0.55)); q.addColorStop(1, rgba("#8a7f6a", 0)); g.fillStyle = q; g.fillRect(0, 0, W, 0.5);   // the splash band
-      for (let i = 0; i < 3; i++) { const x = 0.6 + H2(k, i + 80) * 5.2, y = 0.15 + H2(k, i + 90) * 1.3; polyP(g, Array.from({ length: 7 }, (_, j) => [x + (0.07 + 0.05 * H2(i, j + k)) * Math.cos(j / 7 * TAU), y + (0.05 + 0.04 * H2(j, i + k)) * Math.sin(j / 7 * TAU)])); fillP(g, K.wood, 0.004, K.woodS); }   // 3 chips: the timber shows
+      // 3 chips where the timber shows: a jagged 14-point edge, a pale broken rim round it and 3 grain lines inside, so a chip reads as
+      // fallen plaster and not as a dark blob stuck on the wall (Sol r1 #6, the door-9 close-up)
+      for (let i = 0; i < 3; i++) { const x = 0.6 + H2(k, i + 80) * 5.2, y = 0.15 + H2(k, i + 90) * 1.3, rx = 0.08 + 0.05 * H2(i, k + 3), ry = 0.05 + 0.03 * H2(k, i + 4);
+        const edge = Array.from({ length: 14 }, (_, j) => { const f = 0.62 + 0.38 * H2(i + 7, j + k); return [x + rx * f * Math.cos(j / 14 * TAU), y + ry * f * Math.sin(j / 14 * TAU)]; });
+        polyP(g, edge.map(([ex, ey]) => [x + (ex - x) * 1.18, y + (ey - y) * 1.25])); fillP(g, "#f3ecd8", 0, null);
+        polyP(g, edge); fillP(g, cmix(K.wood, K.cream, 0.25), 0.003, K.woodS);
+        for (let l = 0; l < 3; l++) { const yy = y - ry * 0.4 + l * ry * 0.4; lineP(g, [[x - rx * 0.45, yy], [x, yy + 0.006 * (l - 1)], [x + rx * 0.45, yy]], 0.0025, K.woodS); } }
       for (let i = 0; i < 5; i++) { const x = 0.3 + H2(k, i + 100) * 6, y = 0.3 + H2(k, i + 110) * 1.4; g.beginPath(); g.moveTo(x, y); let px = x, py = y; for (let s = 0; s < 6; s++) { px += (H2(i, s + k) - 0.5) * 0.08; py -= 0.05 + 0.06 * H2(s, i + k); g.lineTo(px, py); } g.strokeStyle = rgba("#6f6652", 0.7); g.lineWidth = 0.003; g.stroke(); }
       if (T.scrolls) {   // ochre scrolls round the window (window centre x 1.05, sill 0.55, top 1.45 in this picture)
         const oc = "#c88a3a", od = "#8a5a22";

@@ -38,7 +38,7 @@ const TEAL = [0.92, 0, 0.95], YEL = [1.30, 0, 0.95];
 // the cast at door 4 (DESIGN A marks): the rules by the door, the payoff by the boots (behind them, toward the lane)
 const SPUD0 = [-0.85, 0.90], CHIP0 = [0.30, 1.00];
 const CHIP_POL = [1.10, 1.55];   // polishing, on the apron in front of the boots
-const PILE_IN = [3.18, 0.38];    // inside the hollow (x 2.80..3.60, z 0.05..0.71), lying face down toward +x
+const PILE_IN = [3.32, 0.38];   // all the way in, feet too (Sol r1 #15: the trainers sticking out read as a face and as cut off by the boards)    // inside the hollow (x 2.80..3.60, z 0.05..0.71), lying face down toward +x
 const CHIP_OUT = [2.20, 0.95];   // crawled out of the hollow mouth
 const SPUD_E = [1.25, 0.62], CHIP_E = [2.12, 0.62];   // z 0.62: clear of the snow banked on the plinth   // the payoff: on the apron behind their boots, facing out; the Krampus left, Nick right
 const K4 = [0.07, 0, 1.10], K4ROT = 100, NICK_Y = [2.78, 0, 1.34], NICK_T = [0.80, 0, 1.95], NICK_OFF = [-1.35, 0, 1.6];   // Nick reads the long page from the lane side, then steps off
@@ -67,10 +67,10 @@ const D8 = { id: "b8", kind: "kboot", style: "leather", x: BOOT_AT(8)[0], y: Y(8
 const N_SPUD0 = noteAt("spud", TEAL_B), N_CHIP0 = noteAt("chip", YEL_B, 0.867, 0.26);
 // after the swap: the teal drawing (Spud's) on the yellow boot, the yellow drawing (Chip's) on the teal boot
 const N_SPUD1 = noteAt("spud", YEL_B, 0.867, 0.26), N_CHIP1 = noteAt("chip", TEAL_B);
-const BOOK = { id: "book", kind: "goldenbook", x: 0, y: AWAY, z: 0, rot: 0, rollDir: [0.15, 1], apron: [0.96, 0.16] };
+const BOOK = { id: "book", kind: "goldenbook", x: 0, y: AWAY, z: 0, rot: 0, rollDir: [1, 0.08], apron: [6, 0.16], drop0: 0.10 };   // the roll runs along door 4's apron past the boots (toward the lane it went under the snow bank, Sol r1 #24)
 const props = [
   { id: "lane", kind: "krampuslane", x: 0, y: 0, z: 0, shakeAt: 5 },
-  { id: "kr", kind: "krampus", x: KR_AT(9)[0], y: Y(9), z: KR_AT(9)[2], rot: 270, mirror: true },
+  { id: "kr", kind: "krampus", x: KR_AT(9)[0], y: Y(9), z: KR_AT(9)[2], rot: 270, mirror: true, jamAt: [0, 0.34, 0.85] },   // the sticks go in dead ahead (the default 0.15 to the side missed the cuff, Sol r1 #12)
   { id: "shadow", kind: "krampusshadow", x: X(9), y: Y(9), z: 0.16, rot: 0 },
   TEAL_B, YEL_B, D9, D8,
   { id: "nt", kind: "bootnote", who: "spud", ...N_SPUD0, staged: "pinned on a peg at the boot's top (DESIGN E)" },
@@ -82,7 +82,7 @@ const props = [
 
 // ---------------------------------------------------------------- helpers
 const SUB = 300;   // captions in the upper third: balconies, eaves and sky behind them
-const CAPTEXT = { 2: "Who are *THEY?!*", 4: "Bad kids get *him.* Krampus.", 6: "My boot is *dirty.* Is that bad?!", 9: "He doesn't check the boot. He checks the *book.*",
+const CAPTEXT = { 2: "Who are *THEY?!*", 4: "Bad kids get *him.* Krampus.", 6: "My boot is *dirty.* Is that bad?!", 9: "Oh. He doesn't check the boot. He checks the *book.*",
   11: "The *fries.*", 12: "That was *ONE* time!", 13: "Every *Tuesday.*", 16: "He can *SMELL* me?", 17: "His name comes from *claw.*", 21: "I'm a *good* kid!",
   22: "...That's not *my* picture.", 23: "It is *now.*" };
 const CAPS = [];
@@ -151,7 +151,7 @@ turn(0, "chip", -40, 0.01); turn(0, "spud", 30, 0.01);
 look(0, "chip", [-0.6, 0.1], 0.01); look(0, "spud", [-0.6, 0], 0.01);
 // Nick holds the book open at his chest the whole film (grips.box: both palms on its edges)
 const BROT = (yaw) => grips.placeFor("goldenbook", [0, 0, 0], yaw).rot;
-const BOOK_AT = (C, yaw, y = 0, h = 0.22) => { const a = yaw * D2R; return [r3(C[0] + Math.sin(a) * 0.36), r3(y + h), r3(C[1] + Math.cos(a) * 0.36)]; };
+const BOOK_AT = (C, yaw, y = 0, h = 0.22) => { const a = yaw * D2R; return [r3(C[0] + Math.sin(a) * 0.44), r3(y + h), r3(C[1] + Math.cos(a) * 0.44)]; };   // 0.44: clear of his beard (Sol r1 #8)
 const B0 = { ...BOOK, ...grips.placeFor("goldenbook", BOOK_AT([NICK_AT(9)[0], NICK_AT(9)[2]], 80, Y(9)), 80) };
 P(0, "book", { x: B0.x, y: B0.y, z: B0.z, rot: B0.rot }, 0);
 const gBook = grips.box(c, "nick", B0);
@@ -187,7 +187,8 @@ const D9T = r3(SH + 0.85);
 P(D9T - 0.3, "book", { glow: 1 }, 0.3); P(D9T - 0.2, "book", { page: Math.round(pageNow += 1) }, 0.27);
 A(D9T + 0.15, "nick", "turn", { to: 65, dur: 0.18 }); A(D9T + 0.33, "nick", "turn", { to: 95, dur: 0.18 }); A(D9T + 0.51, "nick", "turn", { to: 80, dur: 0.16 });
 bells(D9T + 0.1, 0.4, 2);
-P(D9T + 0.2, "kr", { scarfOut: 1 }, 0.4); P(D9T, "kr", { headYaw: -0.3 }, 0.3);
+P(D9T - 0.02, "shadow", { grow: 0, sway: 0 }, 0);   // its fist read as a dark blob on the wall in the kid shot (Sol r1 #6)
+P(D9T, "kr", { headYaw: -0.3 }, 0.3);
 const KID9 = r3(D9T + 0.6);
 P(KID9 - 0.02, "kr", { hold: 1, lid: 0 }, 0);   // the kid held out in front of him for the plea   // the cut to the close two-shot: the kid in his claw, the basket behind
 // KID (held up by the scruff): I was gonna be good tomorr-  (stuffed in, the lid thumps shut on it)
@@ -196,7 +197,8 @@ c.macro(T[0], "kv", "say", { line: LINES[0][1], tone: LINES[0][2], ...LINES[0][4
 for (let k = 0; k < 6; k++) { P(T[0] + k * 0.28, "kr", { kidTalk: 1 }, 0.07); P(T[0] + 0.14 + k * 0.28, "kr", { kidTalk: 0.2 }, 0.07); }
 const LID9 = r3(END_OF(0) - 0.05);
 P(LID9 - 0.95, "kr", { hold: 0 }, 0.35, "inOut"); P(LID9 - 0.75, "kr", { lid: 1, headYaw: 0.2 }, 0.2); P(LID9 - 0.55, "kr", { stow: 1 }, 0.45, "inOut");   // over the shoulder, in
-P(LID9 - 0.15, "kr", { kidPeek: 0 }, 0.12, "in"); P(LID9, "kr", { lid: 0 }, 0.08, "in"); P(LID9 + 0.1, "kr", { kidKick: 1 }, 0.25);
+P(LID9 - 0.15, "kr", { kidPeek: 0 }, 0.12, "in"); P(LID9, "kr", { lid: 0 }, 0.08, "in"); P(LID9 + 0.08, "kr", { scarfOut: 1 }, 0);
+P(LID9 + 0.12, "kr", { lid: 0.3 }, 0.1); P(LID9 + 0.15, "kr", { kidKick: 1 }, 0.25);   // the legs kick the lid up (Sol r1 #11: they went through it)
 sfx(LID9 - 0.5, "cloth", { gain: 0.4 });
 sfx(LID9 + 0.06, "thud-soft", { gain: 0.7 }); sfx(LID9 + 0.08, "kenney/impact-wood-light", { gain: 0.4 });
 see(D9T, KID9, ["kr", "nick", "book"], "Saint Nick reads a glowing golden book and shakes his head; the horned Krampus holds a small kid up by the scruff");
@@ -228,17 +230,19 @@ see(PAGE1, r3(PAGE1 + 1.8), ["nick", "book"], "the old bishop turns a page of th
 // SPUD: Bad kids get him. Krampus.  (the tongue unrolls; birch sticks in his fist)
 L(4, 0.15);
 const TONGUE = r3(T[4] + 0.5);
-P(TONGUE, "kr", { tongue: 1, jaw: 0.6 }, 0.6, "out"); P(TONGUE, "kr", { glow: 1, headPitch: 0.15 }, 0.4);
+P(r3(T[4] - 0.07), "kr", { tongue: 0.12 }, 0); P(TONGUE, "kr", { jaw: 0.7, lids: 0 }, 0.4, "out");   // a snarl, the tongue just over the lip: hanging it ran behind his chin fur (Sol r1 #9)
+P(TONGUE, "kr", { glow: 1, headPitch: 0.15 }, 0.4);
 sfx(TONGUE, "ai/bear-huff", { gain: 0.5 });
 say(4);
-P(END_OF(4) + 0.2, "kr", { tongue: 0.35, jaw: 0 }, 0.4);
-see(TONGUE, END_OF(4), ["kr"], "the Krampus: carved wooden face, curled horns, a long red tongue rolls out, birch sticks in his fist");
+P(END_OF(4) + 0.2, "kr", { jaw: 0, lids: 0.3, tongue: 0.35 }, 0.4);
+see(TONGUE, END_OF(4), ["kr"], "the Krampus: carved wooden face, curled horns, he bares his fangs, birch sticks in his fist");
 // CHIP: And really bad kids?  (Spud only looks at the basket: the legs kick inside, the lid thumps)
 L(5, 0.2);
 expr(T[5], "chip", "worried"); look(T[5], "chip", [0.2, 0.1]);
 say(5);
 const BASKET = r3(END_OF(5) + 0.1);
-P(BASKET, "kr", { kidKick: 1 }, 0.25); P(BASKET + 0.5, "kr", { kidKick: 0 }, 0.25); P(BASKET + 0.75, "kr", { kidKick: 1 }, 0.2);
+P(BASKET - 0.05, "kr", { lid: 0.3 }, 0.12); P(BASKET, "kr", { kidKick: 1 }, 0.25); P(BASKET + 0.5, "kr", { kidKick: 0 }, 0.25); P(BASKET + 0.75, "kr", { kidKick: 1 }, 0.2);
+P(BASKET + 1.15, "kr", { kidKick: 0 }, 0.2); P(BASKET + 1.3, "kr", { lid: 0 }, 0.1);
 sfx(BASKET + 0.2, "thud-soft", { gain: 0.4 }); sfx(BASKET + 0.85, "thud-soft", { gain: 0.35 });
 look(BASKET, "spud", [-0.7, 0.3], 0.3); expr(BASKET + 0.3, "chip", "terrified");
 see(BASKET, r3(BASKET + 1.2), ["kr"], "his wicker basket: the lid shut, two small legs kick out of it");
@@ -304,8 +308,8 @@ arm(END_OF(12) + 0.1, "chip", "L", "rest", 0.3); grip(END_OF(12) + 0.1, "chip", 
 L(13, 0.12); expr(T[13], "spud", "deadpan"); say(13);
 // the boot goes back on the step (off camera, at the next cut), the drawing back on it
 const HIDE0 = r3(END_OF(13) + 0.25);
-gBoot.release(HIDE0 - 0.05, { rest: "rest" });
-P(HIDE0 - 0.02, "by", { x: YEL_B.x, y: 0, z: YEL_B.z, rot: YEL_B.rot, droop: 0 }, 0);
+gBoot.release(r3(FL(HIDE0) - 0.01), { rest: "rest", to: [YEL_B.x, 0, YEL_B.z] });   // a plain let-go left it to the physics bake where his hand was (Sol r1 #22: the yellow boot was gone)
+P(HIDE0 - 0.02, "by", { rot: YEL_B.rot, droop: 0 }, 0);
 P(HIDE0 - 0.02, "ny", { ...N_CHIP0 }, 0);
 
 // ================================================================= 30.5-44 HIDE AND SNIFF (false close 2): doors 7 -> 6
@@ -318,11 +322,11 @@ expr(T[14], "chip", "eager"); look(T[14], "chip", [0.8, -0.1]);
 say(14);
 const RUN0 = r3(T[14] + 0.35), DIVE = r3(RUN0 + 0.55);
 A(RUN0, "chip", "move", { to: [2.40, 0.42], dur: 0.55, ease: "in" });
-A(DIVE, "chip", "pitch", { to: 88, dur: 0.18, ease: "in" }); A(DIVE, "chip", "move", { to: PILE_IN, dur: 0.3, ease: "out", y: 0.12 });
+A(DIVE, "chip", "pitch", { to: 88, dur: 0.18, ease: "in" }); A(DIVE, "chip", "move", { to: PILE_IN, dur: 0.45, ease: "inOut", y: 0.12 });   // a dive you can follow (Sol r1 #14: 0.3 s read as a vanish)
 sfx(DIVE + 0.25, "hit-wood", { gain: 0.5 }); sfx(DIVE + 0.3, "kenney/impact-wood-light", { gain: 0.4 });
 look(RUN0, "spud", [0.8, -0.2], 0.3);
-see(RUN0, r3(DIVE + 0.6), ["chip", "lane"], "he dives head first into the woodpile; only his white trainers stick out");
-// SPUD: The bells aren't decoration. They're so you hear him coming.  (unimpressed, at the trainers)
+see(RUN0, r3(DIVE + 0.6), ["chip", "lane"], "he dives head first into the woodpile and pulls his feet in");
+// SPUD: The bells aren't decoration. They're so you hear him coming.  (unimpressed, at the woodpile)
 L(15, DIVE + 0.55 - now);
 expr(T[15], "spud", "deadpan"); look(T[15], "spud", [0.7, -0.4]);
 say(15);
@@ -339,7 +343,7 @@ see(SNIFF, r3(SNIFF + 2.4), ["kr"], "up the lane the Krampus stops in the fallin
 // the cat bolts out of the pile past his hooves; he watches it go and moves on
 const CAT = r3(SNIFF + 2.5);
 const CAT_A = [r3(KR_AT(6)[0] + 1.3), Y(6), r3(KR_AT(6)[2] + 0.45)], CAT_B = [r3(KR_AT(6)[0] - 1.5), Y(6), r3(KR_AT(6)[2] + 0.7)];
-P(CAT - 0.02, "cat", { x: CAT_A[0], y: CAT_A[1], z: CAT_A[2], rot: 265, run: 1, streak: 1, ears: -1, show: 1 }, 0);
+P(CAT - 0.02, "cat", { x: CAT_A[0], y: CAT_A[1], z: CAT_A[2], rot: 265, run: 1, streak: 0.3, ears: -1, show: 1 }, 0);   // full streak read as a stretched cat sliding (Sol r1 #16)
 P(CAT, "cat", { x: CAT_B[0], z: CAT_B[2] }, 1.1, "linear");
 P(CAT + 0.1, "kr", { headYaw: -0.4 }, 0.5); sfx(CAT + 0.05, "kenney/footstep-snow", { gain: 0.3 }); sfx(CAT + 0.3, "kenney/footstep-snow", { gain: 0.25 });
 P(CAT + 1.15, "cat", { y: AWAY, show: 0 }, 0);
@@ -350,7 +354,7 @@ A(OUT - 0.05, "chip", "pitch", { to: 0, dur: 0.01 }); place(OUT, "chip", CHIP_OU
 A(OUT - 0.02, "chip", "crouch", { to: 0.5, dur: 0.01 }); A(OUT + 0.1, "chip", "crouch", { to: 0, dur: 0.4 });
 expr(OUT, "chip", "terrified", 0.01); look(OUT, "chip", [-0.8, 0.1], 0.01); place(OUT, "spud", [1.30, 1.35], 100);
 L(16, OUT + 0.25 - now); say(16);
-L(17, 0.15); expr(T[17], "spud", "kind"); look(T[17], "spud", [-0.3, -0.25]);
+L(17, 0.15); expr(T[17], "spud", "kind"); look(T[17], "spud", [-0.3, -0.25]); turn(T[17] - 0.2, "spud", 75, 0.3);
 arm(T[17] + 0.1, "spud", "R", { o: [0.18, 0.5, 0.2] }, 0.25, "out"); grip(T[17] + 0.1, "spud", "R", "claw");
 say(17);
 arm(END_OF(17) + 0.1, "spud", "R", "rest", 0.3); grip(END_OF(17) + 0.1, "spud", "R", "relaxed");
@@ -381,15 +385,22 @@ expr(T[20], "chip", "smug"); look(T[20], "chip", [0, -0.6]);
 say(20);
 // the swap (close): his hands go to the pegs, the two drawings cross over
 const SWAP = r3(END_OF(20) + 0.2), SWD = 0.7;
+place(SWAP, "chip", [1.10, 0.76], 0);   // the insert: between the two boots, both pegs in reach (Sol r1 #20: from 0.6 his hands never got to them)
 arm(SWAP - 0.2, "chip", "R", { world: [N_SPUD0.x, r3(N_SPUD0.y + 0.03), N_SPUD0.z] }, 0.2, "out");
 arm(SWAP - 0.2, "chip", "L", { world: [N_CHIP0.x, r3(N_CHIP0.y + 0.03), N_CHIP0.z] }, 0.2, "out");
 grip(SWAP, "chip", "R", "pinch"); grip(SWAP, "chip", "L", "pinch");
-P(SWAP, "nt", { x: N_SPUD1.x, y: r3(N_SPUD1.y + 0.04), z: N_SPUD1.z, rot: N_SPUD1.rot }, SWD, "inOut");
-P(SWAP, "ny", { x: N_CHIP1.x, y: r3(N_CHIP1.y + 0.04), z: N_CHIP1.z, rot: N_CHIP1.rot }, SWD, "inOut");
+// the hands take the drawings by their pegs (keep: each moves with its hand from where it hangs) and set them on the
+// other boot; the teal one passes 6 cm in front (Sol r1 #20: the drawings flew between the hands, #21: through each other)
+const SH1 = r3(SWD / 2), mid = (A, B, dz) => ({ x: r3((A.x + B.x) / 2), y: r3(Math.max(A.y, B.y) + 0.02), z: r3((A.z + B.z) / 2 + dz) });
+for (const [id, side, A0, dz, B] of [["nt", "R", N_SPUD0, 0.06, N_SPUD1], ["ny", "L", N_CHIP0, -0.06, N_CHIP1]]) {
+  const M = mid(A0, B, dz);
+  A(r3(SWAP - 0.01), "chip", "grab", { prop: id, hand: side, keep: true, dur: 0 });
+  arm(SWAP, "chip", side, { world: [M.x, r3(M.y + 0.03), M.z] }, SH1, "in"); arm(r3(SWAP + SH1), "chip", side, { world: [B.x, r3(B.y + 0.03), B.z] }, SH1, "out");
+  A(r3(SWAP + SWD), "chip", "release", { prop: id, to: [B.x, B.y, B.z], dur: 0.06 });
+  P(r3(SWAP + SWD), id, { x: B.x, y: B.y, z: B.z, rot: B.rot }, 0);
+}
 P(SWAP + SWD, "nt", { y: N_SPUD1.y, swing: 1 }, 0.1); P(SWAP + SWD, "ny", { y: N_CHIP1.y, swing: 1 }, 0.1);
 P(SWAP + SWD + 0.1, "nt", { swing: 0, kink: 1 }, 0.5); P(SWAP + SWD + 0.1, "ny", { swing: 0 }, 0.5);
-arm(SWAP + 0.05, "chip", "R", { world: [N_CHIP1.x, r3(N_CHIP1.y + 0.03), N_CHIP1.z] }, SWD - 0.05, "inOut");
-arm(SWAP + 0.05, "chip", "L", { world: [N_SPUD1.x, r3(N_SPUD1.y + 0.03), N_SPUD1.z] }, SWD - 0.05, "inOut");
 sfx(SWAP + 0.1, "cloth", { gain: 0.3 }); sfx(SWAP + SWD, "kenney/impact-wood-light", { gain: 0.2 });
 arm(SWAP + SWD + 0.15, "chip", "R", "rest", 0.3); arm(SWAP + SWD + 0.15, "chip", "L", "rest", 0.3);
 grip(SWAP + SWD + 0.15, "chip", "R", "relaxed"); grip(SWAP + SWD + 0.15, "chip", "L", "relaxed");
@@ -409,11 +420,11 @@ A(D4 + 0.05, "nick", "kneel", { dur: 0.5 });
 P(D4, "book", { spread: "good", page: Math.round(pageNow += 1), glow: 1 }, 0.27);
 expr(D4 + 0.6, "nick", "happy", 0.3); sfx(D4 + 0.5, "cloth", { gain: 0.3 });
 see(D4, r3(D4 + 1.2), ["nick", "book", "by", "nt"], "Saint Nick kneels at the yellow boot (it now wears the teal drawing), reads a short glowing page and smiles");
-const POUR = r3(D4 + 1.3);
+const POUR = r3(D4 + 0.9);
 P(POUR, "by", { treats: 1 }, 1.1, "linear");
 for (let k = 0; k < 5; k++) sfx(r3(POUR + k * 0.22), "coins", { gain: 0.35 });
 // CHIP: I'm a good kid!
-L(21, POUR + 0.6 - now);
+L(21, POUR + 0.9 - now);   // the pour plays in the shot before he speaks (Sol r1 #23)
 expr(T[21] - 0.1, "chip", "delighted"); A(T[21], "chip", "hop", { height: 0.1, dur: 0.35, quiet: true });
 say(21);
 see(POUR, END_OF(21), ["by", "chip"], "chocolate coins, mandarins and walnuts pour into the yellow boot; the little one beams");
@@ -426,11 +437,13 @@ gBook.carry(r3(FL(LONG) - 0.005), BOOK_AT([NICK_T[0], NICK_T[2]], 160, 0, 0.15),
 P(LONG + 0.1, "lane", { tense: 0.8 }, 0.6);
 P(LONG + 0.15, "book", { spread: "long", page: Math.round(pageNow += 1), glow: 0.3 }, 0.27);
 expr(LONG + 0.15, "nick", "stern", 0.2);
-const ROLL = r3(LONG + 0.5);
-P(ROLL, "book", { run: 1 }, 3.0, "out");
+const ROLL = r3(LONG + 0.5), ROLL_S = r3(ROLL + 0.9), SHAKE = r3(ROLL + 2.25);   // the roll gets its own shot from the lane (Sol r1 #24)
+P(r3(FL(LONG) - 0.02), "kr", { x: -0.45 }, 0); P(r3(FL(ROLL + 3.1) - 0.02), "kr", { x: K4[0] }, 0);   // out of the door shot while Nick reads (Sol r1 #25: his fur over the mitre)
+P(ROLL, "book", { run: 1 }, 2.2, "out");
+P(r3(SHAKE + 0.3), "book", { run: 0 }, 0.45, "in"); sfx(r3(SHAKE + 0.3), "cloth", { gain: 0.3 });   // he winds it back up before he steps off
 sfx(ROLL + 0.1, "cloth", { gain: 0.35 }); sfx(ROLL + 1.2, "cloth", { gain: 0.3 }); sfx(ROLL + 2.3, "cloth", { gain: 0.25 });
 look(ROLL, "chip", [-0.5, -0.4], 0.3); expr(ROLL + 0.8, "chip", "worried");
-A(ROLL + 2.4, "nick", "turn", { to: 140, dur: 0.18 }); A(ROLL + 2.58, "nick", "turn", { to: 180, dur: 0.18 }); A(ROLL + 2.76, "nick", "turn", { to: 160, dur: 0.16 });   // a head-shake around his reading yaw (160)
+A(SHAKE + 0.05, "nick", "turn", { to: 140, dur: 0.18 }); A(SHAKE + 0.23, "nick", "turn", { to: 180, dur: 0.18 }); A(SHAKE + 0.41, "nick", "turn", { to: 160, dur: 0.16 });   // a head-shake around his reading yaw (160)
 see(ROLL, r3(ROLL + 3.0), ["nick", "book"], "at the teal boot the page goes on and on: a long roll of fries pictures runs across the snow; he shakes his head");
 // the Krampus jams the sticks into the teal boot; the bells turn to Spud; the basket lid creaks open toward him
 const JAM4 = r3(ROLL + 3.1);
@@ -454,10 +467,6 @@ say(23, {}, r3(END_OF(23) + 0.3));
 const END = F(END_OF(23) + 0.35);   // end on the punchline (Jonny 20 Nov), no tail
 for (let t = 0; t < END - 1; t += 5.8) sfx(r3(t), "ai/storm-wind", { gain: 0.05 });
 
-for (const [i, capTo] of CAPS) {
-  const nxt = T.slice(i + 1).find((x) => x != null), to = r3(Math.min(END_OF(i) + 0.3, (nxt ?? END + 0.2) - 0.2));
-  cap(T[i], capTo ?? to, CAPTEXT[i] ?? LINES[i][1], SUB, false, { size: 64 });
-}
 
 // ================================================================= cameras: every shot moves; a new framing on every line
 const mv = (s, to, dur, ease = "inOut") => ({ ...s, to: { pos: to.pos ?? s.pos, look: to.look ?? s.look, fov: to.fov ?? s.fov }, dur, ease });
@@ -484,24 +493,25 @@ const POL_TWO = fr([0.65, 0.55, 1.3], { az: 8, el: 5, h: 2.1, fov: 40, lift: 0.0
 const D8_S = fr([X(8) + 0.15, Y(8) + 1.0, 1.1], { az: 10, el: 6, h: 3.8, fov: 42 });
 // hide, door 6
 const HIDE_S = fr([2.0, 0.5, 0.95], { az: 35, el: 6, h: 2.0, fov: 44, lift: 0.06 });
-const PILE_S = fr([2.8, 0.3, 0.75], { az: -30, el: 18, h: 2.4, fov: 44 });   // from the lane: his legs in profile out of the hollow (end-on, the soles read as eyes)
+const PILE_S = fr([3.1, 0.45, 0.5], { az: -25, el: 10, h: 2.0, fov: 44 });   // from the lane: his legs in profile out of the hollow (end-on, the soles read as eyes)
 const SNIFF_S = fr([KR_AT(6)[0], Y(6) + 1.6, KR_AT(6)[2]], { az: -35, el: 3, h: 2.2, fov: 38 });
 const CAT_S = fr([KR_AT(6)[0] - 0.1, Y(6) + 0.45, KR_AT(6)[2] + 0.55], { az: 8, el: 10, h: 2.2, fov: 44 });
 const OUT_S = fr([CHIP_OUT[0] - 0.3, 0.45, CHIP_OUT[1] + 0.15], { az: -15, el: 4, h: 1.7, fov: 40, lift: 0.06 });
 // next door
 const NEXT_S = { pos: [1.7, 1.2, 2.7], look: [-5.6, 1.6, 1.0], fov: 44 };   // over their shoulders, up the lane to door 5
 const RUN_S = { pos: [400.4, 1.15, 7.8], look: [400, 1.35, -4], fov: 46 };   // the bench's panel-19 framing
-const SWAP_S = fr([0.38, 0.55, 0.9], { az: 8, el: 6, h: 2.5, fov: 42 });
-const NOTES_CL = fr([1.12, 0.31, 1.08], { az: 0, el: 12, h: 0.55, fov: 34 });
+const SWAP_S = fr([0.50, 0.55, 0.9], { az: 8, el: 6, h: 2.6, fov: 44 });
+const NOTES_CL = fr([1.12, 0.22, 1.05], { az: 0, el: 35, h: 1.1, fov: 36 });   // from above: the hands on the pegs, his face above (Sol r1 #20)
 // the payoff
-const POUR_S = fr([1.7, 0.5, 0.95], { az: -40, el: 8, h: 1.9, fov: 40 });
+const POUR_S = fr([1.5, 0.42, 0.95], { az: -40, el: 12, h: 1.9, fov: 40 });
 const CHIP_E_CL = CHIP_CL(CHIP_E, -20);
-const LONG_S = { pos: [0.45, 1.1, 0.22], look: [0.88, 0.6, 2.1], fov: 56 };   // reverse from the door (he faces the house, a camera in front of him stands in the door); the book is held low   // 3/4 front from up the lane: his face over the book, the roll on the snow
+const LONG_S = { pos: [0.45, 1.1, 0.22], look: [0.88, 0.6, 2.1], fov: 56 };
+const ROLL_CAM = fr([1.6, 0.25, 1.65], { az: 75, el: 28, h: 2.8, fov: 46 });   // from the lane, high: the roll runs over the step toward us, Nick and the book at the top   // reverse from the door (he faces the house, a camera in front of him stands in the door); the book is held low   // 3/4 front from up the lane: his face over the book, the roll on the snow
 const JAM_S = fr([0.5, 0.95, 0.85], { az: 5, el: 6, h: 2.7, fov: 40 });
 const SPUD_E_CL = SPUD_CL(SPUD_E, 0);
-const LAST = fr([1.2, 0.5, 0.75], { az: 0, el: 6, h: 1.7, fov: 40, lift: 0.04 });
+const LAST = fr([1.80, 0.5, 0.75], { az: 0, el: 6, h: 2.0, fov: 40, lift: 0.04 });   // Chip speaks: he is in the middle (Sol r1 #26)
 
-const beats = c.beats([
+const SHOTS = [
   ["the village", 0, mv(VILLAGE, { pos: [2.5, 3.2, 6.2], look: [-30, 3.7, 0.6] }, KR_CUT), "hook"],
   ["krampus face", KR_CUT, push(KR9_FACE, 0.1, SH - KR_CUT)],
   ["boot and shadow", SH, push(O_BOOT, 0.12, D9T - SH)],
@@ -528,7 +538,7 @@ const beats = c.beats([
   ["he sniffs", SNIFF, push(SNIFF_S, 0.1, CAT - SNIFF)],
   ["the cat", CAT, drift(CAT_S, -0.4, OUT - CAT)],
   ["smell me", OUT, push(OUT_S, 0.08, T[17] - OUT)],
-  ["claw", r3(T[17] - 0.05), push(SPUD_CL([1.30, 1.35], 30), 0.06, NEXT5 - T[17] + 0.05)],
+  ["claw", r3(T[17] - 0.05), push(SPUD_CL([1.30, 1.35], 55), 0.06, NEXT5 - T[17] + 0.05)],
   ["next door", NEXT5, push(NEXT_S, 0.08, T[19] - NEXT5)],
   ["the alps", r3(T[19] - 0.05), push(SPUD_CL([-0.15, 1.20], -30), 0.06, RUN_SQ - T[19] + 0.05)],
   ["krampus run", RUN_SQ, mv(RUN_S, { pos: [400.2, 1.1, 7.2] }, SWAP0 - RUN_SQ)],
@@ -536,11 +546,21 @@ const beats = c.beats([
   ["the swap", SWAP, push(NOTES_CL, 0.1, D4 - SWAP), "insert"],
   ["good page", D4, push(POUR_S, 0.08, T[21] - D4 - 0.05)],
   ["good kid", r3(T[21] - 0.05), push(CHIP_E_CL, 0.06, LONG - T[21] + 0.05)],
-  ["the long page", LONG, mv(LONG_S, { pos: [LONG_S.pos[0] + 0.4, LONG_S.pos[1], LONG_S.pos[2] + 0.2] }, JAM4 - LONG), "escalation"],
+  ["the long page", LONG, push(LONG_S, 0.06, ROLL_S - LONG), "escalation"],
+  ["the roll", ROLL_S, mv(ROLL_CAM, { pos: [ROLL_CAM.pos[0], ROLL_CAM.pos[1], r3(ROLL_CAM.pos[2] + 0.6)] }, SHAKE - ROLL_S)],
+  ["he shakes his head", SHAKE, push(LONG_S, 0.1, JAM4 - SHAKE)],
   ["sticks for spud", JAM4, push(JAM_S, 0.08, T[22] - JAM4 - 0.05)],
   ["not my picture", r3(T[22] - 0.05), push(SPUD_E_CL, 0.08, T[23] - T[22])],
   ["it is now", r3(T[23] - 0.1), push(LAST, 0.08, END - T[23] + 0.1), "payoff"],
-], END);
+];
+// line captions; a line still being spoken over a cut keeps its caption across it (Sol r1 #7, #18: the rest of the line had none)
+const CUTS = SHOTS.slice(1).map((s) => s[1]);
+for (const [i, capTo] of CAPS) {
+  const nxt = T.slice(i + 1).find((x) => x != null), to = r3(Math.min(END_OF(i) + 0.3, (nxt ?? END + 0.2) - 0.2));
+  const across = CUTS.some((t) => t > T[i] + 0.3 && t < END_OF(i) - 0.3);
+  cap(T[i], capTo ?? to, CAPTEXT[i] ?? LINES[i][1], SUB, false, { size: 64, ...(across && { across: true }), ...(i === 5 && { kinetic: false }) });   // line 5: its word timing put "bad kids?" before "And really" (Sol r1 #10)
+}
+const beats = c.beats(SHOTS, END);
 
 // the light per act (DESIGN 7): a keyed grade on the finished picture
 const grade = [

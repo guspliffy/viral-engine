@@ -230,7 +230,7 @@ function solve(ps, spec = {}, t = 0) {
       const up = chestPt([s * 0.30, 2.40, -0.40]);
       const k = sstep((stow - 0.4) / 0.6);
       target = up.clone().lerp(hang, k); grip = 1 - sstep((stow - 0.2) / 0.15);
-      if (stow < 0.4) { target = up.clone().lerp(chestPt([s * 0.18, 1.85, 0.66]), sstep(hold)); }   // hold 1: the kid held out in front first
+      if (stow < 0.4) { target = up.clone().lerp(chestPt([s * 0.18, 1.80, 0.62]), sstep(hold)); }   // hold 1: the kid held out in front first
     }
     const pole = work ? [s * 0.4, -0.2, -1] : [s * 0.5, -0.3, -1];
     const k = ik3(arr(shoulder), arr(target), ARM.L1 * 1.04, ARM.L2 * 1.04, pole);
@@ -808,11 +808,11 @@ export const KRAMPUS_BEAST_KINDS = {
       const eggSecs = [[0.09, 0.07, 0.065], [0.12, 0.12, 0.105], [0.18, 0.15, 0.135], [0.26, 0.15, 0.135], [0.34, 0.125, 0.115], [0.40, 0.07, 0.07], [0.43, 0.02, 0.02]].map(([y, w, d]) => mkSec([0, y, 0], w, d, d, 2.2)), eg = makeLoft(eggSecs, { sub: 3, radial: 24, ref: [0, 0, 1] }); eg.userData.set(eggSecs); mesh(eg, skin, kidG);
       const leaf = mesh(sph(), S.m("#6aa84a", { roughness: 0.6 }), kidG, 0, 0.435, 0.012); leaf.scale.set(0.014, 0.004, 0.032); leaf.rotation.x = 0.35;
       const eyesK = [1, -1].map((s) => { const o = mesh(sph(), dark, kidG, s * 0.055, 0.30, 0.125); o.scale.set(0.015, 0.02, 0.007); const h = mesh(sph(), catchM, kidG, s * 0.055 - 0.003, 0.308, 0.131); h.scale.setScalar(0.0045); h.userData.noOutline = true; const b = mesh(new THREE.TorusGeometry(0.022, 0.0017, 5, 12, Math.PI * 0.8), dark, kidG, s * 0.055, 0.328, 0.122); b.rotation.z = Math.PI * 0.1; return o; });
-      const mouth = mesh(sph(), S.m("#5a1a22", { roughness: 0.6 }), kidG, 0, 0.262, 0.133); mouth.scale.set(0.02, 0.002, 0.004);
+      const mouth = mesh(sph(), S.m("#5a1a22", { roughness: 0.6 }), kidG, 0, 0.27, 0.131); mouth.scale.set(0.02, 0.002, 0.004);
       const legsK = [1, -1].map((s) => { const lg = new THREE.Group(); lg.position.set(s * 0.06, 0.09, 0); kidG.add(lg); const sh = mesh(unitCyl(), s < 0 ? suede : sockM, lg); sh.scale.set(s < 0 ? 0.034 : 0.027, -0.09, s < 0 ? 0.034 : 0.027); sh.position.y = 0;
         const ft = mesh(sph(), s < 0 ? suede : sockM, lg, 0, -0.082, 0.026); ft.scale.set(s < 0 ? 0.036 : 0.03, 0.022, 0.056);
         if (s < 0) { const cuff = mesh(new THREE.TorusGeometry(0.034, 0.012, 7, 16), fleece, lg, 0, -0.012, 0); cuff.rotation.x = Math.PI / 2; } return lg; });
-      const sc = [0, 1].map((k) => { const t = mesh(new THREE.TorusGeometry(0.146 + 0.003 * k, 0.026, 8, 28), scarfM, kidG, 0, 0.215 - 0.036 * k, 0.0); t.rotation.x = Math.PI / 2; t.scale.set(1.0, 0.92, 1); { const uv = t.geometry.attributes.uv; if (!t.geometry.userData.s) { for (let i = 0; i < uv.count; i++) uv.setX(i, uv.getX(i) * 11); t.geometry.userData.s = 1; } } return t; });
+      const sc = [0, 1].map((k) => { const t = mesh(new THREE.TorusGeometry(0.146 + 0.003 * k, 0.026, 8, 28), scarfM, kidG, 0, 0.203 - 0.036 * k, 0.0); t.rotation.x = Math.PI / 2; t.scale.set(1.0, 0.92, 1); { const uv = t.geometry.attributes.uv; if (!t.geometry.userData.s) { for (let i = 0; i < uv.count; i++) uv.setX(i, uv.getX(i) * 11); t.geometry.userData.s = 1; } } return t; });
       const mkEnd = (par) => { const g = new THREE.Group(); par.add(g); const band = mesh(new THREE.PlaneGeometry(0.06, 0.16, 1, 6), scarfM, g); band.position.y = -0.08; { const uv = band.geometry.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setX(i, uv.getY(i) * 8); } band.castShadow = false;
         for (let t = 0; t < 7; t++) { const tl = mesh(taperTube([[0, 0, 0], [0, -0.014, 0.001], [0, -0.028, 0]], 0.0042, 0.002, 5, 3, 1), creamM, g, -0.0275 + t * 0.0092, -0.16, 0); tl.castShadow = false; }   // 7 cream tassels
         return g; };
@@ -899,7 +899,7 @@ export const KRAMPUS_BEAST_KINDS = {
         // ---- the tongue: hangs plumb from the mouth (0 inside, 0.35 the loll of 0.28 m, 1 unrolled to 0.72 m), a lick stretches it up and forward, round a flake, and snaps back
         { const tg = g("tongue", 0.35), tl = tg <= 0 ? 0 : tg <= 0.35 ? 0.28 * (tg / 0.35) : 0.28 + 0.44 * ((tg - 0.35) / 0.65), lk = g("lick"), lp = lk - Math.floor(lk), lickOn = lp > 1e-4 && lp < 1 - 1e-4;
           tongueMesh.visible = tg > 0.02 || lickOn; const R = Z.jawPlace(TR0), fwd = V3([0, 0, 1]).applyQuaternion(Z.headQ), fh = V3([fwd.x, 0, fwd.z]).normalize();
-          const hang = [R.clone()]; { let pcur = R.clone(), sacc = 0; const ds = tl / (TN - 1); for (let i = 1; i < TN; i++) { sacc += ds; const kk = sstep(sacc / 0.11), dir = fwd.clone().multiplyScalar(0.9 * (1 - kk)).add(V3([0, -(0.25 + 0.75 * kk), 0])).normalize(); pcur = pcur.clone().addScaledVector(dir, ds); hang.push(pcur); } }
+          const hang = [R.clone()]; { let pcur = R.clone(), sacc = 0; const ds = tl / (TN - 1); for (let i = 1; i < TN; i++) { sacc += ds; const kk = sstep(sacc / 0.3), dir = fwd.clone().multiplyScalar(0.9 * (1 - kk)).add(V3([0, -(0.25 + 0.75 * kk), 0])).normalize(); pcur = pcur.clone().addScaledVector(dir, ds); hang.push(pcur); } }
           let pts = hang.map((p, i) => { const u = i / (TN - 1); return p.clone().addScaledVector(fh, 0.04 * Math.max(0, (u - 0.7) / 0.3) ** 2).add(V3([0.004 * Math.sin(TAU * 0.8 * tt + i * 0.5) * u, 0, 0])); });
           let tipW = null;
           if (lickOn) { const wl = lp < 0.3 ? sstep(lp / 0.3) : lp < 0.7 ? 1 : 1 - sstep((lp - 0.7) / 0.3), ub = clamp((lp - 0.3) / 0.4), T0 = Z.headPlace(LICK_TIP), sweep = (ub - 0.5) * 0.25 * (lp >= 0.3 && lp <= 0.7 ? 1 : (lp < 0.3 ? 0 : 0));
@@ -916,9 +916,9 @@ export const KRAMPUS_BEAST_KINDS = {
         // ---- the door-9 kid in the basket
         if (kidOn) {
           const pk = clamp(g("kidPeek")), sc = Z.stow, drop = clamp((sc - 0.3) / 0.5), side = -Z.wk;
-          const ky = pk < 0.5 ? lerp(1.34, 1.82, sstep(pk / 0.5)) : lerp(1.82, 1.95, sstep((pk - 0.5) / 0.5)), kz = lerp(-0.62, -0.50, sstep(pk)), stowed = [0, ky, kz], hk = sstep(Z.hold || 0), dang = [lerp(side * 0.30, side * 0.14, hk), lerp(2.07, 1.52, hk), lerp(-0.29, 0.66, hk)];
+          const ky = pk < 0.5 ? lerp(1.34, 1.82, sstep(pk / 0.5)) : lerp(1.82, 1.95, sstep((pk - 0.5) / 0.5)), kz = lerp(-0.62, -0.50, sstep(pk)), stowed = [0, ky, kz], hk = sstep(Z.hold || 0), dang = [lerp(side * 0.30, side * 0.14, hk), lerp(2.07, 1.58, hk), lerp(-0.29, 0.66, hk)];
           let pos = [lerp(dang[0], stowed[0], sstep(drop)), lerp(dang[1], stowed[1], drop * drop), lerp(dang[2], stowed[2], sstep(drop))], rx = 0;
-          if (sc < 0.3) { rx = -0.12; } else if (sc < 0.8) rx = -0.12 * (1 - drop);
+          if (sc < 0.3) { rx = -0.12 * (1 - hk); }   // held out front: upright, his face to the claw else if (sc < 0.8) rx = -0.12 * (1 - drop);
           if (kf > 0) { pos = [lerp(pos[0], 0, kf), lerp(pos[1], 2.20, kf), lerp(pos[2], -0.52, kf)]; rx = lerp(rx, Math.PI, kf); }
           kidG.position.set(...pos); kidG.rotation.set(rx, 0, 0);   // held out front (hold 1) he faces forward
           const ped = sc < 0.3 ? 0.8 * Math.sin(TAU * 1.7 * tt) : 0, kicks = rad(25) * kick * kf;

@@ -283,8 +283,8 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
     },
     // 06 release: let go where it stands, the fingers open, the hand backs off the way it came; rest: "rest" (or a
     // pose) for the arm afterwards, false to leave it waiting beside the prop
-    release(t, { rest = "rest", back = 0.2 } = {}) {
-      c.A(t, who, "release", { prop: id, dur: 0 });
+    release(t, { rest = "rest", back = 0.2, to = null } = {}) {
+      c.A(t, who, "release", { prop: id, dur: 0, ...(to && { to }) });   // to: [x, y, z] sets it down there at once (off camera, at a cut)
       each((s) => { c.A(t, who, "grip", { side: s, ...shp(ready), dur: 0.15 }); c.arm(t + 0.04, who, s, pose(s, { off: hands[s].away }), back, "out"); });
       if (rest) { each((s) => { c.arm(t + 0.04 + back, who, s, rest, 0.4, "settle"); c.A(t + 0.04 + back, who, "grip", { side: s, shape: "relaxed", dur: 0.3 }); }); return r3(t + 0.44 + back); }
       return r3(t + 0.04 + back);

@@ -110,7 +110,7 @@
    0.8
   ],
   [
-   63.12,
+   63.02,
    {
     "w": -0.3,
     "s": 0.98,
@@ -212,7 +212,12 @@
    "y": 4,
    "z": 1.1,
    "rot": 270,
-   "mirror": true
+   "mirror": true,
+   "jamAt": [
+    0,
+    0.34,
+    0.85
+   ]
   },
   {
    "id": "shadow",
@@ -287,13 +292,14 @@
    "z": 0,
    "rot": 0,
    "rollDir": [
-    0.15,
-    1
+    1,
+    0.08
    ],
    "apron": [
-    0.96,
+    6,
     0.16
-   ]
+   ],
+   "drop0": 0.1
   },
   {
    "id": "cat",
@@ -357,11 +363,12 @@
   },
   {
    "from": 10.81,
-   "to": 11.68,
+   "to": 15.45,
    "text": "Saint Nick reads your whole year from the golden book. Good kids get chocolate.",
    "pos": 300,
    "pop": false,
-   "size": 64
+   "size": 64,
+   "across": true
   },
   {
    "from": 15.65,
@@ -377,7 +384,8 @@
    "text": "And really bad kids?",
    "pos": 300,
    "pop": false,
-   "size": 64
+   "size": 64,
+   "kinetic": false
   },
   {
    "from": 21.32,
@@ -406,7 +414,7 @@
   {
    "from": 29.56,
    "to": 33.54,
-   "text": "He doesn't check the boot. He checks the *book.*",
+   "text": "Oh. He doesn't check the boot. He checks the *book.*",
    "pos": 300,
    "pop": false,
    "size": 64
@@ -485,11 +493,12 @@
   },
   {
    "from": 52.51,
-   "to": 53.38,
+   "to": 56.24,
    "text": "Every December they still walk the Alps. Hundreds of them.",
    "pos": 300,
    "pop": false,
-   "size": 64
+   "size": 64,
+   "across": true
   },
   {
    "from": 56.44,
@@ -500,24 +509,24 @@
    "size": 64
   },
   {
-   "from": 61.39,
-   "to": 62.68,
+   "from": 61.29,
+   "to": 62.58,
    "text": "I'm a *good* kid!",
    "pos": 300,
    "pop": false,
    "size": 64
   },
   {
-   "from": 68.47,
-   "to": 70.22,
+   "from": 68.37,
+   "to": 70.12,
    "text": "...That's not *my* picture.",
    "pos": 300,
    "pop": false,
    "size": 64
   },
   {
-   "from": 70.42,
-   "to": 71.41,
+   "from": 70.32,
+   "to": 71.31,
    "text": "It is *now.*",
    "pos": 300,
    "pop": false,
@@ -802,9 +811,9 @@
      "do": "prop",
      "id": "book",
      "set": {
-      "x": -38.495,
+      "x": -38.417,
       "y": 4.22,
-      "z": 1.213,
+      "z": 1.226,
       "rot": 260
      },
      "dur": 0,
@@ -1175,6 +1184,17 @@
      "dur": 0.27,
      "ease": "inOut",
      "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "shadow",
+     "set": {
+      "grow": 0,
+      "sway": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.83
     }
    ]
   },
@@ -1248,16 +1268,6 @@
      "to": 65,
      "dur": 0.18,
      "at": 0.167
-    },
-    {
-     "do": "prop",
-     "id": "kr",
-     "set": {
-      "scarfOut": 1
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 0.217
     },
     {
      "sfx": "bell-heavy",
@@ -1537,9 +1547,29 @@
      "at": 1.957
     },
     {
+     "do": "prop",
+     "id": "kr",
+     "set": {
+      "scarfOut": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.977
+    },
+    {
      "sfx": "kenney/impact-wood-light",
      "gain": 0.4,
      "at": 1.977
+    },
+    {
+     "do": "prop",
+     "id": "kr",
+     "set": {
+      "lid": 0.3
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 2.017
     },
     {
      "do": "prop",
@@ -1549,7 +1579,7 @@
      },
      "dur": 0.25,
      "ease": "inOut",
-     "at": 1.997
+     "at": 2.047
     }
    ]
   },
@@ -1898,6 +1928,16 @@
      "do": "blink",
      "dur": 0.22,
      "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "kr",
+     "set": {
+      "tongue": 0.12
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.88
     }
    ]
   },
@@ -1949,10 +1989,10 @@
      "do": "prop",
      "id": "kr",
      "set": {
-      "tongue": 1,
-      "jaw": 0.6
+      "jaw": 0.7,
+      "lids": 0
      },
-     "dur": 0.6,
+     "dur": 0.4,
      "ease": "out",
      "at": 0.55
     },
@@ -2016,8 +2056,9 @@
      "do": "prop",
      "id": "kr",
      "set": {
-      "tongue": 0.35,
-      "jaw": 0
+      "jaw": 0,
+      "lids": 0.3,
+      "tongue": 0.35
      },
      "dur": 0.4,
      "ease": "inOut",
@@ -2061,6 +2102,16 @@
      "do": "blink",
      "dur": 0.22,
      "at": 0.734
+    },
+    {
+     "do": "prop",
+     "id": "kr",
+     "set": {
+      "lid": 0.3
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.554
     }
    ]
   },
@@ -2154,6 +2205,16 @@
      "sfx": "thud-soft",
      "gain": 0.35,
      "at": 0.854
+    },
+    {
+     "do": "prop",
+     "id": "kr",
+     "set": {
+      "kidKick": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.154
     },
     {
      "who": "nick",
@@ -2311,9 +2372,9 @@
       ],
       "palm": true,
       "at": [
-       -30.895,
+       -30.817,
        3.42,
-       1.213
+       1.226
       ]
      },
      "dur": 0.004,
@@ -2333,9 +2394,9 @@
       ],
       "palm": true,
       "at": [
-       -30.895,
+       -30.817,
        3.42,
-       1.213
+       1.226
       ]
      },
      "dur": 0.004,
@@ -2387,6 +2448,16 @@
     "ease": "inOut"
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "kr",
+     "set": {
+      "lid": 0
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.004
+    },
     {
      "who": "chip",
      "do": "expr",
@@ -3560,21 +3631,6 @@
      "at": 0.074
     },
     {
-     "who": "chip",
-     "do": "release",
-     "prop": "by",
-     "dur": 0,
-     "at": 1.154
-    },
-    {
-     "who": "chip",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.154
-    },
-    {
      "who": "nick",
      "do": "move",
      "to": [
@@ -3673,9 +3729,6 @@
      "do": "prop",
      "id": "by",
      "set": {
-      "x": 1.3,
-      "y": 0,
-      "z": 0.95,
       "rot": -35,
       "droop": 0
      },
@@ -3698,25 +3751,23 @@
     },
     {
      "who": "chip",
-     "do": "arm",
+     "do": "release",
+     "prop": "by",
+     "dur": 0,
+     "to": [
+      1.3,
+      0,
+      0.95
+     ],
+     "at": 1.191
+    },
+    {
+     "who": "chip",
+     "do": "grip",
      "side": "R",
-     "pose": {
-      "prop": "by",
-      "grip": [
-       0.026,
-       0.172,
-       -0.097
-      ],
-      "palm": "wrap",
-      "off": [
-       -0.057,
-       0.02,
-       -0.04
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.194
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.191
     },
     {
      "who": "nick",
@@ -3731,9 +3782,9 @@
       ],
       "palm": true,
       "at": [
-       -23.295,
+       -23.217,
        2.62,
-       1.213
+       1.226
       ]
      },
      "dur": 0.004,
@@ -3753,9 +3804,9 @@
       ],
       "palm": true,
       "at": [
-       -23.295,
+       -23.217,
        2.62,
-       1.213
+       1.226
       ]
      },
      "dur": 0.004,
@@ -3828,6 +3879,28 @@
      "at": 0.004
     },
     {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "by",
+      "grip": [
+       0.026,
+       0.172,
+       -0.097
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.057,
+       0.02,
+       -0.04
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.031
+    },
+    {
      "do": "prop",
      "id": "kr",
      "set": {
@@ -3888,7 +3961,7 @@
      "pose": "rest",
      "dur": 0.4,
      "ease": "settle",
-     "at": 0.194
+     "at": 0.231
     },
     {
      "who": "chip",
@@ -3896,7 +3969,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.3,
-     "at": 0.194
+     "at": 0.231
     },
     {
      "sfx": "bell-heavy",
@@ -3952,11 +4025,11 @@
      "who": "chip",
      "do": "move",
      "to": [
-      3.18,
+      3.32,
       0.38
      ],
-     "dur": 0.3,
-     "ease": "out",
+     "dur": 0.45,
+     "ease": "inOut",
      "y": 0.12,
      "at": 1.054
     },
@@ -3978,26 +4051,26 @@
    "len": 3.434,
    "shot": {
     "pos": [
-     1.388,
-     1.218,
-     3.196
+     2.07,
+     0.88,
+     2.709
     ],
     "look": [
-     2.8,
-     0.3,
-     0.75
+     3.1,
+     0.45,
+     0.5
     ],
     "fov": 44,
     "to": {
      "pos": [
-      1.473,
-      1.163,
-      3.049
+      2.132,
+      0.854,
+      2.576
      ],
      "look": [
-      2.8,
-      0.3,
-      0.75
+      3.1,
+      0.45,
+      0.5
      ],
      "fov": 44
     },
@@ -4107,9 +4180,9 @@
       ],
       "palm": true,
       "at": [
-       -15.695,
+       -15.617,
        1.82,
-       1.213
+       1.226
       ]
      },
      "dur": 0.004,
@@ -4129,9 +4202,9 @@
       ],
       "palm": true,
       "at": [
-       -15.695,
+       -15.617,
        1.82,
-       1.213
+       1.226
       ]
      },
      "dur": 0.004,
@@ -4308,7 +4381,7 @@
       "z": 1.55,
       "rot": 265,
       "run": 1,
-      "streak": 1,
+      "streak": 0.3,
       "ears": -1,
       "show": 1
      },
@@ -4544,6 +4617,13 @@
      "do": "blink",
      "dur": 0.22,
      "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 75,
+     "dur": 0.3,
+     "at": 1.26
     }
    ]
   },
@@ -4553,9 +4633,9 @@
    "len": 1.6,
    "shot": {
     "pos": [
-     2.683,
+     3.566,
      0.973,
-     3.746
+     2.937
     ],
     "look": [
      1.3,
@@ -4565,9 +4645,9 @@
     "fov": 36,
     "to": {
      "pos": [
-      2.6,
+      3.43,
       0.964,
-      3.602
+      2.842
      ],
      "look": [
       1.3,
@@ -5068,28 +5148,28 @@
    "len": 1.833,
    "shot": {
     "pos": [
-     0.831,
-     0.89,
-     4.107
+     0.945,
+     0.886,
+     4.069
     ],
     "look": [
-     0.38,
+     0.5,
      0.55,
      0.9
     ],
-    "fov": 42,
+    "fov": 44,
     "to": {
      "pos": [
-      0.795,
-      0.863,
-      3.85
+      0.909,
+      0.859,
+      3.815
      ],
      "look": [
-      0.38,
+      0.5,
       0.55,
       0.9
      ],
-     "fov": 42
+     "fov": 44
     },
     "dur": 1.8500000000000014,
     "ease": "inOut"
@@ -5182,6 +5262,29 @@
      "sfx": "ai/storm-wind",
      "gain": 0.05,
      "at": 1.767
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.1,
+      0.76
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 1.814
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.814
     }
    ]
   },
@@ -5192,27 +5295,27 @@
    "shot": {
     "pos": [
      1.12,
-     0.497,
-     1.96
+     1.191,
+     2.437
     ],
     "look": [
      1.12,
-     0.31,
-     1.08
+     0.22,
+     1.05
     ],
-    "fov": 34,
+    "fov": 36,
     "to": {
      "pos": [
       1.12,
-      0.478,
-      1.872
+      1.094,
+      2.298
      ],
      "look": [
       1.12,
-      0.31,
-      1.08
+      0.22,
+      1.05
      ],
-     "fov": 34
+     "fov": 36
     },
     "dur": 1.3999999999999986,
     "ease": "inOut"
@@ -5220,6 +5323,24 @@
    "do": [
     {
      "who": "chip",
+     "do": "grab",
+     "prop": "nt",
+     "hand": "R",
+     "keep": true,
+     "dur": 0,
+     "at": 0.014
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "ny",
+     "hand": "L",
+     "keep": true,
+     "dur": 0,
+     "at": 0.014
+    },
+    {
+     "who": "chip",
      "do": "grip",
      "side": "R",
      "shape": "pinch",
@@ -5232,32 +5353,6 @@
      "side": "L",
      "shape": "pinch",
      "dur": 0.2,
-     "at": 0.024
-    },
-    {
-     "do": "prop",
-     "id": "nt",
-     "set": {
-      "x": 1.295,
-      "y": 0.345,
-      "z": 1.039,
-      "rot": 0
-     },
-     "dur": 0.7,
-     "ease": "inOut",
-     "at": 0.024
-    },
-    {
-     "do": "prop",
-     "id": "ny",
-     "set": {
-      "x": 0.914,
-      "y": 0.385,
-      "z": 1.053,
-      "rot": 0
-     },
-     "dur": 0.7,
-     "ease": "inOut",
      "at": 0.024
     },
     {
@@ -5266,19 +5361,39 @@
      "side": "R",
      "pose": {
       "world": [
-       0.914,
-       0.375,
-       1.053
+       1.105,
+       0.395,
+       1.106
       ]
      },
-     "dur": 0.6499999999999999,
-     "ease": "inOut",
-     "at": 0.074
+     "dur": 0.35,
+     "ease": "in",
+     "at": 0.024
     },
     {
      "who": "chip",
      "do": "arm",
      "side": "L",
+     "pose": {
+      "world": [
+       1.105,
+       0.395,
+       0.986
+      ]
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 0.024
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.3,
+     "at": 0.124
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
      "pose": {
       "world": [
        1.295,
@@ -5286,14 +5401,74 @@
        1.039
       ]
      },
-     "dur": 0.6499999999999999,
-     "ease": "inOut",
-     "at": 0.074
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.374
     },
     {
-     "sfx": "cloth",
-     "gain": 0.3,
-     "at": 0.124
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.914,
+       0.375,
+       1.053
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.374
+    },
+    {
+     "who": "chip",
+     "do": "release",
+     "prop": "nt",
+     "to": [
+      1.295,
+      0.305,
+      1.039
+     ],
+     "dur": 0.06,
+     "at": 0.724
+    },
+    {
+     "do": "prop",
+     "id": "nt",
+     "set": {
+      "x": 1.295,
+      "y": 0.305,
+      "z": 1.039,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.724
+    },
+    {
+     "who": "chip",
+     "do": "release",
+     "prop": "ny",
+     "to": [
+      0.914,
+      0.345,
+      1.053
+     ],
+     "dur": 0.06,
+     "at": 0.724
+    },
+    {
+     "do": "prop",
+     "id": "ny",
+     "set": {
+      "x": 0.914,
+      "y": 0.345,
+      "z": 1.053,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.724
     },
     {
      "do": "prop",
@@ -5459,9 +5634,9 @@
       ],
       "palm": true,
       "at": [
-       2.432,
+       2.355,
        0.22,
-       1.247
+       1.226
       ]
      },
      "dur": 0.004,
@@ -5481,9 +5656,9 @@
       ],
       "palm": true,
       "at": [
-       2.432,
+       2.355,
        0.22,
-       1.247
+       1.226
       ]
      },
      "dur": 0.004,
@@ -5506,33 +5681,33 @@
   {
    "name": "good page",
    "at": 59.466,
-   "len": 1.867,
+   "len": 1.767,
    "shot": {
     "pos": [
-     0.039,
-     0.863,
-     2.93
+     -0.141,
+     0.963,
+     2.906
     ],
     "look": [
-     1.7,
-     0.5,
+     1.5,
+     0.42,
      0.95
     ],
     "fov": 40,
     "to": {
      "pos": [
-      0.172,
-      0.834,
-      2.772
+      -0.01,
+      0.92,
+      2.75
      ],
      "look": [
-      1.7,
-      0.5,
+      1.5,
+      0.42,
       0.95
      ],
      "fov": 40
     },
-    "dur": 1.8499999999999985,
+    "dur": 1.7499999999999971,
     "ease": "inOut"
    },
    "do": [
@@ -5626,9 +5801,9 @@
       ],
       "palm": true,
       "at": [
-       2.432,
+       2.355,
        0.14,
-       1.247
+       1.226
       ]
      },
      "dur": 0.5,
@@ -5648,9 +5823,9 @@
       ],
       "palm": true,
       "at": [
-       2.432,
+       2.355,
        0.14,
-       1.247
+       1.226
       ]
      },
      "dur": 0.5,
@@ -5693,12 +5868,17 @@
      },
      "dur": 1.1,
      "ease": "linear",
-     "at": 1.324
+     "at": 0.924
     },
     {
      "sfx": "coins",
      "gain": 0.35,
-     "at": 1.324
+     "at": 0.924
+    },
+    {
+     "sfx": "coins",
+     "gain": 0.35,
+     "at": 1.144
     },
     {
      "who": "spud",
@@ -5709,19 +5889,19 @@
     {
      "sfx": "coins",
      "gain": 0.35,
-     "at": 1.544
+     "at": 1.364
     },
     {
      "sfx": "coins",
      "gain": 0.35,
-     "at": 1.764
+     "at": 1.584
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "delighted",
      "dur": 0.2,
-     "at": 1.824
+     "at": 1.724
     },
     {
      "who": "chip",
@@ -5731,13 +5911,13 @@
      "set": {
       "open": 0.1
      },
-     "at": 1.864
+     "at": 1.764
     }
    ]
   },
   {
    "name": "good kid",
-   "at": 61.333,
+   "at": 61.233,
    "len": 1.367,
    "shot": {
     "pos": [
@@ -5769,6 +5949,11 @@
    },
    "do": [
     {
+     "sfx": "coins",
+     "gain": 0.35,
+     "at": 0.037
+    },
+    {
      "who": "chip",
      "do": "hop",
      "height": 0.1,
@@ -5786,16 +5971,6 @@
      "dur": 1.03,
      "caption": false,
      "at": 0.057
-    },
-    {
-     "sfx": "coins",
-     "gain": 0.35,
-     "at": 0.117
-    },
-    {
-     "sfx": "coins",
-     "gain": 0.35,
-     "at": 0.337
     },
     {
      "who": "nick",
@@ -5827,6 +6002,16 @@
      "at": 1.347
     },
     {
+     "do": "prop",
+     "id": "kr",
+     "set": {
+      "x": -0.45
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.347
+    },
+    {
      "who": "nick",
      "do": "arm",
      "side": "R",
@@ -5839,9 +6024,9 @@
       ],
       "palm": true,
       "at": [
-       0.923,
+       0.95,
        0.15,
-       1.612
+       1.537
       ]
      },
      "dur": 0.004,
@@ -5861,9 +6046,9 @@
       ],
       "palm": true,
       "at": [
-       0.923,
+       0.95,
        0.15,
-       1.612
+       1.537
       ]
      },
      "dur": 0.004,
@@ -5884,8 +6069,8 @@
   },
   {
    "name": "the long page",
-   "at": 62.7,
-   "len": 3.6,
+   "at": 62.6,
+   "len": 1.4,
    "shot": {
     "pos": [
      0.45,
@@ -5900,9 +6085,9 @@
     "fov": 56,
     "to": {
      "pos": [
-      0.8500000000000001,
-      1.1,
-      0.42000000000000004
+      0.476,
+      1.07,
+      0.333
      ],
      "look": [
       0.88,
@@ -5911,7 +6096,7 @@
      ],
      "fov": 56
     },
-    "dur": 3.5999999999999943,
+    "dur": 1.3999999999999986,
     "ease": "inOut"
    },
    "do": [
@@ -5950,7 +6135,7 @@
      "set": {
       "run": 1
      },
-     "dur": 3,
+     "dur": 2.2,
      "ease": "out",
      "at": 0.52
     },
@@ -5974,18 +6159,12 @@
      "who": "chip",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.7
+     "at": 0.8
     },
     {
      "sfx": "ai/storm-wind",
      "gain": 0.05,
-     "at": 1.1
-    },
-    {
-     "who": "nick",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.3
+     "at": 1.2
     },
     {
      "who": "chip",
@@ -5997,37 +6176,139 @@
       "eye": 1.05
      },
      "at": 1.32
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "the roll",
+   "at": 64,
+   "len": 1.366,
+   "shot": {
+    "pos": [
+     4.413,
+     1.798,
+     2.404
+    ],
+    "look": [
+     1.6,
+     0.25,
+     1.65
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      4.413,
+      1.798,
+      3.004
+     ],
+     "look": [
+      1.6,
+      0.25,
+      1.65
+     ],
+     "fov": 46
+    },
+    "dur": 1.3500000000000085,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "nick",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0
     },
     {
      "sfx": "cloth",
      "gain": 0.3,
-     "at": 1.72
+     "at": 0.32
+    }
+   ]
+  },
+  {
+   "name": "he shakes his head",
+   "at": 65.366,
+   "len": 0.834,
+   "shot": {
+    "pos": [
+     0.45,
+     1.1,
+     0.22
+    ],
+    "look": [
+     0.88,
+     0.6,
+     2.1
+    ],
+    "fov": 56,
+    "to": {
+     "pos": [
+      0.493,
+      1.05,
+      0.408
+     ],
+     "look": [
+      0.88,
+      0.6,
+      2.1
+     ],
+     "fov": 56
     },
+    "dur": 0.8499999999999943,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "sfx": "cloth",
      "gain": 0.25,
-     "at": 2.82
+     "at": 0.054
     },
     {
      "who": "nick",
      "do": "turn",
      "to": 140,
      "dur": 0.18,
-     "at": 2.92
+     "at": 0.054
     },
     {
      "who": "nick",
      "do": "turn",
      "to": 180,
      "dur": 0.18,
-     "at": 3.1
+     "at": 0.234
+    },
+    {
+     "do": "prop",
+     "id": "book",
+     "set": {
+      "run": 0
+     },
+     "dur": 0.45,
+     "ease": "in",
+     "at": 0.304
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.3,
+     "at": 0.304
     },
     {
      "who": "nick",
      "do": "turn",
      "to": 160,
      "dur": 0.16,
-     "at": 3.28
+     "at": 0.414
+    },
+    {
+     "do": "prop",
+     "id": "kr",
+     "set": {
+      "x": 0.07
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.814
     },
     {
      "who": "nick",
@@ -6041,7 +6322,7 @@
      "sync": true,
      "y": 0,
      "steps": 0,
-     "at": 3.58
+     "at": 0.814
     },
     {
      "who": "nick",
@@ -6050,7 +6331,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.58
+     "at": 0.814
     },
     {
      "who": "nick",
@@ -6065,14 +6346,14 @@
       ],
       "palm": true,
       "at": [
-       -0.99,
+       -0.91,
        0.22,
        1.6
       ]
      },
      "dur": 0.004,
      "ease": "linear",
-     "at": 3.595
+     "at": 0.829
     },
     {
      "who": "nick",
@@ -6087,14 +6368,14 @@
       ],
       "palm": true,
       "at": [
-       -0.99,
+       -0.91,
        0.22,
        1.6
       ]
      },
      "dur": 0.004,
      "ease": "linear",
-     "at": 3.595
+     "at": 0.829
     },
     {
      "do": "prop",
@@ -6104,14 +6385,13 @@
      },
      "dur": 0.004,
      "ease": "linear",
-     "at": 3.595
+     "at": 0.829
     }
-   ],
-   "kind": "escalation"
+   ]
   },
   {
    "name": "sticks for spud",
-   "at": 66.3,
+   "at": 66.2,
    "len": 2.1,
    "shot": {
     "pos": [
@@ -6309,7 +6589,7 @@
   },
   {
    "name": "not my picture",
-   "at": 68.4,
+   "at": 68.3,
    "len": 1.9,
    "shot": {
     "pos": [
@@ -6336,7 +6616,7 @@
      ],
      "fov": 36
     },
-    "dur": 1.9500000000000028,
+    "dur": 1.9499999999999886,
     "ease": "inOut"
    },
    "do": [
@@ -6364,40 +6644,40 @@
     {
      "sfx": "ai/storm-wind",
      "gain": 0.05,
-     "at": 1.2
+     "at": 1.3
     }
    ]
   },
   {
    "name": "it is now",
-   "at": 70.3,
+   "at": 70.2,
    "len": 1.167,
    "shot": {
     "pos": [
-     1.2,
-     0.812,
-     3.073
+     1.8,
+     0.867,
+     3.482
     ],
     "look": [
-     1.2,
-     0.568,
+     1.8,
+     0.58,
      0.75
     ],
     "fov": 40,
     "to": {
      "pos": [
-      1.2,
-      0.792,
-      2.887
+      1.8,
+      0.844,
+      3.263
      ],
      "look": [
-      1.2,
-      0.568,
+      1.8,
+      0.58,
       0.75
      ],
      "fov": 40
     },
-    "dur": 1.1469999999999971,
+    "dur": 1.1470000000000113,
     "ease": "inOut"
    },
    "do": [
@@ -6505,7 +6785,7 @@
    "see": [
     "kr"
    ],
-   "why": "the Krampus: carved wooden face, curled horns, a long red tongue rolls out, birch sticks in his fist"
+   "why": "the Krampus: carved wooden face, curled horns, he bares his fangs, birch sticks in his fist"
   },
   {
    "from": 19.87,
@@ -6550,7 +6830,7 @@
     "chip",
     "lane"
    ],
-   "why": "he dives head first into the woodpile; only his white trainers stick out"
+   "why": "he dives head first into the woodpile and pulls his feet in"
   },
   {
    "from": 43.11,
@@ -6607,8 +6887,8 @@
    "why": "Saint Nick kneels at the yellow boot (it now wears the teal drawing), reads a short glowing page and smiles"
   },
   {
-   "from": 60.79,
-   "to": 62.42,
+   "from": 60.39,
+   "to": 62.32,
    "see": [
     "by",
     "chip"
@@ -6616,8 +6896,8 @@
    "why": "chocolate coins, mandarins and walnuts pour into the yellow boot; the little one beams"
   },
   {
-   "from": 63.22,
-   "to": 66.22,
+   "from": 63.12,
+   "to": 66.12,
    "see": [
     "nick",
     "book"
@@ -6625,8 +6905,8 @@
    "why": "at the teal boot the page goes on and on: a long roll of fries pictures runs across the snow; he shakes his head"
   },
   {
-   "from": 66.32,
-   "to": 68.62,
+   "from": 66.22,
+   "to": 68.52,
    "see": [
     "kr",
     "bt",
@@ -6656,7 +6936,7 @@
    "who": "nick",
    "with": "lane",
    "from": 59.49,
-   "to": 63.12,
+   "to": 63.02,
    "checks": [
     "costume-in-prop",
     "leg-in-prop",
@@ -6680,7 +6960,7 @@
    "who": "nick",
    "with": "book",
    "from": 0,
-   "to": 71.467,
+   "to": 71.367,
    "checks": [
     "hand-in-prop",
     "arm-in-prop"
@@ -6700,7 +6980,7 @@
    "who": "spud",
    "with": "lane",
    "from": 56.14,
-   "to": 71.467,
+   "to": 71.367,
    "checks": [
     "shell"
    ],
@@ -6710,7 +6990,7 @@
    "who": "chip",
    "with": "lane",
    "from": 56.14,
-   "to": 71.467,
+   "to": 71.367,
    "checks": [
     "shell"
    ],
@@ -6719,7 +6999,7 @@
   {
    "who": "kv",
    "from": 0,
-   "to": 71.467,
+   "to": 71.367,
    "checks": [
     "clipping",
     "body-in-prop"

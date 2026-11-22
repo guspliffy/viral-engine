@@ -24,7 +24,8 @@
 //                    plain: 12 pictures a page. good: left ordinary, right = THE GOOD PAGE: only the top third, 4 pictures of a one-leaf teal potato
 //                    (watering a plant, carrying an old potato's firewood, sharing a sandwich with a small yellow two-leaf potato, holding a door), a
 //                    gold-leaf line under them, clean parchment below. long: left ordinary, right = 8 pictures and a clear foot where the roll lies.
-//   SPEC KEYS (no tween): roll [dx, dz] ([0.15, 1]) the roll's WORLD direction on the ground (alias rollDir: use it if the book is ever held, see NOTES);
+//   SPEC KEYS (no tween): drop0 (0.30) world metres from the page foot down to the ground: lower when the book is held lower;
+//     roll [dx, dz] ([0.15, 1]) the roll's WORLD direction on the ground (alias rollDir: use it if the book is ever held, see NOTES);
 //     apron [dist, drop] ([0.96, 0.16]) metres from where the sheet first lies on the ground to the apron's step edge, and the step's height;
 //     chain true (false hides it); chainTo [x, y, z] in the book's frame (default: hangs by gravity from the foot, 0.17 long; with chainTo it sags to
 //     that point, the rope belt, and is taut at 0.17).
@@ -515,10 +516,10 @@ const goldenbook = (P) => {
   const Q = new THREE.Quaternion(), Qi = new THREE.Quaternion();
   const rollCache = { key: "", pts: null };
   // the sheet's path in the book's frame, from the anchor (the foot of the right page) to the head at arc length Lrun
-  function rollPath(Lrun, t, rollDir, apron, sc) {
+  function rollPath(Lrun, t, rollDir, apron, sc, drop0 = 0.30) {
     Q.copy(P.root.quaternion); Qi.copy(Q).invert();
     const up = V3(0, 1, 0).applyQuaternion(Qi), d = V3(rollDir[0], 0, rollDir[1]).normalize().applyQuaternion(Qi);
-    const h = 0.30 / sc, rb = 0.04 / sc, re = 0.02 / sc, D1 = apron[0] / sc, drop = apron[1] / sc, thick = 0.0012 / sc;
+    const h = drop0 / sc, rb = 0.04 / sc, re = 0.02 / sc, D1 = apron[0] / sc, drop = apron[1] / sc, thick = 0.0012 / sc;
     const A = leafPt(true, 0.15, Y0, back.zTop(st.TB, 0.15) - 0.0006);   // the foot of the right page, on its face
     const poly = [A.clone()]; const add = (v) => poly.push(v.clone().add(A));
     const o = V3(); const nd = up.clone().multiplyScalar(-1);
@@ -617,7 +618,7 @@ const goldenbook = (P) => {
       const longOn = (turning ? cur.name : cur.name) === "long", rollOn = u > 0.5 && (run > 0.0005 || longOn), Lrun = ROLL_LEN * run;
       for (const tl of tiles) { tl.a.visible = tl.b.visible = false; } coil.visible = false;
       if (rollOn) {
-        const rd = S.rollDir ?? (Array.isArray(ps.roll) ? ps.roll : Array.isArray(S.roll) ? S.roll : [0.15, 1]), apron = S.apron ?? [0.96, 0.16], R = rollPath(Lrun, t, rd, apron, sc);
+        const rd = S.rollDir ?? (Array.isArray(ps.roll) ? ps.roll : Array.isArray(S.roll) ? S.roll : [0.15, 1]), apron = S.apron ?? [0.96, 0.16], R = rollPath(Lrun, t, rd, apron, sc, S.drop0 ?? 0.30);
         const thick = 0.0006;
         for (const tl of tiles) {
           const vis = Lrun > tl.m0 + 1e-4; tl.a.visible = tl.b.visible = vis; if (!vis) continue;
