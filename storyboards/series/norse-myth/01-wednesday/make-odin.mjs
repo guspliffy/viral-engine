@@ -102,7 +102,7 @@ const SCENERY = { cave: ["cave", "well", "head"], floor: ["floor"], tree: ["tree
 
 // ---------------------------------------------------------------- helpers
 const SUB = 250;   // captions in the upper third (the cave's dark root undersides behind them)
-const CAPPOS = { 0: 430 };   // under the hook text for the first two lines
+const CAPPOS = { 0: 340 };   // under the one-line hook (240-310), above Odin's hat (frame 0: hat top ~550 px)
 const CAPTEXT = { 2: "This is the well of *wisdom.* One sip and you know *everything.*", 3: "I have a test tomorrow. I studied *zero.*", 6: "*Eyes.*", 12: "Four *seconds.*", 22: "...*Fair.*", 25: "*Wednesday...* is named after you.", 27: "I paid an *eye* for that?!", 28: "Because it's *Odin's* day." };
 const CAPS = [];
 const OPEN = { shocked: 0.95, terrified: 0.8, delighted: 0.6, evil: 0.4, happy: 0.35, dizzy: 0.3, eager: 0.25 };
@@ -178,7 +178,7 @@ act.blinksAt(c, "odin", [5.1, 12.0, 34.0, 47.0, 61.0]);
 L(0, 0);   // CHIP: Odin... what happened to your eye?
 expr(0, "chip", "worried", 0.01);
 say(0);
-cap(0, 3.0, "ONE EYE FOR ONE SIP", 240, false, { size: 80, kinetic: false });
+cap(0, 3.0, "ONE EYE FOR ONE SIP", 240, false, { size: 66, kinetic: false });   // one line at 66 (80 wrapped SIP onto a second line)
 see(0, END_OF(0), ["chip", "odin", "well"], "a little potato in a yellow hoodie, a wooden cup in his hand, asks a tall one-eyed old god with an eyepatch, a wide hat and two ravens on his shoulders, in a misty cave by a glowing well");
 // ODIN leans down, one eye glinting: I paid it. For one sip.
 L(1, 0.15);
@@ -205,9 +205,11 @@ gSheet.take(r3(T[3] - 0.48), { reach: 0.4, settle: 0.15 }); P(T[3] - 0.15, "shee
 expr(T[3], "chip", "happy", 0.15, { open: 0.1 }); look(T[3], "chip", [0.35, 0.45], 0.2);
 say(3);
 look(T[3] + 0.6, "spud", [0.4, -0.3], 0.2); expr(T[3] + 1.2, "spud", "deadpan");
-const SHEET_OFF = r3(END_OF(3) + 0.1);
-arm(SHEET_OFF, "chip", "L", "rest", 0.3); P(SHEET_OFF + 0.08, "sheet", { scale: 0.001 }, 0.15);   // back into the pocket
-A(SHEET_OFF + 0.45, "chip", "release", { prop: "sheet", dur: 0, to: [1, AWAY, 0] }); grip(SHEET_OFF + 0.45, "chip", "L", "relaxed");
+// the sheet stays in the pinch to the cut; it goes on the cut to the shot from behind them (BULGE: RISE_S), so it never
+// shrinks in his hand (draft 1: it slid 13 cm in the pinch while it scaled down at 10.5 s)
+const SHEET_OFF = r3(END_OF(3) + 0.15 + 0.02);
+P(SHEET_OFF, "sheet", { scale: 0.001 }, 0); arm(SHEET_OFF + 0.04, "chip", "L", "rest", 0.35); grip(SHEET_OFF + 0.04, "chip", "L", "relaxed", 0.25);
+A(SHEET_OFF + 0.5, "chip", "release", { prop: "sheet", dur: 0, to: [1, AWAY, 0] });   // let go once the arm is at rest, parked away (a free release drops it into physics)
 // THE HEAD RISES: the water bulges, breaks, the mossy head comes up, the eyes open
 const BULGE = r3(END_OF(3) + 0.15), BREAK = r3(BULGE + 0.7), RISEN = r3(BREAK + 1.5);
 P(BULGE, "well", { bulge: 1, glow: 1.3 }, 0.7, "in"); sfx(BULGE, "ai/underwater-amb", { gain: 0.35 });
@@ -232,17 +234,18 @@ show(FLOOR_IN, "floor", true);
 P(FLOOR_IN - 0.03, "floor", { plunge: 0, peek: 1, lookX: 0, lookY: 0 }, 0); P(FLOOR_IN, "floor", { plunge: 1 }, 0.6, "linear");
 P(FLOOR_IN + 0.3, "floor", { lookY: 0.7, lookX: 0.3 }, 0.12);
 PROP.floor.blinkAt.push(BLINK); P(BLINK, "floor", { blink: 1 }, 0.1); P(BLINK + 0.13, "floor", { blink: 0 }, 0.07);
-sfx(BLINK, "ai/blep", { gain: 0.4 });
+// the blink is silent (realistic sounds only: no cartoon blep under water)
 show(FLOOR_OUT, "floor", false);
 see(FLOOR_IN, FLOOR_OUT, ["floor"], "under water: on the glowing pebbles of the well floor lies an eye looking up; it blinks");
 // CHIP recoils, covers both eyes: Nope. Is there a free way?
 at(FLOOR_OUT); L(7, 0.05);
 expr(T[7] - 0.05, "chip", "terrified", 0.08); A(T[7] - 0.05, "chip", "lean", { to: -14, dur: 0.15, ease: "out" });
-arm(T[7] - 0.05, "chip", "R", { x: [-0.06, 0.47, 0.3] }, 0.15, "out"); arm(T[7] - 0.05, "chip", "L", { x: [0.08, 0.47, 0.28] }, 0.15, "out"); grip(T[7], "chip", "L", "flat");
+gCup.carry(r3(T[7] - 0.1), W(CHIP0, 10, [-0.08, 0.34, 0.24]), 0.22, "inOut");   // the cup hand up as a shield, still a hold (an arm override slid the cup 7 cm)
+arm(T[7] - 0.05, "chip", "L", { x: [0.08, 0.47, 0.28] }, 0.15, "out"); grip(T[7], "chip", "L", "flat");
 say(7);
 A(T[7] + 0.7, "chip", "lean", { to: 0, dur: 0.3 });
 arm(T[7] + 0.75, "chip", "L", "rest", 0.3); grip(T[7] + 0.8, "chip", "L", "relaxed");
-gCup.carry(r3(T[7] + 0.75), W(CHIP0, 10, [-0.14, 0.2, 0.24]), 0.3);
+gCup.carry(r3(T[7] + 0.7), W(CHIP0, CHIP0_YAW, [-0.14, 0.2, 0.24]), 0.35);   // down with the turn back to CHIP0_YAW: where it ends up
 expr(T[7] + 0.75, "chip", "eager"); look(T[7] + 0.75, "chip", [0.6, 0.5], 0.2); turn(T[7] + 0.7, "chip", CHIP0_YAW, 0.3);
 // ODIN points up the tree (his left arm), the ravens lift off: the cut on the move to the tree
 const POINT = r3(END_OF(7) + 0.1);
@@ -270,7 +273,7 @@ see(TREE, END_OF(8), ["tree"], "a giant ash tree in the wind, the camera climbin
 L(9, 0.15);
 const STAVES = r3(T[9] - 0.1);
 P(STAVES, "staves", { fall: 1 }, r3(DUR[9] + 0.6), "linear"); P(STAVES, "tree", { runes: 1 }, 1.2);
-sfx(STAVES + 0.2, "ai/magic-zap", { gain: 0.3 });
+// the staves drift down in silence under his voice (realistic sounds only: no magic zap)
 say(9);
 see(STAVES, END_OF(9), ["staves"], "nine glowing rune staves drift down past the bark");
 // FALSE CLOSE 1: CHIP upside down by one foot, arms folded, confident: Nine nights? I can do one.
@@ -343,10 +346,10 @@ P(END_OF(15) + 0.1, "rv2", { lean: 0, headYaw: -0.4, headPitch: 0.4 }, 0.2);
 expr(T[15] + 0.3, "chip", "shocked", 0.12);
 // CHIP: Your birds are snitching on me!
 L(16, 0.15);
-expr(T[16], "chip", "angry"); arm(T[16], "chip", "L", { x: [0.3, 0.42, 0.28] }, 0.22, "out"); grip(T[16] + 0.05, "chip", "L", "point");
+expr(T[16], "chip", "angry"); arm(T[16] - 0.2, "chip", "L", { x: [0.28, 0.42, 0.32] }, 0.38, "inOut"); grip(T[16] - 0.05, "chip", "L", "point", 0.2);   // forward and slower: 0.22 s straight up from rest flipped the hand 105 degrees in 2 frames
 A(T[16], "chip", "squash", { amount: -0.06, dur: 0.08 }); A(T[16] + 0.12, "chip", "squash", { amount: 0, dur: 0.12 });
 say(16);
-arm(END_OF(16) + 0.05, "chip", "L", "rest", 0.3); grip(END_OF(16) + 0.05, "chip", "L", "relaxed");
+arm(END_OF(16) + 0.05, "chip", "L", "rest", 0.45); grip(END_OF(16) + 0.05, "chip", "L", "relaxed", 0.3);
 P(END_OF(16), "rv1", { headPitch: 0, headYaw: 0 }, 0.2); P(END_OF(16), "rv2", { headPitch: 0, headYaw: 0 }, 0.2);
 
 // ================================================================= 41-48.5 THE SNEAK SIP, CAUGHT
@@ -355,10 +358,14 @@ const SNEAK = r3(END_OF(16) + 0.25), DIPT = r3(SNEAK + 2.0);
 P(SNEAK, "head", { turnTo: 0.18 }, 0); P(SNEAK, "head", { turn: 0.18, lookX: 0.6, lookY: 0 }, 0.45); P(SNEAK + 0.5, "head", { turnTo: 9 }, 0);
 headTalk(SNEAK + 0.5, 1.4, 3); look(SNEAK + 0.3, "odin", [-0.25, 0.0], 0.3);   // a murmur to Odin (no line)
 expr(SNEAK, "chip", "smug"); turn(SNEAK, "chip", 230, 0.3); look(SNEAK, "chip", [0.5, 0.1], 0.2);
-const ROUND = [-2.15, 1.05];   // round the well, not through its rim
-A(SNEAK + 0.3, "chip", "move", { to: ROUND, dur: 0.8, ease: "in", style: "tiptoe" }); A(SNEAK + 1.1, "chip", "move", { to: SIP, dur: 0.6, ease: "out", style: "tiptoe" });
-turn(SNEAK + 1.05, "chip", 165, 0.15); turn(SNEAK + 1.6, "chip", SIP_YAW, 0.25);
-arm(SNEAK - 0.05, "chip", "R", { x: [-0.15, 0.27, 0.22] }, 0.2);   // body-local while he turns and tiptoes: the cup goes round with him
+const ROUND = [-2.35, 1.2];   // round the well, not through its rim
+A(SNEAK + 0.3, "chip", "move", { to: ROUND, dur: 0.8, style: "tiptoe", steps: 3.2 }); A(SNEAK + 1.1, "chip", "move", { to: SIP, dur: 0.6, style: "tiptoe", steps: 3.2 });   // one chained path: an "in" then an "out" stopped the steps mid-walk (foot slide 50.4 s)
+turn(SNEAK + 0.95, "chip", 165, 0.3); turn(SNEAK + 1.55, "chip", SIP_YAW, 0.3);
+// body-local while he turns and tiptoes: the cup goes round with him. palm + wrap as the mug hold resolves them (the palm
+// faces the cup's axis, 8.5 cm in and 2.3 cm out from the grip for a cup at rot = yaw + 180): without them the hand
+// turned 100 degrees in a frame going into and out of this pose and the cup slid 7 cm (49.3 s, 50.9 s)
+const SNEAK_HAND = [-0.15, 0.27, 0.22];
+arm(SNEAK - 0.05, "chip", "R", { x: SNEAK_HAND, palm: [r3(SNEAK_HAND[0] + 0.085), SNEAK_HAND[1], r3(SNEAK_HAND[2] + 0.023)], wrap: true }, 0.2);
 sfx(SNEAK + 0.5, "step-concrete", { gain: 0.15 }); sfx(SNEAK + 1.0, "step-concrete", { gain: 0.15 });
 look(DIPT - 0.5, "chip", [-0.1, -0.6], 0.12); A(DIPT - 0.4, "chip", "lean", { to: 24, dur: 0.35, ease: "out" });
 gCup.carry(r3(DIPT - 0.35), [DIP_AT[0] - 0.02, 0.19, DIP_AT[1]], 0.35, "inOut", { rot: SIP_YAW + 180 });
@@ -371,7 +378,7 @@ A(DIPT + 0.3, "chip", "lean", { to: 0, dur: 0.3 });
 P(SNAP - 0.15, "head", { lookX: -1, turnTo: -0.78 }, 0.07);   // the eyes lead
 P(SNAP, "head", { turn: -0.78 }, 0.4, "out"); P(SNAP, "well", { swirl: -0.6 }, 0.4); P(SNAP + 0.6, "well", { swirl: 0 }, 1.0); P(SNAP + 0.5, "head", { turnTo: 9, lookX: 0, lookY: -0.2 }, 0);
 P(SNAP, "cave", { dim: 1 }, 0.4); P(SNAP, "well", { glints: 0, glow: 0.8 }, 0.4); P(SNAP, "head", { glow: 1 }, 0.2);
-sfx(SNAP, "ai/dundun", { gain: 0.6 });
+sfx(SNAP, "ai/heartbeat", { gain: 0.6 });   // caught: one real heartbeat, no music sting
 P(SNAP - 0.05, "cup", { pour: 1 }, 0.25); P(SNAP + 0.15, "cup", { hold: 1 }, 0.04);
 expr(SNAP + 0.05, "chip", "terrified", 0.06); look(SNAP + 0.05, "chip", [-0.6, 0.3], 0.08);
 // Spud comes over to the sip stone while the head talks (he is at Chip's side for "You're a potato.")
@@ -436,7 +443,7 @@ look(DRINK, "chip", [0, 0.5], 0.2); expr(DRINK + 0.15, "chip", "kind", 0.1, { op
 sfx(DRINK + 0.3, "ai/sip", { gain: 0.8 });
 P(GOLD, "cup", { gold: 1 }, 0.3); P(GOLD, "sip", { flow: 1 }, 0.9, "out"); P(GOLD, "sip", { glow: 1 }, 0.9);
 P(GOLD, "cave", { gold: 1, runes: 1 }, 0.9); P(GOLD, "well", { gold: 1 }, 0.9);
-sfx(GOLD, "ai/warm-resolve", { gain: 0.7 }); sfx(GOLD + 0.1, "magic-up", { gain: 0.35 });
+// the gold light is silent: the score carries it (no chord sting, no power-up blip)
 gCup.carry(r3(GOLD + 0.45), W(SIP, SIP_YAW - 30, [-0.14, 0.2, 0.24]), 0.35, "inOut", { rot: SIP_YAW - 30 + 180, tip: 0 });
 expr(GOLD + 0.2, "chip", "delighted", 0.2); A(GOLD + 0.1, "chip", "squash", { amount: 0.08, dur: 0.2 }); A(GOLD + 0.5, "chip", "squash", { amount: 0, dur: 0.3 });
 P(GOLD + 0.9, "sip", { flow: 0.4, glow: 0.4 }, 0.8);
@@ -448,7 +455,7 @@ look(T[23], "chip", [-0.3, 0.6], 0.2); say(23);
 L(24, 0.15); headTalk(T[24], DUR[24], 6); P(T[24], "head", { lean: 0.5 }, 0.5); say(24);   // HEAD: One eye. One sip. One thing.
 // CHIP's pupils swirl, he gasps, turns to Odin: Wednesday... is named after you.
 const SWIRL = r3(END_OF(24) + 0.1);
-expr(SWIRL, "chip", "shocked", 0.1); sfx(SWIRL, "ai/slowmo-air", { gain: 0.4 });
+expr(SWIRL, "chip", "shocked", 0.1); // the swirl is silent (no cartoon air swell)
 L(25, 0.9);
 turn(T[25] - 0.5, "chip", yawTo(SIP, ODIN) - 20, 0.4); gCup.carry(r3(T[25] - 0.5), W(SIP, yawTo(SIP, ODIN) - 20, [-0.16, 0.18, 0.2]), 0.4, "inOut"); look(T[25] - 0.3, "chip", [0.4, 0.55], 0.2); expr(T[25], "chip", "kind", 0.3, { open: 0.1 });
 say(25);
@@ -500,13 +507,13 @@ const CU = (C, az, el = 4, h = 1.3, fov = 34) => fr([C[0], 0.62, C[1]], { az, el
 const OCU = (az, el = -6, h = 2.0, fov = 34, C = ODIN) => fr([C[0] - 0.05, 1.35, C[1]], { az, el, h, fov });   // Odin (hat top 1.71)
 const MID = [r3((CHIP0[0] + ODIN[0]) / 2), 0, r3((CHIP0[1] + ODIN[1]) / 2)];
 // the question: low, looking up past Chip at Odin (R1's dark underside and a root curtain behind the lettering)
-const OPEN_S = fr([r3(MID[0] + 0.2), 0.95, MID[2]], { az: 22, el: -4, h: 2.9, fov: 40 });   // both in one portrait frame, Chip's face and Odin's 3/4
+const OPEN_S = fr([r3(MID[0] - 0.025), 0.95, MID[2]], { az: -40, el: -3, h: 3.2, fov: 50 });   // frame 0: Chip near (left, asking up) and Odin facing us on his eye side, both faces under the lettering
 const ODIN_CL = OCU(-45, -8);
 const CHIP_UP = CU(CHIP0, 40, 16);   // from Odin's height: little Chip looking up
 const WELL_S = fr([-0.5, 0.55, 1.4], { az: 25, el: 24, h: 2.9, fov: 40, lift: 0.08 });   // high, past Spud walking in
 const SHEET_S = CU([CHIP0[0] + 0.05, CHIP0[1]], 25, 6, 1.35, 32);
 const RISE_S = { pos: [0.1, 1.05, 4.6], look: [0, 0.95, -0.2], fov: 46 };   // over their shoulders: the head comes up between them
-const HEAD_CL = fr([0, 1.05, -0.2], { az: -18, el: -4, h: 1.9, fov: 36, lift: 0.08 });
+const HEAD_CL = fr([0, 1.3, -0.2], { az: -18, el: -2, h: 2.8, fov: 50 });   // the whole face: brows, eyes, nose, moustache, beard on the water (1.9 tall read as a rock wall)
 const CHIP_HEAD = CU(CHIP0, 0, 6);
 const FLOOR_S = { pos: [FX + 0.3, 0.42, 0.62], look: [FX + 0.25, 0.09, 0.15], fov: 40 };   // down on the eye in its pebble nest
 const FLOOR_UP = { pos: [FX + 0.3, 0.3, 0.5], look: [FX + 0.25, 0.12, 0.15], fov: 34 };
@@ -523,8 +530,9 @@ const DROP_S = fr([HANG[0] - 0.2, 0.9, 0.1], { az: -12, el: 6, h: 2.6, fov: 40, 
 // the ravens, the snitches
 const LAND_S = fr([ODIN[0] - 0.05, 1.25, ODIN[1]], { az: -30, el: -2, h: 2.2, fov: 40, lift: 0.06 });
 const ODIN_ASK = OCU(-55, -6);
-const RAVEN1_S = fr(W(ODIN, ODIN_YAW, [-0.15, 1.3, 0]), { az: -10, el: 2, h: 1.9, fov: 30 });
-const RAVEN2_S = fr(W(ODIN, ODIN_YAW, [0.15, 1.3, 0]), { az: -70, el: 2, h: 2.1, fov: 30 });
+// each raven from ITS side (the old cameras sat on the far side: the bird hid behind his hair); Odin's head in the frame with it
+const RAVEN1_S = fr(W(ODIN, ODIN_YAW, [-0.1, 1.4, 0]), { az: -75, el: 4, h: 1.5, fov: 40 });   // rv1, his right shoulder: from his right front
+const RAVEN2_S = fr(W(ODIN, ODIN_YAW, [0.1, 1.4, 0]), { az: 20, el: 4, h: 1.5, fov: 40 });   // rv2, his left shoulder: from his left front (both: the hat top under the caption band)
 const SNITCH_S = CU(CHIP0, 45, 3);
 // the sneak, caught
 const SNEAK_S = fr([-1.35, 0.45, 0.9], { az: 30, el: 30, h: 3.0, fov: 40, lift: 0.06 });   // high: over Spud, the tiptoe round the rim
@@ -535,10 +543,10 @@ const BOTH_S = fr([r3((SIP[0] + SPUD_SIP[0]) / 2), 0.55, r3((SIP[1] + SPUD_SIP[1
 const SPUD_FINGER = fr([SPUD_SIP[0], 0.88, SPUD_SIP[1]], { az: 60, el: 3, h: 1.9, fov: 32 });
 const SIDE_CL = fr(W(SIP, 20, [0.06, 0.58, 0]), { az: 12, el: 4, h: 1.1, fov: 28 });   // his side: the dimples, his head low in the frame
 const PLUCK_S = CU([SIP[0] + 0.05, SIP[1]], 30, 4, 1.1, 30);
-const SQUINT_S = fr([0, 1.0, -0.2], { az: -60, el: 0, h: 1.6, fov: 34, lift: 0.06 });
+const SQUINT_S = fr([0, 1.25, -0.2], { az: -80, el: 6, h: 2.7, fov: 50 });   // the head turned to Chip (turn -0.78): its face square on
 const DRINK_S = CU(SIP, 20, 6);
 const GOLD_S = fr([SIP[0] + 0.3, 0.8, SIP[1] + 0.2], { az: -10, el: 10, h: 2.4, fov: 38 });   // from the left: Odin out of the foreground
-const ONE_THING = fr([0, 1.0, -0.2], { az: -40, el: 2, h: 2.0, fov: 36, lift: 0.08 });
+const ONE_THING = fr([0, 1.3, -0.2], { az: -55, el: 6, h: 2.9, fov: 50 });
 const WED_S = CU(SIP, 40, 4, 1.3, 32);
 const ODIN_SMILE = OCU(-50, -4, 1.8, 30);
 const PAID_S = CU(SIP, 18, 4, 1.5, 34);
@@ -548,13 +556,13 @@ const TEST_S = { pos: [DESK[0], 1.02, r3(DESK[1] + 0.98)], look: [DESK[0], 0.64,
 const LAST_S = fr([DESK[0], 0.95, DESK[1]], { az: 0, el: 6, h: 1.3, fov: 32 });
 
 const beats = c.beats([
-  ["the question", 0, push(OPEN_S, 0.12, END_OF(0) + 0.1), "hook"],
+  ["the question", 0, push(OPEN_S, 0.06, END_OF(0) + 0.1), "hook"],
   ["i paid it", r3(T[1] - 0.1), push(ODIN_CL, 0.08, 2.6)],
   ["for one sip", r3(T[1] + 1.4), push(CHIP_UP, 0.08, 1.3)],
   ["the well of wisdom", r3(T[2] - 0.1), drift(WELL_S, 0.2, 3.6)],
   ["studied zero", r3(T[3] - 0.15), push(SHEET_S, 0.08, 2.6)],
   ["the head rises", BULGE, mv(RISE_S, { pos: [0.1, 1.15, 3.9] }, r3(RISEN - BULGE + 0.2)), "reveal"],
-  ["one eye one sip", r3(T[4] - 0.1), push(HEAD_CL, 0.1, 2.3)],
+  ["one eye one sip", r3(T[4] - 0.1), push(HEAD_CL, 0.05, 2.3)],
   ["cash", r3(T[5] - 0.08), push(CHIP_HEAD, 0.08, 1.1)],
   ["eyes", r3(T[6] - 0.08), push(HEAD_CL, 0.06, 1.0)],
   ["the dive", DIVE, mv({ pos: [-0.2, 1.6, 0.8], look: [0, 0.22, -0.1], fov: 46 }, { pos: [0.0, 0.6, 0.15] }, r3(FLOOR_IN - DIVE)), "insert"],
