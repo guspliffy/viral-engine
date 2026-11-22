@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { clamp, rng } from "./util.js";
 import { mat, basic, mesh } from "./props-trend.js";
+import { buildKitchenRoom } from "./set-kitchen.js";
 
 // Kid vs Dad 02 "food at home" (design: storyboards/series/kid-vs-dad/02-food-at-home/DESIGN.md section 5, panels 08 and 09).
 // Metres before spec.scale. Deterministic: every grain and wart is placed once from a seeded rng; every animation is a pure
@@ -30,6 +31,20 @@ import { mat, basic, mesh } from "./props-trend.js";
 //   Cling film: the see-through disc is DROPPED (the design allows it): the 4 white streaks (opaque, on the mound) and the crinkled
 //   skirt with its 16 folds and 2 loose corners carry it. Counter mask: the kitchen set's counter runs behind the stock fridge's place
 //   and would show through the cavity, so the inside is drawn first and a depth-only mask over the opening hides it.
+//
+//   kitchenroom  the kitchen set (set-kitchen.js buildKitchen: teal tiled wall, window, butcher-block counter on cabinets, upper
+//                cabinets, wall clock, hanging lamp, dark checked floor) as a prop, so a storyboard on another set (Kid vs Dad 02
+//                is on `plain`, night, floor "none") can hold the kitchen far from the origin for the fridge cut. Place it at world
+//                (X, 0, Z), rot 0: its origin IS the kitchen set's origin, so every kitchen coordinate lands at +X, +Z (the stock
+//                fridge's place (-3.0, -1.90) becomes (X-3.0, Z-1.90); the back wall is at z Z-2.3, the floor is 14 x 14 at y 0,
+//                z -4..+10; there are no side walls and no ceiling, the room is open behind a camera). Size: 14 wide x 5.2 high.
+//                spec keys, the kitchen set's own, nothing new: time 2.75 (the clock), lamp 1 (the hanging lamp's strength; the DESIGN
+//                wants 0.2 for the dark night kitchen), morning false (a daytime window), fridge true (give `fridge: false` when
+//                `openfridge` stands in the stock fridge's place), seed 5. It does NOT touch the scene's background or fog; its one
+//                real light, the hanging lamp (`set-lamp`, range 9 m), is local, so it does not reach a drive-thru 200 m away. The
+//                names `set-floor`, `set-lamp`, `set-bulb` and `set-clock` are kept: the night look paints the lamp's warm pool on the
+//                floor and the `lights` effect drives the lamp, as in the set (only one kitchenroom per storyboard, and no other
+//                `set-lamp`/`set-floor`). Not held. A `clock` prop hides its clock as it hides the set's.
 export const FRIDGE = { w: 0.9, h: 2.0, z0: -0.375, z1: 0.315, cav: { x: 0.4, y0: 0.5, y1: 1.92, d: 0.62 }, shelves: [0.86, 1.2, 1.56],
   pickle: [-0.19, 1.245, 0.1], bowl: [0.17, 1.2, 0.06], handleRest: [-0.34, 0.75, 0.43] };
 
@@ -37,6 +52,10 @@ const CAV = { back: "#eaf4fa", side: "#d7e6f0", ceil: "#e2eef6", floor: "#d2e1ec
 const rad = (d) => (d * Math.PI) / 180;
 
 export const FRIDGE_KINDS = {
+  kitchenroom(P) {
+    buildKitchenRoom(P.whole, P.spec);
+    return { grip: 0 };
+  },
   openfridge(P) {
     const W = FRIDGE.w, Z0 = FRIDGE.z0, Z1 = FRIDGE.z1, C = FRIDGE.cav, DEPTH = Z1 - Z0;
     const body = mat("#e9e6dc", { roughness: 0.35 }), shade = mat("#cfcabb", { roughness: 0.4 }), steel = mat("#9aa0a8", { roughness: 0.3, metalness: 0.5 });

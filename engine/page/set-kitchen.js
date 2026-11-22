@@ -17,8 +17,16 @@ const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness
 function box(w, h, d, m, x, y, z, parent) { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); b.position.set(x, y, z); b.castShadow = b.receiveShadow = true; parent.add(b); return b; }
 
 export function buildKitchen(scene, S = {}) {
-  const rnd = rng((S.seed || 5) * 977), room = new THREE.Group(); scene.add(room);
+  const room = new THREE.Group(); scene.add(room);
   scene.background = new THREE.Color("#1b2a33"); scene.fog = null;
+  return buildKitchenRoom(room, S);
+}
+
+// The room alone, built into `room` (a Group the caller owns): no scene.background, no scene.fog. The set above calls it after
+// setting those; the `kitchenroom` prop (props-fridge.js) calls it with its own group so a storyboard on another set can hold the
+// kitchen far from the origin. Its one real light (the hanging lamp, range 9) is local.
+export function buildKitchenRoom(room, S = {}) {
+  const rnd = rng((S.seed || 5) * 977);
   const WALL_Z = -2.3;
 
   // floor: dark checks like the map's floor
