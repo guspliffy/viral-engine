@@ -104,6 +104,9 @@ import { SPINSPACE_KINDS } from "./props-spinspace.js";
 import { GRAVMOON_KINDS } from "./props-gravmoon.js";   // gravity v2: Moon fall, fire wall, room hit
 import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP03 Atlantis, block D (kit/BLOCKS.md)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
+import { DRIVETHRU_KINDS } from "./props-drivethru.js";   // kid vs dad 02: drivethru, burgersign, trafficlight, trafficcone, speakerpost, menuboard
+import { FRIDGE_KINDS } from "./props-fridge.js";   // kid vs dad 02: openfridge
+import { FOODHOME_KINDS } from "./props-foodhome.js";   // kid vs dad 02: wrapburger, fogglass, cablight, sweatbead
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { LUNCH_KINDS } from "./props-lunch.js";   // potato desk 10 lunch trial: lunchbox, yogurtcup, kitchensink, microwave, beanmachine, corkboard, blindwindow, carpettiles, ceilingtiles, mouldbox, lanyard, collarstain, pocketglow
 import { THERMO_KINDS, THERMO_GRIPS } from "./props-thermo.js";   // potato desk 11 thermostat war: thermostat, thermobox, stepstool
@@ -1496,6 +1499,7 @@ Object.assign(KINDS, TENT_KINDS);   // friends try to 02: tent, tentpeg, backpac
 Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);   // there's a catch 04 (props-money.js, props-flood.js, props-twist.js, props-nightdiner.js)
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
+Object.assign(KINDS, DRIVETHRU_KINDS, FRIDGE_KINDS, FOODHOME_KINDS);   // kid vs dad 02 (props-drivethru.js, props-fridge.js, props-foodhome.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
 Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
 Object.assign(KINDS, THERMO_KINDS, CLIMATE_KINDS, OFFICE11_KINDS);   // potato desk 11 thermostat war (props-thermo.js, props-climate.js, props-office11.js)

@@ -181,6 +181,8 @@ const SIZE = {
   // props-kvd.js (Kid vs Dad 01): jokejar = box hold, both palms on the sides 0.127 up (call box with gap: 0.03); drumsticks = the pair of sticks, mug hold with the fist ON the origin (the grip point; h 0 = y 0, as the megaphone), Spud's left fist ({ side: "L" })
   jokejar: { w: 0.30, h: 0.23, d: 0.30 },
   drumsticks: { r: 0.008, h: 0 },
+  // props-foodhome.js (Kid vs Dad 02): wrapburger = box hold, both palms on the paper (origin bottom centre, 0.24 across, 0.155 tall; the design's y 0.05 = height 0.32, gap 0.03)
+  wrapburger: { w: 0.24, h: 0.155, d: 0.24 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
