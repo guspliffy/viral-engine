@@ -8304,6 +8304,16 @@
   },
   {
    "who": "jackal",
+   "with": "chip",
+   "from": 3.53,
+   "to": 4.93,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "the jackal's palm rests on the pillar out of frame (behind the camera of Chip's 'She just ATE his heart?!' close-up); draft stills at 4.55/4.7/4.85 s show both eyes clear. In the posted cut the same shot only warned (0.2 s)"
+  },
+  {
+   "who": "jackal",
    "with": "scale",
    "from": 0,
    "to": 64.27,
