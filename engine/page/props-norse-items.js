@@ -390,8 +390,8 @@ function norsesheet(P) {
 function norsetest(P) {
   const S = P.spec, g = P.whole, seed = S.seed ?? 1, marks = S.marks ?? 1;
   const print = canvasTex(1280, 1706, (c, w, h) => printSheet(c, w, h, { paper: "#fbfaf5", pale: "#9aa6b4", ink: "#3a3a44", crisp: true, hero: marks >= 0.5, seed }));
-  const body = new THREE.Mesh(new THREE.BoxGeometry(SW, SH, 0.002), mat("#fbfaf5", { roughness: 0.95, emissive: "#fbfaf5", emissiveIntensity: 0.3 })); body.position.set(0, SH / 2, 0); body.castShadow = body.receiveShadow = true; g.add(body);
-  const face = new THREE.Mesh(new THREE.PlaneGeometry(SW, SH), mat("#ffffff", { map: print, roughness: 0.95, emissive: "#ffffff", emissiveMap: print, emissiveIntensity: 0.3 })); face.position.set(0, SH / 2, 0.00115); face.receiveShadow = true; g.add(face);
+  const body = new THREE.Mesh(new THREE.BoxGeometry(SW, SH, 0.002), mat("#fbfaf5", { roughness: 0.95, emissive: "#fbfaf5", emissiveIntensity: 0 })); body.position.set(0, SH / 2, 0); body.castShadow = body.receiveShadow = true; g.add(body);
+  const face = new THREE.Mesh(new THREE.PlaneGeometry(SW, SH), mat("#ffffff", { map: print, roughness: 0.95, emissive: "#ffffff", emissiveMap: print, emissiveIntensity: 0 })); face.position.set(0, SH / 2, 0.00115); face.receiveShadow = true; g.add(face);
   // the pencil scribble: its own canvas on a plane just over the print, redrawn per value of `write` (steps of 1/80)
   const W = 1280, Hh = 1706, sc = canvasTex(W, Hh, () => {});
   const scm = new THREE.MeshBasicMaterial({ map: sc, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); scm.userData.noOutline = true; scm.userData.noHatch = true;

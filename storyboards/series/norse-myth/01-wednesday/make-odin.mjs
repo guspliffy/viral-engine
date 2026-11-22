@@ -40,9 +40,9 @@ const at = (t) => { now = r3(Math.max(now, t)); return now; };   // push the clo
 
 // ---------------------------------------------------------------- places (DESIGN D1, E1, F3; x right, z toward us; yaw 0 = facing +z)
 const FX = 300, TX = 600, CX = -300, AWAY = -60;
-const CHIP0 = [-0.70, 2.25], CHIP0_YAW = 50;   // DESIGN: Chip facing +x; cheated 40 toward the camera side
+const CHIP0 = [-0.45, 2.30], CHIP0_YAW = 50;   // DESIGN: Chip facing +x; cheated 40 toward the camera side
 const ODIN = [0.90, 2.35], ODIN_YAW = -40;     // 35-40 off +z toward Chip
-const SPUD_IN = [-2.45, 3.35], SPUD0 = [-1.55, 2.75], SPUD0_YAW = 35;
+const SPUD_IN = [-2.3, 3.45], SPUD0 = [-1.35, 2.85], SPUD0_YAW = 35;
 const SIP = [-1.78, -0.31], SIP_YAW = 62;      // the sip stone (100 degrees round the rim toward -x); he faces the well, cheated to us
 const SPUD_SIP = [-2.45, 0.75], SPUD_SIP_YAW = 95;
 const T_ODIN = [TX - 7.4, 2.8], T_ODIN_YAW = 112, T_SPUD = [TX - 0.6, 2.2], T_CHIP = [TX + 0.55, 2.3];   // in front of the pile, clear of the buttresses
@@ -69,7 +69,8 @@ const SPEAKER = { head: "hv", raven1: "r1v", raven2: "r2v" };
 
 // ---------------------------------------------------------------- props
 const spearAt = (C, yaw) => { const p = W(C, yaw, [-0.46, 0, 0.1]); return { x: p[0], y: 0, z: p[2], rot: r3(yaw), tip: -6 }; };   // the Odin bench's rest hold
-const RAVEN = (id, who, x) => ({ id, kind: "norseraven", who, wear: "odin", x, y: 0.83, z: -0.01, rot: 0, perchR: 0.05 });
+const PERCH_Y = 0.97;   // the fur shelf: body-local 0.83 over his legs (the worn frame is the ground under him; raven bench)
+const RAVEN = (id, who, x) => ({ id, kind: "norseraven", who, wear: "odin", x, y: PERCH_Y, z: -0.01, rot: 0, perchR: 0.05 });
 const props = [
   { id: "cave", kind: "norsecave", x: 0, y: 0, z: 0 },
   { id: "well", kind: "norsewell", x: 0, y: 0, z: 0, light: 1, staged: "scenery: the well stands on the cave floor (the support probe misses its plinth while the cave sits at scale 0.001)", dipAt: DIP_AT, payAt: PAY_AT, ringAt: [] },
@@ -94,7 +95,7 @@ const props = [
   { id: "room", kind: "norseroom", x: CX, y: 0, z: 0, scale: 0.001 },
   { id: "class", kind: "norseclass", x: CX, y: 0, z: 0, scale: 0.001 },
   { id: "desk", kind: "norsedesk", x: DESK[0], y: 0, z: DESK[1], rot: 0, scale: 0.001 },
-  { id: "test", kind: "norsetest", x: DESK[0], y: 0.6215, z: r3(DESK[1] + 0.53), rot: 180, tip: -90, scale: 0.001 },
+  { id: "test", kind: "norsetest", x: DESK[0], y: 0.64, z: r3(DESK[1] + 0.69), rot: 0, tip: -90, scale: 0.001 },   // print up, its top away from the camera: reads upright for us
 ];
 const PROP = Object.fromEntries(props.map((p) => [p.id, p]));
 const SCENERY = { cave: ["cave", "well", "head"], floor: ["floor"], tree: ["tree", "leaves", "column", "pile", "rope", "staves"], class: ["room", "class", "desk", "test"] };
@@ -315,7 +316,7 @@ look(BACK, "odin", [-0.15, -0.15], 0.01);
 P(BACK - 0.03, "cup", { x: CUP0.x, y: CUP0.y, z: CUP0.z, rot: CUP0.rot }, 0); gCup.secure(r3(BACK - 0.02), 0.001);
 // the ravens fly back in from the gap and land on his shoulders (flyers, then the worn pair)
 const ARRIVE = r3(BACK + 0.25), PERCH = r3(ARRIVE + 1.0);
-const SHOULDER = (x) => { const p = W(ODIN, ODIN_YAW, [x, 0.83, -0.01]); return p; };
+const SHOULDER = (x) => W(ODIN, ODIN_YAW, [x, PERCH_Y, -0.01]);
 for (const [id, x, dx] of [["fr1", -0.34, -1.4], ["fr2", 0.34, 1.2]]) {
   const S = SHOULDER(x);
   P(ARRIVE - 0.02, id, { x: r3(S[0] + dx), y: r3(S[1] + 2.2), z: r3(S[2] - 3.2), rot: ODIN_YAW, wings: 1, flap: 0, brake: 0, grip: 0 }, 0);
@@ -449,7 +450,7 @@ L(24, 0.15); headTalk(T[24], DUR[24], 6); P(T[24], "head", { lean: 0.5 }, 0.5); 
 const SWIRL = r3(END_OF(24) + 0.1);
 expr(SWIRL, "chip", "shocked", 0.1); sfx(SWIRL, "ai/slowmo-air", { gain: 0.4 });
 L(25, 0.9);
-turn(T[25] - 0.5, "chip", yawTo(SIP, ODIN) - 20, 0.4); look(T[25] - 0.3, "chip", [0.4, 0.55], 0.2); expr(T[25], "chip", "kind", 0.3, { open: 0.1 });
+turn(T[25] - 0.5, "chip", yawTo(SIP, ODIN) - 20, 0.4); gCup.carry(r3(T[25] - 0.5), W(SIP, yawTo(SIP, ODIN) - 20, [-0.16, 0.18, 0.2]), 0.4, "inOut"); look(T[25] - 0.3, "chip", [0.4, 0.55], 0.2); expr(T[25], "chip", "kind", 0.3, { open: 0.1 });
 say(25);
 look(T[25] + 0.3, "odin", [-0.25, -0.15], 0.3);
 // ODIN smiles for the first time: Woden's day. My day.
@@ -499,16 +500,16 @@ const CU = (C, az, el = 4, h = 1.3, fov = 34) => fr([C[0], 0.62, C[1]], { az, el
 const OCU = (az, el = -6, h = 2.0, fov = 34, C = ODIN) => fr([C[0] - 0.05, 1.35, C[1]], { az, el, h, fov });   // Odin (hat top 1.71)
 const MID = [r3((CHIP0[0] + ODIN[0]) / 2), 0, r3((CHIP0[1] + ODIN[1]) / 2)];
 // the question: low, looking up past Chip at Odin (R1's dark underside and a root curtain behind the lettering)
-const OPEN_S = fr([MID[0], 0.85, MID[2]], { az: 8, el: -6, h: 2.3, fov: 40, lift: 0.05 });
+const OPEN_S = fr([r3(MID[0] + 0.2), 0.95, MID[2]], { az: 22, el: -4, h: 2.9, fov: 40 });   // both in one portrait frame, Chip's face and Odin's 3/4
 const ODIN_CL = OCU(-45, -8);
 const CHIP_UP = CU(CHIP0, 40, 16);   // from Odin's height: little Chip looking up
-const WELL_S = fr([-0.9, 0.55, 1.6], { az: -30, el: 14, h: 2.8, fov: 40, lift: 0.08 });
+const WELL_S = fr([-0.5, 0.55, 1.4], { az: 25, el: 24, h: 2.9, fov: 40, lift: 0.08 });   // high, past Spud walking in
 const SHEET_S = CU([CHIP0[0] + 0.05, CHIP0[1]], 25, 6, 1.35, 32);
 const RISE_S = { pos: [0.1, 1.05, 4.6], look: [0, 0.95, -0.2], fov: 46 };   // over their shoulders: the head comes up between them
 const HEAD_CL = fr([0, 1.05, -0.2], { az: -18, el: -4, h: 1.9, fov: 36, lift: 0.08 });
 const CHIP_HEAD = CU(CHIP0, 0, 6);
-const FLOOR_S = { pos: [FX + 0.32, 0.32, 0.62], look: [FX + 0.25, 0.4, 0.05], fov: 46 };
-const FLOOR_UP = { pos: [FX + 0.28, 0.3, 0.42], look: [FX + 0.25, 1.4, -0.35], fov: 52 };
+const FLOOR_S = { pos: [FX + 0.3, 0.42, 0.62], look: [FX + 0.25, 0.09, 0.15], fov: 40 };   // down on the eye in its pebble nest
+const FLOOR_UP = { pos: [FX + 0.3, 0.3, 0.5], look: [FX + 0.25, 0.12, 0.15], fov: 34 };
 const RECOIL_S = CU(CHIP0, 20, 4, 1.4);
 const POINT_S = fr([ODIN[0] - 0.2, 1.4, ODIN[1]], { az: -15, el: -18, h: 2.4, fov: 40 });
 // the tree
@@ -526,13 +527,13 @@ const RAVEN1_S = fr(W(ODIN, ODIN_YAW, [-0.15, 1.3, 0]), { az: -10, el: 2, h: 1.9
 const RAVEN2_S = fr(W(ODIN, ODIN_YAW, [0.15, 1.3, 0]), { az: -70, el: 2, h: 2.1, fov: 30 });
 const SNITCH_S = CU(CHIP0, 45, 3);
 // the sneak, caught
-const SNEAK_S = fr([-1.25, 0.45, 0.9], { az: -10, el: 16, h: 3.0, fov: 40, lift: 0.06 });
-const DIP_S = fr([SIP[0] + 0.25, 0.3, SIP[1]], { az: 25, el: 14, h: 1.1, fov: 34, lift: 0.1 });
+const SNEAK_S = fr([-1.35, 0.45, 0.9], { az: 30, el: 30, h: 3.0, fov: 40, lift: 0.06 });   // high: over Spud, the tiptoe round the rim
+const DIP_S = fr([SIP[0] + 0.25, 0.45, SIP[1]], { az: 35, el: 20, h: 1.6, fov: 34 });
 const SNAP_S = { pos: [-2.6, 1.25, 1.35], look: [-0.1, 0.95, -0.25], fov: 42 };   // the head turned to us, Chip small at the rim
 const CAUGHT_S = CU(SIP, 30, 4, 1.4);
 const BOTH_S = fr([r3((SIP[0] + SPUD_SIP[0]) / 2), 0.55, r3((SIP[1] + SPUD_SIP[1]) / 2)], { az: 20, el: 6, h: 2.2, fov: 36, lift: 0.1 });
 const SPUD_FINGER = fr([SPUD_SIP[0], 0.88, SPUD_SIP[1]], { az: 60, el: 3, h: 1.9, fov: 32 });
-const SIDE_CL = fr(W(SIP, 20, [0.06, 0.58, 0]), { az: 75, el: 4, h: 1.25, fov: 28 });   // his side: the dimples, his head low in the frame
+const SIDE_CL = fr(W(SIP, 20, [0.06, 0.58, 0]), { az: 12, el: 4, h: 1.1, fov: 28 });   // his side: the dimples, his head low in the frame
 const PLUCK_S = CU([SIP[0] + 0.05, SIP[1]], 30, 4, 1.1, 30);
 const SQUINT_S = fr([0, 1.0, -0.2], { az: -60, el: 0, h: 1.6, fov: 34, lift: 0.06 });
 const DRINK_S = CU(SIP, 20, 6);
@@ -540,10 +541,10 @@ const GOLD_S = fr([SIP[0] + 0.3, 0.8, SIP[1] + 0.2], { az: -10, el: 10, h: 2.4, 
 const ONE_THING = fr([0, 1.0, -0.2], { az: -40, el: 2, h: 2.0, fov: 36, lift: 0.08 });
 const WED_S = CU(SIP, 40, 4, 1.3, 32);
 const ODIN_SMILE = OCU(-50, -4, 1.8, 30);
-const PAID_S = fr([r3((SIP[0] + ODIN[0]) / 2), 0.7, r3((SIP[1] + ODIN[1]) / 2 + 0.4)], { az: 10, el: 8, h: 2.8, fov: 40, lift: 0.08 });
+const PAID_S = CU(SIP, 18, 4, 1.5, 34);
 // the classroom
 const CLASS_S = fr([DESK[0], 0.75, DESK[1]], { az: 0, el: 12, h: 2.3, fov: 36, lift: 0.08 });
-const TEST_S = { pos: [DESK[0], 1.2, r3(DESK[1] + 0.95)], look: [DESK[0], 0.62, r3(DESK[1] + 0.53)], fov: 30 };
+const TEST_S = { pos: [DESK[0], 1.02, r3(DESK[1] + 0.98)], look: [DESK[0], 0.64, r3(DESK[1] + 0.45)], fov: 30 };   // the calendar strip (0.235 up the sheet)
 const LAST_S = fr([DESK[0], 0.95, DESK[1]], { az: 0, el: 6, h: 1.3, fov: 32 });
 
 const beats = c.beats([
@@ -601,7 +602,7 @@ const grade = [
   [r3(BACK - 0.02), { w: 0.05, s: 1.05, lift: 0 }],
   [r3(SNAP), { w: -0.3, s: 0.95 }, 0.4], [r3(WARM), { w: 0.05, s: 1.05 }, 2.5],
   [r3(GOLD), { w: 0.4, s: 1.15, lift: 0.02 }, 0.9], [r3(GOLD_OFF), { w: 0.05, s: 1.05, lift: 0 }, 1.5],
-  [r3(CLASS - 0.02), { w: 0.15, s: 1.0, lift: 0.04 }],
+  [r3(CLASS - 0.02), { w: 0.1, s: 1.0, lift: 0 }],
 ];
 
 // the buds schedule lives in the character file (costumes-norse-chip.js reads clip time): written from these times
