@@ -38,10 +38,10 @@ const TEAL = [0.92, 0, 0.95], YEL = [1.30, 0, 0.95];
 // the cast at door 4 (DESIGN A marks): the rules by the door, the payoff by the boots (behind them, toward the lane)
 const SPUD0 = [-0.85, 0.90], CHIP0 = [0.30, 1.00];
 const CHIP_POL = [1.10, 1.55];   // polishing, on the apron in front of the boots
-const PILE_IN = [3.32, 0.38];   // all the way in, feet too (Sol r1 #15: the trainers sticking out read as a face and as cut off by the boards)    // inside the hollow (x 2.80..3.60, z 0.05..0.71), lying face down toward +x
+const PILE_MID = [3.12, 0.38], PILE_IN = [3.52, 0.38];   // the dive ends with his trainers out of the hollow; in the pile shot he pulls them in (Sol r2 #14, #15)   // all the way in, feet too (Sol r1 #15: the trainers sticking out read as a face and as cut off by the boards)    // inside the hollow (x 2.80..3.60, z 0.05..0.71), lying face down toward +x
 const CHIP_OUT = [2.20, 0.95];   // crawled out of the hollow mouth
 const SPUD_E = [1.25, 0.62], CHIP_E = [2.12, 0.62];   // z 0.62: clear of the snow banked on the plinth   // the payoff: on the apron behind their boots, facing out; the Krampus left, Nick right
-const K4 = [0.07, 0, 1.10], K4ROT = 100, NICK_Y = [2.78, 0, 1.34], NICK_T = [0.80, 0, 1.95], NICK_OFF = [-1.35, 0, 1.6];   // Nick reads the long page from the lane side, then steps off
+const K4 = [0.07, 0, 1.10], K4ROT = 100, NICK_Y = [2.94, 0, 1.50], NICK_T = [0.80, 0, 1.95], NICK_OFF = [-1.35, 0, 1.6];   // Nick reads the long page from the lane side, then steps off
 const AWAY = -60;
 
 // ---------------------------------------------------------------- the drawings on their pegs (bench/make-boots-bench.mjs noteAt)
@@ -61,16 +61,16 @@ const SPEAKER = { kid: "kv" };
 
 // ---------------------------------------------------------------- props (DESIGN A-F)
 const TEAL_B = { id: "bt", kind: "kboot", who: "spud", x: TEAL[0], y: 0, z: TEAL[2], rot: -35 };
-const YEL_B = { id: "by", kind: "kboot", who: "chip", x: YEL[0], y: 0, z: YEL[2], rot: -35, mud: 1 };
+const YEL_B = { id: "by", kind: "kboot", who: "chip", x: YEL[0], y: 0, z: YEL[2], rot: -35, mud: 1, treatsFall: 0.75 };   // the treats drop in from above the pour insert's top edge (Sol r2 #23)
 const D9 = { id: "b9", kind: "kboot", style: "suede", x: BOOT_AT(9)[0], y: Y(9), z: BOOT_AT(9)[2], rot: -25 };
 const D8 = { id: "b8", kind: "kboot", style: "leather", x: BOOT_AT(8)[0], y: Y(8), z: BOOT_AT(8)[2], rot: -25 };
 const N_SPUD0 = noteAt("spud", TEAL_B), N_CHIP0 = noteAt("chip", YEL_B, 0.867, 0.26);
 // after the swap: the teal drawing (Spud's) on the yellow boot, the yellow drawing (Chip's) on the teal boot
 const N_SPUD1 = noteAt("spud", YEL_B, 0.867, 0.26), N_CHIP1 = noteAt("chip", TEAL_B);
-const BOOK = { id: "book", kind: "goldenbook", x: 0, y: AWAY, z: 0, rot: 0, rollDir: [1, 0.08], apron: [6, 0.16], drop0: 0.10 };   // the roll runs along door 4's apron past the boots (toward the lane it went under the snow bank, Sol r1 #24)
+const BOOK = { id: "book", kind: "goldenbook", x: 0, y: AWAY, z: 0, rot: 0, rollDir: [1, 0], apron: [6, 0.16], drop0: 0.10 };   // the roll runs along door 4's apron past the boots (toward the lane it went under the snow bank, Sol r1 #24)
 const props = [
   { id: "lane", kind: "krampuslane", x: 0, y: 0, z: 0, shakeAt: 5 },
-  { id: "kr", kind: "krampus", x: KR_AT(9)[0], y: Y(9), z: KR_AT(9)[2], rot: 270, mirror: true, jamAt: [0, 0.34, 0.85] },   // the sticks go in dead ahead (the default 0.15 to the side missed the cuff, Sol r1 #12)
+  { id: "kr", kind: "krampus", x: KR_AT(9)[0], y: Y(9), z: KR_AT(9)[2], rot: 270, mirror: true, jamAt: [0, 0.34, 0.85], holdAt: [0.16, 1.84, 0.70], kidYaw: 0.7, peekYaw: 1.57 },   // the claw on the scarf at his nape, the kid turned to the camera (Sol r2 #2, #3)   // the sticks go in dead ahead (the default 0.15 to the side missed the cuff, Sol r1 #12)
   { id: "shadow", kind: "krampusshadow", x: X(9), y: Y(9), z: 0.16, rot: 0 },
   TEAL_B, YEL_B, D9, D8,
   { id: "nt", kind: "bootnote", who: "spud", ...N_SPUD0, staged: "pinned on a peg at the boot's top (DESIGN E)" },
@@ -125,7 +125,7 @@ const atDoor = (t, k, { nick = true } = {}) => {
 const check = (t, boot, { shake = true } = {}) => {
   P(t, "book", { glow: 1 }, 0.3); P(t + 0.1, "book", { page: Math.round(pageNow += 1) }, 0.27);
   if (shake) { A(t + 0.5, "nick", "turn", { to: 65, dur: 0.18 }); A(t + 0.68, "nick", "turn", { to: 95, dur: 0.18 }); A(t + 0.86, "nick", "turn", { to: 80, dur: 0.16 }); }
-  P(t + 0.6, "kr", { stoop: 1 }, 0.35, "inOut"); P(t + 0.95, "kr", { jam: 1 }, 0.18, "in");
+  P(t + 0.5, "kr", { stoop: 1 }, 0.35, "inOut"); P(t + 0.72, "kr", { jam: 1 }, 0.4, "inOut");   // 0.18 s: the bundle jumped to his muzzle (Sol r2 #12)
   P(t + 1.13, boot, { sticks: 1 }, 0.13); P(t + 1.13, "kr", { bunch: 0 }, 0);
   sfx(t + 1.13, "hit-wood", { gain: 0.35 }); bells(t + 0.95, 0.5);
   P(t + 1.3, "kr", { jam: 0 }, 0.25); P(t + 1.45, "kr", { stoop: 0, bunch: 1 }, 0.4);
@@ -144,14 +144,14 @@ P(0, "by", { mud: 1, shine: 0, sticks: 0, treats: 0, droop: 0, glint: 0, shade: 
 P(0, "b9", { sticks: 0, shade: 1 }, 0); P(0, "b8", { sticks: 0, shine: 1 }, 0);
 P(0, "nt", { flutter: 0.1, swing: 0, kink: 0 }, 0); P(0, "ny", { flutter: 0.1, swing: 0, kink: 0 }, 0);
 P(0, "book", { open: 1, page: 0, glow: 0.6, run: 0, spread: "plain" }, 0);
-P(0, "cat", { run: 0, streak: 0, bound: 0, rate: 4.2, tail: 0.5, ears: 0, show: 0 }, 0);
+P(0, "cat", { run: 0, streak: 0, bound: 0, rate: 3.6, tail: 0.5, ears: 0, show: 0 }, 0);
 P(0, "run", { march: 0, torch: 1, ring: 0.8, cheer: 0.5, show: 0 }, 0);
 for (const w of ["chip", "spud", "nick", "kv"]) A(0, w, "noblink");
 turn(0, "chip", -40, 0.01); turn(0, "spud", 30, 0.01);
 look(0, "chip", [-0.6, 0.1], 0.01); look(0, "spud", [-0.6, 0], 0.01);
 // Nick holds the book open at his chest the whole film (grips.box: both palms on its edges)
 const BROT = (yaw) => grips.placeFor("goldenbook", [0, 0, 0], yaw).rot;
-const BOOK_AT = (C, yaw, y = 0, h = 0.22) => { const a = yaw * D2R; return [r3(C[0] + Math.sin(a) * 0.44), r3(y + h), r3(C[1] + Math.cos(a) * 0.44)]; };   // 0.44: clear of his beard (Sol r1 #8)
+const BOOK_AT = (C, yaw, y = 0, h = 0.22) => { const a = yaw * D2R; return [r3(C[0] + Math.sin(a) * 0.52), r3(y + h), r3(C[1] + Math.cos(a) * 0.52)]; };   // 0.52: clear of his beard (Sol r1 + r2 #8: at 0.44 it still crossed the cover)
 const B0 = { ...BOOK, ...grips.placeFor("goldenbook", BOOK_AT([NICK_AT(9)[0], NICK_AT(9)[2]], 80, Y(9)), 80) };
 P(0, "book", { x: B0.x, y: B0.y, z: B0.z, rot: B0.rot }, 0);
 const gBook = grips.box(c, "nick", B0);
@@ -198,7 +198,6 @@ for (let k = 0; k < 6; k++) { P(T[0] + k * 0.28, "kr", { kidTalk: 1 }, 0.07); P(
 const LID9 = r3(END_OF(0) - 0.05);
 P(LID9 - 0.95, "kr", { hold: 0 }, 0.35, "inOut"); P(LID9 - 0.75, "kr", { lid: 1, headYaw: 0.2 }, 0.2); P(LID9 - 0.55, "kr", { stow: 1 }, 0.45, "inOut");   // over the shoulder, in
 P(LID9 - 0.15, "kr", { kidPeek: 0 }, 0.12, "in"); P(LID9, "kr", { lid: 0 }, 0.08, "in"); P(LID9 + 0.08, "kr", { scarfOut: 1 }, 0);
-P(LID9 + 0.12, "kr", { lid: 0.3 }, 0.1); P(LID9 + 0.15, "kr", { kidKick: 1 }, 0.25);   // the legs kick the lid up (Sol r1 #11: they went through it)
 sfx(LID9 - 0.5, "cloth", { gain: 0.4 });
 sfx(LID9 + 0.06, "thud-soft", { gain: 0.7 }); sfx(LID9 + 0.08, "kenney/impact-wood-light", { gain: 0.4 });
 see(D9T, KID9, ["kr", "nick", "book"], "Saint Nick reads a glowing golden book and shakes his head; the horned Krampus holds a small kid up by the scruff");
@@ -241,11 +240,12 @@ L(5, 0.2);
 expr(T[5], "chip", "worried"); look(T[5], "chip", [0.2, 0.1]);
 say(5);
 const BASKET = r3(END_OF(5) + 0.1);
-P(BASKET - 0.05, "kr", { lid: 0.3 }, 0.12); P(BASKET, "kr", { kidKick: 1 }, 0.25); P(BASKET + 0.5, "kr", { kidKick: 0 }, 0.25); P(BASKET + 0.75, "kr", { kidKick: 1 }, 0.2);
-P(BASKET + 1.15, "kr", { kidKick: 0 }, 0.2); P(BASKET + 1.3, "kr", { lid: 0 }, 0.1);
-sfx(BASKET + 0.2, "thud-soft", { gain: 0.4 }); sfx(BASKET + 0.85, "thud-soft", { gain: 0.35 });
+// the lid lifts, the kid's eyes peek over the rim, a claw-tap slams it shut on him (Sol r2 #11: the kicks never read)
+P(BASKET - 0.05, "kr", { lid: 0.75 }, 0.3, "out"); P(BASKET + 0.1, "kr", { kidPeek: 1 }, 0.35, "out");
+P(BASKET + 0.85, "kr", { kidPeek: 0 }, 0.12, "in"); P(BASKET + 0.88, "kr", { lid: 0 }, 0.1, "in");
+sfx(BASKET, "door-creak", { gain: 0.3 }); sfx(BASKET + 0.96, "thud-soft", { gain: 0.55 }); sfx(BASKET + 0.98, "kenney/impact-wood-light", { gain: 0.3 });
 look(BASKET, "spud", [-0.7, 0.3], 0.3); expr(BASKET + 0.3, "chip", "terrified");
-see(BASKET, r3(BASKET + 1.2), ["kr"], "his wicker basket: the lid shut, two small legs kick out of it");
+see(BASKET, r3(BASKET + 1.2), ["kr"], "his wicker basket: the lid lifts, the kid peeks out, the lid slams shut on him");
 after(BASKET + 1.2);
 
 // ================================================================= 14.5-30.5 POLISH (false close 1): door 8
@@ -282,7 +282,7 @@ arm(RUB_END, "chip", "L", "rest", 0.3);
 // CHIP: Done. Good kid.  (he holds it up: the glint crosses the shaft)
 L(8, RUB_END + 0.1 - now);
 expr(T[8] - 0.1, "chip", "smug"); look(T[8], "chip", [0, 0.3]);
-const HOLD_UP = [r3(CHIP_POL[0] - 0.22), 0.22, r3(CHIP_POL[1] + 0.24)];
+const HOLD_UP = [r3(CHIP_POL[0] - 0.27), 0.14, r3(CHIP_POL[1] + 0.24)];   // below his eye (Sol r2 #27)
 gBoot.carry(T[8] - 0.15, HOLD_UP, 0.3, "out");
 P(T[8] + 0.3, "by", { glint: 1 }, 0.2); sfx(T[8] + 0.3, "cloth", { gain: 0.2 });
 say(8);
@@ -322,7 +322,9 @@ expr(T[14], "chip", "eager"); look(T[14], "chip", [0.8, -0.1]);
 say(14);
 const RUN0 = r3(T[14] + 0.35), DIVE = r3(RUN0 + 0.55);
 A(RUN0, "chip", "move", { to: [2.40, 0.42], dur: 0.55, ease: "in" });
-A(DIVE, "chip", "pitch", { to: 88, dur: 0.18, ease: "in" }); A(DIVE, "chip", "move", { to: PILE_IN, dur: 0.45, ease: "inOut", y: 0.12 });   // a dive you can follow (Sol r1 #14: 0.3 s read as a vanish)
+A(DIVE, "chip", "pitch", { to: 88, dur: 0.18, ease: "in" }); A(DIVE, "chip", "move", { to: PILE_MID, dur: 0.4, ease: "inOut", y: 0.12 });
+const PULL = r3(DIVE + 0.75);
+A(PULL, "chip", "move", { to: PILE_IN, dur: 0.35, ease: "inOut", y: 0.12 }); sfx(PULL + 0.05, "cloth", { gain: 0.35 }); sfx(PULL + 0.3, "kenney/impact-wood-light", { gain: 0.2 });   // a dive you can follow (Sol r1 #14: 0.3 s read as a vanish)
 sfx(DIVE + 0.25, "hit-wood", { gain: 0.5 }); sfx(DIVE + 0.3, "kenney/impact-wood-light", { gain: 0.4 });
 look(RUN0, "spud", [0.8, -0.2], 0.3);
 see(RUN0, r3(DIVE + 0.6), ["chip", "lane"], "he dives head first into the woodpile and pulls his feet in");
@@ -337,21 +339,21 @@ P(SNIFF, "lane", { snowfall: 0.6 }, 1.0);
 P(SNIFF + 0.1, "kr", { headPitch: 0.35, nose: 0.3 }, 0.4); P(SNIFF + 0.4, "kr", { sniff: 1 }, 0.12); P(SNIFF + 0.55, "kr", { sniff: 0 }, 0.12);
 P(SNIFF + 0.7, "kr", { sniff: 1 }, 0.12); P(SNIFF + 0.85, "kr", { sniff: 0 }, 0.12);
 sfx(SNIFF + 0.4, "ai/bear-huff", { gain: 0.35 }); sfx(SNIFF + 0.7, "ai/bear-huff", { gain: 0.3 });
-P(SNIFF + 1.1, "kr", { tongue: 0.9, lick: 1 }, 0.5); P(SNIFF + 1.7, "kr", { tongue: 0.35, lick: 0 }, 0.3);
 P(SNIFF + 1.8, "kr", { headYaw: 0.6, headPitch: 0, glow: 1 }, 0.5);   // toward the pile (down the lane)
 see(SNIFF, r3(SNIFF + 2.4), ["kr"], "up the lane the Krampus stops in the falling snow, sniffs the air like a dog and turns toward the woodpile");
 // the cat bolts out of the pile past his hooves; he watches it go and moves on
 const CAT = r3(SNIFF + 2.5);
 const CAT_A = [r3(KR_AT(6)[0] + 1.3), Y(6), r3(KR_AT(6)[2] + 0.45)], CAT_B = [r3(KR_AT(6)[0] - 1.5), Y(6), r3(KR_AT(6)[2] + 0.7)];
-P(CAT - 0.02, "cat", { x: CAT_A[0], y: CAT_A[1], z: CAT_A[2], rot: 265, run: 1, streak: 0.3, ears: -1, show: 1 }, 0);   // full streak read as a stretched cat sliding (Sol r1 #16)
+P(CAT - 0.02, "cat", { x: CAT_A[0], y: CAT_A[1], z: CAT_A[2], rot: 265, run: 1, streak: 0, ears: -1, show: 1 }, 0);   // any streak read as a stretched cat sliding (Sol r1/r2 #16)
 P(CAT, "cat", { x: CAT_B[0], z: CAT_B[2] }, 1.1, "linear");
 P(CAT + 0.1, "kr", { headYaw: -0.4 }, 0.5); sfx(CAT + 0.05, "kenney/footstep-snow", { gain: 0.3 }); sfx(CAT + 0.3, "kenney/footstep-snow", { gain: 0.25 });
 P(CAT + 1.15, "cat", { y: AWAY, show: 0 }, 0);
 see(CAT, r3(CAT + 1.1), ["cat"], "a grey tabby cat bolts out past his hooves; he turns to watch it go");
 // CHIP crawls out: He can SMELL me?  SPUD: His name comes from claw.
 const OUT = r3(CAT + 1.1);
-A(OUT - 0.05, "chip", "pitch", { to: 0, dur: 0.01 }); place(OUT, "chip", CHIP_OUT, -60);
-A(OUT - 0.02, "chip", "crouch", { to: 0.5, dur: 0.01 }); A(OUT + 0.1, "chip", "crouch", { to: 0, dur: 0.4 });
+A(OUT - 0.05, "chip", "pitch", { to: 60, dur: 0.01 }); place(OUT, "chip", [2.68, 0.44], -50);   // he crawls out of the hollow mouth (Sol r2 #28: he was just outside)
+A(OUT + 0.02, "chip", "move", { to: CHIP_OUT, dur: 0.55, ease: "out" }); A(OUT + 0.05, "chip", "pitch", { to: 0, dur: 0.45, ease: "out" }); A(OUT + 0.45, "chip", "turn", { to: -60, dur: 0.2 });
+A(OUT - 0.02, "chip", "crouch", { to: 0.5, dur: 0.01 }); A(OUT + 0.3, "chip", "crouch", { to: 0, dur: 0.4 }); sfx(OUT + 0.1, "kenney/footstep-snow", { gain: 0.3 });
 expr(OUT, "chip", "terrified", 0.01); look(OUT, "chip", [-0.8, 0.1], 0.01); place(OUT, "spud", [1.30, 1.35], 100);
 L(16, OUT + 0.25 - now); say(16);
 L(17, 0.15); expr(T[17], "spud", "kind"); look(T[17], "spud", [-0.3, -0.25]); turn(T[17] - 0.2, "spud", 75, 0.3);
@@ -386,18 +388,24 @@ say(20);
 // the swap (close): his hands go to the pegs, the two drawings cross over
 const SWAP = r3(END_OF(20) + 0.2), SWD = 0.7;
 place(SWAP, "chip", [1.10, 0.76], 0);   // the insert: between the two boots, both pegs in reach (Sol r1 #20: from 0.6 his hands never got to them)
-arm(SWAP - 0.2, "chip", "R", { world: [N_SPUD0.x, r3(N_SPUD0.y + 0.03), N_SPUD0.z] }, 0.2, "out");
-arm(SWAP - 0.2, "chip", "L", { world: [N_CHIP0.x, r3(N_CHIP0.y + 0.03), N_CHIP0.z] }, 0.2, "out");
-grip(SWAP, "chip", "R", "pinch"); grip(SWAP, "chip", "L", "pinch");
+arm(SWAP - 0.35, "chip", "R", { world: [N_SPUD0.x, r3(N_SPUD0.y + 0.03), N_SPUD0.z] }, 0.25, "out");   // the hands are ON the pegs before the grab:
+arm(SWAP - 0.35, "chip", "L", { world: [N_CHIP0.x, r3(N_CHIP0.y + 0.03), N_CHIP0.z] }, 0.25, "out");   // a keep grab measured mid-reach left the drawings 20 cm off his mitts (Sol r2 #20, #21)
+grip(SWAP - 0.1, "chip", "R", "pinch", 0.08); grip(SWAP - 0.1, "chip", "L", "pinch", 0.08);
 // the hands take the drawings by their pegs (keep: each moves with its hand from where it hangs) and set them on the
-// other boot; the teal one passes 6 cm in front (Sol r1 #20: the drawings flew between the hands, #21: through each other)
-const SH1 = r3(SWD / 2), mid = (A, B, dz) => ({ x: r3((A.x + B.x) / 2), y: r3(Math.max(A.y, B.y) + 0.02), z: r3((A.z + B.z) / 2 + dz) });
-for (const [id, side, A0, dz, B] of [["nt", "R", N_SPUD0, 0.06, N_SPUD1], ["ny", "L", N_CHIP0, -0.06, N_CHIP1]]) {
-  const M = mid(A0, B, dz);
-  A(r3(SWAP - 0.01), "chip", "grab", { prop: id, hand: side, keep: true, dur: 0 });
-  arm(SWAP, "chip", side, { world: [M.x, r3(M.y + 0.03), M.z] }, SH1, "in"); arm(r3(SWAP + SH1), "chip", side, { world: [B.x, r3(B.y + 0.03), B.z] }, SH1, "out");
-  A(r3(SWAP + SWD), "chip", "release", { prop: id, to: [B.x, B.y, B.z], dur: 0.06 });
-  P(r3(SWAP + SWD), id, { x: B.x, y: B.y, z: B.z, rot: B.rot }, 0);
+// other boot; the arms cross, the teal one over and in front (Sol r1 #20: the drawings flew between the hands, #21: through each other)
+const SWAP_PATH = {   // [t - SWAP, x, y, z] of each peg: the hand from the layout of these arm moves, plus the pinch offset blended peg to peg
+  nt: [[-0.09, 0.914, 0.345, 1.053], [0.01, 0.916, 0.346, 1.054], [0.11, 0.952, 0.367, 1.092], [0.21, 1.11, 0.524, 1.111], [0.31, 1.183, 0.464, 1.143], [0.41, 1.265, 0.347, 1.064], [0.51, 1.291, 0.311, 1.042], [0.61, 1.294, 0.305, 1.039], [0.71, 1.295, 0.305, 1.039]],
+  ny: [[-0.09, 1.295, 0.305, 1.039], [0.01, 1.305, 0.302, 1.06], [0.11, 1.278, 0.287, 1.098], [0.21, 1.092, 0.279, 1.051], [0.31, 1.02, 0.292, 1.095], [0.41, 0.934, 0.321, 1.086], [0.51, 0.91, 0.337, 1.075], [0.61, 0.91, 0.343, 1.062], [0.71, 0.914, 0.345, 1.053]],
+};
+const SH1 = r3(SWD / 2), mid = (A, B, dy, dz) => ({ x: r3((A.x + B.x) / 2), y: r3(Math.max(A.y, B.y) + dy), z: r3((A.z + B.z) / 2 + dz) });
+for (const [id, side, A0, dy, dz, B] of [["nt", "R", N_SPUD0, 0.18, 0.06, N_SPUD1], ["ny", "L", N_CHIP0, -0.05, -0.04, N_CHIP1]]) {
+  const M = mid(A0, B, dy, dz);
+  // no grab: the grab's own reach pose swung the arms out and its kept offset turned with the crossing wrist (Sol r2 #20, #21);
+  // the drawing and the hand run the same two legs on the same clock, the peg 3 cm under the pinch
+  arm(SWAP, "chip", side, { world: [M.x, r3(M.y + 0.03), M.z] }, SH1, "inOut"); arm(r3(SWAP + SH1), "chip", side, { world: [B.x, r3(B.y + 0.03), B.z] }, SH1, "inOut");
+  // the drawing rides the pinch: the hand's path as the layout drew it (22 Nov), 3 cm under the glove (a peg-to-peg tween lagged 15 cm)
+  const path = SWAP_PATH[id];
+  for (let k = 1; k < path.length; k++) { const [dt, x, y, z] = path[k]; P(r3(SWAP + path[k - 1][0]), id, { x, y, z, ...(k === path.length - 1 && { rot: B.rot }) }, r3(dt - path[k - 1][0]), "linear"); }
 }
 P(SWAP + SWD, "nt", { y: N_SPUD1.y, swing: 1 }, 0.1); P(SWAP + SWD, "ny", { y: N_CHIP1.y, swing: 1 }, 0.1);
 P(SWAP + SWD + 0.1, "nt", { swing: 0, kink: 1 }, 0.5); P(SWAP + SWD + 0.1, "ny", { swing: 0 }, 0.5);
@@ -424,7 +432,7 @@ const POUR = r3(D4 + 0.9);
 P(POUR, "by", { treats: 1 }, 1.1, "linear");
 for (let k = 0; k < 5; k++) sfx(r3(POUR + k * 0.22), "coins", { gain: 0.35 });
 // CHIP: I'm a good kid!
-L(21, POUR + 0.9 - now);   // the pour plays in the shot before he speaks (Sol r1 #23)
+L(21, POUR + 1.2 - now);   // the pour plays in its own insert before he speaks (Sol r1 + r2 #23)
 expr(T[21] - 0.1, "chip", "delighted"); A(T[21], "chip", "hop", { height: 0.1, dur: 0.35, quiet: true });
 say(21);
 see(POUR, END_OF(21), ["by", "chip"], "chocolate coins, mandarins and walnuts pour into the yellow boot; the little one beams");
@@ -437,19 +445,19 @@ gBook.carry(r3(FL(LONG) - 0.005), BOOK_AT([NICK_T[0], NICK_T[2]], 160, 0, 0.15),
 P(LONG + 0.1, "lane", { tense: 0.8 }, 0.6);
 P(LONG + 0.15, "book", { spread: "long", page: Math.round(pageNow += 1), glow: 0.3 }, 0.27);
 expr(LONG + 0.15, "nick", "stern", 0.2);
-const ROLL = r3(LONG + 0.5), ROLL_S = r3(ROLL + 0.9), SHAKE = r3(ROLL + 2.25);   // the roll gets its own shot from the lane (Sol r1 #24)
-P(r3(FL(LONG) - 0.02), "kr", { x: -0.45 }, 0); P(r3(FL(ROLL + 3.1) - 0.02), "kr", { x: K4[0] }, 0);   // out of the door shot while Nick reads (Sol r1 #25: his fur over the mitre)
-P(ROLL, "book", { run: 1 }, 2.2, "out");
-P(r3(SHAKE + 0.3), "book", { run: 0 }, 0.45, "in"); sfx(r3(SHAKE + 0.3), "cloth", { gain: 0.3 });   // he winds it back up before he steps off
-sfx(ROLL + 0.1, "cloth", { gain: 0.35 }); sfx(ROLL + 1.2, "cloth", { gain: 0.3 }); sfx(ROLL + 2.3, "cloth", { gain: 0.25 });
+const ROLL = r3(LONG + 0.5), ROLL_S = r3(ROLL + 0.9), RUNB = r3(ROLL_S + 1.45), SHAKE = r3(ROLL_S + 2.05);   // the roll pays out and winds back in its own shot (Sol r1 + r2 #24)
+P(r3(FL(LONG) - 0.02), "kr", { x: -0.45 }, 0); P(r3(FL(SHAKE + 0.85) - 0.02), "kr", { x: K4[0] }, 0);   // out of the door shot while Nick reads (Sol r1 #25: his fur over the mitre)
+P(r3(ROLL_S - 0.12), "book", { run: 0.5 }, 1.35, "out");   // 0.5 = 1.6 m: it ends on door 4's apron (at 1 it ran rigid over the drop at x 4.4)
+P(RUNB, "book", { run: 0 }, 0.5, "in"); sfx(RUNB, "cloth", { gain: 0.3 });   // it winds back onto the spindle before the cut
+sfx(ROLL_S, "cloth", { gain: 0.35 }); sfx(ROLL_S + 0.7, "cloth", { gain: 0.3 });
 look(ROLL, "chip", [-0.5, -0.4], 0.3); expr(ROLL + 0.8, "chip", "worried");
 A(SHAKE + 0.05, "nick", "turn", { to: 140, dur: 0.18 }); A(SHAKE + 0.23, "nick", "turn", { to: 180, dur: 0.18 }); A(SHAKE + 0.41, "nick", "turn", { to: 160, dur: 0.16 });   // a head-shake around his reading yaw (160)
-see(ROLL, r3(ROLL + 3.0), ["nick", "book"], "at the teal boot the page goes on and on: a long roll of fries pictures runs across the snow; he shakes his head");
+see(ROLL_S, r3(SHAKE + 0.8), ["nick", "book"], "at the teal boot the page goes on and on: a long roll of fries pictures runs across the snow; he shakes his head");
 // the Krampus jams the sticks into the teal boot; the bells turn to Spud; the basket lid creaks open toward him
-const JAM4 = r3(ROLL + 3.1);
+const JAM4 = r3(SHAKE + 0.85);
 place(JAM4, "nick", [NICK_OFF[0], NICK_OFF[2]], 90, 0);   // he has stepped back to watch (a cut)
 gBook.carry(r3(FL(JAM4) - 0.005), BOOK_AT([NICK_OFF[0], NICK_OFF[2]], 90), 0.004, "linear", { rot: BROT(90) });
-P(JAM4, "kr", { stoop: 1 }, 0.35); P(JAM4 + 0.35, "kr", { jam: 1 }, 0.18, "in");
+P(JAM4, "kr", { stoop: 0.8 }, 0.35); P(JAM4 + 0.13, "kr", { jam: 1 }, 0.4, "inOut");   // stoop 0.8: the wrist bell hit the step (Sol r2 #30)
 P(JAM4 + 0.53, "bt", { sticks: 1 }, 0.13); P(JAM4 + 0.53, "kr", { bunch: 0 }, 0);
 sfx(JAM4 + 0.53, "hit-wood", { gain: 0.45 }); bells(JAM4 + 0.35, 0.5, 3);
 P(JAM4 + 0.7, "kr", { jam: 0 }, 0.25); P(JAM4 + 0.85, "kr", { stoop: 0, headYaw: 0.5, glow: 1 }, 0.45);
@@ -459,7 +467,8 @@ sfx(LIDT, "door-creak", { gain: 0.45 }); sfx(LIDT + 0.5, "door-creak", { gain: 0
 see(JAM4, r3(LIDT + 1.0), ["kr", "bt", "spud"], "the Krampus jams birch sticks into the teal boot and turns to the tall one; his basket lid creaks open toward him");
 // SPUD: ...That's not my picture.  CHIP (mouth full of chocolate): It is now.
 L(22, LIDT + 0.85 - now);
-expr(T[22] - 0.1, "spud", "shocked", 0.2, { open: 0.15 }); look(T[22] - 0.2, "spud", [-0.2, -0.6], 0.2);
+expr(T[22] - 0.1, "spud", "shocked", 0.2, { open: 0.15 }); look(T[22] - 0.35, "spud", [-0.6, -0.85], 0.15); turn(T[22] - 0.4, "spud", -12, 0.25);   // down at the teal boot, the yellow drawing on it (Sol r2 #31)
+look(T[22] + 0.85, "spud", [0.75, -0.05], 0.15); turn(T[22] + 0.8, "spud", 22, 0.25);   // then at Chip
 say(22);
 L(23, 0.2);
 expr(T[23] - 0.1, "chip", "smug"); look(T[23], "chip", [-0.3, 0.1]);
@@ -486,17 +495,17 @@ const CHIP_CL = (C, az = 20, y = 0) => fr(at(C, 0.42, y), { az, el: 3, h: 1.3, f
 const SPUD_CL = (C, az = -20, y = 0) => fr(at(C, 0.72, y), { az, el: 3, h: 1.8, fov: 36, lift: 0.06 });
 const NICK_CL = fr([NICK_AT(9)[0] + 0.2, Y(9) + 0.85, NICK_AT(9)[2]], { az: 55, el: 6, h: 2.0, fov: 34 });
 const KR_FACE = fr([KR_AT(9)[0], Y(9) + 1.85, KR_AT(9)[2]], { az: -60, el: 2, h: 1.3, fov: 34 });
-const KR_BASKET = fr([KR_AT(9)[0] + 0.3, Y(9) + 1.7, KR_AT(9)[2] - 0.2], { az: 50, el: 14, h: 1.5, fov: 36 });
+const KR_BASKET = fr([KR_AT(9)[0] + 0.65, Y(9) + 2.0, KR_AT(9)[2]], { az: 5, el: 12, h: 1.1, fov: 36 });   // side on to the hinge: the lid lifts, the kid peeks out of the gap (Sol r2 #11)
 // polish, door 8
 const POL_S = fr([CHIP_POL[0] + 0.1, 0.5, CHIP_POL[1]], { az: 10, el: 4, h: 1.5, fov: 40, lift: 0.08 });
 const POL_TWO = fr([0.65, 0.55, 1.3], { az: 8, el: 5, h: 2.1, fov: 40, lift: 0.08 });
 const D8_S = fr([X(8) + 0.15, Y(8) + 1.0, 1.1], { az: 10, el: 6, h: 3.8, fov: 42 });
 // hide, door 6
-const HIDE_S = fr([2.0, 0.5, 0.95], { az: 35, el: 6, h: 2.0, fov: 44, lift: 0.06 });
-const PILE_S = fr([3.1, 0.45, 0.5], { az: -25, el: 10, h: 2.0, fov: 44 });   // from the lane: his legs in profile out of the hollow (end-on, the soles read as eyes)
+const HIDE_S = fr([2.45, 0.45, 0.75], { az: -35, el: 8, h: 2.2, fov: 44, lift: 0.06 });   // from up the lane: he runs away from us into the hollow mouth, the feet go in (Sol r2 #14)
+const PILE_S = fr([3.1, 0.45, 0.5], { az: -25, el: 10, h: 2.0, fov: 44 });   // the pile from the lane, nobody in sight   // from the lane: his legs in profile out of the hollow (end-on, the soles read as eyes)
 const SNIFF_S = fr([KR_AT(6)[0], Y(6) + 1.6, KR_AT(6)[2]], { az: -35, el: 3, h: 2.2, fov: 38 });
 const CAT_S = fr([KR_AT(6)[0] - 0.1, Y(6) + 0.45, KR_AT(6)[2] + 0.55], { az: 8, el: 10, h: 2.2, fov: 44 });
-const OUT_S = fr([CHIP_OUT[0] - 0.3, 0.45, CHIP_OUT[1] + 0.15], { az: -15, el: 4, h: 1.7, fov: 40, lift: 0.06 });
+const OUT_S = fr([CHIP_OUT[0] + 0.05, 0.45, CHIP_OUT[1] + 0.1], { az: -15, el: 4, h: 1.9, fov: 40, lift: 0.06 });   // the hollow mouth in frame right: he crawls out of it
 // next door
 const NEXT_S = { pos: [1.7, 1.2, 2.7], look: [-5.6, 1.6, 1.0], fov: 44 };   // over their shoulders, up the lane to door 5
 const RUN_S = { pos: [400.4, 1.15, 7.8], look: [400, 1.35, -4], fov: 46 };   // the bench's panel-19 framing
@@ -504,6 +513,7 @@ const SWAP_S = fr([0.50, 0.55, 0.9], { az: 8, el: 6, h: 2.6, fov: 44 });
 const NOTES_CL = fr([1.12, 0.22, 1.05], { az: 0, el: 35, h: 1.1, fov: 36 });   // from above: the hands on the pegs, his face above (Sol r1 #20)
 // the payoff
 const POUR_S = fr([1.5, 0.42, 0.95], { az: -40, el: 12, h: 1.9, fov: 40 });
+const POUR_CL = fr([YEL[0], 0.28, YEL[2] + 0.02], { az: -12, el: 30, h: 0.5, fov: 36 });   // tight on the cuff: the treats fall in from the top edge
 const CHIP_E_CL = CHIP_CL(CHIP_E, -20);
 const LONG_S = { pos: [0.45, 1.1, 0.22], look: [0.88, 0.6, 2.1], fov: 56 };
 const ROLL_CAM = fr([1.6, 0.25, 1.65], { az: 75, el: 28, h: 2.8, fov: 46 });   // from the lane, high: the roll runs over the step toward us, Nick and the book at the top   // reverse from the door (he faces the house, a camera in front of him stands in the door); the book is held low   // 3/4 front from up the lane: his face over the book, the roll on the snow
@@ -533,8 +543,8 @@ const SHOTS = [
   ["the fries", r3(T[11] - 0.05), push(SPUD_CL([0.25, 1.10], -10), 0.06, T[12] - T[11])],
   ["one time", r3(T[12] - 0.05), push(CHIP_CL(CHIP_POL, 10), 0.08, T[13] - T[12])],
   ["every tuesday", r3(T[13] - 0.05), push(SPUD_CL([0.25, 1.10], -25), 0.06, HIDE0 - T[13] + 0.05)],
-  ["doesn't find me", HIDE0, drift(HIDE_S, 0.2, DIVE + 0.55 - HIDE0)],
-  ["the trainers", r3(DIVE + 0.55), push(PILE_S, 0.06, SNIFF - DIVE - 0.55)],
+  ["doesn't find me", HIDE0, drift(HIDE_S, 0.2, PULL + 0.45 - HIDE0)],
+  ["the woodpile", r3(PULL + 0.45), push(PILE_S, 0.06, SNIFF - PULL - 0.45)],
   ["he sniffs", SNIFF, push(SNIFF_S, 0.1, CAT - SNIFF)],
   ["the cat", CAT, drift(CAT_S, -0.4, OUT - CAT)],
   ["smell me", OUT, push(OUT_S, 0.08, T[17] - OUT)],
@@ -544,7 +554,8 @@ const SHOTS = [
   ["krampus run", RUN_SQ, mv(RUN_S, { pos: [400.2, 1.1, 7.2] }, SWAP0 - RUN_SQ)],
   ["last idea", SWAP0, push(SWAP_S, 0.08, SWAP - SWAP0)],
   ["the swap", SWAP, push(NOTES_CL, 0.1, D4 - SWAP), "insert"],
-  ["good page", D4, push(POUR_S, 0.08, T[21] - D4 - 0.05)],
+  ["good page", D4, push(POUR_S, 0.08, POUR - D4 - 0.05)],
+  ["the pour", r3(POUR - 0.05), push(POUR_CL, 0.06, T[21] - POUR), "insert"],
   ["good kid", r3(T[21] - 0.05), push(CHIP_E_CL, 0.06, LONG - T[21] + 0.05)],
   ["the long page", LONG, push(LONG_S, 0.06, ROLL_S - LONG), "escalation"],
   ["the roll", ROLL_S, mv(ROLL_CAM, { pos: [ROLL_CAM.pos[0], ROLL_CAM.pos[1], r3(ROLL_CAM.pos[2] + 0.6)] }, SHAKE - ROLL_S)],
@@ -593,11 +604,11 @@ write(import.meta.url, {
   hook: { show: ["b9", "shadow"], hint: 0, what: "a small red boot on a snowy doorstep at night; a huge horned shadow with bells falls over it" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
-    { who: "chip", with: "lane", from: r3(DIVE - 0.05), to: r3(OUT), checks: ["clipping", "body-in-prop", "leg-in-prop", "costume-in-prop", "shell", "hand-in-prop", "arm-in-prop"], reason: "he lies inside the woodpile's hollow (DESIGN A: x 2.80..3.60, 0.66 high), only his trainers out" },
+    { who: "chip", with: "lane", from: r3(DIVE - 0.05), to: r3(OUT + 0.6), checks: ["clipping", "body-in-prop", "leg-in-prop", "costume-in-prop", "shell", "hand-in-prop", "arm-in-prop"], reason: "he lies inside the woodpile's hollow (DESIGN A: x 2.80..3.60, 0.66 high), only his trainers out" },
     { who: "nick", with: "lane", from: r3(D4), to: r3(LONG + 0.4), checks: ["costume-in-prop", "leg-in-prop", "clipping", "shell"], reason: "kneeling, the cope lies on the snow of the apron (DESIGN C)" },
     { who: "chip", with: "by", from: r3(POL), to: r3(HIDE0), checks: ["hand-in-prop", "arm-in-prop"], reason: "he holds and scrubs his boot" },
-    { who: "chip", with: "bt", from: r3(SWAP - 0.25), to: r3(SWAP + SWD + 0.6), checks: ["hand-in-prop", "arm-in-prop", "clipping"], reason: "the swap insert: he stands between the two boots (their shafts brush his sides) and reaches over the cuffs to the pegs; closer and the hands never reach them" },
-    { who: "chip", with: "by", from: r3(SWAP - 0.25), to: r3(SWAP + SWD + 0.6), checks: ["hand-in-prop", "arm-in-prop", "clipping"], reason: "the swap insert: he stands between the two boots (their shafts brush his sides) and reaches over the cuffs to the pegs; closer and the hands never reach them" },
+    { who: "chip", with: "bt", from: r3(SWAP - 0.25), to: r3(SWAP + SWD + 0.6), checks: ["hand-in-prop", "arm-in-prop", "clipping", "shell"], reason: "the swap insert: he stands between the two boots (their shafts brush his sides) and reaches over the cuffs to the pegs; closer and the hands never reach them" },
+    { who: "chip", with: "by", from: r3(SWAP - 0.25), to: r3(SWAP + SWD + 0.6), checks: ["hand-in-prop", "arm-in-prop", "clipping", "shell"], reason: "the swap insert: he stands between the two boots (their shafts brush his sides) and reaches over the cuffs to the pegs; closer and the hands never reach them" },
     { who: "chip", with: "chip", from: r3(T[14]), to: r3(RUN0), checks: ["reach"], reason: "two frames as he turns to run, his far arm at the frame edge, not seen" },
     { who: "nick", with: "book", from: 0, to: END, checks: ["hand-in-prop", "arm-in-prop"], reason: "his palms hold the golden book's edges all film (grips.box)" },
     { who: "chip", from: r3(SWAP - 0.25), to: r3(SWAP + SWD + 0.4), checks: ["face-covered"], reason: "the insert on his hands swapping the drawings: the hands are the shot" },
@@ -609,4 +620,4 @@ write(import.meta.url, {
   notes: "Generated by storyboards/series/krampus-myth/01-boots/make-boots.mjs.",
 });
 console.log("T:", T.map((t, i) => `${i}:${t}`).join(" "));
-console.log({ D9T, WHIP, PAGE1, BASKET, POL, RUB, D8T, HIDE0, DIVE, SNIFF, CAT, OUT, NEXT5, RUN_SQ, SWAP0, SWAP, D4, POUR, LONG, ROLL, JAM4, LIDT, END });
+console.log({ ROLL_S, RUNB, SHAKE, PULL, D9T, WHIP, PAGE1, BASKET, POL, RUB, D8T, HIDE0, DIVE, SNIFF, CAT, OUT, NEXT5, RUN_SQ, SWAP0, SWAP, D4, POUR, LONG, ROLL, JAM4, LIDT, END });

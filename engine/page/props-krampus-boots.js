@@ -20,6 +20,7 @@
 //               droop   0..1 (0) felt: the shaft folds forward over the ankle by 70 degrees (panel 12)
 //               sticks  0..1 (0) the bunch of 7 in the mouth; tween 0 -> 1 over 4 frames: it drops in, 3 degrees of shake, 2 bark curls fall to the step
 //               treats  0..1 (0) the heap of 14 (7 coins, 3 mandarins, 4 walnuts) rising 0.07 above the cuff, the pieces arriving in index order (a fall each)
+//               (spec treatsFall 0.12: the height each piece falls from, in m above its spot; 0.9 = from out of a tight insert's top edge)
 //               shade   0..1 (0) the boot under his shadow: 45 % darker and cooler
 //             The shape (felt): TEAL / YELLOW felt 12 mm thick, a rolled cuff 0.035, 220 fibre strokes of 3-8 mm and 30 pilling dots, a blanket-stitch seam of 38 stitches
 //             (19 up the back, 19 round the vamp, cream wool #efe6cf 6 mm long, 9 mm pitch), a leather heel patch with 8 stitches, a pull loop, a welt of 44 stitches on a
@@ -826,7 +827,7 @@ function buildBoot(P) {
       const NP = heap.length, win = 0.2;
       for (const h of heap) {
         const a = (h.i / NP) * (1 - win), p = clamp((trt - a) / win); h.wrap.visible = p > 0.001;
-        if (h.wrap.visible) { const fall = 1 - p * p; h.wrap.position.set(h.x + 0.012 * fall * (rr(h.i * 2.1) - 0.5), h.y + 0.12 * fall, h.z); h.wrap.rotation.set(h.rx + fall * (rr(h.i * 3.3) - 0.5) * 2, h.ry + fall * 1.5, h.rz); }
+        if (h.wrap.visible) { const fall = 1 - p * p; h.wrap.position.set(h.x + 0.012 * fall * (rr(h.i * 2.1) - 0.5), h.y + (S.treatsFall ?? 0.12) * fall, h.z); h.wrap.rotation.set(h.rx + fall * (rr(h.i * 3.3) - 0.5) * 2, h.ry + fall * 1.5, h.rz); }
       }
     },
   };

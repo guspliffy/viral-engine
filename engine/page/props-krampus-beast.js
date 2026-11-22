@@ -11,7 +11,8 @@
 //           lod "near"     "near" all 240 locks + gouges | "mid" 90 locks, no gouges | "far" painted 6-pose card, 2.0 x 3.0 m, outlined, basket + torch (follows gait)
 //           height 1.72+0.36*rnd(seed)  runner crown height in m (the near Krampus is always 2.04)
 //           fur 0          fur set 0..4 (non-runner)        mirror false   swap the working hand and stow claw (+x side)
-//           jamAt [0.15,0.34,0.85]  where the 7 stick butts jam, in his frame (mirror flips x)      kid true   false = empty basket
+//           jamAt [0.15,0.34,0.85]  where the 7 stick butts jam, in his frame (mirror flips x)
+//           holdAt [0.18,1.80,0.62]  where the claw holds the kid out front (hold 1), his frame, x on the stow side   kidYaw 0  the held kid's turn (rad)   peekYaw 0  the stowed kid's turn as he peeks over the rim (kidPeek > 0.5)      kid true   false = empty basket
 //           gait 0, gaitPhase 0   (far card) pose index source
 //   state   (every key also readable from spec; state wins), range 0..1 unless noted
 //           stoop 0 (1 = bent 42 deg, crown 1.61, M (0,1.22,0.96))  nose 0 (1 = nose to the ground)  sniff 0 (nostril snuffle, 0..1 pulse)
@@ -230,7 +231,7 @@ function solve(ps, spec = {}, t = 0) {
       const up = chestPt([s * 0.30, 2.40, -0.40]);
       const k = sstep((stow - 0.4) / 0.6);
       target = up.clone().lerp(hang, k); grip = 1 - sstep((stow - 0.2) / 0.15);
-      if (stow < 0.4) { target = up.clone().lerp(chestPt([s * 0.18, 1.80, 0.62]), sstep(hold)); }   // hold 1: the kid held out in front first
+      if (stow < 0.4) { const H = spec.holdAt ?? [0.18, 1.80, 0.62]; target = up.clone().lerp(chestPt([s * H[0], H[1], H[2]]), sstep(hold)); }   // hold 1: the kid held out in front first
     }
     const pole = work ? [s * 0.4, -0.2, -1] : [s * 0.5, -0.3, -1];
     const k = ik3(arr(shoulder), arr(target), ARM.L1 * 1.04, ARM.L2 * 1.04, pole);
@@ -920,7 +921,7 @@ export const KRAMPUS_BEAST_KINDS = {
           let pos = [lerp(dang[0], stowed[0], sstep(drop)), lerp(dang[1], stowed[1], drop * drop), lerp(dang[2], stowed[2], sstep(drop))], rx = 0;
           if (sc < 0.3) { rx = -0.12 * (1 - hk); }   // held out front: upright, his face to the claw else if (sc < 0.8) rx = -0.12 * (1 - drop);
           if (kf > 0) { pos = [lerp(pos[0], 0, kf), lerp(pos[1], 2.20, kf), lerp(pos[2], -0.52, kf)]; rx = lerp(rx, Math.PI, kf); }
-          kidG.position.set(...pos); kidG.rotation.set(rx, 0, 0);   // held out front (hold 1) he faces forward
+          kidG.position.set(...pos); kidG.rotation.set(rx, sc < 0.3 ? (spec.kidYaw ?? 0) * hk : sc > 0.95 ? (spec.peekYaw ?? 0) * sstep(clamp((pk - 0.5) / 0.5)) : 0, 0);   // held out front (hold 1) he faces forward
           const ped = sc < 0.3 ? 0.8 * Math.sin(TAU * 1.7 * tt) : 0, kicks = rad(25) * kick * kf;
           kidP.legsK.forEach((lg, i) => { lg.rotation.x = (i ? 1 : -1) * (ped + kicks); });
           const tk = clamp(g("kidTalk")); kidP.mouth.scale.set(lerp(0.02, 0.014, tk), lerp(0.002, 0.014, tk), 0.004);
