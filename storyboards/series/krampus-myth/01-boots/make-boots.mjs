@@ -137,7 +137,7 @@ const bells = (t, gain = 0.4, n = 3) => { P(t, "kr", { ring: 1 }, 0.1); P(t + 0.
 
 // ---------------------------------------------------------------- frame 0 seeds (every tweened state key, dur 0)
 P(0, "lane", { visited: 10, lit: 9, door4: 1, snowfall: 0, shake: 0, trickle: 0.3, smoke: 1, tense: 0.6, kidsUp: -1 }, 0);
-P(0, "kr", { stoop: 0, nose: 0, sniff: 0, twist: 0, headYaw: 0, headPitch: 0, gait: 0, jam: 0, bunch: 1, tongue: 0.35, lick: 0, jaw: 0, breath: 0, lids: 0.3, glow: 0.5, ring: 0, lid: 0, stow: 0, kidPeek: 1, kidTalk: 0, kidKick: 0, scarfOut: 0, spares: 3 }, 0);
+P(0, "kr", { stoop: 0, nose: 0, sniff: 0, twist: 0, headYaw: 0, headPitch: 0, gait: 0, jam: 0, bunch: 1, tongue: 0.35, lick: 0, jaw: 0, breath: 0, lids: 0.3, glow: 0.5, ring: 0, lid: 0, stow: 0, hold: 1, kidPeek: 1, kidTalk: 0, kidKick: 0, scarfOut: 0, spares: 3 }, 0);
 P(0, "shadow", { grow: 0, sway: 0 }, 0);
 P(0, "bt", { mud: 0, shine: 0, sticks: 0, treats: 0, droop: 0, glint: 0, shade: 0 }, 0);
 P(0, "by", { mud: 1, shine: 0, sticks: 0, treats: 0, droop: 0, glint: 0, shade: 0 }, 0);
@@ -398,7 +398,7 @@ see(SWAP, r3(SWAP + SWD + 0.3), ["nt", "ny", "chip"], "close: his hands swap the
 // ================================================================= 55-72 DOOR 4: CHOCOLATE (false close 3), THEN THE LONG PAGE
 const D4 = r3(SWAP + SWD + 0.7);
 P(D4 - 0.02, "lane", { visited: 4, lit: 4, tense: 0, snowfall: 0.2 }, 0);
-place(D4, "spud", SPUD_E, 10); place(D4, "chip", CHIP_E, -10);
+place(D4, "spud", SPUD_E, 10); place(D4, "chip", [CHIP_E[0] - 0.14, CHIP_E[1]], -10);   // clear of Nick's hand as he kneels
 expr(D4, "spud", "kind", 0.01); expr(D4, "chip", "eager", 0.01); look(D4, "spud", [0.4, -0.3], 0.01); look(D4, "chip", [-0.1, -0.45], 0.01);
 // Nick at the yellow boot (now wearing Spud's drawing): he kneels, reads a short glowing page and smiles
 place(D4, "nick", [NICK_Y[0], NICK_Y[2]], 255, 0);
@@ -422,7 +422,7 @@ const LONG = r3(END_OF(21) + 0.3);
 // (the cut to the reverse shot: he is standing at the teal boot)
 A(r3(FL(LONG) - 0.03), "nick", "stand", { dur: 0.005 });
 place(LONG, "nick", [NICK_T[0], NICK_T[2]], 160, 0);
-gBook.carry(r3(FL(LONG) - 0.005), BOOK_AT([NICK_T[0], NICK_T[2]], 160), 0.004, "linear", { rot: BROT(160) });
+gBook.carry(r3(FL(LONG) - 0.005), BOOK_AT([NICK_T[0], NICK_T[2]], 160, 0, 0.15), 0.004, "linear", { rot: BROT(160) });   // low: his eyes over the book
 P(LONG + 0.1, "lane", { tense: 0.8 }, 0.6);
 P(LONG + 0.15, "book", { spread: "long", page: Math.round(pageNow += 1), glow: 0.3 }, 0.27);
 expr(LONG + 0.15, "nick", "stern", 0.2);
@@ -430,7 +430,7 @@ const ROLL = r3(LONG + 0.5);
 P(ROLL, "book", { run: 1 }, 3.0, "out");
 sfx(ROLL + 0.1, "cloth", { gain: 0.35 }); sfx(ROLL + 1.2, "cloth", { gain: 0.3 }); sfx(ROLL + 2.3, "cloth", { gain: 0.25 });
 look(ROLL, "chip", [-0.5, -0.4], 0.3); expr(ROLL + 0.8, "chip", "worried");
-A(ROLL + 2.4, "nick", "turn", { to: 55, dur: 0.18 }); A(ROLL + 2.58, "nick", "turn", { to: 85, dur: 0.18 }); A(ROLL + 2.76, "nick", "turn", { to: 70, dur: 0.16 });
+A(ROLL + 2.4, "nick", "turn", { to: 140, dur: 0.18 }); A(ROLL + 2.58, "nick", "turn", { to: 180, dur: 0.18 }); A(ROLL + 2.76, "nick", "turn", { to: 160, dur: 0.16 });   // a head-shake around his reading yaw (160)
 see(ROLL, r3(ROLL + 3.0), ["nick", "book"], "at the teal boot the page goes on and on: a long roll of fries pictures runs across the snow; he shakes his head");
 // the Krampus jams the sticks into the teal boot; the bells turn to Spud; the basket lid creaks open toward him
 const JAM4 = r3(ROLL + 3.1);
@@ -484,7 +484,7 @@ const POL_TWO = fr([0.65, 0.55, 1.3], { az: 8, el: 5, h: 2.1, fov: 40, lift: 0.0
 const D8_S = fr([X(8) + 0.15, Y(8) + 1.0, 1.1], { az: 10, el: 6, h: 3.8, fov: 42 });
 // hide, door 6
 const HIDE_S = fr([2.0, 0.5, 0.95], { az: 35, el: 6, h: 2.0, fov: 44, lift: 0.06 });
-const PILE_S = fr([2.95, 0.35, 0.55], { az: -70, el: 12, h: 1.7, fov: 44 });
+const PILE_S = fr([2.8, 0.3, 0.75], { az: -30, el: 18, h: 2.4, fov: 44 });   // from the lane: his legs in profile out of the hollow (end-on, the soles read as eyes)
 const SNIFF_S = fr([KR_AT(6)[0], Y(6) + 1.6, KR_AT(6)[2]], { az: -35, el: 3, h: 2.2, fov: 38 });
 const CAT_S = fr([KR_AT(6)[0] - 0.1, Y(6) + 0.45, KR_AT(6)[2] + 0.55], { az: 8, el: 10, h: 2.2, fov: 44 });
 const OUT_S = fr([CHIP_OUT[0] - 0.3, 0.45, CHIP_OUT[1] + 0.15], { az: -15, el: 4, h: 1.7, fov: 40, lift: 0.06 });
@@ -496,7 +496,7 @@ const NOTES_CL = fr([1.12, 0.31, 1.08], { az: 0, el: 12, h: 0.55, fov: 34 });
 // the payoff
 const POUR_S = fr([1.7, 0.5, 0.95], { az: -40, el: 8, h: 1.9, fov: 40 });
 const CHIP_E_CL = CHIP_CL(CHIP_E, -20);
-const LONG_S = { pos: [0.45, 0.95, 0.25], look: [0.55, 0.55, 2.1], fov: 50 };   // reverse: from the door over the boots at Nick
+const LONG_S = { pos: [0.45, 1.1, 0.22], look: [0.88, 0.6, 2.1], fov: 56 };   // reverse from the door (he faces the house, a camera in front of him stands in the door); the book is held low   // 3/4 front from up the lane: his face over the book, the roll on the snow
 const JAM_S = fr([0.5, 0.95, 0.85], { az: 5, el: 6, h: 2.7, fov: 40 });
 const SPUD_E_CL = SPUD_CL(SPUD_E, 0);
 const LAST = fr([1.2, 0.5, 0.75], { az: 0, el: 6, h: 1.7, fov: 40, lift: 0.04 });
