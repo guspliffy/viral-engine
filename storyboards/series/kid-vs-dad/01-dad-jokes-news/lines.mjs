@@ -30,9 +30,9 @@ export const LINES = [
   ["wedge", "I can't put it down.", "happy", "triumphant, huge, the punchline of his life", {}],
   // 40-52 s TURN 2: WHO PLAYS THE DRUM
   ["rep", "Where is that drum coming from?!", "angry", "sharp, alarmed, spinning round", REP],
-  ["spud", "He pays me too.", "sad", "quiet, guilty, ashamed, mumbled", {}],
+  ["spud", "He pays me too.", "sad", "quiet, guilty, ashamed, mumbled", { voice: "spud" }],
   ["rep", "Who are you?", "question", "suspicious, sharp", REP],
-  ["spud", "I'm the neighbour.", "calm", "plain, tired, then realising too late", {}],
+  ["spud", "I'm the neighbour.", "calm", "plain, tired, then realising too late", { voice: "spud" }],
   ["wedge", "Hi Neighbour. I'm Dad.", "happy", "fast, delighted, pouncing", { take: 1 }],
   // 52-66 s TURN 3: THE REPORTER CRACKS
   ["rep", "Studio, it's too dangerous here.", "sad", "urgent, low, losing control, to the camera", REP],

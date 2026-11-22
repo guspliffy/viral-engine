@@ -19,7 +19,7 @@ const F = (t) => r3(Math.round(t * 30) / 30);
 
 // measured spoken lengths (node qa/lines.mjs kvd01-voice-probe.json), in LINES order
 const DUR = [2.6, 2.02, 1.61, 1.55, 2.01, 0.74, 1.61, 3.53, 0.8, 2.51, 1.04, 0.86, 1.48, 2.18, 1.39, 1.67, 1.77, 2.99, 2.1, 1.69,
-  2.1, 0.72, 1.7, 1.45, 2.68, 1.83, 2.02, 0.99, 0.96, 1.22, 1.14, 1.23, 1.41, 2.27, 1.98, 1.06, 1.03];
+  1.05, 0.72, 0.87, 1.45, 2.68, 1.83, 2.02, 0.99, 0.96, 1.22, 1.14, 1.23, 1.41, 2.27, 1.98, 1.06, 1.03];
 // the jokes (a rimshot, the duck and +1 on the counter after each) and how big each delivery is
 const JOKE = { 1: "big", 6: "big", 18: "big", 23: "quick", 26: "big", 28: "quick", 30: "quick" };
 const PRE = { big: 0.75, quick: 0.15 }, POST = { big: 1.45, quick: 0.75 };
