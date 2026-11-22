@@ -19,6 +19,7 @@
 //           jam 0 (1 = the working hand jams the sticks at jamAt)  bunch 1 (birch bundle visible)  tongue 0.35 (0 in, 1 full length)
 //           lick 0  jaw 0 (open)  breath 0  lids 0.3 (eyelids closed)  glow 0.5 (eye glow)  lookX, lookY 0 (eyes)  ears 0
 //           ring 0 (bells swing)  lid 0 (0 shut, 1 open toward Spud: 3 stages)  stow 1 (1 = free hand stowed in the cape, 0 = clawing out)
+//           hold 0 (with stow 0: 1 = the claw holds the kid out in front at chest height, facing forward; 0 = over the shoulder)
 //           kidPeek 0 (kid up to the rim)  kidTalk 0 (mouth)  kidKick 0 (boot)  scarfOut 0 (scarf blows)  torch 1  spares 3 (bunches on the belt)
 //   hand    The birch bundle is held by his right hand (-x; +x with mirror): 7 sticks, butts at the jam point (default (-0.43,0.62,0.51) at
 //           stoop 1, (-0.43,0.88,0.07) at stoop 0); the fingers close round the stick middle, hand frame +z along the fingers, -y palm.
@@ -171,7 +172,7 @@ const JAM_AT = [0.15, 0.34, 0.85];
 function solve(ps, spec = {}, t = 0) {
   const g = (k, d = 0) => ps[k] ?? spec[k] ?? d;
   const sT = clamp(g("stoop")), nz = clamp(g("nose")), tw = clamp(g("twist"), -1, 1), hy = clamp(g("headYaw"), -1, 1), hpi = clamp(g("headPitch"), -1, 1);
-  const sn = g("sniff"), snA = Math.sin(Math.PI * frac(sn)) ** 2, jam = clamp(g("jam")), stow = clamp(g("stow", 1));
+  const sn = g("sniff"), snA = Math.sin(Math.PI * frac(sn)) ** 2, jam = clamp(g("jam")), stow = clamp(g("stow", 1)), hold = clamp(g("hold", 0));
   const gt = g("gait"), gw = sstep(gt / 0.15), slope = Math.tan(rad(g("slope")));
   const mir = spec.mirror ? 1 : -1;   // x sign of the working (right) shoulder: his right is -x; mirror puts it on +x
   const jamAt = (ps.jamAt ?? spec.jamAt ?? JAM_AT).slice();   // given in his frame for the default hand; mirror flips x
@@ -229,13 +230,13 @@ function solve(ps, spec = {}, t = 0) {
       const up = chestPt([s * 0.30, 2.40, -0.40]);
       const k = sstep((stow - 0.4) / 0.6);
       target = up.clone().lerp(hang, k); grip = 1 - sstep((stow - 0.2) / 0.15);
-      if (stow < 0.4) { target = up; }
+      if (stow < 0.4) { target = up.clone().lerp(chestPt([s * 0.18, 1.85, 0.66]), sstep(hold)); }   // hold 1: the kid held out in front first
     }
     const pole = work ? [s * 0.4, -0.2, -1] : [s * 0.5, -0.3, -1];
     const k = ik3(arr(shoulder), arr(target), ARM.L1 * 1.04, ARM.L2 * 1.04, pole);
     return { s, work, sh: arr(shoulder), elbow: k.E, wrist: k.F, fist: fist && arr(fist), grip, bunchDir, short: k.reach };
   });
-  return { sT, nz, tw, hy, hpi, snA, jam, stow, gt, gw, H, Qp, Qc, chestPt, pelPt, NB, AW, headQ, headPlace, jawA, jawPlace, legs, arms, dip, roll, stretch, wk, jamAt, lift2 };
+  return { sT, nz, tw, hy, hpi, snA, jam, stow, hold, gt, gw, H, Qp, Qc, chestPt, pelPt, NB, AW, headQ, headPlace, jawA, jawPlace, legs, arms, dip, roll, stretch, wk, jamAt, lift2 };
 }
 
 // the world places the director needs, for any state, with the prop at {x, y, z, rot, scale}: M (between the front teeth, jaw shut), crown, horn top,
@@ -608,7 +609,7 @@ const clawG = () => once("kbClawG", () => { const g = new THREE.ConeGeometry(1, 
 
 // ================================================================================================ the kind
 export const KRAMPUS_BEAST_STATE = {
-  krampus: { stoop: 0, nose: 0, sniff: 0, twist: 0, headYaw: 0, headPitch: 0, gait: 0, slope: 0, jam: 0, bunch: 1, tongue: 0.35, lick: 0, jaw: 0, breath: 0, lids: 0.3, glow: 0.5, lookX: 0, lookY: 0, ears: 0, ring: 0, lid: 0, stow: 1, kidPeek: 0, kidTalk: 0, kidKick: 0, scarfOut: 0, torch: 1, spares: 3 },
+  krampus: { hold: 0, stoop: 0, nose: 0, sniff: 0, twist: 0, headYaw: 0, headPitch: 0, gait: 0, slope: 0, jam: 0, bunch: 1, tongue: 0.35, lick: 0, jaw: 0, breath: 0, lids: 0.3, glow: 0.5, lookX: 0, lookY: 0, ears: 0, ring: 0, lid: 0, stow: 1, kidPeek: 0, kidTalk: 0, kidKick: 0, scarfOut: 0, torch: 1, spares: 3 },
   krampusshadow: { grow: 0, sway: 0 },
 };
 export const KRAMPUS_BEAST_GRIPS = {};
@@ -915,11 +916,11 @@ export const KRAMPUS_BEAST_KINDS = {
         // ---- the door-9 kid in the basket
         if (kidOn) {
           const pk = clamp(g("kidPeek")), sc = Z.stow, drop = clamp((sc - 0.3) / 0.5), side = -Z.wk;
-          const ky = pk < 0.5 ? lerp(1.34, 1.82, sstep(pk / 0.5)) : lerp(1.82, 1.95, sstep((pk - 0.5) / 0.5)), kz = lerp(-0.62, -0.50, sstep(pk)), stowed = [0, ky, kz], dang = [side * 0.30, 2.07, -0.29];
+          const ky = pk < 0.5 ? lerp(1.34, 1.82, sstep(pk / 0.5)) : lerp(1.82, 1.95, sstep((pk - 0.5) / 0.5)), kz = lerp(-0.62, -0.50, sstep(pk)), stowed = [0, ky, kz], hk = sstep(Z.hold || 0), dang = [lerp(side * 0.30, side * 0.14, hk), lerp(2.07, 1.52, hk), lerp(-0.29, 0.66, hk)];
           let pos = [lerp(dang[0], stowed[0], sstep(drop)), lerp(dang[1], stowed[1], drop * drop), lerp(dang[2], stowed[2], sstep(drop))], rx = 0;
           if (sc < 0.3) { rx = -0.12; } else if (sc < 0.8) rx = -0.12 * (1 - drop);
           if (kf > 0) { pos = [lerp(pos[0], 0, kf), lerp(pos[1], 2.20, kf), lerp(pos[2], -0.52, kf)]; rx = lerp(rx, Math.PI, kf); }
-          kidG.position.set(...pos); kidG.rotation.set(rx, 0, 0);
+          kidG.position.set(...pos); kidG.rotation.set(rx, 0, 0);   // held out front (hold 1) he faces forward
           const ped = sc < 0.3 ? 0.8 * Math.sin(TAU * 1.7 * tt) : 0, kicks = rad(25) * kick * kf;
           kidP.legsK.forEach((lg, i) => { lg.rotation.x = (i ? 1 : -1) * (ped + kicks); });
           const tk = clamp(g("kidTalk")); kidP.mouth.scale.set(lerp(0.02, 0.014, tk), lerp(0.002, 0.014, tk), 0.004);

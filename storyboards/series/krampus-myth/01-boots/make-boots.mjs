@@ -137,7 +137,7 @@ const bells = (t, gain = 0.4, n = 3) => { P(t, "kr", { ring: 1 }, 0.1); P(t + 0.
 
 // ---------------------------------------------------------------- frame 0 seeds (every tweened state key, dur 0)
 P(0, "lane", { visited: 10, lit: 9, door4: 1, snowfall: 0, shake: 0, trickle: 0.3, smoke: 1, tense: 0.6, kidsUp: -1 }, 0);
-P(0, "kr", { stoop: 0, nose: 0, sniff: 0, twist: 0, headYaw: 0, headPitch: 0, gait: 0, jam: 0, bunch: 1, tongue: 0.35, lick: 0, jaw: 0, breath: 0, lids: 0.3, glow: 0.5, ring: 0, lid: 0, stow: 1, kidPeek: 1, kidTalk: 0, kidKick: 0, scarfOut: 0, spares: 3 }, 0);
+P(0, "kr", { stoop: 0, nose: 0, sniff: 0, twist: 0, headYaw: 0, headPitch: 0, gait: 0, jam: 0, bunch: 1, tongue: 0.35, lick: 0, jaw: 0, breath: 0, lids: 0.3, glow: 0.5, ring: 0, lid: 0, stow: 0, kidPeek: 1, kidTalk: 0, kidKick: 0, scarfOut: 0, spares: 3 }, 0);
 P(0, "shadow", { grow: 0, sway: 0 }, 0);
 P(0, "bt", { mud: 0, shine: 0, sticks: 0, treats: 0, droop: 0, glint: 0, shade: 0 }, 0);
 P(0, "by", { mud: 1, shine: 0, sticks: 0, treats: 0, droop: 0, glint: 0, shade: 0 }, 0);
@@ -181,16 +181,26 @@ P(SH, "shadow", { grow: 1 }, 0.5, "out"); P(SH + 0.2, "shadow", { sway: 1 }, 0.6
 sfx(SH + 0.1, "kenney/footstep-snow", { gain: 0.5 }); sfx(SH + 0.35, "kenney/footstep-snow", { gain: 0.55 });
 see(SH, r3(SH + 0.8), ["b9", "shadow"], "a small red boot on a snowy doorstep; a huge horned shadow falls over it");
 const D9T = r3(SH + 0.85);
-check(D9T - 0.45, "b9");
-P(D9T + 0.2, "kr", { kidKick: 1 }, 0.3); P(D9T + 0.2, "kr", { scarfOut: 1 }, 0.4);
-// KID (in the basket): I was gonna be good tomorr-  (the lid thumps shut on it)
-L(0, D9T + 0.15);
+// door 9 (Jonny 22 Nov 08:43: "show how krampus stuffes the kid in his bag"): Nick reads the kid's page and shakes his head; the
+// Krampus holds the kid up by the scruff (stow 0: the free claw out, the kid dangling, legs pedalling), the kid pleads, and the
+// Krampus stuffs him into the basket on his back (stow 0 -> 1) and slams the lid on "tomorr-"
+P(D9T - 0.3, "book", { glow: 1 }, 0.3); P(D9T - 0.2, "book", { page: Math.round(pageNow += 1) }, 0.27);
+A(D9T + 0.15, "nick", "turn", { to: 65, dur: 0.18 }); A(D9T + 0.33, "nick", "turn", { to: 95, dur: 0.18 }); A(D9T + 0.51, "nick", "turn", { to: 80, dur: 0.16 });
+bells(D9T + 0.1, 0.4, 2);
+P(D9T + 0.2, "kr", { scarfOut: 1 }, 0.4); P(D9T, "kr", { headYaw: -0.3 }, 0.3);
+const KID9 = r3(D9T + 0.6);
+P(KID9 - 0.02, "kr", { hold: 1, lid: 0 }, 0);   // the kid held out in front of him for the plea   // the cut to the close two-shot: the kid in his claw, the basket behind
+// KID (held up by the scruff): I was gonna be good tomorr-  (stuffed in, the lid thumps shut on it)
+L(0, KID9 + 0.1);
 c.macro(T[0], "kv", "say", { line: LINES[0][1], tone: LINES[0][2], ...LINES[0][4], dur: DUR[0], caption: false }); CAPS.push([0, null]);
 for (let k = 0; k < 6; k++) { P(T[0] + k * 0.28, "kr", { kidTalk: 1 }, 0.07); P(T[0] + 0.14 + k * 0.28, "kr", { kidTalk: 0.2 }, 0.07); }
 const LID9 = r3(END_OF(0) - 0.05);
-P(LID9 - 0.35, "kr", { lid: 0.5 }, 0.1); P(LID9 - 0.2, "kr", { kidPeek: 0 }, 0.15, "in"); P(LID9, "kr", { lid: 0 }, 0.08, "in");
+P(LID9 - 0.95, "kr", { hold: 0 }, 0.35, "inOut"); P(LID9 - 0.75, "kr", { lid: 1, headYaw: 0.2 }, 0.2); P(LID9 - 0.55, "kr", { stow: 1 }, 0.45, "inOut");   // over the shoulder, in
+P(LID9 - 0.15, "kr", { kidPeek: 0 }, 0.12, "in"); P(LID9, "kr", { lid: 0 }, 0.08, "in"); P(LID9 + 0.1, "kr", { kidKick: 1 }, 0.25);
+sfx(LID9 - 0.5, "cloth", { gain: 0.4 });
 sfx(LID9 + 0.06, "thud-soft", { gain: 0.7 }); sfx(LID9 + 0.08, "kenney/impact-wood-light", { gain: 0.4 });
-see(D9T, LID9, ["kr", "nick", "book", "b9"], "Saint Nick reads a glowing golden book and shakes his head; the horned Krampus jams birch sticks into the boot, a small kid in his basket");
+see(D9T, KID9, ["kr", "nick", "book"], "Saint Nick reads a glowing golden book and shakes his head; the horned Krampus holds a small kid up by the scruff");
+see(KID9, r3(LID9 + 0.2), ["kr"], "the kid dangles from his claw, pleading; the Krampus stuffs him over his shoulder into the wicker basket and slams the lid");
 cap(0.05, r3(SH + 0.8), "ONE NIGHT A YEAR HE CHECKS YOUR BOOTS", 1020, false, { size: 76, kinetic: false });
 
 // ================================================================= 2.6-14.5 DOOR 4: THE RULES (the street countdown starts)
@@ -458,6 +468,7 @@ const at = (C, h = 0.45, y = 0) => [C[0], r3(y + h), C[1]];
 // the hook (door 9)
 const O_BOOT = fr([BOOT_AT(9)[0] + 0.35, Y(9) + 0.55, 0.95], { az: -35, el: 8, h: 1.6, fov: 40 });   // the boot, his hooves and fur behind it
 const VILLAGE = { pos: [4.5, 3.4, 7.0], look: [-30, 3.6, 0.5], fov: 50 };   // down the lane, up the hill toward door 9
+const KR9_KID = fr([KR_AT(9)[0] - 0.4, Y(9) + 1.6, KR_AT(9)[2] + 0.3], { az: -40, el: 6, h: 2.7, fov: 40 });   // in front of him: the kid held out in his claw, then swung over his shoulder
 const KR9_FACE = fr([KR_AT(9)[0], Y(9) + 1.85, KR_AT(9)[2]], { az: -60, el: 2, h: 1.2, fov: 34 });
 const O_D9 = fr([X(9) + 0.45, Y(9) + 1.15, 1.1], { az: 18, el: 6, h: 4.0, fov: 44 });
 // door 4
@@ -494,7 +505,8 @@ const beats = c.beats([
   ["the village", 0, mv(VILLAGE, { pos: [2.5, 3.2, 6.2], look: [-30, 3.7, 0.6] }, KR_CUT), "hook"],
   ["krampus face", KR_CUT, push(KR9_FACE, 0.1, SH - KR_CUT)],
   ["boot and shadow", SH, push(O_BOOT, 0.12, D9T - SH)],
-  ["door nine", D9T, push(O_D9, 0.08, WHIP - D9T)],
+  ["door nine", D9T, push(O_D9, 0.08, KID9 - D9T)],
+  ["the kid", KID9, push(KR9_KID, 0.08, WHIP - KID9)],
   ["number nine", r3(T[1] - 0.25), push(DOWN, 0.08, 2.4)],
   ["who are they", r3(T[2] - 0.15), push(CHIP_CL(CHIP0, 25), 0.06, 1.5)],
   ["saint nick", r3(T[3] - 0.05), drift(SPUD_CL(SPUD0, -20), 0.1, PAGE1 - T[3] + 0.05)],
