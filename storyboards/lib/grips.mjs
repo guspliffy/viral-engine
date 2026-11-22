@@ -28,6 +28,9 @@ const SIZE = {
   norsecup: { r: 0.0475, h: 0.085 },               // norse myth 01: Chip's carved wooden cup (props-norse-items.js), mug hold
   norsesheet: { len: 0.32, r: 0.004 },             // norse myth 01: the crumpled test sheet, thin hold on its edge
   norsebud: { len: 0.011, r: 0.008 },              // norse myth 01: the plucked potato eye, pinched
+  smug: { r: 0.041, h: 0.095 },                    // props-spinroom.js smug (fact what-if 03 spin): handle side TURN -125
+  scrisps: { w: 0.19, h: 0.27, t: 0.07 },          // props-spinroom.js scrisps: the crisp bag (held like a phone)
+  sball: { r: 0.12, h: 0 },                        // props-spinstreet.js sball: origin at its centre (fact what-if 03 spin dunk)
   heartscarab: { len: 0.05, r: 0.007, h: 0 },   // egypt myth 01: the heart beetle charm (props-heart-heart.js), thin pinch on the head plate or a fist
   campmug: { r: 0.045, h: 0.085 },                 // props-duo.js campmug: its handle on +x
   shopbag: { r: 0.012, h: 0.62 },                  // props-happy.js shopbag: held by its rope loop (apex 0.41 = the mug hold at 0.66 x h)
@@ -184,7 +187,7 @@ const size = (spec) => { const s = SIZE[spec.kind]; if (!s) throw new Error(`gri
 
 // the turn each kind adds to rot = yaw + 180: a mug's handle (+x) goes to the holder's left and back toward the body,
 // away from the right hand and from a camera in front
-const TURN = { campmug: -125, teamug: -125 };
+const TURN = { campmug: -125, teamug: -125, smug: -125 };
 // the crisp cast's glove size (hands.size): a grip shape's sizes are in the glove's own units
 const HAND = 1.7;
 
