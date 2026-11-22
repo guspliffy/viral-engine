@@ -202,7 +202,7 @@ sfx(LID9 - 0.5, "cloth", { gain: 0.4 });
 sfx(LID9 + 0.06, "thud-soft", { gain: 0.7 }); sfx(LID9 + 0.08, "kenney/impact-wood-light", { gain: 0.4 });
 see(D9T, KID9, ["kr", "nick", "book"], "Saint Nick reads a glowing golden book and shakes his head; the horned Krampus holds a small kid up by the scruff");
 see(KID9, r3(LID9 + 0.2), ["kr"], "the kid dangles from his claw, pleading; the Krampus stuffs him over his shoulder into the wicker basket and slams the lid");
-cap(0.05, r3(SH + 0.8), "ONE NIGHT A YEAR HE CHECKS YOUR BOOTS", 1020, false, { size: 76, kinetic: false });
+cap(0.05, r3(FL(KR_CUT) - 0.02), "ONE NIGHT A YEAR HE CHECKS YOUR BOOTS", 1020, false, { size: 76, kinetic: false });   // over the village only: it ends at the cut to his face (as rendered; main's run-across rule would carry it over his face)
 
 // ================================================================= 2.6-14.5 DOOR 4: THE RULES (the street countdown starts)
 const WHIP = r3(LID9 + 0.3);
