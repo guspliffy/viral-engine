@@ -1,0 +1,388 @@
+{
+ "id": "kvd02-voice-probe",
+ "title": "Kid vs Dad 02 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   97.6,
+   97.6
+  ]
+ },
+ "cast": [
+  {
+   "id": "rep",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    3.2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 97.6,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad, can we get burgers?",
+     "tone": "question",
+     "style": "hopeful, bright, a little kid in the back seat, pointing",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "flat, instant, not even looking, the classic dad line",
+     "dur": 2.5,
+     "caption": false,
+     "at": 3.7
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Tato, age seven, just asked for burgers.",
+     "tone": "calm",
+     "style": "grave, low, a war correspondent under cover",
+     "voice": "reaper",
+     "dur": 4.1,
+     "caption": false,
+     "at": 7.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And in this car, there is one rule.",
+     "tone": "calm",
+     "style": "slow, ominous, leaning in",
+     "voice": "reaper",
+     "dur": 3.7,
+     "caption": false,
+     "at": 12.3
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Whoever says \"We have food at home\"... has to eat it.",
+     "tone": "calm",
+     "style": "deadly serious, a pause before the last words",
+     "voice": "reaper",
+     "dur": 4.9,
+     "caption": false,
+     "at": 17
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "The light turns green in one minute. Then the burger place is gone.",
+     "tone": "sad",
+     "style": "urgent, tense, a countdown",
+     "voice": "reaper",
+     "dur": 5.7,
+     "caption": false,
+     "at": 22.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "But I'm hungry.",
+     "tone": "sad",
+     "style": "small, pleading, face against the window",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 29.6
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "flat, firm, eyes on the road",
+     "dur": 2.5,
+     "caption": false,
+     "at": 32.3
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Sir... was that you?",
+     "tone": "question",
+     "style": "suspicious, slow, mic pushed in",
+     "voice": "reaper",
+     "dur": 2.1,
+     "caption": false,
+     "at": 35.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "That was the engine.",
+     "tone": "calm",
+     "style": "too quick, too calm, a lie",
+     "dur": 2.1,
+     "caption": false,
+     "at": 38.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I have my own money.",
+     "tone": "excited",
+     "style": "hopeful, holding up a coin",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 42
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "smug, eyes closed, hand up",
+     "dur": 2.5,
+     "caption": false,
+     "at": 45.5
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "What food, sir?",
+     "tone": "question",
+     "style": "sharp, a reporter pressing",
+     "voice": "reaper",
+     "dur": 1.7,
+     "caption": false,
+     "at": 49
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Food.",
+     "tone": "calm",
+     "style": "short, flat, no details",
+     "dur": 0.9,
+     "caption": false,
+     "at": 51.7
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Let's go live to the house.",
+     "tone": "calm",
+     "style": "urgent, handing over",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 53.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I'm at the house. There is one pickle.",
+     "tone": "sad",
+     "style": "shaken, whispering, a correspondent in a disaster zone",
+     "voice": "phoenix",
+     "dur": 3.7,
+     "caption": false,
+     "at": 57.5
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "And rice. From Tuesday.",
+     "tone": "sad",
+     "style": "horrified, quiet",
+     "voice": "phoenix",
+     "dur": 2.1,
+     "caption": false,
+     "at": 62.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Under the rule... this is his dinner.",
+     "tone": "sad",
+     "style": "grave, slow, delivering terrible news",
+     "voice": "phoenix",
+     "dur": 3.3,
+     "caption": false,
+     "at": 65.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "...That's a meal.",
+     "tone": "calm",
+     "style": "a dry swallow, unconvinced, sweating",
+     "dur": 1.7,
+     "caption": false,
+     "at": 69.6
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's entering the drive-thru! Repeat, he is entering!",
+     "tone": "excited",
+     "style": "running, out of breath, breaking news",
+     "voice": "reaper",
+     "dur": 3.7,
+     "caption": false,
+     "at": 72.3
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Welcome! Can I take your order?",
+     "tone": "happy",
+     "style": "bright, bored, a drive-thru speaker voice",
+     "voice": "mash",
+     "dur": 2.9,
+     "caption": false,
+     "at": 77
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "firm, to the speaker, dead serious",
+     "dur": 2.5,
+     "caption": false,
+     "at": 80.9
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "...Then why are you here?",
+     "tone": "question",
+     "style": "confused, flat, honest",
+     "voice": "mash",
+     "dur": 2.5,
+     "caption": false,
+     "at": 84.4
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "...One burger. For the drive.",
+     "tone": "sad",
+     "style": "a guilty whisper, leaning to the speaker",
+     "dur": 2.5,
+     "caption": false,
+     "at": 87.9
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Did he just...",
+     "tone": "question",
+     "style": "stunned, quiet, lowering the mic",
+     "voice": "reaper",
+     "dur": 1.7,
+     "caption": false,
+     "at": 91.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "flat, calm, exactly the dad's tone, a little kid being his dad",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 94.1
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Kid vs Dad 02: makes and measures every take. rep stands in as Spud's body; its voice is reaper."
+}
