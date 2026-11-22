@@ -1,0 +1,80 @@
+{
+ "out": "norse-myth/odin-score-myth.ogg",
+ "duration": 86.1,
+ "against": [
+  "Generic library orchestra with sweeping strings and heroic brass",
+  "Electronic synth pads and pulsing sequenced bass",
+  "EDM build with a kick drum and a bass drop",
+  "Trailer brass blasts and oversized cinematic drum hits",
+  "Horror strings with shrieking dissonance and jump scares",
+  "Loud chant or sung lyrics over the instruments",
+  "Cartoon slapstick with slide whistles and busy xylophone runs",
+  "people talking"
+ ],
+ "sections": [
+  {
+   "id": "norse-well",
+   "from": 0.0,
+   "label": "Quiet low bowed fiddle call over a warm drone and occasional muted plucks",
+   "lufs": -20,
+   "fadeIn": 0.1,
+   "onset": false
+  },
+  {
+   "id": "norse-stone",
+   "from": 10.4,
+   "label": "Low bowed strings and a deep hummed choir swell softly and settle into one tone",
+   "lufs": -19,
+   "fadeIn": 0.7,
+   "onset": false
+  },
+  {
+   "id": "norse-tree",
+   "from": 21.6,
+   "label": "Low fiddle call over broad strings, hummed choir and a soft frame drum, calm and solemn",
+   "lufs": -18,
+   "fadeIn": 0.8,
+   "onset": false
+  },
+  {
+   "id": "norse-ravens",
+   "from": 31.4,
+   "label": "Playful dry wooden string plucks with short paired notes and long rests",
+   "lufs": -19,
+   "fadeIn": 0.3,
+   "onset": false
+  },
+  {
+   "id": "norse-price",
+   "from": 49.1,
+   "label": "Restrained low bowed strings with sparse plucks and a quietly tense sustain",
+   "lufs": -20,
+   "fadeIn": 0.4,
+   "onset": false
+  },
+  {
+   "id": "norse-potato",
+   "from": 58.7,
+   "label": "Warm gentle wooden plucks over low strings that taper into a pause",
+   "lufs": -20,
+   "fadeIn": 0.4,
+   "onset": false
+  },
+  {
+   "id": "norse-wisdom",
+   "from": 66.9,
+   "label": "Warm bowed strings and a soft hummed choir bloom with golden wonder",
+   "lufs": -17,
+   "fadeIn": 0.6,
+   "onset": false
+  },
+  {
+   "id": "norse-class",
+   "from": 81.0,
+   "label": "Light dry plucks and a short quiet low fiddle call",
+   "lufs": -18,
+   "fadeIn": 0.3,
+   "onset": false
+  }
+ ]
+}
