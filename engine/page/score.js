@@ -18,6 +18,8 @@
 //         "k": 1.0,                                    // size multiplier (default 1; "mash" 1.15; extras, dog: give 0.85)
 //         "dx": 0, "dy": 0,                            // px offsets of the anchor
 //         "xy": [x, y],                                // fixed pill CENTRE in output px (no who needed, no bob)
+//         "clamp": false,                              // default on: the whole tag stays inside the frame (a close-up that
+//                                                      //   cuts the head top puts it on the top edge); false lets it leave
 //         "style": "pencil",                           // 29: same pill with a pencil line (ink #6b5a3a 3 px, 2 px wobble)
 //         "lens": { "ell": [cx, cy, rx, ry, rotDeg] }  // 45: clip the tag to a screen ellipse, or
 //                 { "world": { "c": [x,y,z], "n": [nx,ny,nz], "r": 0.04 } }   // a world circle (centre, normal, radius m),
@@ -103,7 +105,10 @@ export function planScore(sb, t, env) {
     }
     const f = Math.floor((t - start) / fr + EPS); if (f < 0) return;
     const pop = clamp((f + 1) / 3, 0, 1);
-    const cy = (tag.xy ? tag.xy[1] : bot - h / 2 + (tag.dy || 0)) + (pencil || tag.xy ? 0 : 3 * Math.sin(Math.PI * t + unit("bob" + i) * 6.2832));
+    const cy0 = (tag.xy ? tag.xy[1] : bot - h / 2 + (tag.dy || 0)) + (pencil || tag.xy ? 0 : 3 * Math.sin(Math.PI * t + unit("bob" + i) * 6.2832));
+    // a tag above the frame top is never meant (Jonny 20 Nov, lie count draft 3: "the number above best friend's head is
+    // cut off"): by default the whole pill stays in frame; "clamp": false opts out
+    const cy = tag.clamp === false || tag.xy ? cy0 : Math.max(cy0, h / 2 + 14);
     const x = cx + (tag.dx || 0), sc = lerp(0.8, 1, pop);
     // the number: right-aligned fixed cells, each digit that changed in the last 4 frames rolls
     const L = str(keys, t).length, cells = [];

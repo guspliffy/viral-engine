@@ -1,0 +1,505 @@
+{
+ "id": "lc10-03-terrace",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": false,
+  "light": "golden",
+  "key": [
+   -5.5,
+   3.6,
+   4.5
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      212
+     ]
+    ],
+    "free": true,
+    "clamp": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 59.31,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   11.65,
+   11.65
+  ]
+ },
+ "captionOverBody": {
+  "reason": "wide film in close-ups: the speaker fills the frame; one-line subtitles between the number tags and the eyes"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.533,
+    0.849
+   ],
+   "face": -15,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -0.274,
+    0.027
+   ],
+   "face": -56.503,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "ctab",
+   "kind": "cafetable",
+   "x": -1.479,
+   "y": 0,
+   "z": 0.955,
+   "h": 0.46,
+   "r": 0.27
+  },
+  {
+   "id": "plate",
+   "kind": "dessertplate",
+   "x": -1.316,
+   "y": 0.46,
+   "z": 1.031
+  },
+  {
+   "id": "bun",
+   "kind": "cinnabun",
+   "x": -1.316,
+   "y": 0.468,
+   "z": 1.031,
+   "rot": 0,
+   "bite": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 4.726,
+   "text": "Strangers, single digits. The baker, four.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 4.726,
+   "to": 7.75,
+   "text": "The loud one, thirty-eight.",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 7.82,
+   "to": 9.506,
+   "text": "So why was your best friend",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 9.506,
+   "to": 11.18,
+   "text": "at two hundred and twelve?",
+   "pos": 246,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "06 why 212 ots",
+   "at": 0,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     -1.653,
+     1.033,
+     2.233
+    ],
+    "look": [
+     -0.274,
+     0.76,
+     0.027
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.515,
+      1.006,
+      2.012
+     ]
+    },
+    "dur": 3.2,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       3.2,
+       4
+      ]
+     ],
+     "pivot": 2.616
+    }
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bun",
+     "set": {
+      "bite": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.533,
+      0.849
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -0.274,
+      0.027
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -56.503,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Strangers, single digits. The baker, four. The loud one, thirty-eight.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 7.6,
+     "caption": false,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "06 why 212 close +",
+   "at": 3.2,
+   "len": 2.31,
+   "shot": {
+    "pos": [
+     -3.067,
+     0.608,
+     2.241
+    ],
+    "look": [
+     -2.533,
+     0.53,
+     0.849
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -3.014,
+      0.6,
+      2.102
+     ]
+    },
+    "dur": 2.31,
+    "yaw": {
+     "keys": [
+      [
+       3.2,
+       0
+      ],
+      [
+       5.51,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "06 why 212 close +",
+   "at": 5.51,
+   "len": 2.31,
+   "shot": {
+    "pos": [
+     -3.981,
+     0.635,
+     2.247
+    ],
+    "look": [
+     -2.533,
+     0.53,
+     0.849
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -3.836,
+      0.625,
+      2.107
+     ]
+    },
+    "dur": 2.31,
+    "yaw": {
+     "keys": [
+      [
+       5.51,
+       0
+      ],
+      [
+       7.82,
+       4
+      ]
+     ],
+     "pivot": 2.015
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "06 why 212 close",
+   "at": 7.82,
+   "len": 1.915,
+   "shot": {
+    "pos": [
+     -1.184,
+     0.838,
+     1.208
+    ],
+    "look": [
+     -0.274,
+     0.76,
+     0.027
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.093,
+      0.83,
+      1.09
+     ]
+    },
+    "dur": 1.915,
+    "yaw": {
+     "keys": [
+      [
+       7.82,
+       0
+      ],
+      [
+       9.735,
+       -4
+      ]
+     ],
+     "pivot": 1.493
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "So why was your best friend at two hundred and twelve?",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.31,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "06 why 212 two +",
+   "at": 9.735,
+   "len": 1.915,
+   "shot": {
+    "pos": [
+     -3.608,
+     1.102,
+     5.167
+    ],
+    "look": [
+     -1.403,
+     0.645,
+     0.438
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -3.388,
+      1.056,
+      4.694
+     ]
+    },
+    "dur": 1.915,
+    "yaw": {
+     "keys": [
+      [
+       9.735,
+       0
+      ],
+      [
+       11.65,
+       4
+      ]
+     ],
+     "pivot": 5.238
+    }
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 59.31,
+  "T1": 70.96
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 59.31-70.96 s)."
+}

@@ -7,6 +7,7 @@ Rule for models: CC0 or self-made only, with the licence file next to them (`ass
 | Folder | What | Source | Licence | Detail |
 |---|---|---|---|---|
 | `fonts/` | Inter Black, ExtraBold (captions) | Inter by Rasmus Andersson | SIL Open Font License | `Inter-LICENSE.txt` |
+| `geo/` | `ne_110m_land.geojson`: world land outline (spin what-if globe and disc) | Natural Earth 110m land, github.com/nvkelso/natural-earth-vector | public domain | `engine/page/props-spinspace.js` |
 | `sfx/kenney/` | UI, impact, RPG, sci-fi, jingles, digital, interface | Kenney | CC0 | `*/License.txt` |
 | `sfx/oga/` | single takes (e.g. "Gastric Distress" by LFA) | OpenGameArt | CC0 per manifest entry | `manifest.json` |
 | `sfx/nature/` | birds, stream, lake beds; leaves | OpenGameArt (thimras, randommind); leaves synthesised by `tools/sound/nature-synth.py` | CC0; own work | `README.md` |
