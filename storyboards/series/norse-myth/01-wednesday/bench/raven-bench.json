@@ -102,17 +102,719 @@
  "captions": [],
  "beats": [
   {
-   "name": "wingTop",
+   "name": "perch200",
    "at": 0,
    "len": 1.2,
    "shot": {
     "pos": [
-     5.2,
-     3.464,
-     0.481
+     0,
+     1.738,
+     11.264
     ],
     "look": [
-     5.2,
+     0,
+     0.95,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "perchF",
+   "at": 1.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0,
+     1.738,
+     5.934
+    ],
+    "look": [
+     0,
+     1.12,
+     0.05
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "prof1",
+   "at": 2.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -2.265,
+     1.225,
+     0
+    ],
+    "look": [
+     -0.34,
+     1.09,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "prof2",
+   "at": 3.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     2.265,
+     1.225,
+     0
+    ],
+    "look": [
+     0.34,
+     1.09,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "head1",
+   "at": 4.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.677,
+     1.295,
+     0.684
+    ],
+    "look": [
+     -0.34,
+     1.2,
+     0.1
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "head2",
+   "at": 6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0.677,
+     1.295,
+     0.684
+    ],
+    "look": [
+     0.34,
+     1.2,
+     0.1
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "backV",
+   "at": 7.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0,
+     3.506,
+     -5.505
+    ],
+    "look": [
+     0,
+     1.1,
+     -0.1
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wingsF",
+   "at": 8.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0,
+     1.957,
+     7.725
+    ],
+    "look": [
+     0,
+     1.15,
+     0.05
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tintT",
+   "at": 9.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     5,
+     4.62,
+     0.583
+    ],
+    "look": [
+     5,
+     1.2,
+     -0.02
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 1,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wingTop",
+   "at": 10.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     5.15,
+     5.056,
+     0.135
+    ],
+    "look": [
+     5.15,
      1.2,
      0
     ],
@@ -181,18 +883,18 @@
   },
   {
    "name": "notchC",
-   "at": 1.2,
+   "at": 12,
    "len": 1.2,
    "shot": {
     "pos": [
      5.2,
-     2.149,
-     0.117
+     2.475,
+     0.015
     ],
     "look": [
      5.2,
      1.2,
-     -0.05
+     -0.03
     ],
     "fov": 20
    },
@@ -258,8 +960,1334 @@
    ]
   },
   {
+   "name": "tintF",
+   "at": 13.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     5,
+     1.683,
+     3.419
+    ],
+    "look": [
+     5,
+     1.2,
+     -0.02
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 1,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tintU",
+   "at": 14.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     5,
+     -0.792,
+     -2.865
+    ],
+    "look": [
+     5,
+     1.2,
+     -0.02
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 1,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tail0",
+   "at": 15.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     5,
+     1.899,
+     -1.742
+    ],
+    "look": [
+     5,
+     1.18,
+     -0.2
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 180
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tail70",
+   "at": 16.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     5,
+     2.279,
+     -2.513
+    ],
+    "look": [
+     5,
+     1.2,
+     -0.2
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 1,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 180
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flap0",
+   "at": 18,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.787,
+     1.312,
+     0
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flap1",
+   "at": 19.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.787,
+     1.312,
+     0
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0.125,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flap2",
+   "at": 20.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.787,
+     1.312,
+     0
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0.25,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flap3",
+   "at": 21.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.787,
+     1.312,
+     0
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0.375,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flap4",
+   "at": 22.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.787,
+     1.312,
+     0
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0.5,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flap5",
+   "at": 24,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.787,
+     1.312,
+     0
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0.625,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flap6",
+   "at": 25.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.787,
+     1.312,
+     0
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0.75,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flap7",
+   "at": 26.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.787,
+     1.312,
+     0
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0.875,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flapF",
+   "at": 27.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     5,
+     1.368,
+     3.211
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0.5,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "glide",
+   "at": 28.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     6.941,
+     2.432,
+     2.772
+    ],
+    "look": [
+     5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 1,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "brake0",
+   "at": 30,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     2.174,
+     1.398,
+     0
+    ],
+    "look": [
+     5,
+     1.25,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0.5,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "brake1",
+   "at": 31.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     2.174,
+     1.398,
+     0
+    ],
+    "look": [
+     5,
+     1.25,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 1,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "brakeF",
+   "at": 32.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     6.346,
+     1.697,
+     2.886
+    ],
+    "look": [
+     5,
+     1.25,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 1,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 5,
+      "y": 1.2,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
    "name": "pair200",
-   "at": 2.4,
+   "at": 33.6,
    "len": 1.2,
    "shot": {
     "pos": [
@@ -337,7 +2365,7 @@
   },
   {
    "name": "pair200b",
-   "at": 3.6,
+   "at": 34.8,
    "len": 1.2,
    "shot": {
     "pos": [
@@ -414,8 +2442,320 @@
    ]
   },
   {
+   "name": "whisper0",
+   "at": 36,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -1.333,
+     1.665,
+     3.162
+    ],
+    "look": [
+     -0.2,
+     1.2,
+     0.05
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 1,
+      "headYaw": 0.85,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "whisper1",
+   "at": 37.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -1.333,
+     1.665,
+     3.162
+    ],
+    "look": [
+     -0.2,
+     1.2,
+     0.05
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 1,
+      "headYaw": 0.85,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 1,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "leanS",
+   "at": 38.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     5,
+     0.422,
+     2.115
+    ],
+    "look": [
+     5,
+     0.2,
+     0
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 1,
+      "headYaw": 0.5,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 1,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 5,
+      "y": 0,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "leanF",
+   "at": 39.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     3.31,
+     0.715,
+     1.184
+    ],
+    "look": [
+     5,
+     0.2,
+     0
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 1,
+      "headYaw": 0.5,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0.5,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 5,
+      "y": 0,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
    "name": "whisperC",
-   "at": 4.8,
+   "at": 40.8,
    "len": 1.2,
    "shot": {
     "pos": [
@@ -492,9 +2832,87 @@
    ]
   },
   {
+   "name": "talk",
+   "at": 42,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.119,
+     1.259,
+     0.237
+    ],
+    "look": [
+     0.34,
+     1.19,
+     0.1
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 1,
+      "ruff": 1,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
    "name": "takeoff",
-   "at": 6,
-   "len": 1.6,
+   "at": 43.2,
+   "len": 1.2,
    "shot": {
     "pos": [
      2.174,
@@ -532,6 +2950,240 @@
       "x": 5,
       "y": 1.05,
       "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "hackleC",
+   "at": 44.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0.565,
+     0.966,
+     0.583
+    ],
+    "look": [
+     0.34,
+     1.16,
+     0.1
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": 30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": -0.3,
+      "headPitch": -0.3,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 1,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": 0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bristleC",
+   "at": 45.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.62,
+     1.231,
+     0.405
+    ],
+    "look": [
+     -0.34,
+     1.18,
+     0.17
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0.5,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.004,
+      "x": 60,
+      "y": 0,
+      "z": -20,
+      "rot": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "foot",
+   "at": 46.8,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.676,
+     1.063,
+     0.194
+    ],
+    "look": [
+     -0.34,
+     0.98,
+     0
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "shake": 0,
+      "hop": 0,
+      "blink": 0,
+      "tint": 0,
+      "perchR": 0.05,
+      "x": -0.34,
+      "y": 0.97,
+      "z": -0.01,
       "rot": 0
      },
      "dur": 0,
