@@ -1,0 +1,5654 @@
+{
+ "id": "spin",
+ "title": "What if Earth spun faster every second?",
+ "idea": "Fact what-if 03: Earth spins faster every second (2.0x +0.3x a second): the sea climbs the Andes, storms, short days, you get lighter (crisps, a dunk), weightless at 17x you float off, the oceans and air peel off, the planet cracks into a flat disc. 'Good news: the flat-earthers were right.'",
+ "format": "Fact what-if (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionLead": 0.12,
+ "captionBand": [
+  300,
+  1360
+ ],
+ "captionOverBody": {
+  "reason": "close shots where Spud fills the frame (sofa P6, bonk P8, dunk P9b, sky P14): the line sits over his sweater or the top of his head, never within 40 px of an eye (output.md, lie count film rule)"
+ },
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "far": 6000,
+ "set": {
+  "type": "spinroom",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "hud": {
+  "gforce": {
+   "keys": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2.3
+    ],
+    [
+     2,
+     2.6
+    ],
+    [
+     3,
+     2.9
+    ],
+    [
+     4,
+     3.2
+    ],
+    [
+     5,
+     3.5
+    ],
+    [
+     6,
+     3.8
+    ],
+    [
+     7,
+     4.1
+    ],
+    [
+     8,
+     4.4
+    ],
+    [
+     9,
+     4.7
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     11,
+     5.3
+    ],
+    [
+     12,
+     5.6
+    ],
+    [
+     13,
+     5.9
+    ],
+    [
+     14,
+     6.2
+    ],
+    [
+     15,
+     6.5
+    ],
+    [
+     16,
+     6.8
+    ],
+    [
+     17,
+     7.1
+    ],
+    [
+     18,
+     7.4
+    ],
+    [
+     19,
+     7.7
+    ],
+    [
+     20,
+     8
+    ],
+    [
+     21,
+     8.3
+    ],
+    [
+     22,
+     8.6
+    ],
+    [
+     23,
+     8.9
+    ],
+    [
+     24,
+     9.2
+    ],
+    [
+     25,
+     9.5
+    ],
+    [
+     26,
+     9.8
+    ],
+    [
+     27,
+     10.1
+    ],
+    [
+     28,
+     10.4
+    ],
+    [
+     29,
+     10.7
+    ],
+    [
+     30,
+     11
+    ],
+    [
+     31,
+     11.3
+    ],
+    [
+     32,
+     11.6
+    ],
+    [
+     33,
+     11.9
+    ],
+    [
+     34,
+     12.2
+    ],
+    [
+     35,
+     12.5
+    ],
+    [
+     36,
+     12.8
+    ],
+    [
+     37,
+     13.1
+    ],
+    [
+     38,
+     13.4
+    ],
+    [
+     39,
+     13.7
+    ],
+    [
+     40,
+     14
+    ],
+    [
+     41,
+     14.3
+    ],
+    [
+     42,
+     14.6
+    ],
+    [
+     43,
+     14.9
+    ],
+    [
+     44,
+     15.2
+    ],
+    [
+     45,
+     15.5
+    ],
+    [
+     46,
+     15.8
+    ],
+    [
+     47,
+     16.1
+    ],
+    [
+     48,
+     16.4
+    ],
+    [
+     49,
+     16.7
+    ],
+    [
+     50,
+     17
+    ],
+    [
+     51,
+     17.3
+    ],
+    [
+     52,
+     17.6
+    ],
+    [
+     53,
+     17.9
+    ],
+    [
+     54,
+     18.2
+    ],
+    [
+     55,
+     18.5
+    ],
+    [
+     56,
+     18.8
+    ],
+    [
+     57,
+     19.1
+    ],
+    [
+     58,
+     19.4
+    ],
+    [
+     59,
+     19.7
+    ],
+    [
+     60,
+     20
+    ],
+    [
+     61,
+     20.3
+    ],
+    [
+     62,
+     20.6
+    ],
+    [
+     63,
+     20.9
+    ],
+    [
+     64,
+     21.2
+    ],
+    [
+     65,
+     21.5
+    ],
+    [
+     66,
+     21.8
+    ],
+    [
+     67,
+     22.1
+    ],
+    [
+     68,
+     22.4
+    ],
+    [
+     69,
+     22.7
+    ],
+    [
+     70,
+     23
+    ],
+    [
+     71,
+     23.3
+    ],
+    [
+     72,
+     23.6
+    ],
+    [
+     73,
+     23.9
+    ],
+    [
+     74,
+     24.2
+    ],
+    [
+     75,
+     24.5
+    ],
+    [
+     76,
+     24.8
+    ]
+   ],
+   "y": 305,
+   "unit": "x",
+   "warm": 10.1,
+   "hot": 17
+  }
+ },
+ "music": {
+  "file": "score-film/spin-score.ogg",
+  "from": 0,
+  "gain": 0.75,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.05,
+  "surface": "wood",
+  "room": "livingroom",
+  "guard": true,
+  "level": -9.7
+ },
+ "creative": {
+  "length": [
+   76.1,
+   76.1
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "mug",
+   "sea"
+  ],
+  "hint": 0,
+  "what": "2.0x on the chip; through the window a wall of sea surges up the Andes valley, the sun smearing across; Spud sprays his coffee at 0.1 s"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.4,
+    -1.3
+   ],
+   "face": 60,
+   "expr": "shocked",
+   "follow": 0,
+   "seed": 3.17
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "ssky",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "clouds",
+   "kind": "sclouds",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "storm",
+   "kind": "sstorm",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "roomlight",
+   "kind": "sroomlight",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "win",
+   "kind": "swindow",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "slamAt": 13.6
+  },
+  {
+   "id": "crt",
+   "kind": "scrt",
+   "x": 1.45,
+   "y": 0,
+   "z": -0.25,
+   "rot": -48,
+   "driftAt": 9,
+   "staticAt": 9.5,
+   "slapAt": 10.5
+  },
+  {
+   "id": "clock",
+   "kind": "sclock",
+   "x": 0.23,
+   "y": 0,
+   "z": -2.22,
+   "rot": 0,
+   "ringFrom": 16.27,
+   "smashAt": 18.3,
+   "fist": [
+    0.15,
+    0.66,
+    -2.02
+   ],
+   "staged": "the alarm clock stands on the side table (part of the spinroom set)"
+  },
+  {
+   "id": "lamp",
+   "kind": "spendant",
+   "x": 0,
+   "y": 1.93,
+   "z": -0.45,
+   "rot": 0,
+   "tb": 28.05,
+   "slamAt": 13.6,
+   "staged": "a pendant lamp hanging from the ceiling on its chain"
+  },
+  {
+   "id": "mug",
+   "kind": "smug",
+   "x": -0.235,
+   "y": 0.5,
+   "z": -0.985,
+   "rot": 115,
+   "t0": 0,
+   "mouth": [
+    -0.13,
+    0.52,
+    -1.13
+   ]
+  },
+  {
+   "id": "bag",
+   "kind": "scrisps",
+   "x": -1.55,
+   "y": 0.45,
+   "z": -2,
+   "rot": 180,
+   "t0": 19.2,
+   "from": [
+    0.15,
+    0.63,
+    0.03
+   ],
+   "mouth": [
+    -0.05,
+    0.53,
+    -0.09
+   ],
+   "crown": [
+    -0.13,
+    1.1,
+    -0.33
+   ]
+  },
+  {
+   "id": "quilt",
+   "kind": "squilt",
+   "x": -1,
+   "y": 0,
+   "z": -2.03,
+   "rot": 0,
+   "staged": "the quilt lies over the sofa seat (part of the spinroom set)"
+  },
+  {
+   "id": "andes",
+   "kind": "sandes",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "centro": 1
+  },
+  {
+   "id": "sea",
+   "kind": "ssea",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "high",
+   "kind": "shigh",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "street",
+   "kind": "sstreet",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "swish": 33.82,
+   "splash": []
+  },
+  {
+   "id": "rain",
+   "kind": "srain",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "blobs",
+   "kind": "sblobs",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "ball",
+   "kind": "sball",
+   "x": 2.32,
+   "y": -11.15,
+   "z": -18.72,
+   "rot": 0,
+   "float": 36.7,
+   "fx": 0.9
+  },
+  {
+   "id": "ball2",
+   "kind": "sball",
+   "x": 2.86,
+   "y": -9.62,
+   "z": -19.74,
+   "rot": 0,
+   "float": 36.7,
+   "fx": 0.9
+  },
+  {
+   "id": "stars",
+   "kind": "sstars",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "scale": 0
+  },
+  {
+   "id": "earth",
+   "kind": "searth",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "disc",
+   "kind": "sdisc",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2.179,
+   "text": "Every second, Earth spins faster.",
+   "pos": 520,
+   "pop": false,
+   "said": "Every second, Earth spins faster.",
+   "across": true
+  },
+  {
+   "from": 2.179,
+   "to": 5.31,
+   "text": "In one minute, it rips itself apart.",
+   "pos": 520,
+   "pop": false,
+   "said": "In one minute, it rips itself apart.",
+   "across": true
+  },
+  {
+   "from": 5.33,
+   "to": 7.851,
+   "text": "The oceans run to the equator.",
+   "pos": 520,
+   "pop": false,
+   "said": "The oceans run to the equator.",
+   "across": true
+  },
+  {
+   "from": 7.851,
+   "to": 9.21,
+   "text": "Everything low drowns.",
+   "pos": 520,
+   "pop": false,
+   "said": "Everything low drowns.",
+   "across": true
+  },
+  {
+   "from": 9.23,
+   "to": 11.61,
+   "text": "Satellites drift out of place.",
+   "pos": 520,
+   "pop": false,
+   "said": "Satellites drift out of place.",
+   "across": true
+  },
+  {
+   "from": 11.63,
+   "to": 14.86,
+   "text": "Storms spin faster, and hit harder.",
+   "pos": 520,
+   "pop": false,
+   "said": "Storms spin faster, and hit harder.",
+   "across": true
+  },
+  {
+   "from": 15,
+   "to": 17.413,
+   "text": "A day lasts under four hours.",
+   "pos": 520,
+   "pop": false,
+   "said": "A day lasts under four hours.",
+   "across": true
+  },
+  {
+   "from": 19.08,
+   "to": 20.537,
+   "text": "You're getting lighter.",
+   "pos": 520,
+   "pop": false,
+   "said": "You're getting lighter.",
+   "across": true
+  },
+  {
+   "from": 26.7,
+   "to": 28.792,
+   "text": "A third of your weight, gone.",
+   "pos": 400,
+   "pop": false,
+   "said": "A third of your weight, gone.",
+   "across": true
+  },
+  {
+   "from": 33.28,
+   "to": 36.04,
+   "text": "Half your weight. Best day ever?",
+   "pos": 520,
+   "pop": false,
+   "said": "Half your weight. Best day ever?",
+   "across": true
+  },
+  {
+   "from": 37.88,
+   "to": 40.059,
+   "text": "Every step is a jump now.",
+   "pos": 520,
+   "pop": false,
+   "said": "Every step is a jump now.",
+   "across": true
+  },
+  {
+   "from": 44.88,
+   "to": 46.514,
+   "text": "Lighter than on the Moon.",
+   "pos": 520,
+   "pop": false,
+   "said": "Lighter than on the Moon.",
+   "across": true
+  },
+  {
+   "from": 47.28,
+   "to": 48.307,
+   "text": "Hold on.",
+   "pos": 520,
+   "pop": false,
+   "said": "Hold on.",
+   "across": true
+  },
+  {
+   "from": 50,
+   "to": 51.321,
+   "text": "You weigh nothing.",
+   "pos": 1180,
+   "pop": false,
+   "said": "You weigh nothing.",
+   "across": true
+  },
+  {
+   "from": 51.321,
+   "to": 53.332,
+   "text": "Neither does the ocean.",
+   "pos": 1180,
+   "pop": false,
+   "said": "Neither does the ocean.",
+   "across": true
+  },
+  {
+   "from": 55.08,
+   "to": 56.834,
+   "text": "Higher than the clouds.",
+   "pos": 1150,
+   "pop": false,
+   "said": "Higher than the clouds.",
+   "across": true
+  },
+  {
+   "from": 60,
+   "to": 63.341,
+   "text": "The oceans and the air fly into space.",
+   "pos": 520,
+   "pop": false,
+   "said": "The oceans and the air fly into space.",
+   "across": true
+  },
+  {
+   "from": 66,
+   "to": 67.32,
+   "text": "The ground cracks.",
+   "pos": 520,
+   "pop": false,
+   "said": "The ground cracks.",
+   "across": true
+  },
+  {
+   "from": 67.32,
+   "to": 69.33,
+   "text": "The poles squash flat.",
+   "pos": 520,
+   "pop": false,
+   "said": "The poles squash flat.",
+   "across": true
+  },
+  {
+   "from": 73.3,
+   "to": 75.96,
+   "text": "Good news: the flat-earthers were right.",
+   "pos": 520,
+   "pop": false,
+   "said": "Good news: the flat-earthers were right.",
+   "across": true
+  }
+ ],
+ "beats": [
+  {
+   "name": "P01 2.0x: the sea wall in the window, the coffee spit",
+   "at": 0,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     -0.25,
+     1.25,
+     0.55
+    ],
+    "look": [
+     0.3,
+     0.35,
+     -3.6
+    ],
+    "fov": 58,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      -0.222,
+      1.205,
+      0.343
+     ],
+     "look": [
+      0.3,
+      0.35,
+      -3.6
+     ],
+     "fov": 58
+    },
+    "dur": 2.2,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "roomlight",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "roomlight",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "andes",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "andes",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sea",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sea",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "high",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "high",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "street",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "street",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "blobs",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "blobs",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ball",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ball",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "earth",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "disc",
+     "set": {
+      "t": 76.1
+     },
+     "dur": 76.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "quilt",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "andes",
+     "set": {
+      "centro": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.031,
+       0.063,
+       -0.086
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.049,
+       0.02,
+       0.049
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.6,
+      "eye": 1.25
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.15
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/water-gush",
+     "gain": 0.55,
+     "dur": 2.2,
+     "reason": "the sea wall roaring up the valley below the window",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.031,
+       0.063,
+       -0.086
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.6,
+     "dur": 5,
+     "reason": "the far roar of the whole sea moving",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "mug",
+     "hand": "R",
+     "grip": [
+      -0.031,
+      0.063,
+      -0.086
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "macro": "narrate",
+     "line": "Every second, Earth spins faster. In one minute, it rips itself apart.",
+     "voice": "narrator-quick",
+     "dur": 5.2285,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "sfx": "splort",
+     "gain": 0.7,
+     "reason": "he sprays the coffee out",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "sfx": "patter",
+     "gain": 0.35,
+     "reason": "coffee drops hit the glass",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.35,
+      "eye": 1.3
+     },
+     "dur": 0.15,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.2
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "P02 2.7x: Quito, every valley a sea",
+   "at": 2.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     40,
+     62,
+     250
+    ],
+    "look": [
+     -60,
+     -170,
+     -1500
+    ],
+    "fov": 50,
+    "near": 4,
+    "to": {
+     "pos": [
+      32,
+      43.44,
+      110
+     ],
+     "look": [
+      -60,
+      -170,
+      -1500
+     ],
+     "fov": 50
+    },
+    "dur": 2.8,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "waves",
+     "gain": 0.6,
+     "dur": 6.6,
+     "reason": "surf breaking in every valley below the city",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "mug",
+     "dur": 0,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       -0.031,
+       0.063,
+       -0.086
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.049,
+       0.02,
+       0.049
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.14
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.19
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.19
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "x": 0.4,
+      "y": 0.52,
+      "z": -2.08
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "P03 3.5x: the valleys drowning",
+   "at": 5,
+   "len": 4,
+   "shot": {
+    "pos": [
+     60,
+     70,
+     260
+    ],
+    "look": [
+     120,
+     -230,
+     -1500
+    ],
+    "fov": 44,
+    "near": 4,
+    "to": {
+     "pos": [
+      50,
+      60,
+      150
+     ],
+     "look": [
+      120,
+      -230,
+      -1500
+     ],
+     "fov": 38
+    },
+    "dur": 4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.45,
+     "dur": 3.8,
+     "reason": "water pouring through the drowning town",
+     "at": 0.05
+    },
+    {
+     "macro": "narrate",
+     "line": "The oceans run to the equator. Everything low drowns.",
+     "voice": "narrator-quick",
+     "dur": 3.7818,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0.45
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.35,
+     "reason": "a roof breaking off under the water",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "at": 3.75
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.5,
+      -0.8
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.98
+    }
+   ]
+  },
+  {
+   "name": "P04 4.7x: TV static, the slap",
+   "at": 9,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     -1.3,
+     1.05,
+     0.9
+    ],
+    "look": [
+     1.57,
+     0.8,
+     -1.11
+    ],
+    "fov": 52,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      -1.128,
+      1.035,
+      0.779
+     ],
+     "look": [
+      1.57,
+      0.8,
+      -1.11
+     ],
+     "fov": 52
+    },
+    "dur": 2.5,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "eye": 0.9
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      0.05
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Satellites drift out of place.",
+     "voice": "narrator-quick",
+     "dur": 2.2598,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0.35
+    },
+    {
+     "sfx": "hiss",
+     "gain": 0.3,
+     "dur": 2,
+     "reason": "the TV picture breaks into static",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.86,
+      -0.8
+     ],
+     "dur": 0.7,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 55,
+     "dur": 0.4,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.8,
+      "curve": -0.4
+     },
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.85,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       1.22,
+       0.82,
+       -0.47
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.42
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.2,
+     "at": 1.5
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.9,
+     "reason": "his palm slaps the side of the TV",
+     "at": 1.5
+    },
+    {
+     "sfx": "kenney/impact-wood-light",
+     "gain": 0.4,
+     "reason": "the TV cabinet knocks",
+     "at": 1.52
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 1.65
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "eye": 0.7
+     },
+     "dur": 0.2,
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.15
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1,
+      -2.15
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.48
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.48
+    }
+   ]
+  },
+  {
+   "name": "P05 5.5x: the hurricane, the slam",
+   "at": 11.5,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     0.5,
+     1,
+     0.05
+    ],
+    "look": [
+     1.05,
+     1.1,
+     -2.65
+    ],
+    "fov": 56,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      0.544,
+      1.008,
+      -0.166
+     ],
+     "look": [
+      1.05,
+      1.1,
+      -2.65
+     ],
+     "fov": 56
+    },
+    "dur": 2.5,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.3
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.7,
+     "dur": 2.2,
+     "reason": "storm wind howling in through the open window",
+     "at": 0
+    },
+    {
+     "sfx": "ai/rain-car-roof",
+     "gain": 0.35,
+     "dur": 2.2,
+     "reason": "rain lashing the glass and the floor",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.04,
+      -2.15
+     ],
+     "dur": 0.6,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Storms spin faster, and hit harder.",
+     "voice": "narrator-quick",
+     "dur": 3.2391,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.945,
+       0.9,
+       -2.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.9,
+       1,
+       -2.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.3,
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.999,
+       0.9,
+       -2.5
+      ]
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.954,
+       1,
+       -2.5
+      ]
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.45,
+      -2.15
+     ],
+     "dur": 0.2,
+     "steps": 0,
+     "ease": "in",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       1.16,
+       0.9,
+       -2.5
+      ]
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 2.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       1.115,
+       1,
+       -2.5
+      ]
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 2.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       1.429,
+       0.9,
+       -2.5
+      ]
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       1.384,
+       1,
+       -2.5
+      ]
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       1.805,
+       0.9,
+       -2.5
+      ]
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 2.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       1.76,
+       1,
+       -2.5
+      ]
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 2.25
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.25,
+     "at": 2.3
+    },
+    {
+     "sfx": "slam",
+     "gain": 1,
+     "reason": "the sash slams shut",
+     "at": 2.3
+    },
+    {
+     "sfx": "kenney/impact-glass-light",
+     "gain": 0.5,
+     "reason": "the glass rattles in the frame",
+     "at": 2.32
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.2,
+     "dur": 1.2,
+     "reason": "the wind, muffled behind the glass",
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 2.45
+    }
+   ]
+  },
+  {
+   "name": "P05b 5.5x: 'and hit harder' (punch-in)",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     1,
+     0.05
+    ],
+    "look": [
+     1.05,
+     1.1,
+     -2.65
+    ],
+    "fov": 47.6,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      0.528,
+      1.005,
+      -0.085
+     ],
+     "look": [
+      1.05,
+      1.1,
+      -2.65
+     ],
+     "fov": 46.172
+    },
+    "dur": 1,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "settle",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 150,
+     "dur": 0.35,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "eye": 0.8
+     },
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "quilt",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.97
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.2,
+      -1.95
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "rot": 70,
+     "height": 0.45,
+     "dur": 0,
+     "hands": "keep",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "P06 6.5x: the strobe, the alarm, the smash",
+   "at": 15,
+   "len": 3.433,
+   "shot": {
+    "pos": [
+     0.9,
+     1.2,
+     -0.75
+    ],
+    "look": [
+     -0.3,
+     0.7,
+     -2.2
+    ],
+    "fov": 64,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      0.828,
+      1.17,
+      -0.837
+     ],
+     "look": [
+      -0.3,
+      0.7,
+      -2.2
+     ],
+     "fov": 64
+    },
+    "dur": 3.45,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "A day lasts under four hours.",
+     "voice": "narrator-quick",
+     "dur": 2.163,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "eye": 0.6
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "alarmbell",
+     "gain": 0.6,
+     "dur": 2,
+     "reason": "the alarm clock rings",
+     "at": 1.27
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.2,
+     "dur": 0.12,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "eye": 0.8,
+      "curve": -0.5
+     },
+     "dur": 0.15,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.12,
+       0.95,
+       -2.02
+      ]
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.15,
+     "at": 2.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.15,
+       0.68,
+       -2.02
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 3.2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.22,
+     "at": 3.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 0.7,
+      "open": 0.2,
+      "curve": -0.6
+     },
+     "dur": 0.06,
+     "at": 3.3
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.8,
+     "reason": "his fist smashes the clock",
+     "at": 3.3
+    },
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.5,
+     "reason": "the bells and gears scatter",
+     "at": 3.33
+    }
+   ]
+  },
+  {
+   "name": "P06b 6.5x: the pieces (punch-in)",
+   "at": 18.433,
+   "len": 0.567,
+   "shot": {
+    "pos": [
+     0.9,
+     1.2,
+     -0.75
+    ],
+    "look": [
+     -0.3,
+     0.7,
+     -2.2
+    ],
+    "fov": 52.48,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      0.852,
+      1.18,
+      -0.808
+     ],
+     "look": [
+      -0.3,
+      0.7,
+      -2.2
+     ],
+     "fov": 50.906
+    },
+    "dur": 0.55,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "settle",
+     "at": 0.167
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.217
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "eye": 0.55
+     },
+     "dur": 0.25,
+     "at": 0.217
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.25,
+     "at": 0.217
+    },
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.35,
+     "reason": "a bell rolls off the table edge",
+     "at": 0.267
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "at": 0.467
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "x": 0.15,
+      "y": 0.34,
+      "z": 0.03
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.537
+    },
+    {
+     "who": "spud",
+     "do": "stand",
+     "dur": 0,
+     "sync": true,
+     "at": 0.547
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.05,
+      -0.4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.547
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.547
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0,
+     "dur": 0,
+     "sync": true,
+     "at": 0.547
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0.547
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.13,
+       0.113,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       -0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.547
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.13,
+       0.113,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.557
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.563
+    }
+   ]
+  },
+  {
+   "name": "P07 7.7x: crisps float, the catch",
+   "at": 19,
+   "len": 2.733,
+   "shot": {
+    "pos": [
+     0.6,
+     0.95,
+     1.55
+    ],
+    "look": [
+     -0.1,
+     0.8,
+     -0.6
+    ],
+    "fov": 50,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      0.558,
+      0.941,
+      1.421
+     ],
+     "look": [
+      -0.1,
+      0.8,
+      -0.6
+     ],
+     "fov": 50
+    },
+    "dur": 2.75,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "quilt",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "eye": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "bag",
+     "hand": "L",
+     "grip": [
+      -0.13,
+      0.113,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.13,
+       0.113,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.15,
+       0.46,
+       0.03
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "macro": "narrate",
+     "line": "You're getting lighter.",
+     "voice": "narrator-quick",
+     "dur": 1.087,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "sfx": "crinkle",
+     "gain": 0.5,
+     "reason": "the foil bag rustles as he tosses",
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.13,
+       0.113,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.15,
+       0.36,
+       0.03
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.24
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.15
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      0.6
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.05,
+      0.35
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.15,
+      "open": 0.6
+     },
+     "dur": 0.25,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.15
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.18,
+     "at": 2.55
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "eye": 0.9,
+      "open": 0.1,
+      "curve": 0.9
+     },
+     "dur": 0.12,
+     "at": 2.6
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.55,
+     "reason": "he crunches the crisp",
+     "at": 2.6
+    }
+   ]
+  },
+  {
+   "name": "P07b 7.7x: chewing, delighted (punch-in)",
+   "at": 21.733,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     0.6,
+     0.95,
+     1.55
+    ],
+    "look": [
+     -0.1,
+     0.8,
+     -0.6
+    ],
+    "fov": 41,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      0.565,
+      0.943,
+      1.443
+     ],
+     "look": [
+      -0.1,
+      0.8,
+      -0.6
+     ],
+     "fov": 39.77
+    },
+    "dur": 2.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.55,
+     "reason": "he crunches the crisp",
+     "at": 0.217
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.55,
+     "reason": "he crunches the crisp",
+     "at": 0.567
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "at": 0.867
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.25
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.867
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.3
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.667
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.467
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.8,
+      "eye": 0.8
+     },
+     "dur": 0.2,
+     "at": 2.467
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "bag",
+     "dur": 0,
+     "at": 2.567
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 2.567
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.567
+    }
+   ]
+  },
+  {
+   "name": "P07c 7.7x: a test hop",
+   "at": 24.333,
+   "len": 2.367,
+   "shot": {
+    "pos": [
+     0.6,
+     0.95,
+     1.55
+    ],
+    "look": [
+     -0.1,
+     0.8,
+     -0.6
+    ],
+    "fov": 50,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      0.572,
+      0.944,
+      1.464
+     ],
+     "look": [
+      -0.1,
+      0.8,
+      -0.6
+     ],
+     "fov": 50
+    },
+    "dur": 2.35,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.13,
+       0.113,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       -0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 0.007
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.017
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.017
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "at": 0.167
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 0.35,
+     "count": 1,
+     "dur": 1.2,
+     "quiet": true,
+     "at": 0.567
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.2
+     },
+     "dur": 0.15,
+     "at": 0.867
+    },
+    {
+     "sfx": "step",
+     "gain": 0.4,
+     "reason": "his feet land soft on the boards",
+     "at": 1.767
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 1,
+      "eye": 1
+     },
+     "dur": 0.2,
+     "at": 1.817
+    }
+   ]
+  },
+  {
+   "name": "P08 10x: the bonk",
+   "at": 26.7,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     1.35,
+     0.85,
+     1.05
+    ],
+    "look": [
+     -0.1,
+     1.45,
+     -0.5
+    ],
+    "fov": 60,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      1.278,
+      0.88,
+      0.973
+     ],
+     "look": [
+      -0.1,
+      1.45,
+      -0.5
+     ],
+     "fov": 60
+    },
+    "dur": 1.9,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 1,
+      "eye": 1.05
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "A third of your weight, gone.",
+     "voice": "narrator-quick",
+     "dur": 1.742,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.4,
+     "dur": 0.18,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0.78
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 0.81,
+     "count": 1,
+     "dur": 1,
+     "quiet": true,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.16,
+     "dur": 0.2,
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "open": 0.35
+     },
+     "dur": 0.05,
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.8,
+     "dur": 0.05,
+     "at": 1.35
+    },
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.7,
+     "reason": "his head bonks the metal lamp shade",
+     "at": 1.35
+    },
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.3,
+     "reason": "the chain rattles",
+     "at": 1.37
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.12,
+     "at": 1.55
+    },
+    {
+     "sfx": "step",
+     "gain": 0.45,
+     "reason": "he lands back on the boards",
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "P08b 10x: the swinging lamp, his grin (punch-in)",
+   "at": 28.6,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     1.35,
+     0.85,
+     1.05
+    ],
+    "look": [
+     -0.3,
+     0.95,
+     -0.4
+    ],
+    "fov": 62,
+    "near": 0.04,
+    "to": {
+     "pos": [
+      1.268,
+      0.855,
+      0.978
+     ],
+     "look": [
+      -0.3,
+      0.95,
+      -0.4
+     ],
+     "fov": 62
+    },
+    "dur": 2.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.92,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 1,
+      "eye": 0.9
+     },
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2,
+      -19
+     ],
+     "y": -11.56,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 230,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ball",
+      "grip": [
+       0.164,
+       0,
+       0.044
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ball",
+      "grip": [
+       0.164,
+       0,
+       0.044
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.39
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.396
+    }
+   ]
+  },
+  {
+   "name": "P09 11.3x: the dunk",
+   "at": 31,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     -0.4,
+     -10.4,
+     -15.6
+    ],
+    "look": [
+     2.3,
+     -10,
+     -19.6
+    ],
+    "fov": 50,
+    "near": 0.3,
+    "to": {
+     "pos": [
+      -0.238,
+      -10.376,
+      -15.84
+     ],
+     "look": [
+      2.3,
+      -10,
+      -19.6
+     ],
+     "fov": 50
+    },
+    "dur": 3.3,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.9,
+      "eye": 0.9
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.3
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "ball",
+     "hand": "R",
+     "grip": [
+      0.164,
+      0,
+      0.044
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ball",
+      "grip": [
+       0.164,
+       0,
+       0.044
+      ],
+      "palm": "wrap",
+      "at": [
+       2.32,
+       -11.05,
+       -18.72
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.45,
+     "dur": 0.2,
+     "at": 1.55
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.1,
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.8,
+      -19.3
+     ],
+     "y": -11.468,
+     "dur": 0.7,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 1.1,
+     "count": 1,
+     "dur": 1.4,
+     "quiet": true,
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ball",
+      "grip": [
+       0.164,
+       0,
+       0.044
+      ],
+      "palm": "wrap",
+      "at": [
+       2.7,
+       -9.95,
+       -19.5
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 1,
+      "eye": 1.1,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ball",
+      "grip": [
+       0.164,
+       0,
+       0.044
+      ],
+      "palm": "wrap",
+      "at": [
+       2.84,
+       -9.3,
+       -19.5
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "macro": "narrate",
+     "line": "Half your weight. Best day ever?",
+     "voice": "narrator-quick",
+     "dur": 2.3898,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ball",
+      "grip": [
+       0.164,
+       0,
+       0.044
+      ],
+      "palm": "wrap",
+      "at": [
+       2.86,
+       -9.3,
+       -19.74
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ball",
+      "grip": [
+       0.164,
+       0,
+       0.044
+      ],
+      "palm": "wrap",
+      "at": [
+       2.86,
+       -9.62,
+       -19.74
+      ]
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "ball",
+     "dur": 0,
+     "at": 2.82
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 2.82
+    },
+    {
+     "do": "prop",
+     "id": "ball",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.82
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.82
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "x": 2.75,
+      "y": -11.42,
+      "z": -20.2
+     },
+     "dur": 0.43,
+     "ease": "in",
+     "at": 2.82
+    },
+    {
+     "sfx": "netshot",
+     "gain": 0.8,
+     "reason": "the ball swishes through the net",
+     "at": 2.82
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 2.84
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 330,
+     "dur": 0.4,
+     "at": 2.95
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "x": 2.4,
+      "y": -10.6,
+      "z": -21.6
+     },
+     "dur": 0.95,
+     "ease": "out",
+     "at": 3.25
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.45,
+     "reason": "the ball bounces on the cobbles",
+     "at": 3.25
+    }
+   ]
+  },
+  {
+   "name": "P09b 11.3x: 'Best day ever?' (punch-in)",
+   "at": 34.3,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -0.2,
+     -9.5,
+     -16
+    ],
+    "look": [
+     2.5,
+     -10.6,
+     -19.4
+    ],
+    "fov": 50,
+    "near": 0.3,
+    "to": {
+     "pos": [
+      -0.038,
+      -9.566,
+      -16.204
+     ],
+     "look": [
+      2.5,
+      -10.6,
+      -19.4
+     ],
+     "fov": 50
+    },
+    "dur": 2.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "step-concrete",
+     "gain": 0.5,
+     "reason": "he lands on the cobbles",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "settle",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 1,
+      "eye": 0.85
+     },
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.5,
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "x": 2,
+      "y": -11.62,
+      "z": -23
+     },
+     "dur": 0.9,
+     "ease": "in",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "ball2",
+     "set": {
+      "x": 1.6,
+      "y": -11.2,
+      "z": -24.2
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 1.8
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.45,
+     "reason": "the ball bounces on the cobbles",
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.1,
+      -74.4
+     ],
+     "y": -20.424,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "P10 13x: floating steps",
+   "at": 36.7,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     0.3,
+     -15.38,
+     -53.4
+    ],
+    "look": [
+     1.2,
+     -20.58,
+     -92.4
+    ],
+    "fov": 55,
+    "near": 0.5,
+    "to": {
+     "pos": [
+      0.345,
+      -15.64,
+      -55.35
+     ],
+     "look": [
+      1.2,
+      -20.58,
+      -92.4
+     ],
+     "fov": 55
+    },
+    "dur": 3.3,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.15,
+      "open": 0.2
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.32,
+       0.55,
+       0.05
+      ]
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.5,
+      -57.5
+     ],
+     "y": -17.72,
+     "dur": 5.95,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 1,
+     "count": 1,
+     "dur": 1.45,
+     "quiet": true,
+     "at": 0
+    },
+    {
+     "sfx": "waves",
+     "gain": 0.4,
+     "dur": 6.6,
+     "reason": "the flood surf at the bottom of the street",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -7,
+     "dur": 0.5,
+     "at": 0.4
+    },
+    {
+     "macro": "narrate",
+     "line": "Every step is a jump now.",
+     "voice": "narrator-quick",
+     "dur": 1.8093,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 1.3
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.5,
+     "reason": "he lands a floaty step on the wet cobbles",
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 1,
+     "count": 1,
+     "dur": 1.45,
+     "quiet": true,
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.35
+     },
+     "dur": 0.15,
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 7,
+     "dur": 0.5,
+     "at": 1.9
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.5,
+     "reason": "he lands a floaty step on the wet cobbles",
+     "at": 2.95
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 1,
+     "count": 1,
+     "dur": 1.45,
+     "quiet": true,
+     "at": 3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8,
+      "eye": 1.1,
+      "open": 0.2
+     },
+     "dur": 0.2,
+     "at": 3.2
+    }
+   ]
+  },
+  {
+   "name": "P10b 13x: the water behind him (punch-in)",
+   "at": 40,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     0.3,
+     -15.38,
+     -53.4
+    ],
+    "look": [
+     1.2,
+     -20.58,
+     -92.4
+    ],
+    "fov": 46.75,
+    "near": 0.5,
+    "to": {
+     "pos": [
+      0.345,
+      -15.64,
+      -55.35
+     ],
+     "look": [
+      1.2,
+      -20.58,
+      -92.4
+     ],
+     "fov": 45.348
+    },
+    "dur": 3.3,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -7,
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.25,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 1
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.5,
+     "reason": "he lands a floaty step on the wet cobbles",
+     "at": 1.15
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 1,
+     "count": 1,
+     "dur": 1.45,
+     "quiet": true,
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 7,
+     "dur": 0.5,
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.15
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.8
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.5,
+     "reason": "he lands a floaty step on the wet cobbles",
+     "at": 2.65
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "at": 2.8
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.35,
+      -58.05
+     ],
+     "y": -16.2,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 320,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.28
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 80,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       3.14,
+       -16.14,
+       -58
+      ]
+     },
+     "dur": 0.01,
+     "sync": true,
+     "at": 3.28
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 3.28
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.75,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "sync": true,
+     "at": 3.28
+    }
+   ]
+  },
+  {
+   "name": "P11 15x: the gust, one hand on the post",
+   "at": 43.3,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     -1.9,
+     -16.4,
+     -53.5
+    ],
+    "look": [
+     2.4,
+     -16.3,
+     -58.5
+    ],
+    "fov": 50,
+    "near": 0.5,
+    "to": {
+     "pos": [
+      -1.642,
+      -16.394,
+      -53.8
+     ],
+     "look": [
+      2.4,
+      -16.3,
+      -58.5
+     ],
+     "fov": 50
+    },
+    "dur": 3.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "eye": 1.3,
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.9,
+     "dur": 3.4,
+     "reason": "the gust roaring down the street",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.6,
+     "dur": 3.3,
+     "reason": "wind whipping round the lamp post",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 76,
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 84,
+     "dur": 0.5,
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.35,
+       0.95,
+       0.15
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.7
+    },
+    {
+     "sfx": "ai/rain-car-roof",
+     "gain": 0.3,
+     "dur": 2.3,
+     "reason": "rain slapping the cobbles in the gust",
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 76,
+     "dur": 0.5,
+     "at": 1.2
+    },
+    {
+     "macro": "narrate",
+     "line": "Lighter than on the Moon.",
+     "voice": "narrator-quick",
+     "dur": 1.2639,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 84,
+     "dur": 0.5,
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.6,
+       0.05
+      ]
+     },
+     "dur": 0.5,
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 76,
+     "dur": 0.5,
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 84,
+     "dur": 0.5,
+     "at": 2.85
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.93,
+      -58
+     ],
+     "y": -17.41,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 55,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       3.154,
+       -15.9,
+       -57.961
+      ]
+     },
+     "dur": 0.01,
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       3.14,
+       -16.14,
+       -58
+      ]
+     },
+     "dur": 0.01,
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 3.38
+    }
+   ]
+  },
+  {
+   "name": "P12 16x: the rain hangs, 'Hold on.'",
+   "at": 46.7,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     1.2,
+     -16.2,
+     -50.5
+    ],
+    "look": [
+     2.6,
+     -18.2,
+     -75
+    ],
+    "fov": 52,
+    "near": 0.5,
+    "to": {
+     "pos": [
+      1.27,
+      -16.3,
+      -51.725
+     ],
+     "look": [
+      2.6,
+      -18.2,
+      -75
+     ],
+     "fov": 52
+    },
+    "dur": 3.3,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "eye": 1.2,
+      "open": 0.15
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Hold on.",
+     "voice": "narrator-quick",
+     "dur": 0.6574,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.4,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.3
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.15,
+     "dur": 2.4,
+     "reason": "the wind dies; the street goes quiet",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.2
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "at": 2.7
+    }
+   ]
+  },
+  {
+   "name": "P13 17x: rain up, the sea lifts, he slips",
+   "at": 50,
+   "len": 5,
+   "shot": {
+    "pos": [
+     1.2,
+     -16.2,
+     -50.5
+    ],
+    "look": [
+     2.455,
+     -17.993,
+     -72.464
+    ],
+    "fov": 52,
+    "near": 0.5,
+    "to": {
+     "pos": [
+      1.2,
+      -15.4,
+      -50.5
+     ],
+     "look": [
+      2.455,
+      -14.885,
+      -72.464
+     ],
+     "fov": 52,
+     "near": 0.5
+    },
+    "dur": 5,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "You weigh nothing. Neither does the ocean.",
+     "voice": "narrator-quick",
+     "dur": 3.0817,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "eye": 1.3,
+      "open": 0.3
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/water-leak-hiss",
+     "gain": 0.35,
+     "dur": 5,
+     "reason": "water peeling off the street and rising",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 2.93,
+      "y": -17.25,
+      "z": -58
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "sfx": "bubbling",
+     "gain": 0.3,
+     "dur": 4,
+     "reason": "the sea's surface lifting off in blobs",
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       3.154,
+       -15.78,
+       -57.961
+      ]
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 1.85
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 2.2
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.6,
+     "reason": "his upper hand slips off the iron",
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       3.14,
+       -16.02,
+       -58
+      ]
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1,
+       0.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "eye": 1.4,
+      "open": 0.5
+     },
+     "dur": 0.08,
+     "at": 2.6
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.6,
+     "reason": "the lower hand slips",
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 1.9,
+      "y": -14.4,
+      "z": -57.4
+     },
+     "dur": 2.4,
+     "ease": "out",
+     "at": 2.62
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -18,
+     "dur": 1.2,
+     "at": 2.7
+    },
+    {
+     "sfx": "ai/surface-gasp",
+     "gain": 0.6,
+     "reason": "he gasps as he floats away",
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.45,
+     "at": 3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.34,
+       1,
+       0
+      ]
+     },
+     "dur": 0.45,
+     "at": 3.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.45,
+     "at": 4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.34,
+       1,
+       0
+      ]
+     },
+     "dur": 0.45,
+     "at": 4.5
+    },
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 40000,
+      "y": 3494.688,
+      "z": -6.14
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.98
+    }
+   ]
+  },
+  {
+   "name": "P14 18.5x: high over Quito",
+   "at": 55,
+   "len": 5,
+   "shot": {
+    "pos": [
+     40000,
+     3500,
+     0
+    ],
+    "look": [
+     40000,
+     2809.118,
+     -722.967
+    ],
+    "fov": 50,
+    "near": 4,
+    "pitch": 0.7627088831215221,
+    "to": {
+     "pos": [
+      40000,
+      3500,
+      0
+     ],
+     "look": [
+      40000,
+      2809.118,
+      -722.967
+     ],
+     "fov": 45,
+     "near": 4,
+     "pitch": 0.7627088831215221
+    },
+    "dur": 5,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 40000,
+      "y": 3495.288,
+      "z": -6.14
+     },
+     "dur": 5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.9,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.3,
+     "dur": 5,
+     "reason": "high thin wind as he rises through the air",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Higher than the clouds.",
+     "voice": "narrator-quick",
+     "dur": 1.3842,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.34,
+       1,
+       0
+      ]
+     },
+     "dur": 0.9,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.3
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.9,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.34,
+       1,
+       0
+      ]
+     },
+     "dur": 0.9,
+     "at": 3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.9,
+     "at": 4
+    },
+    {
+     "do": "prop",
+     "id": "stars",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 95.212,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 80069.245,
+      "y": -226.49,
+      "z": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.98
+    }
+   ]
+  },
+  {
+   "name": "P15 20x: oceans and air peel off",
+   "at": 60,
+   "len": 6,
+   "shot": {
+    "pos": [
+     80005.77,
+     -23.082,
+     761
+    ],
+    "look": [
+     80005.77,
+     -23.082,
+     0
+    ],
+    "fov": 40,
+    "near": 1,
+    "to": {
+     "pos": [
+      80005.77,
+      -23.082,
+      736
+     ],
+     "look": [
+      80005.77,
+      -23.082,
+      -25
+     ],
+     "fov": 40
+    },
+    "dur": 6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "The oceans and the air fly into space.",
+     "voice": "narrator-quick",
+     "dur": 3.091,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 80063.245,
+      "y": -218.49,
+      "z": 0
+     },
+     "dur": 5.95,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.8,
+     "dur": 6,
+     "reason": "the deep roar of the oceans leaving the planet",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 1.6,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.34,
+       1,
+       0
+      ]
+     },
+     "dur": 1.6,
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 1.6,
+     "at": 4.4
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 99.409,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.98
+    },
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 80041.857,
+      "y": -248.523,
+      "z": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.98
+    }
+   ]
+  },
+  {
+   "name": "P16 22x: cracks, the poles squash",
+   "at": 66,
+   "len": 7.3,
+   "shot": {
+    "pos": [
+     80000,
+     -41.857,
+     690
+    ],
+    "look": [
+     80000,
+     -41.857,
+     0
+    ],
+    "fov": 40,
+    "near": 1,
+    "to": {
+     "pos": [
+      80000,
+      -41.857,
+      660
+     ],
+     "look": [
+      80000,
+      -41.857,
+      -30
+     ],
+     "fov": 40
+    },
+    "dur": 7.3,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "The ground cracks. The poles squash flat.",
+     "voice": "narrator-quick",
+     "dur": 3.0795,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 80036.857,
+      "y": -242.523,
+      "z": 0
+     },
+     "dur": 7.25,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.7,
+     "reason": "the crust cracks open",
+     "at": 0
+    },
+    {
+     "sfx": "rumble",
+     "gain": 1,
+     "dur": 7,
+     "reason": "the planet grinding as the poles squash",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.34,
+       1,
+       0
+      ]
+     },
+     "dur": 1.6,
+     "at": 0.5
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.45,
+     "reason": "plates breaking along the cracks",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 1.6,
+     "at": 2.6
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.45,
+     "reason": "plates breaking along the cracks",
+     "at": 2.9
+    },
+    {
+     "sfx": "thunder",
+     "gain": 0.45,
+     "reason": "plates breaking along the cracks",
+     "at": 4.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.34,
+       1,
+       0
+      ]
+     },
+     "dur": 1.6,
+     "at": 4.7
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 185.511,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 7.28
+    },
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 80017.668,
+      "y": -428.442,
+      "z": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 7.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.28
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.01,
+     "sync": true,
+     "at": 7.28
+    }
+   ]
+  },
+  {
+   "name": "P17 24x: the flat disc, the punchline",
+   "at": 73.3,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     79991.166,
+     -88.339,
+     1165
+    ],
+    "look": [
+     79991.166,
+     -88.339,
+     0
+    ],
+    "fov": 40,
+    "near": 1,
+    "to": {
+     "pos": [
+      79991.166,
+      -88.339,
+      1140
+     ],
+     "look": [
+      79991.166,
+      -88.339,
+      -25
+     ],
+     "fov": 40
+    },
+    "dur": 2.8,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Good news: the flat-earthers were right.",
+     "voice": "narrator-quick",
+     "dur": 2.5677,
+     "caption": false,
+     "pos": 520,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 80020.668,
+      "y": -422.442,
+      "z": 0
+     },
+     "dur": 2.75,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.35,
+      "open": 0.5
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "explosion",
+     "gain": 0.5,
+     "dur": 2.5,
+     "reason": "the disc shedding its ring of rock",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "eye": 0.85
+     },
+     "dur": 0.3,
+     "at": 1.5
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2.2,
+   "see": [
+    "spud.face",
+    "mug",
+    "sea"
+   ],
+   "why": "2.0x: through the window the sea wall surges up the green valley; Spud sprays his coffee"
+  },
+  {
+   "from": 2.2,
+   "to": 5,
+   "see": [
+    "andes",
+    "sea"
+   ],
+   "why": "2.7x: Quito on its plateau, the sea filling every valley below"
+  },
+  {
+   "from": 5,
+   "to": 9,
+   "see": [
+    "sea"
+   ],
+   "why": "3.5x: the valley town drowning, the church dome last"
+  },
+  {
+   "from": 9,
+   "to": 11.5,
+   "see": [
+    "spud.face",
+    "crt"
+   ],
+   "why": "4.7x: the satellite drifts off, static; Spud slaps the TV"
+  },
+  {
+   "from": 11.5,
+   "to": 15,
+   "see": [
+    "spud",
+    "win",
+    "storm"
+   ],
+   "why": "5.5x: a hurricane fills the window; he slams the sash shut"
+  },
+  {
+   "from": 15,
+   "to": 19,
+   "see": [
+    "spud.face",
+    "clock",
+    "win"
+   ],
+   "why": "6.5x: half day, half night through the glass; the alarm rings, he smashes it"
+  },
+  {
+   "from": 19,
+   "to": 26.7,
+   "see": [
+    "spud.face",
+    "bag"
+   ],
+   "why": "7.7x: the crisps float down slowly; he catches one in his open mouth"
+  },
+  {
+   "from": 26.7,
+   "to": 31,
+   "see": [
+    "spud.face",
+    "lamp"
+   ],
+   "why": "10x: a jump from standing takes his head into the ceiling lamp; it swings"
+  },
+  {
+   "from": 31,
+   "to": 36.7,
+   "see": [
+    "spud.face",
+    "ball"
+   ],
+   "why": "11.3x: half his weight gone, he dunks on the street hoop; the sea is lower down the valley"
+  },
+  {
+   "from": 36.7,
+   "to": 43.3,
+   "see": [
+    "spud.face",
+    "street"
+   ],
+   "why": "13x: each step floats him a metre; the sea is at the bottom of the street"
+  },
+  {
+   "from": 43.3,
+   "to": 46.7,
+   "see": [
+    "spud.face",
+    "street"
+   ],
+   "why": "15x: a gust; one hand on the lamp post, his body blown out like a flag"
+  },
+  {
+   "from": 46.7,
+   "to": 50,
+   "see": [
+    "spud.face",
+    "rain"
+   ],
+   "why": "16x: the raindrops hang still around him; both hands on the post, the sea at the street end"
+  },
+  {
+   "from": 50,
+   "to": 55,
+   "see": [
+    "spud.face",
+    "rain",
+    "blobs"
+   ],
+   "why": "17x: rain falls upward, the sea lifts off in blobs, his fingers slip off the post"
+  },
+  {
+   "from": 55,
+   "to": 60,
+   "see": [
+    "spud.face",
+    "high"
+   ],
+   "why": "18.5x: Spud floats high over Quito; the horizon curves"
+  },
+  {
+   "from": 60,
+   "to": 66,
+   "see": [
+    "earth",
+    "spud"
+   ],
+   "why": "20x: oceans and air peel off the equator into a ring; tiny Spud in front"
+  },
+  {
+   "from": 66,
+   "to": 73.3,
+   "see": [
+    "earth",
+    "spud"
+   ],
+   "why": "22x: the poles squash, glowing cracks split the crust"
+  },
+  {
+   "from": 73.3,
+   "to": 76.1,
+   "see": [
+    "disc",
+    "spud.face"
+   ],
+   "why": "24x: Earth is a flat disc with a ring; the flat-earthers were right"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "clock",
+   "from": 18.15,
+   "to": 18.9,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "the gag: his fist smashes the alarm clock flat (sclock flattens under the fist)"
+  },
+  {
+   "who": "spud",
+   "with": "crt",
+   "from": 10.4,
+   "to": 10.7,
+   "checks": [
+    "clipping",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "the slap: his palm on the side of the TV cabinet"
+  },
+  {
+   "who": "spud",
+   "with": "win",
+   "from": 12.3,
+   "to": 14.9,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "both hands on the sash pull and the sash: he slams the window shut"
+  },
+  {
+   "who": "spud",
+   "with": "ball2",
+   "from": 33.8,
+   "to": 34.1,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop",
+    "costume-in-prop",
+    "clipping"
+   ],
+   "reason": "the let-go: the ball drops out of his open hand through the net"
+  },
+  {
+   "who": "spud",
+   "with": "ball",
+   "from": 32.6,
+   "to": 33.85,
+   "checks": [
+    "held-high"
+   ],
+   "reason": "the dunk: the ball goes up over the rim"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 59.9,
+   "to": 76.1,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "space: Spud is drawn 95-185x his size (Earth radius = 100 units), so a centimetre of hand motion measures as metres"
+  },
+  {
+   "who": "spud",
+   "with": "quilt",
+   "from": 15,
+   "to": 19,
+   "checks": [
+    "shell",
+    "clipping",
+    "limb-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "P6: he sits on the sofa under the quilt (the quilt lies over the seat and his lap)"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 13.55,
+   "to": 14.2,
+   "checks": [
+    "foot-slide",
+    "rig-jump"
+   ],
+   "reason": "the gag: the slamming sash drags him 40 cm along the floor in 0.2 s; his feet slide with it, his hands ride the sash"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 46.6,
+   "to": 55,
+   "checks": [
+    "payoff-face"
+   ],
+   "reason": "P12/P13: both hands on the post at his side, his face in 3/4 profile (~68 deg) toward it, both eyes in view; turning further puts his right arm through his chest"
+  },
+  {
+   "who": "spud",
+   "with": "street",
+   "from": 31,
+   "to": 55,
+   "checks": [
+    "shell",
+    "clipping",
+    "limb-in-prop",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "the street is the whole Quito street as one prop: its ground and lamp post are what he stands on and holds"
+  }
+ ],
+ "notes": "Generated by storyboards/series/facts/03-spin/make-spin.mjs."
+}
