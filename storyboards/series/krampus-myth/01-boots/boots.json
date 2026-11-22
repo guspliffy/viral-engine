@@ -6957,6 +6957,40 @@
    "reason": "he holds and scrubs his boot"
   },
   {
+   "who": "chip",
+   "with": "bt",
+   "from": 57.84,
+   "to": 59.39,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop",
+    "clipping"
+   ],
+   "reason": "the swap insert: he stands between the two boots (their shafts brush his sides) and reaches over the cuffs to the pegs; closer and the hands never reach them"
+  },
+  {
+   "who": "chip",
+   "with": "by",
+   "from": 57.84,
+   "to": 59.39,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop",
+    "clipping"
+   ],
+   "reason": "the swap insert: he stands between the two boots (their shafts brush his sides) and reaches over the cuffs to the pegs; closer and the hands never reach them"
+  },
+  {
+   "who": "chip",
+   "with": "chip",
+   "from": 38.22,
+   "to": 38.57,
+   "checks": [
+    "reach"
+   ],
+   "reason": "two frames as he turns to run, his far arm at the frame edge, not seen"
+  },
+  {
    "who": "nick",
    "with": "book",
    "from": 0,
