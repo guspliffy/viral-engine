@@ -1,0 +1,5375 @@
+{
+ "id": "dad-jokes-news",
+ "title": "BREAKING: Dad has told 4,000 dad jokes",
+ "idea": "Kid vs Dad 01: a war reporter covers a dad's dad jokes live from the family garden; the jar, the paid drummer, the reporter cracks; the kid asks for a sorry and answers it with a dad joke of his own.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  210,
+  1230
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "backyard",
+  "seed": 3,
+  "shed": false,
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "hud": {
+  "news": {
+   "label": "DAD JOKES TODAY",
+   "tag": "BREAKING",
+   "keys": [
+    [
+     0.05,
+     4000
+    ],
+    [
+     6.19,
+     4001
+    ],
+    [
+     17.41,
+     4002
+    ],
+    [
+     47.33,
+     4003
+    ],
+    [
+     58.99,
+     4004
+    ],
+    [
+     68.02,
+     4005
+    ],
+    [
+     71.97,
+     4006
+    ],
+    [
+     75.58,
+     4007
+    ],
+    [
+     86.81,
+     4008
+    ]
+   ],
+   "alarm": [
+    [
+     67.55,
+     76.11
+    ]
+   ],
+   "show": [
+    0.05,
+    89.1
+   ]
+  }
+ },
+ "music": {
+  "file": "ai/orchestra-suspense/orchestra-suspense-01.ogg",
+  "lowCut": 150,
+  "gain": 0.14
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.08,
+  "guard": true,
+  "signature": false,
+  "surface": "grass"
+ },
+ "creative": {
+  "length": [
+   70,
+   90
+  ]
+ },
+ "hook": {
+  "show": [
+   "rep",
+   "mic",
+   "chip",
+   "wedge"
+  ],
+  "hint": 0,
+  "what": "BREAKING news: a war reporter crouched behind a garden bench, a kid in a shock blanket, the dad leaning out of his shed"
+ },
+ "cast": [
+  {
+   "id": "rep",
+   "character": "potatobrawl/reporter",
+   "at": [
+    1.9,
+    0.35
+   ],
+   "face": -55,
+   "follow": 0.3,
+   "seed": 131.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip-blanket",
+   "at": [
+    0.05,
+    0.34
+   ],
+   "face": -15,
+   "expr": "sad",
+   "follow": 0.3,
+   "seed": 1.7
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -1.57,
+    -0.43
+   ],
+   "face": 40,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 2.9
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    40,
+    -3.77
+   ],
+   "y": 0.45,
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "bench",
+   "kind": "parkbench",
+   "x": 0.4,
+   "y": 0,
+   "z": 0.3,
+   "rot": -15,
+   "seat": 0.18,
+   "w": 1.4
+  },
+  {
+   "id": "shed",
+   "kind": "gardenshed",
+   "x": -1.62,
+   "y": 0,
+   "z": -0.72,
+   "rot": 40,
+   "open": 0.25
+  },
+  {
+   "id": "fence",
+   "kind": "fence",
+   "x": 0.3,
+   "z": -2.6,
+   "width": 1.6
+  },
+  {
+   "id": "crate",
+   "kind": "crate",
+   "size": 0.44,
+   "x": 3.9,
+   "y": 0,
+   "z": -3.77,
+   "staged": "on the grass: the yard ground dips 1 cm under it"
+  },
+  {
+   "id": "kit",
+   "kind": "snaredrum",
+   "x": 3.95,
+   "y": 0,
+   "z": -3.15
+  },
+  {
+   "id": "cym",
+   "kind": "cymbal",
+   "x": 4.21,
+   "y": 1.2,
+   "z": -3.33,
+   "tip": 105,
+   "rot": 0,
+   "staged": "on the snare stand's cymbal arm (its named point)"
+  },
+  {
+   "id": "helm",
+   "kind": "rephelmet",
+   "x": 40,
+   "y": 0,
+   "z": 0.95,
+   "rot": -30,
+   "staged": "off stage until the reporter has dropped it"
+  },
+  {
+   "id": "mic",
+   "kind": "newsmic",
+   "lean": 30,
+   "x": 1.56,
+   "y": 0.664,
+   "z": 0.039,
+   "rot": 125
+  },
+  {
+   "id": "jar",
+   "kind": "jokejar",
+   "x": 0.42,
+   "y": 0,
+   "z": 0.92,
+   "rot": -15,
+   "fill": 0.82
+  },
+  {
+   "id": "coin",
+   "kind": "coin",
+   "scale": 0.5,
+   "x": 0.42,
+   "y": 0.12,
+   "z": 0.92,
+   "rot": 0
+  },
+  {
+   "id": "sticks",
+   "kind": "drumsticks",
+   "x": 40.25,
+   "y": 1.01,
+   "z": -3.13,
+   "rot": 180
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 2.946,
+   "text": "We're live. Sir, are you okay?",
+   "pos": 470,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 3.7,
+   "to": 5.78,
+   "text": "No. *I'm Dad.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 7.42,
+   "to": 9.1,
+   "text": "It's worse than we feared.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 9.33,
+   "to": 11.1,
+   "text": "Every. Single. Day.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 11.33,
+   "to": 13.41,
+   "text": "How are you holding up, son?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 13.64,
+   "to": 14.58,
+   "text": "I'm tired.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 15.33,
+   "to": 17.013,
+   "text": "Hi *Tired.* I'm *Dad.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 18.74,
+   "to": 22.39,
+   "text": "Sir. We are live. *No more jokes.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 22.62,
+   "to": 23.72,
+   "text": "Fine.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 24.02,
+   "to": 26.65,
+   "text": "Son, how long has this been going on?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 26.88,
+   "to": 28.22,
+   "text": "Since I was born.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 28.766,
+   "to": 29.33,
+   "text": "*I'm...*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 29.53,
+   "to": 31.31,
+   "text": "We are sorry to hear that.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 31.61,
+   "to": 33.86,
+   "text": "This is the jar. *One euro per joke.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 34.09,
+   "to": 35.6,
+   "text": "He paid for my bike.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 35.83,
+   "to": 37.57,
+   "text": "So the jar stops him?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 37.8,
+   "to": 39.68,
+   "text": "No. He pays *in advance.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 40.47,
+   "to": 43.76,
+   "text": "I'm reading a book about anti-gravity.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 44.76,
+   "to": 46.913,
+   "text": "I can't *put it down.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 48.61,
+   "to": 50.513,
+   "text": "Where is that drum coming from?!",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 51.6,
+   "to": 53.713,
+   "text": "...He pays me *too.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 54.3,
+   "to": 54.84,
+   "text": "Who are you?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 55.07,
+   "to": 56.84,
+   "text": "I'm the neighbour.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 57.07,
+   "to": 58.58,
+   "text": "Hi *Neighbour.* I'm *Dad.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 59.67,
+   "to": 62.42,
+   "text": "Studio, it's too dangerous here.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 62.65,
+   "to": 64.78,
+   "text": "Somebody call me a taxi.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 65.53,
+   "to": 67.85,
+   "text": "Okay. *You're a taxi.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 69.3,
+   "to": 70.31,
+   "text": "I'm leaving!",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 70.54,
+   "to": 71.8,
+   "text": "Hi *Leaving!*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 72.5,
+   "to": 73.74,
+   "text": "I'm serious!",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 73.97,
+   "to": 75.41,
+   "text": "Hi *Serious!*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 76.56,
+   "to": 78.06,
+   "text": "I've covered wars.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 78.29,
+   "to": 80,
+   "text": "Nothing like this.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 80.3,
+   "to": 82.87,
+   "text": "Dad. Just say sorry.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 83.12,
+   "to": 85.32,
+   "text": "Okay... *I'm sorry.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 85.55,
+   "to": 86.91,
+   "text": "Hi *Sorry,* I'm...",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 87.51,
+   "to": 88.84,
+   "text": "*My boy.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "live",
+   "at": 0,
+   "len": 2.966,
+   "shot": {
+    "pos": [
+     0.4,
+     1.5,
+     9
+    ],
+    "look": [
+     0.1,
+     0.75,
+     -0.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.382,
+      1.455,
+      8.448
+     ],
+     "look": [
+      0.1,
+      0.75,
+      -0.2
+     ],
+     "fov": 40
+    },
+    "dur": 3.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "sit",
+     "rot": -15,
+     "height": 0.18,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.25,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "tilt": -0.08,
+      "browY": -0.02,
+      "curve": -0.05,
+      "smirk": 0,
+      "eye": 0.95,
+      "pupil": 1,
+      "open": 0,
+      "raise": 0
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.024,
+       0.02,
+       -0.066
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sticks",
+      "grip": [
+       -0.056,
+       0,
+       0.015
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "plink": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.3,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sticks",
+      "grip": [
+       -0.056,
+       0,
+       0.015
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "do": "prop",
+     "id": "shed",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.75,
+     "ease": "settle",
+     "at": 0.05
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "mic",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.056,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "sticks",
+     "hand": "L",
+     "grip": [
+      -0.056,
+      0,
+      0.015
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.09
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Sir, are you okay?",
+     "tone": "calm",
+     "style": "dry, grave, a war correspondent under fire, low voice",
+     "voice": "reaper",
+     "dur": 2.6,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.1,
+       0.32,
+       0.38
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -1.2,
+      -0.01
+     ],
+     "dur": 1,
+     "at": 0.6
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "no, I'm dad",
+   "at": 2.966,
+   "len": 2.834,
+   "shot": {
+    "pos": [
+     1.375,
+     1.038,
+     5.512
+    ],
+    "look": [
+     -1.2,
+     0.612,
+     -0.01
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.015,
+      0.978,
+      4.739
+     ],
+     "look": [
+      -1.2,
+      0.612,
+      -0.01
+     ],
+     "fov": 30
+    },
+    "dur": 3.07,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0.034
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.35,
+     "at": 0.034
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.62,
+       0.28
+      ]
+     },
+     "dur": 0.45,
+     "ease": "back",
+     "at": 0.134
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.1,
+       0.32,
+       0.38
+      ]
+     },
+     "dur": 0.45,
+     "ease": "back",
+     "at": 0.134
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.234
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.234
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.674
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "No. I'm Dad.",
+     "tone": "happy",
+     "style": "big, warm, proud, a showman landing his best line, slow",
+     "dur": 2.02,
+     "caption": false,
+     "at": 0.734
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 2.804
+    }
+   ]
+  },
+  {
+   "name": "duck 1",
+   "at": 5.8,
+   "len": 3.466,
+   "shot": {
+    "pos": [
+     1.594,
+     1.135,
+     3.845
+    ],
+    "look": [
+     1.9,
+     0.516,
+     0.35
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.609,
+      1.104,
+      3.67
+     ],
+     "look": [
+      1.9,
+      0.516,
+      0.35
+     ],
+     "fov": 30
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.4,
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.9,
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.04
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.15,
+     "at": 0.09
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.15,
+     "at": 0.09
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 0.62,
+      "tilt": 0.3,
+      "browY": -0.03,
+      "curve": -0.3
+     },
+     "dur": 0.12,
+     "at": 0.09
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.19,
+       1,
+       0.02
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.09
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.61
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 0.79
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.79
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "pupil": 0.7,
+      "tilt": 0.1,
+      "curve": -0.1,
+      "open": 0
+     },
+     "dur": 0.2,
+     "at": 0.84
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0.1,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.92
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.04
+    },
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.56
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "It's worse than we feared.",
+     "tone": "sad",
+     "style": "grave, quiet, haunted, straight into the camera",
+     "voice": "reaper",
+     "dur": 1.61,
+     "caption": false,
+     "at": 1.62
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.33
+    }
+   ]
+  },
+  {
+   "name": "every day",
+   "at": 9.266,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.77,
+     0.741,
+     4.423
+    ],
+    "look": [
+     0.05,
+     0.451,
+     0.34
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.727,
+      0.724,
+      4.178
+     ],
+     "look": [
+      0.05,
+      0.451,
+      0.34
+     ],
+     "fov": 30
+    },
+    "dur": 2.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.004
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.3,
+     "at": 0.064
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Every. Single. Day.",
+     "tone": "sad",
+     "style": "exhausted, flat, a survivor wrapped in a blanket",
+     "voice": "chip-clean",
+     "dur": 1.55,
+     "caption": false,
+     "at": 0.064
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.25,
+     "at": 1.814
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.864
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "tilt": -0.08,
+      "browY": -0.02,
+      "curve": -0.05,
+      "smirk": 0,
+      "eye": 0.95,
+      "pupil": 1,
+      "open": 0,
+      "raise": 0
+     },
+     "dur": 0.2,
+     "at": 1.864
+    }
+   ]
+  },
+  {
+   "name": "holding up",
+   "at": 11.266,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     5.675,
+     0.73,
+     3.061
+    ],
+    "look": [
+     0.98,
+     0.16,
+     0.35
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      5.775,
+      0.73,
+      3.061
+     ],
+     "look": [
+      1.03,
+      0.16,
+      0.35
+     ],
+     "fov": 34
+    },
+    "dur": 2.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.004
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "How are you holding up, son?",
+     "tone": "calm",
+     "style": "gentle, careful, a reporter talking to a survivor",
+     "voice": "reaper",
+     "dur": 2.01,
+     "caption": false,
+     "at": 0.064
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.1,
+       0.32,
+       0.38
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.264
+    }
+   ]
+  },
+  {
+   "name": "tired",
+   "at": 13.566,
+   "len": 1.034,
+   "shot": {
+    "pos": [
+     0.77,
+     0.741,
+     4.423
+    ],
+    "look": [
+     0.05,
+     0.451,
+     0.34
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.712,
+      0.718,
+      4.096
+     ],
+     "look": [
+      0.05,
+      0.451,
+      0.34
+     ],
+     "fov": 30
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.014
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I'm tired.",
+     "tone": "sad",
+     "style": "small, flat, worn out",
+     "voice": "chip-clean",
+     "dur": 0.74,
+     "caption": false,
+     "at": 0.074
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.85,
+      0.45
+     ],
+     "dur": 0.65,
+     "steps": 2,
+     "at": 0.164
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.5,
+     "at": 0.164
+    }
+   ]
+  },
+  {
+   "name": "hi tired",
+   "at": 14.6,
+   "len": 2.433,
+   "shot": {
+    "pos": [
+     0.599,
+     0.319,
+     5.859
+    ],
+    "look": [
+     -0.85,
+     0.612,
+     0.45
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.367,
+      0.366,
+      4.994
+     ],
+     "look": [
+      -0.85,
+      0.612,
+      0.45
+     ],
+     "fov": 34
+    },
+    "dur": 2.66,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0.03
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.35,
+     "at": 0.03
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.62,
+       0.28
+      ]
+     },
+     "dur": 0.45,
+     "ease": "back",
+     "at": 0.13
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.45,
+     "ease": "back",
+     "at": 0.13
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.23
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.23
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.67
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hi Tired. I'm Dad.",
+     "tone": "happy",
+     "style": "huge, theatrical, arms wide, the biggest stage voice",
+     "dur": 1.61,
+     "caption": false,
+     "at": 0.73
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 2.39
+    },
+    {
+     "do": "prop",
+     "id": "shed",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.413
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "duck 2",
+   "at": 17.033,
+   "len": 1.633,
+   "shot": {
+    "pos": [
+     1.594,
+     1.135,
+     3.845
+    ],
+    "look": [
+     1.9,
+     0.516,
+     0.35
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.609,
+      1.104,
+      3.67
+     ],
+     "look": [
+      1.9,
+      0.516,
+      0.35
+     ],
+     "fov": 30
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.4,
+     "at": 0.007
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.007
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.9,
+     "at": 0.027
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.027
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.15,
+     "at": 0.077
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.15,
+     "at": 0.077
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 0.62,
+      "tilt": 0.3,
+      "browY": -0.03,
+      "curve": -0.3
+     },
+     "dur": 0.12,
+     "at": 0.077
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.19,
+       1,
+       0.02
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.077
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.157
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.157
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.237
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.327
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.387
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.387
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.3,
+     "at": 0.507
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.597
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 0.777
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.777
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "pupil": 0.7,
+      "tilt": 0.1,
+      "curve": -0.1,
+      "open": 0
+     },
+     "dur": 0.2,
+     "at": 0.827
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.027
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.357
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 1.407
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      -0.6,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.407
+    }
+   ]
+  },
+  {
+   "name": "no more jokes",
+   "at": 18.666,
+   "len": 3.9,
+   "shot": {
+    "pos": [
+     0.4,
+     1.5,
+     9
+    ],
+    "look": [
+     0.1,
+     0.75,
+     -0.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.385,
+      1.463,
+      8.54
+     ],
+     "look": [
+      0.1,
+      0.75,
+      -0.2
+     ],
+     "fov": 40
+    },
+    "dur": 3.9299999999999997,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.014
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Sir. We are live. No more jokes.",
+     "tone": "angry",
+     "style": "firm, clipped, an order, controlled anger",
+     "voice": "reaper",
+     "dur": 3.53,
+     "caption": false,
+     "at": 0.074
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": "point",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.574
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.674
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.894
+    }
+   ]
+  },
+  {
+   "name": "fine",
+   "at": 22.566,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.727,
+     1.038,
+     6.335
+    ],
+    "look": [
+     -0.85,
+     0.612,
+     0.45
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.601,
+      1.004,
+      5.864
+     ],
+     "look": [
+      -0.85,
+      0.612,
+      0.45
+     ],
+     "fov": 30
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.024
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.024
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Fine.",
+     "tone": "calm",
+     "style": "short, sulky, trying to look innocent",
+     "dur": 0.8,
+     "caption": false,
+     "at": 0.054
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.55,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.904
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 0.954
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.06,
+     "dur": 0.5,
+     "at": 1.254
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.3,
+     "at": 1.254
+    },
+    {
+     "who": "rep",
+     "do": "move",
+     "to": [
+      1.85,
+      0.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.381
+    },
+    {
+     "who": "rep",
+     "do": "turn",
+     "to": -55,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.381
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       1.317,
+       0.364,
+       0.562
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.381
+    },
+    {
+     "do": "prop",
+     "id": "mic",
+     "set": {
+      "lean": 40
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.381
+    },
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.394
+    }
+   ]
+  },
+  {
+   "name": "how long",
+   "at": 23.966,
+   "len": 2.834,
+   "shot": {
+    "pos": [
+     -0.19,
+     0.702,
+     3.714
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.068,
+      0.691,
+      3.539
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 30
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "tilt": -0.08,
+      "browY": -0.02,
+      "curve": -0.05,
+      "smirk": 0,
+      "eye": 0.95,
+      "pupil": 1,
+      "open": 0,
+      "raise": 0
+     },
+     "dur": 0.01,
+     "at": 0.004
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Son, how long has this been going on?",
+     "tone": "question",
+     "style": "soft, grave, a reporter asking a survivor",
+     "voice": "reaper",
+     "dur": 2.51,
+     "caption": false,
+     "at": 0.054
+    }
+   ]
+  },
+  {
+   "name": "since I was born",
+   "at": 26.8,
+   "len": 1.666,
+   "shot": {
+    "pos": [
+     0.77,
+     0.741,
+     4.423
+    ],
+    "look": [
+     0.05,
+     0.451,
+     0.34
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.72,
+      0.721,
+      4.137
+     ],
+     "look": [
+      0.05,
+      0.451,
+      0.34
+     ],
+     "fov": 30
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.02
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Since I was born.",
+     "tone": "sad",
+     "style": "flat, tired, matter of fact",
+     "voice": "chip-clean",
+     "dur": 1.04,
+     "caption": false,
+     "at": 0.08
+    },
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.66
+    }
+   ]
+  },
+  {
+   "name": "I'm...",
+   "at": 28.466,
+   "len": 0.3,
+   "shot": {
+    "pos": [
+     -0.19,
+     0.702,
+     3.714
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.014,
+      0.683,
+      3.423
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 30
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.1,
+     "at": 0.054
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "I'm...",
+     "tone": "calm",
+     "style": "starting a sentence, then stopping dead, realising the danger",
+     "voice": "reaper",
+     "dur": 0.86,
+     "caption": false,
+     "at": 0.054
+    }
+   ]
+  },
+  {
+   "name": "hopeful dad",
+   "at": 28.766,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     0.727,
+     1.038,
+     6.335
+    ],
+    "look": [
+     -0.85,
+     0.612,
+     0.45
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.601,
+      1.004,
+      5.864
+     ],
+     "look": [
+      -0.85,
+      0.612,
+      0.45
+     ],
+     "fov": 30
+    },
+    "dur": 0.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.35,
+     "at": 0.054
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.054
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.2,
+     "at": 0.054
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.1,
+     "at": 0.614
+    }
+   ]
+  },
+  {
+   "name": "sorry to hear",
+   "at": 29.466,
+   "len": 2.067,
+   "shot": {
+    "pos": [
+     5.675,
+     0.73,
+     3.061
+    ],
+    "look": [
+     0.98,
+     0.16,
+     0.35
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      5.575,
+      0.73,
+      3.061
+     ],
+     "look": [
+      0.93,
+      0.16,
+      0.35
+     ],
+     "fov": 34
+    },
+    "dur": 2.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.004
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.014
+    },
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.1,
+     "at": 0.014
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "tilt": -0.08,
+      "browY": -0.02,
+      "curve": -0.05,
+      "smirk": 0,
+      "eye": 0.95,
+      "pupil": 1,
+      "open": 0,
+      "raise": 0
+     },
+     "dur": 0.1,
+     "at": 0.014
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We are sorry to hear that.",
+     "tone": "calm",
+     "style": "careful, slow, choosing every word, relieved",
+     "voice": "reaper",
+     "dur": 1.48,
+     "caption": false,
+     "at": 0.064
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 1.644
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 1.644
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 1.744
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 1.844
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.22,
+       0.3,
+       0.62
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.944
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.944
+    },
+    {
+     "who": "chip",
+     "do": "wings",
+     "to": 0.4,
+     "dur": 0.01,
+     "at": 2.047
+    }
+   ]
+  },
+  {
+   "name": "the jar",
+   "at": 31.533,
+   "len": 4.233,
+   "shot": {
+    "pos": [
+     -0.348,
+     0.366,
+     2.249
+    ],
+    "look": [
+     0.42,
+     0.04,
+     0.92
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -0.294,
+      0.343,
+      2.156
+     ],
+     "look": [
+      0.42,
+      0.04,
+      0.92
+     ],
+     "fov": 32
+    },
+    "dur": 3.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.017
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.077
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "This is the jar. One euro per joke.",
+     "tone": "calm",
+     "style": "flat, explaining, holding up evidence",
+     "voice": "chip-clean",
+     "dur": 2.18,
+     "caption": false,
+     "at": 0.077
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.457
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.497
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.4,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.557
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "He paid for my bike.",
+     "tone": "calm",
+     "style": "deadpan, a little proud",
+     "voice": "chip-clean",
+     "dur": 1.39,
+     "caption": false,
+     "at": 2.557
+    }
+   ]
+  },
+  {
+   "name": "jar stops him",
+   "at": 35.766,
+   "len": 1.967,
+   "shot": {
+    "pos": [
+     -0.19,
+     0.702,
+     3.714
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.068,
+      0.691,
+      3.539
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 30
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.004
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "So the jar stops him?",
+     "tone": "question",
+     "style": "hopeful, dry",
+     "voice": "reaper",
+     "dur": 1.67,
+     "caption": false,
+     "at": 0.064
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.834
+    }
+   ]
+  },
+  {
+   "name": "in advance",
+   "at": 37.733,
+   "len": 1.967,
+   "shot": {
+    "pos": [
+     0.77,
+     0.741,
+     4.423
+    ],
+    "look": [
+     0.05,
+     0.451,
+     0.34
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.72,
+      0.721,
+      4.137
+     ],
+     "look": [
+      0.05,
+      0.451,
+      0.34
+     ],
+     "fov": 30
+    },
+    "dur": 1.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.067
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "No. He pays in advance.",
+     "tone": "sad",
+     "style": "flat, defeated, deadpan",
+     "voice": "chip-clean",
+     "dur": 1.77,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.47,
+       0.42,
+       0.96
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.737
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 1.887
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.98,
+      1.08
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.947
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -75,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.947
+    }
+   ]
+  },
+  {
+   "name": "the coin",
+   "at": 39.7,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     -1.501,
+     0.931,
+     2.184
+    ],
+    "look": [
+     0.55,
+     0.34,
+     1
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.337,
+      0.884,
+      2.089
+     ],
+     "look": [
+      0.55,
+      0.34,
+      1
+     ],
+     "fov": 32
+    },
+    "dur": 0.7999999999999986,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "coin",
+     "set": {
+      "x": 0.47,
+      "y": 0.37,
+      "z": 0.96
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.5,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.47
+    },
+    {
+     "do": "prop",
+     "id": "coin",
+     "set": {
+      "y": 0.14
+     },
+     "dur": 0.17,
+     "ease": "in",
+     "at": 0.52
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "plink": 1
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.69
+    },
+    {
+     "sfx": "ai/coin-jar",
+     "gain": 0.8,
+     "at": 0.69
+    }
+   ]
+  },
+  {
+   "name": "anti-gravity",
+   "at": 40.4,
+   "len": 3.6,
+   "shot": {
+    "pos": [
+     -2.936,
+     1.038,
+     5.747
+    ],
+    "look": [
+     0.98,
+     0.612,
+     1.08
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -2.623,
+      1.004,
+      5.374
+     ],
+     "look": [
+      0.98,
+      0.612,
+      1.08
+     ],
+     "fov": 30
+    },
+    "dur": 3.29,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I'm reading a book about anti-gravity.",
+     "tone": "happy",
+     "style": "slow, dramatic, savouring every word, building up",
+     "dur": 2.99,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.3,
+     "at": 3.16
+    }
+   ]
+  },
+  {
+   "name": "put it down",
+   "at": 44,
+   "len": 2.933,
+   "shot": {
+    "pos": [
+     -2.62,
+     0.319,
+     5.37
+    ],
+    "look": [
+     0.98,
+     0.612,
+     1.08
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -2.044,
+      0.366,
+      4.684
+     ],
+     "look": [
+      0.98,
+      0.612,
+      1.08
+     ],
+     "fov": 34
+    },
+    "dur": 3.15,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0.06
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.35,
+     "at": 0.06
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.62,
+       0.28
+      ]
+     },
+     "dur": 0.45,
+     "ease": "back",
+     "at": 0.16
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.45,
+     "ease": "back",
+     "at": 0.16
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.26
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.26
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I can't put it down.",
+     "tone": "happy",
+     "style": "triumphant, huge, the punchline of his life",
+     "dur": 2.1,
+     "caption": false,
+     "at": 0.76
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 2.91
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.85,
+      0.45
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.913
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.913
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "duck 3",
+   "at": 46.933,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.19,
+     0.702,
+     3.714
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.088,
+      0.693,
+      3.568
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 30
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.4,
+     "at": 0.027
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.027
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.9,
+     "at": 0.047
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.047
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.15,
+     "at": 0.097
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.15,
+     "at": 0.097
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 0.62,
+      "tilt": 0.3,
+      "browY": -0.03,
+      "curve": -0.3
+     },
+     "dur": 0.12,
+     "at": 0.097
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.19,
+       1,
+       0.02
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.097
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.177
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.177
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.257
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.347
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.407
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.407
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.617
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 0.797
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.797
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "pupil": 0.7,
+      "tilt": 0.1,
+      "curve": -0.1,
+      "open": 0
+     },
+     "dur": 0.2,
+     "at": 0.847
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.047
+    },
+    {
+     "who": "rep",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.3,
+     "at": 1.327
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.15,
+     "at": 1.377
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.377
+    }
+   ]
+  },
+  {
+   "name": "the drum?!",
+   "at": 48.533,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.19,
+     0.702,
+     3.714
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.014,
+      0.683,
+      3.423
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 30
+    },
+    "dur": 2.09,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.017
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Where is that drum coming from?!",
+     "tone": "angry",
+     "style": "sharp, alarmed, spinning round",
+     "voice": "reaper",
+     "dur": 1.69,
+     "caption": false,
+     "at": 0.077
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3.9,
+      -3.77
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    }
+   ]
+  },
+  {
+   "name": "the neighbour",
+   "at": 50.533,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     2.939,
+     1.104,
+     -1.066
+    ],
+    "look": [
+     4.2,
+     1,
+     -3.77
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      3.065,
+      1.094,
+      -1.336
+     ],
+     "look": [
+      4.2,
+      1,
+      -3.77
+     ],
+     "fov": 30
+    },
+    "dur": 3.4000000000000044,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.467
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.007
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "He pays me too.",
+     "tone": "sad",
+     "style": "quiet, guilty, ashamed, mumbled",
+     "dur": 2.1,
+     "caption": false,
+     "at": 1.067
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "the coin flick",
+   "at": 53.733,
+   "len": 0.567,
+   "shot": {
+    "pos": [
+     0.727,
+     1.038,
+     6.335
+    ],
+    "look": [
+     -0.85,
+     0.612,
+     0.45
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.664,
+      1.021,
+      6.1
+     ],
+     "look": [
+      -0.85,
+      0.612,
+      0.45
+     ],
+     "fov": 30
+    },
+    "dur": 0.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.5,
+       0.35
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.067
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "thumb",
+     "dur": 0.2,
+     "at": 0.067
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 0.167
+    },
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.207
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Who are you?",
+     "tone": "question",
+     "style": "suspicious, sharp",
+     "voice": "reaper",
+     "dur": 0.72,
+     "caption": false,
+     "at": 0.267
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.517
+    }
+   ]
+  },
+  {
+   "name": "catch",
+   "at": 54.3,
+   "len": -0.367,
+   "shot": {
+    "pos": [
+     2.438,
+     1.207,
+     1.985
+    ],
+    "look": [
+     3.9,
+     1.01,
+     -3.47
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      2.511,
+      1.197,
+      1.712
+     ],
+     "look": [
+      3.9,
+      1.01,
+      -3.47
+     ],
+     "fov": 28
+    },
+    "dur": -0.3000000000000028,
+    "ease": "inOut"
+   },
+   "do": []
+  },
+  {
+   "name": "who are you",
+   "at": 53.933,
+   "len": 1.067,
+   "shot": {
+    "pos": [
+     -0.19,
+     0.702,
+     3.714
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.068,
+      0.691,
+      3.539
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 30
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Who are you?",
+     "tone": "question",
+     "style": "suspicious, sharp",
+     "voice": "reaper",
+     "dur": 0.72,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.317
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.85,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.367
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0.567
+    },
+    {
+     "sfx": "coins",
+     "gain": 0.6,
+     "at": 0.617
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.867
+    }
+   ]
+  },
+  {
+   "name": "the neighbour 2",
+   "at": 55,
+   "len": 2,
+   "shot": {
+    "pos": [
+     2.438,
+     1.207,
+     1.985
+    ],
+    "look": [
+     3.9,
+     1.01,
+     -3.47
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      2.526,
+      1.195,
+      1.658
+     ],
+     "look": [
+      3.9,
+      1.01,
+      -3.47
+     ],
+     "fov": 28
+    },
+    "dur": 2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'm the neighbour.",
+     "tone": "calm",
+     "style": "plain, tired, then realising too late",
+     "dur": 1.7,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 1.82
+    }
+   ]
+  },
+  {
+   "name": "hi neighbour",
+   "at": 57,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0.727,
+     1.038,
+     6.335
+    ],
+    "look": [
+     -0.85,
+     0.612,
+     0.45
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.569,
+      0.995,
+      5.747
+     ],
+     "look": [
+      -0.85,
+      0.612,
+      0.45
+     ],
+     "fov": 30
+    },
+    "dur": 1.75,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hi Neighbour. I'm Dad.",
+     "tone": "happy",
+     "style": "fast, delighted, pouncing",
+     "take": 1,
+     "dur": 1.45,
+     "caption": false,
+     "at": 0.07
+    }
+   ]
+  },
+  {
+   "name": "rimshot",
+   "at": 58.6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.438,
+     1.207,
+     1.985
+    ],
+    "look": [
+     3.9,
+     1.01,
+     -3.47
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      2.511,
+      1.197,
+      1.712
+     ],
+     "look": [
+      3.9,
+      1.01,
+      -3.47
+     ],
+     "fov": 28
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.9,
+     "at": 0.04
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.04
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.15,
+     "at": 0.09
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.15,
+     "at": 0.09
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 0.62,
+      "tilt": 0.3,
+      "browY": -0.03,
+      "curve": -0.3
+     },
+     "dur": 0.12,
+     "at": 0.09
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.19,
+       1,
+       0.02
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.09
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 0.52
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.61
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 0.79
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.79
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "pupil": 0.7,
+      "tilt": 0.1,
+      "curve": -0.1,
+      "open": 0
+     },
+     "dur": 0.2,
+     "at": 0.84
+    },
+    {
+     "who": "rep",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.01,
+     "at": 0.97
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       1.332,
+       0.324,
+       0.973
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.97
+    },
+    {
+     "do": "prop",
+     "id": "mic",
+     "set": {
+      "lean": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.97
+    },
+    {
+     "who": "rep",
+     "do": "hat",
+     "off": [
+      0.015,
+      0,
+      0
+     ],
+     "spin": [
+      0,
+      8,
+      -12
+     ],
+     "dur": 0.01,
+     "at": 0.97
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0.05,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.97
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.01,
+     "at": 0.97
+    }
+   ]
+  },
+  {
+   "name": "too dangerous",
+   "at": 59.6,
+   "len": 5.866,
+   "shot": {
+    "pos": [
+     1.17,
+     0.653,
+     4.655
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      1.218,
+      0.643,
+      4.385
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 28
+    },
+    "dur": 5.01,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.04
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Studio, it's too dangerous here.",
+     "tone": "sad",
+     "style": "urgent, low, losing control, to the camera",
+     "voice": "reaper",
+     "dur": 2.68,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.99
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Somebody call me a taxi.",
+     "tone": "sad",
+     "style": "desperate, pleading",
+     "voice": "reaper",
+     "dur": 1.83,
+     "caption": false,
+     "at": 3.05
+    }
+   ]
+  },
+  {
+   "name": "taxi",
+   "at": 65.466,
+   "len": 3.767,
+   "shot": {
+    "pos": [
+     0.727,
+     1.038,
+     6.335
+    ],
+    "look": [
+     -0.85,
+     0.612,
+     0.45
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.538,
+      0.987,
+      5.629
+     ],
+     "look": [
+      -0.85,
+      0.612,
+      0.45
+     ],
+     "fov": 30
+    },
+    "dur": 2.32,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.004
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Okay. You're a taxi.",
+     "tone": "happy",
+     "style": "gentle, helpful, enormously pleased",
+     "dur": 2.02,
+     "caption": false,
+     "at": 0.064
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 2.184
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.9,
+     "at": 2.204
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2.204
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.15,
+     "at": 2.254
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.15,
+     "at": 2.254
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 0.62,
+      "tilt": 0.3,
+      "browY": -0.03,
+      "curve": -0.3
+     },
+     "dur": 0.12,
+     "at": 2.254
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.19,
+       1,
+       0.02
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.254
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.414
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.504
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2.564
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 2.564
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.774
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 2.954
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.954
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "pupil": 0.7,
+      "tilt": 0.1,
+      "curve": -0.1,
+      "open": 0
+     },
+     "dur": 0.2,
+     "at": 3.004
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.204
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 3.734
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "leaving",
+   "at": 69.233,
+   "len": 1.233,
+   "shot": {
+    "pos": [
+     1.17,
+     0.653,
+     4.655
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      1.252,
+      0.637,
+      4.192
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 28
+    },
+    "dur": 1.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "I'm leaving!",
+     "tone": "angry",
+     "style": "loud, cracking",
+     "voice": "reaper",
+     "dur": 0.99,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.2,
+     "at": 0.267
+    }
+   ]
+  },
+  {
+   "name": "hi leaving",
+   "at": 70.466,
+   "len": 1.967,
+   "shot": {
+    "pos": [
+     0.599,
+     0.319,
+     5.859
+    ],
+    "look": [
+     -0.85,
+     0.612,
+     0.45
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.425,
+      0.354,
+      5.21
+     ],
+     "look": [
+      -0.85,
+      0.612,
+      0.45
+     ],
+     "fov": 34
+    },
+    "dur": 1.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.014
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hi Leaving!",
+     "tone": "excited",
+     "style": "quick, bright, instant",
+     "take": 1,
+     "dur": 0.96,
+     "caption": false,
+     "at": 0.074
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 1.134
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.9,
+     "at": 1.154
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.154
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.364
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.454
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.514
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 1.514
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.724
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 1.934
+    }
+   ]
+  },
+  {
+   "name": "serious",
+   "at": 72.433,
+   "len": 1.467,
+   "shot": {
+    "pos": [
+     1.17,
+     0.653,
+     4.655
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      1.265,
+      0.634,
+      4.115
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 28
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "I'm serious!",
+     "tone": "angry",
+     "style": "louder, desperate",
+     "voice": "reaper",
+     "dur": 1.22,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.187
+    }
+   ]
+  },
+  {
+   "name": "hi serious",
+   "at": 73.9,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     0.599,
+     0.319,
+     5.859
+    ],
+    "look": [
+     -0.85,
+     0.612,
+     0.45
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.396,
+      0.36,
+      5.102
+     ],
+     "look": [
+      -0.85,
+      0.612,
+      0.45
+     ],
+     "fov": 34
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hi Serious!",
+     "tone": "excited",
+     "style": "quick, bright, instant",
+     "dur": 1.14,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 1.31
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.9,
+     "at": 1.33
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.33
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.54
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.63
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.33
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.01,
+     "at": 2.56
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 0.55,
+      "pupil": 1,
+      "tilt": 0.22,
+      "browY": -0.03,
+      "curve": -0.35,
+      "open": 0
+     },
+     "dur": 0.01,
+     "at": 2.56
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.56
+    },
+    {
+     "who": "rep",
+     "do": "hat",
+     "on": false,
+     "dur": 0.01,
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "helm",
+     "set": {
+      "x": 2.35
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.58
+    }
+   ]
+  },
+  {
+   "name": "covered wars",
+   "at": 76.5,
+   "len": 2.733,
+   "shot": {
+    "pos": [
+     1.17,
+     0.653,
+     4.655
+    ],
+    "look": [
+     1.85,
+     0.516,
+     0.8
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      1.224,
+      0.642,
+      4.347
+     ],
+     "look": [
+      1.85,
+      0.516,
+      0.8
+     ],
+     "fov": 28
+    },
+    "dur": 3.4399999999999995,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "I've covered wars.",
+     "tone": "sad",
+     "style": "quiet, broken, staring into nothing",
+     "voice": "reaper",
+     "dur": 1.23,
+     "caption": false,
+     "at": 0.06
+    },
+    {
+     "who": "rep",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.73
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Nothing like this.",
+     "tone": "sad",
+     "style": "barely a whisper, haunted",
+     "voice": "reaper",
+     "dur": 1.41,
+     "caption": false,
+     "at": 1.79
+    },
+    {
+     "who": "chip",
+     "do": "stand",
+     "dur": 0.5,
+     "at": 2.45
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.85,
+      1.05
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.713
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.713
+    }
+   ]
+  },
+  {
+   "name": "say sorry",
+   "at": 79.233,
+   "len": 3.833,
+   "shot": {
+    "pos": [
+     1.832,
+     0.94,
+     6.719
+    ],
+    "look": [
+     0.3,
+     0.526,
+     1
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      1.74,
+      0.915,
+      6.376
+     ],
+     "look": [
+      0.3,
+      0.526,
+      1
+     ],
+     "fov": 32
+    },
+    "dur": 3.37,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.5,
+     "at": 0.217
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.24,
+      0.96
+     ],
+     "dur": 0.7,
+     "steps": 3,
+     "at": 0.267
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 0.567
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.5,
+      0.15
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.767
+    },
+    {
+     "who": "chip",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.6,
+     "at": 0.867
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.007
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Dad. Just say sorry.",
+     "tone": "calm",
+     "style": "serious, firm, grown up, quiet",
+     "voice": "chip-clean",
+     "dur": 2.27,
+     "caption": false,
+     "at": 1.067
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 3.687
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.12,
+       0.3,
+       0.4
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.687
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.687
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.827
+    }
+   ]
+  },
+  {
+   "name": "i'm sorry",
+   "at": 83.066,
+   "len": 2.434,
+   "shot": {
+    "pos": [
+     -2.142,
+     0.983,
+     7.466
+    ],
+    "look": [
+     0.85,
+     0.612,
+     1.05
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -1.903,
+      0.953,
+      6.953
+     ],
+     "look": [
+      0.85,
+      0.612,
+      1.05
+     ],
+     "fov": 26
+    },
+    "dur": 2.38,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.054
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Okay... I'm sorry.",
+     "tone": "sad",
+     "style": "sincere, soft, no joke, real",
+     "dur": 1.98,
+     "caption": false,
+     "at": 0.054
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 2.384
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.424
+    }
+   ]
+  },
+  {
+   "name": "hi sorry",
+   "at": 85.5,
+   "len": 1.933,
+   "shot": {
+    "pos": [
+     1.446,
+     0.649,
+     5.592
+    ],
+    "look": [
+     -0.24,
+     0.391,
+     0.96
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      1.21,
+      0.613,
+      4.944
+     ],
+     "look": [
+      -0.24,
+      0.391,
+      0.96
+     ],
+     "fov": 26
+    },
+    "dur": 1.6600000000000001,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Hi Sorry, I'm...",
+     "tone": "calm",
+     "style": "automatic, cheerful, then stopping in horror",
+     "voice": "chip-clean",
+     "dur": 1.06,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.12,
+     "at": 1.16
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.12,
+     "at": 1.16
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 1.81
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.3,
+     "at": 1.81
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "my boy",
+   "at": 87.433,
+   "len": 1.667,
+   "shot": {
+    "pos": [
+     -2.142,
+     0.983,
+     7.466
+    ],
+    "look": [
+     0.85,
+     0.612,
+     1.05
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -1.843,
+      0.946,
+      6.824
+     ],
+     "look": [
+      0.85,
+      0.612,
+      1.05
+     ],
+     "fov": 26
+    },
+    "dur": 1.6400000000000006,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.017
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "My boy.",
+     "tone": "sad",
+     "style": "teary, proud, whispered, deeply moved",
+     "dur": 1.03,
+     "caption": false,
+     "at": 0.077
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2.75,
+   "see": [
+    "rep.face",
+    "mic",
+    "chip.face",
+    "wedge.face"
+   ],
+   "why": "a war reporter in a helmet crouches behind a garden bench, mic out; a kid in a shock blanket; a dad leans out of his shed"
+  },
+  {
+   "from": 39.37,
+   "to": 40.67,
+   "see": [
+    "wedge.face",
+    "jar"
+   ],
+   "why": "the dad drops one coin into the joke jar, slowly, sly look to the lens"
+  },
+  {
+   "from": 80.3,
+   "to": 89.1,
+   "see": [
+    "chip.face",
+    "wedge.face"
+   ],
+   "why": "the kid answers his dad's sorry with a dad joke, freezes; the dad, proud: my boy"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wedge",
+   "from": 1.1,
+   "to": 1.35,
+   "checks": [
+    "stance-slide"
+   ],
+   "reason": "2 cm of skate on his first step, inside the dark shed doorway in the wide: not readable"
+  },
+  {
+   "who": "wedge",
+   "with": "coin",
+   "from": 39.82,
+   "to": 40.27,
+   "checks": [
+    "hand-in-prop",
+    "clipping"
+   ],
+   "reason": "the coin pinched between his glove's fingers on its way into the jar"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/01-dad-jokes-news/make-dad-jokes-news.mjs."
+}
