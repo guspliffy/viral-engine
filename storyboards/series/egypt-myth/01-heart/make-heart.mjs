@@ -16,7 +16,18 @@
 import { clip, write, r3, frame } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
-import { LINES, DUR } from "./lines.mjs";
+import { LINES, DUR as DUR_SPOKEN } from "./lines.mjs";
+
+// MYSTERY CUT (Jonny 22 Nov 2026, for his new mysteries channel; CUT=mystery node make-heart.mjs -> heart-mystery.json): the
+// posted cut lost 60 % by 10 s on TikTok (21 Nov: 0.45 s chomp of an unknown monster first, the rule only at 9.7 s, a dip on
+// "Thirty-seven to go."). So: a narrator line at 0.0 over the scale (his pick: "In ancient Egypt, one lie could get your heart
+// eaten.", the deep storyteller 20 % faster = voice narrator-fast), the stake text from frame 0, the chomp after it as proof;
+// Spud's "Down here, your heart remembers..." (4) and "Thirty-seven to go." (24) cut.
+const MYSTERY = process.env.CUT === "mystery";
+const OFF = MYSTERY ? 2.45 : 0;   // the narrator line (2.29 s) + a breath, then the chomp
+const NARR = "In ancient Egypt, one lie could get your heart eaten.", NARR_DUR = 2.292;
+const SKIP = new Set(MYSTERY ? [4, 24] : []);
+const DUR = DUR_SPOKEN.map((d, i) => (SKIP.has(i) ? 0 : d));
 
 const c = clip({ faces: "strong", lines: { sub: false, blink: false } }), { A, sfx, cap, see } = c;
 const F = (t) => r3(Math.round(t * 30) / 30);
@@ -25,7 +36,7 @@ const D2R = Math.PI / 180;
 // ---------------------------------------------------------------- the line clock (every gap 0.1-0.2 s; extra time only for actions)
 const T = new Array(LINES.length).fill(null);
 let now = 0;
-const L = (i, gap = 0.12) => { T[i] = r3(now + gap); now = r3(T[i] + DUR[i]); return T[i]; };
+const L = (i, gap = 0.12) => { if (SKIP.has(i)) { T[i] = now; return T[i]; } T[i] = r3(now + gap); now = r3(T[i] + DUR[i]); return T[i]; };
 const END_OF = (i) => r3(T[i] + DUR[i]);
 
 // ---------------------------------------------------------------- places (DESIGN A; x right, z toward us; yaw 0 = facing +z)
@@ -93,6 +104,7 @@ const CAPPOS = { 30: 220 };   // the 4-line cheat-sheet caption starts higher, o
 const SUB = 290;   // captions in the upper third (the capitals and architraves behind them: dark gold)
 const CAPTEXT = { 1: "She just *ATE* his heart?!", 2: "Don't move. *Yours* is next.", 15: "He stole *fries.*", 16: "My heart is *snitching* on me?!", 22: "*Noooo!*", 29: "A *bug?!*", 32: "*Pass.*", 36: "*Next.*", 39: "Wait... why is *YOUR* heart on a scale?" };
 const say = (i, extra = {}, capTo = null) => {
+  if (SKIP.has(i)) return;
   const [who, line, tone, style, o = {}] = LINES[i];
   const actor = who in SPEAKER ? SPEAKER[who] ?? JUDGE_OF[i] : who;
   const le = lastExpr[actor];
@@ -155,7 +167,7 @@ P(0, "scale", { tilt: -0.85, wobble: 0, jolt: 0, smear: 0, drip: 0 }, 0);
 P(0, "monster", { low: 1, rear: 0, sit: 0, slump: 0, jaw: 0.45, chomp: 0, chew: 0, lick: 0, headYaw: 0, headPitch: 0, gait: 0, breath: 0, drool: 0.8, stain: 0, lids: 0.1, glow: 0.7, wag: 0 }, 0);
 for (const h of ["h0", "hchip", "hspud"]) P(0, h, { blink: 0, mouth: 0, smug: 0, seal: 0, squish: h === "h0" ? 0 : 1, lean: 0, hop: 0, charm: 0, beat: 0.3 }, 0);
 P(0, "h0", { mouth: 1 }, 0);
-P(0, "soul", { reach: 1, scream: 1, crumble: 0 }, 0);
+P(0, "soul", { reach: MYSTERY ? 0.3 : 1, scream: MYSTERY ? 0.1 : 1, crumble: 0 }, 0);
 P(0, "juice", { burst: 0, pool: 0 }, 0);
 P(0, "beetle", { glint: 0 }, 0);
 for (const w of ["chip", "spud", "jackal", "j1", "j2", "j3", "j4", "j5", "j6", "sv", "hv"]) A(0, w, "noblink");
@@ -169,9 +181,18 @@ act.blinksAt(c, "jackal", [12.4, 44.0, 64.5]);
 for (let k = 1; k <= 6; k++) act.blinksAt(c, `j${k}`, [7.5 + k * 1.3, 30 + k * 2.1]);
 
 // ================================================================= 0.0-2.4 THE GRUESOME OPENING (Jonny: 1.0-1.5 s for the gore)
-L(0, 0);   // SOUL: "No-" (cut off by the crunch)
-P(0, "scale", { tilt: -1 }, 0.22, "in"); P(0, "scale", { jolt: 1 }, 0); P(0.05, "scale", { jolt: 0 }, 0.4, "out");
-const CHD = 0.45, BITE = 0.24, SHUT = r3(BITE + CHD * 0.42);   // chomp shuts at 0.35-0.5 of its CHD (Sol 1: 0.3 s squashed the heart before the teeth met)
+if (MYSTERY) {
+  // NARRATOR (0.0, over the hall: Chip in the queue, the soul's heart on the pan, the feather, the monster waiting)
+  c.at(0, { macro: "narrate", line: NARR, voice: "narrator-fast", dur: NARR_DUR, caption: false, gain: 0.6 });
+  cap(0, r3(OFF - 0.1), "In ancient Egypt, one *lie* could get your heart eaten.", SUB, false, { size: 64 });
+  expr(0, "chip", "worried", 0.01); look(0.6, "chip", [0.4, -0.2], 0.3);
+  P(0.3, "monster", { headYaw: 0.15 }, 1.2); P(1.6, "monster", { lick: 1 }, 0.8, "linear"); P(OFF - 0.3, "monster", { headYaw: 0 }, 0.2);
+  P(OFF - 0.4, "soul", { reach: 1, scream: 1 }, 0.3, "out");
+  see(0.2, r3(OFF - 0.1), ["chip", "h0", "monster"], "the little potato behind a gold scale pan with a heart on it, a monster's open jaws waiting beside the pan");
+}
+L(0, OFF);   // SOUL: "No-" (cut off by the crunch)
+P(OFF, "scale", { tilt: -1 }, 0.22, "in"); P(OFF, "scale", { jolt: 1 }, 0); P(r3(OFF + 0.05), "scale", { jolt: 0 }, 0.4, "out");
+const CHD = 0.45, BITE = r3(OFF + 0.24), SHUT = r3(BITE + CHD * 0.42);   // chomp shuts at 0.35-0.5 of its CHD (Sol 1: 0.3 s squashed the heart before the teeth met)
 const TOUCH = r3(BITE + CHD * 0.36), CLOSED = r3(BITE + CHD * 0.5);
 P(BITE, "monster", { jaw: 0 }, 0.04); P(BITE, "monster", { chomp: 1 }, CHD, "linear");
 P(TOUCH, "h0", { squish: 0.95 }, r3(CLOSED - TOUCH), "in"); P(CLOSED + 0.01, "h0", { squish: 1 }, 0);
@@ -188,10 +209,10 @@ P(SHUT + 0.15, "monster", { chew: 3 }, 1.1, "linear"); sfx(SHUT + 0.45, "ai/crun
 const ASH = r3(SHUT + 0.12);
 P(ASH, "soul", { crumble: 1 }, 0.62, "inOut"); sfx(ASH + 0.05, "ai/cushion-poof", { gain: 0.5 });
 look(ASH, "chip", [0.4, -0.35], 0.1); look(ASH + 0.15, "spud", [0.2, -0.4], 0.2);
-see(0, ASH, ["monster", "h0", "soul"], "a giant gold scale in a torch-lit hall: a monster bites a screaming ghost's heart off the pan");
+see(OFF, ASH, ["monster", "h0", "soul"], "a giant gold scale in a torch-lit hall: a monster bites a screaming ghost's heart off the pan");
 see(ASH, 1.15, ["soul", "chip", "juice"], "red juice sprays on the little one's trainers; the ghost crumbles to ash");
 // CHIP (cheek drop): She just ATE his heart?!
-L(1, r3(1.18 - now));
+L(1, r3(OFF + 1.18 - now));
 look(T[1], "chip", [0.25, -0.4], 0.12); A(T[1], "chip", "lean", { to: -8, dur: 0.2, ease: "out" });
 say(1);
 see(T[1], END_OF(1), ["chip.face", "cheek"], "the little one stares at the ash pile, a red drop on his cheek");
@@ -460,7 +481,7 @@ const END = F(END_OF(39) + 0.3);
 P(END - 0.5, "monster", { jaw: 0.45 }, 0.3);   // jaws open: the cut to the chomp loops
 
 for (const [i, capTo] of CAPS) {
-  const nxt = T.slice(i + 1).find((x) => x != null), to = r3(Math.min(END_OF(i) + 0.3, (nxt ?? END + 0.2) - 0.2));
+  const nxt = T.slice(i + 1).find((x, k) => x != null && !SKIP.has(i + 1 + k)), to = r3(Math.min(END_OF(i) + 0.3, (nxt ?? END + 0.2) - 0.2));
   cap(T[i], capTo ?? to, CAPTEXT[i] ?? LINES[i][1], CAPPOS[i] ?? SUB, false, { size: 64 });
 }
 
@@ -523,13 +544,13 @@ const MON_TURN = fr([-2.0, 0.7, -0.6], { az: -30, el: 4, h: 2.4, fov: 36 });   /
 const LAST = fr([(CHIP_E[0] + SPUD_E[0]) / 2, 0.55, 1.45], { az: 8, el: 14, h: 2.6, fov: 40, lift: 0.1 });   // Sol 1 (18): closer and higher, over the queue rope
 
 const beats = c.beats([
-  ["chomp", 0, push(O_CHOMP, 0.12, 0.6), "hook"],
+  ["chomp", 0, push(O_CHOMP, MYSTERY ? 0.2 : 0.12, r3(OFF + 0.6)), "hook"],   // MYSTERY: the narrator over the same frame (Chip, the heart on the pan, the jaws), held 2.4 s so it reads, then the bite
   ["spray", r3(CLOSED + 0.07), push(O_SPRAY, 0.08, 0.7)],   // after the jaws shut on camera (with the 0.45 s chomp, ASH - 0.1 cut before the bite)
   ["she ate his heart", r3(T[1] - 0.04), push(O_CHIP, 0.1, 1.3)],
   ["one feather", WHIP, push(FEATHER_CL, 0.08, 0.8)],
   ["vs the feather", r3(WHIP + 0.8), push(VS, 0.2, 2.0)],   // a hard cut: the whip pan swept past the jackal and the back wall in 9 frames (draft pops FAIL)
   ["why my heart", r3(T[3] - 0.2), push(CHIP_CL, 0.06, 1.8)],
-  ["your heart remembers", r3(T[4] - 0.05), push(HEART_CL, 0.15, 3.5)],
+  ...(SKIP.has(4) ? [] : [["your heart remembers", r3(T[4] - 0.05), push(HEART_CL, 0.15, 3.5)]]),
   ["heavier than the feather", r3(T[5] - 0.05), drift(SPUD_CL, 0.12, 1.6)],
   ["she licks her lips", r3(LICK - 0.3), push(MONSTER_LICK, 0.1, 1.6)],
   ["the jackal's hand", r3(LICK + 1.15), push(JACKAL_HAND, 0.08, 1.6)],
@@ -556,7 +577,7 @@ const beats = c.beats([
   ["noooo", r3(T[22] - 0.05), push(CHIP_J_CL, 0.06, 0.7)],
   ["clunk 3", CL3, push(PAN_MON(), 0.08, 1.4)],
   ["do something", r3(Math.max(T[23] - 0.05, CL3 + 0.6)), push(TWO_J, 0.06, 1.2)],
-  ["thirty-seven", r3(T[24] - 0.05), push(SPUD_J_CL, 0.08, 1.1)],
+  ...(SKIP.has(24) ? [] : [["thirty-seven", r3(T[24] - 0.05), push(SPUD_J_CL, 0.08, 1.1)]]),
   ["eavesdropped", r3(T[25] - 0.2), push(JCL(6), 0.1, 1.2)],
   ["no 6", r3(T[26] - 0.05), push(CHIP_J_CL, 0.06, 0.8)],   // Sol 1 (7): his "...no" was heard over the judge
   ["every day", r3(T[27] - 0.08), push(PAN_IN(-0.65), 0.12, 1.1)],
@@ -597,10 +618,10 @@ const grade = [
 ];
 
 write(import.meta.url, {
-  id: "heart",
+  id: MYSTERY ? "heart-mystery" : "heart",
   title: "Your heart vs. one feather",
   idea: "Siren-style myth, our taste: the weighing of the heart. A monster eats a stranger's heart; Chip's own heart is next on the gold scale against one feather; he lies to the judges, his heart snitches, Spud slaps on the beetle charm (the afterlife's cheat sheet), Chip passes, and the jackal calls Spud's heart next.",
-  fps: 30, look: "anime-pro", profile: "short", loop: true,
+  fps: 30, look: "anime-pro", profile: "short", loop: !MYSTERY,
   captionBand: [150, 1360], captionStyle: "kinetic",
   castLook: "sheet", cleanStart: true,
   motion: { feet: 2, overlap: true, timing: true, solve: true },
@@ -610,10 +631,10 @@ write(import.meta.url, {
     lighting: { v: 2, key: [0.25, 0.85, 0.45], light: "#ffd9a0", shadow: "#4a3a2e", rim: "#ffc070", exposure: 0.95, measure: false },
     hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true, vignette: 0.25 },
   grade,
-  music: { file: "egypt-myth/heart-score.ogg", lock: false, dip: false, lowCut: 90, gain: 0.45 },   // make-score.mjs
+  music: { file: MYSTERY ? "egypt-myth/heart-mystery-score.ogg" : "egypt-myth/heart-score.ogg", lock: false, dip: false, lowCut: 90, gain: 0.45 },   // make-score.mjs
   sound: { sfx: 0.6, ambience: 0.05, guard: true, signature: false, surface: "indoor" },
   creative: { length: [60, 95] },
-  hook: { show: ["monster", "h0", "soul", "scale"], hint: 0, what: "a giant gold scale in a torch-lit hall: a monster bites a screaming ghost's heart off the pan, juice sprays, the ghost crumbles to ash" },
+  hook: MYSTERY ? { show: ["chip", "scale", "monster"], hint: 0, what: "a little potato beside a giant gold scale in a torch-lit hall, a heart against a feather, a monster waiting; the narrator: In ancient Egypt, one lie could get your heart eaten" } : { show: ["monster", "h0", "soul", "scale"], hint: 0, what: "a giant gold scale in a torch-lit hall: a monster bites a screaming ghost's heart off the pan, juice sprays, the ghost crumbles to ash" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
     ...[1, 2, 3, 4, 5, 6].map((k) => ({ who: `j${k}`, with: "hall", from: 0, to: END, checks: ["clipping", "body-in-prop", "leg-in-prop", "costume-in-prop", "shell"], reason: "the judges sit on the hall's stools 1-6 (the stool is part of the hall); leaning in to ask, the seated robe sinks into the stool top, out of sight below the knees" })),
