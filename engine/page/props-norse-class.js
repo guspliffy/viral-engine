@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { clamp, lerp } from "./util.js";
 import { NORSE_ITEMS_KINDS } from "./props-norse-items.js";
+import { buildClassroom } from "./set-classroom.js";
 
 // Norse myth 01 "One eye for one sip" (storyboards/series/norse-myth/01-wednesday/DESIGN.md section F3): the CLASSROOM DRESSING for the last
 // shot (panels 23-24, 70-76.5 s). The set `classroom` (engine/page/set-classroom.js) stays exactly as it is; this prop hides its readable
@@ -514,7 +515,17 @@ function norsedesk(P) {
   return { grip: 0.62 };
 }
 
-export const NORSE_CLASS_KINDS = { norseclass, norsedesk };
+// norseroom: the classroom SET (set-classroom.js: lino floor 30 x 30, back wall z -2.35, side walls x +-4.2, chalkboard) as a prop, so a clip
+// whose own set is elsewhere (the cave) can cut to it at a far offset. The builder's scene.background and scene.fog go to a dummy (they would
+// recolour the whole clip). Put norseclass at the same origin: its back flat (z -2.14) covers the wall's letter strip.
+function norseroom(P) {
+  const dummy = { add: (o) => P.whole.add(o) };
+  buildClassroom(dummy, { seed: P.spec.seed ?? 5 });
+  P.whole.traverse((m) => { m.userData.surfaceOnly = true; });
+  return { grip: 0 };
+}
+
+export const NORSE_CLASS_KINDS = { norseclass, norsedesk, norseroom };
 // hand points in each prop's own frame (metres from its origin, before rot and scale)
 export const NORSE_CLASS_GRIPS = {
   norsedesk: { top: [0, 0.62, 0.53], seat: [0, 0.42, 0], front: [0, 0.62, 0.78] },

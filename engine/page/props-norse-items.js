@@ -220,14 +220,15 @@ function norsecup(P) {
           const u = i / Math.max(1, path.length - 1), p = path[i].clone(), qv = quiver * Math.sin(u * 22 - t * 85) * (0.3 + u);
           p.addScaledVector(new THREE.Vector3(-outL.z, 0, outL.x), qv * 0.6).addScaledVector(down, qv * 0.8); cs.push(p); ws.push(0.0046 - 0.0018 * u);
         }
-        if (cs.length >= 2) {
+        const ok = cs.length >= 2 && cs.every((p) => Number.isFinite(p.x + p.y + p.z)) && cs[0].distanceTo(cs[cs.length - 1]) > 1e-4;   // a stream of zero length (or a NaN lip) breaks the curve
+        if (ok) {
           // a round stream (0.0092 across at the lip, thinning to 0.0056): reads from any side
           const geo = taperedTube(new THREE.CatmullRomCurve3(cs), 0.0046, 0.0028, Math.max(4, cs.length * 2), 8); stream.geometry.dispose(); stream.geometry = geo;
         } else stream.visible = false;
         // 5 drops along it: flowing, they run down it and fade at both ends; at hold they stand where they are
         sdrops.forEach((d, k) => {
           const flow = (((t * 1.7 + k / 5) % 1) + 1) % 1, still = (k + 0.5) / 5, s = lerp(flow, still, hold), i = Math.min(cs.length - 1, Math.floor(s * (cs.length - 1)));
-          if (cs.length < 3) return;
+          if (!ok || cs.length < 3) return;
           d.visible = true; d.position.copy(cs[i]).addScaledVector(down, 0.0018); d.scale.setScalar(Math.sin(Math.PI * s) * (0.7 + 0.4 * hs(k, 7)));
         });
       }

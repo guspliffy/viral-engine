@@ -51,13 +51,88 @@
     "shoes": "#f9e5c9",
     "stripe": "#b43a23",
     "sole": "#e9cfa6",
-    "buds": true
+    "buds": {
+      "pluck": [
+        [
+          63.77,
+          0
+        ],
+        [
+          63.84,
+          1
+        ]
+      ],
+      "bandage": [
+        [
+          80.99,
+          0
+        ],
+        [
+          81.02,
+          1
+        ]
+      ],
+      "gold": [
+        [
+          67.84,
+          0
+        ],
+        [
+          68.74,
+          1
+        ],
+        [
+          79.43,
+          1
+        ],
+        [
+          80.33,
+          0
+        ]
+      ],
+      "swirl": [
+        [
+          73.79,
+          0
+        ],
+        [
+          73.8,
+          1
+        ],
+        [
+          75.3,
+          1
+        ],
+        [
+          75.31,
+          0
+        ]
+      ],
+      "flush": [
+        [
+          33.48,
+          0
+        ],
+        [
+          36.1,
+          1
+        ],
+        [
+          36.2,
+          1
+        ],
+        [
+          37.47,
+          0
+        ]
+      ]
+    }
   },
   "personality": "Spud's everyday friend with too much energy (Jonny's pick, 12 Nov 2026). The smallest of the group, never stands still, says yes before he has heard the plan and drags Spud into things at full speed. Catchphrase, in gibberish with the same subtitle every time: \"Let's go!\"",
   "voice": {
     "pitch": 168,
     "rate": 3.9,
-    "formant": 1.0,
+    "formant": 1,
     "range": 4,
     "breath": 0.08,
     "vibrato": 0.008,

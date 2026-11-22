@@ -25,6 +25,9 @@ const mirror = ([x, y, z]) => [-x, y, z];
 
 // the sizes the holds need, per prop kind (metres before the prop's scale; engine/page/props*.js)
 const SIZE = {
+  norsecup: { r: 0.0475, h: 0.085 },               // norse myth 01: Chip's carved wooden cup (props-norse-items.js), mug hold
+  norsesheet: { len: 0.32, r: 0.004 },             // norse myth 01: the crumpled test sheet, thin hold on its edge
+  norsebud: { len: 0.011, r: 0.008 },              // norse myth 01: the plucked potato eye, pinched
   heartscarab: { len: 0.05, r: 0.007, h: 0 },   // egypt myth 01: the heart beetle charm (props-heart-heart.js), thin pinch on the head plate or a fist
   campmug: { r: 0.045, h: 0.085 },                 // props-duo.js campmug: its handle on +x
   shopbag: { r: 0.012, h: 0.62 },                  // props-happy.js shopbag: held by its rope loop (apex 0.41 = the mug hold at 0.66 x h)

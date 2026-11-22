@@ -1,0 +1,7960 @@
+{
+ "id": "odin",
+ "title": "One eye for one sip",
+ "idea": "Siren-style myth, our taste (series 'Gods behind your week', ep 1 Wednesday): Odin paid an eye for one sip of the well of wisdom; Chip, a test tomorrow and studied zero, wants the sip, fails nine nights on the tree in four seconds, gets snitched on by the ravens, pays with a potato eye, and the one thing he learns is that Wednesday is Odin's day: question one of his test.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  150,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#0d1a20",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": {
+   "v": 2,
+   "key": [
+    0.3,
+    0.8,
+    0.5
+   ],
+   "light": "#ffe9c8",
+   "shadow": "#3a4a52",
+   "rim": "#ffe6b0",
+   "exposure": 1,
+   "measure": false
+  },
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true,
+  "vignette": 0.25
+ },
+ "grade": [
+  [
+   0,
+   {
+    "w": 0,
+    "s": 1.05
+   }
+  ],
+  [
+   17.76,
+   {
+    "w": -0.35,
+    "s": 1.05
+   }
+  ],
+  [
+   19.21,
+   {
+    "w": 0,
+    "s": 1.05
+   }
+  ],
+  [
+   21.55,
+   {
+    "w": 0.2,
+    "s": 1.12,
+    "lift": 0.03
+   }
+  ],
+  [
+   37.7,
+   {
+    "w": 0.05,
+    "s": 1.05,
+    "lift": 0
+   }
+  ],
+  [
+   51.67,
+   {
+    "w": -0.3,
+    "s": 0.95
+   },
+   0.4
+  ],
+  [
+   58.73,
+   {
+    "w": 0.05,
+    "s": 1.05
+   },
+   2.5
+  ],
+  [
+   67.84,
+   {
+    "w": 0.4,
+    "s": 1.15,
+    "lift": 0.02
+   },
+   0.9
+  ],
+  [
+   79.43,
+   {
+    "w": 0.05,
+    "s": 1.05,
+    "lift": 0
+   },
+   1.5
+  ],
+  [
+   81.03,
+   {
+    "w": 0.15,
+    "s": 1,
+    "lift": 0.04
+   }
+  ]
+ ],
+ "music": {
+  "file": "norse-myth/odin-score.ogg",
+  "lock": false,
+  "dip": false,
+  "lowCut": 90,
+  "gain": 0.45
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor"
+ },
+ "creative": {
+  "length": [
+   60,
+   95
+  ]
+ },
+ "hook": {
+  "show": [
+   "chip",
+   "odin",
+   "well"
+  ],
+  "hint": 0,
+  "what": "a little potato with a cup asks a tall one-eyed old god with an eyepatch and two ravens on his shoulders, by a glowing well in a misty root cave: what happened to your eye?"
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "norse-myth/chip-buds",
+   "at": [
+    -0.7,
+    2.25
+   ],
+   "face": 50,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 2.3
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.45,
+    3.35
+   ],
+   "face": 35,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "odin",
+   "character": "norse-myth/odin",
+   "at": [
+    0.9,
+    2.35
+   ],
+   "face": -40,
+   "expr": "stern",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "hv",
+   "character": "potatobrawl/spud",
+   "at": [
+    200,
+    200
+   ],
+   "face": 0,
+   "expr": "kind",
+   "hidden": true
+  },
+  {
+   "id": "r1v",
+   "character": "potatobrawl/chip",
+   "at": [
+    204,
+    200
+   ],
+   "face": 0,
+   "expr": "kind",
+   "hidden": true
+  },
+  {
+   "id": "r2v",
+   "character": "potatobrawl/chip",
+   "at": [
+    208,
+    200
+   ],
+   "face": 0,
+   "expr": "kind",
+   "hidden": true
+  }
+ ],
+ "props": [
+  {
+   "id": "cave",
+   "kind": "norsecave",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "well",
+   "kind": "norsewell",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "light": 1,
+   "staged": "scenery: the well stands on the cave floor (the support probe misses its plinth while the cave sits at scale 0.001)",
+   "dipAt": [
+    -1.3,
+    -0.24
+   ],
+   "payAt": [
+    -1.12,
+    -0.05
+   ],
+   "ringAt": [
+    12.921,
+    13.461,
+    14.001,
+    14.541,
+    16.481,
+    49.69,
+    50.157,
+    50.623,
+    52.334,
+    53.091,
+    53.849,
+    54.606,
+    66.01,
+    70.18,
+    70.782,
+    71.384,
+    71.985,
+    72.587,
+    73.189
+   ]
+  },
+  {
+   "id": "head",
+   "kind": "norsehead",
+   "x": 0,
+   "y": 0.22,
+   "z": -0.2,
+   "rot": 0,
+   "light": 1,
+   "staged": "the guardian head floats in the well water (origin at the water line)",
+   "at": [
+    0,
+    0.25,
+    1.4
+   ]
+  },
+  {
+   "id": "floor",
+   "kind": "norsefloor",
+   "x": 300,
+   "y": 0,
+   "z": 0,
+   "light": 1,
+   "blinkAt": [
+    18.53
+   ],
+   "scale": 0.001
+  },
+  {
+   "id": "spear",
+   "kind": "odinspear",
+   "x": 0.483,
+   "y": 0,
+   "z": 2.131,
+   "rot": -40,
+   "tip": -6
+  },
+  {
+   "id": "rv1",
+   "kind": "norseraven",
+   "who": 1,
+   "wear": "odin",
+   "x": -0.34,
+   "y": 0.83,
+   "z": -0.01,
+   "rot": 0,
+   "perchR": 0.05
+  },
+  {
+   "id": "rv2",
+   "kind": "norseraven",
+   "who": 2,
+   "wear": "odin",
+   "x": 0.34,
+   "y": 0.83,
+   "z": -0.01,
+   "rot": 0,
+   "perchR": 0.05
+  },
+  {
+   "id": "fr1",
+   "kind": "norseraven",
+   "who": 1,
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "rot": 0,
+   "perchR": 0.05,
+   "idle": 0
+  },
+  {
+   "id": "fr2",
+   "kind": "norseraven",
+   "who": 2,
+   "x": 4,
+   "y": -60,
+   "z": 0,
+   "rot": 0,
+   "perchR": 0.05,
+   "idle": 0
+  },
+  {
+   "id": "cup",
+   "kind": "norsecup",
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sheet",
+   "kind": "norsesheet",
+   "x": 1,
+   "y": -60,
+   "z": 0,
+   "rot": 0,
+   "open": 0.65
+  },
+  {
+   "id": "bud",
+   "kind": "norsebud",
+   "x": 2,
+   "y": -60,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sip",
+   "kind": "norsesip",
+   "x": -1.78,
+   "y": 0,
+   "z": -0.31,
+   "rot": 62,
+   "fit": "chip"
+  },
+  {
+   "id": "tree",
+   "kind": "norsetree",
+   "x": 600,
+   "y": 0,
+   "z": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "leaves",
+   "kind": "norseleaves",
+   "x": 600,
+   "y": 0,
+   "z": 0,
+   "box": [
+    8,
+    6,
+    6
+   ],
+   "scale": 0.001
+  },
+  {
+   "id": "column",
+   "kind": "norseleaves",
+   "x": 604,
+   "y": 0,
+   "z": 1.5,
+   "column": true,
+   "scale": 0.001
+  },
+  {
+   "id": "pile",
+   "kind": "norsepile",
+   "x": 600,
+   "y": 0,
+   "z": 0,
+   "at": [
+    0.12,
+    0
+   ],
+   "scale": 0.001
+  },
+  {
+   "id": "rope",
+   "kind": "norserope",
+   "x": 600,
+   "y": 0,
+   "z": 0,
+   "slipAt": 36.2,
+   "scale": 0.001,
+   "staged": "tied round the branch, hanging from it"
+  },
+  {
+   "id": "staves",
+   "kind": "norsestaves",
+   "x": 604.2,
+   "y": 6,
+   "z": 0.8,
+   "rot": -60,
+   "scale": 0.001,
+   "staged": "the rune staves sink through the air, weightless (myth)"
+  },
+  {
+   "id": "room",
+   "kind": "norseroom",
+   "x": -300,
+   "y": 0,
+   "z": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "class",
+   "kind": "norseclass",
+   "x": -300,
+   "y": 0,
+   "z": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "desk",
+   "kind": "norsedesk",
+   "x": -300,
+   "y": 0,
+   "z": 0.9,
+   "rot": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "test",
+   "kind": "norsetest",
+   "x": -300,
+   "y": 0.6215,
+   "z": 1.43,
+   "rot": 180,
+   "tip": -90,
+   "scale": 0.001
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1.313,
+   "text": "ONE EYE FOR ONE SIP",
+   "pos": 240,
+   "pop": false,
+   "size": 80,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 1.24,
+   "text": "Odin... what happened to your eye?",
+   "pos": 430,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 1.44,
+   "to": 2.813,
+   "text": "I paid it. For one sip.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.13,
+   "to": 7.59,
+   "text": "This is the well of *wisdom.* One sip and you know *everything.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 7.79,
+   "to": 10.413,
+   "text": "I have a test tomorrow. I studied *zero.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 12.84,
+   "to": 14.95,
+   "text": "One eye. One sip.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 15.15,
+   "to": 16.14,
+   "text": "Do you take cash?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 16.34,
+   "to": 17.38,
+   "text": "*Eyes.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 19.28,
+   "to": 20.88,
+   "text": "Nope. Is there a free way?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 21.82,
+   "to": 27.52,
+   "text": "I hung on this tree. Nine nights. No food, no water.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 27.72,
+   "to": 31.38,
+   "text": "That's how I found the runes. The first letters.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 31.76,
+   "to": 33.68,
+   "text": "Nine nights? I can do one.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 33.88,
+   "to": 34.76,
+   "text": "How long has it been?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 34.96,
+   "to": 35.98,
+   "text": "Four *seconds.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 38.77,
+   "to": 39.346,
+   "text": "Then ask them. Every day they fly over the whole world and tell me everything.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 44.15,
+   "to": 45.146,
+   "text": "He never studied.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 45.43,
+   "to": 47.18,
+   "text": "He played games till four.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 47.38,
+   "to": 49.08,
+   "text": "Your birds are snitching on me!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 52.22,
+   "to": 55.2,
+   "text": "You drink. You pay.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 55.4,
+   "to": 58.58,
+   "text": "I need both! One for reading, one for... the other reading!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 58.78,
+   "to": 60.85,
+   "text": "Chip. You're a potato.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 61.05,
+   "to": 61.34,
+   "text": "So?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 61.54,
+   "to": 63.313,
+   "text": "Potatoes have eyes all over.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 65.89,
+   "to": 66.846,
+   "text": "...*Fair.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 68.79,
+   "to": 69.89,
+   "text": "So now I know everything?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 70.09,
+   "to": 73.88,
+   "text": "One eye. One sip. One thing.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 74.6,
+   "to": 76.646,
+   "text": "*Wednesday...* is named after you.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 76.97,
+   "to": 79.38,
+   "text": "Woden's day. My day.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 79.58,
+   "to": 81,
+   "text": "I paid an *eye* for that?!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 84.65,
+   "to": 86.02,
+   "text": "Because it's *Odin's* day.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "the question",
+   "at": 0,
+   "len": 1.333,
+   "shot": {
+    "pos": [
+     0.537,
+     0.635,
+     5.412
+    ],
+    "look": [
+     0.1,
+     0.965,
+     2.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.485,
+      0.675,
+      5.039
+     ],
+     "look": [
+      0.1,
+      0.965,
+      2.3
+     ],
+     "fov": 40
+    },
+    "dur": 1.3900000000000001,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "runes": 0.35,
+      "shafts": 1,
+      "mist": 1,
+      "gust": 0,
+      "dim": 0,
+      "gold": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1,
+      "gold": 0,
+      "glints": 1,
+      "ripple": 0.3,
+      "bulge": 0,
+      "splash": 0,
+      "swirl": 0,
+      "dip": 0,
+      "pay": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "rise": 0,
+      "shed": 0,
+      "lids": 1,
+      "glow": 0.6,
+      "lookX": 0,
+      "lookY": 0,
+      "turn": 0,
+      "turnTo": 9,
+      "speak": 0,
+      "squint": 0,
+      "nod": 0,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "plunge": 0,
+      "headShadow": 1,
+      "peek": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spear",
+     "set": {
+      "glow": 0.2,
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "hop": 0,
+      "blink": 0,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "wings": 0,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 1,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "headRoll": 0,
+      "talk": 0,
+      "ruff": 0,
+      "hop": 0,
+      "blink": 0,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fr1",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "talk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "wings": 1,
+      "flap": 0,
+      "glide": 0,
+      "brake": 0,
+      "grip": 0,
+      "lean": 0,
+      "headYaw": 0,
+      "headPitch": 0,
+      "talk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "fill": 1,
+      "drip": 0,
+      "pour": 0,
+      "hold": 0,
+      "shake": 0,
+      "gold": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bud",
+     "set": {
+      "pop": 0,
+      "tremble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sip",
+     "set": {
+      "flow": 0,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "set": {
+      "runes": 0.2,
+      "gust": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "leaves",
+     "set": {
+      "gust": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "burst": 0,
+      "rustle": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "swing": 0,
+      "twist": 0,
+      "slip": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "staves",
+     "set": {
+      "fall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "class",
+     "set": {
+      "calm": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "test",
+     "set": {
+      "write": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "hv",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "r1v",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "r2v",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 50,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 35,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.25,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "spear",
+      "grip": [
+       0,
+       1.1,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "x": -0.606,
+      "y": 0.2,
+      "z": 2.512,
+      "rot": 230
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.085,
+       0.056,
+       0.023
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.01,
+     "set": {
+      "curve": -0.25,
+      "eye": 1.05
+     },
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Odin... what happened to your eye?",
+     "tone": "excited",
+     "style": "curious, a little scared, looking up",
+     "voice": "chip-clean",
+     "dur": 1.29,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.001
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "cup",
+     "hand": "R",
+     "grip": [
+      0.085,
+      0.056,
+      0.023
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.061
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "i paid it",
+   "at": 1.333,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -1.44,
+     0.895,
+     4.64
+    ],
+    "look": [
+     0.85,
+     1.35,
+     2.35
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.257,
+      0.931,
+      4.457
+     ],
+     "look": [
+      0.85,
+      1.35,
+      2.35
+     ],
+     "fov": 34
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "odin",
+     "do": "pitch",
+     "to": 14,
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.007
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.007
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "I paid it. For one sip.",
+     "tone": "calm",
+     "style": "old, deep, slow, calm, a god who has seen everything",
+     "voice": "reaper",
+     "dur": 2.54,
+     "caption": false,
+     "at": 0.107
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.2,
+      0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.107
+    },
+    {
+     "who": "odin",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "set": {
+      "smirk": 0.15
+     },
+     "at": 0.307
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.907
+    }
+   ]
+  },
+  {
+   "name": "for one sip",
+   "at": 2.833,
+   "len": 1.167,
+   "shot": {
+    "pos": [
+     0.614,
+     1.206,
+     3.816
+    ],
+    "look": [
+     -0.7,
+     0.62,
+     2.25
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.509,
+      1.159,
+      3.691
+     ],
+     "look": [
+      -0.7,
+      0.62,
+      2.25
+     ],
+     "fov": 34
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.097
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.55,
+      2.75
+     ],
+     "dur": 0.9,
+     "ease": "out",
+     "at": 0.247
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.267
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.097
+    }
+   ]
+  },
+  {
+   "name": "the well of wisdom",
+   "at": 4,
+   "len": 3.633,
+   "shot": {
+    "pos": [
+     -2.766,
+     1.705,
+     4.832
+    ],
+    "look": [
+     -0.9,
+     0.774,
+     1.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -2.566,
+      1.705,
+      4.832
+     ],
+     "look": [
+      -0.8,
+      0.774,
+      1.6
+     ],
+     "fov": 40
+    },
+    "dur": 3.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "odin",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.5,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 0.13
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.13
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "This is the well of wisdom. One sip and you know everything.",
+     "tone": "calm",
+     "style": "calm, knowing, explaining",
+     "voice": "spud-quick",
+     "dur": 3.46,
+     "caption": false,
+     "at": 0.13
+    },
+    {
+     "who": "odin",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.1
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.5
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.73
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.4
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 3.19
+    },
+    {
+     "do": "prop",
+     "id": "sheet",
+     "set": {
+      "x": -0.439,
+      "y": 0.13,
+      "z": 2.312,
+      "rot": 230,
+      "open": 0.65,
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.29
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.002,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.2,
+     "at": 3.31
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       0,
+       0.31,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       0.014,
+       0.07,
+       -0.079
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.31
+    }
+   ]
+  },
+  {
+   "name": "studied zero",
+   "at": 7.633,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     0.339,
+     0.866,
+     4.372
+    ],
+    "look": [
+     -0.65,
+     0.62,
+     2.25
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.26,
+      0.846,
+      4.202
+     ],
+     "look": [
+      -0.65,
+      0.62,
+      2.25
+     ],
+     "fov": 32
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sheet",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.007
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       0,
+       0.31,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.077
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "set": {
+      "open": 0.1
+     },
+     "at": 0.157
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.35,
+      0.45
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.157
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I have a test tomorrow. I studied zero.",
+     "tone": "excited",
+     "style": "embarrassed grin, fast",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 0.157
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.002
+     },
+     "dur": 0.12,
+     "at": 0.167
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.06,
+     "set": {
+      "open": 0.1
+     },
+     "at": 0.177
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "sheet",
+     "hand": "L",
+     "grip": [
+      0,
+      0.31,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.287
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.757
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 1.357
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.967
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.757
+    }
+   ]
+  },
+  {
+   "name": "the head rises",
+   "at": 10.433,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     0.1,
+     1.05,
+     4.6
+    ],
+    "look": [
+     0,
+     0.95,
+     -0.2
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.1,
+      1.15,
+      3.9
+     ],
+     "look": [
+      0,
+      0.95,
+      -0.2
+     ],
+     "fov": 46
+    },
+    "dur": 2.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "bulge": 1,
+      "glow": 1.3
+     },
+     "dur": 0.7,
+     "ease": "in",
+     "at": 0.007
+    },
+    {
+     "sfx": "ai/underwater-amb",
+     "gain": 0.35,
+     "at": 0.007
+    },
+    {
+     "do": "prop",
+     "id": "sheet",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.037
+    },
+    {
+     "who": "chip",
+     "do": "release",
+     "prop": "sheet",
+     "dur": 0,
+     "to": [
+      1,
+      -60,
+      0
+     ],
+     "at": 0.407
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.407
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "splash": 1
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0.707
+    },
+    {
+     "sfx": "ai/water-gush",
+     "gain": 0.7,
+     "at": 0.707
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "rise": 1
+     },
+     "dur": 1.5,
+     "ease": "out",
+     "at": 0.707
+    },
+    {
+     "sfx": "ai/swim-splash",
+     "gain": 0.5,
+     "at": 0.807
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.45
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.807
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.45
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.807
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.3,
+      0.1
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.807
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.35,
+     "at": 0.807
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 0.807
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": -10,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.807
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 5,
+     "dur": 0.35,
+     "at": 0.857
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "shed": 1
+     },
+     "dur": 1.4,
+     "ease": "linear",
+     "at": 1.307
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 1.307
+    },
+    {
+     "who": "odin",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.567
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "lids": 0.35,
+      "glow": 1
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 2.007
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 2.207
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "lookX": -0.3,
+      "lookY": -0.2
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.207
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "one eye one sip",
+   "at": 12.733,
+   "len": 2.333,
+   "shot": {
+    "pos": [
+     -0.901,
+     0.998,
+     2.574
+    ],
+    "look": [
+     0,
+     1.202,
+     -0.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.811,
+      1.018,
+      2.297
+     ],
+     "look": [
+      0,
+      1.202,
+      -0.2
+     ],
+     "fov": 36
+    },
+    "dur": 2.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "hv",
+     "macro": "say",
+     "line": "One eye. One sip.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "dur": 2.16,
+     "caption": false,
+     "at": 0.107
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.188
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.408
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.728
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.948
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.268
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.488
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.808
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 2.028
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.267
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.267
+    }
+   ]
+  },
+  {
+   "name": "cash",
+   "at": 15.066,
+   "len": 1.167,
+   "shot": {
+    "pos": [
+     -0.7,
+     0.842,
+     4.364
+    ],
+    "look": [
+     -0.7,
+     0.62,
+     2.25
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.7,
+      0.824,
+      4.195
+     ],
+     "look": [
+      -0.7,
+      0.62,
+      2.25
+     ],
+     "fov": 34
+    },
+    "dur": 1.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.15,
+     "set": {
+      "curve": -0.25,
+      "eye": 1.05,
+      "open": 0.1
+     },
+     "at": 0.084
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.1,
+      0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.084
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Do you take cash?",
+     "tone": "excited",
+     "style": "hopeful, small",
+     "voice": "chip-clean",
+     "dur": 1.01,
+     "caption": false,
+     "at": 0.084
+    }
+   ]
+  },
+  {
+   "name": "eyes",
+   "at": 16.233,
+   "len": 1.167,
+   "shot": {
+    "pos": [
+     -0.901,
+     0.998,
+     2.574
+    ],
+    "look": [
+     0,
+     1.202,
+     -0.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.847,
+      1.01,
+      2.408
+     ],
+     "look": [
+      0,
+      1.202,
+      -0.2
+     ],
+     "fov": 36
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "nod": 0.4
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.107
+    },
+    {
+     "who": "hv",
+     "macro": "say",
+     "line": "Eyes.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "take": 2,
+     "dur": 0.94,
+     "caption": false,
+     "at": 0.107
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.248
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.468
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.047
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "nod": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.047
+    }
+   ]
+  },
+  {
+   "name": "the dive",
+   "at": 17.4,
+   "len": 0.366,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.6,
+     0.8
+    ],
+    "look": [
+     0,
+     0.22,
+     -0.1
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0,
+      0.6,
+      0.15
+     ],
+     "look": [
+      0,
+      0.22,
+      -0.1
+     ],
+     "fov": 46
+    },
+    "dur": 0.35,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/bubbles-burst",
+     "gain": 0.5,
+     "at": 0.03
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "plunge": 0,
+      "peek": 1,
+      "lookX": 0,
+      "lookY": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.35
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "the eye",
+   "at": 17.766,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     300.32,
+     0.32,
+     0.62
+    ],
+    "look": [
+     300.25,
+     0.4,
+     0.05
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      300.313,
+      0.328,
+      0.563
+     ],
+     "look": [
+      300.25,
+      0.4,
+      0.05
+     ],
+     "fov": 46
+    },
+    "dur": 0.75,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "plunge": 1
+     },
+     "dur": 0.6,
+     "ease": "linear",
+     "at": 0.014
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "lookY": 0.7,
+      "lookX": 0.3
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.314
+    }
+   ]
+  },
+  {
+   "name": "it blinks",
+   "at": 18.366,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     300.28,
+     0.3,
+     0.42
+    ],
+    "look": [
+     300.25,
+     1.4,
+     -0.35
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      300.278,
+      0.366,
+      0.374
+     ],
+     "look": [
+      300.25,
+      1.4,
+      -0.35
+     ],
+     "fov": 52
+    },
+    "dur": 0.85,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.164
+    },
+    {
+     "sfx": "ai/blep",
+     "gain": 0.4,
+     "at": 0.164
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "blink": 0
+     },
+     "dur": 0.07,
+     "ease": "inOut",
+     "at": 0.294
+    }
+   ]
+  },
+  {
+   "name": "nope",
+   "at": 19.166,
+   "len": 1.734,
+   "shot": {
+    "pos": [
+     0.081,
+     0.78,
+     4.396
+    ],
+    "look": [
+     -0.7,
+     0.62,
+     2.25
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.034,
+      0.77,
+      4.267
+     ],
+     "look": [
+      -0.7,
+      0.62,
+      2.25
+     ],
+     "fov": 34
+    },
+    "dur": 1.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.034
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.08,
+     "at": 0.064
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": -14,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.064
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.06,
+       0.47,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.064
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.08,
+       0.47,
+       0.28
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.064
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.06,
+     "set": {
+      "open": 0.1
+     },
+     "at": 0.084
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.114
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Nope. Is there a free way?",
+     "tone": "excited",
+     "style": "disgusted, then quick and hopeful",
+     "voice": "chip-clean",
+     "dur": 1.59,
+     "caption": false,
+     "at": 0.114
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.814
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 50,
+     "dur": 0.3,
+     "at": 0.814
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.864
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.085,
+       0.056,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.796,
+       0.2,
+       2.511
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.864
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "rot": 190
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.864
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.2,
+     "at": 0.864
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.864
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.914
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.034
+    }
+   ]
+  },
+  {
+   "name": "the point",
+   "at": 20.9,
+   "len": 0.666,
+   "shot": {
+    "pos": [
+     -0.112,
+     0.381,
+     5.379
+    ],
+    "look": [
+     0.7,
+     1.4,
+     2.35
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.047,
+      0.463,
+      5.137
+     ],
+     "look": [
+      0.7,
+      1.4,
+      2.35
+     ],
+     "fov": 40
+    },
+    "dur": 0.65,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.1,
+      0.25
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.07
+    },
+    {
+     "who": "odin",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.35,
+       1.35,
+       0.25
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "spear",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "sfx": "ai/wing-flap",
+     "gain": 0.5,
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "wings": 1,
+      "flap": 3,
+      "grip": 0,
+      "hop": 1
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.22
+    },
+    {
+     "who": "odin",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "wings": 1,
+      "flap": 3,
+      "grip": 0,
+      "hop": 1
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.27
+    },
+    {
+     "sfx": "ai/raven-caw",
+     "gain": 0.35,
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "leaves",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "column",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "staves",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "column",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "scale": 0.001,
+      "wings": 0,
+      "flap": 0,
+      "grip": 1,
+      "hop": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "scale": 0.001,
+      "wings": 0,
+      "flap": 0,
+      "grip": 1,
+      "hop": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.64
+    },
+    {
+     "who": "odin",
+     "do": "move",
+     "to": [
+      592.6,
+      2.8
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 0.65
+    },
+    {
+     "who": "odin",
+     "do": "turn",
+     "to": 112,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "spear",
+     "set": {
+      "x": 592.865,
+      "y": 0,
+      "z": 3.189,
+      "rot": 112,
+      "tip": -6,
+      "glow": 0.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      599.4,
+      2.2
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.65
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.55,
+      2.3
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 0.65
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -80,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.65
+    }
+   ]
+  },
+  {
+   "name": "the tree",
+   "at": 21.566,
+   "len": 6.034,
+   "shot": {
+    "pos": [
+     590.2,
+     1.5,
+     5.6
+    ],
+    "look": [
+     597,
+     3,
+     0
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      594.5,
+      7.5,
+      6.5
+     ],
+     "look": [
+      604,
+      13,
+      -2
+     ],
+     "fov": 50
+    },
+    "dur": 6.05,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      0.1,
+      0.25
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.004
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "set": {
+      "gust": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.004
+    },
+    {
+     "do": "prop",
+     "id": "leaves",
+     "set": {
+      "gust": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.004
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.35,
+     "at": 0.004
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "I hung on this tree. Nine nights. No food, no water.",
+     "tone": "calm",
+     "style": "old, deep, slow, calm, a god who has seen everything",
+     "voice": "reaper",
+     "take": 2,
+     "dur": 5.75,
+     "caption": false,
+     "at": 0.254
+    },
+    {
+     "who": "odin",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.454
+    },
+    {
+     "who": "odin",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.554
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "set": {
+      "gust": 0
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.604
+    },
+    {
+     "do": "prop",
+     "id": "leaves",
+     "set": {
+      "gust": 0
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.604
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "the runes",
+   "at": 27.6,
+   "len": 3.8,
+   "shot": {
+    "pos": [
+     599,
+     6.2,
+     3.8
+    ],
+    "look": [
+     604.2,
+     6,
+     0.8
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      599.416,
+      6.184,
+      3.56
+     ],
+     "look": [
+      604.2,
+      6,
+      0.8
+     ],
+     "fov": 46
+    },
+    "dur": 3.79,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "staves",
+     "set": {
+      "fall": 1
+     },
+     "dur": 4.09,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "set": {
+      "runes": 1
+     },
+     "dur": 1.2,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "That's how I found the runes. The first letters.",
+     "tone": "calm",
+     "style": "old, deep, slow, calm, a god who has seen everything",
+     "voice": "reaper",
+     "take": 3,
+     "dur": 3.49,
+     "caption": false,
+     "at": 0.12
+    },
+    {
+     "sfx": "ai/magic-zap",
+     "gain": 0.3,
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "column",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.78
+    },
+    {
+     "do": "prop",
+     "id": "staves",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.78
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "set": {
+      "runes": 0.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.78
+    },
+    {
+     "who": "chip",
+     "do": "release",
+     "prop": "cup",
+     "dur": 0,
+     "to": [
+      0,
+      -60,
+      0
+     ],
+     "at": 3.78
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.15,
+      0
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.68,
+     "steps": 0,
+     "at": 3.79
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.79
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 180,
+     "dur": 0.01,
+     "at": 3.79
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      597.9,
+      1.35
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 3.79
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 55,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.79
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.05,
+       0.3,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.79
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.05,
+       0.27,
+       0.23
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.79
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.79
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.79
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.01,
+     "at": 3.79
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.1,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.79
+    }
+   ]
+  },
+  {
+   "name": "i can do one",
+   "at": 31.4,
+   "len": 2.366,
+   "shot": {
+    "pos": [
+     600.6,
+     1.576,
+     3.611
+    ],
+    "look": [
+     600.1,
+     1.45,
+     0.05
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      600.57,
+      1.568,
+      3.397
+     ],
+     "look": [
+      600.1,
+      1.45,
+      0.05
+     ],
+     "fov": 34
+    },
+    "dur": 2.47,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "swing": 0.3
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "leaves",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Nine nights? I can do one.",
+     "tone": "calm",
+     "style": "cocky, relaxed, grinning",
+     "voice": "chip-clean",
+     "dur": 1.72,
+     "caption": false,
+     "at": 0.36
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "swing": -0.2
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0.81
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "swing": 0.1
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 1.81
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.1
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "set": {
+      "curve": -0.25,
+      "eye": 1.05
+     },
+     "at": 2.28
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.28
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.28
+    }
+   ]
+  },
+  {
+   "name": "how long",
+   "at": 33.766,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     600.1,
+     1.246,
+     3.064
+    ],
+    "look": [
+     600.1,
+     1.35,
+     0.08
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      600.1,
+      1.254,
+      2.825
+     ],
+     "look": [
+      600.1,
+      1.35,
+      0.08
+     ],
+     "fov": 30
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.3,
+     "at": 0.114
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "How long has it been?",
+     "tone": "excited",
+     "style": "strained, face red, upside down",
+     "voice": "chip-clean",
+     "dur": 0.93,
+     "caption": false,
+     "at": 0.114
+    },
+    {
+     "who": "odin",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.234
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.5,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.094
+    }
+   ]
+  },
+  {
+   "name": "four seconds",
+   "at": 34.866,
+   "len": 1.134,
+   "shot": {
+    "pos": [
+     599.796,
+     1.081,
+     4.057
+    ],
+    "look": [
+     597.9,
+     0.85,
+     1.35
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      599.682,
+      1.067,
+      3.895
+     ],
+     "look": [
+      597.9,
+      0.85,
+      1.35
+     ],
+     "fov": 32
+    },
+    "dur": 1.14,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Four seconds.",
+     "tone": "calm",
+     "style": "calm, dry",
+     "voice": "spud-quick",
+     "dur": 0.99,
+     "caption": false,
+     "at": 0.094
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "slip": 0.5
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.934
+    }
+   ]
+  },
+  {
+   "name": "the drop",
+   "at": 36,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     599.211,
+     1.481,
+     3.575
+    ],
+    "look": [
+     599.95,
+     1.108,
+     0.1
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      599.241,
+      1.466,
+      3.436
+     ],
+     "look": [
+      599.95,
+      1.108,
+      0.1
+     ],
+     "fov": 40
+    },
+    "dur": 1.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "slip": 1
+     },
+     "dur": 0.13,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.06,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.12,
+      0
+     ],
+     "dur": 0.25,
+     "ease": "in",
+     "y": -0.32,
+     "steps": 0,
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "burst": 1
+     },
+     "dur": 2.4,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.9,
+     "at": 0.47
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.47
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.7,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "tree",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "leaves",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "column",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "staves",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "leaves",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "x": -0.606,
+      "y": 0.2,
+      "z": 2.512,
+      "rot": 230
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.69
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "the ravens land",
+   "at": 37.7,
+   "len": 1.666,
+   "shot": {
+    "pos": [
+     -0.66,
+     1.277,
+     4.966
+    ],
+    "look": [
+     0.85,
+     1.382,
+     2.35
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.569,
+      1.283,
+      4.809
+     ],
+     "look": [
+      0.85,
+      1.382,
+      2.35
+     ],
+     "fov": 40
+    },
+    "dur": 1.65,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "odin",
+     "do": "move",
+     "to": [
+      0.9,
+      2.35
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 0
+    },
+    {
+     "who": "odin",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spear",
+     "set": {
+      "x": 0.483,
+      "y": 0,
+      "z": 2.131,
+      "rot": -40,
+      "tip": -6,
+      "glow": 0.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.55,
+      2.75
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 35,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.7,
+      2.25
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 50,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.085,
+       0.056,
+       0.023
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.001
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.01,
+     "set": {
+      "curve": -0.2
+     },
+     "at": 0.02
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.25,
+      0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "cup",
+     "hand": "R",
+     "grip": [
+      0.085,
+      0.056,
+      0.023
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.061
+    },
+    {
+     "do": "prop",
+     "id": "fr1",
+     "set": {
+      "x": -0.754,
+      "y": 3.03,
+      "z": -1.076,
+      "rot": -40,
+      "wings": 1,
+      "flap": 0,
+      "brake": 0,
+      "grip": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "x": 2.367,
+      "y": 3.03,
+      "z": -0.639,
+      "rot": -40,
+      "wings": 1,
+      "flap": 0,
+      "brake": 0,
+      "grip": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "fr1",
+     "set": {
+      "x": 0.646,
+      "y": 0.83,
+      "z": 2.124
+     },
+     "dur": 0.75,
+     "ease": "out",
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "fr1",
+     "set": {
+      "flap": 3
+     },
+     "dur": 0.55,
+     "ease": "linear",
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "x": 1.167,
+      "y": 0.83,
+      "z": 2.561
+     },
+     "dur": 0.75,
+     "ease": "out",
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "flap": 3
+     },
+     "dur": 0.55,
+     "ease": "linear",
+     "at": 0.27
+    },
+    {
+     "sfx": "ai/wing-flap",
+     "gain": 0.6,
+     "at": 0.27
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.4,
+      0.8
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.47
+    },
+    {
+     "sfx": "ai/wing-flap",
+     "gain": 0.5,
+     "at": 0.77
+    },
+    {
+     "do": "prop",
+     "id": "fr1",
+     "set": {
+      "brake": 1
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "fr1",
+     "set": {
+      "flap": 5
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "brake": 1
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "flap": 5
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.82
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "Then ask them. Every day they fly over the whole world and tell me everything.",
+     "tone": "calm",
+     "style": "old, deep, slow, calm, a god who has seen everything",
+     "voice": "reaper",
+     "take": 4,
+     "dur": 5.23,
+     "caption": false,
+     "at": 1.07
+    },
+    {
+     "do": "prop",
+     "id": "fr1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "scale": 1,
+      "wings": 0.8,
+      "brake": 0.5,
+      "grip": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "scale": 1,
+      "wings": 0.8,
+      "brake": 0.5,
+      "grip": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "wings": 0,
+      "brake": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.27
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "wings": 0,
+      "brake": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.27
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.25,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.47
+    }
+   ]
+  },
+  {
+   "name": "ask them",
+   "at": 39.366,
+   "len": 4.534,
+   "shot": {
+    "pos": [
+     -1.815,
+     1.008,
+     4.216
+    ],
+    "look": [
+     0.85,
+     1.35,
+     2.35
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.602,
+      1.035,
+      4.067
+     ],
+     "look": [
+      0.85,
+      1.35,
+      2.35
+     ],
+     "fov": 34
+    },
+    "dur": 4.78,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "set": {
+      "curve": -0.25,
+      "eye": 1.05
+     },
+     "at": 0.404
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.834
+    }
+   ]
+  },
+  {
+   "name": "never studied",
+   "at": 43.9,
+   "len": 1.266,
+   "shot": {
+    "pos": [
+     0.17,
+     1.424,
+     5.743
+    ],
+    "look": [
+     0.785,
+     1.3,
+     2.254
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.219,
+      1.414,
+      5.464
+     ],
+     "look": [
+      0.785,
+      1.3,
+      2.254
+     ],
+     "fov": 30
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "lean": 1,
+      "headYaw": 0.5
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "r1v",
+     "macro": "say",
+     "line": "He never studied.",
+     "tone": "calm",
+     "style": "rough, quick, whispered, gossiping, a little smug",
+     "voice": "wedge",
+     "dur": 1.13,
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.15
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "odin",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "set": {
+      "smirk": 0.2
+     },
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "talk": 0.25
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.411
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.573
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "talk": 0.25
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.734
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.896
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "talk": 0.25
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.057
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.219
+    }
+   ]
+  },
+  {
+   "name": "games till four",
+   "at": 45.166,
+   "len": 2.134,
+   "shot": {
+    "pos": [
+     -2.665,
+     1.437,
+     3.785
+    ],
+    "look": [
+     1.015,
+     1.3,
+     2.446
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -2.371,
+      1.426,
+      3.678
+     ],
+     "look": [
+      1.015,
+      1.3,
+      2.446
+     ],
+     "fov": 30
+    },
+    "dur": 2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "lean": -1,
+      "headYaw": -0.5
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.014
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "talk": 0
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.114
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "lean": 0,
+      "headYaw": -0.7,
+      "headPitch": 0.4
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.214
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.264
+    },
+    {
+     "who": "r2v",
+     "macro": "say",
+     "line": "He played games till four.",
+     "tone": "calm",
+     "style": "rough, quick, whispered, gossiping, a little smug",
+     "voice": "mash",
+     "dur": 1.8,
+     "caption": false,
+     "at": 0.264
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 0.25
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.428
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 0.564
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.591
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 0.25
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.755
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.919
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 0.25
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.082
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.246
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 0.25
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.409
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.573
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 0.25
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.737
+    },
+    {
+     "who": "odin",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.834
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "talk": 0
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 2.064
+    }
+   ]
+  },
+  {
+   "name": "snitching",
+   "at": 47.3,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0.801,
+     0.731,
+     3.751
+    ],
+    "look": [
+     -0.7,
+     0.62,
+     2.25
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.681,
+      0.722,
+      3.631
+     ],
+     "look": [
+      -0.7,
+      0.62,
+      2.25
+     ],
+     "fov": 34
+    },
+    "dur": 1.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "lean": 0,
+      "headYaw": -0.4,
+      "headPitch": 0.4
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.03
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.42,
+       0.28
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.06,
+     "dur": 0.08,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Your birds are snitching on me!",
+     "tone": "excited",
+     "style": "outraged, betrayed, high, fast",
+     "voice": "chip-clean",
+     "dur": 1.49,
+     "caption": false,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.13
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "rv1",
+     "set": {
+      "headPitch": 0,
+      "headYaw": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.57
+    },
+    {
+     "do": "prop",
+     "id": "rv2",
+     "set": {
+      "headPitch": 0,
+      "headYaw": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.57
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.62
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.62
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.15,
+       0.27,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.77
+    }
+   ]
+  },
+  {
+   "name": "the sneak",
+   "at": 49.1,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -1.938,
+     1.766,
+     4.801
+    ],
+    "look": [
+     -1.25,
+     0.63,
+     0.9
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -1.688,
+      1.766,
+      4.801
+     ],
+     "look": [
+      -1.125,
+      0.63,
+      0.9
+     ],
+     "fov": 40
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "turnTo": 0.18
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "turn": 0.18,
+      "lookX": 0.6,
+      "lookY": 0
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0.02
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 230,
+     "dur": 0.3,
+     "at": 0.02
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.5,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      -0.25,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.32
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -2.15,
+      1.05
+     ],
+     "dur": 0.8,
+     "ease": "in",
+     "style": "tiptoe",
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "turnTo": 9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.52
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.15,
+     "at": 0.52
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.59
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.81
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.15,
+     "at": 1.02
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.057
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 165,
+     "dur": 0.15,
+     "at": 1.07
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1.78,
+      -0.31
+     ],
+     "dur": 0.6,
+     "ease": "out",
+     "style": "tiptoe",
+     "at": 1.12
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.277
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.523
+    }
+   ]
+  },
+  {
+   "name": "the dip",
+   "at": 50.7,
+   "len": 0.966,
+   "shot": {
+    "pos": [
+     -0.792,
+     0.845,
+     1.272
+    ],
+    "look": [
+     -1.53,
+     0.41,
+     -0.31
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.851,
+      0.81,
+      1.145
+     ],
+     "look": [
+      -1.53,
+      0.41,
+      -0.31
+     ],
+     "fov": 34
+    },
+    "dur": 0.95,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 62,
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 24,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.085,
+       0.056,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.32,
+       0.19,
+       -0.24
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "rot": 242
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.143
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "dip": 1
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.6,
+     "at": 0.42
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.085,
+       0.056,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.571,
+       0.3,
+       -0.063
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.72
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "rot": 242
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.72
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.72
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "lookX": -1,
+      "turnTo": -0.78
+     },
+     "dur": 0.07,
+     "ease": "inOut",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "pour": 1
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.92
+    }
+   ]
+  },
+  {
+   "name": "caught",
+   "at": 51.666,
+   "len": 0.534,
+   "shot": {
+    "pos": [
+     -2.6,
+     1.25,
+     1.35
+    ],
+    "look": [
+     -0.1,
+     0.95,
+     -0.25
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -2.475,
+      1.235,
+      1.27
+     ],
+     "look": [
+      -0.1,
+      0.95,
+      -0.25
+     ],
+     "fov": 42
+    },
+    "dur": 0.55,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "turn": -0.78
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.004
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "swirl": -0.6
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.004
+    },
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "dim": 1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.004
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glints": 0,
+      "glow": 0.8
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.004
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.004
+    },
+    {
+     "sfx": "ai/dundun",
+     "gain": 0.6,
+     "at": 0.004
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.06,
+     "at": 0.054
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.3
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.054
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "hold": 1
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.154
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.154
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.45,
+      0.75
+     ],
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 0.304
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "turnTo": 9,
+      "lookX": 0,
+      "lookY": -0.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.504
+    }
+   ]
+  },
+  {
+   "name": "you drink you pay",
+   "at": 52.2,
+   "len": 3.1,
+   "shot": {
+    "pos": [
+     -2.6,
+     1.25,
+     1.35
+    ],
+    "look": [
+     -0.1,
+     0.95,
+     -0.25
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -2.35,
+      1.22,
+      1.19
+     ],
+     "look": [
+      -0.1,
+      0.95,
+      -0.25
+     ],
+     "fov": 42
+    },
+    "dur": 3.03,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "lean": 0.3
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "hv",
+     "macro": "say",
+     "line": "You drink. You pay.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "take": 3,
+     "dur": 3.03,
+     "caption": false,
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "swirl": 0
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.134
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.354
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.891
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.111
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 95,
+     "dur": 0.3,
+     "at": 1.37
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.649
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.869
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 2.406
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 2.626
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 3.05
+    }
+   ]
+  },
+  {
+   "name": "i need both",
+   "at": 55.3,
+   "len": 3.366,
+   "shot": {
+    "pos": [
+     -0.638,
+     0.78,
+     1.668
+    ],
+    "look": [
+     -1.78,
+     0.62,
+     -0.31
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.729,
+      0.767,
+      1.51
+     ],
+     "look": [
+      -1.78,
+      0.62,
+      -0.31
+     ],
+     "fov": 34
+    },
+    "dur": 3.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "hold": 0,
+      "pour": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "shake": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "set": {
+      "curve": -0.25,
+      "eye": 1.05
+     },
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I need both! One for reading, one for... the other reading!",
+     "tone": "excited",
+     "style": "panicked, bargaining, fast",
+     "voice": "chip-clean",
+     "dur": 3.23,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.08,
+       0.47,
+       0.28
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.07,
+       0.47,
+       0.29
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "shake": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.33
+    }
+   ]
+  },
+  {
+   "name": "you're a potato",
+   "at": 58.666,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     0.415,
+     1.053,
+     2.404
+    ],
+    "look": [
+     -2.45,
+     0.88,
+     0.75
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.186,
+      1.039,
+      2.272
+     ],
+     "look": [
+      -2.45,
+      0.88,
+      0.75
+     ],
+     "fov": 32
+    },
+    "dur": 2.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.014
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.014
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.014
+    },
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "dim": 0
+     },
+     "dur": 2.5,
+     "ease": "inOut",
+     "at": 0.064
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "glints": 1,
+      "glow": 1
+     },
+     "dur": 2.5,
+     "ease": "inOut",
+     "at": 0.064
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 0.114
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.15,
+       0.85,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.114
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Chip. You're a potato.",
+     "tone": "calm",
+     "style": "calm, patient, one finger up",
+     "voice": "spud-quick",
+     "dur": 2.12,
+     "caption": false,
+     "at": 0.114
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.164
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.934
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.284
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.25,
+     "at": 2.284
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.085,
+       0.056,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.862,
+       0.18,
+       -0.067
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.284
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "rot": 200
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.284
+    }
+   ]
+  },
+  {
+   "name": "so",
+   "at": 60.966,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.963,
+     1.124,
+     3.384
+    ],
+    "look": [
+     -2.115,
+     0.77,
+     0.22
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -1.021,
+      1.106,
+      3.226
+     ],
+     "look": [
+      -2.115,
+      0.77,
+      0.22
+     ],
+     "fov": 36
+    },
+    "dur": 0.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "odin",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.034
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.15,
+     "set": {
+      "curve": 0
+     },
+     "at": 0.084
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "So?",
+     "tone": "calm",
+     "style": "confused, small",
+     "voice": "chip-clean",
+     "dur": 0.34,
+     "caption": false,
+     "at": 0.084
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.134
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.134
+    }
+   ]
+  },
+  {
+   "name": "eyes all over",
+   "at": 61.466,
+   "len": 1.867,
+   "shot": {
+    "pos": [
+     0.691,
+     0.755,
+     0.316
+    ],
+    "look": [
+     -1.724,
+     0.58,
+     -0.331
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      0.449,
+      0.738,
+      0.251
+     ],
+     "look": [
+      -1.724,
+      0.58,
+      -0.331
+     ],
+     "fov": 28
+    },
+    "dur": 1.85,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0.074
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Potatoes have eyes all over.",
+     "tone": "calm",
+     "style": "calm, amused, explaining",
+     "voice": "spud-quick",
+     "dur": 1.65,
+     "caption": false,
+     "at": 0.074
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.6
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.374
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.744
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "the pluck",
+   "at": 63.333,
+   "len": 1.033,
+   "shot": {
+    "pos": [
+     -0.706,
+     0.763,
+     1.463
+    ],
+    "look": [
+     -1.73,
+     0.62,
+     -0.31
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.767,
+      0.754,
+      1.357
+     ],
+     "look": [
+      -1.73,
+      0.62,
+      -0.31
+     ],
+     "fov": 30
+    },
+    "dur": 1.05,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "set": {
+      "curve": -0.25,
+      "eye": 1.05
+     },
+     "at": 0.007
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.43,
+       0.2
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.007
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 0.107
+    },
+    {
+     "do": "prop",
+     "id": "bud",
+     "set": {
+      "x": -1.507,
+      "y": 0.42,
+      "z": -0.175,
+      "rot": 200,
+      "pop": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.227
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bud",
+      "grip": [
+       0,
+       0.006,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.001,
+     "ease": "out",
+     "at": 0.257
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.005
+     },
+     "dur": 0.12,
+     "at": 0.258
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "bud",
+     "hand": "L",
+     "grip": [
+      0,
+      0.006,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.318
+    },
+    {
+     "do": "prop",
+     "id": "bud",
+     "set": {
+      "pop": 0.3
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.357
+    },
+    {
+     "do": "prop",
+     "id": "bud",
+     "set": {
+      "pop": 0.38
+     },
+     "dur": 0.07,
+     "ease": "inOut",
+     "at": 0.457
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.6,
+     "at": 0.457
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.06,
+     "at": 0.457
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.06,
+     "at": 0.507
+    },
+    {
+     "do": "prop",
+     "id": "bud",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.527
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.1,
+     "at": 0.537
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 22,
+     "dur": 0.3,
+     "at": 0.757
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.085,
+       0.056,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.87,
+       0.18,
+       -0.079
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.757
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "rot": 202
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.757
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bud",
+      "grip": [
+       0,
+       0.006,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.556,
+       0.3,
+       -0.077
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.807
+    },
+    {
+     "do": "prop",
+     "id": "bud",
+     "set": {
+      "rot": 202
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.807
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "set": {
+      "curve": 0.1
+     },
+     "at": 0.957
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.45
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.957
+    }
+   ]
+  },
+  {
+   "name": "fair",
+   "at": 64.366,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     -2.266,
+     1.096,
+     1.108
+    ],
+    "look": [
+     0,
+     1.096,
+     -0.2
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -2.039,
+      1.096,
+      0.977
+     ],
+     "look": [
+      0,
+      1.096,
+      -0.2
+     ],
+     "fov": 34
+    },
+    "dur": 2.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "squint": 1,
+      "lean": 0.6
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.024
+    },
+    {
+     "do": "prop",
+     "id": "bud",
+     "set": {
+      "tremble": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.124
+    },
+    {
+     "sfx": "ai/bear-huff",
+     "gain": 0.25,
+     "at": 0.224
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "squint": 0.3,
+      "lean": 0.3
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.424
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "nod": 0.5
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.524
+    },
+    {
+     "who": "hv",
+     "macro": "say",
+     "line": "...Fair.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "take": 4,
+     "dur": 0.8,
+     "caption": false,
+     "at": 1.524
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.644
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.864
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.324
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "nod": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.424
+    }
+   ]
+  },
+  {
+   "name": "the sip",
+   "at": 66.866,
+   "len": 1.167,
+   "shot": {
+    "pos": [
+     -1.057,
+     0.842,
+     1.677
+    ],
+    "look": [
+     -1.78,
+     0.62,
+     -0.31
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.115,
+      0.824,
+      1.518
+     ],
+     "look": [
+      -1.78,
+      0.62,
+      -0.31
+     ],
+     "fov": 34
+    },
+    "dur": 1.15,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "release",
+     "prop": "bud",
+     "dur": 0,
+     "to": [
+      -1.12,
+      0.2,
+      -0.05
+     ],
+     "at": 0.024
+    },
+    {
+     "do": "prop",
+     "id": "bud",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.034
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.074
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.074
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "pay": 1
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.124
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.8,
+     "at": 0.144
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 32,
+     "dur": 0.2,
+     "at": 0.424
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.474
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.085,
+       0.056,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.708,
+       0.3,
+       -0.119
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.624
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "rot": 212,
+      "tip": -55
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.624
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.624
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "set": {
+      "open": 0.3
+     },
+     "at": 0.774
+    },
+    {
+     "sfx": "ai/sip",
+     "gain": 0.8,
+     "at": 0.924
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "gold": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.974
+    },
+    {
+     "do": "prop",
+     "id": "sip",
+     "set": {
+      "flow": 1
+     },
+     "dur": 0.9,
+     "ease": "out",
+     "at": 0.974
+    },
+    {
+     "do": "prop",
+     "id": "sip",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.974
+    },
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "gold": 1,
+      "runes": 1
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.974
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "gold": 1
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.974
+    },
+    {
+     "sfx": "ai/warm-resolve",
+     "gain": 0.7,
+     "at": 0.974
+    },
+    {
+     "sfx": "magic-up",
+     "gain": 0.35,
+     "at": 1.074
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.2,
+     "at": 1.074
+    }
+   ]
+  },
+  {
+   "name": "gold",
+   "at": 68.033,
+   "len": 1.933,
+   "shot": {
+    "pos": [
+     -2.076,
+     1.405,
+     3.27
+    ],
+    "look": [
+     -1.48,
+     0.8,
+     -0.11
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -2.076,
+      1.705,
+      3.27
+     ],
+     "look": [
+      -1.48,
+      0.8,
+      -0.11
+     ],
+     "fov": 38
+    },
+    "dur": 1.95,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0.007
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.085,
+       0.056,
+       0.023
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.772,
+       0.2,
+       -0.032
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.257
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "rot": 212,
+      "tip": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.257
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 0.307
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.06,
+     "set": {
+      "open": 0.1
+     },
+     "at": 0.697
+    },
+    {
+     "do": "prop",
+     "id": "sip",
+     "set": {
+      "flow": 0.4,
+      "glow": 0.4
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.707
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.757
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "So now I know everything?",
+     "tone": "excited",
+     "style": "breathless, amazed",
+     "voice": "chip-clean",
+     "dur": 1.15,
+     "caption": false,
+     "at": 0.757
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "one thing",
+   "at": 69.966,
+   "len": 3.934,
+   "shot": {
+    "pos": [
+     -1.977,
+     1.267,
+     2.156
+    ],
+    "look": [
+     0,
+     1.16,
+     -0.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -1.819,
+      1.258,
+      1.968
+     ],
+     "look": [
+      0,
+      1.16,
+      -0.2
+     ],
+     "fov": 36
+    },
+    "dur": 3.91,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "lean": 0.5
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.124
+    },
+    {
+     "who": "hv",
+     "macro": "say",
+     "line": "One eye. One sip. One thing.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "take": 5,
+     "dur": 3.61,
+     "caption": false,
+     "at": 0.124
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.214
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.434
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.816
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.036
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.418
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.638
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 2.019
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.234
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 2.239
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 2.621
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 2.841
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 3.223
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0.1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 3.443
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "speak": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 3.734
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 3.834
+    },
+    {
+     "sfx": "ai/slowmo-air",
+     "gain": 0.4,
+     "at": 3.834
+    }
+   ]
+  },
+  {
+   "name": "wednesday",
+   "at": 73.9,
+   "len": 2.766,
+   "shot": {
+    "pos": [
+     -0.326,
+     0.778,
+     1.422
+    ],
+    "look": [
+     -1.78,
+     0.62,
+     -0.31
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -0.471,
+      0.762,
+      1.249
+     ],
+     "look": [
+      -1.78,
+      0.62,
+      -0.31
+     ],
+     "fov": 32
+    },
+    "dur": 2.97,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 25.215000000000003,
+     "dur": 0.4,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.4,
+      0.55
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.3,
+     "set": {
+      "open": 0.1
+     },
+     "at": 0.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Wednesday... is named after you.",
+     "tone": "excited",
+     "style": "slow dawning wonder, a discovery",
+     "voice": "chip-clean",
+     "dur": 2.17,
+     "caption": false,
+     "at": 0.7
+    },
+    {
+     "who": "odin",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.15
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1
+    }
+   ]
+  },
+  {
+   "name": "my day",
+   "at": 76.666,
+   "len": 2.834,
+   "shot": {
+    "pos": [
+     -1.717,
+     1.116,
+     4.504
+    ],
+    "look": [
+     0.85,
+     1.35,
+     2.35
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.512,
+      1.135,
+      4.332
+     ],
+     "look": [
+      0.85,
+      1.35,
+      2.35
+     ],
+     "fov": 30
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "odin",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.6,
+     "set": {
+      "tilt": 0.12,
+      "browY": 0.012,
+      "curve": 0.9,
+      "eye": 0.9
+     },
+     "at": 0.004
+    },
+    {
+     "who": "odin",
+     "do": "face",
+     "lidR": 1,
+     "dur": 0.6,
+     "at": 0.004
+    },
+    {
+     "do": "prop",
+     "id": "spear",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.004
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "Woden's day. My day.",
+     "tone": "calm",
+     "style": "old, deep, warm, proud, the first smile",
+     "voice": "reaper",
+     "take": 5,
+     "dur": 2.46,
+     "caption": false,
+     "at": 0.304
+    },
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "gold": 0,
+      "runes": 0.35
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 2.764
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "gold": 0
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 2.764
+    },
+    {
+     "do": "prop",
+     "id": "sip",
+     "set": {
+      "flow": 0,
+      "glow": 0
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 2.764
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "gold": 0
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 2.764
+    }
+   ]
+  },
+  {
+   "name": "i paid an eye",
+   "at": 79.5,
+   "len": 1.533,
+   "shot": {
+    "pos": [
+     0.221,
+     1.459,
+     5.171
+    ],
+    "look": [
+     -0.44,
+     0.924,
+     1.42
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.181,
+      1.427,
+      4.946
+     ],
+     "look": [
+      -0.44,
+      0.924,
+      1.42
+     ],
+     "fov": 40
+    },
+    "dur": 1.55,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.07,
+     "dur": 0.08,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I paid an eye for that?!",
+     "tone": "excited",
+     "style": "outraged, high, fast",
+     "voice": "chip-clean",
+     "dur": 1.12,
+     "caption": false,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 0.23
+    },
+    {
+     "who": "odin",
+     "do": "face",
+     "lidR": 0.4,
+     "dur": 0.3,
+     "at": 1.25
+    },
+    {
+     "who": "odin",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.3,
+     "set": {
+      "smirk": 0.4,
+      "raise": 0.01
+     },
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "well",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "head",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "room",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "class",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "desk",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "test",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.52
+    },
+    {
+     "who": "chip",
+     "do": "release",
+     "prop": "cup",
+     "dur": 0,
+     "to": [
+      0,
+      -60,
+      0
+     ],
+     "at": 1.52
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -300,
+      0.9
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 1.53
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.53
+    },
+    {
+     "who": "chip",
+     "do": "sit",
+     "rot": 0,
+     "height": 0.42,
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 1.53
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.53
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.53
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -270,
+      30
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 1.53
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.53
+    },
+    {
+     "who": "odin",
+     "do": "move",
+     "to": [
+      -267,
+      30
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "steps": 0,
+     "at": 1.53
+    },
+    {
+     "who": "odin",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.53
+    },
+    {
+     "do": "prop",
+     "id": "spear",
+     "set": {
+      "x": -267.46,
+      "y": 0,
+      "z": 30.1,
+      "rot": 0,
+      "tip": -6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.53
+    }
+   ]
+  },
+  {
+   "name": "the classroom",
+   "at": 81.033,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -300,
+     1.67,
+     4.362
+    ],
+    "look": [
+     -300,
+     0.934,
+     0.9
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -300,
+      1.611,
+      4.085
+     ],
+     "look": [
+      -300,
+      0.934,
+      0.9
+     ],
+     "fov": 36
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.01,
+     "set": {
+      "curve": -0.25,
+      "eye": 1.05
+     },
+     "at": 0.017
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.017
+    },
+    {
+     "sfx": "typing",
+     "gain": 0.15,
+     "at": 0.117
+    }
+   ]
+  },
+  {
+   "name": "the test",
+   "at": 82.633,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -300,
+     1.2,
+     1.85
+    ],
+    "look": [
+     -300,
+     0.62,
+     1.43
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -300,
+      1.13,
+      1.8
+     ],
+     "look": [
+      -300,
+      0.62,
+      1.43
+     ],
+     "fov": 30
+    },
+    "dur": 1.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "class",
+     "set": {
+      "calm": 1
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.017
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 2,
+     "set": {
+      "eye": 0.6
+     },
+     "at": 0.617
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "odin's day",
+   "at": 83.733,
+   "len": 2.334,
+   "shot": {
+    "pos": [
+     -300,
+     1.187,
+     3.154
+    ],
+    "look": [
+     -300,
+     0.95,
+     0.9
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -300,
+      1.151,
+      2.816
+     ],
+     "look": [
+      -300,
+      0.95,
+      0.9
+     ],
+     "fov": 32
+    },
+    "dur": 2.317,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.617
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Because it's Odin's day.",
+     "tone": "calm",
+     "style": "smug, slow, savouring it",
+     "voice": "chip-clean",
+     "take": 2,
+     "dur": 1.07,
+     "caption": false,
+     "at": 0.917
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.29,
+   "see": [
+    "chip",
+    "odin",
+    "well"
+   ],
+   "why": "a little potato in a yellow hoodie, a wooden cup in his hand, asks a tall one-eyed old god with an eyepatch, a wide hat and two ravens on his shoulders, in a misty cave by a glowing well"
+  },
+  {
+   "from": 10.44,
+   "to": 12.64,
+   "see": [
+    "head",
+    "well"
+   ],
+   "why": "the water bulges and a huge mossy stone head with a floating beard rises out of the glowing well; its eyes open, glowing pale blue"
+  },
+  {
+   "from": 17.78,
+   "to": 19.23,
+   "see": [
+    "floor"
+   ],
+   "why": "under water: on the glowing pebbles of the well floor lies an eye looking up; it blinks"
+  },
+  {
+   "from": 21.57,
+   "to": 27.57,
+   "see": [
+    "tree"
+   ],
+   "why": "a giant ash tree in the wind, the camera climbing its trunk past moss, fungi and carved runes; leaves stream"
+  },
+  {
+   "from": 27.62,
+   "to": 31.21,
+   "see": [
+    "staves"
+   ],
+   "why": "nine glowing rune staves drift down past the bark"
+  },
+  {
+   "from": 36.2,
+   "to": 37.57,
+   "see": [
+    "pile",
+    "chip"
+   ],
+   "why": "the rope slips off his foot and he drops headfirst into a big pile of autumn leaves; leaves fly up, only his trainers stick out"
+  },
+  {
+   "from": 37.97,
+   "to": 38.97,
+   "see": [
+    "fr1",
+    "fr2",
+    "odin"
+   ],
+   "why": "two black ravens swoop down and land on the old god's shoulders"
+  },
+  {
+   "from": 49.12,
+   "to": 51.52,
+   "see": [
+    "chip",
+    "well"
+   ],
+   "why": "while the head talks to the old god, the little potato tiptoes to the well's edge and dips his cup"
+  },
+  {
+   "from": 61.54,
+   "to": 63.19,
+   "see": [
+    "chip.face"
+   ],
+   "why": "close on the little potato's skin: small potato-eye dimples all over it"
+  },
+  {
+   "from": 63.34,
+   "to": 64.59,
+   "see": [
+    "chip",
+    "bud"
+   ],
+   "why": "he plucks one tiny potato eye off his own skin, pop, and holds it out"
+  },
+  {
+   "from": 67.49,
+   "to": 68.84,
+   "see": [
+    "chip",
+    "sip",
+    "cup"
+   ],
+   "why": "he drinks; golden light runs through him and his leaves stand straight up"
+  },
+  {
+   "from": 81.05,
+   "to": 84.25,
+   "see": [
+    "test",
+    "chip"
+   ],
+   "why": "next morning in a classroom: his test sheet shows a little calendar strip with the middle day circled; he starts to smile"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "odin",
+   "with": "rv1",
+   "from": 0,
+   "to": 86.067,
+   "checks": [
+    "clipping",
+    "shell",
+    "arm-in-prop",
+    "costume-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "the ravens perch on his fur shoulders (toes wrapped round the shelf) and land there; his arms and mantle brush their feathers"
+  },
+  {
+   "who": "odin",
+   "with": "rv2",
+   "from": 0,
+   "to": 86.067,
+   "checks": [
+    "clipping",
+    "shell",
+    "arm-in-prop",
+    "costume-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "the ravens perch on his fur shoulders (toes wrapped round the shelf) and land there; his arms and mantle brush their feathers"
+  },
+  {
+   "who": "odin",
+   "with": "fr1",
+   "from": 0,
+   "to": 86.067,
+   "checks": [
+    "clipping",
+    "shell",
+    "arm-in-prop",
+    "costume-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "the ravens perch on his fur shoulders (toes wrapped round the shelf) and land there; his arms and mantle brush their feathers"
+  },
+  {
+   "who": "odin",
+   "with": "fr2",
+   "from": 0,
+   "to": 86.067,
+   "checks": [
+    "clipping",
+    "shell",
+    "arm-in-prop",
+    "costume-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "the ravens perch on his fur shoulders (toes wrapped round the shelf) and land there; his arms and mantle brush their feathers"
+  },
+  {
+   "who": "chip",
+   "with": "tree",
+   "from": 31.41,
+   "to": 36.2,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "he hangs by the rope under the branch (rope bench: the loop on his ankle right under the bark groove)"
+  },
+  {
+   "who": "chip",
+   "with": "well",
+   "from": 51.82,
+   "to": 81.05,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "he stands at the worn sip stone; his left glove rests on the low rim"
+  },
+  {
+   "who": "chip",
+   "with": "tree",
+   "from": 36.2,
+   "to": 37.72,
+   "checks": [
+    "clipping",
+    "shell",
+    "body-in-prop"
+   ],
+   "reason": "headfirst in the leaf pile: his body is under the ground line of the tree set inside the pile's crater"
+  },
+  {
+   "who": "chip",
+   "with": "cup",
+   "from": 67.49,
+   "to": 68.64,
+   "checks": [
+    "face-covered",
+    "prop-in-self"
+   ],
+   "reason": "he drinks from the cup: it is at his mouth"
+  },
+  {
+   "who": "odin",
+   "with": "spear",
+   "from": 0,
+   "to": 86.067,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "his right hand holds the planted spear's shaft the whole film (the Odin bench's rest grip)"
+  },
+  {
+   "who": "chip",
+   "with": "well",
+   "from": 50.62,
+   "to": 51.82,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "the dip: his hand and cup go over the worn sip stone into the water"
+  },
+  {
+   "who": "chip",
+   "with": "rope",
+   "from": 31.41,
+   "to": 36.2,
+   "checks": [
+    "leg-in-prop",
+    "costume-in-prop",
+    "body-in-prop"
+   ],
+   "reason": "the rope's loop is knotted round his ankle (the loop sits on the leg by design)"
+  },
+  {
+   "who": "chip",
+   "with": "pile",
+   "from": 36.2,
+   "to": 37.72,
+   "checks": [
+    "body-in-prop",
+    "leg-in-prop",
+    "costume-in-prop",
+    "clipping",
+    "shell"
+   ],
+   "reason": "he lands headfirst in the leaf pile: the crater closes round his ankles, only the trainers show"
+  },
+  {
+   "who": "chip",
+   "with": "desk",
+   "from": 81.05,
+   "to": 86.067,
+   "checks": [
+    "body-in-prop",
+    "leg-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "he sits on the desk's chair (the chair is part of the desk)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/norse-myth/01-wednesday/make-odin.mjs."
+}
