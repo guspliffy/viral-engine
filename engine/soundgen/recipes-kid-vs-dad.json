@@ -1,0 +1,48 @@
+{
+ "_note": "Recipes for Kid vs Dad 01 (dad jokes), kept in their own file so parallel clips don't edit recipes.json. Realistic sounds only. Same format and tools: generate.py, pick.py (see recipes.json). rimshot = the neighbour's real drum kit 'ba-dum-tss' sting behind the fence; snare-hit = one clean snare hit; coin-jar = one coin dropped into a big glass jar full of coins.",
+ "sfx": [
+  {
+   "id": "rimshot",
+   "kind": "oneshot",
+   "len": [1.2, 1.6],
+   "duration": 8,
+   "tags": ["drums", "rimshot", "ba-dum-tss", "joke", "cymbal", "snare"],
+   "prompts": [
+    "real acoustic drum kit rimshot joke sting, ba-dum-tss: two quick snare and tom hits then one crash cymbal hit ringing out, dry, close microphone, outdoors, one sting then silence, no music, no voice, no crowd",
+    "a drummer plays a quick ba-dum-tss on a real snare drum, a tom and a crash cymbal, dry close-miked drum kit sound effect, one single sting then silence, no music, no people talking"
+   ],
+   "seeds": [601, 602, 603],
+   "gain": 0.6,
+   "label": "a drum kit rimshot ba-dum-tss: two snare hits and a crash cymbal"
+  },
+  {
+   "id": "snare-hit",
+   "kind": "split",
+   "len": [0.15, 0.6],
+   "duration": 8,
+   "tags": ["drums", "snare", "hit"],
+   "prompts": [
+    "single hits on a real acoustic snare drum, one hit at a time with silence between, dry, close microphone, outdoors, no music, no cymbals",
+    "a drummer hitting a snare drum with a stick, separate single snare hits spaced apart, dry close-miked sound effect, no music, no voice"
+   ],
+   "seeds": [611, 612, 613],
+   "gain": 0.5,
+   "label": "a single snare drum hit"
+  },
+  {
+   "id": "coin-jar",
+   "kind": "split",
+   "len": [0.3, 0.9],
+   "duration": 8,
+   "tags": ["coin", "jar", "glass", "clink", "change"],
+   "prompts": [
+    "one metal coin dropped into a big glass jar already full of coins, a short glassy clink and coin rattle, then silence, repeated a few times with pauses, close up, dry, no music",
+    "dropping a single coin into a large glass jar of coins, glassy clink and small metallic rattle, separate drops with quiet gaps, close microphone, indoor kitchen, no music, no voice"
+   ],
+   "seeds": [621, 622, 623],
+   "gain": 0.5,
+   "label": "a single coin dropped into a glass jar full of coins"
+  }
+ ],
+ "music": []
+}
