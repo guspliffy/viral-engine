@@ -61,7 +61,7 @@ const SPEAKER = { kid: "kv" };
 
 // ---------------------------------------------------------------- props (DESIGN A-F)
 const TEAL_B = { id: "bt", kind: "kboot", who: "spud", x: TEAL[0], y: 0, z: TEAL[2], rot: -35 };
-const YEL_B = { id: "by", kind: "kboot", who: "chip", x: YEL[0], y: 0, z: YEL[2], rot: -35, mud: 1, treatsFall: 0.75 };   // the treats drop in from above the pour insert's top edge (Sol r2 #23)
+const YEL_B = { id: "by", kind: "kboot", who: "chip", x: YEL[0], y: 0, z: YEL[2], rot: -35, mud: 1, treatsFall: 0.5 };   // the treats drop in from above the pour insert's top edge (Sol r2 #23)
 const D9 = { id: "b9", kind: "kboot", style: "suede", x: BOOT_AT(9)[0], y: Y(9), z: BOOT_AT(9)[2], rot: -25 };
 const D8 = { id: "b8", kind: "kboot", style: "leather", x: BOOT_AT(8)[0], y: Y(8), z: BOOT_AT(8)[2], rot: -25 };
 const N_SPUD0 = noteAt("spud", TEAL_B), N_CHIP0 = noteAt("chip", YEL_B, 0.867, 0.26);
@@ -242,7 +242,7 @@ say(5);
 const BASKET = r3(END_OF(5) + 0.1);
 // the lid lifts, the kid's eyes peek over the rim, a claw-tap slams it shut on him (Sol r2 #11: the kicks never read)
 P(BASKET - 0.05, "kr", { lid: 0.75 }, 0.3, "out"); P(BASKET + 0.1, "kr", { kidPeek: 1 }, 0.35, "out");
-P(BASKET + 0.85, "kr", { kidPeek: 0 }, 0.12, "in"); P(BASKET + 0.88, "kr", { lid: 0 }, 0.1, "in");
+P(BASKET + 0.8, "kr", { kidPeek: 0 }, 0.2, "in"); P(BASKET + 0.84, "kr", { lid: 0 }, 0.16, "in");   // 0.1 s: a one-frame pop at the farm check
 sfx(BASKET, "door-creak", { gain: 0.3 }); sfx(BASKET + 0.96, "thud-soft", { gain: 0.55 }); sfx(BASKET + 0.98, "kenney/impact-wood-light", { gain: 0.3 });
 look(BASKET, "spud", [-0.7, 0.3], 0.3); expr(BASKET + 0.3, "chip", "terrified");
 see(BASKET, r3(BASKET + 1.2), ["kr"], "his wicker basket: the lid lifts, the kid peeks out, the lid slams shut on him");
@@ -336,8 +336,8 @@ say(15);
 const SNIFF = r3(END_OF(15) + 0.15);
 atDoor(SNIFF, 6); P(SNIFF, "lane", { visited: 6, tense: 0.7 }, 0);
 P(SNIFF, "lane", { snowfall: 0.6 }, 1.0);
-P(SNIFF + 0.1, "kr", { headPitch: 0.35, nose: 0.3 }, 0.4); P(SNIFF + 0.4, "kr", { sniff: 1 }, 0.12); P(SNIFF + 0.55, "kr", { sniff: 0 }, 0.12);
-P(SNIFF + 0.7, "kr", { sniff: 1 }, 0.12); P(SNIFF + 0.85, "kr", { sniff: 0 }, 0.12);
+P(SNIFF + 0.1, "kr", { headPitch: 0.35, nose: 0.3 }, 0.4); P(SNIFF + 0.35, "kr", { sniff: 1 }, 0.2); P(SNIFF + 0.6, "kr", { sniff: 0 }, 0.2);
+P(SNIFF + 0.85, "kr", { sniff: 1 }, 0.2); P(SNIFF + 1.1, "kr", { sniff: 0 }, 0.2);   // 0.12 s pulses popped for one frame
 sfx(SNIFF + 0.4, "ai/bear-huff", { gain: 0.35 }); sfx(SNIFF + 0.7, "ai/bear-huff", { gain: 0.3 });
 P(SNIFF + 1.8, "kr", { headYaw: 0.6, headPitch: 0, glow: 1 }, 0.5);   // toward the pile (down the lane)
 see(SNIFF, r3(SNIFF + 2.4), ["kr"], "up the lane the Krampus stops in the falling snow, sniffs the air like a dog and turns toward the woodpile");
@@ -410,7 +410,7 @@ for (const [id, side, A0, dy, dz, B] of [["nt", "R", N_SPUD0, 0.18, 0.06, N_SPUD
 P(SWAP + SWD, "nt", { y: N_SPUD1.y, swing: 1 }, 0.1); P(SWAP + SWD, "ny", { y: N_CHIP1.y, swing: 1 }, 0.1);
 P(SWAP + SWD + 0.1, "nt", { swing: 0, kink: 1 }, 0.5); P(SWAP + SWD + 0.1, "ny", { swing: 0 }, 0.5);
 sfx(SWAP + 0.1, "cloth", { gain: 0.3 }); sfx(SWAP + SWD, "kenney/impact-wood-light", { gain: 0.2 });
-arm(SWAP + SWD + 0.15, "chip", "R", "rest", 0.3); arm(SWAP + SWD + 0.15, "chip", "L", "rest", 0.3);
+arm(r3(FL(SWAP + SWD + 0.7) - 0.03), "chip", "R", "rest", 0.01); arm(r3(FL(SWAP + SWD + 0.7) - 0.03), "chip", "L", "rest", 0.01);   // the crossed arms stay on the pegs to the cut (uncrossing jumped 17 cm)
 grip(SWAP + SWD + 0.15, "chip", "R", "relaxed"); grip(SWAP + SWD + 0.15, "chip", "L", "relaxed");
 see(SWAP, r3(SWAP + SWD + 0.3), ["nt", "ny", "chip"], "close: his hands swap the two crayon drawings between the teal boot and the yellow boot");
 
@@ -429,10 +429,10 @@ P(D4, "book", { spread: "good", page: Math.round(pageNow += 1), glow: 1 }, 0.27)
 expr(D4 + 0.6, "nick", "happy", 0.3); sfx(D4 + 0.5, "cloth", { gain: 0.3 });
 see(D4, r3(D4 + 1.2), ["nick", "book", "by", "nt"], "Saint Nick kneels at the yellow boot (it now wears the teal drawing), reads a short glowing page and smiles");
 const POUR = r3(D4 + 0.9);
-P(POUR, "by", { treats: 1 }, 1.1, "linear");
+P(POUR, "by", { treats: 1 }, 1.8, "linear");   // 0.36 s a piece: at 0.22 s a mandarin jumped from the top edge into the heap
 for (let k = 0; k < 5; k++) sfx(r3(POUR + k * 0.22), "coins", { gain: 0.35 });
 // CHIP: I'm a good kid!
-L(21, POUR + 1.2 - now);   // the pour plays in its own insert before he speaks (Sol r1 + r2 #23)
+L(21, POUR + 1.85 - now);   // the pour plays in its own insert before he speaks (Sol r1 + r2 #23)
 expr(T[21] - 0.1, "chip", "delighted"); A(T[21], "chip", "hop", { height: 0.1, dur: 0.35, quiet: true });
 say(21);
 see(POUR, END_OF(21), ["by", "chip"], "chocolate coins, mandarins and walnuts pour into the yellow boot; the little one beams");

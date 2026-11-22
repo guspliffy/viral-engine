@@ -827,7 +827,8 @@ function buildBoot(P) {
       const NP = heap.length, win = 0.2;
       for (const h of heap) {
         const a = (h.i / NP) * (1 - win), p = clamp((trt - a) / win); h.wrap.visible = p > 0.001;
-        if (h.wrap.visible) { const fall = 1 - p * p; h.wrap.position.set(h.x + 0.012 * fall * (rr(h.i * 2.1) - 0.5), h.y + (S.treatsFall ?? 0.12) * fall, h.z); h.wrap.rotation.set(h.rx + fall * (rr(h.i * 3.3) - 0.5) * 2, h.ry + fall * 1.5, h.rz); }
+        if (h.wrap.visible) { const fall = (S.treatsFall ?? 0.12) > 0.3 ? 1 - 0.5 * p - 0.5 * p * p : 1 - p * p;   // a long fall lands slower (no one-frame jump into the heap)
+          h.wrap.position.set(h.x + 0.012 * fall * (rr(h.i * 2.1) - 0.5), h.y + (S.treatsFall ?? 0.12) * fall, h.z); h.wrap.rotation.set(h.rx + fall * (rr(h.i * 3.3) - 0.5) * 2, h.ry + fall * 1.5, h.rz); }
       }
     },
   };
