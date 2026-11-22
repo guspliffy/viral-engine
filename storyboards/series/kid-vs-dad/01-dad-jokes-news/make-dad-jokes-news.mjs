@@ -32,7 +32,7 @@ const END_OF = (i) => r3(T[i] + DUR[i]);
 // ---------------------------------------------------------------- places (DESIGN section 7: x right, z toward us)
 const BENCH = [0.40, 0.30], SHED = [-1.62, -0.72];
 const CHIP_SEAT = [0.05, 0.34], CHIP_STAND = [-0.24, 0.96];
-const DAD_IN = [-1.57, -0.43], DAD_DOOR = [-1.2, -0.01], DAD_STAGE = [-0.85, 0.45], DAD_JAR = [0.98, 1.08], DAD_END = [0.85, 1.05];
+const DAD_IN = [-1.57, -0.43], DAD_DOOR = [-1.2, -0.01], DAD_STAGE = [-0.98, 0.5], DAD_JAR = [0.98, 1.08], DAD_END = [0.72, 1.12];
 const REP_COVER = [1.9, 0.35], REP_OUT = [1.85, 0.8];
 const KIT = [3.95, -3.15], SPUD_AT = [3.9, -3.77], SPUD_Y = 0.45;   // behind his kit, as the props bench (the drum between him and the fence)
 const JAR_AT = [0.42, 0.92];   // on the grass in front of the bench, by the kid's right
@@ -173,7 +173,7 @@ arm(r3(T[6] - PRE.big - 1.05), "wedge", "R", { x: [-0.1, 0.32, 0.38] }, 0.25);  
 walk(r3(T[6] - PRE.big - 0.85), "wedge", DAD_STAGE, 0.65, Y_DAD_STAGE);   // lands on his mark before the delivery starts
 bigDelivery(6); say(6);
 landJoke(6);
-c.prop(onCut(r3(END_OF(6) + 0.1)), "shed", { open: 0 }, 0.01, "linear");   // shut on the cut after he has left it (DESIGN 6)
+c.prop(onCut(r3(T[6] - PRE.big + 0.02)), "shed", { open: 0 }, 0.01, "linear");   // he pulled it shut behind him off screen; set on the cut into "Hi Tired"   // shut on the cut after he has left it (DESIGN 6)
 A(r3(END_OF(6) + 0.6), "chip", "face", { lid: 0.5, dur: 0.3 });
 // 8 REP stands up out of cover, firm: Sir. We are live. No more jokes.
 A(r3(T[7] - 0.35), "rep", "crouch", { to: 0, dur: 0.3 }); expr(r3(T[7] - 0.3), "rep", "stern", 0.2); look(r3(T[7] - 0.3), "rep", [-0.6, 0], 0.2);
@@ -360,7 +360,7 @@ const beats = c.beats([
   ["anti-gravity", cutAt(17), push(DAD_MED_J, 0.08, DUR[17] + 0.3)],
   ["put it down", jokeCut(18), push(DAD_LOW_J, 0.16, PRE.big + DUR[18] + 0.3), "escalation"],
   ["duck 3", r3(END_OF(18) + 0.1), push(REP_MED, 0.05, 1.3)],
-  ["the drum?!", cutAt(19), push(REP_MED, 0.1, DUR[19] + 0.4)],
+  ["the drum?!", cutAt(19), push(REP_LENS, 0.1, DUR[19] + 0.4)],   // not REP_MED again: same angle twice reads as a jump cut
   ["the neighbour", r3(END_OF(19) + 0.25), push(FENCE, 0.1, T[20] - END_OF(19) + DUR[20]), "reveal"],
   ["the coin flick", r3(END_OF(20) + 0.05), push(DAD_MED_S, 0.04, 0.6)],
   ["catch", r3(END_OF(20) + 0.6), push(SPUD_MED, 0.05, T[21] - END_OF(20) - 0.6)],
