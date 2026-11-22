@@ -7147,7 +7147,7 @@
    "who": "chip",
    "with": "bt",
    "from": 57.84,
-   "to": 59.39,
+   "to": 59.51,
    "checks": [
     "hand-in-prop",
     "arm-in-prop",
@@ -7160,7 +7160,7 @@
    "who": "chip",
    "with": "by",
    "from": 57.84,
-   "to": 59.39,
+   "to": 59.51,
    "checks": [
     "hand-in-prop",
     "arm-in-prop",
