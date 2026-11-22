@@ -41,7 +41,7 @@ const CHIP_POL = [1.10, 1.55];   // polishing, on the apron in front of the boot
 const PILE_IN = [3.18, 0.38];    // inside the hollow (x 2.80..3.60, z 0.05..0.71), lying face down toward +x
 const CHIP_OUT = [2.20, 0.95];   // crawled out of the hollow mouth
 const SPUD_E = [1.25, 0.62], CHIP_E = [2.12, 0.62];   // z 0.62: clear of the snow banked on the plinth   // the payoff: on the apron behind their boots, facing out; the Krampus left, Nick right
-const K4 = [0.07, 0, 1.10], K4ROT = 100, NICK_Y = [2.65, 0, 1.30], NICK_T = [0.80, 0, 1.95], NICK_OFF = [-1.35, 0, 1.6];   // Nick reads the long page from the lane side, then steps off
+const K4 = [0.07, 0, 1.10], K4ROT = 100, NICK_Y = [2.78, 0, 1.34], NICK_T = [0.80, 0, 1.95], NICK_OFF = [-1.35, 0, 1.6];   // Nick reads the long page from the lane side, then steps off
 const AWAY = -60;
 
 // ---------------------------------------------------------------- the drawings on their pegs (bench/make-boots-bench.mjs noteAt)
@@ -168,7 +168,7 @@ const WIND = [];   // laid at the end, up to END
 const NARR = 0.1, NARR_LINE = "In Austria, one night a year, Krampus checks every kid's boot.";
 const NARR_V = { ...VOICES.narrator, tempo: 1.2 }, ND = r3(4.78 / 1.2);   // 4.78 s measured at tempo 1 (22 Nov)
 c.at(NARR, { macro: "narrate", line: NARR_LINE, voice: NARR_V, dur: ND, caption: false, gain: 4.0 });
-cap(NARR, r3(NARR + ND + 0.15), "In *Austria,* one night a year, *Krampus* checks every kid's boot.", SUB, false, { size: 64 });
+cap(NARR, r3(NARR + ND + 0.15), "In *Austria,* one night a year, *Krampus* checks every kid's boot.", SUB, false, { size: 64, across: true });   // the narrator line runs across the cuts
 bells(0.0, 0.22, 3); sfx(0.9, "bell-heavy", { gain: 0.18 });
 see(0, 1.9, ["lane"], "a snowy Alpine village at night, lit windows, a lane of wooden houses running up the hill");
 const KR_CUT = r3(NARR + 1.75);   // on "Krampus"
@@ -398,7 +398,7 @@ see(SWAP, r3(SWAP + SWD + 0.3), ["nt", "ny", "chip"], "close: his hands swap the
 // ================================================================= 55-72 DOOR 4: CHOCOLATE (false close 3), THEN THE LONG PAGE
 const D4 = r3(SWAP + SWD + 0.7);
 P(D4 - 0.02, "lane", { visited: 4, lit: 4, tense: 0, snowfall: 0.2 }, 0);
-place(D4, "spud", SPUD_E, 10); place(D4, "chip", [CHIP_E[0] - 0.14, CHIP_E[1]], -10);   // clear of Nick's hand as he kneels
+place(D4, "spud", SPUD_E, 10); place(D4, "chip", CHIP_E, -10);
 expr(D4, "spud", "kind", 0.01); expr(D4, "chip", "eager", 0.01); look(D4, "spud", [0.4, -0.3], 0.01); look(D4, "chip", [-0.1, -0.45], 0.01);
 // Nick at the yellow boot (now wearing Spud's drawing): he kneels, reads a short glowing page and smiles
 place(D4, "nick", [NICK_Y[0], NICK_Y[2]], 255, 0);
