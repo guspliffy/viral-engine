@@ -1,0 +1,72 @@
+{
+  "id": "potatobrawl/spud-kid",
+  "name": "Tato (Spud at seven)",
+  "franchise": "PotatoBrawl",
+  "source": "potatobrawl/spud, shrunk for Kid vs Dad 02 \"We have food at home\" (storyboards/series/kid-vs-dad/02-food-at-home/DESIGN.md section 1). A variant file, not the cast scale key: gloves and limbs keep full size.",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.55,
+    "width": 0.5,
+    "depth": 0.44,
+    "lump": 0.02,
+    "seed": 29
+  },
+  "limbs": {
+    "color": "#6b4a2b",
+    "width": 0.03,
+    "shoulder": -0.32
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1.08
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 0.85
+    },
+    "size": 0.66
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "top",
+    "leaves": 1
+  },
+  "costume": {
+    "type": "spud",
+    "sweater": "#2f8f8a",
+    "patch": "#9a6a3c"
+  },
+  "personality": "The main character (Jonny, 11 Nov 2026). The one normal potato among the fighters, kept neutral on purpose: no quirk, no type. Wants an ordinary day, reacts the way the average person would, goes along with his friends. The fighters carry the quirks; he is the straight man the viewer stands in for.",
+  "voice": {
+    "pitch": 118,
+    "rate": 3.1,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 57
+  },
+  "voiceNote": "gibberish, mid and plain (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.05,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Tato, the kid: Spud at seven. Body 0.55 x 0.50 x 0.44 (0.56 of the dad's height), face size 0.66, hands 1.05, one leaf, teal sweater #2f8f8a, no yellow. Faces and the two seat marks: DESIGN.md section 1."
+}
