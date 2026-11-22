@@ -12,7 +12,7 @@ import { ravenCounts } from "../../../../../engine/page/props-norse-raven.js";
 
 const c = clip(), { A } = c;
 const ONLY = process.argv.slice(2);
-const BASE = { wings: 0, flap: 0, glide: 0, brake: 0, grip: 1, lean: 0, headYaw: 0, headPitch: 0, headRoll: 0, talk: 0, ruff: 0, shake: 0, hop: 0, blink: 0, tint: 0 };
+const BASE = { wings: 0, flap: 0, glide: 0, brake: 0, grip: 1, lean: 0, headYaw: 0, headPitch: 0, headRoll: 0, talk: 0, ruff: 0, shake: 0, hop: 0, blink: 0, tint: 0, perchR: 0.05 };
 const POS = { r1: [-0.34, 0.97, -0.01], r2: [0.34, 0.97, -0.01] };
 const GONE = [60, 0, -20];
 const shots = [];
@@ -30,6 +30,8 @@ shot("head2", { r1: GONE }, frame([SH, SY + 0.23, 0.1], { az: 30, el: 8, h: 0.24
 shot("backV", { r1: {}, r2: {} }, frame([0, 1.1, -0.1], { az: 180, el: 24, h: 2.3, fov: 22 }));
 shot("wingsF", { r1: { wings: 1 }, r2: { wings: 1 } }, frame([0, 1.15, 0.05], { az: 0, el: 6, h: 3.0, fov: 22 }));
 shot("tintT", { r1: { ...AIR(0, 1.2, 0), wings: 1, tint: 1 }, r2: GONE }, frame([5, 1.2, -0.02], { az: 0, el: 80, h: 1.35, fov: 22 }));
+shot("wingTop", { r1: { ...AIR(0, 1.2, 0), wings: 1 }, r2: GONE }, frame([5.2, 1.2, 0.0], { az: 0, el: 78, h: 0.9, fov: 22 }));
+shot("notchC", { r1: { ...AIR(0, 1.2, 0), wings: 1 }, r2: GONE }, frame([5.2, 1.2, -0.05], { az: 0, el: 80, h: 0.34, fov: 20 }));
 shot("tintF", { r1: { ...AIR(0, 1.2, 0), wings: 1, tint: 1 }, r2: GONE }, frame([5, 1.2, -0.02], { az: 0, el: 8, h: 1.35, fov: 22 }));
 shot("tintU", { r1: { ...AIR(0, 1.2, 0), wings: 1, tint: 1 }, r2: GONE }, frame([5, 1.2, -0.02], { az: 180, el: -35, h: 1.35, fov: 22 }));
 shot("tail0", { r1: GONE, r2: { ...AIR(0.0, 1.2, 0, 180), wings: 0 } }, frame([5, 1.18, -0.2], { az: 180, el: 25, h: 0.6, fov: 20 }));
@@ -40,9 +42,11 @@ shot("glide", { r1: { ...AIR(0, 1.2, 0, 0), glide: 1, flap: 0 }, r2: GONE }, fra
 shot("brake0", { r1: { ...AIR(0, 1.2, 0, 0), wings: 1, brake: 0.5 }, r2: GONE }, frame([5, 1.25, 0], { az: -90, el: 3, h: 1.1, fov: 22 }));
 shot("brake1", { r1: { ...AIR(0, 1.2, 0, 0), wings: 1, brake: 1 }, r2: GONE }, frame([5, 1.25, 0], { az: -90, el: 3, h: 1.1, fov: 22 }));
 shot("brakeF", { r1: { ...AIR(0, 1.2, 0, 0), wings: 1, brake: 1 }, r2: GONE }, frame([5, 1.25, 0], { az: 25, el: 8, h: 1.25, fov: 22 }));
+shot("pair200", { r1: [4.7, 0, 0.2], r2: [5.3, 0, 0.2] }, frame([5, 0.3, 0.2], { az: 0, el: 6, h: 4.8, fov: 24 }));
+shot("pair200b", { r1: [4.7, 0, 0.2], r2: [5.3, 0, 0.2] }, frame([5, 0.2, 0.2], { az: 0, el: 6, h: 1.8, fov: 20 }));
 shot("whisper0", { r1: { lean: 1, headYaw: 0.85, perchR: 0.05 }, r2: GONE }, frame([-0.25, 1.3, 0.1], { az: 0, el: 5, h: 2.13, fov: 24 }));
 shot("whisper1", { r1: { lean: 1, headYaw: 0.85, talk: 1, perchR: 0.05 }, r2: GONE }, frame([-0.25, 1.3, 0.1], { az: 0, el: 5, h: 2.13, fov: 24 }));
-shot("whisperC", { r1: { lean: 1, headYaw: 0.85, talk: 1, perchR: 0.05 }, r2: GONE }, frame([-0.25, 1.3, 0.1], { az: 40, el: 6, h: 0.55, fov: 20 }));
+shot("whisperC", { r1: { lean: 1, headYaw: 0.85, talk: 1, perchR: 0.05 }, r2: GONE }, frame([-0.3, 1.12, 0.1], { az: -70, el: 8, h: 0.55, fov: 20 }));
 shot("talk", { r1: GONE, r2: { talk: 1, ruff: 1, perchR: 0.05 } }, frame([SH, SY + 0.22, 0.1], { az: 80, el: 5, h: 0.28, fov: 20 }));
 shot("takeoff", { r1: { ...AIR(0, 1.05, 0, 0), wings: 1, flap: 0.2, hop: 0.5 }, r2: GONE }, frame([5, 1.15, 0], { az: -90, el: 3, h: 1.1, fov: 22 }));
 shot("foot", { r1: { perchR: 0.05 }, r2: GONE }, frame([-SH, SY + 0.01, 0.0], { az: -60, el: 12, h: 0.14, fov: 20 }));
@@ -53,7 +57,7 @@ shots.forEach(([name, ov, cam, tt], i) => {
   for (const id of ["r1", "r2"]) {
     const o = ov[id] ?? {}, place = Array.isArray(o) ? o : null;
     const base = { x: POS[id][0], y: POS[id][1], z: POS[id][2], rot: 0 };
-    c.prop(t, id, { ...BASE, ...base, ...(place ? { x: place[0], y: place[1], z: place[2] } : o) }, 0);
+    c.prop(t, id, { ...BASE, ...base, ...(place ? { x: place[0], y: place[1], z: place[2], perchR: 0.004, rot: id === "r1" ? 30 : -30 } : o) }, 0);
   }
   stills.push(Math.round((t + 0.9) * 100) / 100);
 });

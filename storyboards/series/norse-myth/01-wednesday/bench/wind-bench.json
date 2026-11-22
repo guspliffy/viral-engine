@@ -153,6 +153,13 @@
     },
     {
      "who": "chip",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
      "do": "pitch",
      "to": 180,
      "dur": 0.01,

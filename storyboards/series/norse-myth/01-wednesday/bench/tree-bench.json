@@ -85,21 +85,21 @@
  "captions": [],
  "beats": [
   {
-   "name": "p07",
+   "name": "sun",
    "at": 0,
    "len": 1.2,
    "shot": {
     "pos": [
-     -2.6,
-     0.7,
-     6.4
+     0,
+     1.8,
+     6
     ],
     "look": [
-     6.4,
-     9.5,
-     -3
+     -127,
+     148,
+     -163
     ],
-    "fov": 66
+    "fov": 36
    },
    "do": [
     {
@@ -171,201 +171,9 @@
    ]
   },
   {
-   "name": "p07w",
+   "name": "horizon",
    "at": 1.2,
-   "len": 1.2,
-   "shot": {
-    "pos": [
-     -3.2,
-     1.2,
-     9.5
-    ],
-    "look": [
-     5.5,
-     4,
-     -3
-    ],
-    "fov": 66
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "tree",
-     "set": {
-      "runes": 0.2,
-      "gust": 0,
-      "flareY": -99
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    }
-   ]
-  },
-  {
-   "name": "p08",
-   "at": 2.4,
-   "len": 1.2,
-   "shot": {
-    "pos": [
-     0.4,
-     1.5,
-     4.6
-    ],
-    "look": [
-     -0.2,
-     2.1,
-     0
-    ],
-    "fov": 40
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "tree",
-     "set": {
-      "runes": 0.2,
-      "gust": 0,
-      "flareY": -99
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    }
-   ]
-  },
-  {
-   "name": "p09",
-   "at": 3.6,
-   "len": 1.2,
-   "shot": {
-    "pos": [
-     0.9,
-     1.9,
-     2.4
-    ],
-    "look": [
-     -0.5,
-     2.5,
-     0
-    ],
-    "fov": 38
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "tree",
-     "set": {
-      "runes": 0.2,
-      "gust": 0,
-      "flareY": -99
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    }
-   ]
-  },
-  {
-   "name": "marks",
-   "at": 4.8,
-   "len": 1.2,
-   "shot": {
-    "pos": [
-     -2,
-     5,
-     8
-    ],
-    "look": [
-     5,
-     5.3,
-     -3
-    ],
-    "fov": 52
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "tree",
-     "set": {
-      "runes": 1,
-      "gust": 0,
-      "flareY": 4.6
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    }
-   ]
-  },
-  {
-   "name": "bark",
-   "at": 6,
-   "len": 1.2,
-   "shot": {
-    "pos": [
-     0.5,
-     2,
-     3.6
-    ],
-    "look": [
-     5.4,
-     3.2,
-     -3.4
-    ],
-    "fov": 52
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "tree",
-     "set": {
-      "runes": 0.2,
-      "gust": 0,
-      "flareY": -99
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    }
-   ]
-  },
-  {
-   "name": "canopy",
-   "at": 7.2,
-   "len": 1.2,
-   "shot": {
-    "pos": [
-     -1,
-     1.6,
-     9
-    ],
-    "look": [
-     -2,
-     38,
-     -3
-    ],
-    "fov": 74
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "tree",
-     "set": {
-      "runes": 0.2,
-      "gust": 1,
-      "flareY": -99
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    }
-   ]
-  },
-  {
-   "name": "sky",
-   "at": 8.4,
-   "len": 1.2,
+   "len": 1.5,
    "shot": {
     "pos": [
      0,
@@ -373,75 +181,11 @@
      6
     ],
     "look": [
-     -3,
-     10,
+     -5,
+     12,
      -100
     ],
-    "fov": 66
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "tree",
-     "set": {
-      "runes": 0.2,
-      "gust": 0,
-      "flareY": -99
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    }
-   ]
-  },
-  {
-   "name": "far",
-   "at": 9.6,
-   "len": 1.2,
-   "shot": {
-    "pos": [
-     -2,
-     4,
-     5
-    ],
-    "look": [
-     0,
-     -9,
-     -110
-    ],
-    "fov": 66
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "tree",
-     "set": {
-      "runes": 0.2,
-      "gust": 0,
-      "flareY": -99
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    }
-   ]
-  },
-  {
-   "name": "wide",
-   "at": 10.8,
-   "len": 1.5,
-   "shot": {
-    "pos": [
-     -4,
-     3.5,
-     17
-    ],
-    "look": [
-     3.5,
-     9,
-     -8
-    ],
-    "fov": 66
+    "fov": 50
    },
    "do": [
     {

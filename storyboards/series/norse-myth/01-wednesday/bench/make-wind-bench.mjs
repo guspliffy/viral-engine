@@ -26,6 +26,7 @@ const beat = (name, camera, acts = () => {}) => { if (ONLY.length && !ONLY.inclu
 const prop = (t, id, set) => c.prop(t, id, set, 0);
 
 c.A(0, "chip", "noblink");
+c.A(0, "chip", "turn", { to: 180, dur: 0.01 });   // the pitch turns him about his own x: a half turn first, so he faces the camera upside down
 c.A(0, "chip", "pitch", { to: 180, dur: 0.01 });
 // the leaves
 beat("leaf-shapes", cam(X.plate, 0.62, 4.7, X.plate, 0.55, 0, 50));
