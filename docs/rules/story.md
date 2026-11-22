@@ -12,6 +12,11 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 
 ## 1. The story
 
+- **The story spine** (Jonny 22 Nov, every video; the Siren myth channel opens the same way): scene + a name + a weird
+  rule -> stakes -> hide the twist, tease the twist -> ending. The name comes first and the rule right after it, then
+  what is at stake: "We're live. Tato, age seven, just asked for burgers. And in this car, there is one rule:
+  whoever says 'We have food at home' has to eat it." The twist is hidden but teased two or three times (a stomach
+  growl, a glance), and the ending pays off the rule. Every outline names its rule, its stake and its teases.
 - **Suggestions, not a formula** (15 Nov, from the MrBeast study, on trial): the rules below guard against failures
   we have seen; they are not a recipe for the story. MrBeast's warning: strict beat checklists make every video look
   the same after about ten. So each new episode changes at least one visible thing about its shape from the last one
