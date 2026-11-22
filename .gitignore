@@ -20,3 +20,5 @@ storyboards/lookdev/grip-proof-*.json
 storyboards/series/ancient-aliens/kit/bench/*.json
 # ancient aliens EP02 kit benches (written by 02-stonehenge/kit/bench/make-sh-*.mjs)
 storyboards/series/ancient-aliens/02-stonehenge/kit/bench/*.json
+# norse myth 01 prop benches: written by bench/make-*-bench.mjs, props benches, not clips (episode preflight judges every committed storyboard with a cast)
+storyboards/series/norse-myth/01-wednesday/bench/*.json
