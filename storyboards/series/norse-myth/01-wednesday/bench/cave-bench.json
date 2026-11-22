@@ -314,16 +314,86 @@
    "len": 1.1,
    "shot": {
     "pos": [
-     -3.2,
-     2.8,
-     1.8
+     -2.4,
+     3.3,
+     0.4
     ],
     "look": [
-     -6,
-     3,
-     -1.4
+     -5.4,
+     3.3,
+     -1.3
     ],
-    "fov": 38
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "runes": 1,
+      "shafts": 1,
+      "mist": 1,
+      "gust": 0,
+      "dim": 0,
+      "gold": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "runesG2",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.6,
+     2.4,
+     2.8
+    ],
+    "look": [
+     4.2,
+     4.7,
+     3.9
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "runes": 1,
+      "shafts": 1,
+      "mist": 1,
+      "gust": 0,
+      "dim": 0,
+      "gold": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "runesG3",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.3,
+     2.6,
+     -4.5
+    ],
+    "look": [
+     -1.3,
+     2.9,
+     -7.9
+    ],
+    "fov": 34
    },
    "do": [
     {
@@ -345,20 +415,20 @@
   },
   {
    "name": "runesG4",
-   "at": 8.8,
+   "at": 11,
    "len": 1.1,
    "shot": {
     "pos": [
-     3,
-     2.6,
-     0.6
+     3.2,
+     2.9,
+     -0.4
     ],
     "look": [
-     6.3,
-     2.8,
-     -2.3
+     5.7,
+     2.9,
+     -1.8
     ],
-    "fov": 38
+    "fov": 34
    },
    "do": [
     {
@@ -379,21 +449,91 @@
    ]
   },
   {
-   "name": "brackets",
-   "at": 9.9,
+   "name": "runesG5",
+   "at": 12.1,
    "len": 1.1,
    "shot": {
     "pos": [
-     -3.2,
-     2.4,
-     1.6
+     1.2,
+     2,
+     4.5
     ],
     "look": [
-     -6.5,
-     2.8,
-     -0.5
+     1.7,
+     4.2,
+     8
     ],
-    "fov": 46
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "runes": 1,
+      "shafts": 1,
+      "mist": 1,
+      "gust": 0,
+      "dim": 0,
+      "gold": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bracketsR2",
+   "at": 13.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -3,
+     3,
+     0.2
+    ],
+    "look": [
+     -5.5,
+     3.2,
+     -1.5
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "runes": 0.35,
+      "shafts": 1,
+      "mist": 1,
+      "gust": 0,
+      "dim": 0,
+      "gold": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bracketsR4",
+   "at": 14.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3.2,
+     3.6,
+     -1.2
+    ],
+    "look": [
+     5.6,
+     4.4,
+     -3.2
+    ],
+    "fov": 40
    },
    "do": [
     {
@@ -415,7 +555,7 @@
   },
   {
    "name": "sill",
-   "at": 11,
+   "at": 15.4,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -450,7 +590,7 @@
   },
   {
    "name": "floor",
-   "at": 12.1,
+   "at": 16.5,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -485,7 +625,7 @@
   },
   {
    "name": "trickle",
-   "at": 13.2,
+   "at": 17.6,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -520,7 +660,7 @@
   },
   {
    "name": "wayIn",
-   "at": 14.3,
+   "at": 18.7,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -555,7 +695,7 @@
   },
   {
    "name": "shafts",
-   "at": 15.4,
+   "at": 19.8,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -590,7 +730,7 @@
   },
   {
    "name": "reverse",
-   "at": 16.5,
+   "at": 20.9,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -624,8 +764,113 @@
    ]
   },
   {
+   "name": "top",
+   "at": 22,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.3,
+     32,
+     0.5
+    ],
+    "look": [
+     0.3,
+     0,
+     0
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "runes": 0.35,
+      "shafts": 1,
+      "mist": 1,
+      "gust": 0,
+      "dim": 0,
+      "gold": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sideL",
+   "at": 23.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -30,
+     6,
+     0
+    ],
+    "look": [
+     0,
+     5,
+     0
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "runes": 0.35,
+      "shafts": 1,
+      "mist": 1,
+      "gust": 0,
+      "dim": 0,
+      "gold": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sideB",
+   "at": 24.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     5,
+     30
+    ],
+    "look": [
+     0,
+     5,
+     0
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cave",
+     "set": {
+      "runes": 0.35,
+      "shafts": 1,
+      "mist": 1,
+      "gust": 0,
+      "dim": 0,
+      "gold": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
    "name": "goldDim",
-   "at": 17.6,
+   "at": 25.3,
    "len": 1.4,
    "shot": {
     "pos": [
