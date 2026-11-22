@@ -16,6 +16,7 @@ import { clip, write, r3, frame } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
 import { LINES, DUR } from "./lines.mjs";
+import VOICES from "../../../../engine/voice/voices.json" with { type: "json" };
 
 const c = clip({ faces: "strong", lines: { sub: false, blink: false } }), { A, sfx, cap, see } = c;
 const F = (t) => r3(Math.round(t * 30) / 30);
@@ -70,7 +71,7 @@ const BOOK = { id: "book", kind: "goldenbook", x: 0, y: AWAY, z: 0, rot: 0, roll
 const props = [
   { id: "lane", kind: "krampuslane", x: 0, y: 0, z: 0, shakeAt: 5 },
   { id: "kr", kind: "krampus", x: KR_AT(9)[0], y: Y(9), z: KR_AT(9)[2], rot: 270, mirror: true },
-  { id: "shadow", kind: "krampusshadow", x: X(9), y: Y(9), z: 0.07, rot: 0 },
+  { id: "shadow", kind: "krampusshadow", x: X(9), y: Y(9), z: 0.16, rot: 0 },
   TEAL_B, YEL_B, D9, D8,
   { id: "nt", kind: "bootnote", who: "spud", ...N_SPUD0, staged: "pinned on a peg at the boot's top (DESIGN E)" },
   { id: "ny", kind: "bootnote", who: "chip", ...N_CHIP0, staged: "pinned on a peg at the boot's top (DESIGN E)" },
@@ -162,12 +163,24 @@ act.blinksAt(c, "nick", [8.1, 22.6, 57.4, 64.0]);
 // the wind in the pines under everything (realistic, low)
 const WIND = [];   // laid at the end, up to END
 
-// ================================================================= 0.0-2.6 THE HOOK: a boot, a horned shadow, door 9
-const SH = 0.05;
-P(SH, "shadow", { grow: 1 }, 0.55, "out"); P(SH + 0.2, "shadow", { sway: 1 }, 0.6);
-bells(0.0, 0.45, 4); sfx(0.25, "kenney/footstep-snow", { gain: 0.5 }); sfx(0.5, "kenney/footstep-snow", { gain: 0.55 });
-see(0, 0.8, ["b9", "shadow"], "a small red boot on a snowy doorstep; a huge horned shadow falls over it, bells in the shadow");
-const D9T = 0.8;
+// ================================================================= 0.0-4.1 THE NARRATOR (Jonny 22 Nov 07:41 + 07:43 Berlin): a place line over the
+// village, the Krampus by second 2, 20 % faster than the narrator's usual reading (his note: "very slow, loses viewers")
+const NARR = 0.1, NARR_LINE = "In Austria, one night a year, Krampus checks every kid's boot.";
+const NARR_V = { ...VOICES.narrator, tempo: 1.2 }, ND = r3(4.78 / 1.2);   // 4.78 s measured at tempo 1 (22 Nov)
+c.at(NARR, { macro: "narrate", line: NARR_LINE, voice: NARR_V, dur: ND, caption: false, gain: 4.0 });
+cap(NARR, r3(NARR + ND + 0.15), "In *Austria,* one night a year, *Krampus* checks every kid's boot.", SUB, false, { size: 64 });
+bells(0.0, 0.22, 3); sfx(0.9, "bell-heavy", { gain: 0.18 });
+see(0, 1.9, ["lane"], "a snowy Alpine village at night, lit windows, a lane of wooden houses running up the hill");
+const KR_CUT = r3(NARR + 1.75);   // on "Krampus"
+P(KR_CUT - 0.02, "kr", { tongue: 1, jaw: 0.6, glow: 1, headPitch: 0.15 }, 0);
+P(KR_CUT, "kr", { headYaw: 0.25 }, 0.5); bells(KR_CUT, 0.5, 3); sfx(KR_CUT + 0.1, "ai/bear-huff", { gain: 0.5 });
+see(KR_CUT, r3(KR_CUT + 1.0), ["kr"], "the Krampus' face: carved wood, curled horns, glowing eyes, a long red tongue");
+const SH = r3(KR_CUT + 1.05);   // on "every kid's boot": the boot and the shadow
+P(SH - 0.02, "kr", { tongue: 0.35, jaw: 0, headYaw: 0, headPitch: 0 }, 0);
+P(SH, "shadow", { grow: 1 }, 0.5, "out"); P(SH + 0.2, "shadow", { sway: 1 }, 0.6);
+sfx(SH + 0.1, "kenney/footstep-snow", { gain: 0.5 }); sfx(SH + 0.35, "kenney/footstep-snow", { gain: 0.55 });
+see(SH, r3(SH + 0.8), ["b9", "shadow"], "a small red boot on a snowy doorstep; a huge horned shadow falls over it");
+const D9T = r3(SH + 0.85);
 check(D9T - 0.45, "b9");
 P(D9T + 0.2, "kr", { kidKick: 1 }, 0.3); P(D9T + 0.2, "kr", { scarfOut: 1 }, 0.4);
 // KID (in the basket): I was gonna be good tomorr-  (the lid thumps shut on it)
@@ -178,7 +191,7 @@ const LID9 = r3(END_OF(0) - 0.05);
 P(LID9 - 0.35, "kr", { lid: 0.5 }, 0.1); P(LID9 - 0.2, "kr", { kidPeek: 0 }, 0.15, "in"); P(LID9, "kr", { lid: 0 }, 0.08, "in");
 sfx(LID9 + 0.06, "thud-soft", { gain: 0.7 }); sfx(LID9 + 0.08, "kenney/impact-wood-light", { gain: 0.4 });
 see(D9T, LID9, ["kr", "nick", "book", "b9"], "Saint Nick reads a glowing golden book and shakes his head; the horned Krampus jams birch sticks into the boot, a small kid in his basket");
-cap(0.05, 3.0, "ONE NIGHT A YEAR HE CHECKS YOUR BOOTS", 1020, false, { size: 76, kinetic: false });
+cap(0.05, r3(SH + 0.8), "ONE NIGHT A YEAR HE CHECKS YOUR BOOTS", 1020, false, { size: 76, kinetic: false });
 
 // ================================================================= 2.6-14.5 DOOR 4: THE RULES (the street countdown starts)
 const WHIP = r3(LID9 + 0.3);
@@ -443,7 +456,9 @@ const drift = (s, dx = 0.12, dur = 2, dz = 0) => mv(s, { pos: [r3(s.pos[0] + dx)
 const fr = (target, { lift = 0, ...o }) => { const s = frame([target[0], r3(target[1] + lift * (o.h ?? 1)), target[2]], o); return { pos: s.pos, look: s.look, fov: s.fov }; };
 const at = (C, h = 0.45, y = 0) => [C[0], r3(y + h), C[1]];
 // the hook (door 9)
-const O_BOOT = fr([BOOT_AT(9)[0] - 0.05, Y(9) + 0.35, 0.75], { az: 10, el: 6, h: 1.1, fov: 40 });
+const O_BOOT = fr([BOOT_AT(9)[0] + 0.35, Y(9) + 0.55, 0.95], { az: -35, el: 8, h: 1.6, fov: 40 });   // the boot, his hooves and fur behind it
+const VILLAGE = { pos: [4.5, 3.4, 7.0], look: [-30, 3.6, 0.5], fov: 50 };   // down the lane, up the hill toward door 9
+const KR9_FACE = fr([KR_AT(9)[0], Y(9) + 1.85, KR_AT(9)[2]], { az: -60, el: 2, h: 1.2, fov: 34 });
 const O_D9 = fr([X(9) + 0.45, Y(9) + 1.15, 1.1], { az: 18, el: 6, h: 4.0, fov: 44 });
 // door 4
 const DOWN = fr([0.4, 0.55, 1.1], { az: 60, el: 8, h: 2.2, fov: 44 });   // from down the lane: the pair in the door, their boots
@@ -476,7 +491,9 @@ const SPUD_E_CL = SPUD_CL(SPUD_E, 0);
 const LAST = fr([1.2, 0.5, 0.75], { az: 0, el: 6, h: 1.7, fov: 40, lift: 0.04 });
 
 const beats = c.beats([
-  ["boot and shadow", 0, push(O_BOOT, 0.12, D9T), "hook"],
+  ["the village", 0, mv(VILLAGE, { pos: [2.5, 3.2, 6.2], look: [-30, 3.7, 0.6] }, KR_CUT), "hook"],
+  ["krampus face", KR_CUT, push(KR9_FACE, 0.1, SH - KR_CUT)],
+  ["boot and shadow", SH, push(O_BOOT, 0.12, D9T - SH)],
   ["door nine", D9T, push(O_D9, 0.08, WHIP - D9T)],
   ["number nine", r3(T[1] - 0.25), push(DOWN, 0.08, 2.4)],
   ["who are they", r3(T[2] - 0.15), push(CHIP_CL(CHIP0, 25), 0.06, 1.5)],
