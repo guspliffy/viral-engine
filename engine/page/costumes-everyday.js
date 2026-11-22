@@ -6,6 +6,8 @@ import { texOf, wash, ribTexture, gridUv, hash2 } from "./costumes-art-cast.js";
 import { skipAge } from "./costumes-skipage.js";
 import { devilKit } from "./costumes-devil.js";
 import { angelKit } from "./costumes-angel.js";
+import { vestExtras, reporterHelmet } from "./costumes-reporter.js";   // the reporter: padded vest keys + helmet on the teller (USAGE header there)
+import { blanket } from "./costumes-blanket.js";   // Chip's shock blanket (costume.blanket, key slip; kid vs dad 01)
 
 // Spud's everyday friends (Jonny, 12 Nov 2026): Chip, Wedge and Mash. No costume, no weapon, no powers: each one is a
 // friend type the viewer can tag, told apart by body shape and size (characters/potatobrawl/*.json), ONE garment in one
@@ -431,6 +433,8 @@ const parts_add = (ch, o) => ch.potatoParts.add(o);
 //            y 0.13, 3 brass buttons), costume.tie "#hex" | false (short, burgundy), costume.glasses "#hex" | false (round brass wire, lenses
 //            r 0.085, glass at 0.08 white = steam; key `slip` 0..1 slides them 0.02 down; drive it with the `wings` action until the timeline has its own), costume.garters false turns the black sleeve
 //            garters off. Rosti = teller with all four off, on a taller body, wearing the props `apron` and `paperhat` (see rosti.json).
+//            The reporter (Kid vs Dad 01, characters/potatobrawl/reporter.json) adds keys, all off by default: padded, quilt, zip, patch (the padded
+//            vest) and helm (a helmet on the hat mount): see the USAGE header of costumes-reporter.js.
 // Each mark is drawn once by hand (hashed, no tile); sleeves end a fixed distance before the hand (the glove stays free).
 const PI = Math.PI, TAU = Math.PI * 2, clamp01 = (x) => Math.max(0, Math.min(1, x));
 const H2 = (a, b = 0) => hash2(a * 1.7 + 11.3, b * 2.3 + 5.1);
@@ -485,9 +489,10 @@ function teller(C, ch, P) {
   parts.add(collarRoll(ch, neck, shirt, 0.013));
   if (vestC) {   // the waistcoat: a V from y 0.34, hem at y 0.13 (the underside of the belly), armholes cut at the sides, 3 brass buttons
     const fV = elOfY(ch, 0.34), hV = Math.max(-1.3, elOfY(ch, 0.13)), vNeck = (th) => fV + (0.3 - fV) * Math.pow(0.5 * (1 - Math.cos(th)), 0.6) - 0.3 * Math.exp(-(((Math.abs(th) - 1.4) / 0.36) ** 2));
-    top(ch, C, { neckFn: vNeck, front: fV, back: 0.3, hem: hV, color: vestC, map: shellTexture(1024, 512, seed + 9, 50), folds: 3, depth: 0.007, phase: 1.1, lift: 0.042, lift0: 0.034 });
+    const vg = top(ch, C, { neckFn: vNeck, front: fV, back: 0.3, hem: hV, color: vestC, map: shellTexture(1024, 512, seed + 9, 50), folds: 3, depth: 0.007, phase: 1.1, lift: C.padded ? 0.06 : 0.042, lift0: C.padded ? 0.05 : 0.034 });   // padded: 0.06 off the shirt
     const brass = metal("#c9a24a", 0.3, 0.7);
-    for (let k = 0; k < 3; k++) parts.add(studAt(ch, 0, fV - 0.16 - 0.17 * k, 0.07 + 0.01 * k, 0.014, brass));
+    if (!C.zip) for (let k = 0; k < 3; k++) parts.add(studAt(ch, 0, fV - 0.16 - 0.17 * k, 0.07 + 0.01 * k, 0.014, brass));
+    if (C.padded || C.quilt || C.zip || C.patch) vestExtras(ch, C, vg.G, vestC);   // the reporter's vest keys (costumes-reporter.js), all off by default
   }
   if (tieC) {   // a short tie from the collar into the vest, wider at its end
     const tm = clothMat(tieC, { side: THREE.DoubleSide }), fV = elOfY(ch, 0.34);
@@ -520,7 +525,8 @@ function teller(C, ch, P) {
     g.quaternion.setFromUnitVectors(V(0, 1, 0), _T); const R = SLV.r0 + (SLV.r1 - SLV.r0) * (0.3 / SLV.cuffAt) + 0.006; g.scale.set(R, 1, R); g.visible = true;
   };
   const sl = sleeves(ch, (() => { const m = clothMat(shirt, { side: THREE.DoubleSide }); m.map = arm; return m; })(), ribMat(shirt, cuffT), SLV);
-  return { sl, apply: (st) => { gl.position.y = -0.02 * clamp01(st.slip ?? st.wings ?? 0); } };   // slip: driven with the `wings` action ({ do: "wings", to }) until the timeline has its own key, as Spud's spread
+  const helm = C.helm ? reporterHelmet(ch, C) : null;   // costume.helm: the reporter's helmet on the hat mount (costumes-reporter.js)
+  return { sl, hat: helm && helm.hat, sitDepth: helm ? helm.sitDepth : 0, apply: (st) => { gl.position.y = -0.02 * clamp01(st.slip ?? st.wings ?? 0); helm && helm.apply(st); } };   // slip: driven with the `wings` action ({ do: "wings", to }) until the timeline has its own key, as Spud's spread
 }
 
 // ---------- the gold wrist watch (the dauphin's; the duchess with costume.watch: true): a case 0.075 across on the back of the LEFT wrist, a 4-point glint every 0.9 s ----
@@ -905,10 +911,12 @@ const KIT = {
 export const EVERYDAY = Object.keys(KIT);
 export function everyday(C, ch, out) {
   const kit = KIT[C.type](C, ch), sl = typeof kit === "function" ? kit : kit.sl, more = typeof kit === "function" ? null : kit.apply;   // { sl, apply(st, t) }: a kit with keys of its own (glasses slip, a watch glint)
+  if (kit.hat) out.hat = kit.hat;   // a kit with a hat of its own (the reporter's helmet): sits on the engine's hat mount
   handsAndFeet(C, ch);
   if (C.type === "chip" && C.age) skipAge(C, ch, out, { cowl: CHIP_HOODIE });   // Chip aged (costume.age/brows/oldBeard/dust: costumes-skipage.js USAGE); no key, no change
+  if (C.type === "chip" && C.blanket) blanket(C, ch, out);   // shock blanket, slip 0..1 on the `wings` action (costumes-blanket.js USAGE)
   const base = out.apply;
   out.apply = (st, t, ...r) => { base && base(st, t, ...r); sl(); more && more(st, t); };
-  out.sitDepth = 0;
+  out.sitDepth = kit.sitDepth ?? 0;   // the reporter's helmet puts the hat mount's origin at the body's centre
   return out;
 }
