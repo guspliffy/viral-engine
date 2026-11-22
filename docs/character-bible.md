@@ -7,7 +7,9 @@ personality are his call (`CLAUDE.md`).
 ## Spud, the main character
 
 Jonny, 11 Nov 2026: one simple main potato for every video, so the account is recognised faster, with the ten
-fighters as side characters. `characters/potatobrawl/spud.json`, costume type `spud`, reference sheet
+fighters as side characters. Jonny, 22 Nov 2026: officially the PotatoBrawl channel's main character, spoken name
+**Tato** (the one name said out loud in videos; "Spud" stays the name in code and scripts). In Kid vs Dad he plays the
+kid from episode 2 on, drawn smaller next to Dad. `characters/potatobrawl/spud.json`, costume type `spud`, reference sheet
 `/mnt/project-files/videos/cast/spud/spud-reference-sheet-2026-11-11.png`.
 
 - **Neutral on purpose** (canon): no quirk and no type, so the average person can stand in for him. He wants an

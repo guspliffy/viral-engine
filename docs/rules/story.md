@@ -143,7 +143,9 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **No cast names on screen** (18 Nov, every video): viewers don't know our names (Chip, Wedge, Mash, Spud...), so no
   name in a spoken line, caption, poll or post text; say "you", "he", "my friend", the big one, and point or look.
   Names stay in scripts and code. Exception: a character whose look says who he is (the Wizard, the Samurai, the
-  Dragon, the Viking) may be called that.
+  Dragon, the Viking) may be called that. Second exception (22 Nov): the main character's one spoken name, **Tato**
+  (Spud in code), introduced in a line the first time it is said ("Tato, age seven, just asked for burgers.").
+  Tato is the only cast name ever said; everyone else stays "Dad", "the reporter", "my friend".
 - **Gibberish is always captioned** with its words, in the speaker's colour, timed to the line.
 - **No title card or freeze mid-video** (9 Nov): the title is added in the app. No silent freeze before a punchline
   (it looked like a playback bug and lost a third of viewers in one second). Hit-stops and slow-motion close-ups are
