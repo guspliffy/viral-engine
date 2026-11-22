@@ -651,6 +651,11 @@ may use are in docs/CAMERA-MOVES.md). All are off unless a storyboard asks; time
   `"show": [from, to]` limits it. A hit-stop or freeze stops the clock with the picture. `"ammo": { "keys": [[0, 6],
   [2.75, 5]], "max": 6 }` puts a row of cartridges first in the right chip (brass loaded, outline fired, the slot just
   fired glows red), a counter that reads without English.
+  `"news": { "label": "DAD JOKES TODAY", "tag": "BREAKING", "keys": [[0.2, 4000], [1.0, 4001], [2.4, 4010, 0.6]], "alarm":
+  [[2.4, 3.2]], "show": [0.2, 3.8], "y": 1236 }` (Kid vs Dad 01) is a live TV news lower third, x 72-908, y 1236-1332: a red
+  tag block and a navy strip with the label and a counter (thousands comma); a key that raises it kicks the strip 6 px and
+  flashes the number yellow, an `alarm` window pulses the strip dark red twice a second, pop-in 0.25 s. Details: the header
+  of `engine/page/hud.js`; bench `storyboards/lab/make-news-bar-bench.mjs`.
 - **Night outside follows the clock** (Jonny 8 Nov: "when we go night time in the scene the outdoor time should change
   as well"): the HUD clock sets how dark it is outside (`engine/shared/sky.js`: dusk from 19:30, night from 21:30, dawn
   04:30-06:30; the HUD shows the moon from 20:30). A plate with a night picture next to it (`<name>.night.png`, painted

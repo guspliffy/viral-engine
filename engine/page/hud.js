@@ -79,6 +79,20 @@
 // a big "2 g" in the top centre (CapBlack 150 px, cream #fff8ec with a 12 px dark outline, no chip, centre y 250 so the
 // captions at 380+ stay clear). Every step slams in: scale 1.35 -> 1 over 0.25 s (eased back) and a 6 px drop; the
 // number turns amber #ffd25a from 10 and red #ff6a4d from 30; a step DOWN (back to 1) fades in over 0.3 s instead.
+// The TV news bar (Kid vs Dad 01 "BREAKING: Dad has told 4,000 dad jokes", 22 Nov 2026), opt-in, nothing changes without it:
+//   "news": { "label": "DAD JOKES TODAY", "tag": "BREAKING", "keys": [[0.2, 4000], [1.0, 4001], [2.4, 4010, 0.6]],
+//             "alarm": [[2.4, 3.2]], "show": [0.2, 3.8], "y": 1236 }
+// A live-TV lower third, tall frame only (a wide frame draws it at the same px): box x 72-908, y 1236-1332 (96 tall; "y" moves the
+// top). Left block x 72-330 red #d62828 with the tag (default "BREAKING") in white CapBlack, cap height 40 px, centred (a long tag
+// shrinks to fit 16 px side padding). Right strip x 330-908 navy #14233c: "<label>: <number>" (default label "DAD JOKES TODAY") in
+// white CapBlack, cap height 40 px, left aligned at 24 px padding, shrunk to fit the widest value of the clip (so the size never
+// jumps); a 4 px white line along the strip's top edge. Every value is a whole number, shown with a thousands comma ("4,001").
+// keys: [t, value, dur?] as the other HUD keys (from t the value counts from the previous key's over dur; no dur: it jumps).
+// A key that RAISES the value kicks the strip (not the red block) 6 px up and back over 0.18 s and flashes the number #ffd23f
+// for 0.25 s, then white (the first key and a key that lowers it do neither). "alarm": [[from, to], ...] pulses the strip between
+// #14233c and #8f1d1d twice a second (starting navy at `from`). Pop-in at show[0] (default the first key): the whole bar slides up
+// 20 px and fades in over 0.25 s; it fades out over 0.25 s ending at show[1] (default: stays to the end). Before the first key the
+// bar shows the first value. The box goes to the layout as a card (qa/framing.mjs sees a face under it).
 import { clamp, ease, lerp } from "./util.js";
 import { keyed, minutes, nightOf } from "../shared/sky.js";
 import { frameSafe, isWide } from "../shared/frame.js";
@@ -182,6 +196,7 @@ export function hudState(sb, t) {
   if (pl) out.pills = pl;
   if (H.money) { const M = moneyState(H.money, t); if (M) out.money = M; }
   if (H.sun) { const U = sunState(H.sun, t); if (U) out.sun = U; }
+  if (H.news) { const N = newsState(H.news, t); if (N) out.news = N; }
   if (H.gforce) {
     const G = Array.isArray(H.gforce) ? { keys: H.gforce } : H.gforce, K = [...G.keys].sort((a, b) => a[0] - b[0]);
     let i = -1; for (let j = 0; j < K.length; j++) if (K[j][0] <= t + 1e-9) i = j;
@@ -251,6 +266,26 @@ function sunState(spec, t) {
   }
   return out;
 }
+// ---- the TV news bar (opt-in) ----
+const NEWS_X = 72, NEWS_W = 836, NEWS_H = 96, NEWS_TAG_W = 258, NEWS_Y = 1236, NEWS_KICK = 6, NEWS_NAVY = "#14233c", NEWS_ALARM = "#8f1d1d";
+function newsState(P, t) {
+  const nk = keyed(P.keys, t);
+  if (!nk) return null;
+  const K = nk.K, first = P.show ? P.show[0] : K[0][0], k = t - first;
+  if (k < 0 || (P.show && t >= P.show[1])) return null;
+  const inn = clamp(k / 0.25), a = inn * (P.show ? clamp((P.show[1] - t) / 0.25) : 1);
+  if (a <= 0) return null;
+  const rose = nk.i > 0 && nk.since >= 0 && K[nk.i][1] > K[nk.i - 1][1];
+  const al = (P.alarm || []).find((w) => t >= w[0] && t < w[1]);
+  return {
+    n: Math.round(nk.v), nmax: Math.round(Math.max(...K.map((q) => q[1]))), label: P.label ?? "DAD JOKES TODAY", tag: P.tag ?? "BREAKING",
+    a, dy: 20 * (1 - ease("out")(inn)), y: P.y ?? NEWS_Y,
+    kick: rose && nk.since < 0.18 ? NEWS_KICK * Math.sin((nk.since / 0.18) * Math.PI) : 0,
+    flash: rose && nk.since < 0.25,
+    alarm: al ? 0.5 - 0.5 * Math.cos((t - al[0]) * 4 * Math.PI) : 0,
+  };
+}
+const newsBox = (N) => [NEWS_X, N.y, NEWS_W, NEWS_H];
 const moneyBox = (M) => [MONEY_X, M.y, MONEY_W, STRIP_H];
 const sunBox = (U) => { const w = SUN_W + (SUN_W_LAST - SUN_W) * ease("inOut")(U.grow); return [SUN_R - w, U.y, w, STRIP_H]; };
 export const hudKey = (sb, t) => { const s = hudState(sb, t); return s ? JSON.stringify(s, (k, v) => (typeof v === "number" ? Math.round(v * 1e3) / 1e3 : v)) : ""; };
@@ -328,7 +363,7 @@ export function hudBoxes(ctx, sb, t) {
   const oy = (S.y ?? 214) - 214;
   const extra = [S.age && AGE_BOX, S.pills && PILLS_BOX].filter(Boolean).map((b) => [b[0], b[1] + oy, b[2], b[3]]);
   if (S.gforce) extra.push([300, S.gforce.y - 90, 480, 180]);
-  return [L.left, L.threat, L.right, L.own, L.train, ...extra, S.money && moneyBox(S.money), S.sun && sunBox(S.sun)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
+  return [L.left, L.threat, L.right, L.own, L.train, ...extra, S.money && moneyBox(S.money), S.sun && sunBox(S.sun), S.news && newsBox(S.news)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
 }
 
 function chip(ctx, [x, y, w, h], edge = EDGE, lw = 2) {
@@ -569,6 +604,32 @@ function drawSun(ctx, U) {
   ctx.restore();
 }
 
+// the news bar: caps are centred on their cap height (font size from the measured "H"), long text shrinks to fit
+function drawNews(ctx, N) {
+  const [x, y, w, h] = newsBox(N), sx = x + NEWS_TAG_W, sw = w - NEWS_TAG_W, CAP = 40;
+  const grouped = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  ctx.save(); ctx.letterSpacing = "0px"; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+  ctx.font = '900 100px "CapBlack"';
+  const asc = ctx.measureText("H").actualBoundingBoxAscent, px = asc > 0 ? (100 * CAP) / asc : CAP / 0.7;
+  const fit = (str, room) => { ctx.font = `900 ${px}px "CapBlack"`; return Math.min(1, room / Math.max(1, ctx.measureText(str).width)); };
+  ctx.globalAlpha = N.a; ctx.translate(0, N.dy);
+  // the red block: the tag, centred
+  ctx.fillStyle = "#d62828"; ctx.fillRect(x, y, NEWS_TAG_W, h);
+  const kt = fit(N.tag, NEWS_TAG_W - 32);
+  ctx.font = `900 ${px * kt}px "CapBlack"`; ctx.fillStyle = "#fff";
+  ctx.fillText(N.tag, x + (NEWS_TAG_W - ctx.measureText(N.tag).width) / 2, y + h / 2 + (CAP * kt) / 2);
+  // the strip: kicks up, navy (pulsing to dark red in an alarm), a white line on its top edge, label and number
+  ctx.translate(0, -N.kick);
+  ctx.fillStyle = N.alarm > 0 ? mix(NEWS_NAVY, NEWS_ALARM, N.alarm) : NEWS_NAVY; ctx.fillRect(sx, y, sw, h);
+  ctx.fillStyle = "#fff"; ctx.fillRect(sx, y, sw, 4);
+  const lab = `${N.label}: `, kf = fit(lab + grouped(N.nmax), sw - 48);
+  ctx.font = `900 ${px * kf}px "CapBlack"`;
+  const base = y + h / 2 + (CAP * kf) / 2 + 2, lx = sx + 24;
+  ctx.fillText(lab, lx, base);
+  ctx.fillStyle = N.flash ? "#ffd23f" : "#fff"; ctx.fillText(grouped(N.n), lx + ctx.measureText(lab).width, base);
+  ctx.restore();
+}
+
 export function drawHud(ctx, sb, t) {
   const S = hudState(sb, t);
   if (!S) return;
@@ -699,6 +760,7 @@ export function drawHud(ctx, sb, t) {
   }
   if (S.money) drawMoney(ctx, S.money);
   if (S.sun) drawSun(ctx, S.sun);
+  if (S.news) drawNews(ctx, S.news);
   ctx.restore();
   if (S.age) drawAge(ctx, S);
   if (S.pills) drawPills(ctx, S);
