@@ -51,7 +51,7 @@ beat("sp-mid", cam(4, 1.1, 1.6, 4, 1.1, 0, 24), (t) => { reset(t); c.prop(t + 0.
 beat("sp-top", cam(4, 1.9, 1.2, 4, 1.9, 0, 24), (t) => { reset(t); c.prop(t + 0.03, "spearD", { ...SPD, glow: 0, glint: 0 }, 0.01); });
 beat("sp-glow", cam(4, 1.9, 1.2, 4, 1.9, 0, 24), (t) => { reset(t); c.prop(t + 0.03, "spearD", { ...SPD, glow: 1, glint: 0.5 }, 0.01); });
 beat("sp-back", cam(4, 1.9, -1.2, 4, 1.9, 0, 24), (t) => { reset(t); c.prop(t + 0.03, "spearD", { ...SPD, glow: 0, glint: 0 }, 0.01); });
-beat("hat", cam(OX, 1.58, 1.5, OX, 1.58, 0, 22), (t) => { reset(t); turn(t, 30); });
+beat("hat", cam(OX, 1.3, 2.6, OX, 1.3, 0, 22), (t) => { reset(t); turn(t, 30); });
 beat("braid", cam(OX, 0.62, 2.0, OX, 0.62, 0, 20), (t) => { reset(t); });
 
 const END = T + 1.2;

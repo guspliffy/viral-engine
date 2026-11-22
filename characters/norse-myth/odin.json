@@ -1,0 +1,52 @@
+{
+  "id": "norse-myth/odin",
+  "name": "Odin",
+  "franchise": "NorseMyth",
+  "source": "Norse myth 01 DESIGN.md section A (22 Nov 2026), Jonny's Odin concept sheet. A NEW character: nothing of potatobrawl/allfather.json is used.",
+  "rig": "potato",
+  "body": {
+    "color": "#d99a44",
+    "keepSkin": true,
+    "height": 1.39,
+    "width": 0.66,
+    "depth": 0.60,
+    "lump": 0.035,
+    "seed": 83,
+    "taper": 0.11,
+    "specks": 12,
+    "speckColor": "#b87a30"
+  },
+  "limbs": {
+    "color": "#d99a44",
+    "width": 0.036,
+    "shoulder": 0.14
+  },
+  "face": {
+    "default": "stern",
+    "iris": "#7d8a99",
+    "cheeks": "#e8875a",
+    "brow": "#e6e6e2",
+    "size": 0.58,
+    "blush": 1,
+    "layout": { "eyeU": 0.514, "eyeV": 0.916, "browV": 1.13, "mouthV": 0.52, "mouthW": 0.24, "cheekU": 0.78, "cheekV": 0.62 },
+    "neutral": { "tilt": -0.35, "browY": 0, "curve": -0.2, "smirk": 0, "eye": 1, "pupil": 1, "lidL": 1, "lidR": 0.28 },
+    "eye": { "oval": 1.1, "depth": 0.31, "iris": 0.6, "lash": 1.25, "flick": 0.3, "glints": 1, "glintSize": 0.85, "irisShade": true },
+    "browShape": { "arch": 0.03, "thick": 1.1, "inner": 0.3, "outer": 0.74 },
+    "final": {
+      "size": 0.58,
+      "freckles": 0,
+      "iris": "#7d8a99",
+      "brow": "#e6e6e2",
+      "layout": { "eyeU": 0.514, "eyeV": 0.916, "browV": 1.13, "mouthV": 0.52, "mouthW": 0.24, "cheekU": 0.78, "cheekV": 0.62 },
+      "eye": { "oval": 1.1, "iris": 0.6, "lash": 1.25, "flick": 0.3, "glints": 1, "glintSize": 0.85 },
+      "browShape": { "arch": 0.03, "thick": 1.1, "inner": 0.3, "outer": 0.74 }
+    }
+  },
+  "sprout": { "color": "#c98a3a", "placement": "none", "leaves": 1 },
+  "costume": { "type": "kid", "odin": true },
+  "personality": "Odin, the Allfather, old and dry: a slow stern face over a very fond one, one eye, a spear and two ravens. He never sits (DESIGN section A).",
+  "tts": "odin",
+  "voice": { "pitch": 84, "rate": 2.3, "formant": 0.88, "range": 3, "breath": 0.16, "vibrato": 0.03, "seed": 61 },
+  "hands": { "type": "glove", "size": 1.35, "fingers": 3, "seamless": true, "cell": 0.0035, "blend": { "root": 0.35 } },
+  "notes": "Costume `odin` (engine/page/costumes-odin.js USAGE). costume.type kid only so castCostume is called (the type has no sheet-cast entry, so castLook sheet keeps these face numbers); face.final keeps them under any look."
+}
