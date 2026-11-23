@@ -58,6 +58,7 @@ import { sayChanged } from "../qa/say.mjs";
 import { renderTime } from "./shared/holds.js";
 import { frameSize } from "./shared/frame.js";
 import os from "node:os";
+import { takeRenderLock } from "./renderlock.mjs";
 import { renderFingerprint, writePartMeta, checkParts, FrameCache, TIMELINE_KEYS, STATE_KEYS, CHECK_KEYS, PIXEL_FLAGS, filesHash, frameKey, sha, frameDiff, SAME_FRAME, pageCode } from "./cache.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -123,6 +124,7 @@ function args() {
     else if (a[i] === "--no-cache") o.cache = false;                 // draw every frame (the frame cache neither reads nor writes)
     else if (a[i] === "--cache-verify") o.cacheVerify = true;        // draw every frame and compare each one the cache holds (tests)
     else if (a[i] === "--shard") { const m = /^(\d+)\/(\d+)$/.exec(a[++i] || ""); o.shard = m && { i: Number(m[1]), n: Number(m[2]) }; if (!o.shard || o.shard.i < 1 || o.shard.i > o.shard.n) { console.error("--shard i/n, e.g. --shard 3/12 (1 to n)"); process.exit(2); } }
+    else if (a[i] === "--no-lock") o.noLock = true;   // skip the one-render-at-a-time lock (engine/renderlock.mjs)
     else if (a[i] === "--stitch") { o.stitch = Number(a[++i]); if (!(o.stitch >= 1)) { console.error("--stitch n: the number of shards to join"); process.exit(2); } }
     else o.file = a[i];
   }
@@ -260,6 +262,7 @@ function applyStyle(sb, style) {
 
 async function main() {
   const o = args();
+  await takeRenderLock({ off: o.noLock }); // one heavy render at a time; names the holder while waiting
   const raw = loadStoryboard(o.file); // real speech (engine/voice/), then beat storyboards -> flat (engine/compile.mjs)
   if (o.stills === "beats") o.stills = beatTimes(raw).map((t) => renderTime(raw.holds, t)); // one still per beat, the same times qa/contact.mjs uses (on the video's clock)
   // a look (engine/page/looks.js) sits on top of a style; anime-pro keeps the anime style's devices (impact frames)

@@ -1,0 +1,88 @@
+{
+  "id": "potatobrawl/reporter",
+  "name": "The reporter (Kid vs Dad 01)",
+  "franchise": "PotatoBrawl",
+  "source": "Kid vs Dad 01 \"BREAKING: Dad has told 4,000 dad jokes\" (storyboards/series/kid-vs-dad/01-dad-jokes-news/DESIGN.md sections 1 and 2, 22 Nov 2026)",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.8,
+    "width": 0.84,
+    "depth": 0.68,
+    "lump": 0.03,
+    "seed": 131,
+    "taper": 0.1
+  },
+  "limbs": {
+    "color": "#3b3f48",
+    "width": 0.032,
+    "shoulder": -0.32
+  },
+  "face": {
+    "default": "deadpan",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": -0.08,
+      "browY": -0.02,
+      "curve": -0.05,
+      "smirk": 0,
+      "eye": 0.95
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "layout": {
+      "browV": 0.74
+    },
+    "browShape": {
+      "arch": 0,
+      "thick": 1.05
+    },
+    "size": 0.95
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none",
+    "leaves": 1
+  },
+  "costume": {
+    "type": "teller",
+    "shirt": "#c4def2",
+    "vest": "#263a66",
+    "tie": false,
+    "glasses": false,
+    "garters": false,
+    "shoes": "#4a3323",
+    "sole": "#33231a",
+    "padded": true,
+    "quilt": true,
+    "zip": true,
+    "patch": true,
+    "helm": true
+  },
+  "personality": "The war correspondent: a stocky reporter in a mid-blue helmet and a navy padded vest, who treats a family garden like a war zone. Deadpan, grim, never smiling; holds a big red-cube news microphone (the prop `newsmic`) in his right hand all film. Faces: reporting = his neutral; duck = eye 0.06, tilt 0.3, browY -0.03, curve -0.3; haunted look = eye 1.15, pupil 0.7, tilt 0.1, curve -0.1, open 0 into the lens.",
+  "voice": {
+    "pitch": 112,
+    "rate": 3.0,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 107
+  },
+  "voiceNote": "voice block copied from the agent; tts reaper (the director may tune it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.2,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Kid vs Dad 01. Body 0.80 x 0.84 x 0.68: stands 0.94 (helmet top 0.985) = 1.40 x Chip's 0.67. Costume `teller` with the reporter keys padded / quilt / zip / patch and helm (engine/page/costumes-reporter.js USAGE); no glasses, no tie, no garters. A cast entry must set no `expr`, or the neutral is dropped. The helmet sits on the engine hat mount ({ do: \"hat\" } tilts and hides it; roll of 6 degrees or more undoes the strap).",
+  "tts": "reaper"
+}
