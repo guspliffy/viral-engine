@@ -22,12 +22,13 @@ export function picrule(c, t, dur, top, bottom, o = {}) { c.at(t, { fx: "picrule
 // (cake icon + number + life bar, a chip at x 72-372, y 214-332; a rise counts 0.4 s with a "+N" tag, a fall 1.5 s with a
 // green "-N"); pills: [17.2, 19.4] or { show: [17.2, 19.4] } (the YES / NO question pills, x 420-900).
 // money: keys [[t, dollars, dur?]] or { keys, in, fade: [from, dur], y } (a counter and 10 sack pips in the strip y 344-462);
+// news (Kid vs Dad 01): { label, tag, keys: [[t, value, dur?]], alarm: [[from, to]], show: [from, to], y } (a TV news bar, x 72-908, y 1236-1332).
 // sun: { p: keys of 0-1 along the arc, last: [from, to] (the last minute "1:00" -> "0:00"), in, fade, y } (passed through as given).
-export function hud({ day, clock, battery, part, label, threat, gauge, age, pills, money, sun, pos, y, show, clockTag } = {}) {
+export function hud({ day, clock, battery, part, label, threat, gauge, age, pills, money, sun, news, pos, y, show, clockTag } = {}) {
   return { ...(day != null && { day }), ...(clock != null && { clock }), ...(battery != null && { battery }), ...(part != null && { part }),
     ...(label && { label }), ...(threat && { threat }), ...(gauge && { gauge }),
     ...(age != null && { age: Array.isArray(age) ? { keys: age } : age }), ...(pills && { pills: Array.isArray(pills) ? { show: pills } : pills }),
-    ...(money && { money }), ...(sun && { sun }),
+    ...(money && { money }), ...(sun && { sun }), ...(news && { news }),
     ...(pos && { pos }), ...(y != null && { y }), ...(show && { show }), ...(clockTag === false && { clockTag: false }) };
 }
 

@@ -180,6 +180,12 @@ const SIZE = {
   soulcase: { r: 0.008, h: 0.58 },
   goldcan: { r: 0.008, h: 0.197 },
   megaphone: { r: 0.02, h: -0.0758 },
+  newsmic: { r: 0.016, h: 0.085 },                 // props-reporter.js (Kid vs Dad 01): the reporter's news mic, butt at the origin: mug hold, h 0.085 puts the fist at 0.66 x 0.085 = y 0.056, on the handle between the butt cap and the cube (glove gap 0.035)
+  // props-kvd.js (Kid vs Dad 01): jokejar = box hold, both palms on the sides 0.127 up (call box with gap: 0.03); drumsticks = the pair of sticks, mug hold with the fist ON the origin (the grip point; h 0 = y 0, as the megaphone), Spud's left fist ({ side: "L" })
+  jokejar: { w: 0.30, h: 0.23, d: 0.30 },
+  drumsticks: { r: 0.008, h: 0 },
+  // props-foodhome.js (Kid vs Dad 02): wrapburger = box hold, both palms on the paper (origin bottom centre, 0.24 across, 0.155 tall; the design's y 0.05 = height 0.32, gap 0.03)
+  wrapburger: { w: 0.24, h: 0.155, d: 0.24 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

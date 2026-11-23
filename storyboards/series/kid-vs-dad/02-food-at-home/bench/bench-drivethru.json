@@ -1,0 +1,469 @@
+{
+ "id": "bench-drivethru",
+ "title": "Drive-thru bench: the place, sign, light, cone, speaker, menu",
+ "idea": "Props bench for engine/page/props-drivethru.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "music": false,
+ "sound": {
+  "auto": false,
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "set": {
+  "type": "plain",
+  "night": true,
+  "color": "#1a2a66",
+  "floor": "none",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "creative": {
+  "length": [
+   1,
+   40
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "place",
+   "kind": "drivethru",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "sign",
+   "kind": "burgersign",
+   "x": 2.05,
+   "y": 0,
+   "z": 13.6,
+   "lit": 1
+  },
+  {
+   "id": "tl",
+   "kind": "trafficlight",
+   "x": -1.75,
+   "y": 0.5,
+   "z": -3,
+   "go": 0
+  },
+  {
+   "id": "cone",
+   "kind": "trafficcone",
+   "x": 0.1,
+   "y": 0,
+   "z": -9.6
+  },
+  {
+   "id": "post",
+   "kind": "speakerpost",
+   "x": 3.66,
+   "y": 0,
+   "z": -11.85,
+   "rot": 45,
+   "talk": 0
+  },
+  {
+   "id": "menu",
+   "kind": "menuboard",
+   "x": 2.74,
+   "y": 0,
+   "z": -12.34,
+   "rot": 45
+  }
+ ],
+ "rigs": [
+  {
+   "id": "car",
+   "kind": "hatchback",
+   "color": "#6fa596",
+   "plate": false,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 0.98,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 1,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 1.98,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 2,
+     "pos": [
+      1.464,
+      0,
+      -7.536
+     ],
+     "yaw": 135,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 2.98,
+     "pos": [
+      1.464,
+      0,
+      -7.536
+     ],
+     "yaw": 135,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 3,
+     "pos": [
+      4.01,
+      0,
+      -10.081
+     ],
+     "yaw": 135,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 3.98,
+     "pos": [
+      4.01,
+      0,
+      -10.081
+     ],
+     "yaw": 135,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 4,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 4.98,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 5,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 5.98,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 6,
+     "pos": [
+      4.01,
+      0,
+      -10.081
+     ],
+     "yaw": 135,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 6.98,
+     "pos": [
+      4.01,
+      0,
+      -10.081
+     ],
+     "yaw": 135,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 7,
+     "pos": [
+      1.464,
+      0,
+      -7.536
+     ],
+     "yaw": 135,
+     "pitch": 0,
+     "roll": 0
+    }
+   ]
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "03 cover: the car at the red light, the sign behind",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.45,
+     19.4
+    ],
+    "look": [
+     0.75,
+     1.77,
+     0
+    ],
+    "fov": 44
+   },
+   "do": []
+  },
+  {
+   "name": "sign close from behind the car (front face, picture only)",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.2,
+     1.9,
+     17.2
+    ],
+    "look": [
+     2.05,
+     2.25,
+     13.6
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "10 the car turning into the lane, the cone standing in the straight lane (from the west kerb)",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -5,
+     1.8,
+     -1
+    ],
+    "look": [
+     0.9,
+     1,
+     -9
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tl",
+     "set": {
+      "go": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "11 through the driver window: speaker post, menu board, the booth",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.95,
+     1.3,
+     -10.3
+    ],
+    "look": [
+     3,
+     1.2,
+     -12.6
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "post",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "menu board and speaker close",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.9,
+     1.45,
+     -9.4
+    ],
+    "look": [
+     3,
+     1.35,
+     -12.1
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "12 / 14 the pickup window, awning and shelf card",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     10.73,
+     1.6,
+     -10.43
+    ],
+    "look": [
+     6.47,
+     1.8,
+     -14.69
+    ],
+    "fov": 60
+   },
+   "do": []
+  },
+  {
+   "name": "overview high: lane, building, island, planter",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -10.5,
+     7.5,
+     12.5
+    ],
+    "look": [
+     3.5,
+     1.2,
+     -9
+    ],
+    "fov": 52
+   },
+   "do": []
+  },
+  {
+   "name": "floor plan from above (the fork, cone, car)",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     18,
+     -2.5
+    ],
+    "look": [
+     3,
+     0,
+     -11
+    ],
+    "fov": 52
+   },
+   "do": []
+  }
+ ],
+ "allowClip": [],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/kid-vs-dad/02-food-at-home/bench/bench-drivethru.mjs (T2)."
+}
