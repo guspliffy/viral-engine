@@ -219,7 +219,7 @@ say(14);   // REP: Let's go live to the house.
 const TK = r3(END_OF(14) + 0.3);
 expr(TK, "chip", FACES.shaken, 0.01); look(TK, "chip", [0, 0], 0.01);
 look(r3(TK - 0.1), "chip", [0.3, 0.05], 0.12);
-arm(r3(TK + 0.05), "chip", "L", { world: [r3(FRIDGE_AT[0] - 0.34), 0.95, r3(FRIDGE_AT[1] + 0.47)] }, 0.3);
+arm(r3(TK + 0.05), "chip", "L", { o: [0.3, 0.55, -0.2] }, 0.3);   // back to the handle behind him
 grip(r3(TK + 0.25), "chip", "L", "hold", 0.15);
 arm(r3(TK + 0.42), "chip", "L", "rest", 0.3);   // a tug, then he lets the door swing
 c.prop(r3(TK + 0.5), "fridge", { open: 0.25 }, 0.5, "out"); sfx(r3(TK + 0.5), "door-open", { gain: 0.35 });
@@ -241,7 +241,8 @@ c.prop(r3(T[18] - 0.1), "sweat", { scale: 1 }, 0.01); c.prop(r3(T[18]), "sweat",
 c.prop(TG, "light", { go: 1 }, 0.01, "linear"); sfx(TG, "latch-click", { gain: 0.25 });
 look(r3(TG + 0.1), "wedge", [0.1, 0.1], 0.15);
 // the reporter at the lane mouth, on the cut into the wide
-repTo(r3(T[19] - 0.4), REP_LANE, -120, 0, "talk", 30); expr(r3(T[19] - 0.4), "rep", "shocked", 0.01);
+const TEN = r3(TD + 0.15);   // the wide: cut as he pulls away (the car would drive through the light's camera)
+repTo(TEN, REP_LANE, -120, 0, "talk", 30); expr(TEN, "rep", "shocked", 0.01);
 say(19);
 // at the speaker: Mash (offstage voice through the post) and the dad
 c.prop(r3(T[20] - 0.05), "post", { talk: 1 }, 0.01); c.prop(r3(END_OF(20) + 0.05), "post", { talk: 0 }, 0.01);
@@ -296,7 +297,7 @@ const KIDC = { rig: "car", pos: [-0.06, 1.24, 1.30], look: [-0.08, 1.12, -0.95],
 const TALLYC = { rig: "car", pos: [-3.58, 1.34, -0.74], look: [-0.98, 1.34, -0.74], fov: 35 };
 const COVER = { pos: [1.60, 0.45, 19.4], look: [1.25, 1.77, 0], fov: 44 };
 const COVERC = { pos: [1.85, 0.75, 17.3], look: [1.95, 0.62, 14.75], fov: 34 };
-const REDL = { pos: [-0.9, 1.25, -0.9], look: [-1.75, 2.55, -3.0], fov: 32 };
+const REDL = { pos: [-1.3, 1.25, -1.0], look: [-1.75, 2.55, -3.0], fov: 32 };
 const WINDOW = { pos: [-0.95, 1.5, 1.5], look: [-1.45, 1.2, -0.6], fov: 40 };
 const KIT08 = { pos: [KX - 3.40, 0.80, 2.60], look: [KX - 3.45, 0.85, -1.5], fov: 40 };
 const KIT09 = { pos: [KX - 3.0, 1.21, 1.08], look: [KX - 3.0, 1.21, -1.9], fov: 31 };
@@ -304,8 +305,8 @@ const WIDE10 = { pos: [-2.4, 6.2, 5.0], look: [1.6, 0.4, -7.2], fov: 52 };
 const SPEAKC = (() => { const p = laneXZ(1.2, 2.6); return { pos: [r3(p[0]), 1.5, r3(p[1])], look: [3.7, 1.2, -11.2], fov: 40 }; })();
 const MASHC = (() => { const p = laneXZ(8.6, -2.4); return { pos: [r3(p[0]), 1.45, r3(p[1])], look: [r3(MASH_AT[0]), 1.35, r3(MASH_AT[1])], fov: 30 }; })();
 const PLINTHC = (() => { const p = laneXZ(11.0, 0.2); return { pos: [r3(p[0]), 1.6, r3(p[1])], look: [r3(REP_PLINTH[0]), 1.35, r3(REP_PLINTH[1])], fov: 34 }; })();
-const ENDC = { rig: "car", pos: [-0.2, 1.55, 3.2], look: [0.2, 1.15, -0.3], fov: 40 };   // the opening frame, a step to the kid's side
-const HAND14 = (() => { const p = laneXZ(11.2, 1.25), q = laneXZ(8.65, 0.95); return { pos: [r3(p[0]), 1.5, r3(p[1])], look: [r3(q[0]), 1.15, r3(q[1])], fov: 38 }; })();
+const ENDC = { rig: "car", pos: [-0.2, 1.55, 3.2], look: [0.3, 1.15, -0.3], fov: 40 };   // the opening frame, a step to the kid's side
+const HAND14 = (() => { const p = laneXZ(11.2, 1.25), q = laneXZ(8.65, 0.95); return { pos: [r3(p[0]), 1.5, r3(p[1])], look: [r3(q[0]), 1.15, r3(q[1])], fov: 38 }; })();   // from ahead in the lane: the dad, the burger coming in (weak, A-pillar: fix in the Sol round)
 const beats = c.beats([
   ["burgers?", 0, push(CAR2, 0.06, 3.2), "hook"],
   ["tally 1", TA1, push(TALLYC, 0.05, TALLY)],
@@ -326,12 +327,12 @@ const beats = c.beats([
   ["his dinner", cutAt(17), push(KIT08, 0.07, DUR[17] + 0.3)],
   ["a meal", cutAt(18), push(DADC, 0.1, DUR[18] + 0.4)],
   ["green", TG, push(REDL, 0.04, 0.9)],
-  ["entering", r3(T[19] - 0.4), push(WIDE10, 0.05, DUR[19] + 0.8), "escalation"],
+  ["entering", TEN, push(WIDE10, 0.05, r3(END_OF(19) + 0.4 - TEN)), "escalation"],
   ["welcome", cutAt(20), push(SPEAKC, 0.06, DUR[20] + 0.3)],
   ["to the speaker", cutAt(21), push(CAR2T, 0.08, DUR[21] + 0.3)],
   ["tally 4", TA4, push(TALLYC, 0.05, TALLY)],
   ["why are you here", cutAt(22), push(MASHC, 0.08, DUR[22] + 0.4)],
-  ["silence", TS, push({ ...ENDC, pos: [-0.38, 1.55, 3.2], look: [0.12, 1.15, -0.3] }, 0.1, T[23] - TS + DUR[23] + 0.2)],
+  ["silence", TS, push({ ...ENDC, pos: [-0.55, 1.55, 3.2], look: [0.1, 1.15, -0.3] }, 0.1, T[23] - TS + DUR[23] + 0.2)],
   ["did he just", cutAt(24), push(PLINTHC, 0.08, DUR[24] + 0.4)],
   ["handover", TH, push(HAND14, 0.06, PASS)],
   ["food at home 5", TE, push(ENDC, 0.06, END - TE), "payoff"],
