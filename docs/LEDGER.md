@@ -117,6 +117,14 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   stride-before-cut glitch at 0 without the hide trick. Proof: the clip with the trick taken out, 42.63 and 42.70 s:
   the Devil's leg reaches across the floor on main and stays planted with the fix (`experiments/gait-stop-at-cut/`).
 
+- Render takes its own lock (22 Nov, from Norse myth 01 Odin's eye; waits for Jonny's word): builders ran renders
+  as `flock <lock> node engine/render.mjs ... | head`; when head quit, the pipe kept the flock, and every later render
+  waited without a word until the stale pids were found and killed. `engine/render.mjs` now takes a lock itself
+  (`engine/renderlock.mjs`): one render at a time per machine, the waiting render prints the holder's pid and command
+  once a minute, a lock whose holder died is taken over at once, off on the farm (CI) and with `--no-lock`. Should
+  keep silent render waits at 0 and lower `waits`. Proof: a stale lock is taken in 0 ms, a live one is waited for
+  (3.0 s for a 3 s holder) and named, a still render releases it on exit.
+
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
 
