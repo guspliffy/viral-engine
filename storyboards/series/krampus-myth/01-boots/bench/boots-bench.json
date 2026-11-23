@@ -1,0 +1,1040 @@
+{
+ "id": "boots-bench",
+ "title": "Krampus 01 boots, drawings and treats bench",
+ "idea": "Engine look bench for the boots, the crayon drawings and the treats (task T-E), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#1d2744",
+  "floor": "#6a7186",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "sp",
+   "kind": "kboot",
+   "who": "spud",
+   "x": 3,
+   "y": 0,
+   "z": 0,
+   "rot": -35
+  },
+  {
+   "id": "spn",
+   "kind": "bootnote",
+   "who": "spud",
+   "x": 2.994,
+   "y": 0.345,
+   "z": 0.103,
+   "rot": 0
+  },
+  {
+   "id": "ch",
+   "kind": "kboot",
+   "who": "chip",
+   "x": 4.2,
+   "y": 0,
+   "z": 0,
+   "rot": -35,
+   "mud": 1
+  },
+  {
+   "id": "chn",
+   "kind": "bootnote",
+   "who": "chip",
+   "x": 4.195,
+   "y": 0.305,
+   "z": 0.089,
+   "rot": 0
+  },
+  {
+   "id": "d8",
+   "kind": "kboot",
+   "style": "leather",
+   "x": 7.8,
+   "y": 0,
+   "z": 0,
+   "rot": -25
+  },
+  {
+   "id": "d9",
+   "kind": "kboot",
+   "style": "suede",
+   "x": 9,
+   "y": 0,
+   "z": 0,
+   "rot": -25
+  },
+  {
+   "id": "bk",
+   "kind": "kboot",
+   "who": "spud",
+   "x": 10.2,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sd",
+   "kind": "kboot",
+   "who": "spud",
+   "x": 11.4,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "st",
+   "kind": "kboot",
+   "who": "spud",
+   "x": 12.6,
+   "y": 0,
+   "z": 0,
+   "rot": -35,
+   "sticks": 1
+  },
+  {
+   "id": "stn",
+   "kind": "bootnote",
+   "who": "spud",
+   "x": 12.594,
+   "y": 0.345,
+   "z": 0.103,
+   "rot": 0
+  },
+  {
+   "id": "tr",
+   "kind": "kboot",
+   "who": "chip",
+   "x": 13.799999999999999,
+   "y": 0,
+   "z": 0,
+   "rot": -35,
+   "treats": 1
+  },
+  {
+   "id": "trn",
+   "kind": "bootnote",
+   "who": "chip",
+   "x": 13.795,
+   "y": 0.305,
+   "z": 0.089,
+   "rot": 0
+  },
+  {
+   "id": "th",
+   "kind": "kboot",
+   "who": "chip",
+   "x": 15,
+   "y": 0,
+   "z": 0,
+   "rot": -35,
+   "treats": 0.5
+  },
+  {
+   "id": "l1",
+   "kind": "kboot",
+   "style": "rubber",
+   "color": "moss",
+   "h": 0.3,
+   "x": 16,
+   "y": 0,
+   "z": 0,
+   "rot": -25
+  },
+  {
+   "id": "l2",
+   "kind": "kboot",
+   "style": "felt",
+   "color": "orange",
+   "h": 0.24,
+   "x": 16.2,
+   "y": 0,
+   "z": 0,
+   "rot": -25
+  },
+  {
+   "id": "l3",
+   "kind": "kboot",
+   "style": "furtrim",
+   "color": "sky",
+   "h": 0.18,
+   "x": 16.38,
+   "y": 0,
+   "z": 0,
+   "rot": -25
+  },
+  {
+   "id": "l4",
+   "kind": "kboot",
+   "style": "rubber",
+   "color": "violet",
+   "h": 0.28,
+   "x": 17.279999999999998,
+   "y": 0,
+   "z": 0,
+   "rot": -25
+  },
+  {
+   "id": "l5",
+   "kind": "kboot",
+   "style": "felt",
+   "color": "red",
+   "dots": 9,
+   "h": 0.22,
+   "x": 17.5,
+   "y": 0,
+   "z": 0,
+   "rot": -25
+  },
+  {
+   "id": "c1",
+   "kind": "ktreat",
+   "type": "coin",
+   "n": 0,
+   "x": 18.53,
+   "y": 0.026,
+   "z": 0,
+   "rot": 20,
+   "tip": 75
+  },
+  {
+   "id": "c2",
+   "kind": "ktreat",
+   "type": "coin",
+   "n": 1,
+   "x": 18.6,
+   "y": 0.026,
+   "z": 0,
+   "rot": -10,
+   "tip": 75
+  },
+  {
+   "id": "c3",
+   "kind": "ktreat",
+   "type": "coin",
+   "n": 0,
+   "x": 18.67,
+   "y": 0.045,
+   "z": 0,
+   "rot": 30,
+   "tip": 75,
+   "peel": 1,
+   "bite": 1
+  },
+  {
+   "id": "m1",
+   "kind": "ktreat",
+   "type": "mandarin",
+   "stem": true,
+   "x": 19.75,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "m2",
+   "kind": "ktreat",
+   "type": "mandarin",
+   "x": 19.810000000000002,
+   "y": 0,
+   "z": 0.01,
+   "rot": 80
+  },
+  {
+   "id": "w1",
+   "kind": "ktreat",
+   "type": "walnut",
+   "x": 19.87,
+   "y": 0,
+   "z": 0,
+   "rot": 30
+  },
+  {
+   "id": "w2",
+   "kind": "ktreat",
+   "type": "walnut",
+   "x": 19.91,
+   "y": 0,
+   "z": 0.015,
+   "rot": 120
+  },
+  {
+   "id": "dr",
+   "kind": "kboot",
+   "who": "chip",
+   "x": 21,
+   "y": 0,
+   "z": 0,
+   "rot": -35,
+   "droop": 1
+  },
+  {
+   "id": "gl",
+   "kind": "kboot",
+   "who": "chip",
+   "x": 22.2,
+   "y": 0,
+   "z": 0,
+   "rot": -35,
+   "shine": 1
+  },
+  {
+   "id": "w_sp",
+   "kind": "kboot",
+   "who": "spud",
+   "x": 99.84,
+   "y": 0,
+   "z": 0,
+   "rot": -35
+  },
+  {
+   "id": "w_ch",
+   "kind": "kboot",
+   "who": "chip",
+   "x": 100.14,
+   "y": 0,
+   "z": 0,
+   "rot": -35,
+   "mud": 1
+  },
+  {
+   "id": "s_sp",
+   "kind": "kboot",
+   "who": "spud",
+   "x": 1,
+   "y": 0,
+   "z": 0.95,
+   "rot": -35
+  },
+  {
+   "id": "s_ch",
+   "kind": "kboot",
+   "who": "chip",
+   "x": 1.22,
+   "y": 0,
+   "z": 0.95,
+   "rot": -35,
+   "mud": 1
+  },
+  {
+   "id": "wn_sp",
+   "kind": "bootnote",
+   "who": "spud",
+   "x": 99.834,
+   "y": 0.345,
+   "z": 0.103,
+   "rot": 0
+  },
+  {
+   "id": "wn_ch",
+   "kind": "bootnote",
+   "who": "chip",
+   "x": 100.135,
+   "y": 0.305,
+   "z": 0.089,
+   "rot": 0
+  },
+  {
+   "id": "sn_sp",
+   "kind": "bootnote",
+   "who": "spud",
+   "x": 0.994,
+   "y": 0.345,
+   "z": 1.053,
+   "rot": 0
+  },
+  {
+   "id": "sn_ch",
+   "kind": "bootnote",
+   "who": "chip",
+   "x": 1.215,
+   "y": 0.305,
+   "z": 1.039,
+   "rot": 0
+  },
+  {
+   "id": "wa_ch",
+   "kind": "bootnote",
+   "who": "chip",
+   "x": 99.834,
+   "y": 0.345,
+   "z": 0.103,
+   "rot": 0
+  },
+  {
+   "id": "wa_sp",
+   "kind": "bootnote",
+   "who": "spud",
+   "x": 100.135,
+   "y": 0.305,
+   "z": 0.089,
+   "rot": 0,
+   "kink": 1
+  },
+  {
+   "id": "sa_ch",
+   "kind": "bootnote",
+   "who": "chip",
+   "x": 0.994,
+   "y": 0.345,
+   "z": 1.053,
+   "rot": 0
+  },
+  {
+   "id": "sa_sp",
+   "kind": "bootnote",
+   "who": "spud",
+   "x": 1.215,
+   "y": 0.305,
+   "z": 1.039,
+   "rot": 0,
+   "kink": 1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "spud",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3,
+     0.353,
+     1.304
+    ],
+    "look": [
+     3,
+     0.17,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wa_ch",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wa_sp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sa_ch",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sa_sp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "chipMud",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     4.2,
+     0.343,
+     1.304
+    ],
+    "look": [
+     4.2,
+     0.16,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ch",
+     "set": {
+      "mud": 1,
+      "shine": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "chipHalf",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     4.2,
+     0.343,
+     1.344
+    ],
+    "look": [
+     4.2,
+     0.16,
+     0.04
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ch",
+     "set": {
+      "mud": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "chipPolished",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     4.2,
+     0.343,
+     1.304
+    ],
+    "look": [
+     4.2,
+     0.16,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ch",
+     "set": {
+      "mud": 0,
+      "shine": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door8",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     7.8,
+     0.293,
+     0.947
+    ],
+    "look": [
+     7.8,
+     0.13,
+     0.02
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "door9",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     9,
+     0.239,
+     0.808
+    ],
+    "look": [
+     9,
+     0.1,
+     0.02
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "back",
+   "at": 6.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     10.2,
+     0.372,
+     -1.205
+    ],
+    "look": [
+     10.2,
+     0.16,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "side",
+   "at": 7.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     10.195,
+     0.372,
+     0
+    ],
+    "look": [
+     11.4,
+     0.16,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "sticks",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     12.6,
+     0.541,
+     1.716
+    ],
+    "look": [
+     12.6,
+     0.3,
+     0
+    ],
+    "fov": 26
+   },
+   "do": []
+  },
+  {
+   "name": "treats",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     13.8,
+     0.428,
+     0.913
+    ],
+    "look": [
+     13.8,
+     0.2,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "treatsHalf",
+   "at": 11,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     15.284,
+     0.642,
+     0.781
+    ],
+    "look": [
+     15,
+     0.2,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "lane",
+   "at": 12.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     16.2,
+     0.487,
+     2.329
+    ],
+    "look": [
+     16.2,
+     0.16,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "lane2",
+   "at": 13.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     17.4,
+     0.412,
+     1.864
+    ],
+    "look": [
+     17.4,
+     0.15,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "coins",
+   "at": 14.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     18.6,
+     0.08,
+     0.512
+    ],
+    "look": [
+     18.6,
+     0.026,
+     0
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "coinPeel",
+   "at": 15.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     18.67,
+     0.095,
+     0.357
+    ],
+    "look": [
+     18.67,
+     0.045,
+     0
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "fruit",
+   "at": 16.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     19.78,
+     0.13,
+     0.399
+    ],
+    "look": [
+     19.78,
+     0.03,
+     0
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "nuts",
+   "at": 17.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     19.89,
+     0.103,
+     0.242
+    ],
+    "look": [
+     19.89,
+     0.015,
+     0
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "droop",
+   "at": 18.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     22.269,
+     0.414,
+     0.274
+    ],
+    "look": [
+     21,
+     0.14,
+     0.05
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "glint",
+   "at": 19.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     22.2,
+     0.301,
+     1.072
+    ],
+    "look": [
+     22.2,
+     0.15,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gl",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gl",
+     "set": {
+      "glint": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "name": "wideBefore",
+   "at": 20.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     100,
+     1.596,
+     13.283
+    ],
+    "look": [
+     100,
+     0.2,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "wideAfter",
+   "at": 22,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     100,
+     1.596,
+     13.283
+    ],
+    "look": [
+     100,
+     0.2,
+     0
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wn_sp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wn_ch",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wa_ch",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wa_sp",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "swapBefore",
+   "at": 23.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.1,
+     0.75,
+     3.6
+    ],
+    "look": [
+     1.1,
+     0.3,
+     0.95
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "swapAfter",
+   "at": 24.2,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     1.1,
+     0.75,
+     3.6
+    ],
+    "look": [
+     1.1,
+     0.3,
+     0.95
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sn_sp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sn_ch",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sa_ch",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sa_sp",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/krampus-myth/01-boots/bench/make-boots-bench.mjs (engine bench)."
+}

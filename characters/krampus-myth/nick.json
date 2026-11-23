@@ -1,0 +1,84 @@
+{
+  "id": "krampus-myth/nick",
+  "name": "Saint Nick",
+  "franchise": "KrampusMyth",
+  "source": "Krampus myth 01 DESIGN.md section C (21 Nov 2026): Spud's body block, skin, eyes and glove hands, cast at scale 1.22 (1.24 standing, mitre top 1.63); the costume is engine/page/costumes-stnick.js.",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.88,
+    "width": 0.76,
+    "depth": 0.66,
+    "lump": 0.03,
+    "seed": 53
+  },
+  "limbs": {
+    "color": "#f3ede0",
+    "width": 0.032,
+    "shoulder": -0.32
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "blush": 1.3,
+    "brow": "#f4f1ea",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1,
+      "lidL": 0.55,
+      "lidR": 0.55
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 0.85
+    },
+    "final": {
+      "neutral": {
+        "lidL": 0.55,
+        "lidR": 0.55
+      },
+      "rest": {
+        "tilt": 0.11,
+        "curve": 0.42
+      }
+    }
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none",
+    "leaves": 1
+  },
+  "costume": {
+    "type": "spud",
+    "stnick": true
+  },
+  "personality": "Saint Nick: the old kind judge who reads every child's year from the golden book. Calm, judging, a little tired. Stands, reads, shakes his head, kneels to pour treats (DESIGN section C).",
+  "voice": {
+    "pitch": 98,
+    "rate": 2.7,
+    "formant": 0.96,
+    "range": 3,
+    "breath": 0.1,
+    "vibrato": 0.01,
+    "seed": 131
+  },
+  "voiceNote": "gibberish, low and slow (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.3,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Costume `stnick` (engine/page/costumes-stnick.js USAGE) on Spud's body (type spud keeps Spud's sheet face and skin). Cast him with scale 1.22. Resting lids 0.55 and the inner brow ends up are set in face.final, which wins over the sheet look."
+}
