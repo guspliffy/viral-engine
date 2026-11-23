@@ -12,6 +12,11 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 
 ## 1. The story
 
+- **The story spine** (Jonny 22 Nov, every video; the Siren myth channel opens the same way): scene + a name + a weird
+  rule -> stakes -> hide the twist, tease the twist -> ending. The name comes first and the rule right after it, then
+  what is at stake: "We're live. Tato, age seven, just asked for burgers. And in this car, there is one rule:
+  whoever says 'We have food at home' has to eat it." The twist is hidden but teased two or three times (a stomach
+  growl, a glance), and the ending pays off the rule. Every outline names its rule, its stake and its teases.
 - **Suggestions, not a formula** (15 Nov, from the MrBeast study, on trial): the rules below guard against failures
   we have seen; they are not a recipe for the story. MrBeast's warning: strict beat checklists make every video look
   the same after about ten. So each new episode changes at least one visible thing about its shape from the last one
@@ -143,7 +148,9 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **No cast names on screen** (18 Nov, every video): viewers don't know our names (Chip, Wedge, Mash, Spud...), so no
   name in a spoken line, caption, poll or post text; say "you", "he", "my friend", the big one, and point or look.
   Names stay in scripts and code. Exception: a character whose look says who he is (the Wizard, the Samurai, the
-  Dragon, the Viking) may be called that.
+  Dragon, the Viking) may be called that. Second exception (22 Nov): the main character's one spoken name, **Tato**
+  (Spud in code), introduced in a line the first time it is said ("Tato, age seven, just asked for burgers.").
+  Tato is the only cast name ever said; everyone else stays "Dad", "the reporter", "my friend".
 - **Gibberish is always captioned** with its words, in the speaker's colour, timed to the line.
 - **No title card or freeze mid-video** (9 Nov): the title is added in the app. No silent freeze before a punchline
   (it looked like a playback bug and lost a third of viewers in one second). Hit-stops and slow-motion close-ups are
@@ -190,6 +197,9 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
   interesting and doesn't feel so slow anymore"; a few scenes felt rushed, which he accepted. Plan Happiness videos
   tighter from the first draft: lines near back to back, short holds, no waiting on a slow narrator; a long film may
   still be sped up as a whole at the join. Other series: not decided yet ("for the other video i dont know yet").
+- **Faster voices: Reaper and Mash** (Jonny 23 Nov, Kid vs Dad 02: "super slow, even on 1.25x"): both recipes carry
+  `"tempo": 1.25` in `engine/voice/voices.json`, so new takes read 25 % faster with the pitch kept. Older clips keep their
+  cached takes until re-rendered. Kid vs Dad 02 itself is sped up 1.3x as a whole at the join instead.
 - **Food series**: every potato that gets eaten is ALIVE (face, reaction, ideally a line).
 - **Held cards and phones**: cards face the holder (show a hand with an over-the-shoulder shot); a phone shown to
   others uses the edge hold (`docs/rules/clip-lessons.md`).
