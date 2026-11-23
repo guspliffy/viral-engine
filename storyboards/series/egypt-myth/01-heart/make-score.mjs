@@ -12,11 +12,12 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.resolve(HERE, "../../../..");
-const sb = JSON.parse(fs.readFileSync(path.join(HERE, "heart.json"), "utf8"));
+const ID = process.env.CUT === "mystery" ? "heart-mystery" : "heart";   // CUT=mystery: the mysteries-channel cut (make-heart.mjs)
+const sb = JSON.parse(fs.readFileSync(path.join(HERE, `${ID}.json`), "utf8"));
 const beat = (n) => { const b = sb.beats.find((x) => x.name === n); if (!b) throw new Error(`no beat ${n}`); return b.at; };
 const CL3 = beat("clunk 3"), SLAP = beat("sealed") - 0.15, DOORS = beat("the doors"), NEXT = beat("next");
 const END = sb.beats.reduce((m, b) => Math.max(m, b.at + b.len), 0);
-const A = path.join(ROOT, "assets/music/ai"), OUT = path.join(ROOT, "assets/music/egypt-myth/heart-score.ogg");
+const A = path.join(ROOT, "assets/music/ai"), OUT = path.join(ROOT, `assets/music/egypt-myth/${ID}-score.ogg`);
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 const f = (x) => x.toFixed(3), ms = (x) => Math.round(x * 1000);
 const PANIC = 42.95;   // zombies-score-03.ogg.json: the "zombie-panic" section starts here
