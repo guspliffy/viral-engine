@@ -445,6 +445,9 @@ export const DRIVETHRU_KINDS = {
     // ---- 3 real lights, scaled by `light`
     const lights = LIGHTS.map((o) => { const L = new THREE.PointLight(o.c, 0, o.range, o.decay); L.position.set(...o.at()); g.add(L); return L; });
     finish(g);
+    // a whole street in one prop: its box holds every body on it, so the body checks judge each part by its surface
+    // (stage.js clipping(): userData.surfaceOnly, like the Stonehenge plain)
+    g.traverse((o) => { if (o.isMesh) o.userData.surfaceOnly = true; });
     return { grip: 0, apply(ps) { const k = clamp(ps.light ?? P.spec.light ?? 1, 0, 1.5); lights.forEach((L, i) => { L.intensity = LIGHTS[i].I * k; }); } };
   },
 
