@@ -7,6 +7,7 @@ import { skipAge } from "./costumes-skipage.js";
 import { devilKit } from "./costumes-devil.js";
 import { angelKit } from "./costumes-angel.js";
 import { vestExtras, reporterHelmet } from "./costumes-reporter.js";   // the reporter: padded vest keys + helmet on the teller (USAGE header there)
+import { headset } from "./costumes-crew.js";   // Mash's worker headset (costume.headset; USAGE header there; Kid vs Dad 02)
 import { blanket } from "./costumes-blanket.js";   // Chip's shock blanket (costume.blanket, key slip; kid vs dad 01)
 
 // Spud's everyday friends (Jonny, 12 Nov 2026): Chip, Wedge and Mash. No costume, no weapon, no powers: each one is a
@@ -894,8 +895,11 @@ function archaeologist(C, ch, P) {
 const CHIP_HOODIE = { color: "#ffcf2e", seed: 21.4, front: -0.28, back: 0.25, vee: 0.6, hem: -1.14, cowlR: 0.02, cowlWide: 1.7, hoodR: 0.026, hoodWide: 2.7, r0: 0.062, r1: 0.05, phase: 0.6, cordLen: 0.2, cordR: 0.0085, pocketW: 0.52, pocketH: 0.05, pocketUp: 0.26, flecks: 220, folds: 3, pale: true };
 const KIT = {
   bathrobe: (C, ch) => robe(C, ch, { color: "#b79ac8", stripe: "#8a6aa6", collar: "#cdb6da", beltC: "#9a7ab4", phBelt: -0.62, seed: 53.4, front: -0.4, back: 0.25, vee: 0.75, hem: 0.06, flare: 1.36, circ: 2.45, phase: 0.8, r0: 0.074, r1: 0.059, rows: [0.78, 0.46] }),
-  chip: (C, ch) => hoodie(C, ch, CHIP_HOODIE),
-  mash: (C, ch) => { const sl = hoodie(C, ch, { color: "#7a716c", seed: 33.8, front: -0.16, back: 0.2, vee: 0.7, hem: -1.2, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 }); headphones(C, ch, { ph: -0.2, rise: 0.46, at: 1.15, cup: 0.078, lift: 0.05 }); return sl; },
+  chip: (C, ch) => {
+    const sl = hoodie(C, ch, CHIP_HOODIE), helm = C.helm ? reporterHelmet(ch, C) : null;   // costume.helm: the reporter's helmet on Chip (Kid vs Dad 02; sprout.placement "none" in the file)
+    return helm ? { sl, hat: helm.hat, sitDepth: helm.sitDepth, apply: (st) => helm.apply(st) } : sl;
+  },
+  mash: (C, ch) => { const sl = hoodie(C, ch, { color: "#7a716c", seed: 33.8, front: -0.16, back: 0.2, vee: 0.7, hem: -1.2, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 }); if (C.phones !== false) headphones(C, ch, { ph: -0.2, rise: 0.46, at: 1.15, cup: 0.078, lift: 0.05 }); if (C.headset) headset(ch, C); return sl; },   // phones: false = no neck headphones; headset: costumes-crew.js
   // Spud copies Mash (happiness score film, panels 08-12): Mash's charcoal hoodie on Spud's body with Spud's own teal sweater
   // collar showing above the folded hood, and light-blue headphones round his neck. C: hoodie, sweater (the collar), strings, phones.
   spudcopy: (C, ch) => { const P = { color: "#7a716c", seed: 33.8, front: -0.46, back: 0.1, vee: 0.7, hem: -1.16, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 };

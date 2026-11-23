@@ -93,6 +93,8 @@
 // #14233c and #8f1d1d twice a second (starting navy at `from`). Pop-in at show[0] (default the first key): the whole bar slides up
 // 20 px and fades in over 0.25 s; it fades out over 0.25 s ending at show[1] (default: stays to the end). Before the first key the
 // bar shows the first value. The box goes to the layout as a card (qa/framing.mjs sees a face under it).
+// Kid vs Dad 02 adds two opt-in switches: "count": false draws the label only (no colon, no number; "keys" not required, "show" gives
+// the window, the strip is never kicked or flashed) and "tagW": 150 sets the red block's width (default 258; the strip takes the rest).
 import { clamp, ease, lerp } from "./util.js";
 import { keyed, minutes, nightOf } from "../shared/sky.js";
 import { frameSafe, isWide } from "../shared/frame.js";
@@ -269,16 +271,16 @@ function sunState(spec, t) {
 // ---- the TV news bar (opt-in) ----
 const NEWS_X = 72, NEWS_W = 836, NEWS_H = 96, NEWS_TAG_W = 258, NEWS_Y = 1236, NEWS_KICK = 6, NEWS_NAVY = "#14233c", NEWS_ALARM = "#8f1d1d";
 function newsState(P, t) {
-  const nk = keyed(P.keys, t);
-  if (!nk) return null;
-  const K = nk.K, first = P.show ? P.show[0] : K[0][0], k = t - first;
+  const bare = P.count === false, nk = bare ? null : keyed(P.keys, t);   // count: false = a label-only bar (no keys needed)
+  if (!nk && !bare) return null;
+  const K = nk ? nk.K : null, first = P.show ? P.show[0] : bare ? 0 : K[0][0], k = t - first;
   if (k < 0 || (P.show && t >= P.show[1])) return null;
   const inn = clamp(k / 0.25), a = inn * (P.show ? clamp((P.show[1] - t) / 0.25) : 1);
   if (a <= 0) return null;
-  const rose = nk.i > 0 && nk.since >= 0 && K[nk.i][1] > K[nk.i - 1][1];
+  const rose = !bare && nk.i > 0 && nk.since >= 0 && K[nk.i][1] > K[nk.i - 1][1];
   const al = (P.alarm || []).find((w) => t >= w[0] && t < w[1]);
   return {
-    n: Math.round(nk.v), nmax: Math.round(Math.max(...K.map((q) => q[1]))), label: P.label ?? "DAD JOKES TODAY", tag: P.tag ?? "BREAKING",
+    n: bare ? 0 : Math.round(nk.v), nmax: bare ? 0 : Math.round(Math.max(...K.map((q) => q[1]))), ...(bare ? { bare: true } : {}), ...(P.tagW != null ? { tagW: P.tagW } : {}), label: P.label ?? "DAD JOKES TODAY", tag: P.tag ?? "BREAKING",
     a, dy: 20 * (1 - ease("out")(inn)), y: P.y ?? NEWS_Y,
     kick: rose && nk.since < 0.18 ? NEWS_KICK * Math.sin((nk.since / 0.18) * Math.PI) : 0,
     flash: rose && nk.since < 0.25,
@@ -606,7 +608,7 @@ function drawSun(ctx, U) {
 
 // the news bar: caps are centred on their cap height (font size from the measured "H"), long text shrinks to fit
 function drawNews(ctx, N) {
-  const [x, y, w, h] = newsBox(N), sx = x + NEWS_TAG_W, sw = w - NEWS_TAG_W, CAP = 40;
+  const [x, y, w, h] = newsBox(N), TW = N.tagW ?? NEWS_TAG_W, sx = x + TW, sw = w - TW, CAP = 40;
   const grouped = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   ctx.save(); ctx.letterSpacing = "0px"; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
   ctx.font = '900 100px "CapBlack"';
@@ -614,19 +616,19 @@ function drawNews(ctx, N) {
   const fit = (str, room) => { ctx.font = `900 ${px}px "CapBlack"`; return Math.min(1, room / Math.max(1, ctx.measureText(str).width)); };
   ctx.globalAlpha = N.a; ctx.translate(0, N.dy);
   // the red block: the tag, centred
-  ctx.fillStyle = "#d62828"; ctx.fillRect(x, y, NEWS_TAG_W, h);
-  const kt = fit(N.tag, NEWS_TAG_W - 32);
+  ctx.fillStyle = "#d62828"; ctx.fillRect(x, y, TW, h);
+  const kt = fit(N.tag, TW - 32);
   ctx.font = `900 ${px * kt}px "CapBlack"`; ctx.fillStyle = "#fff";
-  ctx.fillText(N.tag, x + (NEWS_TAG_W - ctx.measureText(N.tag).width) / 2, y + h / 2 + (CAP * kt) / 2);
+  ctx.fillText(N.tag, x + (TW - ctx.measureText(N.tag).width) / 2, y + h / 2 + (CAP * kt) / 2);
   // the strip: kicks up, navy (pulsing to dark red in an alarm), a white line on its top edge, label and number
   ctx.translate(0, -N.kick);
   ctx.fillStyle = N.alarm > 0 ? mix(NEWS_NAVY, NEWS_ALARM, N.alarm) : NEWS_NAVY; ctx.fillRect(sx, y, sw, h);
   ctx.fillStyle = "#fff"; ctx.fillRect(sx, y, sw, 4);
-  const lab = `${N.label}: `, kf = fit(lab + grouped(N.nmax), sw - 48);
+  const lab = N.bare ? N.label : `${N.label}: `, kf = fit(N.bare ? lab : lab + grouped(N.nmax), sw - 48);
   ctx.font = `900 ${px * kf}px "CapBlack"`;
   const base = y + h / 2 + (CAP * kf) / 2 + 2, lx = sx + 24;
   ctx.fillText(lab, lx, base);
-  ctx.fillStyle = N.flash ? "#ffd23f" : "#fff"; ctx.fillText(grouped(N.n), lx + ctx.measureText(lab).width, base);
+  if (!N.bare) { ctx.fillStyle = N.flash ? "#ffd23f" : "#fff"; ctx.fillText(grouped(N.n), lx + ctx.measureText(lab).width, base); }
   ctx.restore();
 }
 
