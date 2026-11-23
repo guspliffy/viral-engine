@@ -83,10 +83,10 @@ export function withSpeech(sb, chars) {
   const out = structuredClone(sb), lines = [];
   const castVoice = (who) => { const c = (sb.cast || []).find((x) => x.id === who); return c && chars[c.character]?.tts; };
   const add = (item, voice, opts) => { const rec = recipe(voice); if (rec) lines.push({ item, rec, job: job(item.line, rec, opts) }); };
-  const recs = [];
+  const recs = [], babble = [];
   for (const b of out.beats || []) for (const it of b.do || []) {
     if (it.macro === "say" && it.line && it.rec) { recs.push(it); continue; }
-    if (it.macro === "say" && it.line && it.voice !== false) add(it, it.voice ?? castVoice(it.who), it);
+    if (it.macro === "say" && it.line && it.voice !== false) { const v = it.voice ?? castVoice(it.who); if (v == null) babble.push(it); add(it, v, it); }
     if (it.macro === "narrate" && it.line) add(it, it.voice ?? "storyteller-warm", it);
   }
   if (!out.beats) for (const a of out.actions || []) if (a.do === "talk" && a.line && a.voice !== false) add(a, a.voice ?? castVoice(a.who), a);
@@ -97,6 +97,10 @@ export function withSpeech(sb, chars) {
     lines.push({ item: null, job: job(it.line, base, it) });
     return { it, r, ref: lines[lines.length - 1].job };
   });
+  // a line left on the gibberish voice in a clip where other lines speak for real (Kid vs Dad 01, 22 Nov 2026: the
+  // neighbour's two lines had no "voice" and his character file no "tts"; every check passed and Jonny heard it).
+  // "voice": false keeps a line gibberish on purpose and is not listed
+  if (lines.length) for (const it of babble) console.warn(`speech: ${it.who}'s line "${it.line}" uses the gibberish voice while other lines speak for real: give it a "voice" (its character file has no "tts"), or "voice": false if that is the point`);
   if (!lines.length || !synthesise(lines.map((l) => l.job))) return out;
   for (const { it, r, ref } of recJobs) {
     const info = recorded(it.rec, r, ref);
