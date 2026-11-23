@@ -143,6 +143,25 @@ export function frame(target, { az = 0, el = 0, h = 1, fov = 20, push = 0, dur =
 
 // writes <id>.json next to the generator (pass its import.meta.url) and prints the length
 export function write(base, sb) {
+  for (const w of releaseThenMove(sb)) console.warn(w);
   writeFileSync(new URL(`./${sb.id}.json`, base), JSON.stringify(sb, null, 1) + "\n");
   console.log(`${sb.id}: ${sb.beats.reduce((s, b) => s + b.len, 0).toFixed(2)} s, ${sb.beats.length} beats`);
+}
+
+// A release without `to` drops the prop into the physics bake where the hand let go; from then on its x/y/z come from
+// the bake and a later prop set of x, y or z is IGNORED until a hand grabs it again (Krampus boots, 22 Nov: the yellow
+// boot "set back on the step" stayed where Chip's hand was, off camera, and was missing from 58 s on: a severity-1 Sol
+// find). Warn at write time, naming the fix: release(t, { to: [x, y, z] }) or a grab before the move.
+export function releaseThenMove(sb) {
+  const acts = (sb.beats || []).flatMap((b) => (b.do || []).map((a) => ({ ...a, t: r3((b.at || 0) + (a.at || 0)) }))).sort((p, q) => p.t - q.t);
+  const dropped = new Map(), out = [];
+  for (const a of acts) {
+    if (a.do === "release" && a.prop && !a.to && a.keep !== "air") dropped.set(a.prop, a.t);
+    else if (a.do === "grab" && a.prop) dropped.delete(a.prop);
+    else if (a.do === "prop" && dropped.has(a.id) && a.set && ["x", "y", "z"].some((k) => k in a.set)) {
+      out.push(`warn release-then-move: ${a.id} was let go at ${dropped.get(a.id)} s without \`to\` (physics owns it), so its x/y/z set at ${a.t} s is ignored: release with { to: [x, y, z] } or grab it first`);
+      dropped.delete(a.id);
+    }
+  }
+  return out;
 }
