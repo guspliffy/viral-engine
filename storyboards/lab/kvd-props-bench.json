@@ -1,0 +1,365 @@
+{
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "frame": "wide",
+ "loop": false,
+ "music": false,
+ "sound": {
+  "auto": false,
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "castLook": "sheet",
+ "cleanStart": true,
+ "id": "kvd-props-bench",
+ "title": "Kid vs Dad 01 props bench",
+ "idea": "jokejar, snaredrum, drumsticks (engine bench)",
+ "seed": "kvd-props-bench",
+ "set": {
+  "type": "plain",
+  "color": "#bfd0d8",
+  "floor": "#8fae72"
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "props bench"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    20.25,
+    -3.77
+   ],
+   "y": 0.45,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.7
+  }
+ ],
+ "props": [
+  {
+   "id": "jar0",
+   "kind": "jokejar",
+   "x": -0.54,
+   "y": 0,
+   "z": 0,
+   "fill": 0
+  },
+  {
+   "id": "jar1",
+   "kind": "jokejar",
+   "x": -0.18,
+   "y": 0,
+   "z": 0,
+   "fill": 0.5
+  },
+  {
+   "id": "jar2",
+   "kind": "jokejar",
+   "x": 0.18,
+   "y": 0,
+   "z": 0,
+   "fill": 0.82
+  },
+  {
+   "id": "jar3",
+   "kind": "jokejar",
+   "x": 0.54,
+   "y": 0,
+   "z": 0,
+   "fill": 0.82,
+   "plink": 1
+  },
+  {
+   "id": "fence",
+   "kind": "fence",
+   "x": 20.3,
+   "z": -2.6,
+   "width": 1.6
+  },
+  {
+   "id": "kit",
+   "kind": "snaredrum",
+   "x": 20.3,
+   "y": 0,
+   "z": -3.15
+  },
+  {
+   "id": "cym",
+   "kind": "cymbal",
+   "x": 20.56,
+   "y": 1.2,
+   "z": -3.33,
+   "tip": 105,
+   "rot": 0
+  },
+  {
+   "id": "crate",
+   "kind": "crate",
+   "size": 0.44,
+   "x": 20.25,
+   "y": 0,
+   "z": -3.77
+  },
+  {
+   "id": "sticks",
+   "kind": "drumsticks",
+   "x": 20.5,
+   "y": 1.01,
+   "z": -3.13,
+   "rot": 180
+  }
+ ],
+ "captions": [],
+ "visible": [],
+ "beats": [
+  {
+   "name": "jars",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.34,
+     2.3
+    ],
+    "look": [
+     0,
+     0.12,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cym",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "kit",
+   "at": 1,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     20.3,
+     1.2,
+     1.4
+    ],
+    "look": [
+     20.3,
+     0.98,
+     -3.3
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sticks",
+      "grip": [
+       -0.056,
+       0,
+       0.015
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sticks",
+      "grip": [
+       -0.056,
+       0,
+       0.015
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.52
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "sticks",
+     "hand": "L",
+     "grip": [
+      -0.056,
+      0,
+      0.015
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.882
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "kitside",
+   "at": 2.2,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     22.6,
+     1.15,
+     -2.7
+    ],
+    "look": [
+     20.3,
+     0.98,
+     -3.2
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.283
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "kit",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "sticks",
+     "set": {
+      "strike": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.6
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/lab/make-kvd-props-bench.mjs (engine bench, no creative review)."
+}

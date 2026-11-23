@@ -5,7 +5,8 @@ import { buildHills } from "./set-painted.js";
 // "backyard": a sunny back garden for HOW TO CATCH ME (25 Oct): look C's painted meadow ("hills") with a white picket
 // fence across the back, a garden shed on the left, a round tree on the right, flower beds along the fence and
 // stepping stones. The fence has a gap at BACKYARD.gapX (BACKYARD.gap wide) where a breakable `fence` prop stands,
-// so the Viking can smash that stretch. spec: { type: "backyard", seed: 3 }
+// so the Viking can smash that stretch. spec: { type: "backyard", seed: 3 }; shed false leaves the stock shed out (default: it
+// stands at (-2.05, Z - 1.1); Kid vs Dad 01 puts a `gardenshed` prop in the yard instead, 1.1 m behind the fence it would be the neighbour's).
 export const BACKYARD = { fenceZ: -2.6, gapX: 0.3, gap: 1.6 };   // the fence clear of the propped box trap's back
 
 const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.7, ...o });
@@ -29,12 +30,14 @@ export function buildBackyard(scene, S = {}) {
   for (const x of [gapX - gap / 2, gapX + gap / 2]) box(group, 0.09, 0.92, 0.09, paint, x, 0.46, Z - 0.01);   // posts either side of the gap
 
   // the shed, back left: plank walls, a dark roof, a door with a little window
+  if (S.shed !== false) {
   const shed = new THREE.Group(); shed.position.set(-2.05, 0, Z - 1.1); shed.rotation.y = 0.35; group.add(shed);
   box(shed, 1.3, 1.25, 1.0, std("#8fb7c9"), 0, 0.625, 0);
   for (let i = 0; i < 9; i++) box(shed, 0.012, 1.25, 0.01, std("#6f98ab"), -0.6 + i * 0.15, 0.625, 0.505);
   for (const s of [-1, 1]) { const roof = box(shed, 0.82, 0.05, 1.15, std("#5b4a52"), s * 0.36, 1.43, 0); roof.rotation.z = -s * 0.5; }
   box(shed, 0.42, 0.85, 0.02, std("#f2efe8"), 0.25, 0.43, 0.51);
   box(shed, 0.2, 0.16, 0.025, std("#bfe3f5", { roughness: 0.2 }), 0.25, 0.68, 0.515);
+  }
 
   // a round tree, back right
   const tree = new THREE.Group(); tree.position.set(2.1, 0, Z - 1.3); group.add(tree);

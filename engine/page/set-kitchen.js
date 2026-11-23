@@ -4,7 +4,8 @@ import { rng } from "./util.js";
 // "kitchen": PotatoBrawl's Kitchen map (game/maps/kitchen.js) as a 3D room at night: teal tiled wall, a window on a
 // dark blue sky, butcher-block counter on wooden cabinets, upper cabinets, fridge, wall clock, a warm hanging lamp,
 // and a dark checked floor. The stage is the floor in front of the counter (characters at z about 0).
-// spec: { type: "kitchen", time: 2.75 (the clock), lamp: 1 (lamp strength), morning: false (a daytime window) }
+// spec: { type: "kitchen", time: 2.75 (the clock), lamp: 1 (lamp strength), morning: false (a daytime window),
+//         fridge: false (leave out the stock fridge: its box, handle, line and note, 4 meshes; default true) }
 
 function canvasTex(w, h, draw, rx = 1, ry = 1) {
   const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
@@ -16,8 +17,16 @@ const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness
 function box(w, h, d, m, x, y, z, parent) { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); b.position.set(x, y, z); b.castShadow = b.receiveShadow = true; parent.add(b); return b; }
 
 export function buildKitchen(scene, S = {}) {
-  const rnd = rng((S.seed || 5) * 977), room = new THREE.Group(); scene.add(room);
+  const room = new THREE.Group(); scene.add(room);
   scene.background = new THREE.Color("#1b2a33"); scene.fog = null;
+  return buildKitchenRoom(room, S);
+}
+
+// The room alone, built into `room` (a Group the caller owns): no scene.background, no scene.fog. The set above calls it after
+// setting those; the `kitchenroom` prop (props-fridge.js) calls it with its own group so a storyboard on another set can hold the
+// kitchen far from the origin. Its one real light (the hanging lamp, range 9) is local.
+export function buildKitchenRoom(room, S = {}) {
+  const rnd = rng((S.seed || 5) * 977);
   const WALL_Z = -2.3;
 
   // floor: dark checks like the map's floor
@@ -78,11 +87,13 @@ export function buildKitchen(scene, S = {}) {
   for (const side of [-1, 1]) for (let i = 0; i < 3; i++) box(0.62, 0.8, 0.4, upM, side * (1.45 + i * 0.64), 2.55, WALL_Z + 0.2, room);
 
   // the fridge on the left
+  if (S.fridge !== false) {
   const fridgeM = std("#e9e6dc", { roughness: 0.35 });
   box(0.9, 2.0, 0.75, fridgeM, -3.0, 1.0, WALL_Z + 0.4, room);
   box(0.04, 0.4, 0.05, std("#9aa0a8", { metalness: 0.6, roughness: 0.3 }), -2.62, 1.35, WALL_Z + 0.8, room);
   box(0.84, 0.02, 0.02, std("#bdb8ab"), -3.0, 1.32, WALL_Z + 0.78, room);
   const note = new THREE.Mesh(new THREE.PlaneGeometry(0.16, 0.16), lam("#f6e58d")); note.position.set(-3.15, 1.6, WALL_Z + 0.78); note.rotation.z = 0.08; room.add(note);
+  }
 
   // the wall clock on the right, showing S.time
   const clock = new THREE.Group(); clock.name = "set-clock"; clock.position.set(2.0, 1.95, WALL_Z + 0.04); room.add(clock);

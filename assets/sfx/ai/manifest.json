@@ -4807,6 +4807,320 @@
      "loudnessLUFS": -14.9
     }
    ]
+  },
+  {
+   "id": "rimshot",
+   "kind": "sfx",
+   "files": [
+    "rimshot/rimshot-01.wav",
+    "rimshot/rimshot-02.wav",
+    "rimshot/rimshot-03.wav",
+    "rimshot/rimshot-04.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "drums",
+    "rimshot",
+    "ba-dum-tss",
+    "joke",
+    "cymbal",
+    "snare"
+   ],
+   "durationSec": 1.6,
+   "prompt": [
+    "real acoustic drum kit rimshot joke sting, ba-dum-tss: two quick snare and tom hits then one crash cymbal hit ringing out, dry, close microphone, outdoors, one sting then silence, no music, no voice, no crowd",
+    "a drummer plays a quick ba-dum-tss on a real snare drum, a tom and a crash cymbal, dry close-miked drum kit sound effect, one single sting then silence, no music, no people talking"
+   ],
+   "seed": [
+    601,
+    603,
+    602,
+    602
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -22.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "rimshot/rimshot-01.wav",
+     "take": "p0-s601",
+     "prompt": "real acoustic drum kit rimshot joke sting, ba-dum-tss: two quick snare and tom hits then one crash cymbal hit ringing out, dry, close microphone, outdoors, one sting then silence, no music, no voice, no crowd",
+     "seed": 601,
+     "startSec": 0.232,
+     "durationSec": 1.6,
+     "clap": 0.304,
+     "snrDb": 60.6,
+     "loudnessLUFS": -24.2
+    },
+    {
+     "file": "rimshot/rimshot-02.wav",
+     "take": "p0-s603",
+     "prompt": "real acoustic drum kit rimshot joke sting, ba-dum-tss: two quick snare and tom hits then one crash cymbal hit ringing out, dry, close microphone, outdoors, one sting then silence, no music, no voice, no crowd",
+     "seed": 603,
+     "startSec": 0.174,
+     "durationSec": 1.5,
+     "clap": 0.294,
+     "snrDb": 68.3,
+     "loudnessLUFS": -25.2
+    },
+    {
+     "file": "rimshot/rimshot-03.wav",
+     "take": "p0-s602",
+     "prompt": "real acoustic drum kit rimshot joke sting, ba-dum-tss: two quick snare and tom hits then one crash cymbal hit ringing out, dry, close microphone, outdoors, one sting then silence, no music, no voice, no crowd",
+     "seed": 602,
+     "startSec": 0.0,
+     "durationSec": 1.6,
+     "clap": 0.288,
+     "snrDb": 59.8,
+     "loudnessLUFS": -20.6
+    },
+    {
+     "file": "rimshot/rimshot-04.wav",
+     "take": "p1-s602",
+     "prompt": "a drummer plays a quick ba-dum-tss on a real snare drum, a tom and a crash cymbal, dry close-miked drum kit sound effect, one single sting then silence, no music, no people talking",
+     "seed": 602,
+     "startSec": 0.545,
+     "durationSec": 1.6,
+     "clap": 0.275,
+     "snrDb": 82.8,
+     "loudnessLUFS": -19.4
+    }
+   ]
+  },
+  {
+   "id": "snare-hit",
+   "kind": "sfx",
+   "files": [
+    "snare-hit/snare-hit-01.wav",
+    "snare-hit/snare-hit-02.wav",
+    "snare-hit/snare-hit-03.wav",
+    "snare-hit/snare-hit-04.wav",
+    "snare-hit/snare-hit-05.wav",
+    "snare-hit/snare-hit-06.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "drums",
+    "snare",
+    "hit"
+   ],
+   "durationSec": 0.211,
+   "prompt": [
+    "single hits on a real acoustic snare drum, one hit at a time with silence between, dry, close microphone, outdoors, no music, no cymbals",
+    "a drummer hitting a snare drum with a stick, separate single snare hits spaced apart, dry close-miked sound effect, no music, no voice"
+   ],
+   "seed": [
+    611,
+    611,
+    612,
+    612,
+    612,
+    611
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -21.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "snare-hit/snare-hit-01.wav",
+     "take": "p1-s611",
+     "prompt": "a drummer hitting a snare drum with a stick, separate single snare hits spaced apart, dry close-miked sound effect, no music, no voice",
+     "seed": 611,
+     "startSec": 2.998,
+     "durationSec": 0.211,
+     "clap": 0.053,
+     "snrDb": 82.2,
+     "loudnessLUFS": -19.9
+    },
+    {
+     "file": "snare-hit/snare-hit-02.wav",
+     "take": "p1-s611",
+     "prompt": "a drummer hitting a snare drum with a stick, separate single snare hits spaced apart, dry close-miked sound effect, no music, no voice",
+     "seed": 611,
+     "startSec": 2.0,
+     "durationSec": 0.202,
+     "clap": 0.035,
+     "snrDb": 84.3,
+     "loudnessLUFS": -21.7
+    },
+    {
+     "file": "snare-hit/snare-hit-03.wav",
+     "take": "p1-s612",
+     "prompt": "a drummer hitting a snare drum with a stick, separate single snare hits spaced apart, dry close-miked sound effect, no music, no voice",
+     "seed": 612,
+     "startSec": 0.009,
+     "durationSec": 0.194,
+     "clap": 0.034,
+     "snrDb": 92.1,
+     "loudnessLUFS": -23.0
+    },
+    {
+     "file": "snare-hit/snare-hit-04.wav",
+     "take": "p1-s612",
+     "prompt": "a drummer hitting a snare drum with a stick, separate single snare hits spaced apart, dry close-miked sound effect, no music, no voice",
+     "seed": 612,
+     "startSec": 3.008,
+     "durationSec": 0.219,
+     "clap": 0.03,
+     "snrDb": 91.9,
+     "loudnessLUFS": -22.3
+    },
+    {
+     "file": "snare-hit/snare-hit-05.wav",
+     "take": "p1-s612",
+     "prompt": "a drummer hitting a snare drum with a stick, separate single snare hits spaced apart, dry close-miked sound effect, no music, no voice",
+     "seed": 612,
+     "startSec": 6.989,
+     "durationSec": 0.212,
+     "clap": 0.022,
+     "snrDb": 92.0,
+     "loudnessLUFS": -23.4
+    },
+    {
+     "file": "snare-hit/snare-hit-06.wav",
+     "take": "p1-s611",
+     "prompt": "a drummer hitting a snare drum with a stick, separate single snare hits spaced apart, dry close-miked sound effect, no music, no voice",
+     "seed": 611,
+     "startSec": 5.004,
+     "durationSec": 0.214,
+     "clap": 0.017,
+     "snrDb": 84.6,
+     "loudnessLUFS": -21.6
+    }
+   ]
+  },
+  {
+   "id": "coin-jar",
+   "kind": "sfx",
+   "files": [
+    "coin-jar/coin-jar-01.wav",
+    "coin-jar/coin-jar-02.wav",
+    "coin-jar/coin-jar-03.wav",
+    "coin-jar/coin-jar-04.wav",
+    "coin-jar/coin-jar-05.wav",
+    "coin-jar/coin-jar-06.wav",
+    "coin-jar/coin-jar-07.wav",
+    "coin-jar/coin-jar-08.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "coin",
+    "jar",
+    "glass",
+    "clink",
+    "change"
+   ],
+   "durationSec": 0.389,
+   "prompt": [
+    "one metal coin dropped into a big glass jar already full of coins, a short glassy clink and coin rattle, then silence, repeated a few times with pauses, close up, dry, no music",
+    "dropping a single coin into a large glass jar of coins, glassy clink and small metallic rattle, separate drops with quiet gaps, close microphone, indoor kitchen, no music, no voice"
+   ],
+   "seed": [
+    622,
+    621,
+    623,
+    623,
+    623,
+    622,
+    622,
+    621
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.9,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "coin-jar/coin-jar-01.wav",
+     "take": "p0-s622",
+     "prompt": "one metal coin dropped into a big glass jar already full of coins, a short glassy clink and coin rattle, then silence, repeated a few times with pauses, close up, dry, no music",
+     "seed": 622,
+     "startSec": 2.869,
+     "durationSec": 0.559,
+     "clap": 0.411,
+     "snrDb": 90.1,
+     "loudnessLUFS": -19.2
+    },
+    {
+     "file": "coin-jar/coin-jar-02.wav",
+     "take": "p0-s621",
+     "prompt": "one metal coin dropped into a big glass jar already full of coins, a short glassy clink and coin rattle, then silence, repeated a few times with pauses, close up, dry, no music",
+     "seed": 621,
+     "startSec": 5.03,
+     "durationSec": 0.435,
+     "clap": 0.35,
+     "snrDb": 80.6,
+     "loudnessLUFS": -17.8
+    },
+    {
+     "file": "coin-jar/coin-jar-03.wav",
+     "take": "p0-s623",
+     "prompt": "one metal coin dropped into a big glass jar already full of coins, a short glassy clink and coin rattle, then silence, repeated a few times with pauses, close up, dry, no music",
+     "seed": 623,
+     "startSec": 3.463,
+     "durationSec": 0.417,
+     "clap": 0.329,
+     "snrDb": 87.9,
+     "loudnessLUFS": -18.0
+    },
+    {
+     "file": "coin-jar/coin-jar-04.wav",
+     "take": "p0-s623",
+     "prompt": "one metal coin dropped into a big glass jar already full of coins, a short glassy clink and coin rattle, then silence, repeated a few times with pauses, close up, dry, no music",
+     "seed": 623,
+     "startSec": 6.026,
+     "durationSec": 0.362,
+     "clap": 0.326,
+     "snrDb": 100.6,
+     "loudnessLUFS": -20.4
+    },
+    {
+     "file": "coin-jar/coin-jar-05.wav",
+     "take": "p1-s623",
+     "prompt": "dropping a single coin into a large glass jar of coins, glassy clink and small metallic rattle, separate drops with quiet gaps, close microphone, indoor kitchen, no music, no voice",
+     "seed": 623,
+     "startSec": 5.96,
+     "durationSec": 0.55,
+     "clap": 0.315,
+     "snrDb": 71.8,
+     "loudnessLUFS": -24.1
+    },
+    {
+     "file": "coin-jar/coin-jar-06.wav",
+     "take": "p1-s622",
+     "prompt": "dropping a single coin into a large glass jar of coins, glassy clink and small metallic rattle, separate drops with quiet gaps, close microphone, indoor kitchen, no music, no voice",
+     "seed": 622,
+     "startSec": 6.135,
+     "durationSec": 0.317,
+     "clap": 0.293,
+     "snrDb": 68.5,
+     "loudnessLUFS": -21.3
+    },
+    {
+     "file": "coin-jar/coin-jar-07.wav",
+     "take": "p0-s622",
+     "prompt": "one metal coin dropped into a big glass jar already full of coins, a short glassy clink and coin rattle, then silence, repeated a few times with pauses, close up, dry, no music",
+     "seed": 622,
+     "startSec": 5.031,
+     "durationSec": 0.338,
+     "clap": 0.282,
+     "snrDb": 89.3,
+     "loudnessLUFS": -23.9
+    },
+    {
+     "file": "coin-jar/coin-jar-08.wav",
+     "take": "p1-s621",
+     "prompt": "dropping a single coin into a large glass jar of coins, glassy clink and small metallic rattle, separate drops with quiet gaps, close microphone, indoor kitchen, no music, no voice",
+     "seed": 621,
+     "startSec": 6.135,
+     "durationSec": 0.335,
+     "clap": 0.243,
+     "snrDb": 67.5,
+     "loudnessLUFS": -21.8
+    }
+   ]
   }
  ]
 }
