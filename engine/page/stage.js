@@ -1162,6 +1162,14 @@ function layout(t) {
 // Characters passing through props or each other: each body is an ellipsoid (its mesh's own bounding box), and a
 // prop part or another body counts as inside when its box reaches into that ellipsoid. depth 0 = touching,
 // 1 = reaching the centre. Only visible meshes; a held prop is skipped for its holder only.
+// a mesh bigger than this (metres, on its longest side, world scale) is scenery: its box holds whoever stands on it, so the
+// body checks judge it by its surface only, as if it set userData.surfaceOnly
+const SCENERY_BIG = 8, _sb = new THREE.Vector3(), _ss = new THREE.Vector3();
+function sceneryBig(o) {
+  if (!o.geometry.boundingBox) o.geometry.computeBoundingBox();
+  o.geometry.boundingBox.getSize(_sb); o.getWorldScale(_ss);
+  return Math.max(_sb.x * Math.abs(_ss.x), _sb.y * Math.abs(_ss.y), _sb.z * Math.abs(_ss.z)) > SCENERY_BIG;
+}
 function clipping() {
   const out = [], inv = new THREE.Matrix4(), m = new THREE.Matrix4();
   const bodies = actors.map((a) => ({ id: a.c.id, a, mesh: a.ch.body })).filter((b) => b.mesh && b.a.ch.root.visible && b.mesh.visible && b.a.ch.potatoParts.visible);
@@ -1271,11 +1279,13 @@ function clipping() {
       // Each part that reaches in is also measured by its own surface ("shell": a tent's cloth or a torn strip of it
       // through a head), which an "inside the tent" window does not waive: a box says nothing for a part round a body
       const seen = new Set(); let part = null;
+      // Any mesh over SCENERY_BIG m on a side counts as surface-only too (sceneryBig): a street, lane or plaza built as one
+      // prop was judged by its box and every body on it "clipped" it 100 % (Krampus lane 21 Nov, Kid vs Dad 02 drive-thru 23 Nov)
       // A merged scenery mesh (a whole stone circle, a plain 580 m across: userData.surfaceOnly) has a box that holds every
       // body that stands in it, so its box says nothing either: it is judged by its surface alone (Stonehenge kit, 14 Nov 2026)
       p.root.traverseVisible((o) => {
         if (!(o.isMesh && o.geometry && !(o.material && o.material.transparent) && !o.userData.steam)) return;
-        const d = depthIn(b, o); if (!o.userData.surfaceOnly) worst = Math.max(worst, d);
+        const d = depthIn(b, o); if (!o.userData.surfaceOnly && !sceneryBig(o)) worst = Math.max(worst, d);
         if (d > 0.05 && !seen.has(o.geometry)) { seen.add(o.geometry); const sd = surfIn(o, U.multiplyMatrices(W2U, o.matrixWorld)); if (sd > shell) { shell = sd; part = o.name || null; } }
       });
       if (worst > 0.05) out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100 });
