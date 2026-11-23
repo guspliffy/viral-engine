@@ -1,0 +1,494 @@
+{
+ "id": "kvd01-voice-probe",
+ "title": "Kid vs Dad 01 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   115.7,
+   115.7
+  ]
+ },
+ "cast": [
+  {
+   "id": "rep",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 115.7,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Sir, are you okay?",
+     "tone": "calm",
+     "style": "dry, grave, a war correspondent under fire, low voice",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "No. I'm Dad.",
+     "tone": "happy",
+     "style": "big, warm, proud, a showman landing his best line, slow",
+     "dur": 1.7,
+     "caption": false,
+     "at": 4.1
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "It's worse than we feared.",
+     "tone": "sad",
+     "style": "grave, quiet, haunted, straight into the camera",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 6.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Every. Single. Day.",
+     "tone": "sad",
+     "style": "exhausted, flat, a survivor wrapped in a blanket",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 10.3
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "How are you holding up, son?",
+     "tone": "calm",
+     "style": "gentle, careful, a reporter talking to a survivor",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 13
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I'm tired.",
+     "tone": "sad",
+     "style": "small, flat, worn out",
+     "voice": "chip-clean",
+     "dur": 1.3,
+     "caption": false,
+     "at": 16.9
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hi Tired. I'm Dad.",
+     "tone": "happy",
+     "style": "huge, theatrical, arms wide, the biggest stage voice",
+     "dur": 2.1,
+     "caption": false,
+     "at": 19.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Sir. We are live. No more jokes.",
+     "tone": "angry",
+     "style": "firm, clipped, an order, controlled anger",
+     "voice": "reaper",
+     "dur": 3.3,
+     "caption": false,
+     "at": 22.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Fine.",
+     "tone": "calm",
+     "style": "short, sulky, trying to look innocent",
+     "dur": 0.9,
+     "caption": false,
+     "at": 26.6
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Son, how long has this been going on?",
+     "tone": "question",
+     "style": "soft, grave, a reporter asking a survivor",
+     "voice": "reaper",
+     "dur": 3.7,
+     "caption": false,
+     "at": 28.5
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Since I was born.",
+     "tone": "sad",
+     "style": "flat, tired, matter of fact",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 33.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "I'm...",
+     "tone": "calm",
+     "style": "starting a sentence, then stopping dead, realising the danger",
+     "voice": "reaper",
+     "dur": 0.9,
+     "caption": false,
+     "at": 36.3
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We are sorry to hear that.",
+     "tone": "calm",
+     "style": "careful, slow, choosing every word, relieved",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 38.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "This is the jar. One euro per joke.",
+     "tone": "calm",
+     "style": "flat, explaining, holding up evidence",
+     "voice": "chip-clean",
+     "dur": 3.7,
+     "caption": false,
+     "at": 42.1
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "He paid for my bike.",
+     "tone": "calm",
+     "style": "deadpan, a little proud",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 46.8
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "So the jar stops him?",
+     "tone": "question",
+     "style": "hopeful, dry",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 50.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "No. He pays in advance.",
+     "tone": "sad",
+     "style": "flat, defeated, deadpan",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 53.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I'm reading a book about anti-gravity.",
+     "tone": "happy",
+     "style": "slow, dramatic, savouring every word, building up",
+     "dur": 2.9,
+     "caption": false,
+     "at": 57.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I can't put it down.",
+     "tone": "happy",
+     "style": "triumphant, huge, the punchline of his life",
+     "dur": 2.5,
+     "caption": false,
+     "at": 61.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Where is that drum coming from?!",
+     "tone": "angry",
+     "style": "sharp, alarmed, spinning round",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 64.7
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "He pays me too.",
+     "tone": "sad",
+     "style": "quiet, guilty, ashamed, mumbled",
+     "dur": 2.1,
+     "caption": false,
+     "at": 68.6
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Who are you?",
+     "tone": "question",
+     "style": "suspicious, sharp",
+     "voice": "reaper",
+     "dur": 1.7,
+     "caption": false,
+     "at": 71.7
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'm the neighbour.",
+     "tone": "calm",
+     "style": "plain, tired, then realising too late",
+     "dur": 1.7,
+     "caption": false,
+     "at": 74.4
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hi Neighbour. I'm Dad.",
+     "tone": "happy",
+     "style": "fast, delighted, pouncing",
+     "dur": 2.1,
+     "caption": false,
+     "at": 77.1
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Studio, it's too dangerous here.",
+     "tone": "sad",
+     "style": "urgent, low, losing control, to the camera",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 80.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Somebody call me a taxi.",
+     "tone": "sad",
+     "style": "desperate, pleading",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 83.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Okay. You're a taxi.",
+     "tone": "happy",
+     "style": "gentle, helpful, enormously pleased",
+     "dur": 2.1,
+     "caption": false,
+     "at": 87.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "I'm leaving!",
+     "tone": "angry",
+     "style": "loud, cracking",
+     "voice": "reaper",
+     "dur": 1.3,
+     "caption": false,
+     "at": 90.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hi Leaving!",
+     "tone": "excited",
+     "style": "quick, bright, instant",
+     "dur": 1.3,
+     "caption": false,
+     "at": 92.6
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "I'm serious!",
+     "tone": "angry",
+     "style": "louder, desperate",
+     "voice": "reaper",
+     "dur": 1.3,
+     "caption": false,
+     "at": 94.9
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hi Serious!",
+     "tone": "excited",
+     "style": "quick, bright, instant",
+     "dur": 1.3,
+     "caption": false,
+     "at": 97.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "I've covered wars.",
+     "tone": "sad",
+     "style": "quiet, broken, staring into nothing",
+     "voice": "reaper",
+     "dur": 1.7,
+     "caption": false,
+     "at": 99.5
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Nothing like this.",
+     "tone": "sad",
+     "style": "barely a whisper, haunted",
+     "voice": "reaper",
+     "dur": 1.7,
+     "caption": false,
+     "at": 102.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Dad. Just say sorry.",
+     "tone": "calm",
+     "style": "serious, firm, grown up, quiet",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 104.9
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Okay... I'm sorry.",
+     "tone": "sad",
+     "style": "sincere, soft, no joke, real",
+     "dur": 1.7,
+     "caption": false,
+     "at": 108
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Hi Sorry, I'm...",
+     "tone": "calm",
+     "style": "automatic, cheerful, then stopping in horror",
+     "voice": "chip-clean",
+     "dur": 1.7,
+     "caption": false,
+     "at": 110.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "My boy.",
+     "tone": "sad",
+     "style": "teary, proud, whispered, deeply moved",
+     "dur": 1.3,
+     "caption": false,
+     "at": 113.4
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Kid vs Dad 01: makes and measures every take. rep stands in as Spud's body; its voice is reaper."
+}

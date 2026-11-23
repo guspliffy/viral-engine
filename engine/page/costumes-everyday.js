@@ -6,6 +6,9 @@ import { texOf, wash, ribTexture, gridUv, hash2 } from "./costumes-art-cast.js";
 import { skipAge } from "./costumes-skipage.js";
 import { devilKit } from "./costumes-devil.js";
 import { angelKit } from "./costumes-angel.js";
+import { vestExtras, reporterHelmet } from "./costumes-reporter.js";   // the reporter: padded vest keys + helmet on the teller (USAGE header there)
+import { headset } from "./costumes-crew.js";   // Mash's worker headset (costume.headset; USAGE header there; Kid vs Dad 02)
+import { blanket } from "./costumes-blanket.js";   // Chip's shock blanket (costume.blanket, key slip; kid vs dad 01)
 
 // Spud's everyday friends (Jonny, 12 Nov 2026): Chip, Wedge and Mash. No costume, no weapon, no powers: each one is a
 // friend type the viewer can tag, told apart by body shape and size (characters/potatobrawl/*.json), ONE garment in one
@@ -431,6 +434,8 @@ const parts_add = (ch, o) => ch.potatoParts.add(o);
 //            y 0.13, 3 brass buttons), costume.tie "#hex" | false (short, burgundy), costume.glasses "#hex" | false (round brass wire, lenses
 //            r 0.085, glass at 0.08 white = steam; key `slip` 0..1 slides them 0.02 down; drive it with the `wings` action until the timeline has its own), costume.garters false turns the black sleeve
 //            garters off. Rosti = teller with all four off, on a taller body, wearing the props `apron` and `paperhat` (see rosti.json).
+//            The reporter (Kid vs Dad 01, characters/potatobrawl/reporter.json) adds keys, all off by default: padded, quilt, zip, patch (the padded
+//            vest) and helm (a helmet on the hat mount): see the USAGE header of costumes-reporter.js.
 // Each mark is drawn once by hand (hashed, no tile); sleeves end a fixed distance before the hand (the glove stays free).
 const PI = Math.PI, TAU = Math.PI * 2, clamp01 = (x) => Math.max(0, Math.min(1, x));
 const H2 = (a, b = 0) => hash2(a * 1.7 + 11.3, b * 2.3 + 5.1);
@@ -485,9 +490,10 @@ function teller(C, ch, P) {
   parts.add(collarRoll(ch, neck, shirt, 0.013));
   if (vestC) {   // the waistcoat: a V from y 0.34, hem at y 0.13 (the underside of the belly), armholes cut at the sides, 3 brass buttons
     const fV = elOfY(ch, 0.34), hV = Math.max(-1.3, elOfY(ch, 0.13)), vNeck = (th) => fV + (0.3 - fV) * Math.pow(0.5 * (1 - Math.cos(th)), 0.6) - 0.3 * Math.exp(-(((Math.abs(th) - 1.4) / 0.36) ** 2));
-    top(ch, C, { neckFn: vNeck, front: fV, back: 0.3, hem: hV, color: vestC, map: shellTexture(1024, 512, seed + 9, 50), folds: 3, depth: 0.007, phase: 1.1, lift: 0.042, lift0: 0.034 });
+    const vg = top(ch, C, { neckFn: vNeck, front: fV, back: 0.3, hem: hV, color: vestC, map: shellTexture(1024, 512, seed + 9, 50), folds: 3, depth: 0.007, phase: 1.1, lift: C.padded ? 0.06 : 0.042, lift0: C.padded ? 0.05 : 0.034 });   // padded: 0.06 off the shirt
     const brass = metal("#c9a24a", 0.3, 0.7);
-    for (let k = 0; k < 3; k++) parts.add(studAt(ch, 0, fV - 0.16 - 0.17 * k, 0.07 + 0.01 * k, 0.014, brass));
+    if (!C.zip) for (let k = 0; k < 3; k++) parts.add(studAt(ch, 0, fV - 0.16 - 0.17 * k, 0.07 + 0.01 * k, 0.014, brass));
+    if (C.padded || C.quilt || C.zip || C.patch) vestExtras(ch, C, vg.G, vestC);   // the reporter's vest keys (costumes-reporter.js), all off by default
   }
   if (tieC) {   // a short tie from the collar into the vest, wider at its end
     const tm = clothMat(tieC, { side: THREE.DoubleSide }), fV = elOfY(ch, 0.34);
@@ -520,7 +526,8 @@ function teller(C, ch, P) {
     g.quaternion.setFromUnitVectors(V(0, 1, 0), _T); const R = SLV.r0 + (SLV.r1 - SLV.r0) * (0.3 / SLV.cuffAt) + 0.006; g.scale.set(R, 1, R); g.visible = true;
   };
   const sl = sleeves(ch, (() => { const m = clothMat(shirt, { side: THREE.DoubleSide }); m.map = arm; return m; })(), ribMat(shirt, cuffT), SLV);
-  return { sl, apply: (st) => { gl.position.y = -0.02 * clamp01(st.slip ?? st.wings ?? 0); } };   // slip: driven with the `wings` action ({ do: "wings", to }) until the timeline has its own key, as Spud's spread
+  const helm = C.helm ? reporterHelmet(ch, C) : null;   // costume.helm: the reporter's helmet on the hat mount (costumes-reporter.js)
+  return { sl, hat: helm && helm.hat, sitDepth: helm ? helm.sitDepth : 0, apply: (st) => { gl.position.y = -0.02 * clamp01(st.slip ?? st.wings ?? 0); helm && helm.apply(st); } };   // slip: driven with the `wings` action ({ do: "wings", to }) until the timeline has its own key, as Spud's spread
 }
 
 // ---------- the gold wrist watch (the dauphin's; the duchess with costume.watch: true): a case 0.075 across on the back of the LEFT wrist, a 4-point glint every 0.9 s ----
@@ -888,8 +895,11 @@ function archaeologist(C, ch, P) {
 const CHIP_HOODIE = { color: "#ffcf2e", seed: 21.4, front: -0.28, back: 0.25, vee: 0.6, hem: -1.14, cowlR: 0.02, cowlWide: 1.7, hoodR: 0.026, hoodWide: 2.7, r0: 0.062, r1: 0.05, phase: 0.6, cordLen: 0.2, cordR: 0.0085, pocketW: 0.52, pocketH: 0.05, pocketUp: 0.26, flecks: 220, folds: 3, pale: true };
 const KIT = {
   bathrobe: (C, ch) => robe(C, ch, { color: "#b79ac8", stripe: "#8a6aa6", collar: "#cdb6da", beltC: "#9a7ab4", phBelt: -0.62, seed: 53.4, front: -0.4, back: 0.25, vee: 0.75, hem: 0.06, flare: 1.36, circ: 2.45, phase: 0.8, r0: 0.074, r1: 0.059, rows: [0.78, 0.46] }),
-  chip: (C, ch) => hoodie(C, ch, CHIP_HOODIE),
-  mash: (C, ch) => { const sl = hoodie(C, ch, { color: "#7a716c", seed: 33.8, front: -0.16, back: 0.2, vee: 0.7, hem: -1.2, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 }); headphones(C, ch, { ph: -0.2, rise: 0.46, at: 1.15, cup: 0.078, lift: 0.05 }); return sl; },
+  chip: (C, ch) => {
+    const sl = hoodie(C, ch, CHIP_HOODIE), helm = C.helm ? reporterHelmet(ch, C) : null;   // costume.helm: the reporter's helmet on Chip (Kid vs Dad 02; sprout.placement "none" in the file)
+    return helm ? { sl, hat: helm.hat, sitDepth: helm.sitDepth, apply: (st) => helm.apply(st) } : sl;
+  },
+  mash: (C, ch) => { const sl = hoodie(C, ch, { color: "#7a716c", seed: 33.8, front: -0.16, back: 0.2, vee: 0.7, hem: -1.2, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 }); if (C.phones !== false) headphones(C, ch, { ph: -0.2, rise: 0.46, at: 1.15, cup: 0.078, lift: 0.05 }); if (C.headset) headset(ch, C); return sl; },   // phones: false = no neck headphones; headset: costumes-crew.js
   // Spud copies Mash (happiness score film, panels 08-12): Mash's charcoal hoodie on Spud's body with Spud's own teal sweater
   // collar showing above the folded hood, and light-blue headphones round his neck. C: hoodie, sweater (the collar), strings, phones.
   spudcopy: (C, ch) => { const P = { color: "#7a716c", seed: 33.8, front: -0.46, back: 0.1, vee: 0.7, hem: -1.16, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 };
@@ -905,10 +915,12 @@ const KIT = {
 export const EVERYDAY = Object.keys(KIT);
 export function everyday(C, ch, out) {
   const kit = KIT[C.type](C, ch), sl = typeof kit === "function" ? kit : kit.sl, more = typeof kit === "function" ? null : kit.apply;   // { sl, apply(st, t) }: a kit with keys of its own (glasses slip, a watch glint)
+  if (kit.hat) out.hat = kit.hat;   // a kit with a hat of its own (the reporter's helmet): sits on the engine's hat mount
   handsAndFeet(C, ch);
   if (C.type === "chip" && C.age) skipAge(C, ch, out, { cowl: CHIP_HOODIE });   // Chip aged (costume.age/brows/oldBeard/dust: costumes-skipage.js USAGE); no key, no change
+  if (C.type === "chip" && C.blanket) blanket(C, ch, out);   // shock blanket, slip 0..1 on the `wings` action (costumes-blanket.js USAGE)
   const base = out.apply;
   out.apply = (st, t, ...r) => { base && base(st, t, ...r); sl(); more && more(st, t); };
-  out.sitDepth = 0;
+  out.sitDepth = kit.sitDepth ?? 0;   // the reporter's helmet puts the hat mount's origin at the body's centre
   return out;
 }
