@@ -28,6 +28,10 @@ const SIZE = {
   norsecup: { r: 0.0475, h: 0.085 },               // norse myth 01: Chip's carved wooden cup (props-norse-items.js), mug hold
   norsesheet: { len: 0.32, r: 0.004 },             // norse myth 01: the crumpled test sheet, thin hold on its edge
   norsebud: { len: 0.011, r: 0.008 },              // norse myth 01: the plucked potato eye, pinched
+  kboot: { r: 0.05, h: 0.26 },   // props-krampus-boots.js: a fist round the felt shaft (mug hold, TURN -90)
+  bootnote: { len: -0.05, r: 0.006 },   // props-krampus-boots.js: the peg pinched (thin hold)
+  goldenbook: { w: 0.30, h: 0.40, d: 0.09, cx: 0.133 },   // props-krampus-nick.js: shut, the spine's outer line at x -0.019, the fore-edge at +0.285: the box hold's centre is 0.133 from the origin
+  nickcrook: { r: 0.015, h: 0.909 },   // props-krampus-nick.js: the mug hold's 0.66 x h = y 0.60, the FIST grip
   smug: { r: 0.041, h: 0.095 },                    // props-spinroom.js smug (fact what-if 03 spin): handle side TURN -125
   scrisps: { w: 0.19, h: 0.27, t: 0.07 },          // props-spinroom.js scrisps: the crisp bag (held like a phone)
   sball: { r: 0.12, h: 0 },                        // props-spinstreet.js sball: origin at its centre (fact what-if 03 spin dunk)
@@ -193,7 +197,7 @@ const size = (spec) => { const s = SIZE[spec.kind]; if (!s) throw new Error(`gri
 
 // the turn each kind adds to rot = yaw + 180: a mug's handle (+x) goes to the holder's left and back toward the body,
 // away from the right hand and from a camera in front
-const TURN = { campmug: -125, teamug: -125, smug: -125 };
+const TURN = { campmug: -125, teamug: -125, kboot: -90, smug: -125 };
 // the crisp cast's glove size (hands.size): a grip shape's sizes are in the glove's own units
 const HAND = 1.7;
 
@@ -291,8 +295,8 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
     },
     // 06 release: let go where it stands, the fingers open, the hand backs off the way it came; rest: "rest" (or a
     // pose) for the arm afterwards, false to leave it waiting beside the prop
-    release(t, { rest = "rest", back = 0.2 } = {}) {
-      c.A(t, who, "release", { prop: id, dur: 0 });
+    release(t, { rest = "rest", back = 0.2, to = null } = {}) {
+      c.A(t, who, "release", { prop: id, dur: 0, ...(to && { to }) });   // to: [x, y, z] sets it down there at once (off camera, at a cut)
       each((s) => { c.A(t, who, "grip", { side: s, ...shp(ready), dur: 0.15 }); c.arm(t + 0.04, who, s, pose(s, { off: hands[s].away }), back, "out"); });
       if (rest) { each((s) => { c.arm(t + 0.04 + back, who, s, rest, 0.4, "settle"); c.A(t + 0.04 + back, who, "grip", { side: s, shape: "relaxed", dur: 0.3 }); }); return r3(t + 0.44 + back); }
       return r3(t + 0.04 + back);
@@ -339,10 +343,10 @@ export function bowlPush(c, who, spec, { side = "R", gap = 0.05, height = 0.6, a
 // BOX (parcel, gift): both palms flat on the two ends, at half height, fingers open up the ends, the box between them
 // (Package 29 Oct). Lifted to the chest it stays square to the holder; a body turn turns it with rot.
 export function box(c, who, spec, { gap = 0.045, height = 0.55 } = {}) {
-  const { w, h } = size(spec), k = spec.scale ?? 1, y = height * h * k;
+  const { w, h } = size(spec), k = spec.scale ?? 1, y = height * h * k, cx = (SIZE[spec.kind].cx ?? 0) * k;
   const hands = {};
-  for (const [s, sx] of [["R", 1], ["L", -1]]) hands[s] = { grip: toProp(spec, [sx * (w / 2 * k + gap), y, 0]), palm: true, away: toWorld(spec, [sx * 0.08, 0.02, 0.03]) };
-  return holder(c, who, spec, { hands, shape: "press", ready: "open", grab: toProp(spec, [0, y, 0]) });
+  for (const [s, sx] of [["R", 1], ["L", -1]]) hands[s] = { grip: toProp(spec, [cx + sx * (w / 2 * k + gap), y, 0]), palm: true, away: toWorld(spec, [sx * 0.08, 0.02, 0.03]) };
+  return holder(c, who, spec, { hands, shape: "press", ready: "open", grab: toProp(spec, [cx, y, 0]) });
 }
 
 // THIN (pencil; the same for a straw, a pen): a fingertip pinch (Jonny's straw sheet and his artist's pencil and straw
