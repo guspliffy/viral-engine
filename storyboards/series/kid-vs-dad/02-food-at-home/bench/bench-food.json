@@ -1,0 +1,536 @@
+{
+ "id": "bench-food",
+ "title": "Food bench: fogged window, cabin lamp, wrapped burgers, sweat bead (Kid vs Dad 02 T3)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "duration": 15,
+ "cleanStart": true,
+ "set": {
+  "type": "plain",
+  "color": "#2a3346",
+  "floor": "#3a3f4a",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "creative": {
+  "length": [
+   1,
+   30
+  ],
+  "notes": false
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "seatL",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.7,
+   "y": 0.4,
+   "z": -0.98,
+   "width": 0.62,
+   "head": false,
+   "back": 0.5,
+   "color": "#3b3a44",
+   "trim": "#55525e"
+  },
+  {
+   "id": "seatM",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.08,
+   "y": 0.4,
+   "z": -0.98,
+   "width": 0.62,
+   "head": false,
+   "back": 0.5,
+   "color": "#3b3a44",
+   "trim": "#55525e"
+  },
+  {
+   "id": "seatR",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.54,
+   "y": 0.4,
+   "z": -0.98,
+   "width": 0.62,
+   "head": false,
+   "back": 0.5,
+   "color": "#3b3a44",
+   "trim": "#55525e"
+  },
+  {
+   "id": "fog",
+   "kind": "fogglass",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "marks": 0
+  },
+  {
+   "id": "fogB",
+   "kind": "fogglass",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "marks": 0,
+   "opaque": true,
+   "scale": 0.001
+  },
+  {
+   "id": "lamp",
+   "kind": "cablight",
+   "rig": "car",
+   "x": 0,
+   "y": 1.94,
+   "z": -0.1,
+   "lit": 0
+  },
+  {
+   "id": "burgerM",
+   "kind": "wrapburger",
+   "wrap": 1,
+   "x": 6.8,
+   "y": 1,
+   "z": 0
+  },
+  {
+   "id": "burgerD",
+   "kind": "wrapburger",
+   "wrap": 0.35,
+   "x": 7.2,
+   "y": 1,
+   "z": 0
+  },
+  {
+   "id": "bead",
+   "kind": "sweatbead",
+   "x": 7.6,
+   "y": 1.5,
+   "z": 0,
+   "scale": 6
+  }
+ ],
+ "actions": [
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "marks": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fogB",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "marks": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "marks": 4
+   }
+  },
+  {
+   "do": "prop",
+   "id": "lamp",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "lit": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 1,
+   "dur": 0,
+   "set": {
+    "marks": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 2,
+   "dur": 0,
+   "set": {
+    "marks": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 3,
+   "dur": 0,
+   "set": {
+    "marks": 2
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 4,
+   "dur": 0,
+   "set": {
+    "marks": 3
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 5,
+   "dur": 0,
+   "set": {
+    "marks": 4
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 6,
+   "dur": 0,
+   "set": {
+    "marks": 2.5
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 7,
+   "dur": 0,
+   "set": {
+    "marks": 4,
+    "scale": 0.001
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fogB",
+   "at": 7,
+   "dur": 0,
+   "set": {
+    "marks": 4,
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fog",
+   "at": 8,
+   "dur": 0,
+   "set": {
+    "marks": 4,
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "fogB",
+   "at": 8,
+   "dur": 0,
+   "set": {
+    "scale": 0.001
+   }
+  },
+  {
+   "do": "prop",
+   "id": "lamp",
+   "at": 9,
+   "dur": 0,
+   "set": {
+    "lit": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "lamp",
+   "at": 10,
+   "dur": 0,
+   "set": {
+    "lit": 0
+   }
+  }
+ ],
+ "captions": [],
+ "rigs": [
+  {
+   "id": "car",
+   "kind": "hatchback",
+   "color": "#6fa596",
+   "plate": false,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    -4.2,
+    1.7,
+    -2.6
+   ],
+   "look": [
+    0,
+    1.2,
+    -0.5
+   ],
+   "fov": 44
+  },
+  {
+   "at": 1,
+   "rig": "car",
+   "pos": [
+    -3.58,
+    1.34,
+    -0.74
+   ],
+   "look": [
+    -0.98,
+    1.34,
+    -0.74
+   ],
+   "fov": 35
+  },
+  {
+   "at": 2,
+   "rig": "car",
+   "pos": [
+    -3.58,
+    1.34,
+    -0.74
+   ],
+   "look": [
+    -0.98,
+    1.34,
+    -0.74
+   ],
+   "fov": 35
+  },
+  {
+   "at": 3,
+   "rig": "car",
+   "pos": [
+    -3.58,
+    1.34,
+    -0.74
+   ],
+   "look": [
+    -0.98,
+    1.34,
+    -0.74
+   ],
+   "fov": 35
+  },
+  {
+   "at": 4,
+   "rig": "car",
+   "pos": [
+    -3.58,
+    1.34,
+    -0.74
+   ],
+   "look": [
+    -0.98,
+    1.34,
+    -0.74
+   ],
+   "fov": 35
+  },
+  {
+   "at": 5,
+   "rig": "car",
+   "pos": [
+    -3.58,
+    1.34,
+    -0.74
+   ],
+   "look": [
+    -0.98,
+    1.34,
+    -0.74
+   ],
+   "fov": 35
+  },
+  {
+   "at": 6,
+   "rig": "car",
+   "pos": [
+    -3.58,
+    1.34,
+    -0.74
+   ],
+   "look": [
+    -0.98,
+    1.34,
+    -0.74
+   ],
+   "fov": 35
+  },
+  {
+   "at": 7,
+   "rig": "car",
+   "pos": [
+    -3.58,
+    1.34,
+    -0.74
+   ],
+   "look": [
+    -0.98,
+    1.34,
+    -0.74
+   ],
+   "fov": 35
+  },
+  {
+   "at": 8,
+   "rig": "car",
+   "pos": [
+    0.1,
+    1.4,
+    -0.9
+   ],
+   "look": [
+    -0.98,
+    1.35,
+    -0.74
+   ],
+   "fov": 50
+  },
+  {
+   "at": 9,
+   "rig": "car",
+   "pos": [
+    0,
+    1.3,
+    0.7
+   ],
+   "look": [
+    0,
+    1.7,
+    -0.9
+   ],
+   "fov": 70
+  },
+  {
+   "at": 10,
+   "rig": "car",
+   "pos": [
+    0,
+    1.3,
+    0.7
+   ],
+   "look": [
+    0,
+    1.7,
+    -0.9
+   ],
+   "fov": 70
+  },
+  {
+   "at": 11,
+   "pos": [
+    6.8,
+    1.22,
+    1.5
+   ],
+   "look": [
+    6.8,
+    1.08,
+    0
+   ],
+   "fov": 24
+  },
+  {
+   "at": 12,
+   "pos": [
+    7.2,
+    1.22,
+    1.5
+   ],
+   "look": [
+    7.2,
+    1.08,
+    0
+   ],
+   "fov": 24
+  },
+  {
+   "at": 13,
+   "pos": [
+    7,
+    1.55,
+    1.7
+   ],
+   "look": [
+    7,
+    1.05,
+    0
+   ],
+   "fov": 30
+  },
+  {
+   "at": 14,
+   "pos": [
+    7.6,
+    1.5,
+    1.2
+   ],
+   "look": [
+    7.6,
+    1.5,
+    0
+   ],
+   "fov": 14
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/kid-vs-dad/02-food-at-home/bench/bench-food.mjs (T3)."
+}

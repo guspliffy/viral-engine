@@ -1,0 +1,4273 @@
+{
+ "id": "food-at-home",
+ "title": "Dad said: we have food at home",
+ "idea": "Kid vs Dad 02: a kid asks for burgers, the dad says 'We have food at home'; a war reporter covers it as a standoff with a rule (whoever says it has to eat it); the fridge holds one pickle; the dad cracks at the drive-thru and the kid turns the line on him.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  210,
+  1230
+ ],
+ "captionStyle": "kinetic",
+ "captionOverBody": {
+  "reason": "in-car close-ups where the speaker fills the phone frame; captions sit in the upper third over the body, never the eyes (rule from the 8-min film trial, Jonny OK 20 Nov)"
+ },
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "night": true,
+  "floor": "none",
+  "light": "dusk",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "bloom": "emissive",
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "rigs": [
+  {
+   "id": "car",
+   "kind": "hatchback",
+   "color": "#6fa596",
+   "pivot": [
+    0,
+    0.5,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "steer": 0
+    },
+    {
+     "at": 52.75,
+     "pos": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 180,
+     "steer": 0
+    },
+    {
+     "at": 54.25,
+     "pos": [
+      0,
+      0,
+      -3.6
+     ],
+     "yaw": 180,
+     "steer": 0
+    },
+    {
+     "at": 55.15,
+     "pos": [
+      0.38,
+      0,
+      -5.91
+     ],
+     "yaw": 157.5,
+     "steer": 18
+    },
+    {
+     "at": 55.95,
+     "pos": [
+      1.464,
+      0,
+      -7.536
+     ],
+     "yaw": 135,
+     "steer": 6
+    },
+    {
+     "at": 57.35,
+     "pos": [
+      4.01,
+      0,
+      -10.081
+     ],
+     "yaw": 135,
+     "steer": 0
+    },
+    {
+     "at": 69.74,
+     "pos": [
+      4.01,
+      0,
+      -10.081
+     ],
+     "yaw": 135,
+     "steer": 0
+    },
+    {
+     "at": 71.64,
+     "pos": [
+      7.404,
+      0,
+      -13.475
+     ],
+     "yaw": 135,
+     "steer": 0
+    }
+   ]
+  }
+ ],
+ "hud": {
+  "news": {
+   "label": "STANDOFF AT THE DRIVE-THRU",
+   "tag": "LIVE",
+   "tagW": 150,
+   "count": false,
+   "show": [
+    3.14,
+    75.333
+   ]
+  }
+ },
+ "music": {
+  "file": "ai/orchestra-suspense/orchestra-suspense-01.ogg",
+  "lowCut": 150,
+  "gain": 0.14
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.08,
+  "guard": true,
+  "signature": false,
+  "surface": "concrete",
+  "engine": {
+   "keys": [
+    [
+     0,
+     750,
+     0.15,
+     0
+    ],
+    [
+     52.75,
+     750,
+     0.15,
+     0
+    ],
+    [
+     53.05,
+     1500,
+     0.5,
+     0
+    ],
+    [
+     57.15,
+     900,
+     0.2,
+     0
+    ],
+    [
+     57.45,
+     750,
+     0.15,
+     0
+    ],
+    [
+     69.74,
+     1200,
+     0.35,
+     0
+    ],
+    [
+     71.64,
+     750,
+     0.15,
+     0
+    ]
+   ],
+   "gain": 0.2
+  }
+ },
+ "creative": {
+  "length": [
+   70,
+   95
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "wedge"
+  ],
+  "hint": 0,
+  "what": "a kid in the back seat points at a glowing burger sign; the dad at the wheel: 'We have food at home'"
+ },
+ "cast": [
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "rig": "car",
+   "at": [
+    0.55,
+    0.23
+   ],
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "face": 0,
+   "expr": "deadpan",
+   "seed": 2.9
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud-kid",
+   "rig": "car",
+   "at": [
+    -0.08,
+    -0.95
+   ],
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "face": 0,
+   "expr": "kind",
+   "seed": 4.1
+  },
+  {
+   "id": "spudW",
+   "character": "potatobrawl/spud-kid",
+   "rig": "car",
+   "at": [
+    -0.7,
+    -0.95
+   ],
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "y": 0.96,
+   "face": -90,
+   "expr": "sad",
+   "seed": 4.1
+  },
+  {
+   "id": "rep",
+   "character": "potatobrawl/reporter",
+   "at": [
+    1.95,
+    14.75
+   ],
+   "face": -4,
+   "follow": 0.3,
+   "seed": 131.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip-reporter",
+   "at": [
+    196.28,
+    -0.92
+   ],
+   "face": 25,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 1.7
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash-crew",
+   "at": [
+    6.1879393923934,
+    -14.974297244015219
+   ],
+   "y": 0.5,
+   "face": 45,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  }
+ ],
+ "props": [
+  {
+   "id": "place",
+   "kind": "drivethru",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sign",
+   "kind": "burgersign",
+   "x": 2.05,
+   "y": 0,
+   "z": 13.6,
+   "rot": 0,
+   "lit": 1
+  },
+  {
+   "id": "light",
+   "kind": "trafficlight",
+   "x": -1.75,
+   "y": 0.5,
+   "z": -3,
+   "rot": 0,
+   "go": 0
+  },
+  {
+   "id": "cone",
+   "kind": "trafficcone",
+   "x": 0.1,
+   "y": 0,
+   "z": -9.6
+  },
+  {
+   "id": "post",
+   "kind": "speakerpost",
+   "x": 3.656,
+   "y": 0,
+   "z": -11.849,
+   "rot": 225,
+   "talk": 0
+  },
+  {
+   "id": "menu",
+   "kind": "menuboard",
+   "x": 2.737,
+   "y": 0,
+   "z": -12.344,
+   "rot": 225
+  },
+  {
+   "id": "seat-drv",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.55,
+   "y": 0.24,
+   "z": 0.2,
+   "width": 0.6,
+   "color": "#3b3a44",
+   "trim": "#55525e"
+  },
+  {
+   "id": "seat-pas",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.55,
+   "y": 0.12,
+   "z": 0.2,
+   "width": 0.6,
+   "color": "#3b3a44",
+   "trim": "#55525e",
+   "head": false
+  },
+  {
+   "id": "rear-0",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.7,
+   "y": 0.4,
+   "z": -0.98,
+   "width": 0.62,
+   "head": false,
+   "back": 0.5,
+   "color": "#3b3a44",
+   "trim": "#55525e"
+  },
+  {
+   "id": "rear-1",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.08,
+   "y": 0.4,
+   "z": -0.98,
+   "width": 0.62,
+   "head": false,
+   "back": 0.5,
+   "color": "#3b3a44",
+   "trim": "#55525e"
+  },
+  {
+   "id": "rear-2",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.54,
+   "y": 0.4,
+   "z": -0.98,
+   "width": 0.62,
+   "head": false,
+   "back": 0.5,
+   "color": "#3b3a44",
+   "trim": "#55525e"
+  },
+  {
+   "id": "wheel",
+   "kind": "steer",
+   "rig": "car",
+   "x": 0.55,
+   "y": 0.88,
+   "z": 0.63,
+   "tip": 34
+  },
+  {
+   "id": "fog",
+   "kind": "fogglass",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "dome",
+   "kind": "cablight",
+   "rig": "car",
+   "x": 0,
+   "y": 1.94,
+   "z": -0.1,
+   "lit": 1
+  },
+  {
+   "id": "sweat",
+   "kind": "sweatbead",
+   "wear": "wedge",
+   "x": 0.2,
+   "y": 0.8,
+   "z": 0.3,
+   "scale": 0
+  },
+  {
+   "id": "kitchen",
+   "kind": "kitchenroom",
+   "x": 200,
+   "y": 0,
+   "z": 0,
+   "fridge": false,
+   "lamp": 0.2,
+   "time": 2.75
+  },
+  {
+   "id": "fridge",
+   "kind": "openfridge",
+   "x": 197,
+   "y": 0,
+   "z": -1.9,
+   "rot": 0,
+   "open": 0,
+   "lit": 0
+  },
+  {
+   "id": "coin",
+   "kind": "coin",
+   "scale": 0.7,
+   "rig": "car",
+   "x": -0.2,
+   "y": -3,
+   "z": -0.8
+  },
+  {
+   "id": "mic",
+   "kind": "newsmic",
+   "lean": 30,
+   "x": 1.494,
+   "y": 0.564,
+   "z": 14.818,
+   "rot": 176
+  },
+  {
+   "id": "cmic",
+   "kind": "newsmic",
+   "scale": 0.8,
+   "lean": 20,
+   "x": 196.157,
+   "y": 0.3,
+   "z": -0.664,
+   "rot": 205
+  },
+  {
+   "id": "burgerM",
+   "kind": "wrapburger",
+   "wrap": 1,
+   "x": 6.683,
+   "y": 1.08,
+   "z": -14.479,
+   "rot": 45
+  },
+  {
+   "id": "burgerD",
+   "kind": "wrapburger",
+   "wrap": 0.35,
+   "rig": "car",
+   "x": 0.55,
+   "y": 1,
+   "z": 0.5,
+   "rot": 180
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 1.45,
+   "text": "Dad, can we get burgers?",
+   "pos": 430,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 1.68,
+   "to": 3.613,
+   "text": "We have *food at home.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 4.79,
+   "to": 9.17,
+   "text": "*Tato,* age seven, just asked for *burgers.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 9.4,
+   "to": 12.25,
+   "text": "And in this car, there is one rule.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 12.48,
+   "to": 16.12,
+   "text": "Whoever says it... *has to eat it.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 16.35,
+   "to": 21.07,
+   "text": "The light turns green in *one minute.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 21.3,
+   "to": 22.21,
+   "text": "But I'm hungry.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 22.44,
+   "to": 24.38,
+   "text": "We have *food at home.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 26.68,
+   "to": 29.6,
+   "text": "Sir... was that you?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 29.8,
+   "to": 30.97,
+   "text": "That was *the engine.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 31.2,
+   "to": 32.18,
+   "text": "I have my own money.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 32.57,
+   "to": 34.513,
+   "text": "We have *food at home.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 35.71,
+   "to": 36.66,
+   "text": "What food, sir?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 36.89,
+   "to": 37.59,
+   "text": "*Food.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 37.82,
+   "to": 40.013,
+   "text": "Let's go live to the house.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 40.99,
+   "to": 43.85,
+   "text": "There is *one pickle.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 44.08,
+   "to": 46.39,
+   "text": "And rice. *From Tuesday.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 46.62,
+   "to": 50.33,
+   "text": "Under the rule... this is *his dinner.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 50.56,
+   "to": 51.85,
+   "text": "...That's *a meal.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 54.55,
+   "to": 58.55,
+   "text": "He's entering the *drive-thru!*",
+   "pos": 262,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 58.85,
+   "to": 61.42,
+   "text": "Welcome! Can I take your order?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 61.65,
+   "to": 63.613,
+   "text": "We have *food at home.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 64.84,
+   "to": 66.18,
+   "text": "...Then why are *you here?*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 67.46,
+   "to": 69.56,
+   "text": "...One burger. *For the drive.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 69.79,
+   "to": 71.28,
+   "text": "Did he just...",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 73.43,
+   "to": 74.94,
+   "text": "We have *food at home.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "burgers?",
+   "at": 0,
+   "len": 3.633,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.15,
+     1.55,
+     3.2
+    ],
+    "look": [
+     0.28,
+     1.15,
+     -0.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.158,
+      1.526,
+      2.99
+     ],
+     "look": [
+      0.28,
+      1.15,
+      -0.3
+     ],
+     "fov": 40
+    },
+    "dur": 3.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "rear-1",
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "sit",
+     "seat": "seat-drv",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "R",
+     "pose": null,
+     "grip": "R",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "L",
+     "pose": null,
+     "grip": "L",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wheel",
+      "grip": "R"
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wheel",
+      "grip": "L"
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.14,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "tilt": -0.08,
+      "browY": -0.02,
+      "curve": -0.05,
+      "smirk": 0,
+      "eye": 0.95,
+      "pupil": 1,
+      "open": 0,
+      "raise": 0
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.066,
+       0.02,
+       -0.023
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cmic",
+      "grip": [
+       0.076,
+       0.056,
+       0.02
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.069,
+       0.02,
+       0.012
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fog",
+     "set": {
+      "marks": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "light",
+     "set": {
+      "go": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "post",
+     "set": {
+      "talk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "place",
+     "set": {
+      "light": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "lit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dome",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "burgerD",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "burgerM",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "browY": 0.03,
+      "curve": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.55,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cmic",
+      "grip": [
+       0.076,
+       0.056,
+       0.02
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "mic",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.056,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "cmic",
+     "hand": "R",
+     "grip": [
+      0.076,
+      0.056,
+      0.02
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.09
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad, can we get burgers?",
+     "tone": "question",
+     "style": "hopeful, bright, a little kid in the back seat, pointing",
+     "voice": "chip-clean",
+     "dur": 1.33,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.62
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "flat, instant, not even looking, the classic dad line",
+     "dur": 1.71,
+     "caption": false,
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.9,
+      "tilt": 0.3,
+      "curve": -0.3
+     },
+     "dur": 0.25,
+     "at": 3.44
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 3.613
+    },
+    {
+     "who": "spudW",
+     "do": "show",
+     "at": 3.613
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "tally 1",
+   "at": 3.633,
+   "len": 1.1,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -3.58,
+     1.34,
+     -0.74
+    ],
+    "look": [
+     -0.98,
+     1.34,
+     -0.74
+    ],
+    "fov": 35,
+    "to": {
+     "pos": [
+      -3.45,
+      1.34,
+      -0.74
+     ],
+     "look": [
+      -0.98,
+      1.34,
+      -0.74
+     ],
+     "fov": 35
+    },
+    "dur": 1.15,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "expr",
+     "set": {
+      "eye": 0.9,
+      "tilt": 0.3,
+      "curve": -0.3
+     },
+     "dur": 0.01,
+     "at": 0.007
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fog",
+      "grip": [
+       -0.95,
+       1.47,
+       -0.64
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.057
+    },
+    {
+     "who": "spudW",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.057
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fog",
+      "grip": [
+       -0.95,
+       1.28,
+       -0.64
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.357
+    },
+    {
+     "do": "prop",
+     "id": "fog",
+     "set": {
+      "marks": 1
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.357
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.12,
+     "at": 0.357
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.807
+    },
+    {
+     "who": "spudW",
+     "do": "hide",
+     "at": 1.08
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.08
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.097
+    }
+   ]
+  },
+  {
+   "name": "live",
+   "at": 4.733,
+   "len": 4.6,
+   "shot": {
+    "pos": [
+     1.6,
+     0.45,
+     19.4
+    ],
+    "look": [
+     1.25,
+     1.77,
+     0
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      1.583,
+      0.516,
+      18.43
+     ],
+     "look": [
+      1.25,
+      1.77,
+      0
+     ],
+     "fov": 44
+    },
+    "dur": 4.609999999999999,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Tato, age seven, just asked for burgers.",
+     "tone": "calm",
+     "style": "grave, low, a war correspondent under cover",
+     "voice": "reaper",
+     "dur": 4.31,
+     "caption": false,
+     "at": 0.057
+    }
+   ]
+  },
+  {
+   "name": "one rule",
+   "at": 9.333,
+   "len": 6.967,
+   "shot": {
+    "pos": [
+     1.85,
+     0.75,
+     17.3
+    ],
+    "look": [
+     1.95,
+     0.62,
+     14.75
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      1.86,
+      0.737,
+      17.045
+     ],
+     "look": [
+      1.95,
+      0.62,
+      14.75
+     ],
+     "fov": 34
+    },
+    "dur": 6.8999999999999995,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And in this car, there is one rule.",
+     "tone": "calm",
+     "style": "slow, ominous, leaning in",
+     "voice": "reaper",
+     "dur": 2.78,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "rep",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.4,
+     "at": 2.847
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.087
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Whoever says \"We have food at home\"... has to eat it.",
+     "tone": "calm",
+     "style": "deadly serious, a pause before the last words",
+     "voice": "reaper",
+     "dur": 3.52,
+     "caption": false,
+     "at": 3.147
+    },
+    {
+     "who": "rep",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 6.767
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 6.957
+    }
+   ]
+  },
+  {
+   "name": "red light",
+   "at": 16.3,
+   "len": 4.933,
+   "shot": {
+    "pos": [
+     -1.3,
+     1.25,
+     -1
+    ],
+    "look": [
+     -1.75,
+     2.55,
+     -3
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.336,
+      1.354,
+      -1.16
+     ],
+     "look": [
+      -1.75,
+      2.55,
+      -3
+     ],
+     "fov": 32
+    },
+    "dur": 4.85,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "The light turns green in one minute. Then the burger place is gone.",
+     "tone": "sad",
+     "style": "urgent, tense, a countdown",
+     "voice": "reaper",
+     "dur": 4.55,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 4.813
+    },
+    {
+     "who": "spudW",
+     "do": "show",
+     "at": 4.813
+    },
+    {
+     "who": "spudW",
+     "do": "expr",
+     "set": {
+      "eye": 0.9,
+      "tilt": 0.3,
+      "curve": -0.3
+     },
+     "dur": 0.01,
+     "at": 4.85
+    }
+   ]
+  },
+  {
+   "name": "hungry",
+   "at": 21.233,
+   "len": 1.133,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -3.58,
+     1.34,
+     -0.74
+    ],
+    "look": [
+     -0.98,
+     1.34,
+     -0.74
+    ],
+    "fov": 35,
+    "to": {
+     "pos": [
+      -3.424,
+      1.34,
+      -0.74
+     ],
+     "look": [
+      -0.98,
+      1.34,
+      -0.74
+     ],
+     "fov": 35
+    },
+    "dur": 1.0899999999999999,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "spudW",
+     "macro": "say",
+     "line": "But I'm hungry.",
+     "tone": "sad",
+     "style": "small, pleading, face against the window",
+     "voice": "chip-clean",
+     "dur": 0.84,
+     "caption": false,
+     "at": 0.067
+    }
+   ]
+  },
+  {
+   "name": "food at home 2",
+   "at": 22.366,
+   "len": 2.034,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.45,
+     1.5,
+     2.75
+    ],
+    "look": [
+     0.62,
+     1.18,
+     0.2
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.464,
+      1.474,
+      2.546
+     ],
+     "look": [
+      0.62,
+      1.18,
+      0.2
+     ],
+     "fov": 42
+    },
+    "dur": 1.94,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.014
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "flat, firm, eyes on the road",
+     "dur": 1.69,
+     "caption": false,
+     "at": 0.074
+    }
+   ]
+  },
+  {
+   "name": "tally 2",
+   "at": 24.4,
+   "len": 1.266,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -3.58,
+     1.34,
+     -0.74
+    ],
+    "look": [
+     -0.98,
+     1.34,
+     -0.74
+    ],
+    "fov": 35,
+    "to": {
+     "pos": [
+      -3.45,
+      1.34,
+      -0.74
+     ],
+     "look": [
+      -0.98,
+      1.34,
+      -0.74
+     ],
+     "fov": 35
+    },
+    "dur": 1.15,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fog",
+      "grip": [
+       -0.95,
+       1.46,
+       -0.585
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.08
+    },
+    {
+     "who": "spudW",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.08
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fog",
+      "grip": [
+       -0.95,
+       1.27,
+       -0.585
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "fog",
+     "set": {
+      "marks": 2
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.12,
+     "at": 0.38
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "who": "spudW",
+     "do": "hide",
+     "at": 1.247
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.247
+    }
+   ]
+  },
+  {
+   "name": "growl",
+   "at": 25.666,
+   "len": 0.934,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.15,
+     1.55,
+     3.2
+    ],
+    "look": [
+     0.28,
+     1.15,
+     -0.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.157,
+      1.53,
+      3.025
+     ],
+     "look": [
+      0.28,
+      1.15,
+      -0.3
+     ],
+     "fov": 40
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/bear-growl",
+     "gain": 0.18,
+     "at": 0.014
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.12,
+     "at": 0.064
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "tilt": 0.1
+     },
+     "dur": 0.1,
+     "at": 0.114
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.214
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 0.314
+    },
+    {
+     "who": "rep",
+     "do": "move",
+     "to": [
+      -1.8,
+      -0.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.5,
+     "at": 0.914
+    },
+    {
+     "who": "rep",
+     "do": "turn",
+     "to": 76,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.914
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.63,
+       0.864,
+       0.058
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.914
+    },
+    {
+     "do": "prop",
+     "id": "mic",
+     "set": {
+      "lean": 40
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.914
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.01,
+     "at": 0.914
+    }
+   ]
+  },
+  {
+   "name": "was that you",
+   "at": 26.6,
+   "len": 4.533,
+   "shot": {
+    "pos": [
+     -0.95,
+     1.5,
+     1.5
+    ],
+    "look": [
+     -1.45,
+     1.2,
+     -0.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.98,
+      1.482,
+      1.374
+     ],
+     "look": [
+      -1.45,
+      1.2,
+      -0.6
+     ],
+     "fov": 40
+    },
+    "dur": 4.32,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.02
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Sir... was that you?",
+     "tone": "question",
+     "style": "suspicious, slow, mic pushed in",
+     "voice": "reaper",
+     "dur": 2.97,
+     "caption": false,
+     "at": 0.08
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.1,
+     "at": 3.1
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.14
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "That was the engine.",
+     "tone": "calm",
+     "style": "too quick, too calm, a lie",
+     "dur": 0.95,
+     "caption": false,
+     "at": 3.2
+    },
+    {
+     "do": "prop",
+     "id": "coin",
+     "set": {
+      "x": -0.02,
+      "y": 1.3,
+      "z": -0.7
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.48
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coin",
+      "grip": [
+       0,
+       -0.02,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.48
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.01,
+     "at": 4.48
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "curve": 0.4
+     },
+     "dur": 0.01,
+     "at": 4.5
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 4.5
+    }
+   ]
+  },
+  {
+   "name": "own money",
+   "at": 31.133,
+   "len": 1.067,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -0.06,
+     1.24,
+     1.3
+    ],
+    "look": [
+     -0.08,
+     1.12,
+     -0.95
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.062,
+      1.23,
+      1.12
+     ],
+     "look": [
+      -0.08,
+      1.12,
+      -0.95
+     ],
+     "fov": 34
+    },
+    "dur": 1.37,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I have my own money.",
+     "tone": "excited",
+     "style": "hopeful, holding up a coin",
+     "voice": "chip-clean",
+     "dur": 1.07,
+     "caption": false,
+     "at": 0.067
+    }
+   ]
+  },
+  {
+   "name": "food at home 3",
+   "at": 32.2,
+   "len": 2.333,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.45,
+     1.5,
+     2.75
+    ],
+    "look": [
+     0.62,
+     1.18,
+     0.2
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.464,
+      1.474,
+      2.546
+     ],
+     "look": [
+      0.62,
+      1.18,
+      0.2
+     ],
+     "fov": 42
+    },
+    "dur": 2.29,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.75,
+       0.35
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.07
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 0.12
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0.12
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.17
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.31
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "smug, eyes closed, hand up",
+     "dur": 1.69,
+     "caption": false,
+     "at": 0.37
+    },
+    {
+     "do": "prop",
+     "id": "coin",
+     "set": {
+      "y": -3
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.313
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 2.313
+    },
+    {
+     "who": "spudW",
+     "do": "show",
+     "at": 2.313
+    }
+   ]
+  },
+  {
+   "name": "tally 3",
+   "at": 34.533,
+   "len": 1.1,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -3.58,
+     1.34,
+     -0.74
+    ],
+    "look": [
+     -0.98,
+     1.34,
+     -0.74
+    ],
+    "fov": 35,
+    "to": {
+     "pos": [
+      -3.45,
+      1.34,
+      -0.74
+     ],
+     "look": [
+      -0.98,
+      1.34,
+      -0.74
+     ],
+     "fov": 35
+    },
+    "dur": 1.15,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.027
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fog",
+      "grip": [
+       -0.95,
+       1.475,
+       -0.53
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.077
+    },
+    {
+     "who": "spudW",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.077
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wheel",
+      "grip": "R"
+     },
+     "dur": 0.3,
+     "at": 0.077
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 0.127
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fog",
+      "grip": [
+       -0.95,
+       1.285,
+       -0.53
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.377
+    },
+    {
+     "do": "prop",
+     "id": "fog",
+     "set": {
+      "marks": 3
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.377
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.12,
+     "at": 0.377
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.827
+    },
+    {
+     "who": "spudW",
+     "do": "hide",
+     "at": 1.047
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.047
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.45
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.077
+    }
+   ]
+  },
+  {
+   "name": "what food",
+   "at": 35.633,
+   "len": 4.4,
+   "shot": {
+    "pos": [
+     -0.95,
+     1.5,
+     1.5
+    ],
+    "look": [
+     -1.45,
+     1.2,
+     -0.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.98,
+      1.482,
+      1.374
+     ],
+     "look": [
+      -1.45,
+      1.2,
+      -0.6
+     ],
+     "fov": 40
+    },
+    "dur": 4.43,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.017
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "What food, sir?",
+     "tone": "question",
+     "style": "sharp, a reporter pressing",
+     "voice": "reaper",
+     "dur": 0.93,
+     "caption": false,
+     "at": 0.077
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.577
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.197
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Food.",
+     "tone": "calm",
+     "style": "short, flat, no details",
+     "dur": 0.58,
+     "caption": false,
+     "at": 1.257
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.127
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Let's go live to the house.",
+     "tone": "calm",
+     "style": "urgent, handing over",
+     "voice": "reaper",
+     "dur": 1.92,
+     "caption": false,
+     "at": 2.187
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 4.307
+    }
+   ]
+  },
+  {
+   "name": "the fridge",
+   "at": 40.033,
+   "len": 2,
+   "shot": {
+    "pos": [
+     196.6,
+     0.8,
+     2.6
+    ],
+    "look": [
+     196.55,
+     0.85,
+     -1.5
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      196.598,
+      0.803,
+      2.395
+     ],
+     "look": [
+      196.55,
+      0.85,
+      -1.5
+     ],
+     "fov": 40
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "pupil": 0.75,
+      "tilt": 0.25,
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 0.007
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.007
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.55,
+       -0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.057
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.15,
+     "at": 0.257
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.427
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "open": 0.25
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.507
+    },
+    {
+     "sfx": "door-open",
+     "gain": 0.35,
+     "at": 0.507
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.557
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "lit": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.757
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.824
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.897
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "lit": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.927
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I'm at the house. There is one pickle.",
+     "tone": "sad",
+     "style": "shaken, whispering, a correspondent in a disaster zone",
+     "voice": "phoenix",
+     "dur": 2.79,
+     "caption": false,
+     "at": 0.957
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.994
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.98
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.98
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.98
+    }
+   ]
+  },
+  {
+   "name": "one pickle",
+   "at": 42.033,
+   "len": 4.533,
+   "shot": {
+    "pos": [
+     197,
+     1.21,
+     1.08
+    ],
+    "look": [
+     197,
+     1.21,
+     -1.9
+    ],
+    "fov": 31,
+    "to": {
+     "pos": [
+      197,
+      1.21,
+      0.901
+     ],
+     "look": [
+      197,
+      1.21,
+      -1.9
+     ],
+     "fov": 31
+    },
+    "dur": 3.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.987
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "And rice. From Tuesday.",
+     "tone": "sad",
+     "style": "horrified, quiet",
+     "voice": "phoenix",
+     "dur": 2.19,
+     "caption": false,
+     "at": 2.047
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 4.337
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 4.487
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 4.527
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "his dinner",
+   "at": 46.566,
+   "len": 3.934,
+   "shot": {
+    "pos": [
+     196.6,
+     0.8,
+     2.6
+    ],
+    "look": [
+     196.55,
+     0.85,
+     -1.5
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      196.597,
+      0.804,
+      2.313
+     ],
+     "look": [
+      196.55,
+      0.85,
+      -1.5
+     ],
+     "fov": 40
+    },
+    "dur": 3.8899999999999997,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Under the rule... this is his dinner.",
+     "tone": "sad",
+     "style": "grave, slow, delivering terrible news",
+     "voice": "phoenix",
+     "dur": 3.59,
+     "caption": false,
+     "at": 0.054
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "eye": 1.05,
+      "curve": -0.15
+     },
+     "dur": 0.1,
+     "at": 3.844
+    },
+    {
+     "do": "prop",
+     "id": "sweat",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.894
+    }
+   ]
+  },
+  {
+   "name": "a meal",
+   "at": 50.5,
+   "len": 1.533,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.45,
+     1.5,
+     2.75
+    ],
+    "look": [
+     0.62,
+     1.18,
+     0.2
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.467,
+      1.468,
+      2.495
+     ],
+     "look": [
+      0.62,
+      1.18,
+      0.2
+     ],
+     "fov": 42
+    },
+    "dur": 1.3900000000000001,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "...That's a meal.",
+     "tone": "calm",
+     "style": "a dry swallow, unconvinced, sweating",
+     "dur": 0.99,
+     "caption": false,
+     "at": 0.06
+    },
+    {
+     "do": "prop",
+     "id": "sweat",
+     "set": {
+      "y": 0.64
+     },
+     "dur": 1.1,
+     "ease": "in",
+     "at": 0.06
+    },
+    {
+     "do": "prop",
+     "id": "sweat",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.21
+    }
+   ]
+  },
+  {
+   "name": "green",
+   "at": 52.033,
+   "len": 0.867,
+   "shot": {
+    "pos": [
+     -1.3,
+     1.25,
+     -1
+    ],
+    "look": [
+     -1.75,
+     2.55,
+     -3
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.318,
+      1.302,
+      -1.08
+     ],
+     "look": [
+      -1.75,
+      2.55,
+      -3
+     ],
+     "fov": 32
+    },
+    "dur": 0.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "light",
+     "set": {
+      "go": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.017
+    },
+    {
+     "sfx": "latch-click",
+     "gain": 0.25,
+     "at": 0.017
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.1,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.117
+    },
+    {
+     "who": "rep",
+     "do": "move",
+     "to": [
+      2.75,
+      -2.6
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 0.847
+    },
+    {
+     "who": "rep",
+     "do": "turn",
+     "to": -120,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.847
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       2.74,
+       0.364,
+       -3.183
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.847
+    },
+    {
+     "do": "prop",
+     "id": "mic",
+     "set": {
+      "lean": 30
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.847
+    }
+   ]
+  },
+  {
+   "name": "entering",
+   "at": 52.9,
+   "len": 5.9,
+   "shot": {
+    "pos": [
+     -2.4,
+     6.2,
+     5
+    ],
+    "look": [
+     1.6,
+     0.4,
+     -7.2
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -2.2,
+      5.91,
+      4.39
+     ],
+     "look": [
+      1.6,
+      0.4,
+      -7.2
+     ],
+     "fov": 52
+    },
+    "dur": 5.75,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.59
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's entering the drive-thru! Repeat, he is entering!",
+     "tone": "excited",
+     "style": "running, out of breath, breaking news",
+     "voice": "reaper",
+     "dur": 3.7,
+     "caption": false,
+     "at": 1.65
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 5.89
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "welcome",
+   "at": 58.8,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     0.475,
+     1.5,
+     -10.223
+    ],
+    "look": [
+     3.7,
+     1.2,
+     -11.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.669,
+      1.482,
+      -10.282
+     ],
+     "look": [
+      3.7,
+      1.2,
+      -11.2
+     ],
+     "fov": 40
+    },
+    "dur": 2.75,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "post",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Welcome! Can I take your order?",
+     "tone": "happy",
+     "style": "bright, bored, a drive-thru speaker voice",
+     "voice": "mash",
+     "dur": 2.45,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.35,
+     "at": 2.45
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.45
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 2.45
+    },
+    {
+     "do": "prop",
+     "id": "post",
+     "set": {
+      "talk": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.55
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.79
+    }
+   ]
+  },
+  {
+   "name": "to the speaker",
+   "at": 61.6,
+   "len": 2.033,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.25,
+     1.5,
+     2.7
+    ],
+    "look": [
+     0.55,
+     1.15,
+     -0.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.274,
+      1.472,
+      2.468
+     ],
+     "look": [
+      0.55,
+      1.15,
+      -0.2
+     ],
+     "fov": 40
+    },
+    "dur": 1.99,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "firm, to the speaker, dead serious",
+     "dur": 1.69,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 2.013
+    },
+    {
+     "who": "spudW",
+     "do": "show",
+     "at": 2.013
+    }
+   ]
+  },
+  {
+   "name": "tally 4",
+   "at": 63.633,
+   "len": 1.133,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -3.58,
+     1.34,
+     -0.74
+    ],
+    "look": [
+     -0.98,
+     1.34,
+     -0.74
+    ],
+    "fov": 35,
+    "to": {
+     "pos": [
+      -3.45,
+      1.34,
+      -0.74
+     ],
+     "look": [
+      -0.98,
+      1.34,
+      -0.74
+     ],
+     "fov": 35
+    },
+    "dur": 1.15,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fog",
+      "grip": [
+       -0.95,
+       1.455,
+       -0.475
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.057
+    },
+    {
+     "who": "spudW",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0.057
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "fog",
+      "grip": [
+       -0.95,
+       1.265,
+       -0.475
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.357
+    },
+    {
+     "do": "prop",
+     "id": "fog",
+     "set": {
+      "marks": 4
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.357
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.12,
+     "at": 0.357
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.807
+    },
+    {
+     "who": "spudW",
+     "do": "hide",
+     "at": 1.08
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.08
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "set": {
+      "eye": 1.05,
+      "tilt": 0.15,
+      "curve": -0.1
+     },
+     "dur": 0.15,
+     "at": 1.107
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.107
+    }
+   ]
+  },
+  {
+   "name": "why are you here",
+   "at": 64.766,
+   "len": 1.434,
+   "shot": {
+    "pos": [
+     9.243,
+     1.45,
+     -11.92
+    ],
+    "look": [
+     6.188,
+     1.35,
+     -14.974
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      8.999,
+      1.442,
+      -12.164
+     ],
+     "look": [
+      6.188,
+      1.35,
+      -14.974
+     ],
+     "fov": 30
+    },
+    "dur": 1.4700000000000002,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.014
+    },
+    {
+     "do": "prop",
+     "id": "post",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.024
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "...Then why are you here?",
+     "tone": "question",
+     "style": "confused, flat, honest",
+     "voice": "mash",
+     "dur": 1.07,
+     "caption": false,
+     "at": 0.074
+    },
+    {
+     "do": "prop",
+     "id": "post",
+     "set": {
+      "talk": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.194
+    }
+   ]
+  },
+  {
+   "name": "silence",
+   "at": 66.2,
+   "len": 3.533,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -0.55,
+     1.55,
+     3.2
+    ],
+    "look": [
+     0.1,
+     1.15,
+     -0.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.485,
+      1.51,
+      2.85
+     ],
+     "look": [
+      0.1,
+      1.15,
+      -0.3
+     ],
+     "fov": 40
+    },
+    "dur": 3.48,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.4,
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.4,
+     "at": 0.61
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.45,
+      0.05
+     ],
+     "dur": 0.6,
+     "blink": false,
+     "at": 0.61
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 18,
+     "dur": 0.4,
+     "at": 0.76
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.86
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "...One burger. For the drive.",
+     "tone": "sad",
+     "style": "a guilty whisper, leaning to the speaker",
+     "dur": 2.03,
+     "caption": false,
+     "soft": true,
+     "at": 1.26
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.56
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.01,
+     "at": 3.49
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 3.49
+    },
+    {
+     "who": "rep",
+     "do": "move",
+     "to": [
+      5.318198051533947,
+      -13.934850275670993
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.5,
+     "at": 3.513
+    },
+    {
+     "who": "rep",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.513
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       5.177,
+       0.864,
+       -13.369
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.513
+    },
+    {
+     "do": "prop",
+     "id": "mic",
+     "set": {
+      "lean": 20
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.513
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.53
+    }
+   ]
+  },
+  {
+   "name": "did he just",
+   "at": 69.733,
+   "len": 1.567,
+   "shot": {
+    "pos": [
+     9.101,
+     1.6,
+     -15.455
+    ],
+    "look": [
+     5.318,
+     1.35,
+     -13.935
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      8.798,
+      1.58,
+      -15.333
+     ],
+     "look": [
+      5.318,
+      1.35,
+      -13.935
+     ],
+     "fov": 34
+    },
+    "dur": 1.5899999999999999,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Did he just...",
+     "tone": "question",
+     "style": "stunned, quiet, lowering the mic",
+     "voice": "reaper",
+     "dur": 1.19,
+     "caption": false,
+     "at": 0.057
+    },
+    {
+     "do": "prop",
+     "id": "burgerM",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.547
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.547
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "burgerM",
+      "grip": [
+       0.165,
+       0.085,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.078,
+       0.02,
+       -0.035
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.547
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.547
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "burgerM",
+      "grip": [
+       -0.165,
+       0.085,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.035,
+       0.02,
+       0.078
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.547
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "burgerM",
+      "grip": [
+       0.165,
+       0.085,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 1.557
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "burgerM",
+      "grip": [
+       -0.165,
+       0.085,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 1.557
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.563
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.563
+    }
+   ]
+  },
+  {
+   "name": "handover",
+   "at": 71.3,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     8.5,
+     1.5,
+     -16.339
+    ],
+    "look": [
+     6.909,
+     1.15,
+     -14.324
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      8.405,
+      1.479,
+      -16.218
+     ],
+     "look": [
+      6.909,
+      1.15,
+      -14.324
+     ],
+     "fov": 38
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0.03
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "burgerM",
+     "hand": "both",
+     "grip": [
+      0,
+      0.085,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.1,
+     "dur": 0.3,
+     "at": 0.13
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.35,
+       0.55,
+       0.45
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       5.177,
+       0.864,
+       -13.369
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "do": "prop",
+     "id": "mic",
+     "set": {
+      "lean": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "wheel",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "burgerD",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.58
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "burgerD",
+      "grip": [
+       0.165,
+       0.085,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.58
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "burgerD",
+      "grip": [
+       -0.165,
+       0.085,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.58
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "burgerD",
+      "grip": [
+       0.165,
+       0.085,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 1.59
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "burgerD",
+      "grip": [
+       -0.165,
+       0.085,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 1.59
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.596
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.596
+    }
+   ]
+  },
+  {
+   "name": "food at home 5",
+   "at": 72.9,
+   "len": 2.433,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -0.2,
+     1.55,
+     3.2
+    ],
+    "look": [
+     0.3,
+     1.15,
+     -0.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.17,
+      1.526,
+      2.99
+     ],
+     "look": [
+      0.3,
+      1.15,
+      -0.3
+     ],
+     "fov": 40
+    },
+    "dur": 2.4029999999999916,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.01,
+     "at": 0.03
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "set": {
+      "open": 0.85
+     },
+     "dur": 0.15,
+     "at": 0.03
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.03
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 0.03
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.45,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.03
+    },
+    {
+     "who": "wedge",
+     "do": "grab",
+     "prop": "burgerD",
+     "hand": "both",
+     "grip": [
+      0,
+      0.085,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.47
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "We have food at home.",
+     "tone": "calm",
+     "style": "flat, calm, exactly the dad's tone, a little kid being his dad",
+     "voice": "chip-clean",
+     "dur": 1.21,
+     "caption": false,
+     "at": 0.53
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.1
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 1.84
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "open": 0.85
+     },
+     "dur": 0.1,
+     "at": 1.84
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.39,
+   "see": [
+    "spud.face",
+    "wedge.face"
+   ],
+   "why": "a kid in the back seat points at a glowing burger sign; the dad at the wheel doesn't even look"
+  },
+  {
+   "from": 73.43,
+   "to": 75.333,
+   "see": [
+    "spud.face",
+    "wedge.face",
+    "burgerD"
+   ],
+   "why": "the kid says the line to his dad, who is frozen with a burger at his open mouth"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wedge",
+   "with": "seat-drv",
+   "from": 0,
+   "to": 75.333,
+   "reason": "sitting or standing on the car seat"
+  },
+  {
+   "who": "spud",
+   "with": "rear-1",
+   "from": 0,
+   "to": 75.333,
+   "reason": "sitting or standing on the car seat"
+  },
+  {
+   "who": "spudW",
+   "with": "rear-0",
+   "from": 0,
+   "to": 75.333,
+   "reason": "sitting or standing on the car seat"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/02-food-at-home/make-food-at-home.mjs. Stomach growl is a placeholder sound (bear-growl, low)."
+}

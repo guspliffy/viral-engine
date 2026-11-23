@@ -104,6 +104,9 @@ import { SPINSPACE_KINDS } from "./props-spinspace.js";
 import { GRAVMOON_KINDS } from "./props-gravmoon.js";   // gravity v2: Moon fall, fire wall, room hit
 import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP03 Atlantis, block D (kit/BLOCKS.md)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
+import { DRIVETHRU_KINDS } from "./props-drivethru.js";   // kid vs dad 02: drivethru, burgersign, trafficlight, trafficcone, speakerpost, menuboard
+import { FRIDGE_KINDS } from "./props-fridge.js";   // kid vs dad 02: openfridge
+import { FOODHOME_KINDS } from "./props-foodhome.js";   // kid vs dad 02: wrapburger, fogglass, cablight, sweatbead
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { LUNCH_KINDS } from "./props-lunch.js";   // potato desk 10 lunch trial: lunchbox, yogurtcup, kitchensink, microwave, beanmachine, corkboard, blindwindow, carpettiles, ceilingtiles, mouldbox, lanyard, collarstain, pocketglow
 import { THERMO_KINDS, THERMO_GRIPS } from "./props-thermo.js";   // potato desk 11 thermostat war: thermostat, thermobox, stepstool
@@ -148,6 +151,7 @@ import { WAKEOUT_KINDS } from "./props-wakeup-out.js";
 import { SINKCAR_KINDS } from "./props-sinkcar.js";
 import { SKIPREMOTE_KINDS } from "./props-skipremote.js";
 import { ARCH_KINDS, ARCH_GRIPS } from "./props-archaeologist.js";
+import { REPORTER_KINDS, REPORTER_GRIPS } from "./props-reporter.js";   // kid vs dad 01: newsmic, rephelmet
 import { HELLA_KINDS, HELLA_GRIPS } from "./props-hella.js";   // potato desk 09 hell reviews: set A (doors, badges, clouds, sky) + tablet + hand props
 import { HEART_HALL_KINDS, HEART_HALL_GRIPS, HEART_HALL_STATE } from "./props-heart-hall.js";   // egypt myth 01 heart (DESIGN.md)
 import { HEART_SCALE_KINDS, HEART_SCALE_GRIPS, HEART_SCALE_STATE } from "./props-heart-scale.js";   // egypt myth 01 heart (DESIGN.md)
@@ -170,6 +174,8 @@ import { HITEMS_KINDS, HITEMS_GRIPS } from "./props-heavenitems.js";   // heaven
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
 import { SKIPROOM_KINDS } from "./props-skiproom.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
+import { KVD_KINDS } from "./props-kvd.js";   // kid vs dad 01: jokejar, snaredrum, drumsticks
+import { SHED_KINDS } from "./props-shed.js";   // kid vs dad 01: gardenshed (props-shed.js)
 import { FIRE_KINDS } from "./props-fire.js";   // the anime person's firebending: firebend (props-fire.js)
 import { WATER_KINDS } from "./props-water.js";   // Pebble's water bending: waterbend (props-water.js)
 import { SNOW_KINDS, snowPropKeys } from "./props-survive-snow.js";   // survive it 01 snowed in: choppingblock, sliverheap, kindlingarmful, boardplank, hammer, woodchair, huddleblanket, iciclerow, snowthroat, snowspray, snowdrift, chimneybolt, sunbeam, snowlump, greenpatch...
@@ -1499,6 +1505,7 @@ Object.assign(KINDS, TENT_KINDS);   // friends try to 02: tent, tentpeg, backpac
 Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);   // there's a catch 04 (props-money.js, props-flood.js, props-twist.js, props-nightdiner.js)
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
+Object.assign(KINDS, DRIVETHRU_KINDS, FRIDGE_KINDS, FOODHOME_KINDS);   // kid vs dad 02 (props-drivethru.js, props-fridge.js, props-foodhome.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
 Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
 Object.assign(KINDS, THERMO_KINDS, CLIMATE_KINDS, OFFICE11_KINDS);   // potato desk 11 thermostat war (props-thermo.js, props-climate.js, props-office11.js)
@@ -1535,8 +1542,11 @@ Object.assign(KINDS, WAKECABIN_KINDS, WAKEFX_KINDS, WAKEOUT_KINDS);   // you wak
 Object.assign(KINDS, SINKCAR_KINDS);   // you wake up mid EP02: cabinwater, carglass, dashglow, headrest, headbeams, lakebubbles (props-sinkcar.js)
 Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
 Object.assign(KINDS, ARCH_KINDS); Object.assign(GRIPS, ARCH_GRIPS);   // the archaeologist: archbrush (props-archaeologist.js)
+Object.assign(KINDS, REPORTER_KINDS); Object.assign(GRIPS, REPORTER_GRIPS);   // kid vs dad 01: newsmic, rephelmet (props-reporter.js)
 Object.assign(KINDS, COASTER_KINDS);   // never looks up 07 (props-coaster.js)
 Object.assign(KINDS, BAND_KINDS);   // never looks up S2 E1 (props-band.js)
+Object.assign(KINDS, KVD_KINDS);   // kid vs dad 01 (props-kvd.js)
+Object.assign(KINDS, SHED_KINDS);   // kid vs dad 01: gardenshed (props-shed.js)
 Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)
 Object.assign(KINDS, WATER_KINDS);   // waterbend (props-water.js)
 Object.assign(KINDS, SNOW_KINDS);   // survive it 01 snowed in: the small props (props-survive-snow.js)
