@@ -30,7 +30,7 @@ const H = (x, z) => [r3(HX + x), r3(z)];
 const TATO_TABLE = [0.55, -0.20], DAD_TABLE = [-0.55, -0.42];
 const TATO_JAR = [-3.95, -0.30];                  // panel 03: looking up at the jar
 const TATO_CLIMB = [-4.63, -0.53];                // the camera-side end of the shelf unit (DESIGN 5)
-const DAD_STOOL = [-3.94, -1.15];
+const STOOL_K = 1.25, DAD_STOOL = [-4.02, -1.30], DAD_Y = 0.925;   // stepstool h 0.74 x 1.25   // the top tread of a tall step stool: his shoulder over the jar's rim, so the arm goes DOWN into its mouth (Sol jar check 1)
 const REP_AT = H(2.75, 0.75), REP_YAW = -35;
 const BED = H(-4.60, -0.95);                     // the far corner of his room: the walk to the door (z 0.10) passes clear of it
 const DOOR_WALK = [H(-3.05, 0.10), H(-2.36, 0.10)];
@@ -77,7 +77,7 @@ const props = [
   { id: "fridge", kind: "openfridge", x: -3.0, y: 0, z: -1.90, rot: 0, open: 0, lit: 0 },
   { id: "unit", kind: "pantryshelf", x: -4.66, y: 0, z: -1.30, rot: 90, wall: 3.6 },
   { id: "jar", kind: "cookiejar", x: -4.66, y: 0.95, z: -1.42, fill: 1, lid: 1 },
-  { id: "stool", kind: "jarstool", x: DAD_STOOL[0], y: 0, z: DAD_STOOL[1], rot: 0 },
+  { id: "stool", kind: "stepstool", h: 0.74, scale: STOOL_K, x: DAD_STOOL[0], y: -9, z: DAD_STOOL[1], rot: 90 },   // off the set until Dad is (its treads would stand in Tato's spot by the shelf); lower treads toward the camera
   { id: "table", kind: "kitchentable", x: 0, y: 0, z: 0.35, w: 1.3, d: 0.6, h: TOP },
   { id: "plate", kind: "plate", x: -0.22, y: TOP, z: 0.22 },
   { id: "pile", kind: "carrotpile", x: -0.22, y: r3(TOP + 0.019), z: 0.22, n: 14 },
@@ -367,18 +367,21 @@ const TJ = r3(T12 + 1.55);
 const T13 = r3(Math.max(END_OF(14) + 0.1, TJ + 1.26));
 arm(r3(T13 + 0.02), "spud", "R", { prop: "jar", grip: [0.12, 0.30, 0.20] }, 0.6, "out"); grip(r3(T13 + 0.02), "spud", "R", "open", 0.3);
 P(r3(T13 + 0.15), "moonK", { on: 0.35 }, 0.3);
+const DAD_YAW = 25;   // his face to the camera, the holster on his right hip turned away behind the jar
 const TC = r3(T13 + 0.45);   // the contact shot: Dad (and his stool) only from here, in the black
-A(onCut(TC), "dad", "show"); place(TC, "dad", DAD_STOOL, 0, 0.24); P(onCut(TC), "stool", { y: 0 }, 0);
+A(onCut(TC), "dad", "show"); place(TC, "dad", DAD_STOOL, DAD_YAW, DAD_Y); P(onCut(TC), "stool", { y: 0, scale: STOOL_K }, 0);
+P(onCut(TC), "crumbs", { on: 1 }, 0);   // the same crumbs in the wide and the close-up (Sol jar check 6)
 P(onCut(TC), "gog", { scale: 1, lit: 0 }, 0);
-expr(TC, "dad", FACES.caught, 0.01);
-arm(onCut(TC), "dad", "R", { prop: "jar", grip: [0, 0.15, 0] }, 0.01); grip(onCut(TC), "dad", "R", "hold", 0.01);
+expr(TC, "dad", { ...FACES.caught, eye: 0.8 }, 0.01);   // small eyes behind the visor: nothing peeks past it (Sol jar check 2)
+// the hand open and curled (not a fist: a fist pulls the elbow under the hand, through the glass), fingers 0.1 under the rim
+arm(onCut(TC), "dad", "R", { prop: "jar", grip: [0, 0.19, 0.01] }, 0.01); grip(onCut(TC), "dad", "R", "relaxed", 0.01);
 grade.push([onCut(TC), LOOKS.black]);
 sfx(r3(TC + 0.05), "ai/crunch", { gain: 0.3 });
 P(r3(TC + 0.3), "gog", { lit: 1 }, 0.12); sfx(r3(TC + 0.3), "lampbuzz", { gain: 0.15 });
 say(15, r3(TC + 0.6));
 const REACHC = { pos: [-4.40, 1.45, 0.05], look: [-4.70, 1.12, -1.40], fov: 40 };   // only Tato's hand and the jar (Dad is not in this frame)
 shot("reach", T13, push(REACHC, 0.06, 0.6));
-const LENSC = { pos: [-3.92, 1.10, 1.35], look: [-3.92, 1.09, -1.25], fov: 20 };   // the two green lenses light up in the black (both in frame: Sol r1 1)
+const LENSC = { pos: [-2.90, 1.78, 1.10], look: [-3.87, 1.767, -0.98], fov: 20 };   // straight down his line of sight (yaw 25)   // the two green lenses light up in the black (both in frame: Sol r1 1)
 shot("contact", TC, push(LENSC, 0.08, END_OF(15) - TC + 0.1), "reveal");
 
 // ---------------------------------------------------------------- END: the fridge light, Dad in goggles, hand in the jar
@@ -388,28 +391,29 @@ grade.push([onCut(T14), LOOKS.darkK]); P(onCut(T14), "shine", { on: 0 }, 0);
 const TF = r3(T14 + 0.25);
 P(TF, "fridge", { open: 1 }, 0.4, "out"); P(r3(TF + 0.1), "fridge", { lit: 1 }, 0.25, "linear"); sfx(TF, "door-open", { gain: 0.4 });
 grade.push([r3(TF + 0.1), LOOKS.fridge, 0.3]); fx.push({ do: "lights", at: r3(TF + 0.1), to: 0.12, lamp: 0.12, dur: 0.3 }); P(r3(TF + 0.1), "moonK", { on: 0 }, 0.3);
-place(T14, "spud", TATO_CLIMB, 90, 0.65);
-arm(onCut(T14), "spud", "R", "rest", 0.01); arm(onCut(T14), "spud", "L", "rest", 0.01);
+place(T14, "spud", TATO_CLIMB, 65, 0.65);   // 3/4 to the camera, toward Dad
+arm(onCut(T14), "spud", "L", { prop: "unit", grip: [-0.49, 1.005, 0.21] }, 0.01); grip(onCut(T14), "spud", "L", "rim", 0.01); arm(onCut(T14), "spud", "R", "rest", 0.01);   // his hand hooked over the top plank's end (Sol jar check 3)
 expr(T14, "spud", FACES.flat, 0.01); look(T14, "spud", [0.3, 0], 0.01);
 say(16, r3(TF + 0.75));
-const FRIDGEC = { pos: [-3.10, 1.30, 2.10], look: [-4.40, 1.05, -1.15], fov: 44 };   // from Dad's side: his sleeve leads into the jar
+const FRIDGEC = { pos: [-3.30, 2.30, 2.60], look: [-4.15, 1.40, -0.85], fov: 50 };   // front right and ~13 deg down onto the jar's mouth: sleeve, elbow, wrist over it (Sol jar check 1)
 shot("dad?", T14, push(FRIDGEC, 0.05, END_OF(16) - T14 + 0.35));
 // 15: goggles up, a bitten cookie in his left hand, crumbs; "...Carrots." CUT
 const T15 = r3(END_OF(16) + 0.25);
 // his free left hand pushes the goggles up (in shot, Sol r1 8), a stuffed chew, then "...Carrots." CUT (Sol r1 9)
-P(onCut(T15), "crumbs", { on: 1 }, 0);
-expr(T15, "dad", FACES.guilty, 0.01); look(T15, "dad", [-0.7, 0.05], 0.01); A(T15, "dad", "noblink", { dur: 2.2 });
-arm(r3(T15 + 0.02), "dad", "L", { o: [-0.10, 0.86, 0.34] }, 0.25); grip(r3(T15 + 0.02), "dad", "L", "flat", 0.15);
-P(r3(T15 + 0.3), "gog", { up: 1, lit: 0.6 }, 0);
-arm(r3(T15 + 0.42), "dad", "L", "rest", 0.3);
+look(T15, "dad", [-0.7, 0.05], 0.01); A(T15, "dad", "noblink", { dur: 2.2 });
+// his left hand takes the visor by its side, pushes it up and lets go (Sol jar check 2: it jumped in one frame)
+arm(r3(T15 + 0.02), "dad", "L", { o: [0.17, 0.82, 0.30] }, 0.25); grip(r3(T15 + 0.02), "dad", "L", "pinch", 0.15);
+P(r3(T15 + 0.3), "gog", { up: 1, lit: 0.6 }, 0.35, "inOut"); arm(r3(T15 + 0.3), "dad", "L", { o: [0.15, 0.98, 0.22] }, 0.35);
+expr(r3(T15 + 0.35), "dad", FACES.guilty, 0.25);
+grip(r3(T15 + 0.68), "dad", "L", "relaxed", 0.12); arm(r3(T15 + 0.7), "dad", "L", "rest", 0.35);
 for (const d of [0.5, 0.72, 0.94]) {
   expr(r3(T15 + d), "dad", { open: 0.45 }, 0.08); expr(r3(T15 + d + 0.11), "dad", { open: 0 }, 0.08); sfx(r3(T15 + d), "ai/crunch", { gain: 0.12 });
-  A(r3(T15 + d), "dad", "squash", { amount: 0.035, dur: 0.08 }); A(r3(T15 + d + 0.1), "dad", "squash", { amount: 0, dur: 0.1 });
+  A(r3(T15 + d), "dad", "squash", { amount: 0.008, dur: 0.1 }); A(r3(T15 + d + 0.1), "dad", "squash", { amount: 0, dur: 0.12 });
 }
 expr(T15, "spud", FACES.flat, 0.01); look(T15, "spud", [0.5, 0.1], 0.01); A(T15, "spud", "noblink", { dur: 2 });
 say(17, r3(T15 + 1.15));
 const END = F(END_OF(17) + 0.2);
-const ENDC = { pos: [-3.40, 1.35, 1.70], look: [-4.12, 1.12, -1.00], fov: 36 };   // Dad's full face in the middle (Sol r1 9)
+const ENDC = { pos: [-3.40, 2.15, 1.90], look: [-4.15, 1.42, -0.85], fov: 48 };   // Dad's face, the arm into the jar and Tato all in frame (Sol jar check 4)
 shot("carrots", T15, push(ENDC, 0.05, END - T15), "payoff");
 see(T14, END, ["dad.face", "spud.face", "gog"], "the fridge light shows Dad in night-vision goggles with his hand in the cookie jar; he says: '...Carrots.'");
 
@@ -439,8 +443,6 @@ write(import.meta.url, {
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
     { who: "spud", with: "bed", from: onCut(T06), to: T07, reason: "sitting up in bed under the blanket" },
-    { who: "dad", with: "jar", from: onCut(TC), to: END, reason: "his hand is IN the cookie jar (the brief's fix of panel 14)" },
-    { who: "dad", with: "unit", from: onCut(TC), to: END, reason: "his arm reaches over the top plank into the jar" },
     { who: "dad", with: "gog", from: 0, to: END, reason: "worn goggles sit on his face by design" },
     { who: "dad", with: "stool", from: onCut(TC), to: END, reason: "standing on the step stool" },
     { who: "spud", with: "unit", from: onCut(T12), to: END, reason: "climbing the shelf unit" },

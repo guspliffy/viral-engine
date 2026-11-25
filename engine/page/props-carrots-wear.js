@@ -10,7 +10,7 @@ import { mat, basic, mesh, canvasTex } from "./props-trend.js";
 //   nvgoggles   Dad's night-vision goggles, WORN: { kind: "nvgoggles", wear: "dad", x: 0, y: 0.842, z: 0.355 (NV_AT, exported; bench-wear prints it) }.
 //               Origin the point between his eyes ON the skin (x 0, b 0.642 = y 0.842: the bench layout's eye height, 0.007 above DAD-DESIGN's 0.635). Nothing else is placed: every part is built on his real skin
 //               (the potato.js bodyPoint maths, dad.json body, legs 0.20), so it turns, leans and follows him. It does not squash with him (5 % squash moves it 2 cm).
-//     up 0 | 1   spec.up (default 0), a STEP, switch it on a cut (>= 0.5 counts as 1). 0 = over the eyes. 1 = pushed up onto the forehead: plate middle b 0.935
+//     up 0..1    spec.up (default 0), tweens (6 fixed seats in between, each placed clear of the skin; the strap steps between 7 bands). 0 = over the eyes. 1 = pushed up onto the forehead: plate middle b 0.935
 //                (y 1.135), tipped back 58 degrees, the strap tilted with it (front b 0.935, back 0.16 lower). Lowest point of any part for abs(x) < 0.25 is
 //                b >= 0.872 (the bench prints it), the eye zone b 0.496..0.86 stays empty; its rear edge stops 0.02+ short of the leaf nub (crown, x -0.11, z +0.02).
 //     lit 0..1   spec.lit (default 0): lens colours from #0d3a1c (0) to #39ff6a (1), inner glow to #c8ffd6. Director: up 0 -> 1, up 1 -> 0.6. Unlit colours.
@@ -171,6 +171,10 @@ function buildNvgoggles(P) {
     return { pos: sk.p.clone().addScaledVector(nrm, off), q, tilt, off, skinTilt: Math.atan2(sk.n.y, sk.n.z) / D2R };
   };
   const st0 = placeFor(PL.bC, null), st1 = placeFor(UP.b, UP.tilt);
+  // the push up as a real move (Sol, ending check 25 Nov: it jumped in one frame): NS fixed in-between seats, each placed clear of the skin
+  const NS = 6, seats = [st0];
+  for (let k = 1; k < NS; k++) { const f = k / NS; seats.push(placeFor(PL.bC + (UP.b - PL.bC) * f, st0.tilt + (UP.tilt - st0.tilt) * f)); }
+  seats.push(st1);
 
   // the strap: a level band over the eyes (up 0) or tilted with the plate (front b 0.935, the back UP.drop lower) (up 1); buckle at the back
   const pathFor = (yOf) => (a) => {   // the band's centre line: a = 0 at the back, round to the back again; n is the horizontal outward normal
@@ -183,15 +187,16 @@ function buildNvgoggles(P) {
     root.add(grp); return grp;
   };
   const yF0 = NV_BODIES.dad.legH + PL.bC, yF1 = NV_BODIES.dad.legH + UP.b;
-  const strap0 = strapFor(() => yF0), strap1 = strapFor((al) => yF1 - UP.drop * (1 - Math.cos(al)) / 2);   // al = 0 at the front
+  const straps = seats.map((_, k) => { const f = k / NS; return strapFor((al) => yF0 + (yF1 - yF0) * f - f * UP.drop * (1 - Math.cos(al)) / 2); });   // al = 0 at the front
 
   const cDark = new THREE.Color(NVC.lensOff), cLens = new THREE.Color(NVC.lens), cGlowOn = new THREE.Color(NVC.glow), cRimOn = new THREE.Color(NVC.rim), cRimOff = new THREE.Color(NVC.rimOff);
   return {
     grip: 0,
-    info: { lensZ, lensX: PL.tubeX, yEye, zFront: _s0.p.z, kx, kv, up0: st0, up1: st1, root, piece },
+    info: { lensZ, lensX: PL.tubeX, yEye, zFront: _s0.p.z, kx, kv, up0: st0, up1: st1, seats, root, piece },
     apply(ps) {
-      const up = (ps.up ?? S.up ?? 0) >= 0.5, st = up ? st1 : st0, lit = clamp(ps.lit ?? S.lit ?? 0);
-      piece.position.copy(st.pos); piece.quaternion.copy(st.q); strap0.visible = !up; strap1.visible = up;
+      const u = clamp(ps.up ?? S.up ?? 0) * NS, k = Math.min(NS - 1, Math.floor(u)), f = u - k, a = seats[k], b = seats[k + 1], lit = clamp(ps.lit ?? S.lit ?? 0);
+      piece.position.copy(a.pos).lerp(b.pos, f); piece.quaternion.copy(a.q).slerp(b.q, f);
+      const near = Math.round(u); straps.forEach((st, i) => { st.visible = i === near; });
       lensM.color.copy(cDark).lerp(cLens, lit); glowM.color.copy(cDark).lerp(cGlowOn, lit); rimM.color.copy(cRimOff).lerp(cRimOn, lit);
     },
   };
