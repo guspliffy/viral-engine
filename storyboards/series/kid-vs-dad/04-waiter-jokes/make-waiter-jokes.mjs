@@ -21,7 +21,7 @@ const F = (t) => r3(Math.round(t * 30) / 30);
 // measured spoken lengths (node qa/lines.mjs kvd04-voice-probe.json), in LINES order
 const DUR = [1.97, 1.32, 3.08, 1.86, 1.19, 2.14, 2.15, 1.64, 1.97, 2.68, 1.16, 2.04, 0.76, 2.36, 1.94, 1.09, 1.95, 2.27, 1.02,
   1.69, 1.31, 1.03, 1.68, 1.88];
-const RIM = 0.9, SWING = 0.3, STAND = 0.6, DROP = 0.7, UNDER = 1.5, SLAP = 1.6;   // Sol r1 editor: poster hold -0.4 s, man-down hold -0.3 s
+const RIM = 0.9, SWING = 0.3, STAND = 0.3, DROP = 0.7, UNDER = 1.5, SLAP = 1.6;   // Sol r1 editor: poster hold -0.4 s, man-down hold -0.3 s
 //            0     1     2     3     4     5     6     7     8     9           10    11    12          13    14    15
 const GAP = [0.1, 0.3, 0.35, 0.3, 0.25, 0.35, 0.3, 0.4, 0.3, 0.3 + RIM, 0.45, 0.3, 0.2 + RIM, 0.25, 0.4, 0.3 + SWING,
   //  16    17    18    19    20            21    22           23
@@ -82,7 +82,7 @@ const props = [
   chair("cDad", [0.92, -0.40], -40), chair("cKid", [-0.12, -0.76], 9), chair("cRep", [-0.85, -2.64], 0),
   chair("cB1a", [2.05, -2.60], 0), chair("cB1b", [2.80, -1.85], -90), chair("cB2a", [-2.4, 1.65], 180), chair("cB2b", [-1.65, 0.9], -90),
   { id: "plB1", kind: "mealplate", food: "none", x: 2.05, y: 0.386, z: -2.10 }, { id: "plB2", kind: "mealplate", food: "none", x: -2.4, y: 0.386, z: 1.15 },
-  { id: "plMa", kind: "mealplate", food: "none", x: 0.42, y: 0.386, z: -0.10 }, { id: "plMb", kind: "mealplate", food: "none", x: -0.10, y: 0.386, z: -0.40 },
+  { id: "plMa", kind: "mealplate", food: "none", x: 0.42, y: 0.386, z: -0.10 }, { id: "plMb", kind: "mealplate", food: "none", x: 0.20, y: 0.386, z: -0.28 },
   { id: "menu", kind: "tallmenu", x: REPTABLE[0], y: 0.386, z: -1.92, rot: 0 },
   { id: "door", kind: "kitchendoor", x: -2.6, y: 0, z: -2.97, rot: 0, open: 0 },
   { id: "crate", kind: "crate", size: 0.51, staged: "stands on the nook floor (1 cm: the nook floor sits over the world floor)", x: COOK[0], y: 0, z: COOK[1] },
@@ -176,7 +176,7 @@ swap(C06, "w", "wT"); wear(C06, "apron", "apronT");
 // Sol r1 #5: the glasses arrive on the tray (06) and stand on the table from the next cut (07)
 c.prop(onCut(C06), "glassA", { scale: 1, x: -0.505, y: 0.508, z: -0.342 }, 0.01); c.prop(onCut(C06), "glassB", { scale: 1, x: -0.595, y: 0.508, z: -0.498 }, 0.01);   // on the tray's front-back line, away from both arms
 c.prop(r3(C06 - 0.4), "tray", { scale: 1 }, 0.01);   // grown before the cut (behind the S02 camera), so his hands do not turn as it grows on screen
-gp.release(onCut(C06), { back: 0.01 });
+c.prop(onCut(C06), "pad", { scale: 0.001 }, 0.01);   // Sol r2 #5: no release (physics dropped it behind him); it stays in the hidden body's hand
 
 expr(C06, "wT", FACES.nervous, 0.01); A(r3(T[10]), "wT", "face", { lid: 0.7, dur: 0.2 });   // no bow: a lean with the box hold turned his left palm 96° in 3 frames
 say(10, "wT");           // Sorry for the wait.
@@ -211,18 +211,17 @@ say(16);                 // Last time... the waiter quit.  (09 the cook prays at
 c.prop(onCut(C09), "door", { open: 0 }, 0.01);   // closed for the porthole shot
 // ---------------------------------------------------------------- JOKE 3 (10: the waiter shields himself with the pad)
 const C10 = cutAt(17);
-swap(C10, "wT", "w"); wear(C10, "apronT", "apron"); c.prop(onCut(C10), "tray", { scale: 0.001 }, 0.01);
-gp.take(onCut(C10), { reach: 0.01, settle: 0.01 });
-A(onCut(C10), "w", "turn", { to: 55, dur: 0.01 }); A(onCut(C10), "w", "lean", { to: -10, dur: 0.01 });
-expr(C10, "w", FACES.frozen, 0.01);
-say(17, "w");            // And... how would you like your steak?
+// Sol r2 #3: he asks holding the EMPTY TRAY up like a shield (the tray that falls in the dark), so where it is stays clear
+show(C10, "wT"); c.prop(onCut(C10), "tray", { scale: 1 }, 0.01); c.prop(onCut(C10), "apronT", { scale: 1 }, 0.01);
+expr(C10, "wT", FACES.frozen, 0.01);
+say(17, "wT");            // And... how would you like your steak?
 say(18, "kid2");         // Dad, no.
 // the dad stands (on the reporter's line: cut to the spotlight)
 say(19);                 // He's standing up. He's standing up!
 const C11 = r3(END_OF(19) + 0.15);
 swap(C11, "dad", "dadU"); c.prop(onCut(C11), "carpet", { scale: 0.001 }, 0.01); c.prop(onCut(C11), "carpetN", { scale: 1 }, 0.01);
 c.prop(onCut(C11), "beam", { scale: 1 }, 0.01); c.prop(onCut(C11), "pool", { scale: 1 }, 0.01);
-for (const id of ["w", "kid2"]) hide(C11, id); c.prop(onCut(C11), "apron", { scale: 0.001 }, 0.01);
+for (const id of ["wT", "kid2"]) hide(C11, id); c.prop(onCut(C11), "apronT", { scale: 0.001 }, 0.01);
 expr(C11, "dadU", FACES.proud, 0.01); look(C11, "dadU", [-0.3, 0.3], 0.01);
 arm(r3(C11 + 0.2), "dadU", "R", { o: [0.35, 1.05, 0.25] }, 0.45, "out"); grip(r3(C11 + 0.4), "dadU", "R", "flat");
 say(20, "dadU");         // Like my jokes.
@@ -234,13 +233,13 @@ const C12 = r3(R3 + 0.25);
 c.prop(onCut(C12), "carpetN", { scale: 0.001 }, 0.01); c.prop(onCut(C12), "carpet", { scale: 1 }, 0.01);
 c.prop(onCut(C12), "beam", { scale: 0.001 }, 0.01); c.prop(onCut(C12), "pool", { scale: 0.001 }, 0.01);
 hide(C12, "w"); show(C12, "wT"); wear(C12, "apron", "apronT");   // Sol r1 #3: no kid2: Tato went under in the dark
-c.prop(onCut(C12), "tray", { scale: 1 }, 0.01); gp.release(onCut(C12), { back: 0.01 });
+c.prop(onCut(C12), "tray", { scale: 1 }, 0.01);
 expr(C12, "wT", FACES.frozen, 0.01);
 // the tray lands on the cut while he is hidden (his hands go straight to rest): any on-screen release turned his palms
 // 60-90° in 2 frames and pulled the hands to the floor; the clang on the cut sells the drop
 A(r3(onCut(C12) - 0.1), "wT", "release", { prop: "tray", dur: 0, to: [-0.62, 0, -0.12] });   // Sol r1 #9: open floor at his feet
 for (const s of ["L", "R"]) { arm(r3(onCut(C12) - 0.09), "wT", s, "rest", 0.01); grip(r3(onCut(C12) - 0.09), "wT", s, "relaxed", 0.01); } sfx(r3(C12), "ai/snare-hit", { gain: 0.3 });   // the tray hits the floor (PLACEHOLDER sound)
-A(r3(C12 + 0.2), "rep", "crouch", { to: 0.3, dur: 0.25 }); A(r3(T[22] + 0.9), "rep", "crouch", { to: 0.12, dur: 0.2 });   // Sol r1 #15: ducks on the first call
+A(r3(C12 + 0.2), "rep", "squash", { amount: 0.14, dur: 0.2 }); A(r3(T[22] + 0.9), "rep", "squash", { amount: 0, dur: 0.2 });   // Sol r2 #8: he ducks (a crouch did not move him in his chair, a lean hit the plant)   // Sol r1 #15: ducks on the first call
 say(22);                 // Man down! Man down!
 // 13: under the table (the cheat): Tato curled up, hands over his face; the dad's sandals at the edge
 const C13 = r3(END_OF(22) + 0.2);
@@ -251,7 +250,7 @@ for (const id of ["tray", "glassA", "glassB", "plMa", "plMb", "apronT", "billA"]
 arm(onCut(C13), "dadU", "R", "rest", 0.01); grip(onCut(C13), "dadU", "R", "relaxed", 0.01);
 A(onCut(C13), "dadU", "move", { to: [0.77, -0.05], dur: 0.01, steps: 0, ease: "linear", sync: true });
 A(onCut(C13), "kid3", "sit", { dur: 0, hands: "lap", height: 0.01 });
-arm(onCut(C13), "kid3", "L", { o: [-0.20, 0.55, 0.32] }, 0.01); arm(onCut(C13), "kid3", "R", { o: [-0.20, 0.55, 0.32] }, 0.01);   // Sol r1 #4: palms over his face
+arm(onCut(C13), "kid3", "L", { o: [-0.20, 0.61, 0.32] }, 0.01); arm(onCut(C13), "kid3", "R", { o: [-0.20, 0.61, 0.32] }, 0.01);   // Sol r1 #4: palms over his face
 A(onCut(C13), "kid3", "lean", { to: 14, dur: 0.01 });
 grip(onCut(C13), "kid3", "L", "flat", 0.01); grip(onCut(C13), "kid3", "R", "flat", 0.01);
 expr(C13, "kid3", { curve: -0.4 }, 0.01);
@@ -259,24 +258,25 @@ expr(C13, "kid3", { curve: -0.4 }, 0.01);
 const C14 = r3(C13 + UNDER);
 c.prop(onCut(C14), "cheat", { scale: 0.001 }, 0.01); c.prop(onCut(C14), "main", { scale: 1 }, 0.01);
 for (const id of ["cKid", "cDad"]) c.prop(onCut(C14), id, { scale: 1 }, 0.01);
-hide(C14, "kid3"); hide(C14, "dadU"); show(C14, "dad"); show(C14, "w"); c.prop(onCut(C14), "apron", { scale: 1 }, 0.01);
+hide(C14, "kid3"); hide(C14, "dadU"); show(C14, "dad"); // Sol r2 #4: the waiter is already gone (his walk-off froze in two rounds); the bill slapped on the table says it
 for (const id of ["glassA", "glassB", "plMa", "plMb", "billA"]) c.prop(onCut(C14), id, { scale: 1 }, 0.01);
 A(r3(C13 + 0.2), "dad", "turn", { to: -20, dur: 0.01 });   // turned while hidden: on the cut it flipped his palm expr(C14, "dad", FACES.proud, 0.01);
 c.prop(onCut(C14), "pad", { scale: 0.001 }, 0.01);
 arm(onCut(C14), "w", "L", "rest", 0.01); arm(onCut(C14), "w", "R", "rest", 0.01); look(r3(C14 + 0.1), "w", [-0.8, 0], 0.12);
-A(onCut(C14), "w", "move", { to: W_KID, dur: 0.01, steps: 0, ease: "linear", sync: true });
-A(onCut(C14), "w", "turn", { to: 210, dur: 0.01 });   // Sol r1 #7: walking off from the first frame (a turn on screen jumped his elbows)
-A(r3(C14 + 0.08), "w", "walk", { to: [-1.5, -1.0], dur: 0.55 }); A(r3(C14 + 0.63), "w", "walk", { to: [-2.6, -2.4], dur: 0.7 });
+A(r3(C13 + 0.2), "w", "move", { to: W_KID, dur: 0.01, steps: 0, ease: "linear", sync: true });   // placed while hidden (on the cut it froze the walk-off)
+A(r3(C13 + 0.25), "w", "turn", { to: 210, dur: 0.01 });   // Sol r1 #7: walking off from the first frame (a turn on screen jumped his elbows)
+A(r3(C14 + 0.05), "w", "walk", { to: [-1.75, -1.55], dur: 0.6 }); A(r3(C14 + 0.65), "w", "walk", { to: [-2.8, -2.6], dur: 0.6 });   // Sol r2 #4: out of frame before the close-up
 sfx(r3(C14 + 0.12), "ai/snare-hit", { gain: 0.2 });   // the tray slapped down (PLACEHOLDER sound)
 
 // 15: the bill in his hand: TIP: STOP.
 const C15 = cutAt(23);
 c.prop(onCut(C15), "billA", { scale: 0.001 }, 0.01); c.prop(onCut(C15), "billB", { scale: 1 }, 0.01);
-const gb = grips.phone(c, "dad", BILL_B, { side: "R", height: 0.40, flat: false }); gb.take(onCut(C15), { reach: 0.01, settle: 0.01 });
+const gb = grips.phone(c, "dad", BILL_B, { side: "R", height: 0.40, flat: false }); gb.take(r3(C15 - 0.025), { reach: 0.01, settle: 0.01 });   // between the wide's last frame (53.800) and the cut frame (53.833): onCut rounded a frame early here
 look(C15, "dad", [0.1, -0.95], 0.01);   // Sol r1 #6: eyes on the bill expr(C15, "dad", FACES.proud, 0.01);
 expr(r3(T[23] + 0.2), "dad", FACES.deflate, 0.5); A(r3(T[23] + 0.2), "dad", "face", { lid: 0.4, dur: 0.4 });
 A(r3(T[23] + 0.3), "dad", "squash", { amount: 0.03, dur: 0.5 });
 say(23);                 // Tip... stop.
+look(r3(T[23] + 0.02), "dad", [0.1, -0.95], 0.08); look(r3(T[23] + 0.9), "dad", [0.1, -0.95], 0.05);   // Sol r2 #2: eyes stay on the bill through the line
 const END = F(END_OF(23) + 0.5);
 see(C15, END, ["dad.face", "billB"], "the dad reads the bill: TIP: STOP.");
 
@@ -286,14 +286,15 @@ const S01 = { pos: [-0.1, 1.15, 4.7], look: [-0.1, 0.72, -0.4], fov: 45 };
 const S02 = { pos: [-0.85, 0.90, -0.40], look: [-0.85, 0.86, -2.3], fov: 46 };   // Sol r1 #18: his helmet top at 506 px, captions above it
 const S03 = { pos: [1.0, 0.95, 1.6], look: [-0.12, 0.56, -0.74], fov: 30 };
 const S04 = { pos: [-0.25, 0.95, 4.9], look: [-0.22, 0.78, 0], fov: 50 };   // Sol r1 #12: the waiter at 190 px, not on the edge
-const S05 = { pos: [-0.25, 1.0, 3.0], look: [-0.6, 0.75, -0.3], fov: 44 };   // camfit 21 s: waiter left, Tato right
-const S07 = { pos: [-0.40, 0.44, 1.5], look: [-0.40, 0.52, -0.5], fov: 40 };
+const S05 = { pos: [-0.25, 1.15, 3.0], look: [-0.6, 0.72, -0.3], fov: 44 };   // Sol r2 #1: higher, his chin on the cloth reads   // camfit 21 s: waiter left, Tato right
+const S07 = { pos: [-0.30, 0.44, 1.5], look: [-0.30, 0.52, -0.5], fov: 40 };   // Sol r2 #1: both eyes inside the crop
 const S08 = { pos: [-2.85, 0.98, 0.60], look: [-2.45, 0.85, -4.5], fov: 26 };
-const S09 = { pos: [-2.6, 1.02, -1.7], look: [-2.6, 0.94, -3.0], fov: 36 };
-const S10 = { pos: [0.9, 1.1, 2.2], look: [-0.7, 0.85, 0.0], fov: 46 };   // Sol r1 #8: a clean single of the waiter and his pad (dad off frame)
+const S09 = { pos: [-2.72, 1.02, -1.7], look: [-2.6, 0.94, -3.0], fov: 36 };   // Sol r2 #10: the portrait out of the glass
+const S10 = { pos: [-0.6, 1.1, 1.6], look: [-0.8, 0.85, -0.65], fov: 46 };   // Sol r2 #3: a single of the waiter with the empty tray   // Sol r1 #8: a clean single of the waiter and his pad (dad off frame)
 const S11 = { pos: [-0.55, 0.85, 3.3], look: [1.05, 0.72, 0.35], fov: 36 };
 const S12 = { pos: [0.15, 0.95, 2.6], look: [-0.9, 0.60, -0.6], fov: 40 };
-const S13 = { pos: [0.05, 0.30, 2.5], look: [-0.05, 0.24, 0], fov: 30 };   // Sol r1 #4/#11: tighter, the dad out of frame, less of the cloth's underside
+const S13 = { pos: [0.0, 0.30, 2.5], look: [-0.09, 0.24, 0], fov: 27 };   // Sol r1 #4/#11: tighter, the dad out of frame, less of the cloth's underside
+const S04w = { pos: [-0.25, 1.35, 4.6], look: [-0.22, 0.66, 0], fov: 50 };   // Sol r2 #7: higher for the drinks, the glasses on the tray read
 const S14 = { pos: [1.6, 1.0, 3.2], look: [0.0, 0.62, -0.47], fov: 50 };
 const S15 = { pos: [0.28, 1.30, 1.95], look: [0.66, 0.80, 0.10], fov: 38 };   // Sol r1 #10: eyes 29 % down, caption clear above them   // camfit 55.6 s: his eyes 26 % down, the bill below
 const S15e = { pos: [0.30, 1.28, 1.85], look: [0.66, 0.79, 0.10], fov: 38 };
@@ -308,7 +309,7 @@ const beats = c.beats([
   ["order", cutAt(7), push(S04, 0.07, DUR[7] + DUR[8] + 0.6), "escalation"],
   ["frozen", C05, push(S05, 0.06, r3(T[9] - C05))],
   ["still standing", cutAt(9), push(S02, 0.06, DUR[9] + 0.3)],
-  ["wait", C06, push(S04, 0.07, DUR[10] + DUR[11] + 0.8)],
+  ["wait", C06, push(S04w, 0.07, DUR[10] + DUR[11] + 0.8)],
   ["sinking", C07, push(S07, 0.05, r3(END_OF(12) + 0.2 - C07))],
   ["sinking rep", cutAt(13), push(S02, 0.07, DUR[13] + 0.2)],
   ["the wall", C08, push(S08, 0.05, DUR[14] + DUR[15] + SWING + 0.8)],
@@ -351,6 +352,7 @@ write(import.meta.url, {
     { who: "kid3", with: "kid3", from: onCut(C13), to: onCut(C14), checks: ["face-covered"], reason: "under the table he hides his face in his hands: the point of the shot (Sol r1 #4); no line, his curled body reads" },
     { who: "cook", with: "cook", from: onCut(C09), to: onCut(C10), checks: ["face-covered"], reason: "praying palms raised to his chin in the porthole (Sol r1 #14): the draft still shows both eyes over the fingertips" },
     { who: "wT", with: "glassB", from: onCut(C06), to: onCut(C07), checks: ["arm-in-prop"], reason: "the glass stands on the tray he carries; his left forearm brushes its far side by 3 cm, behind the glass from the lens" },
+    { who: "dad", from: r3(C15 - 0.06), to: r3(C15 + 0.08), checks: ["hand-turn", "grab-on-cut"], reason: "the hand closes on the bill across the cut from the wide (bill on the table) to the close-up (bill in his hand): the turn falls between the wide's last frame and the close-up's first" },
     { who: "dadU", with: "cheat", from: onCut(C13), to: onCut(C14), checks: ["shell", "clipping"], reason: "panel 13 cheat: the dad stands across the cheat table's skirt, only his legs and belly show under the hem" },
   ],
   notes: "Generated by storyboards/series/kid-vs-dad/04-waiter-jokes/make-waiter-jokes.mjs. Tray-slap sound is a placeholder (snare-hit).",

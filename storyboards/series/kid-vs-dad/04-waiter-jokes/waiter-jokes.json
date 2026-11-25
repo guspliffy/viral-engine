@@ -55,7 +55,7 @@
      "src": "assets/plates/eatery-day.night.png"
     },
     {
-     "at": 48.38,
+     "at": 48.08,
      "src": "assets/plates/eatery-day.png"
     }
    ]
@@ -89,7 +89,7 @@
    "count": false,
    "show": [
     0.2,
-    54.113
+    53.813
    ]
   }
  },
@@ -408,9 +408,9 @@
    "id": "plMb",
    "kind": "mealplate",
    "food": "none",
-   "x": -0.1,
+   "x": 0.2,
    "y": 0.386,
-   "z": -0.4
+   "z": -0.28
   },
   {
    "id": "menu",
@@ -764,32 +764,32 @@
    "size": 62
   },
   {
-   "from": 45.43,
-   "to": 46.86,
+   "from": 45.13,
+   "to": 46.56,
    "text": "Like my *jokes.*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 47.09,
-   "to": 48.38,
+   "from": 46.79,
+   "to": 48.08,
    "text": "*Well done.*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 49.12,
-   "to": 50.98,
+   "from": 48.82,
+   "to": 50.68,
    "text": "Man down! Man down!",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 54.2,
-   "to": 56.38,
+   "from": 53.9,
+   "to": 56.08,
    "text": "*Tip... stop.*",
    "pos": 300,
    "pop": false,
@@ -2023,24 +2023,24 @@
    "shot": {
     "pos": [
      -0.25,
-     1,
+     1.15,
      3
     ],
     "look": [
      -0.6,
-     0.75,
+     0.72,
      -0.3
     ],
     "fov": 44,
     "to": {
      "pos": [
       -0.271,
-      0.985,
+      1.124,
       2.802
      ],
      "look": [
       -0.6,
-      0.75,
+      0.72,
       -0.3
      ],
      "fov": 44
@@ -2202,18 +2202,13 @@
      "at": 3.113
     },
     {
-     "who": "w",
-     "do": "release",
-     "prop": "pad",
-     "dur": 0,
-     "at": 3.113
-    },
-    {
-     "who": "w",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.15,
+     "do": "prop",
+     "id": "pad",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
      "at": 3.113
     }
    ]
@@ -2225,24 +2220,24 @@
    "shot": {
     "pos": [
      -0.25,
-     0.95,
-     4.9
+     1.35,
+     4.6
     ],
     "look": [
      -0.22,
-     0.78,
+     0.66,
      0
     ],
     "fov": 50,
     "to": {
      "pos": [
       -0.248,
-      0.938,
-      4.557
+      1.302,
+      4.278
      ],
      "look": [
       -0.22,
-      0.78,
+      0.66,
       0
      ],
      "fov": 50
@@ -2270,45 +2265,6 @@
      },
      "dur": 0.01,
      "at": 0.017
-    },
-    {
-     "who": "w",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "pad",
-      "grip": [
-       -0.136,
-       0.052,
-       -0.012
-      ],
-      "palm": true,
-      "off": [
-       0.002,
-       0.02,
-       -0.072
-      ]
-     },
-     "dur": 0.01,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
-     "who": "w",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 0.03
-    },
-    {
-     "who": "w",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 0.03
     },
     {
      "who": "wT",
@@ -2575,24 +2531,24 @@
    "len": 1.633,
    "shot": {
     "pos": [
-     -0.4,
+     -0.3,
      0.44,
      1.5
     ],
     "look": [
-     -0.4,
+     -0.3,
      0.52,
      -0.5
     ],
     "fov": 40,
     "to": {
      "pos": [
-      -0.4,
+      -0.3,
       0.444,
       1.4
      ],
      "look": [
-      -0.4,
+      -0.3,
       0.52,
       -0.5
      ],
@@ -2889,7 +2845,7 @@
    "len": 2.4,
    "shot": {
     "pos": [
-     -2.6,
+     -2.72,
      1.02,
      -1.7
     ],
@@ -2901,7 +2857,7 @@
     "fov": 36,
     "to": {
      "pos": [
-      -2.6,
+      -2.71,
       1.014,
       -1.804
      ],
@@ -2954,27 +2910,12 @@
     },
     {
      "who": "wT",
-     "do": "hide",
-     "at": 2.38
-    },
-    {
-     "who": "w",
      "do": "show",
      "at": 2.38
     },
     {
      "do": "prop",
-     "id": "apronT",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 2.38
-    },
-    {
-     "do": "prop",
-     "id": "apron",
+     "id": "tray",
      "set": {
       "scale": 1
      },
@@ -2984,91 +2925,22 @@
     },
     {
      "do": "prop",
-     "id": "tray",
+     "id": "apronT",
      "set": {
-      "scale": 0.001
+      "scale": 1
      },
      "dur": 0.01,
      "ease": "inOut",
      "at": 2.38
     },
     {
-     "who": "w",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.01,
-     "at": 2.38
-    },
-    {
-     "who": "w",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "pad",
-      "grip": [
-       -0.136,
-       0.052,
-       -0.012
-      ],
-      "palm": true,
-      "off": [
-       0.002,
-       0.02,
-       -0.072
-      ]
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 2.38
-    },
-    {
-     "who": "w",
-     "do": "turn",
-     "to": 55,
-     "dur": 0.01,
-     "at": 2.38
-    },
-    {
-     "who": "w",
-     "do": "lean",
-     "to": -10,
-     "dur": 0.01,
-     "at": 2.38
-    },
-    {
-     "who": "w",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "pad",
-      "grip": [
-       -0.136,
-       0.052,
-       -0.012
-      ],
-      "palm": true
-     },
-     "dur": 0.01,
-     "ease": "settle",
-     "at": 2.39
-    },
-    {
-     "who": "w",
+     "who": "wT",
      "do": "expr",
      "set": {
       "open": 0.1
      },
      "dur": 0.05,
      "at": 2.39
-    },
-    {
-     "who": "w",
-     "do": "grip",
-     "side": "L",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 2.396
     }
    ]
   },
@@ -3078,26 +2950,26 @@
    "len": 2.566,
    "shot": {
     "pos": [
-     0.9,
+     -0.6,
      1.1,
-     2.2
+     1.6
     ],
     "look": [
-     -0.7,
+     -0.8,
      0.85,
-     0
+     -0.65
     ],
     "fov": 46,
     "to": {
      "pos": [
-      0.804,
+      -0.612,
       1.085,
-      2.068
+      1.465
      ],
      "look": [
-      -0.7,
+      -0.8,
       0.85,
-      0
+      -0.65
      ],
      "fov": 46
     },
@@ -3106,7 +2978,7 @@
    },
    "do": [
     {
-     "who": "w",
+     "who": "wT",
      "do": "expr",
      "set": {
       "eye": 1.3,
@@ -3118,7 +2990,7 @@
      "at": 0
     },
     {
-     "who": "w",
+     "who": "wT",
      "macro": "say",
      "line": "And... how would you like your steak?",
      "tone": "sad",
@@ -3127,20 +2999,6 @@
      "dur": 2.27,
      "caption": false,
      "at": 0.05
-    },
-    {
-     "who": "w",
-     "do": "grab",
-     "prop": "pad",
-     "hand": "L",
-     "grip": [
-      -0.136,
-      0.052,
-      -0.012
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0.06
     },
     {
      "who": "kid2",
@@ -3159,24 +3017,24 @@
    "len": 1.267,
    "shot": {
     "pos": [
-     -0.4,
+     -0.3,
      0.44,
      1.5
     ],
     "look": [
-     -0.4,
+     -0.3,
      0.52,
      -0.5
     ],
     "fov": 40,
     "to": {
      "pos": [
-      -0.4,
+      -0.3,
       0.445,
       1.38
      ],
      "look": [
-      -0.4,
+      -0.3,
       0.52,
       -0.5
      ],
@@ -3303,7 +3161,7 @@
      "at": 1.847
     },
     {
-     "who": "w",
+     "who": "wT",
      "do": "hide",
      "at": 1.847
     },
@@ -3314,7 +3172,7 @@
     },
     {
      "do": "prop",
-     "id": "apron",
+     "id": "apronT",
      "set": {
       "scale": 0.001
      },
@@ -3327,7 +3185,7 @@
   {
    "name": "spotlight",
    "at": 44.7,
-   "len": 3.7,
+   "len": 3.4,
    "shot": {
     "pos": [
      -0.55,
@@ -3353,7 +3211,7 @@
      ],
      "fov": 36
     },
-    "dur": 3.69,
+    "dur": 3.39,
     "ease": "inOut"
    },
    "do": [
@@ -3396,20 +3254,20 @@
     },
     {
      "who": "dadU",
-     "do": "grip",
-     "side": "R",
-     "shape": "flat",
-     "dur": 0.2,
-     "at": 0.43
-    },
-    {
-     "who": "dadU",
      "do": "expr",
      "set": {
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.67
+     "at": 0.37
+    },
+    {
+     "who": "dadU",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.43
     },
     {
      "who": "dadU",
@@ -3420,14 +3278,14 @@
      "voice": "dad",
      "dur": 1.31,
      "caption": false,
-     "at": 0.73
+     "at": 0.43
     },
     {
      "who": "dadU",
      "do": "face",
      "lid": 0.85,
      "dur": 0.15,
-     "at": 2.14
+     "at": 1.84
     },
     {
      "who": "dadU",
@@ -3436,7 +3294,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 2.33
+     "at": 2.03
     },
     {
      "who": "dadU",
@@ -3447,12 +3305,12 @@
      "voice": "dad",
      "dur": 1.03,
      "caption": false,
-     "at": 2.39
+     "at": 2.09
     },
     {
      "sfx": "ai/rimshot",
      "gain": 0.5,
-     "at": 3.47
+     "at": 3.17
     },
     {
      "who": "wT",
@@ -3464,7 +3322,7 @@
       0,
       -0.12
      ],
-     "at": 3.58
+     "at": 3.28
     },
     {
      "who": "wT",
@@ -3473,7 +3331,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.59
+     "at": 3.29
     },
     {
      "who": "wT",
@@ -3481,7 +3339,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.59
+     "at": 3.29
     },
     {
      "who": "wT",
@@ -3490,7 +3348,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.59
+     "at": 3.29
     },
     {
      "who": "wT",
@@ -3498,7 +3356,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.59
+     "at": 3.29
     },
     {
      "do": "prop",
@@ -3508,7 +3366,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.68
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -3518,7 +3376,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.68
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -3528,7 +3386,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.68
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -3538,17 +3396,17 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.68
+     "at": 3.38
     },
     {
      "who": "w",
      "do": "hide",
-     "at": 3.68
+     "at": 3.38
     },
     {
      "who": "wT",
      "do": "show",
-     "at": 3.68
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -3558,7 +3416,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.68
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -3568,7 +3426,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.68
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -3578,29 +3436,14 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.68
-    },
-    {
-     "who": "w",
-     "do": "release",
-     "prop": "pad",
-     "dur": 0,
-     "at": 3.68
-    },
-    {
-     "who": "w",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 3.68
+     "at": 3.38
     }
    ],
    "kind": "reveal"
   },
   {
    "name": "man down",
-   "at": 48.4,
+   "at": 48.1,
    "len": 2.6,
    "shot": {
     "pos": [
@@ -3632,28 +3475,6 @@
    },
    "do": [
     {
-     "who": "w",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "pad",
-      "grip": [
-       -0.136,
-       0.052,
-       -0.012
-      ],
-      "palm": true,
-      "off": [
-       0.002,
-       0.02,
-       -0.072
-      ]
-     },
-     "dur": 0.01,
-     "ease": "out",
-     "at": 0.02
-    },
-    {
      "who": "wT",
      "do": "expr",
      "set": {
@@ -3671,27 +3492,10 @@
      "at": 0.02
     },
     {
-     "who": "w",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 0.03
-    },
-    {
-     "who": "w",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 0.03
-    },
-    {
      "who": "rep",
-     "do": "crouch",
-     "to": 0.3,
-     "dur": 0.25,
+     "do": "squash",
+     "amount": 0.14,
+     "dur": 0.2,
      "at": 0.22
     },
     {
@@ -3716,8 +3520,8 @@
     },
     {
      "who": "rep",
-     "do": "crouch",
-     "to": 0.12,
+     "do": "squash",
+     "amount": 0,
      "dur": 0.2,
      "at": 1.62
     },
@@ -3891,7 +3695,7 @@
      "pose": {
       "o": [
        -0.2,
-       0.55,
+       0.61,
        0.32
       ]
      },
@@ -3906,7 +3710,7 @@
      "pose": {
       "o": [
        -0.2,
-       0.55,
+       0.61,
        0.32
       ]
      },
@@ -3941,32 +3745,32 @@
   },
   {
    "name": "under",
-   "at": 51,
+   "at": 50.7,
    "len": 1.5,
    "shot": {
     "pos": [
-     0.05,
+     0,
      0.3,
      2.5
     ],
     "look": [
-     -0.05,
+     -0.09,
      0.24,
      0
     ],
-    "fov": 30,
+    "fov": 27,
     "to": {
      "pos": [
-      0.045,
+      -0.004,
       0.297,
       2.375
      ],
      "look": [
-      -0.05,
+      -0.09,
       0.24,
       0
      ],
-     "fov": 30
+     "fov": 27
     },
     "dur": 1.5,
     "ease": "inOut"
@@ -3987,6 +3791,26 @@
      "to": -20,
      "dur": 0.01,
      "at": 0.2
+    },
+    {
+     "who": "w",
+     "do": "move",
+     "to": [
+      -0.8,
+      -0.65
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.2
+    },
+    {
+     "who": "w",
+     "do": "turn",
+     "to": 210,
+     "dur": 0.01,
+     "at": 0.25
     },
     {
      "do": "prop",
@@ -4041,21 +3865,6 @@
     {
      "who": "dad",
      "do": "show",
-     "at": 1.48
-    },
-    {
-     "who": "w",
-     "do": "show",
-     "at": 1.48
-    },
-    {
-     "do": "prop",
-     "id": "apron",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "inOut",
      "at": 1.48
     },
     {
@@ -4135,32 +3944,12 @@
      "dur": 0.01,
      "ease": "inOut",
      "at": 1.48
-    },
-    {
-     "who": "w",
-     "do": "move",
-     "to": [
-      -0.8,
-      -0.65
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 1.48
-    },
-    {
-     "who": "w",
-     "do": "turn",
-     "to": 210,
-     "dur": 0.01,
-     "at": 1.48
     }
    ]
   },
   {
    "name": "the bill",
-   "at": 52.5,
+   "at": 52.2,
    "len": 1.633,
    "shot": {
     "pos": [
@@ -4195,11 +3984,11 @@
      "who": "w",
      "do": "walk",
      "to": [
-      -1.5,
-      -1
+      -1.75,
+      -1.55
      ],
-     "dur": 0.55,
-     "at": 0.08
+     "dur": 0.6,
+     "at": 0.05
     },
     {
      "who": "w",
@@ -4221,11 +4010,11 @@
      "who": "w",
      "do": "walk",
      "to": [
-      -2.6,
-      -2.4
+      -2.8,
+      -2.6
      ],
-     "dur": 0.7,
-     "at": 0.63
+     "dur": 0.6,
+     "at": 0.65
     },
     {
      "do": "prop",
@@ -4253,7 +4042,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.01,
-     "at": 1.613
+     "at": 1.625
     },
     {
      "who": "dad",
@@ -4275,38 +4064,13 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.613
-    },
-    {
-     "who": "dad",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "billB",
-      "grip": [
-       0.12,
-       0.1,
-       -0.01
-      ],
-      "palm": true
-     },
-     "dur": 0.01,
-     "ease": "settle",
-     "at": 1.623
-    },
-    {
-     "who": "dad",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 1.629
+     "at": 1.625
     }
    ]
   },
   {
    "name": "tip stop",
-   "at": 54.133,
+   "at": 53.833,
    "len": 2.434,
    "shot": {
     "pos": [
@@ -4339,12 +4103,37 @@
    "do": [
     {
      "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "billB",
+      "grip": [
+       0.12,
+       0.1,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.002
+    },
+    {
+     "who": "dad",
      "do": "expr",
      "set": {
       "open": 0.1
      },
      "dur": 0.05,
      "at": 0.007
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.008
     },
     {
      "who": "dad",
@@ -4359,6 +4148,17 @@
     },
     {
      "who": "dad",
+     "macro": "say",
+     "line": "Tip... stop.",
+     "tone": "sad",
+     "style": "reading the bill, slow, deflated, the smile gone",
+     "voice": "dad",
+     "dur": 1.88,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "dad",
      "do": "grab",
      "prop": "billB",
      "hand": "R",
@@ -4369,18 +4169,18 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 0.06
+     "at": 0.072
     },
     {
      "who": "dad",
-     "macro": "say",
-     "line": "Tip... stop.",
-     "tone": "sad",
-     "style": "reading the bill, slow, deflated, the smile gone",
-     "voice": "dad",
-     "dur": 1.88,
-     "caption": false,
-     "at": 0.067
+     "do": "look",
+     "to": [
+      0.1,
+      -0.95
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.087
     },
     {
      "who": "dad",
@@ -4406,6 +4206,17 @@
      "amount": 0.03,
      "dur": 0.5,
      "at": 0.367
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.95
+     ],
+     "dur": 0.05,
+     "blink": false,
+     "at": 0.967
     }
    ],
    "kind": "payoff"
@@ -4423,8 +4234,8 @@
    "why": "a nervous waiter walks up to a table: a big dad grinning, his small son begging him with his eyes"
   },
   {
-   "from": 54.15,
-   "to": 56.567,
+   "from": 53.85,
+   "to": 56.267,
    "see": [
     "dad.face",
     "billB"
@@ -4437,42 +4248,42 @@
    "who": "dad",
    "with": "cDad",
    "from": 0,
-   "to": 56.567,
+   "to": 56.267,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "kid",
    "with": "cKid",
    "from": 0,
-   "to": 56.567,
+   "to": 56.267,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "rep",
    "with": "cRep",
    "from": 0,
-   "to": 56.567,
+   "to": 56.267,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "cook",
    "with": "crate",
    "from": 0,
-   "to": 56.567,
+   "to": 56.267,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "kid3",
    "with": "cheat",
    "from": 0,
-   "to": 56.567,
+   "to": 56.267,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "w",
    "with": "apron",
    "from": 0,
-   "to": 56.567,
+   "to": 56.267,
    "checks": [
     "clipping",
     "arm-in-prop"
@@ -4483,7 +4294,7 @@
    "who": "wT",
    "with": "apronT",
    "from": 0,
-   "to": 56.567,
+   "to": 56.267,
    "checks": [
     "clipping",
     "arm-in-prop"
@@ -4493,8 +4304,8 @@
   {
    "who": "kid3",
    "with": "kid3",
-   "from": 50.98,
-   "to": 52.48,
+   "from": 50.68,
+   "to": 52.18,
    "checks": [
     "face-covered"
    ],
@@ -4521,10 +4332,20 @@
    "reason": "the glass stands on the tray he carries; his left forearm brushes its far side by 3 cm, behind the glass from the lens"
   },
   {
+   "who": "dad",
+   "from": 53.79,
+   "to": 53.93,
+   "checks": [
+    "hand-turn",
+    "grab-on-cut"
+   ],
+   "reason": "the hand closes on the bill across the cut from the wide (bill on the table) to the close-up (bill in his hand): the turn falls between the wide's last frame and the close-up's first"
+  },
+  {
    "who": "dadU",
    "with": "cheat",
-   "from": 50.98,
-   "to": 52.48,
+   "from": 50.68,
+   "to": 52.18,
    "checks": [
     "shell",
     "clipping"
