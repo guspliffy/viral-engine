@@ -30,9 +30,11 @@ const DUR = RH ? DUR_R : DUR_P;
 // line 3 inside its take (Whisper word times): the cut to the wide on "your stomach", the close-up on "For seven years"
 const L3 = RH ? { glue: 2.1, seven: 4.05 } : { glue: 3.5, seven: 6.2 };
 // the spoon in line 16: the bite lands after "hold on tight" in the rhyme take (3.66 s against 3.56)
-const SP = RH ? { move: 3.15, close: 3.1, bite: 3.45, pull: 3.55 } : { move: 2.9, close: 2.85, bite: 3.12, pull: 3.3 };
+const SP = RH ? { move: 3.4, close: 3.45, bite: 3.62, pull: 3.75 }   // rhyme Sol r1: "hold on tight" whole before the close-up and the bite
+   : { move: 2.9, close: 2.85, bite: 3.12, pull: 3.3 };
 // beats between lines (seconds of action before line i)
-const HOOK = 0.85, MITTS = 1.5, GURGLE = 1.0, OWN = 0.9, HELMET = 0.7, SNIP = 0.75, OFFER = 0.4, ARMOUR = 1.4, SPOONG = 0.3,
+const HOOK = 0.85, MITTS = RH ? 1.1 : 1.5,   // rhyme Sol r1: a second less hold after the mitts
+  GURGLE = 1.0, OWN = 0.9, HELMET = 0.7, SNIP = 0.75, OFFER = 0.4, ARMOUR = 1.4, SPOONG = 0.3,
   CHEW = 4.15, IMPOSS = 0.35, FILM = 0.5, HOLD = 0.5;   // Sol r1: helmet -0.5, armour -0.1 (+0.6 timer insert), cut 0.5 s after the last line
 const GAP = [HOOK, 0.3, 0.45, 0.3, 0.45, 0.45, MITTS + GURGLE, 0.3 + OWN, 0.25, 0.4, HELMET, 0.35 + SNIP, 0.55 + OFFER, 0.15,
   0.5, ARMOUR, SPOONG, CHEW, IMPOSS, 0.5, FILM];
@@ -117,7 +119,7 @@ const CAPTEXT_R = {   // the rhyme words carry the stars
   16: "*Slowly...* slowly... hold on *tight.*", 17: "*Still works.* Not glued. Not *stuck.*", 18: "Impossible. Just beginner's *luck.*",
   19: "Then what... *is this?* Dad, *ninety-five.*", 20: "...That's *different.* I *survived.*",
 };
-const CAPY = { 0: 470, 1: 470, ...(RH && { 20: 230 }) };   // rhyme: the longer last line sits above Dad's eyes on C15
+const CAPY = { 0: 470, 1: 470, ...(RH && { 19: 230, 20: 230 }) };   // rhyme: the longer X-ray lines sit above the eyes (Sol r1)   // rhyme: the longer last line sits above Dad's eyes on C15
 // line 3 in three captions (Sol r1: 'one rule' and 'For seven years' were missing); offsets from T[3], estimated from the take
 const CAP3 = RH ? [[0, 2.1, "In this house, *one rule:*"], [2.1, 4.05, "your stomach *glues shut...*"], [4.05, null, "for *seven years.* Not a *crumb.*"]]
   : [[0, 2.9, "And in this house, there is *one rule:*"], [2.9, 6.6, "swallow your gum, and your stomach *glues shut.*"], [6.6, null, "*For seven years.*"]];
@@ -142,7 +144,7 @@ const hide = (t, id) => c.prop(onCut(t), id, { scale: 0.001 }, 0.01, "linear");
 const tatoTo = (t, id) => { for (const k of ["spud", "spudU"]) A(onCut(t), k, k === id ? "show" : "hide"); };
 const hold = (t, who, side, prop, g, palm, dur = 0.01) => arm(onCut(t), who, side, { prop, grip: g, ...(palm && { palm }) }, dur, "linear");
 // the egg timer: `left` 1 -> 0 from the set to the ring, a quiet tick every 0.5 s while it runs
-const TSET = r3(T[4] + 0.6), TC = r3(Math.max(END_OF(16), T[16] + 3.46) + 0.1), TL = r3(TC + 1.45), TP = r3(TL + 0.9), TB = r3(TP + 0.8), TRING = r3(TB + 0.6);
+const TSET = r3(T[4] + 0.6), TC = r3(Math.max(END_OF(16), T[16] + SP.pull + 0.15) + 0.1), TL = r3(TC + 1.45), TP = r3(TL + 0.9), TB = r3(TP + 0.8), TRING = r3(TB + 0.6);
 
 // ---------------------------------------------------------------- frame 0: Tato at the table, the bubble
 A(0, "spudU", "hide"); for (const k of ["spud", "spudU", "dad"]) A(0, k, "noblink");   // Sol r2: blinks drop the eye whites (rig), so no blinks on Tato and Dad A(0, "rep2", "hide"); A(0, "rep3", "hide");
@@ -183,7 +185,7 @@ grips.rest(c, "dad", "L", { id: "timer", kind: "eggtimer", h: 0.09 }, [0, 0], on
 c.prop(TSET, "timer", { togo: 1 }, 0.35, "out"); sfx(TSET, "click", { gain: 0.3 });
 for (let t = r3(TSET + 0.5); t < TRING - 0.2; t = r3(t + 0.5)) sfx(t, "click", { gain: t > END_OF(16) - 1 || (t >= END_OF(14) && t < END_OF(14) + 0.8) ? 0.22 : 0.08, reason: "the egg timer ticking on the table, in and out of frame" });
 const TTI = r3(END_OF(14) + 0.1);   // the timer insert before the armour: the wedge is nearly gone (Sol r1: one minute passes in 37 s)
-c.prop(r3(TSET + 0.4), "timer", { togo: 0.12 }, r3(TTI - TSET - 0.4), "linear"); c.prop(TTI, "timer", { togo: 0 }, r3(TRING - TTI), "linear");
+c.prop(r3(TSET + 0.4), "timer", { togo: RH ? 0.22 : 0.12 }, r3(TTI - TSET - 0.4), "linear"); c.prop(TTI, "timer", { togo: 0 }, r3(TRING - TTI), "linear");
 say(4);   // Dinner's in one minute. If it's glued, nothing goes down.
 
 // ---------------------------------------------------------------- STEP 1: "Mitts." -> oven mitts, the glass, the gurgles
@@ -215,7 +217,7 @@ look(r3(T[8] - 0.1), "dad", [0, 0.15], 0.15);
 say(8);   // Mine is fine.
 
 // ---------------------------------------------------------------- STEP 2: "Helmet." -> colander, tongs on the "wires"
-arm(r3(T[9] - 0.4), "dad", "L", "rest", 0.4); arm(r3(T[9] - 0.4), "dad", "R", "rest", 0.4);   // "Helmet." said with the mitts down (raised arms hit Tato)
+const RD = RH ? 0.7 : 0.4; arm(r3(T[9] - RD), "dad", "L", "rest", RD); arm(r3(T[9] - RD), "dad", "R", "rest", RD);   // "Helmet." said with the mitts down (raised arms hit Tato)
 expr(r3(T[9] - 0.3), "dad", FACES.surgeon, 0.15); look(r3(T[9] - 0.3), "dad", [0, 0.1], 0.15);
 say(9);   // Helmet.
 const TH = r3(END_OF(9) + 0.4);
@@ -276,7 +278,7 @@ expr(TC, "spud", FACES.chew, 0.01);
 for (let k = 0; k < 3; k++) { A(r3(TC + 0.1 + k * 0.3), "spud", "squash", { amount: 0.05, dur: 0.1 }); expr(r3(TC + 0.1 + k * 0.3), "spud", { open: 0.3 }, 0.08); A(r3(TC + 0.25 + k * 0.3), "spud", "squash", { amount: 0, dur: 0.1 }); expr(r3(TC + 0.25 + k * 0.3), "spud", { open: 0 }, 0.08); }
 // the gulp (as at the start): eyes wide, a nod
 const TGU = r3(TC + 1.05); expr(TGU, "spud", FACES.gulp, 0.06); sfx(r3(TGU + 0.04), "gulp", { gain: 0.55 });
-A(TGU, "spud", "squash", { amount: 0.1, dur: 0.07 }); A(r3(TGU + 0.12), "spud", "squash", { amount: 0, dur: 0.14 }); A(TGU, "spud", "lean", { to: 10, dur: 0.07 }); A(r3(TGU + 0.18), "spud", "lean", { to: 0, dur: 0.15 });
+A(TGU, "spud", "squash", { amount: 0.1, dur: 0.07 }); A(r3(TGU + 0.12), "spud", "squash", { amount: 0, dur: 0.14 }); A(TGU, "spud", "lean", { to: 10, dur: RH ? 0.2 : 0.07 }); A(r3(TGU + (RH ? 0.25 : 0.18)), "spud", "lean", { to: 0, dur: RH ? 0.2 : 0.15 });   // rhyme: eased (lean-jump)
 expr(r3(TGU + 0.3), "spud", { eye: 1.15, open: 0, curve: 0 }, 0.1);
 // Dad over the lid
 c.prop(onCut(TL), "lid", { x: -0.95, y: 0.50, z: 0.85 }, 0.01, "linear");
@@ -286,7 +288,7 @@ for (let t = r3(TL + 0.3); t < TP; t = r3(t + 0.3)) expr(t, "dad", FACES.overlid
 expr(TP, "rep", FACES.peek, 0.01); look(TP, "rep", [0.5, 0], 0.01);
 // the burp
 expr(TB, "spud", { eye: 0.55, curve: 0.1, open: 0.85, browY: 0.04 }, 0.05); sfx(r3(TB + 0.05), "ai/blep", { gain: 0.5 }); expr(r3(TB + 0.35), "spud", { eye: 0.75, open: 0 }, 0.1);
-A(TB, "spud", "lean", { to: -8, dur: 0.08 }); A(r3(TB + 0.35), "spud", "lean", { to: 0, dur: 0.2 }); A(TB, "spud", "squash", { amount: -0.04, dur: 0.06 }); A(r3(TB + 0.15), "spud", "squash", { amount: 0, dur: 0.15 });
+A(TB, "spud", "lean", { to: -8, dur: RH ? 0.2 : 0.08 }); A(r3(TB + 0.35), "spud", "lean", { to: 0, dur: 0.2 }); A(TB, "spud", "squash", { amount: -0.04, dur: 0.06 }); A(r3(TB + 0.15), "spud", "squash", { amount: 0, dur: 0.15 });
 // TRING: the timer rings (the wide)
 c.prop(TRING, "timer", { ring: 1 }, 1.2, "linear"); sfx(TRING, "ring", { gain: 0.45 });
 expr(r3(T[17] - 0.15), "spud", FACES.flat, 0.1); look(r3(T[17] - 0.15), "spud", [-0.7, 0], 0.1);
@@ -319,11 +321,11 @@ const C02 = { pos: [2.2, 0.80, 0.6], look: [4.85, 0.72, -1.75], fov: 40 };
 const C02P = { pos: [2.6, 0.92, 0.2], look: [4.80, 0.95, -1.70], fov: 26 };   // the punch-in on "Don't." (Sol r1)
 const C03 = { pos: [-3.30, 0.60, 1.20], look: [-3.55, 0.55, -1.40], fov: 40 };   // the reporter crouched at the fridge (Sol r1: it read as a cabinet)   // the fridge reads (Sol r1)
 const C04 = { pos: [1.3, 1.6, 3.2], look: [-0.45, 0.6, 0.2], fov: 44 };
-const C05 = { pos: [0.35, 0.55, 1.05], look: [-0.25, 0.40, 0.55], fov: 34 };   // close on the timer, Dad's arm against his own shirt (Sol r2)
+const C05 = { pos: [0.35, 0.55, 1.05], look: [-0.25, RH ? 0.34 : 0.40, 0.55], fov: 34 };   // close on the timer, Dad's arm against his own shirt (Sol r2)
 const C06 = { pos: [0.55, 0.95, 3.2], look: [-0.55, 0.78, 0.2], fov: 46 };
 const C06T = { pos: [0.30, 0.80, 1.50], look: [-0.02, 0.68, 0.25], fov: 34 };   // Tato on "For seven years"
 const CSN = { pos: [0.30, 0.80, 2.5], look: [-0.48, 0.58, 0.45], fov: 28 };   // the snip insert
-const CTI = { pos: [-0.05, 0.44, 1.25], look: [-0.20, 0.28, 0.62], fov: 28 };   // the timer insert: nearly empty
+const CTI = { pos: [-0.05, 0.44, 1.25], look: [-0.20, 0.28, 0.62], fov: RH ? 32 : 28 };   // the timer insert: nearly empty
 const C07 = { pos: [-0.95, 0.72, 2.90], look: [-0.95, 0.60, 0.20], fov: 36 };
 const C07W = { pos: [-1.35, 0.75, 4.30], look: [-1.35, 0.62, 0.30], fov: 44 };   // Dad + the reporter (Sol r1)
 const C09 = { pos: [1.75, 1.00, 2.20], look: [-0.65, 0.75, 0.20], fov: 48 };
@@ -339,7 +341,7 @@ const beats = c.beats([
   ["bubble", 0, push(C01, 0.06, 0.8), "hook"],
   ["swallowed", 0.78, push(C02, 0.05, r3(TDON - 0.78))],
   ["don't", TDON, push(C02P, 0.03, r3(END_OF(0) - TDON + 0.1))],
-  ["is it deadly", r3(END_OF(0) + 0.05), push(C03, 0.06, DUR[1] + 0.6)],
+  ["is it deadly", r3(END_OF(0) + (RH ? 0.12 : 0.05)), push(C03, 0.06, DUR[1] + 0.6)],
   ["we're live", T04, push(C04, 0.05, DUR[2] + 0.5)],
   ["one rule", cutAt(3), push(C03, 0.05, 3.4)],
   ["glues shut", r3(T[3] + L3.glue), push(C06, 0.04, r3(T7 - T[3] - L3.glue))],
