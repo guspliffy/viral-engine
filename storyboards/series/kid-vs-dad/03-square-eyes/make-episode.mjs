@@ -277,10 +277,10 @@ say(22, { capTo: r3(tRev - 0.05) });
 // Sol r1 #2: first his head comes up (normal eyes, phone lowering), then the cut to the open phone eyes
 const tUp = r3(tRev - 0.5);
 A(tUp, "wedge", "noblink");   // a blink on the phone eyes shows two blank skin squares
-shots.push(["looks up", tUp, push(DADC, 0.05, 0.5)]);
-c.arm(tUp, "wedge", "L", { o: [-0.05, 0.32, 0.40] }, 0.4); look(tUp, "wedge", [0.2, -0.2], 0.35);
+shots.push(["looks up", tUp, push({ pos: [0.55, 1.05, 1.9], look: [0.73, 0.95, -1.17], fov: 32 }, 0.05, 0.5)]);   // wider: the phone lowering in his hand reads
+c.arm(tUp, "wedge", "L", { o: [-0.05, 0.32, 0.40] }, 0.4); look(tUp, "wedge", [0.35, -0.75], 0.01); look(r3(tUp + 0.08), "wedge", [-0.3, 0.0], 0.35);   // chin comes up off the phone
 face(r3(tRev - 0.02), "wedge", { square: 1, sqTall: 1, sqPhone: 1 });
-shots.push(["phone eyes", tRev, push({ ...DAD_CU, fov: 21 }, 0.12, 1.15)]);   // a size step tighter than "looks up" (else a jump cut)
+shots.push(["phone eyes", tRev, push({ ...DAD_CU, fov: 29 }, 0.12, 1.15)]);   // a size step tighter than "looks up" (else a jump cut)
 look(r3(tRev - 0.02), "wedge", [-0.55, 0.05], 0.01);
 expr(r3(tRev - 0.02), "wedge", { eye: 1.0, tilt: 0, curve: 0 }, 0.01);
 sfx(r3(tRev + 0.8), "sting", 0.35);
