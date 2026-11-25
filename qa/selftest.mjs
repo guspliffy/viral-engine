@@ -36,12 +36,13 @@ await test("a line by someone not in the cast and without a voice is refused, na
 });
 
 await test("two props with one id are refused", () => {
-  const f = variant(CM, "cm-dup.json", (j) => { j.props.find((p) => p.id === "slip").id = "bill"; });
+  const f = variant(CM, "cm-dup.json", (j) => { const r = j.props.find((p) => p.kind === "receipt"); r.id = "bill"; });
   assert.throws(() => quiet(() => loadStoryboard(f)), /props: two props share an id: "bill" \(receipt and banknote\)/);
 });
 
 await test("Copy Money: the receipt stays on the counter while Reaper holds the banknote", () => {
-  const sb = quiet(() => loadStoryboard(CM));
+  const f = variant(CM, "cm-slip.json", (j) => { j.props.find((p) => p.kind === "receipt").id = "slip"; });   // the generator's fix
+  const sb = quiet(() => loadStoryboard(f));
   const at = (id) => propState(sb, sb.props.find((p) => p.id === id), 0.2).hold?.who ?? null;
   assert.equal(at("slip"), null);
   assert.equal(at("bill"), "rea");
