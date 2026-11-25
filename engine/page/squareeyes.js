@@ -130,15 +130,19 @@ const WHITE_IDX = (() => {
   return idx;
 })();
 const RIM = [90, 60, 30, 0].map((d) => d * DEG);
-function fillWhite(g, xs, ys, nx, ny, r, col) {
+function fillWhite(g, xs, ys, nx, ny, r, col, wallCol, wallK) {
   const zf = 0.16 * r;
   put(g, 0, 0, 0, zf, 0, 0, 1);
   for (let k = 0; k < RIM.length; k++) {
     const cs = Math.cos(RIM[k]), sn = Math.sin(RIM[k]), inset = 0.05 * r * (1 - cs), z = 0.11 * r + 0.05 * r * sn;
-    for (let i = 0; i < N; i++) put(g, 1 + k * N + i, xs[i] - nx[i] * inset, ys[i] - ny[i] * inset, z, nx[i] * cs, ny[i] * cs, sn);
+    const pull = wallK * [0, 0, 0.03, 0.14][k] * r;   // the rim draws in behind the closing lids
+    for (let i = 0; i < N; i++) put(g, 1 + k * N + i, xs[i] - nx[i] * (inset + pull), ys[i] - ny[i] * (inset + pull), z, nx[i] * cs, ny[i] * cs, sn);
   }
-  for (let i = 0; i < N; i++) put(g, 1 + 4 * N + i, xs[i], ys[i], -0.3 * r, nx[i], ny[i], 0);
-  paint(g, 0, 1 + WHITE_RINGS * N, col);
+  for (let i = 0; i < N; i++) put(g, 1 + 4 * N + i, xs[i] - nx[i] * wallK * 0.3 * r, ys[i] - ny[i] * wallK * 0.3 * r, -0.3 * r, nx[i], ny[i], 0);
+  // the rim and walls turn to skin as the lids close (wallK 0..1), so a shut or half-shut eye shows no cream slit at its sides
+  paint(g, 0, 1 + N, col);
+  const T = new THREE.Color();
+  for (let k = 1; k < WHITE_RINGS; k++) paint(g, 1 + k * N, N, T.copy(col).lerp(wallCol, wallK * [0, 0.35, 0.75, 1, 1][k]));
   touch(g);
 }
 
@@ -276,15 +280,16 @@ export class SquareEyes {
     const px0 = re.look.position.x, py0 = re.look.position.y, ik = re.iris.scale.x, pupil = re.pupil.scale.x, ia = E.irisAspect ?? 1;
     const gl = re.glints[0], gx = gl ? gl.position.x : 0, gy = gl ? gl.position.y : 0, gs = gl && gl.visible ? gl.scale.x : 0;
     const irisOn = re.look.visible;
-    const key = [q, c, T, P, kU, kL, r, side, px0, py0, ik, pupil, gx, gy, gs, irisOn ? 1 : 0, open, lk, E.oval, this.whiteSrc.color.getHex(), F.inkMat.color.getHex()].map((v) => (typeof v === "number" ? Math.round(v * 1e5) : v)).join("|");
+    const key = [q, c, T, P, kU, kL, r, side, px0, py0, ik, pupil, gx, gy, gs, irisOn ? 1 : 0, open, lk, E.oval, this.whiteSrc.color.getHex(), F.inkMat.color.getHex(), this.skin.color.getHex()].map((v) => (typeof v === "number" ? Math.round(v * 1e5) : v)).join("|");
     if (key === e.key) return;
     e.key = key;
     const { xs, ys, nx, ny, rad, ex } = this.t;
+    const wL = sstep(0, 1, clamp((kL - 0.5) / 0.37)), shut = sstep(0.6, 0.9, kU);   // lower lid up; both lids nearly together
     outline(xs, ys, a, b, rx, ry, bul); normals(xs, ys, nx, ny);
 
     // white (its own colour tinted to the screen with the phone) + the screen's glow plate
     const wc = this.tmp.c1.copy(this.whiteSrc.color).lerp(SCREEN, P);
-    fillWhite(e.g.white, xs, ys, nx, ny, r, wc);
+    fillWhite(e.g.white, xs, ys, nx, ny, r, wc, this.skin.color, sstep(0.15, 0.5, Math.max(kU, wL)));
     const sx_ = new Float64Array(N), sy_ = new Float64Array(N);
     for (let i = 0; i < N; i++) { sx_[i] = xs[i] - nx[i] * 0.05 * r; sy_[i] = ys[i] - ny[i] * 0.05 * r; }
     fillFan(e.g.screen, sx_, sy_, 0.162 * r); e.m.screen.visible = P > 0.001; this.mat.screen.opacity = 0.45 * P;
@@ -295,7 +300,7 @@ export class SquareEyes {
     for (let i = 0; i < N; i++) {
       const u = clamp((xs[i] + a) / (2 * a)), w = u < u0 ? 0.5 * u / u0 : 0.5 + 0.5 * (u - u0) / (1 - u0);
       const top = lash * 0.086 * (0.4 + 0.6 * Math.pow(Math.sin(Math.PI * w), 0.75)), wt = sstep(0.55, 0.95, ys[i] / b) * (1 - lk);
-      rad[i] = mix(mix(side0, top, wt), 0.07 * r, P);
+      rad[i] = mix(mix(side0 * (1 - shut), top, wt), 0.07 * r, P);
     }
     const ink = this.tmp.c2.copy(F.inkMat.color).lerp(INK_PHONE, P);
     fillLoopTube(e.g.frame, xs, ys, nx, ny, 0.0146 * r, 0.145 * r, rad, ink);
@@ -312,14 +317,14 @@ export class SquareEyes {
     }
 
     // lids: the rig's own lid heights; the edge across is the rig's arch at q 0 and a dead straight shutter from q 0.5
-    const hU = b * Math.sin((90 - 92.9 * kU) * DEG), wL = sstep(0, 1, clamp((kL - 0.5) / 0.37)), hL = -b * Math.sin((90 - 87.1 * wL) * DEG), flatK = Math.min(1, q / 0.5);
+    const hU = b * Math.sin((90 - 92.9 * kU) * DEG), hL = -b * Math.sin((90 - 87.1 * wL) * DEG), flatK = Math.min(1, q / 0.5);
     // the arch follows the outline's own top (and bottom): the ellipse's sqrt at q 0, so a pulled-out corner (sqCorner) is
     // not covered by the lid; a dead straight shutter from q 0.5
     const archU = (x) => { extent(xs, ys, x, 1, ex); return mix(clamp(ex[1] / b), 1, flatK); }, archL = (x) => { extent(xs, ys, x, 1, ex); return mix(clamp(-ex[0] / b), 1, flatK); };
     const zl = 0.19 * r, UP = e.g.lidU.attributes.position.array, LO = e.g.lidL.attributes.position.array;
     for (let j = 0; j <= C_LID; j++) {
-      const x = -1.02 * a * 0.9995 * Math.cos((Math.PI * j) / C_LID);
-      const au = archU(x), al = archL(x); extent(xs, ys, x, 1.02, ex);
+      const x = -1.06 * a * 0.9995 * Math.cos((Math.PI * j) / C_LID);
+      const au = archU(x), al = archL(x); extent(xs, ys, x, 1.06, ex);
       const yU = clamp(hU * au, ex[0], ex[1]), yL = clamp(hL * al, ex[0], ex[1]);
       for (const [g, arr, lo, hi] of [[e.g.lidU, UP, yU, ex[1]], [e.g.lidL, LO, ex[0], yL]]) {
         arr[3 * (2 * j)] = x; arr[3 * (2 * j) + 1] = lo; arr[3 * (2 * j) + 2] = zl;
@@ -328,6 +333,7 @@ export class SquareEyes {
     }
     for (const g of [e.g.lidU, e.g.lidL]) { const Nn = g.attributes.normal.array; for (let i = 0; i < 2 * (C_LID + 1); i++) { Nn[3 * i] = 0; Nn[3 * i + 1] = 0; Nn[3 * i + 2] = 1; } touch(g); }
     e.m.lidU.visible = kU > 0.103; e.m.lidL.visible = wL > 0.001;
+    e.m.white.visible = !(kU > 0.9 && wL > 0.9);   // shut: the lids meet and cover all of it, so no cream edge shows under the lid line
 
     // the lid line along the upper lid's edge from closure 0.12 (the lash thickness)
     e.m.lidLine.visible = lk > 0.01;
