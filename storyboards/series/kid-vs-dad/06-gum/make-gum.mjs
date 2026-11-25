@@ -13,7 +13,9 @@
 // Counters (nothing written): Dad's gear grows on cuts and never comes off; the egg timer's red wedge shrinks.
 import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as grips from "../../../lib/grips.mjs";
-import { LINES } from "./lines.mjs";
+import { LINES as PROSE, RHYME } from "./lines.mjs";
+// KVD_RHYME=1 -> the rhyming version gum-rhyme.json (Jonny 25 Nov 22:53 Berlin "go for it"): same staging, rhyme lines
+const RH = !!process.env.KVD_RHYME, LINES = RH ? RHYME : PROSE;
 import { GUM_GUARD } from "../../../../engine/page/props-gum.js";
 const GUARD = { o: GUM_GUARD.o, elbow: GUM_GUARD.elbow };
 
@@ -21,7 +23,14 @@ const c = clip({ faces: "strong", lines: { sub: false, blink: false } }), { A, s
 const F = (t) => r3(Math.round(t * 30) / 30);
 
 // measured spoken lengths (node qa/lines.mjs kvd06-voice-probe.json; line 3 = take 1 measured on gum.json), in LINES order
-const DUR = [3.02, 1.77, 3.15, 7.99, 3.64, 0.80, 1.18, 2.32, 1.21, 0.83, 2.42, 1.08, 0.94, 1.23, 1.41, 2.40, 3.56, 1.03, 1.07, 1.84, 1.24];
+const DUR_P = [3.02, 1.77, 3.15, 7.99, 3.64, 0.80, 1.18, 2.32, 1.21, 0.83, 2.42, 1.08, 0.94, 1.23, 1.41, 2.40, 3.56, 1.03, 1.07, 1.84, 1.24];
+// rhyme takes (qa/lines.mjs kvd06-voice-probe-rhyme.json; voices at tempo tato/dad 1.15, reaper 1.44)
+const DUR_R = [3.69, 2.57, 2.73, 6.50, 3.35, 0.70, 2.14, 3.09, 1.95, 0.73, 3.24, 2.08, 0.82, 1.84, 1.30, 3.38, 3.66, 3.15, 2.16, 4.57, 2.44];
+const DUR = RH ? DUR_R : DUR_P;
+// line 3 inside its take (Whisper word times): the cut to the wide on "your stomach", the close-up on "For seven years"
+const L3 = RH ? { glue: 2.1, seven: 4.05 } : { glue: 3.5, seven: 6.2 };
+// the spoon in line 16: the bite lands after "hold on tight" in the rhyme take (3.66 s against 3.56)
+const SP = RH ? { move: 3.15, close: 3.1, bite: 3.45, pull: 3.55 } : { move: 2.9, close: 2.85, bite: 3.12, pull: 3.3 };
 // beats between lines (seconds of action before line i)
 const HOOK = 0.85, MITTS = 1.5, GURGLE = 1.0, OWN = 0.9, HELMET = 0.7, SNIP = 0.75, OFFER = 0.4, ARMOUR = 1.4, SPOONG = 0.3,
   CHEW = 4.15, IMPOSS = 0.35, FILM = 0.5, HOLD = 0.5;   // Sol r1: helmet -0.5, armour -0.1 (+0.6 timer insert), cut 0.5 s after the last line
@@ -100,9 +109,18 @@ const CAPTEXT = {
   14: "He's been through this *before.*", 15: "The moment *of truth.*", 16: "*Slowly...* slowly...", 17: "*Still works.*",
   19: "Then what... *is this?*", 20: "...That's *different.*",
 };
-const CAPY = { 0: 470, 1: 470 };
+const CAPTEXT_R = {   // the rhyme words carry the stars
+  0: "*Swallowed.* Don't move. Don't make a *sound.*", 1: "Swallowed... *is it deadly?* Stay *down.*", 2: "*Tato,* age seven, *swallowed his gum.*",
+  4: "One minute to dinner. If it's glued... it *stays out.*", 6: "It's *sticking.* No *doubt.*", 7: "Sir... that was *your* stomach, I'm *sure.*",
+  8: "Mine is fine. Mine is *secure.*", 10: "*Red wire...* or *blue?* Which one's the *clue?*", 11: "It's my sweater. It's *new.*",
+  13: "*Get that away!* Don't you come *near!*", 14: "He's been through this *before,* I *fear.*", 15: "Full armour. The moment of truth. *One bite.*",
+  16: "*Slowly...* slowly... hold on *tight.*", 17: "*Still works.* Not glued. Not *stuck.*", 18: "Impossible. Just beginner's *luck.*",
+  19: "Then what... *is this?* Dad, *ninety-five.*", 20: "...That's *different.* I *survived.*",
+};
+const CAPY = { 0: 470, 1: 470, ...(RH && { 20: 230 }) };   // rhyme: the longer last line sits above Dad's eyes on C15
 // line 3 in three captions (Sol r1: 'one rule' and 'For seven years' were missing); offsets from T[3], estimated from the take
-const CAP3 = [[0, 2.9, "And in this house, there is *one rule:*"], [2.9, 6.6, "swallow your gum, and your stomach *glues shut.*"], [6.6, null, "*For seven years.*"]];
+const CAP3 = RH ? [[0, 2.1, "In this house, *one rule:*"], [2.1, 4.05, "your stomach *glues shut...*"], [4.05, null, "for *seven years.* Not a *crumb.*"]]
+  : [[0, 2.9, "And in this house, there is *one rule:*"], [2.9, 6.6, "swallow your gum, and your stomach *glues shut.*"], [6.6, null, "*For seven years.*"]];
 const WHO = { 7: "rep3", 11: "spudU", 12: "spudU", 19: "rep2" };
 const say = (i, extra = {}) => {
   const [who0, line, tone, style, o = {}] = LINES[i]; const who = WHO[i] ?? who0;
@@ -110,7 +128,7 @@ const say = (i, extra = {}) => {
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false, ...extra });
   const to = r3(Math.max(END_OF(i) - 0.05, Math.min(END_OF(i) + 0.3, (T[i + 1] ?? END_OF(i) + 1.0) - 0.23)));
   if (i === 3) for (const [a, b, txt] of CAP3) cap(r3(T[i] + a), b == null ? to : r3(T[i] + b), txt, SUB, false, { size: 62 });
-  else cap(T[i], to, CAPTEXT[i] ?? line, CAPY[i] ?? SUB, false, { size: 62 });
+  else cap(T[i], to, (RH ? CAPTEXT_R : CAPTEXT)[i] ?? line, CAPY[i] ?? SUB, false, { size: 62 });
 };
 const arm = (t, who, side, pose, dur = 0.3, ease = "inOut") => A(r3(t), who, "arm", { side, pose, dur, ease });
 const grip = (t, who, side, shape, dur = 0.2) => A(r3(t), who, "grip", { side, shape, dur });
@@ -124,7 +142,7 @@ const hide = (t, id) => c.prop(onCut(t), id, { scale: 0.001 }, 0.01, "linear");
 const tatoTo = (t, id) => { for (const k of ["spud", "spudU"]) A(onCut(t), k, k === id ? "show" : "hide"); };
 const hold = (t, who, side, prop, g, palm, dur = 0.01) => arm(onCut(t), who, side, { prop, grip: g, ...(palm && { palm }) }, dur, "linear");
 // the egg timer: `left` 1 -> 0 from the set to the ring, a quiet tick every 0.5 s while it runs
-const TSET = r3(T[4] + 0.6), TC = r3(END_OF(16) + 0.1), TL = r3(TC + 1.45), TP = r3(TL + 0.9), TB = r3(TP + 0.8), TRING = r3(TB + 0.6);
+const TSET = r3(T[4] + 0.6), TC = r3(Math.max(END_OF(16), T[16] + 3.46) + 0.1), TL = r3(TC + 1.45), TP = r3(TL + 0.9), TB = r3(TP + 0.8), TRING = r3(TB + 0.6);
 
 // ---------------------------------------------------------------- frame 0: Tato at the table, the bubble
 A(0, "spudU", "hide"); for (const k of ["spud", "spudU", "dad"]) A(0, k, "noblink");   // Sol r2: blinks drop the eye whites (rig), so no blinks on Tato and Dad A(0, "rep2", "hide"); A(0, "rep3", "hide");
@@ -157,7 +175,7 @@ arm(onCut(T04), "dad", "L", "rest", 0.01); arm(onCut(T04), "dad", "R", "rest", 0
 look(T04, "dad", [0.6, -0.4], 0.01);
 say(2);   // We're live. Tato, age seven, swallowed his gum.
 say(3);   // the rule
-const T7 = r3(T[3] + 6.2);   // 'For seven years.': push in on Tato's face
+const T7 = r3(T[3] + L3.seven);   // 'For seven years.': push in on Tato's face
 expr(T7, "spudU", FACES.shaken, 0.1); expr(r3(T7 + 0.4), "spudU", FACES.shaken, 0.05); expr(r3(T7 + 0.9), "spudU", FACES.shaken, 0.05); expr(r3(T7 + 1.4), "spudU", FACES.shaken, 0.05);   // no blink in the close-up (draft 4 pop) look(T7, "spudU", [0.15, -0.05], 0.12); A(r3(T7 + 0.4), "spudU", "squash", { amount: 0.03, dur: 0.1 }); A(r3(T7 + 0.6), "spudU", "squash", { amount: 0, dur: 0.15 }); sfx(r3(T7 + 0.4), "gulp", { gain: 0.3 });
 // DAD sets the timer: left glove on top, a twist, the tick starts
 look(r3(T[4] - 0.3), "dad", [0.7, -0.5], 0.15);
@@ -245,11 +263,11 @@ expr(TA, "dad", FACES.armour, 0.01); look(TA, "dad", [0, 0], 0.01);
 sfx(r3(TA + 0.1), "ai/pot-bang", { gain: 0.3 });
 say(15);   // Full armour. The moment of truth.
 // the spoon: in Dad's left mitt, toward Tato's mouth, slowly
-const TS = cutAt(16);
+const TS = RH ? r3(cutAt(16) + 0.034) : cutAt(16);   // rhyme: cutAt(16) = 52.300 = frame 1569 exactly, which c.beats floors to 52.299 and the rig check reads as frame 1568 (a false hand jump): one frame later
 look(r3(TS - 0.15), "dad", [0.6, -0.4], 0.12); put(TS, "spoon", [-0.16, 0.50, 0.12]); hold(TS, "dad", "L", "spoon", [0, 0.27, 0]); grip(onCut(TS), "dad", "L", "fist", 0.01);
 expr(TS, "spud", FACES.spoonwait, 0.01); look(TS, "spud", [-0.5, -0.1], 0.01);
-c.prop(r3(T[16] + 0.2), "spoon", { x: -0.08, z: -0.04 }, 2.9, "inOut");
-expr(r3(T[16] + 3.12), "spud", { open: 0, curve: 0.1 }, 0.08); sfx(r3(T[16] + 3.15), "ai/pot-bite", { gain: 0.25, reason: "the bite on the spoon" }); c.prop(r3(T[16] + 3.3), "spoon", { x: -0.24, z: 0.04 }, 0.3, "out");   // the bite: lips close, the spoon comes out clean   // the bowl end leads to his mouth, the mitt stays left of his face (Sol r1)
+c.prop(r3(T[16] + 0.2), "spoon", { x: -0.08, z: -0.04 }, SP.move, "inOut");
+expr(r3(T[16] + SP.bite), "spud", { open: 0, curve: 0.1 }, 0.08); sfx(r3(T[16] + SP.bite + 0.03), "ai/pot-bite", { gain: 0.25, reason: "the bite on the spoon" }); c.prop(r3(T[16] + SP.pull), "spoon", { x: -0.24, z: 0.04 }, 0.3, "out");   // the bite: lips close, the spoon comes out clean   // the bowl end leads to his mouth, the mitt stays left of his face (Sol r1)
 A(r3(T[16] + 1.6), "dad", "squash", { amount: 0.01, dur: 0.08 }); A(r3(T[16] + 1.75), "dad", "squash", { amount: 0, dur: 0.08 });
 say(16, { soft: true });   // One spoon. Slowly... slowly...
 // ---------------------------------------------------------------- THE ANSWER: the chew, the burp, the ring
@@ -324,7 +342,7 @@ const beats = c.beats([
   ["is it deadly", r3(END_OF(0) + 0.05), push(C03, 0.06, DUR[1] + 0.6)],
   ["we're live", T04, push(C04, 0.05, DUR[2] + 0.5)],
   ["one rule", cutAt(3), push(C03, 0.05, 3.4)],
-  ["glues shut", r3(T[3] + 3.5), push(C06, 0.04, r3(T7 - T[3] - 3.5))],
+  ["glues shut", r3(T[3] + L3.glue), push(C06, 0.04, r3(T7 - T[3] - L3.glue))],
   ["seven years", T7, push(C06T, 0.10, r3(cutAt(4) - T7))],
   ["the timer", cutAt(4), push(C05, 0.06, r3(TDIN - cutAt(4)))],
   ["dinner", TDIN, push(C07, 0.08, r3(TM - TDIN))],
@@ -336,8 +354,8 @@ const beats = c.beats([
   ["before", cutAt(14), push(C03, 0.07, r3(TTI - cutAt(14)))],
   ["time", TTI, push(CTI, 0.06, r3(TA - TTI))],
   ["armour", TA, push(C10, 0.06, r3(cutAt(16) - TA)), "escalation"],
-  ["spoon", TS, push(C11, 0.04, r3(T[16] + 2.85 - TS))],
-  ["spoon close", r3(T[16] + 2.85), push(CSP, 0.05, r3(TC - T[16] - 2.85))],
+  ["spoon", TS, push(C11, 0.04, r3(T[16] + SP.close - TS))],
+  ["spoon close", r3(T[16] + SP.close), push(CSP, 0.05, r3(TC - T[16] - SP.close))],
   ["chew", TC, push(C12, 0.04, r3(TL - TC))],
   ["over the lid", TL, push(C07, 0.04, 0.9)],
   ["peek", TP, push(C03, 0.04, 0.8)],
@@ -348,7 +366,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "gum",
+  id: RH ? "gum-rhyme" : "gum",
   title: "Dad said: swallowed gum glues your stomach",
   idea: "Kid vs Dad 06: Tato swallows his gum; Dad treats it like a bomb (oven mitts, colander helmet, laundry-basket armour) while a war reporter covers it live; Tato eats, nothing happens; the reporter finds Dad's own X-ray: a gum ball, DAD 1995.",
   fps: 30, look: "anime-pro", profile: "short", loop: false,
@@ -368,6 +386,7 @@ write(import.meta.url, {
   allowClip: [
     { who: "spud", with: "chair", from: 0, to: END, reason: "sitting on the chair" },
     { who: "spudU", with: "table", from: 0, to: END, reason: "standing on the table" },
+    ...(RH ? [{ who: "dad", checks: ["rig-jump"], from: r3(TS - 0.1), to: r3(TS + 0.1), reason: "rhyme: the left hand takes the spoon on the cut to the spoon shot; it is out of frame in both shots (draft stills 52.27/52.30/52.33)" }] : []),
     { who: "dad", with: "spudU", from: r3(TM - 0.45), to: r3(TM + 0.05), reason: "the arm passes Tato off frame in the Mitts. single (Dad alone, Tato 0.8 m out of the frame)" },
   ],
   notes: "Generated by storyboards/series/kid-vs-dad/06-gum/make-gum.mjs. Burp = ai/blep and the tick = click: placeholders (no burp or tick in the kit).",

@@ -35,3 +35,30 @@ export const LINES = [
   ["rep", "Then what... is this?", "question", "slow, holding up an X-ray, a reporter with proof", REP],
   ["dad", "...That's different.", "calm", "a dry swallow, sweating, caught", DAD],
 ];
+
+// THE RHYMING VERSION (Jonny 25 Nov 22:52 Berlin: "i think we could make this a rhyme video again could be funny"), index
+// for index with LINES, so the staging stays (make-gum.mjs KVD_RHYME=1 -> gum-rhyme.json). Draft 1 sent 22:58 Berlin.
+const R = (i, line, style, extra) => { const [who, , tone, st, o] = LINES[i]; return [who, line, tone, style ?? st, extra ? { ...o, ...extra } : o]; };
+export const RHYME = [
+  R(0, "Swallowed. Don't move. Don't make a sound."),
+  R(1, "Swallowed... is it deadly? Stay down."),
+  R(2, "We're live. Tato, age seven, swallowed his gum."),
+  R(3, "In this house, one rule: your stomach glues shut... for seven years. Not a crumb."),
+  R(4, "One minute to dinner. If it's glued... it stays out."),
+  R(5, "Mitts."),
+  R(6, "It's sticking. No doubt."),
+  R(7, "Sir... that was your stomach, I'm sure."),
+  R(8, "Mine is fine. Mine is secure."),
+  R(9, "Helmet."),
+  R(10, "Red wire... or blue? Which one's the clue?"),
+  R(11, "It's my sweater. It's new."),
+  R(12, "Want one?"),
+  R(13, "Get that away! Don't you come near!"),
+  R(14, "He's been through this before, I fear."),
+  R(15, "Full armour. The moment of truth. One bite."),
+  R(16, "Slowly... slowly... hold on tight."),
+  R(17, "Still works. Not glued. Not stuck."),
+  R(18, "Impossible. Just beginner's luck."),
+  R(19, "Then what... is this? Dad, ninety-five."),
+  R(20, "...That's different. I survived."),
+];
