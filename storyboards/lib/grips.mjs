@@ -51,6 +51,11 @@ const SIZE = {
   foamcan: { r: 0.034, h: 0.15 },                  // props-prank.js FOAMCAN: held round its body like a mug
   hotsauce: { r: 0.023, h: 0.112 },                // props-copycat.js: a small sauce bottle, held round its label like a mug
   phone: { w: 0.078, h: 0.155, t: 0.012 },         // props3d.js phone (and style "iphone")
+  pingphone: { w: 0.078, h: 0.155, t: 0.012 },     // props-hellwait.js (Potato Desk 13): the phone's body (use scale 1.8), phone hold on a side edge
+  // props-hellwait.js crystalball (Potato Desk 13): origin the ball's CENTRE (r 0.10, dish stand to y -0.14). bowl hold (both gloves cupped on its lower sides; proof:
+  // make-grip-tests.mjs --prop crystalball --hold bowl): rim -0.0375 puts the default height 0.8 at y -0.03; wall = [height from the centre, radius]. The one-hand
+  // cup (palm up, glove shape "cup") is the arm-pose grip name "cup" = (0, -0.12, 0) in HELLWAIT_GRIPS.
+  crystalball: { rim: -0.0375, wall: [[-0.14, 0.0], [-0.1, 0.066], [-0.07, 0.071], [-0.03, 0.095], [0.03, 0.095], [0.1, 0.0]] },
   sscardfan: { w: 0.44, h: 0.3, t: 0.02 },        // props-sos.js: SHARE and STEAL fanned about the bottom middle (the pivot = the origin; 0.32 wide, spec.solid 0.44): the phone hold on the lower edge
   cardfan: { w: 0.22, h: 0.16, t: 0.03 },          // props-casino.js: 2-4 playing cards fanned 14 degrees apart about the bottom middle (the pivot = the origin; 0.11 x 0.155 cards): the phone hold on the lower edge
   playcard: { w: 0.11, h: 0.155, t: 0.004 },       // props-casino.js: one card standing upright (the origin = its bottom edge's middle): the phone hold
