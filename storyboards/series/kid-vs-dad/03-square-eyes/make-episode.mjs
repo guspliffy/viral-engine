@@ -36,12 +36,20 @@ const SOFA = [0.2, -1.61], SEAT = 0.45;
 const KID = [-0.24, -1.52], DAD = [0.77, -1.52];
 const TV = [-1.52, -0.99, 34];
 const REP = [1.66, -0.22], PLANT = [-0.95, -2.30];
-const REP_CHECK = [-0.70, -0.70], REP_CHECK_ROT = 151;   // crouched in front of Tato's left, facing him
-const REP_WIN = [0.95, -2.12], REP_WIN_ROT = 180;        // at the window, his back to the room
+const REP_CHECK = [-0.62, -0.62], REP_CHECK_ROT = 157;   // crouched in front of Tato's left, facing him
 const MASH = [1.40, -3.10];
 const CLOCK = { x: 0.20, y: 1.55, z: -2.62 };
 const PH = { x: 0.54, y: 0.98, z: -1.18, rot: 175, tip: -35 };
 const OFF = (z) => ({ x: 3.5, y: 0, z });   // props waiting off stage
+// the rep's left hand at the check spot: 0.6 m ahead of him, 0.15 to his left, at Tato's eye height (layout-checked in stills)
+const HAND_AT = (() => { const a = (REP_CHECK_ROT * Math.PI) / 180, f = [Math.sin(a), Math.cos(a)], l = [Math.cos(a), -Math.sin(a)];
+  return [r3(REP_CHECK[0] + f[0] * 0.6 + l[0] * 0.15), 0.76, r3(REP_CHECK[1] + f[1] * 0.6 + l[1] * 0.15)]; })();   // over the sofa arm (top .62)
+const RULER = { id: "ruler", kind: "smallruler", ...OFF(-0.5), rot: 0 };
+const RULER_AT = { ...grips.placeFor("smallruler", HAND_AT, REP_CHECK_ROT), roll: 75 };   // pinched at its end, stood up (props-sqeyes.js header)
+const CHART = { id: "chart", kind: "eyechart", ...OFF(-1.0), rot: 0 };
+const CHART_AT = grips.placeFor("eyechart", [HAND_AT[0], 0.64, HAND_AT[2]], REP_CHECK_ROT, { turn: 135 });   // letters half to Tato, half to the camera
+const TORCH = { id: "torch", kind: "policetorch", ...OFF(-1.5), rot: 0, up: true };
+const TORCH_AT = { ...grips.placeFor("policetorch", [HAND_AT[0], 0.70, HAND_AT[2]], REP_CHECK_ROT), tip: 90 };
 
 const c = clip({ faces: "strong", lines: { sub: false, blink: false } }), { A, sfx, cap, see } = c;
 const DUR = LINES.map(([, l]) => SPOKEN[l] ?? est(l));
@@ -78,13 +86,11 @@ const props = [
   { id: "lamp", kind: "glamp", x: -1.75, y: 0, z: -2.35, rot: 180 },
   { id: "plant", kind: "gplant", x: PLANT[0], y: 0, z: PLANT[1] },
   { id: "rug", kind: "grug", x: 0.18, y: 0, z: 0.11 },
-  { id: "clock", kind: "wallclock", ...CLOCK, rot: 0, time: 20 },
+  { id: "clock", kind: "wallclock", ...CLOCK, rot: 0, time: 20, staged: "hung on the back wall" },
   { id: "phone", kind: "phone", ...PH, scale: 1.6, case: "#3e383b" },
   MIC,
-  { id: "ruler", kind: "smallruler", ...OFF(-0.5), rot: 0 },
-  { id: "chart", kind: "eyechart", ...OFF(-1.0), rot: 0 },
-  { id: "torch", kind: "policetorch", ...OFF(-1.5), rot: 0 },
-  { id: "beam", kind: "torchbeam", ...OFF(-2.0), rot: 0, on: 0, len: 0.9, r: 0.22 },
+  RULER, CHART, TORCH,
+  { id: "beam", kind: "torchbeam", ...OFF(-2.0), rot: 0, on: 0, len: 0.45, r: 0.16 },
 ];
 
 // ---------------------------------------------------------------- frame 0
@@ -98,6 +104,9 @@ for (let t = 1.2; t < END - 0.4; t = r3(t + 1.7 + ((t * 7) % 0.9))) { A(r3(t), "
 look(0, "spud", [-0.75, 0.05], 0); expr(0, "spud", { eye: 1.1, open: 0.15 }, 0);
 A(0, "rep", "crouch", { to: 0.14, dur: 0.01 }); expr(0, "rep", { tilt: -0.08, browY: -0.02, eye: 0.95 }, 0);
 const gm = grips.mug(c, "rep", MIC, { side: "R" }); gm.take(0, { reach: 0.01, settle: 0.01 });
+// a tool into the rep's left hand on a cut: brought to the hand spot off camera, taken at once (grip library holds)
+const tool = (t, spec, at, hold) => { c.prop(r3(t - 0.14), spec.id, at, 0); hold(c, "rep", { ...spec, ...at }).take(r3(t - 0.12), { reach: 0.01, settle: 0.01 }); };
+const putAway = (t, id, z) => A(r3(t - 0.04), "rep", "release", { prop: id, to: [3.5, 0, z] });
 c.prop(0, "tv", { on: 1, card: 0 }, 0);
 c.prop(0, "clock", { time: 20 }, 0);
 c.prop(0, "beam", { on: 0 }, 0);
@@ -115,10 +124,9 @@ const DADC = { pos: [0.47, 1.01, 2.50], look: [0.73, 1.01, -1.17], fov: 36 };
 const DAD_CU = { pos: [0.60, 1.00, 0.55], look: [0.75, 0.99, -1.30], fov: 34 };
 const REPC = { pos: [1.00, 0.60, 1.90], look: [1.57, 0.56, -0.02], fov: 36 };
 const WIDE = { pos: [0.34, 1.35, 2.75], look: [0.34, 0.85, -1.5], fov: 48 };
-const CHECK = { pos: [0.55, 0.78, 0.05], look: [-0.45, 0.72, -1.15], fov: 38 };   // the rep in profile, the tool at Tato's eye
+const CHECK = { pos: [0.70, 0.86, 0.55], look: [-0.36, 0.74, -1.28], fov: 40 };   // the rep in profile, the tool at Tato's eye
 const CLOCKC = { pos: [0.20, 1.45, -1.30], look: [0.20, 1.55, -2.62], fov: 30 };   // the wall clock over the sofa
 const TVC = { pos: [-0.62, 0.86, 0.05], look: [-1.52, 0.86, -0.99], fov: 40 };     // the TV from Tato's side of the room
-const INTERVIEW = { pos: [1.25, 1.05, -0.95], look: [1.25, 0.85, -2.87], fov: 40 }; // over the rep's shoulder to the neighbour
 const shots = [];
 
 // ---------------------------------------------------------------- 0-20 s: opening H1 (as kvd03-opening-h1)
@@ -149,9 +157,7 @@ say(5); sfx(r3(T[5] + 0.5), "click", 0.4);
 const tCheck1 = cutAt(6, 0.5);
 place(tCheck1, "rep", REP_CHECK, REP_CHECK_ROT);
 A(r3(tCheck1 - 0.02), "rep", "crouch", { to: 0.22, dur: 0.01 });
-A(tCheck1, "rep", "grab", { prop: "ruler", hand: "L", dur: 0, pose: null });
-const REP_TOOL = { o: [-0.12, 0.66, 0.50] };
-c.arm(r3(tCheck1 - 0.02), "rep", "L", REP_TOOL, 0.01);
+tool(tCheck1, RULER, RULER_AT, (c2, w, sp) => grips.thin(c2, w, sp, { side: "L", from: 0.5, roll: 75 }));
 shots.push(["eye check", tCheck1, push(CHECK, 0.10, r3(END_OF(7) - tCheck1 + 0.3))]);
 say(6); say(7);
 expr(T[7] - 0.1, "rep", { eye: 1.0, curve: 0.15, tilt: 0 }, 0.2);
@@ -167,8 +173,8 @@ c.prop(r3(tClock2 - 0.02), "clock", { time: 23 }, 0);
 shots.push(["11 pm", tClock2, push(CLOCKC, 0.06, 0.95)]);
 sfx(tClock2, "knock-tap", 0.35);
 const tCheck2 = cutAt(9, 0.05);
-A(r3(tCheck2 - 0.04), "rep", "release", { prop: "ruler", to: [3.5, 0, -0.5] });
-A(tCheck2, "rep", "grab", { prop: "chart", hand: "L", dur: 0, pose: null });
+putAway(r3(tCheck2 - 0.2), "ruler", -0.5);
+tool(tCheck2, CHART, CHART_AT, (c2, w, sp) => grips.phone(c2, w, sp, { side: "L", height: 0.2 }));
 shots.push(["read the top line", tCheck2, push(CHECK, 0.12, r3(END_OF(11) - tCheck2 + 0.3))]);
 say(9); say(10); say(11);
 expr(T[11] - 0.1, "rep", { eye: 0.75, browY: -0.03, tilt: -0.1 }, 0.25);
@@ -184,13 +190,15 @@ say(13);
 c.arm(r3(END_OF(13) + 0.15), "wedge", "R", "rest", 0.35); c.arm(r3(END_OF(13) + 0.15), "wedge", "L", DAD_PHONE, 0.35);
 expr(END_OF(13) + 0.15, "wedge", { eye: 0.7, tilt: -0.05, curve: -0.1 }, 0.3);
 const tWin = cutAt(14, 0.6);
-A(r3(tWin - 0.04), "rep", "release", { prop: "chart", to: [3.5, 0, -1.0] });
+putAway(tWin, "chart", -1.0);
 c.arm(r3(tWin - 0.02), "rep", "L", "rest", 0.01);
-place(tWin, "rep", REP_WIN, REP_WIN_ROT);
-A(r3(tWin - 0.02), "rep", "crouch", { to: 0.05, dur: 0.01 });
+place(tWin, "rep", REP, -28);   // back at his post by the plant, asking across the room (at the window he stood in Dad and hid the neighbour)
+A(r3(tWin - 0.02), "rep", "crouch", { to: 0.14, dur: 0.01 });
+look(tWin, "rep", [0.35, 0.15], 0);
 A(r3(tWin - 0.02), "mash", "show");
-shots.push(["interview", tWin, push(INTERVIEW, 0.08, r3(END_OF(14) - tWin + 0.2))]);
+shots.push(["interview", tWin, push(REPC, 0.08, r3(END_OF(14) - tWin + 0.2))]);
 say(14);
+A(r3(cutAt(15) - 0.02), "rep", "hide");   // behind the neighbour's close-up camera: projected from behind onto the captions
 shots.push(["one summer", cutAt(15), push(MASH_CU, 0.05, r3(END_OF(17) - T[15] + 0.4))]);
 say(15); say(16); say(17);
 A(r3(T[16] + 0.1), "mash", "blink", { dur: 0.27 });
@@ -202,15 +210,14 @@ c.prop(r3(tClock3 - 0.02), "clock", { time: 23 }, 0);
 c.prop(tClock3, "clock", { time: 27 }, 1.6);   // the hands spin to 3 am
 shots.push(["3 am", tClock3, push(CLOCKC, 0.10, 1.95)]);
 sfx(tClock3, "whoosh", 0.3);
-place(cutAt(18), "rep", REP_CHECK, REP_CHECK_ROT);
+place(cutAt(18), "rep", REP_CHECK, REP_CHECK_ROT); A(r3(cutAt(18) - 0.02), "rep", "show");
 A(r3(cutAt(18) - 0.02), "rep", "crouch", { to: 0.22, dur: 0.01 });
 A(cutAt(18), "spud", "lean", { to: 0.25, dur: 0.01 });   // closer to the screen now
 shots.push(["whole season", cutAt(18), push(WIDE, 0.18, DUR[18] + GAP[19])]);
 say(18);
 const tTorch = cutAt(19, 0.6);
-A(tTorch, "rep", "grab", { prop: "torch", hand: "L", dur: 0, pose: null });
-c.arm(r3(tTorch - 0.02), "rep", "L", REP_TOOL, 0.01);
-c.prop(r3(tTorch - 0.02), "beam", { x: -0.50, y: 0.80, z: -0.95, rot: 205, on: 0 }, 0);
+tool(tTorch, TORCH, TORCH_AT, (c2, w, sp) => grips.mug(c2, w, sp, { side: "L" }));
+c.prop(r3(tTorch - 0.02), "beam", { x: r3(HAND_AT[0] + 0.08), y: 0.80, z: HAND_AT[2], rot: 90, on: 0 }, 0);
 c.prop(r3(tTorch + 0.25), "beam", { on: 1 }, 0.1);
 sfx(r3(tTorch + 0.25), "click", 0.5);
 expr(r3(tTorch + 0.3), "spud", { eye: 0.55, tilt: 0.1 }, 0.15);   // squints into the light, eyes still round
@@ -218,6 +225,7 @@ shots.push(["torch", tTorch, push(CHECK, 0.14, r3(END_OF(19) - tTorch + 0.3))]);
 say(19);
 c.prop(r3(END_OF(19) + 0.2), "beam", { on: 0 }, 0.1);
 expr(r3(END_OF(19) + 0.2), "spud", { eye: 1.1, open: 0.15, tilt: 0 }, 0.2);
+A(r3(cutAt(20) - 0.02), "rep", "hide");   // gone after the torch: in front of Tato he filled the kid's shots
 shots.push(["five more", cutAt(20), push(DAD_CU, 0.10, DUR[20] + 0.9)]);
 expr(T[20] - 0.1, "wedge", { eye: 0.5, tilt: -0.1, curve: -0.15 }, 0.3);
 say(20);
@@ -238,8 +246,7 @@ const tRev = cutAt(23, 1.95);
 say(22, { capTo: r3(tRev - 0.05) });
 // the reveal: on the cut his eyes are already phones (DESIGN.md: switch on a cut), he lifts his head
 face(r3(tRev - 0.02), "wedge", { square: 1, sqTall: 1, sqPhone: 1 });
-A(r3(tRev - 0.04), "rep", "release", { prop: "torch", to: [3.5, 0, -1.5] });
-A(r3(tRev - 0.02), "rep", "hide");
+putAway(tRev, "torch", -1.5);
 shots.push(["phone eyes", tRev, push(DAD_CU, 0.12, 1.9)]);
 look(r3(tRev + 0.35), "wedge", [-0.55, 0.05], 0.45);
 expr(r3(tRev + 0.35), "wedge", { eye: 1.0, tilt: 0, curve: 0 }, 0.4);
@@ -271,6 +278,7 @@ const sb = {
   allowClip: [
     { who: "spud", with: "sofa", from: 0, to: END, checks: ["shell", "clipping", "limb-in-prop", "hand-in-prop", "costume-in-prop"], reason: "sitting on the sofa" },
     { who: "wedge", with: "sofa", from: 0, to: END, checks: ["shell", "clipping", "limb-in-prop", "hand-in-prop", "costume-in-prop"], reason: "sitting on the sofa" },
+    { who: "rep", with: "ruler", from: r3(tCheck1 - 0.2), to: tCheck2, checks: ["thin-prop-hidden"], reason: "a school ruler held at its very end, as a kid holds one up to an eye: the long end shows, the held end is in the fist by design (props-sqeyes.js smallruler, thin pinch from 0)" },
   ],
   notes: `Generated by storyboards/series/kid-vs-dad/03-square-eyes/make-episode.mjs. Dad = ${DAD_CHAR}. Rough draft for Jonny's story check (opening H1, ending E1).`,
 };

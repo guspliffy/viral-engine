@@ -185,7 +185,8 @@
    "y": 1.55,
    "z": -2.62,
    "rot": 0,
-   "time": 20
+   "time": 20,
+   "staged": "hung on the back wall"
   },
   {
    "id": "phone",
@@ -229,7 +230,8 @@
    "x": 3.5,
    "y": 0,
    "z": -1.5,
-   "rot": 0
+   "rot": 0,
+   "up": true
   },
   {
    "id": "beam",
@@ -239,8 +241,8 @@
    "z": -2,
    "rot": 0,
    "on": 0,
-   "len": 0.9,
-   "r": 0.22
+   "len": 0.45,
+   "r": 0.16
   }
  ],
  "captions": [
@@ -1259,11 +1261,108 @@
      "at": 0.56
     },
     {
+     "do": "prop",
+     "id": "ruler",
+     "set": {
+      "x": -0.524,
+      "y": 0.76,
+      "z": -1.231,
+      "rot": 337,
+      "roll": 75
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 35,
+      "lean": 30,
+      "thin": 0.001,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ruler",
+      "grip": [
+       0,
+       0.01,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.08,
+       0.07,
+       0.009
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.88
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ruler",
+      "grip": [
+       0,
+       0.01,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 0.89
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 75,
+      "lean": 30,
+      "thin": 0.001
+     },
+     "dur": 0.12,
+     "at": 0.896
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "ruler",
+     "hand": "L",
+     "grip": [
+      0,
+      0.01,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.96
+    },
+    {
      "who": "rep",
      "do": "move",
      "to": [
-      -0.7,
-      -0.7
+      -0.62,
+      -0.62
      ],
      "dur": 0.01,
      "ease": "linear",
@@ -1273,7 +1372,7 @@
     {
      "who": "rep",
      "do": "turn",
-     "to": 151,
+     "to": 157,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1285,20 +1384,6 @@
      "to": 0.22,
      "dur": 0.01,
      "at": 0.98
-    },
-    {
-     "who": "rep",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       -0.12,
-       0.66,
-       0.5
-      ]
-     },
-     "dur": 0.01,
-     "at": 0.98
     }
    ]
   },
@@ -1308,42 +1393,33 @@
    "len": 5.066,
    "shot": {
     "pos": [
-     0.55,
-     0.78,
-     0.05
+     0.7,
+     0.86,
+     0.55
     ],
     "look": [
-     -0.45,
-     0.72,
-     -1.15
+     -0.36,
+     0.74,
+     -1.28
     ],
-    "fov": 38,
+    "fov": 40,
     "to": {
      "pos": [
-      0.45,
-      0.774,
-      -0.07
+      0.594,
+      0.848,
+      0.367
      ],
      "look": [
-      -0.45,
-      0.72,
-      -1.15
+      -0.36,
+      0.74,
+      -1.28
      ],
-     "fov": 38
+     "fov": 40
     },
     "dur": 5.12,
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "rep",
-     "do": "grab",
-     "prop": "ruler",
-     "hand": "L",
-     "dur": 0,
-     "pose": null,
-     "at": 0
-    },
     {
      "who": "wedge",
      "do": "grip",
@@ -1547,6 +1623,88 @@
       0,
       -0.5
      ],
+     "at": 0.76
+    },
+    {
+     "do": "prop",
+     "id": "chart",
+     "set": {
+      "x": -0.524,
+      "y": 0.64,
+      "z": -1.231,
+      "rot": 472
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "chart",
+      "grip": [
+       -0.185,
+       0.084,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       0.041
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.88
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "chart",
+      "grip": [
+       -0.185,
+       0.084,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.89
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.896
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "chart",
+     "hand": "L",
+     "grip": [
+      -0.185,
+      0.084,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
      "at": 0.96
     }
    ]
@@ -1557,42 +1715,33 @@
    "len": 4.666,
    "shot": {
     "pos": [
-     0.55,
-     0.78,
-     0.05
+     0.7,
+     0.86,
+     0.55
     ],
     "look": [
-     -0.45,
-     0.72,
-     -1.15
+     -0.36,
+     0.74,
+     -1.28
     ],
-    "fov": 38,
+    "fov": 40,
     "to": {
      "pos": [
-      0.43,
-      0.773,
-      -0.094
+      0.573,
+      0.846,
+      0.33
      ],
      "look": [
-      -0.45,
-      0.72,
-      -1.15
+      -0.36,
+      0.74,
+      -1.28
      ],
-     "fov": 38
+     "fov": 40
     },
     "dur": 4.72,
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "rep",
-     "do": "grab",
-     "prop": "chart",
-     "hand": "L",
-     "dur": 0,
-     "pose": null,
-     "at": 0
-    },
     {
      "who": "rep",
      "macro": "say",
@@ -1857,8 +2006,8 @@
      "who": "rep",
      "do": "move",
      "to": [
-      0.95,
-      -2.12
+      1.66,
+      -0.22
      ],
      "dur": 0.01,
      "ease": "linear",
@@ -1868,7 +2017,7 @@
     {
      "who": "rep",
      "do": "turn",
-     "to": 180,
+     "to": -28,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1877,7 +2026,7 @@
     {
      "who": "rep",
      "do": "crouch",
-     "to": 0.05,
+     "to": 0.14,
      "dur": 0.01,
      "at": 1.58
     },
@@ -1894,33 +2043,44 @@
    "len": 2.7,
    "shot": {
     "pos": [
-     1.25,
-     1.05,
-     -0.95
+     1,
+     0.6,
+     1.9
     ],
     "look": [
-     1.25,
-     0.85,
-     -2.87
+     1.57,
+     0.56,
+     -0.02
     ],
-    "fov": 40,
+    "fov": 36,
     "to": {
      "pos": [
-      1.25,
-      1.034,
-      -1.104
+      1.046,
+      0.597,
+      1.746
      ],
      "look": [
-      1.25,
-      0.85,
-      -2.87
+      1.57,
+      0.56,
+      -0.02
      ],
-     "fov": 40
+     "fov": 36
     },
     "dur": 2.66,
     "ease": "inOut"
    },
    "do": [
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0.35,
+      0.15
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
     {
      "who": "wedge",
      "do": "arm",
@@ -1996,6 +2156,11 @@
      "shape": "hold",
      "dur": 0.12,
      "at": 2.46
+    },
+    {
+     "who": "rep",
+     "do": "hide",
+     "at": 2.68
     }
    ]
   },
@@ -2187,8 +2352,8 @@
      "who": "rep",
      "do": "move",
      "to": [
-      -0.7,
-      -0.7
+      -0.62,
+      -0.62
      ],
      "dur": 0.01,
      "ease": "linear",
@@ -2198,10 +2363,15 @@
     {
      "who": "rep",
      "do": "turn",
-     "to": 151,
+     "to": 157,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "rep",
+     "do": "show",
      "at": 1.98
     },
     {
@@ -2281,6 +2451,75 @@
      "at": 0.56
     },
     {
+     "do": "prop",
+     "id": "torch",
+     "set": {
+      "x": -0.524,
+      "y": 0.7,
+      "z": -1.231,
+      "rot": 337,
+      "tip": 90
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.827
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 2.847
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "torch",
+      "grip": [
+       -0.075,
+       0.132,
+       0.02
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.069,
+       0.02,
+       -0.01
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.847
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "torch",
+      "grip": [
+       -0.075,
+       0.132,
+       0.02
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.857
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.863
+    },
+    {
      "who": "wedge",
      "do": "grip",
      "side": "L",
@@ -2290,26 +2529,26 @@
     },
     {
      "who": "rep",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       -0.12,
-       0.66,
-       0.5
-      ]
-     },
-     "dur": 0.01,
-     "at": 2.947
+     "do": "grab",
+     "prop": "torch",
+     "hand": "L",
+     "grip": [
+      -0.075,
+      0.132,
+      0.02
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 2.927
     },
     {
      "do": "prop",
      "id": "beam",
      "set": {
-      "x": -0.5,
+      "x": -0.444,
       "y": 0.8,
-      "z": -0.95,
-      "rot": 205,
+      "z": -1.231,
+      "rot": 90,
       "on": 0
      },
      "dur": 0,
@@ -2324,42 +2563,33 @@
    "len": 2.434,
    "shot": {
     "pos": [
-     0.55,
-     0.78,
-     0.05
+     0.7,
+     0.86,
+     0.55
     ],
     "look": [
-     -0.45,
-     0.72,
-     -1.15
+     -0.36,
+     0.74,
+     -1.28
     ],
-    "fov": 38,
+    "fov": 40,
     "to": {
      "pos": [
-      0.41,
-      0.772,
-      -0.118
+      0.552,
+      0.843,
+      0.294
      ],
      "look": [
-      -0.45,
-      0.72,
-      -1.15
+      -0.36,
+      0.74,
+      -1.28
      ],
-     "fov": 38
+     "fov": 40
     },
     "dur": 2.503,
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "rep",
-     "do": "grab",
-     "prop": "torch",
-     "hand": "L",
-     "dur": 0,
-     "pose": null,
-     "at": 0.001
-    },
     {
      "who": "wedge",
      "do": "grip",
@@ -2450,6 +2680,11 @@
      },
      "dur": 0.3,
      "at": 2.404
+    },
+    {
+     "who": "rep",
+     "do": "hide",
+     "at": 2.414
     }
    ]
   },
@@ -2713,11 +2948,6 @@
      "sqPhone": 1,
      "dur": 0,
      "at": 3.08
-    },
-    {
-     "who": "rep",
-     "do": "hide",
-     "at": 3.08
     }
    ]
   },
@@ -2904,6 +3134,16 @@
     "costume-in-prop"
    ],
    "reason": "sitting on the sofa"
+  },
+  {
+   "who": "rep",
+   "with": "ruler",
+   "from": 20.5,
+   "to": 27.8,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "a school ruler held at its very end, as a kid holds one up to an eye: the long end shows, the held end is in the fist by design (props-sqeyes.js smallruler, thin pinch from 0)"
   }
  ],
  "notes": "Generated by storyboards/series/kid-vs-dad/03-square-eyes/make-episode.mjs. Dad = potatobrawl/dad. Rough draft for Jonny's story check (opening H1, ending E1)."

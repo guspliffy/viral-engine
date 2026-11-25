@@ -150,6 +150,7 @@ import { WAKEFX_KINDS } from "./props-wakeup-fx.js";
 import { WAKEOUT_KINDS } from "./props-wakeup-out.js";
 import { SINKCAR_KINDS } from "./props-sinkcar.js";
 import { SKIPREMOTE_KINDS } from "./props-skipremote.js";
+import { SQEYES_KINDS } from "./props-sqeyes.js";   // Kid vs Dad 03: wallclock, eyechart, smallruler
 import { ARCH_KINDS, ARCH_GRIPS } from "./props-archaeologist.js";
 import { REPORTER_KINDS, REPORTER_GRIPS } from "./props-reporter.js";   // kid vs dad 01: newsmic, rephelmet
 import { HELLA_KINDS, HELLA_GRIPS } from "./props-hella.js";   // potato desk 09 hell reviews: set A (doors, badges, clouds, sky) + tablet + hand props
@@ -1549,7 +1550,7 @@ Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.j
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 Object.assign(KINDS, WAKECABIN_KINDS, WAKEFX_KINDS, WAKEOUT_KINDS);   // you wake up mid EP01 (props-wakeup-*.js)
 Object.assign(KINDS, SINKCAR_KINDS);   // you wake up mid EP02: cabinwater, carglass, dashglow, headrest, headbeams, lakebubbles (props-sinkcar.js)
-Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
+Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS, SQEYES_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
 Object.assign(KINDS, ARCH_KINDS); Object.assign(GRIPS, ARCH_GRIPS);   // the archaeologist: archbrush (props-archaeologist.js)
 Object.assign(KINDS, REPORTER_KINDS); Object.assign(GRIPS, REPORTER_GRIPS);   // kid vs dad 01: newsmic, rephelmet (props-reporter.js)
 Object.assign(KINDS, COASTER_KINDS);   // never looks up 07 (props-coaster.js)
