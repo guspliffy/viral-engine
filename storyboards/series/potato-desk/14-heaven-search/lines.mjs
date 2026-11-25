@@ -16,7 +16,7 @@ export const LINES = [
   ["chip", "...What?", "sad", "small, hurt, confused", C],                                                            // 7
   ["angel", "How to pretend I like my best friend's cooking.", "calm", `${ANGEL}, deadpan reading`, A],             // 8  search 3 (panel 07)
   ["chip", "My casserole?", "sad", "offended, hurt, voice cracking", C],                                             // 9
-  ["angel", "How to save a baby bird.", "calm", `${ANGEL}, a little softer`, A],                                     // 10 break in the ladder (panel 08)
+  ["angel", "How to save a baby bird.", "calm", `${ANGEL}, a little softer`, { ...A, take: 2 }],                                     // 10 break in the ladder (panel 08)
   ["queue", "Awww.", "calm", "melting, warm, touched, a crowd sigh", Q],                                              // 11
   ["angel", "How to get a new best friend.", "calm", `${ANGEL}, deadpan reading`, A],                               // 12 search 5 (panel 09)
   ["chip", "A NEW one?", "excited", "shocked, betrayed, gasping", C],                                                // 13

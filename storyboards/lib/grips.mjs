@@ -173,6 +173,8 @@ const SIZE = {
   pitchfork: { r: 0.01, h: 0.2 },
   palmleaf: { r: 0.01, h: 0.288 },
   drinkglass: { r: 0.035, h: 0.16 },
+  // props-heavensearch.js (Potato Desk 14): casserole = box hold, both gloves on the two ear handles (0.31 across the tips, y 0.065 = height 0.55 x 0.118; pass { gap: 0.03 } for Chip's gloves)
+  casserole: { w: 0.31, h: 0.118, d: 0.24 },
   // props-carton.js (Potato Desk 11): friescarton = box hold on the two round ends (y 0.10 = 0.55 x 0.182, 0.216 wide there; gap 0.03 for Chip's 1.1 gloves) or the mug hold round one end
   // low ({ height: 0.33 } = y 0.06, half-width 0.099; gap 0.038 for Wedge's 1.3 gloves); loosefry = the thin pinch at 0.85 of its 0.24 length (from: 0.85 = y 0.204)
   friescarton: { w: 0.216, h: 0.182, d: 0.087, r: 0.099 },
