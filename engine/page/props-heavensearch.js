@@ -252,10 +252,10 @@ function gatetrap(P) {
   };
   // the open trapdoor: shaft (inside only), floor, fan, pool
   const shaft = new THREE.Group(); shaft.visible = false; P.whole.add(shaft);
-  const shaftT = canvasTex(8, 128, (g, w, h) => { const q = g.createLinearGradient(0, 0, 0, h); q.addColorStop(0, "#ffb14a"); q.addColorStop(0.6, "#ff6a13"); q.addColorStop(1, "#8f1f1c"); g.fillStyle = q; g.fillRect(0, 0, w, h); });
+  const shaftT = canvasTex(8, 128, (g, w, h) => { const q = g.createLinearGradient(0, 0, 0, h); q.addColorStop(0, "#7a1c12"); q.addColorStop(0.35, "#3a0a08"); q.addColorStop(1, "#120303"); g.fillStyle = q; g.fillRect(0, 0, w, h); });
   const wallM = new THREE.MeshBasicMaterial({ map: shaftT, side: THREE.BackSide, toneMapped: false }); wallM.fog = false; wallM.userData.noOutline = true; wallM.userData.outlineParameters = { visible: false };
   const sw = new THREE.Mesh(new THREE.CylinderGeometry(RT - 0.004, RT - 0.004, 1.8, 48, 1, true), wallM); sw.position.y = -0.9; sw.userData.solid = false; shaft.add(sw);
-  const floorT = canvasTex(64, 64, (g, w, h) => { const q = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); q.addColorStop(0, "#ffd23f"); q.addColorStop(1, "#ff7a1c"); g.fillStyle = q; g.fillRect(0, 0, w, h); });
+  const floorT = canvasTex(64, 64, (g, w, h) => { const q = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); q.addColorStop(0, "#ff7a1c"); q.addColorStop(0.45, "#8f1f1c"); q.addColorStop(1, "#200505"); g.fillStyle = q; g.fillRect(0, 0, w, h); });
   const fl = new THREE.Mesh(new THREE.CircleGeometry(RT, 40), paint({ map: floorT })); fl.rotation.x = -Math.PI / 2; fl.position.y = -1.79; fl.userData.solid = false; shaft.add(fl);
   const ofanM = lightMat({ map: fanT, color: "#ffffff", opacity: 0, side: THREE.DoubleSide }), ofan = flat(new THREE.Mesh(new THREE.PlaneGeometry(1.3, 1.5).translate(0, 0.75, 0), ofanM), 5); P.whole.add(ofan);
   const opoolT = canvasTex(128, 128, (g, w, h) => { const q = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); q.addColorStop(0, "rgba(255,255,255,1)"); q.addColorStop(0.6, "rgba(255,255,255,0.5)"); q.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = q; g.fillRect(0, 0, w, h); g.globalCompositeOperation = "destination-out"; g.beginPath(); g.arc(w / 2, h / 2, 0.36 * (w / 2), 0, TAU); g.fill(); });   // the pool r 1.5 with the opening left clear
@@ -263,7 +263,7 @@ function gatetrap(P) {
   return {
     grip: 0,
     apply(ps, t) {
-      const cr = clamp(ps.crack ?? 0), op = clamp(ps.open ?? 0, -0.05, 1.10), ok = ss(op / 0.25), shift = 0.003 + 0.047 * cr;
+      const cr = clamp(ps.crack ?? 0), op = clamp(ps.open ?? 0, -0.05, 1.10), ok = ss(op / 0.25), shift = 0.003 + 0.097 * cr;
       for (const { h, lf, sz } of hinges) { h.position.set(0, LEAF_TOP, sz * (RT + shift)); h.rotation.x = -sz * op * 86 * DEG; lf.userData.solid = op < 0.05; }
       const sl = 1 - ok;   // the slot's light, leak band and fan stand only while the leaves lie near shut
       const sw2 = 2 * shift; slotDark.scale.set(1, sw2, 1); slotDark.visible = sl > 0.01; slotDark.material.opacity = sl;
@@ -275,7 +275,7 @@ function gatetrap(P) {
       const hk = 0.12 + 0.38 * cr;
       halo.forEach((h) => { setHalo(h, 0.70 + 0.25 * cr); h.m.opacity = hk * (1 + 0.08 * Math.sin(TAU * h.f * t + h.ph)); });
       shaft.visible = op > 0.02;
-      ofanM.opacity = 0.45 * ss(op / 0.5); ofan.visible = ofanM.opacity > 0.005; opoolM.opacity = 0.40 * ss(op / 0.5); opool.visible = opoolM.opacity > 0.005;
+      ofanM.opacity = 0.45 * ss(op / 0.5); ofan.visible = ofanM.opacity > 0.005; opoolM.opacity = 0.22 * ss(op / 0.5); opool.visible = opoolM.opacity > 0.005;
     },
   };
 }
@@ -321,6 +321,10 @@ function casserole(P) {
   const band = mesh(new THREE.CylinderGeometry(0.1215, 0.1215, 0.012, 48, 1, true), mat(CREAM, { roughness: 0.4, side: THREE.DoubleSide }), P.whole, 0, 0.079, 0);   // the cream rim band
   band.userData.solid = false;
   for (const s of [-1, 1]) { const e = mesh(new THREE.BoxGeometry(0.040, 0.022, 0.060), mat(SHADE, { roughness: 0.35 }), P.whole, s * 0.135, 0.065, 0); e.userData.solid = true; mesh(new THREE.BoxGeometry(0.040, 0.004, 0.056), mat(BLUE, { roughness: 0.35 }), P.whole, s * 0.135, 0.0775, 0).castShadow = false; }
+  { const hT = canvasTex(128, 128, (g, w, h) => { const s = w * 0.9; g.translate(w / 2, h / 2); g.fillStyle = "#d3261e"; g.beginPath(); g.moveTo(0, s * 0.5);
+      g.bezierCurveTo(-s * 0.15, s * 0.3, -s * 0.55, s * 0.1, -s * 0.5, -s * 0.2); g.bezierCurveTo(-s * 0.45, -s * 0.5, -s * 0.05, -s * 0.5, 0, -s * 0.2);
+      g.bezierCurveTo(s * 0.05, -s * 0.5, s * 0.45, -s * 0.5, s * 0.5, -s * 0.2); g.bezierCurveTo(s * 0.55, s * 0.1, s * 0.15, s * 0.3, 0, s * 0.5); g.fill(); });
+    const hs = plane(0.06, 0.06, paint({ map: hT, transparent: true, alphaTest: 0.5, polygonOffsetFactor: -2 }), P.whole, 0, 0.042, -0.1225, 0, 4); hs.rotation.y = Math.PI; hs.userData.solid = false; }   // the red heart on the side the held dish turns to the lens (Sol r1 #7)
   const chip = mesh(new THREE.SphereGeometry(0.0065, 10, 8), mat("#34414f", { roughness: 0.6 }), P.whole, 0.1215 * Math.sin(212 * DEG), 0.0835, 0.1215 * Math.cos(212 * DEG)); chip.scale.set(1, 0.5, 1); chip.userData.solid = false;   // one enamel chip on the rim
   // the crust under the lid: shown when the lid slides and tips
   const crustT = canvasTex(256, 256, (g, w, h) => {
@@ -334,8 +338,8 @@ function casserole(P) {
   for (let i = 0; i < lp.count; i++) luv.setXY(i, lp.getX(i) / (2 * LR) + 0.5, 1 - (lp.getZ(i) + LR) / (2 * LR));
   const lidT = canvasTex(512, 512, (g, w, h) => {
     g.fillStyle = BLUE; g.fillRect(0, 0, w, h);
-    const cx = w / 2, s = (0.045 / (2 * LR)) * w;   // the heart at z -0.062 (canvas y grows toward +z), point toward the camera side
-    g.save(); g.translate(cx, ((LR - 0.062) / (2 * LR)) * h); g.rotate(Math.PI); g.fillStyle = "#d3261e"; g.beginPath(); g.moveTo(0, s * 0.5);
+    const cx = w / 2, s = (0.085 / (2 * LR)) * w;   // the heart at z -0.062 (canvas y grows toward +z), point toward the camera side
+    g.save(); g.translate(cx, ((LR - 0.05) / (2 * LR)) * h); g.rotate(Math.PI); g.fillStyle = "#d3261e"; g.beginPath(); g.moveTo(0, s * 0.5);
     g.bezierCurveTo(-s * 0.15, s * 0.3, -s * 0.55, s * 0.1, -s * 0.5, -s * 0.2); g.bezierCurveTo(-s * 0.45, -s * 0.5, -s * 0.05, -s * 0.5, 0, -s * 0.2);
     g.bezierCurveTo(s * 0.05, -s * 0.5, s * 0.45, -s * 0.5, s * 0.5, -s * 0.2); g.bezierCurveTo(s * 0.55, s * 0.1, s * 0.15, s * 0.3, 0, s * 0.5); g.fill(); g.restore();
   });
@@ -344,7 +348,7 @@ function casserole(P) {
   const rimLine = mesh(new THREE.CylinderGeometry(LR + 0.0005, LR + 0.0005, 0.005, 48, 1, true), mat(CREAM, { roughness: 0.4, side: THREE.DoubleSide }), pivot, 0, 0.0035, -LR); rimLine.userData.solid = false;
   return {
     grip: 0.065,
-    apply(ps) { const l = clamp(ps.lid ?? S.lid ?? 0); pivot.position.z = LR + 0.03 * l; pivot.rotation.x = 18 * DEG * l; },
+    apply(ps) { const l = clamp(ps.lid ?? S.lid ?? 0); pivot.position.z = LR + 0.04 * l; pivot.rotation.x = 34 * DEG * l; },
   };
 }
 
