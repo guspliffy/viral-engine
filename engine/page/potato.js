@@ -12,7 +12,9 @@ let HAND = null, SMOOTH = true;
 // FROST: the actors whose face actions key "frost" or "melt" (frost.js): only they get the frost layer, so every other
 // clip draws exactly as before
 let FROST = new Set();
-export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; SMOOTH = sb?.rig?.smooth !== false; FROST = frostActors(sb); };
+// SQUARE: the same for the square-eyes face layer (squareeyes.js, face keys square / sqCorner / sqTall / sqPhone)
+let SQUARE = new Set();
+export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; SMOOTH = sb?.rig?.smooth !== false; FROST = frostActors(sb); SQUARE = squareActors(sb); };
 // Hand rig 2: the hand's turn is built from a base frame plus turns away from it that a wrist can do.
 // The base frame: the hand's frame when the forearm points out, forward and up (HAND_Y0, 45 degrees up from out and
 // forward, square to today's look-at reference: a hanging hand, and every forearm square to that reference, keeps
@@ -60,6 +62,7 @@ import { rng } from "./util.js";
 import { taperedTube } from "./geo.js";
 import { cone, meshShape, geometryOf, shapeKey, inkMaterial } from "./handmesh.js";
 import { Frost, frostActors } from "./frost.js";
+import { SquareEyes, squareActors } from "./squareeyes.js";
 
 const LEG_H = 0.14;
 
@@ -221,6 +224,8 @@ export class Character {
     this._limbKey = "";
     // the frost layer (face controls frost / melt, frost.js), for an actor whose storyboard keys them
     if (FROST.has(key)) this.frost = new Frost(this);
+    // the square-eyes layer (face keys square / sqCorner / sqTall / sqPhone, squareeyes.js), for an actor whose storyboard keys them
+    if (SQUARE.has(key)) this.square = new SquareEyes(this);
   }
 
   // a mitten hand (def.hands.type "mitten"): palm, three fingers as one mitten, a separate index finger and a thumb, each
@@ -1160,6 +1165,7 @@ export class Character {
     }
     this.costume.apply(st, t, hands, fries);
     if (this.frost) this.frost.apply(st, t, fries);
+    if (this.square) this.square.apply(st, t, fries);
     if (globalThis.__DIAG?.clearance && !fries) this._clearance(t);
   }
 
