@@ -21,7 +21,7 @@ export const OPENINGS = {
     ...RULE,
   ],
   h3: [ // the lie
-    ["rep", "Lied. Your parents lied to you... or did they?", "calm", "straight to camera, slow, a twist on the last words", REP],
+    ["rep", "Lies. Your parents lied to you... or did they?", "calm", "straight to camera, slow, a twist on the last words", REP],
     ...RULE,
   ],
   h4: [ // countdown
