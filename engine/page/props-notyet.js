@@ -39,7 +39,7 @@ import { staff } from "./costumes.js";
 //                wide at the far end, spec.color; glow 0..1.
 //   wallart      a framed painting on a wall (local xy plane, facing +z): spec.w x spec.h, spec.scene "hills" | "sea" |
 //                "forest", spec.frame colour. No letters.
-//   wallclock    a round wall clock with tick marks and two hands (no numbers), facing +z. spec.r (0.16).
+//   wallclock    a round wall clock with tick marks and two hands (no numbers), facing +z. spec.r (0.16). Opt-in: spec.hands false = no hands, no centre cap and bold ticks (spec.bold false: plain ticks); spec.rim = the rim colour ("#3c3a40").
 //                Opt-in: spec.time "H:MM" puts the hands at that time (hour hand (H%12)*30 + M/2 degrees, minute hand M*6,
 //                clockwise from 12; default: today's fixed hands, about 4:55); it is also a prop-state key, so a prop `set`
 //                { time: "8:59" } moves them at that moment (a string: it jumps, it doesn't tween). spec.hands "thin"
@@ -448,8 +448,9 @@ export const NOTYET_KINDS = {
   },
 
   wallclock(P) {
-    const R = P.spec.r ?? 0.16, rim = mat("#3c3a40", { roughness: 0.4 }), dial = mat(P.spec.dial ?? "#f4ecd8", { roughness: 0.8 }), ink = mat("#2a2a30");
-    const bold = P.spec.hands === "bold", k = R / 0.28;
+    const R = P.spec.r ?? 0.16, rim = mat(P.spec.rim ?? "#3c3a40", { roughness: 0.4 }), dial = mat(P.spec.dial ?? "#f4ecd8", { roughness: 0.8 }), ink = mat("#2a2a30");
+    // opt-in: hands: false = no hands and no centre cap, ticks bold (as hands "bold"; spec.bold false keeps them plain); spec.rim = the rim colour
+    const noHands = P.spec.hands === false, bold = P.spec.hands === "bold" || (noHands && P.spec.bold !== false), k = R / 0.28;
     const c1 = mesh(new THREE.CylinderGeometry(R, R, 0.04, 36), rim, P.whole); c1.rotation.x = Math.PI / 2;
     const c2 = mesh(new THREE.CylinderGeometry(R * 0.88, R * 0.88, 0.042, 36), dial, P.whole, 0, 0, 0.002); c2.rotation.x = Math.PI / 2;
     for (let i = 0; i < 12; i++) {
@@ -457,14 +458,15 @@ export const NOTYET_KINDS = {
       const tk = mesh(new THREE.BoxGeometry(bold ? (q ? 0.02 : 0.012) * k : 0.008, bold ? (q ? 0.06 : 0.036) * k : i % 3 ? 0.018 : 0.032, 0.004), ink, P.whole, Math.sin(a) * R * 0.74, Math.cos(a) * R * 0.74, 0.024); tk.rotation.z = -a; tk.castShadow = false;
     }
     // the hands hang from pivots at the centre (rotation.z = -angle, clockwise from 12), so a time can move them
-    const pivots = [[0.55, bold ? 0.034 * k : 0.014, 0.026], [0.78, bold ? 0.024 * k : 0.009, bold ? 0.0305 : 0.026]].map(([len, w, z]) => {
+    const pivots = noHands ? [] : [[0.55, bold ? 0.034 * k : 0.014, 0.026], [0.78, bold ? 0.024 * k : 0.009, bold ? 0.0305 : 0.026]].map(([len, w, z]) => {
       const g = new THREE.Group(); P.whole.add(g);
       const hnd = mesh(new THREE.BoxGeometry(w, R * len, 0.004), ink, g, 0, R * len / 2, z); hnd.castShadow = false; return g;
     });
-    if (bold) { const cap = mesh(new THREE.CylinderGeometry(0.02 * k, 0.02 * k, 0.004, 16), ink, P.whole, 0, 0, 0.0335); cap.rotation.x = Math.PI / 2; cap.castShadow = false; }
+    if (bold && !noHands) { const cap = mesh(new THREE.CylinderGeometry(0.02 * k, 0.02 * k, 0.004, 16), ink, P.whole, 0, 0, 0.0335); cap.rotation.x = Math.PI / 2; cap.castShadow = false; }
     const set = (time) => {
       const m = /^\s*(\d+):(\d+(?:\.\d+)?)\s*$/.exec(String(time));
       const [ha, ma] = m ? [(((+m[1]) % 12) * 30 + (+m[2]) * 0.5) * Math.PI / 180, (+m[2]) * 6 * Math.PI / 180] : [2.1, -0.5];
+      if (noHands) return;
       pivots[0].rotation.z = -ha; pivots[1].rotation.z = -ma;
     };
     set(P.spec.time);

@@ -1,0 +1,440 @@
+{
+ "id": "hellwait-bench",
+ "title": "Hell waiting room props bench",
+ "idea": "Props bench for Potato Desk 13 (task T13a), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#2a2024",
+  "floor": "none",
+  "para": 0,
+  "bloom": "emissive",
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "chip"
+  ],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.35,
+    0.03
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.35,
+    0.03
+   ],
+   "face": 0,
+   "expr": "eager",
+   "follow": 0.3,
+   "seed": 2.3
+  }
+ ],
+ "props": [
+  {
+   "id": "room",
+   "kind": "lobbyroom",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "w": 6.4,
+   "front": 9.5,
+   "holes": [
+    [
+     1.75,
+     2.75,
+     0,
+     1.58
+    ]
+   ]
+  },
+  {
+   "id": "door",
+   "kind": "reviewdoor",
+   "side": "hell",
+   "scale": 1.3,
+   "x": 2.25,
+   "y": 0,
+   "z": -1.3,
+   "inside": true,
+   "smoke": true,
+   "mat": false
+  },
+  {
+   "id": "clock",
+   "kind": "wallclock",
+   "x": 1,
+   "y": 2.05,
+   "z": -1.28,
+   "r": 0.26,
+   "dial": "#ead9c4",
+   "hands": false,
+   "rim": "#8a5a34"
+  },
+  {
+   "id": "glowfloor",
+   "kind": "lightpool",
+   "x": -2.4,
+   "y": 0.008,
+   "z": 1.2,
+   "w": 2.6,
+   "d": 1.8,
+   "color": "#ff7a1c",
+   "on": 0.55
+  },
+  {
+   "id": "couch",
+   "kind": "hellcouch",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "glow": 1,
+   "step": true
+  },
+  {
+   "id": "clipb",
+   "kind": "clipboard",
+   "x": 1.9,
+   "y": 0.45,
+   "z": 0.6,
+   "rot": 160,
+   "face": 1,
+   "flip": 0
+  },
+  {
+   "id": "pphone",
+   "kind": "pingphone",
+   "x": -0.22,
+   "y": 0.66,
+   "z": 0.45,
+   "scale": 1.8,
+   "count": 0
+  },
+  {
+   "id": "ball",
+   "kind": "crystalball",
+   "x": 0.72,
+   "y": 1,
+   "z": -0.42,
+   "glow": 1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "wide01",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.55,
+     1.3,
+     12.4
+    ],
+    "look": [
+     0.55,
+     1.52,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "couch",
+     "height": 0.32,
+     "feet": [
+      0.32,
+      0
+     ],
+     "along": -0.35,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "sit",
+     "seat": "couch",
+     "height": 0.32,
+     "feet": [
+      0.32,
+      0
+     ],
+     "along": 0.35,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pphone",
+     "set": {
+      "count": 3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "hero02",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.3,
+     0.95,
+     5
+    ],
+    "look": [
+     -0.35,
+     1.05,
+     0.2
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "star04",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.6,
+     1.5,
+     0.1
+    ],
+    "look": [
+     0.2,
+     0.87,
+     0.03
+    ],
+    "fov": 54
+   },
+   "do": []
+  },
+  {
+   "name": "chaos10",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.9,
+     9.6
+    ],
+    "look": [
+     0,
+     1.3,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "phone08",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.05,
+     0.92,
+     4.9
+    ],
+    "look": [
+     -0.12,
+     1.12,
+     0.2
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "ball09",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.55,
+     1.15,
+     6.6
+    ],
+    "look": [
+     0.12,
+     1.3,
+     -0.1
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door11",
+   "at": 6.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.6,
+     0.85,
+     5.6
+    ],
+    "look": [
+     1.89,
+     0.92,
+     1.36
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "side",
+   "at": 7.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.9,
+     0.5,
+     2.9
+    ],
+    "look": [
+     0,
+     0.45,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "clipb",
+     "set": {
+      "flip": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "clip",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     1.9,
+     0.95,
+     3.2
+    ],
+    "look": [
+     1.9,
+     0.6,
+     0.6
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "couch",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "glow0",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.6,
+     1.5,
+     0.1
+    ],
+    "look": [
+     0.2,
+     0.87,
+     0.03
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "couch",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/13-whos-in-your-hell/bench/make-hellwait-bench.mjs (props bench, no clip)."
+}
