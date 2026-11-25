@@ -2,8 +2,10 @@
 // The ledger of finished videos, docs/LEDGER.md (10 Nov 2026): one row per video, the same columns every time, so
 // "The improvement loop" in docs/rules/workflow.md can compare a video with an earlier one and test each fix.
 //
-//   node tools/ledger.mjs                 the fix on test and the last three rows (step 1 of the loop)
-//   node tools/ledger.mjs --all           every row
+//   node tools/ledger.mjs                 the two newest fixes on test and the last two rows (step 1 of the loop;
+//                                         on trial from 25 Nov 2026: the whole section was ~15,000 characters a read)
+//   node tools/ledger.mjs --fixes         every fix on test, and the last three rows (the read before 25 Nov)
+//   node tools/ledger.mjs --all           every fix and every row
 //   node tools/ledger.mjs --check         exits 1 when a row doesn't have every column
 //   node tools/ledger.mjs add --date 2026-11-12 --video <id> --s 21 --new "set, prop" --lookups 12 --layouts 6
 //        --fix-rounds 2 --unseen 1 --renders 1 --waits 3 --steps 240 --min 180 --machine 60
@@ -52,13 +54,21 @@ if (argv[0] === "add") {
   if (!bad.length) console.log(`ledger: ${rows.length} rows, all complete`);
   process.exit(bad.length ? 1 : 0);
 } else {
+  const full = argv[0] === "--all" || argv[0] === "--fixes";
   const fixAt = lines.findIndex((l) => l.startsWith("## Fix on test"));
   if (fixAt >= 0) {
     let j = fixAt + 1;
     while (j < lines.length && !lines[j].startsWith("## ")) j++;
-    console.log(lines.slice(fixAt, j).join("\n").trim() + "\n");
+    const sec = lines.slice(fixAt, j);
+    if (full) console.log(sec.join("\n").trim() + "\n");
+    else {
+      // a fix is a "- " line and the indented lines under it; the newest are last
+      const fixes = [];
+      for (const l of sec.slice(1)) { if (l.startsWith("- ")) fixes.push([l]); else if (fixes.length && /^\s+\S/.test(l)) fixes[fixes.length - 1].push(l); }
+      console.log(`## Fix on test (the newest 2 of ${fixes.length}; every one: node tools/ledger.mjs --fixes)\n\n${fixes.slice(-2).map((f) => f.join("\n")).join("\n")}\n`);
+    }
   }
-  for (const r of argv[0] === "--all" ? rows : rows.slice(-3)) {
+  for (const r of argv[0] === "--all" ? rows : rows.slice(full ? -3 : -2)) {
     const c = cells(r);
     console.log(`${c[0]}  ${c[1]}`);
     console.log("  " + HEAD.slice(2).map((h, k) => `${h}: ${c[k + 2]}`).join(" · "));
