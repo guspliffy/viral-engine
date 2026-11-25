@@ -39,7 +39,7 @@ const SEAT = { seat: "couch", height: 0.32, feet: [0.32, 0] };
 const SPUD_AL = -0.20, CHIP_AL = 0.52, WEDGE_AL = -1.08;   // Sol r1 #7: the chewer 6 cm right, his sprout off the Wizard's face   // squeezed from the start (no slides: a held pen slips on a slide)
 const SPUD0 = [SPUD_AL, 0.03];
 const D1 = [1.85, 0.70], D4 = [1.55, 1.50], DOORBOX = [2.25, -1.90];
-const WIZ = [0.30, -0.87], STEP_Y = 0.40;   // right of the hero's head as cam 09 sees it (layout 4)
+const WIZ = [0.24, -0.87], STEP_Y = 0.47;   // Sol r2 #7: up 7 cm, his eyes over the hero's head and the chewer's sprout (feet behind the couch back)   // right of the hero's head as cam 09 sees it (layout 4)
 const S15 = [0.78, 2.30];
 const MASH_IN = [2.25, -1.55];
 const PARK = { chip: [-30, 5], wedge: [-34, 5], wizard: [-38, 5], mash: [-42, 5], devil: [-46, 5] };
@@ -57,8 +57,8 @@ const cast = [
 // ---------------------------------------------------------------- props
 const at3 = (x, y, z) => ({ x: r3(x), y: r3(y), z: r3(z) });
 const PEN_AT = [r3(SPUD_AL + 0.19), 0.50, 0.40];   // the pen's felt end, in front of his belly on his right (screen left... his R hand)
-const PEN = { id: "pen", kind: "feltpen", scale: 1.7, color: "#d9342b", cap: "#c9ced6", felt: "#1d1a20", ...grips.placeFor("feltpen", PEN_AT, 0) };
-const PEN2_AT = [r3(S15[0] - 0.06), 0.30, r3(S15[1] + 0.42)];   // Sol r1 #3: his right hand again (as seated), in to the middle so it shows   // up in front of his belly: the payoff prop reads (stills 1)   // standing (shot 15): the same hand, lower
+const PEN = { id: "pen", staged: "in his right hand until the last shot, then let go under the world (he holds pen2 there)", kind: "feltpen", scale: 1.7, color: "#d9342b", cap: "#c9ced6", felt: "#1d1a20", ...grips.placeFor("feltpen", PEN_AT, 0) };
+const PEN2_AT = [r3(S15[0] - 0.12), 0.19, r3(S15[1] + 0.42)];   // draft 4: chest low, its end under his eye   // draft 4: on his right side, chest low, clear of his eye   // Sol r1 #3: his right hand again (as seated), in to the middle so it shows   // up in front of his belly: the payoff prop reads (stills 1)   // standing (shot 15): the same hand, lower
 const PEN2 = { staged: "parked under the world until a hand takes it on a cut", id: "pen2", kind: "feltpen", scale: 1.7, color: "#d9342b", cap: "#c9ced6", felt: "#1d1a20", ...grips.placeFor("feltpen", [PEN2_AT[0], AWAY, PEN2_AT[2]], 5) };
 const PP_AT = [r3(SPUD_AL + 0.34), 0.50, 0.42];   // his phone, shot 08: up in his left hand, screen to the lens
 const PPHONE = { staged: "parked under the world until a hand takes it on a cut", id: "pphone", kind: "pingphone", scale: 1.8, count: 0, ...grips.placeFor("pingphone", [PP_AT[0], AWAY, PP_AT[2]], 0, { turn: 180 }) };
@@ -73,8 +73,8 @@ const props = [
   { id: "door", staged: "set in the back wall", kind: "reviewdoor", ...at3(2.25, 0, -1.30), side: "hell", scale: 1.3, inside: true, smoke: true, mat: false, open: 0, glow: 0 },
   { id: "clock", staged: "hung on the back wall", kind: "wallclock", ...at3(1.00, 2.05, -1.28), r: 0.26, dial: "#ead9c4", hands: false, rim: "#8a5a34" },
   { id: "lava", staged: "light on the floor from the lava off screen", kind: "lightpool", ...at3(-2.40, 0.008, 1.20), w: 2.6, d: 1.8, color: "#ff7a1c", on: 0.55 },
-  { id: "feet1", staged: "shadow on the floor under the door", kind: "shadowpool", ...at3(2.08, AWAY, -1.16), w: 0.24, d: 0.14 },
-  { id: "feet2", staged: "shadow on the floor under the door", kind: "shadowpool", ...at3(2.42, AWAY, -1.16), w: 0.24, d: 0.14 },
+  { id: "feet1", staged: "shadow on the floor under the door", kind: "shadowpool", ...at3(2.10, AWAY, -1.10), w: 0.28, d: 0.18 },
+  { id: "feet2", staged: "shadow on the floor under the door", kind: "shadowpool", ...at3(2.40, AWAY, -1.10), w: 0.28, d: 0.18 },
   { id: "couch", staged: "stands on the floor", kind: "hellcouch", ...at3(0, 0, 0), glow: 0, step: true },
   { id: "ball", staged: "rests on the couch's back roll", kind: "crystalball", ...at3(0.88, AWAY, -0.43), glow: 1 },
   PEN, PEN2, PPHONE, CLIPB,
@@ -86,8 +86,8 @@ const props = [
 
 // ---------------------------------------------------------------- helpers
 const SUB = 470;
-const CAPROW = { 2: 680, 15: 600 };   // Sol r1 #15: clear of the clock in shots 03 and 11   // captions: rows 470-640 (DESIGN §0), under the in-app label band
-const CAPTEXT = { 0: "Welcome to *HELL.*", 2: "One rule. *Forever...* with everyone who ever annoyed you.", 4: "...is for *the worst one.*", 9: "I'm *DEAD.* Why do I still have a phone?", 14: "I'm *ALREADY* dead!", 19: "You're *his* hell.", 21: "*NOT THE PEN!*" };
+const CAPROW = { 2: 300, 11: 300, 13: 300, 15: 300, 17: 300 };   // Sol r2 #14-16: in the clear wall above the clock, the door trim and the hat   // Sol r1 #15: clear of the clock in shots 03 and 11   // captions: rows 470-640 (DESIGN §0), under the in-app label band
+const CAPTEXT = { 0: "Welcome to *HELL.*", 2: "One rule. *Forever...* with everyone who ever annoyed you.", 4: "...is for *the worst one.*", 9: "I'm *DEAD.* Why do I still have a phone?", 14: "I'm *ALREADY* dead!", 15: "And the\n*worst* one...", 19: "You're *his* hell.", 21: "*NOT THE PEN!*" };
 const say = (i, at, extra = {}) => {
   T[i] = r3(at);
   const [who, line, tone, style, o = {}] = LINES[i];
@@ -125,7 +125,7 @@ const WP_HANDS = { R: { x: [-0.065, 0.42, 0.33] }, L: { x: [0.065, 0.42, 0.33] }
 // ---------------------------------------------------------------- cameras (DESIGN §0): every shot pushes in, linear, over its length
 const CAM = {
   1: { pos: [0.55, 1.30, 12.4], look: [0.55, 1.52, 0], fov: 32, push: [0.55, 1.30, 11.5] },
-  "1b": { pos: [0.55, 1.22, 10.6], look: [0.55, 1.20, 0], fov: 32, push: [0.55, 1.20, 9.9] },   // the seats: a step closer than 01, lower
+  "1b": { pos: [0.80, 1.22, 10.6], look: [0.80, 1.20, 0], fov: 32, push: [0.80, 1.20, 9.9] },   // draft 4: the Devil whole, his point reads (Sol r2 #2)   // the seats: a step closer than 01, lower
   2: { pos: [0.30, 0.95, 5.0], look: [-0.35, 1.05, 0.2], fov: 20, push: [0.24, 0.96, 4.6] },
   3: { pos: [1.30, 0.50, 7.0], look: [1.62, 1.02, 0.7], fov: 28, push: [1.33, 0.52, 6.5] },
   4: { pos: [0.30, 0.86, 5.6], look: [0.30, 0.70, 0.0], fov: 32, push: [0.30, 0.85, 5.2] },   // low and frontal: him on the left, the glowing empty star seat on the right (stills: the design's view from above hid his face)   // the star seat in front, his face turned to it (stills 1: from above the right end his face was hidden)
@@ -133,12 +133,13 @@ const CAM = {
   6: { pos: [0.45, 1.15, 6.8], look: [-0.02, 1.00, 0.15], fov: 24, push: [0.41, 1.14, 6.3] },
   7: { pos: [-0.95, 0.80, 8.0], look: [-0.56, 1.25, 0.1], fov: 30, push: [-0.92, 0.83, 7.5] },   // 0.2 left of the design: the reply-all guy was cut by the edge
   8: { pos: [-0.05, 0.92, 4.9], look: [-0.12, 1.12, 0.2], fov: 20, push: [-0.06, 0.93, 4.55] },
-  9: { pos: [0.55, 1.50, 6.6], look: [0.12, 1.28, -0.1], fov: 24, push: [0.50, 1.50, 6.1] },   // 1.32, not 1.15: over the chewer's head to the Wizard's face (layout 2)
+  "8i": { pos: [-0.05, 0.92, 4.9], look: [-0.04, 0.72, 0.3], fov: 17, push: [-0.05, 0.91, 4.6] },   // Sol r2 #24: a punch-in on his face and the phone for the 2nd and 3rd ping   // the phone insert
+  9: { pos: [0.55, 1.50, 6.6], look: [0.06, 1.46, -0.1], fov: 24, push: [0.50, 1.50, 6.1] },   // 1.32, not 1.15: over the chewer's head to the Wizard's face (layout 2)
   "2b": { pos: [-0.70, 0.95, 5.0], look: [-0.10, 1.05, 0.0], fov: 22, push: [-0.65, 0.96, 4.6] },   // "Who?": from his other side, the Wizard behind his shoulder
-  "9b": { pos: [0.50, 1.50, 6.1], look: [0.12, 1.28, -0.1], fov: 22, push: [0.46, 1.50, 5.7] },   // the Wizard again, a step closer
+  "9b": { pos: [0.64, 1.50, 6.1], look: [0.10, 1.46, -0.1], fov: 22, push: [0.60, 1.50, 5.7] },   // the Wizard again, a step closer
   10: { pos: [0, 1.90, 9.6], look: [0, 1.30, 0], fov: 34, push: [0, 1.84, 9.0] },
   11: { pos: [2.20, 0.85, 5.6], look: [1.89, 0.92, 1.36], fov: 30, push: [2.16, 0.85, 5.3] },   // draft 3: from further left, so the Wizard's staff stands clear of the Devil's head
-  12: { pos: [-0.30, 0.75, 8.0], look: [-0.28, 1.10, 0.05], fov: 30, push: [-0.30, 0.77, 7.6] },   // Sol r1 #5: wider, all three reactions in
+  12: { pos: [-0.42, 0.75, 8.6], look: [-0.34, 1.12, 0.05], fov: 37, push: [-0.38, 0.77, 8.2] },   // the hero's left neighbour and the Wizard's hat both in   // Sol r1 #5: wider, all three reactions in
   13: { pos: [2.30, 0.90, 7.2], look: [1.07, 1.09, 1.52], fov: 30, push: [2.22, 0.91, 6.86] },   // draft 3: the staff clear of the Devil's head
   14: { pos: [-0.90, 0.95, 9.3], look: [0.78, 1.43, 0.17], fov: 33, push: [-0.79, 0.98, 8.75] },   // Sol r1 #3: he stands up in it, so the whole hero in frame
   15: { pos: [0.35, 0.50, 6.3], look: [1.28, 1.20, 1.44], fov: 32, push: [0.41, 0.55, 5.96] },
@@ -186,7 +187,7 @@ look(S3, "spud", [0.7, 0.1], 0.01);
 arm(S3, "devil", "both", { o: [0.28, 0.70, 0.18] }, 0.6);
 expr(S3, "devil", "evil", 0.2);
 t = say(2, r3(S3 + 0.1));   // One rule. Forever... with everyone who ever annoyed you.
-arm(r3(T[2] + 1.3), "devil", "both", { o: [0.22, 0.50, 0.26] }, 0.5);   // Sol r1 #17: the arms come in on "with everyone"
+arm(r3(T[2] + 0.75), "devil", "R", { o: [0.25, 0.60, 0.24] }, 0.5); arm(r3(T[2] + 1.3), "devil", "both", { o: [0.22, 0.50, 0.26] }, 0.45);   // Sol r2 #17: one arm starts down in the "Forever..." pause   // Sol r1 #17: the arms come in on "with everyone"
 see(S3, t, ["devil.face"], "the rule: forever, with everyone who ever annoyed you");
 
 // ================================================================ 2 THE SEATS (01b, 04)
@@ -197,44 +198,46 @@ arm(S3b, "devil", "L", "rest", 0.01); grip(S3b, "devil", "L", "relaxed", 0.01);
 arm(S3b, "devil", "R", "rest", 0.01); grip(S3b, "devil", "R", "relaxed", 0.01);
 t = say(3, r3(S3b + 0.1));   // Two seats left. And this one...
 // Sol r1 #2: "Two seats left": up and over the couch at the far seats, then down at the one by him; the star only on "this one" (shot 04)
-arm(r3(T[3] + 0.05), "devil", "R", { o: [0.18, 0.80, 0.40] }, 0.25, "out"); grip(r3(T[3] + 0.1), "devil", "R", "point", 0.1);
+turn(T[3], "devil", -85, 0.2);   // Sol r2 #2: to the far seats, past the hero, first
+arm(r3(T[3] + 0.05), "devil", "R", { o: [0.10, 0.75, 0.45] }, 0.25, "out"); grip(r3(T[3] + 0.1), "devil", "R", "point", 0.1);
+turn(r3(T[3] + 0.55), "devil", -40, 0.2);
 arm(r3(T[3] + 0.55), "devil", "R", { o: [0.28, 0.48, 0.36] }, 0.25);
 see(S3b, r3(T[3] + 0.95), ["devil.face", "spud.face", "couch"], "two seats left beside him");
 
 const S4 = shot("star", r3(T[3] + 1.0), 4);
 place(S4, "devil", [2.55, 1.60], -40);   // D3: out of the way of this camera
 arm(S4, "devil", "R", "rest", 0.01); grip(S4, "devil", "R", "relaxed", 0.01);
-c.prop(S4, "couch", { glow: 1 }, 0.4, "out");
+c.prop(S4, "couch", { glow: 1 }, 1.0, "inOut");   // Sol r2 #18: builds through the pause
 sfx(S4, "magic-up", { gain: 0.35 });
 look(r3(S4 + 0.1), "spud", [0.6, -0.35], 0.25);   // to the star seat on his left
 expr(r3(S4 + 0.3), "spud", "terrified", 0.2, { open: 0.1 });
 t = say(4, r3(Math.max(END_OF(3) + 0.05, S4 + 0.15)));   // ...is for the worst one.
-A(r3(t + 0.05), "spud", "squash", { amount: 0.06, dur: 0.25 });   // the gulp
-sfx(r3(t + 0.05), "ai/blep", { gain: 0.35 });
+A(r3(t - 0.3), "spud", "squash", { amount: 0.06, dur: 0.25 });   // the gulp, on "worst one" (Sol r2 #18)
+sfx(r3(t - 0.3), "ai/blep", { gain: 0.35 });
 c.prop(r3(t + 0.2), "couch", { glow: 0.3 }, 0.4);
 see(S4, t, ["spud.face", "couch"], "the empty star seat is for the worst one");
 
 // ================================================================ 3 THE CHEWER (05, 06)
 const S5 = shot("chewer", r3(t + 0.25), 5);
 const BANG1 = r3(S5 + 0.1);
-c.prop(BANG1, "door", { open: 1 }, 0.3, "out");   // Sol r1 #9: a visible swing
+c.prop(BANG1, "door", { open: 1 }, 0.45, "out");   // Sol r1 #9: a visible swing
 sfx(BANG1, "door-slam", { gain: 0.8 });
 showWho(BANG1, "chip");
 look(BANG1, "spud", [0.9, 0.1], 0.15); expr(BANG1, "spud", "shocked", 0.15, { open: 0.1 });
-step(r3(BANG1 + 0.05), "chip", [2.15, -0.40], 0.45);
-step(r3(BANG1 + 0.5), "chip", [1.40, 1.0], 0.38);   // round the couch's end, not through its arm
-step(r3(BANG1 + 0.88), "chip", [r3(CHIP_AL + 0.06), 0.68], 0.3);   // to the front of his seat: the sit goes straight down
-turn(r3(BANG1 + 0.95), "chip", 0, 0.22);   // Sol r1 #1: he turns to sit, the cut lands on the way down
+step(r3(BANG1 + 0.05), "chip", [2.15, -0.40], 0.4);
+step(r3(BANG1 + 0.45), "chip", [1.40, 1.0], 0.3);   // round the couch's end, not through its arm (Sol r2 #19: quicker)
+step(r3(BANG1 + 0.75), "chip", [r3(CHIP_AL + 0.06), 0.68], 0.28);   // to the front of his seat: the sit goes straight down
+turn(r3(BANG1 + 0.78), "chip", 0, 0.22);   // Sol r1 #1: he turns to sit, the cut lands on the way down
 look(BANG1, "chip", [-0.3, -0.3], 0.01); expr(BANG1, "chip", "happy", 0.01);
 crunch(r3(BANG1 + 0.55));
-c.prop(r3(BANG1 + 0.75), "door", { open: 0 }, 0.4, "in");
-sfx(r3(BANG1 + 1.1), "door-close", { gain: 0.5 });
+c.prop(r3(BANG1 + 0.6), "door", { open: 0 }, 0.5, "inOut");
+sfx(r3(BANG1 + 1.05), "door-close", { gain: 0.5 });
 see(BANG1, r3(BANG1 + 1.0), ["chip", "door", "spud.face"], "the first arrival: a chewer with a popcorn bucket");
 
-const S6 = shot("chewing", r3(BANG1 + 1.3), 6);   // Sol r1 #19: the door shot ends as he sits
-A(r3(S6 - 0.12), "chip", "sit", { ...SEAT, along: CHIP_AL, dur: 0.32, hands: "keep" });   // down across the cut
-c.prop(r3(S6 - 0.12), "bucket", BUCKET_LAP, 0.32);
-bucketHands(r3(S6 - 0.12), BUCKET_LAP, 0.32);
+const S6 = shot("chewing", r3(BANG1 + 1.15), 6);   // Sol r1 #19: the door shot ends as he sits
+A(r3(S6 - 0.17), "chip", "sit", { ...SEAT, along: CHIP_AL, dur: 0.37, hands: "keep" });   // Sol r2 #3: the descent starts in the door shot   // down across the cut
+c.prop(r3(S6 - 0.17), "bucket", BUCKET_LAP, 0.37);
+bucketHands(r3(S6 - 0.17), BUCKET_LAP, 0.37);
 A(r3(S6 + 0.2), "chip", "lean", { to: 6, dur: 0.25 });   // leans in to him (lean +: the top toward -x)
 look(S6, "chip", [-0.4, -0.2], 0.01); expr(S6, "chip", "happy", 0.01);
 look(S6, "spud", [0.8, -0.1], 0.01); expr(S6, "spud", "annoyed", 0.01, { open: 0.1 });
@@ -248,7 +251,7 @@ c.prop(r3(S6 + 0.3), "crumbs", { fill: 0.4 }, 0.6, "linear");
 c.prop(r3(S6 + 0.3), "floorpile", { fill: 0.3 }, 0.8, "linear");
 t = say(5, r3(S6 + 0.6));   // Could you chew... quieter?   (Sol r1 #20: one crunch, then the line)
 look(r3(T[5] - 0.1), "spud", [0.6, -0.15]);
-look(r3(t - 0.3), "chip", [-0.7, 0.05], 0.15);   // Sol r1 #21: a sideways glance at him before "Nope."
+look(r3(t - 0.25), "chip", [-0.9, 0.1], 0.12);   // Sol r2 #20: straight at him   // Sol r1 #21: a sideways glance at him before "Nope."
 expr(r3(t + 0.05), "chip", "smug", 0.15);
 t = say(6, r3(t + 0.2));   // Nope.
 crunch(r3(t + 0.1), 1.0); rain(r3(t + 0.15), 8);
@@ -258,37 +261,37 @@ A(r3(t + 0.2), "spud", "face", { lid: 0.6, dur: 0.15 });
 see(S6, r3(t + 0.5), ["spud.face", "chip.face", "bucket"], "Could you chew quieter? Nope. Crunch.");
 
 // ================================================================ 4 REPLY ALL (07, 08)
-const BANG2 = r3(t + 0.25);
+const BANG2 = r3(t + 0.12);
 sfx(BANG2, "door-slam", { gain: 0.75 });   // off screen: the door bangs again
 A(BANG2, "spud", "face", { lid: 1, dur: 0.08 }); A(r3(BANG2 + 0.25), "spud", "face", { lid: 0.45, dur: 0.15 });
-const S7 = shot("reply all", r3(BANG2 + 0.08), 7);
+const S7 = shot("reply all", r3(BANG2 + 0.04), 7);
 unparkWedge(S7);
 function unparkWedge(tt) {
   showWho(tt, "wedge");
-  place(tt, "wedge", [0.95, 1.15], -90);   // Sol r1 #23: enters at the frame's edge, a shorter crossing
+  place(tt, "wedge", [0.72, 1.15], -90);   // Sol r2 #21: in view on the first step   // Sol r1 #23: enters at the frame's edge, a shorter crossing
   for (const s of ["R", "L"]) arm(tt, "wedge", s, WP_HANDS[s], 0.01);
   grip(tt, "wedge", "both", "hold", 0.01);
   look(tt, "wedge", [0, -0.9], 0.01); expr(tt, "wedge", "deadpan", 0.01);
   A(tt, "wedge", "face", { lid: 0.4, dur: 0.01 });
 }
 look(S7, "spud", [0.6, 0], 0.01); look(S7, "chip", [0.6, 0], 0.01);
-step(r3(S7 + 0.02), "wedge", [r3(WEDGE_AL), 1.15], 1.0);   // the lane clear of his pen hand
-turn(r3(S7 + 1.0), "wedge", 0, 0.25);   // Sol r1 #10: a visible turn to the couch, a step back, then down onto it
-step(r3(S7 + 1.05), "wedge", [r3(WEDGE_AL), 0.60], 0.3, { ease: "out", steps: 3 });   // a shuffle back, facing the room (the gait would face the walk: his back to the camera)
-const WSIT = r3(S7 + 1.4);
+step(r3(S7 + 0.02), "wedge", [r3(WEDGE_AL + 0.35), 1.15], 0.85);   // the gait carries him ~0.3 past the mark (layout)   // the lane clear of his pen hand; Sol r2 #10 #22: a plain walk (the gait path overshot 40 cm past the camera and showed his back), quicker
+turn(r3(S7 + 0.72), "wedge", 0, 0.45);   // slow enough for his hands (palm-turn)   // Sol r1 #10: a visible turn to the couch, a step back, then down onto it
+step(r3(S7 + 0.88), "wedge", [r3(WEDGE_AL), 0.60], 0.3, { ease: "out", steps: 3 });   // a shuffle back, facing the room (the gait would face the walk: his back to the camera)
+const WSIT = r3(S7 + 1.2);
 A(WSIT, "wedge", "sit", { ...SEAT, along: WEDGE_AL, dur: 0.45, hands: "keep" });
 c.prop(WSIT, "wphone", { y: 0.06, z: 0.42, tip: -55 }, 0.45);   // seated: the phone down at his chest, off his face (stills 1)
 for (const sd of ["R", "L"]) arm(WSIT, "wedge", sd, { x: [sd === "R" ? -0.065 : 0.065, 0.10, 0.42] }, 0.45);   // draft 1: higher, the phone covered his face from the low camera
-look(r3(S7 + 0.3), "spud", [-0.2, -0.1], 0.3); look(r3(S7 + 0.8), "spud", [-0.7, 0], 0.3);
-crunch(r3(S7 + 0.6), 0.6); rain(r3(S7 + 0.65), 4);
+look(r3(S7 + 0.2), "spud", [-0.2, -0.1], 0.3); look(r3(S7 + 0.6), "spud", [-0.7, 0], 0.3);
+crunch(r3(S7 + 0.45), 0.6); rain(r3(S7 + 0.5), 4);
 expr(r3(S7 + 0.3), "spud", "deadpan", 0.2);
-t = say(7, r3(WSIT + 0.5));   // Reply all.
-A(r3(T[7] + 0.4), "wedge", "tap", { count: 2, every: 0.18, side: "R", lift: 0.01 });
+t = say(7, r3(WSIT + 0.45));   // Reply all.
+A(r3(T[7] + 0.2), "wedge", "tap", { count: 2, every: 0.15, side: "R", lift: 0.01 });
 see(S7, t, ["wedge.face", "spud.face", "chip.face", "wphone"], "the second arrival squeezes in on his other side, on his phone");
 
-const S8 = shot("thanks", r3(t + 0.05), 8);
+const S8 = shot("thanks", r3(t - 0.1), 8);   // Sol r2 #23: from Send straight to his phone
 // Sol r1 #8: the phone comes up from his lap into the close-up
-const PP_LAP = [r3(PP_AT[0] + 0.03), 0.40, 0.43];   // beside the pen hand, not through it
+const PP_LAP = [PP_AT[0], r3(PP_AT[1] - 0.06), PP_AT[2]];   // beside the pen hand, not through it
 c.prop(r3(S8 - 0.016), "pphone", { y: PP_LAP[1], z: PP_LAP[2] }, 0);
 const hpp = grips.phone(c, "spud", { ...PPHONE, y: PP_LAP[1], z: PP_LAP[2] }, { side: "L" });
 hpp.take(r3(S8 - 0.015), { reach: 0.005, settle: 0.005 });
@@ -298,6 +301,9 @@ A(S8, "spud", "face", { lid: 0.45, dur: 0.01 });
 t = say(8, r3(S8 + 0.1));   // Thanks. Thanks. THANKS!
 const PINGS = [r3(T[8] + 0.12), r3(T[8] + 0.68), r3(T[8] + 1.25)];
 PINGS.forEach((p, k) => { c.prop(p, "pphone", { count: k + 1 }, 0.13, "out"); sfx(p, "notify", { gain: 0.5 + 0.1 * k }); A(p, "spud", "face", { lid: 0.45 + 0.12 * (k + 1), dur: 0.08 }); });
+// Sol r2 #24: an insert on the phone from the 2nd ping, back to him for "I'm DEAD"
+shot("ping", r3(PINGS[1] - 0.06), "8i");
+shot("dead", r3(END_OF(8) + 0.02), 8);
 look(r3(END_OF(8) + 0.05), "spud", [0, 0.05], 0.2);   // to us
 expr(r3(END_OF(8) + 0.05), "spud", "annoyed", 0.15, { open: 0.1 });
 t = say(9, r3(END_OF(8) + 0.2));   // I'm DEAD. Why do I still have a phone?
@@ -306,7 +312,7 @@ see(S8, t, ["spud.face", "pphone"], "three reply-all pings on his phone: I'm dea
 
 // ================================================================ 5 SPOILERS, CHAOS (09, 2b, 9b, 10)
 const S9 = shot("spoiler", r3(t + 0.15), 9);
-showWho(S9, "wizard"); showProp(r3(S9 - 0.02), "ball", 0.95);
+showWho(r3(S9 + 0.15), "wizard"); showProp(r3(S9 + 0.13), "ball", 0.95);   // Sol r2 #6: he appears inside the puff, not before it
 A(r3(S9 - 0.4), "wizard", "crouch", { to: 0.2, dur: 0.01 }); A(r3(S9 + 0.12), "wizard", "crouch", { to: 0, dur: 0.3 }); A(r3(S9 + 0.2), "wizard", "pitch", { to: 12, dur: 0.3 });   // Sol r1 #6: up out of the puff into the lean
 arm(S9, "wizard", "R", { x: [-0.28, 0.32, 0.42] }, 0.01);   // his glove on the back's top roll (draft 1: the forearm crossed his eyes)
 look(S9, "wizard", [-0.6, -0.2], 0.01); expr(S9, "wizard", "smug", 0.01);
@@ -327,7 +333,7 @@ const S9c = shot("everyone", r3(t + 0.12), "9b");
 look(S9c, "wizard", [-0.3, -0.2], 0.01); expr(S9c, "wizard", "delighted", 0.01);
 t = say(13, r3(S9c + 0.1));   // Everyone. In every movie you haven't seen.
 c.prop(T[13], "ball", { glow: 1.4 }, 0.1, "out"); c.prop(r3(T[13] + 0.2), "ball", { glow: 1 }, 0.3);
-A(r3(T[13] + 0.9), "wizard", "pitch", { to: 18, dur: 0.4 });   // Sol r1 #27: closer on "In every movie"
+A(r3(T[13] + 0.9), "wizard", "pitch", { to: 15, dur: 0.4 });   // Sol r1 #27: closer on "In every movie"
 sfx(T[13], "ai/magic-zap", { gain: 0.25 });
 see(S9c, t, ["wizard.face", "spud.face"], "everyone dies in every film you haven't seen");
 
@@ -338,7 +344,10 @@ sfx(r3(S10 + 0.12), "notify", { gain: 0.45 });
 c.prop(r3(S10 + 0.08), "ball", { glow: 1.4 }, 0.1, "out"); c.prop(r3(S10 + 0.4), "ball", { glow: 1 }, 0.3);
 c.prop(r3(S10 + 0.1), "floorpile", { fill: 0.8 }, 0.6, "linear");
 t = say(14, r3(S10 + 0.2));   // I'm ALREADY dead!
+hpp.carry(r3(T[14] + 0.5), [r3(PP_AT[0] + 0.02), 0.30, 0.44], 0.35, "inOut");   // Sol r2 #11: the phone goes down to his lap (gone, off screen, by the flinch)
 A(T[14], "spud", "squash", { amount: -0.08, dur: 0.3 });   // he swells as he snaps
+for (const [w, dir] of [["chip", -1], ["wedge", 1]]) { A(r3(T[14] + 0.3), w, "lean", { to: (w === "chip" ? 6 : 0) + dir * 14, dur: 0.08 }); A(r3(T[14] + 0.55), w, "lean", { to: w === "chip" ? 6 : 0, dur: 0.25 }); }   // Sol r2 #25: a real flinch away
+A(r3(T[14] + 0.3), "wizard", "pitch", { to: 2, dur: 0.08 }); A(r3(T[14] + 0.55), "wizard", "pitch", { to: 15, dur: 0.3 });
 for (const w of ["chip", "wedge", "wizard"]) A(r3(T[14] + 0.3), w, "squash", { amount: 0.12, dur: 0.25 });   // Sol r1 #28: all three jolt on "already"
 const SHAKES = [{ do: "shake", at: r3(T[14] + 0.05), dur: 0.35, amp: 0.02 }];
 see(S10, t, ["spud.face", "chip.face", "wedge.face", "wizard.face", "couch"], "all three at once: I'm ALREADY dead!");
@@ -371,7 +380,8 @@ const FLINCH = [r3(S12 + 0.1), r3(S12 + 0.35), r3(S12 + 0.6)];
 for (const f of FLINCH) {
   click(f, 0.9);
   for (const [who, dir] of [["chip", -1], ["wedge", 1], ["wizard", -1]]) {   // each away from him
-    A(r3(f + 0.05), who, "lean", { to: (who === "chip" ? 6 : 0) + dir * 10, dur: 0.05 });   // Sol r1 #5: a clear lean away
+    A(r3(f + 0.05), who, "lean", { to: (who === "chip" ? 6 : 0) + dir * 14, dur: 0.1 });   // Sol r1 #5, r2 #8: a clear lean away
+    A(r3(f + 0.05), who, "squash", { amount: 0.1, dur: 0.18 });
     A(r3(f + 0.05), who, "face", { lid: 1, dur: 0.04 });
     A(r3(f + 0.2), who, "lean", { to: who === "chip" ? 6 : 0, dur: 0.15 });
     A(r3(f + 0.22), who, "face", { lid: who === "wedge" ? 0.4 : 0, dur: 0.1 });
@@ -383,21 +393,22 @@ see(S12, t, ["spud.face", "chip.face", "wedge.face", "wizard.face", "pen"], "he 
 // ================================================================ 7 WRONG PAGE (13, 14)
 const S13 = shot("wrong page", r3(t + 0.2), 13);
 place(S13, "devil", D4, 14);
-hc.carry(r3(S13 - 0.02), CLIP_AT(D4, 14, 0.16), 0.01, "linear");   // Sol r1 #11: lower, the page swings under his mouth
+hc.carry(r3(S13 - 0.02), CLIP_AT(D4, 14, 0.10), 0.01, "linear");   // Sol r1 #11: lower, the page swings under his mouth
 look(S13, "devil", [0, -0.4], 0.01); expr(S13, "devil", "annoyed", 0.01);
-c.prop(r3(S13 + 0.05), "clip", { flip: 1 }, 0.5, "inOut");
-sfx(r3(S13 + 0.05), "ai-package/cardboard-rustle", { gain: 0.45 });
+c.prop(r3(S13 - 0.02), "clip", { flip: 1 }, 0.5, "inOut");   // Sol r2 #26: the turn is under way on the cut
+sfx(r3(S13), "ai-package/cardboard-rustle", { gain: 0.45 });
 look(r3(S13 + 0.1), "devil", [0, -0.5], 0.15);
-t = say(17, r3(S13 + 0.6));   // Hm. Wrong page.
+t = say(17, r3(S13 + 0.45));   // Hm. Wrong page.
 look(S13, "spud", [0.6, 0.1], 0.01); expr(S13, "spud", "shocked", 0.01, { open: 0.1 });
 see(S13, t, ["devil.face", "clip"], "the Devil flips the page: wrong page");
 
-const S14 = shot("verdict", r3(t + 0.15), 14);
+const S14 = shot("verdict", r3(t + 0.02), 14);
 place(S14, "devil", D4, -55);   // Sol r1 #14: turned to the hero, so the point lands on him
 hc.carry(r3(S14 - 0.02), CLIP_AT(D4, -55), 0.01, "linear");
 look(S14, "devil", [-0.7, 0], 0.01); expr(S14, "devil", "delighted", 0.01);
 look(S14, "spud", [0.7, 0.15], 0.01); expr(S14, "spud", "eager", 0.01, { open: 0.1 });
 t = say(18, r3(S14 + 0.1));   // I'm free?
+step(r3(S14 + 0.1), "devil", [1.25, 1.62], 0.45);   // Sol r2 #5: a step to him, so the point lands on him, not the star
 const POINT = r3(t + 0.05);
 arm(POINT, "devil", "R", { o: [0.12, 0.60, 0.42] }, 0.2, "out"); grip(POINT, "devil", "R", "point", 0.1);
 expr(POINT, "devil", "evil", 0.15);
@@ -406,12 +417,12 @@ arm(r3(t + 0.05), "devil", "R", { o: [0.22, 0.85, -0.10] }, 0.25); grip(r3(t + 0
 expr(r3(T[19] + 0.4), "spud", "sad", 0.2, { open: 0.1 });
 
 const SOFT = r3(t + 0.25);
-c.prop(SOFT, "door", { open: 1, glow: 0 }, 0.6, "inOut");
+c.prop(r3(t + 0.08), "door", { open: 1, glow: 0 }, 0.75, "inOut");   // Sol r2 #9: starts under the thumb, a slow swing
 // Sol r1 #3: he gets up in the wide ("free"), the pen in the same hand
 A(r3(T[19] + 0.5), "spud", "stand", { dur: 0.4 });
 step(r3(T[19] + 0.55), "spud", [SPUD_AL, 0.66], 0.4, { ease: "out", steps: 3 });
 arm(r3(T[19] + 0.45), "spud", "L", SPUD_L, 0.45);   // up and a step off the couch
-hp.carry(r3(T[19] + 0.45), [r3(SPUD_AL + 0.20), 0.40, 1.0], 0.4, "out");   // the pen leads, out of the body's way as he rises
+hp.carry(r3(T[19] + 0.45), [r3(SPUD_AL + 0.20), 0.42, 1.04], 0.4, "out");   // Sol r2 #4: in view in front of him   // the pen leads, out of the body's way as he rises
 expr(r3(T[18] + 0.2), "spud", "happy", 0.2, { open: 0.1 });
 sfx(SOFT, "door-creak", { gain: 0.5 });
 hideProp(SOFT, "feet1"); hideProp(SOFT, "feet2");
@@ -435,13 +446,14 @@ sitAt(S15c, "wedge", -0.84); sitAt(S15c, "chip", 0.26);   // they sag into his g
 t = say(20, r3(S15c + 0.15));   // Hey, buddy!
 for (let k = 0; k < 3; k++) arm(r3(T[20] + k * 0.2), "mash", "R", { o: [k % 2 ? 0.10 : 0.26, 1.0, 0.12] }, 0.2);   // Sol r1 #13: a clear wave
 // Sol r1 #4: the pen comes up to his chest, one big readable click, then the friend recoils
-const PEN2_UP = [r3(PEN2_AT[0] - 0.04), r3(PEN2_AT[1] + 0.05), r3(PEN2_AT[2] + 0.04)];   // chest high, below his eyes
+const PEN2_UP = [PEN2_AT[0], r3(PEN2_AT[1] + 0.03), r3(PEN2_AT[2] + 0.05)];   // chest high, below his eyes
 hp2.carry(r3(t - 0.1), PEN2_UP, 0.25, "out");
 const LAST = r3(t + 0.2);
-hp2.carry(LAST, [PEN2_UP[0], r3(PEN2_UP[1] - 0.02), PEN2_UP[2]], 0.1, "out");
-hp2.carry(r3(LAST + 0.1), PEN2_UP, 0.1, "in");
-sfx(r3(LAST + 0.08), "click", { gain: 1.0 });
-const SCREAM = r3(LAST + 0.28);
+hp2.carry(LAST, [PEN2_UP[0], r3(PEN2_UP[1] - 0.04), PEN2_UP[2]], 0.12, "out");   // Sol r2 #1: a deep press
+A(LAST, "spud", "squash", { amount: 0.05, dur: 0.12 });
+hp2.carry(r3(LAST + 0.13), PEN2_UP, 0.12, "in");
+sfx(r3(LAST + 0.1), "click", { gain: 1.0 });
+const SCREAM = r3(LAST + 0.34);   // the recoil after the click reads
 for (const s of ["R", "L"]) { arm(SCREAM, "mash", s, { o: [0.08, 0.78, 0.18] }, 0.12, "out"); grip(SCREAM, "mash", s, "open", 0.08); }   // both hands to his cheeks
 A(SCREAM, "mash", "crouch", { to: 0.08, dur: 0.12 }); A(SCREAM, "mash", "pitch", { to: -6, dur: 0.12 });
 expr(r3(SCREAM - 0.02), "mash", "terrified", 0.08);
@@ -475,7 +487,7 @@ write(import.meta.url, {
   title: "Who's in your hell?",
   idea: "Potato Desk 13 (heaven/hell 4): hell is forever with everyone who annoys you; a chewer, a reply-all guy and a spoiler wizard squeeze him on a hell couch, the star seat waits for the worst one, and the worst one turns out to be him: his own friend walks in and screams at his pen.",
   fps: 30, look: "anime-pro", profile: "short", loop: false,
-  captionBand: [470, 1360], captionStyle: "kinetic",
+  captionBand: [290, 1360], captionStyle: "kinetic",
   captionOverBody: { reason: "the Wizard leans over the couch in close shots (cams 09, 9b): his hat fills the upper third; the caption sits on the hat, never on an eye" },
   castLook: "sheet", cleanStart: true,
   motion: { feet: 2, overlap: true, timing: true, solve: true },
@@ -490,10 +502,11 @@ write(import.meta.url, {
   fx: SHAKES, cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
     { who: "spud", with: "couch", from: 0, to: r3(S15c - 0.05), reason: "he sits on the hell couch (panels 01-14)" },
-    { who: "chip", with: "couch", from: r3(S6 - 0.16), to: END, reason: "the chewer sits on the couch beside him (panels 06-15)" },
+    { who: "spud", from: r3(S8 - 0.05), to: r3(S8 + 0.05), checks: ["hand-turn"], reason: "he takes his phone on the cut into his close-up (shot 08): the hand turns on the cut frame, not on screen" },
+    { who: "chip", with: "couch", from: r3(S6 - 0.2), to: END, reason: "the chewer sits on the couch beside him (panels 06-15)" },
     { who: "wedge", with: "couch", from: r3(WSIT - 0.05), to: END, reason: "the reply-all guy sits on the couch's other end (panels 07-15)" },
     { who: "wizard", with: "couch", from: r3(S9 - 0.05), to: END, reason: "the wizard stands on the step behind the couch and leans over its back (panels 09-15)" },
-    { who: "spud", with: "chip", from: r3(S6 - 0.16), to: r3(S15c - 0.05), checks: ["character-overlap", "reach"], reason: "the squeeze is the joke: the chewer sits pressed against his side (panels 06-14)" },
+    { who: "spud", with: "chip", from: r3(S6 - 0.2), to: r3(S15c - 0.05), checks: ["character-overlap", "reach"], reason: "the squeeze is the joke: the chewer sits pressed against his side (panels 06-14)" },
     { who: "spud", with: "wedge", from: r3(WSIT - 0.05), to: r3(S15c - 0.05), checks: ["character-overlap", "reach"], reason: "the squeeze is the joke: the reply-all guy sits pressed against his other side (panels 07-14)" },
     { who: "spud", with: "wedge", from: S7, to: r3(WSIT + 0.4), checks: ["face-hidden"], reason: "the reply-all guy walks past in front of the couch to his seat, a wipe across the shot (panel 07)" },
     { who: "chip", with: "wedge", from: S7, to: r3(WSIT + 0.4), checks: ["face-hidden"], reason: "the reply-all guy walks past in front of the couch to his seat, a wipe across the shot (panel 07)" },
