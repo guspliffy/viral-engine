@@ -55,7 +55,7 @@
    "count": false,
    "show": [
     5.69,
-    62.633
+    62.367
    ]
   }
  },
@@ -277,9 +277,9 @@
    "id": "sweat",
    "kind": "sweatbead",
    "wear": "dad",
-   "x": 0.05,
+   "x": -0.15,
    "y": 1,
-   "z": 0.36,
+   "z": 0.33,
    "scale": 0
   },
   {
@@ -298,7 +298,7 @@
    "id": "tongs",
    "kind": "hptongs",
    "len": 0.45,
-   "open": 0.25,
+   "open": 0.6,
    "x": -0.86,
    "y": 0.48,
    "z": 0.68,
@@ -513,39 +513,39 @@
   },
   {
    "from": 47.64,
-   "to": 51.5,
+   "to": 50.446,
    "text": "*Slowly...* slowly...",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 55.6,
-   "to": 56.75,
+   "from": 55.35,
+   "to": 56.5,
    "text": "*Still works.*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 56.98,
-   "to": 58.32,
+   "from": 56.73,
+   "to": 58.07,
    "text": "Impossible.",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 58.55,
-   "to": 60.66,
+   "from": 58.3,
+   "to": 60.41,
    "text": "Then what... *is this?*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 60.89,
-   "to": 62.43,
+   "from": 60.64,
+   "to": 62.18,
    "text": "...That's *different.*",
    "pos": 300,
    "pop": false,
@@ -592,13 +592,18 @@
      "at": 0
     },
     {
-     "who": "rep2",
-     "do": "hide",
+     "who": "spud",
+     "do": "noblink",
      "at": 0
     },
     {
-     "who": "rep3",
-     "do": "hide",
+     "who": "spudU",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "noblink",
      "at": 0
     },
     {
@@ -1040,8 +1045,9 @@
      "who": "spud",
      "do": "expr",
      "set": {
-      "eye": 0.3,
-      "tilt": 0.2
+      "eye": 0.8,
+      "tilt": 0.2,
+      "browY": 0.04
      },
      "dur": 0.05,
      "at": 0.35
@@ -1064,8 +1070,8 @@
      "who": "spud",
      "do": "expr",
      "set": {
-      "eye": 1.4,
-      "pupil": 0.65,
+      "eye": 1.5,
+      "pupil": 0.6,
       "browY": 0.05,
       "curve": -0.1,
       "open": 0.5
@@ -1076,9 +1082,9 @@
     {
      "who": "spud",
      "do": "lean",
-     "to": 7,
-     "dur": 0.08,
-     "at": 0.64
+     "to": 12,
+     "dur": 0.07,
+     "at": 0.62
     },
     {
      "sfx": "gulp",
@@ -1088,8 +1094,8 @@
     {
      "who": "spud",
      "do": "squash",
-     "amount": 0.07,
-     "dur": 0.08,
+     "amount": 0.11,
+     "dur": 0.07,
      "at": 0.66
     }
    ],
@@ -1129,6 +1135,13 @@
    },
    "do": [
     {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.08,
+     "at": 0.014
+    },
+    {
      "who": "dad",
      "do": "expr",
      "set": {
@@ -1139,37 +1152,10 @@
     },
     {
      "who": "spud",
-     "do": "squash",
-     "amount": 0,
-     "dur": 0.14,
-     "at": 0.034
-    },
-    {
-     "who": "spud",
      "do": "lean",
      "to": 0,
      "dur": 0.15,
-     "at": 0.054
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "set": {
-      "open": 0
-     },
-     "dur": 0.1,
-     "at": 0.084
-    },
-    {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      0.6,
-      0.05
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.084
+     "at": 0.034
     },
     {
      "who": "dad",
@@ -1183,6 +1169,13 @@
      "at": 0.084
     },
     {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 0.114
+    },
+    {
      "do": "prop",
      "id": "bubble",
      "set": {
@@ -1191,6 +1184,26 @@
      "dur": 0.01,
      "ease": "inOut",
      "at": 0.134
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.1,
+     "at": 0.184
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.184
     }
    ]
   },
@@ -1205,23 +1218,23 @@
      0.2
     ],
     "look": [
-     4.75,
+     4.8,
      0.95,
-     -1.75
+     -1.7
     ],
-    "fov": 24,
+    "fov": 26,
     "to": {
      "pos": [
-      2.665,
+      2.666,
       0.921,
-      0.142
+      0.143
      ],
      "look": [
-      4.75,
+      4.8,
       0.95,
-      -1.75
+      -1.7
      ],
-     "fov": 24
+     "fov": 26
     },
     "dur": 1.72,
     "ease": "inOut"
@@ -1529,7 +1542,7 @@
   {
    "name": "glues shut",
    "at": 13.333,
-   "len": 3.1,
+   "len": 2.7,
    "shot": {
     "pos": [
      0.55,
@@ -1537,59 +1550,59 @@
      3.2
     ],
     "look": [
-     -0.62,
+     -0.55,
      0.78,
      0.2
     ],
     "fov": 46,
     "to": {
      "pos": [
-      0.48,
-      0.94,
-      3.02
+      0.506,
+      0.943,
+      3.08
      ],
      "look": [
-      -0.62,
+      -0.55,
       0.78,
       0.2
      ],
      "fov": 46
     },
-    "dur": 3.1,
+    "dur": 2.7,
     "ease": "inOut"
    },
    "do": []
   },
   {
    "name": "seven years",
-   "at": 16.433,
-   "len": 1.767,
+   "at": 16.033,
+   "len": 2.167,
    "shot": {
     "pos": [
      0.3,
-     0.86,
+     0.8,
      1.5
     ],
     "look": [
      -0.02,
-     0.8,
+     0.68,
      0.25
     ],
     "fov": 34,
     "to": {
      "pos": [
       0.268,
-      0.854,
+      0.788,
       1.375
      ],
      "look": [
       -0.02,
-      0.8,
+      0.68,
       0.25
      ],
      "fov": 34
     },
-    "dur": 1.79,
+    "dur": 2.19,
     "ease": "inOut"
    },
    "do": [
@@ -1607,33 +1620,39 @@
     },
     {
      "who": "spudU",
-     "do": "look",
-     "to": [
-      0.15,
-      -0.05
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.007
-    },
-    {
-     "who": "spudU",
-     "do": "squash",
-     "amount": 0.03,
-     "dur": 0.1,
-     "at": 0.407
-    },
-    {
-     "sfx": "gulp",
-     "gain": 0.3,
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "pupil": 0.75,
+      "tilt": 0.2,
+      "curve": -0.2
+     },
+     "dur": 0.05,
      "at": 0.407
     },
     {
      "who": "spudU",
-     "do": "squash",
-     "amount": 0,
-     "dur": 0.15,
-     "at": 0.607
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "pupil": 0.75,
+      "tilt": 0.2,
+      "curve": -0.2
+     },
+     "dur": 0.05,
+     "at": 0.907
+    },
+    {
+     "who": "spudU",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "pupil": 0.75,
+      "tilt": 0.2,
+      "curve": -0.2
+     },
+     "dur": 0.05,
+     "at": 1.407
     },
     {
      "who": "dad",
@@ -1644,7 +1663,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 1.547
+     "at": 1.947
     },
     {
      "who": "dad",
@@ -1665,7 +1684,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.747
+     "at": 2.147
     }
    ]
   },
@@ -1675,25 +1694,25 @@
    "len": 1.666,
    "shot": {
     "pos": [
-     -0.05,
-     0.45,
-     1.35
+     0.35,
+     0.55,
+     1.05
     ],
     "look": [
      -0.25,
-     0.38,
+     0.4,
      0.55
     ],
     "fov": 34,
     "to": {
      "pos": [
-      -0.062,
-      0.446,
-      1.302
+      0.314,
+      0.541,
+      1.02
      ],
      "look": [
       -0.25,
-      0.38,
+      0.4,
       0.55
      ],
      "fov": 34
@@ -1972,19 +1991,19 @@
      3.2
     ],
     "look": [
-     -0.62,
+     -0.55,
      0.78,
      0.2
     ],
     "fov": 46,
     "to": {
      "pos": [
-      0.456,
-      0.936,
-      2.96
+      0.506,
+      0.943,
+      3.08
      ],
      "look": [
-      -0.62,
+      -0.55,
       0.78,
       0.2
      ],
@@ -2199,6 +2218,15 @@
     },
     {
      "who": "dad",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.48
+    },
+    {
+     "who": "dad",
      "do": "arm",
      "side": "L",
      "pose": {
@@ -2300,7 +2328,7 @@
      "who": "dad",
      "do": "look",
      "to": [
-      -0.5,
+      0,
       0
      ],
      "dur": 0.01,
@@ -2352,7 +2380,7 @@
      "who": "dad",
      "do": "look",
      "to": [
-      -0.35,
+      0,
       0.15
      ],
      "dur": 0.15,
@@ -2384,12 +2412,6 @@
      "gain": 0.08,
      "reason": "the egg timer ticking on the table, in and out of frame",
      "at": 2.88
-    },
-    {
-     "who": "dad",
-     "do": "blink",
-     "dur": 0.3,
-     "at": 3.02
     },
     {
      "sfx": "click",
@@ -2493,6 +2515,15 @@
      "at": 5.413
     },
     {
+     "who": "dad",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.413
+    },
+    {
      "do": "prop",
      "id": "glass",
      "set": {
@@ -2582,19 +2613,19 @@
      3.2
     ],
     "look": [
-     -0.62,
+     -0.55,
      0.78,
      0.2
     ],
     "fov": 46,
     "to": {
      "pos": [
-      0.468,
-      0.938,
-      2.99
+      0.506,
+      0.943,
+      3.08
      ],
      "look": [
-      -0.62,
+      -0.55,
       0.78,
       0.2
      ],
@@ -2801,23 +2832,23 @@
      2.5
     ],
     "look": [
-     -0.5,
-     0.62,
-     0.4
+     -0.48,
+     0.58,
+     0.45
     ],
-    "fov": 32,
+    "fov": 28,
     "to": {
      "pos": [
-      0.26,
-      0.791,
-      2.395
+      0.261,
+      0.789,
+      2.398
      ],
      "look": [
-      -0.5,
-      0.62,
-      0.4
+      -0.48,
+      0.58,
+      0.45
      ],
-     "fov": 32
+     "fov": 28
     },
     "dur": 0.8,
     "ease": "inOut"
@@ -2829,44 +2860,44 @@
      "set": {
       "open": 0
      },
-     "dur": 0.067,
-     "ease": "linear",
-     "at": 0.227
-    },
-    {
-     "sfx": "click",
-     "gain": 0.45,
+     "dur": 0.1,
+     "ease": "in",
      "at": 0.227
     },
     {
      "who": "dad",
      "do": "squash",
      "amount": 0.03,
-     "dur": 0.08,
+     "dur": 0.12,
      "at": 0.277
     },
     {
-     "do": "prop",
-     "id": "tongs",
-     "set": {
-      "open": 0.25
-     },
-     "dur": 0.1,
-     "ease": "inOut",
+     "sfx": "click",
+     "gain": 0.45,
      "at": 0.327
-    },
-    {
-     "who": "dad",
-     "do": "squash",
-     "amount": 0,
-     "dur": 0.15,
-     "at": 0.427
     },
     {
      "sfx": "click",
      "gain": 0.08,
      "reason": "the egg timer ticking on the table, in and out of frame",
      "at": 0.447
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.477
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.577
     },
     {
      "who": "spud",
@@ -3036,7 +3067,7 @@
      "id": "tongs",
      "set": {
       "x": -1.11,
-      "y": 0.6,
+      "y": 0.42,
       "z": 0.62
      },
      "dur": 0.35,
@@ -3047,13 +3078,7 @@
      "who": "dad",
      "do": "arm",
      "side": "R",
-     "pose": {
-      "o": [
-       0.18,
-       0.42,
-       0.3
-      ]
-     },
+     "pose": "rest",
      "dur": 0.3,
      "ease": "out",
      "at": 1.067
@@ -3221,24 +3246,24 @@
    "shot": {
     "pos": [
      -0.05,
-     0.5,
+     0.44,
      1.25
     ],
     "look": [
      -0.2,
-     0.38,
+     0.28,
      0.62
     ],
     "fov": 28,
     "to": {
      "pos": [
       -0.059,
-      0.493,
+      0.43,
       1.212
      ],
      "look": [
       -0.2,
-      0.38,
+      0.28,
       0.62
      ],
      "fov": 28
@@ -3356,7 +3381,7 @@
       "grip": [
        0,
        0,
-       -0.1
+       -0.15
       ]
      },
      "dur": 0.01,
@@ -3578,7 +3603,7 @@
   {
    "name": "spoon",
    "at": 47.566,
-   "len": 2.067,
+   "len": 2.9,
    "shot": {
     "pos": [
      -0.5,
@@ -3604,7 +3629,7 @@
      ],
      "fov": 44
     },
-    "dur": 2.05,
+    "dur": 2.9,
     "ease": "inOut"
    },
    "do": [
@@ -3658,7 +3683,7 @@
       "x": -0.08,
       "z": -0.04
      },
-     "dur": 3,
+     "dur": 2.9,
      "ease": "inOut",
      "at": 0.274
     },
@@ -3699,59 +3724,86 @@
      "amount": 0,
      "dur": 0.08,
      "at": 1.824
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.314
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.814
     }
    ]
   },
   {
    "name": "spoon close",
-   "at": 49.633,
-   "len": 1.667,
+   "at": 50.466,
+   "len": 0.834,
    "shot": {
     "pos": [
      -0.15,
-     0.7,
+     0.62,
      0.75
     ],
     "look": [
      -0.12,
-     0.56,
+     0.46,
      -0.1
     ],
     "fov": 36,
     "to": {
      "pos": [
       -0.148,
-      0.693,
+      0.612,
       0.708
      ],
      "look": [
       -0.12,
-      0.56,
+      0.46,
       -0.1
      ],
      "fov": 36
     },
-    "dur": 1.66,
+    "dur": 0.81,
     "ease": "inOut"
    },
    "do": [
     {
-     "sfx": "click",
-     "gain": 0.08,
-     "reason": "the egg timer ticking on the table, in and out of frame",
-     "at": 0.247
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0,
+      "curve": 0.1
+     },
+     "dur": 0.08,
+     "at": 0.294
+    },
+    {
+     "sfx": "ai/pot-bite",
+     "gain": 0.25,
+     "reason": "the bite on the spoon",
+     "at": 0.324
     },
     {
      "sfx": "click",
      "gain": 0.22,
      "reason": "the egg timer ticking on the table, in and out of frame",
-     "at": 0.747
+     "at": 0.414
     },
     {
-     "sfx": "click",
-     "gain": 0.22,
-     "reason": "the egg timer ticking on the table, in and out of frame",
-     "at": 1.247
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "x": -0.24,
+      "z": 0.04
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.474
     },
     {
      "do": "prop",
@@ -3761,7 +3813,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.647
+     "at": 0.814
     },
     {
      "who": "dad",
@@ -3777,7 +3829,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.647
+     "at": 0.814
     }
    ]
   },
@@ -3788,24 +3840,24 @@
    "shot": {
     "pos": [
      -0.1,
-     0.6,
+     0.55,
      2.3
     ],
     "look": [
      -0.1,
-     0.52,
+     0.4,
      -0.3
     ],
     "fov": 30,
     "to": {
      "pos": [
       -0.1,
-      0.597,
+      0.544,
       2.196
      ],
      "look": [
       -0.1,
-      0.52,
+      0.4,
       -0.3
      ],
      "fov": 30
@@ -3833,23 +3885,66 @@
     {
      "who": "spud",
      "do": "squash",
-     "amount": 0.03,
-     "dur": 0.12,
-     "at": 0.15
+     "amount": 0.05,
+     "dur": 0.1,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.08,
+     "at": 0.1
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0,
-     "dur": 0.12,
-     "at": 0.3
+     "dur": 0.1,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 0.25
     },
     {
      "who": "spud",
      "do": "squash",
-     "amount": 0.03,
-     "dur": 0.12,
-     "at": 0.48
+     "amount": 0.05,
+     "dur": 0.1,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.08,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.1,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 0.55
     },
     {
      "sfx": "click",
@@ -3860,23 +3955,61 @@
     {
      "who": "spud",
      "do": "squash",
-     "amount": 0,
-     "dur": 0.12,
-     "at": 0.63
+     "amount": 0.05,
+     "dur": 0.1,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.08,
+     "at": 0.7
     },
     {
      "who": "spud",
      "do": "squash",
-     "amount": 0.03,
-     "dur": 0.12,
-     "at": 0.81
+     "amount": 0,
+     "dur": 0.1,
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.5,
+      "pupil": 0.6,
+      "browY": 0.05,
+      "curve": -0.1,
+      "open": 0.5
+     },
+     "dur": 0.06,
+     "at": 1.05
     },
     {
      "who": "spud",
      "do": "squash",
-     "amount": 0,
-     "dur": 0.12,
-     "at": 0.96
+     "amount": 0.1,
+     "dur": 0.07,
+     "at": 1.05
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.07,
+     "at": 1.05
     },
     {
      "sfx": "click",
@@ -3886,8 +4019,33 @@
     },
     {
      "sfx": "gulp",
-     "gain": 0.5,
-     "at": 1.2
+     "gain": 0.55,
+     "at": 1.09
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.14,
+     "at": 1.17
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.15,
+     "at": 1.23
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "open": 0,
+      "curve": 0
+     },
+     "dur": 0.1,
+     "at": 1.35
     },
     {
      "do": "prop",
@@ -4073,24 +4231,24 @@
    "shot": {
     "pos": [
      -0.1,
-     0.6,
+     0.55,
      2.3
     ],
     "look": [
      -0.1,
-     0.52,
+     0.4,
      -0.3
     ],
     "fov": 30,
     "to": {
      "pos": [
       -0.1,
-      0.598,
+      0.546,
       2.222
      ],
      "look": [
       -0.1,
-      0.52,
+      0.4,
       -0.3
      ],
      "fov": 30
@@ -4159,7 +4317,7 @@
   {
    "name": "ring",
    "at": 55.033,
-   "len": 3.467,
+   "len": 3.2,
    "shot": {
     "pos": [
      -0.55,
@@ -4185,7 +4343,7 @@
      ],
      "fov": 44
     },
-    "dur": 3.45,
+    "dur": 3.2,
     "ease": "inOut"
    },
    "do": [
@@ -4214,7 +4372,7 @@
       "curve": -0.05
      },
      "dur": 0.1,
-     "at": 0.417
+     "at": 0.167
     },
     {
      "who": "spud",
@@ -4225,7 +4383,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 0.417
+     "at": 0.167
     },
     {
      "who": "spud",
@@ -4234,7 +4392,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.507
+     "at": 0.257
     },
     {
      "who": "spud",
@@ -4245,7 +4403,7 @@
      "voice": "tato",
      "dur": 1.03,
      "caption": false,
-     "at": 0.567
+     "at": 0.317
     },
     {
      "who": "dad",
@@ -4259,7 +4417,7 @@
       "open": 0.1
      },
      "dur": 0.1,
-     "at": 1.847
+     "at": 1.597
     },
     {
      "who": "dad",
@@ -4268,7 +4426,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 1.887
+     "at": 1.637
     },
     {
      "who": "dad",
@@ -4280,7 +4438,7 @@
      "dur": 1.07,
      "caption": false,
      "soft": true,
-     "at": 1.947
+     "at": 1.697
     },
     {
      "do": "prop",
@@ -4292,17 +4450,17 @@
      },
      "dur": 0.5,
      "ease": "inOut",
-     "at": 2.147
+     "at": 1.897
     },
     {
      "who": "rep",
      "do": "hide",
-     "at": 3.447
+     "at": 3.18
     },
     {
      "who": "rep2",
      "do": "show",
-     "at": 3.447
+     "at": 3.18
     },
     {
      "do": "prop",
@@ -4312,23 +4470,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.447
-    },
-    {
-     "who": "rep2",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 3.457
+     "at": 3.18
     }
    ],
    "kind": "reveal"
   },
   {
    "name": "the x-ray",
-   "at": 58.5,
+   "at": 58.233,
    "len": 2.333,
    "shot": {
     "pos": [
@@ -4363,13 +4512,22 @@
      "who": "rep2",
      "do": "expr",
      "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "rep2",
+     "do": "expr",
+     "set": {
       "eye": 0.85,
       "tilt": -0.25,
       "browY": -0.03,
       "curve": -0.15
      },
      "dur": 0.01,
-     "at": 0
+     "at": 0.017
     },
     {
      "who": "rep2",
@@ -4380,7 +4538,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0
+     "at": 0.017
     },
     {
      "who": "rep2",
@@ -4391,13 +4549,13 @@
      "voice": "reaper",
      "dur": 1.84,
      "caption": false,
-     "at": 0.05
+     "at": 0.067
     },
     {
      "sfx": "ai/pot-bang",
      "gain": 0.22,
      "reason": "Dad drops the pot-lid shield off screen as the X-ray comes out",
-     "at": 0.45
+     "at": 0.467
     },
     {
      "who": "dad",
@@ -4410,7 +4568,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.313
+     "at": 2.314
     },
     {
      "who": "dad",
@@ -4419,7 +4577,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.313
+     "at": 2.314
     },
     {
      "who": "dad",
@@ -4434,7 +4592,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.313
+     "at": 2.314
     },
     {
      "do": "prop",
@@ -4448,23 +4606,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.313
-    },
-    {
-     "who": "dad",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 2.33
+     "at": 2.314
     }
    ]
   },
   {
    "name": "different",
-   "at": 60.833,
-   "len": 1.8,
+   "at": 60.566,
+   "len": 1.801,
    "shot": {
     "pos": [
      -1.4,
@@ -4490,10 +4639,19 @@
      ],
      "fov": 40
     },
-    "dur": 1.793,
+    "dur": 1.777,
     "ease": "inOut"
    },
    "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.014
+    },
     {
      "who": "dad",
      "do": "expr",
@@ -4505,7 +4663,7 @@
       "curve": -0.15
      },
      "dur": 0.01,
-     "at": 0.007
+     "at": 0.024
     },
     {
      "who": "dad",
@@ -4516,19 +4674,19 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0.007
+     "at": 0.024
     },
     {
      "do": "prop",
      "id": "sweat",
      "set": {
-      "x": 0.06,
-      "y": 0.88,
-      "z": 0.37
+      "x": -0.16,
+      "y": 0.9,
+      "z": 0.34
      },
      "dur": 1.1,
      "ease": "in",
-     "at": 0.057
+     "at": 0.074
     },
     {
      "who": "dad",
@@ -4539,29 +4697,17 @@
      "voice": "dad",
      "dur": 1.24,
      "caption": false,
-     "at": 0.057
+     "at": 0.074
     },
     {
      "do": "prop",
      "id": "sweat",
      "set": {
-      "scale": 1
+      "scale": 2.5
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.107
-    },
-    {
-     "who": "dad",
-     "do": "blink",
-     "dur": 0.2,
-     "at": 0.207
-    },
-    {
-     "who": "dad",
-     "do": "blink",
-     "dur": 0.2,
-     "at": 0.507
+     "at": 0.124
     },
     {
      "do": "prop",
@@ -4571,7 +4717,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.207
+     "at": 1.224
     }
    ],
    "kind": "payoff"
@@ -4588,8 +4734,8 @@
    "why": "a kid blows a pink gum bubble at the kitchen table"
   },
   {
-   "from": 60.89,
-   "to": 62.633,
+   "from": 60.64,
+   "to": 62.367,
    "see": [
     "dad.face",
     "film"
@@ -4602,14 +4748,14 @@
    "who": "spud",
    "with": "chair",
    "from": 0,
-   "to": 62.633,
+   "to": 62.367,
    "reason": "sitting on the chair"
   },
   {
    "who": "spudU",
    "with": "table",
    "from": 0,
-   "to": 62.633,
+   "to": 62.367,
    "reason": "standing on the table"
   },
   {
