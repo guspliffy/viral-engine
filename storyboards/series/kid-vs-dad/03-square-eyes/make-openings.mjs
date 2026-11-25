@@ -11,14 +11,14 @@ import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as grips from "../../../lib/grips.mjs";
 import { OPENINGS } from "./lines.mjs";
 
-const DAD_CHAR = process.env.KVD_DAD || "potatobrawl/wedge";
-// spoken lengths (node qa/lines.mjs kvd03-voice-probe.json, 25 Nov)
+const DAD_CHAR = process.env.KVD_DAD || "potatobrawl/dad";
+// spoken lengths (node qa/lines.mjs kvd03-voice-probe.json, 25 Nov, voices tato + dad)
 const SPOKEN = {
-  "Warning. This man watched too much TV.": 2.15, "One more hour, and that's you.": 2.25, "Square forever? Is it true?": 1.4,
+  "Warning. This man watched too much TV.": 2.15, "One more hour, and that's you.": 2.32, "Square forever? Is it true?": 2.02,
   "We're live. Tato, age seven, has watched TV for nine hours.": 3.99,
   "And in this house, there is one rule: one more hour... and your eyes go square.": 6.66,
   "Breaking. Square eyes are spreading.": 2.25, "Is this kid next?": 1.18, "Lies. Your parents lied to you... or did they?": 3.65,
-  "Danger. One more hour, and your eyes go square. Forever.": 4.15, "Is it true?": 0.72,
+  "Danger. One more hour, and your eyes go square. Forever.": 5.23, "Is it true?": 1.22,
 };
 const LABEL = "Too much TV gives you *square eyes*";
 const CAPTEXT = {
@@ -36,9 +36,9 @@ const CAPTEXT = {
 
 // ---------------------------------------------------------------- places (gravroom: x right, +z toward the camera, back wall z -2.65)
 const SOFA = [0.2, -1.61], SEAT = 0.45;
-const KID = [-0.22, -1.52], DAD = [0.70, -1.52];
+const KID = [-0.24, -1.52], DAD = [0.77, -1.52];
 const TV = [-1.52, -0.99, 34];
-const REP = [1.66, -0.22], PLANT = [1.95, -1.15];
+const REP = [1.66, -0.22], PLANT = [-0.95, -2.30];   // back-left corner: at the right its leaves crossed Mash in the h1 pull-out
 const MASH = [1.40, -3.10];
 const PH = { x: 0.54, y: 0.98, z: -1.18, rot: 175, tip: -35 };
 
@@ -107,10 +107,10 @@ function opening(key) {
   // framed from the layout's eye points (t 0): eyes at ~50 % down, captions over the body, never the eyes (captionOverBody)
   const KIDC = { pos: [-0.45, 0.80, 1.05], look: [-0.17, 0.77, -1.30], fov: 36 };
   const KID_EYE = { pos: [-0.26, 0.78, -0.50], look: [-0.17, 0.77, -1.30], fov: 36 };
-  const DADC = { pos: [0.40, 1.01, 2.50], look: [0.66, 1.01, -1.17], fov: 36 };
+  const DADC = { pos: [0.47, 1.01, 2.50], look: [0.73, 1.01, -1.17], fov: 36 };   // Dad B at x 0.77
   const REPC = { pos: [1.00, 0.60, 1.90], look: [1.57, 0.56, -0.02], fov: 36 };
   const REP_CAM = { pos: [1.42, 0.58, 2.00], look: [1.57, 0.56, -0.02], fov: 36 };   // to camera (h3)
-  const WIDE = { pos: [0.20, 1.35, 2.6], look: [0.20, 0.85, -1.5], fov: 46 };   // Tato and Dad on the sofa, the TV glow at the left
+  const WIDE = { pos: [0.34, 1.35, 2.75], look: [0.34, 0.85, -1.5], fov: 48 };     // Tato and Dad on the sofa, the TV glow at the left
   const shots = [];
 
   if (key === "h1") {
