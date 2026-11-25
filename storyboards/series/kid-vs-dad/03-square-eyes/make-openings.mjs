@@ -71,7 +71,7 @@ function opening(key) {
     { id: "spud", character: "potatobrawl/spud-kid", at: KID, face: 12, expr: "kind", follow: 0, seed: 4.1 },
     { id: "wedge", character: DAD_CHAR, at: DAD, face: -6, expr: "deadpan", follow: 0, seed: 2.9 },
     { id: "rep", character: "potatobrawl/reporter", at: REP, face: -28, follow: 0.3, seed: 131.3 },
-    ...(key === "h1" || key === "h2" ? [{ id: "mash", character: "potatobrawl/mash", at: MASH, face: 0, expr: "kind", follow: 0, seed: 3.7 }] : []),
+    ...(key === "h1" ? [{ id: "mash", character: "potatobrawl/mash", at: MASH, face: 0, expr: "kind", follow: 0, seed: 3.7 }] : []),
   ];
   const MIC = { id: "mic", kind: "newsmic", lean: 30, ...grips.placeFor("newsmic", [r3(REP[0] - 0.36), 0.40, r3(REP[1] + 0.22)], -28) };
   const props = [
@@ -116,7 +116,8 @@ function opening(key) {
   if (key === "h1") {
     // frame 0: the neighbour's square eyes, two blinks, then the pull-out to the window
     A(0.30, "mash", "blink", { dur: 0.27 }); A(0.85, "mash", "blink", { dur: 0.27 });
-    A(0, "rep", "hide"); A(onCut(T[iRule]), "rep", "show");   // off stage until his line (the eye close-up projected him from behind)
+    A(0, "rep", "hide"); A(r3(cutAt(iRule) - 0.1), "rep", "show");   // off stage until his line (the eye close-up projected him from behind); shown on the kid shot's last frames, he was 3 frames late on the cut
+    A(r3(cutAt(iRule) - 0.1), "mash", "hide");   // gone from the window after the proof: in the two-shot his head peeked over Dad's shoulder
     say(0);
     shots.push(["eyes", 0, push(MASH_CU, 0.03, 1.1), "hook"]);
     const CU1 = push(MASH_CU, 0.03, 1.1).to;   // the pull-out starts where the push ended: one continuous shot

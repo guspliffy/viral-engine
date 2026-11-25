@@ -1,0 +1,278 @@
+// KID VS DAD 03 "Square eyes": the ROUGH DRAFT of the whole episode (Jonny's story check).
+//   node storyboards/series/kid-vs-dad/03-square-eyes/make-episode.mjs   -> kvd03-square-eyes.json
+// Opening H1 (starred: the neighbour's square eyes first) + ending E1 (starred: Dad looks up, his eyes are phones; Tato
+// "Screens."), setting S2 breaking news. Jonny 25 Nov ~14:05 Berlin went away for a few hours and asked for results not
+// held for approvals: the starred picks are the default, the other openings stay ready to swap in (first ~20 s only).
+// Outline: /mnt/project-files/videos/kid-vs-dad/03-parent-lies/OPTIONS.md (v3). Departure: no Codex panel sheet first
+// (Jonny away; his PC needed), the outline table is the board.
+// The rule pushed three times with the clock on the wall as the counter (8 pm ruler, 11 pm eye chart, 3 am torch); why
+// the rule exists (the neighbour, 1998); Dad's three teases (eyes never leave the phone; can't read it; low battery).
+import fs from "node:fs";
+import { clip, write, r3 } from "../../../lib/clip.mjs";
+import * as grips from "../../../lib/grips.mjs";
+import { EPISODE as LINES } from "./lines.mjs";
+
+const DAD_CHAR = process.env.KVD_DAD || "potatobrawl/dad";
+// spoken lengths: spoken.json here (node qa/lines.mjs on this storyboard writes them in its log; copied over by hand)
+const SPOKEN = (() => { try { return JSON.parse(fs.readFileSync(new URL("./spoken.json", import.meta.url))); } catch { return {}; } })();
+const est = (l) => r3(0.45 + l.split(/\s+/).length * 0.36);
+const LABEL = "Too much TV gives you *square eyes*";
+const CAPTEXT = {
+  "Warning. This man watched too much TV.": "*Warning.* This man watched too much TV.",
+  "One more hour, and that's you.": "One more hour, and *that's you.*",
+  "Square forever? Is it true?": "Square forever? *Is it true?*",
+  "We're live. Tato, age seven, has watched TV for nine hours.": "*Tato,* age seven. *Nine hours* of TV.",
+  "And in this house, there is one rule: one more hour... and your eyes go square.": "One more hour... and your eyes go *square.*",
+  "Hour nine. Eye check.": "*Hour nine.* Eye check.",
+  "Hour twelve. Read the top line.": "*Hour twelve.* Read the top line.",
+  "One summer. Nineteen ninety-eight.": "One summer. *1998.*",
+  "Now everything is widescreen.": "Now everything is *widescreen.*",
+  "Hour sixteen. He's going for the whole season.": "*Hour sixteen.* He's going for the whole season.",
+  "Screens.": "*Screens.*",
+};
+
+// ---------------------------------------------------------------- places (gravroom: x right, +z toward the camera, back wall z -2.65)
+const SOFA = [0.2, -1.61], SEAT = 0.45;
+const KID = [-0.24, -1.52], DAD = [0.77, -1.52];
+const TV = [-1.52, -0.99, 34];
+const REP = [1.66, -0.22], PLANT = [-0.95, -2.30];
+const REP_CHECK = [-0.70, -0.70], REP_CHECK_ROT = 151;   // crouched in front of Tato's left, facing him
+const REP_WIN = [0.95, -2.12], REP_WIN_ROT = 180;        // at the window, his back to the room
+const MASH = [1.40, -3.10];
+const CLOCK = { x: 0.20, y: 1.55, z: -2.62 };
+const PH = { x: 0.54, y: 0.98, z: -1.18, rot: 175, tip: -35 };
+const OFF = (z) => ({ x: 3.5, y: 0, z });   // props waiting off stage
+
+const c = clip({ faces: "strong", lines: { sub: false, blink: false } }), { A, sfx, cap, see } = c;
+const DUR = LINES.map(([, l]) => SPOKEN[l] ?? est(l));
+// the pause before each line (action beats live here)
+const GAP = LINES.map((_, i) => (i === 0 ? 0.12 : 0.3));
+Object.assign(GAP, { 1: 1.3, 6: 0.6, 7: 1.3, 9: 1.1, 10: 0.4, 13: 0.5, 14: 0.7, 18: 2.2, 19: 0.9, 21: 1.9, 22: 0.9, 23: 2.0 });
+const T = []; { let t = 0; LINES.forEach((_, i) => { t = r3(t + GAP[i]); T.push(t); t = r3(t + DUR[i]); }); }
+const END_OF = (i) => r3(T[i] + DUR[i]);
+const END = r3(END_OF(LINES.length - 1) + 0.45);   // fast end after the answer (Jonny's pattern, step 5)
+const cutAt = (i, before = 0.05) => r3(Math.floor((T[i] - before) * 30) / 30);
+const place = (t, who, at, rot) => { A(r3(t - 0.02), who, "move", { to: at, dur: 0.01, ease: "linear", sync: true }); A(r3(t - 0.02), who, "turn", { to: rot, dur: 0.01, ease: "linear", sync: true }); };
+
+const SUB = 430, LABY = 250;
+const say = (i, { capTo } = {}) => {
+  const [who, line, tone, style, o = {}] = LINES[i];
+  c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false });
+  const to = capTo ?? r3(Math.min(END_OF(i) + 0.3, (T[i + 1] ?? END) - 0.2));
+  cap(T[i], to, CAPTEXT[line] ?? line, SUB, false, { size: 62 });
+};
+const look = (t, who, to, dur = 0.2) => A(r3(t), who, "look", { to, dur, blink: false });
+const expr = (t, who, e, dur = 0.2) => A(r3(t), who, "expr", typeof e === "string" ? { expr: e, dur } : { set: e, dur });
+const face = (t, who, set, dur = 0) => A(r3(t), who, "face", { ...set, dur });
+
+const cast = [
+  { id: "spud", character: "potatobrawl/spud-kid", at: KID, face: 12, expr: "kind", follow: 0, seed: 4.1 },
+  { id: "wedge", character: DAD_CHAR, at: DAD, face: -6, expr: "deadpan", follow: 0, seed: 2.9 },
+  { id: "rep", character: "potatobrawl/reporter", at: REP, face: -28, follow: 0.3, seed: 131.3 },
+  { id: "mash", character: "potatobrawl/mash", at: MASH, face: 0, expr: "kind", follow: 0, seed: 3.7 },
+];
+const MIC = { id: "mic", kind: "newsmic", lean: 30, ...grips.placeFor("newsmic", [r3(REP[0] - 0.36), 0.40, r3(REP[1] + 0.22)], -28) };
+const props = [
+  { id: "sofa", kind: "gsofa", x: SOFA[0], y: 0, z: SOFA[1], rot: 0, sink: 0.02, damage: 0 },
+  { id: "tv", kind: "gtv", x: TV[0], y: 0, z: TV[1], rot: TV[2], glow: 1, picture: "cartoon", light: 0.55, castLight: 4, on: 1, card: 0 },
+  { id: "lamp", kind: "glamp", x: -1.75, y: 0, z: -2.35, rot: 180 },
+  { id: "plant", kind: "gplant", x: PLANT[0], y: 0, z: PLANT[1] },
+  { id: "rug", kind: "grug", x: 0.18, y: 0, z: 0.11 },
+  { id: "clock", kind: "wallclock", ...CLOCK, rot: 0, time: 20 },
+  { id: "phone", kind: "phone", ...PH, scale: 1.6, case: "#3e383b" },
+  MIC,
+  { id: "ruler", kind: "smallruler", ...OFF(-0.5), rot: 0 },
+  { id: "chart", kind: "eyechart", ...OFF(-1.0), rot: 0 },
+  { id: "torch", kind: "policetorch", ...OFF(-1.5), rot: 0 },
+  { id: "beam", kind: "torchbeam", ...OFF(-2.0), rot: 0, on: 0, len: 0.9, r: 0.22 },
+];
+
+// ---------------------------------------------------------------- frame 0
+A(0, "spud", "sit", { rot: 12, height: SEAT, dur: 0, hands: "lap" });
+A(0, "wedge", "sit", { rot: -6, height: SEAT, dur: 0, hands: "keep" });
+A(0, "wedge", "grab", { prop: "phone", hand: "L", dur: 0, pose: null });
+const DAD_PHONE = { o: [-0.05, 0.5, 0.42] }, DAD_PHONE_CLOSE = { o: [-0.03, 0.62, 0.30] };
+c.arm(0, "wedge", "L", DAD_PHONE, 0); c.arm(0, "wedge", "R", "rest", 0);
+look(0, "wedge", [0.1, -0.55], 0); expr(0, "wedge", { eye: 0.7, tilt: -0.05, curve: -0.1 }, 0);
+for (let t = 1.2; t < END - 0.4; t = r3(t + 1.7 + ((t * 7) % 0.9))) { A(r3(t), "wedge", "grip", { side: "L", shape: "scroll", dur: 0.1 }); A(r3(t + 0.16), "wedge", "grip", { side: "L", shape: "hold", dur: 0.12 }); }
+look(0, "spud", [-0.75, 0.05], 0); expr(0, "spud", { eye: 1.1, open: 0.15 }, 0);
+A(0, "rep", "crouch", { to: 0.14, dur: 0.01 }); expr(0, "rep", { tilt: -0.08, browY: -0.02, eye: 0.95 }, 0);
+const gm = grips.mug(c, "rep", MIC, { side: "R" }); gm.take(0, { reach: 0.01, settle: 0.01 });
+c.prop(0, "tv", { on: 1, card: 0 }, 0);
+c.prop(0, "clock", { time: 20 }, 0);
+c.prop(0, "beam", { on: 0 }, 0);
+face(0, "mash", { square: 1 }); look(0, "mash", [0, 0], 0);
+expr(0, "mash", { eye: 1.12, browY: 0.02, tilt: 0.05, curve: 0.2, open: 0, pupil: 0.85 }, 0);
+face(0, "wedge", { square: 0.02 });   // held just above 0 so the teases can flicker the corners on screen (DESIGN.md: switch on cuts)
+
+// ---------------------------------------------------------------- cameras (every shot drifts or pushes; Jonny 20 Nov)
+const push = (s, k = 0.07, dur = 2) => ({ ...s, to: { pos: s.pos.map((v, i) => r3(v + (s.look[i] - v) * k)), look: s.look, fov: s.fov }, dur, ease: "inOut" });
+const MASH_CU = { pos: [1.38, 0.81, -1.54], look: [1.38, 0.81, -2.87], fov: 30 };
+const MASH_MED = { pos: [1.55, 1.0, -0.35], look: [1.38, 0.85, -2.87], fov: 40 };
+const KIDC = { pos: [-0.45, 0.80, 1.05], look: [-0.17, 0.77, -1.30], fov: 36 };
+const KID_TIGHT = { pos: [-0.36, 0.78, 0.15], look: [-0.20, 0.77, -1.30], fov: 34 };
+const DADC = { pos: [0.47, 1.01, 2.50], look: [0.73, 1.01, -1.17], fov: 36 };
+const DAD_CU = { pos: [0.60, 1.00, 0.55], look: [0.75, 0.99, -1.30], fov: 34 };
+const REPC = { pos: [1.00, 0.60, 1.90], look: [1.57, 0.56, -0.02], fov: 36 };
+const WIDE = { pos: [0.34, 1.35, 2.75], look: [0.34, 0.85, -1.5], fov: 48 };
+const CHECK = { pos: [0.55, 0.78, 0.05], look: [-0.45, 0.72, -1.15], fov: 38 };   // the rep in profile, the tool at Tato's eye
+const CLOCKC = { pos: [0.20, 1.45, -1.30], look: [0.20, 1.55, -2.62], fov: 30 };   // the wall clock over the sofa
+const TVC = { pos: [-0.62, 0.86, 0.05], look: [-1.52, 0.86, -0.99], fov: 40 };     // the TV from Tato's side of the room
+const INTERVIEW = { pos: [1.25, 1.05, -0.95], look: [1.25, 0.85, -2.87], fov: 40 }; // over the rep's shoulder to the neighbour
+const shots = [];
+
+// ---------------------------------------------------------------- 0-20 s: opening H1 (as kvd03-opening-h1)
+A(0.30, "mash", "blink", { dur: 0.27 }); A(0.85, "mash", "blink", { dur: 0.27 });
+A(0, "rep", "hide"); A(r3(cutAt(3) - 0.1), "rep", "show");
+A(r3(cutAt(3) - 0.1), "mash", "hide");
+say(0);
+shots.push(["eyes", 0, push(MASH_CU, 0.03, 1.1), "hook"]);
+const CU1 = push(MASH_CU, 0.03, 1.1).to;
+shots.push(["pull out", 1.1, { pos: CU1.pos, look: CU1.look, fov: CU1.fov, to: { pos: MASH_MED.pos, look: MASH_MED.look, fov: MASH_MED.fov }, dur: 0.8, ease: "out" }]);
+see(0, 1.1, ["mash.face"], "frame 0: a man's perfectly square eyes, blinking, behind a window");
+shots.push(["thats you", cutAt(1), push(DADC, 0.08, DUR[1] + 0.3)]);
+c.arm(T[1], "wedge", "R", { o: [0.28, 0.78, -0.15] }, 0.3, "out");
+say(1); c.arm(r3(END_OF(1) + 0.15), "wedge", "R", "rest", 0.35); A(r3(END_OF(1) + 0.15), "wedge", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
+shots.push(["is it true", cutAt(2), push(KIDC, 0.08, DUR[2] + 0.3)]);
+look(T[2] - 0.2, "spud", [0.8, 0.15], 0.25); expr(T[2] - 0.2, "spud", { eye: 1.2, pupil: 0.8, tilt: 0.25, curve: -0.2 }, 0.2);
+say(2);
+look(END_OF(2) + 0.2, "spud", [-0.75, 0.05], 0.3); expr(END_OF(2) + 0.2, "spud", { eye: 1.1, open: 0.15, tilt: 0, curve: 0 }, 0.3);
+shots.push(["live", cutAt(3), push(REPC, 0.08, DUR[3] + 0.3)]);
+say(3);
+shots.push(["one rule", cutAt(4), push(WIDE, 0.12, DUR[4] + 0.6)]);
+say(4);
+
+// ---------------------------------------------------------------- 8 pm, hour nine: the ruler
+shots.push(["one more", cutAt(5), push(KIDC, 0.06, DUR[5] + GAP[6] + 0.1)]);
+say(5); sfx(r3(T[5] + 0.5), "click", 0.4);
+// the rep crawls in on the cut: crouched low at Tato's left, the ruler up to his eye
+const tCheck1 = cutAt(6, 0.5);
+place(tCheck1, "rep", REP_CHECK, REP_CHECK_ROT);
+A(r3(tCheck1 - 0.02), "rep", "crouch", { to: 0.22, dur: 0.01 });
+A(tCheck1, "rep", "grab", { prop: "ruler", hand: "L", dur: 0, pose: null });
+const REP_TOOL = { o: [-0.12, 0.66, 0.50] };
+c.arm(r3(tCheck1 - 0.02), "rep", "L", REP_TOOL, 0.01);
+shots.push(["eye check", tCheck1, push(CHECK, 0.10, r3(END_OF(7) - tCheck1 + 0.3))]);
+say(6); say(7);
+expr(T[7] - 0.1, "rep", { eye: 1.0, curve: 0.15, tilt: 0 }, 0.2);
+sfx(r3(T[7] - 0.5), "tink", 0.3);
+shots.push(["last warning", cutAt(8), push(DADC, 0.10, DUR[8] + 0.5)]);
+say(8);
+// tease 1: one frame-pair of square corners in Dad's eyes after his line (square is held at 0.02, so this is on screen)
+{ const f = (n) => r3(END_OF(8) + 0.1 + n / 30); face(f(0), "wedge", { sqCorner: 1 }, 0.067); face(f(6), "wedge", { sqCorner: 0 }, 0.067); }
+
+// ---------------------------------------------------------------- 11 pm, hour twelve: the eye chart
+const tClock2 = cutAt(9, 1.0);
+c.prop(r3(tClock2 - 0.02), "clock", { time: 23 }, 0);
+shots.push(["11 pm", tClock2, push(CLOCKC, 0.06, 0.95)]);
+sfx(tClock2, "knock-tap", 0.35);
+const tCheck2 = cutAt(9, 0.05);
+A(r3(tCheck2 - 0.04), "rep", "release", { prop: "ruler", to: [3.5, 0, -0.5] });
+A(tCheck2, "rep", "grab", { prop: "chart", hand: "L", dur: 0, pose: null });
+shots.push(["read the top line", tCheck2, push(CHECK, 0.12, r3(END_OF(11) - tCheck2 + 0.3))]);
+say(9); say(10); say(11);
+expr(T[11] - 0.1, "rep", { eye: 0.75, browY: -0.03, tilt: -0.1 }, 0.25);
+shots.push(["so small", cutAt(12), push(DAD_CU, 0.08, DUR[12] + 0.5)]);
+c.arm(r3(T[12] - 0.2), "wedge", "L", DAD_PHONE_CLOSE, 0.35);   // tease 2: he brings the phone up to his nose
+expr(T[12] - 0.2, "wedge", { eye: 0.4, tilt: -0.15, curve: -0.2 }, 0.25);
+say(12);
+
+// ---------------------------------------------------------------- why the rule exists: the neighbour
+shots.push(["like him", cutAt(13), push(DADC, 0.08, DUR[13] + 0.4)]);
+c.arm(T[13], "wedge", "R", { o: [0.28, 0.78, -0.15] }, 0.3, "out");
+say(13);
+c.arm(r3(END_OF(13) + 0.15), "wedge", "R", "rest", 0.35); c.arm(r3(END_OF(13) + 0.15), "wedge", "L", DAD_PHONE, 0.35);
+expr(END_OF(13) + 0.15, "wedge", { eye: 0.7, tilt: -0.05, curve: -0.1 }, 0.3);
+const tWin = cutAt(14, 0.6);
+A(r3(tWin - 0.04), "rep", "release", { prop: "chart", to: [3.5, 0, -1.0] });
+c.arm(r3(tWin - 0.02), "rep", "L", "rest", 0.01);
+place(tWin, "rep", REP_WIN, REP_WIN_ROT);
+A(r3(tWin - 0.02), "rep", "crouch", { to: 0.05, dur: 0.01 });
+A(r3(tWin - 0.02), "mash", "show");
+shots.push(["interview", tWin, push(INTERVIEW, 0.08, r3(END_OF(14) - tWin + 0.2))]);
+say(14);
+shots.push(["one summer", cutAt(15), push(MASH_CU, 0.05, r3(END_OF(17) - T[15] + 0.4))]);
+say(15); say(16); say(17);
+A(r3(T[16] + 0.1), "mash", "blink", { dur: 0.27 });
+
+// ---------------------------------------------------------------- 3 am, hour sixteen: the torch
+const tClock3 = cutAt(18, 2.0);
+A(r3(tClock3 - 0.02), "mash", "hide");
+c.prop(r3(tClock3 - 0.02), "clock", { time: 23 }, 0);
+c.prop(tClock3, "clock", { time: 27 }, 1.6);   // the hands spin to 3 am
+shots.push(["3 am", tClock3, push(CLOCKC, 0.10, 1.95)]);
+sfx(tClock3, "whoosh", 0.3);
+place(cutAt(18), "rep", REP_CHECK, REP_CHECK_ROT);
+A(r3(cutAt(18) - 0.02), "rep", "crouch", { to: 0.22, dur: 0.01 });
+A(cutAt(18), "spud", "lean", { to: 0.25, dur: 0.01 });   // closer to the screen now
+shots.push(["whole season", cutAt(18), push(WIDE, 0.18, DUR[18] + GAP[19])]);
+say(18);
+const tTorch = cutAt(19, 0.6);
+A(tTorch, "rep", "grab", { prop: "torch", hand: "L", dur: 0, pose: null });
+c.arm(r3(tTorch - 0.02), "rep", "L", REP_TOOL, 0.01);
+c.prop(r3(tTorch - 0.02), "beam", { x: -0.50, y: 0.80, z: -0.95, rot: 205, on: 0 }, 0);
+c.prop(r3(tTorch + 0.25), "beam", { on: 1 }, 0.1);
+sfx(r3(tTorch + 0.25), "click", 0.5);
+expr(r3(tTorch + 0.3), "spud", { eye: 0.55, tilt: 0.1 }, 0.15);   // squints into the light, eyes still round
+shots.push(["torch", tTorch, push(CHECK, 0.14, r3(END_OF(19) - tTorch + 0.3))]);
+say(19);
+c.prop(r3(END_OF(19) + 0.2), "beam", { on: 0 }, 0.1);
+expr(r3(END_OF(19) + 0.2), "spud", { eye: 1.1, open: 0.15, tilt: 0 }, 0.2);
+shots.push(["five more", cutAt(20), push(DAD_CU, 0.10, DUR[20] + 0.9)]);
+expr(T[20] - 0.1, "wedge", { eye: 0.5, tilt: -0.1, curve: -0.15 }, 0.3);
+say(20);
+sfx(r3(END_OF(20) + 0.15), "timer-beep", 0.45);   // tease 3: his phone's low battery
+
+// ---------------------------------------------------------------- the flip
+const tCard = cutAt(21, 1.8);
+shots.push(["still watching", tCard, push(TVC, 0.10, 1.85)]);
+c.prop(r3(tCard + 0.2), "tv", { card: 1 }, 0.5);
+shots.push(["no", cutAt(21), push(KIDC, 0.06, DUR[21] + GAP[22] + 0.1)]);
+A(r3(T[21] - 0.2), "spud", "lean", { to: 0, dur: 0.3 });
+say(21);
+c.prop(r3(END_OF(21) + 0.15), "tv", { on: 0 }, 0.12); sfx(r3(END_OF(21) + 0.15), "click", 0.5);
+look(r3(END_OF(21) + 0.35), "spud", [0.85, 0.1], 0.3);
+expr(r3(T[22] - 0.1), "spud", { eye: 1.05, curve: 0.35, tilt: 0.1 }, 0.25);
+// rep out of the room for the ending
+const tRev = cutAt(23, 1.95);
+say(22, { capTo: r3(tRev - 0.05) });
+// the reveal: on the cut his eyes are already phones (DESIGN.md: switch on a cut), he lifts his head
+face(r3(tRev - 0.02), "wedge", { square: 1, sqTall: 1, sqPhone: 1 });
+A(r3(tRev - 0.04), "rep", "release", { prop: "torch", to: [3.5, 0, -1.5] });
+A(r3(tRev - 0.02), "rep", "hide");
+shots.push(["phone eyes", tRev, push(DAD_CU, 0.12, 1.9)]);
+look(r3(tRev + 0.35), "wedge", [-0.55, 0.05], 0.45);
+expr(r3(tRev + 0.35), "wedge", { eye: 1.0, tilt: 0, curve: 0 }, 0.4);
+sfx(r3(tRev + 0.8), "sting", 0.35);
+see(tRev, r3(tRev + 1.9), ["wedge.face"], "the reveal: Dad finally looks up, his eyes are two glowing phones");
+shots.push(["screens", cutAt(23), push(KID_TIGHT, 0.06, DUR[23] + 0.5)]);
+expr(r3(T[23] - 0.1), "spud", { eye: 0.85, curve: 0, tilt: 0, browY: -0.02 }, 0.15);
+say(23);
+
+// ---------------------------------------------------------------- label + storyboard
+cap(0, 3.2, LABEL, LABY, false, { size: 58, kinetic: false });
+const beats = c.beats(shots, END);
+
+const sb = {
+  id: "kvd03-square-eyes", title: "Kid vs Dad 03: Square eyes (rough draft)",
+  idea: `Kid vs Dad 03 "Too much TV gives you square eyes": Dad warns Tato all night without once looking up from his phone; the reporter checks Tato's eyes at 8 pm, 11 pm and 3 am; the neighbour shows why the rule exists; at the end Tato's eyes are still round and Dad's are phones.`,
+  fps: 30, look: "anime-pro", profile: "short", loop: false,
+  captionBand: [200, 1230], captionStyle: "kinetic", castLook: "sheet", cleanStart: true,
+  captionOverBody: { reason: "close-ups where the speaker fills the phone frame; captions in the upper third over the body, never the eyes (rule from the 8-min film trial, Jonny OK 20 Nov)" },
+  motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 },
+  physics: false, animeTiming: true, far: 200,
+  set: { type: "gravroom", aperture: 0, focus: false, lighting: 2, hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
+  hud: { news: { label: "SQUARE EYES SPREADING", tag: "LIVE", tagW: 150, count: false, show: [cutAt(3), tCard] } },
+  music: { file: "ai/orchestra-suspense/orchestra-suspense-01.ogg", lowCut: 150, gain: 0.14 },
+  sound: { sfx: 0.6, ambience: 0.06, guard: true, signature: false, surface: "wood", room: "livingroom" },
+  creative: { length: [END, END] },
+  hook: { show: ["mash"], hint: 0, what: LINES[0][1] },
+  cast, props, captions: c.captions, beats, visible: c.visible,
+  allowClip: [
+    { who: "spud", with: "sofa", from: 0, to: END, checks: ["shell", "clipping", "limb-in-prop", "hand-in-prop", "costume-in-prop"], reason: "sitting on the sofa" },
+    { who: "wedge", with: "sofa", from: 0, to: END, checks: ["shell", "clipping", "limb-in-prop", "hand-in-prop", "costume-in-prop"], reason: "sitting on the sofa" },
+  ],
+  notes: `Generated by storyboards/series/kid-vs-dad/03-square-eyes/make-episode.mjs. Dad = ${DAD_CHAR}. Rough draft for Jonny's story check (opening H1, ending E1).`,
+};
+write(import.meta.url, sb);
+console.log(`spoken lengths: ${LINES.filter(([, l]) => SPOKEN[l] == null).length} estimated`);

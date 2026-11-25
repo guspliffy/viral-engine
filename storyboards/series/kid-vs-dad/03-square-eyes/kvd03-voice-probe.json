@@ -109,6 +109,7 @@
      "line": "One more hour, and that's you.",
      "tone": "calm",
      "style": "flat, pointing, eyes still on his phone",
+     "voice": "dad",
      "dur": 2.9,
      "caption": false,
      "at": 4.5
@@ -185,6 +186,7 @@
      "line": "Danger. One more hour, and your eyes go square. Forever.",
      "tone": "calm",
      "style": "a stern dad warning, not looking up from his phone",
+     "voice": "dad",
      "dur": 4.5,
      "caption": false,
      "at": 37.4
