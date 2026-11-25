@@ -176,6 +176,7 @@ import { KRAMPUS_BOOTS_KINDS, KRAMPUS_BOOTS_GRIPS, KRAMPUS_BOOTS_STATE } from ".
 import { KRAMPUS_RUN_KINDS, KRAMPUS_RUN_GRIPS, KRAMPUS_RUN_STATE } from "./props-krampus-run.js";   // krampus myth 01 (DESIGN.md)
 import { KRAMPUS_CAT_KINDS, KRAMPUS_CAT_GRIPS, KRAMPUS_CAT_STATE } from "./props-krampus-cat.js";   // krampus myth 01 (DESIGN.md)
 import { HELLB_KINDS, HELLB_GRIPS } from "./props-hellb.js";   // potato desk 09 hell reviews: set B (hell resort lobby)   // the archaeologist's conservation brush: archbrush
+import { HELLWAIT_KINDS, HELLWAIT_GRIPS } from "./props-hellwait.js";   // potato desk 13 who's in your hell: hellcouch, pingphone, crystalball
 import { HSTAIRS_KINDS, HSTAIRS_GRIPS } from "./props-heavenstairs.js";   // potato desk heaven steps: the stairway
 import { HTOP_KINDS, HTOP_GRIPS } from "./props-heaventop.js";   // heaven steps: gate, podium, ledger
 import { HSKY_KINDS, HSKY_GRIPS } from "./props-heavensky.js";   // heaven steps: sky, zone clouds, hell floor, hatch, parasol
@@ -1566,6 +1567,7 @@ Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   
 Object.assign(KINDS, COURT_KINDS);   // potato desk 05 court day (props-court.js)
 Object.assign(KINDS, CARTON_KINDS);   // potato desk 11: friescarton, loosefry (props-carton.js)
 Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
+Object.assign(KINDS, HELLWAIT_KINDS); Object.assign(GRIPS, HELLWAIT_GRIPS);   // potato desk 13 (props-hellwait.js)
 Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, HEART_HEART_KINDS, HEART_SOUL_KINDS, HEART_JUICE_KINDS, HEART_CASE_KINDS); Object.assign(GRIPS, HEART_HALL_GRIPS, HEART_SCALE_GRIPS, HEART_MONSTER_GRIPS, HEART_HEART_GRIPS, HEART_SOUL_GRIPS, HEART_JUICE_GRIPS, HEART_CASE_GRIPS);   // egypt myth 01 heart (props-heart-*.js)
 Object.assign(KINDS, NORSE_SPEAR_KINDS, NORSE_RAVEN_KINDS, NORSE_HEAD_KINDS, NORSE_CAVE_KINDS, NORSE_WELL_KINDS, NORSE_TREE_KINDS, NORSE_WIND_KINDS, NORSE_ITEMS_KINDS, NORSE_CLASS_KINDS); Object.assign(GRIPS, NORSE_SPEAR_GRIPS, NORSE_RAVEN_GRIPS, NORSE_HEAD_GRIPS, NORSE_CAVE_GRIPS, NORSE_WELL_GRIPS, NORSE_TREE_GRIPS, NORSE_WIND_GRIPS, NORSE_ITEMS_GRIPS, NORSE_CLASS_GRIPS);   // norse myth 01 wednesday (props-norse-*.js)
 Object.assign(KINDS, KRAMPUS_LANE_KINDS, KRAMPUS_BEAST_KINDS, KRAMPUS_NICK_KINDS, KRAMPUS_BOOTS_KINDS, KRAMPUS_RUN_KINDS, KRAMPUS_CAT_KINDS); Object.assign(GRIPS, KRAMPUS_LANE_GRIPS, KRAMPUS_BEAST_GRIPS, KRAMPUS_NICK_GRIPS, KRAMPUS_BOOTS_GRIPS, KRAMPUS_RUN_GRIPS, KRAMPUS_CAT_GRIPS);   // krampus myth 01 (props-krampus-*.js)

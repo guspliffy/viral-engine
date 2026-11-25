@@ -59,6 +59,9 @@ import { clamp } from "./util.js";
 //               face. HELD: the phone hold (grips.mjs `phone`: the hand closes on a SIDE edge at 0.42 of its height); the design's
 //               agent holds it under the bottom edge with the thumb on top (a regrip the director stages). SIZE row for grips.mjs
 //               (director adds it): clipboard: { w: 0.24, h: 0.32, t: 0.008 },  // props-spree.js: held with the phone hold, paper on -z
+//               Opt-in spec.flip (key PRESENT, e.g. 0; absent = nothing built, output as before): ONE extra sheet 0.21 x 0.30 #f7f4ea lying on the paper
+//               at flip 0 (hidden then: the paper itself shows). flip 0..1 (TWEENS, propState `flip`): the sheet swings about the clip's top edge, up over the
+//               clip and down onto the board's BACK (-z for face 1), hanging there at flip 1 (the director tweens it over 12 frames = 0.4 s).
 //               Solid. 60 triangles (108 with gold).
 
 const DEG = Math.PI / 180;
@@ -379,6 +382,22 @@ export const SPREE_KINDS = {
     mesh(new THREE.BoxGeometry(0.1, 0.04, 0.007), steel, P.whole, 0, H - 0.026, cz);
     mesh(new THREE.BoxGeometry(0.07, 0.014, 0.011), steel, P.whole, 0, H + 0.008, f * (T / 2 + 0.0015 + 0.003));
     mesh(new THREE.BoxGeometry(0.1, 0.008, 0.009), dark, P.whole, 0, H - 0.044, cz);
-    return { grip: H * 0.42, apply() {} };
+    if (S.flip == null) return { grip: H * 0.42, apply() {} };
+    // flip (opt-in): one sheet on a hinge at the paper's top edge; its normal face (rules) is toward +z at rest, so on the back it shows its blank side to -z
+    const hinge = new THREE.Group(); P.whole.add(hinge);
+    const sm = mat("#f7f4ea", { roughness: 0.9 }), st = mat("#ffffff", { roughness: 0.9, map: tex });
+    const sheet = mesh(new THREE.BoxGeometry(0.21, 0.3, 0.0015), [sm, sm, sm, sm, st, sm], hinge, 0, -0.15, 0); sheet.castShadow = false;
+    return {
+      grip: H * 0.42,
+      apply(ps) {
+        const fl = clamp(ps.flip ?? S.flip ?? 0), a = fl * 2 * Math.PI, rest = f * (T / 2 + 0.00075), back = -f * (T / 2 + 0.00075 + 0.0015);
+        hinge.visible = fl > 0.001;
+        // the hinge rides up and out over the clip while the sheet lifts, and settles on the back side
+        const lift = Math.sin(Math.PI * Math.min(1, fl * 2));
+        hinge.position.set(0, 0.308 + 0.03 * lift, (fl < 0.5 ? rest : rest + (back - rest) * ss2((fl - 0.5) * 2)) + f * 0.022 * lift);
+        hinge.rotation.x = -f * a;
+      },
+    };
   },
 };
+const ss2 = (x) => { const k = clamp(x); return k * k * (3 - 2 * k); };
