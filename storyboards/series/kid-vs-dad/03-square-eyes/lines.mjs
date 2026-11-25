@@ -62,3 +62,34 @@ export const EPISODE = [
   ["spud", "See? Still round.", "calm", "proud, smug, turning to his dad", KID],
   ["spud", "Screens.", "calm", "flat, dry, a seven-year-old's verdict, a clear S at the start", { ...KID, take: 2 }],
 ];
+
+// THE RHYMING VERSION (Jonny 25 Nov 19:26 Berlin: "id like the entire video to rhyme ... the first lines of dad and son
+// brought me on the idea"; "the rhyme should be done with the rough draft"). Same beats, speakers and staging as EPISODE,
+// index for index (make-episode.mjs KVD_RHYME=1); the hook question "Is it true?" is answered by the last line.
+const R = (i, line, style, extra) => { const [who, , tone, st, o] = EPISODE[i]; return [who, line, tone, style ?? st, extra ? { ...o, ...extra } : o]; };
+export const RHYME = [
+  R(0, "Warning. Look what TV can do."),
+  R(1, "One more hour... and that's you."),
+  R(2, "Square forever? Is it true?", undefined, { take: 2 }),   // take 1 was heard as "Swear"
+  R(3, "We're live. Tato, age seven. Nine hours of TV."),
+  R(4, "In this house, there's one rule, you see: one more hour... and square you'll be."),
+  R(5, "Just one more episode, please."),
+  R(6, "Hour nine. Eye check. Hold still. Freeze.", undefined, { take: 2 }),   // take 1 came out quiet (+5 dB) and slow (4.0 s)
+  R(7, "Still round. Safe and sound."),
+  R(8, "Last warning. I'm not joking around."),
+  R(9, "Hour twelve. Read me the top row."),
+  R(10, "E."),
+  R(11, "Still... round. I don't know."),
+  R(12, "Who made the letters so small? I can't read this at all."),
+  R(13, "You want to end up like him? Next door?"),
+  R(14, "Sir. How long did you watch before?"),
+  R(15, "One summer. Ninety-eight. I just sat and stared."),
+  R(16, "And now?"),
+  R(17, "Now everything is widescreen... and squared."),
+  R(18, "Hour sixteen. The whole season. No break."),
+  R(19, "Still... round? For goodness' sake!"),
+  R(20, "Five more minutes... then I'll go."),
+  R(21, "No."),
+  R(22, "See, Dad? Still round. And you?"),
+  R(23, "Screens. Forever. It's true.", "flat, dry, slow, a seven-year-old's verdict"),
+];
