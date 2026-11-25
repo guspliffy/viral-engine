@@ -8,17 +8,28 @@ const pool = [];
 let next = 0, failed = false;
 const waiting = new Map();
 
+// a worker that fails takes the whole pool down for the rest of the render (engine audit, 24 Nov 2026): it stayed in
+// the pool, start() still said yes, and the next frame posted a job to it and waited for an answer that never came
+function fail(err) {
+  failed = true;
+  for (const w of pool) { try { w.terminate(); } catch {} }
+  pool.length = 0;
+  for (const r of waiting.values()) r.bad(err);
+  waiting.clear();
+}
+
 function start() {
-  if (pool.length || failed || typeof Worker === "undefined") return pool.length > 0;
+  if (failed || typeof Worker === "undefined") return false;
+  if (pool.length) return true;
   try {
     const n = Math.max(1, Math.min(8, (globalThis.navigator && navigator.hardwareConcurrency) || 2));
     for (let i = 0; i < n; i++) {
       const w = new Worker(new URL("./mesh-worker.js", import.meta.url), { type: "module" });
       w.onmessage = (e) => { const r = waiting.get(e.data.id); if (r) { waiting.delete(e.data.id); r.ok(e.data.m); } };
-      w.onerror = (e) => { e.preventDefault?.(); failed = true; for (const r of waiting.values()) r.bad(new Error(`mesh worker: ${e.message}`)); waiting.clear(); };
+      w.onerror = (e) => { e.preventDefault?.(); fail(new Error(`mesh worker: ${e.message}`)); };
       pool.push(w);
     }
-  } catch { failed = true; pool.length = 0; }
+  } catch { fail(new Error("mesh worker: could not start")); }
   return pool.length > 0;
 }
 
@@ -37,13 +48,13 @@ export async function meshAll(jobs) {
   if (!jobs.length || !start()) return ready;
   const queue = [...new Map(jobs.map((j) => [j.key, j])).values()].map((j) => ({ j, n: size(j) })).sort((a, b) => b.n - a.n).map((x) => x.j);
   const run = async (w) => {
-    for (let j; (j = queue.shift()); ) {
+    for (let j; !failed && (j = queue.shift()); ) {
       const id = next++;
       const m = await new Promise((ok, bad) => { waiting.set(id, { ok, bad }); w.postMessage({ id, shape: j.shape, h: j.h }); });
       ready.set(j.key, m);
     }
   };
   // a failed worker only costs speed: whatever it didn't mesh is meshed on the page
-  try { await Promise.all(pool.map(run)); } catch (e) { console.log(`diag: ${e.message}; meshing on the page instead`); }
+  try { await Promise.all([...pool].map(run)); } catch (e) { console.log(`diag: ${e.message}; meshing on the page instead`); }
   return ready;
 }

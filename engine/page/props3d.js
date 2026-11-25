@@ -1778,13 +1778,34 @@ function bedDrape(spec, frame, blanketM, { top, W, L, Z0 }) {
   };
 }
 
+// each prop's own actions ("prop" sets, grabs, let-gos, carries), sorted by time once per storyboard: propState runs for
+// every prop at every frame, and scanning and sorting the whole action list each time was most of its cost (Copy
+// Money: 34 props, 421 actions; 57 -> 34 ms in the engine audit, 24 Nov 2026). The order is the old one: a stable sort
+// by time of the actions in storyboard order. Keyed on the actions array (a new array is a new index) and its length.
+const ACTS = new WeakMap();
+function propActs(sb, id) {
+  const list = sb.actions || [];
+  let ix = ACTS.get(list);
+  if (!ix || ix.n !== list.length) {
+    ix = { n: list.length, by: new Map() };
+    for (const a of list) {
+      if (a.do !== "prop" && a.do !== "grab" && a.do !== "release" && a.do !== "carry") continue;
+      const k = a.do === "prop" ? a.id : a.prop;
+      let l = ix.by.get(k); if (!l) ix.by.set(k, (l = [])); l.push(a);
+    }
+    for (const l of ix.by.values()) l.sort((a, b) => a.at - b.at);
+    ACTS.set(list, ix);
+  }
+  return ix.by.get(id) || [];
+}
+
 export function propState(sb, spec, t) {
   const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, lights: spec.lights ?? 0, rock: 0, shh: 0, crook: spec.crook ?? 0, wrap: spec.wrap ?? 0, ...(typeof spec.look === "number" && { look: spec.look }), steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, lean: spec.lean ?? 0, neckY: spec.neckY ?? 0, neckP: spec.neckP ?? 0, headY: spec.headY ?? 0, headP: spec.headP ?? 0, headR: spec.headR ?? 0, jaw: spec.jaw ?? 0, sniff: 0, squint: spec.squint ?? 0, blink: 0, brow: spec.brow ?? 0, lookX: spec.lookX ?? 0, lookY: spec.lookY ?? 0, curl: 0, arms: 0, breath: spec.breath ?? 0, step: 0, wag: 0, part: spec.part ?? 0, pop: spec.pop ?? 0, mouth: spec.mouth ?? 0, hope: spec.hope ?? 0, sad: spec.sad ?? 0, wilt: spec.wilt ?? 0, bank: spec.bank ?? 0, bob: spec.bob ?? 1, squeeze: 0, jet: 0, port: 0, straw: spec.straw ?? 0, ...kitState(spec), hold: null, left: null, carry: null, pull: spec.pull ?? 0, alarm: spec.alarm ?? 0 };
   // Sprout Man's own numbers (engine/shared/sprout-rig.js): only on his prop, so no other prop's state changes
   if (spec.kind === "sproutman") for (const [k, v] of Object.entries(SPROUT_STATE)) ps[k] = spec[k] ?? v;
   if (spec.kind === "selfieframe") { ps.filter = spec.filter ?? 0; ps.snap = 0; }
   Object.assign(ps, snowPropKeys(spec), desk11PropKeys(spec));   // amount, dump, grow, trickle, depth, sweep, logs (props-survive-snow.js): so they tween
-  const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
+  const acts = propActs(sb, spec.id).filter((a) => a.at <= t);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
     if (a.do === "prop") {

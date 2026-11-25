@@ -46,7 +46,7 @@ function args() {
 
 // one beat: frame colours (half size) and the character map -> per-character edge results and the two sheet cells
 function measure(stillFile, idsFile, cast) {
-  const rgb = readRGB(stillFile, W, H), idRGB = readRGB(idsFile, W, H), N = W * H;
+  const rgb = readRGB(stillFile, W, H), idRGB = readRGB(idsFile, W, H, "neighbor"), N = W * H;
   const id = new Uint8Array(N), L = new Float32Array(N), A = new Float32Array(N), B = new Float32Array(N);
   for (let p = 0; p < N; p++) { id[p] = idRGB[p * 3]; const c = lab(rgb[p * 3], rgb[p * 3 + 1], rgb[p * 3 + 2]); L[p] = c[0]; A[p] = c[1]; B[p] = c[2]; }
   const dE = (p, q) => Math.hypot(L[p] - L[q], A[p] - A[q], B[p] - B[q]);
