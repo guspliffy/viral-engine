@@ -193,6 +193,10 @@ const SIZE = {
   // props-carrots.js (Kid vs Dad 05): carrotstick = thin pinch with spec up: true (origin the thick end, thin end up, len = its true 0.11): call thin with { from: 0.28 } (y 0.031 from the thick end; 0.32 hides the thick end in the glove: thin-prop-hidden); carrotbag = box hold, palms on the sides (height 0.4 = y 0.12)
   carrotstick: { len: 0.11, r: 0.009, w: 0.11, h: 0.02, d: 0.02 },
   carrotbag: { w: 0.22, h: 0.30, d: 0.14 },
+  // props-sqeyes.js (Kid vs Dad 03): eyechart = phone hold on a side edge, origin the bottom edge's middle (0.30 x 0.42 x 0.01; pass { height: 0.2 } = 8 cm up); smallruler = thin pinch at the held end
+  // (origin = the end, along +x; pass { from: 0 }; len 0.02 puts the default from 0.6 at 1.2 cm, inside the 0.035 width)
+  eyechart: { w: 0.30, h: 0.42, t: 0.01 },
+  smallruler: { len: 0.02, r: 0.002 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

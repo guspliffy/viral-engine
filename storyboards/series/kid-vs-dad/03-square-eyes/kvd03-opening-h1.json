@@ -51,8 +51,8 @@
    "tagW": 150,
    "count": false,
    "show": [
-    7.767,
-    19.37
+    8.433,
+    20.06
    ]
   }
  },
@@ -71,8 +71,8 @@
  },
  "creative": {
   "length": [
-   19.37,
-   19.37
+   20.06,
+   20.06
   ]
  },
  "hook": {
@@ -87,7 +87,7 @@
    "id": "spud",
    "character": "potatobrawl/spud-kid",
    "at": [
-    -0.22,
+    -0.24,
     -1.52
    ],
    "face": 12,
@@ -97,9 +97,9 @@
   },
   {
    "id": "wedge",
-   "character": "potatobrawl/wedge",
+   "character": "potatobrawl/dad",
    "at": [
-    0.7,
+    0.77,
     -1.52
    ],
    "face": -6,
@@ -167,9 +167,9 @@
   {
    "id": "plant",
    "kind": "gplant",
-   "x": 1.95,
+   "x": -0.95,
    "y": 0,
-   "z": -1.15
+   "z": -2.3
   },
   {
    "id": "rug",
@@ -210,31 +210,31 @@
   },
   {
    "from": 3.57,
-   "to": 5.92,
+   "to": 5.99,
    "text": "One more hour, and *that's you.*",
    "pos": 430,
    "pop": false,
    "size": 62
   },
   {
-   "from": 6.12,
-   "to": 7.62,
+   "from": 6.19,
+   "to": 8.31,
    "text": "Square forever? *Is it true?*",
    "pos": 430,
    "pop": false,
    "size": 62
   },
   {
-   "from": 7.82,
-   "to": 11.91,
+   "from": 8.51,
+   "to": 12.6,
    "text": "*Tato,* age seven. *Nine hours* of TV.",
    "pos": 430,
    "pop": false,
    "size": 62
   },
   {
-   "from": 12.11,
-   "to": 19.07,
+   "from": 12.8,
+   "to": 19.76,
    "text": "One more hour... and your eyes go *square.*",
    "pos": 430,
    "pop": false,
@@ -607,33 +607,33 @@
   {
    "name": "thats you",
    "at": 3.5,
-   "len": 2.566,
+   "len": 2.6,
    "shot": {
     "pos": [
-     0.4,
+     0.47,
      1.01,
      2.5
     ],
     "look": [
-     0.66,
+     0.73,
      1.01,
      -1.17
     ],
     "fov": 36,
     "to": {
      "pos": [
-      0.421,
+      0.491,
       1.01,
       2.206
      ],
      "look": [
-      0.66,
+      0.73,
       1.01,
       -1.17
      ],
      "fov": 36
     },
-    "dur": 2.55,
+    "dur": 2.6199999999999997,
     "ease": "inOut"
    },
    "do": [
@@ -658,7 +658,8 @@
      "line": "One more hour, and that's you.",
      "tone": "calm",
      "style": "flat, pointing, eyes still on his phone",
-     "dur": 2.25,
+     "voice": "dad",
+     "dur": 2.32,
      "caption": false,
      "at": 0.07
     },
@@ -687,7 +688,7 @@
      ],
      "dur": 0.25,
      "blink": false,
-     "at": 2.42
+     "at": 2.49
     },
     {
      "who": "spud",
@@ -699,7 +700,7 @@
       "curve": -0.2
      },
      "dur": 0.2,
-     "at": 2.42
+     "at": 2.49
     },
     {
      "who": "wedge",
@@ -707,7 +708,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.35,
-     "at": 2.47
+     "at": 2.54
     },
     {
      "who": "wedge",
@@ -715,14 +716,14 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 2.47
+     "at": 2.54
     }
    ]
   },
   {
    "name": "is it true",
-   "at": 6.066,
-   "len": 1.7,
+   "at": 6.1,
+   "len": 2.3,
    "shot": {
     "pos": [
      -0.45,
@@ -748,7 +749,7 @@
      ],
      "fov": 36
     },
-    "dur": 1.7,
+    "dur": 2.32,
     "ease": "inOut"
    },
    "do": [
@@ -758,7 +759,7 @@
      "side": "L",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 0.034
+     "at": 0
     },
     {
      "who": "spud",
@@ -767,9 +768,9 @@
      "tone": "whisper",
      "style": "scared, small, staring at the neighbour",
      "voice": "tato",
-     "dur": 1.4,
+     "dur": 2.02,
      "caption": false,
-     "at": 0.054
+     "at": 0.09
     },
     {
      "who": "wedge",
@@ -777,14 +778,40 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.194
+     "at": 0.16
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 2.1
+    },
+    {
+     "who": "rep",
+     "do": "show",
+     "at": 2.233
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 2.233
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.26
     }
    ]
   },
   {
    "name": "live",
-   "at": 7.766,
-   "len": 4.234,
+   "at": 8.4,
+   "len": 4.3,
    "shot": {
     "pos": [
      1,
@@ -816,95 +843,12 @@
    "do": [
     {
      "who": "rep",
-     "do": "show",
-     "at": 0.014
-    },
-    {
-     "who": "rep",
      "macro": "say",
      "line": "We're live. Tato, age seven, has watched TV for nine hours.",
      "tone": "calm",
      "style": "grave, low, a correspondent under cover",
      "voice": "reaper",
      "dur": 3.99,
-     "caption": false,
-     "at": 0.054
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "L",
-     "shape": "scroll",
-     "dur": 0.1,
-     "at": 0.434
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "L",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 0.594
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "L",
-     "shape": "scroll",
-     "dur": 0.1,
-     "at": 2.634
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "L",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 2.794
-    }
-   ]
-  },
-  {
-   "name": "one rule",
-   "at": 12,
-   "len": 7.37,
-   "shot": {
-    "pos": [
-     0.2,
-     1.35,
-     2.6
-    ],
-    "look": [
-     0.2,
-     0.85,
-     -1.5
-    ],
-    "fov": 46,
-    "to": {
-     "pos": [
-      0.2,
-      1.29,
-      2.108
-     ],
-     "look": [
-      0.2,
-      0.85,
-      -1.5
-     ],
-     "fov": 46
-    },
-    "dur": 7.26,
-    "ease": "inOut"
-   },
-   "do": [
-    {
-     "who": "rep",
-     "macro": "say",
-     "line": "And in this house, there is one rule: one more hour... and your eyes go square.",
-     "tone": "calm",
-     "style": "slow, ominous, a pause before the last words",
-     "voice": "reaper",
-     "dur": 6.66,
      "caption": false,
      "at": 0.11
     },
@@ -914,7 +858,7 @@
      "side": "L",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 0.6
+     "at": 2
     },
     {
      "who": "wedge",
@@ -922,7 +866,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.76
+     "at": 2.16
     },
     {
      "who": "wedge",
@@ -930,15 +874,61 @@
      "side": "L",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 2.9
+     "at": 4.2
+    }
+   ]
+  },
+  {
+   "name": "one rule",
+   "at": 12.7,
+   "len": 7.36,
+   "shot": {
+    "pos": [
+     0.34,
+     1.35,
+     2.75
+    ],
+    "look": [
+     0.34,
+     0.85,
+     -1.5
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      0.34,
+      1.29,
+      2.24
+     ],
+     "look": [
+      0.34,
+      0.85,
+      -1.5
+     ],
+     "fov": 48
     },
+    "dur": 7.26,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "who": "wedge",
      "do": "grip",
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 3.06
+     "at": 0.06
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And in this house, there is one rule: one more hour... and your eyes go square.",
+     "tone": "calm",
+     "style": "slow, ominous, a pause before the last words",
+     "voice": "reaper",
+     "dur": 6.66,
+     "caption": false,
+     "at": 0.1
     },
     {
      "who": "wedge",
@@ -946,7 +936,7 @@
      "side": "L",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 5.2
+     "at": 2.2
     },
     {
      "who": "wedge",
@@ -954,7 +944,23 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 5.36
+     "at": 2.36
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 4.5
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 4.66
     }
    ]
   }
@@ -974,7 +980,7 @@
    "who": "spud",
    "with": "sofa",
    "from": 0,
-   "to": 19.37,
+   "to": 20.06,
    "checks": [
     "shell",
     "clipping",
@@ -988,7 +994,7 @@
    "who": "wedge",
    "with": "sofa",
    "from": 0,
-   "to": 19.37,
+   "to": 20.06,
    "checks": [
     "shell",
     "clipping",
@@ -999,5 +1005,5 @@
    "reason": "sitting on the sofa"
   }
  ],
- "notes": "Generated by storyboards/series/kid-vs-dad/03-square-eyes/make-openings.mjs (h1). Dad = potatobrawl/wedge."
+ "notes": "Generated by storyboards/series/kid-vs-dad/03-square-eyes/make-openings.mjs (h1). Dad = potatobrawl/dad."
 }

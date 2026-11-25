@@ -1003,7 +1003,19 @@
      "line": "Carrots. Eat them, and you see in the dark.",
      "tone": "calm",
      "style": "a stern dad, dead certain, pointing at his eyes",
-     "voice": "dad",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/dad-ref.wav",
+       "base": "a nasal, nerdy dad, matter-of-fact and a little whiny"
+      },
+      "note": "Dad (the new Dad B in Kid vs Dad): Jonny 25 Nov 2026 13:20 Berlin picked dad-8-nasal from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 53 after a male-pitch check; that take is the reference clip, so every line is the same voice)"
+     },
      "dur": 3.72,
      "caption": false,
      "at": 0.15
@@ -2985,7 +2997,19 @@
      "line": "Eat up.",
      "tone": "calm",
      "style": "cheerful, innocent, sipping coffee",
-     "voice": "dad",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/dad-ref.wav",
+       "base": "a nasal, nerdy dad, matter-of-fact and a little whiny"
+      },
+      "note": "Dad (the new Dad B in Kid vs Dad): Jonny 25 Nov 2026 13:20 Berlin picked dad-8-nasal from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 53 after a male-pitch check; that take is the reference clip, so every line is the same voice)"
+     },
      "take": 2,
      "dur": 0.91,
      "caption": false,
@@ -3160,7 +3184,19 @@
      "line": "Dad, you have crumbs.",
      "tone": "calm",
      "style": "flat, suspicious, a seven-year-old staring",
-     "voice": "tato",
+     "voice": {
+      "voice": {
+       "am_puck": 1
+      },
+      "speed": 1.1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/tato-ref.wav",
+       "base": "a seven-year-old boy, flat and deadpan like a tiny grown-up, calm and dry"
+      },
+      "note": "Tato (Spud, the kid in Kid vs Dad): Jonny 25 Nov 2026 12:37 Berlin picked kid-4-flat from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 37; that take is the reference clip, so every line is the same voice)"
+     },
      "dur": 2.14,
      "caption": false,
      "at": 0.12
@@ -3224,7 +3260,19 @@
      "line": "...Carrot crumbs.",
      "tone": "calm",
      "style": "too quick, too calm, a lie",
-     "voice": "dad",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/dad-ref.wav",
+       "base": "a nasal, nerdy dad, matter-of-fact and a little whiny"
+      },
+      "note": "Dad (the new Dad B in Kid vs Dad): Jonny 25 Nov 2026 13:20 Berlin picked dad-8-nasal from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 53 after a male-pitch check; that take is the reference clip, so every line is the same voice)"
+     },
      "dur": 0.93,
      "caption": false,
      "at": 2.56
@@ -5248,7 +5296,19 @@
      "line": "...Dad?",
      "tone": "question",
      "style": "flat, small, unimpressed",
-     "voice": "tato",
+     "voice": {
+      "voice": {
+       "am_puck": 1
+      },
+      "speed": 1.1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/tato-ref.wav",
+       "base": "a seven-year-old boy, flat and deadpan like a tiny grown-up, calm and dry"
+      },
+      "note": "Tato (Spud, the kid in Kid vs Dad): Jonny 25 Nov 2026 12:37 Berlin picked kid-4-flat from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 37; that take is the reference clip, so every line is the same voice)"
+     },
      "dur": 0.54,
      "caption": false,
      "at": 1
@@ -5526,7 +5586,19 @@
      "line": "...Carrots.",
      "tone": "calm",
      "style": "mouth full of cookie, guilty, dead serious",
-     "voice": "dad",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/dad-ref.wav",
+       "base": "a nasal, nerdy dad, matter-of-fact and a little whiny"
+      },
+      "note": "Dad (the new Dad B in Kid vs Dad): Jonny 25 Nov 2026 13:20 Berlin picked dad-8-nasal from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 53 after a male-pitch check; that take is the reference clip, so every line is the same voice)"
+     },
      "dur": 0.85,
      "caption": false,
      "at": 1.174

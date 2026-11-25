@@ -1,0 +1,664 @@
+{
+ "id": "bench-sqeyes",
+ "title": "Kid vs Dad 03 props bench (clock, eye chart, ruler)",
+ "idea": "Props bench for props-sqeyes.js (gravroom set), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "far": 6000,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "animeTiming": true,
+ "set": {
+  "type": "gravroom",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "rep",
+   "character": "potatobrawl/reporter",
+   "at": [
+    0.2,
+    -0.6
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 131.3
+  }
+ ],
+ "props": [
+  {
+   "id": "rug",
+   "kind": "grug",
+   "x": 0.18,
+   "y": 0,
+   "z": 0.11
+  },
+  {
+   "id": "sofa",
+   "kind": "gsofa",
+   "x": 0.2,
+   "y": 0,
+   "z": -1.61,
+   "rot": 0
+  },
+  {
+   "id": "tv",
+   "kind": "gtv",
+   "x": -1.52,
+   "y": 0,
+   "z": -0.99,
+   "rot": 34,
+   "picture": "cartoon",
+   "scene": 0,
+   "light": 0.55,
+   "castLight": 4,
+   "on": 1
+  },
+  {
+   "id": "lamp",
+   "kind": "glamp",
+   "x": -1.75,
+   "y": 0,
+   "z": -2.35,
+   "rot": 180
+  },
+  {
+   "id": "plant",
+   "kind": "gplant",
+   "x": -0.95,
+   "y": 0,
+   "z": -2.3
+  },
+  {
+   "id": "clock",
+   "kind": "wallclock",
+   "x": 0.2,
+   "y": 1.55,
+   "z": -2.62,
+   "rot": 0,
+   "time": 20
+  },
+  {
+   "id": "chart",
+   "kind": "eyechart",
+   "x": -0.2,
+   "y": -5,
+   "z": -0.25,
+   "rot": 360
+  },
+  {
+   "id": "ruler",
+   "kind": "smallruler",
+   "x": -0.2,
+   "y": -5,
+   "z": -0.3,
+   "rot": 180
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "q1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.52,
+     3.18
+    ],
+    "look": [
+     0.03,
+     1.52,
+     -2.65
+    ],
+    "fov": 51
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "on": 1,
+      "card": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 20
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "Q1 wide, 8 pm"
+  },
+  {
+   "name": "q2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.55,
+     -1.2
+    ],
+    "look": [
+     0.2,
+     1.55,
+     -2.62
+    ],
+    "fov": 34
+   },
+   "do": [],
+   "kind": "Q2 clock 20"
+  },
+  {
+   "name": "q3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.55,
+     -1.2
+    ],
+    "look": [
+     0.2,
+     1.55,
+     -2.62
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 23
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ],
+   "kind": "Q3 cut to 23"
+  },
+  {
+   "name": "q4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.55,
+     -1.2
+    ],
+    "look": [
+     0.2,
+     1.55,
+     -2.62
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 27
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "Q4 23 -> 27 mid spin"
+  },
+  {
+   "name": "q5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.55,
+     -1.2
+    ],
+    "look": [
+     0.2,
+     1.55,
+     -2.62
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chart",
+     "set": {
+      "y": 0.18
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.58
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0.6
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "chart",
+      "grip": [
+       0.185,
+       0.084,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "chart",
+      "grip": [
+       0.185,
+       0.084,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.61
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.616
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "chart",
+     "hand": "R",
+     "grip": [
+      0.185,
+      0.084,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.68
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "chart",
+      "grip": [
+       0.185,
+       0.084,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.2,
+       0.2,
+       -0.25
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.74
+    }
+   ],
+   "kind": "Q5 clock 27"
+  },
+  {
+   "name": "q6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.1,
+     0.62,
+     2.4
+    ],
+    "look": [
+     0.1,
+     0.5,
+     -0.4
+    ],
+    "fov": 36
+   },
+   "do": [],
+   "kind": "Q6 eye chart"
+  },
+  {
+   "name": "q7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.5,
+     0.45,
+     -0.25
+    ],
+    "look": [
+     -0.2,
+     0.3,
+     -0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "release",
+     "prop": "chart",
+     "dur": 0,
+     "to": [
+      -0.2,
+      -5,
+      -0.25
+     ],
+     "at": 0.8
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.8
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "chart",
+      "grip": [
+       0.185,
+       0.084,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       0.04
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.84
+    },
+    {
+     "do": "prop",
+     "id": "ruler",
+     "set": {
+      "y": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "Q7 eye chart, side"
+  },
+  {
+   "name": "q8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.34,
+     0.6
+    ],
+    "look": [
+     -0.35,
+     0.3,
+     -0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.001,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ruler",
+      "grip": [
+       0,
+       0,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       -0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ruler",
+      "grip": [
+       0,
+       0,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.001
+     },
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.04
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.04
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "ruler",
+     "hand": "R",
+     "grip": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.08
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ruler",
+      "grip": [
+       0,
+       0,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.2,
+       0.32,
+       -0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.14
+    }
+   ],
+   "kind": "Q8 ruler"
+  },
+  {
+   "name": "q9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.5,
+     0.45,
+     -0.25
+    ],
+    "look": [
+     -0.2,
+     0.3,
+     -0.3
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "Q9 ruler, side"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/03-square-eyes/bench/bench-sqeyes.mjs (props bench, no reviews)."
+}
