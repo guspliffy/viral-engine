@@ -389,15 +389,22 @@ async function main() {
     // A render lays the clip out for its contact gate. Preflight has usually just done that (2 minutes on a 10 s clip,
     // half of a draft whose frames are all cached), so the last full layout is used again while it is still this
     // clip's: same key, and every file its page loaded unchanged. --fresh-layout, a window or --layout lays out anew.
+    // A render with its own --out (a film's join script) also takes preflight's layout from the default out/: before,
+    // a five-part join laid every part out twice (engine audit, 24 Nov 2026); it is copied beside the render.
     const layoutStill = () => {
-      const full = path.join(o.out, `${sb.id}${tag}.layout.json`);
-      if (o.freshLayout || !fs.existsSync(full)) return null;
-      let lay; try { lay = JSON.parse(fs.readFileSync(full, "utf8")); } catch { return null; }
-      if (!lay.key || lay.key !== layoutKey() || !lay.deps || !Array.isArray(lay.deps.files)) return null;
-      const files = lay.deps.files.map((f) => path.join(ROOT, f));
-      if (files.some((f) => !fs.existsSync(f)) || filesHash(files) !== lay.deps.hash) return null;
-      console.log(`layout: ${path.relative(ROOT, full)} is still this clip's (same storyboard, characters, page code and loaded files), not laid out again (--fresh-layout does)`);
-      return lay;
+      if (o.freshLayout) return null;
+      const name = `${sb.id}${tag}.layout.json`, full = path.join(o.out, name), dflt = path.join(ROOT, "out", name);
+      for (const f of full === dflt ? [full] : [full, dflt]) {
+        if (!fs.existsSync(f)) continue;
+        let lay; try { lay = JSON.parse(fs.readFileSync(f, "utf8")); } catch { continue; }
+        if (!lay.key || lay.key !== layoutKey() || !lay.deps || !Array.isArray(lay.deps.files)) continue;
+        const files = lay.deps.files.map((x) => path.join(ROOT, x));
+        if (files.some((x) => !fs.existsSync(x)) || filesHash(files) !== lay.deps.hash) continue;
+        if (f !== full) fs.copyFileSync(f, full);
+        console.log(`layout: ${path.relative(ROOT, f)} is still this clip's (same storyboard, characters, page code and loaded files), not laid out again (--fresh-layout does)`);
+        return lay;
+      }
+      return null;
     };
     const writeLayout = async () => {
       const full = path.join(o.out, `${sb.id}${tag}.layout.json`), nC = Math.round(dur * fps);
