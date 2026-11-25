@@ -20,8 +20,8 @@ const GUARD = { o: GUM_GUARD.o, elbow: GUM_GUARD.elbow };
 const c = clip({ faces: "strong", lines: { sub: false, blink: false } }), { A, sfx, cap, see } = c;
 const F = (t) => r3(Math.round(t * 30) / 30);
 
-// measured spoken lengths (node qa/lines.mjs kvd06-voice-probe.json), in LINES order
-const DUR = [3.02, 1.77, 3.15, 6.73, 3.64, 0.80, 1.18, 2.32, 1.21, 0.83, 2.42, 1.08, 0.94, 1.23, 1.41, 2.40, 3.56, 1.03, 1.07, 1.84, 1.24];
+// measured spoken lengths (node qa/lines.mjs kvd06-voice-probe.json; line 3 = take 1 measured on gum.json), in LINES order
+const DUR = [3.02, 1.77, 3.15, 7.99, 3.64, 0.80, 1.18, 2.32, 1.21, 0.83, 2.42, 1.08, 0.94, 1.23, 1.41, 2.40, 3.56, 1.03, 1.07, 1.84, 1.24];
 // beats between lines (seconds of action before line i)
 const HOOK = 0.85, MITTS = 1.5, GURGLE = 1.0, OWN = 0.9, HELMET = 1.2, SNIP = 0.75, OFFER = 0.4, ARMOUR = 1.5, SPOONG = 0.3,
   CHEW = 4.4, IMPOSS = 0.35, FILM = 0.5, HOLD = 1.7;
@@ -175,12 +175,12 @@ arm(onCut(TM), "dad", "R", "rest", 0.01);
 hold(TM, "dad", "L", "glass", [0, 0.11, 0]); grip(onCut(TM), "dad", "L", "fist", 0.01);   // the mitt holds the glass to his tummy
 expr(TM, "dad", FACES.squint, 0.01); look(TM, "dad", [0.6, -0.5], 0.01);
 const TG1 = r3(TM + 0.6);
-sfx(TG1, "bubbling", { gain: 0.35 }); A(TG1, "spudU", "squash", { amount: 0.02, dur: 0.15 }); A(r3(TG1 + 0.3), "spudU", "squash", { amount: 0, dur: 0.2 });
+sfx(TG1, "bubbling", { gain: 0.35, dur: 0.8 }); A(TG1, "spudU", "squash", { amount: 0.02, dur: 0.15 }); A(r3(TG1 + 0.3), "spudU", "squash", { amount: 0, dur: 0.2 });
 expr(r3(T[6] - 0.15), "dad", FACES.sticking, 0.1);
 say(6, { soft: true });   // It's sticking.
 // tease 1: Dad's OWN tummy gurgles back, louder
 const TG2 = r3(END_OF(6) + 0.3);
-sfx(TG2, "bubbling", { gain: 0.5, rate: 0.75 }); A(TG2, "dad", "squash", { amount: 0.04, dur: 0.12 }); A(r3(TG2 + 0.35), "dad", "squash", { amount: 0, dur: 0.3 });
+sfx(TG2, "bubbling", { gain: 0.45, dur: 0.8 }); A(TG2, "dad", "squash", { amount: 0.04, dur: 0.12 }); A(r3(TG2 + 0.35), "dad", "squash", { amount: 0, dur: 0.3 });
 expr(r3(TG2 + 0.05), "dad", { eye: 1.2, pupil: 0.8 }, 0.1); look(r3(TG2 + 0.1), "dad", [0, -0.3], 0.1);
 // the reporter has crept in (on the cut): Sir... that was your stomach.
 A(onCut(cutAt(7)), "rep", "hide"); A(onCut(cutAt(7)), "rep3", "show"); show(cutAt(7), "mic3");
@@ -192,7 +192,7 @@ look(r3(T[8] - 0.1), "dad", [0.5, 0.2], 0.15); A(r3(T[8] + 0.4), "dad", "blink",
 say(8);   // Mine is fine.
 
 // ---------------------------------------------------------------- STEP 2: "Helmet." -> colander, tongs on the "wires"
-arm(r3(T[9] - 0.3), "dad", "L", { o: [0.02, 0.62, 0.30] }, 0.3); arm(r3(T[9] - 0.3), "dad", "R", { o: [0.02, 0.62, 0.30] }, 0.3);
+arm(r3(T[9] - 0.4), "dad", "L", "rest", 0.4); arm(r3(T[9] - 0.4), "dad", "R", "rest", 0.4);   // "Helmet." said with the mitts down (raised arms hit Tato)
 expr(r3(T[9] - 0.3), "dad", FACES.surgeon, 0.15); look(r3(T[9] - 0.3), "dad", [0, 0.1], 0.15);
 say(9);   // Helmet.
 const TH = r3(END_OF(9) + 0.4);
