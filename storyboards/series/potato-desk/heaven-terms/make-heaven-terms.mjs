@@ -181,7 +181,7 @@ see(0, 1.8, ["spud.face", "angel.face", "scroll", "gate"], "a little one at heav
 const DROP = shot("drop", r3(T[0] + DUR[0] * 0.60), cam("T", [2.05, 0.80, 0.70], [0.95, 0.45, -0.75], 30), tilt(10));
 arm(r3(DROP - 0.25), "angel", "R", { o: [0.12, 0.40, 0.55] }, 0.25, "out");
 const ROLLGO = r3(DROP + 0.12);
-c.prop(ROLLGO, "scroll", { unroll: 1 }, 1.55, "in");
+c.prop(ROLLGO, "scroll", { unroll: 0.012 }, 0.42, "inOut"); c.prop(r3(ROLLGO + 0.42), "scroll", { unroll: 1 }, 1.2, "in");   // it tips over the ledge, then races down (no one-frame jump in the insert)
 sfx(r3(ROLLGO + 0.32), "thud", { gain: 0.8 }); c.at(r3(ROLLGO + 0.32), { fx: "shake", dur: 0.1, amp: 0.02 });
 sfx(r3(ROLLGO + 0.45), "ai-package/cardboard-rustle", { gain: 0.5 });
 look(r3(ROLLGO + 0.2), "spud", [0.2, 1.0], 0.2); expr(r3(ROLLGO + 0.25), "spud", "shocked", 0.15);
@@ -283,7 +283,7 @@ sfx(BUMP, "ai/cushion-poof", { gain: 0.5 });
 expr(r3(BUMP + 0.05), "spud", "shocked", 0.1); A(r3(BUMP), "spud", "squash", { amount: -0.05, dur: 0.06 }); A(r3(BUMP + 0.08), "spud", "squash", { amount: 0, dur: 0.12 });
 e = say(6, r3(BUMP + 0.15));
 // shot 10: beside the harp: he sees her, then slides sideways into cover behind it, "No no no" into the duck
-const HIDE = shot("hide", r3(e + 0.1), cam("H", [1.30, 0.85, -3.10], [-0.45, 0.45, -1.10], 32), push(0.06));
+const HIDE = shot("hide", r3(e + 0.1), cam("H", [1.80, 0.85, -2.90], [-0.30, 0.50, -1.05], 40), push(0.08));
 const S_HIDE = W("H", -0.45, 0, -1.10);
 step(r3(HIDE + 0.05), "spud", S_HIDE, 0.35, { steps: 2 }); turn(r3(HIDE + 0.05), "spud", 45, 0.3);
 A(r3(HIDE + 0.35), "spud", "crouch", { to: 0.3, dur: 0.18 }); expr(r3(HIDE + 0.1), "spud", "terrified", 0.1); look(r3(HIDE + 0.3), "spud", [0.9, 0]);
@@ -296,7 +296,7 @@ A(r3(BRIGHT - 0.03), "spud", "crouch", { to: 0, dur: 0.01 });
 place(BRIGHT, "spud", S_HUG, 0); look(r3(BRIGHT - 0.02), "spud", [-0.3, 0.1], 0.01); expr(r3(BRIGHT - 0.02), "spud", "sad", 0.01);
 A(r3(BRIGHT - 0.03), "ex", "ride", { prop: null });
 place(BRIGHT, "ex", W("H", 2.45, 0, 0.45), -60);   // outside the right edge
-place(BRIGHT, "angel", W("H", -0.60, -1.90, -3.05), 0); hR.carry(r3(BRIGHT - 0.02), W("H", -0.60, -1.50, -2.63), 0.01, "linear"); hideProp(r3(BRIGHT - 0.03), "acloud");   // out of his line (Sol r1 #8)
+place(HIDE, "angel", W("H", -0.60, -1.90, -3.05), 0); hR.carry(r3(HIDE - 0.02), W("H", -0.60, -1.50, -2.63), 0.01, "linear"); hideProp(r3(HIDE - 0.03), "acloud");   // out of his line (Sol r1 #8)
 capPos = 260;
 e = say(9, r3(BRIGHT + 0.08));
 expr(r3(e + 0.03), "spud", "eager", 0.15); look(r3(e + 0.03), "spud", [0, 0.1]);
@@ -322,7 +322,7 @@ arm(r3(e + 0.02), "ex", "both", { o: [0.30, 0.45, 0.35] }, 0.2, "out");   // she
 arm(r3(e + 0.02), "spud", "R", { o: [0.20, 1.05, 0.10] }, 0.2, "out");
 // shot 14: over his shoulder at the rim: the same arm brings the phone up, "Where's the wifi?", then a whip down his eyeline toward hell
 const S_RIM = W("H", 0.40, 0, -1.75), YAW_RIM = -170;   // clear of the bed and the harp, facing the rim
-const PH = shot("phone", r3(e + 0.24), cam("H", [0.60, 1.50, -0.60], [0.25, 0.90, -2.90], 34), mvTo("H", [0.58, 1.50, -0.64], [0.20, -0.40, -3.90], 34));
+const PH = shot("phone", r3(e + 0.24), cam("H", [0.85, 1.80, -0.80], [0.50, 0.85, -2.40], 38), mvTo("H", [0.82, 1.80, -0.85], [0.30, -0.40, -3.70], 38));
 A(r3(PH - 0.03), "spud", "lean", { to: 0, dur: 0.01 }); A(r3(PH - 0.03), "ex", "lean", { to: 0, dur: 0.01 });
 place(PH, "ex", [...PARK.ex.slice(0, 1), 0, PARK.ex[1]], 0);
 c.A(r3(PH - 0.02), "ex", "move", { to: PARK.ex, y: 0, dur: 0.01, ease: "linear", sync: true }); arm(r3(PH - 0.02), "ex", "both", "rest", 0.01);
@@ -349,7 +349,7 @@ e = say(14, r3(DEV + 0.15));
 see(DEV, r3(DEV + 1.3), ["devil.face", "dphone"], "the Devil at the foot of the stairs waving his phone: five bars");
 // shot 16: "Clause twenty-two" starts as the Devil finishes; the Angel's profile at the rim
 e = say(15, r3(e + GAP));
-const CL22 = shot("clause 22", r3(T[15] + 0.35), cam("H", [1.60, 0.95, -0.60], [-0.60, 0.80, -3.05], 30), push(0.06));
+const CL22 = shot("clause 22", r3(T[15] + 0.35), cam("H", [-1.80, 0.95, -0.60], [-0.60, 0.62, -3.05], 42), push(0.10));
 place(CL22, "angel", W("H", -0.60, -0.30, -3.05), 0); hR.carry(r3(CL22 - 0.02), W("H", -0.60, 0.10, -2.63), 0.01, "linear");
 putProp(r3(CL22 - 0.03), "acloud", W("H", -0.60, -0.54, -3.05));
 look(r3(CL22 - 0.02), "angel", [0.6, 0.1], 0.01);
@@ -357,7 +357,7 @@ A(r3(CL22 + 0.1), "devil", "release", { prop: "dphone", dur: 0, to: W("B", 0.95,
 
 // ================================================================ 3 BACK AT THE GATE: "I want to READ it." "Nobody gets to the end."
 // shot 17: he strides in from frame left (his travel carries across the cut) and plants a glove on the podium on "READ"
-const READ = shot("read", r3(e + 0.1), cam("T", [-0.55, 0.85, 2.60], [0.55, 0.62, -0.85], 34), trk(0.35, 0, -0.30, "out"));
+const READ = shot("read", r3(e + 0.1), cam("T", [1.30, 1.25, 2.60], [0.70, 0.85, -1.00], 38), push(0.10));
 capPos = SUB;
 for (const h of HOME) hideProp(r3(READ - 0.03), h.id);
 A(r3(READ - 0.03), "spud", "release", { prop: "phone", dur: 0, to: W("H", 0, AWAY, 0) }); hideProp(r3(READ - 0.025), "phone");
@@ -384,8 +384,8 @@ const S_NOB = W("T", 0.30, 0, -0.55), YN = (60 * Math.PI) / 180;
 const S_GRAB = W("T", 0.15, 0, -0.25);
 arm(r3(GRAB - 0.5), "spud", "R", "rest", 0.2);
 step(r3(GRAB - 0.5), "spud", S_GRAB, 0.35, { steps: 2 }); turn(r3(GRAB - 0.5), "spud", 0, 0.35);
-putProp(r3(GRAB - 0.05), "sheet", [S_GRAB[0], r3(S_GRAB[1] + 0.10), r3(S_GRAB[2] + SH_FWD)]);
-A(r3(GRAB - 0.05), "spud", "crouch", { to: 0.25, dur: 0.2 });
+putProp(r3(GRAB - 0.05), "sheet", [S_GRAB[0], r3(S_GRAB[1] + 0.16), r3(S_GRAB[2] + SH_FWD)]);
+A(r3(GRAB - 0.45), "spud", "crouch", { to: 0.3, dur: 0.22 });
 hS.secure(GRAB, 0.2);
 A(r3(GRAB + 0.22), "spud", "crouch", { to: 0, dur: 0.3 }); hS.carry(r3(GRAB + 0.22), sheetAt(S_GRAB), 0.3, "inOut");
 
