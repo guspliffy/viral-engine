@@ -190,6 +190,11 @@ const SIZE = {
   drumsticks: { r: 0.008, h: 0 },
   // props-foodhome.js (Kid vs Dad 02): wrapburger = box hold, both palms on the paper (origin bottom centre, 0.24 across, 0.155 tall; the design's y 0.05 = height 0.32, gap 0.03)
   wrapburger: { w: 0.24, h: 0.155, d: 0.24 },
+  // props-gum.js (Kid vs Dad 06): gumstick = thin pinch on the foil sleeve (from: 0.25 = y 0.0275, under the paper band); potlid = the shield, held rigid in the right mitt by GUM_GRIPS.potlid.back (built facing +z, origin the rim plane's centre);
+  // xrayfilm = box hold, both palms on the side edges at y 0.253 (the reviewtablet hold; the picture on -z)
+  gumstick: { len: 0.11, r: 0.005 },
+  potlid: { w: 0.44, h: 0.44, d: 0.07 },
+  xrayfilm: { w: 0.34, h: 0.46, d: 0.02 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
