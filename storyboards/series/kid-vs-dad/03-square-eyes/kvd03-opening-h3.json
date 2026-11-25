@@ -13,6 +13,9 @@
  "captionStyle": "kinetic",
  "castLook": "sheet",
  "cleanStart": true,
+ "captionOverBody": {
+  "reason": "close-ups where the speaker fills the phone frame; captions in the upper third over the body, never the eyes (rule from the 8-min film trial, Jonny OK 20 Nov)"
+ },
  "motion": {
   "feet": 2,
   "overlap": true,
@@ -108,8 +111,8 @@
    "id": "rep",
    "character": "potatobrawl/reporter",
    "at": [
-    1.72,
-    -0.3
+    1.66,
+    -0.22
    ],
    "face": -28,
    "follow": 0.3,
@@ -152,9 +155,9 @@
   {
    "id": "plant",
    "kind": "gplant",
-   "x": 1.86,
+   "x": 1.95,
    "y": 0,
-   "z": -0.78
+   "z": -1.15
   },
   {
    "id": "rug",
@@ -178,16 +181,16 @@
    "id": "mic",
    "kind": "newsmic",
    "lean": 30,
-   "x": 1.34,
-   "y": 0.62,
-   "z": -0.1,
+   "x": 1.3,
+   "y": 0.4,
+   "z": 0,
    "rot": 152
   }
  ],
  "captions": [
   {
    "from": 0.12,
-   "to": 3.78,
+   "to": 3.77,
    "text": "*Lies.* Your parents lied to you... *or did they?*",
    "pos": 430,
    "pop": false,
@@ -215,7 +218,8 @@
    "text": "Too much TV gives you *square eyes*",
    "pos": 250,
    "pop": false,
-   "size": 58
+   "size": 58,
+   "kinetic": false
   }
  ],
  "beats": [
@@ -225,28 +229,28 @@
    "len": 3.8,
    "shot": {
     "pos": [
-     1.3,
-     0.8,
-     0.75
+     1.42,
+     0.58,
+     2
     ],
     "look": [
-     1.72,
-     0.78,
-     -0.3
+     1.57,
+     0.56,
+     -0.02
     ],
-    "fov": 34,
+    "fov": 36,
     "to": {
      "pos": [
-      1.334,
-      0.798,
-      0.666
+      1.432,
+      0.578,
+      1.838
      ],
      "look": [
-      1.72,
-      0.78,
-      -0.3
+      1.57,
+      0.56,
+      -0.02
      ],
-     "fov": 34
+     "fov": 36
     },
     "dur": 3.85,
     "ease": "inOut"
@@ -512,28 +516,28 @@
    "len": 0.5,
    "shot": {
     "pos": [
-     -0.42,
-     0.86,
-     -1.02
+     -0.26,
+     0.78,
+     -0.5
     ],
     "look": [
-     -0.22,
-     0.84,
-     -1.52
+     -0.17,
+     0.77,
+     -1.3
     ],
-    "fov": 30,
+    "fov": 36,
     "to": {
      "pos": [
-      -0.41,
-      0.859,
-      -1.045
+      -0.255,
+      0.78,
+      -0.54
      ],
      "look": [
-      -0.22,
-      0.84,
-      -1.52
+      -0.17,
+      0.77,
+      -1.3
      ],
-     "fov": 30
+     "fov": 36
     },
     "dur": 0.52,
     "ease": "inOut"
@@ -561,26 +565,26 @@
    "len": 4.3,
    "shot": {
     "pos": [
-     0.95,
-     0.95,
-     0.85
+     1,
+     0.6,
+     1.9
     ],
     "look": [
-     1.72,
-     0.75,
-     -0.3
+     1.57,
+     0.56,
+     -0.02
     ],
     "fov": 36,
     "to": {
      "pos": [
-      1.012,
-      0.934,
-      0.758
+      1.046,
+      0.597,
+      1.746
      ],
      "look": [
-      1.72,
-      0.75,
-      -0.3
+      1.57,
+      0.56,
+      -0.02
      ],
      "fov": 36
     },
@@ -676,26 +680,26 @@
    "len": 7.32,
    "shot": {
     "pos": [
-     -0.2,
-     1.45,
-     2.4
+     0.2,
+     1.35,
+     2.6
     ],
     "look": [
-     -0.3,
-     0.8,
-     -1.6
+     0.2,
+     0.85,
+     -1.5
     ],
     "fov": 46,
     "to": {
      "pos": [
-      -0.212,
-      1.372,
-      1.92
+      0.2,
+      1.29,
+      2.108
      ],
      "look": [
-      -0.3,
-      0.8,
-      -1.6
+      0.2,
+      0.85,
+      -1.5
      ],
      "fov": 46
     },
