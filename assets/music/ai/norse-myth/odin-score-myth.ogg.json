@@ -1,0 +1,173 @@
+{
+ "spec": "score-norse.json",
+ "sections": [
+  {
+   "section": "norse-well",
+   "take": "p0-s702.wav",
+   "clap": 0.138,
+   "others": [
+    [
+     "p1-s701.wav",
+     0.105
+    ],
+    [
+     "p1-s702.wav",
+     0.085
+    ],
+    [
+     "p0-s701.wav",
+     0.027
+    ]
+   ],
+   "from": 0.0,
+   "lufs": -20
+  },
+  {
+   "section": "norse-stone",
+   "take": "p0-s702.wav",
+   "clap": 0.022,
+   "others": [
+    [
+     "p1-s702.wav",
+     0.009
+    ],
+    [
+     "p1-s701.wav",
+     0.007
+    ],
+    [
+     "p0-s701.wav",
+     -0.047
+    ]
+   ],
+   "from": 10.4,
+   "lufs": -19
+  },
+  {
+   "section": "norse-tree",
+   "take": "p1-s701.wav",
+   "clap": 0.046,
+   "others": [
+    [
+     "p0-s702.wav",
+     0.014
+    ],
+    [
+     "p1-s702.wav",
+     0.006
+    ],
+    [
+     "p0-s701.wav",
+     0.003
+    ]
+   ],
+   "from": 21.6,
+   "lufs": -18
+  },
+  {
+   "section": "norse-ravens",
+   "take": "p1-s701.wav",
+   "clap": 0.185,
+   "others": [
+    [
+     "p1-s702.wav",
+     0.139
+    ],
+    [
+     "p0-s702.wav",
+     0.067
+    ],
+    [
+     "p0-s701.wav",
+     -0.014
+    ]
+   ],
+   "from": 31.4,
+   "lufs": -19
+  },
+  {
+   "section": "norse-price",
+   "take": "p1-s702.wav",
+   "clap": 0.232,
+   "others": [
+    [
+     "p0-s702.wav",
+     0.111
+    ],
+    [
+     "p0-s701.wav",
+     0.091
+    ],
+    [
+     "p1-s701.wav",
+     -0.107
+    ]
+   ],
+   "from": 49.1,
+   "lufs": -20
+  },
+  {
+   "section": "norse-potato",
+   "take": "p1-s702.wav",
+   "clap": -0.151,
+   "others": [
+    [
+     "p0-s701.wav",
+     -0.167
+    ],
+    [
+     "p0-s702.wav",
+     -0.183
+    ],
+    [
+     "p1-s701.wav",
+     -0.27
+    ]
+   ],
+   "from": 58.7,
+   "lufs": -20
+  },
+  {
+   "section": "norse-wisdom",
+   "take": "p0-s701.wav",
+   "clap": 0.004,
+   "others": [
+    [
+     "p0-s702.wav",
+     -0.054
+    ],
+    [
+     "p1-s702.wav",
+     -0.107
+    ],
+    [
+     "p1-s701.wav",
+     -0.122
+    ]
+   ],
+   "from": 66.9,
+   "lufs": -17
+  },
+  {
+   "section": "norse-class",
+   "take": "p1-s702.wav",
+   "clap": 0.048,
+   "others": [
+    [
+     "p0-s701.wav",
+     0.039
+    ],
+    [
+     "p1-s701.wav",
+     -0.04
+    ],
+    [
+     "p0-s702.wav",
+     -0.041
+    ]
+   ],
+   "from": 81.0,
+   "lufs": -18
+  }
+ ]
+}

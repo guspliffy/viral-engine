@@ -1,0 +1,448 @@
+{
+ "id": "odin-voice-probe",
+ "title": "Norse myth 01 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   109.7,
+   109.7
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "odin",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "head",
+   "character": "potatobrawl/mash",
+   "at": [
+    1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "r1",
+   "character": "potatobrawl/wedge",
+   "at": [
+    2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "r2",
+   "character": "potatobrawl/mash",
+   "at": [
+    3,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 109.7,
+   "shot": {
+    "pos": [
+     0.5,
+     1.2,
+     7
+    ],
+    "look": [
+     0.5,
+     0.6,
+     0
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Odin... what happened to your eye?",
+     "tone": "excited",
+     "style": "curious, a little scared, looking up",
+     "voice": "chip-clean",
+     "dur": 2.9,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "I paid it. For one sip.",
+     "tone": "calm",
+     "style": "old, deep, slow, calm, a god who has seen everything",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 4.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "This is the well of wisdom. One sip and you know everything.",
+     "tone": "calm",
+     "style": "calm, knowing, explaining",
+     "voice": "spud-quick",
+     "dur": 5.3,
+     "caption": false,
+     "at": 8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I have a test tomorrow. I studied zero.",
+     "tone": "excited",
+     "style": "embarrassed grin, fast",
+     "voice": "chip-clean",
+     "dur": 3.7,
+     "caption": false,
+     "at": 14.3
+    },
+    {
+     "who": "head",
+     "macro": "say",
+     "line": "One eye. One sip.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "dur": 2.1,
+     "caption": false,
+     "at": 19
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Do you take cash?",
+     "tone": "excited",
+     "style": "hopeful, small",
+     "voice": "chip-clean",
+     "dur": 2.1,
+     "caption": false,
+     "at": 22.1
+    },
+    {
+     "who": "head",
+     "macro": "say",
+     "line": "Eyes.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "take": 2,
+     "dur": 0.9,
+     "caption": false,
+     "at": 25.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Nope. Is there a free way?",
+     "tone": "excited",
+     "style": "disgusted, then quick and hopeful",
+     "voice": "chip-clean",
+     "dur": 2.9,
+     "caption": false,
+     "at": 27.1
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "I hung on this tree. Nine nights. No food, no water.",
+     "tone": "calm",
+     "style": "old, deep, slow, calm, a god who has seen everything",
+     "voice": "reaper",
+     "take": 2,
+     "dur": 4.9,
+     "caption": false,
+     "at": 31
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "That's how I found the runes. The first letters.",
+     "tone": "calm",
+     "style": "old, deep, slow, calm, a god who has seen everything",
+     "voice": "reaper",
+     "take": 3,
+     "dur": 4.1,
+     "caption": false,
+     "at": 36.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Nine nights? I can do one.",
+     "tone": "calm",
+     "style": "cocky, relaxed, grinning",
+     "voice": "chip-clean",
+     "dur": 2.9,
+     "caption": false,
+     "at": 42
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "How long has it been?",
+     "tone": "excited",
+     "style": "strained, face red, upside down",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 45.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Four seconds.",
+     "tone": "calm",
+     "style": "calm, dry",
+     "voice": "spud-quick",
+     "dur": 1.3,
+     "caption": false,
+     "at": 49.4
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "Then ask them. Every day they fly over the whole world and tell me everything.",
+     "tone": "calm",
+     "style": "old, deep, slow, calm, a god who has seen everything",
+     "voice": "reaper",
+     "take": 4,
+     "dur": 6.5,
+     "caption": false,
+     "at": 51.7
+    },
+    {
+     "who": "r1",
+     "macro": "say",
+     "line": "He never studied.",
+     "tone": "calm",
+     "style": "rough, quick, whispered, gossiping, a little smug",
+     "voice": "wedge",
+     "dur": 1.7,
+     "caption": false,
+     "at": 59.2
+    },
+    {
+     "who": "r2",
+     "macro": "say",
+     "line": "He played games till four.",
+     "tone": "calm",
+     "style": "rough, quick, whispered, gossiping, a little smug",
+     "voice": "mash",
+     "dur": 2.5,
+     "caption": false,
+     "at": 61.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Your birds are snitching on me!",
+     "tone": "excited",
+     "style": "outraged, betrayed, high, fast",
+     "voice": "chip-clean",
+     "dur": 2.9,
+     "caption": false,
+     "at": 65.4
+    },
+    {
+     "who": "head",
+     "macro": "say",
+     "line": "You drink. You pay.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "take": 3,
+     "dur": 2.1,
+     "caption": false,
+     "at": 69.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I need both! One for reading, one for... the other reading!",
+     "tone": "excited",
+     "style": "panicked, bargaining, fast",
+     "voice": "chip-clean",
+     "dur": 4.9,
+     "caption": false,
+     "at": 72.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Chip. You're a potato.",
+     "tone": "calm",
+     "style": "calm, patient, one finger up",
+     "voice": "spud-quick",
+     "dur": 2.1,
+     "caption": false,
+     "at": 78.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "So?",
+     "tone": "calm",
+     "style": "confused, small",
+     "voice": "chip-clean",
+     "dur": 0.9,
+     "caption": false,
+     "at": 81.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Potatoes have eyes all over.",
+     "tone": "calm",
+     "style": "calm, amused, explaining",
+     "voice": "spud-quick",
+     "dur": 2.5,
+     "caption": false,
+     "at": 83.3
+    },
+    {
+     "who": "head",
+     "macro": "say",
+     "line": "...Fair.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "take": 4,
+     "dur": 0.9,
+     "caption": false,
+     "at": 86.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "So now I know everything?",
+     "tone": "excited",
+     "style": "breathless, amazed",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 88.7
+    },
+    {
+     "who": "head",
+     "macro": "say",
+     "line": "One eye. One sip. One thing.",
+     "tone": "calm",
+     "style": "very deep, very slow, ancient, echoing, strict",
+     "voice": "dragon",
+     "take": 5,
+     "dur": 2.9,
+     "caption": false,
+     "at": 92.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Wednesday... is named after you.",
+     "tone": "excited",
+     "style": "slow dawning wonder, a discovery",
+     "voice": "chip-clean",
+     "dur": 2.5,
+     "caption": false,
+     "at": 96.1
+    },
+    {
+     "who": "odin",
+     "macro": "say",
+     "line": "Woden's day. My day.",
+     "tone": "calm",
+     "style": "old, deep, warm, proud, the first smile",
+     "voice": "reaper",
+     "take": 5,
+     "dur": 2.1,
+     "caption": false,
+     "at": 99.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I paid an eye for that?!",
+     "tone": "excited",
+     "style": "outraged, high, fast",
+     "voice": "chip-clean",
+     "dur": 2.9,
+     "caption": false,
+     "at": 102.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Because it's Odin's day.",
+     "tone": "calm",
+     "style": "smug, slow, savouring it",
+     "voice": "chip-clean",
+     "take": 2,
+     "dur": 2.1,
+     "caption": false,
+     "at": 106.6
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for norse myth 01: makes and measures every take."
+}

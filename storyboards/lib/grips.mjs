@@ -25,6 +25,9 @@ const mirror = ([x, y, z]) => [-x, y, z];
 
 // the sizes the holds need, per prop kind (metres before the prop's scale; engine/page/props*.js)
 const SIZE = {
+  norsecup: { r: 0.0475, h: 0.085 },               // norse myth 01: Chip's carved wooden cup (props-norse-items.js), mug hold
+  norsesheet: { len: 0.32, r: 0.004 },             // norse myth 01: the crumpled test sheet, thin hold on its edge
+  norsebud: { len: 0.011, r: 0.008 },              // norse myth 01: the plucked potato eye, pinched
   kboot: { r: 0.05, h: 0.26 },   // props-krampus-boots.js: a fist round the felt shaft (mug hold, TURN -90)
   bootnote: { len: -0.05, r: 0.006 },   // props-krampus-boots.js: the peg pinched (thin hold)
   goldenbook: { w: 0.30, h: 0.40, d: 0.09, cx: 0.133 },   // props-krampus-nick.js: shut, the spine's outer line at x -0.019, the fore-edge at +0.285: the box hold's centre is 0.133 from the origin

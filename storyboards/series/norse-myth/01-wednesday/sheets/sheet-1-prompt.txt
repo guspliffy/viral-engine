@@ -1,0 +1,34 @@
+PROMPT START
+Use case: illustration-story. Create ONE finished full-colour twelve-panel storyboard contact sheet, sheet 1 of 2, for an 80-second animated comedy myth story. Image size 1536x1024 landscape. EXACTLY TWELVE panels in three columns and four rows (row 1 = 01-03, row 2 = 04-06, row 3 = 07-09, row 4 = 10-12). Every cell is a wide landscape frame close to 16:9, thin charcoal gutters, a small panel-number badge in each cell's top corner showing its own number, no title or header. Polished cinematic hand-drawn Ghibli-style anime, very detailed, crisp linework, controlled cel shading, subtle hatching, love for small detail in every surface (giant twisted root bark with moss and lichen, carved runes, wet glowing stone, knotwork embroidery, fur collars, raven feathers with blue sheen, silver beard rings, mist and drifting light), the whole frame fully sharp, no depth of field, bokeh or motion blur. Compose so that every panel also works cropped to a tall phone frame: the subject and the action sit in the middle third. No comic impact marks, no speed lines, no floating symbols, no sparkles. Hands ALWAYS have exactly three fingers and a thumb, no extra limbs, at most one Spud, one Chip and one Odin per panel. No speech bubbles and no words, letters or numbers anywhere except the panel numbers; runes are only abstract carved strokes. Every character is a potato except the two ravens. Spud must match the first attached reference sheet exactly, Chip must match the second attached reference sheet exactly, and Odin must match the third attached reference (the Odin concept sheet) exactly.
+
+SPUD, THE GUIDE: exactly as in the first attached reference sheet: a golden potato, plain teal knit sweater, one green leaf sprout on top that moves with his mood, brown boots, hands with exactly three fingers and a thumb. Calm, knowing, a little too relaxed about the danger; he explains, raises a finger, shrugs.
+Keep consistent: teal sweater; one leaf; brown boots; no hat, no costume.
+
+CHIP, THE ONE AT STAKE: exactly as in the second attached reference sheet: the smallest potato, a round ball about two thirds of Spud's height, same golden potato skin, sunny yellow hoodie with the hood down and two white drawstrings, two leaves in a V on top, white trainers with a red stripe. Very expressive: panics, shouts, grins, sweats. Like every potato he has a few small potato eyes (tiny brown bud dimples) on his skin.
+Keep consistent: yellow hoodie; two V leaves; white trainers; always smaller than Spud.
+
+ODIN, THE ALL-FATHER: a tall old potato god, one and a half times Spud's height, weathered deep golden-brown potato skin with fine wrinkles, ONLY ONE EYE: his right eye is a wise storm-grey eye, his left eye is covered by a worn dark leather eyepatch with a small silver knot stud. A long silver-white beard in two thick braids bound with silver rings, silver hair to the shoulders, a wide-brimmed weathered dark-blue wanderer's hat with an old dry leaf sprout poking through a hole in its crown. A long storm-blue-grey cloak with a thick grey wolf-fur collar and gold knotwork embroidery along the hem, a glimpse of chainmail at the neck, a leather belt with a rune-carved buckle. He holds a tall ash-wood spear with silver rune bands and a leaf-shaped blade. Two big black ravens with blue-purple sheen sit on his shoulders. Calm, heavy, a little amused; speaks slowly.
+Keep consistent: one eye + eyepatch on HIS LEFT side; braided silver beard; wide-brimmed hat; blue-grey cloak with fur collar; spear; two ravens.
+
+THE GUARDIAN HEAD: a huge ancient potato head as wide as the well, grey-green and stony, covered in moss and tiny ferns, a long silver-green beard floating in the water like weed, pale glowing blue eyes under heavy mossy brows; it rises from the water only up to the chin. Deep, slow, strict.
+THE TWO RAVENS: big glossy black ravens with blue-purple sheen, sharp clever eyes, rough feathers at the throat; they whisper into Odin's ears.
+ODIN'S EYE: one storm-grey eye lying among glowing pebbles at the bottom of the well, looking up.
+
+THE ROOT CAVE (main place): a vast misty cave under ONE gigantic twisted root of the world tree, the root as thick as a house, its bark covered in moss, lichen and faint carved runes, thin roots hanging like curtains; in the centre a round old stone well with carved knotwork rim, its water glowing blue-gold from below, light rippling over everything. Above, an opening shows the giant trunk climbing into a windy sky.
+THE TREE: the world tree's colossal trunk and long low branches, bark like twisted rope, wind in the leaves, a pile of dry leaves at its foot.
+THE CLASSROOM (last two panels only): a bright ordinary school classroom in the morning, wooden desks in rows, potato pupils bent over test sheets.
+LIGHT: blue-gold glow from the well, cool mist, warm shafts from the opening above; the classroom is plain morning daylight.
+Keep consistent: the well always in the root cave; glowing water; moss and runes on the root.
+
+01 | 0.0 s ROOT CAVE: Chip, holding a small wooden cup, stands face to face with Odin at the glowing well; Odin towers over him, one eye glinting, ravens on both shoulders; Chip looks up at the eyepatch.
+02 | 1.6 s ROOT CAVE close: Odin leans down to Chip, his one eye very close, beard braids swinging, spear in hand.
+03 | 3.0 s ROOT CAVE: Spud steps in beside Chip, calm, gesturing to the glowing well; Chip glances down at his cup.
+04 | 6.0 s ROOT CAVE: Chip pulls a crumpled blank test sheet out of his hoodie pocket and holds it up, embarrassed grin; Spud raises an eyebrow.
+05 | 8.5 s WELL: the water bulges and the huge mossy guardian head rises out of the well up to the chin, glowing eyes opening; Chip leans back.
+06 | 13.0 s WELL FLOOR, looking up through the glowing water: Odin's single storm-grey eye lies among glowing pebbles, looking up; far above, Chip's small shocked face at the surface.
+07 | 16.5 s TREE, low angle: Odin points his spear up the colossal trunk of the world tree into a windy sky; Spud and Chip tiny at its foot looking up.
+08 | 24.0 s TREE: Chip hangs upside down from a long low branch, one foot tied with a rope, arms crossed, confident smirk; leaves swirling.
+09 | 26.0 s TREE close: Chip still upside down, face going bright red, cheeks puffed; Spud below calmly checks the sky.
+10 | 28.5 s TREE: Chip drops head first into a big pile of dry leaves, leaves bursting up, only his trainers sticking out.
+11 | 30.0 s ROOT CAVE: the two ravens land on Odin's outstretched arm, wings still open; Odin looks amused.
+12 | 35.0 s ROOT CAVE close: both ravens lean into Odin's ears whispering, looking sideways at Chip; Chip in the background, mouth open in outrage.

@@ -5,6 +5,8 @@ import { rad } from "./util.js";
 import { ART_CAST } from "./costumes-art-cast.js";
 import { clown } from "./costumes-clown.js";
 import { everyday, EVERYDAY } from "./costumes-everyday.js";
+import { odin } from "./costumes-odin.js";   // norse myth 01: Odin (DESIGN.md section A)
+import { buds } from "./costumes-norse-chip.js";   // norse myth 01: Chip's potato eyes, bandage, gold eyes, flush (DESIGN.md section F2)
 import { skipAge } from "./costumes-skipage.js";
 import { aliens, ALIEN_TYPES } from "./costumes-aliens.js";
 import { plato, PLATO_TYPES } from "./costumes-plato.js";
@@ -330,7 +332,8 @@ export function castCostume(C, ch) {
   if (C.stnick) return stnick(C, ch, out);   // krampus myth 01: Saint Nick on Spud's body (costumes-stnick.js)
   if (C.jackal) return jackal(C, ch, out);   // egypt myth 01: the jackal judge on Mash's body (costumes-jackal.js)
   if (C.assessor) return assessor(C, ch, out);   // egypt myth 01: the 42 judges on Spud's body (costumes-assessor.js)
-  if (EVERYDAY.includes(T)) return everyday(C, ch, out);   // Chip, Wedge, Mash (costumes-everyday.js): the same in every look
+  if (C.odin) return odin(C, ch, out);   // norse myth 01: Odin (costumes-odin.js)
+  if (EVERYDAY.includes(T)) { const r = everyday(C, ch, out); return C.buds ? buds(C, ch, r) : r; }   // costume.buds: norse myth 01 Chip details (costumes-norse-chip.js)   // Chip, Wedge, Mash (costumes-everyday.js): the same in every look
   if (ALIEN_TYPES.includes(T)) return aliens(C, ch, out);   // the alien crew and the Egyptian workers (costumes-aliens.js, Ancient Aliens kit)
   if (PLATO_TYPES.includes(T)) return plato(C, ch, out);   // Plato (costumes-plato.js, Ancient Aliens EP03 kit)
   if (T === "viking" && C.judge) return judge(C, ch, out);   // costume.judge: Viking as the judge (costumes-judge.js USAGE, Potato Desk 05); no key, no change

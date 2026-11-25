@@ -1,0 +1,118 @@
+{
+ "_note": "Norse myth 01 'One eye for one sip' (22 Nov 2026): mythical Nordic folk score designed by Codex gpt-6.2-sol (out\\norse-01\\music\\score-norse.json on Jonny's PC), choir hum + frame drum added for 'more mythical' (Jonny 22 Nov 21:18 Berlin), classroom split off.",
+ "sfx": [],
+ "music": [
+  {
+   "id": "norse-well",
+   "bpm": 60,
+   "bars": 3,
+   "mood": "myth",
+   "prompts": [
+    "Close recorded acoustic Nordic folk, low nyckelharpa opens with a soft D-F-D call, two quick notes and a held return. Bowed cello drone and isolated muted kantele plucks, misty and intimate, ancient myth, 60 BPM, D Dorian.",
+    "Soft low nyckelharpa plays a quick D-F and held D over one warm bowed tagelharpa tone. A rare damped kantele pluck in a small live room, hushed curiosity, ancient Nordic myth, 56 BPM, D Dorian."
+   ],
+   "seeds": [
+    701,
+    702
+   ]
+  },
+  {
+   "id": "norse-stone",
+   "bpm": 48,
+   "bars": 3,
+   "mood": "myth",
+   "prompts": [
+    "Low bowed tagelharpa and cello swell gently on an open D and A with a distant deep wordless male choir hum, then thin to a single rounded tone. Damp stone room resonance, ancient ceremonial gravity, sparse acoustic playing, 48 BPM.",
+    "Soft arco cello and low nyckelharpa sustain a bare open fifth under a very low humming male choir, no words, slow 50 BPM. Gradually recede to a single even cello note, the weight and stillness of an old stone chamber."
+   ],
+   "seeds": [
+    701,
+    702
+   ]
+  },
+  {
+   "id": "norse-tree",
+   "bpm": 60,
+   "bars": 3,
+   "mood": "myth",
+   "prompts": [
+    "Low nyckelharpa plays a soft D-F-D call, two quick notes and a held return. Open fifths on bowed tagelharpa and cello, a deep wordless male choir hum and a soft slow frame drum heartbeat beneath it, spacious, solemn, mythical Nordic, 60 BPM, D Dorian.",
+    "Warm low nyckelharpa opens with two short notes and a held return, D-F-D. Soft cello long D and A tones, a distant low cow horn call and a quiet deep frame drum, spacious rests, windswept ancient Norse feeling, 56 BPM."
+   ],
+   "seeds": [
+    701,
+    702
+   ]
+  },
+  {
+   "id": "norse-ravens",
+   "bpm": 82,
+   "bars": 7,
+   "mood": "myth",
+   "prompts": [
+    "Muted kantele and soft low cello pizzicato trade short, dry plucks with generous rests. One quiet bowed tagelharpa tone anchors the acoustic Nordic folk texture, sly and gently playful, 82 BPM, D Dorian.",
+    "Fingerpluck a wooden lyre in spare pairs, answered by a low cello pizzicato note. Let each note decay into long rests, close and dry, with a wry woodland Nordic folk character, 76 BPM, D Dorian."
+   ],
+   "seeds": [
+    701,
+    702
+   ]
+  },
+  {
+   "id": "norse-price",
+   "bpm": 54,
+   "bars": 3,
+   "mood": "myth",
+   "prompts": [
+    "Quiet bowed tagelharpa holds a low D while muted kantele drops two widely spaced plucks. Cello eases from A to G and holds, restrained caution and ancient authority, close acoustic recording, Nordic myth, 54 BPM.",
+    "Soft low cello and bowed tagelharpa begin with spaced, breathlike bow strokes and settle to an even held D. A single damped lyre note marks the pause, wary and ceremonial, ancient Norse, 52 BPM."
+   ],
+   "seeds": [
+    701,
+    702
+   ]
+  },
+  {
+   "id": "norse-potato",
+   "bpm": 70,
+   "bars": 3,
+   "mood": "myth",
+   "prompts": [
+    "Rounded muted kantele plucks over a quiet cello D, spaced and close recorded. A light upward answer ends in one soft damped pluck and open stillness, warm sly Nordic folk phrasing, 70 BPM.",
+    "Two gently separated wooden lyre notes and a soft low cello pizzicato answer establish a friendly acoustic lilt. One isolated pluck fades into a long rest, dry room sound, Nordic folk, 66 BPM, D Dorian."
+   ],
+   "seeds": [
+    701,
+    702
+   ]
+  },
+  {
+   "id": "norse-wisdom",
+   "bpm": 64,
+   "bars": 5,
+   "mood": "myth",
+   "prompts": [
+    "Soft bowed nyckelharpa and cello bloom over D with a warm wordless choir hum and sparse brushed kantele, golden wonder, ancient Nordic myth, 64 BPM, D Dorian, slowly rising and glowing.",
+    "Warm cello and low nyckelharpa open into a luminous D Dorian sixth under a soft humming choir, no words, slow acoustic bowing, awe and warmth, mythical Norse, 60 BPM."
+   ],
+   "seeds": [
+    701,
+    702
+   ]
+  },
+  {
+   "id": "norse-class",
+   "bpm": 80,
+   "bars": 3,
+   "mood": "myth",
+   "prompts": [
+    "Dry single muted kantele plucks, light and sly, then a quiet low nyckelharpa D-F-D call, two quick notes and a held return, close acoustic Nordic folk, 80 BPM, D Dorian.",
+    "Two dry muted lyre plucks and a soft low D-F-D nyckelharpa answer, light, warm and cheeky, acoustic Nordic folk, 76 BPM."
+   ],
+   "seeds": [
+    701,
+    702
+   ]
+  }
+ ]
+}
