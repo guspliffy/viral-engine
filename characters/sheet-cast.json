@@ -413,6 +413,22 @@
    },
    "freckles": 20,
    "blush": 0
+  },
+  "dad": {
+   "rest": {
+    "tilt": 0.03,
+    "browY": 0.012,
+    "curve": 0.4,
+    "open": 0,
+    "eye": 1,
+    "pupil": 1,
+    "smirk": 0,
+    "raise": 0.02
+   },
+   "lids": [
+    0.06,
+    0.06
+   ]
   }
  }
 }
