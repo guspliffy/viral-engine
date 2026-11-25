@@ -94,8 +94,8 @@ const STAMP = props.find((p) => p.id === "stamp");
 const ROLL = { id: "roll", staged: "the Angel's roll in set B (both gloves on the knobs)", kind: "scrollroll", x: 0, y: AWAY, z: 0 };
 const SHEET = { id: "sheet", staged: "the piece of the scroll he reads (both gloves), shots 19-22", kind: "scrollsheet", x: 0, y: AWAY, z: 0, end: 0 };
 const TAIL = { id: "tail", staged: "the scroll flying after him (shot 23)", kind: "scrolltail", x: 0, y: AWAY, z: 0, fall: 0 };
-const PHONE = { id: "phone", staged: "his phone, shots 14-15", kind: "phone", scale: 1.3, case: "#d3261e", halo: 0.22, glow: 0.3, x: 0, y: AWAY, z: 0, rot: 0 };
-const DPHONE = { id: "dphone", staged: "the Devil's phone, shot 15", kind: "phone", scale: 2.0, case: "#f2c94c", halo: 0.5, glow: 1, x: 0, y: AWAY, z: 0, rot: 0 };
+const PHONE = { id: "phone", staged: "his phone, shots 14-15", kind: "phone", style: "iphone", color: "#d3261e", scale: 1.6, screen: { src: "storyboards/series/potato-desk/heaven-terms/art/bars.png", cols: 2, rows: 1 }, feed: 0, x: 0, y: AWAY, z: 0, rot: 0 };   // one bar (Sol r2 #12)
+const DPHONE = { id: "dphone", staged: "the Devil's phone, shot 15", kind: "phone", style: "iphone", color: "#f2c94c", scale: 2.4, screen: { src: "storyboards/series/potato-desk/heaven-terms/art/bars.png", cols: 2, rows: 1 }, feed: 1, x: 0, y: AWAY, z: 0, rot: 0 };   // five bars
 const GLASS = { id: "glass", staged: "the Devil's drink, shots 21-23", kind: "drinkglass", x: 0, y: AWAY, z: 0 };
 props.push(ROLL, SHEET, TAIL, PHONE, DPHONE, GLASS);
 
@@ -112,7 +112,7 @@ const CAPTEXT = {
 // words appear when they are said (k = share of the spoken line where a cue starts)
 const CAPSPLIT = {
   0: [["At heaven's gate, there's one rule:", 0], ["you agree to *everything.* Forever.", 0.44, { across: true, pos: 300 }]],   // over the scroll run: above the Devil far below
-  20: [["Clause 93. Heaven may change these terms", 0], ["at *any time.*", 0.72]],
+  20: [["Clause 93.", 0], ["Heaven may change these terms", 0.22], ["at *any time.*", 0.72]],
   22: [["Clause 100. Anyone who didn't read this...", 0], ["goes to *hell.*", 0.80]],
 };
 let capPos = SUB;
@@ -171,14 +171,14 @@ arm(0, "angel", "L", { o: [-0.05, 0.42, 0.42] }, 0.01); arm(0, "angel", "R", { o
 act.blinksAt(c, "spud", [2.4, 7.4, 17.0, 26.0, 37.5]); act.blinksAt(c, "angel", [3.1, 12.6, 21.8, 34.4]);
 // shot 1: waist-high two-shot already pushing over the rolled terms
 shot("rule", 0, cam("T", [0.05, 0.75, 4.80], [0.55, 0.70, -0.90], 34), push(0.14), "hook");
-cap(0, 1.2, "Nobody reads\n*heaven's terms*", 250, false, { size: 68 });   // the 0 s label, its own band, about a second (Sol r1)
+// no on-screen hook label: Jonny adds it in TikTok himself (25 Nov standing rule); the label text goes in the post pack
 for (const [k, dx] of [[0.05, 0.05], [0.4, -0.05], [0.75, 0.05], [1.1, 0]]) step(k, "spud", [r3(S99[0] + dx), S99[1], r3(S99[2] + (k === 1.1 ? 0 : 0.02))], 0.3, { steps: 1 });
 capPos = SUB;
 let e = say(0, 0.05);
 capPos = SUBT;
 see(0, 1.8, ["spud.face", "angel.face", "scroll", "gate"], "a little one at heaven's golden gate; a tall clerk angel with a huge scroll: you agree to everything");
 // the Angel tips the roll on "everything": shot 2 a side insert of the gloves letting go over the ledge, tilting with the first bounce
-const DROP = shot("drop", r3(T[0] + DUR[0] * 0.60), cam("T", [2.05, 0.80, 0.70], [0.95, 0.45, -0.75], 30), tilt(10));
+const DROP = shot("drop", r3(T[0] + DUR[0] * 0.47), cam("T", [2.05, 0.80, 0.70], [0.95, 0.45, -0.75], 30), tilt(10));
 arm(r3(DROP - 0.25), "angel", "R", { o: [0.12, 0.40, 0.55] }, 0.25, "out");
 const ROLLGO = r3(DROP + 0.12);
 c.prop(ROLLGO, "scroll", { unroll: 0.012 }, 0.42, "inOut"); c.prop(r3(ROLLGO + 0.42), "scroll", { unroll: 1 }, 1.2, "in");   // it tips over the ledge, then races down (no one-frame jump in the insert)
@@ -208,16 +208,16 @@ sfx(r3(SLAM + 0.1), "kenney/impact-wood-heavy", { gain: 0.8 }); c.at(r3(SLAM + 0
 c.prop(r3(SLAM + 0.1), "stamp", { squash: 0.08 }, 0.05, "out"); c.prop(r3(SLAM + 0.17), "stamp", { squash: 0 }, 0.1);
 c.prop(r3(SLAM + 0.1), "scroll", { count: 1 }, 0);   // the ink lands WITH the contact, the gate still shut (Sol r1 #3)
 A(r3(SLAM + 0.22), "spud", "release", { prop: "stamp", dur: 0, to: STAMP_DOWN });
-arm(r3(SLAM + 0.22), "spud", "R", "rest", 0.4);
+arm(r3(SLAM + 0.22), "spud", "R", "rest", 0.55, "inOut");
 c.prop(r3(SLAM + 0.35), "gate", { open: 1 }, 0.5, "inOut"); sfx(r3(SLAM + 0.35), "kenney/creak", { gain: 0.4 });
 look(r3(SLAM + 0.4), "spud", [-0.8, 0.3]); expr(r3(SLAM + 0.45), "spud", "delighted");
 turn(r3(SLAM + 0.75), "spud", 45, 0.35);
 
 // ================================================================ 2 HEAVEN HOME: every clause comes true
 // shot 5: close on him asleep in the cloud bed; the string twangs, he flinches, punch-in as his eyes open
-const WAKE = shot("wake", r3(SLAM + 1.15), cam("H", [-0.30, 0.95, 1.85], [-1.25, 0.62, -0.60], 32), push(0.15));
+const WAKE = shot("wake", r3(SLAM + 1.15), cam("H", [-0.75, 1.10, 3.30], [-0.75, 0.62, -0.70], 42), push(0.15));   // the harp in frame: the twang has a source (Sol r2 #5)
 for (const h of HOME) if (h.id !== "acloud") putProp(r3(WAKE - 0.03), h.id, h.p);
-place(WAKE, "spud", W("H", -1.25, 0, -0.60), 40);
+place(WAKE, "spud", W("H", -1.25, 0, -0.60), 15);
 A(r3(WAKE - 0.015), "spud", "sit", { seat: "bed", dur: 0.01, hands: "lap" });
 arm(r3(WAKE - 0.02), "spud", "both", "lap", 0.01); expr(r3(WAKE - 0.02), "spud", "kind", 0.01); look(r3(WAKE - 0.02), "spud", [0, 0], 0.01);
 A(r3(WAKE - 0.02), "spud", "face", { lid: 1, dur: 0.01 });
@@ -235,11 +235,11 @@ const hR = grips.box(c, "angel", { ...ROLL, ...at3(W("H", 0.95, 0.10, -2.33)) })
 putProp(r3(WAKE - 0.03), "roll", W("H", 0.95, 0.10, -2.33)); hR.secure(r3(WAKE - 0.02), 0.001);
 putProp(r3(WAKE - 0.03), "acloud", W("H", 0.95, -0.54, -2.75));
 expr(r3(WAKE - 0.02), "angel", "deadpan", 0.01); look(r3(WAKE - 0.02), "angel", [-0.5, 0.1], 0.01);
-e = say(2, r3(WAKE + 0.5));   // Clause 3 starts just before the cut
+capPos = 250; e = say(2, r3(WAKE + 0.5));   // Clause 3 starts just before the cut
 // shot 6: sliding past the still-humming strings to his face; "I'm dead." cut on his feet swinging off the bed
-const HARP = shot("harp", r3(WAKE + 0.75), cam("H", [0.80, 1.05, 1.25], [-1.20, 0.72, -0.55], 38), trk(-0.55, 0, 0.25, "inOut"));
+const HARP = shot("harp", r3(WAKE + 0.75), cam("H", [0.00, 1.05, 1.95], [-1.25, 0.85, -0.60], 34), push(0.08));
 expr(r3(e - 0.6), "spud", "sad", 0.3); look(r3(HARP + 0.2), "spud", [0.6, 0.2]);
-e = say(3, r3(e + GAP));
+e = say(3, r3(e + GAP)); capPos = SUB;
 arm(r3(e - 0.3), "spud", "both", "rest", 0.3);
 // shot 7: ankle-low, the sock plants in the wet cloud with a squelch, tilt up to "Why is it wet?!"
 const SOCK = shot("socks", r3(e + 0.08), cam("H", [0.90, 0.20, 2.30], [0.50, 0.10, 0.55], 34), push(0.06));
@@ -248,7 +248,7 @@ A(r3(SOCK - 0.03), "spud", "stand", { dur: 0.01 });
 A(r3(SOCK - 0.03), "spud", "face", { lid: 0, dur: 0.01 });
 place(SOCK, "spud", W("H", 0.50, 0.06, 0.55), 10);
 arm(r3(SOCK - 0.02), "spud", "both", "rest", 0.01); expr(r3(SOCK - 0.02), "spud", "kind", 0.01); look(r3(SOCK - 0.02), "spud", [0, -0.2], 0.01);
-step(r3(SOCK + 0.08), "spud", [S_SOCK[0], r3(S_SOCK[1] - 0.05), S_SOCK[2]], 0.22, { steps: 0, ease: "in" });
+step(r3(SOCK + 0.05), "spud", [S_SOCK[0], r3(S_SOCK[1] - 0.03), S_SOCK[2]], 0.32, { steps: 0, ease: "inOut" });
 prop(r3(SOCK + 0.25), "sw1", { on: 1 }, 0.27, "out"); prop(r3(SOCK + 0.28), "sw2", { on: 1 }, 0.27, "out");
 sfx(r3(SOCK + 0.28), "splort", { gain: 0.5 }); sfx(r3(SOCK + 0.42), "ai/drip", { gain: 0.3 });
 look(r3(SOCK + 0.35), "spud", [0, -1], 0.15); expr(r3(SOCK + 0.4), "spud", "annoyed", 0.15);
@@ -270,12 +270,12 @@ const EXAT = (p) => [r3(p[0] - 0.75), p[1], r3(p[2] + 0.55)];
 place(DOCK, "ex", EXAT(HOUSE_FROM), -60);
 A(r3(DOCK - 0.015), "ex", "ride", { prop: "house", off: [-0.75, 0, 0.55], yaw: -60, dur: 0.01 });
 e = say(7, r3(DOCK + 0.1));
-c.prop(r3(DOCK + 0.05), "house", at3(HOUSE_TO), r3(e - DOCK + 0.05), "out");
+c.prop(r3(DOCK + 0.05), "house", at3(HOUSE_TO), r3(e - DOCK + 0.05), "inOut");
 const WAVE = r3(DOCK + 0.9);
 arm(r3(WAVE - 0.3), "ex", "both", { o: [0.36, 0.55, 0.12] }, 0.3);
 for (let k = 1; k < 6; k++) { arm(r3(WAVE + k * 0.3), "ex", "both", { o: [k % 2 ? 0.42 : 0.36, 0.55, 0.12] }, 0.25); }
 // shot 9b: the medium two-shot: the bump, his first look, her "Hiii!"
-const DOCK2 = shot("dock 2", r3(e + 0.02), cam("H", [1.55, 0.95, 4.20], [1.55, 0.62, -0.80], 46), push(0.08));
+const DOCK2 = shot("dock 2", r3(e + 0.02), cam("H", [1.50, 1.00, 5.60], [1.45, 0.62, -0.80], 46), push(0.08));
 const BUMP = r3(DOCK2 + 0.1);
 c.prop(BUMP, "house", { tilt: 1.5, bump: 1 }, 0.1, "out"); c.prop(r3(BUMP + 0.1), "house", { tilt: 0, bump: 0 }, 0.12, "inOut");
 c.prop(BUMP, "isle", { tilt: -1.5, bump: 1 }, 0.1, "out"); c.prop(r3(BUMP + 0.1), "isle", { tilt: 0, bump: 0 }, 0.12, "inOut");
@@ -283,8 +283,8 @@ sfx(BUMP, "ai/cushion-poof", { gain: 0.5 });
 expr(r3(BUMP + 0.05), "spud", "shocked", 0.1); A(r3(BUMP), "spud", "squash", { amount: -0.05, dur: 0.06 }); A(r3(BUMP + 0.08), "spud", "squash", { amount: 0, dur: 0.12 });
 e = say(6, r3(BUMP + 0.15));
 // shot 10: beside the harp: he sees her, then slides sideways into cover behind it, "No no no" into the duck
-const HIDE = shot("hide", r3(e + 0.1), cam("H", [1.80, 0.85, -2.90], [-0.30, 0.50, -1.05], 40), push(0.08));
-const S_HIDE = W("H", -0.45, 0, -1.10);
+const HIDE = shot("hide", r3(e + 0.1), cam("H", [1.60, 0.85, -3.40], [-0.45, 0.50, -1.25], 40), push(0.08));
+const S_HIDE = W("H", -0.55, 0, -1.35);
 step(r3(HIDE + 0.05), "spud", S_HIDE, 0.35, { steps: 2 }); turn(r3(HIDE + 0.05), "spud", 45, 0.3);
 A(r3(HIDE + 0.35), "spud", "crouch", { to: 0.3, dur: 0.18 }); expr(r3(HIDE + 0.1), "spud", "terrified", 0.1); look(r3(HIDE + 0.3), "spud", [0.9, 0]);
 prop(r3(HIDE + 0.45), "harp", { on: 0.25 }, 0.1); prop(r3(HIDE + 1.2), "harp", { on: 0 }, 0.4);
@@ -293,7 +293,7 @@ e = say(8, r3(HIDE + 0.15));
 const BRIGHT = shot("bright", r3(e + 0.08), cam("H", [0.95, 0.95, 4.20], [1.15, 0.72, 0.35], 30), push(0.14));
 const S_HUG = W("H", 1.15, 0, 0.35);
 A(r3(BRIGHT - 0.03), "spud", "crouch", { to: 0, dur: 0.01 });
-place(BRIGHT, "spud", S_HUG, 0); look(r3(BRIGHT - 0.02), "spud", [-0.3, 0.1], 0.01); expr(r3(BRIGHT - 0.02), "spud", "sad", 0.01);
+place(BRIGHT, "spud", S_HUG, 40); turn(r3(BRIGHT + 0.1), "spud", 0, 0.35); look(r3(BRIGHT - 0.02), "spud", [-0.3, 0.1], 0.01); expr(r3(BRIGHT - 0.02), "spud", "sad", 0.01);
 A(r3(BRIGHT - 0.03), "ex", "ride", { prop: null });
 place(BRIGHT, "ex", W("H", 2.45, 0, 0.45), -60);   // outside the right edge
 place(HIDE, "angel", W("H", -0.60, -1.90, -3.05), 0); hR.carry(r3(HIDE - 0.02), W("H", -0.60, -1.50, -2.63), 0.01, "linear"); hideProp(r3(HIDE - 0.03), "acloud");   // out of his line (Sol r1 #8)
@@ -308,10 +308,10 @@ const HUG = shot("hug", r3(e + 0.08), cam("H", [1.60, 0.95, 5.40], [1.55, 0.90, 
 place(HUG, "ex", W("H", 1.95, 0, 0.40), -80);
 place(HUG, "angel", W("H", 1.55, 0, -0.95), 0); hR.carry(r3(HUG - 0.02), W("H", 1.55, 0.40, -0.53), 0.01, "linear");
 A(r3(HUG - 0.02), "spud", "lean", { to: -3, dur: 0.01 }); A(r3(HUG - 0.02), "ex", "lean", { to: 2, dur: 0.01 });
-arm(r3(HUG - 0.02), "ex", "L", { x: [0.40, 0.55, 0.50] }, 0.01); arm(r3(HUG - 0.02), "ex", "R", { x: [-0.64, 0.40, 0.74] }, 0.01);   // near arm open, far arm round his back
-arm(r3(HUG + 0.05), "ex", "L", { x: [0.22, 0.15, 0.82] }, 0.25, "in");   // round his belly, under his mouth   // at his shoulder, off his mouth (Sol r1 #10)
+arm(r3(HUG - 0.02), "ex", "L", { x: [0.45, 0.20, 0.50] }, 0.01); arm(r3(HUG - 0.02), "ex", "R", { x: [-0.64, 0.40, 0.74] }, 0.01);   // near arm open, far arm round his back
+arm(r3(HUG + 0.05), "ex", "L", { x: [0.22, 0.05, 0.82] }, 0.25, "in");   // round his belly, under his mouth   // at his shoulder, off his mouth (Sol r1 #10)
 arm(r3(HUG - 0.02), "spud", "both", "rest", 0.01);
-arm(r3(HUG + 0.12), "spud", "R", { o: [0.28, 0.85, 0.05] }, 0.2, "out"); arm(r3(HUG + 0.12), "spud", "L", { o: [0.05, 0.70, 0.35] }, 0.2, "out");
+arm(r3(HUG + 0.12), "spud", "R", { o: [0.40, 0.45, 0.05] }, 0.2, "out"); arm(r3(HUG + 0.12), "spud", "L", { o: [0.10, 0.35, 0.25] }, 0.2, "out");
 expr(r3(HUG - 0.02), "ex", "serene", 0.01); expr(r3(HUG - 0.02), "spud", "eager", 0.01); expr(r3(HUG + 0.3), "spud", "annoyed", 0.15); look(r3(HUG - 0.02), "spud", [0, 0], 0.01);
 expr(r3(HUG - 0.02), "angel", "deadpan", 0.01); look(r3(HUG - 0.02), "angel", [0, 0.3], 0.01);
 sfx(r3(HUG + 0.25), "cloth", { gain: 0.5 });
@@ -319,10 +319,10 @@ e = say(11, r3(HUG + 0.3));
 for (const k of [r3(T[11] + 0.3), r3(T[11] + 0.8)]) { A(k, "spud", "squash", { amount: 0.06, dur: 0.13 }); A(r3(k + 0.15), "spud", "squash", { amount: 0, dur: 0.15 }); sfx(k, "cloth", { gain: 0.3 }); }
 e = say(12, r3(e + GAP)); capPos = SUB;
 arm(r3(e + 0.02), "ex", "both", { o: [0.30, 0.45, 0.35] }, 0.2, "out");   // she lets go, his right arm pulls free
-arm(r3(e + 0.02), "spud", "R", { o: [0.20, 1.05, 0.10] }, 0.2, "out");
+arm(r3(e + 0.02), "spud", "both", "rest", 0.25, "out");
 // shot 14: over his shoulder at the rim: the same arm brings the phone up, "Where's the wifi?", then a whip down his eyeline toward hell
 const S_RIM = W("H", 0.40, 0, -1.75), YAW_RIM = -170;   // clear of the bed and the harp, facing the rim
-const PH = shot("phone", r3(e + 0.24), cam("H", [0.85, 1.80, -0.80], [0.50, 0.85, -2.40], 38), mvTo("H", [0.82, 1.80, -0.85], [0.30, -0.40, -3.70], 38));
+const PH = shot("phone", r3(e + 0.32), cam("H", [0.85, 1.80, -0.80], [0.50, 0.85, -2.40], 38), mvTo("H", [0.82, 1.80, -0.85], [0.30, -0.40, -3.70], 38));
 A(r3(PH - 0.03), "spud", "lean", { to: 0, dur: 0.01 }); A(r3(PH - 0.03), "ex", "lean", { to: 0, dur: 0.01 });
 place(PH, "ex", [...PARK.ex.slice(0, 1), 0, PARK.ex[1]], 0);
 c.A(r3(PH - 0.02), "ex", "move", { to: PARK.ex, y: 0, dur: 0.01, ease: "linear", sync: true }); arm(r3(PH - 0.02), "ex", "both", "rest", 0.01);
@@ -337,7 +337,7 @@ arm(r3(PH - 0.02), "spud", "L", "rest", 0.01);
 hP.carry(r3(PH + 0.02), PHONE_UP, 0.3, "out");
 e = say(13, r3(PH + 0.12));
 hP.carry(r3(e + 0.02), fwdRim(0.50, 0.80, -0.22), 0.3, "inOut");   // he points it down at the void: one bar, toward hell
-prop(r3(e + 0.2), "phone", { glow: 1 }, 0.07, "out");
+
 // shot 15: the Devil at the foot of the stairs, readable: push to his phone on "Five bars down here!"
 const DEV = shot("devil", r3(e + 0.42), cam("B", [2.00, 1.45, 4.20], [0.60, 1.10, 1.00], 32), push(0.15));
 const DP_UP = W("B", 0.80, 1.05, 1.15);
@@ -357,7 +357,7 @@ A(r3(CL22 + 0.1), "devil", "release", { prop: "dphone", dur: 0, to: W("B", 0.95,
 
 // ================================================================ 3 BACK AT THE GATE: "I want to READ it." "Nobody gets to the end."
 // shot 17: he strides in from frame left (his travel carries across the cut) and plants a glove on the podium on "READ"
-const READ = shot("read", r3(e + 0.1), cam("T", [1.30, 1.25, 2.60], [0.70, 0.85, -1.00], 38), push(0.10));
+const READ = shot("read", r3(e - 0.3), cam("T", [1.30, 1.25, 2.60], [0.70, 0.85, -1.00], 38), push(0.10));
 capPos = SUB;
 for (const h of HOME) hideProp(r3(READ - 0.03), h.id);
 A(r3(READ - 0.03), "spud", "release", { prop: "phone", dur: 0, to: W("H", 0, AWAY, 0) }); hideProp(r3(READ - 0.025), "phone");
@@ -377,7 +377,7 @@ capPos = SUBT;
 e = say(17, r3(NOB + 0.12));
 capPos = SUB;
 const hS = grips.box(c, "spud", SHEET);
-const SH_FWD = 0.36;   // the page well in front of the sweater, gloves on its sides (Sol r1 #17)
+const SH_FWD = 0.46;   // the page well in front of the sweater, gloves on its sides (Sol r1 #17)
 const sheetAt = (p) => [p[0], r3(p[1] + 0.34), r3(p[2] + SH_FWD)];
 const GRAB = r3(e - 0.25);
 const S_NOB = W("T", 0.30, 0, -0.55), YN = (60 * Math.PI) / 180;
@@ -395,7 +395,7 @@ const descend = (t0, from, to, per) => { let k = 0; for (let n = from - 1; n >= 
 // shot 19: clause 41, high angle in front of him, backing away down the flight with his footfalls (treads 79 -> 75)
 const RD41 = shot("reading 41", r3(e + 0.4), null, null);
 { const p = TREAD(79); place(RD41, "spud", p, 0); hS.carry(r3(RD41 - 0.02), sheetAt(p), 0.01, "linear");
-  shots[shots.length - 1].s = { pos: [r3(p[0] + 0.50), r3(p[1] + 1.70), r3(p[2] + 3.0)], look: [p[0], r3(p[1] + 0.45), p[2]], fov: 34 }; }
+  shots[shots.length - 1].s = { pos: [r3(p[0] + 1.50), r3(p[1] + 1.55), r3(p[2] + 2.70)], look: [p[0], r3(p[1] + 0.50), r3(p[2] + 0.20)], fov: 34 }; }
 expr(r3(RD41 - 0.02), "spud", "focused", 0.01); look(r3(RD41 - 0.02), "spud", [0, -0.6], 0.01);
 e = say(18, r3(RD41 + 0.12));
 descend(r3(RD41 + 0.1), 79, 75, 0.48);
@@ -404,11 +404,11 @@ expr(r3(e - 0.3), "spud", "sad", 0.3);
 // shot 20: clause 68, low in front, tracking down a lower flight, warmer light (treads 39 -> 33)
 const RD68 = shot("reading 68", r3(e + 0.12), null, null);
 { const p = TREAD(39); place(RD68, "spud", p, 0); hS.carry(r3(RD68 - 0.02), sheetAt(p), 0.01, "linear");
-  shots[shots.length - 1].s = { pos: [r3(p[0] + 0.35), r3(p[1] + 0.35), r3(p[2] + 3.0)], look: [p[0], r3(p[1] + 0.62), p[2]], fov: 38 }; }
+  shots[shots.length - 1].s = { pos: [r3(p[0] + 1.40), r3(p[1] + 0.45), r3(p[2] + 2.80)], look: [p[0], r3(p[1] + 0.62), r3(p[2] + 0.20)], fov: 38 }; }
 capPos = 260; e = say(19, r3(RD68 + 0.1)); capPos = SUB;
 descend(r3(RD68 + 0.05), 39, 33, 0.47);
 shots[shots.length - 1].move = trk(0, -1.32, 3.0);
-expr(r3(e - 0.2), "spud", "terrified", 0.4);
+expr(r3(e - 0.2), "spud", "shocked", 0.4);
 // shot 21: clause 93, a lateral track past the rock and the last treads into the red glow (treads 9 -> 3)
 const RD93 = shot("reading 93", r3(e + 0.1), null, null);
 { const p = TREAD(9); place(RD93, "spud", p, 0); hS.carry(r3(RD93 - 0.02), sheetAt(p), 0.01, "linear");
@@ -417,14 +417,14 @@ e = say(20, r3(RD93 + 0.08));
 descend(r3(RD93 + 0.05), 9, 3, 0.47);
 shots[shots.length - 1].move = trk(0, -1.32, 3.0);
 // shot 22: low two-shot off the scroll's axis: down onto tread 1, then one foot plants inside the hatch rim; the Devil: "Keep reading, buddy!"
-const ARR = shot("arrive", r3(e + 0.1), cam("B", [1.30, 0.90, 5.80], [-0.30, 0.60, 0.90], 36), push(0.06));
+const ARR = shot("arrive", r3(e + 0.1), cam("B", [1.00, 0.95, 5.80], [-0.50, 0.60, 1.20], 36), push(0.06));
 const B2 = TREAD(2), B1 = TREAD(1), LID = W("B", -0.65, 0.10, 1.66);
 place(ARR, "spud", TREAD(3), 0); hS.carry(r3(ARR - 0.02), sheetAt(TREAD(3)), 0.01, "linear"); expr(r3(ARR - 0.02), "spud", "sad", 0.01);
 step(r3(ARR + 0.02), "spud", B2, 0.3, { steps: 1, ease: "inOut" }); hS.carry(r3(ARR + 0.02), sheetAt(B2), 0.3, "inOut");
 step(r3(ARR + 0.40), "spud", B1, 0.36, { steps: 1, ease: "inOut" }); hS.carry(r3(ARR + 0.40), sheetAt(B1), 0.36, "inOut");
 step(r3(ARR + 0.82), "spud", LID, 0.4, { steps: 1, ease: "inOut" }); hS.carry(r3(ARR + 0.82), sheetAt(LID), 0.4, "inOut");
 sfx(r3(ARR + 1.2), "kenney/impact-metal-light", { gain: 0.35 });
-c.prop(r3(ARR + 0.82), "scroll", { pull: 1 }, 0.4, "inOut"); c.prop(r3(ARR + 0.82), "sheet", { end: 1 }, 0);
+c.prop(r3(ARR + 0.82), "scroll", { pull: 1 }, 0.4, "inOut"); c.prop(r3(ARR + 0.82), "sheet", { end: 1 }, 0.4, "inOut");
 const GL_LOW = W("B", 0.15, 0.50, 0.95), GL_SIP = W("B", 0.20, 0.70, 1.28);   // rim at the mouth, under the shades (Sol r1 #18)
 const hG = grips.mug(c, "devil", { ...GLASS, ...at3(GL_LOW) }, { side: "R" });
 putProp(r3(ARR - 0.03), "glass", GL_LOW); hG.secure(r3(ARR - 0.02), 0.001);
@@ -432,25 +432,25 @@ look(r3(ARR - 0.02), "devil", [-0.8, 0.2], 0.01); expr(r3(ARR - 0.02), "devil", 
 capPos = 250; e = say(21, r3(ARR + 1.3)); capPos = SUB;
 hG.carry(r3(e + 0.02), GL_SIP, 0.25); sfx(r3(e + 0.25), "ai/sip", { gain: 0.5 });
 // shot 23: a slow push up from the page to his eyes, the rim at the bottom; "goes to hell" shows when it is said
-const C100 = shot("clause 100", r3(e + 0.12), cam("B", [-0.50, 0.30, 5.60], [-0.65, 0.85, 1.66], 30), push(0.14));
+const C100 = shot("clause 100", r3(e + 0.12), cam("B", [0.70, 0.40, 5.40], [-0.65, 0.85, 1.66], 30), push(0.14));
 hS.carry(r3(C100 - 0.02), sheetAt(LID), 0.01, "linear");
 hG.carry(r3(C100 + 0.2), GL_LOW, 0.3);
 expr(r3(C100 - 0.02), "spud", "focused", 0.01); look(r3(C100 - 0.02), "spud", [0, -0.5], 0.01);
 capPos = 260; e = say(22, r3(C100 + 0.12)); capPos = SUB;
 const HELLW = r3(e - 0.35);   // "...hell": his eyes come up; the face drops AFTER the word (Sol r1 #22)
-look(HELLW, "spud", [0, 0], 0.15); expr(r3(e + 0.02), "spud", "terrified", 0.3);
+look(r3(HELLW - 0.2), "spud", [0, 0], 0.15);
 // shot 24: overhead on the matched pose: the latch on the cut, he drops with the page in his gloves, CUT as the last of him goes
-const DROPS = shot("hatch", r3(e + 0.12), cam("B", [-0.45, 3.20, 3.10], [-0.65, 0, 1.55], 34), tilt(4));
-const LIDGO = r3(DROPS + 2 / 30);
+const DROPS = shot("hatch", HELLW, cam("B", [-0.45, 3.20, 3.10], [-0.65, 0, 1.55], 34), tilt(4));
+const LIDGO = r3(DROPS + 1 / 30); expr(DROPS, "spud", "terrified", 0.15);
 c.prop(LIDGO, "hatch", { fall: 1 }, 0.1, "in"); c.prop(r3(LIDGO + 0.1), "hatch", { fall: 0.953 }, 0.033); c.prop(r3(LIDGO + 0.133), "hatch", { fall: 1 }, 0.033);
 c.prop(LIDGO, "hatch", { glow: 1.4 }, 0.2); c.at(LIDGO, { fx: "shake", dur: 0.1, amp: 0.025 });
 sfx(LIDGO, "kenney/metal-latch", { gain: 0.6 }); sfx(r3(LIDGO + 0.05), "kenney/impact-metal-heavy", { gain: 0.7 });
 const FALLT = r3(LIDGO + 1 / 30);
 putProp(FALLT, "tail", W("B", -0.65, 0.55, 1.70)); c.prop(r3(FALLT + 0.01), "tail", { fall: 1 }, 0.4, "linear");
 c.prop(r3(FALLT + 0.13), "tail", { y: -1.4 }, 0.4, "in");
-A(FALLT, "spud", "drop", { to: -1.60, dur: 0.4 });
+A(FALLT, "spud", "drop", { to: -1.60, dur: 0.4 }); hS.carry(FALLT, [LID[0], r3(LID[1] + 0.34 - 1.60), r3(LID[2] + SH_FWD)], 0.4, "in");   // the page goes down with his gloves (Sol r2 #23)
 hG.carry(r3(DROPS + 0.1), W("B", 0.05, 0.95, 1.12), 0.2, "out"); expr(r3(DROPS + 0.1), "devil", "happy", 0.1);
-const END = F(r3(LIDGO + 0.45));
+const END = F(r3(Math.max(LIDGO + 0.3, e + 0.12)));   // cut while he falls, before the gloves reach the rim (Sol r2 new #12)
 
 // ---------------------------------------------------------------- the cast (keys by time)
 const SPUD_CH = variant("spud-ht", "potatobrawl/spud", (d) => { d.costume = { ...d.costume, feet: [[0, "sneakers"], [r3(WAKE - 0.03), "socks"], [r3(READ - 0.03), "sneakers"]], sockWet: [[0, 0], [r3(SOCK + 0.35), 0], [r3(SOCK + 0.62), 1]] }; });
@@ -495,8 +495,9 @@ write(import.meta.url, {
     { who: "spud", with: "tail", from: LIDGO, to: END, checks: ["clipping", "shell"], reason: "the scroll's end whips down the hatch after him (panel 16)" },
     { who: "spud", with: "spud", from: LIDGO, to: END, checks: ["face-hidden"], reason: "seen from straight above as he drops: the top of his head (panel 16)" },
     { who: "spud", with: "spud", from: r3(SLAM - 0.3), to: r3(SLAM + 0.4), checks: ["face-hidden"], reason: "he looks down at the stamp for the slam; the brim covers his eyes for under half a second, the contact is the subject (Sol r1 #3)" },
-    { who: "spud", with: "hatch", from: LIDGO, to: END, checks: ["clipping", "arm-in-prop", "costume-in-prop"], reason: "he drops through the open hatch (panel 16)" },
-    { who: "spud", with: "hell", from: LIDGO, to: END, checks: ["shell", "clipping", "arm-in-prop", "costume-in-prop"], reason: "he drops through the open hatch in hell's floor (panel 16)" },
+    { who: "spud", with: "hatch", from: DROPS, to: END, checks: ["clipping", "shell", "arm-in-prop", "hand-in-prop", "costume-in-prop"], reason: "he drops through the open hatch (panel 16)" },
+    { who: "spud", with: "hell", from: DROPS, to: END, checks: ["shell", "clipping", "arm-in-prop", "hand-in-prop", "costume-in-prop"], reason: "he drops through the open hatch in hell's floor (panel 16)" },
+    { who: "spud", with: "harp", from: DOCK, to: HIDE, checks: ["hand-in-prop"], reason: "his glove rests on the harp pillar beside him while the ex docks (4 cm into its surface, far in the frame)" },
     { who: "ex", with: "spud", from: r3(HUG - 0.05), to: r3(PH - 0.02), checks: ["clipping", "shell", "character-overlap", "reach", "face-hidden"], maxReach: 0.12, reason: "the hug: her arms round him, her face pressed to his cheek, eyes shut in bliss (DESIGN section 4)" },
     { who: "devil", with: "devil", from: 0, to: END, checks: ["face-hidden"], reason: "the Devil's shades cover his eyes all video (DESIGN section 6: mouth and brows carry him)" },
   ],
