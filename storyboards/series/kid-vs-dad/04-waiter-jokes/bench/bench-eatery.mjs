@@ -66,6 +66,7 @@ const SH = [
 const beats = c.beats(SH.map(([label, k], i) => [`s${i}`, i, k, `${i}.5 ${label}`]), SH.length);
 
 write(import.meta.url, {
+  tool: "a builder bench for the eatery furniture (Kid vs Dad 04 T1), never a video",
   id: "bench-eatery", title: "Furniture bench", idea: "Furniture bench for Kid vs Dad 04 (DESIGN.md T1), not a clip",
   fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet", physics: false,
   set: { type: "plain", color: "#efe2c8", floor: "#c9b08c", light: "golden", para: 0, aperture: 0, lighting: 2, shade: "soft" },

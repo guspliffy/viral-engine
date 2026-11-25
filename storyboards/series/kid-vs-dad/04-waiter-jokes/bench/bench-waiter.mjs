@@ -63,6 +63,7 @@ if (process.argv.includes("--grips") && process.argv[1] === fileURLToPath(import
     t = h.put(t + 0.15, spot);
     c.cap(0, END, `Bill in the dad's right hand, tipped back ${TIP} degrees${view ? ", side" : ""}`, 1500, false, { kinetic: false });
     write(import.meta.url, {
+      tool: "a grip proof for the bill hold (Kid vs Dad 04 T3), never a video",
       id: `bench-grip-tipbill${view}`, title: "Bill hold proof", idea: "Grip proof, not a clip", fps: 30, look: "anime-pro", profile: "short", loop: false,
       set: { type: "apartment", seed: 5 }, music: false, sound: { auto: false }, hook: { show: ["dad", "it"], hint: 0, what: "engine test" },
       cast: [{ id: "dad", character: "potatobrawl/dad", at: DAD, face: 0, expr: "kind", follow: 0.2, seed: 2.6 }],

@@ -61,6 +61,7 @@ const SH = [
 const beats = c.beats(SH.map(([label, k], i) => [`s${i}`, i, k, `${i}.5 ${label}`]), SH.length);
 
 write(import.meta.url, {
+  tool: "a builder bench for the waiter and cook (Kid vs Dad 04 T4), never a video",
   id: "bench-cast", title: "Cast bench: waiter and cook", idea: "Cast bench for Kid vs Dad 04 (DESIGN.md T4), not a clip",
   fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet", physics: false,
   set: { type: "plain", color: "#efe2c8", floor: "#7b4650", light: "golden", para: 0, aperture: 0, lighting: 2, shade: "soft" },

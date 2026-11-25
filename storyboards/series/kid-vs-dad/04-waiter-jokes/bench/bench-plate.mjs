@@ -30,6 +30,7 @@ const SH = [["camera 01 day", C01], ["camera 10 day", C10], ["head-on y 0.65 day
 const beats = c.beats(SH.map(([label, k], i) => [`s${i}`, i, k, `${i}.5 ${label}`]), SH.length);
 
 write(import.meta.url, {
+  tool: "a builder bench for the plates (Kid vs Dad 04 T5), never a video",
   id: "bench-plate", title: "Plate bench", idea: "Plate bench for Kid vs Dad 04 (DESIGN.md T5), not a clip",
   fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet", physics: false,
   set: { type: "plain", color: "#efe2c8", floor: "#7b4650", light: "golden", para: 0, aperture: 0, lighting: 2, bloom: "emissive",
