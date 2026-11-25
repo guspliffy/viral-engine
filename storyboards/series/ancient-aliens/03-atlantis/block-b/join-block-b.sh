@@ -7,7 +7,7 @@ FRAME="${1:-wide}"; MODE="${2:-}"
 cd "$(dirname "$0")/../../../../.."
 B=storyboards/series/ancient-aliens/03-atlantis/block-b
 FLAGS=(); SUF=""; [ "$MODE" = "draft" ] && FLAGS=(--draft) && SUF="-draft"
-LIST="out/aa03-b-$FRAME$SUF.txt"; : > "$LIST"
+mkdir -p out; LIST="out/aa03-b-$FRAME$SUF.txt"; : > "$LIST"
 for k in b1 b2 b3 b4 b5; do
   SB="$B/aa03-$k-$FRAME.json"
   node qa/preflight.mjs "$SB" > "out/aa03-$k-$FRAME.preflight.txt" 2>&1 || { tail -20 "out/aa03-$k-$FRAME.preflight.txt"; echo "preflight FAIL: $k"; exit 1; }
