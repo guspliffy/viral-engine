@@ -128,7 +128,7 @@ const props = [
   { id: "counter", kind: "dinercounter", x: CX, z: 0, w: CW, d: 0.6, h: CH, rot: 180 },
   { id: "lamp1", kind: "pendant", staged: "hangs from the ceiling on its cord", x: 0.0, y: 2.45, z: -0.1, len: 1.6 },
   { id: "lamp2", kind: "pendant", staged: "hangs from the ceiling on its cord", x: 2.6, y: 2.45, z: -0.1, len: 1.6 },
-  { id: "bill", kind: "receipt", x: BILL[0], y: TOP, z: BILL[1], rot: 20 },
+  { id: "slip", kind: "receipt", x: BILL[0], y: TOP, z: BILL[1], rot: 20 },
   { id: "cond", kind: "condiments", x: 2.2, y: CH, z: -0.12, rot: 188 },
   { id: "jar", kind: "tipjar", x: 1.75, y: CH, z: -0.14 },
   { id: "apron", kind: "waiterapron", wear: "sam", x: 0, y: 0, z: 0, y0: 0.4, y1: 0.07, rx: 0.44, rz: 0.39, arc: 130 },

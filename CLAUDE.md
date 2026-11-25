@@ -37,7 +37,7 @@ node qa/check.mjs out/<id>.mp4 --sb <sb> --layout out/<id>.layout.json   # check
 node qa/panelfit.mjs <sb> --panels <PANELS.md>                 # Jonny's panels by number: size, eye line, faces
 python3 tools/lint-notes.py docs                               # rule docs: named paths exist, line caps (CI; `memory` too)
 gh workflow run render.yml -f storyboard=<sb>                  # full render on the free render farm
-node qa/golden.mjs; node qa/regress.mjs                        # after engine/characters/assets; after a rig/grip/contact change
+node qa/golden.mjs; node qa/regress.mjs; node qa/selftest.mjs   # after engine/characters/assets; after a rig/grip/contact change; any engine fix (seconds)
 ```
 
 ## Rules that apply to every task

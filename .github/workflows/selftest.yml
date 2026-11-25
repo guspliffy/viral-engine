@@ -1,0 +1,22 @@
+# The engine's regression cases (qa/selftest.mjs, from the engine audit of 24 Nov 2026): a castless film part mixed
+# from a cold voice cache, unknown speakers and shared prop ids refused, a dead mesh worker, malformed relative times,
+# the id mask kept as labels. Seconds; runs on every pull request that touches the engine or the checks.
+name: Engine self-test
+on:
+  pull_request:
+    paths:
+      - "engine/**"
+      - "qa/**"
+      - "storyboards/lib/**"
+      - ".github/workflows/selftest.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  selftest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: node qa/selftest.mjs

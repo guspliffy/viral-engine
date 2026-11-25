@@ -327,6 +327,18 @@ async function main() {
   }
   if (o.audioOnly || o.stitch) {
     if (!fs.existsSync(videoFile)) throw new Error(`--audio-only needs an earlier render: ${videoFile} not found`);
+    if (o.stitch) writePicture(videoFile, pictureOf(sb, o));
+    else {
+      // the picture on disk must be this storyboard's: two boards with one id (sky-bench in Facts and in Potato Desk)
+      // write the same file name, and a dialogue change moves the shots under the new sound (engine audit, 24 Nov 2026)
+      const want = pictureOf(sb, o), had = readPicture(videoFile);
+      if (!had) console.log(`sound only: ${path.basename(videoFile)} has no picture receipt (drawn before 25 Nov 2026): it is taken as this storyboard's picture`);
+      else if (had.key !== want.key) {
+        const why = had.source !== want.source ? `it was drawn from ${had.source}, this is ${want.source}` : "this storyboard's picture or timing changed since it was drawn (a line, a shot, a move)";
+        if (!o.force) throw new Error(`--audio-only: ${path.basename(videoFile)} is not this storyboard's picture: ${why}. Render it again (or --force to put the new sound on it anyway)`);
+        console.log(`sound only: WARNING --force: ${why}`);
+      }
+    }
     await finish(audio, videoFile, wavFile, outFile, o, dur, o.audioOnly ? "sound only; " : "", Number.isFinite(sb.sound?.level));
     return;
   }
@@ -634,9 +646,24 @@ async function main() {
   } finally {
     await browser.close(); srv.close(); if (xvfb) xvfb.proc.kill();
   }
+  if (!o.shard) writePicture(videoFile, pictureOf(sb, o));
   if (o.shard) { console.log(`wrote ${videoFile} (shard ${o.shard.i}/${o.shard.n}, video only; join with --stitch ${o.shard.n})`); return; }
   await finish(audio, videoFile, wavFile, outFile, o, dur, "", Number.isFinite(sb.sound?.level));
 }
+
+// what a render's picture depends on, for --audio-only: the storyboard file it came from and everything in the
+// storyboard but its sound (sound, music and effect-sound settings may change between a render and a sound-only redo),
+// plus the flags that change pixels. Not the engine's code: a sound-only redo after an engine update is still allowed.
+const SOUND_ONLY_KEYS = new Set(["sound", "music", "sfx", "notes", "creative", "title", "idea", "hook"]);
+function pictureOf(sb, o) {
+  const pic = Object.fromEntries(Object.entries(sb).filter(([k]) => !SOUND_ONLY_KEYS.has(k)));
+  const flags = Object.fromEntries(PIXEL_FLAGS.map((k) => [k, o[k] ?? null]));
+  const source = path.relative(ROOT, path.resolve(o.file)).replace(/\\/g, "/");
+  return { source, key: sha(JSON.stringify({ source, pic, flags })).slice(0, 20) };
+}
+const pictureFile = (video) => video.replace(/\.video\.mp4$/, ".picture.json");
+function writePicture(video, p) { try { fs.writeFileSync(pictureFile(video), JSON.stringify(p)); } catch (e) { console.log(`picture receipt not written: ${e.message}`); } }
+function readPicture(video) { try { return JSON.parse(fs.readFileSync(pictureFile(video), "utf8")); } catch { return null; } }
 
 // motion blur settings for this render, or null when it is off
 // the drawn look's smear (drawn.smear): its settings plus the story times a trail may not reach across (cuts, impact
@@ -680,7 +707,10 @@ function blurSamples(bl, t, fps, v) {
 // the drawn video plus its sound (normalised), or a silent track
 async function finish(audio, videoFile, wavFile, outFile, o, dur, note, fixed = false) {
   if (audio) {
-    const l = await mux(videoFile, wavFile, outFile, o.from, (o.to ?? dur) - (o.from ?? 0), fixed);
+    // one sound range for the excerpt, measured and encoded alike: --to 3 alone measured the whole mix and levelled
+    // the first 3 s by it (engine audit, 24 Nov 2026: -14.2 vs -41.0 LUFS for the same excerpt)
+    const ranged = o.from != null || o.to != null;
+    const l = await mux(videoFile, wavFile, outFile, ranged ? (o.from ?? 0) : null, (o.to ?? dur) - (o.from ?? 0), fixed);
     console.log(`wrote ${outFile} (${note}mix measured ${l.measuredLUFS} LUFS, normalised to ${LOUDNESS.I})`);
   } else {
     await ffmpeg(["-y", "-loglevel", "error", "-i", videoFile, "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100", "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-shortest", "-movflags", "+faststart", outFile]);
