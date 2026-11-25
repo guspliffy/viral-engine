@@ -136,8 +136,6 @@ expr(0, "spud", FACES.bubble, 0.01); look(0, "spud", [0, -0.35], 0.01);
 expr(0, "dad", FACES.frozen, 0.01); arm(0, "dad", "L", { o: [0.10, 0.45, 0.25] }, 0.01); arm(0, "dad", "R", { o: [0.10, 0.45, 0.25] }, 0.01);
 grip(0, "dad", "L", "open", 0.01); grip(0, "dad", "R", "open", 0.01);
 c.prop(0, "bubble", { blow: 0.4, stuck: 1 }, 0); c.prop(0, "timer", { togo: 0 }, 0); c.prop(0.02, "bubble", { blow: 1 }, 0.3, "out");
-// the label at 0 s (plain English, 8-line rule)
-cap(0, 3.3, "When your dad says *swallowed gum glues your stomach*", LABY, false, { size: 56, kinetic: false });
 see(0, 0.8, ["spud.face", "bubble"], "a kid blows a pink gum bubble at the kitchen table");
 
 // ---------------------------------------------------------------- 0-5 s HOOK (H1)
