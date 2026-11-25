@@ -51,7 +51,7 @@ const FACES = {
   listening: { eye: 1.2, pupil: 0.8, tilt: 0.2, curve: -0.1 },
   suspicious: { eye: 0.7, tilt: -0.15, raise: 0.03, curve: -0.05 },
   frozen: { eye: 1.3, pupil: 0.6, tilt: 0.35, browY: 0.05 },
-  bag: { eye: 0.06, tilt: -0.45, browY: -0.04, curve: -0.3 },
+  bag: { eye: 0.3, tilt: -0.35, browY: -0.03, curve: -0.3 },
   flat: { eye: 0.6, tilt: -0.05, browY: -0.02, curve: -0.05 },
   law: { eye: 0.9, tilt: -0.3, browY: -0.01 },
   innocent: { eye: 0.1, tilt: 0.2, browY: 0.02, curve: 0.5 },
@@ -69,7 +69,7 @@ const MICPOSE = { cover: [-0.45, 0.62, 0.1], talk: [-0.5, 0.42, 0.3] };
 const TOP = 0.30;
 const MIC = { id: "mic", kind: "newsmic", lean: 30, ...grips.placeFor("newsmic", butt(rel(REP_AT, REP_YAW, MICPOSE.talk)), REP_YAW) };
 const STICK = { id: "stick", kind: "carrotstick", up: true, ...grips.placeFor("carrotstick", [0.40, 0.37, 0.045], 0), tip: 0, tilt: -80 };
-const BAG = { id: "bag", kind: "carrotbag", ...grips.placeFor("carrotbag", [0.55, TOP, 0.28], 0) };
+const BAG = { id: "bag", kind: "carrotbag", ...grips.placeFor("carrotbag", [0.55, 0.03, 0.17], 180), tip: 25 };   // starts in his hands, under his chin (a carry on the cut popped)
 const MUG = { id: "mug", kind: "teamug", ...grips.placeFor("teamug", [-0.30, TOP, 0.20], 200), steam: 0.6 };
 const props = [
   // K: the kitchen
@@ -285,10 +285,9 @@ const T09 = r3(END_OF(11) + 0.4);
 A(onCut(T09), "spud", "squash", { amount: 0, dur: 0.01 }); arm(onCut(T09), "spud", "L", "rest", 0.01); arm(onCut(T09), "spud", "R", "rest", 0.01);
 state(T09, "evening", 1, 1); P(onCut(T09), "moonH", { on: 0 }, 0);
 place(T09, "spud", TATO_TABLE, -25);
-P(onCut(T09), "table", { y: -9 }, 0); P(onCut(T09), "bag", { y: TOP }, 0);
+P(onCut(T09), "table", { y: -9 }, 0); P(onCut(T09), "bag", { y: BAG.y }, 0);
 const hb = grips.box(c, "spud", BAG, { gap: 0.03, height: 0.4 });
 hb.take(onCut(T09), { reach: 0.01, settle: 0.01 });
-hb.carry(r3(T09 + 0.05), [0.55, 0.03, 0.17], 0.3, "inOut", { rot: 180, tip: 25 });
 expr(T09, "spud", FACES.bag, 0.01);
 say(12, r3(T09 + 0.2));
 for (const d of [0.4, 0.8, 1.2, 1.6, 2.0]) sfx(r3(T09 + d), "ai/crunch", { gain: 0.3 });
@@ -354,7 +353,6 @@ const T14 = r3(END_OF(15) + 0.35);
 state(T14, "fridge", 0.12, 0.12); P(onCut(T14), "moonK", { on: 0 }, 0); P(onCut(T14), "shine", { on: 0 }, 0);
 P(T14, "fridge", { open: 1 }, 0.35, "out"); P(r3(T14 + 0.05), "fridge", { lit: 1 }, 0.05, "linear"); sfx(T14, "door-open", { gain: 0.4 });
 arm(onCut(T14), "spud", "R", { o: [0.05, 0.40, 0.25] }, 0.01); arm(onCut(T14), "spud", "L", { o: [0.05, 0.40, 0.25] }, 0.01);
-A(r3(T14 + 0.05), "dad", "squash", { amount: 0.05, dur: 0.1 });
 expr(T14, "spud", FACES.flat, 0.01); look(T14, "spud", [0.7, 0], 0.01);
 say(16, r3(T14 + 1.1));
 const FRIDGEC = { pos: [-2.60, 1.20, 2.20], look: [-4.30, 0.95, -1.20], fov: 42 };
