@@ -4,7 +4,11 @@
 // dad = Dad B (never named). Label at 0 s: "When your dad says carrots help you see in the dark".
 // Hidden twist teased 3 times: crunching from the dark kitchen, crumbs in Dad's moustache, the jar lighter every night.
 // [who, line, tone, style (VoxCPM2 acting direction), { voice }]
-const REP = { voice: "reaper" }, KID = { voice: "tato" }, DAD = { voice: "dad" };
+import { readFileSync } from "node:fs";
+// Reaper keeps the tempo these takes were timed with (1.25): main's 15 % rule (PR #310, 1.44) came after this clip's
+// rough draft, and the rule says a clip in work keeps its takes and is sped up as a whole at the join (1.15x here).
+const VOICES = JSON.parse(readFileSync(new URL("../../../../engine/voice/voices.json", import.meta.url), "utf8"));
+const REP = { voice: { ...VOICES.reaper, tempo: 1.25 } }, KID = { voice: "tato" }, DAD = { voice: "dad" };
 export const LINES = [
   // 0-5 s HOOK H1: power word, the lie, then the question
   ["dad", "Carrots. Eat them, and you see in the dark.", "calm", "a stern dad, dead certain, pointing at his eyes", DAD],

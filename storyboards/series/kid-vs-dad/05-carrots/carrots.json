@@ -1232,7 +1232,20 @@
      "line": "In the dark. Is it true?",
      "tone": "whisper",
      "style": "night vision, crouched in a dark hallway, tense",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 2.42,
      "caption": false,
      "at": 0.167
@@ -1362,7 +1375,20 @@
      "line": "We're live. Tato, age seven, hates carrots.",
      "tone": "calm",
      "style": "grave, low, a war correspondent under cover",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 3.48,
      "caption": false,
      "at": 0.17
@@ -1532,7 +1558,20 @@
      "line": "And in this house, there is one rule: eat your carrots, and you see in the dark.",
      "tone": "calm",
      "style": "slow, ominous, a pause before the last words",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 6.12,
      "caption": false,
      "at": 0.15
@@ -1611,7 +1650,20 @@
      "line": "The target: the cookie jar. Top shelf. Only in the dark.",
      "tone": "calm",
      "style": "a mission briefing, clipped, serious",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 3.7,
      "caption": false,
      "at": 0.104
@@ -1816,7 +1868,20 @@
      "line": "Night one. One carrot.",
      "tone": "calm",
      "style": "quiet, tense",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 1.88,
      "caption": false,
      "at": 0.17
@@ -2308,7 +2373,20 @@
      "line": "Not enough carrots.",
      "tone": "sad",
      "style": "wincing, flat, after a loud bonk",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 1.24,
      "caption": false,
      "at": 1.004
@@ -2501,7 +2579,20 @@
      "line": "...Who is crunching?",
      "tone": "whisper",
      "style": "suspicious, very quiet, listening",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 1,
      "caption": false,
      "at": 1.01
@@ -3402,7 +3493,20 @@
      "line": "Night two. Halfway there.",
      "tone": "whisper",
      "style": "tense, holding his breath",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 2.38,
      "caption": false,
      "at": 1.774
@@ -3724,7 +3828,20 @@
      "line": "Night three. The whole bag.",
      "tone": "calm",
      "style": "awed, slow, grave",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 2.12,
      "caption": false,
      "at": 0.22
@@ -4387,7 +4504,20 @@
      "line": "He can see!",
      "tone": "excited",
      "style": "amazed, breathless, breaking news",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 0.8,
      "caption": false,
      "at": 0.17
@@ -4573,7 +4703,20 @@
      "line": "And the cookie jar... is lighter every night.",
      "tone": "whisper",
      "style": "suspicious, slow, ominous",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 2.73,
      "caption": false,
      "at": 0.42
@@ -4927,7 +5070,20 @@
      "line": "Contact.",
      "tone": "whisper",
      "style": "barely audible, frozen",
-     "voice": "reaper",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
      "dur": 0.7,
      "caption": false,
      "at": 0.6
