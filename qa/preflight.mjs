@@ -99,6 +99,10 @@ export async function preflight(sb, lay, { quick = false, sbFile = null } = {}) 
   // beyond the line) fail, any other difference warns. Before this the only sign was one line printed when the take
   // was first read (Mona Lisa, 19 Nov 2026: a made-up "this clear." reached Jonny's draft)
   for (const m of sb.misreads || []) add({ level: m.extra >= 2 ? "fail" : "warn", check: "misread", msg: `the voice read "${m.line}" as "${m.heard}"${m.extra >= 2 ? ` (${m.extra} words it made up)` : ""}: listen to it; "take": ${(m.take || 0) + 1} reads it again (a wrong name or number Whisper spells its own way can stay, with a reason)` }, "speech");
+  // a line timed with a length its take does not have (engine/voice/speech.mjs respoken): the talk plays the take,
+  // the clip's own captions, cuts and prop keys still end where the written length said. Before this it was one line
+  // printed when the take was read (Potato Desk 14, 25 Nov 2026: a caption faded mid-word, flagged by Sol twice)
+  for (const m of sb.respoken || []) add({ level: "warn", check: "spoken-length", msg: `"${m.line}"${m.at != null ? ` at ${m.at}s` : ""} is ${m.spoken} s spoken, not the ${m.written} s the clip was timed with: captions, cuts and props keyed to the written length end ${Math.abs(m.spoken - m.written).toFixed(2)} s ${m.spoken > m.written ? "before the voice does" : "after it"}; put the spoken length in the generator's length table` }, "captions");
   for (const r of cameraLint(sb, chars)) add({ ...r, level: r.level === "pass" ? "pass" : "note" }, "camera");
   for (const r of signCut(sb)) add(r, "camera");   // a sign's number cut in two by the frame edge (Potato Desk 12)
   // Jonny's panels by number (qa/panelfit.mjs): when the storyboard names its PANELS.md ("panels": { "md": path from
