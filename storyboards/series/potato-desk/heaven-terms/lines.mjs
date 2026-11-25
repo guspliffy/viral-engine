@@ -21,7 +21,7 @@ export const LINES = [
   ["angel", "Clause eight. Clouds are wet.", "calm", `${ANGEL}, unimpressed`, A],                                              // 5  panel 06
   ["ex", "Hiii!", "excited", null, X],                                                                                          // 6  panel 07
   ["angel", "Clause fifteen. Your ex lives next door.", "calm", `${ANGEL}, slow`, A],                                          // 7  panel 07
-  ["spud", "No no no no no.", "whisper", "whispering in panic, hiding", S],                                                    // 8  panel 07
+  ["spud", "No no no.", "whisper", "whispering fast in panic, hiding", { voice: { ...S.voice, tempo: 1.4 } }],                                                    // 8  panel 07
   ["angel", "Clause sixteen. Free hugs.", "calm", `${ANGEL}, bored`, A],                                                       // 9  break in the ladder
   ["spud", "Oh, nice!", "excited", "pleasantly surprised, bright", S],                                                         // 10
   ["ex", "I missed you sooo much!", "excited", null, X],                                                                       // 11 panel 08

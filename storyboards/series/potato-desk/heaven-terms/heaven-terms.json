@@ -1,0 +1,6345 @@
+{
+ "id": "heaven-terms",
+ "title": "Nobody reads heaven's terms and conditions",
+ "idea": "Potato Desk heaven/hell: at heaven's gate he stamps the terms without reading; every clause comes true (harp at 6 AM, wet clouds, his ex next door, no wifi); he walks down the scroll reading, and the last clause sends him to hell.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  240,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "far": 160,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0f0",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "heaven-steps/heaven-steps-score.ogg",
+  "lock": false,
+  "dip": false,
+  "lowCut": 150,
+  "gain": 0.24
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "outdoor"
+ },
+ "creative": {
+  "length": [
+   55,
+   80
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "angel",
+   "gate",
+   "scroll"
+  ],
+  "hint": 0,
+  "what": "at heaven's gate a clerk angel: one rule, you agree to everything, forever; the scroll rolls down to hell"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "../storyboards/series/potato-desk/heaven-terms/spud-ht",
+   "at": [
+    -0.1,
+    -55.05
+   ],
+   "y": 21.78,
+   "face": 25,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 1.1
+  },
+  {
+   "id": "angel",
+   "character": "potatobrawl/angel",
+   "at": [
+    1.13,
+    -56.8
+   ],
+   "y": 22.14,
+   "face": -20,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "devil",
+   "character": "../storyboards/series/potato-desk/heaven-terms/devil-ht",
+   "at": [
+    0.5,
+    0.95
+   ],
+   "face": -25,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 6.6
+  },
+  {
+   "id": "ex",
+   "character": "potatobrawl/ex",
+   "at": [
+    -30,
+    5
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "stairs",
+   "staged": "the stairway itself (world origin = station B)",
+   "kind": "heavenstairs",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "sky",
+   "staged": "far backdrop",
+   "kind": "stairsky",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "loop": 64.667
+  },
+  {
+   "id": "clouds",
+   "staged": "clouds round the stair",
+   "kind": "zoneclouds",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "loop": 64.667
+  },
+  {
+   "id": "terrace",
+   "staged": "the top terrace",
+   "kind": "heaventerrace",
+   "x": 0,
+   "y": 22,
+   "z": -55.3
+  },
+  {
+   "id": "gate",
+   "staged": "stands on the terrace",
+   "kind": "pearlgate",
+   "x": -0.2,
+   "y": 22,
+   "z": -57.6,
+   "open": 0
+  },
+  {
+   "id": "podium",
+   "staged": "stands on the terrace",
+   "kind": "cloudpodium",
+   "x": 1.05,
+   "y": 22,
+   "z": -56.1
+  },
+  {
+   "id": "rays",
+   "staged": "far backdrop behind the gate",
+   "kind": "gaterays",
+   "x": -0.2,
+   "y": 24.2,
+   "z": -61.3
+  },
+  {
+   "id": "veil",
+   "staged": "mist on the terrace",
+   "kind": "fogveil",
+   "x": 0,
+   "y": 22,
+   "z": -57.7,
+   "w": 5.2,
+   "d": 3.8,
+   "h": 0.08,
+   "color": "#f7fafc",
+   "opacity": 0.5
+  },
+  {
+   "id": "tpuff0",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -2.4,
+   "y": 22.25,
+   "z": -56.2,
+   "r": 0.5,
+   "seed": 30
+  },
+  {
+   "id": "tpuff1",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -2.5,
+   "y": 22.3,
+   "z": -57.3,
+   "r": 0.6,
+   "seed": 31
+  },
+  {
+   "id": "tpuff2",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -2.3,
+   "y": 22.275,
+   "z": -58.5,
+   "r": 0.55,
+   "seed": 32
+  },
+  {
+   "id": "tpuff3",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -1.5,
+   "y": 22.25,
+   "z": -59.5,
+   "r": 0.5,
+   "seed": 33
+  },
+  {
+   "id": "tpuff4",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -0.2,
+   "y": 22.3,
+   "z": -59.7,
+   "r": 0.6,
+   "seed": 34
+  },
+  {
+   "id": "tpuff5",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": 1.2,
+   "y": 22.25,
+   "z": -59.6,
+   "r": 0.5,
+   "seed": 35
+  },
+  {
+   "id": "tpuff6",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": 2.3,
+   "y": 22.275,
+   "z": -58.9,
+   "r": 0.55,
+   "seed": 36
+  },
+  {
+   "id": "tpuff7",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": 2.5,
+   "y": 22.225,
+   "z": -57.7,
+   "r": 0.45,
+   "seed": 37
+  },
+  {
+   "id": "tpuff8",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": 2.45,
+   "y": 22.25,
+   "z": -56.6,
+   "r": 0.5,
+   "seed": 38
+  },
+  {
+   "id": "astep",
+   "staged": "the Angel's cloud step behind the podium (DESIGN section 2)",
+   "kind": "cloudpuff",
+   "x": 1.13,
+   "y": 21.9,
+   "z": -56.8,
+   "r": 0.3,
+   "seed": 77
+  },
+  {
+   "id": "scroll",
+   "staged": "THE COUNTER: the terms, from the podium down all 100 steps to the hatch (world origin)",
+   "kind": "termsscroll",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "unroll": 0,
+   "count": 0,
+   "pull": 0
+  },
+  {
+   "id": "stamp",
+   "staged": "stands on the podium; in his hand in shot 4",
+   "kind": "goldstamp",
+   "x": 0.78,
+   "y": 22.42,
+   "z": -56.28
+  },
+  {
+   "id": "mat",
+   "staged": "lies on tread 99",
+   "kind": "goldmat",
+   "x": -0.1,
+   "y": 21.78,
+   "z": -55.05
+  },
+  {
+   "id": "one",
+   "staged": "the gold 1 on riser 1",
+   "kind": "risernum",
+   "x": 0,
+   "y": 0.11,
+   "z": 0.501,
+   "text": "1"
+  },
+  {
+   "id": "hell",
+   "staged": "hell's floor (world origin)",
+   "kind": "hellfloor",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "hatch",
+   "staged": "set in hell's floor",
+   "kind": "hellhatch",
+   "x": -0.65,
+   "y": 0,
+   "z": 1.3,
+   "open": 0,
+   "glow": 1,
+   "fall": 0,
+   "loop": 64.667
+  },
+  {
+   "id": "chair",
+   "staged": "stands on hell's floor",
+   "kind": "deckchair",
+   "x": 0.5,
+   "y": 0,
+   "z": 0.95,
+   "rot": -25,
+   "color": "#c8362f",
+   "stripe": "#f2ebe0"
+  },
+  {
+   "id": "parasol",
+   "staged": "stands on hell's floor",
+   "kind": "parasol",
+   "x": 1.6,
+   "y": 0,
+   "z": 0.6
+  },
+  {
+   "id": "wisp0",
+   "staged": "smoke over hell's floor",
+   "kind": "smokewisp",
+   "x": -3.4,
+   "y": 0,
+   "z": -1.5,
+   "seed": 50
+  },
+  {
+   "id": "wisp1",
+   "staged": "smoke over hell's floor",
+   "kind": "smokewisp",
+   "x": -2.8,
+   "y": 0,
+   "z": -0.9,
+   "seed": 51
+  },
+  {
+   "id": "wisp2",
+   "staged": "smoke over hell's floor",
+   "kind": "smokewisp",
+   "x": -1.9,
+   "y": 0,
+   "z": -0.3,
+   "seed": 52
+  },
+  {
+   "id": "wisp3",
+   "staged": "smoke over hell's floor",
+   "kind": "smokewisp",
+   "x": 2.3,
+   "y": 0,
+   "z": 0.3,
+   "seed": 53
+  },
+  {
+   "id": "wisp4",
+   "staged": "smoke over hell's floor",
+   "kind": "smokewisp",
+   "x": 3,
+   "y": 0,
+   "z": 0.9,
+   "seed": 54
+  },
+  {
+   "id": "wisp5",
+   "staged": "smoke over hell's floor",
+   "kind": "smokewisp",
+   "x": 3.6,
+   "y": 0,
+   "z": 1.5,
+   "seed": 55
+  },
+  {
+   "id": "dawn",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "dawnsky",
+   "x": 10.5,
+   "y": -60,
+   "z": 15,
+   "loop": 64.667
+  },
+  {
+   "id": "isle",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "homeisland",
+   "x": 10.5,
+   "y": -60,
+   "z": 15,
+   "loop": 64.667
+  },
+  {
+   "id": "bed",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "cloudbed",
+   "x": 9.25,
+   "y": 26,
+   "z": 14.4,
+   "rot": 40,
+   "cover": 0.4,
+   "over": 1
+  },
+  {
+   "id": "harp",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "goldharp",
+   "x": 10.4,
+   "y": -60,
+   "z": 14.25,
+   "on": 0,
+   "puff": 0
+  },
+  {
+   "id": "sw1",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "sockwell",
+   "x": 10.86,
+   "y": -60,
+   "z": 15.55,
+   "on": 0
+  },
+  {
+   "id": "sw2",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "sockwell",
+   "x": 11.14,
+   "y": -60,
+   "z": 15.55,
+   "on": 0
+  },
+  {
+   "id": "house",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "cloudhouse",
+   "x": 19.5,
+   "y": -60,
+   "z": 11,
+   "tilt": 0,
+   "loop": 64.667
+  },
+  {
+   "id": "acloud",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "cloudpuff",
+   "x": 11.45,
+   "y": -60,
+   "z": 12.25,
+   "r": 0.34,
+   "seed": 88
+  },
+  {
+   "id": "shoe1",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "sneaker",
+   "x": 9.95,
+   "y": -60,
+   "z": 15.3,
+   "scale": 0.6,
+   "stripe": "#d9d4c8"
+  },
+  {
+   "id": "shoe2",
+   "staged": "heaven home (set B), parked until the cut into shot 5",
+   "kind": "sneaker",
+   "x": 10.12,
+   "y": -60,
+   "z": 15.36,
+   "scale": 0.6,
+   "stripe": "#d9d4c8",
+   "rot": 20
+  },
+  {
+   "id": "roll",
+   "staged": "the Angel's roll in set B (both gloves on the knobs)",
+   "kind": "scrollroll",
+   "x": 0,
+   "y": -60,
+   "z": 0
+  },
+  {
+   "id": "sheet",
+   "staged": "the piece of the scroll he reads (both gloves), shots 19-22",
+   "kind": "scrollsheet",
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "end": 0
+  },
+  {
+   "id": "tail",
+   "staged": "the scroll flying after him (shot 23)",
+   "kind": "scrolltail",
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "fall": 0
+  },
+  {
+   "id": "phone",
+   "staged": "his phone, shots 14-15",
+   "kind": "phone",
+   "scale": 1.3,
+   "case": "#d3261e",
+   "halo": 0.22,
+   "glow": 0.3,
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "dphone",
+   "staged": "the Devil's phone, shot 15",
+   "kind": "phone",
+   "scale": 2,
+   "case": "#f2c94c",
+   "halo": 0.5,
+   "glow": 1,
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "glass",
+   "staged": "the Devil's drink, shots 21-23",
+   "kind": "drinkglass",
+   "x": 0,
+   "y": -60,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2,
+   "text": "Nobody reads\n*heaven's terms*",
+   "pos": 250,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 0.1,
+   "to": 3.246,
+   "text": "At heaven's gate, there's one rule: you agree to *everything.* Forever.",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 5.967,
+   "to": 7.156,
+   "text": "Who *reads* these?",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 9.917,
+   "to": 13.029,
+   "text": "Clause 3. *Harp practice.* 6 A.M.",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 13.429,
+   "to": 15.38,
+   "text": "I'm dead. Let me sleep.",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 16.05,
+   "to": 17.246,
+   "text": "Why is it wet?!",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 17.417,
+   "to": 20.313,
+   "text": "Clause 8. Clouds are *wet.*",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 22.484,
+   "to": 23.513,
+   "text": "Hiii!",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 23.834,
+   "to": 25.713,
+   "text": "No no no.",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 25.884,
+   "to": 28.78,
+   "text": "Clause 15. Your *ex* lives next door.",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 28.9,
+   "to": 31.21,
+   "text": "Clause 16. *Free hugs.*",
+   "pos": 260,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 31.21,
+   "to": 32.913,
+   "text": "Oh, nice!",
+   "pos": 260,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 33.184,
+   "to": 34.848,
+   "text": "I missed you sooo much!",
+   "pos": 260,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 34.898,
+   "to": 35.64,
+   "text": "Help.",
+   "pos": 260,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 36.217,
+   "to": 37.5,
+   "text": "Where's the wifi?",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 38.834,
+   "to": 39.98,
+   "text": "Five bars down here!",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 40.15,
+   "to": 43.38,
+   "text": "Clause 22. Wifi is *downstairs.*",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 43.75,
+   "to": 44.98,
+   "text": "I want to *READ* it.",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 45.25,
+   "to": 46.992,
+   "text": "Nobody gets to the *end.*",
+   "pos": 300,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 47.3,
+   "to": 49.98,
+   "text": "Clause 41. *No snooze button.*",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 50.2,
+   "to": 53.689,
+   "text": "Clause 68. *Mondays.* Forever.",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 53.689,
+   "to": 57.18,
+   "text": "Clause 93. Heaven may change these terms at *any time.*",
+   "pos": 486,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 58.4,
+   "to": 59.646,
+   "text": "Keep reading, buddy!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 59.867,
+   "to": 63.913,
+   "text": "Clause 100. Anyone who didn't read this... goes to *hell.*",
+   "pos": 260,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "rule",
+   "at": 0,
+   "len": 3.266,
+   "shot": {
+    "pos": [
+     0.2,
+     22.5,
+     -46.7
+    ],
+    "look": [
+     0.42,
+     22.62,
+     -55.3
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      0.218,
+      22.51,
+      -47.388
+     ],
+     "look": [
+      0.42,
+      22.62,
+      -55.3
+     ],
+     "fov": 26
+    },
+    "dur": 3.267,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.05,
+       0.42,
+       0.42
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.42,
+       0.42
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "devil",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.45,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.05,
+      -55.03
+     ],
+     "y": 21.78,
+     "dur": 0.3,
+     "steps": 1,
+     "at": 0.05
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "At heaven's gate, there's one rule: you agree to everything. Forever.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, matter-of-fact",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.4,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 3.486,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.15,
+      -55.03
+     ],
+     "y": 21.78,
+     "dur": 0.3,
+     "steps": 1,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.05,
+      -55.03
+     ],
+     "y": 21.78,
+     "dur": 0.3,
+     "steps": 1,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.1,
+      -55.05
+     ],
+     "y": 21.78,
+     "dur": 0.3,
+     "steps": 1,
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.4
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.4,
+       0.55
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 3.167
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "drop",
+   "at": 3.266,
+   "len": 0.867,
+   "shot": {
+    "pos": [
+     2.2,
+     23.1,
+     -51.5
+    ],
+    "look": [
+     0.7,
+     22.4,
+     -56.2
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      2.2,
+      23.1,
+      -51.5
+     ],
+     "look": [
+      0.7,
+      21.964,
+      -56.2
+     ],
+     "fov": 34
+    },
+    "dur": 0.867,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "scroll",
+     "set": {
+      "unroll": 1
+     },
+     "dur": 2.8,
+     "ease": "in",
+     "at": 0.101
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.401
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.451
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.8,
+     "at": 0.521
+    },
+    {
+     "fx": "shake",
+     "dur": 0.1,
+     "amp": 0.02,
+     "at": 0.521
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.5,
+     "at": 0.701
+    }
+   ]
+  },
+  {
+   "name": "down",
+   "at": 4.133,
+   "len": 1.733,
+   "shot": {
+    "pos": [
+     1,
+     28,
+     -60.3
+    ],
+    "look": [
+     -0.04,
+     14.6,
+     -40.4
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.917,
+      26.928,
+      -58.708
+     ],
+     "look": [
+      -0.04,
+      13.342,
+      -40.4
+     ],
+     "fov": 46
+    },
+    "dur": 1.733,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.167
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.35,
+     "at": 0.201
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.3,
+     "at": 0.531
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.25,
+     "at": 0.861
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.2,
+     "at": 1.191
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.15,
+     "at": 1.521
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "x": 0.86,
+      "y": 22.56,
+      "z": -56.04
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.704
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 1.705
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.714
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.3,
+      -56.04
+     ],
+     "y": 22,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.714
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.714
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.01,
+     "at": 1.714
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.714
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.42,
+       0.42
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.714
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.071,
+       0.16,
+       0.019
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 1.714
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.714
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.715
+    }
+   ]
+  },
+  {
+   "name": "stamp",
+   "at": 5.866,
+   "len": 2.134,
+   "shot": {
+    "pos": [
+     -0.6,
+     22.7,
+     -50.9
+    ],
+    "look": [
+     0.6,
+     22.8,
+     -56.2
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.54,
+      22.705,
+      -51.165
+     ],
+     "look": [
+      0.6,
+      22.8,
+      -56.2
+     ],
+     "fov": 34
+    },
+    "dur": 2.133,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "stamp",
+     "hand": "R",
+     "grip": [
+      0.071,
+      0.16,
+      0.019
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.042
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Who reads these?",
+     "tone": "calm",
+     "style": "carefree, breezy, already stamping, not looking",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 0.889,
+     "caption": false,
+     "at": 0.101
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.071,
+       0.16,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.86,
+       22.42,
+       -56.04
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.768
+    },
+    {
+     "sfx": "kenney/impact-wood-heavy",
+     "gain": 0.8,
+     "at": 0.868
+    },
+    {
+     "fx": "shake",
+     "dur": 0.07,
+     "amp": 0.015,
+     "at": 0.868
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.08
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.868
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.938
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.071,
+       0.16,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.84,
+       22.58,
+       -56.06
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.008
+    },
+    {
+     "do": "prop",
+     "id": "scroll",
+     "set": {
+      "count": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.008
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.47,
+     "ease": "inOut",
+     "at": 1.068
+    },
+    {
+     "sfx": "kenney/creak",
+     "gain": 0.4,
+     "at": 1.068
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.318
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 1.368
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.071,
+       0.16,
+       0.019
+      ],
+      "palm": "wrap",
+      "at": [
+       0.82,
+       22.44,
+       -56.18
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.388
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "stamp",
+     "dur": 0,
+     "to": [
+      0.82,
+      22.42,
+      -56.18
+     ],
+     "at": 1.708
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.708
+    },
+    {
+     "do": "prop",
+     "id": "dawn",
+     "set": {
+      "x": 10.5,
+      "y": 26,
+      "z": 15
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.104
+    },
+    {
+     "do": "prop",
+     "id": "isle",
+     "set": {
+      "x": 10.5,
+      "y": 26,
+      "z": 15
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.104
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "x": 9.25,
+      "y": 26,
+      "z": 14.4
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.104
+    },
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "x": 10.4,
+      "y": 26,
+      "z": 14.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.104
+    },
+    {
+     "do": "prop",
+     "id": "sw1",
+     "set": {
+      "x": 10.86,
+      "y": 26,
+      "z": 15.55
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.104
+    },
+    {
+     "do": "prop",
+     "id": "sw2",
+     "set": {
+      "x": 11.14,
+      "y": 26,
+      "z": 15.55
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.104
+    },
+    {
+     "do": "prop",
+     "id": "house",
+     "set": {
+      "x": 19.5,
+      "y": 25.7,
+      "z": 11
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.104
+    },
+    {
+     "do": "prop",
+     "id": "shoe1",
+     "set": {
+      "x": 9.95,
+      "y": 26,
+      "z": 15.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.104
+    },
+    {
+     "do": "prop",
+     "id": "shoe2",
+     "set": {
+      "x": 10.12,
+      "y": 26,
+      "z": 15.36
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.104
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 2.105
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.114
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      9.25,
+      14.4
+     ],
+     "y": 26,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.114
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.114
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.114
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 2.114
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.114
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "bed",
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 2.119
+    }
+   ]
+  },
+  {
+   "name": "wake",
+   "at": 8,
+   "len": 1.466,
+   "shot": {
+    "pos": [
+     11.1,
+     26.95,
+     19.6
+    ],
+    "look": [
+     9.45,
+     26.8,
+     14.4
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      11.001,
+      26.941,
+      19.288
+     ],
+     "look": [
+      9.45,
+      26.8,
+      14.4
+     ],
+     "fov": 30
+    },
+    "dur": 1.467,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "sfx": "bell-heavy",
+     "gain": 0.25,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "over": 0
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "cover": 0.4
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.6,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.08,
+     "dur": 0.08,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.25,
+       0.35,
+       0.15
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.8,
+     "ease": "in",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "acloud",
+     "set": {
+      "x": 11.45,
+      "y": 23.86,
+      "z": 12.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.437
+    },
+    {
+     "do": "prop",
+     "id": "roll",
+     "set": {
+      "x": 11.45,
+      "y": 24.5,
+      "z": 12.67
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.437
+    },
+    {
+     "who": "angel",
+     "do": "hide",
+     "at": 1.438
+    },
+    {
+     "who": "angel",
+     "do": "show",
+     "at": 1.447
+    },
+    {
+     "who": "angel",
+     "do": "move",
+     "to": [
+      11.45,
+      12.25
+     ],
+     "y": 24.1,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.447
+    },
+    {
+     "who": "angel",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.447
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       0.305,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 1.447
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       -0.305,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 1.447
+    },
+    {
+     "who": "angel",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 1.447
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.447
+    },
+    {
+     "who": "angel",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.448
+    },
+    {
+     "who": "angel",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.448
+    }
+   ]
+  },
+  {
+   "name": "harp",
+   "at": 9.466,
+   "len": 5.934,
+   "shot": {
+    "pos": [
+     10.35,
+     27.1,
+     21.5
+    ],
+    "look": [
+     10.35,
+     26.75,
+     14
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      10.35,
+      27.072,
+      20.9
+     ],
+     "look": [
+      10.35,
+      26.75,
+      14
+     ],
+     "fov": 40
+    },
+    "dur": 5.933,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "angel",
+     "do": "grab",
+     "prop": "roll",
+     "hand": "both",
+     "grip": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.042
+    },
+    {
+     "who": "angel",
+     "do": "move",
+     "to": [
+      11.45,
+      12.25
+     ],
+     "y": 25.7,
+     "dur": 0.35,
+     "steps": 0,
+     "ease": "out",
+     "at": 0.051
+    },
+    {
+     "do": "prop",
+     "id": "acloud",
+     "set": {
+      "x": 11.45,
+      "y": 25.46,
+      "z": 12.25
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.051
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       11.45,
+       26.1,
+       12.67
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.051
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       -0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       11.45,
+       26.1,
+       12.67
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.051
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 0.101
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.301
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.334
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Clause three. Harp practice. Six A.M.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, deadpan",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.4,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 2.812,
+     "caption": false,
+     "at": 0.451
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.313
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.4,
+       0.4
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 3.513
+    },
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.03,
+     "ease": "out",
+     "at": 3.813
+    },
+    {
+     "sfx": "plunk",
+     "gain": 0.5,
+     "at": 3.813
+    },
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.5,
+     "ease": "in",
+     "at": 3.843
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'm dead. Let me sleep.",
+     "tone": "sad",
+     "style": "groggy, whiny, half asleep",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 1.825,
+     "caption": false,
+     "at": 3.963
+    },
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.634
+    },
+    {
+     "who": "spud",
+     "do": "stand",
+     "dur": 0.01,
+     "at": 5.904
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 5.905
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 5.914
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      11,
+      15.55
+     ],
+     "y": 26.06,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.914
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.914
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.914
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 5.914
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 5.914
+    }
+   ]
+  },
+  {
+   "name": "socks",
+   "at": 15.4,
+   "len": 1.866,
+   "shot": {
+    "pos": [
+     11.35,
+     26.14,
+     18.7
+    ],
+    "look": [
+     11,
+     26.52,
+     15.55
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      11.333,
+      26.159,
+      18.543
+     ],
+     "look": [
+      11,
+      26.631,
+      15.55
+     ],
+     "fov": 34
+    },
+    "dur": 1.867,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      11,
+      15.55
+     ],
+     "y": 25.95,
+     "dur": 0.25,
+     "steps": 0,
+     "ease": "in",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "sw1",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.27,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "sw2",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.27,
+     "ease": "out",
+     "at": 0.38
+    },
+    {
+     "sfx": "splort",
+     "gain": 0.45,
+     "at": 0.38
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Why is it wet?!",
+     "tone": "excited",
+     "style": "disgusted, high, squeamish",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 1.115,
+     "caption": false,
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.465
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.847
+    }
+   ]
+  },
+  {
+   "name": "clause 8",
+   "at": 17.266,
+   "len": 3.067,
+   "shot": {
+    "pos": [
+     12.3,
+     26.85,
+     17
+    ],
+    "look": [
+     11.45,
+     26.55,
+     12.25
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      12.275,
+      26.841,
+      16.858
+     ],
+     "look": [
+      11.45,
+      26.55,
+      12.25
+     ],
+     "fov": 30
+    },
+    "dur": 3.067,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Clause eight. Clouds are wet.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, unimpressed",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.4,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 2.654,
+     "caption": false,
+     "at": 0.151
+    },
+    {
+     "do": "prop",
+     "id": "acloud",
+     "set": {
+      "x": 11.45,
+      "y": 23.86,
+      "z": 12.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.038
+    },
+    {
+     "do": "prop",
+     "id": "house",
+     "set": {
+      "x": 19.5,
+      "y": 25.7,
+      "z": 11
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.038
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 3.039
+    },
+    {
+     "who": "angel",
+     "do": "hide",
+     "at": 3.039
+    },
+    {
+     "who": "ex",
+     "do": "hide",
+     "at": 3.039
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 3.048
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      10.4,
+      13.75
+     ],
+     "y": 26,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.048
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.048
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.048
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      1,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.048
+    },
+    {
+     "who": "angel",
+     "do": "show",
+     "at": 3.048
+    },
+    {
+     "who": "angel",
+     "do": "move",
+     "to": [
+      11.45,
+      12.25
+     ],
+     "y": 24.1,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.048
+    },
+    {
+     "who": "angel",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.048
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       11.45,
+       24.5,
+       12.67
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.048
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       -0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       11.45,
+       24.5,
+       12.67
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.048
+    },
+    {
+     "who": "ex",
+     "do": "show",
+     "at": 3.048
+    },
+    {
+     "who": "ex",
+     "do": "move",
+     "to": [
+      18.75,
+      11.55
+     ],
+     "y": 25.7,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.048
+    },
+    {
+     "who": "ex",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.048
+    },
+    {
+     "who": "ex",
+     "do": "ride",
+     "prop": "house",
+     "off": [
+      -0.75,
+      0,
+      0.55
+     ],
+     "yaw": -60,
+     "dur": 0.01,
+     "at": 3.053
+    }
+   ]
+  },
+  {
+   "name": "dock",
+   "at": 20.333,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     11.6,
+     27.3,
+     22.6
+    ],
+    "look": [
+     11.8,
+     26.7,
+     14.2
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      11.612,
+      27.264,
+      22.096
+     ],
+     "look": [
+      11.8,
+      26.7,
+      14.2
+     ],
+     "fov": 50
+    },
+    "dur": 3.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "house",
+     "set": {
+      "x": 14.25,
+      "y": 25.95,
+      "z": 13.9
+     },
+     "dur": 2,
+     "ease": "out",
+     "at": 0.051
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.501
+    },
+    {
+     "who": "ex",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.36,
+       0.55,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.701
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.167
+    },
+    {
+     "who": "ex",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.42,
+       0.55,
+       0.12
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.301
+    },
+    {
+     "who": "ex",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.36,
+       0.55,
+       0.12
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.601
+    },
+    {
+     "do": "prop",
+     "id": "house",
+     "set": {
+      "tilt": 1.5,
+      "bump": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.901
+    },
+    {
+     "do": "prop",
+     "id": "isle",
+     "set": {
+      "tilt": -1.5,
+      "bump": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.901
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.5,
+     "at": 1.901
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.06,
+     "at": 1.901
+    },
+    {
+     "who": "ex",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.42,
+       0.55,
+       0.12
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.901
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 1.981
+    },
+    {
+     "do": "prop",
+     "id": "house",
+     "set": {
+      "tilt": 0,
+      "bump": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.001
+    },
+    {
+     "do": "prop",
+     "id": "isle",
+     "set": {
+      "tilt": 0,
+      "bump": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.001
+    },
+    {
+     "who": "ex",
+     "macro": "say",
+     "line": "Hiii!",
+     "tone": "excited",
+     "voice": {
+      "voice": {
+       "af_bella": 1
+      },
+      "speed": 1.1,
+      "tempo": 1.1,
+      "lang": "en-us",
+      "pitch": 1,
+      "note": "the ex: Kokoro af_bella, sweet, too friendly (stand-in)"
+     },
+     "dur": 0.831,
+     "caption": false,
+     "at": 2.151
+    }
+   ]
+  },
+  {
+   "name": "hide",
+   "at": 23.533,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     9.95,
+     26.8,
+     17.6
+    ],
+    "look": [
+     10.4,
+     26.7,
+     14
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      9.968,
+      26.796,
+      17.456
+     ],
+     "look": [
+      10.4,
+      26.7,
+      14
+     ],
+     "fov": 26
+    },
+    "dur": 2.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.15,
+     "at": 0.051
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.1,
+     "at": 0.051
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.7,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.101
+    },
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "on": 0.25
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.301
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "No no no.",
+     "tone": "whisper",
+     "style": "whispering fast in panic, hiding",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.4
+     },
+     "dur": 1.776,
+     "caption": false,
+     "at": 0.301
+    },
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.201
+    },
+    {
+     "do": "prop",
+     "id": "acloud",
+     "set": {
+      "x": 11.45,
+      "y": 25.46,
+      "z": 12.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.171
+    },
+    {
+     "who": "angel",
+     "do": "hide",
+     "at": 2.172
+    },
+    {
+     "who": "angel",
+     "do": "show",
+     "at": 2.181
+    },
+    {
+     "who": "angel",
+     "do": "move",
+     "to": [
+      11.45,
+      12.25
+     ],
+     "y": 25.7,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.181
+    },
+    {
+     "who": "angel",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.181
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       11.45,
+       26.1,
+       12.67
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.181
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       -0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       11.45,
+       26.1,
+       12.67
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.181
+    }
+   ]
+  },
+  {
+   "name": "clause 15",
+   "at": 25.733,
+   "len": 3.067,
+   "shot": {
+    "pos": [
+     12.3,
+     26.85,
+     17
+    ],
+    "look": [
+     11.45,
+     26.55,
+     12.25
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      12.275,
+      26.841,
+      16.858
+     ],
+     "look": [
+      11.45,
+      26.55,
+      12.25
+     ],
+     "fov": 30
+    },
+    "dur": 3.066,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Clause fifteen. Your ex lives next door.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, slow",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.4,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 2.742,
+     "caption": false,
+     "at": 0.151
+    },
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.967
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.037
+    },
+    {
+     "who": "ex",
+     "do": "ride",
+     "prop": null,
+     "at": 3.037
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 3.038
+    },
+    {
+     "who": "ex",
+     "do": "hide",
+     "at": 3.038
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 3.047
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      11.65,
+      15.35
+     ],
+     "y": 26,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.047
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.047
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.047
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.01,
+     "at": 3.047
+    },
+    {
+     "who": "ex",
+     "do": "show",
+     "at": 3.047
+    },
+    {
+     "who": "ex",
+     "do": "move",
+     "to": [
+      12.75,
+      15.45
+     ],
+     "y": 26,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.047
+    },
+    {
+     "who": "ex",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.047
+    }
+   ]
+  },
+  {
+   "name": "bright",
+   "at": 28.8,
+   "len": 4.133,
+   "shot": {
+    "pos": [
+     11.4,
+     26.95,
+     19.6
+    ],
+    "look": [
+     11.65,
+     26.7,
+     15.35
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      11.41,
+      26.94,
+      19.43
+     ],
+     "look": [
+      11.65,
+      26.7,
+      15.35
+     ],
+     "fov": 30
+    },
+    "dur": 4.134,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Clause sixteen. Free hugs.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, bored",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.4,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 2.16,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.15,
+     "at": 2.31
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.31
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Oh, nice!",
+     "tone": "excited",
+     "style": "pleasantly surprised, bright",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 1.584,
+     "caption": false,
+     "at": 2.41
+    },
+    {
+     "who": "ex",
+     "do": "move",
+     "to": [
+      12.45,
+      15.45
+     ],
+     "y": 26,
+     "dur": 0.3,
+     "steps": 2,
+     "at": 3.894
+    },
+    {
+     "who": "ex",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.3,
+       0.38,
+       0.35
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.894
+    },
+    {
+     "do": "prop",
+     "id": "acloud",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 4.104
+    },
+    {
+     "who": "ex",
+     "do": "hide",
+     "at": 4.105
+    },
+    {
+     "who": "angel",
+     "do": "hide",
+     "at": 4.105
+    },
+    {
+     "who": "ex",
+     "do": "show",
+     "at": 4.114
+    },
+    {
+     "who": "ex",
+     "do": "move",
+     "to": [
+      12.45,
+      15.4
+     ],
+     "y": 26,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.114
+    },
+    {
+     "who": "ex",
+     "do": "turn",
+     "to": -80,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.114
+    },
+    {
+     "who": "angel",
+     "do": "show",
+     "at": 4.114
+    },
+    {
+     "who": "angel",
+     "do": "move",
+     "to": [
+      12.05,
+      14.05
+     ],
+     "y": 26,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.114
+    },
+    {
+     "who": "angel",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.114
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       12.05,
+       26.4,
+       14.47
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.114
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       -0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       12.05,
+       26.4,
+       14.47
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.114
+    },
+    {
+     "do": "prop",
+     "id": "roll",
+     "set": {
+      "rot": 10
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.114
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -3,
+     "dur": 0.01,
+     "at": 4.114
+    },
+    {
+     "who": "ex",
+     "do": "lean",
+     "to": 2,
+     "dur": 0.01,
+     "at": 4.114
+    },
+    {
+     "who": "ex",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.4,
+       0.7
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.114
+    },
+    {
+     "who": "ex",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.58,
+       0.38,
+       0.7
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.114
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.28,
+       0.85,
+       0.05
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.114
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.7,
+       0.35
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.114
+    },
+    {
+     "who": "ex",
+     "do": "expr",
+     "expr": "serene",
+     "dur": 0.01,
+     "at": 4.114
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.01,
+     "at": 4.114
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 4.114
+    },
+    {
+     "who": "angel",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 4.114
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 4.114
+    }
+   ]
+  },
+  {
+   "name": "hug",
+   "at": 32.933,
+   "len": 2.933,
+   "shot": {
+    "pos": [
+     12.1,
+     26.95,
+     20.4
+    ],
+    "look": [
+     12.05,
+     26.9,
+     15.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      12.096,
+      26.946,
+      19.992
+     ],
+     "look": [
+      12.05,
+      26.9,
+      15.3
+     ],
+     "fov": 30
+    },
+    "dur": 2.933,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "cloth",
+     "gain": 0.5,
+     "at": 0.051
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.067
+    },
+    {
+     "who": "ex",
+     "macro": "say",
+     "line": "I missed you sooo much!",
+     "tone": "excited",
+     "voice": {
+      "voice": {
+       "af_bella": 1
+      },
+      "speed": 1.1,
+      "tempo": 1.1,
+      "lang": "en-us",
+      "pitch": 1,
+      "note": "the ex: Kokoro af_bella, sweet, too friendly (stand-in)"
+     },
+     "dur": 1.364,
+     "caption": false,
+     "at": 0.251
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.13,
+     "at": 0.501
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.3,
+     "at": 0.501
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 0.651
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.13,
+     "at": 1.001
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.3,
+     "at": 1.001
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.151
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Help.",
+     "tone": "whisper",
+     "style": "squeezed, tiny, no air",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 0.442,
+     "caption": false,
+     "at": 1.965
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.904
+    },
+    {
+     "who": "ex",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.904
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "x": 9.7,
+      "y": 27.45,
+      "z": 14.95
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.904
+    },
+    {
+     "who": "ex",
+     "do": "hide",
+     "at": 2.905
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 2.905
+    },
+    {
+     "who": "angel",
+     "do": "hide",
+     "at": 2.905
+    },
+    {
+     "who": "ex",
+     "do": "show",
+     "at": 2.914
+    },
+    {
+     "who": "ex",
+     "do": "move",
+     "to": [
+      -30,
+      5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.914
+    },
+    {
+     "who": "ex",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.914
+    },
+    {
+     "who": "ex",
+     "do": "move",
+     "to": [
+      -30,
+      5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.914
+    },
+    {
+     "who": "ex",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.914
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.914
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      9.65,
+      14.88
+     ],
+     "y": 26.42,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.914
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.914
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.01,
+     "at": 2.914
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.914
+    },
+    {
+     "who": "angel",
+     "do": "show",
+     "at": 2.914
+    },
+    {
+     "who": "angel",
+     "do": "move",
+     "to": [
+      9.9,
+      11.95
+     ],
+     "y": 24.1,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.914
+    },
+    {
+     "who": "angel",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.914
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       9.9,
+       24.5,
+       12.37
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.914
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       -0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       9.9,
+       24.5,
+       12.37
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.914
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.066,
+       0.065,
+       -0.008
+      ],
+      "palm": true
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 2.914
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.35,
+       0.4,
+       0.05
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.914
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.915
+    }
+   ]
+  },
+  {
+   "name": "phone",
+   "at": 35.866,
+   "len": 1.667,
+   "shot": {
+    "pos": [
+     11.1,
+     26.7,
+     19.8
+    ],
+    "look": [
+     9.7,
+     27.25,
+     14.88
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      11.1,
+      26.95,
+      19.8
+     ],
+     "look": [
+      9.7,
+      27.9,
+      14.88
+     ],
+     "fov": 30
+    },
+    "dur": 1.667,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "R",
+     "grip": [
+      0.066,
+      0.065,
+      -0.008
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.042
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.066,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       9.72,
+       27.55,
+       14.95
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.201
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Where's the wifi?",
+     "tone": "excited",
+     "style": "desperate, stretching, searching",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 0.983,
+     "caption": false,
+     "at": 0.351
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.066,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       9.62,
+       27.5,
+       14.92
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.134
+    },
+    {
+     "do": "prop",
+     "id": "dphone",
+     "set": {
+      "x": 0.8,
+      "y": 1.05,
+      "z": 1.15
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.638
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 1.639
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.648
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      9.27,
+      13.71
+     ],
+     "y": 26.18,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.648
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -142,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.648
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 80,
+     "dur": 0.01,
+     "at": 1.648
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.648
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       0.066,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       8.65,
+       25.9,
+       12.95
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.648
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": -162
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.648
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dphone",
+      "grip": [
+       -0.056,
+       0.065,
+       -0.005
+      ],
+      "palm": true
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 1.648
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 1.648
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.649
+    }
+   ]
+  },
+  {
+   "name": "edge",
+   "at": 37.533,
+   "len": 2.467,
+   "shot": {
+    "pos": [
+     10.2,
+     30.3,
+     14.6
+    ],
+    "look": [
+     -0.6,
+     6.8,
+     -0.65
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      9.12,
+      27.95,
+      13.075
+     ],
+     "look": [
+      -0.6,
+      6.8,
+      -0.65
+     ],
+     "fov": 30
+    },
+    "dur": 2.466,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "do": "grab",
+     "prop": "dphone",
+     "hand": "L",
+     "grip": [
+      -0.056,
+      0.065,
+      -0.005
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.042
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dphone",
+      "grip": [
+       -0.056,
+       0.065,
+       -0.005
+      ],
+      "palm": true,
+      "at": [
+       0.74,
+       1.05,
+       1.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.401
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dphone",
+      "grip": [
+       -0.056,
+       0.065,
+       -0.005
+      ],
+      "palm": true,
+      "at": [
+       0.92,
+       1.05,
+       1.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.751
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.07,
+     "ease": "out",
+     "at": 1.001
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dphone",
+      "grip": [
+       -0.056,
+       0.065,
+       -0.005
+      ],
+      "palm": true,
+      "at": [
+       0.74,
+       1.05,
+       1.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.101
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Five bars down here!",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, waving, delighted",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/gunslinger-ref.wav",
+       "base": "smooth, sly, charming"
+      },
+      "note": "7 Nov 2026: a VoxCPM2 voice made from a description (a charming young cowboy, smooth, sly, slightly raspy, playful and confident), kept as its reference clip so every line is the same voice",
+      "tempo": 1.2
+     },
+     "dur": 1.031,
+     "caption": false,
+     "at": 1.301
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dphone",
+      "grip": [
+       -0.056,
+       0.065,
+       -0.005
+      ],
+      "palm": true,
+      "at": [
+       0.92,
+       1.05,
+       1.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.451
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dphone",
+      "grip": [
+       -0.056,
+       0.065,
+       -0.005
+      ],
+      "palm": true,
+      "at": [
+       0.74,
+       1.05,
+       1.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.801
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dphone",
+      "grip": [
+       -0.056,
+       0.065,
+       -0.005
+      ],
+      "palm": true,
+      "at": [
+       0.92,
+       1.05,
+       1.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.151
+    },
+    {
+     "do": "prop",
+     "id": "acloud",
+     "set": {
+      "x": 9.9,
+      "y": 25.46,
+      "z": 11.95
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.437
+    },
+    {
+     "who": "angel",
+     "do": "hide",
+     "at": 2.438
+    },
+    {
+     "who": "angel",
+     "do": "show",
+     "at": 2.447
+    },
+    {
+     "who": "angel",
+     "do": "move",
+     "to": [
+      9.9,
+      11.95
+     ],
+     "y": 25.7,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.447
+    },
+    {
+     "who": "angel",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.447
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       9.9,
+       26.1,
+       12.37
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.447
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "roll",
+      "grip": [
+       -0.305,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       9.9,
+       26.1,
+       12.37
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.447
+    }
+   ]
+  },
+  {
+   "name": "clause 22",
+   "at": 40,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     10.05,
+     26.75,
+     17.1
+    ],
+    "look": [
+     9.9,
+     26.55,
+     11.95
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      10.046,
+      26.744,
+      16.946
+     ],
+     "look": [
+      9.9,
+      26.55,
+      11.95
+     ],
+     "fov": 26
+    },
+    "dur": 3.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "do": "release",
+     "prop": "dphone",
+     "dur": 0,
+     "to": [
+      0.95,
+      0.3,
+      0.95
+     ],
+     "at": 0.1
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "dphone",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.105
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Clause twenty-two. Wifi is downstairs.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, without looking up",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.4,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 3.017,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "dawn",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "isle",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "sw1",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "sw2",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "house",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "acloud",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "shoe1",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "shoe2",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "phone",
+     "dur": 0,
+     "to": [
+      10.5,
+      -34,
+      15
+     ],
+     "at": 3.37
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.37
+    },
+    {
+     "who": "angel",
+     "do": "release",
+     "prop": "roll",
+     "dur": 0,
+     "to": [
+      10.5,
+      -34,
+      15
+     ],
+     "at": 3.37
+    },
+    {
+     "do": "prop",
+     "id": "acloud",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.37
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 3.371
+    },
+    {
+     "who": "angel",
+     "do": "hide",
+     "at": 3.371
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.375
+    },
+    {
+     "do": "prop",
+     "id": "roll",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.375
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.2,
+      -55.75
+     ],
+     "y": 22,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.38
+    },
+    {
+     "who": "angel",
+     "do": "show",
+     "at": 3.38
+    },
+    {
+     "who": "angel",
+     "do": "move",
+     "to": [
+      1.13,
+      -56.8
+     ],
+     "y": 22.14,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "angel",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.05,
+       0.42,
+       0.42
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.42,
+       0.42
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "who": "angel",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.38
+    }
+   ]
+  },
+  {
+   "name": "read",
+   "at": 43.4,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0.15,
+     22.8,
+     -50.9
+    ],
+    "look": [
+     0.45,
+     22.7,
+     -56.1
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0,
+      22.8,
+      -50.9
+     ],
+     "look": [
+      0.36,
+      22.7,
+      -56.1
+     ],
+     "fov": 30
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.3,
+      -55.85
+     ],
+     "y": 22,
+     "dur": 0.3,
+     "steps": 2,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I want to READ it.",
+     "tone": "excited",
+     "style": "angry, stubborn, pointing",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 1.076,
+     "caption": false,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.526
+    }
+   ]
+  },
+  {
+   "name": "nobody",
+   "at": 45,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.75,
+     23.05,
+     -51.7
+    ],
+    "look": [
+     1.1,
+     23.05,
+     -56.45
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      0.761,
+      23.05,
+      -51.842
+     ],
+     "look": [
+      1.1,
+      23.05,
+      -56.45
+     ],
+     "fov": 24
+    },
+    "dur": 2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Nobody gets to the end.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, quiet, a little ominous",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.4,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 1.442,
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "sheet",
+     "set": {
+      "x": -0.38,
+      "y": 17.94,
+      "z": -44.32
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 1.971
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.38,
+      -44.6
+     ],
+     "y": 17.6,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.01,
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       0.245,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       -0.245,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.981
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.981
+    }
+   ]
+  },
+  {
+   "name": "reading 80",
+   "at": 47,
+   "len": 3,
+   "shot": {
+    "pos": [
+     0.45,
+     17.2,
+     -39.7
+    ],
+    "look": [
+     -0.45,
+     18.4,
+     -44.35
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.45,
+      16.98,
+      -39.4
+     ],
+     "look": [
+      -0.45,
+      18.224,
+      -44.05
+     ],
+     "fov": 44
+    },
+    "dur": 3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "sheet",
+     "hand": "both",
+     "grip": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.041
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.38,
+      -44.1
+     ],
+     "y": 17.6,
+     "dur": 2.6,
+     "steps": 5,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.38,
+       17.94,
+       -43.82
+      ]
+     },
+     "dur": 2.6,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       -0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.38,
+       17.94,
+       -43.82
+      ]
+     },
+     "dur": 2.6,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Clause forty-one. No snooze button.",
+     "tone": "calm",
+     "style": "reading aloud, muttering, a little worried",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 2.443,
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 2.443
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 2.971
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.38,
+      -21.8
+     ],
+     "y": 8.8,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.38,
+       9.14,
+       -21.52
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       -0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.38,
+       9.14,
+       -21.52
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.98
+    }
+   ]
+  },
+  {
+   "name": "reading 40",
+   "at": 50,
+   "len": 7.2,
+   "shot": {
+    "pos": [
+     0.45,
+     8.4,
+     -16.9
+    ],
+    "look": [
+     -0.45,
+     9.5,
+     -21.55
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.45,
+      8.18,
+      -16.6
+     ],
+     "look": [
+      -0.45,
+      9.324,
+      -21.25
+     ],
+     "fov": 40
+    },
+    "dur": 7.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.38,
+      -21.3
+     ],
+     "y": 8.8,
+     "dur": 7.12,
+     "steps": 6,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.38,
+       9.14,
+       -21.02
+      ]
+     },
+     "dur": 7.12,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       -0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.38,
+       9.14,
+       -21.02
+      ]
+     },
+     "dur": 7.12,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Clause sixty-eight. Mondays. Forever.",
+     "tone": "sad",
+     "style": "reading aloud, worried, slower",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 3.239,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.4,
+     "at": 3.489
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Clause ninety-three. Heaven may change these terms at any time.",
+     "tone": "sad",
+     "style": "reading fast, nervous, legal-speed",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 3.281,
+     "caption": false,
+     "at": 3.689
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "x": 0.15,
+      "y": 0.5,
+      "z": 0.95
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 7.17
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 7.171
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 7.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.65,
+      -0.25
+     ],
+     "y": 0.44,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.65,
+       0.78,
+       0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 7.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       -0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.65,
+       0.78,
+       0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 7.18
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.01,
+     "at": 7.18
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "glass",
+      "grip": [
+       0.082,
+       0.106,
+       0.022
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 7.18
+    },
+    {
+     "who": "devil",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 7.18
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.01,
+     "at": 7.18
+    },
+    {
+     "who": "devil",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 7.181
+    }
+   ]
+  },
+  {
+   "name": "arrive",
+   "at": 57.2,
+   "len": 2.466,
+   "shot": {
+    "pos": [
+     0.35,
+     1.25,
+     6.6
+    ],
+    "look": [
+     0,
+     0.55,
+     0.8
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.332,
+      1.215,
+      6.31
+     ],
+     "look": [
+      0,
+      0.55,
+      0.8
+     ],
+     "fov": 30
+    },
+    "dur": 2.467,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "devil",
+     "do": "grab",
+     "prop": "glass",
+     "hand": "R",
+     "grip": [
+      0.082,
+      0.106,
+      0.022
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.041
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.65,
+      0.25
+     ],
+     "y": 0.22,
+     "dur": 0.4,
+     "steps": 1,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.65,
+       0.56,
+       0.53
+      ]
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       -0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.65,
+       0.56,
+       0.53
+      ]
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "glass",
+      "grip": [
+       0.082,
+       0.106,
+       0.022
+      ],
+      "palm": "wrap",
+      "at": [
+       0.2,
+       0.85,
+       1.25
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "sfx": "ai/sip",
+     "gain": 0.5,
+     "at": 0.75
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "glass",
+      "grip": [
+       0.082,
+       0.106,
+       0.022
+      ],
+      "palm": "wrap",
+      "at": [
+       0.15,
+       0.5,
+       0.95
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Keep reading, buddy!",
+     "tone": "calm",
+     "style": "warm game-show host, smooth, sipping a drink, amused",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/gunslinger-ref.wav",
+       "base": "smooth, sly, charming"
+      },
+      "note": "7 Nov 2026: a VoxCPM2 voice made from a description (a charming young cowboy, smooth, sly, slightly raspy, playful and confident), kept as its reference clip so every line is the same voice",
+      "tempo": 1.2
+     },
+     "dur": 1.059,
+     "caption": false,
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "sheet",
+     "set": {
+      "end": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.437
+    },
+    {
+     "do": "prop",
+     "id": "scroll",
+     "set": {
+      "pull": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.437
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 2.438
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.447
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.65,
+      1.66
+     ],
+     "y": 0.1,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.447
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.447
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.65,
+       0.44,
+       1.94
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.447
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sheet",
+      "grip": [
+       -0.245,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.65,
+       0.44,
+       1.94
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.447
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.01,
+     "at": 2.447
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.447
+    }
+   ]
+  },
+  {
+   "name": "clause 100",
+   "at": 59.666,
+   "len": 4.267,
+   "shot": {
+    "pos": [
+     -0.5,
+     0.3,
+     5.6
+    ],
+    "look": [
+     -0.65,
+     0.85,
+     1.66
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.515,
+      0.355,
+      5.206
+     ],
+     "look": [
+      -0.65,
+      0.85,
+      1.66
+     ],
+     "fov": 30
+    },
+    "dur": 4.267,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Clause one hundred. Anyone who didn't read this... goes to hell.",
+     "tone": "sad",
+     "style": "reading aloud, slowing down, realising, horrified on the last word",
+     "voice": {
+      "voice": {
+       "am_liam": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/spud-ref.wav",
+       "base": "warm, plain, honest, a little nervous"
+      },
+      "note": "Spud (Potato Desk 10, 20 Nov 2026; his first real speaking lines): a VoxCPM2 voice made from a description (an ordinary friendly young man, a warm clear mid-pitched voice, honest, a little nervous, easygoing, comedic), seed 23 of 4 (median f0 ~122 Hz, near his gibberish 118 Hz; the other seeds read 176-231 Hz); Whisper heard it word for word. Used by say lines with voice \"spud\" (spud.json keeps no tts, so older gibberish clips stay as they were). Awaiting Jonny's ear",
+      "tempo": 1.2
+     },
+     "dur": 3.999,
+     "caption": false,
+     "at": 0.201
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.12,
+     "at": 3.85
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 3.85
+    }
+   ]
+  },
+  {
+   "name": "hatch",
+   "at": 63.933,
+   "len": 0.734,
+   "shot": {
+    "pos": [
+     0.55,
+     3.6,
+     4.7
+    ],
+    "look": [
+     -0.5,
+     0,
+     0.95
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.55,
+      3.6,
+      4.7
+     ],
+     "look": [
+      -0.5,
+      -0.371,
+      0.95
+     ],
+     "fov": 34
+    },
+    "dur": 0.733,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "fall": 1
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.134
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "glow": 1.4
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.134
+    },
+    {
+     "fx": "shake",
+     "dur": 0.1,
+     "amp": 0.025,
+     "at": 0.134
+    },
+    {
+     "sfx": "kenney/metal-latch",
+     "gain": 0.6,
+     "at": 0.134
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "sheet",
+     "dur": 0,
+     "to": [
+      -0.65,
+      -60,
+      0
+     ],
+     "at": 0.167
+    },
+    {
+     "do": "prop",
+     "id": "tail",
+     "set": {
+      "x": -0.65,
+      "y": 0.55,
+      "z": 1.7
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.167
+    },
+    {
+     "who": "spud",
+     "do": "drop",
+     "to": -1.6,
+     "dur": 0.42,
+     "at": 0.167
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "up",
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.167
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.05,
+     "at": 0.167
+    },
+    {
+     "do": "prop",
+     "id": "sheet",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.172
+    },
+    {
+     "do": "prop",
+     "id": "tail",
+     "set": {
+      "fall": 1
+     },
+     "dur": 0.47,
+     "ease": "linear",
+     "at": 0.177
+    },
+    {
+     "sfx": "kenney/impact-metal-heavy",
+     "gain": 0.7,
+     "at": 0.184
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "fall": 0.953
+     },
+     "dur": 0.033,
+     "ease": "inOut",
+     "at": 0.234
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "fall": 1
+     },
+     "dur": 0.033,
+     "ease": "inOut",
+     "at": 0.267
+    },
+    {
+     "who": "devil",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "glass",
+      "grip": [
+       0.082,
+       0.106,
+       0.022
+      ],
+      "palm": "wrap",
+      "at": [
+       0.05,
+       0.95,
+       1.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.271
+    },
+    {
+     "who": "devil",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.1,
+     "at": 0.271
+    },
+    {
+     "do": "prop",
+     "id": "tail",
+     "set": {
+      "y": -1.4
+     },
+     "dur": 0.45,
+     "ease": "in",
+     "at": 0.297
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2,
+   "see": [
+    "spud.face",
+    "angel.face",
+    "scroll",
+    "gate"
+   ],
+   "why": "a little one at heaven's golden gate; a tall clerk angel with a huge scroll: you agree to everything"
+  },
+  {
+   "from": 4.134,
+   "to": 5.734,
+   "see": [
+    "scroll"
+   ],
+   "why": "the scroll runs down ALL the stairs into hell's red glow"
+  },
+  {
+   "from": 37.534,
+   "to": 41.034,
+   "see": [
+    "hatch",
+    "chair"
+   ],
+   "why": "far below, at the bottom of the stairs: hell's hatch and the Devil waving his phone"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "angel",
+   "with": "podium",
+   "from": 0,
+   "to": 64.667,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "the clerk stands right behind his podium on his cloud step (heaven steps' window)"
+  },
+  {
+   "who": "spud",
+   "with": "ex",
+   "from": 32.884,
+   "to": 35.847,
+   "checks": [
+    "clipping",
+    "shell",
+    "character-overlap",
+    "reach"
+   ],
+   "maxReach": 0.12,
+   "reason": "the hug: her cheek on his, the bodies press 0.09 into each other (DESIGN section 4)"
+  },
+  {
+   "who": "spud",
+   "with": "bed",
+   "from": 7.95,
+   "to": 15.38,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "he sits up IN the bed, under the duvet (panel 05)"
+  },
+  {
+   "who": "spud",
+   "with": "tail",
+   "from": 64.067,
+   "to": 64.667,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "the scroll's end whips down the hatch after him (panel 16)"
+  },
+  {
+   "who": "spud",
+   "with": "hell",
+   "from": 64.067,
+   "to": 64.667,
+   "checks": [
+    "shell"
+   ],
+   "reason": "he drops through the open hatch in hell's floor (panel 16)"
+  },
+  {
+   "who": "ex",
+   "with": "spud",
+   "from": 32.884,
+   "to": 35.847,
+   "checks": [
+    "clipping",
+    "shell",
+    "character-overlap",
+    "reach",
+    "face-hidden"
+   ],
+   "maxReach": 0.12,
+   "reason": "the hug: her arms round him, her face pressed to his cheek, eyes shut in bliss (DESIGN section 4)"
+  },
+  {
+   "who": "devil",
+   "with": "devil",
+   "from": 0,
+   "to": 64.667,
+   "checks": [
+    "face-hidden"
+   ],
+   "reason": "the Devil's shades cover his eyes all video (DESIGN section 6: mouth and brows carry him)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/heaven-terms/make-heaven-terms.mjs. ROUGH DRAFT stand-ins: score = heaven steps' score, harp = bell + kenney pluck, the ex's voice = Kokoro af_bella."
+}
