@@ -195,7 +195,7 @@
    "x": 0,
    "y": 0,
    "z": 0,
-   "loop": 43.327
+   "loop": 42.927
   },
   {
    "id": "clouds",
@@ -204,7 +204,7 @@
    "x": 0,
    "y": 0,
    "z": 0,
-   "loop": 43.327
+   "loop": 42.927
   },
   {
    "id": "terrace",
@@ -400,14 +400,6 @@
  ],
  "captions": [
   {
-   "from": 0,
-   "to": 2.78,
-   "text": "*Heaven reads*\nyour search history",
-   "pos": 300,
-   "pop": false,
-   "size": 68
-  },
-  {
    "from": 0.05,
    "to": 2.78,
    "text": "How to cheat at poker. *HELL.*",
@@ -441,129 +433,129 @@
   },
   {
    "from": 9.68,
-   "to": 11.18,
+   "to": 11.1,
    "text": "*Hide nothing.*",
    "pos": 1150,
    "pop": false,
    "size": 60
   },
   {
-   "from": 11.32,
-   "to": 13.08,
+   "from": 11.1,
+   "to": 12.88,
    "text": "\"Is it normal to talk to my plants\"",
    "pos": 270,
    "pop": false,
    "size": 60
   },
   {
-   "from": 13.583,
-   "to": 14.246,
+   "from": 13.153,
+   "to": 13.846,
    "text": "Fine.",
    "pos": 300,
    "pop": false,
    "size": 60
   },
   {
-   "from": 14.387,
-   "to": 16.98,
+   "from": 13.987,
+   "to": 16.58,
    "text": "\"Why does my best friend never pay me back\"",
    "pos": 270,
    "pop": false,
    "size": 60
   },
   {
-   "from": 17.45,
-   "to": 18.1,
+   "from": 16.88,
+   "to": 17.48,
    "text": "...What?",
    "pos": 250,
    "pop": false,
    "size": 60
   },
   {
-   "from": 18.253,
-   "to": 20.446,
+   "from": 17.653,
+   "to": 19.846,
    "text": "\"How to pretend I like my best friend's cooking\"",
    "pos": 270,
    "pop": false,
    "size": 60
   },
   {
-   "from": 21.317,
-   "to": 22.457,
+   "from": 20.717,
+   "to": 21.48,
    "text": "My casserole?",
    "pos": 260,
    "pop": false,
    "size": 60
   },
   {
-   "from": 22.587,
-   "to": 24.18,
+   "from": 21.653,
+   "to": 23.78,
    "text": "\"How to save a baby bird\"",
    "pos": 270,
    "pop": false,
    "size": 60
   },
   {
-   "from": 24.4,
-   "to": 25.28,
+   "from": 24,
+   "to": 24.88,
    "text": "Awww.",
    "pos": 300,
    "pop": false,
    "size": 60
   },
   {
-   "from": 26.92,
-   "to": 28.48,
+   "from": 26.52,
+   "to": 28.08,
    "text": "\"How to get a *new* best friend\"",
    "pos": 270,
    "pop": false,
    "size": 60
   },
   {
-   "from": 28.783,
-   "to": 29.446,
+   "from": 28.383,
+   "to": 29.046,
    "text": "A NEW one?",
    "pos": 250,
    "pop": false,
    "size": 60
   },
   {
-   "from": 29.667,
-   "to": 31.397,
+   "from": 29.267,
+   "to": 30.997,
    "text": "That's out of context!",
    "pos": 486,
    "pop": false,
    "size": 60
   },
   {
-   "from": 32.12,
-   "to": 33.78,
+   "from": 31.72,
+   "to": 33.38,
    "text": "Oh. *The last one.*",
-   "pos": 486,
+   "pos": 260,
    "pop": false,
    "size": 60
   },
   {
-   "from": 34.1,
-   "to": 37.15,
+   "from": 33.7,
+   "to": 36.5,
    "text": "Not the last one. Please!",
    "pos": 250,
    "pop": false,
    "size": 60
   },
   {
-   "from": 37.15,
-   "to": 41.246,
+   "from": 36.75,
+   "to": 40.846,
    "text": "\"How to delete *search history*\"",
    "pos": 486,
    "pop": false,
    "size": 60
   },
   {
-   "from": 42.333,
-   "to": 43.093,
+   "from": 41.933,
+   "to": 42.693,
    "text": "*Hell.*",
-   "pos": 486,
+   "pos": 1200,
    "pop": false,
    "size": 60
   }
@@ -946,9 +938,9 @@
        0.54
       ]
      },
-     "dur": 0.25,
-     "ease": "out",
-     "at": 1.8
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.4
     },
     {
      "who": "angel",
@@ -961,9 +953,9 @@
        0.58
       ]
      },
-     "dur": 0.08,
+     "dur": 0.1,
      "ease": "in",
-     "at": 2.09
+     "at": 2.07
     },
     {
      "do": "prop",
@@ -1195,26 +1187,26 @@
    "len": 1.266,
    "shot": {
     "pos": [
-     -3.2,
-     23.65,
-     -57.2
+     -3.7,
+     24.1,
+     -57.5
     ],
     "look": [
-     -1.1,
+     -1.15,
      22.5,
-     -55.8
+     -55.75
     ],
     "fov": 42,
     "to": {
      "pos": [
-      -3.1,
-      23.65,
-      -57.2
+      -3.6,
+      24.1,
+      -57.5
      ],
      "look": [
-      -1.04,
+      -1.09,
       22.5,
-      -55.8
+      -55.75
      ],
      "fov": 42
     },
@@ -1907,33 +1899,33 @@
   {
    "name": "screen",
    "at": 9.666,
-   "len": 1.534,
+   "len": 3.234,
    "shot": {
     "pos": [
-     0.3,
-     20.55,
-     -49.4
+     -0.2,
+     21,
+     -47.3
     ],
     "look": [
-     -0.05,
-     22.69,
-     -57.39
+     -0.2,
+     25.82,
+     -60.7
     ],
-    "fov": 38,
+    "fov": 31,
     "to": {
      "pos": [
-      0.3,
-      20.55,
-      -49.4
+      -0.2,
+      21.482,
+      -48.64
      ],
      "look": [
-      -0.05,
-      23.124,
-      -57.39
+      -0.2,
+      25.82,
+      -60.7
      ],
-     "fov": 38
+     "fov": 31
     },
-    "dur": 1.533,
+    "dur": 3.266,
     "ease": "inOut"
    },
    "do": [
@@ -2011,58 +2003,12 @@
      "do": "prop",
      "id": "screen",
      "set": {
-      "text": "is it normal to talk\nto my plants",
-      "type": 0
+      "typing": 1
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.494
+     "at": 1.434
     },
-    {
-     "do": "prop",
-     "id": "gate",
-     "set": {
-      "y": 22
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 1.514
-    }
-   ]
-  },
-  {
-   "name": "search1",
-   "at": 11.2,
-   "len": 1.9,
-   "shot": {
-    "pos": [
-     -0.2,
-     21,
-     -47.3
-    ],
-    "look": [
-     -0.2,
-     25.82,
-     -60.7
-    ],
-    "fov": 31,
-    "to": {
-     "pos": [
-      -0.2,
-      21.193,
-      -47.836
-     ],
-     "look": [
-      -0.2,
-      25.82,
-      -60.7
-     ],
-     "fov": 31
-    },
-    "dur": 1.933,
-    "ease": "inOut"
-   },
-   "do": [
     {
      "do": "prop",
      "id": "tablet",
@@ -2071,32 +2017,7 @@
      },
      "dur": 0.2,
      "ease": "linear",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "screen",
-     "set": {
-      "type": 1
-     },
-     "dur": 1.454,
-     "ease": "linear",
-     "at": 0.12
-    },
-    {
-     "do": "prop",
-     "id": "screen",
-     "set": {
-      "typing": 1
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.12
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.12
+     "at": 1.434
     },
     {
      "who": "angel",
@@ -2107,53 +2028,133 @@
      "voice": "reaper",
      "dur": 1.71,
      "caption": false,
-     "at": 0.12
+     "at": 1.434
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.064
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.458
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.3
+     "gain": 0.14,
+     "at": 1.458
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.157
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.554
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.48
+     "gain": 0.14,
+     "at": 1.554
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.376
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.65
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.66
+     "gain": 0.14,
+     "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.47
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.938
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.84
+     "gain": 0.14,
+     "at": 1.938
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.626
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.178
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.02
+     "gain": 0.14,
+     "at": 2.178
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.689
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.354
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 2.354
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.782
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.466
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 2.466
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.578
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 2.578
     },
     {
      "who": "chip",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.2
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.2
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.38
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.56
+     "at": 2.734
     },
     {
      "do": "prop",
@@ -2163,20 +2164,14 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.574
-    },
-    {
-     "who": "angel",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.8
+     "at": 3.144
     }
    ]
   },
   {
    "name": "chuckle",
-   "at": 13.1,
-   "len": 1.166,
+   "at": 12.9,
+   "len": 0.966,
    "shot": {
     "pos": [
      0.1,
@@ -2202,7 +2197,7 @@
      ],
      "fov": 40
     },
-    "dur": 1.134,
+    "dur": 0.934,
     "ease": "inOut"
    },
    "do": [
@@ -2248,42 +2243,48 @@
      "at": 0.083
     },
     {
-     "who": "tot",
-     "do": "arm",
-     "side": "both",
-     "pose": {
-      "o": [
-       -0.02,
-       0.56,
-       0.16
-      ]
-     },
-     "dur": 0.22,
-     "ease": "out",
-     "at": 0.143
-    },
-    {
-     "who": "tot",
-     "do": "expr",
-     "expr": "happy",
-     "dur": 0.15,
-     "at": 0.143
-    },
-    {
      "who": "spud",
      "do": "arm",
      "side": "both",
      "pose": "shrug",
      "dur": 0.25,
      "ease": "inOut",
-     "at": 0.183
+     "at": 0.083
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "kind",
      "dur": 0.2,
-     "at": 0.183
+     "at": 0.083
+    },
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.1
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.143
+    },
+    {
+     "who": "tot",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.143
     },
     {
      "who": "dauphin",
@@ -2306,28 +2307,6 @@
      "expr": "happy",
      "dur": 0.15,
      "at": 0.203
-    },
-    {
-     "who": "rosti",
-     "do": "arm",
-     "side": "both",
-     "pose": {
-      "o": [
-       -0.02,
-       0.56,
-       0.16
-      ]
-     },
-     "dur": 0.22,
-     "ease": "out",
-     "at": 0.263
-    },
-    {
-     "who": "rosti",
-     "do": "expr",
-     "expr": "happy",
-     "dur": 0.15,
-     "at": 0.263
     },
     {
      "who": "angel",
@@ -2338,7 +2317,29 @@
      "voice": "reaper",
      "dur": 0.59,
      "caption": false,
-     "at": 0.483
+     "at": 0.253
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.263
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.263
     },
     {
      "do": "prop",
@@ -2349,7 +2350,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.127
+     "at": 0.927
     },
     {
      "do": "prop",
@@ -2359,13 +2360,13 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.147
+     "at": 0.947
     }
    ]
   },
   {
    "name": "search2",
-   "at": 14.266,
+   "at": 13.866,
    "len": 2.734,
    "shot": {
     "pos": [
@@ -2382,8 +2383,8 @@
     "to": {
      "pos": [
       -0.2,
-      21.193,
-      -47.836
+      21.578,
+      -48.908
      ],
      "look": [
       -0.2,
@@ -2397,6 +2398,15 @@
    },
    "do": [
     {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.077
+    },
+    {
      "do": "prop",
      "id": "tablet",
      "set": {
@@ -2407,34 +2417,6 @@
      "at": 0.101
     },
     {
-     "who": "spud",
-     "do": "arm",
-     "side": "both",
-     "pose": "rest",
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.107
-    },
-    {
-     "who": "duchess",
-     "do": "arm",
-     "side": "both",
-     "pose": "rest",
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.117
-    },
-    {
-     "do": "prop",
-     "id": "screen",
-     "set": {
-      "type": 1
-     },
-     "dur": 2.142,
-     "ease": "linear",
-     "at": 0.121
-    },
-    {
      "do": "prop",
      "id": "screen",
      "set": {
@@ -2442,11 +2424,6 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.121
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
      "at": 0.121
     },
     {
@@ -2461,13 +2438,52 @@
      "at": 0.121
     },
     {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.076
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.145
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.145
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.317
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.201
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.321
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.321
+    },
+    {
      "who": "tot",
      "do": "arm",
      "side": "both",
      "pose": "rest",
      "dur": 0.35,
      "ease": "inOut",
-     "at": 0.177
+     "at": 0.377
     },
     {
      "who": "dauphin",
@@ -2476,7 +2492,7 @@
      "pose": "rest",
      "dur": 0.35,
      "ease": "inOut",
-     "at": 0.237
+     "at": 0.437
     },
     {
      "who": "rosti",
@@ -2485,68 +2501,118 @@
      "pose": "rest",
      "dur": 0.35,
      "ease": "inOut",
-     "at": 0.297
+     "at": 0.497
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.276
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.497
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.301
+     "gain": 0.14,
+     "at": 0.497
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.401
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.657
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.481
+     "gain": 0.14,
+     "at": 0.657
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.576
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.913
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.661
+     "gain": 0.14,
+     "at": 0.913
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.701
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.249
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.841
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.021
+     "gain": 0.14,
+     "at": 1.249
     },
     {
      "who": "spud",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.034
+     "at": 1.434
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.801
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.761
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.201
+     "gain": 0.14,
+     "at": 1.761
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.876
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.001
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.381
+     "gain": 0.14,
+     "at": 2.001
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.145
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.561
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.741
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.921
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 2.101
+     "gain": 0.14,
+     "at": 2.145
     },
     {
      "do": "prop",
@@ -2556,7 +2622,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.263
+     "at": 2.641
     },
     {
      "do": "prop",
@@ -2581,8 +2647,8 @@
   },
   {
    "name": "what",
-   "at": 17,
-   "len": 1.1,
+   "at": 16.6,
+   "len": 0.9,
    "shot": {
     "pos": [
      -1.2,
@@ -2608,10 +2674,25 @@
      ],
      "fov": 34
     },
-    "dur": 1.133,
+    "dur": 0.933,
     "ease": "inOut"
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "crack": 0.45
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.3,
+     "at": 0.05
+    },
     {
      "who": "spud",
      "do": "expr",
@@ -2662,21 +2743,6 @@
      "dur": 0.3,
      "ease": "inOut",
      "at": 0.05
-    },
-    {
-     "do": "prop",
-     "id": "trap",
-     "set": {
-      "crack": 0.3
-     },
-     "dur": 0.35,
-     "ease": "out",
-     "at": 0.1
-    },
-    {
-     "sfx": "creak",
-     "gain": 0.3,
-     "at": 0.1
     },
     {
      "who": "chip",
@@ -2716,7 +2782,7 @@
      "voice": "chip-x12",
      "dur": 0.35,
      "caption": false,
-     "at": 0.45
+     "at": 0.28
     },
     {
      "do": "prop",
@@ -2727,13 +2793,13 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.093
+     "at": 0.893
     }
    ]
   },
   {
    "name": "search3",
-   "at": 18.1,
+   "at": 17.5,
    "len": 2.366,
    "shot": {
     "pos": [
@@ -2750,8 +2816,8 @@
     "to": {
      "pos": [
       -0.2,
-      21.193,
-      -47.836
+      21.578,
+      -48.908
      ],
      "look": [
       -0.2,
@@ -2788,25 +2854,10 @@
      "do": "prop",
      "id": "screen",
      "set": {
-      "type": 1
-     },
-     "dur": 1.81,
-     "ease": "linear",
-     "at": 0.153
-    },
-    {
-     "do": "prop",
-     "id": "screen",
-     "set": {
       "typing": 1
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.153
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
      "at": 0.153
     },
     {
@@ -2821,54 +2872,139 @@
      "at": 0.153
     },
     {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.333
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.068
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.177
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.513
+     "gain": 0.14,
+     "at": 0.177
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.134
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.289
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.693
+     "gain": 0.14,
+     "at": 0.289
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.312
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.417
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.873
+     "gain": 0.14,
+     "at": 0.417
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.357
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.625
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.053
+     "gain": 0.14,
+     "at": 0.625
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.468
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.881
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
+     "gain": 0.14,
+     "at": 0.881
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.534
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.057
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.057
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.623
+     },
+     "dur": 0.03,
+     "ease": "linear",
      "at": 1.233
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.413
+     "gain": 0.14,
+     "at": 1.233
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.823
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.473
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.593
+     "gain": 0.14,
+     "at": 1.473
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.777
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.773
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.953
+     "gain": 0.14,
+     "at": 1.777
     },
     {
      "do": "prop",
@@ -2878,7 +3014,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.963
+     "at": 2.283
     },
     {
      "do": "prop",
@@ -2903,7 +3039,7 @@
   },
   {
    "name": "cooking",
-   "at": 20.466,
+   "at": 19.866,
    "len": 0.6,
    "shot": {
     "pos": [
@@ -2938,7 +3074,7 @@
      "do": "prop",
      "id": "trap",
      "set": {
-      "crack": 0.65
+      "crack": 0.72
      },
      "dur": 0.35,
      "ease": "out",
@@ -3045,12 +3181,6 @@
      "at": 0.281
     },
     {
-     "who": "chip",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.434
-    },
-    {
      "do": "prop",
      "id": "gate",
      "set": {
@@ -3064,8 +3194,8 @@
   },
   {
    "name": "casserole",
-   "at": 21.066,
-   "len": 1.4,
+   "at": 20.466,
+   "len": 1.034,
    "shot": {
     "pos": [
      -1.9,
@@ -3091,7 +3221,7 @@
      ],
      "fov": 34
     },
-    "dur": 1.4,
+    "dur": 1.066,
     "ease": "inOut"
    },
    "do": [
@@ -3109,7 +3239,7 @@
       "palm": true,
       "at": [
        -0.698,
-       22.16,
+       22.08,
        -56.086
       ]
      },
@@ -3131,7 +3261,7 @@
       "palm": true,
       "at": [
        -0.698,
-       22.16,
+       22.08,
        -56.086
       ]
      },
@@ -3161,7 +3291,7 @@
      "do": "prop",
      "id": "dish",
      "set": {
-      "lid": 1
+      "lid": 0.6
      },
      "dur": 0.25,
      "ease": "out",
@@ -3177,6 +3307,12 @@
      "dur": 0.84,
      "caption": false,
      "at": 0.251
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.434
     },
     {
      "who": "duchess",
@@ -3215,12 +3351,6 @@
      "at": 0.981
     },
     {
-     "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.334
-    },
-    {
      "do": "prop",
      "id": "screen",
      "set": {
@@ -3229,24 +3359,14 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.361
-    },
-    {
-     "do": "prop",
-     "id": "gate",
-     "set": {
-      "y": 22
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 1.381
+     "at": 1.027
     }
    ]
   },
   {
    "name": "search4",
-   "at": 22.466,
-   "len": 1.734,
+   "at": 21.5,
+   "len": 2.3,
    "shot": {
     "pos": [
      -0.2,
@@ -3262,8 +3382,8 @@
     "to": {
      "pos": [
       -0.2,
-      21.193,
-      -47.836
+      21.578,
+      -48.908
      ],
      "look": [
       -0.2,
@@ -3272,10 +3392,20 @@
      ],
      "fov": 31
     },
-    "dur": 1.733,
+    "dur": 2.267,
     "ease": "inOut"
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
     {
      "do": "prop",
      "id": "tablet",
@@ -3284,17 +3414,22 @@
      },
      "dur": 0.2,
      "ease": "linear",
-     "at": 0.101
+     "at": 0.133
     },
     {
      "do": "prop",
      "id": "screen",
      "set": {
-      "type": 1
+      "type": 0.137
      },
-     "dur": 1.182,
+     "dur": 0.03,
      "ease": "linear",
-     "at": 0.121
+     "at": 0.153
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.153
     },
     {
      "do": "prop",
@@ -3304,12 +3439,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.121
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.121
+     "at": 0.153
     },
     {
      "who": "angel",
@@ -3319,39 +3449,90 @@
      "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, a little softer",
      "voice": "reaper",
      "take": 2,
-     "dur": 1.39,
+     "dur": 1.92,
      "caption": false,
-     "at": 0.121
+     "at": 0.153
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.274
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.433
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.301
+     "gain": 0.14,
+     "at": 0.433
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.501
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.625
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.481
+     "gain": 0.14,
+     "at": 0.625
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.546
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.977
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.661
+     "gain": 0.14,
+     "at": 0.977
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.774
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.217
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.841
+     "gain": 0.14,
+     "at": 1.217
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.505
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.021
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.201
+     "gain": 0.14,
+     "at": 1.505
     },
     {
      "do": "prop",
@@ -3361,13 +3542,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.303
-    },
-    {
-     "who": "angel",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.534
+     "at": 2.073
     },
     {
      "do": "prop",
@@ -3377,7 +3552,7 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.714
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -3386,13 +3561,13 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.714
+     "at": 2.28
     }
    ]
   },
   {
    "name": "awww",
-   "at": 24.2,
+   "at": 23.8,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -3449,7 +3624,7 @@
      "do": "prop",
      "id": "trap",
      "set": {
-      "crack": 0.4
+      "crack": 0.5
      },
      "dur": 0.5,
      "ease": "out",
@@ -3566,6 +3741,12 @@
      "at": 0.17
     },
     {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
      "who": "spud",
      "do": "expr",
      "expr": "happy",
@@ -3609,7 +3790,7 @@
   },
   {
    "name": "gap",
-   "at": 25.3,
+   "at": 24.9,
    "len": 0.6,
    "shot": {
     "pos": [
@@ -3724,7 +3905,7 @@
   },
   {
    "name": "grab",
-   "at": 25.9,
+   "at": 25.5,
    "len": 0.9,
    "shot": {
     "pos": [
@@ -3869,8 +4050,8 @@
       "x": 1.14,
       "z": -56.32
      },
-     "dur": 0.2,
-     "ease": "out",
+     "dur": 0.3,
+     "ease": "inOut",
      "at": 0.213
     },
     {
@@ -4010,7 +4191,7 @@
   },
   {
    "name": "search5",
-   "at": 26.8,
+   "at": 26.4,
    "len": 1.7,
    "shot": {
     "pos": [
@@ -4027,8 +4208,8 @@
     "to": {
      "pos": [
       -0.2,
-      21.193,
-      -47.836
+      21.578,
+      -48.908
      ],
      "look": [
       -0.2,
@@ -4055,25 +4236,10 @@
      "do": "prop",
      "id": "screen",
      "set": {
-      "type": 1
-     },
-     "dur": 1.267,
-     "ease": "linear",
-     "at": 0.12
-    },
-    {
-     "do": "prop",
-     "id": "screen",
-     "set": {
       "typing": 1
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.12
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
      "at": 0.12
     },
     {
@@ -4088,40 +4254,109 @@
      "at": 0.12
     },
     {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.3
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.112
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.136
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.48
+     "gain": 0.14,
+     "at": 0.136
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.223
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.28
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.66
+     "gain": 0.14,
+     "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.371
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.424
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 0.84
+     "gain": 0.14,
+     "at": 0.424
     },
     {
-     "who": "chip",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.9
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.445
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.536
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.02
+     "gain": 0.14,
+     "at": 0.536
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.594
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.664
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.2
+     "gain": 0.14,
+     "at": 0.664
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.742
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.824
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.824
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.064
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.064
     },
     {
      "do": "prop",
@@ -4131,27 +4366,12 @@
      },
      "dur": 0.15,
      "ease": "in",
-     "at": 1.36
-    },
-    {
-     "sfx": "ai/key-press",
-     "gain": 0.12,
-     "at": 1.38
-    },
-    {
-     "do": "prop",
-     "id": "screen",
-     "set": {
-      "typing": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 1.387
+     "at": 1.11
     },
     {
      "sfx": "slam",
      "gain": 0.5,
-     "at": 1.49
+     "at": 1.24
     },
     {
      "do": "prop",
@@ -4161,13 +4381,29 @@
      },
      "dur": 0.05,
      "ease": "out",
-     "at": 1.51
+     "at": 1.26
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.61
     }
    ]
   },
   {
    "name": "newone",
-   "at": 28.5,
+   "at": 28.1,
    "len": 0.966,
    "shot": {
     "pos": [
@@ -4221,7 +4457,7 @@
      "do": "prop",
      "id": "trap",
      "set": {
-      "crack": 0.85
+      "crack": 0.9
      },
      "dur": 0.3,
      "ease": "out",
@@ -4258,7 +4494,7 @@
       "palm": true,
       "at": [
        -0.698,
-       22.2,
+       22.1,
        -56.086
       ]
      },
@@ -4280,7 +4516,7 @@
       "palm": true,
       "at": [
        -0.698,
-       22.2,
+       22.1,
        -56.086
       ]
      },
@@ -4292,7 +4528,7 @@
      "do": "prop",
      "id": "dish",
      "set": {
-      "lid": 1
+      "lid": 0.6
      },
      "dur": 0.2,
      "ease": "out",
@@ -4434,7 +4670,7 @@
   },
   {
    "name": "context",
-   "at": 29.466,
+   "at": 29.066,
    "len": 1.934,
    "shot": {
     "pos": [
@@ -4465,12 +4701,6 @@
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.034
-    },
     {
      "who": "spud",
      "do": "arm",
@@ -4523,6 +4753,12 @@
      "at": 0.201
     },
     {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.434
+    },
+    {
      "who": "duchess",
      "do": "arm",
      "side": "both",
@@ -4563,9 +4799,9 @@
      "do": "arm",
      "side": "both",
      "pose": "rest",
-     "dur": 0.22,
+     "dur": 0.25,
      "ease": "inOut",
-     "at": 1.631
+     "at": 1.481
     },
     {
      "who": "spud",
@@ -4573,7 +4809,7 @@
      "side": "both",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 1.631
+     "at": 1.481
     },
     {
      "do": "prop",
@@ -4598,7 +4834,7 @@
   },
   {
    "name": "toes",
-   "at": 31.4,
+   "at": 31,
    "len": 0.6,
    "shot": {
     "pos": [
@@ -4704,32 +4940,32 @@
   },
   {
    "name": "lastone",
-   "at": 32,
+   "at": 31.6,
    "len": 1.8,
    "shot": {
     "pos": [
      0.75,
-     23.18,
+     23.1,
      -51.7
     ],
     "look": [
      1.1,
-     22.85,
+     23.05,
      -56.45
     ],
-    "fov": 28,
+    "fov": 36,
     "to": {
      "pos": [
       0.761,
-      23.17,
+      23.099,
       -51.842
      ],
      "look": [
       1.1,
-      22.85,
+      23.05,
       -56.45
      ],
-     "fov": 28
+     "fov": 36
     },
     "dur": 1.8,
     "ease": "inOut"
@@ -4785,7 +5021,7 @@
      "who": "angel",
      "do": "blink",
      "dur": 0.22,
-     "at": 1
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4810,7 +5046,7 @@
   },
   {
    "name": "beg",
-   "at": 33.8,
+   "at": 33.4,
    "len": 1.7,
    "shot": {
     "pos": [
@@ -4871,12 +5107,6 @@
      "shape": "clasp",
      "dur": 0.2,
      "at": 0.1
-    },
-    {
-     "who": "chip",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.2
     },
     {
      "who": "spud",
@@ -4948,12 +5178,18 @@
      "dur": 2.75,
      "caption": false,
      "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.6
     }
    ]
   },
   {
    "name": "please",
-   "at": 35.5,
+   "at": 35.1,
    "len": 1.5,
    "shot": {
     "pos": [
@@ -4997,31 +5233,25 @@
     {
      "who": "spud",
      "do": "arm",
-     "side": "R",
+     "side": "both",
      "pose": {
       "o": [
-       0.14,
-       0.46,
-       0.42
+       0.1,
+       0.42,
+       0.46
       ]
      },
-     "dur": 0.25,
+     "dur": 0.3,
      "ease": "inOut",
      "at": 0.083
     },
     {
      "who": "spud",
      "do": "grip",
-     "side": "R",
+     "side": "both",
      "shape": "flat",
      "dur": 0.2,
      "at": 0.083
-    },
-    {
-     "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.3
     },
     {
      "do": "prop",
@@ -5048,7 +5278,7 @@
     {
      "who": "spud",
      "do": "arm",
-     "side": "R",
+     "side": "both",
      "pose": {
       "o": [
        -0.03,
@@ -5063,7 +5293,7 @@
     {
      "who": "spud",
      "do": "grip",
-     "side": "R",
+     "side": "both",
      "shape": "clasp",
      "dur": 0.01,
      "at": 1.48
@@ -5081,7 +5311,7 @@
   },
   {
    "name": "delete",
-   "at": 37,
+   "at": 36.6,
    "len": 4.266,
    "shot": {
     "pos": [
@@ -5124,6 +5354,16 @@
      "at": 0.15
     },
     {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
      "who": "duchess",
      "do": "look",
      "to": [
@@ -5142,12 +5382,12 @@
      },
      "dur": 0.03,
      "ease": "linear",
-     "at": 0.18
+     "at": 0.166
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.2,
-     "at": 0.18
+     "gain": 0.14,
+     "at": 0.166
     },
     {
      "who": "tot",
@@ -5159,6 +5399,12 @@
      "dur": 0.2,
      "blink": false,
      "at": 0.19
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
     },
     {
      "who": "dauphin",
@@ -5190,12 +5436,12 @@
      },
      "dur": 0.03,
      "ease": "linear",
-     "at": 0.85
+     "at": 0.934
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.2,
-     "at": 0.85
+     "gain": 0.14,
+     "at": 0.934
     },
     {
      "do": "prop",
@@ -5205,18 +5451,18 @@
      },
      "dur": 0.03,
      "ease": "linear",
-     "at": 2.02
+     "at": 1.894
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.2,
-     "at": 2.02
+     "gain": 0.14,
+     "at": 1.894
     },
     {
      "who": "angel",
      "do": "blink",
      "dur": 0.22,
-     "at": 2.5
+     "at": 2.9
     },
     {
      "do": "prop",
@@ -5226,12 +5472,12 @@
      },
      "dur": 0.03,
      "ease": "linear",
-     "at": 2.91
+     "at": 3.142
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.2,
-     "at": 2.91
+     "gain": 0.14,
+     "at": 3.142
     },
     {
      "do": "prop",
@@ -5241,12 +5487,12 @@
      },
      "dur": 0.03,
      "ease": "linear",
-     "at": 3.45
+     "at": 3.43
     },
     {
      "sfx": "ai/key-press",
-     "gain": 0.2,
-     "at": 3.45
+     "gain": 0.14,
+     "at": 3.43
     },
     {
      "do": "prop",
@@ -5256,12 +5502,22 @@
      },
      "dur": 0.15,
      "ease": "out",
-     "at": 3.45
+     "at": 3.43
     },
     {
      "sfx": "lampbuzz",
      "gain": 0.2,
-     "at": 3.45
+     "at": 3.43
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.16
     },
     {
      "do": "prop",
@@ -5277,7 +5533,7 @@
   },
   {
    "name": "shake",
-   "at": 41.266,
+   "at": 40.866,
    "len": 0.834,
    "shot": {
     "pos": [
@@ -5370,7 +5626,7 @@
      "who": "chip",
      "do": "look",
      "to": [
-      -0.4,
+      -0.25,
       -0.2
      ],
      "dur": 0.18,
@@ -5381,7 +5637,7 @@
      "who": "chip",
      "do": "look",
      "to": [
-      0.4,
+      0.25,
       -0.2
      ],
      "dur": 0.18,
@@ -5392,7 +5648,7 @@
      "who": "chip",
      "do": "look",
      "to": [
-      -0.3,
+      -0.2,
       -0.2
      ],
      "dur": 0.18,
@@ -5414,7 +5670,7 @@
   },
   {
    "name": "button",
-   "at": 42.1,
+   "at": 41.7,
    "len": 0.566,
    "shot": {
     "pos": [
@@ -5519,6 +5775,16 @@
      "at": 0.293
     },
     {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "open": 0.12
+     },
+     "dur": 0.16,
+     "ease": "in",
+     "at": 0.413
+    },
+    {
      "who": "spud",
      "do": "hide",
      "at": 0.538
@@ -5559,19 +5825,12 @@
      "ease": "linear",
      "sync": true,
      "at": 0.547
-    },
-    {
-     "who": "spud",
-     "do": "crouch",
-     "to": 0,
-     "dur": 0.01,
-     "at": 0.547
     }
    ]
   },
   {
    "name": "drop",
-   "at": 42.666,
+   "at": 42.266,
    "len": 0.661,
    "shot": {
     "pos": [
@@ -5741,8 +6000,30 @@
   {
    "who": "tot",
    "with": "tot",
-   "from": 28.6,
-   "to": 29.5,
+   "from": 28.2,
+   "to": 29.1,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "duchess",
+   "with": "duchess",
+   "from": 2.8,
+   "to": 3.1,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "duchess",
+   "with": "duchess",
+   "from": 28.2,
+   "to": 29.1,
    "checks": [
     "face-covered",
     "face-hidden"
@@ -5752,8 +6033,8 @@
   {
    "who": "rosti",
    "with": "rosti",
-   "from": 13.3,
-   "to": 14.3,
+   "from": 13.1,
+   "to": 13.9,
    "checks": [
     "face-covered",
     "face-hidden"
@@ -5763,8 +6044,8 @@
   {
    "who": "rosti",
    "with": "rosti",
-   "from": 20.7,
-   "to": 21.1,
+   "from": 20.1,
+   "to": 20.5,
    "checks": [
     "face-covered",
     "face-hidden"
@@ -5774,8 +6055,8 @@
   {
    "who": "rosti",
    "with": "rosti",
-   "from": 24.4,
-   "to": 25.3,
+   "from": 24,
+   "to": 24.9,
    "checks": [
     "face-covered",
     "face-hidden"
@@ -5796,8 +6077,8 @@
   {
    "who": "dauphin",
    "with": "dauphin",
-   "from": 21,
-   "to": 22.1,
+   "from": 20.4,
+   "to": 21.5,
    "checks": [
     "face-covered",
     "face-hidden"
@@ -5807,8 +6088,8 @@
   {
    "who": "dauphin",
    "with": "dauphin",
-   "from": 28.7,
-   "to": 29.5,
+   "from": 28.3,
+   "to": 29.1,
    "checks": [
     "face-covered",
     "face-hidden"
@@ -5819,7 +6100,7 @@
    "who": "angel",
    "with": "podium",
    "from": 0,
-   "to": 43.327,
+   "to": 42.927,
    "checks": [
     "clipping",
     "shell"
@@ -5841,8 +6122,8 @@
   {
    "who": "spud",
    "with": "trap",
-   "from": 42.667,
-   "to": 43.327,
+   "from": 42.267,
+   "to": 42.927,
    "checks": [
     "clipping",
     "shell",
