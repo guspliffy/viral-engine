@@ -3,7 +3,7 @@
 // Every hook starts with a power word (Jonny 11:54). Label at 0 s on all four: "Too much TV gives you square eyes".
 // Cast (stand-ins until the new dad is designed): rep = the war correspondent, spud = Tato (spud-kid), wedge = Dad (never
 // named), mash = the square-eyed neighbour. [who, line, tone, style, { voice }]
-const REP = { voice: "reaper" }, KID = { voice: "chip-clean" }, DAD = {}, MASH = { voice: "mash" };
+const REP = { voice: "reaper" }, KID = { voice: "tato" }, DAD = {}, MASH = { voice: "mash" };
 const RULE = [
   ["rep", "We're live. Tato, age seven, has watched TV for nine hours.", "calm", "grave, low, a correspondent under cover", REP],
   ["rep", "And in this house, there is one rule: one more hour... and your eyes go square.", "calm", "slow, ominous, a pause before the last words", REP],

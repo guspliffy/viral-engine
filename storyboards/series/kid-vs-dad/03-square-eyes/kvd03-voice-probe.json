@@ -119,7 +119,7 @@
      "line": "Square forever? Is it true?",
      "tone": "whisper",
      "style": "scared, small, staring at the neighbour",
-     "voice": "chip-clean",
+     "voice": "tato",
      "dur": 2.5,
      "caption": false,
      "at": 8.4
@@ -195,7 +195,7 @@
      "line": "Is it true?",
      "tone": "whisper",
      "style": "small, worried, eyes still on the TV",
-     "voice": "chip-clean",
+     "voice": "tato",
      "dur": 1.7,
      "caption": false,
      "at": 42.9
