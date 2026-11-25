@@ -19,7 +19,7 @@ On a fork, "Jonny" in every rule means that fork's producer: read `START-HERE.md
 | Writing a clip from a brief or storyboard panels; the template; storyboard format | `docs/rules/writing-clips.md`, `docs/STORYBOARD.md` |
 | New motion, physics, living worlds, scenery | `docs/rules/movement.md` |
 | Render speed, frame cache, render farm, engine changes + golden | `docs/rules/fast-cheap.md` |
-| A name the engine knows (verbs, poses, effects, helpers, prop kinds): read before any grep | `docs/VOCAB.md` |
+| A name the engine knows (verbs, poses, effects, helpers, prop kinds): look up before any grep | `node tools/vocab.mjs --index` / `--section` / `--find` (on trial; full sheet `docs/VOCAB.md`) |
 | Creative reviews A and B, delivery self-review | `qa/REVIEW.md` |
 | Assets and their licences; agent roles | `docs/ASSETS.md`, `.claude/agents/*.md` |
 
