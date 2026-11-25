@@ -1,0 +1,593 @@
+{
+ "id": "bench-cast",
+ "title": "Cast bench: waiter and cook",
+ "idea": "Cast bench for Kid vs Dad 04 (DESIGN.md T4), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#7b4650",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "shade": "soft"
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   4,
+   40
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "wait",
+   "character": "potatobrawl/mash-waiter",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 3.1
+  },
+  {
+   "id": "cook",
+   "character": "potatobrawl/cook",
+   "at": [
+    -1.2,
+    0
+   ],
+   "y": 0.51,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.2
+  }
+ ],
+ "props": [
+  {
+   "id": "apron",
+   "kind": "waiterapron",
+   "wear": "wait",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "y0": 0.33,
+   "y1": 0.04,
+   "rx": 0.255,
+   "rz": 0.24,
+   "arc": 150,
+   "band": "#f4f1ea",
+   "bandArc": 360,
+   "bow": true
+  },
+  {
+   "id": "pad",
+   "kind": "spudpad",
+   "scale": 0.85,
+   "x": 0,
+   "y": 0.4,
+   "z": 0.33,
+   "rot": 180,
+   "tip": -20,
+   "write": 0
+  },
+  {
+   "id": "pen",
+   "kind": "feltpen",
+   "color": "#26262b",
+   "cap": "#26262b",
+   "x": -0.02,
+   "y": 0.545,
+   "z": 0.305,
+   "rot": 180,
+   "tip": -50
+  },
+  {
+   "id": "crate",
+   "kind": "crate",
+   "x": -1.2,
+   "y": 0,
+   "z": 0,
+   "size": 0.51
+  },
+  {
+   "id": "toque",
+   "kind": "toque",
+   "wear": "cook",
+   "fit": {
+    "H": 0.46,
+    "W": 0.5,
+    "D": 0.46,
+    "taper": 0.02,
+    "legH": 0.14
+   },
+   "h": 0.2,
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.8,
+     3.4
+    ],
+    "look": [
+     0,
+     0.65,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "wait",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wait",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wait",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       -0.136,
+       0.052,
+       -0.012
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       -0.04
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "tilt": 0.3,
+      "curve": -0.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -1.186,
+       0.82,
+       0.27
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -1.214,
+       0.82,
+       0.27
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wait",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.005,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "wait",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.078,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       -0.04
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "cook",
+     "do": "grip",
+     "side": "L",
+     "shape": "clasp",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "cook",
+     "do": "grip",
+     "side": "R",
+     "shape": "clasp",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "wait",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       -0.136,
+       0.052,
+       -0.012
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.3
+    },
+    {
+     "who": "wait",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pen",
+      "grip": [
+       0,
+       0.078,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "wait",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.42
+    },
+    {
+     "who": "wait",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.005
+     },
+     "dur": 0.12,
+     "at": 0.47
+    },
+    {
+     "who": "wait",
+     "do": "grab",
+     "prop": "pad",
+     "hand": "L",
+     "grip": [
+      -0.136,
+      0.052,
+      -0.012
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.56
+    },
+    {
+     "who": "wait",
+     "do": "grab",
+     "prop": "pen",
+     "hand": "R",
+     "grip": [
+      0,
+      0.078,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.61
+    }
+   ],
+   "kind": "0.5 take (warm-up)"
+  },
+  {
+   "name": "s1",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.75,
+     3.4
+    ],
+    "look": [
+     0,
+     0.65,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "1.5 waiter front, full"
+  },
+  {
+   "name": "s2",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.8,
+     1.9
+    ],
+    "look": [
+     0,
+     0.6,
+     0.1
+    ],
+    "fov": 28
+   },
+   "do": [],
+   "kind": "2.5 waiter front, close: V, apron, pad, pen"
+  },
+  {
+   "name": "s3",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.2,
+     0.7,
+     0.2
+    ],
+    "look": [
+     0,
+     0.65,
+     0.1
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "3.5 waiter side (from his left)"
+  },
+  {
+   "name": "s4",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.75,
+     -3.4
+    ],
+    "look": [
+     0,
+     0.65,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "4.5 waiter back, full (apron, bow)"
+  },
+  {
+   "name": "s5",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     0.4,
+     -1.1
+    ],
+    "look": [
+     0,
+     0.31,
+     -0.24
+    ],
+    "fov": 20
+   },
+   "do": [],
+   "kind": "5.5 bow close"
+  },
+  {
+   "name": "s6",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.6,
+     1.3
+    ],
+    "look": [
+     0,
+     0.5,
+     0.3
+    ],
+    "fov": 22
+   },
+   "do": [],
+   "kind": "6.5 pad and pen close, from the lens"
+  },
+  {
+   "name": "s7",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     0.85,
+     2.2
+    ],
+    "look": [
+     0,
+     0.85,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [],
+   "kind": "7.5 camera 04 height: eyes at 0.9, from y 0.85"
+  },
+  {
+   "name": "s8",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.7,
+     3.2
+    ],
+    "look": [
+     -1.2,
+     0.6,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "8.5 cook front, full on the crate"
+  },
+  {
+   "name": "s9",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.8,
+     0.85,
+     0.2
+    ],
+    "look": [
+     -1.2,
+     0.7,
+     0.1
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "9.5 cook side (from his left)"
+  },
+  {
+   "name": "s10",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     1.6
+    ],
+    "look": [
+     -1.2,
+     0.88,
+     0.1
+    ],
+    "fov": 24
+   },
+   "do": [],
+   "kind": "10.5 cook close: hat, face, hands"
+  },
+  {
+   "name": "s11",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.8,
+     4.6
+    ],
+    "look": [
+     -0.6,
+     0.55,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "11.5 both, 1.2 apart, wide"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/04-waiter-jokes/bench/bench-cast.mjs (T4 cast bench, no reviews)."
+}
