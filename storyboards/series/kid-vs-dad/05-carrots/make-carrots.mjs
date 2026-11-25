@@ -79,8 +79,8 @@ const props = [
   { id: "jar", kind: "cookiejar", x: -4.66, y: 0.95, z: -1.42, fill: 1, lid: 1 },
   { id: "stool", kind: "jarstool", x: DAD_STOOL[0], y: 0, z: DAD_STOOL[1], rot: 0 },
   { id: "table", kind: "kitchentable", x: 0, y: 0, z: 0.35, w: 1.3, d: 0.6, h: TOP },
-  { id: "plate", kind: "plate", x: -0.05, y: TOP, z: 0.28 },
-  { id: "pile", kind: "carrotpile", x: -0.05, y: r3(TOP + 0.019), z: 0.28, n: 14 },
+  { id: "plate", kind: "plate", x: -0.22, y: TOP, z: 0.22 },
+  { id: "pile", kind: "carrotpile", x: -0.22, y: r3(TOP + 0.019), z: 0.22, n: 14 },
   { id: "bowl", kind: "carrotbowl", x: 0.30, y: TOP, z: 0.28, fill: 1 },
   STICK, BAG, MUG,
   { id: "crumbs", kind: "crumbs", wear: "dad", x: 0, y: 0.63, z: 0.39 },
@@ -134,7 +134,7 @@ const LOOKS = {
   morning: { s: 1.15, w: 0.8, c: 1, lift: 0.07, tint: WHITE },
   darkK: { s: 0.75, w: -0.6, c: 1.05, lift: -0.12, tint: "#b8c6ff" },
   fridge: { s: 1.0, w: -0.2, c: 1.05, lift: 0.0, tint: "#e6f0ff" },
-  black: { s: 1.0, w: -1.0, c: 1.4, lift: -0.42, tint: "#8090d0" },   // the contact shot: only the lenses read (Sol r1 1)
+  black: { s: 1.0, w: -1.0, c: 1.6, lift: -0.62, tint: "#7080c0" },   // the contact shot: only the lenses read (Sol r1 1)
 };
 const state = (t, name, lights, lamp) => { grade.push([onCut(t), LOOKS[name]]); fx.push({ do: "lights", at: onCut(t), to: lights, lamp, dur: 0.01 }); };
 
@@ -150,7 +150,7 @@ A(0, "spud", "skin", { color: "#f39a45", to: 0, dur: 0.01 });
 state(0, "evening", 1, 1);
 expr(0, "dad", FACES.law, 0.01); look(0, "dad", [0.6, -0.1], 0.01); expr(0, "spud", "kind", 0.01); look(0, "spud", [-0.3, -0.25], 0.01);
 arm(0, "dad", "R", { prop: "plate", grip: [-0.12, 0.02, 0], palm: [-0.12, -0.4, 0] }, 0.01); grip(0, "dad", "R", "flat", 0.01);
-P(0.2, "plate", { x: 0.12 }, 0.6, "out"); P(0.2, "pile", { x: 0.12 }, 0.6, "out"); sfx(0.2, "ai/bowl-scrape", { gain: 0.3 });
+P(0.2, "plate", { x: 0.08, z: 0.28 }, 0.6, "out"); P(0.2, "pile", { x: 0.08, z: 0.28 }, 0.6, "out"); sfx(0.2, "ai/bowl-scrape", { gain: 0.3 });
 arm(0.35, "dad", "R", { prop: "plate", grip: [-0.12, 0.02, 0], palm: [-0.12, -0.4, 0] }, 0.45);
 arm(0.95, "dad", "R", "rest", 0.35);
 arm(1.75, "dad", "L", { o: [-0.20, 0.64, 0.50] }, 0.4); grip(1.85, "dad", "L", "point", 0.15);   // two fingers at his own eyes on "see" (the brief's fix; Sol r1 23)
@@ -180,7 +180,7 @@ say(2, r3(T03a + 0.15));
 look(r3(T03a + 1.9), "spud", [-0.5, -0.7], 0.2);   // a glance down at the carrots, then the recoil on "hates carrots"
 A(r3(T03a + 2.3), "spud", "lean", { to: -12, dur: 0.2 }); expr(r3(T03a + 2.3), "spud", FACES.disgusted, 0.15); sfx(r3(T03a + 2.3), "whoosh", { gain: 0.08 });
 const KIDCLOSE = { pos: [0.55, 0.50, 1.40], look: [0.55, 0.44, -0.20], fov: 30 };
-const INTROC = { pos: [0.45, 0.62, 1.75], look: [0.35, 0.40, -0.05], fov: 36 };   // Tato and his plate of carrots (Sol r1 24)
+const INTROC = { pos: [0.40, 0.64, 1.95], look: [0.32, 0.40, -0.05], fov: 42 };   // Tato and his plate of carrots (Sol r1 24)
 shot("tato age seven", T03a, push(INTROC, 0.06, DUR[2] + 0.4));
 // panel 03: he looks up at the jar on the top shelf
 const T03 = r3(END_OF(2) + 0.25);
@@ -209,10 +209,11 @@ expr(r3(T04 + 1.2), "spud", FACES.scrunched, 0.2);
 P(r3(T04 + 1.6), "stick", { eaten: 0.5 }, 0.05); sfx(r3(T04 + 1.6), "ai/crunch", { gain: 0.4 });
 A(r3(T04 + 1.6), "spud", "squash", { amount: 0.05, dur: 0.1 }); A(r3(T04 + 1.75), "spud", "squash", { amount: 0, dur: 0.2 });
 sfx(r3(T04 + 2.0), "ai/crunch", { gain: 0.3 });
-shot("one carrot", T04, push(KIDCLOSE, 0.08, 2.6));
+shot("one carrot", T04, push(KIDCLOSE, 0.08, 1.75));
+shot("put down", r3(T04 + 1.75), push(INTROC, 0.05, 0.85));   // the half stick goes down onto the plate in frame (Sol r2 8)
 // 05: night, he tiptoes with his arms out and walks face first into his own door
 const T05 = r3(T04 + 2.55);
-hs.put(r3(T04 + 1.85), [0.18, r3(TOP + 0.03), 0.24]); expr(r3(T04 + 1.9), "spud", FACES.disgusted, 0.2);   // he puts the half stick down on the plate
+hs.put(r3(T04 + 1.85), [0.16, r3(TOP + 0.08), 0.26]); expr(r3(T04 + 1.9), "spud", FACES.disgusted, 0.2);   // he puts the half stick down on the plate
 state(T05, "night", 0.15, 0); P(onCut(T05), "moonH", { on: 1 }, 0);
 place(T05, "spud", DOOR_WALK[0], 90);
 expr(T05, "spud", { eye: 0.4, tilt: 0.1, curve: 0 }, 0.01); look(T05, "spud", [0, 0], 0.01);
@@ -230,10 +231,10 @@ A(r3(TBONK + 0.06), "spud", "pitch", { to: -14, dur: 0.12, ease: "out" }); A(r3(
 const ROOMC = { pos: [r3(HX - 2.70), 0.60, 2.40], look: [r3(HX - 2.75), 0.40, 0.10], fov: 40 };
 shot("tiptoe", T05, push(ROOMC, 0.08, WALK + 0.3));
 const DOORC = { pos: [r3(HX - 2.55), 0.60, 2.40], look: [r3(HX - 2.30), 0.42, 0.10], fov: 44 };   // wider profile: head on the door, the recoil (Sol r1 5)
-shot("bonk", r3(TBONK - 0.25), push(DOORC, 0.04, 1.8));
+shot("bonk", r3(TBONK - 0.5), push(DOORC, 0.04, 2.0));
 say(6, r3(TBONK + 0.5));
 // 06: in bed, a strip of light under the door, crunching
-const T06 = r3(END_OF(6) + 0.35);
+const T06 = r3(END_OF(6) + 0.2);
 A(onCut(T06), "spud", "lean", { to: 0, dur: 0.01 }); arm(onCut(T06), "spud", "L", "rest", 0.01); arm(onCut(T06), "spud", "R", "rest", 0.01);
 place(T06, "spud", BED, 0); A(onCut(T06), "spud", "sit", { seat: "bed", dur: 0, hands: "keep" });
 P(onCut(T06), "hall", { strip: 1 }, 0);
@@ -262,15 +263,15 @@ const SIP = rel(DAD_TABLE, 20, [0.02, 0.50, 0.36]);   // the mug's base just und
 let tm = hm.carry(r3(T07 + 0.05), SIP, 0.3, "inOut", { tip: 25 });
 sfx(r3(tm + 0.05), "ai/sip", { gain: 0.3 });
 tm = hm.carry(r3(tm + 0.3), rel(DAD_TABLE, 20, [0.10, 0.42, 0.36]), 0.2, "inOut", { tip: 0 });
-say(8, r3(T07 + 0.75));
-hm.put(r3(T07 + 1.4), [-0.30, TOP, 0.20]);   // the mug back on the table, in this shot
+say(8, r3(T07 + 0.95));
+hm.put(r3(T07 + 1.15), [-0.30, TOP, 0.20]);   // the mug back on the table, in this shot
 const MORNC = { pos: [0.15, 1.05, 3.20], look: [0.05, 0.45, -0.30], fov: 40 };   // higher: Tato's eyes over the bowl
 shot("eat up", T07, push(MORNC, 0.06, END_OF(8) - T07 + 0.3));
 const T07b = r3(END_OF(8) + 0.3);
 expr(T07b, "spud", FACES.suspicious, 0.1); look(T07b, "spud", [-0.5, 0.2], 0.1);
 say(9, r3(T07b + 0.1));
-expr(r3(T07b + 0.5), "dad", { eye: 1.0, tilt: 0.1, curve: 0.3 }, 0.15); look(r3(T07b + 0.5), "dad", [0.6, -0.1], 0.15);
-const CRUMBC = { pos: [-0.45, 0.85, 1.60], look: [-0.55, 0.80, -0.42], fov: 30 };
+expr(r3(T07b + 0.5), "dad", { eye: 1.0, tilt: 0.1, curve: 0.3 }, 0.35); look(r3(T07b + 0.5), "dad", [0.6, -0.1], 0.15);
+const CRUMBC = { pos: [-0.45, 0.82, 1.75], look: [-0.55, 0.76, -0.42], fov: 34 };
 shot("crumbs", T07b, push(CRUMBC, 0.08, END_OF(9) - T07b + 0.3));
 const T07c = r3(END_OF(9) + 0.3);
 expr(r3(T07c - 0.1), "dad", FACES.lie, 0.1); look(r3(T07c - 0.1), "dad", [-0.5, 0.1], 0.1);
@@ -312,8 +313,8 @@ for (const d of [0.4, 0.75, 1.1, 1.45, 1.8]) {
 sfx(r3(T09 + 0.3), "crinkle", { gain: 0.3 });
 P(r3(T09 + 0.4), "bag", { fill: 0, crush: 1 }, 1.5);
 hb.carry(r3(T09 + 1.95), [BAG.x, BAG.y, BAG.z], 0.25, "inOut", { tip: 25 });
-A(r3(T09 + 1.0), "spud", "skin", { color: "#f07a1c", to: 1, dur: 0.8 });
-P(r3(T09 + 2.0), "shine", { on: 0.5 }, 0.4);
+A(r3(T09 + 1.7), "spud", "skin", { color: "#f07a1c", to: 1, dur: 0.45 });
+P(r3(T09 + 2.15), "shine", { on: 0.5 }, 0.3);
 const BAGC = { pos: [0.55, 0.50, 1.40], look: [0.55, 0.44, -0.20], fov: 30 };
 shot("the whole bag", T09, push(BAGC, 0.1, 2.75));
 // 10: the spy roll down the hall
@@ -325,7 +326,7 @@ P(onCut(T10), "block", { tip: 0, y: 0 }, 0);
 place(T10, "spud", ROLL[0], 90);
 arm(onCut(T10), "spud", "L", "rest", 0.01); arm(onCut(T10), "spud", "R", "rest", 0.01); grip(onCut(T10), "spud", "L", "relaxed", 0.01); grip(onCut(T10), "spud", "R", "relaxed", 0.01);
 expr(T10, "spud", "focused", 0.01); expr(T10, "spud", { eye: 0.75 }, 0.01); look(T10, "spud", [0, 0], 0.01);
-A(r3(T10 + 0.1), "spud", "crouch", { to: 0.14, dur: 0.2 });
+A(r3(T10 + 0.02), "spud", "crouch", { to: 0.14, dur: 0.15 });
 A(r3(T10 + 0.3), "spud", "move", { to: ROLL[1], steps: 0, dur: 1.5, ease: "inOut" });
 A(r3(T10 + 0.3), "spud", "pitch", { to: 720, dur: 1.5, ease: "inOut" });
 sfx(r3(T10 + 0.5), "whoosh", { gain: 0.2 });
@@ -364,9 +365,9 @@ const TJ = r3(T12 + 1.55);
 });
 // 13: the reach; in the black beside the jar two green lenses light up
 const T13 = r3(Math.max(END_OF(14) + 0.1, TJ + 1.26));
-arm(r3(T13 - 0.2), "spud", "R", { prop: "jar", grip: [0.12, 0.30, 0.20] }, 0.6); grip(r3(T13 - 0.2), "spud", "R", "open", 0.3);
+arm(r3(T13 + 0.02), "spud", "R", { prop: "jar", grip: [0.12, 0.30, 0.20] }, 0.6, "out"); grip(r3(T13 + 0.02), "spud", "R", "open", 0.3);
 P(r3(T13 + 0.15), "moonK", { on: 0.35 }, 0.3);
-const TC = r3(T13 + 0.6);   // the contact shot: Dad (and his stool) only from here, in the black
+const TC = r3(T13 + 0.45);   // the contact shot: Dad (and his stool) only from here, in the black
 A(onCut(TC), "dad", "show"); place(TC, "dad", DAD_STOOL, 0, 0.24); P(onCut(TC), "stool", { y: 0 }, 0);
 P(onCut(TC), "gog", { scale: 1, lit: 0 }, 0);
 expr(TC, "dad", FACES.caught, 0.01);
@@ -377,7 +378,7 @@ P(r3(TC + 0.3), "gog", { lit: 1 }, 0.12); sfx(r3(TC + 0.3), "lampbuzz", { gain: 
 say(15, r3(TC + 0.6));
 const REACHC = { pos: [-4.40, 1.45, 0.05], look: [-4.70, 1.12, -1.40], fov: 40 };   // only Tato's hand and the jar (Dad is not in this frame)
 shot("reach", T13, push(REACHC, 0.06, 0.6));
-const LENSC = { pos: [-3.95, 1.12, 1.35], look: [-3.98, 1.08, -1.25], fov: 24 };   // the two green lenses light up in the black (both in frame: Sol r1 1)
+const LENSC = { pos: [-3.92, 1.10, 1.35], look: [-3.92, 1.09, -1.25], fov: 20 };   // the two green lenses light up in the black (both in frame: Sol r1 1)
 shot("contact", TC, push(LENSC, 0.08, END_OF(15) - TC + 0.1), "reveal");
 
 // ---------------------------------------------------------------- END: the fridge light, Dad in goggles, hand in the jar
@@ -388,7 +389,7 @@ const TF = r3(T14 + 0.25);
 P(TF, "fridge", { open: 1 }, 0.4, "out"); P(r3(TF + 0.1), "fridge", { lit: 1 }, 0.25, "linear"); sfx(TF, "door-open", { gain: 0.4 });
 grade.push([r3(TF + 0.1), LOOKS.fridge, 0.3]); fx.push({ do: "lights", at: r3(TF + 0.1), to: 0.12, lamp: 0.12, dur: 0.3 }); P(r3(TF + 0.1), "moonK", { on: 0 }, 0.3);
 place(T14, "spud", TATO_CLIMB, 90, 0.65);
-arm(onCut(T14), "spud", "R", { o: [0.05, 0.40, 0.25] }, 0.01); arm(onCut(T14), "spud", "L", { o: [0.05, 0.40, 0.25] }, 0.01);
+arm(onCut(T14), "spud", "R", "rest", 0.01); arm(onCut(T14), "spud", "L", "rest", 0.01);
 expr(T14, "spud", FACES.flat, 0.01); look(T14, "spud", [0.3, 0], 0.01);
 say(16, r3(TF + 0.75));
 const FRIDGEC = { pos: [-3.10, 1.30, 2.10], look: [-4.40, 1.05, -1.15], fov: 44 };   // from Dad's side: his sleeve leads into the jar
@@ -401,10 +402,13 @@ expr(T15, "dad", FACES.guilty, 0.01); look(T15, "dad", [-0.7, 0.05], 0.01); A(T1
 arm(r3(T15 + 0.02), "dad", "L", { o: [-0.10, 0.86, 0.34] }, 0.25); grip(r3(T15 + 0.02), "dad", "L", "flat", 0.15);
 P(r3(T15 + 0.3), "gog", { up: 1, lit: 0.6 }, 0);
 arm(r3(T15 + 0.42), "dad", "L", "rest", 0.3);
-for (const d of [0.5, 0.72, 0.94]) { expr(r3(T15 + d), "dad", { open: 0.25 }, 0.08); expr(r3(T15 + d + 0.11), "dad", { open: 0 }, 0.08); sfx(r3(T15 + d), "ai/crunch", { gain: 0.12 }); }
+for (const d of [0.5, 0.72, 0.94]) {
+  expr(r3(T15 + d), "dad", { open: 0.45 }, 0.08); expr(r3(T15 + d + 0.11), "dad", { open: 0 }, 0.08); sfx(r3(T15 + d), "ai/crunch", { gain: 0.12 });
+  A(r3(T15 + d), "dad", "squash", { amount: 0.035, dur: 0.08 }); A(r3(T15 + d + 0.1), "dad", "squash", { amount: 0, dur: 0.1 });
+}
 expr(T15, "spud", FACES.flat, 0.01); look(T15, "spud", [0.5, 0.1], 0.01); A(T15, "spud", "noblink", { dur: 2 });
 say(17, r3(T15 + 1.15));
-const END = F(END_OF(17) + 0.25);
+const END = F(END_OF(17) + 0.2);
 const ENDC = { pos: [-3.40, 1.35, 1.70], look: [-4.12, 1.12, -1.00], fov: 36 };   // Dad's full face in the middle (Sol r1 9)
 shot("carrots", T15, push(ENDC, 0.05, END - T15), "payoff");
 see(T14, END, ["dad.face", "spud.face", "gog"], "the fridge light shows Dad in night-vision goggles with his hand in the cookie jar; he says: '...Carrots.'");
@@ -427,7 +431,7 @@ write(import.meta.url, {
   set: { type: "plain", night: true, floor: "none", light: "dusk", para: 0, aperture: 0, lighting: 2, bloom: "emissive",
     hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
   grade, fx,
-  hud: { news: { label: "NIGHT MISSION", tag: "LIVE", tagW: 150, count: false, y: 214, show: [r3(T[1] - 0.25), r3(T14 + 0.2)] } },   // at the top, off the faces, and gone for the reveal (Sol r1 22)
+  hud: { news: { label: "NIGHT MISSION", tag: "LIVE", tagW: 150, count: false, y: 214, show: [r3(T[1] - 0.25), onCut(T14)] } },   // at the top, off the faces, and gone for the reveal (Sol r1 22)
   music: { file: "ai/orchestra-suspense/orchestra-suspense-01.ogg", lowCut: 150, gain: 0.14 },
   sound: { sfx: 0.6, ambience: 0.06, guard: true, signature: false, surface: "wood" },
   creative: { length: [55, 95] },
