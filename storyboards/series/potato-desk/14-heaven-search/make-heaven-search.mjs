@@ -39,9 +39,9 @@ const END_OF = (i) => r3(T[i] + DUR[i]);
 // ---------------------------------------------------------------- marks (DESIGN section 1)
 const M = {
   angel: W(1.13, 0, -1.50), gun: W(-0.20, 0, -1.32),
-  H0: W(-0.95, 0, -0.55), H1: W(-0.20, 0, -1.25), H2: W(0.02, 0, -1.20), K: W(-0.20, 0, -1.28),
+  H0: W(-0.90, 0, -0.80), H1: W(-0.20, 0, -1.25), H2: W(0.02, 0, -1.20), K: W(-0.20, 0, -1.28),
   CH0: W(-1.05, -0.22, -0.15), C1: W(-0.78, 0, -0.56),
-  duchess: W(-0.88, -0.44, 0.75), tot: W(0.55, -0.44, 0.80), dauphin: W(1.08, -0.66, 1.30), rosti: W(-0.60, -0.88, 1.75),
+  duchess: W(-0.88, -0.44, 0.75), tot: W(0.55, -0.44, 0.80), dauphin: W(1.08, -0.66, 1.30), rosti: W(-1.35, -0.88, 1.75),
 };
 const QUEUE = ["duchess", "tot", "dauphin", "rosti"];
 const cast = [
@@ -119,7 +119,7 @@ const step = (t, who, p, dur, o = {}) => A(t, who, "move", { to: xz(p), y: p[1],
 const drop = (t, who) => {
   c.prop(r3(t), "trap", { open: 1.06 }, 0.13, "in"); c.prop(r3(t + 0.13), "trap", { open: 1 }, 0.1, "out");
   sfx(r3(t), "latch", { gain: 0.6 }); sfx(r3(t + 0.05), "kenney/impact-plank-medium", { gain: 0.45 });
-  arm(r3(t + 0.02), who, "both", { o: [0.42, 0.78, 0.06] }, 0.12, "out"); expr(r3(t + 0.02), who, "terrified", 0.06);   // wide of the hat brim
+  arm(r3(t + 0.02), who, "both", { o: [0.34, 0.80, 0.0] }, 0.12, "out"); expr(r3(t + 0.02), who, "terrified", 0.06);   // wide of the hat brim, clear of the hero (preflight 5)
   const p = who === "gun" ? M.gun : M.K;
   A(r3(t + 0.14), who, "move", { to: xz(p), y: -2.4, dur: 0.6, ease: "in" });   // hangs 4 frames, then falls (draft 1: gone in one frame)
   A(r3(t + 0.74), who, "hide");
@@ -136,7 +136,7 @@ const typeOut = (t, k, dur) => {
 };
 const tabletRow = (t, n) => prop(t, "tablet", { row: n }, 0.2, "linear");
 // the Angel: finger on the button (R glove), the other glove on the tablet
-const BUTTON_POSE = { o: [0.02, 0.33, 0.58] }, BUTTON_UP = { o: [0.04, 0.42, 0.54] }, TABLET_POSE = { o: [0.06, 0.32, 0.6] };
+const BUTTON_POSE = { o: [0.02, 0.33, 0.58] }, BUTTON_UP = { o: [0.04, 0.42, 0.54] }, TABLET_POSE = { o: [0.06, 0.40, 0.6] };
 const press = (t) => {
   arm(r3(t - 0.35), "angel", "R", BUTTON_UP, 0.25, "out"); arm(r3(t - 0.06), "angel", "R", BUTTON_POSE, 0.08, "in");
   c.prop(r3(t), "button", { press: 1 }, 0.05, "in"); c.prop(r3(t + 0.35), "button", { press: 0 }, 0.15, "out");
@@ -210,7 +210,7 @@ const P1 = r3(T[0] + DUR[0] - 0.45);   // the press lands on "HELL."
 press(P1);
 see(0, 2.0, ["gun.face", "angel.face", "trap"], "at heaven's gate a soul stands on a gold trapdoor; the angel reads his search out loud and presses the button: HELL");
 const D1 = drop(r3(P1 + 0.05), "gun");
-expr(r3(P1 + 0.1), "spud", "terrified", 0.1); A(r3(P1 + 0.1), "spud", "lean", { to: -8, dur: 0.15 });
+expr(r3(P1 + 0.1), "spud", "terrified", 0.1);
 queue(r3(P1 + 0.15), MOUTH, "shocked", 1.1);
 
 t = shot("gulp", "GULP", r3(e + 0.05), drift(0.10));
@@ -219,22 +219,21 @@ look(r3(t), "spud", [0.3, -0.7], 0.01); A(r3(t), "spud", "lean", { to: 0, dur: 0
 shut(r3(t + 0.1));
 A(r3(t + 0.35), "spud", "squash", { amount: 0.04, dur: 0.1 }); A(r3(t + 0.47), "spud", "squash", { amount: 0, dur: 0.12 });   // gulp
 sfx(r3(t + 0.35), "gulp", { gain: 0.4 });
-arm(r3(t + 0.2), "chip", "R", "wave", 0.25); expr(r3(t + 0.2), "chip", "delighted");
+hDish.carry(r3(t + 0.2), dishAt(M.CH0, 170, 0.40), 0.25); expr(r3(t + 0.2), "chip", "delighted");   // he lifts the dish like a gift (a wave broke the hold, draft 2)
 e = say(1, r3(t + 0.55));   // Next.
 
 // ================================================================ 2 he steps up; the rule (panels 03-04)
 t = shot("step", "STEP", r3(e + 0.12), tilt(-1.5));
 face(t, "STEP", 100);
-arm(t, "chip", "R", "rest", 0.01); hDish.secure(r3(t), 0.001);
 step(r3(t + 0.05), "spud", M.H1, 0.65, { steps: 3 });
-step(r3(t + 0.1), "chip", M.C1, 0.6, { steps: 3 }); hDish.carry(r3(t + 0.1), dishAt(M.C1, 160), 0.6);
-turn(r3(t + 0.7), "spud", 70, 0.25); turn(r3(t + 0.7), "chip", 160, 0.25);
+step(r3(t + 0.5), "chip", M.C1, 0.6, { steps: 3 }); hDish.carry(r3(t + 0.5), dishAt(M.C1, 160), 0.6);   // after the hero has passed (draft 2: dish into him)
+turn(r3(t + 0.7), "spud", 70, 0.25);   // Chip ends his walk facing ~150 (a turn after it put his arm through his body, preflight 4)
 look(r3(t + 0.75), "spud", [0.8, 0.6]); arm(r3(t + 0.75), "spud", "both", { o: [-0.03, 0.36, 0.2] }, 0.25); grip(r3(t + 0.75), "spud", "both", "clasp");
 look(r3(t + 0.8), "angel", [-1.0, -0.4]);   // over the rims, down at him
 e = say(2, r3(t + 1.0));   // Wait. Out loud?
 t = shot("tablet", "TAB", r3(e + 0.05), push(0.03));
 tabletRow(r3(t + 0.1), 6);   // tease 1: his finger glances at the red last row
-arm(r3(t + 0.05), "angel", "L", { o: [0.08, 0.31, 0.58] }, 0.3);
+arm(r3(t + 0.05), "angel", "L", { o: [0.08, 0.38, 0.58] }, 0.3);
 look(r3(t + 0.1), "angel", [-0.1, -0.9]); A(r3(t + 0.2), "angel", "face", { lid: 0.3, dur: 0.1 });
 tabletRow(r3(t + 0.55), 0); A(r3(t + 0.6), "angel", "face", { lid: 0.45, dur: 0.1 });
 t = shot("screen", "SCREEN", r3(t + 0.75), tilt(3));
@@ -262,6 +261,7 @@ t = shot("what", "TWO", r3(e + 0.1), push(0.05));
 face(t, "TWO");
 expr(r3(t + 0.05), "spud", "shocked", 0.12); look(r3(t + 0.2), "spud", [0.9, -0.1], 0.15);   // eyes slide to screen-right
 expr(r3(t + 0.2), "chip", "sad"); look(r3(t + 0.1), "chip", [0.4, 0.2]);
+hDish.carry(r3(t + 0.05), dishAt(M.C1, 160, 0.20), 0.3);   // under his face for the R-TWO shot (draft 2: eyes behind the dish)
 e = say(7, r3(t + 0.45));   // ...What?
 e = r3(e + 0.6);
 
@@ -292,9 +292,11 @@ A(r3(t + 1.0), "spud", "lean", { to: 12, dur: 0.3 }); arm(r3(t + 1.0), "spud", "
 look(r3(t + 1.1), "angel", [-0.6, -0.3]); expr(r3(t + 1.2), "angel", "annoyed");
 prop(r3(t + 1.25), "tablet", { x: r3(M.angel[0] - 0.08), z: r3(M.angel[2] + 0.62) }, 0.3);   // he slides it out of reach (tease 2)
 tabletRow(r3(t + 1.3), 5);
+arm(r3(t + 1.8), "spud", "R", "rest", 0.3); A(r3(t + 1.8), "spud", "lean", { to: 0, dur: 0.3 }); grip(r3(t + 1.8), "spud", "R", "relaxed");   // back from the reach in-shot (rig-jump at the cut, draft 2)
 e = r3(t + 2.2);
 // back on the trapdoor on the next cut
-const backH1 = (s) => { placeAt(s, "spud", M.H1, 70); A(r3(s - 0.02), "spud", "lean", { to: 0, dur: 0.01 }); arm(r3(s - 0.02), "spud", "R", "rest", 0.01); grip(r3(s - 0.02), "spud", "R", "relaxed", 0.01); };
+const backH1 = (s) => { placeAt(s, "spud", M.H1, 180);   // already facing the R shot that follows (a 110 deg snap at its cut jumped the arms, preflight 3)
+ A(r3(s - 0.02), "spud", "lean", { to: 0, dur: 0.01 }); arm(r3(s - 0.02), "spud", "R", "rest", 0.01); grip(r3(s - 0.02), "spud", "R", "relaxed", 0.01); };
 
 const s5 = search(12, 4);   // a NEW best friend
 backH1(s5);
@@ -384,6 +386,8 @@ write(import.meta.url, {
   hook: { show: ["gun", "angel", "trap"], hint: 0, what: "at heaven's gate the angel reads a soul's search out loud and drops him through a trapdoor: HELL" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
+    { who: "gun", with: "spud", from: 2.6, to: 2.8, checks: ["character-overlap", "clipping"], reason: "the check pairs the falling Gunslinger's hat with the hero for one frame; the draft stills at 2.55-2.8 s show them 0.9 m apart" },
+    ...[["duchess", 7.5, 12.0], ["rosti", 17.5, 19.3], ["duchess", 17.5, 19.3], ["rosti", 30.2, 34.8], ["dauphin", 30.5, 31.4], ["tot", 32.9, 34.8], ["chip", 7.5, 12.0]].map(([w, f, to]) => ({ who: w, with: w, from: f, to, checks: ["face-covered", "face-hidden"], reason: "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)" })),
     { who: "angel", with: "podium", from: 0, to: END, checks: ["clipping", "shell"], reason: "the clerk stands right behind his podium (heaven steps): the drum's back sits under the robe's front hem, never seen from the front cameras" },
     ...["gun", "spud"].map((w) => ({ who: w, with: "trap", from: w === "gun" ? r3(D1 - 0.55) : r3(DROPT), to: w === "gun" ? r3(D1 + 0.1) : END, checks: ["clipping", "shell", "floating"], reason: "he drops through the open trapdoor into the shaft (DESIGN gatetrap, Drop)" })),
   ],
