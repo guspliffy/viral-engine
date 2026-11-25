@@ -5,6 +5,7 @@ import { band, garment, clothMat, liningMat, foldInk, inkMesh, softFollow, sstep
 import { texOf, wash, ribTexture, gridUv, hash2 } from "./costumes-art-cast.js";
 import { skipAge } from "./costumes-skipage.js";
 import { devilKit } from "./costumes-devil.js";
+import { dadKit } from "./costumes-dad.js";   // Kid vs Dad: the new Dad (polo, belly, belt, holster, cargo shorts, socks and sandals, moustache, three leaves)
 import { angelKit } from "./costumes-angel.js";
 import { vestExtras, reporterHelmet } from "./costumes-reporter.js";   // the reporter: padded vest keys + helmet on the teller (USAGE header there)
 import { headset } from "./costumes-crew.js";   // Mash's worker headset (costume.headset; USAGE header there; Kid vs Dad 02)
@@ -909,6 +910,7 @@ const KIT = {
   dauphin: (C, ch) => dauphin(C, ch, { seed: 79.2 }),
   archaeologist: (C, ch) => archaeologist(C, ch, { seed: 91.7 }),   // the calm sceptic of the Egypt debate shorts (see the header above her functions)
   devil: (C, ch) => devilKit(C, ch),   // potato desk 09: the Devil's resort shirt, badge, chit horns, root tail (costumes-devil.js)
+  dad: (C, ch) => dadKit(C, ch),   // kid vs dad 03: Dad B (costumes-dad.js; DAD-DESIGN.md)
   angel: (C, ch) => angelKit(C, ch),   // potato desk heaven steps: the Angel's wrap robe, rope belt, wings, halo, gold glasses (costumes-angel.js)
   wedge: (C, ch) => { const sl = bomber(C, ch, { color: "#c34732", seed: 12.6, front: -0.3, back: 0.3, vee: 0.6, hem: -1.12, r0: 0.09, r1: 0.066, phase: 0.3 }); shades(C, ch, { size: 2.0, x: 0.04, tip: -0.42, fwd: 0.1, up: -0.035 }); return sl; },
 };
