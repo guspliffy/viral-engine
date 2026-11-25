@@ -51,11 +51,11 @@
    "dust": 8,
    "swaps": [
     {
-     "at": 45.247,
+     "at": 44.68,
      "src": "assets/plates/eatery-day.night.png"
     },
     {
-     "at": 48.947,
+     "at": 48.38,
      "src": "assets/plates/eatery-day.png"
     }
    ]
@@ -89,7 +89,7 @@
    "count": false,
    "show": [
     0.2,
-    54.98
+    54.113
    ]
   }
  },
@@ -604,192 +604,192 @@
  ],
  "captions": [
   {
-   "from": 0.25,
-   "to": 2.29,
+   "from": 0.1,
+   "to": 2.14,
    "text": "*DANGER.* A dad is about to order.",
    "pos": 430,
    "pop": false,
    "size": 62
   },
   {
-   "from": 2.52,
-   "to": 3.96,
+   "from": 2.37,
+   "to": 3.81,
    "text": "Will the waiter *survive?*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 4.19,
-   "to": 7.34,
+   "from": 4.04,
+   "to": 7.19,
    "text": "*Tato,* age seven, is *hungry.*",
    "pos": 260,
    "pop": false,
    "size": 62
   },
   {
-   "from": 7.57,
-   "to": 9.45,
+   "from": 7.42,
+   "to": 9.3,
    "text": "And at this table, there is one rule.",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 9.68,
-   "to": 10.99,
+   "from": 9.53,
+   "to": 10.84,
    "text": "No jokes *at the waiter.*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 11.22,
-   "to": 13.43,
+   "from": 11.07,
+   "to": 13.28,
    "text": "Dad. Please. Just order.",
    "pos": 260,
    "pop": false,
    "size": 62
   },
   {
-   "from": 13.66,
-   "to": 15.98,
+   "from": 13.51,
+   "to": 15.83,
    "text": "Relax. I'm always normal.",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 16.21,
-   "to": 17.92,
+   "from": 16.06,
+   "to": 17.77,
    "text": "Hi. Can I take your order?",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 18.15,
-   "to": 20.42,
+   "from": 18,
+   "to": 20.27,
    "text": "Sure. Where are you *taking it?*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 21.32,
-   "to": 24.22,
+   "from": 21.17,
+   "to": 24.07,
    "text": "First joke. The waiter is still standing.",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 24.45,
-   "to": 25.68,
+   "from": 24.3,
+   "to": 25.53,
    "text": "Sorry for the wait.",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 25.91,
-   "to": 28.25,
+   "from": 25.76,
+   "to": 28.1,
    "text": "That's okay. I've been *working out.*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 29.05,
-   "to": 29.83,
+   "from": 28.9,
+   "to": 29.68,
    "text": "Dad...",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 30.06,
-   "to": 32.59,
+   "from": 29.91,
+   "to": 32.44,
    "text": "He's sinking. Tato is sinking.",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 32.82,
-   "to": 35.06,
+   "from": 32.67,
+   "to": 34.91,
    "text": "Wait. What's on that wall?",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 35.76,
-   "to": 36.97,
+   "from": 35.21,
+   "to": 36.42,
    "text": "He's been here *before.*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 37.2,
-   "to": 39.37,
+   "from": 36.65,
+   "to": 38.82,
    "text": "Last time... the waiter *quit.*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 39.6,
-   "to": 41.94,
+   "from": 39.05,
+   "to": 41.39,
    "text": "And... how would you like your steak?",
-   "pos": 300,
+   "pos": 260,
    "pop": false,
    "size": 62
   },
   {
-   "from": 42.17,
-   "to": 43.21,
+   "from": 41.62,
+   "to": 42.66,
    "text": "Dad, no.",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 43.44,
-   "to": 45.246,
+   "from": 42.89,
+   "to": 44.68,
    "text": "He's standing up. He's standing up!",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 45.98,
-   "to": 47.41,
+   "from": 45.43,
+   "to": 46.86,
    "text": "Like my *jokes.*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 47.64,
-   "to": 48.946,
+   "from": 47.09,
+   "to": 48.38,
    "text": "*Well done.*",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 49.97,
-   "to": 51.813,
+   "from": 49.12,
+   "to": 50.98,
    "text": "Man down! Man down!",
    "pos": 300,
    "pop": false,
    "size": 62
   },
   {
-   "from": 55.05,
-   "to": 57.23,
+   "from": 54.2,
+   "to": 56.38,
    "text": "*Tip... stop.*",
    "pos": 300,
    "pop": false,
@@ -800,7 +800,7 @@
   {
    "name": "danger",
    "at": 0,
-   "len": 2.466,
+   "len": 2.3,
    "shot": {
     "pos": [
      -0.1,
@@ -1140,9 +1140,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.05,
-       0.55,
-       0.3
+       -0.19,
+       0.44,
+       0.31
       ]
      },
      "dur": 0.01,
@@ -1155,9 +1155,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.05,
-       0.55,
-       0.3
+       -0.19,
+       0.44,
+       0.31
       ]
      },
      "dur": 0.01,
@@ -1313,6 +1313,15 @@
      "at": 0.016
     },
     {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.04
+    },
+    {
      "who": "w",
      "do": "walk",
      "to": [
@@ -1366,15 +1375,6 @@
     },
     {
      "who": "rep",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 0.19
-    },
-    {
-     "who": "rep",
      "macro": "say",
      "line": "Danger. A dad is about to order.",
      "tone": "calm",
@@ -1382,7 +1382,7 @@
      "voice": "reaper",
      "dur": 1.97,
      "caption": false,
-     "at": 0.25
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -1420,7 +1420,43 @@
      "dur": 0.01,
      "ease": "inOut",
      "at": 1.5
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "survive",
+   "at": 2.3,
+   "len": 1.666,
+   "shot": {
+    "pos": [
+     -0.85,
+     0.9,
+     -0.4
+    ],
+    "look": [
+     -0.85,
+     0.86,
+     -2.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.85,
+      0.898,
+      -0.514
+     ],
+     "look": [
+      -0.85,
+      0.86,
+      -2.3
+     ],
+     "fov": 46
     },
+    "dur": 1.7200000000000002,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "who": "rep",
      "do": "expr",
@@ -1428,44 +1464,8 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 2.46
-    }
-   ],
-   "kind": "hook"
-  },
-  {
-   "name": "survive",
-   "at": 2.466,
-   "len": 1.667,
-   "shot": {
-    "pos": [
-     -0.85,
-     0.82,
-     -0.55
-    ],
-    "look": [
-     -0.85,
-     0.7,
-     -2.3
-    ],
-    "fov": 44,
-    "to": {
-     "pos": [
-      -0.85,
-      0.813,
-      -0.655
-     ],
-     "look": [
-      -0.85,
-      0.7,
-      -2.3
-     ],
-     "fov": 44
+     "at": 0.01
     },
-    "dur": 1.7200000000000002,
-    "ease": "inOut"
-   },
-   "do": [
     {
      "who": "rep",
      "macro": "say",
@@ -1475,23 +1475,14 @@
      "voice": "reaper",
      "dur": 1.32,
      "caption": false,
-     "at": 0.054
-    },
-    {
-     "who": "rep",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 1.664
+     "at": 0.07
     }
    ]
   },
   {
    "name": "tato",
-   "at": 4.133,
-   "len": 3.367,
+   "at": 3.966,
+   "len": 3.4,
    "shot": {
     "pos": [
      1,
@@ -1523,6 +1514,15 @@
    "do": [
     {
      "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.014
+    },
+    {
+     "who": "rep",
      "macro": "say",
      "line": "We're live. Tato, age seven, is hungry.",
      "tone": "calm",
@@ -1530,7 +1530,7 @@
      "voice": "reaper",
      "dur": 3.08,
      "caption": false,
-     "at": 0.057
+     "at": 0.074
     },
     {
      "who": "kid",
@@ -1538,14 +1538,14 @@
      "side": "L",
      "pose": {
       "o": [
-       0.04,
-       0.42,
-       0.25
+       -0.24,
+       0.27,
+       0.31
       ]
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.457
+     "at": 0.474
     },
     {
      "who": "kid",
@@ -1553,14 +1553,14 @@
      "side": "R",
      "pose": {
       "o": [
-       0.04,
-       0.42,
-       0.25
+       -0.24,
+       0.27,
+       0.31
       ]
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.457
+     "at": 0.474
     },
     {
      "who": "kid",
@@ -1568,7 +1568,7 @@
      "side": "L",
      "shape": "flat",
      "dur": 0.2,
-     "at": 0.557
+     "at": 0.574
     },
     {
      "who": "kid",
@@ -1576,43 +1576,8 @@
      "side": "R",
      "shape": "flat",
      "dur": 0.2,
-     "at": 0.557
-    }
-   ]
-  },
-  {
-   "name": "one rule",
-   "at": 7.5,
-   "len": 2.1,
-   "shot": {
-    "pos": [
-     -0.85,
-     0.82,
-     -0.55
-    ],
-    "look": [
-     -0.85,
-     0.7,
-     -2.3
-    ],
-    "fov": 44,
-    "to": {
-     "pos": [
-      -0.85,
-      0.81,
-      -0.69
-     ],
-     "look": [
-      -0.85,
-      0.7,
-      -2.3
-     ],
-     "fov": 44
+     "at": 0.574
     },
-    "dur": 2.16,
-    "ease": "inOut"
-   },
-   "do": [
     {
      "who": "rep",
      "do": "expr",
@@ -1620,8 +1585,43 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.01
+     "at": 3.394
+    }
+   ]
+  },
+  {
+   "name": "one rule",
+   "at": 7.366,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     -0.85,
+     0.9,
+     -0.4
+    ],
+    "look": [
+     -0.85,
+     0.86,
+     -2.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.85,
+      0.897,
+      -0.552
+     ],
+     "look": [
+      -0.85,
+      0.86,
+      -2.3
+     ],
+     "fov": 46
     },
+    "dur": 2.16,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "who": "rep",
      "macro": "say",
@@ -1631,38 +1631,38 @@
      "voice": "reaper",
      "dur": 1.86,
      "caption": false,
-     "at": 0.07
+     "at": 0.054
     }
    ]
   },
   {
    "name": "no jokes",
-   "at": 9.6,
-   "len": 1.566,
+   "at": 9.466,
+   "len": 1.534,
    "shot": {
     "pos": [
-     -0.08,
+     -0.25,
      0.95,
-     4.5
+     4.9
     ],
     "look": [
-     -0.08,
+     -0.22,
      0.78,
      0
     ],
-    "fov": 45,
+    "fov": 50,
     "to": {
      "pos": [
-      -0.08,
+      -0.248,
       0.942,
-      4.275
+      4.655
      ],
      "look": [
-      -0.08,
+      -0.22,
       0.78,
       0
      ],
-     "fov": 45
+     "fov": 50
     },
     "dur": 1.49,
     "ease": "inOut"
@@ -1675,7 +1675,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.02
+     "at": 0.004
     },
     {
      "who": "rep",
@@ -1686,7 +1686,7 @@
      "voice": "reaper",
      "dur": 1.19,
      "caption": false,
-     "at": 0.08
+     "at": 0.064
     },
     {
      "who": "kid",
@@ -1697,23 +1697,14 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 1.42
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 1.56
+     "at": 1.404
     }
    ]
   },
   {
    "name": "please",
-   "at": 11.166,
-   "len": 2.434,
+   "at": 11,
+   "len": 2.433,
    "shot": {
     "pos": [
      1,
@@ -1745,6 +1736,15 @@
    "do": [
     {
      "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "spud",
      "macro": "say",
      "line": "Dad. Please. Just order.",
      "tone": "sad",
@@ -1752,7 +1752,7 @@
      "voice": "tato",
      "dur": 2.14,
      "caption": false,
-     "at": 0.054
+     "at": 0.07
     },
     {
      "who": "dad",
@@ -1763,7 +1763,7 @@
       "open": 0.3
      },
      "dur": 0.15,
-     "at": 2.344
+     "at": 2.36
     },
     {
      "who": "dad",
@@ -1774,38 +1774,38 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 2.394
+     "at": 2.41
     }
    ]
   },
   {
    "name": "normal",
-   "at": 13.6,
-   "len": 2.533,
+   "at": 13.433,
+   "len": 2.567,
    "shot": {
     "pos": [
-     -0.08,
+     -0.25,
      0.95,
-     4.5
+     4.9
     ],
     "look": [
-     -0.08,
+     -0.22,
      0.78,
      0
     ],
-    "fov": 45,
+    "fov": 50,
     "to": {
      "pos": [
-      -0.08,
+      -0.248,
       0.942,
-      4.275
+      4.655
      ],
      "look": [
-      -0.08,
+      -0.22,
       0.78,
       0
      ],
-     "fov": 45
+     "fov": 50
     },
     "dur": 2.55,
     "ease": "inOut"
@@ -1818,7 +1818,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0
+     "at": 0.017
     },
     {
      "who": "dad",
@@ -1829,7 +1829,7 @@
      "voice": "dad",
      "dur": 2.15,
      "caption": false,
-     "at": 0.06
+     "at": 0.077
     },
     {
      "who": "dad",
@@ -1840,45 +1840,45 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 2.41
+     "at": 2.427
     },
     {
      "who": "w",
      "do": "expr",
      "expr": "kind",
      "dur": 0.1,
-     "at": 2.51
+     "at": 2.527
     }
    ]
   },
   {
    "name": "order",
-   "at": 16.133,
-   "len": 4.333,
+   "at": 16,
+   "len": 4.3,
    "shot": {
     "pos": [
-     -0.08,
+     -0.25,
      0.95,
-     4.5
+     4.9
     ],
     "look": [
-     -0.08,
+     -0.22,
      0.78,
      0
     ],
-    "fov": 45,
+    "fov": 50,
     "to": {
      "pos": [
-      -0.08,
+      -0.248,
       0.938,
-      4.185
+      4.557
      ],
      "look": [
-      -0.08,
+      -0.22,
       0.78,
       0
      ],
-     "fov": 45
+     "fov": 50
     },
     "dur": 4.21,
     "ease": "inOut"
@@ -1891,7 +1891,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.017
+     "at": 0
     },
     {
      "who": "mash",
@@ -1902,7 +1902,7 @@
      "voice": "mash",
      "dur": 1.64,
      "caption": false,
-     "at": 0.077
+     "at": 0.06
     },
     {
      "who": "dad",
@@ -1917,7 +1917,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.667
+     "at": 1.65
     },
     {
      "who": "dad",
@@ -1925,7 +1925,7 @@
      "side": "R",
      "shape": "point",
      "dur": 0.2,
-     "at": 1.767
+     "at": 1.75
     },
     {
      "who": "dad",
@@ -1936,7 +1936,7 @@
       "open": 0.3
      },
      "dur": 0.1,
-     "at": 1.917
+     "at": 1.9
     },
     {
      "who": "dad",
@@ -1945,7 +1945,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 1.957
+     "at": 1.94
     },
     {
      "who": "dad",
@@ -1956,12 +1956,12 @@
      "voice": "dad",
      "dur": 1.97,
      "caption": false,
-     "at": 2.017
+     "at": 2
     },
     {
      "sfx": "ai/rimshot",
      "gain": 0.5,
-     "at": 4.087
+     "at": 4.07
     },
     {
      "who": "w",
@@ -1973,24 +1973,24 @@
       "open": 0.15
      },
      "dur": 0.08,
-     "at": 4.087
+     "at": 4.07
     },
     {
      "who": "w",
      "do": "squash",
      "amount": 0.03,
      "dur": 0.1,
-     "at": 4.087
+     "at": 4.07
     },
     {
      "who": "kid",
      "do": "hide",
-     "at": 4.314
+     "at": 4.28
     },
     {
      "who": "kid1",
      "do": "show",
-     "at": 4.314
+     "at": 4.28
     },
     {
      "do": "prop",
@@ -2001,14 +2001,24 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.314
+     "at": 4.28
+    },
+    {
+     "do": "prop",
+     "id": "napkin",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.28
     }
    ],
    "kind": "escalation"
   },
   {
    "name": "frozen",
-   "at": 20.466,
+   "at": 20.3,
    "len": 0.8,
    "shot": {
     "pos": [
@@ -2048,7 +2058,7 @@
       "curve": -0.3
      },
      "dur": 0.01,
-     "at": 0.004
+     "at": 0.02
     },
     {
      "who": "kid1",
@@ -2059,7 +2069,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0.004
+     "at": 0.02
     },
     {
      "who": "dad",
@@ -2068,8 +2078,43 @@
      "pose": "rest",
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.154
+     "at": 0.17
+    }
+   ]
+  },
+  {
+   "name": "still standing",
+   "at": 21.1,
+   "len": 3.133,
+   "shot": {
+    "pos": [
+     -0.85,
+     0.9,
+     -0.4
+    ],
+    "look": [
+     -0.85,
+     0.86,
+     -2.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.85,
+      0.898,
+      -0.514
+     ],
+     "look": [
+      -0.85,
+      0.86,
+      -2.3
+     ],
+     "fov": 46
     },
+    "dur": 2.98,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "who": "rep",
      "do": "expr",
@@ -2077,43 +2122,8 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.794
-    }
-   ]
-  },
-  {
-   "name": "still standing",
-   "at": 21.266,
-   "len": 3.134,
-   "shot": {
-    "pos": [
-     -0.85,
-     0.82,
-     -0.55
-    ],
-    "look": [
-     -0.85,
-     0.7,
-     -2.3
-    ],
-    "fov": 44,
-    "to": {
-     "pos": [
-      -0.85,
-      0.813,
-      -0.655
-     ],
-     "look": [
-      -0.85,
-      0.7,
-      -2.3
-     ],
-     "fov": 44
+     "at": 0.01
     },
-    "dur": 2.98,
-    "ease": "inOut"
-   },
-   "do": [
     {
      "who": "rep",
      "macro": "say",
@@ -2123,7 +2133,7 @@
      "voice": "reaper",
      "dur": 2.68,
      "caption": false,
-     "at": 0.054
+     "at": 0.07
     },
     {
      "do": "prop",
@@ -2133,17 +2143,17 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.734
+     "at": 2.75
     },
     {
      "who": "w",
      "do": "hide",
-     "at": 3.114
+     "at": 3.113
     },
     {
      "who": "wT",
      "do": "show",
-     "at": 3.114
+     "at": 3.113
     },
     {
      "do": "prop",
@@ -2153,7 +2163,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.114
+     "at": 3.113
     },
     {
      "do": "prop",
@@ -2163,34 +2173,40 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.114
+     "at": 3.113
     },
     {
      "do": "prop",
      "id": "glassA",
      "set": {
-      "scale": 1
+      "scale": 1,
+      "x": -0.505,
+      "y": 0.508,
+      "z": -0.342
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.114
+     "at": 3.113
     },
     {
      "do": "prop",
      "id": "glassB",
      "set": {
-      "scale": 1
+      "scale": 1,
+      "x": -0.595,
+      "y": 0.508,
+      "z": -0.498
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.114
+     "at": 3.113
     },
     {
      "who": "w",
      "do": "release",
      "prop": "pad",
      "dur": 0,
-     "at": 3.114
+     "at": 3.113
     },
     {
      "who": "w",
@@ -2198,47 +2214,38 @@
      "side": "L",
      "shape": "open",
      "dur": 0.15,
-     "at": 3.114
-    },
-    {
-     "who": "wT",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 3.124
+     "at": 3.113
     }
    ]
   },
   {
    "name": "wait",
-   "at": 24.4,
-   "len": 3.933,
+   "at": 24.233,
+   "len": 3.967,
    "shot": {
     "pos": [
-     -0.08,
+     -0.25,
      0.95,
-     4.5
+     4.9
     ],
     "look": [
-     -0.08,
+     -0.22,
      0.78,
      0
     ],
-    "fov": 45,
+    "fov": 50,
     "to": {
      "pos": [
-      -0.08,
+      -0.248,
       0.938,
-      4.185
+      4.557
      ],
      "look": [
-      -0.08,
+      -0.22,
       0.78,
       0
      ],
-     "fov": 45
+     "fov": 50
     },
     "dur": 4,
     "ease": "inOut"
@@ -2248,12 +2255,21 @@
      "who": "wT",
      "do": "expr",
      "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "wT",
+     "do": "expr",
+     "set": {
       "eye": 1.1,
       "tilt": 0.2,
       "curve": 0.1
      },
      "dur": 0.01,
-     "at": 0
+     "at": 0.017
     },
     {
      "who": "w",
@@ -2299,7 +2315,7 @@
      "do": "face",
      "lid": 0.7,
      "dur": 0.2,
-     "at": 0.05
+     "at": 0.067
     },
     {
      "who": "wT",
@@ -2310,22 +2326,7 @@
      "voice": "mash",
      "dur": 1.16,
      "caption": false,
-     "at": 0.05
-    },
-    {
-     "who": "dad",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.15,
-       0.3,
-       0.5
-      ]
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 1.21
+     "at": 0.067
     },
     {
      "who": "dad",
@@ -2333,29 +2334,21 @@
      "side": "R",
      "pose": {
       "o": [
-       0.15,
-       0.3,
-       0.5
+       -0.15,
+       0.32,
+       0.42
       ]
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.21
+     "at": 1.227
     },
     {
      "who": "wT",
      "do": "face",
      "lid": 0,
      "dur": 0.2,
-     "at": 1.31
-    },
-    {
-     "who": "dad",
-     "do": "grip",
-     "side": "L",
-     "shape": "flat",
-     "dur": 0.2,
-     "at": 1.31
+     "at": 1.327
     },
     {
      "who": "dad",
@@ -2363,7 +2356,7 @@
      "side": "R",
      "shape": "flat",
      "dur": 0.2,
-     "at": 1.31
+     "at": 1.327
     },
     {
      "who": "dad",
@@ -2374,7 +2367,7 @@
       "open": 0.3
      },
      "dur": 0.1,
-     "at": 1.41
+     "at": 1.427
     },
     {
      "who": "dad",
@@ -2383,7 +2376,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 1.45
+     "at": 1.467
     },
     {
      "who": "dad",
@@ -2394,78 +2387,192 @@
      "voice": "dad",
      "dur": 2.04,
      "caption": false,
-     "at": 1.51
+     "at": 1.527
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.33,
+       0.46
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.887
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.32,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 2.007
     },
     {
      "who": "dad",
      "do": "squash",
      "amount": 0.03,
      "dur": 0.1,
-     "at": 2.01
+     "at": 2.027
     },
     {
      "who": "dad",
      "do": "squash",
      "amount": 0,
      "dur": 0.15,
-     "at": 2.13
+     "at": 2.147
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.33,
+       0.46
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.287
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.32,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 2.407
     },
     {
      "who": "dad",
      "do": "squash",
      "amount": 0.03,
      "dur": 0.1,
-     "at": 2.41
+     "at": 2.427
     },
     {
      "who": "dad",
      "do": "squash",
      "amount": 0,
      "dur": 0.15,
-     "at": 2.53
+     "at": 2.547
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.33,
+       0.46
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.687
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.32,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 2.807
     },
     {
      "who": "dad",
      "do": "squash",
      "amount": 0.03,
      "dur": 0.1,
-     "at": 2.81
+     "at": 2.827
     },
     {
      "who": "dad",
      "do": "squash",
      "amount": 0,
      "dur": 0.15,
-     "at": 2.93
+     "at": 2.947
     },
     {
      "sfx": "ai/rimshot",
      "gain": 0.5,
-     "at": 3.65
+     "at": 3.667
+    },
+    {
+     "do": "prop",
+     "id": "glassA",
+     "set": {
+      "x": -0.38,
+      "y": 0.386,
+      "z": -0.05
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.947
+    },
+    {
+     "do": "prop",
+     "id": "glassB",
+     "set": {
+      "x": 0.3,
+      "y": 0.386,
+      "z": 0.12
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.947
     },
     {
      "who": "kid1",
      "do": "hide",
-     "at": 3.913
+     "at": 3.947
     },
     {
      "who": "kid2",
      "do": "show",
-     "at": 3.913
+     "at": 3.947
     },
     {
      "who": "kid2",
      "do": "crouch",
      "to": 0.07,
      "dur": 0.01,
-     "at": 3.913
+     "at": 3.947
     }
    ]
   },
   {
    "name": "sinking",
-   "at": 28.333,
-   "len": 1.667,
+   "at": 28.2,
+   "len": 1.633,
    "shot": {
     "pos": [
      -0.4,
@@ -2502,7 +2609,7 @@
      "pose": "rest",
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.017
+     "at": 0
     },
     {
      "who": "dad",
@@ -2511,7 +2618,7 @@
      "pose": "rest",
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.017
+     "at": 0
     },
     {
      "who": "kid2",
@@ -2522,7 +2629,7 @@
       "curve": -0.3
      },
      "dur": 0.01,
-     "at": 0.017
+     "at": 0
     },
     {
      "who": "kid2",
@@ -2533,7 +2640,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0.017
+     "at": 0
     },
     {
      "who": "kid2",
@@ -2542,7 +2649,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.657
+     "at": 0.64
     },
     {
      "who": "kid2",
@@ -2553,38 +2660,53 @@
      "voice": "tato",
      "dur": 0.76,
      "caption": false,
-     "at": 0.717
+     "at": 0.7
+    },
+    {
+     "who": "wT",
+     "do": "hide",
+     "at": 1.613
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.613
     }
    ]
   },
   {
    "name": "sinking rep",
-   "at": 30,
-   "len": 2.766,
+   "at": 29.833,
+   "len": 2.767,
    "shot": {
     "pos": [
      -0.85,
-     0.82,
-     -0.55
+     0.9,
+     -0.4
     ],
     "look": [
      -0.85,
-     0.7,
+     0.86,
      -2.3
     ],
-    "fov": 44,
+    "fov": 46,
     "to": {
      "pos": [
       -0.85,
-      0.812,
-      -0.673
+      0.897,
+      -0.533
      ],
      "look": [
       -0.85,
-      0.7,
+      0.86,
       -2.3
      ],
-     "fov": 44
+     "fov": 46
     },
     "dur": 2.56,
     "ease": "inOut"
@@ -2597,7 +2719,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0
+     "at": 0.017
     },
     {
      "who": "rep",
@@ -2608,23 +2730,14 @@
      "voice": "reaper",
      "dur": 2.36,
      "caption": false,
-     "at": 0.06
-    },
-    {
-     "who": "rep",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 2.76
+     "at": 0.077
     }
    ]
   },
   {
    "name": "the wall",
-   "at": 32.766,
-   "len": 4.367,
+   "at": 32.6,
+   "len": 4,
    "shot": {
     "pos": [
      -2.85,
@@ -2650,10 +2763,19 @@
      ],
      "fov": 26
     },
-    "dur": 4.53,
+    "dur": 4.13,
     "ease": "inOut"
    },
    "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
     {
      "who": "rep",
      "macro": "say",
@@ -2663,7 +2785,7 @@
      "voice": "reaper",
      "dur": 1.94,
      "caption": false,
-     "at": 0.054
+     "at": 0.07
     },
     {
      "do": "prop",
@@ -2673,7 +2795,7 @@
      },
      "dur": 0.35,
      "ease": "out",
-     "at": 0.254
+     "at": 0.27
     },
     {
      "do": "prop",
@@ -2683,7 +2805,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.654
+     "at": 0.67
     },
     {
      "who": "rep",
@@ -2692,7 +2814,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 2.934
+     "at": 2.55
     },
     {
      "who": "rep",
@@ -2703,12 +2825,22 @@
      "voice": "reaper",
      "dur": 1.09,
      "caption": false,
-     "at": 2.994
+     "at": 2.61
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.75
     },
     {
      "who": "cook",
      "do": "show",
-     "at": 4.347
+     "at": 3.98
     },
     {
      "do": "prop",
@@ -2718,7 +2850,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.347
+     "at": 3.98
     },
     {
      "do": "prop",
@@ -2728,7 +2860,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.347
+     "at": 3.98
     },
     {
      "do": "prop",
@@ -2738,13 +2870,22 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.347
+     "at": 3.98
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.99
     }
    ]
   },
   {
    "name": "the cook",
-   "at": 37.133,
+   "at": 36.6,
    "len": 2.4,
    "shot": {
     "pos": [
@@ -2777,15 +2918,6 @@
    "do": [
     {
      "who": "rep",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 0.007
-    },
-    {
-     "who": "rep",
      "macro": "say",
      "line": "Last time... the waiter quit.",
      "tone": "sad",
@@ -2793,7 +2925,7 @@
      "voice": "reaper",
      "dur": 1.95,
      "caption": false,
-     "at": 0.067
+     "at": 0.05
     },
     {
      "do": "prop",
@@ -2923,6 +3055,15 @@
     },
     {
      "who": "w",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.39
+    },
+    {
+     "who": "w",
      "do": "grip",
      "side": "L",
      "shape": "hold",
@@ -2933,46 +3074,37 @@
   },
   {
    "name": "steak",
-   "at": 39.533,
-   "len": 2.567,
+   "at": 39,
+   "len": 2.566,
    "shot": {
     "pos": [
-     1.75,
-     1,
-     0.38
+     0.9,
+     1.1,
+     2.2
     ],
     "look": [
-     -0.95,
-     0.75,
-     -0.35
+     -0.7,
+     0.85,
+     0
     ],
-    "fov": 40,
+    "fov": 46,
     "to": {
      "pos": [
-      1.588,
-      0.985,
-      0.336
+      0.804,
+      1.085,
+      2.068
      ],
      "look": [
-      -0.95,
-      0.75,
-      -0.35
+      -0.7,
+      0.85,
+      0
      ],
-     "fov": 40
+     "fov": 46
     },
     "dur": 2.67,
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "w",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 0.007
-    },
     {
      "who": "w",
      "do": "expr",
@@ -2983,7 +3115,18 @@
       "open": 0.15
      },
      "dur": 0.01,
-     "at": 0.017
+     "at": 0
+    },
+    {
+     "who": "w",
+     "macro": "say",
+     "line": "And... how would you like your steak?",
+     "tone": "sad",
+     "style": "very careful, holding the notepad like a shield",
+     "voice": "mash",
+     "dur": 2.27,
+     "caption": false,
+     "at": 0.05
     },
     {
      "who": "w",
@@ -3000,22 +3143,20 @@
      "at": 0.06
     },
     {
-     "who": "w",
-     "macro": "say",
-     "line": "And... how would you like your steak?",
-     "tone": "sad",
-     "style": "very careful, holding the notepad like a shield",
-     "voice": "mash",
-     "dur": 2.27,
-     "caption": false,
-     "at": 0.067
+     "who": "kid2",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.56
     }
    ]
   },
   {
    "name": "dad no",
-   "at": 42.1,
-   "len": 1.266,
+   "at": 41.566,
+   "len": 1.267,
    "shot": {
     "pos": [
      -0.4,
@@ -3047,15 +3188,6 @@
    "do": [
     {
      "who": "kid2",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 0.01
-    },
-    {
-     "who": "kid2",
      "macro": "say",
      "line": "Dad, no.",
      "tone": "sad",
@@ -3063,43 +3195,8 @@
      "voice": "tato",
      "dur": 1.02,
      "caption": false,
-     "at": 0.07
-    }
-   ]
-  },
-  {
-   "name": "standing",
-   "at": 43.366,
-   "len": 1.9,
-   "shot": {
-    "pos": [
-     -0.85,
-     0.82,
-     -0.55
-    ],
-    "look": [
-     -0.85,
-     0.7,
-     -2.3
-    ],
-    "fov": 44,
-    "to": {
-     "pos": [
-      -0.85,
-      0.81,
-      -0.69
-     ],
-     "look": [
-      -0.85,
-      0.7,
-      -2.3
-     ],
-     "fov": 44
+     "at": 0.054
     },
-    "dur": 1.8399999999999999,
-    "ease": "inOut"
-   },
-   "do": [
     {
      "who": "rep",
      "do": "expr",
@@ -3107,8 +3204,43 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.014
+     "at": 1.264
+    }
+   ]
+  },
+  {
+   "name": "standing",
+   "at": 42.833,
+   "len": 1.867,
+   "shot": {
+    "pos": [
+     -0.85,
+     0.9,
+     -0.4
+    ],
+    "look": [
+     -0.85,
+     0.86,
+     -2.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.85,
+      0.897,
+      -0.552
+     ],
+     "look": [
+      -0.85,
+      0.86,
+      -2.3
+     ],
+     "fov": 46
     },
+    "dur": 1.8399999999999999,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "who": "rep",
      "macro": "say",
@@ -3118,17 +3250,17 @@
      "voice": "reaper",
      "dur": 1.69,
      "caption": false,
-     "at": 0.074
+     "at": 0.057
     },
     {
      "who": "dad",
      "do": "hide",
-     "at": 1.881
+     "at": 1.847
     },
     {
      "who": "dadU",
      "do": "show",
-     "at": 1.881
+     "at": 1.847
     },
     {
      "do": "prop",
@@ -3138,7 +3270,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.881
+     "at": 1.847
     },
     {
      "do": "prop",
@@ -3148,7 +3280,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.881
+     "at": 1.847
     },
     {
      "do": "prop",
@@ -3158,7 +3290,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.881
+     "at": 1.847
     },
     {
      "do": "prop",
@@ -3168,17 +3300,17 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.881
+     "at": 1.847
     },
     {
      "who": "w",
      "do": "hide",
-     "at": 1.881
+     "at": 1.847
     },
     {
      "who": "kid2",
      "do": "hide",
-     "at": 1.881
+     "at": 1.847
     },
     {
      "do": "prop",
@@ -3188,13 +3320,13 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.881
+     "at": 1.847
     }
    ]
   },
   {
    "name": "spotlight",
-   "at": 45.266,
+   "at": 44.7,
    "len": 3.7,
    "shot": {
     "pos": [
@@ -3234,7 +3366,7 @@
       "open": 0.3
      },
      "dur": 0.01,
-     "at": 0.014
+     "at": 0.03
     },
     {
      "who": "dadU",
@@ -3245,7 +3377,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0.014
+     "at": 0.03
     },
     {
      "who": "dadU",
@@ -3260,7 +3392,7 @@
      },
      "dur": 0.45,
      "ease": "out",
-     "at": 0.214
+     "at": 0.23
     },
     {
      "who": "dadU",
@@ -3268,7 +3400,7 @@
      "side": "R",
      "shape": "flat",
      "dur": 0.2,
-     "at": 0.414
+     "at": 0.43
     },
     {
      "who": "dadU",
@@ -3277,7 +3409,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.654
+     "at": 0.67
     },
     {
      "who": "dadU",
@@ -3288,14 +3420,14 @@
      "voice": "dad",
      "dur": 1.31,
      "caption": false,
-     "at": 0.714
+     "at": 0.73
     },
     {
      "who": "dadU",
      "do": "face",
      "lid": 0.85,
      "dur": 0.15,
-     "at": 2.124
+     "at": 2.14
     },
     {
      "who": "dadU",
@@ -3304,7 +3436,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 2.314
+     "at": 2.33
     },
     {
      "who": "dadU",
@@ -3315,12 +3447,12 @@
      "voice": "dad",
      "dur": 1.03,
      "caption": false,
-     "at": 2.374
+     "at": 2.39
     },
     {
      "sfx": "ai/rimshot",
      "gain": 0.5,
-     "at": 3.454
+     "at": 3.47
     },
     {
      "who": "wT",
@@ -3328,11 +3460,11 @@
      "prop": "tray",
      "dur": 0,
      "to": [
-      -0.45,
+      -0.62,
       0,
-      -0.3
+      -0.12
      ],
-     "at": 3.581
+     "at": 3.58
     },
     {
      "who": "wT",
@@ -3341,7 +3473,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.591
+     "at": 3.59
     },
     {
      "who": "wT",
@@ -3349,7 +3481,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.591
+     "at": 3.59
     },
     {
      "who": "wT",
@@ -3358,7 +3490,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.591
+     "at": 3.59
     },
     {
      "who": "wT",
@@ -3366,7 +3498,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.591
+     "at": 3.59
     },
     {
      "do": "prop",
@@ -3376,7 +3508,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.681
+     "at": 3.68
     },
     {
      "do": "prop",
@@ -3386,7 +3518,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.681
+     "at": 3.68
     },
     {
      "do": "prop",
@@ -3396,7 +3528,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.681
+     "at": 3.68
     },
     {
      "do": "prop",
@@ -3406,17 +3538,17 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.681
+     "at": 3.68
     },
     {
      "who": "w",
      "do": "hide",
-     "at": 3.681
+     "at": 3.68
     },
     {
      "who": "wT",
      "do": "show",
-     "at": 3.681
+     "at": 3.68
     },
     {
      "do": "prop",
@@ -3426,7 +3558,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.681
+     "at": 3.68
     },
     {
      "do": "prop",
@@ -3436,12 +3568,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.681
-    },
-    {
-     "who": "kid2",
-     "do": "show",
-     "at": 3.681
+     "at": 3.68
     },
     {
      "do": "prop",
@@ -3451,14 +3578,14 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.681
+     "at": 3.68
     },
     {
      "who": "w",
      "do": "release",
      "prop": "pad",
      "dur": 0,
-     "at": 3.681
+     "at": 3.68
     },
     {
      "who": "w",
@@ -3466,15 +3593,15 @@
      "side": "L",
      "shape": "open",
      "dur": 0.15,
-     "at": 3.681
+     "at": 3.68
     }
    ],
    "kind": "reveal"
   },
   {
    "name": "man down",
-   "at": 48.966,
-   "len": 2.867,
+   "at": 48.4,
+   "len": 2.6,
    "shot": {
     "pos": [
      0.15,
@@ -3500,27 +3627,10 @@
      ],
      "fov": 40
     },
-    "dur": 2.88,
+    "dur": 2.58,
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "wT",
-     "do": "expr",
-     "set": {
-      "eye": 1.3,
-      "pupil": 0.7,
-      "curve": -0.1,
-      "open": 0.15
-     },
-     "dur": 0.01,
-     "at": 0.004
-    },
-    {
-     "sfx": "ai/snare-hit",
-     "gain": 0.3,
-     "at": 0.004
-    },
     {
      "who": "w",
      "do": "arm",
@@ -3541,7 +3651,24 @@
      },
      "dur": 0.01,
      "ease": "out",
-     "at": 0.021
+     "at": 0.02
+    },
+    {
+     "who": "wT",
+     "do": "expr",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.7,
+      "curve": -0.1,
+      "open": 0.15
+     },
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "sfx": "ai/snare-hit",
+     "gain": 0.3,
+     "at": 0.02
     },
     {
      "who": "w",
@@ -3550,7 +3677,7 @@
      "pose": "rest",
      "dur": 0.4,
      "ease": "settle",
-     "at": 0.031
+     "at": 0.03
     },
     {
      "who": "w",
@@ -3558,14 +3685,14 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.3,
-     "at": 0.031
+     "at": 0.03
     },
     {
      "who": "rep",
      "do": "crouch",
-     "to": 0.1,
+     "to": 0.3,
      "dur": 0.25,
-     "at": 0.204
+     "at": 0.22
     },
     {
      "who": "rep",
@@ -3574,7 +3701,7 @@
       "open": 0.1
      },
      "dur": 0.05,
-     "at": 0.944
+     "at": 0.66
     },
     {
      "who": "rep",
@@ -3585,7 +3712,14 @@
      "voice": "reaper",
      "dur": 1.68,
      "caption": false,
-     "at": 1.004
+     "at": 0.72
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.12,
+     "dur": 0.2,
+     "at": 1.62
     },
     {
      "do": "prop",
@@ -3595,7 +3729,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3605,7 +3739,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3615,7 +3749,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3625,22 +3759,22 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "kid2",
      "do": "hide",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "wT",
      "do": "hide",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "kid3",
      "do": "show",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3650,7 +3784,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3660,7 +3794,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3670,7 +3804,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3680,7 +3814,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3690,7 +3824,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3700,7 +3834,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -3710,7 +3844,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "dadU",
@@ -3719,7 +3853,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "dadU",
@@ -3727,7 +3861,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "dadU",
@@ -3740,7 +3874,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "kid3",
@@ -3748,7 +3882,7 @@
      "dur": 0,
      "hands": "lap",
      "height": 0.01,
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "kid3",
@@ -3756,14 +3890,14 @@
      "side": "L",
      "pose": {
       "o": [
-       0.06,
-       0.62,
-       0.22
+       -0.2,
+       0.55,
+       0.32
       ]
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "kid3",
@@ -3771,14 +3905,21 @@
      "side": "R",
      "pose": {
       "o": [
-       0.06,
-       0.62,
-       0.22
+       -0.2,
+       0.55,
+       0.32
       ]
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.847
+     "at": 2.58
+    },
+    {
+     "who": "kid3",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.01,
+     "at": 2.58
     },
     {
      "who": "kid3",
@@ -3786,7 +3927,7 @@
      "side": "L",
      "shape": "flat",
      "dur": 0.01,
-     "at": 2.847
+     "at": 2.58
     },
     {
      "who": "kid3",
@@ -3794,38 +3935,38 @@
      "side": "R",
      "shape": "flat",
      "dur": 0.01,
-     "at": 2.847
+     "at": 2.58
     }
    ]
   },
   {
    "name": "under",
-   "at": 51.833,
+   "at": 51,
    "len": 1.5,
    "shot": {
     "pos": [
-     0.15,
+     0.05,
      0.3,
      2.5
     ],
     "look": [
-     0.15,
-     0.25,
+     -0.05,
+     0.24,
      0
     ],
-    "fov": 44,
+    "fov": 30,
     "to": {
      "pos": [
-      0.15,
-      0.298,
+      0.045,
+      0.297,
       2.375
      ],
      "look": [
-      0.15,
-      0.25,
+      -0.05,
+      0.24,
       0
      ],
-     "fov": 44
+     "fov": 30
     },
     "dur": 1.5,
     "ease": "inOut"
@@ -3838,7 +3979,14 @@
       "curve": -0.4
      },
      "dur": 0.01,
-     "at": 0.017
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -3958,13 +4106,6 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.48
-    },
-    {
-     "who": "dad",
-     "do": "turn",
-     "to": -20,
-     "dur": 0.01,
      "at": 1.48
     },
     {
@@ -4019,8 +4160,8 @@
   },
   {
    "name": "the bill",
-   "at": 53.333,
-   "len": 1.667,
+   "at": 52.5,
+   "len": 1.633,
    "shot": {
     "pos": [
      1.6,
@@ -4051,15 +4192,14 @@
    },
    "do": [
     {
-     "who": "dad",
-     "do": "expr",
-     "set": {
-      "eye": 0.9,
-      "curve": 0.9,
-      "open": 0.3
-     },
-     "dur": 0.01,
-     "at": 0.017
+     "who": "w",
+     "do": "walk",
+     "to": [
+      -1.5,
+      -1
+     ],
+     "dur": 0.55,
+     "at": 0.08
     },
     {
      "who": "w",
@@ -4070,37 +4210,12 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.117
+     "at": 0.1
     },
     {
      "sfx": "ai/snare-hit",
      "gain": 0.2,
-     "at": 0.137
-    },
-    {
-     "who": "w",
-     "do": "walk",
-     "to": [
-      -1.5,
-      -1
-     ],
-     "dur": 0.7,
-     "at": 0.267
-    },
-    {
-     "who": "dad",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.25,
-       0.35,
-       0.55
-      ]
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 0.717
+     "at": 0.12
     },
     {
      "who": "w",
@@ -4109,8 +4224,8 @@
       -2.6,
       -2.4
      ],
-     "dur": 0.8,
-     "at": 0.967
+     "dur": 0.7,
+     "at": 0.63
     },
     {
      "do": "prop",
@@ -4120,7 +4235,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.647
+     "at": 1.613
     },
     {
      "do": "prop",
@@ -4130,7 +4245,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.647
+     "at": 1.613
     },
     {
      "who": "dad",
@@ -4138,7 +4253,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.01,
-     "at": 1.647
+     "at": 1.613
     },
     {
      "who": "dad",
@@ -4160,7 +4275,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.647
+     "at": 1.613
     },
     {
      "who": "dad",
@@ -4177,16 +4292,7 @@
      },
      "dur": 0.01,
      "ease": "settle",
-     "at": 1.657
-    },
-    {
-     "who": "dad",
-     "do": "expr",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.05,
-     "at": 1.657
+     "at": 1.623
     },
     {
      "who": "dad",
@@ -4194,38 +4300,38 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 1.663
+     "at": 1.629
     }
    ]
   },
   {
    "name": "tip stop",
-   "at": 55,
-   "len": 2.433,
+   "at": 54.133,
+   "len": 2.434,
    "shot": {
     "pos": [
-     0.3,
+     0.28,
      1.3,
-     1.75
+     1.95
     ],
     "look": [
-     0.62,
+     0.66,
      0.8,
      0.1
     ],
-    "fov": 36,
+    "fov": 38,
     "to": {
      "pos": [
-      0.36,
-      1.18,
-      1.5
+      0.3,
+      1.28,
+      1.85
      ],
      "look": [
-      0.62,
-      0.76,
+      0.66,
+      0.79,
       0.1
      ],
-     "fov": 36
+     "fov": 38
     },
     "dur": 1,
     "ease": "inOut"
@@ -4233,36 +4339,23 @@
    "do": [
     {
      "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "dad",
      "do": "look",
      "to": [
       0.1,
-      -0.6
+      -0.95
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0
-    },
-    {
-     "who": "dad",
-     "do": "expr",
-     "set": {
-      "eye": 0.9,
-      "curve": 0.9,
-      "open": 0.3
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "dad",
-     "macro": "say",
-     "line": "Tip... stop.",
-     "tone": "sad",
-     "style": "reading the bill, slow, deflated, the smile gone",
-     "voice": "dad",
-     "dur": 1.88,
-     "caption": false,
-     "at": 0.05
+     "at": 0.017
     },
     {
      "who": "dad",
@@ -4280,6 +4373,17 @@
     },
     {
      "who": "dad",
+     "macro": "say",
+     "line": "Tip... stop.",
+     "tone": "sad",
+     "style": "reading the bill, slow, deflated, the smile gone",
+     "voice": "dad",
+     "dur": 1.88,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "dad",
      "do": "expr",
      "set": {
       "eye": 0.8,
@@ -4287,21 +4391,21 @@
       "curve": -0.3
      },
      "dur": 0.5,
-     "at": 0.25
+     "at": 0.267
     },
     {
      "who": "dad",
      "do": "face",
      "lid": 0.4,
      "dur": 0.4,
-     "at": 0.25
+     "at": 0.267
     },
     {
      "who": "dad",
      "do": "squash",
      "amount": 0.03,
      "dur": 0.5,
-     "at": 0.35
+     "at": 0.367
     }
    ],
    "kind": "payoff"
@@ -4310,7 +4414,7 @@
  "visible": [
   {
    "from": 0,
-   "to": 3.84,
+   "to": 3.69,
    "see": [
     "w.face",
     "dad.face",
@@ -4319,8 +4423,8 @@
    "why": "a nervous waiter walks up to a table: a big dad grinning, his small son begging him with his eyes"
   },
   {
-   "from": 55,
-   "to": 57.433,
+   "from": 54.15,
+   "to": 56.567,
    "see": [
     "dad.face",
     "billB"
@@ -4333,42 +4437,42 @@
    "who": "dad",
    "with": "cDad",
    "from": 0,
-   "to": 57.433,
+   "to": 56.567,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "kid",
    "with": "cKid",
    "from": 0,
-   "to": 57.433,
+   "to": 56.567,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "rep",
    "with": "cRep",
    "from": 0,
-   "to": 57.433,
+   "to": 56.567,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "cook",
    "with": "crate",
    "from": 0,
-   "to": 57.433,
+   "to": 56.567,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "kid3",
    "with": "cheat",
    "from": 0,
-   "to": 57.433,
+   "to": 56.567,
    "reason": "sitting on the chair / standing on the crate / under the cheat table"
   },
   {
    "who": "w",
    "with": "apron",
    "from": 0,
-   "to": 57.433,
+   "to": 56.567,
    "checks": [
     "clipping",
     "arm-in-prop"
@@ -4379,7 +4483,7 @@
    "who": "wT",
    "with": "apronT",
    "from": 0,
-   "to": 57.433,
+   "to": 56.567,
    "checks": [
     "clipping",
     "arm-in-prop"
@@ -4387,10 +4491,40 @@
    "reason": "his own worn apron wraps his body; the pad arm brushes its front (3 cm, the apron cloth)"
   },
   {
+   "who": "kid3",
+   "with": "kid3",
+   "from": 50.98,
+   "to": 52.48,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "under the table he hides his face in his hands: the point of the shot (Sol r1 #4); no line, his curled body reads"
+  },
+  {
+   "who": "cook",
+   "with": "cook",
+   "from": 36.58,
+   "to": 38.98,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "praying palms raised to his chin in the porthole (Sol r1 #14): the draft still shows both eyes over the fingertips"
+  },
+  {
+   "who": "wT",
+   "with": "glassB",
+   "from": 24.213,
+   "to": 28.18,
+   "checks": [
+    "arm-in-prop"
+   ],
+   "reason": "the glass stands on the tray he carries; his left forearm brushes its far side by 3 cm, behind the glass from the lens"
+  },
+  {
    "who": "dadU",
    "with": "cheat",
-   "from": 51.813,
-   "to": 53.313,
+   "from": 50.98,
+   "to": 52.48,
    "checks": [
     "shell",
     "clipping"
