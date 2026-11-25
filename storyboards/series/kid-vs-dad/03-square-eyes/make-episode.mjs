@@ -157,7 +157,15 @@ say(5); sfx(r3(T[5] + 0.5), "click", 0.4);
 const tCheck1 = cutAt(6, 0.5);
 place(tCheck1, "rep", REP_CHECK, REP_CHECK_ROT);
 A(r3(tCheck1 - 0.02), "rep", "crouch", { to: 0.22, dur: 0.01 });
-tool(tCheck1, RULER, RULER_AT, (c2, w, sp) => grips.thin(c2, w, sp, { side: "L", from: 0.5, roll: 75 }));
+// the ruler: taken at his post during the wide (he is off its frame), carried up to Tato's eye on the cut (taken on the cut
+// itself, the kid's shot before it saw the ruler arrive and the arm sweep in: draft 1 pop at 20.67 s)
+{ const a = (-28 * Math.PI) / 180, at = [r3(REP[0] + Math.cos(a) * 0.42 + Math.sin(a) * 0.05), 0.40, r3(REP[1] - Math.sin(a) * 0.42 + Math.cos(a) * 0.05)];
+  const start = { ...grips.placeFor("smallruler", at, -28), roll: 75 }, tTake = r3(T[4] + 1.0);
+  c.prop(r3(tTake - 0.02), "ruler", start, 0);
+  const h = grips.thin(c, "rep", { ...RULER, ...start }, { side: "L", from: 0.5, roll: 75 });
+  h.take(tTake, { reach: 0.3, settle: 0.2 });
+  h.carry(r3(tCheck1 - 0.02), [RULER_AT.x, RULER_AT.y, RULER_AT.z], 0.01, "linear");
+  c.prop(r3(tCheck1 - 0.02), "ruler", { rot: RULER_AT.rot }, 0.01); }
 shots.push(["eye check", tCheck1, push(CHECK, 0.10, r3(END_OF(7) - tCheck1 + 0.3))]);
 say(6); say(7);
 expr(T[7] - 0.1, "rep", { eye: 1.0, curve: 0.15, tilt: 0 }, 0.2);
@@ -178,7 +186,7 @@ tool(tCheck2, CHART, CHART_AT, (c2, w, sp) => grips.phone(c2, w, sp, { side: "L"
 shots.push(["read the top line", tCheck2, push(CHECK, 0.12, r3(END_OF(11) - tCheck2 + 0.3))]);
 say(9); say(10); say(11);
 expr(T[11] - 0.1, "rep", { eye: 0.75, browY: -0.03, tilt: -0.1 }, 0.25);
-shots.push(["so small", cutAt(12), push(DAD_CU, 0.08, DUR[12] + 0.5)]);
+shots.push(["so small", cutAt(12), push(DADC, 0.10, DUR[12] + 0.5)]);   // wide enough to show the phone at his nose
 c.arm(r3(T[12] - 0.2), "wedge", "L", DAD_PHONE_CLOSE, 0.35);   // tease 2: he brings the phone up to his nose
 expr(T[12] - 0.2, "wedge", { eye: 0.4, tilt: -0.15, curve: -0.2 }, 0.25);
 say(12);
@@ -207,7 +215,7 @@ A(r3(T[16] + 0.1), "mash", "blink", { dur: 0.27 });
 const tClock3 = cutAt(18, 2.0);
 A(r3(tClock3 - 0.02), "mash", "hide");
 c.prop(r3(tClock3 - 0.02), "clock", { time: 23 }, 0);
-c.prop(tClock3, "clock", { time: 27 }, 1.6);   // the hands spin to 3 am
+c.prop(tClock3, "clock", { time: 27 }, 1.8);   // the hands spin to 3 am
 shots.push(["3 am", tClock3, push(CLOCKC, 0.10, 1.95)]);
 sfx(tClock3, "whoosh", 0.3);
 place(cutAt(18), "rep", REP_CHECK, REP_CHECK_ROT); A(r3(cutAt(18) - 0.02), "rep", "show");
@@ -216,7 +224,7 @@ A(cutAt(18), "spud", "lean", { to: 0.25, dur: 0.01 });   // closer to the screen
 shots.push(["whole season", cutAt(18), push(WIDE, 0.18, DUR[18] + GAP[19])]);
 say(18);
 const tTorch = cutAt(19, 0.6);
-tool(tTorch, TORCH, TORCH_AT, (c2, w, sp) => grips.mug(c2, w, sp, { side: "L" }));
+tool(cutAt(18), TORCH, TORCH_AT, (c2, w, sp) => grips.mug(c2, w, sp, { side: "L" }));   // in hand already on the wide (taken on the clock shot)
 c.prop(r3(tTorch - 0.02), "beam", { x: r3(HAND_AT[0] + 0.08), y: 0.80, z: HAND_AT[2], rot: 90, on: 0 }, 0);
 c.prop(r3(tTorch + 0.25), "beam", { on: 1 }, 0.1);
 sfx(r3(tTorch + 0.25), "click", 0.5);

@@ -1163,6 +1163,103 @@
      "at": 0.1
     },
     {
+     "do": "prop",
+     "id": "ruler",
+     "set": {
+      "x": 2.007,
+      "y": 0.4,
+      "z": 0.021,
+      "rot": 152,
+      "roll": 75
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.08
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 35,
+      "lean": 30,
+      "thin": 0.001,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.2,
+     "at": 1.1
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ruler",
+      "grip": [
+       0,
+       0.01,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       0.081,
+       0.07,
+       -0.002
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ruler",
+      "grip": [
+       0,
+       0.01,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 75,
+      "lean": 30,
+      "thin": 0.001
+     },
+     "dur": 0.12,
+     "at": 1.52
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "ruler",
+     "hand": "L",
+     "grip": [
+      0,
+      0.01,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 1.66
+    },
+    {
      "who": "wedge",
      "do": "grip",
      "side": "L",
@@ -1261,103 +1358,6 @@
      "at": 0.56
     },
     {
-     "do": "prop",
-     "id": "ruler",
-     "set": {
-      "x": -0.524,
-      "y": 0.76,
-      "z": -1.231,
-      "rot": 337,
-      "roll": 75
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 0.86
-    },
-    {
-     "who": "rep",
-     "do": "grip",
-     "side": "L",
-     "shape": "tip",
-     "set": {
-      "roll": 35,
-      "lean": 30,
-      "thin": 0.001,
-      "close": 0,
-      "curl": 0.7,
-      "index": 0.5
-     },
-     "dur": 0.01,
-     "at": 0.88
-    },
-    {
-     "who": "rep",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "ruler",
-      "grip": [
-       0,
-       0.01,
-       0
-      ],
-      "point": "pinch",
-      "off": [
-       -0.08,
-       0.07,
-       0.009
-      ]
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.88
-    },
-    {
-     "who": "rep",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "ruler",
-      "grip": [
-       0,
-       0.01,
-       0
-      ],
-      "point": "pinch"
-     },
-     "dur": 0.01,
-     "ease": "out",
-     "at": 0.89
-    },
-    {
-     "who": "rep",
-     "do": "grip",
-     "side": "L",
-     "shape": "tip",
-     "set": {
-      "roll": 75,
-      "lean": 30,
-      "thin": 0.001
-     },
-     "dur": 0.12,
-     "at": 0.896
-    },
-    {
-     "who": "rep",
-     "do": "grab",
-     "prop": "ruler",
-     "hand": "L",
-     "grip": [
-      0,
-      0.01,
-      0
-     ],
-     "dur": 0,
-     "pose": null,
-     "point": "pinch",
-     "at": 0.96
-    },
-    {
      "who": "rep",
      "do": "move",
      "to": [
@@ -1383,6 +1383,38 @@
      "do": "crouch",
      "to": 0.22,
      "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ruler",
+      "grip": [
+       0,
+       0.01,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.524,
+       0.76,
+       -1.231
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "ruler",
+     "set": {
+      "rot": 337
+     },
+     "dur": 0.01,
+     "ease": "inOut",
      "at": 0.98
     }
    ]
@@ -1852,28 +1884,28 @@
    "len": 2.834,
    "shot": {
     "pos": [
-     0.6,
-     1,
-     0.55
+     0.47,
+     1.01,
+     2.5
     ],
     "look": [
-     0.75,
-     0.99,
-     -1.3
+     0.73,
+     1.01,
+     -1.17
     ],
-    "fov": 34,
+    "fov": 36,
     "to": {
      "pos": [
-      0.612,
-      0.999,
-      0.402
+      0.496,
+      1.01,
+      2.133
      ],
      "look": [
-      0.75,
-      0.99,
-      -1.3
+      0.73,
+      1.01,
+      -1.17
      ],
-     "fov": 34
+     "fov": 36
     },
     "dur": 2.83,
     "ease": "inOut"
@@ -2324,7 +2356,7 @@
      "set": {
       "time": 27
      },
-     "dur": 1.6,
+     "dur": 1.8,
      "ease": "inOut",
      "at": 0.033
     },
@@ -2347,6 +2379,89 @@
      "shape": "hold",
      "dur": 0.12,
      "at": 0.56
+    },
+    {
+     "do": "prop",
+     "id": "torch",
+     "set": {
+      "x": -0.524,
+      "y": 0.7,
+      "z": -1.231,
+      "rot": 337,
+      "tip": 90
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.86
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "torch",
+      "grip": [
+       -0.075,
+       0.132,
+       0.02
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.069,
+       0.02,
+       -0.01
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "torch",
+      "grip": [
+       -0.075,
+       0.132,
+       0.02
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 1.89
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.896
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "torch",
+     "hand": "L",
+     "grip": [
+      -0.075,
+      0.132,
+      0.02
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 1.96
     },
     {
      "who": "rep",
@@ -2451,95 +2566,12 @@
      "at": 0.56
     },
     {
-     "do": "prop",
-     "id": "torch",
-     "set": {
-      "x": -0.524,
-      "y": 0.7,
-      "z": -1.231,
-      "rot": 337,
-      "tip": 90
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 2.827
-    },
-    {
-     "who": "rep",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.01,
-     "at": 2.847
-    },
-    {
-     "who": "rep",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "torch",
-      "grip": [
-       -0.075,
-       0.132,
-       0.02
-      ],
-      "palm": "wrap",
-      "off": [
-       -0.069,
-       0.02,
-       -0.01
-      ]
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 2.847
-    },
-    {
-     "who": "rep",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "torch",
-      "grip": [
-       -0.075,
-       0.132,
-       0.02
-      ],
-      "palm": "wrap"
-     },
-     "dur": 0.01,
-     "ease": "settle",
-     "at": 2.857
-    },
-    {
-     "who": "rep",
-     "do": "grip",
-     "side": "L",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 2.863
-    },
-    {
      "who": "wedge",
      "do": "grip",
      "side": "L",
      "shape": "scroll",
      "dur": 0.1,
      "at": 2.9
-    },
-    {
-     "who": "rep",
-     "do": "grab",
-     "prop": "torch",
-     "hand": "L",
-     "grip": [
-      -0.075,
-      0.132,
-      0.02
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 2.927
     },
     {
      "do": "prop",
