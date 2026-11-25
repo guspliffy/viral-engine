@@ -277,7 +277,7 @@ expr(TBLK, "spud", FACES.frozen, 0.06); A(TBLK, "spud", "noblink", { dur: 3 }); 
 arm(r3(TBLK + 0.05), "spud", "L", { o: [-0.06, 0.30, 0.26] }, 0.15); arm(r3(TBLK + 0.05), "spud", "R", { o: [-0.06, 0.30, 0.26] }, 0.15);
 grip(r3(TBLK + 0.05), "spud", "L", "flat", 0.1); grip(r3(TBLK + 0.05), "spud", "R", "flat", 0.1);
 say(11, r3(TBLK + 0.55));
-const BLOCKC = { pos: [r3(HX - 0.55), 0.60, 2.80], look: [r3(HX - 0.45), 0.40, 0.20], fov: 38 };
+const BLOCKC = { pos: [r3(HX + 1.30), 0.60, 2.30], look: [r3(HX - 0.10), 0.40, 0.25], fov: 42 };   // from ahead of him: his face as he freezes
 shot("halfway there", T08, push(BLOCKC, 0.1, END_OF(11) - T08 + 0.3));
 
 // ---------------------------------------------------------------- NIGHT 3: the whole bag, orange, glowing eyes, the spy roll
@@ -346,14 +346,13 @@ P(r3(T13 + 1.0), "gog", { lit: 1 }, 0.15); sfx(r3(T13 + 1.0), "lampbuzz", { gain
 say(15, r3(T13 + 1.45));
 const REACHC = { pos: [-4.25, 1.45, 0.05], look: [-4.50, 1.12, -1.40], fov: 44 };
 shot("reach", T13, push(REACHC, 0.06, 0.95));
-const LENSC = { pos: [-4.10, 1.15, 1.00], look: [-4.15, 1.08, -1.20], fov: 34 };   // the two green lenses light up in the black next to the jar
+const LENSC = { pos: [-4.05, 1.18, 1.35], look: [-4.25, 1.08, -1.25], fov: 38 };   // the two green lenses light up in the black next to the jar
 shot("contact", r3(T13 + 0.95), push(LENSC, 0.08, END_OF(15) - T13 - 0.55), "reveal");
 
 // ---------------------------------------------------------------- END: the fridge light, Dad in goggles, hand in the jar
 const T14 = r3(END_OF(15) + 0.35);
 state(T14, "fridge", 0.12, 0.12); P(onCut(T14), "moonK", { on: 0 }, 0); P(onCut(T14), "shine", { on: 0 }, 0);
 P(T14, "fridge", { open: 1 }, 0.35, "out"); P(r3(T14 + 0.05), "fridge", { lit: 1 }, 0.05, "linear"); sfx(T14, "door-open", { gain: 0.4 });
-P(r3(T14 + 0.25), "fridge", { lit: 0 }, 0.01, "linear"); P(r3(T14 + 0.317), "fridge", { lit: 1 }, 0.01, "linear");
 arm(onCut(T14), "spud", "R", { o: [0.05, 0.40, 0.25] }, 0.01); arm(onCut(T14), "spud", "L", { o: [0.05, 0.40, 0.25] }, 0.01);
 A(r3(T14 + 0.05), "dad", "squash", { amount: 0.05, dur: 0.1 });
 expr(T14, "spud", FACES.flat, 0.01); look(T14, "spud", [0.7, 0], 0.01);
