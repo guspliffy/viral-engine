@@ -9,6 +9,11 @@
 //
 //   node tools/vocab.mjs            -> writes docs/VOCAB.md
 //   node tools/vocab.mjs --check    -> exits 1 when docs/VOCAB.md is not what the code gives now
+// By topic (on trial from 25 Nov 2026, engine audit: the sheet is ~25,000 characters and the workflow asked for all of it
+// at the start and after every compaction; the camera section is under 300). Each also rewrites docs/VOCAB.md:
+//   node tools/vocab.mjs --index              -> the sections and their sizes (a few hundred characters)
+//   node tools/vocab.mjs --section camera,sounds   -> only those sections (a part of the heading is enough)
+//   node tools/vocab.mjs --find cup           -> only the lines that name it, under their section
 //
 // docs/VOCAB.md is not committed (.gitignore): the session-start hook writes it, and so does the "Rule docs" CI job
 // before it lints the docs, so the sheet is never stale and two branches that both add a prop never conflict on it.
@@ -156,4 +161,22 @@ if (process.argv.includes("--check")) {
   const have = fs.existsSync(out) ? fs.readFileSync(out, "utf8") : "";
   if (have !== text) { console.error("docs/VOCAB.md is out of date: run `node tools/vocab.mjs` (a name the engine knows changed)"); process.exit(1); }
   console.log("docs/VOCAB.md matches the code");
-} else { fs.writeFileSync(out, text); console.log(`wrote docs/VOCAB.md (${(text.length / 1024).toFixed(1)} KB)`); }
+} else {
+  fs.writeFileSync(out, text);
+  const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? (process.argv[i + 1] || "") : null; };
+  const secs = text.split(/\n(?=## )/).slice(1).map((b) => ({ head: b.slice(3, b.indexOf("\n")).trim(), body: b.trim() }));
+  const want = arg("--section"), find = arg("--find");
+  if (process.argv.includes("--index")) {
+    console.log(`docs/VOCAB.md by section (node tools/vocab.mjs --section <part of a heading>[,...]; --find <name>):`);
+    for (const x of secs) console.log(`- ${x.head} (${x.body.length} characters)`);
+  } else if (want != null) {
+    const keys = want.toLowerCase().split(",").map((k) => k.trim()).filter(Boolean);
+    const hit = secs.filter((x) => keys.some((k) => x.head.toLowerCase().includes(k)));
+    if (!hit.length) { console.error(`no section matches "${want}": ${secs.map((x) => x.head).join(", ")}`); process.exit(1); }
+    console.log(hit.map((x) => x.body).join("\n\n"));
+  } else if (find != null) {
+    const k = find.toLowerCase(); let n = 0;
+    for (const x of secs) { const l = x.body.split("\n").slice(1).filter((y) => y.toLowerCase().includes(k)); if (l.length) { n += l.length; console.log(`## ${x.head}\n${l.map((y) => { if (y.length <= 300) return y; const c = y.indexOf(": "); return (c > 0 ? y.slice(0, c + 2) : "") + (c > 0 ? y.slice(c + 2) : y).split(", ").filter((z) => z.toLowerCase().includes(k)).join(", ") + " (only the names that match)"; }).join("\n")}`); } }
+    if (!n) { console.error(`"${find}" is not on the sheet: it is not a name the engine knows (or look in docs/STORYBOARD.md)`); process.exit(1); }
+  } else console.log(`wrote docs/VOCAB.md (${(text.length / 1024).toFixed(1)} KB)`);
+}
