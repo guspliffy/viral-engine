@@ -3,8 +3,10 @@
 import { spawnSync } from "node:child_process";
 
 // the picture scaled to w x h (area average, so a half-size copy keeps thin lines as soft lines), 3 bytes a pixel
-export function readRGB(file, w, h) {
-  const r = spawnSync("ffmpeg", ["-v", "error", "-i", file, "-vf", `scale=${w}:${h}:flags=area`, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], { maxBuffer: 1 << 28 });
+// flags "area" averages (pictures); "neighbor" keeps each pixel's exact value, for label maps such as the character
+// id mask: averaging ids 0 and 4 along an outline made id 2, a pixel of another cast member (engine audit, 24 Nov 2026)
+export function readRGB(file, w, h, flags = "area") {
+  const r = spawnSync("ffmpeg", ["-v", "error", "-i", file, "-vf", `scale=${w}:${h}:flags=${flags}`, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], { maxBuffer: 1 << 28 });
   if (r.status !== 0 || r.stdout.length !== w * h * 3) throw new Error(`can't read ${file}: ${String(r.stderr).slice(-500)}`);
   return r.stdout;
 }

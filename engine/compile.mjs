@@ -140,7 +140,7 @@ function compileBeats(sb) {
     const when = (at) => {
       if (at == null) return 0;
       if (typeof at === "number") return at;
-      const m = String(at).match(/^(\+|voice\+|end-)([\d.]+)$/);
+      const m = String(at).match(/^(\+|voice\+|end-)(\d+(?:\.\d+)?|\.\d+)$/);   // one number: "+1..2" was NaN (engine audit)
       if (!m) throw new Error(`beat "${b.name ?? bi}": bad time "${at}" (use seconds, "+0.2", "voice+0.2" or "end-0.3")`);
       if (m[1] === "+") return prevEnd + Number(m[2]);
       if (m[1] === "voice+") return prevVoiceEnd + Number(m[2]);

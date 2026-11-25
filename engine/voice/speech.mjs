@@ -84,12 +84,15 @@ export function withSpeech(sb, chars) {
   const castVoice = (who) => { const c = (sb.cast || []).find((x) => x.id === who); return c && chars[c.character]?.tts; };
   const add = (item, voice, opts) => { const rec = recipe(voice); if (rec) lines.push({ item, rec, job: job(item.line, rec, opts) }); };
   const recs = [], babble = [];
-  for (const b of out.beats || []) for (const it of b.do || []) {
+  // the compiler's precedence (engine/compile.mjs compileBeats): flat "actions" win, and a "beats" list beside them is
+  // notes; before, a notes-only "beats" list made every flat line lose its real voice (engine audit, 24 Nov 2026)
+  const flat = Array.isArray(out.actions);
+  for (const b of (flat ? [] : out.beats || [])) for (const it of b.do || []) {
     if (it.macro === "say" && it.line && it.rec) { recs.push(it); continue; }
     if (it.macro === "say" && it.line && it.voice !== false) { const v = it.voice ?? castVoice(it.who); if (v == null) babble.push(it); add(it, v, it); }
     if (it.macro === "narrate" && it.line) add(it, it.voice ?? "storyteller-warm", it);
   }
-  if (!out.beats) for (const a of out.actions || []) if (a.do === "talk" && a.line && a.voice !== false) add(a, a.voice ?? castVoice(a.who), a);
+  if (flat || !Array.isArray(out.beats)) for (const a of out.actions || []) if (a.do === "talk" && a.line && a.voice !== false) add(a, a.voice ?? castVoice(a.who), a);
   // recorded lines (an actor's own voice): the mouth and word timings come from the character's synthetic voice
   // reading the same text, warped onto the recording, so that voice is synthesised too
   const recJobs = recs.map((it) => {
