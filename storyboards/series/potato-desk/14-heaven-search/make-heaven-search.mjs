@@ -39,9 +39,9 @@ const END_OF = (i) => r3(T[i] + DUR[i]);
 // ---------------------------------------------------------------- marks (DESIGN section 1)
 const M = {
   angel: W(1.13, 0, -1.50), gun: W(-0.20, 0, -1.32),
-  H0: W(-0.68, 0, -0.72), H1: W(-0.20, 0, -1.25), H2: W(0.28, 0, -1.12), K: W(-0.20, 0, -1.28),
+  H0: W(-0.95, 0, -0.55), H1: W(-0.20, 0, -1.25), H2: W(0.02, 0, -1.20), K: W(-0.20, 0, -1.28),
   CH0: W(-1.05, -0.22, -0.15), C1: W(-0.78, 0, -0.56),
-  duchess: W(-0.88, -0.44, 0.75), tot: W(0.55, -0.44, 0.80), dauphin: W(0.85, -0.66, 1.30), rosti: W(-0.60, -0.88, 1.75),
+  duchess: W(-0.88, -0.44, 0.75), tot: W(0.55, -0.44, 0.80), dauphin: W(1.08, -0.66, 1.30), rosti: W(-0.60, -0.88, 1.75),
 };
 const QUEUE = ["duchess", "tot", "dauphin", "rosti"];
 const cast = [
@@ -94,11 +94,12 @@ const CAPTEXT = {
   10: "\"How to save a baby bird\"", 12: "\"How to get a *new* best friend\"", 15: "Oh. *The last one.*",
   17: "\"How to delete *search history*\"", 18: "*Hell.*",
 };
+const CAPPOS = { 5: 300, 9: 300, 11: 300 };   // R-POV shots: the queue's faces fill rows 645-800, the band sat over them (preflight 1)   // per line: caption row when the shot needs it higher than SUB
 const say = (i, at, extra = {}) => {
   T[i] = r3(at);
   const [who, line, tone, style, o = {}] = LINES[i];
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false, ...extra });
-  cap(T[i], r3(END_OF(i) + 0.3), CAPTEXT[i] ?? line, SUB, false, { size: 60 });
+  cap(T[i], r3(END_OF(i) + 0.3), CAPTEXT[i] ?? line, CAPPOS[i] ?? SUB, false, { size: 60 });
   return END_OF(i);
 };
 const arm = (t, who, side, pose, dur = 0.3, ease = "inOut") => A(t, who, "arm", { side, pose, dur, ease });
@@ -118,11 +119,11 @@ const step = (t, who, p, dur, o = {}) => A(t, who, "move", { to: xz(p), y: p[1],
 const drop = (t, who) => {
   c.prop(r3(t), "trap", { open: 1.06 }, 0.13, "in"); c.prop(r3(t + 0.13), "trap", { open: 1 }, 0.1, "out");
   sfx(r3(t), "latch", { gain: 0.6 }); sfx(r3(t + 0.05), "kenney/impact-plank-medium", { gain: 0.45 });
-  arm(r3(t + 0.02), who, "both", "up", 0.12, "out"); expr(r3(t + 0.02), who, "terrified", 0.06);
+  arm(r3(t + 0.02), who, "both", { o: [0.42, 0.78, 0.06] }, 0.12, "out"); expr(r3(t + 0.02), who, "terrified", 0.06);   // wide of the hat brim
   const p = who === "gun" ? M.gun : M.K;
-  A(r3(t + 0.08), who, "move", { to: xz(p), y: -2.4, dur: 0.42, ease: "in" });
-  A(r3(t + 0.52), who, "hide");
-  return r3(t + 0.52);
+  A(r3(t + 0.14), who, "move", { to: xz(p), y: -2.4, dur: 0.6, ease: "in" });   // hangs 4 frames, then falls (draft 1: gone in one frame)
+  A(r3(t + 0.74), who, "hide");
+  return r3(t + 0.74);
 };
 const shut = (t) => { c.prop(r3(t), "trap", { open: -0.04 }, 0.17, "in"); c.prop(r3(t + 0.17), "trap", { open: 0 }, 0.07, "out"); sfx(r3(t + 0.17), "slam", { gain: 0.45 }); };
 const crack = (t, v, dur = 0.4) => { prop(t, "trap", { crack: v }, dur, "out"); sfx(t, "creak", { gain: 0.3 }); };
@@ -181,6 +182,8 @@ const shots = [];
 let heroYaw = null;
 const shot = (name, key, t, move, kind) => {
   const at = F2(t); shots.push({ name, at, s: CAM[key], move, kind }); CUTS.add(at);
+  // R cameras stand behind the gate: it is hidden in those shots (DESIGN open question 1, default yes; draft 1 had its bars over every face)
+  c.prop(r3(at - 0.02), "gate", { y: R.has(key) ? AWAY : W(0, 0, 0)[1] }, 0);
   return at;
 };
 const face = (t, key, yaw) => { snapTurn(t, "spud", yaw ?? (R.has(key) ? 180 : 70)); };
@@ -188,7 +191,7 @@ const face = (t, key, yaw) => { snapTurn(t, "spud", yaw ?? (R.has(key) ? 180 : 7
 // ================================================================ 1 HOOK: the rule shown working (panels 01-02)
 look(0, "angel", [0.0, -0.6], 0.01); expr(0, "angel", "deadpan", 0.01); A(0, "angel", "face", { lid: 0.45, dur: 0.01 });
 arm(0, "angel", "R", BUTTON_POSE, 0.01); arm(0, "angel", "L", TABLET_POSE, 0.01); grip(0, "angel", "R", "point", 0.01);
-look(0, "gun", [1.2, 0.5], 0.01); arm(0, "gun", "both", "hips", 0.01);
+look(0, "gun", [1.2, 0.5], 0.01); arm(0, "gun", "both", "rest", 0.01);
 look(0, "spud", [0.5, -0.4], 0.01); arm(0, "spud", "both", "rest", 0.01);
 QUEUE.forEach((q) => { look(0, q, [0, 0.4], 0.01); arm(0, q, "both", "rest", 0.01); });
 look(0, "chip", [0.6, 0.2], 0.01);
@@ -249,9 +252,9 @@ search(4, 0);   // plants
 t = shot("chuckle", "POV", r3(e + 0.1), drift(0.15));
 face(t, "POV");
 queue(r3(t + 0.05), MOUTH, "happy", 1.2);
-arm(r3(t + 0.15), "spud", "R", "hat", 0.25); expr(r3(t + 0.15), "spud", "kind");   // scratches by his leaf
+arm(r3(t + 0.15), "spud", "both", "shrug", 0.25); expr(r3(t + 0.15), "spud", "kind");   // an awkward shrug (the leaf scratch put the arm through his chest, preflight 1)
 e = say(5, r3(t + 0.45));   // Fine.
-arm(r3(e + 0.2), "spud", "R", "rest", 0.3);
+arm(r3(e + 0.2), "spud", "both", "rest", 0.3);
 
 search(6, 1);   // pay me back
 crack(r3(e - 0.1), 0.25);
@@ -284,12 +287,12 @@ e = say(11, r3(t + 0.2));   // Awww.
 t = shot("gap", "GAP", r3(e + 0.15), push(0.04));
 face(t, "GAP", 70);
 c.prop(r3(t + 0.1), "gate", { open: 0.16 }, 0.5, "out"); sfx(r3(t + 0.1), "creak", { gain: 0.3 }); sfx(r3(t + 0.15), "ai/warm-resolve", { gain: 0.25 });
-step(r3(t + 0.6), "spud", M.H2, 0.4, { steps: 2 }); turn(r3(t + 0.6), "spud", 95, 0.3);
-A(r3(t + 1.0), "spud", "lean", { to: 15, dur: 0.3 }); arm(r3(t + 1.0), "spud", "R", { o: [0.12, 0.42, 0.5] }, 0.3); expr(r3(t + 1.0), "spud", "smug");
-t = shot("cover", "TAB", r3(t + 1.6), drift(-0.05));   // tease 2: his glove over the red last row
-arm(r3(t + 0.05), "spud", "R", { o: [0.14, 0.40, 0.55] }, 0.2); grip(r3(t + 0.05), "spud", "R", "flat");
-tabletRow(r3(t + 0.2), 5); look(r3(t + 0.2), "angel", [-0.4, -0.2]); expr(r3(t + 0.3), "angel", "annoyed");
-e = r3(t + 1.1);
+look(r3(t + 0.45), "spud", [1.0, -0.2], 0.15); step(r3(t + 0.6), "spud", M.H2, 0.4, { steps: 2 }); turn(r3(t + 0.6), "spud", 95, 0.3);
+A(r3(t + 1.0), "spud", "lean", { to: 12, dur: 0.3 }); arm(r3(t + 1.0), "spud", "R", { o: [0.14, 0.42, 0.42] }, 0.3); grip(r3(t + 1.0), "spud", "R", "flat"); expr(r3(t + 1.0), "spud", "smug");
+look(r3(t + 1.1), "angel", [-0.6, -0.3]); expr(r3(t + 1.2), "angel", "annoyed");
+prop(r3(t + 1.25), "tablet", { x: r3(M.angel[0] - 0.08), z: r3(M.angel[2] + 0.62) }, 0.3);   // he slides it out of reach (tease 2)
+tabletRow(r3(t + 1.3), 5);
+e = r3(t + 2.2);
 // back on the trapdoor on the next cut
 const backH1 = (s) => { placeAt(s, "spud", M.H1, 70); A(r3(s - 0.02), "spud", "lean", { to: 0, dur: 0.01 }); arm(r3(s - 0.02), "spud", "R", "rest", 0.01); grip(r3(s - 0.02), "spud", "R", "relaxed", 0.01); };
 
@@ -339,7 +342,7 @@ QUEUE.forEach((q, i) => look(r3(T[17] + i * 0.04), q, [0, 1.8]));
 // ================================================================ 5 Hell. (panels 14-16)
 t = shot("shake", "CHIP", r3(e + 0.1), push(0.04));
 snapTurn(t, "chip", 195);
-hDish.carry(r3(t), dishAt(M.C1, 195, 0.30, 0.14), 0.01);
+hDish.carry(r3(t), dishAt(M.C1, 195, 0.30, 0.24), 0.01);
 expr(r3(t + 0.05), "chip", "sad"); A(r3(t + 0.1), "chip", "face", { lid: 1, dur: 0.2 });
 [0.3, 0.75, 1.2].forEach((s, k) => look(r3(t + s), "chip", [k % 2 ? 0.35 : -0.35, -0.2], 0.4));   // slow head shake, eyes shut
 e = r3(t + 1.75);
@@ -354,7 +357,7 @@ const DROPT = shot("drop", "DROP", r3(P2 + 0.15), crane(0.15));
 placeAt(DROPT, "spud", M.K, 20); A(r3(DROPT - 0.02), "spud", "crouch", { to: 0, dur: 0.01 });
 drop(r3(DROPT + 0.02), "spud");
 look(r3(DROPT + 0.1), "chip", [0.2, -1.0]); expr(r3(DROPT + 0.1), "chip", "shocked");
-const END = r3(P2 + 0.75);   // hard cut ~0.6 s after the press (end on the punchline: 51 % vs 20 % finish with a tag)
+const END = r3(P2 + 1.0);   // hard cut ~0.6 s after the press (end on the punchline: 51 % vs 20 % finish with a tag)
 
 // ---------------------------------------------------------------- beats
 props.forEach((p) => { if (["stairsky", "zoneclouds"].includes(p.kind)) p.loop = END; });
