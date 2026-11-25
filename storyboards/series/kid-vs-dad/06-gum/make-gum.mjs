@@ -68,7 +68,7 @@ const FACES = {
 // ---------------------------------------------------------------- props
 const GLASS_AT = [-0.35, 0.70, 0.52];
 const GLASS = { id: "glass", kind: "waterglass", scale: 0.001, fill: 0, x: GLASS_AT[0], y: GLASS_AT[1], z: GLASS_AT[2], rot: U_YAW, tip: 90, staged: "Dad's mitt presses it to Tato's tummy (a doctor's listening glass)" };
-const TONGS = { id: "tongs", kind: "hptongs", len: 0.45, open: 0.25, x: -0.86, y: 0.66, z: 0.68, rot: 90, tip: 5, scale: 0.001, staged: "Dad's mitt follows the tongs (rigid, DESIGN 5)" };
+const TONGS = { id: "tongs", kind: "hptongs", len: 0.45, open: 0.25, x: -0.86, y: 0.48, z: 0.68, rot: 90, tip: -10, scale: 0.001, staged: "Dad's mitt follows the tongs (rigid, DESIGN 5)" };
 const SPOON = { id: "spoon", kind: "tablespoon", food: 1, fk: 0, x: -0.15, y: 0.50, z: 0.05, rot: 90, tip: 90, scale: 0.001, staged: "Dad's mitt follows the spoon (rigid, DESIGN 5)" };
 const LID = { id: "lid", kind: "potlid", x: -1.42, y: 0.62, z: 0.50, rot: 20, scale: 0.001, staged: "Dad's right mitt follows the lid (rigid, DESIGN 5)" };
 const FILMP = { id: "film", kind: "xrayfilm", x: -1.73, y: 0.10, z: 0.24, rot: 200 };
@@ -77,7 +77,7 @@ const MIC3 = { id: "mic3", kind: "newsmic", lean: 35, ...grips.placeFor("newsmic
 const props = [
   TABLE,
   { id: "chair", kind: "chair", x: 0.16, z: -0.32, rot: 0, scale: 0.6 },
-  { id: "door", kind: "doorway", x: 4.75, y: 0, z: -2.29, w: 1.3, h: 1.9 },
+  { id: "door", kind: "doorway", x: 4.75, y: 0, z: -2.25, w: 1.3, h: 1.9 },
   { id: "shelf1", kind: "wallshelf", x: -1.75, y: 1.35, z: -2.25, staged: "fixed to the back wall" },
   { id: "shelf2", kind: "wallshelf", x: 3.30, y: 1.35, z: -2.25, staged: "fixed to the back wall" },
   { id: "bowl", kind: "soupbowl", scale: 0.001, x: 0.16, y: TOP, z: 0.20, soupHi: "#f6ebc6", soup: "#efdfa8", soupLo: "#dcc888" },
@@ -125,7 +125,7 @@ const TSET = r3(T[4] + 0.6), TC = r3(END_OF(16) + 0.1), TL = r3(TC + 1.45), TP =
 
 // ---------------------------------------------------------------- frame 0: Tato at the table, the bubble
 A(0, "spudU", "hide"); A(0, "rep2", "hide"); A(0, "rep3", "hide");
-const gm3 = grips.mug(c, "rep3", MIC3, { side: "R" }); gm3.take(0, { reach: 0.01, settle: 0.01 });
+const gm3 = grips.mug(c, "rep3", MIC3, { side: "R" }); gm3.take(0, { reach: 0.01, settle: 0.01 }); c.prop(0, "mic3", { scale: 0.001 }, 0);
 A(0, "spud", "sit", { seat: "chair", dur: 0.01, hands: "table" });
 A(0, "rep", "crouch", { to: 0.14, dur: 0.01 }); expr(0, "rep", FACES.shaken, 0.01);
 const gm = grips.mug(c, "rep", MIC, { side: "R" }); gm.take(0, { reach: 0.01, settle: 0.01 });
@@ -183,7 +183,7 @@ const TG2 = r3(END_OF(6) + 0.3);
 sfx(TG2, "bubbling", { gain: 0.5, rate: 0.75 }); A(TG2, "dad", "squash", { amount: 0.04, dur: 0.12 }); A(r3(TG2 + 0.35), "dad", "squash", { amount: 0, dur: 0.3 });
 expr(r3(TG2 + 0.05), "dad", { eye: 1.2, pupil: 0.8 }, 0.1); look(r3(TG2 + 0.1), "dad", [0, -0.3], 0.1);
 // the reporter has crept in (on the cut): Sir... that was your stomach.
-A(onCut(cutAt(7)), "rep", "hide"); A(onCut(cutAt(7)), "rep3", "show");
+A(onCut(cutAt(7)), "rep", "hide"); A(onCut(cutAt(7)), "rep3", "show"); show(cutAt(7), "mic3");
 A(onCut(cutAt(7)), "dad", "lean", { to: 0, dur: 0.01 });
 arm(onCut(cutAt(7)), "dad", "L", { o: [-0.20, 0.27, 0.51] }, 0.01); arm(onCut(cutAt(7)), "dad", "R", { o: [-0.20, 0.27, 0.51] }, 0.01);
 expr(cutAt(7), "rep3", FACES.suspicious, 0.01); expr(cutAt(7), "dad", FACES.fine, 0.01); look(cutAt(7), "dad", [0.3, 0], 0.01);
@@ -197,14 +197,14 @@ expr(r3(T[9] - 0.3), "dad", FACES.surgeon, 0.15); look(r3(T[9] - 0.3), "dad", [0
 say(9);   // Helmet.
 const TH = r3(END_OF(9) + 0.4);
 show(TH, "colander"); sfx(TH, "ai/pot-bang", { gain: 0.12 });
-hide(TH, "glass"); A(onCut(TH), "rep3", "hide"); A(onCut(TH), "rep", "show");
-put(TH, "tongs", [-0.86, 0.66, 0.68]);
+hide(TH, "glass"); A(onCut(TH), "rep3", "hide"); A(onCut(TH), "rep", "show"); hide(TH, "mic3");
+put(TH, "tongs", [-0.86, 0.48, 0.68]);
 hold(TH, "dad", "L", "tongs", "hold", [0, 0, 0.13]); grip(onCut(TH), "dad", "L", "fist", 0.01);
 arm(onCut(TH), "dad", "R", "rest", 0.01);
 expr(TH, "dad", FACES.wires, 0.01); look(TH, "dad", [0.7, -0.5], 0.01);
 expr(TH, "spudU", FACES.patient, 0.01); 
 // the tongs hover from the red side to the blue side
-c.prop(r3(T[10] + 0.2), "tongs", { y: 0.68, z: 0.64 }, 0.9); c.prop(r3(T[10] + 1.3), "tongs", { y: 0.64, z: 0.70 }, 0.9);
+c.prop(r3(T[10] + 0.2), "tongs", { y: 0.50, z: 0.64 }, 0.9); c.prop(r3(T[10] + 1.3), "tongs", { y: 0.47, z: 0.70 }, 0.9);
 say(10, { soft: true });   // Red wire... or blue wire?
 expr(r3(T[11] - 0.2), "spudU", FACES.flat, 0.15); look(r3(T[11] - 0.2), "spudU", [-0.6, 0], 0.15);
 say(11);   // It's my sweater.
@@ -220,7 +220,7 @@ say(12);   // Want one?
 // the flinch: Dad hops back as if from a snake
 const TF = r3(T[13] - 0.1);
 expr(TF, "dad", FACES.snake, 0.08); A(TF, "dad", "move", { to: DAD_FLINCH, dur: 0.35, steps: 0, ease: "out" });
-c.prop(TF, "tongs", { x: -0.85, y: 1.15, z: 0.30 }, 0.3, "out");
+c.prop(TF, "tongs", { x: -1.30, y: 0.60, z: 0.62 }, 0.35, "out");
 arm(TF, "dad", "R", { o: [0.10, 0.70, 0.30] }, 0.3, "out"); grip(TF, "dad", "R", "open", 0.1);
 sfx(TF, "ai/slowmo-air", { gain: 0.2 });
 say(13);   // Get that away from me!
@@ -296,7 +296,7 @@ const C11 = { pos: [-0.36, 0.70, 2.6], look: [-0.36, 0.55, -0.1], fov: 46 };
 const C12 = { pos: [0.16, 0.60, 2.30], look: [0.16, 0.52, -0.30], fov: 30 };
 const C13 = { pos: [-0.35, 0.65, 3.1], look: [-0.35, 0.60, 0], fov: 40 };
 const C14 = { pos: [-1.95, 0.40, 2.35], look: [-1.95, 0.30, 0], fov: 36 };
-const C15 = { pos: [-1.40, 0.50, 2.9], look: [-1.42, 0.40, 0], fov: 40 };
+const C15 = { pos: [-1.40, 0.42, 2.9], look: [-1.42, 0.30, 0], fov: 40 };
 const beats = c.beats([
   ["bubble", 0, push(C01, 0.06, 0.8), "hook"],
   ["swallowed", 0.78, push(C02, 0.05, r3(END_OF(0) - 0.78 + 0.2))],
