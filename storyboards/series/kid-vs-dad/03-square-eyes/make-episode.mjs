@@ -33,8 +33,8 @@ const CAPTEXT = {
   "Screens.": "*Screens.*",
   "Warning. Look what TV can do.": "*Warning.* Look what TV can do.",
   "One more hour... and that's you.": "One more hour... and *that's you.*",
-  "In this house, there's one rule, you see: one more hour... and square you'll be.": "One more hour... and *square you'll be.*",
-  "Hour nine. Eye check. Hold still. Freeze.": "*Hour nine.* Eye check. *Freeze.*",
+  "In this house, there's one rule, you see: one more hour... and square you'll be.": "In this house, one rule, you see: one more hour... and *square you'll be.*",
+  "Hour nine. Eye check. Hold still. Freeze.": "*Hour nine.* Eye check. Hold still. *Freeze.*",
   "Hour twelve. Read me the top row.": "*Hour twelve.* Read me the top row.",
   "One summer. Ninety-eight. I just sat and stared.": "One summer. *1998.* I just sat and stared.",
   "Now everything is widescreen... and squared.": "Now everything is *widescreen...* and *squared.*",
@@ -77,11 +77,11 @@ const place = (t, who, at, rot) => { if (who === "rep") c.prop(r3(t - 0.02), "mi
   A(r3(t - 0.02), who, "move", { to: at, dur: 0.01, ease: "linear", sync: true }); A(r3(t - 0.02), who, "turn", { to: rot, dur: 0.01, ease: "linear", sync: true }); };
 
 const SUB = 430, LABY = 250;
-const say = (i, { capTo } = {}) => {
+const say = (i, { capTo, pos = SUB } = {}) => {
   const [who, line, tone, style, o = {}] = LINES[i];
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false });
   const to = capTo ?? r3(Math.min(END_OF(i) + 0.3, (T[i + 1] ?? END) - 0.2));
-  cap(T[i], to, CAPTEXT[line] ?? line, SUB, false, { size: 62 });
+  cap(T[i], to, CAPTEXT[line] ?? line, pos, false, { size: 62 });
 };
 const look = (t, who, to, dur = 0.2) => A(r3(t), who, "look", { to, dur, blink: false });
 const expr = (t, who, e, dur = 0.2) => A(r3(t), who, "expr", typeof e === "string" ? { expr: e, dur } : { set: e, dur });
@@ -109,11 +109,12 @@ const props = [
 
 // ---------------------------------------------------------------- frame 0
 A(0, "spud", "sit", { rot: 12, height: SEAT, dur: 0, hands: "lap" });
-A(0, "wedge", "sit", { rot: -6, height: SEAT, dur: 0, hands: "keep" });
+A(0, "wedge", "sit", { rot: -6, height: SEAT, dur: 0, hands: "keep", feet: [0.06, 0.04] });   // shoes tucked inside the sofa front (Sol r2 #1: toes poked out of it)
 A(0, "wedge", "grab", { prop: "phone", hand: "L", dur: 0, pose: null });
 const DAD_PHONE = { o: [-0.05, 0.5, 0.42] }, DAD_PHONE_CLOSE = { o: [-0.03, 0.62, 0.30] };
 c.arm(0, "wedge", "L", DAD_PHONE, 0); c.arm(0, "wedge", "R", "rest", 0);
-look(0, "wedge", [0.35, -0.75], 0);   // eyes down on the phone in his left hand (Sol r1 #3) expr(0, "wedge", { eye: 0.7, tilt: -0.05, curve: -0.1 }, 0);
+look(0, "wedge", [0.25, -1.0], 0); A(0, "wedge", "pitch", { to: 8, dur: 0 });   // eyes and head down on the phone in his left hand (Sol r1 #3, r2 #6)
+expr(0, "wedge", { eye: 0.7, tilt: -0.05, curve: -0.1 }, 0);
 for (let t = 1.2; t < END - 0.4; t = r3(t + 1.7 + ((t * 7) % 0.9))) { A(r3(t), "wedge", "grip", { side: "L", shape: "scroll", dur: 0.1 }); A(r3(t + 0.16), "wedge", "grip", { side: "L", shape: "hold", dur: 0.12 }); }
 look(0, "spud", [-0.75, 0.05], 0); expr(0, "spud", { eye: 1.1, open: 0.15 }, 0);
 A(0, "rep", "crouch", { to: 0.14, dur: 0.01 }); expr(0, "rep", { tilt: -0.08, browY: -0.02, eye: 0.95 }, 0);
@@ -134,8 +135,8 @@ const MASH_CU = { pos: [1.98, 0.81, -1.54], look: [1.75, 0.74, -2.87], fov: 30 }
 const MASH_MED = { pos: [1.90, 1.0, -0.35], look: [1.73, 0.85, -2.87], fov: 40 };
 const KIDC = { pos: [-0.45, 0.80, 1.05], look: [-0.17, 0.77, -1.30], fov: 36 };
 const KID_TIGHT = { pos: [-0.36, 0.78, 0.15], look: [-0.20, 0.77, -1.30], fov: 34 };
-const DADC = { pos: [0.62, 1.01, 1.20], look: [0.73, 1.01, -1.17], fov: 28 };   // closer: phone in frame, his feet below it (Sol r1 #3, #5)
-const DAD_CU = { pos: [0.60, 1.00, 0.55], look: [0.75, 0.99, -1.30], fov: 34 };
+const DADC = { pos: [0.66, 1.01, 1.20], look: [0.80, 0.98, -1.17], fov: 31 };   // closer: phone in frame, his feet below it (Sol r1 #3, #5)
+const DAD_CU = { pos: [0.60, 0.99, 0.55], look: [0.75, 0.90, -1.30], fov: 34 };   // face high: the LIVE strap on his shirt (Sol r2 #15)
 const REPC = { pos: [1.00, 0.60, 1.90], look: [1.57, 0.56, -0.02], fov: 36 };
 const WIDE = { pos: [0.34, 1.35, 2.75], look: [0.34, 0.85, -1.5], fov: 48 };
 const CHECK = { pos: [0.62, 0.86, 0.55], look: [-0.28, 0.76, -1.30], fov: 40 };   // Tato and the tool get the frame (Sol r1 #21)   // the rep in profile, the tool at Tato's eye
@@ -154,7 +155,7 @@ shots.push(["pull out", 1.1, { pos: CU1.pos, look: CU1.look, fov: CU1.fov, to: {
 see(0, 1.1, ["mash.face"], "frame 0: a man's perfectly square eyes, blinking, behind a window");
 shots.push(["thats you", cutAt(1), push(DADC, 0.08, DUR[1] + 0.3)]);
 c.arm(T[1], "wedge", "R", { o: [0.28, 0.78, -0.15] }, 0.3, "out");
-say(1); c.arm(r3(END_OF(1) + 0.15), "wedge", "R", "rest", 0.35); A(r3(END_OF(1) + 0.15), "wedge", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
+{ const td = r3(Math.min(END_OF(1) + 0.15, cutAt(2) - 0.3)); say(1); c.arm(td, "wedge", "R", "rest", 0.25); A(td, "wedge", "grip", { side: "R", shape: "relaxed", dur: 0.2 }); }   // down before the cut (Sol r2 #14)
 shots.push(["is it true", cutAt(2), push(KIDC, 0.08, DUR[2] + 0.3)]);
 look(T[2] - 0.2, "spud", [0.8, 0.15], 0.25); expr(T[2] - 0.2, "spud", { eye: 1.2, pupil: 0.8, tilt: 0.25, curve: -0.2 }, 0.2);
 say(2);
@@ -198,7 +199,7 @@ const tCheck2 = cutAt(9, 0.05);
 putAway(r3(tCheck2 - 0.2), "ruler", -0.5);
 tool(tCheck2, CHART, CHART_AT, (c2, w, sp) => grips.phone(c2, w, sp, { side: "L", height: 0.2 }));
 shots.push(["read the top line", tCheck2, push(CHECK, 0.12, r3(END_OF(11) - tCheck2 + 0.3))]);
-look(r3(T[9] + 0.3), "spud", [-0.45, 0.05], 0.25);   // Sol r1 #13: he reads the chart, then back to the TV
+look(r3(T[9] + 0.3), "spud", [-0.6, -0.2], 0.25);   // Sol r1 #13: he reads the chart, then back to the TV
 say(9); say(10); say(11);
 look(r3(END_OF(10) + 0.2), "spud", [-0.75, 0.05], 0.3);
 expr(T[11] - 0.1, "rep", { eye: 0.75, browY: -0.03, tilt: -0.1 }, 0.25);
@@ -226,9 +227,9 @@ shots.push(["interview", tWin, push(REPC, 0.08, r3(END_OF(14) - tWin + 0.2))]);
 say(14);
 A(r3(cutAt(15) - 0.02), "rep", "hide");   // behind the neighbour's close-up camera: projected from behind onto the captions
 shots.push(["one summer", cutAt(15), push(MASH_CU, 0.05, r3(END_OF(17) - T[15] + 0.4))]);
-say(15); say(16); say(17);
-{ const tw = r3(Math.floor((T[17] + DUR[17] * 0.30) * 30) / 30);   // Sol r1 #24: cut to the TV on "widescreen", then back
-  shots.push(["widescreen", tw, push(TVC, 0.04, 0.4)]); shots.push(["squared", r3(tw + 0.4), push(MASH_CU, 0.04, r3(END_OF(17) - tw))]); }
+say(15, { pos: 300 }); say(16, { pos: 300 }); say(17, { pos: 300, capTo: r3(cutAt(18, 1.4) - 0.04) });   // Sol r2 #5, #16: above the square eyes, and off before the 3 am clock
+{ const tw = r3(Math.floor((T[17] + DUR[17] * 0.36) * 30) / 30);   // Sol r1 #24: cut to the TV on "widescreen", then back
+  shots.push(["widescreen", tw, push({ ...TVC, fov: 50 }, 0.04, 0.5)]); shots.push(["squared", r3(tw + 0.5), push(MASH_CU, 0.04, r3(END_OF(17) - tw))]); }   // fov 50: both bezels (Sol r2 #13)
 
 // ---------------------------------------------------------------- 3 am, hour sixteen: the torch
 const tClock3 = cutAt(18, 1.4);
@@ -252,7 +253,7 @@ shots.push(["torch", tTorch, push(CHECK, 0.14, r3(END_OF(19) - tTorch + 0.3))]);
 say(19);
 c.prop(r3(END_OF(19) + 0.2), "beam", { on: 0 }, 0.1);
 expr(r3(END_OF(19) + 0.2), "spud", { eye: 1.1, open: 0.15, tilt: 0 }, 0.2);
-A(r3(cutAt(20) - 0.02), "rep", "hide"); putAway(cutAt(20), "torch", -1.5);   // gone after the torch: in front of Tato he filled the kid's shots
+A(r3(cutAt(20) - 0.02), "rep", "hide"); putAway(cutAt(20), "torch", -1.5); A(r3(cutAt(20) - 0.04), "rep", "release", { prop: "mic", to: [3.5, -5, -2.0], dur: 0.01 });   // Sol r2 #2: the mic stood alone in front of Tato   // gone after the torch: in front of Tato he filled the kid's shots
 shots.push(["five more", cutAt(20), push(DADC, 0.10, DUR[20] + 0.9)]);   // the phone in frame for the beep (Sol r1 #3)
 expr(T[20] - 0.1, "wedge", { eye: 0.5, tilt: -0.1, curve: -0.15 }, 0.3);
 say(20);
@@ -266,7 +267,7 @@ shots.push(["no", cutAt(21), push(KIDC, 0.06, DUR[21] + GAP[22] + 0.1)]);
 A(r3(T[21] - 0.2), "spud", "lean", { to: 0, dur: 0.3 });
 say(21);
 { const to = r3(Math.floor((END_OF(21) + 0.1) * 30) / 30);   // Sol r1 #1: we see the screen go black
-  shots.push(["tv off", to, push(TVC, 0.03, 0.6)]); c.prop(r3(to + 0.25), "tv", { on: 0 }, 0.08); sfx(r3(to + 0.25), "click", 0.5);
+  shots.push(["tv off", to, push(TVC, 0.03, 0.6)]); c.prop(r3(to + 0.1), "tv", { on: 0 }, 0.05); sfx(r3(to + 0.1), "click", 0.5);   // black almost at once (Sol r2 #4)
   shots.push(["see", r3(to + 0.6), push(KIDC, 0.06, r3(END_OF(22) - to))]); }
 look(r3(END_OF(21) + 0.35), "spud", [0.85, 0.1], 0.3);
 expr(r3(T[22] - 0.1), "spud", { eye: 1.05, curve: 0.35, tilt: 0.1 }, 0.25);
@@ -277,10 +278,10 @@ say(22, { capTo: r3(tRev - 0.05) });
 // Sol r1 #2: first his head comes up (normal eyes, phone lowering), then the cut to the open phone eyes
 const tUp = r3(tRev - 0.5);
 A(tUp, "wedge", "noblink");   // a blink on the phone eyes shows two blank skin squares
-shots.push(["looks up", tUp, push(DADC, 0.05, 0.5)]);
-c.arm(tUp, "wedge", "L", { o: [-0.05, 0.32, 0.40] }, 0.4); look(tUp, "wedge", [0.2, -0.2], 0.35);
+shots.push(["looks up", tUp, push({ pos: [0.55, 1.05, 1.9], look: [0.73, 0.95, -1.17], fov: 32 }, 0.05, 0.5)]);   // wider: the phone lowering in his hand reads
+c.arm(tUp, "wedge", "L", { o: [-0.05, 0.32, 0.40] }, 0.4); look(tUp, "wedge", [0.25, -1.0], 0.01); look(r3(tUp + 0.08), "wedge", [-0.5, 0.45], 0.32); A(r3(tUp + 0.08), "wedge", "pitch", { to: -3, dur: 0.32 });   // chin and eyes up to Tato (Sol r2 #3)   // chin comes up off the phone
 face(r3(tRev - 0.02), "wedge", { square: 1, sqTall: 1, sqPhone: 1 });
-shots.push(["phone eyes", tRev, push({ ...DAD_CU, fov: 21 }, 0.12, 1.15)]);   // a size step tighter than "looks up" (else a jump cut)
+shots.push(["phone eyes", tRev, push({ ...DAD_CU, fov: 29 }, 0.12, 1.15)]);   // a size step tighter than "looks up" (else a jump cut)
 look(r3(tRev - 0.02), "wedge", [-0.55, 0.05], 0.01);
 expr(r3(tRev - 0.02), "wedge", { eye: 1.0, tilt: 0, curve: 0 }, 0.01);
 sfx(r3(tRev + 0.8), "sting", 0.35);
