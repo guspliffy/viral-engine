@@ -552,7 +552,7 @@
    "from": 0.15,
    "to": 4.013,
    "text": "*Carrots.* Eat them, and you *see in the dark.*",
-   "pos": 440,
+   "pos": 330,
    "pop": false,
    "size": 62
   },
@@ -691,15 +691,6 @@
    "pos": 330,
    "pop": false,
    "size": 62
-  },
-  {
-   "from": 0,
-   "to": 3.2,
-   "text": "When your dad says carrots help you see in the dark",
-   "pos": 230,
-   "pop": false,
-   "size": 58,
-   "kinetic": false
   }
  ],
  "beats": [

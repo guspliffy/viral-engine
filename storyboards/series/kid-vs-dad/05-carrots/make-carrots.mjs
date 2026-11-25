@@ -107,7 +107,7 @@ const CAPTEXT = {
   11: "Night two. *Halfway there.*", 12: "Night three. *The whole bag.*", 13: "He can *see!*", 14: "And the cookie jar... is *lighter* every night.",
   15: "*Contact.*", 16: "...Dad?", 17: "...*Carrots.*",
 };
-const CAPY = { 0: 440 };   // under the 0 s label
+const CAPY = {};
 const say = (i, at, extra = {}) => {
   T[i] = r3(at);
   const [who, line, tone, style, o = {}] = LINES[i];
@@ -414,7 +414,7 @@ shot("carrots", T15, push(ENDC, 0.05, END - T15), "payoff");
 see(T14, END, ["dad.face", "spud.face", "gog"], "the fridge light shows Dad in night-vision goggles with his hand in the cookie jar; he says: '...Carrots.'");
 
 // the label at 0 s (8-line rule, lines 2 + 8: plain English)
-cap(0, 3.2, "When your dad says carrots help you see in the dark", 230, false, { size: 58, kinetic: false });
+// no label in the video: Jonny adds it in TikTok himself (25 Nov 21:38 Berlin)
 
 const beats = c.beats(shots, END);
 write(import.meta.url, {
