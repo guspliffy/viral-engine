@@ -190,13 +190,13 @@ const DOWN = shot("down", r3(DROP + 0.57), cam("T", [1.00, 6.00, -5.00], [-0.04,
 for (let k = 0; k < 4; k++) sfx(r3(DOWN + 0.12 + k * 0.26), "thud-soft", { gain: r3(0.35 - k * 0.06) });
 see(DOWN, r3(DOWN + 1.0), ["scroll"], "the scroll runs down ALL the stairs into hell's red glow");
 // shot 4: three-quarter counter shot from above the podium: grip, ONE contact on "these?", the ink, pan with the gate
-const STAMPS = shot("stamp", r3(DOWN + 1.13), cam("T", [1.65, 1.35, 1.90], [0.50, 0.55, -0.75], 34), mvTo("T", [1.55, 1.35, 2.10], [0.05, 0.80, -1.90], 40));
+const STAMPS = shot("stamp", r3(DOWN + 1.13), cam("T", [1.65, 1.65, 1.90], [0.50, 0.55, -0.75], 34), mvTo("T", [1.55, 1.55, 2.10], [0.05, 0.80, -1.90], 40));
 capPos = SUB;
 place(STAMPS, "spud", S_STAMP, 70);
 expr(r3(STAMPS - 0.02), "spud", "cocky", 0.01); look(r3(STAMPS - 0.02), "spud", [0.25, 0.05], 0.01);
 arm(r3(STAMPS - 0.02), "angel", "R", { o: [0.10, 0.42, 0.42] }, 0.01);
 const hSt = grips.mug(c, "spud", STAMP, { side: "R" });
-const STAMP_UP = W("T", 0.86, 0.56, -0.74), STAMP_DOWN = W("T", 0.86, 0.42, -0.74);
+const STAMP_UP = W("T", 0.86, 0.48, -0.74), STAMP_DOWN = W("T", 0.86, 0.42, -0.74);
 putProp(r3(STAMPS - 0.03), "stamp", STAMP_UP);
 hSt.secure(r3(STAMPS - 0.02), 0.001);
 arm(r3(STAMPS - 0.02), "spud", "L", "hips", 0.01);
