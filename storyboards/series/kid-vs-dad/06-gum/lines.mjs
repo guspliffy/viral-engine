@@ -11,7 +11,7 @@ export const LINES = [
   ["rep", "Swallowed. Is it deadly?", "whisper", "tense, crouched, a war correspondent under cover", REP],
   // 5-13 s NAME + WEIRD RULE + STAKE (the egg timer = dinner)
   ["rep", "We're live. Tato, age seven, swallowed his gum.", "calm", "grave, low, a correspondent under cover", REP],
-  ["rep", "And in this house, there is one rule: swallow your gum, and your stomach glues shut. For seven years.", "calm", "slow, ominous, a pause before the last words", REP],
+  ["rep", "And in this house, there is one rule: swallow your gum, and your stomach glues shut. For seven years.", "calm", "slow, ominous, a pause before the last words", { ...REP, take: 1 }],
   ["dad", "Dinner's in one minute. If it's glued, nothing goes down.", "calm", "grim, setting the egg timer, a man defusing a bomb", DAD],
   // 13-25 s STEP 1: oven mitts, a glass on the tummy
   ["dad", "Mitts.", "calm", "short, a surgeon asking for a tool", DAD],

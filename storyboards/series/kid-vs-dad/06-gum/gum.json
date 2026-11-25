@@ -1,0 +1,4287 @@
+{
+ "id": "gum",
+ "title": "Dad said: swallowed gum glues your stomach",
+ "idea": "Kid vs Dad 06: Tato swallows his gum; Dad treats it like a bomb (oven mitts, colander helmet, laundry-basket armour) while a war reporter covers it live; Tato eats, nothing happens; the reporter finds Dad's own X-ray: a gum ball, DAD 1995.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  210,
+  1230
+ ],
+ "captionStyle": "kinetic",
+ "captionOverBody": {
+  "reason": "close-ups where the speaker fills the phone frame; captions sit in the upper third over the body, never the eyes (rule from the 8-min film trial, Jonny OK 20 Nov)"
+ },
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "kitchen",
+  "morning": true,
+  "time": 6.98,
+  "lamp": 1,
+  "aperture": 0,
+  "focus": false,
+  "para": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "hud": {
+  "news": {
+   "label": "GUM EMERGENCY",
+   "tag": "LIVE",
+   "tagW": 150,
+   "count": false,
+   "show": [
+    5.69,
+    63.167
+   ]
+  }
+ },
+ "music": {
+  "file": "ai/orchestra-suspense/orchestra-suspense-01.ogg",
+  "lowCut": 150,
+  "gain": 0.14
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false,
+  "surface": "wood"
+ },
+ "creative": {
+  "length": [
+   55,
+   95
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "a kid's gum bubble pops, he gulps; his dad, frozen in the doorway: 'Swallowed. Don't. Move.'"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    0.16,
+    -0.3
+   ],
+   "face": 0,
+   "expr": "kind",
+   "seed": 4.1
+  },
+  {
+   "id": "spudU",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.12,
+    0.25
+   ],
+   "y": 0.32,
+   "face": 40,
+   "expr": "kind",
+   "seed": 4.1
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    4.75,
+    -1.75
+   ],
+   "face": -25,
+   "expr": "deadpan",
+   "seed": 2.9
+  },
+  {
+   "id": "rep",
+   "character": "potatobrawl/reporter",
+   "at": [
+    -4.25,
+    -1.85
+   ],
+   "face": 30,
+   "follow": 0.3,
+   "seed": 131.3
+  },
+  {
+   "id": "rep2",
+   "character": "potatobrawl/reporter",
+   "at": [
+    -2.15,
+    -0.2
+   ],
+   "face": 20,
+   "follow": 0.3,
+   "seed": 131.3
+  },
+  {
+   "id": "rep3",
+   "character": "potatobrawl/reporter",
+   "at": [
+    -2.15,
+    -0.2
+   ],
+   "face": 20,
+   "follow": 0.3,
+   "seed": 131.3
+  }
+ ],
+ "props": [
+  {
+   "id": "table",
+   "kind": "kitchentable",
+   "x": 0.16,
+   "y": 0,
+   "z": 0.35,
+   "rot": 0,
+   "w": 1,
+   "d": 0.8,
+   "h": 0.32,
+   "runner": [
+    0.01,
+    0.01
+   ]
+  },
+  {
+   "id": "chair",
+   "kind": "chair",
+   "x": 0.16,
+   "z": -0.32,
+   "rot": 0,
+   "scale": 0.6
+  },
+  {
+   "id": "door",
+   "kind": "doorway",
+   "x": 4.75,
+   "y": 0,
+   "z": -2.29,
+   "w": 1.3,
+   "h": 1.9
+  },
+  {
+   "id": "shelf1",
+   "kind": "wallshelf",
+   "x": -1.75,
+   "y": 1.35,
+   "z": -2.25,
+   "staged": "fixed to the back wall"
+  },
+  {
+   "id": "shelf2",
+   "kind": "wallshelf",
+   "x": 3.3,
+   "y": 1.35,
+   "z": -2.25,
+   "staged": "fixed to the back wall"
+  },
+  {
+   "id": "bowl",
+   "kind": "soupbowl",
+   "scale": 0.001,
+   "x": 0.16,
+   "y": 0.32,
+   "z": 0.2,
+   "soupHi": "#f6ebc6",
+   "soup": "#efdfa8",
+   "soupLo": "#dcc888"
+  },
+  {
+   "id": "timer",
+   "kind": "eggtimer",
+   "x": -0.2,
+   "y": 0.32,
+   "z": 0.62,
+   "rot": 20,
+   "togo": 0,
+   "ring": 0
+  },
+  {
+   "id": "bubble",
+   "kind": "gumbubble",
+   "wear": "spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "blow": 0.4,
+   "pop": 0,
+   "stuck": 1
+  },
+  {
+   "id": "gum",
+   "kind": "gumstick",
+   "x": -0.39,
+   "y": 0.76,
+   "z": 0.48,
+   "rot": 0,
+   "scale": 0.001,
+   "staged": "pinched in Tato's fingers (DESIGN 5)"
+  },
+  {
+   "id": "mitts",
+   "kind": "ovenmitts",
+   "wear": "dad",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "on": 0
+  },
+  {
+   "id": "colander",
+   "kind": "colanderhat",
+   "wear": "dad",
+   "x": 0,
+   "y": 1.07,
+   "z": 0,
+   "tip": -5,
+   "rot": 6,
+   "scale": 0.001
+  },
+  {
+   "id": "basket",
+   "kind": "basketarmour",
+   "wear": "dad",
+   "x": 0,
+   "y": 0.2,
+   "z": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "sweat",
+   "kind": "sweatbead",
+   "wear": "dad",
+   "x": -0.22,
+   "y": 1,
+   "z": 0.22,
+   "scale": 0
+  },
+  {
+   "id": "glass",
+   "kind": "waterglass",
+   "scale": 0.001,
+   "fill": 0,
+   "x": -0.35,
+   "y": 0.7,
+   "z": 0.52,
+   "rot": 40,
+   "tip": 90,
+   "staged": "Dad's mitt presses it to Tato's tummy (a doctor's listening glass)"
+  },
+  {
+   "id": "tongs",
+   "kind": "hptongs",
+   "len": 0.45,
+   "open": 0.25,
+   "x": -0.86,
+   "y": 0.66,
+   "z": 0.68,
+   "rot": 90,
+   "tip": 5,
+   "scale": 0.001,
+   "staged": "Dad's mitt follows the tongs (rigid, DESIGN 5)"
+  },
+  {
+   "id": "spoon",
+   "kind": "tablespoon",
+   "food": 1,
+   "fk": 0,
+   "x": -0.15,
+   "y": 0.5,
+   "z": 0.05,
+   "rot": 90,
+   "tip": 90,
+   "scale": 0.001,
+   "staged": "Dad's mitt follows the spoon (rigid, DESIGN 5)"
+  },
+  {
+   "id": "lid",
+   "kind": "potlid",
+   "x": -1.42,
+   "y": 0.62,
+   "z": 0.5,
+   "rot": 20,
+   "scale": 0.001,
+   "staged": "Dad's right mitt follows the lid (rigid, DESIGN 5)"
+  },
+  {
+   "id": "film",
+   "kind": "xrayfilm",
+   "x": -1.73,
+   "y": 0.1,
+   "z": 0.24,
+   "rot": 200
+  },
+  {
+   "id": "mic",
+   "kind": "newsmic",
+   "lean": 30,
+   "x": -4.55,
+   "y": 0.58,
+   "z": -1.7,
+   "rot": 210
+  },
+  {
+   "id": "mic3",
+   "kind": "newsmic",
+   "lean": 35,
+   "x": -1.85,
+   "y": 0.5,
+   "z": 0.25,
+   "rot": 200
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 3.3,
+   "text": "When your dad says *swallowed gum glues your stomach*",
+   "pos": 250,
+   "pop": false,
+   "size": 56,
+   "kinetic": false
+  },
+  {
+   "from": 0.85,
+   "to": 3.94,
+   "text": "*Swallowed.* Don't. Move.",
+   "pos": 470,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 4.17,
+   "to": 6.16,
+   "text": "Swallowed. *Is it deadly?*",
+   "pos": 470,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 6.39,
+   "to": 9.61,
+   "text": "*Tato,* age seven, *swallowed his gum.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 9.84,
+   "to": 16.79,
+   "text": "Swallow your gum... your stomach *glues shut.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 17.02,
+   "to": 20.88,
+   "text": "If it's glued, *nothing goes down.*",
+   "pos": 1060,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 21.11,
+   "to": 22.21,
+   "text": "Mitts.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 24.41,
+   "to": 25.89,
+   "text": "It's *sticking.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 26.79,
+   "to": 29.13,
+   "text": "Sir... that was *your* stomach.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 29.36,
+   "to": 30.74,
+   "text": "Mine is fine.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 30.97,
+   "to": 32.1,
+   "text": "Helmet.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 33,
+   "to": 35.72,
+   "text": "*Red wire...* or *blue wire?*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 36.52,
+   "to": 37.9,
+   "text": "It's my sweater.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 38.55,
+   "to": 39.44,
+   "text": "Want one?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 39.64,
+   "to": 41.14,
+   "text": "*Get that away* from me!",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 41.37,
+   "to": 43.08,
+   "text": "He's been through this *before.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 44.28,
+   "to": 46.75,
+   "text": "The moment *of truth.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 46.98,
+   "to": 50.613,
+   "text": "*Slowly...* slowly...",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 54.94,
+   "to": 56.09,
+   "text": "*Still works.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 56.32,
+   "to": 57.66,
+   "text": "Impossible.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 57.89,
+   "to": 60,
+   "text": "Then what... *is this?*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 60.23,
+   "to": 61.77,
+   "text": "...That's *different.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "bubble",
+   "at": 0,
+   "len": 0.766,
+   "shot": {
+    "pos": [
+     0.16,
+     0.62,
+     2.1
+    ],
+    "look": [
+     0.16,
+     0.5,
+     -0.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.16,
+      0.613,
+      1.956
+     ],
+     "look": [
+      0.16,
+      0.5,
+      -0.3
+     ],
+     "fov": 30
+    },
+    "dur": 0.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudU",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "rep2",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "rep3",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "rep3",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep3",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic3",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.07,
+       0.02,
+       0.006
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "table",
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.14,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "pupil": 0.75,
+      "tilt": 0.2,
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.25,
+      "pupil": 0.7,
+      "tilt": 0.1,
+      "browY": 0.04,
+      "curve": -0.15,
+      "open": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bubble",
+     "set": {
+      "blow": 0.4,
+      "stuck": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "timer",
+     "set": {
+      "togo": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rep2",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "film",
+      "grip": [
+       0.215,
+       0.253,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.085,
+       0.02,
+       -0.001
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rep2",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "film",
+      "grip": [
+       -0.215,
+       0.253,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.065,
+       0.02,
+       -0.056
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "film",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rep3",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic3",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "rep2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "film",
+      "grip": [
+       0.215,
+       0.253,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "rep2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "film",
+      "grip": [
+       -0.215,
+       0.253,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "rep3",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "rep2",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "rep2",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "do": "prop",
+     "id": "bubble",
+     "set": {
+      "blow": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "rep3",
+     "do": "grab",
+     "prop": "mic3",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.056,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "mic",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.056,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "rep2",
+     "do": "grab",
+     "prop": "film",
+     "hand": "both",
+     "grip": [
+      0,
+      0.253,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "bubble",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "sfx": "pop",
+     "gain": 0.5,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.06,
+      "tilt": 0.2
+     },
+     "dur": 0.05,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.1,
+     "at": 0.36
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.7,
+      "browY": 0.05,
+      "curve": -0.1,
+      "open": 0.5
+     },
+     "dur": 0.08,
+     "at": 0.62
+    },
+    {
+     "sfx": "gulp",
+     "gain": 0.5,
+     "at": 0.66
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 0.66
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "swallowed",
+   "at": 0.766,
+   "len": 3.334,
+   "shot": {
+    "pos": [
+     2.2,
+     0.8,
+     0.6
+    ],
+    "look": [
+     4.75,
+     0.72,
+     -1.75
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      2.328,
+      0.796,
+      0.483
+     ],
+     "look": [
+      4.75,
+      0.72,
+      -1.75
+     ],
+     "fov": 36
+    },
+    "dur": 3.29,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.024
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 0.034
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.1,
+     "at": 0.084
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.084
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Swallowed. Don't. Move.",
+     "tone": "calm",
+     "style": "frozen, deadly serious, a bomb-squad whisper, one word at a time",
+     "voice": "dad",
+     "dur": 3.02,
+     "caption": false,
+     "at": 0.084
+    },
+    {
+     "do": "prop",
+     "id": "bubble",
+     "set": {
+      "stuck": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.134
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0.4,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 3.204
+    }
+   ]
+  },
+  {
+   "name": "is it deadly",
+   "at": 4.1,
+   "len": 2.233,
+   "shot": {
+    "pos": [
+     -2.9,
+     0.4,
+     0.55
+    ],
+    "look": [
+     -4.1,
+     0.45,
+     -1.85
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -2.972,
+      0.403,
+      0.406
+     ],
+     "look": [
+      -4.1,
+      0.45,
+      -1.85
+     ],
+     "fov": 34
+    },
+    "dur": 2.17,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Swallowed. Is it deadly?",
+     "tone": "whisper",
+     "style": "tense, crouched, a war correspondent under cover",
+     "voice": "reaper",
+     "dur": 1.77,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.64
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 2.213
+    },
+    {
+     "who": "spudU",
+     "do": "show",
+     "at": 2.213
+    },
+    {
+     "who": "dad",
+     "do": "move",
+     "to": [
+      -0.89,
+      0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.213
+    },
+    {
+     "who": "dad",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.213
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.213
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.213
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.213
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.213
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.23
+    }
+   ]
+  },
+  {
+   "name": "we're live",
+   "at": 6.333,
+   "len": 3.433,
+   "shot": {
+    "pos": [
+     1.3,
+     1.6,
+     3.2
+    ],
+    "look": [
+     -0.45,
+     0.6,
+     0.2
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      1.213,
+      1.55,
+      3.05
+     ],
+     "look": [
+      -0.45,
+      0.6,
+      0.2
+     ],
+     "fov": 44
+    },
+    "dur": 3.65,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudU",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.007
+    },
+    {
+     "who": "spudU",
+     "do": "expr",
+     "set": {
+      "eye": 0.75,
+      "curve": 0.1
+     },
+     "dur": 0.01,
+     "at": 0.007
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.8,
+      "tilt": -0.22,
+      "browY": -0.03,
+      "curve": -0.25
+     },
+     "dur": 0.01,
+     "at": 0.007
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.007
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Tato, age seven, swallowed his gum.",
+     "tone": "calm",
+     "style": "grave, low, a correspondent under cover",
+     "voice": "reaper",
+     "dur": 3.15,
+     "caption": false,
+     "at": 0.057
+    }
+   ]
+  },
+  {
+   "name": "one rule",
+   "at": 9.766,
+   "len": 3.567,
+   "shot": {
+    "pos": [
+     -2.9,
+     0.4,
+     0.55
+    ],
+    "look": [
+     -4.1,
+     0.45,
+     -1.85
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -2.96,
+      0.403,
+      0.43
+     ],
+     "look": [
+      -4.1,
+      0.45,
+      -1.85
+     ],
+     "fov": 34
+    },
+    "dur": 3.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.014
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And in this house, there is one rule: swallow your gum, and your stomach glues shut. For seven years.",
+     "tone": "calm",
+     "style": "slow, ominous, a pause before the last words",
+     "voice": "reaper",
+     "take": 1,
+     "dur": 6.73,
+     "caption": false,
+     "at": 0.074
+    }
+   ]
+  },
+  {
+   "name": "glues shut",
+   "at": 13.333,
+   "len": 3.633,
+   "shot": {
+    "pos": [
+     0.9,
+     0.95,
+     2.6
+    ],
+    "look": [
+     -0.5,
+     0.78,
+     0.2
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.816,
+      0.94,
+      2.456
+     ],
+     "look": [
+      -0.5,
+      0.78,
+      0.2
+     ],
+     "fov": 42
+    },
+    "dur": 3.6300000000000003,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.5
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 3.387
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "timer",
+      "grip": [
+       0,
+       0.145,
+       0
+      ],
+      "palm": [
+       0,
+       -0.91,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.614
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.627
+    }
+   ]
+  },
+  {
+   "name": "the timer",
+   "at": 16.966,
+   "len": 4.067,
+   "shot": {
+    "pos": [
+     0.3,
+     0.42,
+     1.7
+    ],
+    "look": [
+     -0.62,
+     0.47,
+     0.3
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.226,
+      0.424,
+      1.588
+     ],
+     "look": [
+      -0.62,
+      0.47,
+      0.3
+     ],
+     "fov": 44
+    },
+    "dur": 4.140000000000001,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Dinner's in one minute. If it's glued, nothing goes down.",
+     "tone": "calm",
+     "style": "grim, setting the egg timer, a man defusing a bomb",
+     "voice": "dad",
+     "dur": 3.64,
+     "caption": false,
+     "at": 0.054
+    },
+    {
+     "do": "prop",
+     "id": "timer",
+     "set": {
+      "togo": 1
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.654
+    },
+    {
+     "sfx": "click",
+     "gain": 0.3,
+     "at": 0.654
+    },
+    {
+     "do": "prop",
+     "id": "timer",
+     "set": {
+      "togo": 0
+     },
+     "dur": 36.37,
+     "ease": "linear",
+     "at": 1.054
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.154
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.654
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.154
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.654
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.154
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.654
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.744
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 3.744
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.8,
+      "tilt": -0.22,
+      "browY": -0.03,
+      "curve": -0.25
+     },
+     "dur": 0.1,
+     "at": 3.844
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 3.844
+    }
+   ]
+  },
+  {
+   "name": "mitts",
+   "at": 21.033,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.95,
+     0.72,
+     2.9
+    ],
+    "look": [
+     -0.95,
+     0.6,
+     0.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.95,
+      0.71,
+      2.684
+     ],
+     "look": [
+      -0.95,
+      0.6,
+      0.2
+     ],
+     "fov": 36
+    },
+    "dur": 1.25,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.017
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Mitts.",
+     "tone": "calm",
+     "style": "short, a surgeon asking for a tool",
+     "voice": "dad",
+     "dur": 0.8,
+     "caption": false,
+     "at": 0.077
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.087
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.587
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.087
+    },
+    {
+     "do": "prop",
+     "id": "mitts",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "x": -0.35,
+      "y": 0.7,
+      "z": 0.52,
+      "scale": 1.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "dad",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "glass",
+      "grip": [
+       0,
+       0.11,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 1.18
+    }
+   ]
+  },
+  {
+   "name": "the glass",
+   "at": 22.233,
+   "len": 4.5,
+   "shot": {
+    "pos": [
+     0.9,
+     0.95,
+     2.6
+    ],
+    "look": [
+     -0.5,
+     0.78,
+     0.2
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.802,
+      0.938,
+      2.432
+     ],
+     "look": [
+      -0.5,
+      0.78,
+      0.2
+     ],
+     "fov": 42
+    },
+    "dur": 4.48,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.25,
+     "at": 0.027
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.5,
+      "tilt": -0.15,
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 0.027
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.027
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.387
+    },
+    {
+     "sfx": "bubbling",
+     "gain": 0.35,
+     "at": 0.627
+    },
+    {
+     "who": "spudU",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.15,
+     "at": 0.627
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.887
+    },
+    {
+     "who": "spudU",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.927
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.387
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.887
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "pupil": 0.75,
+      "tilt": 0.2,
+      "browY": 0.03,
+      "curve": -0.3
+     },
+     "dur": 0.1,
+     "at": 2.027
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.117
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "It's sticking.",
+     "tone": "whisper",
+     "style": "horrified whisper, ear on the glass",
+     "voice": "dad",
+     "dur": 1.18,
+     "caption": false,
+     "soft": true,
+     "at": 2.177
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.387
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.887
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.387
+    },
+    {
+     "sfx": "bubbling",
+     "gain": 0.5,
+     "rate": 0.75,
+     "at": 3.657
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.12,
+     "at": 3.657
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "pupil": 0.8
+     },
+     "dur": 0.1,
+     "at": 3.707
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 3.757
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.887
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.3,
+     "at": 4.007
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 4.387
+    },
+    {
+     "who": "rep",
+     "do": "hide",
+     "at": 4.48
+    },
+    {
+     "who": "rep3",
+     "do": "show",
+     "at": 4.48
+    },
+    {
+     "who": "dad",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 4.48
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.2,
+       0.27,
+       0.51
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.48
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.27,
+       0.51
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.48
+    },
+    {
+     "who": "rep3",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 4.497
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "your stomach",
+   "at": 26.733,
+   "len": 5.467,
+   "shot": {
+    "pos": [
+     -0.95,
+     0.72,
+     2.9
+    ],
+    "look": [
+     -0.95,
+     0.6,
+     0.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.95,
+      0.713,
+      2.738
+     ],
+     "look": [
+      -0.95,
+      0.6,
+      0.2
+     ],
+     "fov": 36
+    },
+    "dur": 5.56,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep3",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.18,
+      "curve": -0.1
+     },
+     "dur": 0.01,
+     "at": 0.007
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "pupil": 0.8,
+      "tilt": 0.05,
+      "browY": 0.05,
+      "curve": 0
+     },
+     "dur": 0.01,
+     "at": 0.007
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.3,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.007
+    },
+    {
+     "who": "rep3",
+     "macro": "say",
+     "line": "Sir... that was your stomach.",
+     "tone": "question",
+     "style": "suspicious, slow, mic pushed in",
+     "voice": "reaper",
+     "dur": 2.32,
+     "caption": false,
+     "at": 0.057
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.387
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.887
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.387
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.887
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.387
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.527
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.567
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Mine is fine.",
+     "tone": "calm",
+     "style": "too quick, too calm, a lie",
+     "voice": "dad",
+     "dur": 1.21,
+     "caption": false,
+     "at": 2.627
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.887
+    },
+    {
+     "who": "dad",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 3.027
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.387
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.887
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.02,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.937
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.02,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.937
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.8,
+      "tilt": -0.22,
+      "browY": -0.03,
+      "curve": -0.25
+     },
+     "dur": 0.15,
+     "at": 3.937
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 3.937
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 4.177
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Helmet.",
+     "tone": "calm",
+     "style": "short, grim, pulling it on",
+     "voice": "dad",
+     "dur": 0.83,
+     "caption": false,
+     "at": 4.237
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 4.387
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 4.887
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 5.387
+    },
+    {
+     "do": "prop",
+     "id": "colander",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.447
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.447
+    },
+    {
+     "who": "rep3",
+     "do": "hide",
+     "at": 5.447
+    },
+    {
+     "who": "rep",
+     "do": "show",
+     "at": 5.447
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": -0.86,
+      "y": 0.66,
+      "z": 0.68,
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.447
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tongs",
+      "grip": "hold",
+      "palm": [
+       0,
+       0,
+       0.13
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.447
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 5.447
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.447
+    }
+   ]
+  },
+  {
+   "name": "wires",
+   "at": 32.2,
+   "len": 6.3,
+   "shot": {
+    "pos": [
+     0.9,
+     0.95,
+     2.6
+    ],
+    "look": [
+     -0.5,
+     0.78,
+     0.2
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.802,
+      0.938,
+      2.432
+     ],
+     "look": [
+      -0.5,
+      0.78,
+      0.2
+     ],
+     "fov": 42
+    },
+    "dur": 6.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/pot-bang",
+     "gain": 0.12,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.75,
+      "tilt": -0.25,
+      "browY": -0.03,
+      "curve": -0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudU",
+     "do": "expr",
+     "set": {
+      "eye": 0.75,
+      "curve": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.42
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.74
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Red wire... or blue wire?",
+     "tone": "whisper",
+     "style": "sweating, tongs hovering over the sweater",
+     "voice": "dad",
+     "dur": 2.42,
+     "caption": false,
+     "soft": true,
+     "at": 0.8
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.92
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "y": 0.68,
+      "z": 0.64
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.42
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.92
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "y": 0.64,
+      "z": 0.7
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 2.1
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.42
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.92
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.42
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.92
+    },
+    {
+     "who": "spudU",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.15,
+     "at": 4.12
+    },
+    {
+     "who": "spudU",
+     "do": "look",
+     "to": [
+      -0.6,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 4.12
+    },
+    {
+     "who": "spudU",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 4.26
+    },
+    {
+     "who": "spudU",
+     "macro": "say",
+     "line": "It's my sweater.",
+     "tone": "calm",
+     "style": "flat, bored, lying on the table",
+     "voice": "tato",
+     "dur": 1.08,
+     "caption": false,
+     "at": 4.32
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 4.42
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 4.92
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 5.42
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.067,
+     "ease": "linear",
+     "at": 5.7
+    },
+    {
+     "sfx": "click",
+     "gain": 0.45,
+     "at": 5.7
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 5.75
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "open": 0.25
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 5.8
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 5.9
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 5.92
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 6.28
+    },
+    {
+     "who": "spudU",
+     "do": "show",
+     "at": 6.28
+    },
+    {
+     "do": "prop",
+     "id": "gum",
+     "set": {
+      "x": -0.39,
+      "y": 0.76,
+      "z": 0.48,
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.28
+    },
+    {
+     "who": "spudU",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gum",
+      "grip": [
+       0,
+       0,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.28
+    },
+    {
+     "who": "spudU",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.01,
+     "at": 6.28
+    },
+    {
+     "who": "spudU",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 6.29
+    }
+   ]
+  },
+  {
+   "name": "want one",
+   "at": 38.5,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     1.95,
+     1,
+     2.1
+    ],
+    "look": [
+     -0.45,
+     0.75,
+     0.2
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      1.83,
+      0.988,
+      2.005
+     ],
+     "look": [
+      -0.45,
+      0.75,
+      0.2
+     ],
+     "fov": 48
+    },
+    "dur": 2.9699999999999998,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudU",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "browY": 0.04,
+      "curve": 0.45
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudU",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudU",
+     "macro": "say",
+     "line": "Want one?",
+     "tone": "calm",
+     "style": "innocent, holding out a gum",
+     "voice": "tato",
+     "dur": 0.94,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.12
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.62
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.6,
+      "tilt": 0.3,
+      "browY": 0.06,
+      "curve": -0.4,
+      "open": 0.3
+     },
+     "dur": 0.08,
+     "at": 1.04
+    },
+    {
+     "who": "dad",
+     "do": "move",
+     "to": [
+      -1.34,
+      0.2
+     ],
+     "dur": 0.35,
+     "steps": 0,
+     "ease": "out",
+     "at": 1.04
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": -0.85,
+      "y": 1.15,
+      "z": 0.3
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.04
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.7,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.04
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 1.04
+    },
+    {
+     "sfx": "ai/slowmo-air",
+     "gain": 0.2,
+     "at": 1.04
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.08
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.12
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Get that away from me!",
+     "tone": "excited",
+     "style": "panicked, jumping back as if from a snake",
+     "voice": "dad",
+     "dur": 1.23,
+     "caption": false,
+     "at": 1.14
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.62
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.12
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.62
+    }
+   ]
+  },
+  {
+   "name": "before",
+   "at": 41.3,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     -2.9,
+     0.4,
+     0.55
+    ],
+    "look": [
+     -4.1,
+     0.45,
+     -1.85
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -2.984,
+      0.404,
+      0.382
+     ],
+     "look": [
+      -4.1,
+      0.45,
+      -1.85
+     ],
+     "fov": 34
+    },
+    "dur": 1.81,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 0.8,
+      "tilt": -0.1,
+      "curve": 0.05,
+      "smirk": 0.25
+     },
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's been through this before.",
+     "tone": "whisper",
+     "style": "quiet, knowing, to the camera",
+     "voice": "reaper",
+     "dur": 1.41,
+     "caption": false,
+     "soft": true,
+     "at": 0.07
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.32
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.82
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.32
+    },
+    {
+     "do": "prop",
+     "id": "basket",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "gum",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "dad",
+     "do": "move",
+     "to": [
+      -0.89,
+      0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.78
+    },
+    {
+     "who": "dad",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.78
+    },
+    {
+     "who": "spudU",
+     "do": "hide",
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "x": -1.42,
+      "y": 0.62,
+      "z": 0.5,
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "lid",
+      "grip": [
+       0,
+       0,
+       -0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.19,
+       0.31,
+       0.08
+      ],
+      "elbow": 0.12
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "bowl",
+     "set": {
+      "x": 0.16,
+      "y": 0.32,
+      "z": 0.2,
+      "scale": 0.75
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    }
+   ]
+  },
+  {
+   "name": "armour",
+   "at": 43.1,
+   "len": 3.8,
+   "shot": {
+    "pos": [
+     -0.87,
+     0.5,
+     4.1
+    ],
+    "look": [
+     -0.87,
+     0.5,
+     0.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.87,
+      0.5,
+      3.872
+     ],
+     "look": [
+      -0.87,
+      0.5,
+      0.3
+     ],
+     "fov": 40
+    },
+    "dur": 3.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.02
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.2,
+      "curve": -0.3
+     },
+     "dur": 0.01,
+     "at": 0.03
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.03
+    },
+    {
+     "sfx": "ai/pot-bang",
+     "gain": 0.3,
+     "at": 0.13
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.52
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.02
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.12
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Full armour. The moment of truth.",
+     "tone": "calm",
+     "style": "hushed, tense, the countdown",
+     "voice": "reaper",
+     "dur": 2.4,
+     "caption": false,
+     "at": 1.18
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.52
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.02
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.52
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.02
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.52
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "x": -0.15,
+      "y": 0.5,
+      "z": 0.05,
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.78
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "spoon",
+      "grip": [
+       0,
+       0.27,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.78
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 3.78
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "spoon",
+   "at": 46.9,
+   "len": 3.733,
+   "shot": {
+    "pos": [
+     -0.36,
+     0.7,
+     2.6
+    ],
+    "look": [
+     -0.36,
+     0.55,
+     -0.1
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.36,
+      0.687,
+      2.357
+     ],
+     "look": [
+      -0.36,
+      0.55,
+      -0.1
+     ],
+     "fov": 46
+    },
+    "dur": 3.71,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "pupil": 0.8,
+      "open": 0.4
+     },
+     "dur": 0.01,
+     "at": 0.03
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.03
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "One spoon. Slowly... slowly...",
+     "tone": "whisper",
+     "style": "trembling, behind the pot-lid shield",
+     "voice": "dad",
+     "dur": 3.56,
+     "caption": false,
+     "soft": true,
+     "at": 0.08
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "x": 0.08,
+      "z": -0.06
+     },
+     "dur": 3,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.72
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.22
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.01,
+     "dur": 0.08,
+     "at": 1.68
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 1.72
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.08,
+     "at": 1.83
+    },
+    {
+     "sfx": "click",
+     "gain": 0.08,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.22
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 2.72
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.22
+    },
+    {
+     "do": "prop",
+     "id": "spoon",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.713
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.19,
+       0.31,
+       0.08
+      ],
+      "elbow": 0.12
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.713
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 3.72
+    }
+   ]
+  },
+  {
+   "name": "chew",
+   "at": 50.633,
+   "len": 1.433,
+   "shot": {
+    "pos": [
+     0.16,
+     0.6,
+     2.3
+    ],
+    "look": [
+     0.16,
+     0.52,
+     -0.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.16,
+      0.597,
+      2.196
+     ],
+     "look": [
+      0.16,
+      0.52,
+      -0.3
+     ],
+     "fov": 30
+    },
+    "dur": 1.45,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.75,
+      "curve": 0.2
+     },
+     "dur": 0.01,
+     "at": 0.007
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.12,
+     "at": 0.157
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 0.307
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.487
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.12,
+     "at": 0.487
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 0.637
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.12,
+     "at": 0.817
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 0.967
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.987
+    },
+    {
+     "sfx": "gulp",
+     "gain": 0.5,
+     "at": 1.207
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "x": -0.95,
+      "y": 0.5,
+      "z": 0.62
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.414
+    }
+   ]
+  },
+  {
+   "name": "over the lid",
+   "at": 52.066,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     -0.95,
+     0.72,
+     2.9
+    ],
+    "look": [
+     -0.95,
+     0.6,
+     0.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.95,
+      0.715,
+      2.792
+     ],
+     "look": [
+      -0.95,
+      0.6,
+      0.2
+     ],
+     "fov": 36
+    },
+    "dur": 0.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "pupil": 0.75,
+      "tilt": 0.25,
+      "browY": 0.03
+     },
+     "dur": 0.01,
+     "at": 0.024
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.024
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.054
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.554
+    }
+   ]
+  },
+  {
+   "name": "peek",
+   "at": 52.966,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     -2.9,
+     0.4,
+     0.55
+    ],
+    "look": [
+     -4.1,
+     0.45,
+     -1.85
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -2.948,
+      0.402,
+      0.454
+     ],
+     "look": [
+      -4.1,
+      0.45,
+      -1.85
+     ],
+     "fov": 34
+    },
+    "dur": 0.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "pupil": 0.75,
+      "tilt": 0.15
+     },
+     "dur": 0.01,
+     "at": 0.024
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.024
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.154
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.654
+    }
+   ]
+  },
+  {
+   "name": "burp",
+   "at": 53.766,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.16,
+     0.6,
+     2.3
+    ],
+    "look": [
+     0.16,
+     0.52,
+     -0.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.16,
+      0.598,
+      2.222
+     ],
+     "look": [
+      0.16,
+      0.52,
+      -0.3
+     ],
+     "fov": 30
+    },
+    "dur": 0.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.75,
+      "curve": 0.2,
+      "open": 0.5
+     },
+     "dur": 0.05,
+     "at": 0.024
+    },
+    {
+     "sfx": "ai/blep",
+     "gain": 0.5,
+     "at": 0.074
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.1,
+     "at": 0.274
+    },
+    {
+     "sfx": "click",
+     "gain": 0.22,
+     "reason": "the egg timer ticking on the table, in and out of frame",
+     "at": 0.354
+    }
+   ]
+  },
+  {
+   "name": "ring",
+   "at": 54.366,
+   "len": 3.467,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.65,
+     3.1
+    ],
+    "look": [
+     -0.35,
+     0.6,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.35,
+      0.648,
+      2.945
+     ],
+     "look": [
+      -0.35,
+      0.6,
+      0
+     ],
+     "fov": 40
+    },
+    "dur": 3.45,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "timer",
+     "set": {
+      "ring": 1
+     },
+     "dur": 1.2,
+     "ease": "linear",
+     "at": 0.024
+    },
+    {
+     "sfx": "ring",
+     "gain": 0.45,
+     "at": 0.024
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.1,
+     "at": 0.424
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.7,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.424
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.514
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Still works.",
+     "tone": "calm",
+     "style": "flat, after a burp, unimpressed",
+     "voice": "tato",
+     "dur": 1.03,
+     "caption": false,
+     "at": 0.574
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "pupil": 0.8,
+      "tilt": 0.1,
+      "browY": 0.05,
+      "curve": -0.1,
+      "open": 0.1
+     },
+     "dur": 0.1,
+     "at": 1.854
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.894
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Impossible.",
+     "tone": "whisper",
+     "style": "stunned, lowering the shield",
+     "voice": "dad",
+     "dur": 1.07,
+     "caption": false,
+     "soft": true,
+     "at": 1.954
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "x": -1.42,
+      "y": 0.45,
+      "z": 0.5
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.154
+    },
+    {
+     "who": "rep",
+     "do": "hide",
+     "at": 3.447
+    },
+    {
+     "who": "rep2",
+     "do": "show",
+     "at": 3.447
+    },
+    {
+     "do": "prop",
+     "id": "film",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.447
+    },
+    {
+     "who": "rep2",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.464
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "the x-ray",
+   "at": 57.833,
+   "len": 2.333,
+   "shot": {
+    "pos": [
+     -1.95,
+     0.4,
+     2.35
+    ],
+    "look": [
+     -1.95,
+     0.3,
+     0
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -1.95,
+      0.394,
+      2.209
+     ],
+     "look": [
+      -1.95,
+      0.3,
+      0
+     ],
+     "fov": 36
+    },
+    "dur": 2.34,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep2",
+     "do": "expr",
+     "set": {
+      "eye": 0.85,
+      "tilt": -0.25,
+      "browY": -0.03,
+      "curve": -0.15
+     },
+     "dur": 0.01,
+     "at": 0.007
+    },
+    {
+     "who": "rep2",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.007
+    },
+    {
+     "who": "rep2",
+     "macro": "say",
+     "line": "Then what... is this?",
+     "tone": "question",
+     "style": "slow, holding up an X-ray, a reporter with proof",
+     "voice": "reaper",
+     "dur": 1.84,
+     "caption": false,
+     "at": 0.057
+    },
+    {
+     "do": "prop",
+     "id": "sweat",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.297
+    },
+    {
+     "who": "dad",
+     "do": "move",
+     "to": [
+      -1.05,
+      -0.32
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.314
+    },
+    {
+     "who": "dad",
+     "do": "turn",
+     "to": -50,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.314
+    },
+    {
+     "do": "prop",
+     "id": "lid",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.314
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.1,
+       0.31,
+       0.5
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.314
+    }
+   ]
+  },
+  {
+   "name": "different",
+   "at": 60.166,
+   "len": 3.001,
+   "shot": {
+    "pos": [
+     -1.4,
+     0.5,
+     2.9
+    ],
+    "look": [
+     -1.42,
+     0.4,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -1.401,
+      0.493,
+      2.697
+     ],
+     "look": [
+      -1.42,
+      0.4,
+      0
+     ],
+     "fov": 40
+    },
+    "dur": 2.987,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.004
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1,
+      "pupil": 0.75,
+      "tilt": 0.3,
+      "browY": 0.02,
+      "curve": -0.15
+     },
+     "dur": 0.01,
+     "at": 0.014
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.014
+    },
+    {
+     "do": "prop",
+     "id": "sweat",
+     "set": {
+      "x": -0.245,
+      "y": 0.84,
+      "z": 0.285
+     },
+     "dur": 1.1,
+     "ease": "in",
+     "at": 0.064
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "...That's different.",
+     "tone": "calm",
+     "style": "a dry swallow, sweating, caught",
+     "voice": "dad",
+     "dur": 1.24,
+     "caption": false,
+     "at": 0.064
+    },
+    {
+     "who": "dad",
+     "do": "blink",
+     "dur": 0.2,
+     "at": 0.214
+    },
+    {
+     "who": "dad",
+     "do": "blink",
+     "dur": 0.2,
+     "at": 0.514
+    },
+    {
+     "do": "prop",
+     "id": "sweat",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.214
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 0.8,
+   "see": [
+    "spud.face",
+    "bubble"
+   ],
+   "why": "a kid blows a pink gum bubble at the kitchen table"
+  },
+  {
+   "from": 60.23,
+   "to": 63.167,
+   "see": [
+    "dad.face",
+    "film"
+   ],
+   "why": "Dad caught: his own X-ray with a gum ball, DAD 1995"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "chair",
+   "from": 0,
+   "to": 63.167,
+   "reason": "sitting on the chair"
+  },
+  {
+   "who": "spudU",
+   "with": "table",
+   "from": 0,
+   "to": 63.167,
+   "reason": "standing on the table"
+  },
+  {
+   "who": "dad",
+   "with": "spudU",
+   "from": 21.81,
+   "to": 22.31,
+   "reason": "the arm passes Tato off frame in the Mitts. single (Dad alone, Tato 0.8 m out of the frame)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/06-gum/make-gum.mjs. Burp = ai/blep and the tick = click: placeholders (no burp or tick in the kit)."
+}
