@@ -66,6 +66,9 @@ const SIZE = {
   hotelpillow: { w: 0.5, h: 0.12, d: 0.3 },        // props-nightcity.js: both palms on its two ends (box hold: L at x -0.25, R at x +0.25)
   gamepad: { w: 0.17, h: 0.045, d: 0.1 },
   rubberstamp: { r: 0.018, h: 0.13 },             // props-busy.js: held round its wooden neck like a mug (a real stamp's fist hold), the pad below
+  scrollroll: { w: 0.52, h: 0, d: 0.11 },          // props-heaventerms.js: the Angel's roll, ORIGIN = the roll's axis centre (h 0: both gloves at y 0 on the two knob ends, x +-0.305), box hold
+  scrollsheet: { w: 0.40, h: 0, d: 0.01 },         // props-heaventerms.js: the page he reads, ORIGIN = the page's middle between his gloves (h 0), both gloves on its side edges (x +-0.245), box hold
+  goldstamp: { r: 0.0232, h: 0.2424 },             // props-heaventerms.js: the gold desk stamp, origin the pad's face; mug hold round the neck (fist 0.66 x h = y 0.16)
   deskplate: { w: 0.36, h: 0.1, d: 0.1 },          // props-busy.js MANAGER sign: both palms on its two ends (box hold)          // props-notyet.js PAD: held in both hands with the box hold (palms on its two grips)
   clambox: { w: 0.26, h: 0.12, d: 0.2 },            // props-winter.js takeaway clamshell (closed: tray + lid): both palms on its two ends (box hold)
   cocoacup: { r: 0.045, h: 0.115 },                // props-winter.js hot chocolate to go: the mug hold round the sleeve
