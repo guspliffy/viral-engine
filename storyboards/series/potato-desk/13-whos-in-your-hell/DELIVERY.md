@@ -1,8 +1,9 @@
 # Who's in your hell? (Heaven/Hell 4, Potato Desk 13): delivery 25 Nov 2026
 
 **Video:** whos-in-your-hell.mp4, 40.3 s at 1x (voices already 1.2x), 1080x1920, farm render (run 45694905474),
-checks PASS with 0 fails (CHECK-FINAL.txt). The hook label "Hell = forever with / people who annoy you" shows from
-0 to 2.4 s and ends on the cut to the Devil's rule. whos-in-your-hell-nolabel.mp4 is the same video without it.
+checks PASS with 0 fails (CHECK-FINAL.txt). No hook label in the video (Jonny 25 Nov: he adds the lettering in
+TikTok himself). Label text for TikTok, 0 to 2.4 s: "Hell = forever with / people who annoy you".
+whos-in-your-hell-with-label.mp4 is the old version with the label burned in.
 Cover: whos-in-your-hell-cover.png (9.9 s, the chewer walking in, no text).
 
 **Picks used:** idea A without the name Tato; hook H1 + label L1; ending E1 (his own friend: "NOT THE PEN!").
