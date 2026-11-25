@@ -151,7 +151,7 @@ const shots = [];
 const shot = (name, t, s, move, kind) => { const at = F2(t); shots.push({ name, at, s, move, kind }); CUTS.add(at); return at; };
 
 // marks
-const S99 = W("T", -0.10, -0.22, 0.25), S_STAMP = W("T", 0.30, 0, -0.74), S_READ = W("T", 0.20, 0, -0.45);
+const S99 = W("T", -0.10, -0.22, 0.25), S_STAMP = W("T", 0.37, 0, -0.74), S_READ = W("T", 0.20, 0, -0.45);
 const ANGEL_T = W("T", 1.13, 0.14, -1.50), Y_ANGEL_T = -20;
 const DEVIL_CHAIR = W("B", 0.50, 0, 0.95);
 const AT_ANGEL = [0.6, 0.4], AT_SPUD = [-0.6, -0.3];
@@ -181,7 +181,7 @@ see(0, 1.8, ["spud.face", "angel.face", "scroll", "gate"], "a little one at heav
 const DROP = shot("drop", r3(T[0] + DUR[0] * 0.47), cam("T", [2.05, 0.80, 0.70], [0.95, 0.45, -0.75], 30), tilt(10));
 arm(r3(DROP - 0.25), "angel", "R", { o: [0.12, 0.40, 0.55] }, 0.25, "out");
 const ROLLGO = r3(DROP + 0.12);
-c.prop(ROLLGO, "scroll", { unroll: 0.012 }, 0.42, "inOut"); c.prop(r3(ROLLGO + 0.42), "scroll", { unroll: 1 }, 1.2, "in");   // it tips over the ledge, then races down (no one-frame jump in the insert)
+c.prop(ROLLGO, "scroll", { unroll: 0.003 }, 0.42, "inOut"); c.prop(r3(ROLLGO + 0.42), "scroll", { unroll: 1 }, 1.2, "in");   // it tips over the ledge, then races down (no one-frame jump in the insert)
 sfx(r3(ROLLGO + 0.32), "thud", { gain: 0.8 }); c.at(r3(ROLLGO + 0.32), { fx: "shake", dur: 0.1, amp: 0.02 });
 sfx(r3(ROLLGO + 0.45), "ai-package/cardboard-rustle", { gain: 0.5 });
 look(r3(ROLLGO + 0.2), "spud", [0.2, 1.0], 0.2); expr(r3(ROLLGO + 0.25), "spud", "shocked", 0.15);
@@ -208,7 +208,7 @@ sfx(r3(SLAM + 0.1), "kenney/impact-wood-heavy", { gain: 0.8 }); c.at(r3(SLAM + 0
 c.prop(r3(SLAM + 0.1), "stamp", { squash: 0.08 }, 0.05, "out"); c.prop(r3(SLAM + 0.17), "stamp", { squash: 0 }, 0.1);
 c.prop(r3(SLAM + 0.1), "scroll", { count: 1 }, 0);   // the ink lands WITH the contact, the gate still shut (Sol r1 #3)
 A(r3(SLAM + 0.22), "spud", "release", { prop: "stamp", dur: 0, to: STAMP_DOWN });
-arm(r3(SLAM + 0.22), "spud", "R", "rest", 0.55, "inOut");
+arm(r3(SLAM + 0.22), "spud", "R", { o: [0.35, 0.32, 0.40] }, 0.25, "out"); arm(r3(SLAM + 0.5), "spud", "R", "rest", 0.3, "inOut");   // via a low forward pose: a straight path to rest flipped the elbow for one frame (farm pops 4.57)
 c.prop(r3(SLAM + 0.35), "gate", { open: 1 }, 0.5, "inOut"); sfx(r3(SLAM + 0.35), "kenney/creak", { gain: 0.4 });
 look(r3(SLAM + 0.4), "spud", [-0.8, 0.3]); expr(r3(SLAM + 0.45), "spud", "delighted");
 turn(r3(SLAM + 0.75), "spud", 45, 0.35);
@@ -386,7 +386,7 @@ arm(r3(GRAB - 0.5), "spud", "R", "rest", 0.2);
 step(r3(GRAB - 0.5), "spud", S_GRAB, 0.35, { steps: 2 }); turn(r3(GRAB - 0.5), "spud", 0, 0.35);
 putProp(r3(GRAB - 0.05), "sheet", [S_GRAB[0], r3(S_GRAB[1] + 0.16), r3(S_GRAB[2] + SH_FWD)]);
 A(r3(GRAB - 0.45), "spud", "crouch", { to: 0.3, dur: 0.22 });
-hS.secure(GRAB, 0.2);
+hS.secure(GRAB, 0.001);   // a snap below the frame: a 0.2 s secure flashed the page up for one frame (farm pops 35.8)
 A(r3(GRAB + 0.22), "spud", "crouch", { to: 0, dur: 0.3 }); hS.carry(r3(GRAB + 0.22), sheetAt(S_GRAB), 0.3, "inOut");
 
 // ================================================================ 4 HE WALKS DOWN, READING (real treads: tread n top y 0.22 n, riser z -0.50 (n - 2) - 0.70 floor((n - 1) / 10))

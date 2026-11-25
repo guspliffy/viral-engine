@@ -1106,7 +1106,7 @@
      "do": "prop",
      "id": "scroll",
      "set": {
-      "unroll": 0.012
+      "unroll": 0.003
      },
      "dur": 0.42,
      "ease": "inOut",
@@ -1249,7 +1249,7 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.3,
+      0.37,
       -56.04
      ],
      "y": 22,
@@ -1497,9 +1497,15 @@
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
-     "dur": 0.55,
-     "ease": "inOut",
+     "pose": {
+      "o": [
+       0.35,
+       0.32,
+       0.4
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
      "at": 0.94
     },
     {
@@ -1534,6 +1540,15 @@
      "expr": "delighted",
      "dur": 0.2,
      "at": 1.17
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.22
     },
     {
      "who": "spud",
@@ -4955,7 +4970,7 @@
       ],
       "palm": true
      },
-     "dur": 0.2,
+     "dur": 0.001,
      "ease": "settle",
      "at": 1.312
     },
@@ -4972,7 +4987,7 @@
       ],
       "palm": true
      },
-     "dur": 0.2,
+     "dur": 0.001,
      "ease": "settle",
      "at": 1.312
     },
@@ -4982,7 +4997,7 @@
      "side": "R",
      "shape": "press",
      "dur": 0.12,
-     "at": 1.432
+     "at": 1.313
     },
     {
      "who": "spud",
@@ -4990,7 +5005,21 @@
      "side": "L",
      "shape": "press",
      "dur": 0.12,
-     "at": 1.432
+     "at": 1.313
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "sheet",
+     "hand": "both",
+     "grip": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 1.373
     },
     {
      "who": "spud",
@@ -5042,20 +5071,6 @@
      "dur": 0.3,
      "ease": "inOut",
      "at": 1.532
-    },
-    {
-     "who": "spud",
-     "do": "grab",
-     "prop": "sheet",
-     "hand": "both",
-     "grip": [
-      0,
-      0,
-      0
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 1.572
     },
     {
      "who": "spud",
