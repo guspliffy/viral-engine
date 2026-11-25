@@ -107,6 +107,7 @@ import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinerco
 import { DRIVETHRU_KINDS } from "./props-drivethru.js";   // kid vs dad 02: drivethru, burgersign, trafficlight, trafficcone, speakerpost, menuboard
 import { FRIDGE_KINDS } from "./props-fridge.js";   // kid vs dad 02: openfridge
 import { FOODHOME_KINDS } from "./props-foodhome.js";   // kid vs dad 02: wrapburger, fogglass, cablight, sweatbead
+import { GUM_KINDS } from "./props-gum.js";   // kid vs dad 06: gumbubble, gumstick, eggtimer, ovenmitts, colanderhat, basketarmour, potlid, xrayfilm
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { LUNCH_KINDS } from "./props-lunch.js";   // potato desk 10 lunch trial: lunchbox, yogurtcup, kitchensink, microwave, beanmachine, corkboard, blindwindow, carpettiles, ceilingtiles, mouldbox, lanyard, collarstain, pocketglow
 import { THERMO_KINDS, THERMO_GRIPS } from "./props-thermo.js";   // potato desk 11 thermostat war: thermostat, thermobox, stepstool
@@ -1515,6 +1516,7 @@ Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);  
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, DRIVETHRU_KINDS, FRIDGE_KINDS, FOODHOME_KINDS);   // kid vs dad 02 (props-drivethru.js, props-fridge.js, props-foodhome.js)
+Object.assign(KINDS, GUM_KINDS);   // kid vs dad 06 (props-gum.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
 Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
 Object.assign(KINDS, THERMO_KINDS, CLIMATE_KINDS, OFFICE11_KINDS);   // potato desk 11 thermostat war (props-thermo.js, props-climate.js, props-office11.js)
