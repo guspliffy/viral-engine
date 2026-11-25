@@ -171,12 +171,13 @@ expr(C05, "kid1", FACES.sunk, 0.01); look(C05, "kid1", [0.9, 0.35], 0.01);
 say(9);                  // First joke. The waiter is still standing.
 // ---------------------------------------------------------------- JOKE 2 (06: the waiter is back with the drinks, late)
 const C06 = cutAt(10);
-swap(C06, "w", "wT"); wear(C06, "apron", "apronT"); for (const g of ["tray", "glassA", "glassB"]) c.prop(onCut(C06), g, { scale: 1 }, 0.01);
+swap(C06, "w", "wT"); wear(C06, "apron", "apronT"); for (const g of ["glassA", "glassB"]) c.prop(onCut(C06), g, { scale: 1 }, 0.01);
+c.prop(r3(C06 - 0.4), "tray", { scale: 1 }, 0.01);   // grown before the cut (behind the S02 camera), so his hands do not turn as it grows on screen
 gp.release(onCut(C06), { back: 0.01 });
 
-expr(C06, "wT", FACES.nervous, 0.01); A(r3(T[10]), "wT", "lean", { to: 12, dur: 0.3 });
+expr(C06, "wT", FACES.nervous, 0.01); A(r3(T[10]), "wT", "face", { lid: 0.7, dur: 0.2 });   // no bow: a lean with the box hold turned his left palm 96° in 3 frames
 say(10, "wT");           // Sorry for the wait.
-A(r3(END_OF(10) + 0.1), "wT", "lean", { to: 0, dur: 0.3 });
+A(r3(END_OF(10) + 0.1), "wT", "face", { lid: 0, dur: 0.2 });
 arm(r3(T[11] - 0.3), "dad", "L", { o: [0.15, 0.30, 0.50] }, 0.3); arm(r3(T[11] - 0.3), "dad", "R", { o: [0.15, 0.30, 0.50] }, 0.3);
 grip(r3(T[11] - 0.2), "dad", "L", "flat"); grip(r3(T[11] - 0.2), "dad", "R", "flat");
 for (const d of [0.5, 0.9, 1.3]) { A(r3(T[11] + d), "dad", "squash", { amount: 0.03, dur: 0.1 }); A(r3(T[11] + d + 0.12), "dad", "squash", { amount: 0, dur: 0.15 }); }
@@ -191,11 +192,12 @@ say(12, "kid2");         // Dad...
 say(13);                 // He's sinking. Tato is sinking.
 // ---------------------------------------------------------------- WHY THE RULE EXISTS: the door swings, the photo, the cook
 const C08 = cutAt(14);
-c.prop(r3(T[14] + 0.3), "door", { open: 0.9 }, 0.18, "out"); c.prop(r3(T[14] + 0.5), "door", { open: 0.7 }, 0.3, "inOut");
+c.prop(r3(T[14] + 0.2), "door", { open: 0.9 }, 0.35, "out"); c.prop(r3(T[14] + 0.6), "door", { open: 0.7 }, 0.3, "inOut");   // 0.18 s read as a one-frame pop
+c.prop(0, "crate", { scale: 0.001 }, 0);   // the cook's crate only under the cook (09): an empty crate in the nook in 08 begs a question
 say(14);                 // Wait. What's on that wall?
 say(15);                 // He's been here before.
 const C09 = cutAt(16);
-show(C09, "cook"); c.prop(onCut(C09), "toque", { scale: 1 }, 0.01); hide(cutAt(17), "cook"); c.prop(onCut(cutAt(17)), "toque", { scale: 0.001 }, 0.01);
+show(C09, "cook"); for (const p of ["toque", "crate"]) { c.prop(onCut(C09), p, { scale: 1 }, 0.01); c.prop(onCut(cutAt(17)), p, { scale: 0.001 }, 0.01); } hide(cutAt(17), "cook");
 say(16);                 // Last time... the waiter quit.  (09 the cook prays at the porthole)
 c.prop(onCut(C09), "door", { open: 0 }, 0.01);   // closed for the porthole shot
 // ---------------------------------------------------------------- JOKE 3 (10: the waiter shields himself with the pad)
@@ -225,7 +227,10 @@ c.prop(onCut(C12), "beam", { scale: 0.001 }, 0.01); c.prop(onCut(C12), "pool", {
 hide(C12, "w"); show(C12, "wT"); wear(C12, "apron", "apronT"); show(C12, "kid2");
 c.prop(onCut(C12), "tray", { scale: 1 }, 0.01); gp.release(onCut(C12), { back: 0.01 });
 expr(C12, "wT", FACES.frozen, 0.01);
-gt.release(r3(C12 + 0.2), { back: 0.3, to: [-0.45, 0, -0.30] }); sfx(r3(C12 + 0.65), "ai/glass-smash", { gain: 0.35 });
+// the tray lands on the cut while he is hidden (his hands go straight to rest): any on-screen release turned his palms
+// 60-90° in 2 frames and pulled the hands to the floor; the clang on the cut sells the drop
+A(r3(onCut(C12) - 0.1), "wT", "release", { prop: "tray", dur: 0, to: [-0.45, 0, -0.30] });
+for (const s of ["L", "R"]) { arm(r3(onCut(C12) - 0.09), "wT", s, "rest", 0.01); grip(r3(onCut(C12) - 0.09), "wT", s, "relaxed", 0.01); } sfx(r3(C12), "ai/snare-hit", { gain: 0.3 });   // the tray hits the floor (PLACEHOLDER sound)
 A(r3(C12 + 0.2), "rep", "crouch", { to: 0.1, dur: 0.25 });
 say(22);                 // Man down! Man down!
 // 13: under the table (the cheat): Tato curled up, hands over his face; the dad's sandals at the edge

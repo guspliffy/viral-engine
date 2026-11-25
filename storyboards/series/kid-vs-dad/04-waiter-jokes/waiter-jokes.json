@@ -1203,6 +1203,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "crate",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
      "who": "rep",
      "do": "arm",
      "side": "R",
@@ -2116,6 +2126,16 @@
      "at": 0.054
     },
     {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.734
+    },
+    {
      "who": "w",
      "do": "hide",
      "at": 3.114
@@ -2138,16 +2158,6 @@
     {
      "do": "prop",
      "id": "apronT",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 3.114
-    },
-    {
-     "do": "prop",
-     "id": "tray",
      "set": {
       "scale": 1
      },
@@ -2286,9 +2296,9 @@
     },
     {
      "who": "wT",
-     "do": "lean",
-     "to": 12,
-     "dur": 0.3,
+     "do": "face",
+     "lid": 0.7,
+     "dur": 0.2,
      "at": 0.05
     },
     {
@@ -2334,9 +2344,9 @@
     },
     {
      "who": "wT",
-     "do": "lean",
-     "to": 0,
-     "dur": 0.3,
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
      "at": 1.31
     },
     {
@@ -2661,9 +2671,9 @@
      "set": {
       "open": 0.9
      },
-     "dur": 0.18,
+     "dur": 0.35,
      "ease": "out",
-     "at": 0.354
+     "at": 0.254
     },
     {
      "do": "prop",
@@ -2673,7 +2683,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.554
+     "at": 0.654
     },
     {
      "who": "rep",
@@ -2703,6 +2713,16 @@
     {
      "do": "prop",
      "id": "toque",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.347
+    },
+    {
+     "do": "prop",
+     "id": "crate",
      "set": {
       "scale": 1
      },
@@ -2776,11 +2796,6 @@
      "at": 0.067
     },
     {
-     "who": "cook",
-     "do": "hide",
-     "at": 2.38
-    },
-    {
      "do": "prop",
      "id": "toque",
      "set": {
@@ -2788,6 +2803,21 @@
      },
      "dur": 0.01,
      "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "crate",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "who": "cook",
+     "do": "hide",
      "at": 2.38
     },
     {
@@ -3293,6 +3323,52 @@
      "at": 3.454
     },
     {
+     "who": "wT",
+     "do": "release",
+     "prop": "tray",
+     "dur": 0,
+     "to": [
+      -0.45,
+      0,
+      -0.3
+     ],
+     "at": 3.581
+    },
+    {
+     "who": "wT",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.591
+    },
+    {
+     "who": "wT",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.591
+    },
+    {
+     "who": "wT",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.591
+    },
+    {
+     "who": "wT",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.591
+    },
+    {
      "do": "prop",
      "id": "carpetN",
      "set": {
@@ -3441,6 +3517,11 @@
      "at": 0.004
     },
     {
+     "sfx": "ai/snare-hit",
+     "gain": 0.3,
+     "at": 0.004
+    },
+    {
      "who": "w",
      "do": "arm",
      "side": "L",
@@ -3480,122 +3561,11 @@
      "at": 0.031
     },
     {
-     "who": "wT",
-     "do": "release",
-     "prop": "tray",
-     "dur": 0,
-     "to": [
-      -0.45,
-      0,
-      -0.3
-     ],
-     "at": 0.204
-    },
-    {
-     "who": "wT",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 0.204
-    },
-    {
-     "who": "wT",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 0.204
-    },
-    {
      "who": "rep",
      "do": "crouch",
      "to": 0.1,
      "dur": 0.25,
      "at": 0.204
-    },
-    {
-     "who": "wT",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "tray",
-      "grip": [
-       0.22,
-       0.012,
-       0
-      ],
-      "palm": true,
-      "off": [
-       0.084,
-       0.02,
-       -0.014
-      ]
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.244
-    },
-    {
-     "who": "wT",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "tray",
-      "grip": [
-       -0.22,
-       0.012,
-       0
-      ],
-      "palm": true,
-      "off": [
-       -0.054,
-       0.02,
-       0.066
-      ]
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.244
-    },
-    {
-     "who": "wT",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 0.544
-    },
-    {
-     "who": "wT",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 0.544
-    },
-    {
-     "who": "wT",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 0.544
-    },
-    {
-     "who": "wT",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 0.544
-    },
-    {
-     "sfx": "ai/glass-smash",
-     "gain": 0.35,
-     "at": 0.654
     },
     {
      "who": "rep",
