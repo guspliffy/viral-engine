@@ -92,7 +92,7 @@ for (const h of HOME) props.push({ id: h.id, staged: "heaven home (set B), parke
 // held props
 const STAMP = props.find((p) => p.id === "stamp");
 const ROLL = { id: "roll", staged: "the Angel's roll in set B (both gloves on the knobs)", kind: "scrollroll", x: 0, y: AWAY, z: 0 };
-const SHEET = { id: "sheet", staged: "the piece of the scroll he reads (both gloves), shots 19-22", kind: "scrollsheet", x: 0, y: AWAY, z: 0, end: 0 };
+const SHEET = { id: "sheet", staged: "the piece of the scroll he reads (both gloves), shots 19-22", kind: "scrollsheet", x: 0, y: AWAY, z: 0, rot: 180, end: 0 }   // rot 180: its bars face HIM (he faces +z), the arms come from his side of the page (Sol r2 #17);
 const TAIL = { id: "tail", staged: "the scroll flying after him (shot 23)", kind: "scrolltail", x: 0, y: AWAY, z: 0, fall: 0 };
 const PHONE = { id: "phone", staged: "his phone, shots 14-15", kind: "phone", style: "iphone", color: "#d3261e", scale: 1.6, screen: { src: "storyboards/series/potato-desk/heaven-terms/art/bars.png", cols: 2, rows: 1 }, feed: 0, x: 0, y: AWAY, z: 0, rot: 0 };   // one bar (Sol r2 #12)
 const DPHONE = { id: "dphone", staged: "the Devil's phone, shot 15", kind: "phone", style: "iphone", color: "#f2c94c", scale: 2.4, screen: { src: "storyboards/series/potato-desk/heaven-terms/art/bars.png", cols: 2, rows: 1 }, feed: 1, x: 0, y: AWAY, z: 0, rot: 0 };   // five bars
