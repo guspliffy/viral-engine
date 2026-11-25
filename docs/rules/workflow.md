@@ -119,10 +119,12 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
 In a sampled stretch of a build 84 of 163 tool calls were greps of the engine for a name: which verbs exist and what
 they take, expressions, poses, easings, effects, sounds, helpers, prop kinds. Every one re-reads the whole thread
 (about 6 cents and 20 s at 300k tokens), and the same burst came back after each compaction.
-- **Read `docs/VOCAB.md` once at the start, and again after a compaction**, before any grep of `engine/` or
-  `storyboards/lib/`. It is written from the code at session start (`node tools/vocab.mjs` rewrites it, a second:
-  run it after a builder adds a prop kind or you add a helper). It has names and parameters; what a thing does is in
-  `docs/STORYBOARD.md` at the heading and line the sheet's last section gives.
+- **Look a name up on the vocabulary sheet before any grep** of `engine/` or `storyboards/lib/`. ON TRIAL from 25 Nov
+  2026 (engine audit; the full sheet is ~25,000 characters a read): at the start and after a compaction read
+  `node tools/vocab.mjs --index`, then only the sections the step needs (`--section camera,sounds`) or one name
+  (`--find cup`). The full `docs/VOCAB.md` stays the fallback. The ledger row's `lookups` decides the trial: kept if
+  they don't rise over two videos. The tool rewrites the sheet from the code each run (a second). It has names and
+  parameters; what a thing does is in `docs/STORYBOARD.md` at the heading and line the sheet's last section gives.
 - **Keep `NOTES.md` next to the generator** (from `docs/templates/NOTES.md`): where the build stands, the cast's
   places, the props and who holds them how, each camera, decisions with their reason, what was tried and dropped, and
   any name you did have to look up. Update it at each step. After a compaction read it before anything else: it is
@@ -398,8 +400,9 @@ wasted work, and you prove it.
 
 **Before the first step of a video**
 
-1. `node tools/ledger.mjs` prints the last three ledger rows and the fix that is on test. Write in the clip's notes
-   which count that fix should lower.
+1. `node tools/ledger.mjs` prints the two newest fixes on test and the last two ledger rows (ON TRIAL from 25 Nov
+   2026, was ~15,000 characters; `--fixes` prints every fix, `--all` every row). Write in the clip's notes which count
+   that fix should lower.
 2. Pick the comparison video: the earlier one closest in length and in new things (props, effects, sets, format).
 
 **While building**
