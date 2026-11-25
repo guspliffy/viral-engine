@@ -134,7 +134,7 @@ const LOOKS = {
   morning: { s: 1.15, w: 0.8, c: 1, lift: 0.07, tint: WHITE },
   darkK: { s: 0.75, w: -0.6, c: 1.05, lift: -0.12, tint: "#b8c6ff" },
   fridge: { s: 1.0, w: -0.2, c: 1.05, lift: 0.0, tint: "#e6f0ff" },
-  black: { s: 0.25, w: -1.0, c: 1.4, lift: -0.42, tint: "#8090d0" },   // the contact shot: only the lenses read (Sol r1 1)
+  black: { s: 1.0, w: -1.0, c: 1.4, lift: -0.42, tint: "#8090d0" },   // the contact shot: only the lenses read (Sol r1 1)
 };
 const state = (t, name, lights, lamp) => { grade.push([onCut(t), LOOKS[name]]); fx.push({ do: "lights", at: onCut(t), to: lights, lamp, dur: 0.01 }); };
 
@@ -355,7 +355,7 @@ say(14, r3(T12 + 0.4));
 const CLIMBC = { pos: [-2.50, 0.90, 2.30], look: [-4.35, 0.75, -0.95], fov: 40 };
 shot("lighter every night", T12, push(CLIMBC, 0.1, 1.5));
 // "...is lighter every night": the same jar, three nights, fewer cookies each time (jump cuts on one camera)
-const JARN = { pos: [-4.30, 1.20, -0.55], look: [-4.66, 1.07, -1.42], fov: 30 };
+const JARN = { pos: [-4.05, 1.25, -0.75], look: [-4.66, 1.07, -1.42], fov: 30 };   // right of Tato's climb (he rose into the old one)
 const TJ = r3(T12 + 1.55);
 [[0.85, 0], [0.65, 0.42], [0.45, 0.84]].forEach(([f, d], k) => {
   P(onCut(r3(TJ + d)), "jar", { fill: f, lid: 0 }, 0);
