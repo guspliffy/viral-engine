@@ -1,0 +1,655 @@
+{
+ "id": "bench-eatery",
+ "title": "Furniture bench",
+ "idea": "Furniture bench for Kid vs Dad 04 (DESIGN.md T1), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#c9b08c",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "shade": "soft"
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   4,
+   40
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    0.8,
+    -0.26
+   ],
+   "face": -40,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.1
+  },
+  {
+   "id": "tato",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.12,
+    -0.74
+   ],
+   "face": 9,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "dadc",
+   "character": "potatobrawl/dad",
+   "at": [
+    20.77,
+    -0.05
+   ],
+   "face": -20,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.2
+  },
+  {
+   "id": "tatoc",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    19.9,
+    0.05
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.8
+  },
+  {
+   "id": "dads",
+   "character": "potatobrawl/dad",
+   "at": [
+    30,
+    0.18
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.3
+  },
+  {
+   "id": "tatos",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    34,
+    0.02
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.7
+  }
+ ],
+ "props": [
+  {
+   "id": "t0",
+   "kind": "roundtable",
+   "x": -8,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "t1",
+   "kind": "roundtable",
+   "x": -14,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "dress": [
+    0.28,
+    0.12
+   ]
+  },
+  {
+   "id": "main",
+   "kind": "roundtable",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "dress": [
+    0.28,
+    0.12
+   ]
+  },
+  {
+   "id": "cd",
+   "kind": "hoopchair",
+   "x": 0.92,
+   "y": 0,
+   "z": -0.4,
+   "rot": -40
+  },
+  {
+   "id": "ct",
+   "kind": "hoopchair",
+   "x": -0.12,
+   "y": 0,
+   "z": -0.76,
+   "rot": 9
+  },
+  {
+   "id": "cheat",
+   "kind": "roundtable",
+   "x": 20,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "r": 0.8,
+   "h": 1.3,
+   "drape": 0.68,
+   "legs": false
+  },
+  {
+   "id": "ca",
+   "kind": "hoopchair",
+   "x": -20,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "cs",
+   "kind": "hoopchair",
+   "x": 30,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "ctt",
+   "kind": "hoopchair",
+   "x": 34,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "carpet",
+   "kind": "dinecarpet",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "dim": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -8,
+     1,
+     2.4
+    ],
+    "look": [
+     -8,
+     0.25,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "sit",
+     "rot": -40,
+     "height": 0.24,
+     "dur": 0,
+     "feet": [
+      0.34,
+      0.06
+     ],
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "tato",
+     "do": "sit",
+     "rot": 9,
+     "height": 0.24,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "tatoc",
+     "do": "sit",
+     "rot": 0,
+     "height": 0.01,
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "dads",
+     "do": "sit",
+     "rot": 0,
+     "height": 0.24,
+     "dur": 0,
+     "feet": [
+      0.34,
+      0.06
+     ],
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "tatos",
+     "do": "sit",
+     "rot": 0,
+     "height": 0.24,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    }
+   ],
+   "kind": "0.5 table from y 1.0"
+  },
+  {
+   "name": "s1",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -8,
+     0.44,
+     2.4
+    ],
+    "look": [
+     -8,
+     0.3,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "1.5 table from y 0.44"
+  },
+  {
+   "name": "s2",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -8,
+     0.2,
+     2.4
+    ],
+    "look": [
+     -8,
+     0.28,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "2.5 table from y 0.20"
+  },
+  {
+   "name": "s3",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -14,
+     1,
+     2
+    ],
+    "look": [
+     -14,
+     0.3,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "3.5 dressed table, y 1.0"
+  },
+  {
+   "name": "s4",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -13.55,
+     0.62,
+     0.95
+    ],
+    "look": [
+     -13.72,
+     0.47,
+     0.12
+    ],
+    "fov": 28
+   },
+   "do": [],
+   "kind": "4.5 dress close: vase, flowers, shakers"
+  },
+  {
+   "name": "s5",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20.15,
+     0.3,
+     2.5
+    ],
+    "look": [
+     20.15,
+     0.25,
+     0
+    ],
+    "fov": 44
+   },
+   "do": [],
+   "kind": "5.5 cheat table, camera 13"
+  },
+  {
+   "name": "s6",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20.15,
+     1.2,
+     3
+    ],
+    "look": [
+     20.1,
+     0.6,
+     0
+    ],
+    "fov": 44
+   },
+   "do": [],
+   "kind": "6.5 cheat table from y 1.2"
+  },
+  {
+   "name": "s7",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -19.3,
+     0.55,
+     1.3
+    ],
+    "look": [
+     -20,
+     0.28,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "7.5 chair alone, 3/4 front"
+  },
+  {
+   "name": "s8",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -18.6,
+     0.35,
+     0
+    ],
+    "look": [
+     -20,
+     0.3,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "8.5 chair alone, side"
+  },
+  {
+   "name": "s9",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -20.3,
+     0.5,
+     -1.4
+    ],
+    "look": [
+     -20,
+     0.3,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "9.5 chair alone, back"
+  },
+  {
+   "name": "s10",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     32.4,
+     0.55,
+     0.18
+    ],
+    "look": [
+     30,
+     0.5,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [],
+   "kind": "10.5 dad seated, side"
+  },
+  {
+   "name": "s11",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     35.9,
+     0.4,
+     0
+    ],
+    "look": [
+     34,
+     0.4,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [],
+   "kind": "11.5 Tato seated, side"
+  },
+  {
+   "name": "s12",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     31.2,
+     0.7,
+     -1.6
+    ],
+    "look": [
+     30,
+     0.5,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [],
+   "kind": "12.5 dad seated, back oblique"
+  },
+  {
+   "name": "s13",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.15,
+     4.7
+    ],
+    "look": [
+     -0.1,
+     0.72,
+     -0.4
+    ],
+    "fov": 45
+   },
+   "do": [],
+   "kind": "13.5 ensemble, camera 01"
+  },
+  {
+   "name": "s14",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1,
+     0.95,
+     1.6
+    ],
+    "look": [
+     -0.12,
+     0.56,
+     -0.74
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "carpet",
+     "set": {
+      "dim": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.9
+    }
+   ],
+   "kind": "14.5 ensemble, camera 03"
+  },
+  {
+   "name": "s15",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     5,
+     5.5
+    ],
+    "look": [
+     40,
+     0,
+     0.3
+    ],
+    "fov": 45
+   },
+   "do": [],
+   "kind": "15.5 carpet overview, dim 0"
+  },
+  {
+   "name": "s16",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     0.55,
+     3
+    ],
+    "look": [
+     40,
+     0,
+     0.6
+    ],
+    "fov": 35
+   },
+   "do": [],
+   "kind": "16.5 carpet close, dim 0"
+  },
+  {
+   "name": "s17",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     5,
+     5.5
+    ],
+    "look": [
+     40,
+     0,
+     0.3
+    ],
+    "fov": 45
+   },
+   "do": [],
+   "kind": "17.5 carpet overview, dim 1"
+  },
+  {
+   "name": "s18",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     0.55,
+     3
+    ],
+    "look": [
+     40,
+     0,
+     0.6
+    ],
+    "fov": 35
+   },
+   "do": [],
+   "kind": "18.5 carpet close, dim 1"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/04-waiter-jokes/bench/bench-eatery.mjs (T1 furniture bench, no reviews)."
+}

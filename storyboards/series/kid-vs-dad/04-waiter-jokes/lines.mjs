@@ -27,8 +27,11 @@ export const LINES = [
   // 36-46 s WHY THE RULE EXISTS
   ["rep", "Wait. What's on that wall?", "question", "suspicious, slow", REP],
   ["rep", "He's been here before.", "sad", "horrified whisper", REP],
+  ["rep", "Last time... the waiter quit.", "sad", "grave, slow, a terrible memory", REP],
   // 46-62 s JOKE 3 (extreme)
   ["mash", "And... how would you like your steak?", "sad", "very careful, holding the notepad like a shield", MASH],
+  ["spud", "Dad, no.", "sad", "tiny, from under the table, begging", KID],
+  ["rep", "He's standing up. He's standing up!", "excited", "alarmed, rising panic", REP],
   ["dad", "Like my jokes.", "happy", "standing up, grand, a showman, slow", DAD],
   ["dad", "Well done.", "happy", "triumphant, the big finish", DAD],
   ["rep", "Man down! Man down!", "excited", "shouting, war chaos", REP],
