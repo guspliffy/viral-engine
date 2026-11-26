@@ -4,7 +4,7 @@
 // used to be found by trial layouts (about 2 min each); the old-workflow build of Never Has Money 04 placed them by
 // projecting the layout's eye points through a camera instead, and every build lost a check round to a subtitle over
 // a face. Nothing is drawn: the layout's world points (eyes, mouth, head top) and the bodies where timeline.js puts
-// them go through the camera's lens.
+// them go through the camera's lens. A camera inside a body (qa/camin.mjs, 25 Nov) prints "CAMERA INSIDE <who>".
 //
 //   node qa/camfit.mjs <storyboard> --at 6.2                                       the storyboard's own camera
 //   node qa/camfit.mjs <storyboard> --at 6.2 --pos 0.2,1.1,4.4 --look 0,0.95,-0.4 --fov 40   a camera to try
@@ -24,6 +24,7 @@ import { actorState, cameraState } from "../engine/page/timeline.js";
 import { storyTime } from "../engine/shared/holds.js";
 import { RULES } from "./check.mjs";
 import { frameSize, frameSafe } from "../engine/shared/frame.js";
+import { insideAt } from "./camin.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const vec = (s) => s.split(",").map(Number);
@@ -78,7 +79,9 @@ export function camfit(sb, chars, lay, t, cam, { w = 700, h = 100 } = {}) {
     const last = free[free.length - 1];
     if (ok) { if (last && last[1] === y - 10) last[1] = y; else free.push([y, y]); }
   }
-  return { sample: smp.t, rows, band, free };
+  // the tried camera inside a body (qa/camin.mjs): the whole frame is that body
+  const inside = insideAt(sb, chars, smp, s, cam.pos);
+  return { sample: smp.t, rows, band, free, inside };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
@@ -90,6 +93,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const r = camfit(sb, chars, lay, o.at, cam, o), px = (p) => (p ? `${Math.round(p[0])},${Math.round(p[1])}` : "behind");
   const tried = !!(o.pos || o.look || o.fov != null);
   console.log(`camfit ${sb.id} at ${o.at} s (layout sample ${r.sample} s), ${tried ? "camera tried" : "the storyboard's camera"}: pos ${cam.pos.join(",")} look ${cam.look.join(",")} fov ${cam.fov}`);
+  for (const h of r.inside) console.log(`  CAMERA INSIDE ${h.id}: the camera is inside ${h.id}'s body (${Math.round(h.depth * 100)} % of the way from its axis to its surface): the frame is that body; move the camera or the character (preflight fails it: camera-inside)`);
   const { x0, y0, x1, y1 } = frameSafe(sb), FR = frameSize(sb);
   for (const a of r.rows) {
     const inF = (p) => p && p[0] >= 0 && p[0] <= FR.W && p[1] >= 0 && p[1] <= FR.H, safe = a.eyes && a.eyes[0] >= x0 && a.eyes[0] <= x1 && a.eyes[1] >= y0 && a.eyes[1] <= y1;
