@@ -200,6 +200,11 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Faster voices: Reaper and Mash** (Jonny 23 Nov, Kid vs Dad 02: "super slow, even on 1.25x"): both recipes carry
   `"tempo": 1.25` in `engine/voice/voices.json`, so new takes read 25 % faster with the pitch kept. Older clips keep their
   cached takes until re-rendered. Kid vs Dad 02 itself is sped up 1.3x as a whole at the join instead.
+- **Voices 15 % faster, every new video** (Jonny 25 Nov, Kid vs Dad 03 rough draft: "speed the voices up by 15% ...
+  generally i think the voices can be sped up by 15% for future videos"): every voice a new clip uses reads 15 % faster
+  than it did on 25 Nov: its recipe's `"tempo"` goes up by x1.15 (no tempo = 1, so 1.15; Reaper and Mash 1.25 -> 1.44).
+  Set it the first time a new clip uses a voice, never in a clip in work (its takes are timed); older clips keep their
+  cached takes. A draft already made with the old takes is sped up as a whole at the join instead.
 - **Food series**: every potato that gets eaten is ALIVE (face, reaction, ideally a line).
 - **Held cards and phones**: cards face the holder (show a hand with an over-the-shoulder shot); a phone shown to
   others uses the edge hold (`docs/rules/clip-lessons.md`).

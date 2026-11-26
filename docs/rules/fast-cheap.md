@@ -4,7 +4,8 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
 
 - Judge a clip from its contact sheet, not by reading frame after frame. The exception is contact: a contact sheet
   missed every grip glitch, so look at grabs, raises and touches as a 10–15 fps strip.
-- Sound-only changes: `--audio-only` (seconds) instead of a re-render.
+- Sound-only changes: `--audio-only` (seconds) instead of a re-render. It refuses a picture drawn from another storyboard
+  file or before a change to lines, shots or moves (`<id>.picture.json` beside the video; `--force` overrides).
 - **Fewer layout passes** (9 Nov 2026: a clip ran about 28, each about 2 min and several turns of a long context):
   - `node qa/clear.mjs <sb>` after every staging edit: bodies in each other, in floor props, in walking props (a crowd) or in
     a set's posts (`engine/shared/obstacles.js`: list a new set's uprights there) on a floor plan, 1-2 s.

@@ -1,0 +1,363 @@
+{
+ "id": "desk13-voice-probe",
+ "title": "Potato Desk 13 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   66.8,
+   66.8
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "devil",
+   "character": "potatobrawl/devil",
+   "at": [
+    -1.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wizard",
+   "character": "potatobrawl/wizard",
+   "at": [
+    1.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    2.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 66.8,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     7
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Welcome to HELL.",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, grand, arms wide",
+     "voice": "devil-x12",
+     "dur": 1.7,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Who's in my hell?",
+     "tone": "question",
+     "style": "nervous, worried, quick",
+     "voice": "spud-x12",
+     "dur": 2.1,
+     "caption": false,
+     "at": 2.9
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "One rule. Forever... with everyone who ever annoyed you.",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, delighted, savouring it",
+     "voice": "devil-x12",
+     "dur": 4.1,
+     "caption": false,
+     "at": 6
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Two seats left. And this one...",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, teasing, slow",
+     "voice": "devil-x12",
+     "dur": 2.9,
+     "caption": false,
+     "at": 11.1
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "...is for the worst one.",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, a whisper, delighted",
+     "voice": "devil-x12",
+     "take": 2,
+     "dur": 2.5,
+     "caption": false,
+     "at": 15
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Could you chew... quieter?",
+     "tone": "calm",
+     "style": "polite, strained, through his teeth",
+     "voice": "spud-x12",
+     "dur": 2.1,
+     "caption": false,
+     "at": 18.5
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Nope.",
+     "tone": "calm",
+     "style": "mouth full, cheerful, chewing",
+     "voice": "chip-x12",
+     "dur": 0.9,
+     "caption": false,
+     "at": 21.6
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Reply all.",
+     "tone": "calm",
+     "style": "focused, typing, low",
+     "voice": "wedge-x12",
+     "dur": 1.3,
+     "caption": false,
+     "at": 23.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Thanks. Thanks. THANKS!",
+     "tone": "excited",
+     "style": "typing faster and faster, proud",
+     "voice": "wedge-x12",
+     "dur": 1.7,
+     "caption": false,
+     "at": 25.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'm DEAD. Why do I still have a phone?",
+     "tone": "excited",
+     "style": "outraged, high, fast",
+     "voice": "spud-x12",
+     "dur": 4.1,
+     "caption": false,
+     "at": 28.5
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Hell.",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, a shrug, deadpan",
+     "voice": "devil-x12",
+     "dur": 0.9,
+     "caption": false,
+     "at": 33.6
+    },
+    {
+     "who": "wizard",
+     "macro": "say",
+     "line": "He dies at the end.",
+     "tone": "calm",
+     "style": "smug, mysterious, whispering in his ear",
+     "voice": "wizard-x12",
+     "dur": 2.5,
+     "caption": false,
+     "at": 35.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Who?",
+     "tone": "question",
+     "style": "alarmed, quick",
+     "voice": "spud-x12",
+     "dur": 0.9,
+     "caption": false,
+     "at": 39
+    },
+    {
+     "who": "wizard",
+     "macro": "say",
+     "line": "Everyone. In every movie you haven't seen.",
+     "tone": "calm",
+     "style": "smug, mysterious, delighted",
+     "voice": "wizard-x12",
+     "dur": 3.3,
+     "caption": false,
+     "at": 40.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'm ALREADY dead!",
+     "tone": "excited",
+     "style": "screaming, desperate",
+     "voice": "spud-x12",
+     "dur": 1.7,
+     "caption": false,
+     "at": 45.2
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "And the worst one...",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, slow, ominous, savouring it",
+     "voice": "devil-x12",
+     "dur": 2.1,
+     "caption": false,
+     "at": 47.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Please be another chewer.",
+     "tone": "calm",
+     "style": "a small desperate prayer, squashed",
+     "voice": "spud-x12",
+     "dur": 2.1,
+     "caption": false,
+     "at": 51
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "Hm. Wrong page.",
+     "tone": "calm",
+     "style": "bright, quick, warm game-show host, always smiling, puzzled, flipping a page",
+     "voice": "devil-x12",
+     "dur": 1.7,
+     "caption": false,
+     "at": 54.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'm free?",
+     "tone": "question",
+     "style": "hopeful, small",
+     "voice": "spud-x12",
+     "dur": 1.3,
+     "caption": false,
+     "at": 56.8
+    },
+    {
+     "who": "devil",
+     "macro": "say",
+     "line": "You're his hell.",
+     "tone": "excited",
+     "style": "bright, quick, warm game-show host, always smiling, delighted, pointing, stressing the word his",
+     "voice": "devil-x12",
+     "dur": 1.7,
+     "caption": false,
+     "at": 59.1
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Hey, buddy!",
+     "tone": "calm",
+     "style": "cheerful, relaxed, walking in",
+     "voice": "mash-x12",
+     "dur": 1.3,
+     "caption": false,
+     "at": 61.8
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "NOT THE PEN!",
+     "tone": "excited",
+     "style": "screaming in horror",
+     "voice": "mash-x12",
+     "dur": 1.7,
+     "caption": false,
+     "at": 64.1
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 13: makes and measures every take."
+}

@@ -137,6 +137,7 @@ export function loadStoryboard(file, opts = {}) {
   if (sb.set?.plate) plateFiles(sb.set.plate, sb);
   if (sb.set?.type === "env") envFiles(sb.set, sb);
   const chars = loadCharacters(sb);
+  speakerGate(sb); propIdGate(sb);
   const out = withHolds(cleanStart(resolveLife(focusTrack(placeCards(direct(soundsOf(compile(withSpeech(sb, chars))), chars), chars)))));   // "life": "auto" -> the living world (engine/shared/life-auto.mjs) // sfx names -> whitelisted ids (engine/sfx/whitelist.mjs)
   if (out.set?.type === "env" && opts.envGate !== false && out.set.envCheck !== false) envGate(out);
   // pause time (engine/shared/pause.js): windows inside the clip, keepers in the cast, nobody frozen acting in one
@@ -144,6 +145,26 @@ export function loadStoryboard(file, opts = {}) {
   if (pe.length) throw new Error(`pause:\n  ${pe.join("\n  ")}`);
   nightWarn(out);
   return out;
+}
+
+// every line has a speaker: a cast member, or an offscreen voice named by "voice" (a castless part of a film, Atlantis
+// B3). A line whose "who" is in neither is a typo or a cast member taken out, and it crashed the sound mix on a machine
+// without the cached take (engine audit, 24 Nov 2026): refused here, with the line and the speaker
+function speakerGate(sb) {
+  // (read before compile: the say macro doesn't carry "voice" onto its talk action; flat actions win over beats there)
+  const ids = new Set((sb.cast || []).map((c) => c.id));
+  const lines = Array.isArray(sb.actions) ? sb.actions.filter((a) => a.do === "talk") : (sb.beats || []).flatMap((b) => (b.do || []).filter((d) => d.macro === "say").map((d) => ({ ...d, at: `${b.name ?? "beat"} ${d.at ?? 0}` })));
+  const bad = lines.filter((a) => a.who != null && !ids.has(a.who) && !a.voice && !a.speech);
+  if (bad.length) throw new Error(`speaker: ${bad.length} line${bad.length > 1 ? "s" : ""} by someone who is not in the cast and has no "voice":\n` +
+    bad.slice(0, 6).map((a) => `  ${a.at}${typeof a.at === "number" ? " s" : ""} ${a.who}: "${a.line ?? ""}"`).join("\n") + `\n  add the speaker to "cast", or give an offscreen line its "voice"`);
+}
+
+// one prop per id: grabs, "prop" sets and the physics map all find a prop by its id, so two props with one id move
+// together (Copy Money: the receipt on the counter followed the banknote into Reaper's glove, engine audit 24 Nov 2026)
+function propIdGate(sb) {
+  const seen = new Map(), dup = [];
+  for (const p of sb.props || []) { if (p?.id == null) continue; if (seen.has(p.id)) dup.push(`"${p.id}" (${seen.get(p.id)} and ${p.kind})`); else seen.set(p.id, p.kind); }
+  if (dup.length) throw new Error(`props: two props share an id: ${dup.join(", ")}; give each its own id`);
 }
 
 // the HUD clock (or "sky" keys) says night, but the set is a day picture with no night version: the window would stay
