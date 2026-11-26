@@ -1,6 +1,7 @@
 {
  "id": "bench-goods",
  "title": "Checkout goods bench: hand props, coins, armful, bag heap",
+ "tool": "prop bench for the checkout goods (Country vs Country 01 T2), never a video",
  "fps": 30,
  "look": "anime-pro",
  "castLook": "sheet",
