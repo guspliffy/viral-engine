@@ -139,9 +139,15 @@ export function withSpeech(sb, chars) {
 // first take of "He lifts her off four hooks..." went on after a silence with "this clear." Whisper heard it, tts.py
 // printed one warning while 35 lines were read, nobody saw it, and Jonny heard "a weird noise" on the draft.
 const said = (t) => String(t).toLowerCase().replace(/-/g, " ").replace(/[^a-z0-9' ]/g, "").split(/\s+/).filter(Boolean);
+// A laugh written and heard as laugh syllables only ("Hahaha! Ha ha!" heard as "HA HA HA HA HA HA HA!") is a match:
+// Whisper splits and counts the ha's its own way, so the made-up-words count failed every laugh take. Don't Laugh
+// (26 Nov 2026): three jury-laugh takes failed preflight in a row while sounding right.
+const LAUGH = /^(?:a?(?:h+[aeio]+)+h*|ah+)$/;
+const allLaugh = (w) => w.length > 0 && w.every((x) => LAUGH.test(x));
 export function misread(line, heard) {
   if (heard == null) return null;
   const a = said(line), b = said(heard);
+  if (allLaugh(a) && allLaugh(b)) return null;
   return a.join(" ") === b.join(" ") ? null : { extra: b.length - a.length };
 }
 

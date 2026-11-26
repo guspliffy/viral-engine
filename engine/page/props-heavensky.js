@@ -37,6 +37,11 @@ import { clamp, rng } from "./util.js";
 //              back hinge (range -0.05..1.15 for overshoot), an orange light fan (card 2.6 x 1.8, additive) rises from the opening, a rung is revealed: top at
 //              y -0.36 (width 0.95, the small demon stands on it at local (0, -0.36, +0.32) = world (-0.65, -0.36, 1.62)), a second rung at -0.80. `glow` 0..1
 //              (TWEENS, default 1): seam + cracks + floor pool r 1.6 at 40 % (card 3.2 x 3.2 at y 0.006). Ring and lid are solid; pool, cracks, fan see-through.
+//              `fall` 0..1 (TWEENS, default 0 = nothing changes; Heaven's terms, DESIGN section 6): the lid swings DOWN 85 x fall degrees about the same back hinge
+//              into the shaft (it hangs against the back wall, handwheel toward the lens); with it a glow disc r 0.55 at local y -1.30 in the shaft (#ffb21c, core
+//              r 0.30 #ffe46a, unlit, shown from fall 0.02) and the light fan (as for `open`). Set it with { do: "prop", set: { fall: 1 }, dur } (the DESIGN: dur
+//              0.1 s = 3 frames, ease "in"); the 1-frame 4 degree rebound is a second set { fall: 0.953 } for 1 frame, then 1. While fall > 0 `glow` may go to 1.5
+//              (1 -> 1.4 for 6 frames): above 1 the pool and the fan brighten, the seam stays at its full colour. Range -0.05..1.1 (overshoot).
 // parasol      origin: the base centre on the floor (place at 1.60, 0, 0.60). Round base r 0.18 (0.04 high, #f4f1e8), pole diameter 0.03 #f4f1e8 to y 1.75, a
 //              finial ball. Canopy r 0.65, 8 gores red #d3261e / cream #f2ebe0 (two-sided), scalloped rim (0.05 sag per gore), apex 0.20 above the rim, hung on
 //              the pole top (y 1.75 = apex 1.78, rim ~1.58) and tilted spec.tilt degrees (default 12, the screen-LEFT side drops, toward the chair). Not held.
@@ -369,16 +374,20 @@ export const HSKY_KINDS = {
     for (const s of [-1, 1]) { const rail = box(0.03, 0.55, 0.05, wheelM, rungs, s * 0.46, -0.6, 0.32); rail.castShadow = false; }
     const f1 = snapHz(1.7, loop), f2 = snapHz(2.9, loop), flick = (t, ph) => 0.5 + 0.25 * Math.sin(TAU * (f1 * t + ph)) + 0.25 * Math.sin(TAU * (f2 * t + ph * 3.1 + 0.2));
     const dark = new THREE.Color("#3a2f30"), orange = new THREE.Color("#ff7a1c"), core = new THREE.Color("#ffd23f"), cc = new THREE.Color();
+    // `fall` (Heaven's terms): the glow disc at the bottom of the shaft, unlit, hidden until the lid starts down
+    const fallDisc = new THREE.Group(); fallDisc.visible = false; P.whole.add(fallDisc);
+    for (const [r, col, y] of [[RI - 0.03, "#ffb21c", -1.30], [0.30, "#ffe46a", -1.298]]) { const m = basic(col, { side: THREE.DoubleSide }); m.userData.noOutline = m.userData.noHatch = true; const d = new THREE.Mesh(new THREE.CircleGeometry(r, 40).rotateX(-Math.PI / 2), m); d.position.y = y; fallDisc.add(flat(d)); }
     return { grip: 0, apply(ps, t) {
-      const open = Math.max(-0.05, Math.min(1.15, ps.open ?? 0)), glow = clamp(ps.glow ?? 1), tt = t || 0;
-      hinge.rotation.x = -open * 35 * DEG;
-      const seamOn = glow > 0.01 && open < 0.35;
+      const fall = Math.max(-0.05, Math.min(1.1, ps.fall ?? 0)), open = Math.max(-0.05, Math.min(1.15, ps.open ?? 0)), glow = fall > 0 ? Math.max(0, Math.min(1.5, ps.glow ?? 1)) : clamp(ps.glow ?? 1), gk = Math.min(1, glow), tt = t || 0;
+      hinge.rotation.x = -open * 35 * DEG + fall * 85 * DEG;
+      fallDisc.visible = fall > 0.02;
+      const seamOn = gk > 0.01 && open < 0.35 && fall < 0.02;
       for (const s of seam) {
-        const f = flick(tt, s.ph), k = glow * (0.9 + 0.1 * f);   // 10 % flicker
+        const f = flick(tt, s.ph), k = gk * (0.9 + 0.1 * f);   // 10 % flicker
         s.mo.color.copy(dark).lerp(cc.copy(orange), k); s.mc.color.copy(dark).lerp(cc.copy(core), k); s.mo.visible = s.mc.visible = seamOn;
       }
-      crackM.opacity = glow * (0.9 + 0.1 * flick(tt, 0.3)); crackCard.visible = glow > 0.01; poolM.opacity = 0.4 * glow * (0.93 + 0.07 * flick(tt, 0.7)); poolCard.visible = glow > 0.01;
-      const o = ss(open * 1.6); fanM.opacity = 0.42 * o; fan.visible = o > 0.02; rungs.visible = open > 0.05;
+      crackM.opacity = gk * (0.9 + 0.1 * flick(tt, 0.3)); crackCard.visible = gk > 0.01; poolM.opacity = 0.4 * glow * (0.93 + 0.07 * flick(tt, 0.7)); poolCard.visible = gk > 0.01;   // (glow above 1 only brightens the pool and the fan)
+      const o = Math.max(ss(open * 1.6), ss(fall * 1.6)), fk = ss(open * 1.6) >= ss(fall * 1.6) ? 1 : 0.55; fanM.opacity = 0.42 * o * fk * Math.max(1, glow);   // (a falling lid: a thinner fan, so the lid and the disc read through it) fan.visible = o > 0.02; rungs.visible = open > 0.05;
     } };
   },
 
