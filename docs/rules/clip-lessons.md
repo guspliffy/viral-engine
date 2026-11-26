@@ -44,6 +44,9 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
   single `--stills` frame looks right (Egypt EP04: the wet sand patch was invisible in every draft). Grow or fade such
   props by scale or visibility, and judge any effect prop from a sequential draft, never from one still.
 - Held props don't follow a `place` jump: re-grab after it.
+- A hand INTO a jar, pot or box from above: a potato's arm root sits ~0.54 m over its feet, so stand the body high
+  enough that the root is ~0.25 m over the rim (KvD 05: stepstool x1.25), and use an open grip (`relaxed`): a fist
+  (`hold`) pulls the elbow guide under the hand, and the arm comes up through the glass (Sol caught it, Jonny saw it).
 
 ## Bodies, sets and moves
 

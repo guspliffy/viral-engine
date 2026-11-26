@@ -1,0 +1,711 @@
+{
+ "id": "kvd03-tv-bench",
+ "title": "Kid vs Dad 03 TV bench",
+ "idea": "Props bench for the gtv cartoon picture (gravroom set), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "far": 6000,
+ "set": {
+  "type": "gravroom",
+  "bare": false
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "tato",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    0.46,
+    -1.47
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.9
+  }
+ ],
+ "props": [
+  {
+   "id": "rug",
+   "kind": "grug",
+   "x": 0.18,
+   "y": 0,
+   "z": 0.11,
+   "rot": 0
+  },
+  {
+   "id": "sofa",
+   "kind": "gsofa",
+   "x": 0.2,
+   "y": 0,
+   "z": -1.61,
+   "rot": 0
+  },
+  {
+   "id": "tv",
+   "kind": "gtv",
+   "x": -1.52,
+   "y": 0,
+   "z": -0.99,
+   "rot": 34,
+   "picture": "cartoon",
+   "scene": -1,
+   "light": 0.55,
+   "castLight": 4
+  },
+  {
+   "id": "tva",
+   "kind": "gtv",
+   "x": -1.52,
+   "y": 0,
+   "z": -0.99,
+   "rot": 34,
+   "scale": 0
+  },
+  {
+   "id": "lamp",
+   "kind": "glamp",
+   "x": 1.45,
+   "y": 0,
+   "z": -2.12,
+   "rot": 0
+  },
+  {
+   "id": "plant",
+   "kind": "gplant",
+   "x": 1.8,
+   "y": 0,
+   "z": -1.6,
+   "rot": 0
+  },
+  {
+   "id": "haze",
+   "kind": "ghaze",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "haze": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "t1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.84,
+     1.33,
+     0.39
+    ],
+    "look": [
+     -1.52,
+     1.06,
+     -0.96
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "who": "tato",
+     "do": "sit",
+     "rot": -70,
+     "height": 0.45,
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "haze",
+     "set": {
+      "haze": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "on": 1,
+      "card": 0,
+      "glow": 1,
+      "scene": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 0,
+      "on": 1,
+      "card": 0,
+      "scene": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T1 D alps control"
+  },
+  {
+   "name": "t2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.84,
+     1.33,
+     0.39
+    ],
+    "look": [
+     -1.52,
+     1.06,
+     -0.96
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 0,
+      "scene": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T2 D scene 0 chase"
+  },
+  {
+   "name": "t3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.84,
+     1.33,
+     0.39
+    ],
+    "look": [
+     -1.52,
+     1.06,
+     -0.96
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 0,
+      "scene": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T3 D scene 1 face"
+  },
+  {
+   "name": "t4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.84,
+     1.33,
+     0.39
+    ],
+    "look": [
+     -1.52,
+     1.06,
+     -0.96
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 0,
+      "scene": 2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T4 D scene 2 boom"
+  },
+  {
+   "name": "t5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.84,
+     1.33,
+     0.39
+    ],
+    "look": [
+     -1.52,
+     1.06,
+     -0.96
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 0,
+      "scene": 3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T5 D scene 3 night"
+  },
+  {
+   "name": "t6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.84,
+     1.33,
+     0.39
+    ],
+    "look": [
+     -1.52,
+     1.06,
+     -0.96
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 0.5,
+      "scene": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T6 D card .5"
+  },
+  {
+   "name": "t7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.84,
+     1.33,
+     0.39
+    ],
+    "look": [
+     -1.52,
+     1.06,
+     -0.96
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 1,
+      "scene": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T7 D card 1"
+  },
+  {
+   "name": "t8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.84,
+     1.33,
+     0.39
+    ],
+    "look": [
+     -1.52,
+     1.06,
+     -0.96
+    ],
+    "fov": 59
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 0,
+      "card": 0,
+      "scene": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T8 D on 0"
+  },
+  {
+   "name": "t9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.52,
+     3.18
+    ],
+    "look": [
+     0.03,
+     1.52,
+     -2.65
+    ],
+    "fov": 51
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 0,
+      "scene": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T9 A Tato, scene 0"
+  },
+  {
+   "name": "t10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.52,
+     3.18
+    ],
+    "look": [
+     0.03,
+     1.52,
+     -2.65
+    ],
+    "fov": 51
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 0,
+      "scene": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T10 A Tato, scene 1"
+  },
+  {
+   "name": "t11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.52,
+     3.18
+    ],
+    "look": [
+     0.03,
+     1.52,
+     -2.65
+    ],
+    "fov": 51
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 0,
+      "scene": 2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T11 A Tato, scene 2"
+  },
+  {
+   "name": "t12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.52,
+     3.18
+    ],
+    "look": [
+     0.03,
+     1.52,
+     -2.65
+    ],
+    "fov": 51
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 0,
+      "scene": 3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T12 A Tato, scene 3"
+  },
+  {
+   "name": "t13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.52,
+     3.18
+    ],
+    "look": [
+     0.03,
+     1.52,
+     -2.65
+    ],
+    "fov": 51
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "on": 1,
+      "card": 1,
+      "scene": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tva",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "T13 A Tato, card 1"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/03-square-eyes/bench/bench-tv.mjs (props bench, no reviews)."
+}

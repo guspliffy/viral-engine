@@ -1,0 +1,813 @@
+{
+ "id": "kvd03-opening-h3",
+ "title": "Kid vs Dad 03 opening H3",
+ "idea": "Test opening h3 for Kid vs Dad 03 \"Too much TV gives you square eyes\" (Jonny judges the four openings by watching them).",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1230
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "captionOverBody": {
+  "reason": "close-ups where the speaker fills the phone frame; captions in the upper third over the body, never the eyes (rule from the 8-min film trial, Jonny OK 20 Nov)"
+ },
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "far": 200,
+ "set": {
+  "type": "gravroom",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "hud": {
+  "news": {
+   "label": "SQUARE EYES SPREADING",
+   "tag": "LIVE",
+   "tagW": 150,
+   "count": false,
+   "show": [
+    4.3,
+    15.92
+   ]
+  }
+ },
+ "music": {
+  "file": "ai/orchestra-suspense/orchestra-suspense-01.ogg",
+  "lowCut": 150,
+  "gain": 0.14
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false,
+  "surface": "wood",
+  "room": "livingroom"
+ },
+ "creative": {
+  "length": [
+   15.92,
+   15.92
+  ]
+ },
+ "hook": {
+  "show": [
+   "rep"
+  ],
+  "hint": 0,
+  "what": "Lies. Your parents lied to you... or did they?"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.24,
+    -1.52
+   ],
+   "face": 12,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.1
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/dad",
+   "at": [
+    0.77,
+    -1.52
+   ],
+   "face": -6,
+   "expr": "deadpan",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "rep",
+   "character": "potatobrawl/reporter",
+   "at": [
+    1.66,
+    -0.22
+   ],
+   "face": -28,
+   "follow": 0.3,
+   "seed": 131.3
+  }
+ ],
+ "props": [
+  {
+   "id": "sofa",
+   "kind": "gsofa",
+   "x": 0.2,
+   "y": 0,
+   "z": -1.61,
+   "rot": 0,
+   "sink": 0.02,
+   "damage": 0
+  },
+  {
+   "id": "tv",
+   "kind": "gtv",
+   "x": -1.52,
+   "y": 0,
+   "z": -0.99,
+   "rot": 34,
+   "glow": 1,
+   "picture": "cartoon",
+   "light": 0.55,
+   "castLight": 4,
+   "on": 1,
+   "card": 0
+  },
+  {
+   "id": "lamp",
+   "kind": "glamp",
+   "x": -1.75,
+   "y": 0,
+   "z": -2.35,
+   "rot": 180
+  },
+  {
+   "id": "plant",
+   "kind": "gplant",
+   "x": -0.95,
+   "y": 0,
+   "z": -2.3
+  },
+  {
+   "id": "rug",
+   "kind": "grug",
+   "x": 0.18,
+   "y": 0,
+   "z": 0.11
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "x": 0.54,
+   "y": 0.98,
+   "z": -1.18,
+   "rot": 175,
+   "tip": -35,
+   "scale": 1.6,
+   "case": "#3e383b"
+  },
+  {
+   "id": "mic",
+   "kind": "newsmic",
+   "lean": 30,
+   "x": 1.3,
+   "y": 0.4,
+   "z": 0,
+   "rot": 152
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.12,
+   "to": 3.77,
+   "text": "*Lies.* Your parents lied to you... *or did they?*",
+   "pos": 430,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 4.37,
+   "to": 8.46,
+   "text": "*Tato,* age seven. *Nine hours* of TV.",
+   "pos": 430,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 8.66,
+   "to": 15.62,
+   "text": "One more hour... and your eyes go *square.*",
+   "pos": 430,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 0,
+   "to": 3.2,
+   "text": "Too much TV gives you *square eyes*",
+   "pos": 250,
+   "pop": false,
+   "size": 58,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "lies",
+   "at": 0,
+   "len": 3.8,
+   "shot": {
+    "pos": [
+     1.42,
+     0.58,
+     2
+    ],
+    "look": [
+     1.57,
+     0.56,
+     -0.02
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.432,
+      0.578,
+      1.838
+     ],
+     "look": [
+      1.57,
+      0.56,
+      -0.02
+     ],
+     "fov": 36
+    },
+    "dur": 3.85,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "sit",
+     "rot": 12,
+     "height": 0.45,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "sit",
+     "rot": -6,
+     "height": 0.45,
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "L",
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.05,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.55
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.05,
+      "curve": -0.1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.05
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "open": 0.15
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.14,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "tilt": -0.08,
+      "browY": -0.02,
+      "eye": 0.95
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.051,
+       0.02,
+       -0.048
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "on": 1,
+      "card": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "look",
+     "to": [
+      0.45,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "mic",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.056,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Lies. Your parents lied to you... or did they?",
+     "tone": "calm",
+     "style": "straight to camera, slow, a twist on the last words",
+     "voice": "reaper",
+     "dur": 3.65,
+     "caption": false,
+     "at": 0.12
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 1.2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.36
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 2.6
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.76
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "square": 0.02,
+     "dur": 0,
+     "at": 3.78
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "flicker",
+   "at": 3.8,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.26,
+     0.78,
+     -0.5
+    ],
+    "look": [
+     -0.17,
+     0.77,
+     -1.3
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.255,
+      0.78,
+      -0.54
+     ],
+     "look": [
+      -0.17,
+      0.77,
+      -1.3
+     ],
+     "fov": 36
+    },
+    "dur": 0.52,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "face",
+     "sqCorner": 1,
+     "dur": 0.067,
+     "at": 0.267
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "square": 0,
+     "dur": 0,
+     "at": 0.47
+    }
+   ]
+  },
+  {
+   "name": "live",
+   "at": 4.3,
+   "len": 4.3,
+   "shot": {
+    "pos": [
+     1,
+     0.6,
+     1.9
+    ],
+    "look": [
+     1.57,
+     0.56,
+     -0.02
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.046,
+      0.597,
+      1.746
+     ],
+     "look": [
+      1.57,
+      0.56,
+      -0.02
+     ],
+     "fov": 36
+    },
+    "dur": 4.29,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "face",
+     "sqCorner": 0,
+     "dur": 0.067,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Tato, age seven, has watched TV for nine hours.",
+     "tone": "calm",
+     "style": "grave, low, a correspondent under cover",
+     "voice": "reaper",
+     "dur": 3.99,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.26
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "sqCorner": 1,
+     "dur": 0.067,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "sqCorner": 0,
+     "dur": 0.067,
+     "at": 0.7
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 1.8
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.96
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 3.9
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 4.06
+    }
+   ]
+  },
+  {
+   "name": "one rule",
+   "at": 8.6,
+   "len": 7.32,
+   "shot": {
+    "pos": [
+     0.34,
+     1.35,
+     2.75
+    ],
+    "look": [
+     0.34,
+     0.85,
+     -1.5
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      0.34,
+      1.29,
+      2.24
+     ],
+     "look": [
+      0.34,
+      0.85,
+      -1.5
+     ],
+     "fov": 48
+    },
+    "dur": 7.26,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And in this house, there is one rule: one more hour... and your eyes go square.",
+     "tone": "calm",
+     "style": "slow, ominous, a pause before the last words",
+     "voice": "reaper",
+     "dur": 6.66,
+     "caption": false,
+     "at": 0.06
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 1.8
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.96
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 4
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 4.16
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 6.3
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 6.46
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.77,
+   "see": [
+    "rep.face"
+   ],
+   "why": "a reporter straight to camera: LIES"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "sofa",
+   "from": 0,
+   "to": 15.92,
+   "checks": [
+    "shell",
+    "clipping",
+    "limb-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "sitting on the sofa"
+  },
+  {
+   "who": "wedge",
+   "with": "sofa",
+   "from": 0,
+   "to": 15.92,
+   "checks": [
+    "shell",
+    "clipping",
+    "limb-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "sitting on the sofa"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/03-square-eyes/make-openings.mjs (h3). Dad = potatobrawl/dad."
+}

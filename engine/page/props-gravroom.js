@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { clamp, rng } from "./util.js";
+import { FIRE_U } from "./firelight.js";
 
 // props-gravroom.js: fact what-if 02 "What if gravity got stronger every five seconds?" (19 Nov 2026): the living room's props
 // (storyboards/series/facts/02-gravity/DESIGN.md §1, §5, §6, §7, §8). The room itself is the set "gravroom" (set-gravroom.js).
@@ -34,6 +35,28 @@ import { clamp, rng } from "./util.js";
 //                       Redrawn only when crumble changes (to 1/400).
 //                   glow 0..1 (1) the picture's brightness (.45 .. 1) and a soft halo in front of the screen (additive, not solid).
 //            Not solid: the picture and halo. Everything else is.
+//            spec picture "cartoon" (default "alps" = the picture above and its LIVE bar, byte for byte as before; every key below is ignored by the alps).
+//                 KID VS DAD 03 (DESIGN.md §2): a made-up flat-shape cartoon, outline #1B1530 8 px on the same 1280 x 720 canvas, four scenes of
+//                 2.4 s with hard cuts, looped (9.6 s), 12 drawings a second (the canvas is redrawn only when floor(clock x 12) changes).
+//                 clock = story time - spec t0 (0). Scenes: 0 Chase (light #FFC531: yellow sky, sun with 8 turning rays, two scrolling hills, a
+//                 blue ball hero bouncing 2.5 x/s, a red triangle bird), 1 Face (#29C5F6: 12 white wedges, the hero's face r 300 with darting
+//                 pupils and a pink mouth), 2 Boom (#FF4FA3: radial pink, a white 12-point star pulsing 2 Hz, 20 confetti bits flying out),
+//                 3 Night (#7B4DFF: purple sky, crescent, 14 stars in two sizes, a hill, the hero asleep breathing 4 % at .5 Hz). No letters.
+//                 spec t0 (0) the clock's zero. spec / param scene 0..3 pins one scene (its action still moves); -1 (default) = by the clock.
+//                      `scene` is not a propState key: an unseeded one JUMPS at its first prop action, which is what you want for a cut.
+//                 spec light (0 = none; the film uses .55): one point light 0.25 m in front of the screen centre, range 3.5, decay 1.6 (as boxtv),
+//                      no shadow, colour = the scene's light colour; the level rides in the colour (x on x card mix), the engine rescales intensities.
+//                 spec castLight (0 = none; the film uses 4): feeds firelight.js FIRE_U (ONE channel per scene: the TV owns it) with the light's
+//                      place, the scene's colour and castLight x glow x on x card mix, so the cast's planes turned to the TV get a hard band that
+//                      jumps on each cut. Released (uFireK 0) when on is 0, glow 0 or the prop is scaled to 0. Only the cartoon TV drives it.
+//                 params glow 0..1 (1) as above: the picture's brightness, the halo (tinted to the scene's light colour, opacity .22 x glow) and
+//                          the cast band. Known to propState.
+//                      on 0..1 (cartoon only): 0 = screen #0B0C10 with one 5 % white diagonal sheen, no halo, no light, no cast band.
+//                          PROPSTATE STARTS `on` AT 0 AND DOES NOT READ spec.on: seed it, c.prop(0, id, { on: 1 }, 0), or the TV starts dark.
+//                      card 0..1 (0): crossfades the running cartoon to the solid end card (ground #14161C, bold 110 px white "Are you still" at y 290
+//                          and "watching?" at y 420, two pills 300 x 84 at y 560: "Yes" filled white at x 480, "No" outlined #8A8F99 at x 800; all
+//                          y are the middle line). The room light goes to #6E7FA8 at x .3 strength, mixed by card. Redrawn when card moves by 1/100.
+//                          Not a propState key: seed it c.prop(0, id, { card: 0 }, 0), or a later card tween jumps.
 //   glamp    the floor lamp (look only): round base r .14 at the ORIGIN (floor, put at (1.45, 0, -2.12)), pole up, an arc topping at
 //            y 2.31 and coming down onto a drum shade (r .24, height .32, centre (-.29, 2.01, 0) from the origin = world (1.16,2.01,-2.12),
 //            #E8AC63, glowing, a bulb and a soft additive glow). The room's point light is in the SET, not here. Not solid.
@@ -285,6 +308,114 @@ function drawTv(g, W, H, c) {
   g.fillStyle = "#D6DCE4"; g.fillRect(X(0.17), Y(0.928), X(0.43 - 0.17), Y(0.022)); g.fillRect(X(0.45), Y(0.928), X(0.68 - 0.45), Y(0.022));
 }
 
+// ------------------------------------------------------------------------------------------------ the cartoon picture (Kid vs Dad 03)
+const TOON = { ink: "#1B1530", line: 8, light: ["#FFC531", "#29C5F6", "#FF4FA3", "#7B4DFF"], cardLight: "#6E7FA8", SCENE: 2.4, FPS: 12 };
+// fixed tables (no random): 20 confetti bits [angle deg, phase s, colour, half size], 14 stars [x, y, size]
+const CONFETTI = Array.from({ length: 20 }, (_, i) => [i * 18 + ((i * 7) % 5) * 3, (i * 0.37) % 1.2, ["#FFC531", "#29C5F6", "#46C24F"][i % 3], 12 + (i % 3) * 3]);
+const STARS = [[90, 70, 16], [210, 150, 12], [330, 60, 14], [420, 190, 10], [540, 100, 16], [640, 40, 12], [740, 170, 14], [830, 80, 10], [1130, 330, 14],
+  [150, 300, 12], [60, 220, 10], [480, 290, 12], [700, 300, 14], [900, 230, 16]];
+const PI2 = Math.PI * 2, deg = Math.PI / 180;
+function inkPath(g, fill, line = TOON.line) { if (fill) { g.fillStyle = fill; g.fill(); } if (line) { g.lineWidth = line; g.strokeStyle = TOON.ink; g.lineJoin = "round"; g.lineCap = "round"; g.stroke(); } }
+function circ(g, x, y, r, fill, line) { g.beginPath(); g.arc(x, y, r, 0, PI2); inkPath(g, fill, line); }
+function poly(g, pts, fill, line) { g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); inkPath(g, fill, line); }
+function lin(g, W, H, stops) { const gr = g.createLinearGradient(0, 0, 0, H); stops.forEach(([o, c]) => gr.addColorStop(o, c)); g.fillStyle = gr; g.fillRect(0, 0, W, H); }
+function hill(g, W, H, base, amp, period, off, fill) {   // a rolling hill line, periodic in x (the offset scrolls it)
+  g.beginPath(); g.moveTo(-10, H + 10);
+  for (let x = -10; x <= W + 10; x += 16) g.lineTo(x, base - amp * Math.sin((PI2 * (x + off)) / period));
+  g.lineTo(W + 10, H + 10); g.closePath(); inkPath(g, fill);
+}
+function hero(g, x, y, r, mood) {   // the blue ball hero; mood 0 awake (eyes right), 1 asleep (closed eyes, a small mouth)
+  circ(g, x, y, r, "#2F7BFF");
+  g.beginPath(); g.arc(x - r * 0.38, y - r * 0.4, r * 0.16, 0, PI2); g.fillStyle = "rgba(255,255,255,0.55)"; g.fill();
+  if (!mood) {
+    for (const s of [-1, 1]) { circ(g, x + s * r * 0.32, y - r * 0.12, r * 0.22, "#FFFFFF", 5); circ(g, x + s * r * 0.32 + r * 0.07, y - r * 0.12, r * 0.09, TOON.ink, 0); }
+    g.beginPath(); g.arc(x + r * 0.1, y + r * 0.2, r * 0.28, 0.15 * Math.PI, 0.85 * Math.PI); inkPath(g, null, 6);
+  } else {
+    for (const s of [-1, 1]) { g.beginPath(); g.arc(x + s * r * 0.32, y - r * 0.1, r * 0.18, 0.1 * Math.PI, 0.9 * Math.PI); inkPath(g, null, 6); }
+    circ(g, x, y + r * 0.34, r * 0.07, "#FF5A7A", 5);
+  }
+}
+function wedges(g, cx, cy, R, n, widthDeg, rot, fill) {
+  g.fillStyle = fill;
+  for (let i = 0; i < n; i++) { const a0 = (rot + (360 / n) * i) * deg; g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, R, a0, a0 + widthDeg * deg); g.closePath(); g.fill(); }
+}
+function star(g, cx, cy, ro, ri, n, rot, fill, line) {
+  const pts = []; for (let i = 0; i < n * 2; i++) { const a = rot + (Math.PI * i) / n - Math.PI / 2, r = i % 2 ? ri : ro; pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); }
+  poly(g, pts, fill, line);
+}
+function sceneChase(g, W, H, q, frame) {
+  lin(g, W, H, [[0, "#FFE45C"], [1, "#FFA51F"]]);
+  const sx = 1040, sy = 150, rot = 20 * q * deg;
+  for (let i = 0; i < 8; i++) { const a = rot + (PI2 * i) / 8, w = 0.13; poly(g, [[sx + Math.cos(a - w) * 108, sy + Math.sin(a - w) * 108], [sx + Math.cos(a) * 160, sy + Math.sin(a) * 160], [sx + Math.cos(a + w) * 108, sy + Math.sin(a + w) * 108]], "#FFF3B0", 6); }
+  circ(g, sx, sy, 90, "#FFF3B0");
+  hill(g, W, H, 520, 60, 640, 300 * q, "#46C24F");
+  hill(g, W, H, 610, 40, 426.667, 600 * q, "#2FA04A");
+  // the bird: a red triangle ahead of the hero, wings swapping every 2 drawings
+  const by = 380 + 26 * Math.sin(PI2 * 1.25 * q), up = Math.floor(frame / 2) % 2 === 0;
+  poly(g, [[1018, by], [930, by - 38], [930, by + 38]], "#FF3B3B");
+  poly(g, up ? [[960, by - 20], [925, by - 92], [905, by - 22]] : [[960, by + 20], [925, by + 92], [905, by + 22]], "#FF3B3B");
+  circ(g, 958, by - 8, 7, TOON.ink, 0);
+  // the hero: 2.5 bounces a second, 120 px high
+  const hy = 520 - 120 * Math.abs(Math.sin(Math.PI * 2.5 * q));
+  hero(g, 480, hy, 100, 0);
+}
+function sceneFace(g, W, H, q) {
+  g.fillStyle = "#29C5F6"; g.fillRect(0, 0, W, H);
+  wedges(g, 640, 400, 1000, 12, 15, 40 * q, "rgba(255,255,255,0.35)");
+  circ(g, 640, 400, 300, "#2F7BFF");
+  const dart = Math.floor(q / 0.6 + 1e-6) % 2 ? 1 : -1;
+  for (const s of [-1, 1]) { circ(g, 640 + s * 125, 340, 95, "#FFFFFF"); circ(g, 640 + s * 125 + dart * 40, 340, 42, TOON.ink, 0); }
+  g.beginPath(); g.moveTo(520, 470); g.quadraticCurveTo(640, 470, 760, 470); g.bezierCurveTo(750, 590, 530, 590, 520, 470); g.closePath(); inkPath(g, "#FF5A7A");
+}
+function sceneBoom(g, W, H, q) {
+  const gr = g.createRadialGradient(640, 360, 0, 640, 360, 780); gr.addColorStop(0, "#FFD0E8"); gr.addColorStop(0.5, "#FF4FA3"); gr.addColorStop(1, "#C2188F");
+  g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  const R = 205 + 55 * Math.sin(PI2 * 2 * q);
+  star(g, 640, 360, R, R * 0.62, 12, 0, "#FFFFFF");
+  for (const [ang, ph, col, hs] of CONFETTI) {
+    const d = 400 * ((((q + ph) % 1.2) + 1.2) % 1.2), a = ang * deg, x = 640 + Math.cos(a) * d, y = 360 + Math.sin(a) * d;
+    g.save(); g.translate(x, y); g.rotate(a + 3 * q); g.beginPath(); g.rect(-hs, -hs * 0.6, hs * 2, hs * 1.2); inkPath(g, col, 5); g.restore();
+  }
+}
+function sceneNight(g, W, H, q, frame) {
+  lin(g, W, H, [[0, "#4B24C9"], [1, "#9B6BFF"]]);
+  // the crescent: the moon disc minus a bite circle (clipped), outlined along both edges
+  g.save(); g.beginPath(); g.rect(0, 0, W, H); g.arc(1058, 138, 70, 0, PI2); g.clip("evenodd"); circ(g, 1020, 160, 80, "#FFE45C", 0); circ(g, 1020, 160, 80, null, TOON.line); g.restore();
+  g.save(); g.beginPath(); g.arc(1020, 160, 80, 0, PI2); g.clip(); g.beginPath(); g.arc(1058, 138, 70, 0, PI2); inkPath(g, null, TOON.line); g.restore();
+  STARS.forEach(([x, y, r], i) => { const big = (Math.floor(frame / 4) + i) % 2 === 0; star(g, x, y, big ? r * 1.25 : r * 0.7, big ? r * 0.5 : r * 0.28, 4, 0, "#FFFFFF", 4); });
+  g.beginPath(); g.moveTo(-10, 730); g.lineTo(-10, 600);
+  for (let x = -10; x <= W + 10; x += 16) g.lineTo(x, 585 - 50 * Math.sin((PI2 * (x + 140)) / 1700));
+  g.lineTo(W + 10, 730); g.closePath(); inkPath(g, "#2A1570");
+  const k = 1 + 0.04 * Math.sin(PI2 * 0.5 * q);   // breathing: 4 % at .5 Hz, about the hero's base on the hill
+  g.save(); g.translate(560, 585); g.scale(k, k); hero(g, 0, -85, 100, 1); g.restore();
+}
+const SCENES = [sceneChase, sceneFace, sceneBoom, sceneNight];
+function drawCard(g, W, H, a) {
+  g.save(); g.globalAlpha = a; g.fillStyle = "#14161C"; g.fillRect(0, 0, W, H);
+  g.fillStyle = "#FFFFFF"; g.font = "bold 110px Arial, Helvetica, sans-serif"; g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText("Are you still", 640, 290); g.fillText("watching?", 640, 420);
+  const pill = (x, y, w, h) => { const r = h / 2; g.beginPath(); g.moveTo(x - w / 2 + r, y - h / 2); g.lineTo(x + w / 2 - r, y - h / 2); g.arc(x + w / 2 - r, y, r, -Math.PI / 2, Math.PI / 2); g.lineTo(x - w / 2 + r, y + h / 2); g.arc(x - w / 2 + r, y, r, Math.PI / 2, Math.PI * 1.5); g.closePath(); };
+  pill(480, 560, 300, 84); g.fillStyle = "#FFFFFF"; g.fill();
+  pill(800, 560, 300, 84); g.lineWidth = 3; g.strokeStyle = "#8A8F99"; g.stroke();
+  g.font = "bold 44px Arial, Helvetica, sans-serif"; g.fillStyle = "#14161C"; g.fillText("Yes", 480, 561); g.fillStyle = "#C9CDD6"; g.fillText("No", 800, 561);
+  g.restore();
+}
+// the whole 1280 x 720 picture: on 0 = dark glass with one 5 % sheen, 1 = the running cartoon, card crossfades to the end card
+function drawToon(g, W, H, scene, q, frame, card, on) {
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.textAlign = "left"; g.textBaseline = "alphabetic";
+  g.fillStyle = "#0B0C10"; g.fillRect(0, 0, W, H);
+  if (on > 0.004) {
+    g.save(); g.globalAlpha = on;
+    if (card < 0.995) SCENES[scene](g, W, H, q, frame);
+    if (card > 0.004) drawCard(g, W, H, card);
+    g.restore();
+  }
+  if (on < 0.996) {
+    g.save(); g.globalAlpha = 0.05 * (1 - on); g.fillStyle = "#FFFFFF";
+    g.beginPath(); g.moveTo(0, H * 0.78); g.lineTo(W * 0.36, 0); g.lineTo(W * 0.5, 0); g.lineTo(W * 0.14, H); g.lineTo(0, H); g.closePath(); g.fill(); g.restore();
+  }
+}
+
 function woodTex(base, seed) {
   return once("wood:" + base, () => canvasTex(256, 256, (g, w, h) => {
     const rnd = rng(seed); g.fillStyle = base; g.fillRect(0, 0, w, h);
@@ -319,6 +450,29 @@ function tv(P) {
   const ht = new THREE.CanvasTexture(hc), hm = new THREE.MeshBasicMaterial({ map: ht, color: "#8aa2cf", transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending, depthWrite: false, fog: false }); hm.userData.noOutline = true; hm.userData.glow = true;
   const halo = flat(new THREE.Mesh(new THREE.PlaneGeometry(1.5, 1.0), hm)); halo.position.set(0, 0.88, zc + 0.03); halo.renderOrder = 2; G.add(halo);
   let key = "";
+  if (S.picture === "cartoon") {   // the cartoon picture (header above); the alps path below is untouched
+    const lightK = S.light ?? 0, castK = S.castLight ?? 0, t0 = S.t0 ?? 0, wp = new THREE.Vector3();
+    let pl = null;
+    if (lightK > 0) { pl = new THREE.PointLight("#000000", lightK, 3.5, 1.6); pl.position.set(0, 0.88, zc + 0.0187 + 0.0005 + 0.25); pl.castShadow = false; G.add(pl); }
+    const cols = TOON.light.map((h) => new THREE.Color(h)), cardCol = new THREE.Color(TOON.cardLight), mixed = new THREE.Color();
+    return {
+      grip: 0, apply(ps, tt) {
+        const gl = clamp(ps.glow ?? S.glow ?? 1), on = clamp(ps.on ?? 0), card = Math.round(clamp(ps.card ?? S.card ?? 0) * 100) / 100, vis = (ps.scale ?? 1) > 0.002;
+        const clock = (tt ?? 0) - t0, frame = Math.floor(clock * TOON.FPS + 1e-6), q = frame / TOON.FPS, pin = Math.round(ps.scene ?? S.scene ?? -1);
+        const scene = pin >= 0 && pin < 4 ? pin : ((Math.floor(q / TOON.SCENE + 1e-6) % 4) + 4) % 4, ons = Math.round(on * 100) / 100;
+        const k = `${scene}|${card >= 0.995 ? "c" : frame}|${card}|${ons}`;
+        if (k !== key) { key = k; drawToon(g2, 1280, 720, scene, q, frame, card, ons); t.needsUpdate = true; }
+        const b = 0.45 + 0.55 * gl; sm.color.setRGB(b, b, b);
+        mixed.copy(cols[scene]).lerp(cardCol, card); const level = on * (1 - 0.7 * card);
+        hm.color.copy(mixed); hm.opacity = 0.22 * gl * on; halo.visible = gl * on > 0.02;
+        if (pl) { pl.color.copy(mixed).multiplyScalar(level * (vis ? 1 : 0)); }
+        if (castK) {
+          if (on > 0.004 && gl > 0.004 && vis) { G.updateWorldMatrix(true, false); wp.set(0, 0.88, zc + 0.0187 + 0.0005 + 0.25).applyMatrix4(G.matrixWorld); FIRE_U.uFirePos.value.copy(wp); FIRE_U.uFireCol.value.copy(mixed); FIRE_U.uFireK.value = castK * gl * level; LIT = S.id; }
+          else if (LIT === S.id) { FIRE_U.uFireK.value = 0; LIT = null; }
+        }
+      },
+    };
+  }
   return {
     grip: 0, apply(ps) {
       const c = Math.round(clamp(ps.crumble ?? S.crumble ?? 0) * 400) / 400, gl = clamp(ps.glow ?? S.glow ?? 1), k = `${c}`;
@@ -327,6 +481,7 @@ function tv(P) {
     },
   };
 }
+let LIT = null;   // which cartoon gtv owns the shared fire channel (firelight.js FIRE_U) this frame
 function box(parent, w, h, d, m, x, y, z) { return mesh(new THREE.BoxGeometry(w, h, d), m, parent, x, y, z); }
 
 // ================================================================================================= lamp, plant, rug
