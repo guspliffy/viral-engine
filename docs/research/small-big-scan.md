@@ -58,6 +58,9 @@ history before it that has none), how many beat their own usual views 2x ("5 of 
 open (Jonny 26 Nov: trends move fast, a 2-week-old hit can be over today). Their videos are listed fastest first.
 Fast signal: share of sampled accounts posting it, last 3 days vs the 3 before, S = (C + 0.5) / (N + 1); HEATING UP at
 x1.5 with 3+ accounts, COOLING at x0.65. A rise that disappears without its biggest account is shown as a lead (fragile).
+Channel by channel (Jonny 26 Nov: are several channels on the topic rising at once?): each account's format videos last
+week vs the week before; RISING x1.3+, FALLING x0.7 or less (2+ videos a side), NEW = first format video in 14 days.
+DEVELOPING = 3+ channels rising and at least twice as many rising as falling; COOLING the other way round.
 Stages on the page: Animate (just rising), Storyboard (early lead: 2+ accounts posted it in 3 days and a first-timer beat
 their usual views within 3 days; cheap action = premise + rough board), lead, steady, crowded, dying. Every day the scout
 saves its picks with the date our video could go live (`SCOUT_LEAD_DAYS`, 2); after a few weeks, score each pick by

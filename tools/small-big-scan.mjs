@@ -119,7 +119,7 @@ export function ytFeed(channelId) {
     return { id: g(/<yt:videoId>([^<]+)/), title: title.slice(0, 140), desc: `${title} ${desc}`, posted, views: +(g(/<media:statistics views="(\d+)"/) || 0),
       ageDays: posted ? Math.floor((Date.now() / 1000 - posted) / 86400) : null, url: `https://www.youtube.com/shorts/${g(/<yt:videoId>([^<]+)/)}` };
   }).filter((v) => v.id);
-  return { created: at((head.match(/<published>([^<]+)/) || [])[1]), videos };
+  return { created: at((head.match(/<published>([^<]+)/) || [])[1]), name: unesc((head.match(/<author>\s*<name>([^<]+)/) || [])[1] || "") || null, videos };
 }
 
 // Shorts search without the views sort (date 3 = this week, 4 = this month): YouTube now shows Shorts as lockups with no
