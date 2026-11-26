@@ -33,5 +33,5 @@ export const LINES = [
 export const LAUGHS = [
   ["chip", "Ha! Ha ha ha ha ha!", "excited", "bursting out laughing, can't stop, wheezing, high", { voice: "chip-x115" }],
   ["agent", "Hahaha! Ha ha ha!", "excited", "big belly laugh, snorting, losing it", { voice: "archaeologist" }],
-  ["rosti", "Ahahaha! Hahaha!", "excited", "crying with laughter, howling", { voice: "teo" }],
+  ["rosti", "Hahaha! Ha ha!", "excited", "crying with laughter, howling", { voice: "teo" }],
 ];
