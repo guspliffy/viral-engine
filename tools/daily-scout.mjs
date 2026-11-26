@@ -2,7 +2,7 @@
 // Daily scout (Jonny 26 Nov: "scan actively every day for new videos and formats for our niche that go viral and send
 // a Telegram notification or ... a website which shows this clearly with references"). Runs every morning on GitHub
 // (.github/workflows/scout.yml): small-big scan of our niche, compared with yesterday's history, plus the format trend
-// check every day (last 4 weeks week by week, last 7 days day by day). Writes a web page and sends the top finds to Telegram. On trial.
+// check every day (last 2 weeks: last week vs the week before, and day by day). Writes a web page and sends the top finds to Telegram. On trial.
 //
 //   node tools/daily-scout.mjs --data <history dir> --site <page dir> [--trend] [--telegram] [--smoke]
 //
@@ -99,11 +99,11 @@ th{color:var(--muted);font-weight:500}td.n{text-align:right;white-space:nowrap;f
 <h2>New breakouts</h2><p class=muted>Over 10x followers and the views bar, not seen in an earlier run.</p>${grid(fresh)}</section>
 <section id=Formats><h2>Formats found today</h2><p class=muted>Caption patterns that 3+ different small accounts use, ranked by breakouts. Open one to watch its best examples.</p>${fmtRows(ours) || "<p class=muted>None today.</p>"}
 ${fan.length ? `<h2>Fandom trends (someone else's characters)</h2><p class=muted>Big on reach, but not ours to make.</p>${fmtRows(fan)}` : ""}</section>
-<section id=Trends><h2>Our formats${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>TikTok and YouTube Shorts, each judged on its own: last 2 weeks vs the 2 before. Reward = the same accounts' views with the format (1.0 = no change). Newcomers = new accounts (under 150 days) that tried it in the last 7 days and beat their own usual views 2x: room for one more creator. Their videos are listed fastest first (views per day). YouTube compares the last week with the week before. Bars = views per day of the videos posted on each of the last 7 days.</p>
+<section id=Trends><h2>Our formats${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>Last 2 weeks only, TikTok and YouTube Shorts each judged on its own: last week vs the week before. Reward = the same accounts' views with the format (1.0 = no change). Newcomers = new accounts (under 150 days) that tried it in the last 7 days and beat their own usual views 2x: room for one more creator. Their videos are listed fastest first (views per day). Bars = views per day of the videos posted on each of the last 14 days.</p>
 <div class=tgrid>${trend.formats.map((t) => `<article class=tcard><h3>${esc(t.name)}</h3>
 <div class=plat><span class=muted>TikTok</span> <b class=${verdictClass(t.word)}>${esc(t.word.split(":")[0])}</b>${spark(t.days || [])}</div>
 <p class=muted>Reward ${t.reward ?? "?"} · accounts/week ${t.postersPerWeek ?? "?"} · newcomers ${t.newHits ?? "?"} of ${t.newPosters ?? "?"}</p>${hits(t.newcomers)}
-<div class=plat><span class=muted>YouTube</span> ${t.yt ? `<b class=${verdictClass(t.yt.word)}>${esc(t.yt.word.split(":")[0])}</b>${spark(t.yt.days || [])}` : "?"}</div>${t.yt?.newPosters != null ? `<p class=muted>Last week vs the week before · newcomers ${t.yt.newHits} of ${t.yt.newPosters}</p>` : ""}${hits(t.yt?.newcomers)}
+<div class=plat><span class=muted>YouTube</span> ${t.yt ? `<b class=${verdictClass(t.yt.word)}>${esc(t.yt.word.split(":")[0])}</b>${spark(t.yt.days || [])}` : "?"}</div>${t.yt?.newPosters != null ? `<p class=muted>Newcomers ${t.yt.newHits} of ${t.yt.newPosters}</p>` : ""}${hits(t.yt?.newcomers)}
 ${t.gap ? `<p class="gap ${/^ROOM/.test(t.gap.word) ? "up" : ""}"><b>${esc(t.gap.word.split(":")[0])}</b> <span class=muted>last 2 weeks: TikTok ${t.gap.tiktok.posters} accounts, median ${fmt(t.gap.tiktok.medianViews)}, ${t.gap.tiktok.hits} hits · YouTube ${t.gap.youtube.posters} channels, median ${fmt(t.gap.youtube.medianViews)}, ${t.gap.youtube.hits} hits</span></p>` : ""}</article>`).join("")}</div>
 <p class=muted>Gap: ROOM ON YOUTUBE / ROOM ON TIKTOK = the format pays on one platform (median 50K+ or 3+ hits in 2 weeks) while few accounts make it on the other. That is where we can be early.</p>` : "<p class=muted>Not run yet.</p>"}</section>
 <section id=Accounts><h2>Repeat breakers (formats, not luck)</h2><p class=muted>Small accounts that beat their following again and again. Best and worst video side by side: the worst shows what fails.</p>
@@ -152,7 +152,7 @@ async function main() {
   const { hist: h2, fresh, risers } = mergeHistory(hist, track, today);
   const freshBreaks = firstRun ? [] : breaks.filter((v) => fresh.some((f) => key(f) === key(v))).slice(0, 20);
   if (o.trend) {
-    const t = await runTrend(trendArgs(["node", "trend", "--preset", "ours", "--accounts", "20"]));
+    const t = await runTrend(trendArgs(["node", "trend", "--preset", "ours"]));
     h2.trend = { date: today, formats: t.report.map(({ f, ver, newWin, rows, yt, gap }) => ({ name: f.name, ...ver, days: dailyTable(rows, t.now).map((d) => d.perDay),
       best: newWin[0] ? { url: newWin[0].url, views: newWin[0].views, perDay: newWin[0].perDay } : null,
       newcomers: newWin.slice(0, 3).map((r) => ({ url: r.url, views: r.views, perDay: r.perDay, title: r.title, account: r.account, platform: "tiktok" })),
