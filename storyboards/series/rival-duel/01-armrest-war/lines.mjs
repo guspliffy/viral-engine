@@ -16,8 +16,8 @@ export const LINES = [
   ["spud", "Hnnngh!", "angry", "straining, pushing", YOU],
   ["att", "Too. Dangerous.", "whisper", "deadpan, flat, appearing out of nowhere", ATT],
   // ROUND 2: both elbows + chin; plant 1 (the pilot hat in his bag)
-  ["spud", "Both elbows.", "happy", "smug, victorious", YOU],
-  ["wedge", "Both elbows. And chin.", "calm", "calm, smug, chin coming down", WEDGE],
+  ["spud", "Whole arm.", "happy", "smug, victorious", YOU],
+  ["wedge", "Whole arm. And chin.", "calm", "calm, smug, chin coming down", { ...WEDGE, take: 3 }],
   ["wedge", "I fly a lot.", "calm", "relaxed, knowing", WEDGE],
   // ROUND 3: butter
   ["spud", "Oops.", "happy", "fake innocent, sly", YOU],
