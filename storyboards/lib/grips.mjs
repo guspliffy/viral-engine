@@ -195,6 +195,12 @@ const SIZE = {
   drumsticks: { r: 0.008, h: 0 },
   // props-foodhome.js (Kid vs Dad 02): wrapburger = box hold, both palms on the paper (origin bottom centre, 0.24 across, 0.155 tall; the design's y 0.05 = height 0.32, gap 0.03)
   wrapburger: { w: 0.24, h: 0.155, d: 0.24 },
+  // props-checkout-goods.js (Country vs Country 01 checkout): cashroll = mug hold (fist at 0.66 x 0.11 = y 0.073, over the rubber band); eggcarton = box hold (palms on the two ends at
+  // 0.55 x 0.075; the clip's flat-palm carry is an arm pose under GRIPS.eggcarton.palm); grape = thin pinch on the stem (len 0.1533 puts the DEFAULT pinch, from 0.6, at y 0.092 = the 0.015 stem; the grape hangs under the hand); groceryarmful = box hold (as kindlingarmful)
+  cashroll: { r: 0.045, h: 0.11 },
+  eggcarton: { w: 0.26, h: 0.075, d: 0.11 },
+  grape: { len: 0.1533, r: 0.005 },
+  groceryarmful: { w: 0.52, h: 0.36, d: 0.24 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
