@@ -28,11 +28,12 @@ export const PRESETS = { // our formats (26 Nov); regex runs on the caption
   "Kid vs dad": [/\b(dad|daddy|father|papa)\b/i, ["dad animation", "dad jokes animation", "dad and son animation"]],
   "Country vs country": [/\b(germany|german|america|american|usa|us|europe|european|british|uk|japan|france|india)\b[\s\S]*\bvs\.?\b|\bvs\.?\b[\s\S]*\b(germany|german|america|american|usa|europe|european|british|uk|japan|france|india)\b|\bin (germany|america|the usa|europe|the uk|japan)\b/i, ["germany vs usa", "america vs europe", "usa vs uk comedy"]],
   "Folklore / legend": [/\b(legend|folklore|folktale|myth|if you hear)\b/i, ["folklore animation", "scary legend story"]],
-  // new to us, seen in the 26 Nov scan (Jonny: "different formats which are picking up right now")
-  "Absurd fix machine": [/\b(unnecessary ?engineering|let'?s fix (that|this)|over ?engineer\w*|machine (bana|for)|i (built|made) a machine)\b/i, ["unnecessary engineering", "funny invention animation", "lets fix that animation"]],
-  "Invention origin": [/\b(invented|inventor|changed \w+ forever|who invented|how .{1,30} was invented)\b/i, ["who invented animation", "how it was invented animation"]],
-  "How X really works (POV)": [/\bhow .{1,40} really works?\b|\bpov:? .{0,40}\b(taxes|doctor|hospital|prison|rent|insurance|healthcare|lunch break)\b/i, ["how taxes really work animation", "pov animation comedy"]],
-  "Guess the right one": [/\b(guess the (right|correct|real)|which one is (real|right)|top or bottom|left or right\?)/i, ["guess the right animation", "guess which one animation"]],
+  // new to us, seen in the 26 Nov scan (Jonny: "different formats which are picking up right now"); keywords = TikTok discover
+  // pages that exist (made-up phrases return 0 videos)
+  "Absurd fix machine": [/\b(unnecessary ?engineering|let'?s fix (that|this)|over ?engineer\w*|machine (bana|for)|i (built|made) a machine)\b/i, ["unnecessary engineering", "engineering animation", "funny invention"]],
+  "Invention origin": [/\b(invented|inventor|changed \w+ forever|who invented|how .{1,30} was invented|#?inventions)\b/i, ["invention", "who invented", "history of inventions"]],
+  "How X really works (POV)": [/\bhow .{1,40} really works?\b|\bpov:? .{0,40}\b(taxes|doctor|hospital|prison|rent|insurance|healthcare|lunch break)\b/i, ["taxes", "american healthcare", "pov animation"]],
+  "Guess the right one": [/\b(guess the (right|correct|real)|which one is (real|right)|top or bottom|left or right\?)/i, ["guess the right one", "guess the mouth", "top or bottom"]],
 };
 
 export function parseArgs(argv) {
