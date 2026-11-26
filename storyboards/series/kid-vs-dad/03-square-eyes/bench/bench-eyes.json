@@ -1,0 +1,1072 @@
+{
+ "id": "bench-eyes",
+ "title": "Square-eyes bench (Kid vs Dad 03, builder A)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "duration": 21,
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "far": 200,
+ "set": {
+  "type": "plain",
+  "color": "#dfe6ee",
+  "floor": "#cfd8e2",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "creative": {
+  "length": [
+   1,
+   60
+  ],
+  "notes": false
+ },
+ "cast": [
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -1.15,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 3.7
+  },
+  {
+   "id": "tato",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.4,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.1
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0.65,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "rep",
+   "character": "potatobrawl/reporter",
+   "at": [
+    1.5,
+    -0.5
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 131.3
+  }
+ ],
+ "actions": [
+  {
+   "who": "mash",
+   "at": 0,
+   "do": "noblink"
+  },
+  {
+   "who": "tato",
+   "at": 0,
+   "do": "noblink"
+  },
+  {
+   "who": "dad",
+   "at": 0,
+   "do": "noblink"
+  },
+  {
+   "who": "rep",
+   "at": 0,
+   "do": "noblink"
+  },
+  {
+   "who": "tato",
+   "at": 0,
+   "do": "face",
+   "square": 0,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 0,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 0,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 1,
+   "do": "face",
+   "square": 0.02,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 1,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 1,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 2,
+   "do": "face",
+   "square": 0.5,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 2,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 2,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 3,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 3,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 3,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 4,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.5,
+   "lidR": 0.5,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 4,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 4,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 5,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 1,
+   "lidR": 1,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 5,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 5,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 6,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 6,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 6,
+   "do": "look",
+   "to": [
+    0.9,
+    0.4
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 7,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 7,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 7,
+   "do": "look",
+   "to": [
+    -0.9,
+    -0.4
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 8,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 8,
+   "do": "expr",
+   "expr": "shocked",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 8,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 9,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 9,
+   "do": "expr",
+   "expr": "deadpan",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 9,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 10,
+   "do": "face",
+   "square": 0.02,
+   "sqCorner": 1,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 10,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 10,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 11,
+   "do": "face",
+   "square": 0.02,
+   "sqCorner": 0.5,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 11,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 11,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "dad",
+   "at": 12,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 1,
+   "sqPhone": 1,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "dad",
+   "at": 12,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "dad",
+   "at": 12,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "dad",
+   "at": 13,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 1,
+   "sqPhone": 1,
+   "lidL": 0.5,
+   "lidR": 0.5,
+   "dur": 0
+  },
+  {
+   "who": "dad",
+   "at": 13,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "dad",
+   "at": 13,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "dad",
+   "at": 14,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 1,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "dad",
+   "at": 14,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "dad",
+   "at": 14,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "mash",
+   "at": 15,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "mash",
+   "at": 15,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "mash",
+   "at": 15,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 15,
+   "do": "face",
+   "square": 0.5,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 15,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 15,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "dad",
+   "at": 15,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 1,
+   "sqPhone": 1,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "dad",
+   "at": 15,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "dad",
+   "at": 15,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "mash",
+   "at": 17,
+   "do": "face",
+   "square": 1,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "mash",
+   "at": 17,
+   "do": "expr",
+   "expr": "kind",
+   "set": {
+    "eye": 1.12,
+    "browY": 0.02,
+    "tilt": 0.05,
+    "curve": 0.2,
+    "open": 0,
+    "pupil": 0.85
+   },
+   "dur": 0
+  },
+  {
+   "who": "mash",
+   "at": 17,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "mash",
+   "at": 17.3,
+   "do": "blink",
+   "dur": 0.27
+  },
+  {
+   "who": "mash",
+   "at": 17.85,
+   "do": "blink",
+   "dur": 0.27
+  },
+  {
+   "who": "tato",
+   "at": 19,
+   "do": "face",
+   "square": 0.02,
+   "sqCorner": 0,
+   "sqTall": 0,
+   "sqPhone": 0,
+   "lidL": 0.04,
+   "lidR": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 19,
+   "do": "expr",
+   "expr": "kind",
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 19,
+   "do": "look",
+   "to": [
+    0,
+    0
+   ],
+   "dur": 0,
+   "blink": false
+  },
+  {
+   "who": "tato",
+   "at": 19.267,
+   "do": "face",
+   "sqCorner": 1,
+   "dur": 0.067
+  },
+  {
+   "who": "tato",
+   "at": 19.5,
+   "do": "face",
+   "sqCorner": 0,
+   "dur": 0.067
+  },
+  {
+   "who": "tato",
+   "at": 19.8,
+   "do": "face",
+   "sqCorner": 1,
+   "dur": 0.067
+  },
+  {
+   "who": "tato",
+   "at": 20.2,
+   "do": "face",
+   "sqCorner": 0,
+   "dur": 0.067
+  },
+  {
+   "who": "tato",
+   "at": 19.533,
+   "do": "face",
+   "lidL": 0.24,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 19.667,
+   "do": "face",
+   "lidL": 0.04,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 20.233,
+   "do": "face",
+   "lidL": 0.24,
+   "dur": 0
+  },
+  {
+   "who": "tato",
+   "at": 20.367,
+   "do": "face",
+   "lidL": 0.04,
+   "dur": 0
+  }
+ ],
+ "captions": [],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 1,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 2,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 3,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 4,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 5,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 6,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 7,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 8,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 9,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 10,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 11,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  },
+  {
+   "at": 12,
+   "pos": [
+    0.67,
+    0.679,
+    2.314
+   ],
+   "look": [
+    0.67,
+    0.679,
+    0.324
+   ],
+   "fov": 30
+  },
+  {
+   "at": 13,
+   "pos": [
+    0.67,
+    0.679,
+    2.314
+   ],
+   "look": [
+    0.67,
+    0.679,
+    0.324
+   ],
+   "fov": 30
+  },
+  {
+   "at": 14,
+   "pos": [
+    0.67,
+    0.679,
+    2.314
+   ],
+   "look": [
+    0.67,
+    0.679,
+    0.324
+   ],
+   "fov": 30
+  },
+  {
+   "at": 15,
+   "pos": [
+    0.2,
+    1.1,
+    8.059
+   ],
+   "look": [
+    0.2,
+    0.62,
+    -0.1
+   ],
+   "fov": 40
+  },
+  {
+   "at": 16,
+   "pos": [
+    4.823,
+    1.1,
+    6.602
+   ],
+   "look": [
+    0.2,
+    0.62,
+    -0.1
+   ],
+   "fov": 40
+  },
+  {
+   "at": 17,
+   "pos": [
+    -1.169,
+    0.81,
+    1.557
+   ],
+   "look": [
+    -1.169,
+    0.81,
+    0.23
+   ],
+   "fov": 30
+  },
+  {
+   "at": 19,
+   "pos": [
+    -0.418,
+    0.434,
+    1.694
+   ],
+   "look": [
+    -0.418,
+    0.434,
+    0.201
+   ],
+   "fov": 30
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/kid-vs-dad/03-square-eyes/bench/bench-eyes.mjs (square eyes, builder A)."
+}

@@ -31,7 +31,7 @@ const hoverFlap = (u) => 0.6 + 0.4 * (1 - clamp(u / 0.25));
 // default; "face" actions blend them. frost / melt (0..1): the frost layer (frost.js; DAY 2 0.3, DAY 10 0.8, DAY 100 1,
 // the thaw melt 0 -> 1).
 const neutralExpr = (def) => { const n = def.face?.neutral || {}, o = {}; for (const k in EXPRESSIONS.kind) if (n[k] != null) o[k] = n[k]; return o; };
-export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press", "tearL", "tearR", "fangs", "juiceL", "juiceR", "stainL", "stainR", "frost", "melt"];
+export const FACE_KEYS = ["lidL", "lidR", "browL", "browR", "tiltL", "tiltR", "cornerL", "cornerR", "press", "tearL", "tearR", "fangs", "juiceL", "juiceR", "stainL", "stainR", "frost", "melt", "square", "sqCorner", "sqTall", "sqPhone"];
 const FACE_BOTH = { lid: ["lidL", "lidR"], brow: ["browL", "browR"], tilt: ["tiltL", "tiltR"], corner: ["cornerL", "cornerR"], tear: ["tearL", "tearR"] };
 // mitten hand shapes (potato.js): curl of the fingers, the index finger and the thumb, 0 straight .. 1 closed
 export const GRIPS = {

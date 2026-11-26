@@ -1,0 +1,469 @@
+{
+ "id": "desk14-head-bench",
+ "title": "Potato Desk 14 head-kit bench",
+ "idea": "Engine look bench for the Desk 14 head kit (task T1), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "vik"
+  ],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge-toupee",
+   "at": [
+    -0.69,
+    -0.66
+   ],
+   "face": 0,
+   "expr": "stern",
+   "follow": 0.2,
+   "seed": 1.7
+  }
+ ],
+ "props": [
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 10,
+   "h": 6
+  },
+  {
+   "id": "dado",
+   "kind": "dadopanels",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "trim": true,
+   "trimW": 10,
+   "xs": [
+    -4.5,
+    -3.75,
+    -3,
+    -2.25,
+    -1.5,
+    -0.75,
+    0,
+    0.75,
+    1.5,
+    2.25,
+    3,
+    3.75,
+    4.5
+   ]
+  },
+  {
+   "id": "chair",
+   "kind": "chair",
+   "x": -0.69,
+   "y": 0.72,
+   "z": -0.66,
+   "rot": 0
+  },
+  {
+   "id": "bench",
+   "kind": "judgebench",
+   "x": -0.69,
+   "y": 0,
+   "z": 0.145
+  },
+  {
+   "id": "toup",
+   "kind": "hashtoupee",
+   "wear": "vik",
+   "x": 0,
+   "y": 1.113,
+   "z": 0.139,
+   "tip": 30,
+   "rot": 8,
+   "tilt": 4,
+   "steam": 1
+  },
+  {
+   "id": "shadow",
+   "kind": "judgeshadow",
+   "x": -0.36,
+   "y": 1.27,
+   "z": -1.296
+  },
+  {
+   "id": "papers",
+   "kind": "paperstack",
+   "x": -0.44,
+   "y": 1.18,
+   "z": -0.06,
+   "amount": 0.4,
+   "scale": 0
+  },
+  {
+   "id": "crumbs",
+   "kind": "hashcrumbs",
+   "staged": "falls from his head",
+   "x": -0.42,
+   "y": 2.1,
+   "z": -0.4
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "front0",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.69,
+     1.246,
+     4.38
+    ],
+    "look": [
+     -0.69,
+     2.11,
+     -0.52
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "shadow",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "shred": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "front1",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.69,
+     1.246,
+     4.38
+    ],
+    "look": [
+     -0.69,
+     2.11,
+     -0.52
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "shred": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "side",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     4.21,
+     1.246,
+     -0.52
+    ],
+    "look": [
+     -0.69,
+     2.11,
+     -0.52
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "shred": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "top",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.69,
+     6,
+     -0.2
+    ],
+    "look": [
+     -0.69,
+     2.2,
+     -0.6
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "med193",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.55,
+     0.479,
+     4.66
+    ],
+    "look": [
+     -0.55,
+     0.479,
+     -0.66
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "shred": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bite",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1.55,
+     2,
+     1.55
+    ],
+    "look": [
+     -0.78,
+     2.12,
+     -0.45
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "shred": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shadow0",
+   "at": 6.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3.3,
+     1,
+     2.2
+    ],
+    "look": [
+     -0.3,
+     2.2,
+     -1.3
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "shadow",
+     "set": {
+      "shred": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shadow1",
+   "at": 7.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3.3,
+     1,
+     2.2
+    ],
+    "look": [
+     -0.3,
+     2.2,
+     -1.3
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "shadow",
+     "set": {
+      "shred": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "crumbs",
+   "at": 8.8,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.7,
+     3.2
+    ],
+    "look": [
+     -0.45,
+     1.65,
+     -0.2
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "shred": 2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "papers",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "crumbs",
+     "set": {
+      "on": 1,
+      "fall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "crumbs",
+     "set": {
+      "fall": 1.6
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "allowClip": [],
+ "notes": "Generated by storyboards/series/potato-desk/bench/make-desk14-head-bench.mjs (engine bench, no reviews)."
+}
