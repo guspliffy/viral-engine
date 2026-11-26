@@ -10,7 +10,8 @@ import { clamp, rng } from "./util.js";
 //
 // heaventerrace  the top slab. Origin = station T (place at x 0, y 0, z 0). Slab x -2.60..+2.60, z -0.50..-4.30, top y 0, 0.30 thick, sides #ebe3d0,
 //                top #f7f2e6 drawn once on a canvas (tile seams #e3dccb 1.30 x 0.95, 4 veins, one gold inlay ring r 1.05, 0.04 wide at (-0.20, -1.40);
-//                the ring is cut by the slab's front edge), a gold trim 0.03 round the front and both sides. The fogveil (0.08 deep #f7fafc at 50 %)
+//                the ring is cut by the slab's front edge), a gold trim 0.03 round the front and both sides. spec.hole [x, z, r] (station-T local, default none = exactly as before): a round hole cut through the slab and its top
+//                (the clip passes [-0.20, -1.40, 0.52]; the trim is not cut, keep the hole off the front and side edges). The fogveil (0.08 deep #f7fafc at 50 %)
 //                and the 9 cloudpuffs are the existing kinds: the bench shows the numbers (box [[-2.6,0.01,-4.3],[2.6,0.09,-0.5]]). No keys. Floor
 //                (not solid for the contact checks, like the lobby floor).
 // pearlgate      origin = the threshold centre on the floor (place at x -0.20, y 0, z -2.30), faces +z. 1.90 wide, top y 1.89 (the pearls): two marble
@@ -111,7 +112,8 @@ export const HTOP_KINDS = {
   heaventerrace(P) {
     const X0 = -2.60, X1 = 2.60, Z0 = -4.30, Z1 = -0.50, W = X1 - X0, D = Z1 - Z0, PPM = 200;
     const side = noHatch(mat("#ebe3d0", { roughness: 0.8, emissive: new THREE.Color("#ebe3d0"), emissiveIntensity: 0.22 })), gold = mat("#e8b93a", { roughness: 0.4, metalness: 0.3, emissive: new THREE.Color("#e8b93a"), emissiveIntensity: 0.15 });
-    flat(box(W, 0.30, D, side, P.whole, 0, -0.15 - 0.002, (Z0 + Z1) / 2), false).receiveShadow = true;
+    const hole = Array.isArray(P.spec.hole) && P.spec.hole.length === 3 ? P.spec.hole : null;   // spec.hole [x, z, r] (station-T local, default none): a round cut through the slab and its top
+    if (!hole) flat(box(W, 0.30, D, side, P.whole, 0, -0.15 - 0.002, (Z0 + Z1) / 2), false).receiveShadow = true;
     // the top, drawn once: tile seams 1.30 x 0.95, 4 veins, the gold inlay ring (the front edge cuts it)
     const tex = canvasTex(Math.round(W * PPM), Math.round(D * PPM), (g, w, h) => {
       const px = (x) => (x - X0) * PPM, pz = (z) => (z - Z0) * PPM;   // canvas top = far edge (z -4.30)
@@ -130,7 +132,14 @@ export const HTOP_KINDS = {
       g.strokeStyle = "#ffe89a"; g.lineWidth = 0.008 * PPM; g.beginPath(); g.arc(px(-0.20), pz(-1.40), 1.05 * PPM - 0.012 * PPM, 0, TAU); g.stroke();
     });
     const topM = noHatch(mat("#ffffff", { map: tex, roughness: 0.6, emissive: new THREE.Color("#ffffff"), emissiveMap: tex, emissiveIntensity: 0.22 }));
-    flat(plane(W, D, topM, P.whole, 0, 0.0015, (Z0 + Z1) / 2, -Math.PI / 2)).receiveShadow = true;
+    if (!hole) flat(plane(W, D, topM, P.whole, 0, 0.0015, (Z0 + Z1) / 2, -Math.PI / 2)).receiveShadow = true;
+    else {   // the same slab (top y 0.0015, 0.30 thick, sides + top map) as ONE extrusion with the round hole cut through it (hellfloor's way)
+      const sh = new THREE.Shape(); sh.moveTo(X0, -Z0); sh.lineTo(X1, -Z0); sh.lineTo(X1, -Z1); sh.lineTo(X0, -Z1); sh.closePath();
+      const hp = new THREE.Path(); hp.absarc(hole[0], -hole[1], hole[2], 0, TAU, true); sh.holes.push(hp);
+      const geo = new THREE.ExtrudeGeometry(sh, { depth: 0.30, bevelEnabled: false, curveSegments: 48 }); geo.rotateX(-Math.PI / 2); geo.translate(0, 0.0015 - 0.30, 0);
+      const pp = geo.attributes.position, uv = geo.attributes.uv; for (let i = 0; i < pp.count; i++) uv.setXY(i, (pp.getX(i) - X0) / W, 1 - (pp.getZ(i) - Z0) / D);
+      flat(mesh(geo, [topM, side], P.whole), false).receiveShadow = true;
+    }
     // gold trim 0.03 round the front and both sides (proud of the top by 0.012)
     flat(box(W, 0.012, 0.03, gold, P.whole, 0, 0.006, Z1 - 0.015)); for (const s of [-1, 1]) flat(box(0.03, 0.012, D, gold, P.whole, s * (W / 2 - 0.015), 0.006, (Z0 + Z1) / 2));
     return { grip: 0 };

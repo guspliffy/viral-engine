@@ -189,6 +189,7 @@ import { HSTAIRS_KINDS, HSTAIRS_GRIPS } from "./props-heavenstairs.js";   // pot
 import { HTOP_KINDS, HTOP_GRIPS } from "./props-heaventop.js";   // heaven steps: gate, podium, ledger
 import { HSKY_KINDS, HSKY_GRIPS } from "./props-heavensky.js";   // heaven steps: sky, zone clouds, hell floor, hatch, parasol
 import { HITEMS_KINDS, HITEMS_GRIPS } from "./props-heavenitems.js";   // heaven steps: quill, case, flower, can, soapbox, jar
+import { HSEARCH_KINDS, HSEARCH_GRIPS } from "./props-heavensearch.js";   // potato desk 14: search screen, trapdoor, search tablet, casserole, hell button
 import { HTERMS_KINDS, HTERMS_GRIPS } from "./props-heaventerms.js";   // heaven terms: scroll, stamp, mat
 import { HHOME_KINDS, HHOME_GRIPS } from "./props-heavenhome.js";   // heaven terms: cloud home, bed, harp, neighbour, dawn sky
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
@@ -1586,6 +1587,7 @@ Object.assign(KINDS, NORSE_SPEAR_KINDS, NORSE_RAVEN_KINDS, NORSE_HEAD_KINDS, NOR
 Object.assign(KINDS, KRAMPUS_LANE_KINDS, KRAMPUS_BEAST_KINDS, KRAMPUS_NICK_KINDS, KRAMPUS_BOOTS_KINDS, KRAMPUS_RUN_KINDS, KRAMPUS_CAT_KINDS); Object.assign(GRIPS, KRAMPUS_LANE_GRIPS, KRAMPUS_BEAST_GRIPS, KRAMPUS_NICK_GRIPS, KRAMPUS_BOOTS_GRIPS, KRAMPUS_RUN_GRIPS, KRAMPUS_CAT_GRIPS);   // krampus myth 01 (props-krampus-*.js)
 Object.assign(KINDS, HSTAIRS_KINDS, HTOP_KINDS, HSKY_KINDS, HITEMS_KINDS); Object.assign(GRIPS, HSTAIRS_GRIPS, HTOP_GRIPS, HSKY_GRIPS, HITEMS_GRIPS);   // potato desk heaven steps
 Object.assign(KINDS, HTERMS_KINDS, HHOME_KINDS); Object.assign(GRIPS, HTERMS_GRIPS, HHOME_GRIPS);   // potato desk heaven terms
+Object.assign(KINDS, HSEARCH_KINDS); Object.assign(GRIPS, HSEARCH_GRIPS);   // potato desk 14 heaven search
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)

@@ -1,0 +1,6136 @@
+{
+ "id": "heaven-search",
+ "title": "Heaven reads your search history",
+ "idea": "Potato Desk heaven/hell 4B: at heaven's gate your search history goes up on a giant screen, read out loud, and every search is about your best friend, who is standing right behind you. The last one is how to delete search history.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  240,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "far": 160,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0f0",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "heaven-steps/heaven-steps-score.ogg",
+  "lock": false,
+  "dip": false,
+  "lowCut": 150,
+  "gain": 0.27
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "outdoor"
+ },
+ "creative": {
+  "length": [
+   40,
+   70
+  ]
+ },
+ "hook": {
+  "show": [
+   "gun",
+   "angel",
+   "trap"
+  ],
+  "hint": 0,
+  "what": "at heaven's gate the angel reads a soul's search out loud and drops him through a trapdoor: HELL"
+ },
+ "cast": [
+  {
+   "id": "angel",
+   "character": "potatobrawl/angel",
+   "at": [
+    1.13,
+    -56.8
+   ],
+   "y": 22,
+   "face": -25,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "gun",
+   "character": "potatobrawl/gunslinger",
+   "at": [
+    -0.2,
+    -56.62
+   ],
+   "y": 22,
+   "face": 60,
+   "expr": "smug",
+   "follow": 0.3,
+   "seed": 2.9
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.9,
+    -56.1
+   ],
+   "y": 22,
+   "face": 100,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1.3,
+    -55.4
+   ],
+   "y": 21.78,
+   "face": 170,
+   "expr": "happy",
+   "follow": 0.4,
+   "seed": 2.3
+  },
+  {
+   "id": "duchess",
+   "character": "potatobrawl/duchess",
+   "at": [
+    -0.88,
+    -54.55
+   ],
+   "y": 21.56,
+   "face": 175,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "tot",
+   "character": "potatobrawl/tot",
+   "at": [
+    0.55,
+    -54.5
+   ],
+   "y": 21.56,
+   "face": 185,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "dauphin",
+   "character": "potatobrawl/dauphin",
+   "at": [
+    1.08,
+    -54
+   ],
+   "y": 21.34,
+   "face": 190,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 4.3
+  },
+  {
+   "id": "rosti",
+   "character": "potatobrawl/rosti",
+   "at": [
+    -1.35,
+    -53.55
+   ],
+   "y": 21.12,
+   "face": 175,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 4.9
+  }
+ ],
+ "props": [
+  {
+   "id": "stairs",
+   "staged": "the stairway itself (world origin = station B)",
+   "kind": "heavenstairs",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "sky",
+   "staged": "far backdrop",
+   "kind": "stairsky",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "loop": 42.927
+  },
+  {
+   "id": "clouds",
+   "staged": "clouds round the stair",
+   "kind": "zoneclouds",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "loop": 42.927
+  },
+  {
+   "id": "terrace",
+   "staged": "the top terrace",
+   "kind": "heaventerrace",
+   "x": 0,
+   "y": 22,
+   "z": -55.3,
+   "hole": [
+    -0.2,
+    -1.4,
+    0.52
+   ]
+  },
+  {
+   "id": "gate",
+   "staged": "stands on the terrace",
+   "kind": "pearlgate",
+   "x": -0.2,
+   "y": 22,
+   "z": -57.6,
+   "open": 0
+  },
+  {
+   "id": "podium",
+   "staged": "stands on the terrace",
+   "kind": "cloudpodium",
+   "x": 1.05,
+   "y": 22,
+   "z": -56.1
+  },
+  {
+   "id": "rays",
+   "staged": "far backdrop behind the gate",
+   "kind": "gaterays",
+   "x": -0.2,
+   "y": 24.2,
+   "z": -61.3
+  },
+  {
+   "id": "veil",
+   "staged": "mist on the terrace",
+   "kind": "fogveil",
+   "x": 0,
+   "y": 22,
+   "z": -57.7,
+   "w": 5.2,
+   "d": 3.8,
+   "h": 0.08,
+   "color": "#f7fafc",
+   "opacity": 0.5
+  },
+  {
+   "id": "tpuff0",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -2.4,
+   "y": 22.25,
+   "z": -56.2,
+   "r": 0.5,
+   "seed": 30
+  },
+  {
+   "id": "tpuff1",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -2.5,
+   "y": 22.3,
+   "z": -57.3,
+   "r": 0.6,
+   "seed": 31
+  },
+  {
+   "id": "tpuff2",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -2.3,
+   "y": 22.275,
+   "z": -58.5,
+   "r": 0.55,
+   "seed": 32
+  },
+  {
+   "id": "tpuff3",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -1.5,
+   "y": 22.25,
+   "z": -59.5,
+   "r": 0.5,
+   "seed": 33
+  },
+  {
+   "id": "tpuff4",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": -0.2,
+   "y": 22.3,
+   "z": -59.7,
+   "r": 0.6,
+   "seed": 34
+  },
+  {
+   "id": "tpuff5",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": 1.2,
+   "y": 22.25,
+   "z": -59.6,
+   "r": 0.5,
+   "seed": 35
+  },
+  {
+   "id": "tpuff6",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": 2.3,
+   "y": 22.275,
+   "z": -58.9,
+   "r": 0.55,
+   "seed": 36
+  },
+  {
+   "id": "tpuff7",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": 2.5,
+   "y": 22.225,
+   "z": -57.7,
+   "r": 0.45,
+   "seed": 37
+  },
+  {
+   "id": "tpuff8",
+   "staged": "cloud on the terrace edge",
+   "kind": "cloudpuff",
+   "x": 2.45,
+   "y": 22.25,
+   "z": -56.6,
+   "r": 0.5,
+   "seed": 38
+  },
+  {
+   "id": "screen",
+   "staged": "floats in the sky above the gate",
+   "kind": "searchscreen",
+   "x": -0.2,
+   "y": 26.64,
+   "z": -60.7,
+   "on": 0,
+   "type": 0,
+   "alarm": 0,
+   "text": "is it normal to talk\nto my plants"
+  },
+  {
+   "id": "trap",
+   "staged": "set in the terrace in front of the podium",
+   "kind": "gatetrap",
+   "x": -0.2,
+   "y": 22,
+   "z": -56.7,
+   "crack": 0,
+   "open": 0
+  },
+  {
+   "id": "tablet",
+   "staged": "lies on the podium",
+   "kind": "searchtablet",
+   "x": 0.98,
+   "y": 22.42,
+   "z": -56.08,
+   "row": 0
+  },
+  {
+   "id": "button",
+   "staged": "on the podium top",
+   "kind": "hellbutton",
+   "x": 1.26,
+   "y": 22.42,
+   "z": -56.18,
+   "press": 0
+  },
+  {
+   "id": "dish",
+   "staged": "in Chip's gloves",
+   "kind": "casserole",
+   "x": -1.258,
+   "y": 22.06,
+   "z": -55.636,
+   "rot": 170,
+   "lid": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 2.78,
+   "text": "How to cheat at poker. *HELL.*",
+   "pos": 486,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 3.35,
+   "to": 4.046,
+   "text": "Next.",
+   "pos": 250,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 4.767,
+   "to": 6.48,
+   "text": "Wait. Out loud?",
+   "pos": 486,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 7.08,
+   "to": 9.68,
+   "text": "At heaven's gate,\nthere's one rule.",
+   "pos": 260,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 9.68,
+   "to": 11.1,
+   "text": "*Hide nothing.*",
+   "pos": 1150,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 11.1,
+   "to": 12.88,
+   "text": "\"Is it normal to talk to my plants\"",
+   "pos": 270,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 13.153,
+   "to": 13.846,
+   "text": "Fine.",
+   "pos": 300,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 13.987,
+   "to": 16.58,
+   "text": "\"Why does my best friend never pay me back\"",
+   "pos": 270,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 16.88,
+   "to": 17.48,
+   "text": "...What?",
+   "pos": 250,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 17.653,
+   "to": 19.846,
+   "text": "\"How to pretend I like my best friend's cooking\"",
+   "pos": 270,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 20.717,
+   "to": 21.48,
+   "text": "My casserole?",
+   "pos": 260,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 21.653,
+   "to": 23.78,
+   "text": "\"How to save a baby bird\"",
+   "pos": 270,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 24,
+   "to": 24.88,
+   "text": "Awww.",
+   "pos": 300,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 26.52,
+   "to": 28.08,
+   "text": "\"How to get a *new* best friend\"",
+   "pos": 270,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 28.383,
+   "to": 29.046,
+   "text": "A NEW one?",
+   "pos": 250,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 29.267,
+   "to": 30.997,
+   "text": "That's out of context!",
+   "pos": 486,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 31.72,
+   "to": 33.38,
+   "text": "Oh. *The last one.*",
+   "pos": 260,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 33.7,
+   "to": 36.5,
+   "text": "Not the last one. Please!",
+   "pos": 250,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 36.75,
+   "to": 40.846,
+   "text": "\"How to delete *search history*\"",
+   "pos": 486,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 41.933,
+   "to": 42.693,
+   "text": "*Hell.*",
+   "pos": 1200,
+   "pop": false,
+   "size": 60
+  }
+ ],
+ "beats": [
+  {
+   "name": "hell",
+   "at": 0,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     1.7,
+     24.7,
+     -48.5
+    ],
+    "look": [
+     0.2,
+     22.91,
+     -56.77
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      1.64,
+      24.628,
+      -48.831
+     ],
+     "look": [
+      0.2,
+      22.91,
+      -56.77
+     ],
+     "fov": 38
+    },
+    "dur": 2.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.02,
+       0.33,
+       0.58
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.4,
+       0.6
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      1.2,
+      0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "duchess",
+     "do": "look",
+     "to": [
+      0,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "tot",
+     "do": "look",
+     "to": [
+      0,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dauphin",
+     "do": "look",
+     "to": [
+      0,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      0,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "angel",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0,
+      "typing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "button",
+     "set": {
+      "press": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       0.185,
+       0.065,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       -0.185,
+       0.065,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.001,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.001
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.001
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How to cheat at poker. HELL.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, reading, then the last word flat and final",
+     "voice": "reaper",
+     "dur": 2.69,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "dish",
+     "hand": "both",
+     "grip": [
+      0,
+      0.065,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.061
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.2
+    },
+    {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.42,
+       0.54
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.02,
+       0.33,
+       0.58
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 2.07
+    },
+    {
+     "do": "prop",
+     "id": "button",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.05,
+     "ease": "in",
+     "at": 2.15
+    },
+    {
+     "sfx": "click",
+     "gain": 0.5,
+     "at": 2.15
+    },
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "open": 1.06
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 2.2
+    },
+    {
+     "sfx": "latch",
+     "gain": 0.6,
+     "at": 2.2
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.34,
+       0.8,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.22
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.06,
+     "at": 2.22
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.45,
+     "at": 2.25
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.1,
+     "at": 2.25
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 2.3
+    },
+    {
+     "who": "duchess",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 2.3
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      -0.2,
+      -56.62
+     ],
+     "y": -2.4,
+     "dur": 0.5,
+     "ease": "in",
+     "at": 2.32
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 2.36
+    },
+    {
+     "who": "tot",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 2.36
+    },
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 2.42
+    },
+    {
+     "who": "dauphin",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 2.42
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 2.48
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 2.48
+    },
+    {
+     "do": "prop",
+     "id": "button",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 2.5
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 230,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.7
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 2.78
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "gulp",
+   "at": 2.8,
+   "len": 1.266,
+   "shot": {
+    "pos": [
+     -3.7,
+     24.1,
+     -57.5
+    ],
+    "look": [
+     -1.15,
+     22.5,
+     -55.75
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -3.6,
+      24.1,
+      -57.5
+     ],
+     "look": [
+      -1.09,
+      22.5,
+      -55.75
+     ],
+     "fov": 42
+    },
+    "dur": 1.267,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "gun",
+     "do": "hide",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "open": -0.04
+     },
+     "dur": 0.17,
+     "ease": "in",
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -1.251,
+       22.04,
+       -55.676
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       -0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -1.251,
+       22.04,
+       -55.676
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.07,
+     "ease": "out",
+     "at": 0.27
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.45,
+     "at": 0.27
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.1,
+     "at": 0.35
+    },
+    {
+     "sfx": "gulp",
+     "gain": 0.4,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 0.47
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Next.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, bored",
+     "voice": "reaper",
+     "dur": 0.64,
+     "caption": false,
+     "at": 0.55
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.66
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.72
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 110,
+     "dur": 0.2,
+     "at": 0.99
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.2,
+      -56.55
+     ],
+     "y": 22,
+     "dur": 0.6,
+     "steps": 3,
+     "at": 1.09
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.247
+    }
+   ]
+  },
+  {
+   "name": "step",
+   "at": 4.066,
+   "len": 2.434,
+   "shot": {
+    "pos": [
+     1.2,
+     23.9,
+     -49.9
+    ],
+    "look": [
+     0.42,
+     23.14,
+     -56.75
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      1.2,
+      23.9,
+      -49.9
+     ],
+     "look": [
+      0.42,
+      22.958,
+      -56.75
+     ],
+     "fov": 34
+    },
+    "dur": 2.466,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.78,
+      -55.86
+     ],
+     "y": 22,
+     "dur": 0.6,
+     "steps": 3,
+     "at": 0.301
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.684,
+       22.34,
+       -56.123
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.301
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       -0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.684,
+       22.34,
+       -56.123
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.301
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.25,
+     "at": 0.501
+    },
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.534
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.8,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.551
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.03,
+       0.36,
+       0.2
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.551
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "clasp",
+     "dur": 0.2,
+     "at": 0.551
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -1,
+      -0.4
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.601
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.08,
+     "at": 0.621
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Wait. Out loud?",
+     "tone": "whisper",
+     "style": "small, nervous, horrified whisper",
+     "voice": "spud-x12",
+     "dur": 1.74,
+     "caption": false,
+     "at": 0.701
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.034
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.134
+    }
+   ]
+  },
+  {
+   "name": "tablet",
+   "at": 6.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     1.6,
+     24.45,
+     -55.55
+    ],
+    "look": [
+     1,
+     22.46,
+     -56.1
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.582,
+      24.39,
+      -55.566
+     ],
+     "look": [
+      1,
+      22.46,
+      -56.1
+     ],
+     "fov": 30
+    },
+    "dur": 0.467,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.38,
+       0.58
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 6
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.063
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.9
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.083
+    },
+    {
+     "who": "angel",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.1,
+     "at": 0.133
+    },
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 0
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.333
+    },
+    {
+     "who": "angel",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.1,
+     "at": 0.383
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.48
+    }
+   ]
+  },
+  {
+   "name": "rule",
+   "at": 7,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.75,
+     23.18,
+     -51.7
+    ],
+    "look": [
+     1.1,
+     22.85,
+     -56.45
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      0.761,
+      23.17,
+      -51.842
+     ],
+     "look": [
+      1.1,
+      22.85,
+      -56.45
+     ],
+     "fov": 28
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "At heaven's gate, there's one rule. Hide nothing.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, slow, clear",
+     "voice": "reaper",
+     "dur": 3.97,
+     "caption": false,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.03,
+       0.36,
+       0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.2,
+       -56.086
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       -0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.2,
+       -56.086
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "rulehero",
+   "at": 8.4,
+   "len": 1.266,
+   "shot": {
+    "pos": [
+     -1.2,
+     23.45,
+     -60.2
+    ],
+    "look": [
+     -0.39,
+     22.57,
+     -56.49
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.168,
+      23.415,
+      -60.052
+     ],
+     "look": [
+      -0.39,
+      22.57,
+      -56.49
+     ],
+     "fov": 34
+    },
+    "dur": 1.267,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.247
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.247
+    }
+   ]
+  },
+  {
+   "name": "screen",
+   "at": 9.666,
+   "len": 3.234,
+   "shot": {
+    "pos": [
+     -0.2,
+     21,
+     -47.3
+    ],
+    "look": [
+     -0.2,
+     25.82,
+     -60.7
+    ],
+    "fov": 31,
+    "to": {
+     "pos": [
+      -0.2,
+      21.482,
+      -48.64
+     ],
+     "look": [
+      -0.2,
+      25.82,
+      -60.7
+     ],
+     "fov": 31
+    },
+    "dur": 3.266,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.134
+    },
+    {
+     "sfx": "lampbuzz",
+     "gain": 0.25,
+     "at": 0.134
+    },
+    {
+     "who": "duchess",
+     "do": "look",
+     "to": [
+      0,
+      1.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.134
+    },
+    {
+     "who": "tot",
+     "do": "look",
+     "to": [
+      0,
+      1.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.184
+    },
+    {
+     "who": "dauphin",
+     "do": "look",
+     "to": [
+      0,
+      1.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.234
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      1.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.234
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      0,
+      1.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.284
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.434
+    },
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 1
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.434
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Is it normal to talk to my plants.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, deadpan reading",
+     "voice": "reaper",
+     "dur": 1.71,
+     "caption": false,
+     "at": 1.434
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.064
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.458
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.458
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.157
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.554
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.554
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.376
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.65
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.47
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.938
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.938
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.626
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.178
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 2.178
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.689
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.354
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 2.354
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.782
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.466
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 2.466
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.578
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 2.578
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.734
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.144
+    }
+   ]
+  },
+  {
+   "name": "chuckle",
+   "at": 12.9,
+   "len": 0.966,
+   "shot": {
+    "pos": [
+     0.1,
+     26.45,
+     -60.2
+    ],
+    "look": [
+     -0.35,
+     22.85,
+     -56
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.25,
+      26.45,
+      -60.2
+     ],
+     "look": [
+      -0.26,
+      22.85,
+      -56
+     ],
+     "fov": 40
+    },
+    "dur": 0.934,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.013
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.083
+    },
+    {
+     "who": "duchess",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.083
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.083
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 0.083
+    },
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.1
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.143
+    },
+    {
+     "who": "tot",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.143
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.203
+    },
+    {
+     "who": "dauphin",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.203
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Fine.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, shrugging",
+     "voice": "reaper",
+     "dur": 0.59,
+     "caption": false,
+     "at": 0.253
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.263
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.263
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "text": "why does my best friend\nnever pay me back",
+      "type": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.927
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.947
+    }
+   ]
+  },
+  {
+   "name": "search2",
+   "at": 13.866,
+   "len": 2.734,
+   "shot": {
+    "pos": [
+     -0.2,
+     21,
+     -47.3
+    ],
+    "look": [
+     -0.2,
+     25.82,
+     -60.7
+    ],
+    "fov": 31,
+    "to": {
+     "pos": [
+      -0.2,
+      21.578,
+      -48.908
+     ],
+     "look": [
+      -0.2,
+      25.82,
+      -60.7
+     ],
+     "fov": 31
+    },
+    "dur": 2.733,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.077
+    },
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 2
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.101
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.121
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Why does my best friend never pay me back.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, deadpan reading",
+     "voice": "reaper",
+     "dur": 2.52,
+     "caption": false,
+     "at": 0.121
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.076
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.145
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.145
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.317
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.201
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.321
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.321
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.377
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.437
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.497
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.276
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.497
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.497
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.401
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.657
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.657
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.576
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.913
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.913
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.701
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.249
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.249
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.434
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.801
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.761
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.761
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.876
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.001
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 2.001
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 2.145
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 2.145
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.641
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.714
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.714
+    }
+   ]
+  },
+  {
+   "name": "what",
+   "at": 16.6,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     -1.2,
+     23.45,
+     -60.2
+    ],
+    "look": [
+     -0.39,
+     22.57,
+     -56.49
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.159,
+      23.406,
+      -60.015
+     ],
+     "look": [
+      -0.39,
+      22.57,
+      -56.49
+     ],
+     "fov": 34
+    },
+    "dur": 0.933,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "crack": 0.45
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.2,
+       -56.086
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       -0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.2,
+       -56.086
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.4,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      -0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "...What?",
+     "tone": "sad",
+     "style": "small, hurt, confused",
+     "voice": "chip-x12",
+     "dur": 0.35,
+     "caption": false,
+     "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "text": "how to pretend i like my\nbest friend's cooking",
+      "type": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.893
+    }
+   ]
+  },
+  {
+   "name": "search3",
+   "at": 17.5,
+   "len": 2.366,
+   "shot": {
+    "pos": [
+     -0.2,
+     21,
+     -47.3
+    ],
+    "look": [
+     -0.2,
+     25.82,
+     -60.7
+    ],
+    "fov": 31,
+    "to": {
+     "pos": [
+      -0.2,
+      21.578,
+      -48.908
+     ],
+     "look": [
+      -0.2,
+      25.82,
+      -60.7
+     ],
+     "fov": 31
+    },
+    "dur": 2.334,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 3
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.133
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.153
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How to pretend I like my best friend's cooking.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, deadpan reading",
+     "voice": "reaper",
+     "dur": 2.13,
+     "caption": false,
+     "at": 0.153
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.068
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.177
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.177
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.134
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.289
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.289
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.312
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.417
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.417
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.357
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.625
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.625
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.468
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.881
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.881
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.534
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.057
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.057
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.623
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.233
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.233
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.823
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.473
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.473
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.777
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.777
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.283
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.347
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.347
+    }
+   ]
+  },
+  {
+   "name": "cooking",
+   "at": 19.866,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.1,
+     26.45,
+     -60.2
+    ],
+    "look": [
+     -0.45,
+     22.6,
+     -56.1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.073,
+      26.258,
+      -59.995
+     ],
+     "look": [
+      -0.45,
+      22.6,
+      -56.1
+     ],
+     "fov": 34
+    },
+    "dur": 0.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "crack": 0.72
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.051
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.3,
+     "at": 0.051
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.101
+    },
+    {
+     "who": "duchess",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.101
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.12,
+     "at": 0.101
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.161
+    },
+    {
+     "who": "tot",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.161
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.221
+    },
+    {
+     "who": "dauphin",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.221
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.02,
+       0.56,
+       0.16
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.281
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.281
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.581
+    }
+   ]
+  },
+  {
+   "name": "casserole",
+   "at": 20.466,
+   "len": 1.034,
+   "shot": {
+    "pos": [
+     -1.9,
+     23.05,
+     -57.7
+    ],
+    "look": [
+     -0.72,
+     22.45,
+     -55.86
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.853,
+      23.026,
+      -57.626
+     ],
+     "look": [
+      -0.72,
+      22.45,
+      -55.86
+     ],
+     "fov": 34
+    },
+    "dur": 1.066,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.08,
+       -56.086
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.051
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       -0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.08,
+       -56.086
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.051
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 0.051
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.051
+    },
+    {
+     "do": "prop",
+     "id": "dish",
+     "set": {
+      "lid": 0.6
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.101
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "My casserole?",
+     "tone": "sad",
+     "style": "offended, hurt, voice cracking",
+     "voice": "chip-x12",
+     "dur": 0.84,
+     "caption": false,
+     "at": 0.251
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.434
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.801
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.861
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.921
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.981
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "text": "how to save\na baby bird",
+      "type": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.027
+    }
+   ]
+  },
+  {
+   "name": "search4",
+   "at": 21.5,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     -0.2,
+     21,
+     -47.3
+    ],
+    "look": [
+     -0.2,
+     25.82,
+     -60.7
+    ],
+    "fov": 31,
+    "to": {
+     "pos": [
+      -0.2,
+      21.578,
+      -48.908
+     ],
+     "look": [
+      -0.2,
+      25.82,
+      -60.7
+     ],
+     "fov": 31
+    },
+    "dur": 2.267,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 4
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.133
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.137
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.153
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.153
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.153
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How to save a baby bird.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, a little softer",
+     "voice": "reaper",
+     "take": 2,
+     "dur": 1.92,
+     "caption": false,
+     "at": 0.153
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.274
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.433
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.433
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.501
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.625
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.625
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.546
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.977
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.977
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.774
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.217
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.217
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.505
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.505
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.073
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    }
+   ]
+  },
+  {
+   "name": "awww",
+   "at": 23.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.1,
+     26.45,
+     -60.2
+    ],
+    "look": [
+     -0.35,
+     22.85,
+     -56
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.05,
+      26.45,
+      -60.2
+     ],
+     "look": [
+      -0.44,
+      22.85,
+      -56
+     ],
+     "fov": 40
+    },
+    "dur": 1.133,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.04,
+       0.42,
+       0.14
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "duchess",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "crack": 0.5
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.3,
+       -56.086
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       -0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.3,
+       -56.086
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "dish",
+     "set": {
+      "lid": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.04,
+       0.42,
+       0.14
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.11
+    },
+    {
+     "who": "tot",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.11
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.04,
+       0.42,
+       0.14
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.17
+    },
+    {
+     "who": "dauphin",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.17
+    },
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "queue",
+     "macro": "say",
+     "line": "Awww.",
+     "tone": "calm",
+     "style": "melting, warm, touched, a crowd sigh",
+     "voice": "wedge-x12",
+     "dur": 0.84,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.04,
+       0.42,
+       0.14
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.23
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.15,
+     "at": 0.23
+    }
+   ]
+  },
+  {
+   "name": "gap",
+   "at": 24.9,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.6,
+     23.9,
+     -50.1
+    ],
+    "look": [
+     0.2,
+     23.12,
+     -57
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.584,
+      23.869,
+      -50.376
+     ],
+     "look": [
+      0.2,
+      23.12,
+      -57
+     ],
+     "fov": 34
+    },
+    "dur": 0.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.8,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.053
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "open": 0.32
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.083
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.3,
+     "at": 0.083
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 95,
+     "dur": 0.3,
+     "at": 0.133
+    },
+    {
+     "sfx": "ai/warm-resolve",
+     "gain": 0.25,
+     "at": 0.133
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      1,
+      -0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.183
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.02,
+      -56.5
+     ],
+     "y": 22,
+     "dur": 0.35,
+     "steps": 2,
+     "at": 0.283
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.55
+    }
+   ]
+  },
+  {
+   "name": "grab",
+   "at": 25.5,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     0.55,
+     24.3,
+     -54.6
+    ],
+    "look": [
+     0.6,
+     22.45,
+     -56.35
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.553,
+      24.208,
+      -54.687
+     ],
+     "look": [
+      0.6,
+      22.45,
+      -56.35
+     ],
+     "fov": 46
+    },
+    "dur": 0.867,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 7,
+     "dur": 0.25,
+     "at": 0.013
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.42,
+       0.54
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.14,
+       0.42,
+       0.42
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.013
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0.013
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.07
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.083
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.13
+    },
+    {
+     "who": "angel",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 0.133
+    },
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "x": 1.14,
+      "z": -56.32
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.213
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.4,
+       0.42
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.213
+    },
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 5
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.233
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.433
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.453
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.25,
+     "at": 0.453
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.453
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "text": "how to get a new\nbest friend",
+      "type": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.86
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0.871
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.2,
+      -56.55
+     ],
+     "y": 22,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0.88
+    }
+   ]
+  },
+  {
+   "name": "search5",
+   "at": 26.4,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     -0.2,
+     21,
+     -47.3
+    ],
+    "look": [
+     -0.2,
+     25.82,
+     -60.7
+    ],
+    "fov": 31,
+    "to": {
+     "pos": [
+      -0.2,
+      21.578,
+      -48.908
+     ],
+     "look": [
+      -0.2,
+      25.82,
+      -60.7
+     ],
+     "fov": 31
+    },
+    "dur": 1.733,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 5
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.12
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How to get a new best friend.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, deadpan reading",
+     "voice": "reaper",
+     "dur": 1.49,
+     "caption": false,
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.112
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.136
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.136
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.223
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.28
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.371
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.424
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.424
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.445
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.536
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.536
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.594
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.664
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.664
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.742
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.824
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.824
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.064
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.064
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "open": -0.03
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 1.11
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.5,
+     "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.26
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.61
+    }
+   ]
+  },
+  {
+   "name": "newone",
+   "at": 28.1,
+   "len": 0.966,
+   "shot": {
+    "pos": [
+     -1.2,
+     23.45,
+     -60.2
+    ],
+    "look": [
+     -0.39,
+     22.57,
+     -56.49
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.176,
+      23.424,
+      -60.089
+     ],
+     "look": [
+      -0.39,
+      22.57,
+      -56.49
+     ],
+     "fov": 34
+    },
+    "dur": 0.934,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.013
+    },
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "crack": 0.9
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.083
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.3,
+     "at": 0.083
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.08,
+     "at": 0.083
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.5,
+     "at": 0.083
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.1,
+       -56.086
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.113
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       -0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.1,
+       -56.086
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.113
+    },
+    {
+     "do": "prop",
+     "id": "dish",
+     "set": {
+      "lid": 0.6
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.113
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": "cheeks",
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.133
+    },
+    {
+     "who": "duchess",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.133
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": "cheeks",
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.193
+    },
+    {
+     "who": "tot",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.193
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.06,
+     "at": 0.213
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.1,
+     "at": 0.233
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": "cheeks",
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.253
+    },
+    {
+     "who": "dauphin",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.253
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "A NEW one?",
+     "tone": "excited",
+     "style": "shocked, betrayed, gasping",
+     "voice": "chip-x12",
+     "dur": 0.52,
+     "caption": false,
+     "at": 0.283
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": "cheeks",
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.313
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 0.313
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.947
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.947
+    },
+    {
+     "do": "prop",
+     "id": "dish",
+     "set": {
+      "lid": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.947
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.947
+    }
+   ]
+  },
+  {
+   "name": "context",
+   "at": 29.066,
+   "len": 1.934,
+   "shot": {
+    "pos": [
+     0.3,
+     23.05,
+     -52.7
+    ],
+    "look": [
+     -0.45,
+     22.7,
+     -56.3
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.2,
+      23.05,
+      -52.7
+     ],
+     "look": [
+      -0.51,
+      22.7,
+      -56.3
+     ],
+     "fov": 34
+    },
+    "dur": 1.933,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.18,
+       0.62,
+       0.22
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.051
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.051
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 0.051
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.08,
+     "at": 0.121
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "That's out of context!",
+     "tone": "excited",
+     "style": "panicked, fast, both hands up",
+     "voice": "spud-x12",
+     "dur": 1.43,
+     "caption": false,
+     "at": 0.201
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.434
+    },
+    {
+     "who": "duchess",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.767
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.827
+    },
+    {
+     "who": "dauphin",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.887
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.947
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.481
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.481
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.914
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.914
+    }
+   ]
+  },
+  {
+   "name": "toes",
+   "at": 31,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.1,
+     22.45,
+     -58.95
+    ],
+    "look": [
+     -0.2,
+     22.59,
+     -56.55
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      0.1,
+      22.51,
+      -58.95
+     ],
+     "look": [
+      -0.2,
+      22.638,
+      -56.55
+     ],
+     "fov": 48
+    },
+    "dur": 0.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "crack": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.04
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.3,
+     "at": 0.04
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.3,
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.9
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.08,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -10,
+     "dur": 0.12,
+     "at": 0.08
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.58
+    }
+   ]
+  },
+  {
+   "name": "lastone",
+   "at": 31.6,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0.75,
+     23.1,
+     -51.7
+    ],
+    "look": [
+     1.1,
+     23.05,
+     -56.45
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.761,
+      23.099,
+      -51.842
+     ],
+     "look": [
+      1.1,
+      23.05,
+      -56.45
+     ],
+     "fov": 36
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tablet",
+     "set": {
+      "row": 6
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.9
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Oh. The last one.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, slowing down, eyebrows up, almost amused",
+     "voice": "reaper",
+     "dur": 1.57,
+     "caption": false,
+     "at": 0.12
+    },
+    {
+     "who": "angel",
+     "do": "face",
+     "lid": 0.2,
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "angel",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.78
+    }
+   ]
+  },
+  {
+   "name": "beg",
+   "at": 33.4,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     1.1,
+     23.9,
+     -50.4
+    ],
+    "look": [
+     0.42,
+     23.1,
+     -56.7
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      1.066,
+      23.86,
+      -50.715
+     ],
+     "look": [
+      0.42,
+      23.1,
+      -56.7
+     ],
+     "fov": 34
+    },
+    "dur": 1.733,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.16,
+     "ease": "in",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.03,
+       0.5,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "clasp",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      1,
+      0.9
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "angel",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.9
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.06,
+     "at": 0.21
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.06,
+     "at": 0.24
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 0.27
+    },
+    {
+     "who": "angel",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Not the last one. Please!",
+     "tone": "excited",
+     "style": "begging, desperate, on his knees",
+     "voice": "spud-x12",
+     "dur": 2.75,
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "please",
+   "at": 35.1,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     1.3,
+     23,
+     -53.9
+    ],
+    "look": [
+     -0.2,
+     22.45,
+     -56.55
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      1.21,
+      22.967,
+      -54.059
+     ],
+     "look": [
+      -0.2,
+      22.45,
+      -56.55
+     ],
+     "fov": 38
+    },
+    "dur": 1.467,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.1,
+       0.42,
+       0.46
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.083
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.083
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "text": "how to delete\nsearch history",
+      "type": 0,
+      "alarm": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.46
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.03,
+       0.5,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "clasp",
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 160,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    }
+   ]
+  },
+  {
+   "name": "delete",
+   "at": 36.6,
+   "len": 4.266,
+   "shot": {
+    "pos": [
+     0.2,
+     22.8,
+     -44.7
+    ],
+    "look": [
+     -0.09,
+     23.3,
+     -56.7
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.136,
+      22.91,
+      -47.34
+     ],
+     "look": [
+      -0.09,
+      23.3,
+      -56.7
+     ],
+     "fov": 34
+    },
+    "dur": 4.267,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How. To. Delete. Search history.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, very slow, one word at a time",
+     "voice": "reaper",
+     "dur": 4.01,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "who": "duchess",
+     "do": "look",
+     "to": [
+      0,
+      1.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.112
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.166
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.166
+    },
+    {
+     "who": "tot",
+     "do": "look",
+     "to": [
+      0,
+      1.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.19
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "who": "dauphin",
+     "do": "look",
+     "to": [
+      0,
+      1.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.23
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      0,
+      1.8
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.223
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.934
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 0.934
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.482
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.894
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 1.894
+    },
+    {
+     "who": "angel",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.9
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 0.705
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 3.142
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 3.142
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "type": 1.001
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 3.43
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.14,
+     "at": 3.43
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "alarm": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 3.43
+    },
+    {
+     "sfx": "lampbuzz",
+     "gain": 0.2,
+     "at": 3.43
+    },
+    {
+     "do": "prop",
+     "id": "screen",
+     "set": {
+      "typing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.16
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 4.247
+    }
+   ]
+  },
+  {
+   "name": "shake",
+   "at": 40.866,
+   "len": 0.834,
+   "shot": {
+    "pos": [
+     -1.9,
+     23.05,
+     -57.7
+    ],
+    "look": [
+     -0.72,
+     22.45,
+     -55.86
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.853,
+      23.026,
+      -57.626
+     ],
+     "look": [
+      -0.72,
+      22.45,
+      -55.86
+     ],
+     "fov": 34
+    },
+    "dur": 0.866,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.26,
+       -56.086
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.001
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "dish",
+      "grip": [
+       -0.185,
+       0.065,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.698,
+       22.26,
+       -56.086
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.001
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.031
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.15,
+     "at": 0.051
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.2
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 0.121
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.2
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 0.321
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.2
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 0.521
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      -0.2
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 0.701
+    }
+   ]
+  },
+  {
+   "name": "button",
+   "at": 41.7,
+   "len": 0.566,
+   "shot": {
+    "pos": [
+     1.75,
+     23.25,
+     -53.4
+    ],
+    "look": [
+     1.2,
+     22.8,
+     -56.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.75,
+      23.25,
+      -53.4
+     ],
+     "look": [
+      1.2,
+      22.644,
+      -56.3
+     ],
+     "fov": 30
+    },
+    "dur": 0.534,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.01,
+     "at": 0.013
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.42,
+       0.54
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.013
+    },
+    {
+     "who": "angel",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.02,
+       0.33,
+       0.58
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.213
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Hell.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, flat, final",
+     "voice": "reaper",
+     "dur": 0.46,
+     "caption": false,
+     "at": 0.233
+    },
+    {
+     "do": "prop",
+     "id": "button",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.05,
+     "ease": "in",
+     "at": 0.293
+    },
+    {
+     "sfx": "click",
+     "gain": 0.5,
+     "at": 0.293
+    },
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "open": 0.12
+     },
+     "dur": 0.16,
+     "ease": "in",
+     "at": 0.413
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0.538
+    },
+    {
+     "do": "prop",
+     "id": "gate",
+     "set": {
+      "y": 22
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.547
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0.547
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.2,
+      -56.58
+     ],
+     "y": 22,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.547
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.547
+    }
+   ]
+  },
+  {
+   "name": "drop",
+   "at": 42.266,
+   "len": 0.661,
+   "shot": {
+    "pos": [
+     3.3,
+     24.9,
+     -55.75
+    ],
+    "look": [
+     -0.35,
+     22.2,
+     -56.4
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      3.3,
+      25.02,
+      -55.75
+     ],
+     "look": [
+      -0.35,
+      22.296,
+      -56.4
+     ],
+     "fov": 40
+    },
+    "dur": 0.66,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "open": 1.06
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.021
+    },
+    {
+     "sfx": "latch",
+     "gain": 0.6,
+     "at": 0.021
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.34,
+       0.8,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.041
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.06,
+     "at": 0.041
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.45,
+     "at": 0.071
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.2,
+      -1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.101
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 0.101
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.2,
+      -56.58
+     ],
+     "y": -2.4,
+     "dur": 0.5,
+     "ease": "in",
+     "at": 0.141
+    },
+    {
+     "do": "prop",
+     "id": "trap",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.221
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0.641
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2,
+   "see": [
+    "gun.face",
+    "angel.face",
+    "trap"
+   ],
+   "why": "at heaven's gate a soul stands on a gold trapdoor; the angel reads his search out loud and presses the button: HELL"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "gun",
+   "with": "spud",
+   "from": 2.6,
+   "to": 2.8,
+   "checks": [
+    "character-overlap",
+    "clipping"
+   ],
+   "reason": "the check pairs the falling Gunslinger's hat with the hero for one frame; the draft stills at 2.55-2.8 s show them 0.9 m apart"
+  },
+  {
+   "who": "chip",
+   "with": "chip",
+   "from": 9.6,
+   "to": 11.3,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "tot",
+   "with": "tot",
+   "from": 2.8,
+   "to": 3.4,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "tot",
+   "with": "tot",
+   "from": 28.2,
+   "to": 29.1,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "duchess",
+   "with": "duchess",
+   "from": 2.8,
+   "to": 3.1,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "duchess",
+   "with": "duchess",
+   "from": 28.2,
+   "to": 29.1,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "rosti",
+   "with": "rosti",
+   "from": 13.1,
+   "to": 13.9,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "rosti",
+   "with": "rosti",
+   "from": 20.1,
+   "to": 20.5,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "rosti",
+   "with": "rosti",
+   "from": 24,
+   "to": 24.9,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "dauphin",
+   "with": "dauphin",
+   "from": 2.8,
+   "to": 3.7,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "dauphin",
+   "with": "dauphin",
+   "from": 20.4,
+   "to": 21.5,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "dauphin",
+   "with": "dauphin",
+   "from": 28.3,
+   "to": 29.1,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "a background queue face behind a hand or another queue member in a shot whose subject is the hero or the two friends (F shots see the queue's backs)"
+  },
+  {
+   "who": "angel",
+   "with": "podium",
+   "from": 0,
+   "to": 42.927,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "the clerk stands right behind his podium (heaven steps): the drum's back sits under the robe's front hem, never seen from the front cameras"
+  },
+  {
+   "who": "gun",
+   "with": "trap",
+   "from": 2.27,
+   "to": 2.92,
+   "checks": [
+    "clipping",
+    "shell",
+    "floating"
+   ],
+   "reason": "he drops through the open trapdoor into the shaft (DESIGN gatetrap, Drop)"
+  },
+  {
+   "who": "spud",
+   "with": "trap",
+   "from": 42.267,
+   "to": 42.927,
+   "checks": [
+    "clipping",
+    "shell",
+    "floating"
+   ],
+   "reason": "he drops through the open trapdoor into the shaft (DESIGN gatetrap, Drop)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/14-heaven-search/make-heaven-search.mjs. ROUGH DRAFT: music is the heaven steps score as a stand-in."
+}
