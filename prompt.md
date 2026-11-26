@@ -1,0 +1,8 @@
+# Sol round 2 (last): glitch + logic check — "Night Marchers" draft 2
+
+Same 82 s vertical short as your round 1 (your round-1 answer is not in this folder; this is a fresh look). Images only: `beats.txt` (beat list with times), `sheet-1fps-00-41s.jpg`, `sheet-1fps-42-83s.jpg` (1 frame/s, timestamp top-left), `strip-5fps-XXs.jpg` (5 frames/s, 10 s each, 10 per row).
+Code-drawn flat 2D. A grandmother (blue cloak, candle-jar staff = fear meter) and a 12-year-old boy (red jacket) lie face down on a Hawaiian hillside while the Night Marchers pass. RESPECT RULE: the marchers are never drawn (only far torch points, light, feet/leg shadows, puddle reflections). Story and lines are locked (producer approved).
+Round 1 changes made: opens on "Never look at them"; objective ridge for "Look at who?"; stones insert under "the paths"; fern sticker hidden until "We have a fern"; sneeze recoil; light locked in the black stop beat; the torch points recede before "Who was that?"; captions wrap into two lines and shrink to stay off the edges; ridge mist made soft; puddle rim lowered.
+
+Task: list every remaining VISIBLE glitch or logic problem with its time (pops, flicker, floating props, faces cut by the frame, subtitles over a face or off the edge, a shadow that reads as a blob, wrong sizes between cuts, effect before cause), most important first, each with a concrete cheap fix (camera, cut point, hold, light, pose). Also say in one line each whether the round-1 changes listed above worked. No new story edits.
+End with exactly one last line: `VERDICT: PASS` or `VERDICT: FIX <n>`. Under 900 words. Write your answer to `answer.md` in this folder.
