@@ -24,7 +24,7 @@ const SOFA = [0.2, -1.61], SEAT = 0.45;
 const DAD = [0.42, -1.52];
 const TATO = [-0.45, -0.45], YAW_CAM = 12, YAW_DAD = 128;   // to the camera / to Dad (set on cuts only)
 const GIANT = [-0.80, -0.95];
-const ROW = [[0.02, -0.58, 0.55], [0.34, -0.60, 0.80], [0.70, -0.62, 1.10], [1.12, -0.64, 1.45]];   // on the rug (Sol r1 #11)   // x, z, scale: entries 5, 4, 3, 2
+const ROW = [[0.02, -0.40, 0.55], [0.24, -0.42, 0.80], [0.50, -0.40, 1.10], [0.86, -0.36, 1.45]];   // well inside the rug (r 1.03 round 0.18, 0.11; Sol r1 #11, r2 #11)   // x, z, scale: entries 5, 4, 3, 2
 const TV = [-1.52, -0.99, 34];
 const CLOCK = { x: 0.20, y: 1.62, z: -2.62 };
 
@@ -36,7 +36,7 @@ const cast = [
 const cups = ROW.map(([x, z, s], i) => ({ id: `cup${5 - i}`, kind: "trophy", x, y: -9, z, rot: -8 + i * 5, scale: s, glint: 0 }));
 const props = [
   { id: "sofa", kind: "gsofa", x: SOFA[0], y: 0, z: SOFA[1], rot: 0, sink: 0.02, damage: 0 },
-  { id: "tv", kind: "gtv", x: TV[0], y: 0, z: TV[1], rot: TV[2], glow: 1, picture: "cartoon", light: 0.55, castLight: 4, on: 1, card: 0 },
+  { id: "tv", kind: "gtv", x: TV[0], y: 0, z: TV[1], rot: TV[2], glow: 1, picture: "cartoon", light: 0.55, castLight: 1.5,   /* Sol r2 E13: softer spill, no colour jumps on Dad mid-line */ on: 1, card: 0 },
   { id: "lamp", kind: "glamp", x: -1.75, y: 0, z: -2.35, rot: 180 },
   { id: "plant", kind: "gplant", x: 1.80, y: 0, z: -1.60 },
   { id: "rug", kind: "grug", x: 0.18, y: 0, z: 0.11 },
@@ -84,15 +84,15 @@ const push = (s, k = 0.07, dur = 2) => ({ ...s, to: { pos: s.pos.map((v, i) => r
 const HOOK = { pos: [-0.22, 0.95, 2.25], look: [-0.10, 0.66, -1.0], fov: 52 };    // Tato front left, Dad asleep behind him
 const KID = { pos: [0.03, 0.52, 1.80], look: [-0.58, 0.42, -0.55], fov: 36 };    // Tato to the camera, the giant cup at his right
 const KID_CU = { pos: [-0.12, 0.46, 1.15], look: [-0.45, 0.40, -0.45], fov: 34 };
-const OTS = { pos: [-1.20, 0.95, 0.75], look: [0.52, 1.0, -1.52], fov: 44 };     // over Tato's shoulder onto Dad
+const OTS = { pos: [-1.20, 0.95, 0.75], look: [0.52, 1.0, -1.52], fov: 48 };   // Sol r2 #1: wider, Dad's cheek clear     // over Tato's shoulder onto Dad
 const DADC = { pos: [0.38, 1.02, 1.30], look: [0.42, 1.08, -1.52], fov: 34 };
-const DAD_CU = { pos: [0.40, 1.00, 0.85], look: [0.42, 1.06, -1.52], fov: 36 };
+const DAD_CU = { pos: [0.40, 1.00, 0.85], look: [0.42, 1.06, -1.52], fov: 42 };   // Sol r2 #12: cheeks clear of the frame edges
 const ROWC = { pos: [0.36, 0.40, 1.90], look: [0.36, 0.18, -0.80], fov: 46 };     // low on the rug: the row, Dad's shins behind
 const CLOCKC = { pos: [-0.30, 1.70, -0.95], look: [CLOCK.x, CLOCK.y, CLOCK.z], fov: 30 };
-const WIDE = { pos: [0.65, 1.30, 3.30], look: [0.65, 0.70, -1.00], fov: 70 };
+const WIDE = { pos: [0.65, 1.30, 3.30], look: [0.65, 0.70, -1.00], fov: 76 };   // Sol r2 E14: Dad starts inside the frame
 // the row shot per entry: framed on the cups there are, so the row grows wider each time (5: one cup, 2: all four)
-const rowCam = (n) => { const xs = ROW.slice(0, n).map((r) => r[0]), x = r3((Math.min(...xs) + Math.max(...xs)) / 2), d = [1.4, 1.8, 2.3, 3.4][n - 1];   // Sol r1 #9: 3 below Dad's face, 4 shows all four
-  return { pos: [x, r3(0.20 + d * 0.07), r3(-0.62 + d)], look: [x, 0.06, -0.62], fov: 44 }; };
+const rowCam = (n) => { const xs = ROW.slice(0, n).map((r) => r[0]), x = r3((Math.min(...xs) + Math.max(...xs)) / 2), d = [1.7, 1.9, 2.6, 3.8][n - 1], z = r3(ROW.slice(0, n).reduce((a, r) => a + r[1], 0) / n), dx = n >= 3 ? 0.06 : 0;   // Sol r1 #9 + r2 #9: room on the right for the last handle
+  return { pos: [r3(x + dx), r3(0.20 + d * 0.07), r3(z + d)], look: [r3(x + dx), 0.06, z], fov: 44 }; };
 const GIANTC = { pos: [-0.12, 0.58, 1.50], look: [-0.62, 0.45, -0.70], fov: 38 };   // Tato and the giant cup, both
 
 const FACE = {
@@ -157,7 +157,7 @@ const C8 = r3(e + 0.05);
 shot("we'll see 1", C8, push(DADC, 0.05, DUR[7] + 0.4));
 e = say(7, C8 + 0.1, { asleep: true });
 const C9 = r3(e + 0.15);
-shot("your room", C9, push({ ...OTS, fov: 38 }, 0.06, DUR[8] + 0.3));
+shot("your room", C9, push({ ...OTS, fov: 43 }, 0.06, DUR[8] + 0.3));
 e = say(8, C9 + 0.05);
 const C10 = r3(e + 0.1);
 shot("we'll see 2", C10, push(DADC, 0.08, DUR[9] + 0.5));
@@ -165,7 +165,7 @@ arm(C10, "dad", "R", { o: [0.40, 0.46, -0.02] }, 0.45);   // tease: his hand goe
 e = say(9, C10 + 0.15, { asleep: true });
 arm(e + 0.2, "dad", "R", "lap", 0.4);
 const C10b = r3(e + 0.15);
-shot("whole house", C10b, push({ ...OTS, fov: 36 }, 0.07, DUR[10] + 0.3));
+shot("whole house", C10b, push({ ...OTS, fov: 41 }, 0.07, DUR[10] + 0.3));
 e = say(10, C10b + 0.05);
 const C10c = r3(e + 0.1);
 shot("we'll see 3", C10c, push(DAD_CU, 0.06, DUR[11] + 0.5));
@@ -195,7 +195,7 @@ const C16 = r3(e + 0.25);
 P(onCut(C16), "clock", { time: 18 }, 0); P(C16 + 0.05, "clock", { time: 19 }, 0.3);
 shot("seven pm", C16, push(CLOCKC, 0.08, 0.7));
 const C17 = r3(C16 + 0.7);
-shot("it's seven", C17, push({ ...OTS, fov: 38 }, 0.06, DUR[15] + 0.3));
+shot("it's seven", C17, push({ ...OTS, fov: 43 }, 0.06, DUR[15] + 0.3));
 e = say(15, C17 + 0.05);
 // tease 1: far away an ice cream jingle; Dad's eye snaps wide for a moment, then the same line
 const C18 = r3(e + 0.1);
@@ -209,7 +209,7 @@ shot("tv off", C18b, push({ pos: [-0.68, 0.90, 0.26], look: [TV[0], 0.78, TV[1]]
 P(C18b + 0.3, "tv", { on: 0 }, 0.05); sfx(r3(C18b + 0.3), "click", { gain: 0.5 });
 const C18c = r3(C18b + 0.8);
 yaw(C18c, "spud", YAW_DAD); expr(C18c - 0.02, "spud", FACE.flat, 0.01);
-shot("tv is off", C18c, push({ ...OTS, fov: 38 }, 0.06, DUR[17] + 0.3));
+shot("tv is off", C18c, push({ ...OTS, fov: 43 }, 0.06, DUR[17] + 0.3));
 e = say(17, C18c + 0.1);
 const C18d = r3(e + 0.1);
 shot("five more 3", C18d, push(DADC, 0.10, DUR[18] + 0.6));
@@ -267,11 +267,11 @@ P(onCut(C29), "clock", { time: 19 }, 0); P(C29 + 0.05, "clock", { time: 19.75 },
 shot("quarter to", C29, push(CLOCKC, 0.08, 0.6));
 const C30 = r3(C29 + 0.6);
 yaw(C30, "spud", YAW_DAD); expr(C30 - 0.02, "spud", FACE.flat, 0.01);
-shot("last chance", C30, push({ ...OTS, fov: 38 }, 0.08, DUR[27] + 0.3));
+shot("last chance", C30, push({ ...OTS, fov: 43 }, 0.08, DUR[27] + 0.3));
 e = say(27, C30 + 0.1);
 const C31 = r3(e + 0.1);
 expr(C31 - 0.02, "dad", FACE.pain, 0.01);
-shot("my back", C31, push(DAD_CU, 0.08, DUR[28] + 1.3));
+shot("my back", C31, push({ ...DAD_CU, fov: 50 }, 0.06, DUR[28] + 1.3));   // Sol r2 #3: the hand on his hip stays in frame
 arm(C31 + 0.05, "dad", "R", { o: [0.40, 0.46, -0.02] }, 0.35);
 e = say(28, C31 + 0.2);
 
@@ -286,7 +286,7 @@ const C32 = r3(tUp + 0.5);
 A(onCut(C32), "dad", "stand", { dur: 0.01 });   // up on the cut (a stand inside the close-up popped one frame)
 sfx(r3(C32 - 0.03), "cushion-poof", { gain: 0.5 });
 const RUN_TO = [2.0, 2.85];
-A(onCut(C32), "dad", "move", { to: [1.58, -0.10], dur: 0.01, steps: 0, ease: "linear", sync: true });   // already up and a step out on the cut
+A(onCut(C32), "dad", "move", { to: [1.30, 0.25], dur: 0.01, steps: 0, ease: "linear", sync: true });   // already up and a step out on the cut
 A(onCut(C32), "dad", "turn", { to: 70, dur: 0.01, ease: "linear", sync: true });
 A(r3(C32 + 0.02), "dad", "hop", { count: 1, height: 0.08, dur: 0.2 });   // one push-off (Sol r1 E7)
 A(r3(C32 + 0.12), "dad", "move", { to: RUN_TO, dur: 0.5, steps: 4, stride: 0.5, ease: "in" });
