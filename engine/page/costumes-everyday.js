@@ -424,7 +424,7 @@ const parts_add = (ch, o) => ch.potatoParts.add(o);
 //            hanging to y 0.20 / 0.26) with seven ermine ticks, a string of 19 pearls on the chest, a cream straw sun hat (crown r 0.17,
 //            brim to r 0.38 in three waves, tipped back 16 degrees, a pink ribbon, three roses; her leaf comes up through a 0.05 hole).
 //   duchess  option watch: true (default false) puts the dauphin's gold wrist watch on her LEFT wrist (same case, same glint, same gold).
-//   dauphin  double-breasted navy velvet blazer (a V to y 0.30, hem y 0.14, a sheen band on the shoulders and the outer sleeves, four gold
+//   dauphin  (option ascotY: the ascot knot's height in metres above the floor; default: the stock spot) double-breasted navy velvet blazer (a V to y 0.30, hem y 0.14, a sheen band on the shoulders and the outer sleeves, four gold
 //            buttons), dark lapel roll, gold ascot, white pocket square on the left chest, 0.02 of white cuff past each sleeve, a gold watch
 //            on the LEFT wrist (key: the glint is a 4-point star on a 0.9 s period). Under the blazer a white shirt shows in the V.
 //            Options (Happiness 01 money redo, T8, side cast; the defaults are the Dauphin as built): blazer / lapel / gold "#hex" (any
@@ -681,7 +681,7 @@ function dauphin(C, ch, P) {
   parts.add(mesh(cordDown(ch, 0, fV - 0.02, HEM + 0.05, 0.004, 0.066), clothMat(lapel), false));
   for (const sg of [-1, 1]) for (const dp of [0.36, 0.62]) parts.add(studAt(ch, sg * 0.2, HEM + dp * (fV - HEM) * 0.9 + 0.02, 0.082, 0.02, gold, 0.5));
   // a gold ascot in the V: a knot and two soft flaps; a white pocket square on the left chest (+x)
-  if (ascot) { const am = clothMat(ascot, { roughness: 0.55, side: THREE.DoubleSide }), ph0 = fV + 0.22;
+  if (ascot) { const am = clothMat(ascot, { roughness: 0.55, side: THREE.DoubleSide }), ph0 = C.ascotY != null ? elOfY(ch, C.ascotY) : fV + 0.22;   // costume.ascotY (opt-in, metres above the floor): the knot's height, for a tall body whose stock spot is under the collar
     parts.add(studAt(ch, 0, ph0, 0.052, 0.027, am, 0.6));
     for (const sg of [-1, 1]) { const q = ch.surf(sg * 0.09, ph0 - 0.12), f = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 8), am); f.scale.set(0.028, 0.055, 0.011); f.position.copy(q.pos).addScaledVector(q.normal, 0.055); f.lookAt(q.pos.clone().addScaledVector(q.normal, 2)); f.rotateZ(sg * 0.35); f.castShadow = true; parts.add(f); } }
   if (C.square !== false) { const q = ch.surf(0.74, -0.66), n = q.normal, up = V(0, 1, 0), S = new THREE.Vector3().crossVectors(up, n).normalize(), U = new THREE.Vector3().crossVectors(n, S).normalize(), pos = [], idx = [];

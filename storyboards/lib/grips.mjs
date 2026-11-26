@@ -99,6 +99,10 @@ const SIZE = {
   fork: { len: 0.25, r: 0.006 },                   // props-roast.js dinner fork standing on its tines: the thin pinch on its handle
   tablespoon: { len: 0.3, r: 0.007 },              // props-steak.js big spoon standing on its bowl's tip: the thin pinch on its handle
   corncob: { w: 0.24, h: 0.092, d: 0.092 },        // props-steak.js corn on the cob lying along x: both gloves on its two ends (box hold)
+  sharedarm: { h: 0.72 },            // props-armrest.js: rest hold, a glove or a forearm on the console top
+  butterknife: { len: 0.2, r: 0.006 },   // props-armrest.js: upright on its blade tip: thin pinch at 0.6 x 0.2 = y 0.12, on the handle
+  fakearm: { r: 0.07, h: 0.2 },      // props-armrest.js: upright, hand end up: mug hold round the sleeve, fist at 0.66 x 0.2 = y 0.13
+  crowbar: { r: 0.02, h: 0.636 },    // props-armrest.js: upright, hook up: mug hold, fist at 0.66 x 0.636 = y 0.42; the other glove on ARMREST_GRIPS.crowbar.high
   moneybag: { w: 0.3, h: 0.34, d: 0.26 },          // props-heist.js sack: both gloves hug its sides (box hold; widest at 0.16 up)
   policetorch: { r: 0.028, h: 0.2 },               // props-heist.js torch's body: a fist round it (mug hold; build it upright with spec up: true, tip it 90 to point it)
   producecrate: { w: 0.5, h: 0.3, d: 0.36 },       // props-heistset.js the SMALL crate (spec w 0.5, d 0.36, h 0.3): both gloves on its two short ends (box hold)
