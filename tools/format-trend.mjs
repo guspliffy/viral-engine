@@ -77,9 +77,12 @@ export function verdict(rows, wins, o, now) {
   const recentNew = wins.slice(-2).reduce((s, w) => s + w.newAccounts, 0);
   const olderNew = wins.slice(0, -2).reduce((s, w) => s + w.newAccounts, 0) / Math.max((wins.length - 2) / 2, 1);
   const entry = +(recentNew / Math.max(olderNew, 0.5)).toFixed(2);
+  // Newcomer odds: accounts under 150 days that tried it in the last 60 days, and how many of them got a format video
+  // at 2x+ their own usual views (older saved runs without `usual`: the --min-views bar instead)
   const young = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 60 * DAY);
   const newPosters = new Set(young.map((r) => r.account)).size;
-  const newHits = new Set(young.filter((r) => r.views >= o.minViews).map((r) => r.account)).size;
+  const beat = (r) => (r.usual != null ? r.views >= 2 * Math.max(r.usual, 1) && r.views >= 20000 : r.views >= o.minViews);
+  const newHits = new Set(young.filter(beat).map((r) => r.account)).size;
   const newShare = newPosters >= 3 ? +(newHits / newPosters).toFixed(2) : null; // room for one more? (under 3 = unknown)
   const word = reward == null ? "too little data (fewer than 3 accounts with history on both sides)"
     : reward >= 1.3 ? "HEATING UP: the same accounts get more views with it now"
@@ -115,8 +118,9 @@ export async function runTrend(o) {
     for (const a of accounts) {
       if (!cache.has(a)) cache.set(a, { videos: tiktokVideos(a, o.videos), profile: tiktokProfile(a) });
       const { videos, profile } = cache.get(a);
+      const usual = median(videos.map((v) => v.views || 0)); // the account's usual video, format or not
       for (const v of videos) if (v.posted && f.re.test(v.desc || v.title))
-        rows.push({ format: f.name, account: a, followers: profile.followers, created: profile.created, posted: v.posted, views: v.views, url: v.url, title: v.title });
+        rows.push({ format: f.name, account: a, followers: profile.followers, created: profile.created, usual, posted: v.posted, views: v.views, url: v.url, title: v.title, flags: v.flags });
     }
     const wins = trendTable(rows, o, now), ver = verdict(rows, wins, o, now);
     const newWin = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 60 * DAY && r.views >= o.minViews).sort((a, b) => b.views - a.views);
@@ -139,8 +143,8 @@ async function main() {
     `that post it vs 2 earlier windows. Hit = ${fmt(o.minViews)}+ views.\n`;
   for (const { f, wins, ver, rows, newWin, accounts } of report) {
     md += `\n## ${f.name}: ${ver.word}\n\nReward x${ver.reward ?? "?"} (${ver.accountsCompared} accounts compared), entry x${ver.entry}. ` +
-      `${rows.length} format videos from ${accounts} accounts. New accounts (under 150 days) posting it in the last 60 days: ${ver.newPosters}, with a hit: ${ver.newHits}` +
-      `${ver.newShare == null ? " (too few to judge room)" : ` = ${Math.round(ver.newShare * 100)}% break out`}` +
+      `${rows.length} format videos from ${accounts} accounts. Newcomer odds: ${ver.newHits} of ${ver.newPosters} new accounts (under 150 days) that tried it in the last 60 days beat their own usual views 2x` +
+      `${ver.newShare == null ? " (too few to judge room)" : ` (${Math.round(ver.newShare * 100)}%)`}` +
       `${newWin.length ? ` (best: ${newWin[0].url} ${fmt(newWin[0].views)})` : ""}.\n\n` +
       `| Window | Videos | Accounts posting | Accounts born | Median views | Hits |\n|---|---|---|---|---|---|\n` +
       wins.map((w) => `| ${w.from} to ${w.to} | ${w.videos} | ${w.posters} | ${w.newAccounts} | ${fmt(w.medianViews)} | ${w.hits} |`).join("\n") + "\n";

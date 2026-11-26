@@ -56,7 +56,7 @@ export function mergeHistory(hist, seen, date) {
 }
 
 function page({ early, fresh, risers, repeats, trend, firstRun, stats }) {
-  const vrow = (v) => `<tr><td><a href="${esc(v.url)}">${esc((v.title || "(no caption)").slice(0, 90))}</a></td><td>${esc(v.account)}</td>` +
+  const vrow = (v) => `<tr><td><a href="${esc(v.url)}">${esc((v.title || "(no caption)").slice(0, 90))}</a>${v.flags ? ` <span class=muted>(${esc(v.flags)})</span>` : ""}</td><td>${esc(v.account)}</td>` +
     `<td class=n>${fmt(v.followers)}</td><td class=n>${fmt(v.views)}</td><td class=n>${v.followers ? Math.round(v.views / Math.max(v.followers, 1)) + "x" : "?"}</td>` +
     `${v.gain != null ? `<td class=n>+${fmt(v.gain)}</td>` : v.ageDays != null ? `<td class=n>${v.ageDays} d</td>` : "<td></td>"}</tr>`;
   const vtab = (rows, last) => rows.length ? `<table><tr><th>Video</th><th>Account</th><th>Followers</th><th>Views</th><th>vs followers</th><th>${last}</th></tr>${rows.map(vrow).join("")}</table>` : "<p class=muted>None today.</p>";
@@ -64,7 +64,7 @@ function page({ early, fresh, risers, repeats, trend, firstRun, stats }) {
     `<td class=n>${a.breakouts}</td><td class=n>${a.medianRatio}x</td><td><a href="${esc(a.best?.url)}">${esc((a.best?.title || "best").slice(0, 70))}</a> ${fmt(a.best?.views)}</td>` +
     `<td>${a.worst ? `<a href="${esc(a.worst.url)}">worst</a> ${fmt(a.worst.views)}` : ""}</td></tr>`;
   const trow = (t) => `<tr><td>${esc(t.name)}</td><td><b>${esc(t.word.split(":")[0])}</b>${esc(t.word.includes(":") ? ":" + t.word.split(":").slice(1).join(":") : "")}</td>` +
-    `<td class=n>${t.reward ?? "?"}</td><td class=n>${t.entry ?? "?"}</td><td class=n>${t.newShare == null ? "?" : Math.round(t.newShare * 100) + "%"}</td>` +
+    `<td class=n>${t.reward ?? "?"}</td><td class=n>${t.entry ?? "?"}</td><td class=n>${t.newHits ?? "?"} of ${t.newPosters ?? "?"}</td>` +
     `<td>${t.best ? `<a href="${esc(t.best.url)}">newcomer hit</a> ${fmt(t.best.views)}` : ""}</td></tr>`;
   return `<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
 <title>Trend scout</title><style>
@@ -81,7 +81,7 @@ td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}</sty
 <h2>Fastest risers since the last run</h2><p class=muted>The 24 and 48 hour signal: views gained since the last scan.</p>${vtab(risers, "Gained")}
 <h2>New breakouts</h2><p class=muted>Over 10x followers and the views bar, not seen in an earlier run.</p>${vtab(fresh, "Age")}
 <h2>Repeat breakers (formats, not luck)</h2><table><tr><th>Account</th><th>Followers</th><th>Breakouts</th><th>Usual video</th><th>Best</th><th>Worst</th></tr>${repeats.map(arow).join("") || "<tr><td colspan=6 class=muted>None today.</td></tr>"}</table>
-<h2>Format trends${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>Reward = the same accounts' views with the format, last 8 weeks vs before (1.0 = no change). Entry = new accounts piling in (1.0 = as before). Newcomers = share of new accounts posting it that got a hit: the room for one more creator.</p><table><tr><th>Format</th><th>Verdict</th><th>Reward</th><th>Entry</th><th>Newcomers</th><th>Example</th></tr>${trend.formats.map(trow).join("")}</table>` : "<p class=muted>Runs on Mondays.</p>"}
+<h2>Format trends${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>Reward = the same accounts' views with the format, last 8 weeks vs before (1.0 = no change). Entry = new accounts piling in (1.0 = as before). Newcomers = new accounts that tried it lately and beat their own usual views 2x: the room for one more creator. Grey notes mark borrowed audio or someone else's characters, the part we can't make our own.</p><table><tr><th>Format</th><th>Verdict</th><th>Reward</th><th>Entry</th><th>Newcomers</th><th>Example</th></tr>${trend.formats.map(trow).join("")}</table>` : "<p class=muted>Runs on Mondays.</p>"}
 </body></html>`;
 }
 
@@ -124,6 +124,12 @@ async function main() {
     stats: { videos: vids.length, accounts: cands.length, maxFollowers: so.maxFollowers } });
   fs.writeFileSync(path.join(o.site, "index.html"), html);
   if (!o.smoke) fs.writeFileSync(histFile, JSON.stringify(h2));
+  // the week's picks, saved before the next week's results exist: after 4+ weeks, check whether they found the next
+  // breakouts better than a plain most-viewed list (Jonny 26 Nov)
+  if (!o.smoke && o.trend) fs.writeFileSync(path.join(o.data, `shortlist-${today}.json`), JSON.stringify({
+    date: today, repeats: repeats.map((a) => ({ platform: a.platform, account: a.account, followers: a.followers, best: a.best?.url })),
+    early: early.map((v) => v.url), mostViewed: [...vids].sort((a, b) => b.views - a.views).slice(0, 20).map((v) => v.url),
+    trend: h2.trend?.formats.map((t) => ({ name: t.name, word: t.word.split(":")[0], reward: t.reward, entry: t.entry, newShare: t.newShare })) }));
   const top = [...early.slice(0, 3), ...freshBreaks.slice(0, 3)];
   const msg = `Trend scout ${today}: ${early.length} early breakouts, ${freshBreaks.length} new breakouts, ${repeats.length} repeat breakers.\n\n` +
     top.map((v, i) => `${i + 1}. @${v.account} (${fmt(v.followers)} followers): ${fmt(v.views)} views. ${(v.title || "").replace(/\s+/g, " ").slice(0, 80)}\n${v.url}`).join("\n\n") +

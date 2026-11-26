@@ -135,12 +135,21 @@ export async function tiktokKeywordPages(keywords, expand, keep = /anima|cartoon
   await browser.close();
   return found;
 }
+// Borrowed audio or someone else's characters: the part of a hit we can't make our own (flagged, not dropped)
+export const FRANCHISE = /sprunki|roblox|pok[eé]mon|pikachu|minecraft|tadc|digital circus|pomni|skibidi|dandy|poppy ?playtime|catnap|masha|gulli|motu|mickey|spongebob|sonic|mario|fnaf|brainrot|tung ?tung|incredibox|garten of banban|gumball|bluey/i;
+export function flagsOf(v) {
+  const f = [];
+  if (FRANCHISE.test(v.desc || v.title || "")) f.push("franchise");
+  if (v.music && !v.music.original && !/^original sound|^originalton/i.test(v.music.title || "")) f.push("borrowed audio");
+  return f.join(" + ");
+}
 export function tiktokItem(it) {
   return { platform: "tiktok", account: it.author?.uniqueId, name: it.author?.nickname, id: it.id,
     url: `https://www.tiktok.com/@${it.author?.uniqueId}/video/${it.id}`, title: (it.desc || "").slice(0, 140),
     desc: it.desc || "", posted: +it.createTime || null, views: +it.stats?.playCount || 0, likes: +it.stats?.diggCount || 0, shares: +it.stats?.shareCount || 0,
     ageDays: Math.floor((Date.now() / 1000 - +it.createTime) / 86400), duration: it.video?.duration ?? null,
-    followers: it.authorStats?.followerCount ?? null };
+    followers: it.authorStats?.followerCount ?? null,
+    flags: flagsOf({ desc: it.desc, music: it.music && { title: it.music.title, original: !!it.music.original } }) };
 }
 export function tiktokProfile(handle) { // followers + account creation day (unix s)
   const h = curl(`https://www.tiktok.com/@${handle}`);
@@ -156,7 +165,7 @@ export function tiktokVideos(handle, n) {
   if (r.error) throw new Error("yt-dlp not found: pip install yt-dlp");
   try {
     return (JSON.parse(r.stdout).entries || []).map((e) => ({ id: e.id, url: e.url, title: (e.title || e.description || "").slice(0, 140),
-      desc: e.description || e.title || "", posted: e.timestamp || null, views: e.view_count ?? 0, likes: e.like_count ?? 0, shares: e.repost_count ?? 0, duration: e.duration,
+      desc: e.description || e.title || "", posted: e.timestamp || null, flags: flagsOf({ desc: e.description || e.title }), views: e.view_count ?? 0, likes: e.like_count ?? 0, shares: e.repost_count ?? 0, duration: e.duration,
       ageDays: e.timestamp ? Math.floor((Date.now() / 1000 - e.timestamp) / 86400) : null }));
   } catch { return []; }
 }
@@ -241,12 +250,12 @@ async function main() {
   const o = parseArgs(process.argv);
   fs.mkdirSync(o.out, { recursive: true });
   const { vids, cands, ranked } = await runScan(o);
-  writeCsv(path.join(o.out, "videos-found.csv"), vids, ["platform", "account", "followers", "views", "likes", "shares", "ageDays", "duration", "title", "url"]);
+  writeCsv(path.join(o.out, "videos-found.csv"), vids, ["platform", "account", "followers", "views", "likes", "shares", "ageDays", "duration", "flags", "title", "url"]);
   writeCsv(path.join(o.out, "accounts.csv"), ranked, ["platform", "account", "name", "followers", "n", "median", "medianRatio", "breakouts", "bestRatio",
     "sharesPer1000", "medianSeconds", "boostFlag", "url", "best", "second", "worst"]);
   const fmt = (n) => (n == null ? "?" : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(n));
   const line = (a) => `- **${a.name}** (${a.platform}, ${fmt(a.followers)} followers): ${a.breakouts} breakouts, usual video ${a.medianRatio}x followers, best ${a.bestRatio}x` +
-    `${a.boostFlag ? `, ${a.boostFlag} maybe boosted` : ""}. [account](${a.url}) · [best](${a.best?.url}) ${fmt(a.best?.views)}` +
+    `${a.boostFlag ? `, ${a.boostFlag} maybe boosted` : ""}${a.best?.flags ? `, best video: ${a.best.flags}` : ""}. [account](${a.url}) · [best](${a.best?.url}) ${fmt(a.best?.views)}` +
     `${a.worst ? ` · [worst](${a.worst.url}) ${fmt(a.worst.views)}` : ""}\n  ${(a.best?.title || "").replace(/\s+/g, " ").slice(0, 110)}`;
   const rep = ranked.filter(isRepeat), one = ranked.filter((a) => !isRepeat(a) && a.breakouts > 0);
   fs.writeFileSync(path.join(o.out, "report.md"), `# Small accounts, big views (${new Date().toISOString().slice(0, 10)})\n\n` +

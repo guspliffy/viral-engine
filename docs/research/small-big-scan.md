@@ -44,8 +44,8 @@ town, what if, court, heaven/hell, kid vs dad, folklore), keyword pages find the
 60 videos are read with dates. Per 4-week window: accounts posting it (supply), median views of its videos (reward),
 videos over 200K (hits), posters that are new accounts. Last 2 windows vs the ones before:
 RISING (supply up, reward holds), CROWDED (supply up, reward down), DYING (both down), FADING (reward down),
-HEATING UP (reward up), STEADY. It also counts new accounts (under 150 days) that got a hit with the format in the last
-60 days: if new accounts still win, the door is open. Videos under 10 days old are left out (still gaining views).
+HEATING UP (reward up), STEADY. Newcomer odds: of the new accounts (under 150 days) that tried the format in the last 60 days, how many got a
+format video at 2x+ their own usual views ("8 of 30"): if new accounts still win, the door is open. Videos under 10 days old are left out (still gaining views).
 Limits: only accounts that are active now are found; daily posters' 60 videos may not reach the oldest windows.
 
 ## Daily scout (`tools/daily-scout.mjs`, `.github/workflows/scout.yml`)
@@ -58,3 +58,6 @@ format trend. It publishes the page to GitHub Pages (public, like the repo) and 
 One-time setup by Jonny: Settings > Pages > Source "GitHub Actions"; a Telegram bot from @BotFather, its token as the
 repo secret `TELEGRAM_BOT_TOKEN`, then one message to the bot (or the secret `TELEGRAM_CHAT_ID`). Zero tokens: no
 Claude in the loop. Pull requests that touch the scout run a 2-minute smoke scan instead.
+Flags: "franchise" (someone else's characters: Sprunki, Roblox, TADC ...) and "borrowed audio" mark the part of a hit
+we can't make our own. Every Monday the shortlist is saved (`shortlist-<date>.json` on `scout-data`) before the next
+week's results exist; after 4+ weeks, check whether its picks found the next breakouts better than the most-viewed list.
