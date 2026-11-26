@@ -407,16 +407,38 @@
    "flag": "de",
    "x": -1.7,
    "y": 0.66,
-   "z": -0.62
+   "z": -0.62,
+   "scale": 1.7
+  },
+  {
+   "id": "bannerde",
+   "staged": "hangs from the ceiling over the lane",
+   "kind": "miniflag",
+   "flag": "de",
+   "x": -1.4,
+   "y": 2.05,
+   "z": -1.6,
+   "scale": 5
   },
   {
    "id": "flagus",
    "staged": "on the till pedestal",
    "kind": "miniflag",
    "flag": "us",
-   "x": 2.7,
+   "x": 3.05,
    "y": 0.66,
-   "z": 0.98
+   "z": 0.98,
+   "scale": 1.4
+  },
+  {
+   "id": "bannerus",
+   "staged": "hangs from the ceiling over the lane",
+   "kind": "miniflag",
+   "flag": "us",
+   "x": 2.75,
+   "y": 2.05,
+   "z": -1.6,
+   "scale": 5
   },
   {
    "id": "rackb0",
@@ -838,8 +860,8 @@
    "wear": "spud",
    "x": -0.2,
    "y": -60,
-   "z": 0.5,
-   "scale": 2.2,
+   "z": 0.56,
+   "scale": 2.8,
    "rot": 180
   },
   {
@@ -3967,6 +3989,29 @@
      "dur": 0.01,
      "ease": "inOut",
      "at": 1.581
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.18,
+       0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.581
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.581
     }
    ]
   },
@@ -6089,6 +6134,21 @@
      "to": 0,
      "dur": 0.01,
      "at": 2.047
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.18,
+       0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.047
     }
    ]
   },
@@ -6206,7 +6266,7 @@
      "who": "mash",
      "do": "move",
      "to": [
-      2.55,
+      2.8,
       -0.4
      ],
      "dur": 0.01,
@@ -6226,8 +6286,46 @@
     },
     {
      "who": "mash",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.26,
+       0.18,
+       0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.048
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.14,
+       0.16,
+       -0.02
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.048
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.048
+    },
+    {
+     "who": "mash",
      "do": "pitch",
-     "to": 10,
+     "to": 4,
      "dur": 0.01,
      "at": 2.048
     }
@@ -6244,7 +6342,7 @@
      5.2
     ],
     "look": [
-     2.5,
+     2.64,
      1.02,
      -0.4
     ],
@@ -6461,7 +6559,7 @@
      "do": "prop",
      "id": "card",
      "set": {
-      "y": 0.5
+      "y": 0.56
      },
      "dur": 0,
      "ease": "inOut",
@@ -6497,6 +6595,21 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
+     "at": 1.647
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.26,
+       0.18,
+       0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
      "at": 1.647
     },
     {
@@ -6806,7 +6919,7 @@
      "who": "mash",
      "do": "move",
      "to": [
-      2.55,
+      2.8,
       -0.4
      ],
      "dur": 0.01,
@@ -6826,8 +6939,38 @@
     },
     {
      "who": "mash",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.26,
+       0.18,
+       0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.714
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.14,
+       0.16,
+       -0.02
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.714
+    },
+    {
+     "who": "mash",
      "do": "pitch",
-     "to": 10,
+     "to": 4,
      "dur": 0.01,
      "at": 0.714
     },
@@ -6851,7 +6994,7 @@
      5.2
     ],
     "look": [
-     2.5,
+     2.64,
      1.02,
      -0.4
     ],

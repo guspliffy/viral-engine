@@ -32,7 +32,7 @@ const END_OF = (i) => r3(T[i] + DUR[i]);
 const AWAY = -60;
 const DE = { H: [-3.00, 1.00], H5: [-2.40, 1.30], H9: [-2.45, 1.25], OUT: [-3.30, 1.60], W: [-1.30, -0.05], W12: [-1.42, 0.35],
   R1: [-3.40, -0.30], R5: [-3.05, 0.15], R7: [-3.38, 0.25], R12: [-2.82, 0.55] };
-const US = { HU: [1.30, 0.85], H6: [1.36, -0.20], H8: [1.12, 0.95], H10: [1.45, 1.30], M: [2.62, 0.30], M8: [2.20, 1.45], M10: [2.55, -0.40] };   // M10: behind the till's line from cam 10 (stills 2: the till hid his face)
+const US = { HU: [1.30, 0.85], H6: [1.36, -0.20], H8: [1.12, 0.95], H10: [1.45, 1.30], M: [2.62, 0.30], M8: [2.20, 1.45], M10: [2.80, -0.40] };   // M10: behind the till's line from cam 10 (stills 2: the till hid his face)
 const S11 = [0, 3.15];
 const PLAT = 0.20;   // Wedge stands on the lane's platform
 const PARK = { spud: [-30, 8], spudus: [-34, 8], retiree: [-38, 8] };
@@ -55,8 +55,10 @@ const props = [
   { id: "hallus", staged: "the American hall's shell", kind: "shophall", ...at3(2.2, 0, 0), look: "us", x0: 0, x1: 4.4 },
   { id: "lanede", staged: "stands on the floor", kind: "discountlane", ...at3(-2.00, 0, 0), speed: 0.5, len: 0, glow: 0 },
   { id: "laneus", staged: "stands on the floor", kind: "baglane", ...at3(2.00, 0, 0) },
-  { id: "flagde", staged: "on the till post", kind: "miniflag", flag: "de", ...at3(-1.70, 0.66, -0.62) },
-  { id: "flagus", staged: "on the till pedestal", kind: "miniflag", flag: "us", ...at3(2.70, 0.66, 0.98) },
+  { id: "flagde", staged: "on the till post", kind: "miniflag", flag: "de", ...at3(-1.70, 0.66, -0.62), scale: 1.7 },   // Jonny 26 Nov: flags more visible
+  { id: "bannerde", staged: "hangs from the ceiling over the lane", kind: "miniflag", flag: "de", ...at3(-1.40, 2.05, -1.60), scale: 5 },
+  { id: "flagus", staged: "on the till pedestal", kind: "miniflag", flag: "us", ...at3(3.05, 0.66, 0.98), scale: 1.4 },   // right of the till: at 1.7 on the till it covered Mash's face (cams 03, 10)
+  { id: "bannerus", staged: "hangs from the ceiling over the lane", kind: "miniflag", flag: "us", ...at3(2.75, 2.05, -1.60), scale: 5 },
   ...[0, 1, 2].map((i) => ({ id: `rackb${i}`, staged: "against the back wall", kind: "stockrack", ...at3(-3.675 + 1.35 * i, 0, -3.95), seed: 11 + i })),
   ...[0, 1, 2, 3].map((i) => ({ id: `rackl${i}`, staged: "against the left wall", kind: "stockrack", ...at3(-4.05, 0, -3.325 + 1.35 * i), rot: 90, seed: 21 + i })),
   ...[0, 1, 2].map((i) => ({ id: `racks${i}`, staged: "against the seam wall", kind: "stockrack", ...at3(-0.29, 0, -3.425 + 1.35 * i), rot: -90, seed: 51 + i })),
@@ -72,7 +74,7 @@ const props = [
   { id: "teeth", staged: "worn: the card between his teeth", kind: "paycard", wear: "spud", x: 0, y: 0.34, z: 0.40, rot: 90, tip: 0, scale: 1.6 },
   { id: "armful", staged: "worn: the goods in both arms", kind: "groceryarmful", wear: "spud", x: 0, y: 0.12, z: 0.44, n: 2 },
   { id: "eggs", staged: "worn: on his flat left palm", kind: "eggcarton", wear: "spud", x: 0.28, y: AWAY, z: 0.34, rattle: 0 },
-  { id: "card", staged: "worn: held out in his right hand", kind: "paycard", wear: "spud", x: -0.20, y: AWAY, z: 0.50, scale: 2.2, rot: 180 },
+  { id: "card", staged: "worn: held out in his right hand", kind: "paycard", wear: "spud", x: -0.20, y: AWAY, z: 0.56, scale: 2.8, rot: 180 },
   { id: "cash", staged: "worn: the cash roll in his hand", kind: "cashroll", wear: "spudus", x: -0.24, y: 0.24, z: 0.30, scale: 1.4 },
   { id: "grape", staged: "worn: pinched in his right hand", kind: "grape", wear: "mash", x: -0.30, y: 0.62, z: 0.30 },
   { id: "apron", staged: "worn", kind: "apron", wear: "mash", color: "#3f8a3a", bib: { top: 0.60, w: 0.24 }, straps: true },
@@ -159,7 +161,7 @@ const CAM = {
   7: { pos: [-2.65, 1.25, 7.0], look: [-2.40, 0.95, 0.2], fov: 36, push: [-2.63, 1.22, 6.5] },
   8: { pos: [1.85, 1.35, 7.6], look: [1.70, 1.35, 0], fov: 34, push: [1.83, 1.33, 7.0] },
   9: { pos: [-2.45, 0.95, 5.0], look: [-1.80, 1.05, 0], fov: 22, push: [-2.41, 0.95, 4.65] },
-  10: { pos: [1.80, 0.95, 5.2], look: [2.50, 1.02, -0.4], fov: 22, push: [1.84, 0.95, 4.85] },   // stills 2: Mash was cut by the right edge
+  10: { pos: [1.80, 0.95, 5.2], look: [2.64, 1.02, -0.4], fov: 22, push: [1.84, 0.95, 4.85] },   // stills 2: Mash was cut by the right edge
   11: { pos: [0, 2.15, 8.2], look: [0, 0.95, 2.4], fov: 24, push: [0, 2.08, 7.8] },
   12: { pos: [-2.15, 1.75, 5.4], look: [-2.15, 0.95, 0.45], fov: 36, push: [-2.15, 1.68, 5.0] },   // stills 2: the retiree (R12 moved left) was out of frame
   13: { pos: [-2.20, 0.72, 5.6], look: [-2.60, 0.90, 1.3], fov: 24, push: [-2.23, 0.73, 5.25] },
@@ -261,7 +263,7 @@ hideProp(S8, "grape");
 for (let i = 0; i < 6; i++) showBag(S8, i);
 hideProp(S8, "bi1");
 place(S8, "mash", US.M, -60); A(S8, "mash", "pitch", { to: 25, dur: 0.01 });
-arm(S8, "mash", "L", { o: [0.05, 0.75, 0.25] }, 0.01);
+arm(S8, "mash", "L", { o: [0.05, 0.75, 0.25] }, 0.01); arm(S8, "mash", "R", DOWN, 0.01); grip(S8, "mash", "R", "relaxed", 0.01);   // draft 1: his grape arm stayed up by his head
 for (let i = 6; i < 10; i++) { showBag(r3(S8 + 0.4 + (i - 6) * 0.45), i); sfx(r3(S8 + 0.4 + (i - 6) * 0.45), "kenney/book-place", { gain: 0.3 }); }
 t = say(8, r3(S8 + 0.3));   // So... how's your mom?
 t = r3(Math.max(t, S8 + 2.2));
@@ -315,7 +317,7 @@ c.prop(r3(S14 - 0.02), "heap", { grow: 1 }, 0);
 for (let i = 0; i < 10; i++) { hideProp(S14, `bag${i}`); hideProp(S14, `bi${i}`); }
 place(S14, "spudus", US.H8, 10); A(S14, "spudus", "pitch", { to: 0, dur: 0.01 });
 arm(S14, "spudus", "both", DOWN, 0.01); expr(S14, "spudus", "deadpan", 0.01);
-place(S14, "mash", US.M8, -35); A(S14, "mash", "pitch", { to: 0, dur: 0.01 });
+place(S14, "mash", US.M8, -35); A(S14, "mash", "pitch", { to: 0, dur: 0.01 }); arm(S14, "mash", "R", DOWN, 0.01);
 arm(r3(S14 + 0.3), "mash", "L", { o: [0.35, 0.55, 0.40] }, 0.35); grip(r3(S14 + 0.3), "mash", "L", "open", 0.2);
 t = say(14, r3(S14 + 0.35));   // Need help to your car, hon?
 t = r3(t + 0.5);
@@ -325,7 +327,7 @@ see(S14, t, ["spudus.face", "mash.face", "heap"], "the bags reach the ceiling: n
 const S15 = shot("paper-money", t, 10);
 place(S15, "spudus", US.H10, 140); wear(S15, "cash", { y: 0.30, x: -0.22, z: 0.45 });
 arm(S15, "spudus", "R", { o: [-0.22, 0.40, 0.45] }, 0.01);
-place(S15, "mash", US.M10, -35); A(S15, "mash", "pitch", { to: 10, dur: 0.01 });
+place(S15, "mash", US.M10, -35); arm(S15, "mash", "both", DOWN, 0.01); arm(S15, "mash", "R", { o: [0.14, 0.16, -0.02] }, 0.01); grip(S15, "mash", "both", "relaxed", 0.01); A(S15, "mash", "pitch", { to: 4, dur: 0.01 });
 expr(r3(S15 + 0.2), "mash", "shocked", 0.2, { open: 0.1 });
 t = say(15, r3(S15 + 0.25));   // Is that... paper money?
 t = say(25, r3(t + 0.2));   // It's money.
@@ -337,10 +339,10 @@ place(S16, "spud", DE.H9, 135); hideProp(S16, "armful"); hideProp(S16, "teeth");
 place(S16, "wedge", DE.W, -65, PLAT);
 arm(S16, "wedge", "R", DOWN, 0.01);
 t = say(16, r3(S16 + 0.15));   // Twelve forty.
-wear(r3(t + 0.15), "card", { y: 0.50 });
+wear(r3(t + 0.15), "card", { y: 0.56 });
 arm(r3(t + 0.1), "spud", "R", { o: [-0.20, 0.46, 0.50] }, 0.25, "out");
 const S17 = shot("total-us", r3(t + 0.55), 8);
-expr(S17, "mash", "happy", 0.01, { open: 0.05 }); place(S17, "mash", US.M8, -35); A(S17, "mash", "pitch", { to: 0, dur: 0.01 });
+expr(S17, "mash", "happy", 0.01, { open: 0.05 }); place(S17, "mash", US.M8, -35); arm(S17, "mash", "both", DOWN, 0.01); A(S17, "mash", "pitch", { to: 0, dur: 0.01 });
 place(S17, "spudus", US.H8, 10); hideProp(S17, "cash");
 t = say(17, r3(S17 + 0.1));   // Three hundred twelve forty!
 expr(r3(T[17] + 0.6), "spudus", "shocked", 0.15, { open: 0.3 });
@@ -358,7 +360,7 @@ for (const s of ["R", "L"]) { arm(S19, "retiree", s, { o: [s === "R" ? -0.10 : 0
 sfx(r3(S19 + 0.05), "gasp", { gain: 0.7 });
 const S20 = shot("card-only", r3(S19 + 0.7), 10);
 place(S20, "spudus", US.H10, 140); wear(S20, "cash", { y: 0.30 });
-place(S20, "mash", US.M10, -35); A(S20, "mash", "pitch", { to: 10, dur: 0.01 }); expr(S20, "mash", "sad", 0.01);
+place(S20, "mash", US.M10, -35); arm(S20, "mash", "both", DOWN, 0.01); arm(S20, "mash", "R", { o: [0.14, 0.16, -0.02] }, 0.01); A(S20, "mash", "pitch", { to: 4, dur: 0.01 }); expr(S20, "mash", "sad", 0.01);
 t = say(19, r3(S20 + 0.15));   // Oh, hon... Card only.
 see(S20, t, ["mash.face", "cash"], "the American answer: card only");
 const S21 = shot("seam", r3(t + 0.25), 11);
