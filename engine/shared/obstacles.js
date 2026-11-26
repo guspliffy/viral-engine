@@ -20,6 +20,8 @@ export const KIND_POSTS = {
   // props-gorge.js bridgerope: four 1.3 m posts, 0.08 thick with hand-rope turns to 0.092 (DESIGN 2)
   bridgerope: [[-0.9, 0, 0.5, 0.092, 1.3], [0.9, 0, 0.5, 0.092, 1.3], [-0.9, 0.4, -9.5, 0.092, 1.3], [0.9, 0.4, -9.5, 0.092, 1.3]],
   gardenshed: shedWalls(),
+  // props-alarm-hut.js alarmhut (how you invented 01, DESIGN 1): the two door jambs of the back-wall door (origin = world origin)
+  alarmhut: [[-1.125, 0, -1.8, 0.06, 1.9], [0.025, 0, -1.8, 0.06, 1.9]],
 };
 
 // the posts of one storyboard prop in world coordinates: [{ x, y, z, r, h }]

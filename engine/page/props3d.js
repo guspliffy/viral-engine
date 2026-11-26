@@ -44,7 +44,10 @@ import { COURT_KINDS } from "./props-court.js";   // potato desk 05 court day: j
 import { CARTON_KINDS } from "./props-carton.js";   // potato desk 11 court kid and dad: friescarton, loosefry
 import { DESK14_SET_KINDS } from "./props-desk14-set.js";   // potato desk 14 don't laugh: jurybox, exhibitboard, courtdoorway, deskmic, snotbubble
 import { DESK14_PHOTO_KINDS } from "./props-desk14-photo.js";   // potato desk 14 don't laugh: bowlcut, bracesgrin (worn on spud-kid for Exhibit A)
-import { DESK14HEAD_KINDS } from "./props-desk14-head.js";   // potato desk 14 don't laugh: hashtoupee, hashcrumbs, judgeshadow
+import { DESK14HEAD_KINDS } from "./props-desk14-head.js";
+import { ALARM_HUT_KINDS, ALARM_HUT_GRIPS } from "./props-alarm-hut.js";   // how you invented 01 alarm clock: the hut (task A)
+import { ALARM_GAGS_KINDS, ALARM_GAGS_GRIPS } from "./props-alarm-gags.js";   // how you invented 01: ropes, bucket, jet, anvil, candle, plate (task B)
+import { ALARM_ROOSTER_KINDS, ALARM_ROOSTER_GRIPS } from "./props-alarm-rooster.js";   // how you invented 01: rooster, fly (task C)   // potato desk 14 don't laugh: hashtoupee, hashcrumbs, judgeshadow
 import { IKEA_KINDS } from "./props-ikea.js";   // friends try to, episode 1 (friends-try-to-shared)
 import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode 3: the cat, the plaid bed (friends-try-to-shared)
 import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
@@ -1585,6 +1588,7 @@ Object.assign(KINDS, CARTON_KINDS);   // potato desk 11: friescarton, loosefry (
 Object.assign(KINDS, DESK14_SET_KINDS);   // potato desk 14: jurybox, exhibitboard, courtdoorway, deskmic, snotbubble (props-desk14-set.js)
 Object.assign(KINDS, DESK14_PHOTO_KINDS);   // potato desk 14: bowlcut, bracesgrin (props-desk14-photo.js)
 Object.assign(KINDS, DESK14HEAD_KINDS);   // potato desk 14: hashtoupee, hashcrumbs, judgeshadow (props-desk14-head.js)
+Object.assign(KINDS, ALARM_HUT_KINDS, ALARM_GAGS_KINDS, ALARM_ROOSTER_KINDS); Object.assign(GRIPS, ALARM_HUT_GRIPS, ALARM_GAGS_GRIPS, ALARM_ROOSTER_GRIPS);   // how you invented 01 alarm clock (props-alarm-*.js)
 Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
 Object.assign(KINDS, HELLWAIT_KINDS); Object.assign(GRIPS, HELLWAIT_GRIPS);   // potato desk 13 (props-hellwait.js)
 Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, HEART_HEART_KINDS, HEART_SOUL_KINDS, HEART_JUICE_KINDS, HEART_CASE_KINDS); Object.assign(GRIPS, HEART_HALL_GRIPS, HEART_SCALE_GRIPS, HEART_MONSTER_GRIPS, HEART_HEART_GRIPS, HEART_SOUL_GRIPS, HEART_JUICE_GRIPS, HEART_CASE_GRIPS);   // egypt myth 01 heart (props-heart-*.js)
