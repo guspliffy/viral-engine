@@ -183,7 +183,7 @@ export function tiktokItem(it) {
     url: `https://www.tiktok.com/@${it.author?.uniqueId}/video/${it.id}`, title: (it.desc || "").slice(0, 140),
     desc: it.desc || "", posted: +it.createTime || null, views: +it.stats?.playCount || 0, likes: +it.stats?.diggCount || 0, shares: +it.stats?.shareCount || 0,
     ageDays: Math.floor((Date.now() / 1000 - +it.createTime) / 86400), duration: it.video?.duration ?? null, cover: it.video?.cover || it.video?.originCover || null,
-    followers: it.authorStats?.followerCount ?? null,
+    followers: +it.authorStats?.followerCount || null, // TikTok sends 0 when it hides the count: unknown, not 0
     flags: flagsOf({ desc: it.desc, music: it.music && { title: it.music.title, original: !!it.music.original } }) };
 }
 export function tiktokProfile(handle) { // followers + account creation day (unix s)
@@ -191,7 +191,7 @@ export function tiktokProfile(handle) { // followers + account creation day (uni
   const m = h.match(/<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>(.*?)<\/script>/s);
   try {
     const u = JSON.parse(m[1]).__DEFAULT_SCOPE__["webapp.user-detail"].userInfo;
-    return { followers: u.stats.followerCount, created: +u.user.createTime || null };
+    return { followers: +u.stats.followerCount || null, created: +u.user.createTime || null };
   } catch { return { followers: null, created: null }; }
 }
 const tiktokFollowers = (handle) => tiktokProfile(handle).followers;
@@ -282,7 +282,8 @@ export async function runScan(o) {
     for (const v of feed.videos) if (!vs.some((x) => x.id === v.id)) vs.push(v);
     Object.assign(a, { followers: ch.followers, handle: ch.handle, created: feed.created, _videos: vs });
   }
-  for (const a of accs.values()) if (a.platform === "tiktok" && a.seed) a.followers = tiktokFollowers(a.account);
+  // seeds, and big videos whose author count came back hidden: ask the profile once; still unknown = left out
+  for (const a of accs.values()) if (a.platform === "tiktok" && (a.seed || (a.followers == null && a.seenViews >= o.minViews))) a.followers = tiktokFollowers(a.account);
   const cands = [...accs.values()].filter((a) => a.followers != null && a.followers <= o.maxFollowers &&
     (a.seed || a.seenViews >= Math.max(o.minViews, o.minRatio * Math.max(a.followers, 1))))
     .sort((a, b) => b.seenViews / Math.max(b.followers, 1) - a.seenViews / Math.max(a.followers, 1)).slice(0, o.deep);
