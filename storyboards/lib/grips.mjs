@@ -71,6 +71,9 @@ const SIZE = {
   hotelpillow: { w: 0.5, h: 0.12, d: 0.3 },        // props-nightcity.js: both palms on its two ends (box hold: L at x -0.25, R at x +0.25)
   gamepad: { w: 0.17, h: 0.045, d: 0.1 },
   rubberstamp: { r: 0.018, h: 0.13 },             // props-busy.js: held round its wooden neck like a mug (a real stamp's fist hold), the pad below
+  scrollroll: { w: 0.52, h: 0, d: 0.11 },          // props-heaventerms.js: the Angel's roll, ORIGIN = the roll's axis centre (h 0: both gloves at y 0 on the two knob ends, x +-0.305), box hold
+  scrollsheet: { w: 0.40, h: 0, d: 0.01 },         // props-heaventerms.js: the page he reads, ORIGIN = the page's middle between his gloves (h 0), both gloves on its side edges (x +-0.245), box hold
+  goldstamp: { r: 0.0232, h: 0.2424 },             // props-heaventerms.js: the gold desk stamp, origin the pad's face; mug hold round the neck (fist 0.66 x h = y 0.16)
   deskplate: { w: 0.36, h: 0.1, d: 0.1 },          // props-busy.js MANAGER sign: both palms on its two ends (box hold)          // props-notyet.js PAD: held in both hands with the box hold (palms on its two grips)
   clambox: { w: 0.26, h: 0.12, d: 0.2 },            // props-winter.js takeaway clamshell (closed: tray + lid): both palms on its two ends (box hold)
   cocoacup: { r: 0.045, h: 0.115 },                // props-winter.js hot chocolate to go: the mug hold round the sleeve
@@ -178,6 +181,8 @@ const SIZE = {
   pitchfork: { r: 0.01, h: 0.2 },
   palmleaf: { r: 0.01, h: 0.288 },
   drinkglass: { r: 0.035, h: 0.16 },
+  // props-heavensearch.js (Potato Desk 14): casserole = box hold, both gloves on the two ear handles (0.31 across the tips, y 0.065 = height 0.55 x 0.118; pass { gap: 0.03 } for Chip's gloves)
+  casserole: { w: 0.31, h: 0.118, d: 0.24 },
   // props-carton.js (Potato Desk 11): friescarton = box hold on the two round ends (y 0.10 = 0.55 x 0.182, 0.216 wide there; gap 0.03 for Chip's 1.1 gloves) or the mug hold round one end
   // low ({ height: 0.33 } = y 0.06, half-width 0.099; gap 0.038 for Wedge's 1.3 gloves); loosefry = the thin pinch at 0.85 of its 0.24 length (from: 0.85 = y 0.204)
   friescarton: { w: 0.216, h: 0.182, d: 0.087, r: 0.099 },
@@ -195,6 +200,9 @@ const SIZE = {
   drumsticks: { r: 0.008, h: 0 },
   // props-foodhome.js (Kid vs Dad 02): wrapburger = box hold, both palms on the paper (origin bottom centre, 0.24 across, 0.155 tall; the design's y 0.05 = height 0.32, gap 0.03)
   wrapburger: { w: 0.24, h: 0.155, d: 0.24 },
+  // props-carrots.js (Kid vs Dad 05): carrotstick = thin pinch with spec up: true (origin the thick end, thin end up, len = its true 0.11): call thin with { from: 0.28 } (y 0.031 from the thick end; 0.32 hides the thick end in the glove: thin-prop-hidden); carrotbag = box hold, palms on the sides (height 0.4 = y 0.12)
+  carrotstick: { len: 0.11, r: 0.009, w: 0.11, h: 0.02, d: 0.02 },
+  carrotbag: { w: 0.22, h: 0.30, d: 0.14 },
   // props-sqeyes.js (Kid vs Dad 03): eyechart = phone hold on a side edge, origin the bottom edge's middle (0.30 x 0.42 x 0.01; pass { height: 0.2 } = 8 cm up); smallruler = thin pinch at the held end
   // (origin = the end, along +x; pass { from: 0 }; len 0.02 puts the default from 0.6 at 1.2 cm, inside the 0.035 width)
   eyechart: { w: 0.30, h: 0.42, t: 0.01 },

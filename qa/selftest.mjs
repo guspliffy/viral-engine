@@ -48,6 +48,14 @@ await test("Copy Money: the receipt stays on the counter while Reaper holds the 
   assert.equal(at("bill"), "rea");
 });
 
+await test("a laugh Whisper counts its own way is not a misread; made-up words still are (Don't Laugh, 26 Nov)", async () => {
+  const { misread } = await import("../engine/voice/speech.mjs");
+  assert.equal(misread("Hahaha! Ha ha!", "HA HA HA HA HA HA HA!"), null);
+  assert.equal(misread("Ahahaha! Hahaha!", "Ha ha ha ha! Ha ha ha!"), null);
+  assert.deepEqual(misread("Hahaha! Ha ha!", "Ha ha, this clear."), { extra: 1 });
+  assert.deepEqual(misread("He lifts her off four hooks.", "He lifts her off four hooks, this clear."), { extra: 2 });
+});
+
 await test("a malformed relative time is refused with the beat's name", () => {
   const sb = (at) => ({ id: "t", duration: 3, cast: [], beats: [{ name: "one", do: [{ who: "a", do: "look", to: [0, 0], at: "+0.2" }, { who: "a", do: "look", to: [1, 0], at }] }] });
   assert.ok(Number.isFinite(compile(sb("+1.2")).actions[1].at));

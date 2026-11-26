@@ -102,7 +102,20 @@ export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
       // t >= its start, so a start r3 rounded UP (31.36667 -> 31.367) cut one frame late, and every hide, show, place or
       // prop set a director put at "start - 0.02" (on purpose before the cut) showed on the OLD shot's last frame: Sol
       // found 6 such one-frame pops in two rounds (costumes, an ice bag, a mug, the LCD). Snap each start down to its frame
-      const onFrame = (x) => (x <= 0 ? x : Math.floor(Math.floor(x * fps + 1e-6) / fps * 1000 + 1e-6) / 1000);
+      // A start that is an r3 of a frame time (5.5333 -> 5.533) sits 1/3 ms UNDER its frame, and a bare floor put it a
+      // whole frame early (Potato Desk 13, 25 Nov 2026: 5.533 -> 5.500, so every place at "start - 0.02" landed two
+      // frames INTO the new shot and the rig jumped on screen); a start within 1 ms under a frame belongs to that frame
+      const onFrame = (x) => (x <= 0 ? x : Math.floor(Math.floor(x * fps + 0.03) / fps * 1000 + 1e-6) / 1000);
+      // ... and an instant change written AT the shot's own start (an expr, look, arm or prop set with dur under a frame)
+      // then lands after that first frame: the new shot opens on the old face or pose for one frame (Kid vs Dad 05
+      // carrots, Sol round 1, 25 Nov 2026: three faces snapped in one frame after their cut). Warn, with the fix
+      const INSTANT = new Set(["expr", "look", "arm", "grip", "turn", "move", "lean", "crouch", "skin", "hide", "show", "prop"]);
+      for (const [name, start] of shots) {
+        const s = onFrame(start);
+        if (!(start > s + 1e-6)) continue;
+        for (const x of items) if (INSTANT.has(x.do) && x.at > s + 1e-6 && x.at <= start + 1e-6 && (x.dur ?? 0) < 1 / fps)
+          console.warn(`warn after-cut: ${x.who ?? x.id} ${x.do} at ${x.at} s lands after the first frame of shot "${name}" (it cuts at ${s} s), so that frame shows the old state: put it at ${r3(s - 0.02)} (just before the cut)`);
+      }
       shots = shots.map(([name, start, ...rest]) => [name, onFrame(start), ...rest]);
       // every caption ends at the next cut (Potato Desk 11, Sol rounds 1-2, 20 Nov 2026: a line's caption carried into the
       // next shot over a face or the set's board, 6 of 40 findings). A caption made to run across cuts says so: across: true

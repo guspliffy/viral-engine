@@ -1,0 +1,309 @@
+{
+ "id": "heaven-search-voice-probe",
+ "title": "Heaven search voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   62.3,
+   62.3
+  ]
+ },
+ "cast": [
+  {
+   "id": "angel",
+   "character": "potatobrawl/reaper",
+   "at": [
+    -1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.7,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "queue",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 62.3,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How to cheat at poker. HELL.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, reading, then the last word flat and final",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Next.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, bored",
+     "voice": "reaper",
+     "dur": 0.9,
+     "caption": false,
+     "at": 4.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Wait. Out loud?",
+     "tone": "whisper",
+     "style": "small, nervous, horrified whisper",
+     "voice": "spud-x12",
+     "dur": 1.7,
+     "caption": false,
+     "at": 6
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "At heaven's gate, there's one rule. Hide nothing.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, slow, clear",
+     "voice": "reaper",
+     "dur": 3.7,
+     "caption": false,
+     "at": 8.7
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Is it normal to talk to my plants.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, deadpan reading",
+     "voice": "reaper",
+     "dur": 3.7,
+     "caption": false,
+     "at": 13.4
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Fine.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, shrugging",
+     "voice": "reaper",
+     "dur": 0.9,
+     "caption": false,
+     "at": 18.1
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Why does my best friend never pay me back.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, deadpan reading",
+     "voice": "reaper",
+     "dur": 4.1,
+     "caption": false,
+     "at": 20
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "...What?",
+     "tone": "sad",
+     "style": "small, hurt, confused",
+     "voice": "chip-x12",
+     "dur": 0.9,
+     "caption": false,
+     "at": 25.1
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How to pretend I like my best friend's cooking.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, deadpan reading",
+     "voice": "reaper",
+     "dur": 4.1,
+     "caption": false,
+     "at": 27
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "My casserole?",
+     "tone": "sad",
+     "style": "offended, hurt, voice cracking",
+     "voice": "chip-x12",
+     "dur": 1.3,
+     "caption": false,
+     "at": 32.1
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How to save a baby bird.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, a little softer",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 34.4
+    },
+    {
+     "who": "queue",
+     "macro": "say",
+     "line": "Awww.",
+     "tone": "calm",
+     "style": "melting, warm, touched, a crowd sigh",
+     "voice": "wedge-x12",
+     "dur": 0.9,
+     "caption": false,
+     "at": 38.3
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How to get a new best friend.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, deadpan reading",
+     "voice": "reaper",
+     "dur": 3.3,
+     "caption": false,
+     "at": 40.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "A NEW one?",
+     "tone": "excited",
+     "style": "shocked, betrayed, gasping",
+     "voice": "chip-x12",
+     "dur": 1.7,
+     "caption": false,
+     "at": 44.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "That's out of context!",
+     "tone": "excited",
+     "style": "panicked, fast, both hands up",
+     "voice": "spud-x12",
+     "dur": 2.1,
+     "caption": false,
+     "at": 47.2
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Oh. The last one.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, slowing down, eyebrows up, almost amused",
+     "voice": "reaper",
+     "dur": 2.1,
+     "caption": false,
+     "at": 50.3
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Not the last one. Please!",
+     "tone": "excited",
+     "style": "begging, desperate, on his knees",
+     "voice": "spud-x12",
+     "dur": 2.5,
+     "caption": false,
+     "at": 53.4
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "How. To. Delete. Search history.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, very slow, one word at a time",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 56.9
+    },
+    {
+     "who": "angel",
+     "macro": "say",
+     "line": "Hell.",
+     "tone": "calm",
+     "style": "flat, dry, tired, polite, a heaven clerk who has seen it all, reading from a list, flat, final",
+     "voice": "reaper",
+     "dur": 0.9,
+     "caption": false,
+     "at": 60.4
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for heaven search: makes and measures every take."
+}

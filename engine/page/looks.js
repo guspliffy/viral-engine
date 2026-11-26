@@ -32,7 +32,10 @@ import { FIRE_U } from "./firelight.js";
 //            w     warmth -1..+1: highlights shift r +0.04w, g +0.012w, b -0.04w; shadows the reverse at half (default 0)
 //            c     contrast (default: the look's own, 1.03)
 //            lift  added to all three channels after contrast (default 0; the look's own lift stays under it)
+//            tint  "#hex": the picture is multiplied by it after the lift (display colours; default white = no change; a key
+//                  without it keeps the previous key's, the first key's is white)
 //          "glasses": true in a key is the glasses view of DESIGN section 2: s 0, c 0.95, lift 0.03, w 0.
+//          "nv": true is night vision: s 0, c 1.25, lift 0.07, w 0, tint #52ff7a (luminance through green, flat, no scan lines).
 //   split: { from, to, x, soft, s, w }   between from and to, a vertical soft edge: left of it the fixed warm zone
 //          (s default 1.12, w default 0.8), right of it the grade's own s / w. x: px from the left on the frame's
 //          reference size (1920x1080 wide, 1080x1920 tall) or [x0, x1] moving from x0 at from to x1 at to; soft:
@@ -108,7 +111,7 @@ const GradeShader = {
     shadowTint: { value: new THREE.Vector3(-0.01, 0.0, 0.025) }, highTint: { value: new THREE.Vector3(0.025, 0.01, -0.02) },
     vignette: { value: 0.22 }, para: { value: 0.0 }, paraColor: { value: new THREE.Vector3(1.0, 0.86, 0.66) }, paraPos: { value: new THREE.Vector2(0.15, 1.05) }, aspect: { value: 1080 / 1920 }, aspectY: { value: 1.0 },   // the frame measured against its long side: (9/16, 1) tall, (1, 9/16) wide
     // colour arc (header): only read when the shader is compiled with ARC
-    arcS: { value: 1 }, arcW: { value: 0 }, arcPx: { value: new THREE.Vector2(1080, 1920) },
+    arcS: { value: 1 }, arcW: { value: 0 }, arcTint: { value: new THREE.Vector3(1, 1, 1) }, arcPx: { value: new THREE.Vector2(1080, 1920) },
     spOn: { value: 0 }, spX: { value: 0 }, spSoft: { value: 110 }, spS: { value: 1.12 }, spW: { value: 0.8 },
     riOn: { value: 0 }, riC: { value: new THREE.Vector2() }, riR: { value: 0 }, riSoft: { value: 160 }, riS: { value: 1.22 }, riW: { value: 0.8 },
   },
@@ -117,7 +120,7 @@ const GradeShader = {
     uniform sampler2D tDiffuse; uniform float contrast, saturation, vignette, para, aspect, aspectY;
     uniform vec3 lift, shadowTint, highTint, paraColor; uniform vec2 paraPos; varying vec2 vUv;
     #ifdef ARC
-    uniform float arcS, arcW, spOn, spX, spSoft, spS, spW, riOn, riR, riSoft, riS, riW; uniform vec2 arcPx, riC;
+    uniform vec3 arcTint; uniform float arcS, arcW, spOn, spX, spSoft, spS, spW, riOn, riR, riSoft, riS, riW; uniform vec2 arcPx, riC;
     #endif
     void main() {
       vec3 c = texture2D(tDiffuse, vUv).rgb;
@@ -133,6 +136,7 @@ const GradeShader = {
       c = (c - 0.5) * contrast + 0.5 + lift;
       c += shadowTint * (1.0 - smoothstep(0.0, 0.55, l)) + highTint * smoothstep(0.45, 1.0, l);
       #ifdef ARC
+        c *= arcTint;
         { vec3 wv = vec3(0.04, 0.012, -0.04) * wm; c += wv * smoothstep(0.45, 1.0, l) - 0.5 * wv * (1.0 - smoothstep(0.0, 0.55, l)); }
       #endif
       // light falling in from the top left (paraPos), screen-blended
@@ -567,11 +571,14 @@ function sunPatches(scene, wallZ) {
 
 // the colour arc's per-frame values (header, COLOUR ARC): arc = { grade, split, ring }; base = the look's own s, c, lift
 const GLASSES_VIEW = { s: 0, w: 0, c: 0.95, lift: 0.03 };
+const NV_VIEW = { s: 0, w: 0, c: 1.25, lift: 0.07, tint: "#52ff7a" };
+const hexRGB = (h) => { const n = parseInt(String(h).replace("#", "").padStart(6, "0"), 16); return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255]; };
 function arcTracks(grade, base) {
-  const tr = { s: [], w: [], c: [], lift: [] }, cur = { ...base, w: 0, lift: 0 };
+  const tr = { s: [], w: [], c: [], lift: [], tr: [], tg: [], tb: [] }, cur = { ...base, w: 0, lift: 0, tr: 1, tg: 1, tb: 1 };
   for (const k of [...grade].sort((a, b) => a[0] - b[0])) {
-    const v = k[1] && k[1].glasses ? { ...GLASSES_VIEW, ...k[1] } : k[1] || {};
-    for (const f of ["s", "w", "c", "lift"]) { if (v[f] != null) cur[f] = v[f]; tr[f].push([k[0], cur[f], k[2] ?? 0]); }
+    const v = k[1] && k[1].nv ? { ...NV_VIEW, ...k[1] } : k[1] && k[1].glasses ? { ...GLASSES_VIEW, ...k[1] } : k[1] || {};
+    if (v.tint != null) [v.tr, v.tg, v.tb] = hexRGB(v.tint);
+    for (const f of ["s", "w", "c", "lift", "tr", "tg", "tb"]) { if (v[f] != null) cur[f] = v[f]; tr[f].push([k[0], cur[f], k[2] ?? 0]); }
   }
   return tr;
 }
@@ -594,7 +601,7 @@ function arcApply(u, arc, tracks, base, t) {
     u.riC.value.set(ri.xy[0], u.arcPx.value.y - ri.xy[1]);
     if (ri.s0 != null) s = ri.s0;
   }
-  u.arcS.value = s; u.arcW.value = w;
+  u.arcS.value = s; u.arcW.value = w; u.arcTint.value.set(at("tr"), at("tg"), at("tb"));
 }
 
 function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null, drawn = null, vfx = null, arc = null }) {

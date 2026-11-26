@@ -1,0 +1,1471 @@
+{
+ "id": "home-bench",
+ "title": "Heaven terms: set B heaven home bench",
+ "idea": "Engine look bench for homeisland, cloudbed, goldharp, cloudhouse, dawnsky, sockwell (task B), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "far": 160,
+ "set": {
+  "type": "plain",
+  "color": "#ffd9a8",
+  "floor": "none",
+  "para": 0,
+  "bloom": "emissive",
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    9.25,
+    14.4
+   ],
+   "y": 26,
+   "face": 40,
+   "expr": "annoyed",
+   "follow": 0.2,
+   "seed": 1.7
+  }
+ ],
+ "props": [
+  {
+   "id": "dawn",
+   "kind": "dawnsky",
+   "x": 10.5,
+   "y": 26,
+   "z": 15
+  },
+  {
+   "id": "isle",
+   "kind": "homeisland",
+   "x": 10.5,
+   "y": 26,
+   "z": 15
+  },
+  {
+   "id": "bed",
+   "kind": "cloudbed",
+   "x": 9.25,
+   "y": 26,
+   "z": 14.4,
+   "rot": 40,
+   "cover": 0.6
+  },
+  {
+   "id": "harp",
+   "kind": "goldharp",
+   "x": 10.4,
+   "y": 26,
+   "z": 14.25
+  },
+  {
+   "id": "sw1",
+   "kind": "sockwell",
+   "x": 10.86,
+   "y": 26,
+   "z": 15.55
+  },
+  {
+   "id": "sw2",
+   "kind": "sockwell",
+   "x": 11.14,
+   "y": 26,
+   "z": 15.55
+  },
+  {
+   "id": "house",
+   "kind": "cloudhouse",
+   "x": 19.5,
+   "y": 25.7,
+   "z": 11
+  },
+  {
+   "id": "sky",
+   "kind": "stairsky",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "clouds",
+   "kind": "zoneclouds",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "floor",
+   "kind": "hellfloor",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "hatch",
+   "kind": "hellhatch",
+   "x": -0.65,
+   "y": 0,
+   "z": 1.3
+  },
+  {
+   "id": "chair",
+   "kind": "deckchair",
+   "x": 0.5,
+   "y": 0,
+   "z": 0.95,
+   "rot": -25
+  },
+  {
+   "id": "parasol",
+   "kind": "parasol",
+   "x": 1.6,
+   "y": 0,
+   "z": 0.6
+  },
+  {
+   "id": "wisp0",
+   "kind": "smokewisp",
+   "x": -3.4,
+   "y": 0,
+   "z": 0.8,
+   "h": 1.8,
+   "n": 8,
+   "size": 0.14,
+   "alpha": 0.5,
+   "rgb": "90,42,36"
+  },
+  {
+   "id": "wisp1",
+   "kind": "smokewisp",
+   "x": -2.8,
+   "y": 0,
+   "z": 3.5,
+   "h": 1.4,
+   "n": 8,
+   "size": 0.14,
+   "alpha": 0.5,
+   "rgb": "90,42,36"
+  },
+  {
+   "id": "wisp2",
+   "kind": "smokewisp",
+   "x": -1.9,
+   "y": 0,
+   "z": 5.2,
+   "h": 1.2,
+   "n": 8,
+   "size": 0.14,
+   "alpha": 0.5,
+   "rgb": "90,42,36"
+  },
+  {
+   "id": "wisp3",
+   "kind": "smokewisp",
+   "x": 2.3,
+   "y": 0,
+   "z": 4.6,
+   "h": 1.5,
+   "n": 8,
+   "size": 0.14,
+   "alpha": 0.5,
+   "rgb": "90,42,36"
+  },
+  {
+   "id": "wisp4",
+   "kind": "smokewisp",
+   "x": 3,
+   "y": 0,
+   "z": 2.4,
+   "h": 1.8,
+   "n": 8,
+   "size": 0.14,
+   "alpha": 0.5,
+   "rgb": "90,42,36"
+  },
+  {
+   "id": "wisp5",
+   "kind": "smokewisp",
+   "x": 3.6,
+   "y": 0,
+   "z": -0.6,
+   "h": 1.3,
+   "n": 8,
+   "size": 0.14,
+   "alpha": 0.5,
+   "rgb": "90,42,36"
+  },
+  {
+   "id": "embers",
+   "kind": "embers",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "box": [
+    [
+     -3.5,
+     0.3,
+     -2
+    ],
+    [
+     3.5,
+     3.2,
+     4
+    ]
+   ],
+   "n": 40,
+   "size": 0.04
+  },
+  {
+   "id": "stairs",
+   "kind": "heavenstairs",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s5",
+   "at": 0,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11.6,
+     26.95,
+     19.6
+    ],
+    "look": [
+     9.95,
+     26.8,
+     14.4
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "parasol",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "embers",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp4",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp5",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "bed",
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "cover": 0.6,
+      "over": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "on": 0,
+      "puff": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sw1",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sw2",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "s6",
+   "at": 1.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     10.8,
+     26.9,
+     20.2
+    ],
+    "look": [
+     10.55,
+     26.75,
+     14
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "s7a",
+   "at": 2.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11.35,
+     26.14,
+     18.7
+    ],
+    "look": [
+     11,
+     26.52,
+     15.55
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "s7b",
+   "at": 3.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11.35,
+     26.14,
+     18.7
+    ],
+    "look": [
+     11,
+     26.52,
+     15.55
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sw1",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sw2",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "s9",
+   "at": 4.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     10.1,
+     27.05,
+     21.2
+    ],
+    "look": [
+     12.53,
+     26.75,
+     14.32
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "house",
+     "set": {
+      "x": 14.25,
+      "y": 25.95,
+      "z": 13.9,
+      "bump": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "isle",
+     "set": {
+      "bump": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "s9far",
+   "at": 6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     10.1,
+     27.05,
+     21.2
+    ],
+    "look": [
+     12.53,
+     26.75,
+     14.32
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "house",
+     "set": {
+      "x": 17.5,
+      "y": 25.8,
+      "z": 12.2,
+      "bump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "isle",
+     "set": {
+      "bump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "s13",
+   "at": 7.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11.7,
+     26.9,
+     20.6
+    ],
+    "look": [
+     12,
+     26.72,
+     15.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "house",
+     "set": {
+      "x": 14.25,
+      "y": 25.95,
+      "z": 13.9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "s14",
+   "at": 8.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11.1,
+     26.7,
+     19.8
+    ],
+    "look": [
+     9.7,
+     27.25,
+     14.88
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "s15",
+   "at": 9.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11.1,
+     30.3,
+     15.95
+    ],
+    "look": [
+     0.3000000000000007,
+     6.800000000000001,
+     0.6999999999999993
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "parasol",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "embers",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp4",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp5",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "harp1",
+   "at": 10.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     10.8,
+     26.9,
+     20.2
+    ],
+    "look": [
+     10.55,
+     26.75,
+     14
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "parasol",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "embers",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp4",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp5",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "harp",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "over",
+   "at": 12,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     16,
+     28.4,
+     27.5
+    ],
+    "look": [
+     12.5,
+     25.6,
+     14.2
+    ],
+    "fov": 44
+   },
+   "do": []
+  },
+  {
+   "name": "s15w",
+   "at": 13.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11.1,
+     30.3,
+     15.95
+    ],
+    "look": [
+     0.3000000000000007,
+     6.800000000000001,
+     0.6999999999999993
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "parasol",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "embers",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp4",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp5",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "s15b",
+   "at": 14.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     10.2,
+     30.3,
+     14.6
+    ],
+    "look": [
+     -0.5999999999999996,
+     6.800000000000001,
+     -0.6500000000000004
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bedc",
+   "at": 15.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11.7,
+     27.5,
+     17.6
+    ],
+    "look": [
+     9.5,
+     26.45,
+     14.7
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clouds",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "floor",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "parasol",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "embers",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp4",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp5",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bedl",
+   "at": 16.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11.7,
+     27.5,
+     17.6
+    ],
+    "look": [
+     9.5,
+     26.45,
+     14.7
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "over": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "well",
+   "at": 18,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     11,
+     26.45,
+     16.6
+    ],
+    "look": [
+     11,
+     26,
+     15.55
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "rim",
+   "at": 19.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     5,
+     27.2,
+     9
+    ],
+    "look": [
+     8.8,
+     25.8,
+     13
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "hse",
+   "at": 20.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     12.1,
+     27.2,
+     17.6
+    ],
+    "look": [
+     13.9,
+     26.5,
+     14.5
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/heaven-terms/bench/make-home-bench.mjs (engine bench, one cast member)."
+}
