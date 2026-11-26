@@ -1,0 +1,333 @@
+{
+ "id": "desk14-voice-probe",
+ "title": "Potato Desk 14 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   98.1,
+   98.1
+  ]
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    3.3,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 98.1,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You laughed in my courtroom. Not once. But TWICE.",
+     "tone": "angry",
+     "style": "deep, stern, furious, slow, a judge",
+     "voice": "viking-x115",
+     "dur": 4.1,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "One more, it's ten years. So here's my advice:",
+     "tone": "whisper",
+     "style": "urgent whisper, serious, close to the ear",
+     "voice": "wedge-x115",
+     "dur": 4.1,
+     "caption": false,
+     "at": 5.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Keep your face still, and whatever you do...",
+     "tone": "whisper",
+     "style": "urgent whisper, deadly serious",
+     "voice": "wedge-x115",
+     "dur": 3.7,
+     "caption": false,
+     "at": 10.4
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "DON'T look at his head. It's too dangerous for you.",
+     "tone": "whisper",
+     "style": "urgent whisper, scared, deadly serious",
+     "voice": "wedge-x115",
+     "dur": 4.5,
+     "caption": false,
+     "at": 15.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Why? What's on his head?",
+     "tone": "whisper",
+     "style": "curious whisper, nervous",
+     "voice": "spud-x115",
+     "dur": 2.5,
+     "caption": false,
+     "at": 20.6
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "The most dangerous thing. Eyes down, like I said.",
+     "tone": "whisper",
+     "style": "sharp whisper, stern",
+     "voice": "wedge-x115",
+     "dur": 4.1,
+     "caption": false,
+     "at": 24.1
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Defense, your witness. Let's get this done.",
+     "tone": "calm",
+     "style": "deep, stern, impatient, a judge",
+     "voice": "viking-x115",
+     "dur": 3.3,
+     "caption": false,
+     "at": 29.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Your Honor, his best friend. The most serious one.",
+     "tone": "calm",
+     "style": "proud, confident, a lawyer presenting",
+     "voice": "wedge-x115",
+     "dur": 4.1,
+     "caption": false,
+     "at": 33.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Oh no.",
+     "tone": "sad",
+     "style": "quiet, dread, horrified",
+     "voice": "spud-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 38.6
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "A smile is five years. A giggle is ten.",
+     "tone": "angry",
+     "style": "deep, stern, slow, threatening, a judge",
+     "voice": "viking-x115",
+     "dur": 4.1,
+     "caption": false,
+     "at": 40.9
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Now raise your right hand. And swear it. And then...",
+     "tone": "calm",
+     "style": "deep, stern, a judge",
+     "voice": "viking-x115",
+     "dur": 4.5,
+     "caption": false,
+     "at": 46
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "I swear to tell the truth, the whole truth, amen!",
+     "tone": "calm",
+     "style": "solemn, serious, very sincere",
+     "voice": "mash-helium",
+     "dur": 4.5,
+     "caption": false,
+     "at": 51.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Think sad thoughts. Think rain. Think tax.",
+     "tone": "whisper",
+     "style": "urgent whisper, panicked",
+     "voice": "wedge-x115",
+     "dur": 3.3,
+     "caption": false,
+     "at": 57
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Is he a serious man? Just give me the facts.",
+     "tone": "calm",
+     "style": "deep, stern, a judge",
+     "voice": "viking-x115",
+     "dur": 4.5,
+     "caption": false,
+     "at": 61.3
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "The most serious man that I've ever known.",
+     "tone": "calm",
+     "style": "solemn, sincere, proud",
+     "voice": "mash-helium",
+     "take": 2,
+     "dur": 3.7,
+     "caption": false,
+     "at": 66.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Exhibit A: his serious face. Fully grown.",
+     "tone": "calm",
+     "style": "proud, confident, presenting evidence",
+     "voice": "wedge-x115",
+     "dur": 3.3,
+     "caption": false,
+     "at": 71.5
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Did he ever laugh at something... he shouldn't?",
+     "tone": "calm",
+     "style": "deep, slow, suspicious, a judge",
+     "voice": "viking-x115",
+     "dur": 3.7,
+     "caption": false,
+     "at": 75.8
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "At your head? Oh, he NEVER! I mean... he couldn't!",
+     "tone": "excited",
+     "style": "blurting, panicked, then backpedalling",
+     "voice": "mash-helium",
+     "dur": 4.5,
+     "caption": false,
+     "at": 80.5
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Case dismissed. You are free to go.",
+     "tone": "calm",
+     "style": "deep, stern, flat, final",
+     "voice": "viking-x115",
+     "dur": 3.3,
+     "caption": false,
+     "at": 86
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I... held it.",
+     "tone": "sad",
+     "style": "squeaky, strained, tearful, proud, barely holding in a laugh",
+     "voice": "spud-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 90.3
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "All of you? TEN YEARS. EACH. Told you so.",
+     "tone": "angry",
+     "style": "deep, very loud, furious, a judge",
+     "voice": "viking-x115",
+     "take": 2,
+     "dur": 4.1,
+     "caption": false,
+     "at": 93
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 14: makes and measures every take."
+}
