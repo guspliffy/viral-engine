@@ -281,20 +281,20 @@ expr(tJ + 0.45, "dad", FACE.awake, 0.08); look(tJ + 0.45, "dad", [0.4, 0.2], 0.0
 arm(tJ + 0.3, "dad", "R", "lap", 0.35);
 const tUp = r3(tJ + 0.75);
 e = say(29, tUp);
-A(tUp, "dad", "stand", { dur: 0.3 });   // springs up out of the close-up's top
-sfx(r3(tUp + 0.05), "cushion-poof", 0.5);
-const C32 = r3(tUp + 0.45);
+const C32 = r3(tUp + 0.5);
+A(onCut(C32), "dad", "stand", { dur: 0.01 });   // up on the cut (a stand inside the close-up popped one frame)
+sfx(r3(C32 - 0.03), "cushion-poof", 0.5);
 const RUN_TO = [2.0, 2.85];
 A(onCut(C32), "dad", "move", { to: [1.30, -0.30], dur: 0.01, steps: 0, ease: "linear", sync: true });   // already up and a step out on the cut
 A(onCut(C32), "dad", "turn", { to: 70, dur: 0.01, ease: "linear", sync: true });
-A(r3(C32 + 0.02), "dad", "move", { to: RUN_TO, dur: 0.75, steps: 4, stride: 0.45, ease: "in" });
-shot("bolts", C32, push(WIDE, 0.04, 1.2));
+A(r3(C32 + 0.02), "dad", "move", { to: RUN_TO, dur: 0.55, steps: 4, stride: 0.5, ease: "in" });
+shot("bolts", C32, push(WIDE, 0.04, 0.85));
 sfx(r3(C32 + 0.1), "whoosh", 0.5);
 yaw(C32, "spud", YAW_DAD); look(C32 + 0.1, "spud", [0.6, 0], 0.1); look(C32 + 0.45, "spud", [-0.4, 0], 0.25);
 expr(C32 - 0.02, "spud", FACE.flat, 0.01);
-const C33 = r3(C32 + 1.2);
+const C33 = r3(C32 + 0.85);
 A(onCut(C33), "dad", "hide");
-yaw(C33, "spud", YAW_CAM); look(C33, "spud", [0, 0], 0.01); expr(C33 - 0.02, "spud", { eye: 0.55, tilt: -0.1, curve: -0.1, browY: -0.02 }, 0.01);
+A(onCut(C33), "spud", "noblink"); yaw(C33, "spud", YAW_CAM); look(C33, "spud", [0, 0], 0.01); expr(C33 - 0.02, "spud", { eye: 0.55, tilt: -0.1, curve: -0.1, browY: -0.02 }, 0.01);
 shot("number one", C33, push(GIANTC, 0.06, DUR[30] + 0.8));
 e = say(30, C33 + 0.35);
 const END = r3(e + 0.45);   // end on the punchline (Jonny 20 Nov)

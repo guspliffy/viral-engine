@@ -59,8 +59,8 @@
  },
  "creative": {
   "length": [
-   66.383,
-   66.383
+   66.083,
+   66.083
   ]
  },
  "hook": {
@@ -459,8 +459,8 @@
    "size": 62
   },
   {
-   "from": 65.133,
-   "to": 66.183,
+   "from": 64.833,
+   "to": 65.883,
    "text": "...*Number one.*",
    "pos": 400,
    "pop": false,
@@ -3101,7 +3101,7 @@
   {
    "name": "my back",
    "at": 60.033,
-   "len": 3.533,
+   "len": 3.6,
    "shot": {
     "pos": [
      0.4,
@@ -3227,24 +3227,8 @@
     {
      "who": "dad",
      "do": "stand",
-     "dur": 0.3,
-     "at": 3.1
-    },
-    {
-     "sfx": "cushion-poof",
-     "at": 3.15
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "set": {
-      "eye": 0.7,
-      "tilt": -0.05,
-      "browY": -0.02,
-      "curve": -0.05
-     },
      "dur": 0.01,
-     "at": 3.48
+     "at": 3.547
     },
     {
      "who": "dad",
@@ -3257,7 +3241,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.514
+     "at": 3.547
     },
     {
      "who": "dad",
@@ -3266,7 +3250,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.514
+     "at": 3.547
     },
     {
      "who": "spud",
@@ -3275,14 +3259,30 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.514
+     "at": 3.547
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 3.547
+    },
+    {
+     "sfx": "cushion-poof",
+     "at": 3.57
     }
    ]
   },
   {
    "name": "bolts",
-   "at": 63.566,
-   "len": 1.2,
+   "at": 63.633,
+   "len": 0.833,
    "shot": {
     "pos": [
      0.4,
@@ -3308,7 +3308,7 @@
      ],
      "fov": 64
     },
-    "dur": 1.2,
+    "dur": 0.85,
     "ease": "inOut"
    },
    "do": [
@@ -3319,15 +3319,15 @@
       2,
       2.85
      ],
-     "dur": 0.75,
+     "dur": 0.55,
      "steps": 4,
-     "stride": 0.45,
+     "stride": 0.5,
      "ease": "in",
-     "at": 0.037
+     "at": 0.02
     },
     {
      "sfx": "whoosh",
-     "at": 0.117
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -3338,7 +3338,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 0.117
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -3349,7 +3349,7 @@
      ],
      "dur": 0.25,
      "blink": false,
-     "at": 0.467
+     "at": 0.45
     },
     {
      "who": "spud",
@@ -3361,12 +3361,17 @@
       "browY": -0.02
      },
      "dur": 0.01,
-     "at": 1.147
+     "at": 0.78
     },
     {
      "who": "dad",
      "do": "hide",
-     "at": 1.181
+     "at": 0.814
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0.814
     },
     {
      "who": "spud",
@@ -3375,7 +3380,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.181
+     "at": 0.814
     },
     {
      "who": "spud",
@@ -3386,13 +3391,13 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 1.181
+     "at": 0.814
     }
    ]
   },
   {
    "name": "number one",
-   "at": 64.766,
+   "at": 64.466,
    "len": 1.617,
    "shot": {
     "pos": [
@@ -3462,7 +3467,7 @@
    "who": "dad",
    "with": "sofa",
    "from": 0,
-   "to": 63.683,
+   "to": 63.733,
    "checks": [
     "shell",
     "clipping",
