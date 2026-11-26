@@ -58,7 +58,12 @@ history before it that has none), how many beat their own usual views 2x ("5 of 
 open (Jonny 26 Nov: trends move fast, a 2-week-old hit can be over today). Their videos are listed fastest first.
 Fast signal: share of sampled accounts posting it, last 3 days vs the 3 before, S = (C + 0.5) / (N + 1); HEATING UP at
 x1.5 with 3+ accounts, COOLING at x0.65. A rise that disappears without its biggest account is shown as a lead (fragile).
-These three came from a ChatGPT research read (26 Nov); its other ideas (age-matched 48 h views from the daily snapshots,
+Stages on the page: Animate (just rising), Storyboard (early lead: 2+ accounts posted it in 3 days and a first-timer beat
+their usual views within 3 days; cheap action = premise + rough board), lead, steady, crowded, dying. Every day the scout
+saves its picks with the date our video could go live (`SCOUT_LEAD_DAYS`, 2); after a few weeks, score each pick by
+whether first-timers posting around that date still beat their usual views 2x at 48 h, against the most-viewed list.
+The Formats tab also shows 10 random small-account clips the finder missed, to watch muted and note setup + reversal.
+These came from a ChatGPT research read and its review (26 Nov); its other ideas (age-matched 48 h views from the daily snapshots,
 a fixed account panel, weekly replay scoring) wait for a few weeks of history. Videos under 2 days are left out of the
 weeks. `--from <dir>/rows.json` re-judges a run without fetching. Limits: only accounts that are active now are found.
 YouTube side: Shorts search (this week + month) finds the channels, their feeds give the 15 latest Shorts with dates
@@ -84,5 +89,4 @@ use, ranked by breakouts, best 3 videos each; fandom ones shown apart), Trends (
 and Accounts (repeat breakers, best and worst video). Every video plays in place on a click. The finder reads caption
 text only, so it finds title templates and topics, not jokes: watch the examples to learn the mechanism.
 Flags: "franchise" (someone else's characters: Sprunki, Roblox, TADC ...) and "borrowed audio" mark the part of a hit
-we can't make our own. Every Monday the shortlist is saved (`shortlist-<date>.json` on `scout-data`) before the next
-week's results exist; after 4+ weeks, check whether its picks found the next breakouts better than the most-viewed list.
+we can't make our own. The shortlist is saved daily (`shortlist-<date>.json` on `scout-data`) before the results exist.

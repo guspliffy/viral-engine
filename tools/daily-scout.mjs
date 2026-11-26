@@ -13,6 +13,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import crypto from "node:crypto";
 import { pathToFileURL } from "node:url";
 import { parseArgs as scanArgs, runScan, isRepeat } from "./small-big-scan.mjs";
 import { parseArgs as trendArgs, runTrend, dailyTable } from "./format-trend.mjs";
@@ -22,6 +23,8 @@ const today = new Date().toISOString().slice(0, 10);
 const fmt = (n) => (n == null ? "?" : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(n));
 const esc = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const key = (v) => `${v.platform || "tiktok"}:${v.id}`;
+// days from spotting a format to our video going live (Jonny's clip threads: about 2 days); picks are judged at that date
+const LEAD_DAYS = +(process.env.SCOUT_LEAD_DAYS || 2);
 
 export function parseArgs(argv) {
   const o = { data: "out/scout-data", site: "out/scout-site", trend: false, telegram: false, smoke: false };
@@ -57,8 +60,22 @@ export function mergeHistory(hist, seen, date) {
   return { hist: h, fresh, risers };
 }
 
+// Storyboard lead (Astra review 26 Nov): 2+ accounts posted it in the last 3 days and a first-timer beat their usual
+// views within 3 days. Cheap action: premise + rough board. Animate needs the full rising read.
+const storyboard = (t) => [t, t.yt].some((x) => x && (x.fast?.last.C || 0) >= 2 && (x.newcomers || []).some((h) => h.ageDays != null && h.ageDays <= 3));
+// Stage of a format, rising first (Jonny 26 Nov: get into trends that are just rising, never onto dying ones)
+export const stage = (t) => { const w = [t.word, t.yt?.word || "", t.gap?.word || "", t.fast?.word === "HEATING UP" ? "HEATING" : "", t.yt?.fast?.word === "HEATING UP" ? "HEATING" : ""].join(" ");
+  const cooling = t.fast?.word === "COOLING";
+  return /RISING|HEATING|NEW|ROOM/.test(w) && !/CROWD|FADING/.test(t.word) && !cooling && !t.fragile ? [0, "up", "Animate: just rising, get in now"]
+    : storyboard(t) && !/CROWD|FADING/.test(t.word) && !cooling ? [1, "up", "Storyboard: early lead, 2+ accounts in 3 days and a first-timer hit"]
+    : /RISING|HEATING|NEW|ROOM/.test(w) && t.fragile && !/CROWD|FADING/.test(t.word) ? [1, "flat", `Lead: the rise depends on one account (@${t.fragile})`]
+    : /RISING|HEATING|NEW|ROOM/.test(w) ? [1, "flat", "Rising on one side, crowded on the other"]
+    : /CROWD/.test(w) ? [3, "down", "Crowded: late, skip unless we have a new angle"]
+    : /FADING/.test(w) ? [4, "down", "Dying: skip"] : [2, "flat", "Steady"]; };
+const stageWord = (t) => stage(t)[2];
+
 // Dashboard (Jonny 26 Nov): tabs Today / Formats / Trends / Accounts; reference videos play in place on click.
-export function page({ early, fresh, risers, repeats, trend, found, firstRun, stats }) {
+export function page({ early, fresh, risers, repeats, trend, found, firstRun, stats, watch }) {
   const tt = (u) => (String(u || "").match(/tiktok\.com\/@[^/]+\/video\/(\d+)/) || [])[1];
   const yt = (u) => (String(u || "").match(/youtube\.com\/shorts\/([\w-]{6,})/) || [])[1];
   const play = (u) => tt(u) ? `data-play="https://www.tiktok.com/player/v1/${tt(u)}?loop=1&rel=0"` : yt(u) ? `data-play="https://www.youtube.com/embed/${yt(u)}"` : "";
@@ -75,16 +92,11 @@ export function page({ early, fresh, risers, repeats, trend, found, firstRun, st
   const verdictClass = (w) => /RISING|HEATING/.test(w) ? "up" : /CROWD|FADING/.test(w) ? "down" : "flat";
   const fmtRows = (fs) => fs.map((f) => `<details class=fmt><summary>${risingNow(f) ? '<span class="pill up">rising now</span> ' : ''}<b>${esc(f.pattern)}</b> <span class=muted>${f.accounts} accounts · usual video ${f.medianRatio}x followers · ${f.breakouts} breakout${f.breakouts === 1 ? "" : "s"} · ${Math.round(f.recentShare * 100)}% from the last 7 days</span></summary>${grid(f.examples)}</details>`).join("");
   // Jonny 26 Nov: get into trends that are just rising, never onto dying ones. Rising first everywhere.
+  const firstTimers = (x) => x?.newPosters == null ? "" : x.newPosters < 3 ? `<p class=first>First-timers: too little evidence (${x.newHits} of ${x.newPosters})</p>`
+    : `<p class=first><b>${x.newHits} of ${x.newPosters}</b> first-timers beat their usual views 2x (last 7 days)</p>`;
   const risingNow = (f) => f.recentShare >= 0.5 && f.breakouts >= 1;
   const byRise = (fs) => [...fs].sort((a, b) => risingNow(b) - risingNow(a));
   const ours = byRise((found || []).filter((f) => !f.franchise)), fan = byRise((found || []).filter((f) => f.franchise));
-  const stage = (t) => { const w = [t.word, t.yt?.word || "", t.gap?.word || "", t.fast?.word === "HEATING UP" ? "HEATING" : "", t.yt?.fast?.word === "HEATING UP" ? "HEATING" : ""].join(" ");
-    const cooling = t.fast?.word === "COOLING";
-    return /RISING|HEATING|NEW|ROOM/.test(w) && !/CROWD|FADING/.test(t.word) && !cooling && !t.fragile ? [0, "up", "Just rising: get in now"]
-      : /RISING|HEATING|NEW|ROOM/.test(w) && t.fragile && !/CROWD|FADING/.test(t.word) ? [1, "flat", `Lead: the rise depends on one account (@${t.fragile})`]
-      : /RISING|HEATING|NEW|ROOM/.test(w) ? [1, "flat", "Rising on one side, crowded on the other"]
-      : /CROWD/.test(w) ? [3, "down", "Crowded: late, skip unless we have a new angle"]
-      : /FADING/.test(w) ? [4, "down", "Dying: skip"] : [2, "flat", "Steady"]; };
   return `<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
 <title>Trend scout</title><style>
 :root{--bg:#fbfaf7;--card:#fff;--fg:#1d1c1a;--muted:#6b6862;--line:#e4e1da;--accent:#b4541a;--up:#2f7d4f;--down:#b23a3a}
@@ -102,7 +114,7 @@ nav button[aria-selected=true]{background:var(--fg);color:var(--bg)}section{disp
 .meta{padding:8px 10px;font-size:13px}.meta p{margin:4px 0 6px}.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:10px;padding:0 6px;margin-right:4px;color:var(--muted)}
 table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;font-size:14px;vertical-align:middle}
 th{color:var(--muted);font-weight:500}td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.up{color:var(--up)}.down{color:var(--down)}.spark{width:64px;height:24px;fill:var(--accent)}h3{font-size:16px;margin:0 0 6px}.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:8px 0}.tcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.plat{display:flex;align-items:center;gap:8px;margin-top:6px}.plat .spark{margin-left:auto}.pill{display:inline-block;font-size:12px;font-weight:600;border:1px solid currentColor;border-radius:10px;padding:0 8px;margin:0 0 6px}.hits{margin:4px 0 6px;padding-left:18px;font-size:13px}.hits li{margin:2px 0}.gap{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}details.fmt{border-bottom:1px solid var(--line);padding:8px 0}summary{cursor:pointer}
+.up{color:var(--up)}.down{color:var(--down)}.spark{width:64px;height:24px;fill:var(--accent)}h3{font-size:16px;margin:0 0 6px}.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:8px 0}.tcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.plat{display:flex;align-items:center;gap:8px;margin-top:6px}.plat .spark{margin-left:auto}.pill{display:inline-block;font-size:12px;font-weight:600;border:1px solid currentColor;border-radius:10px;padding:0 8px;margin:0 0 6px}.first{font-size:15px;margin:0 0 4px}.hits{margin:4px 0 6px;padding-left:18px;font-size:13px}.hits li{margin:2px 0}.gap{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}details.fmt{border-bottom:1px solid var(--line);padding:8px 0}summary{cursor:pointer}
 </style></head><body>
 <h1>Trend scout</h1><p class=muted>${today} · small accounts (under ${fmt(stats.maxFollowers)} followers) in animation, funny animation, comedy and comedy sketches on TikTok and YouTube Shorts · ${stats.videos} videos read, ${stats.accounts} small accounts opened. Lessons, not copies.${firstRun ? " First run: \"new\" and \"risers\" fill in from tomorrow." : ""}</p>
 <nav role=tablist>${["Today", "Formats", "Trends", "Accounts"].map((t, i) => `<button role=tab aria-selected=${i === 0} data-tab=${t}>${t}</button>`).join("")}</nav>
@@ -110,12 +122,13 @@ th{color:var(--muted);font-weight:500}td.n{text-align:right;white-space:nowrap;f
 <h2>Fastest risers since the last run</h2><p class=muted>Views gained since the last scan: the 24 and 48 hour signal.</p>${grid(risers, (v) => `+${fmt(v.gain)}`)}
 <h2>New breakouts</h2><p class=muted>Over 10x followers and the views bar, not seen in an earlier run.</p>${grid(fresh)}</section>
 <section id=Formats><h2>Formats found today</h2><p class=muted>Caption patterns that 3+ different small accounts use. "Rising now" = most of its videos are from the last 7 days and it already has a breakout: those come first. Open one to watch its best examples.</p>${fmtRows(ours) || "<p class=muted>None today.</p>"}
-${fan.length ? `<h2>Fandom trends (someone else's characters)</h2><p class=muted>Big on reach, but not ours to make.</p>${fmtRows(fan)}` : ""}</section>
+${fan.length ? `<h2>Fandom trends (someone else's characters)</h2><p class=muted>Big on reach, but not ours to make.</p>${fmtRows(fan)}` : ""}
+${watch?.length ? `<h2>10 random clips to watch muted</h2><p class=muted>Small-account clips the caption finder did not flag. Watch each with the sound off and write one sentence: the setup and the reversal (e.g. "a referee shows a forbidden move and gets penalized for it"). That finds joke mechanisms captions can't show.</p>${grid(watch)}` : ""}</section>
 <section id=Trends><h2>Our formats${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>Last 2 weeks only, TikTok and YouTube Shorts each judged on its own: last week vs the week before. Reward = the same accounts' views with the format (1.0 = no change). Newcomers = accounts that posted it for the first time in the last 7 days and beat their own usual views 2x: room for one more creator. "Last 3 days" = how many sampled accounts posted it in the last 3 days vs the 3 before. A rise that disappears without its biggest account is shown as a lead, not a trend. Their videos are listed fastest first (views per day). Bars = views per day of the videos posted on each of the last 14 days.</p>
 <div class=tgrid>${[...trend.formats].sort((a, b) => stage(a)[0] - stage(b)[0]).map((t) => `<article class=tcard><h3>${esc(t.name)}</h3><p class="pill ${stage(t)[1]}">${stage(t)[2]}</p>
-<div class=plat><span class=muted>TikTok</span> <b class=${verdictClass(t.word)}>${esc(t.word.split(":")[0])}</b>${spark(t.days || [])}</div>
-<p class=muted>Reward ${t.reward ?? "?"} · accounts/week ${t.postersPerWeek ?? "?"} · newcomers ${t.newHits ?? "?"} of ${t.newPosters ?? "?"}${fastTxt(t.fast)}</p>${hits(t.newcomers)}
-<div class=plat><span class=muted>YouTube</span> ${t.yt ? `<b class=${verdictClass(t.yt.word)}>${esc(t.yt.word.split(":")[0])}</b>${spark(t.yt.days || [])}` : "?"}</div>${t.yt?.newPosters != null ? `<p class=muted>Newcomers ${t.yt.newHits} of ${t.yt.newPosters}${fastTxt(t.yt.fast)}</p>` : ""}${hits(t.yt?.newcomers)}
+${firstTimers(t)}<div class=plat><span class=muted>TikTok</span> <b class=${verdictClass(t.word)}>${esc(t.word.split(":")[0])}</b>${spark(t.days || [])}</div>
+<p class=muted>Reward ${t.reward ?? "?"} · accounts/week ${t.postersPerWeek ?? "?"}${fastTxt(t.fast)}</p>${hits(t.newcomers)}
+<div class=plat><span class=muted>YouTube</span> ${t.yt ? `<b class=${verdictClass(t.yt.word)}>${esc(t.yt.word.split(":")[0])}</b>${spark(t.yt.days || [])}` : "?"}</div>${t.yt?.newPosters != null ? `<p class=muted>First-timers ${t.yt.newHits} of ${t.yt.newPosters}${fastTxt(t.yt.fast)}</p>` : ""}${hits(t.yt?.newcomers)}
 ${t.gap ? `<p class="gap ${/^ROOM/.test(t.gap.word) ? "up" : ""}"><b>${esc(t.gap.word.split(":")[0])}</b> <span class=muted>last 2 weeks: TikTok ${t.gap.tiktok.posters} accounts, median ${fmt(t.gap.tiktok.medianViews)}, ${t.gap.tiktok.hits} hits · YouTube ${t.gap.youtube.posters} channels, median ${fmt(t.gap.youtube.medianViews)}, ${t.gap.youtube.hits} hits</span></p>` : ""}</article>`).join("")}</div>
 <p class=muted>Gap: ROOM ON YOUTUBE / ROOM ON TIKTOK = the format pays on one platform (median 50K+ or 3+ hits in 2 weeks) while few accounts make it on the other. That is where we can be early.</p>` : "<p class=muted>Not run yet.</p>"}</section>
 <section id=Accounts><h2>Repeat breakers (formats, not luck)</h2><p class=muted>Small accounts that beat their following again and again. Best and worst video side by side: the worst shows what fails.</p>
@@ -167,20 +180,29 @@ async function main() {
     const t = await runTrend(trendArgs(["node", "trend", "--preset", "ours"]));
     h2.trend = { date: today, formats: t.report.map(({ f, ver, newWin, rows, yt, gap, fast }) => ({ name: f.name, ...ver, fast, days: dailyTable(rows, t.now).map((d) => d.perDay),
       best: newWin[0] ? { url: newWin[0].url, views: newWin[0].views, perDay: newWin[0].perDay } : null,
-      newcomers: newWin.slice(0, 3).map((r) => ({ url: r.url, views: r.views, perDay: r.perDay, title: r.title, account: r.account, platform: "tiktok" })),
+      newcomers: newWin.slice(0, 3).map((r) => ({ url: r.url, views: r.views, perDay: r.perDay, ageDays: Math.floor((t.now - r.posted) / 86400), title: r.title, account: r.account, platform: "tiktok" })),
       yt: { word: yt.ver.word, fragile: yt.ver.fragile, fast: yt.fast, days: yt.days.map((d) => d.perDay), channels: yt.accounts, newHits: yt.ver.newHits, newPosters: yt.ver.newPosters,
-        newcomers: yt.newWin.slice(0, 3).map((r) => ({ url: r.url, views: r.views, perDay: r.perDay, title: r.title, account: r.account, platform: "youtube" })) }, gap })) };
+        newcomers: yt.newWin.slice(0, 3).map((r) => ({ url: r.url, views: r.views, perDay: r.perDay, ageDays: Math.floor((t.now - r.posted) / 86400), title: r.title, account: r.account, platform: "youtube" })) }, gap })) };
   }
   const repeats = ranked.filter(isRepeat);
   const found = findFormats(vids.filter(small), { minAccounts: 3, top: 30 });
-  const html = page({ found, early, fresh: freshBreaks, risers: risers.filter((r) => r.gain > 0).slice(0, 15), repeats, trend: h2.trend, firstRun,
+  // 10 random small-account clips (20 s+) the finder didn't use, the same pick all day (seeded by date)
+  const used = new Set(found.flatMap((f) => f.examples.map((e) => e.url)));
+  const watch = vids.filter((v) => small(v) && !used.has(v.url) && (v.duration == null || v.duration >= so.minSeconds))
+    .sort((a, b) => crypto.createHash("md5").update(today + a.url).digest("hex").localeCompare(crypto.createHash("md5").update(today + b.url).digest("hex"))).slice(0, 10);
+  const html = page({ watch, found, early, fresh: freshBreaks, risers: risers.filter((r) => r.gain > 0).slice(0, 15), repeats, trend: h2.trend, firstRun,
     stats: { videos: vids.length, accounts: cands.length, maxFollowers: so.maxFollowers } });
   fs.writeFileSync(path.join(o.site, "index.html"), html);
   if (!o.smoke) fs.writeFileSync(histFile, JSON.stringify(h2));
   // the week's picks, saved before the next week's results exist: after 4+ weeks, check whether they found the next
   // breakouts better than a plain most-viewed list (Jonny 26 Nov)
-  if (!o.smoke && o.trend && new Date().getUTCDay() === 1) fs.writeFileSync(path.join(o.data, `shortlist-${today}.json`), JSON.stringify({
-    date: today, repeats: repeats.map((a) => ({ platform: a.platform, account: a.account, followers: a.followers, best: a.best?.url })),
+  // Every day (Astra review 26 Nov): each pick carries the date our video could go live (today + LEAD_DAYS); a pick counts
+  // as good only if first-timers posting it around that date still beat their usual views 2x at 48 h. The most-viewed list
+  // from the same scan is the baseline to beat.
+  const publishBy = new Date(Date.now() + LEAD_DAYS * 86400e3).toISOString().slice(0, 10);
+  if (!o.smoke && o.trend) fs.writeFileSync(path.join(o.data, `shortlist-${today}.json`), JSON.stringify({
+    date: today, publishBy, picks: (h2.trend?.formats || []).map((t) => ({ name: t.name, stage: stageWord(t) })).filter((p) => /^(Animate|Storyboard)/.test(p.stage)),
+    repeats: repeats.map((a) => ({ platform: a.platform, account: a.account, followers: a.followers, best: a.best?.url })),
     early: early.map((v) => v.url), mostViewed: [...vids].sort((a, b) => b.views - a.views).slice(0, 20).map((v) => v.url),
     trend: h2.trend?.formats.map((t) => ({ name: t.name, word: t.word.split(":")[0], reward: t.reward, entry: t.entry, newShare: t.newShare })) }));
   const top = [...early.slice(0, 3), ...freshBreaks.slice(0, 3)];
