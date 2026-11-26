@@ -114,9 +114,12 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 
 ## 2. The opening (first 3 seconds)
 
+- **No lettering burned into the video** (Jonny, 25 Nov 2026, every video): no 0 s label, hook statement, title or
+  other caption lettering of our own in the render. He adds it by hand in TikTok, and asks when a YouTube cut needs
+  it. Write the text in the post pack ("Label at 0 s, add in TikTok"). The subtitles of spoken lines stay.
 - **Build the video around its hook** (18 Nov, ON TRIAL on four videos; a rule only once finished videos prove it):
   the hook, the curiosity gap and the ending matter most, and the story is built between them. Write in this order:
-  (1) a statement on screen in the first 3 s and the caption question about the same thing, both opening ONE gap
+  (1) a statement for the first 3 s (in the post pack, Jonny letters it in TikTok) and the caption question about the same thing, both opening ONE gap
   ("He found the perfect crime." / caption "Did he really find the perfect crime?"), with the video already in the
   action; (2) the ending that releases that gap clearly (Court Day: three characters lined up, the last one reveals);
   (3) only then the beats between, each keeping the gap open. Court Day: 51 % finish, 58 % at 0:05.
