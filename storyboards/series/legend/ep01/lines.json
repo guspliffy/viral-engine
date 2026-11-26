@@ -1,0 +1,134 @@
+{
+ "_about": "Legend ep 01, the masked woman (Kuchisake-onna). Speakers: N narrator (deep storyteller), G grandmother, K kid, W masked woman. Read by VoxCPM2, then tempo x1.15 (Jonny 25 Nov).",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "engine/voice/targets/legend-grandma-ref.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "engine/voice/targets/legend-kid-ref.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction",
+   "_picked": "Jonny 26 Nov 19:15 Berlin: voice-test-legend-06 kid 2",
+   "steps": 25,
+   "cfg": 3.0
+  },
+  "W": {
+   "ref": "engine/voice/targets/legend-woman-ref.wav",
+   "style": "a young woman, soft, calm, sweet and very quiet, almost a whisper, eerie and slow"
+  }
+ },
+ "lines": [
+  [
+   "L01",
+   "G",
+   "Whatever she asks you... never say yes.",
+   "urgent whisper, stern"
+  ],
+  [
+   "L02",
+   "K",
+   "Why? She's just standing there.",
+   "curious, puzzled"
+  ],
+  [
+   "L03",
+   "N",
+   "In Japan, they call her Kuchisake-onna. She waits under streetlights, in a white mask, and she asks every child the same question.",
+   ""
+  ],
+  [
+   "L04",
+   "W",
+   "Am I pretty?",
+   "soft, sweet, slow"
+  ],
+  [
+   "L05",
+   "K",
+   "What if I say no?",
+   "whispering, nervous"
+  ],
+  [
+   "L06",
+   "G",
+   "Then she gets angry. Very angry.",
+   "grim, low"
+  ],
+  [
+   "L07",
+   "K",
+   "Then I'll just say yes!",
+   "cheeky, confident"
+  ],
+  [
+   "L08",
+   "G",
+   "Say yes... and she takes off the mask.",
+   "slow, grim, warning"
+  ],
+  [
+   "L09",
+   "N",
+   "And under it, is a smile that reaches all the way to her ears.",
+   "slow, dark, quiet"
+  ],
+  [
+   "L10",
+   "W",
+   "How about now?",
+   "soft, sweet, slow"
+  ],
+  [
+   "L11",
+   "N",
+   "Made up? In 1979, this story spread so fast that schools in Japan sent children home in groups, and police patrolled the streets at night.",
+   ""
+  ],
+  [
+   "L12",
+   "K",
+   "So every answer is wrong?",
+   "scared, small"
+  ],
+  [
+   "L13",
+   "G",
+   "Almost every answer.",
+   "knowing, calm"
+  ],
+  [
+   "L14",
+   "N",
+   "Kids back then learned the one answer that confuses her, and the one thing she can't resist.",
+   ""
+  ],
+  [
+   "L15",
+   "W",
+   "Am I pretty?",
+   "soft, very close, slow"
+  ],
+  [
+   "L16",
+   "K",
+   "You're... average.",
+   "nervous, careful"
+  ],
+  [
+   "L17",
+   "N",
+   "Then, hard candy. She has to pick up every single piece.",
+   ""
+  ],
+  [
+   "L18",
+   "W",
+   "Am I pretty?",
+   "soft, sweet, very slow"
+  ]
+ ]
+}
