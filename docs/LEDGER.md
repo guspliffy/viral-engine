@@ -131,6 +131,11 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   once a minute, a lock whose holder died is taken over at once, off on the farm (CI) and with `--no-lock`. Should
   keep silent render waits at 0 and lower `waits`. Proof: a stale lock is taken in 0 ms, a live one is waited for
   (3.0 s for a 3 s holder) and named, a still render releases it on exit.
+- `camera-inside` (25 Nov, from Heaven Terms draft 2; waits for Jonny's word): the "hide" shot's camera stood inside the
+  Angel's wing and filled the frame with flat orange for 2 s; preflight passed and camfit said nothing, so a full
+  draft (11 min) found it by eye. `qa/camin.mjs` (run by preflight, a fail; camfit prints `CAMERA INSIDE <who>`) tests
+  every layout sample's camera against each body. Should keep draft rounds lost to a frame filled by a body at 0.
+  Proof: draft 2's storyboard fails 19.8-21.8 s, the fixed one passes.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.

@@ -39,8 +39,10 @@
 // prop someone holds covering over 15 % of the subject's outline and of its middle (face and body, not just an edge)
 // for 0.3 s is a "front" fail at "gate": 2 (a warning before). Furniture and the set in front are staging.
 import fs from "node:fs";
+import * as THREE from "three";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { actorState, cameraState } from "../engine/page/timeline.js";
+import { storyTime } from "../engine/shared/holds.js";
 import { rigState, rigRotation, rigOrigin } from "../engine/page/vehicle.js";
 import { hookShow } from "./hook.mjs";
 import { GATE, gateOf, gateLevel, windowFor, actingAt, storyAt } from "./gate.mjs";
@@ -316,6 +318,51 @@ export function eyesResults(sb, lay) {
       if ((v == null || v >= EYES.shown || i === S.length - 1) && a != null) { const b = v != null && v < EYES.shown ? s.t + step : s.t; if (b - a >= EYES.hold - 1e-6) spans.push([a, b, low]); a = null; }
     });
     if (spans.length) out.push({ group: "technical", level: "warn", check: "eyes-readable", msg: `${id}: a pupil shows under ${Math.round(EYES.shown * 100)} % at ${spans.map(([p, q, l]) => `${p.toFixed(1)}-${q.toFixed(1)}s (${Math.round(l * 100)} %)`).join(", ")}: the lid hides the eye and it reads as a glitch; lift the lid or bring the look nearer the middle` });
+  }
+  return out;
+}
+
+// A face or a prop in play under the HUD or a card (Kid vs Dad 06 gum, 25 Nov 2026: Sol found the news bar over Tato's
+// mouth, the egg timer's dial and the spoon at his lips in two rounds; the caption checks skip cards on purpose). From
+// the layout: a face in frame whose eyes or mouth sit under a card box (the HUD bars, rule and vote cards), or a prop in
+// play (a "prop" tween of 4 s or less on it within 0.5 s, named in "visible" then, or the one the camera aims at) whose centre does, for CARD.hold s or more, warns
+// "card-over". Waived by an allowClip window naming "card-over".
+export const CARD = { hold: 0.3, pad: 16 };
+export function cardResults(sb, lay) {
+  const S = lay?.samples || [], W = lay?.width || 1080, H = lay?.height || 1920, out = [];
+  if (!S.some((s) => (s.captions || []).some((c) => c.card))) return out;
+  const tweens = (sb.actions || []).filter((a) => a.do === "prop" && (a.dur ?? 0) <= 4 && !(a.dur <= 0.02 && a.set && Object.keys(a.set).every((k) => /^(scale|x|y|z|rot|tip)$/.test(k)) && a.set.scale != null));
+  const worn = new Set((sb.props || []).filter((p) => p.wear).map((p) => p.id));   // a worn prop's origin is its wearer's
+  const seen = (sb.visible || []).map((v) => ({ from: v.from ?? v.at, to: v.to ?? (v.at + 0.5), ids: (v.see || []).filter((x) => !x.includes(".")) }));
+  const inPlay = (id, t) => !worn.has(id) && (seen.some((v) => v.ids.includes(id) && t >= v.from && t <= v.to) || tweens.some((a) => a.id === id && t >= a.at - 0.5 && t <= a.at + (a.dur ?? 0) + 0.5));
+  const lensAt = (t) => {
+    const c = cameraState(sb, storyTime(sb.holds, t)); if (!c?.pos) return null;
+    const cam = new THREE.PerspectiveCamera(c.fov ?? 32, W / H, 0.05, 300), v = new THREE.Vector3();
+    cam.position.fromArray(c.pos); cam.lookAt(new THREE.Vector3().fromArray(c.look)); cam.updateMatrixWorld(true); cam.updateProjectionMatrix();
+    return (p) => { const q = v.set(p[0], p[1], p[2]).project(cam); return q.z > 1 ? null : [((q.x + 1) / 2) * W, ((1 - q.y) / 2) * H]; };
+  };
+  const under = (pt, boxes) => pt && pt[0] >= 0 && pt[0] <= W && pt[1] >= 0 && pt[1] <= H && boxes.some(([x, y, w, h]) => pt[0] >= x && pt[0] <= x + w && pt[1] >= y - CARD.pad && pt[1] <= y + h);
+  const step = S.length > 1 ? S[1].t - S[0].t : 0.1, open = new Map(), spans = new Map();
+  const close = (k, t) => { const a = open.get(k); if (a != null) { if (t - a >= CARD.hold - 1e-6) (spans.get(k) || spans.set(k, []).get(k)).push([a, t]); open.delete(k); } };
+  for (const s of S) {
+    const boxes = (s.captions || []).filter((c) => c.card && c.box).map((c) => c.box), hit = new Set();
+    if (boxes.length) {
+      const P = lensAt(s.t);
+      for (const a of s.actors || []) {
+        if (!a.eyesPx || a.eyesPx[0] < 0 || a.eyesPx[0] > W || a.eyesPx[1] < 0 || a.eyesPx[1] > H) continue;
+        if (under(a.eyesPx, boxes)) hit.add(`${a.id}'s eyes`); else if (P && a.mouth && under(P(a.mouth), boxes)) hit.add(`${a.id}'s mouth`);
+      }
+      // a prop's layout point is its origin (most stand on it): judged 5 cm up, the middle of a small prop
+      const look = cameraState(sb, storyTime(sb.holds, s.t))?.look, aimed = (p) => look && p.at && Math.hypot(p.at[0] - look[0], p.at[1] + 0.05 - look[1], p.at[2] - look[2]) < 0.25;
+      for (const p of s.props || []) if (p.visible !== false && p.px && (inPlay(p.id, s.t) || (aimed(p) && !worn.has(p.id))) && under(P && p.at ? P([p.at[0], p.at[1] + 0.05, p.at[2]]) : p.px, boxes)) hit.add(`the ${p.id}`);
+    }
+    for (const k of hit) if (!open.has(k)) open.set(k, s.t);
+    for (const k of [...open.keys()]) if (!hit.has(k)) close(k, s.t);
+  }
+  for (const k of [...open.keys()]) close(k, (S.at(-1)?.t ?? 0) + step);
+  for (const [k, list] of spans) {
+    const id = k.replace(/^the /, "").replace(/'s (eyes|mouth)$/, ""), left = list.filter(([a, b]) => !windowFor(sb, "card-over", id, (a + b) / 2));
+    if (left.length) out.push({ group: "framing", level: "warn", check: "card-over", msg: `${k} under the HUD or a card at ${left.map(([a, b]) => `${a.toFixed(1)}-${b.toFixed(1)}s`).join(", ")}: lift it in the frame (aim the camera lower) or move the card; or an allowClip window naming "card-over" with a reason` });
   }
   return out;
 }
