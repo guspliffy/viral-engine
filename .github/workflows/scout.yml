@@ -1,5 +1,5 @@
 # Trend scout (Jonny 26 Nov, on trial): every morning, find small accounts in our niche whose videos break out, compare
-# with yesterday, check our formats' trend on Mondays, publish the page and send the top finds to Telegram.
+# with yesterday, check our formats' trend (last 4 weeks + last 7 days), publish the page and send the top finds to Telegram.
 # tools/daily-scout.mjs; method and limits in docs/research/small-big-scan.md.
 # Needs once: Settings > Pages > Source "GitHub Actions" (the page), and the secret TELEGRAM_BOT_TOKEN (+ optional
 # TELEGRAM_CHAT_ID). History lives on the branch scout-data. On a pull request only the smoke job runs.
@@ -12,7 +12,7 @@ on:
       trend:
         description: "Also run the format trend check (about 40 min)"
         type: boolean
-        default: false
+        default: true
   pull_request:
     paths: [tools/daily-scout.mjs, tools/small-big-scan.mjs, tools/format-trend.mjs, .github/workflows/scout.yml]
 concurrency: scout
@@ -60,8 +60,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           PAGE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
-          TREND: ${{ inputs.trend && '--trend' || '' }}
-        run: node tools/daily-scout.mjs --data scout-data --site site --telegram ${TREND:-$([ "$(date -u +%u)" = 1 ] && echo --trend)}
+          TREND: ${{ (github.event_name == 'schedule' || inputs.trend) && '--trend' || '' }}
+        run: node tools/daily-scout.mjs --data scout-data --site site --telegram $TREND
       - name: Save history
         run: |
           cd scout-data

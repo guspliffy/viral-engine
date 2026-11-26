@@ -2,7 +2,7 @@
 // Daily scout (Jonny 26 Nov: "scan actively every day for new videos and formats for our niche that go viral and send
 // a Telegram notification or ... a website which shows this clearly with references"). Runs every morning on GitHub
 // (.github/workflows/scout.yml): small-big scan of our niche, compared with yesterday's history, plus the format trend
-// check on Mondays. Writes a web page and sends the top finds to Telegram. On trial.
+// check every day (last 4 weeks week by week, last 7 days day by day). Writes a web page and sends the top finds to Telegram. On trial.
 //
 //   node tools/daily-scout.mjs --data <history dir> --site <page dir> [--trend] [--telegram] [--smoke]
 //
@@ -15,7 +15,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { parseArgs as scanArgs, runScan, isRepeat } from "./small-big-scan.mjs";
-import { parseArgs as trendArgs, runTrend } from "./format-trend.mjs";
+import { parseArgs as trendArgs, runTrend, dailyTable } from "./format-trend.mjs";
 
 const today = new Date().toISOString().slice(0, 10);
 const fmt = (n) => (n == null ? "?" : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(n));
@@ -65,7 +65,7 @@ function page({ early, fresh, risers, repeats, trend, firstRun, stats }) {
     `<td>${a.worst ? `<a href="${esc(a.worst.url)}">worst</a> ${fmt(a.worst.views)}` : ""}</td></tr>`;
   const trow = (t) => `<tr><td>${esc(t.name)}</td><td><b>${esc(t.word.split(":")[0])}</b>${esc(t.word.includes(":") ? ":" + t.word.split(":").slice(1).join(":") : "")}</td>` +
     `<td class=n>${t.reward ?? "?"}</td><td class=n>${t.entry ?? "?"}</td><td class=n>${t.newHits ?? "?"} of ${t.newPosters ?? "?"}</td>` +
-    `<td>${t.best ? `<a href="${esc(t.best.url)}">newcomer hit</a> ${fmt(t.best.views)}` : ""}</td></tr>`;
+    `<td class=n>${(t.days || []).map(fmt).join(" ")}</td><td>${t.best ? `<a href="${esc(t.best.url)}">newcomer hit</a> ${fmt(t.best.views)}` : ""}</td></tr>`;
   return `<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
 <title>Trend scout</title><style>
 :root{--bg:#fbfaf7;--fg:#1d1c1a;--muted:#6b6862;--line:#e4e1da;--accent:#b4541a}
@@ -81,7 +81,7 @@ td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}</sty
 <h2>Fastest risers since the last run</h2><p class=muted>The 24 and 48 hour signal: views gained since the last scan.</p>${vtab(risers, "Gained")}
 <h2>New breakouts</h2><p class=muted>Over 10x followers and the views bar, not seen in an earlier run.</p>${vtab(fresh, "Age")}
 <h2>Repeat breakers (formats, not luck)</h2><table><tr><th>Account</th><th>Followers</th><th>Breakouts</th><th>Usual video</th><th>Best</th><th>Worst</th></tr>${repeats.map(arow).join("") || "<tr><td colspan=6 class=muted>None today.</td></tr>"}</table>
-<h2>Format trends${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>Reward = the same accounts' views with the format, last 8 weeks vs before (1.0 = no change). Entry = new accounts piling in (1.0 = as before). Newcomers = new accounts that tried it lately and beat their own usual views 2x: the room for one more creator. Grey notes mark borrowed audio or someone else's characters, the part we can't make our own.</p><table><tr><th>Format</th><th>Verdict</th><th>Reward</th><th>Entry</th><th>Newcomers</th><th>Example</th></tr>${trend.formats.map(trow).join("")}</table>` : "<p class=muted>Runs on Mondays.</p>"}
+<h2>Format trends${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>Week by week, focus on the last 2 weeks. Reward = the same accounts' views with the format, last 2 weeks vs before (1.0 = no change). Entry = new accounts piling in (1.0 = as before). Newcomers = new accounts that tried it in the last 2 weeks and beat their own usual views 2x: the room for one more creator. Grey notes mark borrowed audio or someone else's characters, the part we can't make our own.</p><table><tr><th>Format</th><th>Verdict</th><th>Reward</th><th>Entry</th><th>Newcomers</th><th>Views per day, last 7 days</th><th>Example</th></tr>${trend.formats.map(trow).join("")}</table>` : "<p class=muted>Not run yet.</p>"}
 </body></html>`;
 }
 
@@ -118,7 +118,8 @@ async function main() {
   const freshBreaks = firstRun ? [] : breaks.filter((v) => fresh.some((f) => key(f) === key(v))).slice(0, 20);
   if (o.trend) {
     const t = await runTrend(trendArgs(["node", "trend", "--preset", "ours", "--accounts", "20"]));
-    h2.trend = { date: today, formats: t.report.map(({ f, ver, newWin }) => ({ name: f.name, ...ver, best: newWin[0] ? { url: newWin[0].url, views: newWin[0].views } : null })) };
+    h2.trend = { date: today, formats: t.report.map(({ f, ver, newWin, rows }) => ({ name: f.name, ...ver, days: dailyTable(rows, t.now).map((d) => d.perDay),
+      best: newWin[0] ? { url: newWin[0].url, views: newWin[0].views } : null })) };
   }
   const repeats = ranked.filter(isRepeat);
   const html = page({ early, fresh: freshBreaks, risers: risers.filter((r) => r.gain > 0).slice(0, 15), repeats, trend: h2.trend, firstRun,
@@ -127,7 +128,7 @@ async function main() {
   if (!o.smoke) fs.writeFileSync(histFile, JSON.stringify(h2));
   // the week's picks, saved before the next week's results exist: after 4+ weeks, check whether they found the next
   // breakouts better than a plain most-viewed list (Jonny 26 Nov)
-  if (!o.smoke && o.trend) fs.writeFileSync(path.join(o.data, `shortlist-${today}.json`), JSON.stringify({
+  if (!o.smoke && o.trend && new Date().getUTCDay() === 1) fs.writeFileSync(path.join(o.data, `shortlist-${today}.json`), JSON.stringify({
     date: today, repeats: repeats.map((a) => ({ platform: a.platform, account: a.account, followers: a.followers, best: a.best?.url })),
     early: early.map((v) => v.url), mostViewed: [...vids].sort((a, b) => b.views - a.views).slice(0, 20).map((v) => v.url),
     trend: h2.trend?.formats.map((t) => ({ name: t.name, word: t.word.split(":")[0], reward: t.reward, entry: t.entry, newShare: t.newShare })) }));

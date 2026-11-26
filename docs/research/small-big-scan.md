@@ -39,26 +39,26 @@ First run and findings: the 26 Nov tab of the channel analysis doc (memory `smal
 
 ## Format trend (`node tools/format-trend.mjs --preset ours`)
 
-Jonny 26 Nov: is a format already saturated, just picking up, or dying, so we know if it still pays to make it.
-TikTok only (YouTube Shorts tabs have no dates). For each format (a name + a caption regex; `--preset ours` = in this
-town, what if, court, heaven/hell, kid vs dad, folklore), keyword pages find the accounts that post it and their latest
-60 videos are read with dates. Per 4-week window: accounts posting it (supply), median views of its videos (reward),
-videos over 200K (hits), posters that are new accounts. Last 2 windows vs the ones before:
-RISING (supply up, reward holds), CROWDED (supply up, reward down), DYING (both down), FADING (reward down),
-HEATING UP (reward up), STEADY. Newcomer odds: of the new accounts (under 150 days) that tried the format in the last 60 days, how many got a
-format video at 2x+ their own usual views ("8 of 30"): if new accounts still win, the door is open. Videos under 10 days old are left out (still gaining views).
-When too few accounts have history on both sides (most posters are new; daily posters' 150 videos cover ~2 months),
-it falls back to a 4-week read: last 4 weeks vs the 4 before (more accounts + lower median = CROWDING), or NEW.
-The daily scout's own history makes this sharper week by week. `--from <dir>/rows.json` re-judges a run without fetching.
-Limits: only accounts that are active now are found.
+Jonny 26 Nov: is a format already saturated, just picking up, or dying, so we know if it still pays to make it; look
+at the last 1-2 weeks, the last 4 weeks week by week, and the last days day by day. TikTok only (YouTube Shorts tabs
+have no dates). For each format (a name + a caption regex; `--preset ours` = in this town, what if, court, heaven/hell,
+kid vs dad, country vs country, folklore), keyword pages find the accounts that post it and their latest 150 videos are
+read with dates. Per week (last 4): accounts posting it, accounts born, median views, videos over 200K. Per day (last 7):
+videos, accounts, median views and views per day since posting (young videos are still growing).
+Verdict, last 2 weeks vs the 2 before: reward = the SAME accounts' views with the format (so a sample of today's active
+accounts can't fake it; pooled median when fewer than 3 accounts have both sides), supply = accounts posting per week and
+accounts born. RISING (more accounts, still pays), CROWDED (more accounts, each video gets less), FADING, HEATING UP,
+STEADY, NEW. Newcomer odds: of the new accounts (under 150 days) that tried it in the last 2 weeks, how many beat their
+own usual views 2x ("5 of 7"): if new accounts still win, the door is open. Videos under 3 days are left out of the
+weeks. `--from <dir>/rows.json` re-judges a run without fetching. Limits: only accounts that are active now are found.
 
 ## Daily scout (`tools/daily-scout.mjs`, `.github/workflows/scout.yml`)
 
 Jonny 26 Nov: scan every day and show new viral videos and formats for our niche, with references, on a page or in
 Telegram. Every morning (06:30 Berlin) a free GitHub runner runs the scan (under 10K followers, niche keywords),
 compares it with the history on the branch `scout-data` and lists: early breakouts (under 4 days old, already 10x
-followers), fastest risers since the last run (the 24/48 h signal), new breakouts, repeat breakers, and on Mondays the
-format trend. It publishes the page to GitHub Pages (public, like the repo) and sends the top 6 finds to Telegram.
+followers), fastest risers since the last run (the 24/48 h signal), new breakouts, repeat breakers, and the format trend
+(last 4 weeks week by week, last 7 days day by day). It publishes the page to GitHub Pages (public, like the repo) and sends the top 6 finds to Telegram.
 One-time setup by Jonny: Settings > Pages > Source "GitHub Actions"; a Telegram bot from @BotFather, its token as the
 repo secret `TELEGRAM_BOT_TOKEN`, then one message to the bot (or the secret `TELEGRAM_CHAT_ID`). Zero tokens: no
 Claude in the loop. Pull requests that touch the scout run a 2-minute smoke scan instead.

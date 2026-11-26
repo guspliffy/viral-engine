@@ -15,8 +15,8 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { tiktokKeywordPages, tiktokVideos, tiktokProfile, median, writeCsv } from "./small-big-scan.mjs";
 
-const DAY = 86400, WINDOW = 28; // days per window
-const FRESH = 10; // videos younger than this are still gaining views: left out
+const DAY = 86400, WINDOW = 7; // one window = one week (Jonny 26 Nov: the last 1-2 weeks show how a format is doing now)
+const FRESH = 3; // videos younger than this are still gaining views: left out (3-7 day old videos still grow a little)
 export const PRESETS = { // our formats (26 Nov); regex runs on the caption
   "In this town (rule story)": [/\bin this (town|world|city|house|school)\b/i, ["in this town", "in this world story"]],
   "What if": [/\bwhat if\b/i, ["what if animation", "what if"]],
@@ -28,7 +28,7 @@ export const PRESETS = { // our formats (26 Nov); regex runs on the caption
 };
 
 export function parseArgs(argv) {
-  const o = { formats: [], keywords: null, accounts: 25, videos: 150, windows: 6, minViews: 200000, expand: 3,
+  const o = { formats: [], keywords: null, accounts: 25, videos: 150, windows: 4, minViews: 200000, expand: 3,
     out: `out/format-trend-${new Date().toISOString().slice(0, 10)}` };
   const num = { "--accounts": "accounts", "--videos": "videos", "--windows": "windows", "--min-views": "minViews", "--expand": "expand" };
   for (let i = 2; i < argv.length; i++) {
@@ -63,16 +63,29 @@ export function trendTable(rows, o, now) {
   return wins;
 }
 
-// Reward: the SAME account's format videos, last 2 windows vs before (median of per-account ratios, accounts with 3+
+// Reward: the SAME account's format videos, last 2 weeks vs the weeks before (median of per-account ratios, accounts with 3+
 // videos on each side), so a sample of today's active accounts can't fake it. Entry: new accounts born in the last
 // 2 windows vs the average 2 windows before. Newcomer hits: accounts under 150 days with a hit in the last 60 days.
+// Day by day for the last 7 days (Jonny 26 Nov): posts, accounts, median views, and views per day since posting, since a
+// 1-day-old video has had less time than a 6-day-old one. The daily scout's snapshots will replace this with views at
+// the same age.
+export function dailyTable(rows, now) {
+  const out = [];
+  for (let d = 7; d >= 1; d--) {
+    const from = now - d * DAY, to = from + DAY, v = rows.filter((r) => r.posted >= from && r.posted < to);
+    out.push({ day: new Date(from * 1000).toISOString().slice(0, 10), videos: v.length, posters: new Set(v.map((r) => r.account)).size,
+      medianViews: Math.round(median(v.map((r) => r.views))), perDay: Math.round(median(v.map((r) => r.views / Math.max((now - r.posted) / DAY, 0.5)))) });
+  }
+  return out;
+}
+
 export function verdict(rows, wins, o, now) {
   const cut = now - FRESH * DAY - 2 * WINDOW * DAY, start = now - FRESH * DAY - o.windows * WINDOW * DAY;
   const ratios = [];
   for (const a of new Set(rows.map((r) => r.account))) {
     const mine = rows.filter((r) => r.account === a && r.posted < now - FRESH * DAY && r.posted >= start);
     const rec = mine.filter((r) => r.posted >= cut).map((r) => r.views), old = mine.filter((r) => r.posted < cut).map((r) => r.views);
-    if (rec.length >= 3 && old.length >= 3) ratios.push(median(rec) / Math.max(median(old), 1));
+    if (rec.length >= 2 && old.length >= 3) ratios.push(median(rec) / Math.max(median(old), 1));
   }
   const reward = ratios.length >= 3 ? +median(ratios).toFixed(2) : null;
   const inRange = rows.filter((r) => r.posted < now - FRESH * DAY && r.posted >= start);
@@ -80,28 +93,32 @@ export function verdict(rows, wins, o, now) {
   const recentNew = wins.slice(-2).reduce((s, w) => s + w.newAccounts, 0);
   const olderNew = wins.slice(0, -2).reduce((s, w) => s + w.newAccounts, 0) / Math.max((wins.length - 2) / 2, 1);
   const entry = +(recentNew / Math.max(olderNew, 0.5)).toFixed(2);
-  // Newcomer odds: accounts under 150 days that tried it in the last 60 days, and how many of them got a format video
+  // Newcomer odds: accounts under 150 days that tried it in the last 2 weeks, and how many of them got a format video
   // at 2x+ their own usual views (older saved runs without `usual`: the --min-views bar instead)
-  const young = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 60 * DAY);
+  const young = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 17 * DAY && now - r.posted >= FRESH * DAY);
   const newPosters = new Set(young.map((r) => r.account)).size;
   const beat = (r) => (r.usual != null ? r.views >= 2 * Math.max(r.usual, 1) && r.views >= 20000 : r.views >= o.minViews);
   const newHits = new Set(young.filter(beat).map((r) => r.account)).size;
   const newShare = newPosters >= 3 ? +(newHits / newPosters).toFixed(2) : null; // room for one more? (under 3 = unknown)
-  // short read when the long one can't be made: last 4 weeks vs the 4 before (more accounts but a lower median = crowding)
-  const [w1, w2] = wins.slice(-2), short = w1 && w2 && w1.videos >= 10 && w2.videos >= 10
-    ? { posters: w2.posters / Math.max(w1.posters, 1), views: w2.medianViews / Math.max(w1.medianViews, 1) } : null;
-  const shortWord = !short ? null : short.posters >= 1.2 && short.views < 0.7 ? "CROWDING (4-week read): more accounts, lower median views"
-    : short.posters >= 1.2 ? "RISING (4-week read): more accounts and views hold"
-    : short.views < 0.7 ? "FADING (4-week read): lower median views" : short.views > 1.4 ? "HEATING UP (4-week read): higher median views" : "STEADY (4-week read)";
+  // pooled read when too few accounts can be compared with themselves: last 2 weeks vs the weeks before, accounts
+  // posting per week and median views of all their format videos (more accounts but a lower median = crowding)
+  const lastW = wins.slice(-2), prevW = wins.slice(0, -2);
+  const pv = (ws) => rows.filter((r) => ws.some((w) => r.posted >= Date.parse(w.from) / 1000 && r.posted < Date.parse(w.to) / 1000)).map((r) => r.views);
+  const lastV = pv(lastW), prevV = pv(prevW);
+  const short = lastV.length >= 8 && prevV.length >= 8 ? { posters: (lastW.reduce((s, w) => s + w.posters, 0) / 2) / Math.max(prevW.reduce((s, w) => s + w.posters, 0) / prevW.length, 0.5),
+    views: median(lastV) / Math.max(median(prevV), 1) } : null;
+  const shortWord = !short ? null : short.posters >= 1.2 && short.views < 0.7 ? "CROWDING: more accounts per week, lower median views"
+    : short.posters >= 1.2 ? "RISING: more accounts per week and views hold"
+    : short.views < 0.7 ? "FADING: lower median views" : short.views > 1.4 ? "HEATING UP: higher median views" : "STEADY";
   const word = reward == null && shortWord ? shortWord
-    : reward == null && recV.length >= 20 && oldV.length < 6 ? "NEW: nearly all of it was posted in the last 8 weeks"
+    : reward == null && recV.length >= 20 && oldV.length < 6 ? "NEW: nearly all of it was posted in the last 2 weeks"
     : reward == null ? "too little data (fewer than 3 accounts with history on both sides)"
     : reward >= 1.3 ? "HEATING UP: the same accounts get more views with it now"
-    : reward >= 0.8 && entry >= 1.5 ? "RISING: still pays, and new accounts are piling in (get in now)"
+    : reward >= 0.8 && (entry >= 1.5 || (short && short.posters >= 1.3)) ? "RISING: still pays, and more accounts are piling in (get in now)"
     : reward >= 0.8 ? "STEADY: still pays as before"
-    : entry >= 1.5 ? "CROWDED: new accounts pile in, each video gets less"
+    : entry >= 1.5 || (short && short.posters >= 1.3) ? "CROWDED: more accounts pile in, each video gets less"
     : "FADING: the same accounts get fewer views with it";
-  return { word, reward, accountsCompared: ratios.length, entry, newHits, newPosters, newShare };
+  return { word, reward, postersPerWeek: short ? +short.posters.toFixed(2) : null, accountsCompared: ratios.length, entry, newHits, newPosters, newShare };
 }
 
 // Fetch (or read --from) and judge every format. Returns {now, all rows, report: [{f, wins, ver, rows, newWin, accounts}]}.
@@ -114,7 +131,7 @@ export async function runTrend(o) {
   for (const f of o.formats) {
     if (saved) {
       const rows = saved.rows.filter((r) => r.format === f.name), wins = trendTable(rows, o, now), ver = verdict(rows, wins, o, now);
-      const newWin = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 60 * DAY && r.views >= o.minViews).sort((a, b) => b.views - a.views);
+      const newWin = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 17 * DAY && r.views >= o.minViews).sort((a, b) => b.views - a.views);
       report.push({ f, wins, ver, rows, newWin, accounts: new Set(rows.map((r) => r.account)).size }); all.push(...rows);
       continue;
     }
@@ -134,7 +151,7 @@ export async function runTrend(o) {
         rows.push({ format: f.name, account: a, followers: profile.followers, created: profile.created, usual, posted: v.posted, views: v.views, url: v.url, title: v.title, flags: v.flags });
     }
     const wins = trendTable(rows, o, now), ver = verdict(rows, wins, o, now);
-    const newWin = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 60 * DAY && r.views >= o.minViews).sort((a, b) => b.views - a.views);
+    const newWin = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 17 * DAY && r.views >= o.minViews).sort((a, b) => b.views - a.views);
     report.push({ f, wins, ver, rows, newWin, accounts: accounts.length });
     all.push(...rows);
   }
@@ -150,15 +167,17 @@ async function main() {
     ["format", "account", "followers", "posted", "views", "title", "url"]);
   const fmt = (n) => (n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(n));
   let md = `# Format trend (${new Date().toISOString().slice(0, 10)}, TikTok)\n\nWindows of ${WINDOW} days, videos younger than ${FRESH} days left out. ` +
-    `Reward = the same accounts' format videos, last 2 windows vs before (x1.00 = no change). Entry = accounts born in the last 2 windows ` +
-    `that post it vs 2 earlier windows. Hit = ${fmt(o.minViews)}+ views.\n`;
+    `Reward = the same accounts' format videos, last 2 weeks vs the weeks before (x1.00 = no change). Entry = accounts born in the last 2 weeks ` +
+    `that post it vs 2 earlier weeks. Without enough accounts to compare with themselves: last 2 weeks vs the 2 before, pooled. Hit = ${fmt(o.minViews)}+ views.\n`;
   for (const { f, wins, ver, rows, newWin, accounts } of report) {
     md += `\n## ${f.name}: ${ver.word}\n\nReward x${ver.reward ?? "?"} (${ver.accountsCompared} accounts compared), entry x${ver.entry}. ` +
-      `${rows.length} format videos from ${accounts} accounts. Newcomer odds: ${ver.newHits} of ${ver.newPosters} new accounts (under 150 days) that tried it in the last 60 days beat their own usual views 2x` +
+      `${rows.length} format videos from ${accounts} accounts. Newcomer odds: ${ver.newHits} of ${ver.newPosters} new accounts (under 150 days) that tried it in the last 2 weeks beat their own usual views 2x` +
       `${ver.newShare == null ? " (too few to judge room)" : ` (${Math.round(ver.newShare * 100)}%)`}` +
       `${newWin.length ? ` (best: ${newWin[0].url} ${fmt(newWin[0].views)})` : ""}.\n\n` +
       `| Window | Videos | Accounts posting | Accounts born | Median views | Hits |\n|---|---|---|---|---|---|\n` +
-      wins.map((w) => `| ${w.from} to ${w.to} | ${w.videos} | ${w.posters} | ${w.newAccounts} | ${fmt(w.medianViews)} | ${w.hits} |`).join("\n") + "\n";
+      wins.map((w) => `| ${w.from} to ${w.to} | ${w.videos} | ${w.posters} | ${w.newAccounts} | ${fmt(w.medianViews)} | ${w.hits} |`).join("\n") + "\n" +
+      `\nLast 7 days, day by day (views still growing: compare views per day):\n\n| Day | Videos | Accounts | Median views | Views per day |\n|---|---|---|---|---|\n` +
+      dailyTable(rows, now).map((d) => `| ${d.day} | ${d.videos} | ${d.posters} | ${fmt(d.medianViews)} | ${fmt(d.perDay)} |`).join("\n") + "\n";
   }
   md += `\nLimits: only accounts that TikTok's keyword pages show today, so "accounts posting" always looks like it grows; the verdict uses ` +
     `the same-account reward and account birth dates instead. Daily posters' latest ${o.videos} videos may not reach the oldest windows.\n`;
