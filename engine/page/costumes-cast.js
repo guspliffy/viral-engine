@@ -14,6 +14,7 @@ import { judge } from "./costumes-judge.js";
 import { jackal } from "./costumes-jackal.js";
 import { stnick } from "./costumes-stnick.js";   // krampus myth 01: Saint Nick on Spud's body
 import { assessor } from "./costumes-assessor.js";
+import { ex, EX_TYPES } from "./costumes-ex.js";   // heaven terms: the hero's ex (costume type "ex", USAGE header there)
 
 // The rest of Jonny's potato fighters in 3D, from his reference portraits (2026-10-24): Astronaut, Viking, Dragon,
 // Norse god (Odin-like, with raven), Samurai and Sorcerer, plus the Gunslinger's two pistols (`pistols: true`).
@@ -322,13 +323,14 @@ export function addBeard(ch, B) {
   return beard;
 }
 
-export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid", "spud", "clown", ...EVERYDAY, ...ALIEN_TYPES, ...PLATO_TYPES];
+export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid", "spud", "clown", ...EVERYDAY, ...ALIEN_TYPES, ...PLATO_TYPES, ...EX_TYPES];
 
 // returns { hat, sitDepth, prop, apply(st, t, hands) } for the cast types, or for `pistols` alone (hat stays the caller's)
 export function castCostume(C, ch) {
   const parts = ch.potatoParts, out = { hat: null, sitDepth: 0, prop: null, extra: [], apply() {} };
   const T = C.type;
   // costume.art (castLook "art"): the detailed, integrated costumes (costumes-art-cast.js)
+  if (T === "ex") return ex(C, ch, out);   // the hero's ex (costumes-ex.js)
   if (C.stnick) return stnick(C, ch, out);   // krampus myth 01: Saint Nick on Spud's body (costumes-stnick.js)
   if (C.jackal) return jackal(C, ch, out);   // egypt myth 01: the jackal judge on Mash's body (costumes-jackal.js)
   if (C.assessor) return assessor(C, ch, out);   // egypt myth 01: the 42 judges on Spud's body (costumes-assessor.js)
