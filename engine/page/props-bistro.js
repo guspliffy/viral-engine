@@ -32,6 +32,10 @@ import { flameMesh, glowMesh } from "./props-candle.js";
 //   fishbone     a cartoon fish skeleton (head, spine, ribs, tail), lying flat. Origin: its middle.
 //   napkin       a white napkin tucked in at the neck (worn: spec.wear, in the body's frame), hanging down the chest.
 //   waiterapron  a short white waiter's apron round the front of the body (worn: spec.wear), its tie band at the waist.
+//                Keys (y0 band height 0.4, y1 hem 0.07, rx 0.44, rz 0.39, arc 130, color #f4f1ea): all three below default OFF (today's look).
+//                band "#hex" (tie band colour, default #2b2b33), bandArc degrees the band runs round (default arc x 1.3; 360 = all round),
+//                bow true (a bow at the back middle, 0.01 under y0: two loops 0.07 x 0.045 tipped 20 degrees down, a knot 0.025, two tails
+//                0.11 and 0.14 long, 0.028 wide, in the band colour, at the back of the band). Kid vs Dad 04's waiter: band "#f4f1ea", bandArc 360, bow true.
 //   cardreader   a card machine: a dark handset with a little lit screen and keypad (0.078 x 0.155 x 0.03), held with
 //                the phone hold, its screen toward the holder.
 //   bottlecandle a candle stuck in a green wine bottle with wax run down its neck, lit (`lit`, default 1).
@@ -348,12 +352,24 @@ export const BISTRO_KINDS = {
 
   waiterapron(P) {
     const S = P.spec, y0 = S.y0 ?? 0.4, y1 = S.y1 ?? 0.07, rx = S.rx ?? 0.44, rz = S.rz ?? 0.39, arc = ((S.arc ?? 130) * Math.PI) / 180;
-    const cloth = mat(S.color ?? "#f4f1ea", { roughness: 0.85, side: THREE.DoubleSide }), band = mat("#2b2b33", { roughness: 0.6, side: THREE.DoubleSide });
+    const cloth = mat(S.color ?? "#f4f1ea", { roughness: 0.85, side: THREE.DoubleSide }), band = mat(S.band ?? "#2b2b33", { roughness: 0.6, side: THREE.DoubleSide }), bandArc = S.bandArc != null ? (S.bandArc * Math.PI) / 180 : arc * 1.3;
     const skirt = new THREE.CylinderGeometry(1, 1.04, y0 - y1, 28, 1, true, Math.PI - arc / 2 + Math.PI, arc);
     const m = mesh(skirt, cloth, P.whole, 0, (y0 + y1) / 2, 0); m.scale.set(rx, 1, rz);
-    const b = mesh(new THREE.CylinderGeometry(1.005, 1.005, 0.035, 28, 1, true, Math.PI - (arc * 1.3) / 2 + Math.PI, arc * 1.3), band, P.whole, 0, y0 - 0.01, 0); b.scale.set(rx, 1, rz);
+    const b = mesh(new THREE.CylinderGeometry(1.005, 1.005, 0.035, 28, 1, true, Math.PI - bandArc / 2 + Math.PI, bandArc), band, P.whole, 0, y0 - 0.01, 0); b.scale.set(rx, 1, rz);
     // a pocket on the front
     const pk = mesh(new THREE.PlaneGeometry(0.16, 0.08), mat("#e7e2d6", { roughness: 0.85, side: THREE.DoubleSide }), P.whole, 0.08, (y0 + y1) / 2 - 0.02, rz * 1.02 + 0.003); pk.castShadow = false;
+    if (S.bow) {   // at the back middle (-z), 0.01 under y0: two loops tipped down, a knot, two tails
+      const bm = mat(S.band ?? "#2b2b33", { roughness: 0.85, side: THREE.DoubleSide }), bz = -(rz * 1.005 + 0.006), by = y0 - 0.01, A = (20 * Math.PI) / 180;
+      for (const sx of [-1, 1]) {   // loops 0.07 x 0.045: the inner end at the knot, the outer end 20 degrees lower
+        const loop = mesh(new THREE.SphereGeometry(1, 16, 10), bm, P.whole, sx * (0.0125 + 0.035 * Math.cos(A)), by - 0.035 * Math.sin(A), bz - 0.002);
+        loop.scale.set(0.035, 0.0225, 0.008); loop.rotation.z = -sx * A;
+      }
+      mesh(new THREE.SphereGeometry(1, 12, 8), bm, P.whole, 0, by, bz - 0.004).scale.set(0.0125, 0.0125, 0.008);
+      for (const [sx, L] of [[-1, 0.11], [1, 0.14]]) {   // tails 0.028 wide, splayed 9 degrees, hanging from the knot
+        const a = sx * 0.157, tl = mesh(new THREE.BoxGeometry(0.028, L, 0.005), bm, P.whole, sx * (L / 2) * Math.sin(0.157), by - (L / 2) * Math.cos(0.157), bz - 0.002 + (sx > 0 ? -0.002 : 0));
+        tl.rotation.z = a;
+      }
+    }
     return { grip: 0 };
   },
 

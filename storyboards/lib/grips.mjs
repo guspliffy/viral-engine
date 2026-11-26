@@ -66,6 +66,8 @@ const SIZE = {
   candy: { len: 0.04, r: 0.024 },                  // props-halloween.js candy (big 1.3): the sweet's middle is 0.02 up
   wallcalendar: { w: 0.26, h: 0.34, t: 0.008 },    // props-notyet.js CALENDAR: held with the phone hold, its grid (-z) faces away from the holder
   clipboard: { w: 0.24, h: 0.32, t: 0.008 },       // props-spree.js: the estate agent's clipboard (money redo), phone hold, paper on -z
+  servetray: { w: 0.38, h: 0.022, d: 0.38 },        // props-waiter.js (Kid vs Dad 04): the round drinks tray r 0.19, origin bottom centre: box hold, both palms on the rim (call box with gap: 0.03)
+  tipbill: { w: 0.17, h: 0.25, t: 0.012 },           // props-waiter.js (Kid vs Dad 04): the bill tray + slip, standing on its bottom edge, slip on -z: phone hold on a side edge (side "R", height 0.40)
   manilafolder: { w: 0.24, h: 0.32, t: 0.008 },    // props-office11.js: Mash's folder (Potato Desk 11), phone hold on the lower edge; marks on both faces; spec.fan tips it +-18 deg at 4 Hz
   bigcheck: { w: 0.56, h: 0.002, d: 0.24 },        // props-spree.js: the $10,000,000 check (money redo), lies flat
   hotelpillow: { w: 0.5, h: 0.12, d: 0.3 },        // props-nightcity.js: both palms on its two ends (box hold: L at x -0.25, R at x +0.25)
@@ -200,6 +202,11 @@ const SIZE = {
   drumsticks: { r: 0.008, h: 0 },
   // props-foodhome.js (Kid vs Dad 02): wrapburger = box hold, both palms on the paper (origin bottom centre, 0.24 across, 0.155 tall; the design's y 0.05 = height 0.32, gap 0.03)
   wrapburger: { w: 0.24, h: 0.155, d: 0.24 },
+  // props-gum.js (Kid vs Dad 06): gumstick = thin pinch on the foil sleeve (from: 0.25 = y 0.0275, under the paper band); potlid = the shield, held rigid in the right mitt by GUM_GRIPS.potlid.back (built facing +z, origin the rim plane's centre);
+  // xrayfilm = box hold, both palms on the side edges at y 0.253 (the reviewtablet hold; the picture on -z)
+  gumstick: { len: 0.11, r: 0.005 },
+  potlid: { w: 0.44, h: 0.44, d: 0.07 },
+  xrayfilm: { w: 0.34, h: 0.46, d: 0.02 },
   // props-carrots.js (Kid vs Dad 05): carrotstick = thin pinch with spec up: true (origin the thick end, thin end up, len = its true 0.11): call thin with { from: 0.28 } (y 0.031 from the thick end; 0.32 hides the thick end in the glove: thin-prop-hidden); carrotbag = box hold, palms on the sides (height 0.4 = y 0.12)
   carrotstick: { len: 0.11, r: 0.009, w: 0.11, h: 0.02, d: 0.02 },
   carrotbag: { w: 0.22, h: 0.30, d: 0.14 },
