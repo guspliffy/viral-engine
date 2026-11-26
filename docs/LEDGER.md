@@ -132,6 +132,13 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   keep silent render waits at 0 and lower `waits`. Proof: a stale lock is taken in 0 ms, a live one is waited for
   (3.0 s for a 3 s holder) and named, a still render releases it on exit.
 
+- A laugh is not a misread (26 Nov, from Potato Desk 14 Don't Laugh; waits for Jonny's word): preflight failed every
+  jury-laugh take as "made-up words" because Whisper splits and counts the ha's its own way ("Hahaha! Ha ha!" heard as
+  seven HA's); three laugh retakes and text changes went in before the draft could render. `misread()` in
+  `engine/voice/speech.mjs` now takes a line written and heard as laugh syllables only as a match; any other word in
+  either still counts. Should keep laugh retakes at 0. Proof: qa/selftest.mjs case (the three Don't Laugh misreads
+  pass, "this clear." after a laugh or a line still fails); no render changes.
+
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
 
