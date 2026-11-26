@@ -92,6 +92,7 @@ const SIZE = {
   button: { len: 0.064, r: 0.004 },                // props-diner.js big button standing on its edge: pinched at its rim (thin hold, from ~0.9)
   fry: { len: 0.1, r: 0.006 },                     // props-diner.js one fry standing on its end: the thin pinch near its top
   paycard: { w: 0.054, h: 0.086, t: 0.003 },       // props-diner.js bank card: the phone hold, its face away from the holder
+  bankcard: { w: 0.086, h: 0.054, t: 0.003 },      // props-checkout-goods.js blue bank card (country vs country 01), landscape
   coffeecup: { r: 0.045, h: 0.115 },               // props-coffee.js takeaway cup (the cocoacup's size): the mug hold round the sleeve
   iounote: { w: 0.16, h: 0.16, t: 0.002 },         // props-coffee.js sticky note: the phone hold (its writing is on the back: it faces whoever he shows it to)
   feltpen: { len: 0.13, r: 0.009 },                // props-coffee.js marker, its felt tip at the bottom: the thin pinch high on the body

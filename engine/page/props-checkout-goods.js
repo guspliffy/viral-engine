@@ -87,9 +87,24 @@ function bagGeos(w = BAG.w, h = BAG.h, d = BAG.d) {
   const ring = merge([box(bw, band, wall, 0, h - band / 2, (bd - wall) / 2), box(bw, band, wall, 0, h - band / 2, -(bd - wall) / 2),
     box(wall, band, bd - 2 * wall, (bw - wall) / 2, h - band / 2, 0), box(wall, band, bd - 2 * wall, -(bw - wall) / 2, h - band / 2, 0)]);
   const mouth = box(bw - 2 * wall, 0.002, bd - 2 * wall, 0, h - wall, 0);
-  return { body, ring, mouth };
+  // Sol r1 (26 Nov): the bags read as boxes. A cut zigzag crown on the rim (diamonds half over the top edge) and the side
+  // gussets (a dark crease down the middle of each narrow side, a V into the bottom corners) make them paper bags.
+  const tooth = (x, z, alongX) => { const g = new THREE.BoxGeometry(alongX ? 0.022 : wall, alongX ? 0.022 : 0.022, alongX ? wall : 0.022); if (alongX) g.rotateZ(Math.PI / 4); else g.rotateX(Math.PI / 4); g.translate(x, h, z); return g; };
+  const teeth = [];
+  for (let i = 0, n = 7; i < n; i++) { const x = (i - (n - 1) / 2) * (bw - 0.03) / (n - 1); teeth.push(tooth(x, (bd - wall) / 2, true), tooth(x, -(bd - wall) / 2, true)); }
+  for (let i = 0, n = 4; i < n; i++) { const z = (i - (n - 1) / 2) * (bd - 0.03) / (n - 1); teeth.push(tooth((bw - wall) / 2, z, false), tooth(-(bw - wall) / 2, z, false)); }
+  const crown = merge(teeth);
+  const lines = [];
+  for (const sx of [-1, 1]) {
+    const x = sx * (w / 2 + 0.0015), yv = 0.07;
+    lines.push(box(0.003, y0 - yv, 0.006, x, yv + (y0 - yv) / 2, 0));
+    for (const sz of [-1, 1]) { const len = Math.hypot(d / 2, yv), g = new THREE.BoxGeometry(0.003, len, 0.006); g.rotateX(sz * Math.atan2(d / 2, yv)); g.translate(x, yv / 2, sz * d / 4); lines.push(g); }
+  }
+  lines.push(box(w * 0.9, 0.004, 0.003, 0, y0 * 0.18, d / 2 + 0.0015), box(w * 0.9, 0.004, 0.003, 0, y0 * 0.18, -d / 2 - 0.0015));   // the bottom fold
+  const crease = merge(lines);
+  return { body, ring: merge([ring, crown]), mouth, crease };
 }
-const BAG_COL = { body: "#b98d5a", ring: "#cba06a", mouth: "#5e4526" };
+const BAG_COL = { body: "#b98d5a", ring: "#cba06a", mouth: "#5e4526", crease: "#7d5a33" };
 const tone = (hex, k) => new THREE.Color(hex).multiplyScalar(k);
 
 // ====================================================================================================== the bag heap
@@ -207,14 +222,14 @@ export const CHECKOUT_GOODS_KINDS = {
   bagheap(P) {
     const S = P.spec, pocket = S.pocket === false ? null : { x: 1.25, z: 0.95, r: 0.5, h: 0.5, ...(S.pocket || {}) };
     const list = heapBags(S.seed ?? 1, pocket, S.x ?? 0, S.z ?? 0), N = list.length, G = bagGeos();
-    const meshes = ["body", "ring", "mouth"].map((k) => {
+    const meshes = ["body", "ring", "mouth", "crease"].map((k) => {
       const im = new THREE.InstancedMesh(G[k], mat("#ffffff", { roughness: 0.88 }), N);
       im.castShadow = im.receiveShadow = true; im.frustumCulled = false; P.whole.add(im); return im;
     });
     const tmp = new THREE.Color(), M = new THREE.Matrix4(), Q = new THREE.Quaternion(), E = new THREE.Euler(0, 0, 0, "XZY"), Pv = new THREE.Vector3(), Sv = new THREE.Vector3();
     list.forEach((o, i) => {
       const k = 1 + (H(i * 5.1 + 3) - 0.5) * 0.1;   // +-5 % tint, so neighbours part in the line art's flat fills
-      meshes.forEach((im, m) => im.setColorAt(i, tmp.set(BAG_COL[["body", "ring", "mouth"][m]]).multiplyScalar(k)));
+      meshes.forEach((im, m) => im.setColorAt(i, tmp.set(BAG_COL[["body", "ring", "mouth", "crease"][m]]).multiplyScalar(k)));
     });
     for (const im of meshes) im.instanceColor.needsUpdate = true;
     let last = "";
@@ -238,7 +253,26 @@ export const CHECKOUT_GOODS_KINDS = {
     const S = P.spec, w = S.w ?? BAG.w, h = S.h ?? BAG.h, d = S.d ?? BAG.d, col = S.color || BAG_COL.body, G = bagGeos(w, h, d);
     mesh(G.body, mat(col, { roughness: 0.88 }), P.whole); mesh(G.ring, mat(new THREE.Color(col).lerp(new THREE.Color("#ffffff"), 0.14), { roughness: 0.88 }), P.whole);
     const m = mesh(G.mouth, mat(tone(col, 0.5)), P.whole); m.castShadow = false;
+    mesh(G.crease, mat(tone(col, 0.68), { roughness: 0.9 }), P.whole).castShadow = false;
     return { grip: h, apply() {} };
+  },
+
+  // ---------------------------------------------------------------------------------------------------- bankcard
+  // Sol r1 (26 Nov): the black portrait `paycard` read as a phone. A BLUE bank card, landscape 0.086 (x) x 0.054 (y) x 0.003,
+  // standing up, printed on BOTH faces (+z and -z: it reads from behind the hand too): blue #2f6fd6 with a lighter wave
+  // #5b95ee, a gold chip #e2b64a 0.012 x 0.009 at the left third, a white band of dots (no numerals, no letters).
+  // ORIGIN: the middle of the bottom edge. Hold it by a corner (grip 0.027 = mid height).
+  bankcard(P) {
+    const face = (flip) => canvasTex(172, 108, (c, w, h) => {
+      c.fillStyle = "#2f6fd6"; c.fillRect(0, 0, w, h);
+      c.fillStyle = "#5b95ee"; c.beginPath(); c.moveTo(0, h * 0.72); c.bezierCurveTo(w * 0.35, h * 0.45, w * 0.65, h * 0.95, w, h * 0.6); c.lineTo(w, h); c.lineTo(0, h); c.fill();
+      const cx = flip ? w * 0.72 : w * 0.28;
+      c.fillStyle = "#e2b64a"; c.fillRect(cx - 12, h * 0.30, 24, 18); c.strokeStyle = "#a8822c"; c.lineWidth = 2; c.strokeRect(cx - 12, h * 0.30, 24, 18);
+      c.fillStyle = "#ffffff"; for (let i = 0; i < 12; i++) c.fillRect(w * 0.14 + i * 11, h * 0.62, 6, 6);
+    });
+    const edge = mat("#1f4c99");
+    mesh(new THREE.BoxGeometry(0.086, 0.054, 0.003), [edge, edge, edge, edge, mat("#ffffff", { map: face(false), roughness: 0.4 }), mat("#ffffff", { map: face(true), roughness: 0.4 })], P.whole, 0, 0.027, 0);
+    return { grip: 0.027, apply() {} };
   },
 
   // ---------------------------------------------------------------------------------------------------- cashroll
