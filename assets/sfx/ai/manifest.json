@@ -5121,6 +5121,300 @@
      "loudnessLUFS": -21.8
     }
    ]
+  },
+  {
+   "id": "whistle-note",
+   "kind": "sfx",
+   "files": [
+    "whistle-note/whistle-note-01.wav",
+    "whistle-note/whistle-note-02.wav",
+    "whistle-note/whistle-note-03.wav",
+    "whistle-note/whistle-note-04.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "whistle",
+    "pipe",
+    "flute",
+    "note"
+   ],
+   "durationSec": 3.03,
+   "prompt": [
+    "a soft low wooden duct flute playing one long sustained note, breathy and woody, gentle, close dry recording, solo, no other instruments, no music",
+    "a low tin whistle holding one soft note, airy breath, quiet, solo, dry room, no other instruments"
+   ],
+   "seed": [
+    902,
+    901,
+    901,
+    902
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -7.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "whistle-note/whistle-note-01.wav",
+     "take": "p1-s902",
+     "prompt": "a low tin whistle holding one soft note, airy breath, quiet, solo, dry room, no other instruments",
+     "seed": 902,
+     "startSec": 7.637,
+     "durationSec": 1.81,
+     "clap": -0.043,
+     "snrDb": 59.4,
+     "loudnessLUFS": -5.8
+    },
+    {
+     "file": "whistle-note/whistle-note-02.wav",
+     "take": "p0-s901",
+     "prompt": "a soft low wooden duct flute playing one long sustained note, breathy and woody, gentle, close dry recording, solo, no other instruments, no music",
+     "seed": 901,
+     "startSec": 2.809,
+     "durationSec": 3.5,
+     "clap": -0.061,
+     "snrDb": 81.3,
+     "loudnessLUFS": -15.0
+    },
+    {
+     "file": "whistle-note/whistle-note-03.wav",
+     "take": "p1-s901",
+     "prompt": "a low tin whistle holding one soft note, airy breath, quiet, solo, dry room, no other instruments",
+     "seed": 901,
+     "startSec": 0.643,
+     "durationSec": 3.5,
+     "clap": -0.066,
+     "snrDb": 46.0,
+     "loudnessLUFS": -8.0
+    },
+    {
+     "file": "whistle-note/whistle-note-04.wav",
+     "take": "p1-s902",
+     "prompt": "a low tin whistle holding one soft note, airy breath, quiet, solo, dry room, no other instruments",
+     "seed": 902,
+     "startSec": 0.524,
+     "durationSec": 2.561,
+     "clap": -0.079,
+     "snrDb": 62.4,
+     "loudnessLUFS": -6.1
+    }
+   ]
+  },
+  {
+   "id": "rats-scurry",
+   "kind": "sfx",
+   "files": [
+    "rats-scurry/rats-scurry-01.wav",
+    "rats-scurry/rats-scurry-02.wav",
+    "rats-scurry/rats-scurry-03.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "rats",
+    "mice",
+    "scurry",
+    "squeak"
+   ],
+   "durationSec": 3.103,
+   "prompt": [
+    "many rats scurrying and squeaking on wooden floor and stone, swarm of small claws, close, realistic, no music",
+    "a crowd of mice and rats running over grain sacks, tiny claws and soft squeaks, realistic field recording, no music"
+   ],
+   "seed": [
+    912,
+    913,
+    913
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "rats-scurry/rats-scurry-01.wav",
+     "take": "p0-s912",
+     "prompt": "many rats scurrying and squeaking on wooden floor and stone, swarm of small claws, close, realistic, no music",
+     "seed": 912,
+     "startSec": 4.179,
+     "durationSec": 3.103,
+     "clap": 0.147,
+     "snrDb": 68.4,
+     "loudnessLUFS": -25.3
+    },
+    {
+     "file": "rats-scurry/rats-scurry-02.wav",
+     "take": "p0-s913",
+     "prompt": "many rats scurrying and squeaking on wooden floor and stone, swarm of small claws, close, realistic, no music",
+     "seed": 913,
+     "startSec": 1.125,
+     "durationSec": 2.598,
+     "clap": 0.111,
+     "snrDb": 58.2,
+     "loudnessLUFS": -21.5
+    },
+    {
+     "file": "rats-scurry/rats-scurry-03.wav",
+     "take": "p1-s913",
+     "prompt": "a crowd of mice and rats running over grain sacks, tiny claws and soft squeaks, realistic field recording, no music",
+     "seed": 913,
+     "startSec": 4.145,
+     "durationSec": 5.233,
+     "clap": 0.089,
+     "snrDb": 38.8,
+     "loudnessLUFS": -23.4
+    }
+   ]
+  },
+  {
+   "id": "church-bell-far",
+   "kind": "sfx",
+   "files": [],
+   "gain": 0.25,
+   "tags": [
+    "bell",
+    "church",
+    "distant"
+   ],
+   "durationSec": NaN,
+   "prompt": [
+    "a single old church bell ringing slowly far away across a town at night, distant and soft, realistic, no music",
+    "distant medieval church bell tolling, faint, echo over rooftops, quiet night, no music"
+   ],
+   "seed": [],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": 0.0,
+   "replaces": null,
+   "takes": []
+  },
+  {
+   "id": "fog-air",
+   "kind": "sfx",
+   "files": [
+    "fog-air/fog-air-01.wav",
+    "fog-air/fog-air-02.wav"
+   ],
+   "gain": 0.08,
+   "tags": [
+    "wind",
+    "fog",
+    "air",
+    "night"
+   ],
+   "durationSec": 8.0,
+   "prompt": [
+    "soft low night wind over an empty hill, very quiet airy hush, realistic, no music",
+    "gentle cold breeze through grass at night, quiet hush, field recording, no music"
+   ],
+   "seed": [
+    931,
+    932
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -15.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "fog-air/fog-air-01.wav",
+     "take": "p0-s931",
+     "prompt": "soft low night wind over an empty hill, very quiet airy hush, realistic, no music",
+     "seed": 931,
+     "startSec": 1.097,
+     "durationSec": 8.0,
+     "clap": -0.145,
+     "snrDb": 27.3,
+     "loudnessLUFS": -14.9
+    },
+    {
+     "file": "fog-air/fog-air-02.wav",
+     "take": "p0-s932",
+     "prompt": "soft low night wind over an empty hill, very quiet airy hush, realistic, no music",
+     "seed": 932,
+     "startSec": 1.009,
+     "durationSec": 8.0,
+     "clap": -0.166,
+     "snrDb": 60.2,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "men-laugh",
+   "kind": "sfx",
+   "files": [
+    "men-laugh/men-laugh-01.wav",
+    "men-laugh/men-laugh-02.wav",
+    "men-laugh/men-laugh-03.wav",
+    "men-laugh/men-laugh-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "laugh",
+    "men",
+    "crowd"
+   ],
+   "durationSec": 4.0,
+   "prompt": [
+    "a small group of men laughing loudly and mockingly in a stone hall, realistic, no music",
+    "several older men guffawing at a joke in a tavern, realistic recording, no music"
+   ],
+   "seed": [
+    941,
+    941,
+    942,
+    942
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -15.7,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "men-laugh/men-laugh-01.wav",
+     "take": "p1-s941",
+     "prompt": "several older men guffawing at a joke in a tavern, realistic recording, no music",
+     "seed": 941,
+     "startSec": 0.982,
+     "durationSec": 4.0,
+     "clap": -0.085,
+     "snrDb": 66.7,
+     "loudnessLUFS": -16.8
+    },
+    {
+     "file": "men-laugh/men-laugh-02.wav",
+     "take": "p0-s941",
+     "prompt": "a small group of men laughing loudly and mockingly in a stone hall, realistic, no music",
+     "seed": 941,
+     "startSec": 0.068,
+     "durationSec": 4.0,
+     "clap": -0.09,
+     "snrDb": 46.8,
+     "loudnessLUFS": -15.2
+    },
+    {
+     "file": "men-laugh/men-laugh-03.wav",
+     "take": "p0-s942",
+     "prompt": "a small group of men laughing loudly and mockingly in a stone hall, realistic, no music",
+     "seed": 942,
+     "startSec": 0.124,
+     "durationSec": 4.0,
+     "clap": -0.114,
+     "snrDb": 80.1,
+     "loudnessLUFS": -14.6
+    },
+    {
+     "file": "men-laugh/men-laugh-04.wav",
+     "take": "p1-s942",
+     "prompt": "several older men guffawing at a joke in a tavern, realistic recording, no music",
+     "seed": 942,
+     "startSec": 2.909,
+     "durationSec": 3.537,
+     "clap": -0.138,
+     "snrDb": 71.8,
+     "loudnessLUFS": -16.2
+    }
+   ]
   }
  ]
 }
