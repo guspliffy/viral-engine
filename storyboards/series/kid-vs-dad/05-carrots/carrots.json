@@ -1,0 +1,5702 @@
+{
+ "id": "carrots",
+ "title": "When your dad says carrots help you see in the dark",
+ "idea": "Kid vs Dad 05: Dad says carrots help you see in the dark; a war reporter covers Tato's three-night mission to the cookie jar (one stick, a bowl, the whole bag, more orange each time, glowing eyes on night 3); in the dark kitchen a second pair of eyes glows: Dad in night-vision goggles, hand in the jar. '...Carrots.'",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  210,
+  1230
+ ],
+ "captionStyle": "kinetic",
+ "captionOverBody": {
+  "reason": "close-ups where the speaker fills the phone frame; captions sit in the upper third over the body, never the eyes (rule from the 8-min film trial, Jonny OK 20 Nov)"
+ },
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "night": true,
+  "floor": "none",
+  "light": "dusk",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "bloom": "emissive",
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   -0.02,
+   {
+    "s": 1.12,
+    "w": 0.5,
+    "c": 1,
+    "lift": 0.03,
+    "tint": "#ffffff"
+   }
+  ],
+  [
+   4.013,
+   {
+    "nv": true
+   }
+  ],
+  [
+   6.88,
+   {
+    "s": 1.12,
+    "w": 0.5,
+    "c": 1,
+    "lift": 0.03,
+    "tint": "#ffffff"
+   }
+  ],
+  [
+   23.747,
+   {
+    "s": 0.8,
+    "w": -0.6,
+    "c": 1.05,
+    "lift": -0.08,
+    "tint": "#c8d4ff"
+   }
+  ],
+  [
+   30.113,
+   {
+    "s": 1.15,
+    "w": 0.8,
+    "c": 1,
+    "lift": 0.07,
+    "tint": "#ffffff"
+   }
+  ],
+  [
+   36.247,
+   {
+    "s": 0.8,
+    "w": -0.6,
+    "c": 1.05,
+    "lift": -0.08,
+    "tint": "#c8d4ff"
+   }
+  ],
+  [
+   40.58,
+   {
+    "s": 1.12,
+    "w": 0.5,
+    "c": 1,
+    "lift": 0.03,
+    "tint": "#ffffff"
+   }
+  ],
+  [
+   43.28,
+   {
+    "s": 0.8,
+    "w": -0.6,
+    "c": 1.05,
+    "lift": -0.08,
+    "tint": "#c8d4ff"
+   }
+  ],
+  [
+   45.48,
+   {
+    "nv": true
+   }
+  ],
+  [
+   46.78,
+   {
+    "s": 0.75,
+    "w": -0.6,
+    "c": 1.05,
+    "lift": -0.12,
+    "tint": "#b8c6ff"
+   }
+  ],
+  [
+   50.48,
+   {
+    "s": 1,
+    "w": -1,
+    "c": 1.6,
+    "lift": -0.62,
+    "tint": "#7080c0"
+   }
+  ],
+  [
+   51.88,
+   {
+    "s": 0.75,
+    "w": -0.6,
+    "c": 1.05,
+    "lift": -0.12,
+    "tint": "#b8c6ff"
+   }
+  ],
+  [
+   52.25,
+   {
+    "s": 1,
+    "w": -0.2,
+    "c": 1.05,
+    "lift": 0,
+    "tint": "#e6f0ff"
+   },
+   0.3
+  ]
+ ],
+ "fx": [
+  {
+   "do": "lights",
+   "at": -0.02,
+   "to": 1,
+   "lamp": 1,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 4.013,
+   "to": 0.15,
+   "lamp": 0,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 6.88,
+   "to": 1,
+   "lamp": 1,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 23.747,
+   "to": 0.15,
+   "lamp": 0,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 30.113,
+   "to": 1,
+   "lamp": 0,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 36.247,
+   "to": 0.15,
+   "lamp": 0,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 40.58,
+   "to": 1,
+   "lamp": 1,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 43.28,
+   "to": 0.15,
+   "lamp": 0,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 45.48,
+   "to": 0.15,
+   "lamp": 0,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 46.78,
+   "to": 0.12,
+   "lamp": 0.12,
+   "dur": 0.01
+  },
+  {
+   "do": "lights",
+   "at": 52.25,
+   "to": 0.12,
+   "lamp": 0.12,
+   "dur": 0.3
+  }
+ ],
+ "hud": {
+  "news": {
+   "label": "NIGHT MISSION",
+   "tag": "LIVE",
+   "tagW": 150,
+   "count": false,
+   "y": 214,
+   "show": [
+    3.95,
+    51.88
+   ]
+  }
+ },
+ "music": {
+  "file": "ai/orchestra-suspense/orchestra-suspense-01.ogg",
+  "lowCut": 150,
+  "gain": 0.14
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false,
+  "surface": "wood"
+ },
+ "creative": {
+  "length": [
+   55,
+   95
+  ]
+ },
+ "hook": {
+  "show": [
+   "dad",
+   "spud"
+  ],
+  "hint": 0,
+  "what": "Dad slides a plate of carrots to his son and points at his own eyes: 'Carrots. Eat them, and you see in the dark.'"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    0.55,
+    -0.2
+   ],
+   "face": -25,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 4.1
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    -0.55,
+    -0.42
+   ],
+   "face": 20,
+   "expr": "stern",
+   "follow": 0.25,
+   "seed": 2.9
+  },
+  {
+   "id": "rep",
+   "character": "potatobrawl/reporter",
+   "at": [
+    202.75,
+    0.75
+   ],
+   "face": -35,
+   "follow": 0.3,
+   "seed": 131.3
+  }
+ ],
+ "props": [
+  {
+   "id": "kitchen",
+   "kind": "kitchenroom",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fridge": false,
+   "lamp": 1,
+   "time": 2.75
+  },
+  {
+   "id": "fridge",
+   "kind": "openfridge",
+   "x": -3,
+   "y": 0,
+   "z": -1.9,
+   "rot": 0,
+   "open": 0,
+   "lit": 0
+  },
+  {
+   "id": "unit",
+   "kind": "pantryshelf",
+   "x": -4.66,
+   "y": 0,
+   "z": -1.3,
+   "rot": 90,
+   "wall": 3.6
+  },
+  {
+   "id": "jar",
+   "kind": "cookiejar",
+   "x": -4.66,
+   "y": 0.95,
+   "z": -1.42,
+   "fill": 1,
+   "lid": 1
+  },
+  {
+   "id": "stool",
+   "kind": "stepstool",
+   "h": 0.74,
+   "scale": 1.25,
+   "x": -4.02,
+   "y": -9,
+   "z": -1.3,
+   "rot": 90
+  },
+  {
+   "id": "table",
+   "kind": "kitchentable",
+   "x": 0,
+   "y": 0,
+   "z": 0.35,
+   "w": 1.3,
+   "d": 0.6,
+   "h": 0.3
+  },
+  {
+   "id": "plate",
+   "kind": "plate",
+   "x": -0.22,
+   "y": 0.3,
+   "z": 0.22
+  },
+  {
+   "id": "pile",
+   "kind": "carrotpile",
+   "x": -0.22,
+   "y": 0.319,
+   "z": 0.22,
+   "n": 14
+  },
+  {
+   "id": "bowl",
+   "kind": "carrotbowl",
+   "x": 0.3,
+   "y": 0.3,
+   "z": 0.28,
+   "fill": 1
+  },
+  {
+   "id": "stick",
+   "kind": "carrotstick",
+   "up": true,
+   "x": 0.4,
+   "y": 0.37,
+   "z": 0.045,
+   "rot": 180,
+   "tip": 0,
+   "tilt": -80
+  },
+  {
+   "id": "bag",
+   "kind": "carrotbag",
+   "x": 0.55,
+   "y": 0.03,
+   "z": 0.17,
+   "rot": 360,
+   "tip": 25
+  },
+  {
+   "id": "mug",
+   "kind": "teamug",
+   "x": -0.3,
+   "y": 0.3,
+   "z": 0.2,
+   "rot": 255,
+   "steam": 0.6
+  },
+  {
+   "id": "crumbs",
+   "kind": "crumbs",
+   "wear": "dad",
+   "x": 0,
+   "y": 0.63,
+   "z": 0.39
+  },
+  {
+   "id": "gog",
+   "kind": "nvgoggles",
+   "wear": "dad",
+   "x": 0,
+   "y": 0.842,
+   "z": 0.355,
+   "up": 0,
+   "lit": 1
+  },
+  {
+   "id": "shine",
+   "kind": "eyeshine",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.445,
+   "z": 0.228,
+   "gap": 0.15,
+   "ew": 0.05,
+   "eh": 0.066,
+   "core": "#fff3c4",
+   "body": "#ffb02e",
+   "halo": "#ff7a1a",
+   "k": 0.8
+  },
+  {
+   "id": "cookie",
+   "kind": "chunkcookie",
+   "r": 0.06,
+   "cut": 1,
+   "x": -3.9,
+   "y": -3,
+   "z": -1
+  },
+  {
+   "id": "moonK",
+   "kind": "moonlamp",
+   "x": -2.5,
+   "y": 2.3,
+   "z": -0.5,
+   "range": 8
+  },
+  {
+   "id": "day",
+   "kind": "daywindow",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "hall",
+   "kind": "kidhall",
+   "x": 200,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "open": 0,
+   "strip": 0
+  },
+  {
+   "id": "toys",
+   "kind": "floortoys",
+   "x": 200,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "block",
+   "kind": "toyblock",
+   "x": 200.2,
+   "y": 0,
+   "z": 0.25
+  },
+  {
+   "id": "bed",
+   "kind": "bed",
+   "x": 195.4,
+   "y": 0,
+   "z": -0.95,
+   "cover": 0.55,
+   "drape": true,
+   "fold": "#efe6d2",
+   "blanket": "#4a67b5",
+   "dots": "#6f8ad0"
+  },
+  {
+   "id": "moonH",
+   "kind": "moonlamp",
+   "x": 200.9,
+   "y": 1.8,
+   "z": 0.2,
+   "range": 8
+  },
+  {
+   "id": "mic",
+   "kind": "newsmic",
+   "lean": 30,
+   "x": 202.168,
+   "y": 0.364,
+   "z": 0.709,
+   "rot": 145
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 4.013,
+   "text": "*Carrots.* Eat them, and you *see in the dark.*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 4.2,
+   "to": 6.87,
+   "text": "In the dark. *Is it true?*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 7.07,
+   "to": 10.8,
+   "text": "We're live. *Tato,* age seven, *hates carrots.*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 10.95,
+   "to": 17.246,
+   "text": "One rule: eat your carrots, and you *see in the dark.*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 17.37,
+   "to": 21.18,
+   "text": "The target: *the cookie jar.* Top shelf.",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 21.37,
+   "to": 22.946,
+   "text": "Night one. *One carrot.*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 26.27,
+   "to": 27.68,
+   "text": "Not *enough* carrots.",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 28.71,
+   "to": 29.96,
+   "text": "...Who is *crunching?*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 31.11,
+   "to": 32.27,
+   "text": "Eat up.",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 32.42,
+   "to": 34.81,
+   "text": "Dad, you have *crumbs.*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 34.86,
+   "to": 36.04,
+   "text": "...*Carrot* crumbs.",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 38.04,
+   "to": 40.58,
+   "text": "Night two. *Halfway there.*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 40.82,
+   "to": 43.19,
+   "text": "Night three. *The whole bag.*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 45.67,
+   "to": 46.72,
+   "text": "He can *see!*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 47.22,
+   "to": 50.2,
+   "text": "And the cookie jar... is *lighter* every night.",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 51.1,
+   "to": 51.88,
+   "text": "*Contact.*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 52.9,
+   "to": 53.646,
+   "text": "...Dad?",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 54.84,
+   "to": 55.94,
+   "text": "...*Carrots.*",
+   "pos": 330,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "carrots",
+   "at": 0,
+   "len": 4.033,
+   "shot": {
+    "pos": [
+     0.2,
+     0.72,
+     3.4
+    ],
+    "look": [
+     0.05,
+     0.62,
+     -0.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.191,
+      0.714,
+      3.184
+     ],
+     "look": [
+      0.05,
+      0.62,
+      -0.2
+     ],
+     "fov": 40
+    },
+    "dur": 4.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "crouch",
+     "to": 0.14,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.045,
+       0.02,
+       -0.054
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stick",
+     "set": {
+      "eaten": 0,
+      "y": -9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "crush": 0,
+      "fill": 1,
+      "y": -9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bowl",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "y": -9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "crumbs",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gog",
+     "set": {
+      "scale": 0.001,
+      "up": 0,
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "shine",
+     "set": {
+      "on": 0,
+      "pulse": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "moonK",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "moonH",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "day",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "open": 0,
+      "strip": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "open": 0,
+      "lit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "fill": 1,
+      "lid": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "skin",
+     "color": "#f39a45",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       -0.12,
+       0.02,
+       0
+      ],
+      "palm": [
+       -0.12,
+       -0.4,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "mic",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.056,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.09
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Carrots. Eat them, and you see in the dark.",
+     "tone": "calm",
+     "style": "a stern dad, dead certain, pointing at his eyes",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/dad-ref.wav",
+       "base": "a nasal, nerdy dad, matter-of-fact and a little whiny"
+      },
+      "note": "Dad (the new Dad B in Kid vs Dad): Jonny 25 Nov 2026 13:20 Berlin picked dad-8-nasal from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 53 after a male-pitch check; that take is the reference clip, so every line is the same voice)"
+     },
+     "dur": 3.72,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "plate",
+     "set": {
+      "x": 0.08,
+      "z": 0.28
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "x": 0.08,
+      "z": 0.28
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "plate",
+      "grip": [
+       -0.12,
+       0.02,
+       0
+      ],
+      "palm": [
+       -0.12,
+       -0.4,
+       0
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.55,
+      "tilt": -0.2,
+      "browY": -0.02,
+      "curve": -0.7,
+      "open": 0.35,
+      "smirk": 0.2
+     },
+     "dur": 0.25,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.35,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.4,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.4,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.7
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.2,
+       0.64,
+       0.5
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 1.85
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.15,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "moonH",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 4.013
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "in the dark",
+   "at": 4.033,
+   "len": 2.867,
+   "shot": {
+    "pos": [
+     201.2,
+     0.7,
+     3.2
+    ],
+    "look": [
+     202.6,
+     0.45,
+     0.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      201.298,
+      0.683,
+      3.018
+     ],
+     "look": [
+      202.6,
+      0.45,
+      0.6
+     ],
+     "fov": 40
+    },
+    "dur": 2.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "radio",
+     "gain": 0.2,
+     "at": 0.017
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.107
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "In the dark. Is it true?",
+     "tone": "whisper",
+     "style": "night vision, crouched in a dark hallway, tense",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 2.42,
+     "caption": false,
+     "at": 0.167
+    },
+    {
+     "do": "prop",
+     "id": "moonH",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.847
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.847
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.847
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.847
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.847
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.847
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.8,
+      "tilt": -0.2,
+      "curve": -0.4
+     },
+     "dur": 0.01,
+     "at": 2.847
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.847
+    }
+   ]
+  },
+  {
+   "name": "tato age seven",
+   "at": 6.9,
+   "len": 3.9,
+   "shot": {
+    "pos": [
+     0.4,
+     0.64,
+     1.95
+    ],
+    "look": [
+     0.32,
+     0.4,
+     -0.05
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.395,
+      0.626,
+      1.83
+     ],
+     "look": [
+      0.32,
+      0.4,
+      -0.05
+     ],
+     "fov": 42
+    },
+    "dur": 3.88,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.11
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Tato, age seven, hates carrots.",
+     "tone": "calm",
+     "style": "grave, low, a war correspondent under cover",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 3.48,
+     "caption": false,
+     "at": 0.17
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.7
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.92
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.2,
+     "at": 2.32
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.55,
+      "tilt": -0.2,
+      "browY": -0.02,
+      "curve": -0.7,
+      "open": 0.35,
+      "smirk": 0.2
+     },
+     "dur": 0.15,
+     "at": 2.32
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.08,
+     "at": 2.32
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -3.95,
+      -0.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.88
+    },
+    {
+     "who": "dad",
+     "do": "move",
+     "to": [
+      -1.4,
+      -1.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.88
+    },
+    {
+     "who": "dad",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.88
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 3.88
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.88
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.8,
+      "tilt": -0.1,
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 3.88
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.88
+    }
+   ]
+  },
+  {
+   "name": "one rule",
+   "at": 10.8,
+   "len": 6.466,
+   "shot": {
+    "pos": [
+     -2.9,
+     0.35,
+     1.2
+    ],
+    "look": [
+     -4.45,
+     0.8,
+     -1.1
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -3.024,
+      0.386,
+      1.016
+     ],
+     "look": [
+      -4.45,
+      0.8,
+      -1.1
+     ],
+     "fov": 42
+    },
+    "dur": 6.52,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.09
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And in this house, there is one rule: eat your carrots, and you see in the dark.",
+     "tone": "calm",
+     "style": "slow, ominous, a pause before the last words",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 6.12,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.8
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 3.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "pupil": 0.85,
+      "tilt": 0.25,
+      "curve": -0.1,
+      "open": 0.2
+     },
+     "dur": 0.3,
+     "at": 3.6
+    }
+   ]
+  },
+  {
+   "name": "the target",
+   "at": 17.266,
+   "len": 3.934,
+   "shot": {
+    "pos": [
+     -4.15,
+     1.25,
+     0.1
+    ],
+    "look": [
+     -4.62,
+     1.12,
+     -1.4
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -4.206,
+      1.234,
+      -0.08
+     ],
+     "look": [
+      -4.62,
+      1.12,
+      -1.4
+     ],
+     "fov": 30
+    },
+    "dur": 4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.044
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "The target: the cookie jar. Top shelf. Only in the dark.",
+     "tone": "calm",
+     "style": "a mission briefing, clipped, serious",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 3.7,
+     "caption": false,
+     "at": 0.104
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      -0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.914
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.914
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "n": 13
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.914
+    },
+    {
+     "do": "prop",
+     "id": "stick",
+     "set": {
+      "y": 0.37
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.914
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.005,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.01,
+     "at": 3.914
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stick",
+      "grip": [
+       0,
+       0.031,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       -0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.914
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.55,
+      "tilt": -0.2,
+      "browY": -0.02,
+      "curve": -0.7,
+      "open": 0.35,
+      "smirk": 0.2
+     },
+     "dur": 0.01,
+     "at": 3.914
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.914
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stick",
+      "grip": [
+       0,
+       0.031,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 3.924
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.005
+     },
+     "dur": 0.12,
+     "at": 3.93
+    }
+   ]
+  },
+  {
+   "name": "one carrot",
+   "at": 21.2,
+   "len": 1.766,
+   "shot": {
+    "pos": [
+     0.55,
+     0.5,
+     1.4
+    ],
+    "look": [
+     0.55,
+     0.44,
+     -0.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.55,
+      0.495,
+      1.272
+     ],
+     "look": [
+      0.55,
+      0.44,
+      -0.2
+     ],
+     "fov": 30
+    },
+    "dur": 1.75,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "stick",
+     "hand": "R",
+     "grip": [
+      0,
+      0.031,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.06
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.11
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Night one. One carrot.",
+     "tone": "calm",
+     "style": "quiet, tense",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 1.88,
+     "caption": false,
+     "at": 0.17
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.06,
+      "tilt": -0.45,
+      "browY": -0.04,
+      "curve": -0.6
+     },
+     "dur": 0.2,
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "stick",
+     "set": {
+      "eaten": 0.5
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 1.62
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.4,
+     "at": 1.62
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.1,
+     "at": 1.62
+    }
+   ]
+  },
+  {
+   "name": "put down",
+   "at": 22.966,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     0.4,
+     0.64,
+     1.95
+    ],
+    "look": [
+     0.32,
+     0.4,
+     -0.05
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.396,
+      0.628,
+      1.85
+     ],
+     "look": [
+      0.32,
+      0.4,
+      -0.05
+     ],
+     "fov": 42
+    },
+    "dur": 0.85,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.004
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stick",
+      "grip": [
+       0,
+       0.031,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.16,
+       0.38,
+       0.26
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.104
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.55,
+      "tilt": -0.2,
+      "browY": -0.02,
+      "curve": -0.7,
+      "open": 0.35,
+      "smirk": 0.2
+     },
+     "dur": 0.2,
+     "at": 0.154
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.3,
+     "at": 0.254
+    },
+    {
+     "do": "prop",
+     "id": "stick",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.454
+    },
+    {
+     "do": "prop",
+     "id": "stick",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.504
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "stick",
+     "dur": 0,
+     "at": 0.554
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.005,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.15,
+     "at": 0.554
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stick",
+      "grip": [
+       0,
+       0.031,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       -0.04
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.594
+    },
+    {
+     "do": "prop",
+     "id": "moonH",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      196.95,
+      0.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.4,
+      "tilt": 0.1,
+      "curve": 0
+     },
+     "dur": 0.01,
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.24,
+       0.12,
+       0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.24,
+       0.12,
+       0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.794
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.794
+    }
+   ]
+  },
+  {
+   "name": "tiptoe",
+   "at": 23.766,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     197.3,
+     0.6,
+     2.4
+    ],
+    "look": [
+     197.25,
+     0.4,
+     0.1
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      197.296,
+      0.584,
+      2.216
+     ],
+     "look": [
+      197.25,
+      0.4,
+      0.1
+     ],
+     "fov": 40
+    },
+    "dur": 2.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      197.64,
+      0.1
+     ],
+     "steps": 4,
+     "stride": 0.2,
+     "dur": 1.9,
+     "ease": "linear",
+     "at": 0.104
+    },
+    {
+     "sfx": "ai/step-wood",
+     "gain": 0.15,
+     "at": 0.354
+    },
+    {
+     "sfx": "ai/step-wood",
+     "gain": 0.15,
+     "at": 0.824
+    },
+    {
+     "sfx": "ai/step-wood",
+     "gain": 0.15,
+     "at": 1.294
+    }
+   ]
+  },
+  {
+   "name": "bonk",
+   "at": 25.266,
+   "len": 2.434,
+   "shot": {
+    "pos": [
+     197.45,
+     0.6,
+     2.4
+    ],
+    "look": [
+     197.7,
+     0.42,
+     0.1
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      197.46,
+      0.593,
+      2.308
+     ],
+     "look": [
+      197.7,
+      0.42,
+      0.1
+     ],
+     "fov": 44
+    },
+    "dur": 2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/step-wood",
+     "gain": 0.15,
+     "at": 0.264
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.6,
+     "at": 0.504
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.4,
+     "at": 0.504
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.06,
+     "at": 0.504
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.15,
+     "at": 0.504
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.05,
+      "tilt": -0.3,
+      "curve": -0.5
+     },
+     "dur": 0.08,
+     "at": 0.504
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      197.42,
+      0.1
+     ],
+     "steps": 1,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.564
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -14,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.564
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 0.604
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.754
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.944
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Not enough carrots.",
+     "tone": "sad",
+     "style": "wincing, flat, after a loud bonk",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 1.24,
+     "caption": false,
+     "at": 1.004
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.414
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.414
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.414
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      195.4,
+      -0.95
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.414
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.414
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "bed",
+     "dur": 0,
+     "hands": "keep",
+     "at": 2.414
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "strip": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.414
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": 0,
+      "curve": 0
+     },
+     "dur": 0.01,
+     "at": 2.414
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.414
+    }
+   ]
+  },
+  {
+   "name": "who is crunching",
+   "at": 27.7,
+   "len": 2.433,
+   "shot": {
+    "pos": [
+     195.4,
+     0.9,
+     1.4
+    ],
+    "look": [
+     195.4,
+     0.62,
+     -0.95
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      195.4,
+      0.872,
+      1.165
+     ],
+     "look": [
+      195.4,
+      0.62,
+      -0.95
+     ],
+     "fov": 40
+    },
+    "dur": 2.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.15,
+     "at": 0.26
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "pupil": 0.8,
+      "tilt": 0.2,
+      "curve": -0.1
+     },
+     "dur": 0.12,
+     "at": 0.31
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.31
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 2,
+     "at": 0.31
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.25,
+     "at": 0.31
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.15,
+     "at": 0.61
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.95
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.15,
+     "at": 0.96
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "...Who is crunching?",
+     "tone": "whisper",
+     "style": "suspicious, very quiet, listening",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 1,
+     "caption": false,
+     "at": 1.01
+    },
+    {
+     "who": "spud",
+     "do": "stand",
+     "dur": 0.01,
+     "at": 2.413
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "strip": 0,
+      "open": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "do": "prop",
+     "id": "moonH",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "do": "prop",
+     "id": "day",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      -0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.413
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.413
+    },
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 2.413
+    },
+    {
+     "who": "dad",
+     "do": "move",
+     "to": [
+      -0.55,
+      -0.42
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.413
+    },
+    {
+     "who": "dad",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.413
+    },
+    {
+     "who": "spud",
+     "do": "skin",
+     "color": "#f39a45",
+     "to": 1,
+     "dur": 0.01,
+     "at": 2.413
+    },
+    {
+     "do": "prop",
+     "id": "plate",
+     "set": {
+      "y": -9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "y": -9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "do": "prop",
+     "id": "stick",
+     "set": {
+      "y": -9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "do": "prop",
+     "id": "bowl",
+     "set": {
+      "scale": 1,
+      "fill": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "do": "prop",
+     "id": "crumbs",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "y": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 2.413
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       0.073,
+       0.056,
+       0.061
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.057,
+       0.02,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.413
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.1,
+      "tilt": 0.2,
+      "browY": 0.02,
+      "curve": 0.5
+     },
+     "dur": 0.01,
+     "at": 2.413
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.3,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.413
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.2,
+      "curve": -0.3
+     },
+     "dur": 0.01,
+     "at": 2.413
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.413
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       0.073,
+       0.056,
+       0.061
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.423
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.429
+    }
+   ]
+  },
+  {
+   "name": "eat up",
+   "at": 30.133,
+   "len": 2.167,
+   "shot": {
+    "pos": [
+     0.15,
+     1.05,
+     3.2
+    ],
+    "look": [
+     0.05,
+     0.45,
+     -0.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.144,
+      1.014,
+      2.99
+     ],
+     "look": [
+      0.05,
+      0.45,
+      -0.3
+     ],
+     "fov": 40
+    },
+    "dur": 2.16,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "grab",
+     "prop": "mug",
+     "hand": "L",
+     "grip": [
+      0.073,
+      0.056,
+      0.061
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       0.073,
+       0.056,
+       0.061
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.408,
+       0.5,
+       -0.089
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.077
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "tip": 25
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.077
+    },
+    {
+     "sfx": "ai/sip",
+     "gain": 0.3,
+     "at": 0.427
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       0.073,
+       0.056,
+       0.061
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.333,
+       0.42,
+       -0.116
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.677
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.677
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.917
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Eat up.",
+     "tone": "calm",
+     "style": "cheerful, innocent, sipping coffee",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/dad-ref.wav",
+       "base": "a nasal, nerdy dad, matter-of-fact and a little whiny"
+      },
+      "note": "Dad (the new Dad B in Kid vs Dad): Jonny 25 Nov 2026 13:20 Berlin picked dad-8-nasal from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 53 after a male-pitch check; that take is the reference clip, so every line is the same voice)"
+     },
+     "take": 2,
+     "dur": 0.91,
+     "caption": false,
+     "at": 0.977
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       0.073,
+       0.056,
+       0.061
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.3,
+       0.3,
+       0.2
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.177
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.527
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 1.577
+    },
+    {
+     "who": "dad",
+     "do": "release",
+     "prop": "mug",
+     "dur": 0,
+     "at": 1.627
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.627
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mug",
+      "grip": [
+       0.073,
+       0.056,
+       0.061
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.057,
+       0.02,
+       0.04
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.667
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 1.867
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.867
+    }
+   ]
+  },
+  {
+   "name": "crumbs",
+   "at": 32.3,
+   "len": 3.966,
+   "shot": {
+    "pos": [
+     -0.45,
+     0.82,
+     1.75
+    ],
+    "look": [
+     -0.55,
+     0.76,
+     -0.42
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.458,
+      0.815,
+      1.576
+     ],
+     "look": [
+      -0.55,
+      0.76,
+      -0.42
+     ],
+     "fov": 34
+    },
+    "dur": 2.54,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.15,
+      "raise": 0.03,
+      "curve": -0.05
+     },
+     "dur": 0.1,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.2
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad, you have crumbs.",
+     "tone": "calm",
+     "style": "flat, suspicious, a seven-year-old staring",
+     "voice": {
+      "voice": {
+       "am_puck": 1
+      },
+      "speed": 1.1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/tato-ref.wav",
+       "base": "a seven-year-old boy, flat and deadpan like a tiny grown-up, calm and dry"
+      },
+      "note": "Tato (Spud, the kid in Kid vs Dad): Jonny 25 Nov 2026 12:37 Berlin picked kid-4-flat from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 37; that take is the reference clip, so every line is the same voice)"
+     },
+     "dur": 2.14,
+     "caption": false,
+     "at": 0.12
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1,
+      "tilt": 0.1,
+      "curve": 0.3
+     },
+     "dur": 0.35,
+     "at": 0.52
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.52
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.05,
+      "tilt": 0.12,
+      "curve": 0.2
+     },
+     "dur": 0.1,
+     "at": 2.46
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 2.46
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.5
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "...Carrot crumbs.",
+     "tone": "calm",
+     "style": "too quick, too calm, a lie",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/dad-ref.wav",
+       "base": "a nasal, nerdy dad, matter-of-fact and a little whiny"
+      },
+      "note": "Dad (the new Dad B in Kid vs Dad): Jonny 25 Nov 2026 13:20 Berlin picked dad-8-nasal from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 53 after a male-pitch check; that take is the reference clip, so every line is the same voice)"
+     },
+     "dur": 0.93,
+     "caption": false,
+     "at": 2.56
+    },
+    {
+     "do": "prop",
+     "id": "bowl",
+     "set": {
+      "fill": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.69
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 3.947
+    },
+    {
+     "do": "prop",
+     "id": "bowl",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.947
+    },
+    {
+     "do": "prop",
+     "id": "day",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.947
+    },
+    {
+     "do": "prop",
+     "id": "crumbs",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.947
+    },
+    {
+     "do": "prop",
+     "id": "moonH",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.947
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      199.25,
+      0.25
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.947
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.947
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": 0.1,
+      "curve": 0
+     },
+     "dur": 0.01,
+     "at": 3.947
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.947
+    }
+   ]
+  },
+  {
+   "name": "halfway there",
+   "at": 36.266,
+   "len": 4.334,
+   "shot": {
+    "pos": [
+     201.1,
+     0.38,
+     2.1
+    ],
+    "look": [
+     199.95,
+     0.26,
+     0.25
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      200.985,
+      0.368,
+      1.915
+     ],
+     "look": [
+      199.95,
+      0.26,
+      0.25
+     ],
+     "fov": 44
+    },
+    "dur": 4.33,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      200.05,
+      0.25
+     ],
+     "steps": 3,
+     "stride": 0.27,
+     "dur": 1.1,
+     "ease": "linear",
+     "at": 0.124
+    },
+    {
+     "sfx": "ai/step-wood",
+     "gain": 0.15,
+     "at": 0.324
+    },
+    {
+     "sfx": "ai/step-wood",
+     "gain": 0.15,
+     "at": 0.694
+    },
+    {
+     "sfx": "ai/step-wood",
+     "gain": 0.15,
+     "at": 1.064
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.35,
+     "at": 1.224
+    },
+    {
+     "do": "prop",
+     "id": "block",
+     "set": {
+      "tip": 10,
+      "y": 0.008
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 1.224
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.6,
+      "tilt": 0.35,
+      "browY": 0.05
+     },
+     "dur": 0.06,
+     "at": 1.224
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 3,
+     "at": 1.224
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.06,
+     "at": 1.224
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.06,
+       0.3,
+       0.26
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.274
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.06,
+       0.3,
+       0.26
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.274
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 1.274
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 1.274
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.714
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Night two. Halfway there.",
+     "tone": "whisper",
+     "style": "tense, holding his breath",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 2.38,
+     "caption": false,
+     "at": 1.774
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.01,
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.314
+    },
+    {
+     "do": "prop",
+     "id": "moonH",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      -0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.314
+    },
+    {
+     "do": "prop",
+     "id": "table",
+     "set": {
+      "y": -9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 4.314
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "y": 0.03
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       0.14,
+       0.12,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.14,
+       0.12,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.3,
+      "tilt": -0.35,
+      "browY": -0.03,
+      "curve": -0.3
+     },
+     "dur": 0.01,
+     "at": 4.314
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       0.14,
+       0.12,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 4.324
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.14,
+       0.12,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 4.324
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 4.33
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 4.33
+    }
+   ]
+  },
+  {
+   "name": "the whole bag",
+   "at": 40.6,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     0.55,
+     0.5,
+     1.4
+    ],
+    "look": [
+     0.55,
+     0.44,
+     -0.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.55,
+      0.494,
+      1.24
+     ],
+     "look": [
+      0.55,
+      0.44,
+      -0.2
+     ],
+     "fov": 30
+    },
+    "dur": 2.75,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "bag",
+     "hand": "both",
+     "grip": [
+      0,
+      0.12,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.16
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       0.14,
+       0.12,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.55,
+       0.16,
+       0.14
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.14,
+       0.12,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.55,
+       0.16,
+       0.14
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "tip": 55
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Night three. The whole bag.",
+     "tone": "calm",
+     "style": "awed, slow, grave",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 2.12,
+     "caption": false,
+     "at": 0.22
+    },
+    {
+     "sfx": "crinkle",
+     "gain": 0.3,
+     "at": 0.32
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0.06,
+     "at": 0.34
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.3,
+     "at": 0.42
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 0.42
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.06,
+     "at": 0.42
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "fill": 0,
+      "crush": 1
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 0.42
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0.06,
+     "at": 0.69
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.3,
+     "at": 0.77
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 0.77
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.06,
+     "at": 0.77
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0.06,
+     "at": 1.04
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.3,
+     "at": 1.12
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 1.12
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.06,
+     "at": 1.12
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0.06,
+     "at": 1.39
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.3,
+     "at": 1.47
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 1.47
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.06,
+     "at": 1.47
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.55
+    },
+    {
+     "who": "spud",
+     "do": "skin",
+     "color": "#f07a1c",
+     "to": 1,
+     "dur": 0.45,
+     "at": 1.72
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0.06,
+     "at": 1.74
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.3,
+     "at": 1.82
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 1.82
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.06,
+     "at": 1.82
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       0.14,
+       0.12,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.55,
+       0.03,
+       0.17
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.14,
+       0.12,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.55,
+       0.03,
+       0.17
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "tip": 25
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "shine",
+     "set": {
+      "on": 0.5
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.17
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "bag",
+     "dur": 0,
+     "at": 2.32
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 2.32
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 2.32
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "y": -0.6,
+      "tip": 70,
+      "reason": "the empty bag falls to the floor out of frame (a let-go)"
+     },
+     "dur": 0.36,
+     "ease": "in",
+     "at": 2.34
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       0.14,
+       0.12,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.36
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bag",
+      "grip": [
+       -0.14,
+       0.12,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.36
+    },
+    {
+     "do": "prop",
+     "id": "moonH",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.68
+    },
+    {
+     "do": "prop",
+     "id": "shine",
+     "set": {
+      "on": 1,
+      "pulse": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.68
+    },
+    {
+     "do": "prop",
+     "id": "block",
+     "set": {
+      "tip": 0,
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      198.6,
+      0.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.01,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.75
+     },
+     "dur": 0.01,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.68
+    }
+   ]
+  },
+  {
+   "name": "spy roll",
+   "at": 43.3,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     199.85,
+     0.55,
+     3.2
+    ],
+    "look": [
+     199,
+     0.32,
+     0.1
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      199.85,
+      0.55,
+      3.2
+     ],
+     "look": [
+      200.9,
+      0.32,
+      0.1
+     ],
+     "fov": 52
+    },
+    "dur": 1.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "crinkle",
+     "gain": 0.35,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.14,
+     "dur": 0.15,
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      201.2,
+      0.1
+     ],
+     "steps": 0,
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 720,
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.2,
+     "at": 0.52
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.87
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.08,
+     "dur": 0.15,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.25,
+      "curve": 0.15
+     },
+     "dur": 0.1,
+     "at": 1.88
+    },
+    {
+     "do": "prop",
+     "id": "shine",
+     "set": {
+      "on": 1,
+      "pulse": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "pupil": 0.7,
+      "tilt": 0.3,
+      "open": 0.6
+     },
+     "dur": 0.01,
+     "at": 2.18
+    },
+    {
+     "who": "rep",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.01,
+     "at": 2.18
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "he can see",
+   "at": 45.5,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     201.2,
+     0.7,
+     3.2
+    ],
+    "look": [
+     202.6,
+     0.45,
+     0.6
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      201.27,
+      0.688,
+      3.07
+     ],
+     "look": [
+      202.6,
+      0.45,
+      0.6
+     ],
+     "fov": 32
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "radio",
+     "gain": 0.2,
+     "at": 0.02
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.11
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He can see!",
+     "tone": "excited",
+     "style": "amazed, breathless, breaking news",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 0.8,
+     "caption": false,
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "moonH",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "moonK",
+     "set": {
+      "on": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "rep",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "tilt": -0.08,
+      "browY": -0.02,
+      "curve": -0.05,
+      "smirk": 0,
+      "eye": 0.8,
+      "pupil": 1,
+      "open": 0,
+      "raise": 0
+     },
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -4.63,
+      -0.53
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "fill": 0.45,
+      "lid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "stool",
+     "set": {
+      "y": -9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "mug",
+     "set": {
+      "y": -9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.28
+    }
+   ]
+  },
+  {
+   "name": "lighter every night",
+   "at": 46.8,
+   "len": 1.566,
+   "shot": {
+    "pos": [
+     -2.5,
+     0.9,
+     2.3
+    ],
+    "look": [
+     -4.35,
+     0.75,
+     -0.95
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -2.685,
+      0.885,
+      1.975
+     ],
+     "look": [
+      -4.35,
+      0.75,
+      -0.95
+     ],
+     "fov": 40
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "hold",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "do": "climb",
+     "to": {
+      "y": 0.65
+     },
+     "steps": 3,
+     "dur": 2.4,
+     "at": 0.32
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.36
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And the cookie jar... is lighter every night.",
+     "tone": "whisper",
+     "style": "suspicious, slow, ominous",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 2.73,
+     "caption": false,
+     "at": 0.42
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.12,
+     "at": 0.62
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.12,
+     "at": 1.42
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "fill": 0.85,
+      "lid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.547
+    }
+   ]
+  },
+  {
+   "name": "jar 1",
+   "at": 48.366,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     -4.05,
+     1.25,
+     -0.75
+    ],
+    "look": [
+     -4.66,
+     1.07,
+     -1.42
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "sfx": "tick",
+     "gain": 0.12,
+     "at": 0.004
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "fill": 0.65,
+      "lid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.381
+    }
+   ]
+  },
+  {
+   "name": "jar 2",
+   "at": 48.766,
+   "len": 0.434,
+   "shot": {
+    "pos": [
+     -4.05,
+     1.25,
+     -0.75
+    ],
+    "look": [
+     -4.66,
+     1.07,
+     -1.42
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "sfx": "tick",
+     "gain": 0.12,
+     "at": 0.024
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.12,
+     "at": 0.254
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "fill": 0.45,
+      "lid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.414
+    }
+   ]
+  },
+  {
+   "name": "jar 3",
+   "at": 49.2,
+   "len": 0.833,
+   "shot": {
+    "pos": [
+     -4.05,
+     1.25,
+     -0.75
+    ],
+    "look": [
+     -4.66,
+     1.07,
+     -1.42
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "sfx": "tick",
+     "gain": 0.12,
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "reach",
+   "at": 50.033,
+   "len": 0.467,
+   "shot": {
+    "pos": [
+     -4.4,
+     1.45,
+     0.05
+    ],
+    "look": [
+     -4.7,
+     1.12,
+     -1.4
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -4.418,
+      1.43,
+      -0.037
+     ],
+     "look": [
+      -4.7,
+      1.12,
+      -1.4
+     ],
+     "fov": 40
+    },
+    "dur": 0.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "jar",
+      "grip": [
+       0.12,
+       0.3,
+       0.2
+      ]
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.037
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.3,
+     "at": 0.037
+    },
+    {
+     "do": "prop",
+     "id": "moonK",
+     "set": {
+      "on": 0.35
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.167
+    },
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 0.447
+    },
+    {
+     "who": "dad",
+     "do": "move",
+     "to": [
+      -4.02,
+      -1.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.925,
+     "at": 0.447
+    },
+    {
+     "who": "dad",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.447
+    },
+    {
+     "do": "prop",
+     "id": "stool",
+     "set": {
+      "y": 0,
+      "scale": 1.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.447
+    },
+    {
+     "do": "prop",
+     "id": "crumbs",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.447
+    },
+    {
+     "do": "prop",
+     "id": "gog",
+     "set": {
+      "scale": 1,
+      "lit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.447
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.8,
+      "pupil": 0.6,
+      "tilt": 0.4,
+      "browY": 0.05,
+      "curve": -0.2,
+      "open": 0
+     },
+     "dur": 0.01,
+     "at": 0.447
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "jar",
+      "grip": [
+       0,
+       0.19,
+       0.01
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.447
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0.447
+    }
+   ]
+  },
+  {
+   "name": "contact",
+   "at": 50.5,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -2.9,
+     1.78,
+     1.1
+    ],
+    "look": [
+     -3.87,
+     1.767,
+     -0.98
+    ],
+    "fov": 20,
+    "to": {
+     "pos": [
+      -2.978,
+      1.779,
+      0.934
+     ],
+     "look": [
+      -3.87,
+      1.767,
+      -0.98
+     ],
+     "fov": 20
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.3,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "gog",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "lampbuzz",
+     "gain": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.54
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Contact.",
+     "tone": "whisper",
+     "style": "barely audible, frozen",
+     "voice": {
+      "voice": {
+       "bm_lewis": 1
+      },
+      "speed": 0.9,
+      "tempo": 1.25,
+      "lang": "en-gb",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/reaper-ref.wav",
+       "base": "flat, dry, deadpan"
+      },
+      "note": "VoxCPM2 in Reaper A's voice (cloned from a Kokoro bm_lewis read); the old sound is reaper-kokoro"
+     },
+     "dur": 0.7,
+     "caption": false,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "shine",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -4.63,
+      -0.53
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.65,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 65,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.49,
+       1.005,
+       0.21
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "rim",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.38
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "dad?",
+   "at": 51.9,
+   "len": 1.766,
+   "shot": {
+    "pos": [
+     -3.3,
+     2.3,
+     2.6
+    ],
+    "look": [
+     -4.15,
+     1.4,
+     -0.85
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -3.342,
+      2.255,
+      2.428
+     ],
+     "look": [
+      -4.15,
+      1.4,
+      -0.85
+     ],
+     "fov": 50
+    },
+    "dur": 1.89,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "sfx": "door-open",
+     "gain": 0.4,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "fridge",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "moonK",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.94
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...Dad?",
+     "tone": "question",
+     "style": "flat, small, unimpressed",
+     "voice": {
+      "voice": {
+       "am_puck": 1
+      },
+      "speed": 1.1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/tato-ref.wav",
+       "base": "a seven-year-old boy, flat and deadpan like a tiny grown-up, calm and dry"
+      },
+      "note": "Tato (Spud, the kid in Kid vs Dad): Jonny 25 Nov 2026 12:37 Berlin picked kid-4-flat from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 37; that take is the reference clip, so every line is the same voice)"
+     },
+     "dur": 0.54,
+     "caption": false,
+     "at": 1
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.747
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 1.747
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.747
+    }
+   ]
+  },
+  {
+   "name": "carrots",
+   "at": 53.666,
+   "len": 2.234,
+   "shot": {
+    "pos": [
+     -3.4,
+     2.15,
+     1.9
+    ],
+    "look": [
+     -4.15,
+     1.42,
+     -0.85
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      -3.437,
+      2.113,
+      1.763
+     ],
+     "look": [
+      -4.15,
+      1.42,
+      -0.85
+     ],
+     "fov": 48
+    },
+    "dur": 2.21,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "noblink",
+     "dur": 2.2,
+     "at": 0.024
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 2,
+     "at": 0.024
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.17,
+       0.82,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.044
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "dur": 0.15,
+     "at": 0.044
+    },
+    {
+     "do": "prop",
+     "id": "gog",
+     "set": {
+      "up": 1,
+      "lit": 0.6
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.324
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       0.98,
+       0.22
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.324
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "pupil": 0.75,
+      "tilt": 0.35,
+      "browY": 0.03,
+      "curve": -0.15
+     },
+     "dur": 0.25,
+     "at": 0.374
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0.08,
+     "at": 0.524
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.12,
+     "at": 0.524
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.008,
+     "dur": 0.1,
+     "at": 0.524
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 0.624
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 0.634
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0.704
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.724
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0.08,
+     "at": 0.744
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.12,
+     "at": 0.744
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.008,
+     "dur": 0.1,
+     "at": 0.744
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 0.844
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 0.854
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0.08,
+     "at": 0.964
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.12,
+     "at": 0.964
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.008,
+     "dur": 0.1,
+     "at": 0.964
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.12,
+     "at": 1.064
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.08,
+     "at": 1.074
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.114
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "...Carrots.",
+     "tone": "calm",
+     "style": "mouth full of cookie, guilty, dead serious",
+     "voice": {
+      "voice": {
+       "am_michael": 1
+      },
+      "speed": 1,
+      "lang": "en-us",
+      "pitch": 0,
+      "vox": {
+       "ref": "targets/dad-ref.wav",
+       "base": "a nasal, nerdy dad, matter-of-fact and a little whiny"
+      },
+      "note": "Dad (the new Dad B in Kid vs Dad): Jonny 25 Nov 2026 13:20 Berlin picked dad-8-nasal from the voice test in project files audio/voice-test-kvd-01 (VoxCPM2 from a description, seed 53 after a male-pitch check; that take is the reference clip, so every line is the same voice)"
+     },
+     "dur": 0.85,
+     "caption": false,
+     "at": 1.174
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.87,
+   "see": [
+    "dad.face",
+    "spud.face",
+    "plate"
+   ],
+   "why": "Dad slides a plate of carrots to his son and points at his own eyes: 'Carrots. Eat them, and you see in the dark.'"
+  },
+  {
+   "from": 51.9,
+   "to": 55.9,
+   "see": [
+    "dad.face",
+    "spud.face",
+    "gog"
+   ],
+   "why": "the fridge light shows Dad in night-vision goggles with his hand in the cookie jar; he says: '...Carrots.'"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "bed",
+   "from": 27.68,
+   "to": 30.16,
+   "reason": "sitting up in bed under the blanket"
+  },
+  {
+   "who": "dad",
+   "with": "gog",
+   "from": 0,
+   "to": 55.9,
+   "reason": "worn goggles sit on his face by design"
+  },
+  {
+   "who": "dad",
+   "with": "stool",
+   "from": 50.48,
+   "to": 55.9,
+   "reason": "standing on the step stool"
+  },
+  {
+   "who": "spud",
+   "with": "unit",
+   "from": 46.78,
+   "to": 55.9,
+   "reason": "climbing the shelf unit"
+  },
+  {
+   "who": "spud",
+   "with": "hall",
+   "from": 25.47,
+   "to": 27.68,
+   "reason": "panel 05: he walks face first into his closed door (the bonk)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/05-carrots/make-carrots.mjs. Rough draft 1 for Jonny's story check."
+}
