@@ -1,0 +1,4382 @@
+{
+ "id": "waiter-jokes",
+ "title": "Dad jokes at the waiter",
+ "idea": "Kid vs Dad 04: a war reporter covers a dad ordering at a restaurant like a war: one rule, no jokes at the waiter. Three dad jokes, each worse, the kid sinks under the table, a DO NOT SERVE photo of the dad in the kitchen, and the bill comes back: TIP: STOP.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  210,
+  1230
+ ],
+ "captionStyle": "kinetic",
+ "captionOverBody": {
+  "reason": "close shots where the speaker fills the phone frame; captions sit in the upper third over the body, never the eyes (rule from the 8-min film trial, Jonny OK 20 Nov)"
+ },
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#efe2c8",
+  "floor": "#7b4650",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "bloom": "emissive",
+  "plate": {
+   "src": "assets/plates/eatery-day.png",
+   "z": -3,
+   "center": [
+    1,
+    1.45
+   ],
+   "height": 5.2,
+   "depth": false,
+   "motion": false,
+   "dust": 8,
+   "swaps": [
+    {
+     "at": 44.68,
+     "src": "assets/plates/eatery-day.night.png"
+    },
+    {
+     "at": 48.08,
+     "src": "assets/plates/eatery-day.png"
+    }
+   ]
+  },
+  "plates": [
+   {
+    "src": "assets/plates/eatery-day.png",
+    "center": [
+     -3.3,
+     1.45
+    ],
+    "z": 0.4,
+    "height": 5.2,
+    "turn": 90
+   }
+  ],
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "hud": {
+  "news": {
+   "label": "WAITER IN DANGER",
+   "tag": "LIVE",
+   "tagW": 150,
+   "count": false,
+   "show": [
+    0.2,
+    53.813
+   ]
+  }
+ },
+ "music": {
+  "file": "ai/orchestra-suspense/orchestra-suspense-01.ogg",
+  "lowCut": 150,
+  "gain": 0.14
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.08,
+  "guard": true,
+  "signature": false,
+  "surface": "wood"
+ },
+ "creative": {
+  "length": [
+   60,
+   95
+  ]
+ },
+ "hook": {
+  "show": [
+   "w",
+   "dad"
+  ],
+  "hint": 0,
+  "what": "a nervous waiter walks up to a table where a big dad grins and his son begs him not to; a war reporter hides behind a menu"
+ },
+ "cast": [
+  {
+   "id": "rep",
+   "character": "potatobrawl/reporter",
+   "at": [
+    -0.85,
+    -2.5
+   ],
+   "face": 0,
+   "expr": "focused",
+   "follow": 0.3,
+   "seed": 131.3
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    0.8,
+    -0.26
+   ],
+   "face": -40,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 2.9
+  },
+  {
+   "id": "dadU",
+   "character": "potatobrawl/dad",
+   "at": [
+    1.05,
+    0.35
+   ],
+   "face": -25,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 2.9
+  },
+  {
+   "id": "kid",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.12,
+    -0.74
+   ],
+   "face": 9,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 4.1
+  },
+  {
+   "id": "kid1",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.12,
+    -0.74
+   ],
+   "face": 9,
+   "expr": "sad",
+   "follow": 0.3,
+   "seed": 4.1
+  },
+  {
+   "id": "kid2",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.12,
+    -0.74
+   ],
+   "face": 9,
+   "expr": "sad",
+   "follow": 0.3,
+   "seed": 4.1
+  },
+  {
+   "id": "kid3",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.1,
+    0.05
+   ],
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.3,
+   "seed": 4.1
+  },
+  {
+   "id": "w",
+   "character": "potatobrawl/mash-waiter",
+   "at": [
+    -1.3,
+    -0.5
+   ],
+   "face": 55,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "wT",
+   "character": "potatobrawl/mash-waiter",
+   "at": [
+    -0.8,
+    -0.65
+   ],
+   "face": 30,
+   "expr": "sad",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "cook",
+   "character": "potatobrawl/cook",
+   "at": [
+    -2.6,
+    -4
+   ],
+   "y": 0.52,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 6.1
+  }
+ ],
+ "props": [
+  {
+   "id": "carpet",
+   "kind": "dinecarpet",
+   "x": 0.85,
+   "y": 0,
+   "z": 0.7,
+   "w": 8.3,
+   "d": 7.4
+  },
+  {
+   "id": "carpetN",
+   "kind": "dinecarpet",
+   "x": 0.85,
+   "y": 0.001,
+   "z": 0.7,
+   "w": 8.3,
+   "d": 7.4,
+   "dim": 1,
+   "scale": 0.001
+  },
+  {
+   "id": "main",
+   "kind": "roundtable",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "r": 0.45,
+   "h": 0.38,
+   "drape": 0.22,
+   "legs": true,
+   "dress": [
+    0.05,
+    -0.15
+   ]
+  },
+  {
+   "id": "cheat",
+   "kind": "roundtable",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "r": 0.8,
+   "h": 1.3,
+   "drape": 0.68,
+   "legs": false,
+   "staged": "panel 13 cheat table: legless, its skirt hangs to 0.62 by design",
+   "scale": 0.001
+  },
+  {
+   "id": "tRep",
+   "kind": "roundtable",
+   "x": -0.85,
+   "y": 0,
+   "z": -1.75,
+   "r": 0.45,
+   "h": 0.38,
+   "drape": 0.22,
+   "legs": true
+  },
+  {
+   "id": "tB1",
+   "kind": "roundtable",
+   "x": 2.05,
+   "y": 0,
+   "z": -1.85,
+   "r": 0.45,
+   "h": 0.38,
+   "drape": 0.22,
+   "legs": true
+  },
+  {
+   "id": "tB2",
+   "kind": "roundtable",
+   "x": -2.4,
+   "y": 0,
+   "z": 0.9,
+   "r": 0.45,
+   "h": 0.38,
+   "drape": 0.22,
+   "legs": true
+  },
+  {
+   "id": "cDad",
+   "kind": "hoopchair",
+   "x": 0.92,
+   "y": 0,
+   "z": -0.4,
+   "rot": -40
+  },
+  {
+   "id": "cKid",
+   "kind": "hoopchair",
+   "x": -0.12,
+   "y": 0,
+   "z": -0.76,
+   "rot": 9
+  },
+  {
+   "id": "cRep",
+   "kind": "hoopchair",
+   "x": -0.85,
+   "y": 0,
+   "z": -2.64,
+   "rot": 0
+  },
+  {
+   "id": "cB1a",
+   "kind": "hoopchair",
+   "x": 2.05,
+   "y": 0,
+   "z": -2.6,
+   "rot": 0
+  },
+  {
+   "id": "cB1b",
+   "kind": "hoopchair",
+   "x": 2.8,
+   "y": 0,
+   "z": -1.85,
+   "rot": -90
+  },
+  {
+   "id": "cB2a",
+   "kind": "hoopchair",
+   "x": -2.4,
+   "y": 0,
+   "z": 1.65,
+   "rot": 180
+  },
+  {
+   "id": "cB2b",
+   "kind": "hoopchair",
+   "x": -1.65,
+   "y": 0,
+   "z": 0.9,
+   "rot": -90
+  },
+  {
+   "id": "plB1",
+   "kind": "mealplate",
+   "food": "none",
+   "x": 2.05,
+   "y": 0.386,
+   "z": -2.1
+  },
+  {
+   "id": "plB2",
+   "kind": "mealplate",
+   "food": "none",
+   "x": -2.4,
+   "y": 0.386,
+   "z": 1.15
+  },
+  {
+   "id": "plMa",
+   "kind": "mealplate",
+   "food": "none",
+   "x": 0.42,
+   "y": 0.386,
+   "z": -0.1
+  },
+  {
+   "id": "plMb",
+   "kind": "mealplate",
+   "food": "none",
+   "x": 0.2,
+   "y": 0.386,
+   "z": -0.28
+  },
+  {
+   "id": "menu",
+   "kind": "tallmenu",
+   "x": -0.85,
+   "y": 0.386,
+   "z": -1.92,
+   "rot": 0
+  },
+  {
+   "id": "door",
+   "kind": "kitchendoor",
+   "x": -2.6,
+   "y": 0,
+   "z": -2.97,
+   "rot": 0,
+   "open": 0
+  },
+  {
+   "id": "crate",
+   "kind": "crate",
+   "size": 0.51,
+   "staged": "stands on the nook floor (1 cm: the nook floor sits over the world floor)",
+   "x": -2.6,
+   "y": 0,
+   "z": -4
+  },
+  {
+   "id": "plantA",
+   "kind": "bistroplant",
+   "x": -1.45,
+   "y": 0,
+   "z": -2.7
+  },
+  {
+   "id": "plantB",
+   "kind": "bistroplant",
+   "x": 3.4,
+   "y": 0,
+   "z": -2.5
+  },
+  {
+   "id": "napkin",
+   "kind": "napkin",
+   "wear": "kid",
+   "w": 0.19,
+   "h": 0.16,
+   "x": 0,
+   "y": 0.34,
+   "z": 0.235
+  },
+  {
+   "id": "apron",
+   "kind": "waiterapron",
+   "wear": "w",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "y0": 0.33,
+   "y1": 0.04,
+   "rx": 0.255,
+   "rz": 0.24,
+   "arc": 150,
+   "band": "#f4f1ea",
+   "bandArc": 360,
+   "bow": true
+  },
+  {
+   "id": "apronT",
+   "kind": "waiterapron",
+   "wear": "wT",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "y0": 0.33,
+   "y1": 0.04,
+   "rx": 0.255,
+   "rz": 0.24,
+   "arc": 150,
+   "band": "#f4f1ea",
+   "bandArc": 360,
+   "bow": true
+  },
+  {
+   "id": "toque",
+   "kind": "toque",
+   "wear": "cook",
+   "fit": {
+    "H": 0.46,
+    "W": 0.5,
+    "D": 0.46,
+    "taper": 0.02,
+    "legH": 0.14
+   },
+   "h": 0.2
+  },
+  {
+   "id": "sweat",
+   "kind": "sweatbead",
+   "wear": "w",
+   "x": -0.165,
+   "y": 1.13,
+   "z": 0.13,
+   "scale": 0
+  },
+  {
+   "id": "glassA",
+   "kind": "waterglass",
+   "fill": 0.8,
+   "x": -0.22,
+   "y": 0.386,
+   "z": -0.3
+  },
+  {
+   "id": "glassB",
+   "kind": "waterglass",
+   "fill": 0.8,
+   "x": 0.3,
+   "y": 0.386,
+   "z": 0.12
+  },
+  {
+   "id": "beam",
+   "kind": "lightbeam",
+   "x": 1.05,
+   "y": 3,
+   "z": 0.35,
+   "len": 3,
+   "w": 1.2,
+   "color": "#ffe2a8",
+   "glow": 0.55,
+   "scale": 0.001
+  },
+  {
+   "id": "pool",
+   "kind": "lightpool",
+   "x": 1.05,
+   "y": 0.008,
+   "z": 0.35,
+   "w": 1.5,
+   "d": 1.1,
+   "color": "#ffe6b0",
+   "on": 1,
+   "scale": 0.001
+  },
+  {
+   "id": "mic",
+   "kind": "newsmic",
+   "lean": 25,
+   "x": -0.62,
+   "y": 0.62,
+   "z": -2.3,
+   "rot": 180
+  },
+  {
+   "id": "pad",
+   "kind": "spudpad",
+   "scale": 0.85,
+   "write": 0,
+   "x": -1.12,
+   "y": 0.5,
+   "z": -0.3,
+   "rot": 235
+  },
+  {
+   "id": "tray",
+   "kind": "servetray",
+   "x": -0.55,
+   "y": 0.5,
+   "z": -0.42,
+   "rot": 30
+  },
+  {
+   "id": "billA",
+   "kind": "tipbill",
+   "x": 0.21,
+   "y": 0.392,
+   "z": -0.07,
+   "rot": -40,
+   "tip": -90
+  },
+  {
+   "id": "billB",
+   "kind": "tipbill",
+   "tip": 70,
+   "x": 0.57,
+   "y": 0.47,
+   "z": 0.37,
+   "rot": 160
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 2.14,
+   "text": "*DANGER.* A dad is about to order.",
+   "pos": 430,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 2.37,
+   "to": 3.81,
+   "text": "Will the waiter *survive?*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 4.04,
+   "to": 7.19,
+   "text": "*Tato,* age seven, is *hungry.*",
+   "pos": 260,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 7.42,
+   "to": 9.3,
+   "text": "And at this table, there is one rule.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 9.53,
+   "to": 10.84,
+   "text": "No jokes *at the waiter.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 11.07,
+   "to": 13.28,
+   "text": "Dad. Please. Just order.",
+   "pos": 260,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 13.51,
+   "to": 15.83,
+   "text": "Relax. I'm always normal.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 16.06,
+   "to": 17.77,
+   "text": "Hi. Can I take your order?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 18,
+   "to": 20.27,
+   "text": "Sure. Where are you *taking it?*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 21.17,
+   "to": 24.07,
+   "text": "First joke. The waiter is still standing.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 24.3,
+   "to": 25.53,
+   "text": "Sorry for the wait.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 25.76,
+   "to": 28.1,
+   "text": "That's okay. I've been *working out.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 28.9,
+   "to": 29.68,
+   "text": "Dad...",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 29.91,
+   "to": 32.44,
+   "text": "He's sinking. Tato is sinking.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 32.67,
+   "to": 34.91,
+   "text": "Wait. What's on that wall?",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 35.21,
+   "to": 36.42,
+   "text": "He's been here *before.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 36.65,
+   "to": 38.82,
+   "text": "Last time... the waiter *quit.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 39.05,
+   "to": 41.39,
+   "text": "And... how would you like your steak?",
+   "pos": 260,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 41.62,
+   "to": 42.66,
+   "text": "Dad, no.",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 42.89,
+   "to": 44.68,
+   "text": "He's standing up. He's standing up!",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 45.13,
+   "to": 46.56,
+   "text": "Like my *jokes.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 46.79,
+   "to": 48.08,
+   "text": "*Well done.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 48.82,
+   "to": 50.68,
+   "text": "Man down! Man down!",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 53.9,
+   "to": 56.08,
+   "text": "*Tip... stop.*",
+   "pos": 300,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "danger",
+   "at": 0,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.15,
+     4.7
+    ],
+    "look": [
+     -0.1,
+     0.72,
+     -0.4
+    ],
+    "fov": 45,
+    "to": {
+     "pos": [
+      -0.1,
+      1.124,
+      4.394
+     ],
+     "look": [
+      -0.1,
+      0.72,
+      -0.4
+     ],
+     "fov": 45
+    },
+    "dur": 2.27,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dadU",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "kid1",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "kid2",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "kid3",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wT",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "apronT",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "toque",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "billB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glassA",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glassB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "sit",
+     "seat": "cDad",
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "sit",
+     "seat": "cKid",
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "sit",
+     "seat": "cRep",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "menu",
+      "grip": [
+       -0.1,
+       0.3,
+       -0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "w",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "w",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       -0.136,
+       0.052,
+       -0.012
+      ],
+      "palm": true,
+      "off": [
+       0.002,
+       0.02,
+       -0.072
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wT",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wT",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       0.22,
+       0.012,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.084,
+       0.02,
+       -0.014
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wT",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       -0.22,
+       0.012,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.054,
+       0.02,
+       0.066
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "tilt": -0.08,
+      "browY": -0.02,
+      "curve": -0.05,
+      "eye": 0.95,
+      "open": 0
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "w",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "tilt": 0.2,
+      "curve": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "tilt": 0.3,
+      "curve": -0.2,
+      "open": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "tilt": 0.3,
+      "curve": -0.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.19,
+       0.44,
+       0.31
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.19,
+       0.44,
+       0.31
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "cook",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "look",
+     "to": [
+      0.8,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "crate",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rep",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mic",
+      "grip": [
+       0.064,
+       0.056,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "w",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       -0.136,
+       0.052,
+       -0.012
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "wT",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       0.22,
+       0.012,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "wT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       -0.22,
+       0.012,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "w",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "wT",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "wT",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.04
+    },
+    {
+     "who": "w",
+     "do": "walk",
+     "to": [
+      -0.95,
+      0.15
+     ],
+     "dur": 0.9,
+     "at": 0.05
+    },
+    {
+     "who": "rep",
+     "do": "grab",
+     "prop": "mic",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.056,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "w",
+     "do": "grab",
+     "prop": "pad",
+     "hand": "L",
+     "grip": [
+      -0.136,
+      0.052,
+      -0.012
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "wT",
+     "do": "grab",
+     "prop": "tray",
+     "hand": "both",
+     "grip": [
+      0,
+      0.012,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Danger. A dad is about to order.",
+     "tone": "calm",
+     "style": "grave whisper, a war correspondent hiding behind a menu",
+     "voice": "reaper",
+     "dur": 1.97,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sweat",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "sweat",
+     "set": {
+      "y": 0.97
+     },
+     "dur": 1.1,
+     "ease": "in",
+     "at": 0.35
+    },
+    {
+     "who": "w",
+     "do": "turn",
+     "to": 55,
+     "dur": 0.2,
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "sweat",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.5
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "survive",
+   "at": 2.3,
+   "len": 1.666,
+   "shot": {
+    "pos": [
+     -0.85,
+     0.9,
+     -0.4
+    ],
+    "look": [
+     -0.85,
+     0.86,
+     -2.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.85,
+      0.898,
+      -0.514
+     ],
+     "look": [
+      -0.85,
+      0.86,
+      -2.3
+     ],
+     "fov": 46
+    },
+    "dur": 1.7200000000000002,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Will the waiter survive?",
+     "tone": "question",
+     "style": "low, tense, slow",
+     "voice": "reaper",
+     "dur": 1.32,
+     "caption": false,
+     "at": 0.07
+    }
+   ]
+  },
+  {
+   "name": "tato",
+   "at": 3.966,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     1,
+     0.95,
+     1.6
+    ],
+    "look": [
+     -0.12,
+     0.56,
+     -0.74
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.922,
+      0.923,
+      1.436
+     ],
+     "look": [
+      -0.12,
+      0.56,
+      -0.74
+     ],
+     "fov": 30
+    },
+    "dur": 3.48,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.014
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Tato, age seven, is hungry.",
+     "tone": "calm",
+     "style": "grave, low, under cover",
+     "voice": "reaper",
+     "dur": 3.08,
+     "caption": false,
+     "at": 0.074
+    },
+    {
+     "who": "kid",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.24,
+       0.27,
+       0.31
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.474
+    },
+    {
+     "who": "kid",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.24,
+       0.27,
+       0.31
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.474
+    },
+    {
+     "who": "kid",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.574
+    },
+    {
+     "who": "kid",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.574
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.394
+    }
+   ]
+  },
+  {
+   "name": "one rule",
+   "at": 7.366,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     -0.85,
+     0.9,
+     -0.4
+    ],
+    "look": [
+     -0.85,
+     0.86,
+     -2.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.85,
+      0.897,
+      -0.552
+     ],
+     "look": [
+      -0.85,
+      0.86,
+      -2.3
+     ],
+     "fov": 46
+    },
+    "dur": 2.16,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And at this table, there is one rule.",
+     "tone": "calm",
+     "style": "slow, ominous, leaning in",
+     "voice": "reaper",
+     "dur": 1.86,
+     "caption": false,
+     "at": 0.054
+    }
+   ]
+  },
+  {
+   "name": "no jokes",
+   "at": 9.466,
+   "len": 1.534,
+   "shot": {
+    "pos": [
+     -0.25,
+     0.95,
+     4.9
+    ],
+    "look": [
+     -0.22,
+     0.78,
+     0
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.248,
+      0.942,
+      4.655
+     ],
+     "look": [
+      -0.22,
+      0.78,
+      0
+     ],
+     "fov": 50
+    },
+    "dur": 1.49,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.004
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "No jokes at the waiter.",
+     "tone": "calm",
+     "style": "deadly serious, each word apart",
+     "voice": "reaper",
+     "dur": 1.19,
+     "caption": false,
+     "at": 0.064
+    },
+    {
+     "who": "kid",
+     "do": "look",
+     "to": [
+      0.9,
+      0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.404
+    }
+   ]
+  },
+  {
+   "name": "please",
+   "at": 11,
+   "len": 2.433,
+   "shot": {
+    "pos": [
+     1,
+     0.95,
+     1.6
+    ],
+    "look": [
+     -0.12,
+     0.56,
+     -0.74
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.91,
+      0.919,
+      1.413
+     ],
+     "look": [
+      -0.12,
+      0.56,
+      -0.74
+     ],
+     "fov": 30
+    },
+    "dur": 2.44,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. Please. Just order.",
+     "tone": "sad",
+     "style": "small, pleading, hands pressed together",
+     "voice": "tato",
+     "dur": 2.14,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.9,
+      "curve": 0.9,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 2.36
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.41
+    }
+   ]
+  },
+  {
+   "name": "normal",
+   "at": 13.433,
+   "len": 2.567,
+   "shot": {
+    "pos": [
+     -0.25,
+     0.95,
+     4.9
+    ],
+    "look": [
+     -0.22,
+     0.78,
+     0
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.248,
+      0.942,
+      4.655
+     ],
+     "look": [
+      -0.22,
+      0.78,
+      0
+     ],
+     "fov": 50
+    },
+    "dur": 2.55,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.017
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Relax. I'm always normal.",
+     "tone": "calm",
+     "style": "warm, far too confident",
+     "voice": "dad",
+     "dur": 2.15,
+     "caption": false,
+     "at": 0.077
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.427
+    },
+    {
+     "who": "w",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 2.527
+    }
+   ]
+  },
+  {
+   "name": "order",
+   "at": 16,
+   "len": 4.3,
+   "shot": {
+    "pos": [
+     -0.25,
+     0.95,
+     4.9
+    ],
+    "look": [
+     -0.22,
+     0.78,
+     0
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.248,
+      0.938,
+      4.557
+     ],
+     "look": [
+      -0.22,
+      0.78,
+      0
+     ],
+     "fov": 50
+    },
+    "dur": 4.21,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Hi. Can I take your order?",
+     "tone": "happy",
+     "style": "polite, nervous, a young waiter",
+     "voice": "mash",
+     "dur": 1.64,
+     "caption": false,
+     "at": 0.06
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.85,
+       0.35
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 1.75
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.9,
+      "curve": 0.9,
+      "open": 0.3
+     },
+     "dur": 0.1,
+     "at": 1.9
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.94
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Sure. Where are you taking it?",
+     "tone": "happy",
+     "style": "delighted with himself, a classic dad joke, beaming",
+     "voice": "dad",
+     "dur": 1.97,
+     "caption": false,
+     "at": 2
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.5,
+     "at": 4.07
+    },
+    {
+     "who": "w",
+     "do": "expr",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.7,
+      "curve": -0.1,
+      "open": 0.15
+     },
+     "dur": 0.08,
+     "at": 4.07
+    },
+    {
+     "who": "w",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.1,
+     "at": 4.07
+    },
+    {
+     "who": "kid",
+     "do": "hide",
+     "at": 4.28
+    },
+    {
+     "who": "kid1",
+     "do": "show",
+     "at": 4.28
+    },
+    {
+     "do": "prop",
+     "id": "cKid",
+     "set": {
+      "x": -0.14,
+      "z": -1.19
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.28
+    },
+    {
+     "do": "prop",
+     "id": "napkin",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.28
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "frozen",
+   "at": 20.3,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     -0.25,
+     1.15,
+     3
+    ],
+    "look": [
+     -0.6,
+     0.72,
+     -0.3
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -0.271,
+      1.124,
+      2.802
+     ],
+     "look": [
+      -0.6,
+      0.72,
+      -0.3
+     ],
+     "fov": 44
+    },
+    "dur": 0.85,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "kid1",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "tilt": 0.2,
+      "curve": -0.3
+     },
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "who": "kid1",
+     "do": "look",
+     "to": [
+      0.9,
+      0.35
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.02
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.17
+    }
+   ]
+  },
+  {
+   "name": "still standing",
+   "at": 21.1,
+   "len": 3.133,
+   "shot": {
+    "pos": [
+     -0.85,
+     0.9,
+     -0.4
+    ],
+    "look": [
+     -0.85,
+     0.86,
+     -2.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.85,
+      0.898,
+      -0.514
+     ],
+     "look": [
+      -0.85,
+      0.86,
+      -2.3
+     ],
+     "fov": 46
+    },
+    "dur": 2.98,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "First joke. The waiter is still standing.",
+     "tone": "calm",
+     "style": "tense, quiet, a reporter at the front line",
+     "voice": "reaper",
+     "dur": 2.68,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.75
+    },
+    {
+     "who": "w",
+     "do": "hide",
+     "at": 3.113
+    },
+    {
+     "who": "wT",
+     "do": "show",
+     "at": 3.113
+    },
+    {
+     "do": "prop",
+     "id": "apron",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.113
+    },
+    {
+     "do": "prop",
+     "id": "apronT",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.113
+    },
+    {
+     "do": "prop",
+     "id": "glassA",
+     "set": {
+      "scale": 1,
+      "x": -0.505,
+      "y": 0.508,
+      "z": -0.342
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.113
+    },
+    {
+     "do": "prop",
+     "id": "glassB",
+     "set": {
+      "scale": 1,
+      "x": -0.595,
+      "y": 0.508,
+      "z": -0.498
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.113
+    },
+    {
+     "do": "prop",
+     "id": "pad",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.113
+    }
+   ]
+  },
+  {
+   "name": "wait",
+   "at": 24.233,
+   "len": 3.967,
+   "shot": {
+    "pos": [
+     -0.25,
+     1.35,
+     4.6
+    ],
+    "look": [
+     -0.22,
+     0.66,
+     0
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.248,
+      1.302,
+      4.278
+     ],
+     "look": [
+      -0.22,
+      0.66,
+      0
+     ],
+     "fov": 50
+    },
+    "dur": 4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wT",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "wT",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "tilt": 0.2,
+      "curve": 0.1
+     },
+     "dur": 0.01,
+     "at": 0.017
+    },
+    {
+     "who": "wT",
+     "do": "face",
+     "lid": 0.7,
+     "dur": 0.2,
+     "at": 0.067
+    },
+    {
+     "who": "wT",
+     "macro": "say",
+     "line": "Sorry for the wait.",
+     "tone": "sad",
+     "style": "apologetic, a little shaky, bowing",
+     "voice": "mash",
+     "dur": 1.16,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.32,
+       0.42
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.227
+    },
+    {
+     "who": "wT",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 1.327
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 1.327
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.9,
+      "curve": 0.9,
+      "open": 0.3
+     },
+     "dur": 0.1,
+     "at": 1.427
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.467
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "That's okay. I've been working out.",
+     "tone": "happy",
+     "style": "proud, patting his belly, pause before the punchline",
+     "voice": "dad",
+     "dur": 2.04,
+     "caption": false,
+     "at": 1.527
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.33,
+       0.46
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.887
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.32,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 2.007
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.1,
+     "at": 2.027
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 2.147
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.33,
+       0.46
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.287
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.32,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 2.407
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.1,
+     "at": 2.427
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 2.547
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.33,
+       0.46
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.687
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.15,
+       0.32,
+       0.42
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 2.807
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.1,
+     "at": 2.827
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 2.947
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.5,
+     "at": 3.667
+    },
+    {
+     "do": "prop",
+     "id": "glassA",
+     "set": {
+      "x": -0.38,
+      "y": 0.386,
+      "z": -0.05
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.947
+    },
+    {
+     "do": "prop",
+     "id": "glassB",
+     "set": {
+      "x": 0.3,
+      "y": 0.386,
+      "z": 0.12
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.947
+    },
+    {
+     "who": "kid1",
+     "do": "hide",
+     "at": 3.947
+    },
+    {
+     "who": "kid2",
+     "do": "show",
+     "at": 3.947
+    },
+    {
+     "who": "kid2",
+     "do": "crouch",
+     "to": 0.07,
+     "dur": 0.01,
+     "at": 3.947
+    }
+   ]
+  },
+  {
+   "name": "sinking",
+   "at": 28.2,
+   "len": 1.633,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.44,
+     1.5
+    ],
+    "look": [
+     -0.3,
+     0.52,
+     -0.5
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.3,
+      0.444,
+      1.4
+     ],
+     "look": [
+      -0.3,
+      0.52,
+      -0.5
+     ],
+     "fov": 40
+    },
+    "dur": 1.66,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "kid2",
+     "do": "expr",
+     "set": {
+      "eye": 1.15,
+      "tilt": 0.2,
+      "curve": -0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "kid2",
+     "do": "look",
+     "to": [
+      0.6,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "kid2",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.64
+    },
+    {
+     "who": "kid2",
+     "macro": "say",
+     "line": "Dad...",
+     "tone": "sad",
+     "style": "muffled, embarrassed, sinking under the table",
+     "voice": "tato",
+     "dur": 0.76,
+     "caption": false,
+     "at": 0.7
+    },
+    {
+     "who": "wT",
+     "do": "hide",
+     "at": 1.613
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.613
+    }
+   ]
+  },
+  {
+   "name": "sinking rep",
+   "at": 29.833,
+   "len": 2.767,
+   "shot": {
+    "pos": [
+     -0.85,
+     0.9,
+     -0.4
+    ],
+    "look": [
+     -0.85,
+     0.86,
+     -2.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.85,
+      0.897,
+      -0.533
+     ],
+     "look": [
+      -0.85,
+      0.86,
+      -2.3
+     ],
+     "fov": 46
+    },
+    "dur": 2.56,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.017
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's sinking. Tato is sinking.",
+     "tone": "sad",
+     "style": "urgent whisper, breaking news",
+     "voice": "reaper",
+     "dur": 2.36,
+     "caption": false,
+     "at": 0.077
+    }
+   ]
+  },
+  {
+   "name": "the wall",
+   "at": 32.6,
+   "len": 4,
+   "shot": {
+    "pos": [
+     -2.85,
+     0.98,
+     0.6
+    ],
+    "look": [
+     -2.45,
+     0.85,
+     -4.5
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -2.83,
+      0.974,
+      0.345
+     ],
+     "look": [
+      -2.45,
+      0.85,
+      -4.5
+     ],
+     "fov": 26
+    },
+    "dur": 4.13,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.01
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Wait. What's on that wall?",
+     "tone": "question",
+     "style": "suspicious, slow",
+     "voice": "reaper",
+     "dur": 1.94,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 0.9
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 0.7
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.67
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.55
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's been here before.",
+     "tone": "sad",
+     "style": "horrified whisper",
+     "voice": "reaper",
+     "dur": 1.09,
+     "caption": false,
+     "at": 2.61
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.75
+    },
+    {
+     "who": "cook",
+     "do": "show",
+     "at": 3.98
+    },
+    {
+     "do": "prop",
+     "id": "toque",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.98
+    },
+    {
+     "do": "prop",
+     "id": "crate",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.98
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.98
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.99
+    }
+   ]
+  },
+  {
+   "name": "the cook",
+   "at": 36.6,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -2.72,
+     1.02,
+     -1.7
+    ],
+    "look": [
+     -2.6,
+     0.94,
+     -3
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -2.71,
+      1.014,
+      -1.804
+     ],
+     "look": [
+      -2.6,
+      0.94,
+      -3
+     ],
+     "fov": 36
+    },
+    "dur": 2.35,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Last time... the waiter quit.",
+     "tone": "sad",
+     "style": "grave, slow, a terrible memory",
+     "voice": "reaper",
+     "dur": 1.95,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "toque",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "crate",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "who": "cook",
+     "do": "hide",
+     "at": 2.38
+    },
+    {
+     "who": "wT",
+     "do": "show",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "apronT",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "who": "wT",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.39
+    }
+   ]
+  },
+  {
+   "name": "steak",
+   "at": 39,
+   "len": 2.566,
+   "shot": {
+    "pos": [
+     -0.6,
+     1.1,
+     1.6
+    ],
+    "look": [
+     -0.8,
+     0.85,
+     -0.65
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.612,
+      1.085,
+      1.465
+     ],
+     "look": [
+      -0.8,
+      0.85,
+      -0.65
+     ],
+     "fov": 46
+    },
+    "dur": 2.67,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wT",
+     "do": "expr",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.7,
+      "curve": -0.1,
+      "open": 0.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wT",
+     "macro": "say",
+     "line": "And... how would you like your steak?",
+     "tone": "sad",
+     "style": "very careful, holding the notepad like a shield",
+     "voice": "mash",
+     "dur": 2.27,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "kid2",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.56
+    }
+   ]
+  },
+  {
+   "name": "dad no",
+   "at": 41.566,
+   "len": 1.267,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.44,
+     1.5
+    ],
+    "look": [
+     -0.3,
+     0.52,
+     -0.5
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.3,
+      0.445,
+      1.38
+     ],
+     "look": [
+      -0.3,
+      0.52,
+      -0.5
+     ],
+     "fov": 40
+    },
+    "dur": 1.27,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "kid2",
+     "macro": "say",
+     "line": "Dad, no.",
+     "tone": "sad",
+     "style": "tiny, from under the table, begging",
+     "voice": "tato",
+     "dur": 1.02,
+     "caption": false,
+     "at": 0.054
+    },
+    {
+     "who": "wT",
+     "do": "hide",
+     "at": 1.247
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.247
+    },
+    {
+     "do": "prop",
+     "id": "apronT",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.247
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.264
+    }
+   ]
+  },
+  {
+   "name": "standing",
+   "at": 42.833,
+   "len": 1.867,
+   "shot": {
+    "pos": [
+     -0.85,
+     0.9,
+     -0.4
+    ],
+    "look": [
+     -0.85,
+     0.86,
+     -2.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.85,
+      0.897,
+      -0.552
+     ],
+     "look": [
+      -0.85,
+      0.86,
+      -2.3
+     ],
+     "fov": 46
+    },
+    "dur": 1.8399999999999999,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's standing up. He's standing up!",
+     "tone": "excited",
+     "style": "alarmed, rising panic",
+     "voice": "reaper",
+     "dur": 1.69,
+     "caption": false,
+     "at": 0.057
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 1.847
+    },
+    {
+     "who": "dadU",
+     "do": "show",
+     "at": 1.847
+    },
+    {
+     "do": "prop",
+     "id": "carpet",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.847
+    },
+    {
+     "do": "prop",
+     "id": "carpetN",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.847
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.847
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.847
+    },
+    {
+     "who": "wT",
+     "do": "hide",
+     "at": 1.847
+    },
+    {
+     "who": "kid2",
+     "do": "hide",
+     "at": 1.847
+    },
+    {
+     "do": "prop",
+     "id": "apronT",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.847
+    }
+   ]
+  },
+  {
+   "name": "spotlight",
+   "at": 44.7,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     -0.55,
+     0.85,
+     3.3
+    ],
+    "look": [
+     1.05,
+     0.72,
+     0.35
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.422,
+      0.84,
+      3.064
+     ],
+     "look": [
+      1.05,
+      0.72,
+      0.35
+     ],
+     "fov": 36
+    },
+    "dur": 3.39,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dadU",
+     "do": "expr",
+     "set": {
+      "eye": 0.9,
+      "curve": 0.9,
+      "open": 0.3
+     },
+     "dur": 0.01,
+     "at": 0.03
+    },
+    {
+     "who": "dadU",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.03
+    },
+    {
+     "who": "dadU",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.35,
+       1.05,
+       0.25
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.23
+    },
+    {
+     "who": "dadU",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.37
+    },
+    {
+     "who": "dadU",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.43
+    },
+    {
+     "who": "dadU",
+     "macro": "say",
+     "line": "Like my jokes.",
+     "tone": "happy",
+     "style": "standing up, grand, a showman, slow",
+     "voice": "dad",
+     "dur": 1.31,
+     "caption": false,
+     "at": 0.43
+    },
+    {
+     "who": "dadU",
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.15,
+     "at": 1.84
+    },
+    {
+     "who": "dadU",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 2.03
+    },
+    {
+     "who": "dadU",
+     "macro": "say",
+     "line": "Well done.",
+     "tone": "happy",
+     "style": "triumphant, the big finish",
+     "voice": "dad",
+     "dur": 1.03,
+     "caption": false,
+     "at": 2.09
+    },
+    {
+     "sfx": "ai/rimshot",
+     "gain": 0.5,
+     "at": 3.17
+    },
+    {
+     "who": "wT",
+     "do": "release",
+     "prop": "tray",
+     "dur": 0,
+     "to": [
+      -0.62,
+      0,
+      -0.12
+     ],
+     "at": 3.28
+    },
+    {
+     "who": "wT",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.29
+    },
+    {
+     "who": "wT",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.29
+    },
+    {
+     "who": "wT",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.29
+    },
+    {
+     "who": "wT",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.29
+    },
+    {
+     "do": "prop",
+     "id": "carpetN",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "carpet",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "who": "w",
+     "do": "hide",
+     "at": 3.38
+    },
+    {
+     "who": "wT",
+     "do": "show",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "apron",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "apronT",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "man down",
+   "at": 48.1,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     0.15,
+     0.95,
+     2.6
+    ],
+    "look": [
+     -0.9,
+     0.6,
+     -0.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.097,
+      0.933,
+      2.44
+     ],
+     "look": [
+      -0.9,
+      0.6,
+      -0.6
+     ],
+     "fov": 40
+    },
+    "dur": 2.58,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wT",
+     "do": "expr",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.7,
+      "curve": -0.1,
+      "open": 0.15
+     },
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "sfx": "ai/snare-hit",
+     "gain": 0.3,
+     "at": 0.02
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0.14,
+     "dur": 0.2,
+     "at": 0.22
+    },
+    {
+     "who": "rep",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.66
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Man down! Man down!",
+     "tone": "excited",
+     "style": "shouting, war chaos",
+     "voice": "reaper",
+     "dur": 1.68,
+     "caption": false,
+     "at": 0.72
+    },
+    {
+     "who": "rep",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 1.62
+    },
+    {
+     "do": "prop",
+     "id": "main",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "cheat",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "cKid",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "cDad",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "who": "kid2",
+     "do": "hide",
+     "at": 2.58
+    },
+    {
+     "who": "wT",
+     "do": "hide",
+     "at": 2.58
+    },
+    {
+     "who": "kid3",
+     "do": "show",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "glassA",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "glassB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "plMa",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "plMb",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "apronT",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "billA",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "who": "dadU",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "who": "dadU",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.58
+    },
+    {
+     "who": "dadU",
+     "do": "move",
+     "to": [
+      0.77,
+      -0.05
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "kid3",
+     "do": "sit",
+     "dur": 0,
+     "hands": "lap",
+     "height": 0.01,
+     "at": 2.58
+    },
+    {
+     "who": "kid3",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.2,
+       0.61,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "who": "kid3",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.61,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.58
+    },
+    {
+     "who": "kid3",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.01,
+     "at": 2.58
+    },
+    {
+     "who": "kid3",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 2.58
+    },
+    {
+     "who": "kid3",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 2.58
+    }
+   ]
+  },
+  {
+   "name": "under",
+   "at": 50.7,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0,
+     0.3,
+     2.5
+    ],
+    "look": [
+     -0.09,
+     0.24,
+     0
+    ],
+    "fov": 27,
+    "to": {
+     "pos": [
+      -0.004,
+      0.297,
+      2.375
+     ],
+     "look": [
+      -0.09,
+      0.24,
+      0
+     ],
+     "fov": 27
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "kid3",
+     "do": "expr",
+     "set": {
+      "curve": -0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0.2
+    },
+    {
+     "who": "w",
+     "do": "move",
+     "to": [
+      -0.8,
+      -0.65
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.2
+    },
+    {
+     "who": "w",
+     "do": "turn",
+     "to": 210,
+     "dur": 0.01,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "cheat",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "main",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "cKid",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "cDad",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "who": "kid3",
+     "do": "hide",
+     "at": 1.48
+    },
+    {
+     "who": "dadU",
+     "do": "hide",
+     "at": 1.48
+    },
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "glassA",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "glassB",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "plMa",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "plMb",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "billA",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "pad",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "who": "w",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    },
+    {
+     "who": "w",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.48
+    }
+   ]
+  },
+  {
+   "name": "the bill",
+   "at": 52.2,
+   "len": 1.633,
+   "shot": {
+    "pos": [
+     1.6,
+     1,
+     3.2
+    ],
+    "look": [
+     0,
+     0.62,
+     -0.47
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      1.52,
+      0.981,
+      3.017
+     ],
+     "look": [
+      0,
+      0.62,
+      -0.47
+     ],
+     "fov": 50
+    },
+    "dur": 1.65,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "w",
+     "do": "walk",
+     "to": [
+      -1.75,
+      -1.55
+     ],
+     "dur": 0.6,
+     "at": 0.05
+    },
+    {
+     "who": "w",
+     "do": "look",
+     "to": [
+      -0.8,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "sfx": "ai/snare-hit",
+     "gain": 0.2,
+     "at": 0.12
+    },
+    {
+     "who": "w",
+     "do": "walk",
+     "to": [
+      -2.8,
+      -2.6
+     ],
+     "dur": 0.6,
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "billA",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.613
+    },
+    {
+     "do": "prop",
+     "id": "billB",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.613
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.625
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "billB",
+      "grip": [
+       0.12,
+       0.1,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       -0.043,
+       0.02,
+       -0.058
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.625
+    }
+   ]
+  },
+  {
+   "name": "tip stop",
+   "at": 53.833,
+   "len": 2.434,
+   "shot": {
+    "pos": [
+     0.28,
+     1.3,
+     1.95
+    ],
+    "look": [
+     0.66,
+     0.8,
+     0.1
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      0.3,
+      1.28,
+      1.85
+     ],
+     "look": [
+      0.66,
+      0.79,
+      0.1
+     ],
+     "fov": 38
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "billB",
+      "grip": [
+       0.12,
+       0.1,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.002
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.007
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.008
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.95
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.017
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Tip... stop.",
+     "tone": "sad",
+     "style": "reading the bill, slow, deflated, the smile gone",
+     "voice": "dad",
+     "dur": 1.88,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "dad",
+     "do": "grab",
+     "prop": "billB",
+     "hand": "R",
+     "grip": [
+      0.12,
+      0.1,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.072
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.95
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.087
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.8,
+      "tilt": 0.25,
+      "curve": -0.3
+     },
+     "dur": 0.5,
+     "at": 0.267
+    },
+    {
+     "who": "dad",
+     "do": "face",
+     "lid": 0.4,
+     "dur": 0.4,
+     "at": 0.267
+    },
+    {
+     "who": "dad",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.5,
+     "at": 0.367
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.95
+     ],
+     "dur": 0.05,
+     "blink": false,
+     "at": 0.967
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.69,
+   "see": [
+    "w.face",
+    "dad.face",
+    "kid.face"
+   ],
+   "why": "a nervous waiter walks up to a table: a big dad grinning, his small son begging him with his eyes"
+  },
+  {
+   "from": 53.85,
+   "to": 56.267,
+   "see": [
+    "dad.face",
+    "billB"
+   ],
+   "why": "the dad reads the bill: TIP: STOP."
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "dad",
+   "with": "cDad",
+   "from": 0,
+   "to": 56.267,
+   "reason": "sitting on the chair / standing on the crate / under the cheat table"
+  },
+  {
+   "who": "kid",
+   "with": "cKid",
+   "from": 0,
+   "to": 56.267,
+   "reason": "sitting on the chair / standing on the crate / under the cheat table"
+  },
+  {
+   "who": "rep",
+   "with": "cRep",
+   "from": 0,
+   "to": 56.267,
+   "reason": "sitting on the chair / standing on the crate / under the cheat table"
+  },
+  {
+   "who": "cook",
+   "with": "crate",
+   "from": 0,
+   "to": 56.267,
+   "reason": "sitting on the chair / standing on the crate / under the cheat table"
+  },
+  {
+   "who": "kid3",
+   "with": "cheat",
+   "from": 0,
+   "to": 56.267,
+   "reason": "sitting on the chair / standing on the crate / under the cheat table"
+  },
+  {
+   "who": "w",
+   "with": "apron",
+   "from": 0,
+   "to": 56.267,
+   "checks": [
+    "clipping",
+    "arm-in-prop"
+   ],
+   "reason": "his own worn apron wraps his body; the pad arm brushes its front (3 cm, the apron cloth)"
+  },
+  {
+   "who": "wT",
+   "with": "apronT",
+   "from": 0,
+   "to": 56.267,
+   "checks": [
+    "clipping",
+    "arm-in-prop"
+   ],
+   "reason": "his own worn apron wraps his body; the pad arm brushes its front (3 cm, the apron cloth)"
+  },
+  {
+   "who": "kid3",
+   "with": "kid3",
+   "from": 50.68,
+   "to": 52.18,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "under the table he hides his face in his hands: the point of the shot (Sol r1 #4); no line, his curled body reads"
+  },
+  {
+   "who": "cook",
+   "with": "cook",
+   "from": 36.58,
+   "to": 38.98,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "praying palms raised to his chin in the porthole (Sol r1 #14): the draft still shows both eyes over the fingertips"
+  },
+  {
+   "who": "wT",
+   "with": "glassB",
+   "from": 24.213,
+   "to": 28.18,
+   "checks": [
+    "arm-in-prop"
+   ],
+   "reason": "the glass stands on the tray he carries; his left forearm brushes its far side by 3 cm, behind the glass from the lens"
+  },
+  {
+   "who": "dad",
+   "from": 53.79,
+   "to": 53.93,
+   "checks": [
+    "hand-turn",
+    "grab-on-cut"
+   ],
+   "reason": "the hand closes on the bill across the cut from the wide (bill on the table) to the close-up (bill in his hand): the turn falls between the wide's last frame and the close-up's first"
+  },
+  {
+   "who": "dadU",
+   "with": "cheat",
+   "from": 50.68,
+   "to": 52.18,
+   "checks": [
+    "shell",
+    "clipping"
+   ],
+   "reason": "panel 13 cheat: the dad stands across the cheat table's skirt, only his legs and belly show under the hem"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/04-waiter-jokes/make-waiter-jokes.mjs. Tray-slap sound is a placeholder (snare-hit)."
+}

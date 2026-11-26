@@ -66,6 +66,8 @@ const SIZE = {
   candy: { len: 0.04, r: 0.024 },                  // props-halloween.js candy (big 1.3): the sweet's middle is 0.02 up
   wallcalendar: { w: 0.26, h: 0.34, t: 0.008 },    // props-notyet.js CALENDAR: held with the phone hold, its grid (-z) faces away from the holder
   clipboard: { w: 0.24, h: 0.32, t: 0.008 },       // props-spree.js: the estate agent's clipboard (money redo), phone hold, paper on -z
+  servetray: { w: 0.38, h: 0.022, d: 0.38 },        // props-waiter.js (Kid vs Dad 04): the round drinks tray r 0.19, origin bottom centre: box hold, both palms on the rim (call box with gap: 0.03)
+  tipbill: { w: 0.17, h: 0.25, t: 0.012 },           // props-waiter.js (Kid vs Dad 04): the bill tray + slip, standing on its bottom edge, slip on -z: phone hold on a side edge (side "R", height 0.40)
   manilafolder: { w: 0.24, h: 0.32, t: 0.008 },    // props-office11.js: Mash's folder (Potato Desk 11), phone hold on the lower edge; marks on both faces; spec.fan tips it +-18 deg at 4 Hz
   bigcheck: { w: 0.56, h: 0.002, d: 0.24 },        // props-spree.js: the $10,000,000 check (money redo), lies flat
   hotelpillow: { w: 0.5, h: 0.12, d: 0.3 },        // props-nightcity.js: both palms on its two ends (box hold: L at x -0.25, R at x +0.25)

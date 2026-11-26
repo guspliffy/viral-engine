@@ -1,0 +1,77 @@
+{
+  "id": "potatobrawl/cook",
+  "name": "The cook (Kid vs Dad 04)",
+  "franchise": "PotatoBrawl",
+  "source": "Kid vs Dad 04 \"Dad jokes at the waiter\" (storyboards/series/kid-vs-dad/04-waiter-jokes/DESIGN.md section 5, 25 Nov 2026): Chip's rig as a small round cook",
+  "rig": "potato",
+  "tts": "chip",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.46,
+    "width": 0.5,
+    "depth": 0.46,
+    "lump": 0.02,
+    "seed": 113,
+    "taper": 0.02
+  },
+  "limbs": {
+    "color": "#3b3f48",
+    "width": 0.03,
+    "shoulder": -0.34
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 0.85
+    },
+    "size": 0.7
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none",
+    "size": 1.25
+  },
+  "costume": {
+    "type": "teller",
+    "shirt": "#fbf8f1",
+    "vest": false,
+    "tie": false,
+    "glasses": false,
+    "garters": false
+  },
+  "personality": "The kitchen's cook, panel 09 only: prays on a crate.",
+  "voice": {
+    "pitch": 168,
+    "rate": 3.9,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 71
+  },
+  "voiceNote": "gibberish (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.05,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "A small ball (0.46 tall, never in a shot with Tato or Chip). White jacket from the teller costume (collar roll included); the chef's hat is a worn toque prop (fit H 0.46 W 0.50 D 0.46 taper 0.02 legH 0.14, h 0.20). No sprout (under the hat)."
+}

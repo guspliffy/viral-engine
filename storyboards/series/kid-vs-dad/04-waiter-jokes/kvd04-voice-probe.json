@@ -1,0 +1,364 @@
+{
+ "id": "kvd04-voice-probe",
+ "title": "Kid vs Dad 04 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   81.8,
+   81.8
+  ]
+ },
+ "cast": [
+  {
+   "id": "rep",
+   "character": "potatobrawl/reporter",
+   "at": [
+    -1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.4,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    3.2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 81.8,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Danger. A dad is about to order.",
+     "tone": "calm",
+     "style": "grave whisper, a war correspondent hiding behind a menu",
+     "voice": "reaper",
+     "dur": 3.3,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Will the waiter survive?",
+     "tone": "question",
+     "style": "low, tense, slow",
+     "voice": "reaper",
+     "dur": 2.1,
+     "caption": false,
+     "at": 4.5
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Tato, age seven, is hungry.",
+     "tone": "calm",
+     "style": "grave, low, under cover",
+     "voice": "reaper",
+     "dur": 3.3,
+     "caption": false,
+     "at": 7.6
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And at this table, there is one rule.",
+     "tone": "calm",
+     "style": "slow, ominous, leaning in",
+     "voice": "reaper",
+     "dur": 3.7,
+     "caption": false,
+     "at": 11.9
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "No jokes at the waiter.",
+     "tone": "calm",
+     "style": "deadly serious, each word apart",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 16.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. Please. Just order.",
+     "tone": "sad",
+     "style": "small, pleading, hands pressed together",
+     "voice": "tato",
+     "dur": 2.1,
+     "caption": false,
+     "at": 20.1
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Relax. I'm always normal.",
+     "tone": "calm",
+     "style": "warm, far too confident",
+     "voice": "dad",
+     "dur": 2.1,
+     "caption": false,
+     "at": 23.2
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Hi. Can I take your order?",
+     "tone": "happy",
+     "style": "polite, nervous, a young waiter",
+     "voice": "mash",
+     "dur": 2.9,
+     "caption": false,
+     "at": 26.3
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Sure. Where are you taking it?",
+     "tone": "happy",
+     "style": "delighted with himself, a classic dad joke, beaming",
+     "voice": "dad",
+     "dur": 2.9,
+     "caption": false,
+     "at": 30.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "First joke. The waiter is still standing.",
+     "tone": "calm",
+     "style": "tense, quiet, a reporter at the front line",
+     "voice": "reaper",
+     "dur": 3.3,
+     "caption": false,
+     "at": 34.1
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Sorry for the wait.",
+     "tone": "sad",
+     "style": "apologetic, a little shaky, bowing",
+     "voice": "mash",
+     "dur": 2.1,
+     "caption": false,
+     "at": 38.4
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "That's okay. I've been working out.",
+     "tone": "happy",
+     "style": "proud, patting his belly, pause before the punchline",
+     "voice": "dad",
+     "dur": 2.9,
+     "caption": false,
+     "at": 41.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad...",
+     "tone": "sad",
+     "style": "muffled, embarrassed, sinking under the table",
+     "voice": "tato",
+     "dur": 0.9,
+     "caption": false,
+     "at": 45.4
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's sinking. Tato is sinking.",
+     "tone": "sad",
+     "style": "urgent whisper, breaking news",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 47.3
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Wait. What's on that wall?",
+     "tone": "question",
+     "style": "suspicious, slow",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 50.8
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's been here before.",
+     "tone": "sad",
+     "style": "horrified whisper",
+     "voice": "reaper",
+     "dur": 2.1,
+     "caption": false,
+     "at": 54.3
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Last time... the waiter quit.",
+     "tone": "sad",
+     "style": "grave, slow, a terrible memory",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 57.4
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "And... how would you like your steak?",
+     "tone": "sad",
+     "style": "very careful, holding the notepad like a shield",
+     "voice": "mash",
+     "dur": 3.3,
+     "caption": false,
+     "at": 60.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad, no.",
+     "tone": "sad",
+     "style": "tiny, from under the table, begging",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 65.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's standing up. He's standing up!",
+     "tone": "excited",
+     "style": "alarmed, rising panic",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 67.5
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Like my jokes.",
+     "tone": "happy",
+     "style": "standing up, grand, a showman, slow",
+     "voice": "dad",
+     "dur": 1.7,
+     "caption": false,
+     "at": 71.4
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Well done.",
+     "tone": "happy",
+     "style": "triumphant, the big finish",
+     "voice": "dad",
+     "dur": 1.3,
+     "caption": false,
+     "at": 74.1
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Man down! Man down!",
+     "tone": "excited",
+     "style": "shouting, war chaos",
+     "voice": "reaper",
+     "dur": 2.1,
+     "caption": false,
+     "at": 76.4
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Tip... stop.",
+     "tone": "sad",
+     "style": "reading the bill, slow, deflated, the smile gone",
+     "voice": "dad",
+     "dur": 1.3,
+     "caption": false,
+     "at": 79.5
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Kid vs Dad 04: makes and measures every take. the reporter's voice is reaper."
+}
