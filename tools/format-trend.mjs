@@ -74,6 +74,31 @@ export function fastSignal(rows, activity, now) {
   const word = last.C >= 3 && growth >= 1.5 ? "HEATING UP" : prev.C >= 3 && growth <= 0.65 ? "COOLING" : "no change";
   return { last: { C: last.C, N: last.N }, prev: { C: prev.C, N: prev.N }, growth, word };
 }
+// Channel by channel (Jonny 26 Nov: "analyse multiple channels posting about the topic and see if multiple are rising
+// right now"): each account's format videos last week vs the week before (videos under 2 days left out). RISING = median
+// x1.3+, FALLING = x0.7 or less, both need 2+ videos a side; NEW = its first format video is in the last 14 days (and its
+// history reaches further back). A trend develops when several independent channels rise at once and few fall.
+export function channelTable(rows, now) {
+  const end = now - FRESH * DAY, mid = end - WINDOW * DAY, start = mid - WINDOW * DAY, out = [];
+  for (const a of new Set(rows.map((r) => r.account))) {
+    const mine = rows.filter((r) => r.account === a), first = Math.min(...mine.map((r) => r.posted));
+    const rec = mine.filter((r) => r.posted >= mid && r.posted < end), old = mine.filter((r) => r.posted >= start && r.posted < mid);
+    const mr = rec.length ? median(rec.map((r) => r.views)) : null, mo = old.length ? median(old.map((r) => r.views)) : null;
+    const ratio = mr != null && mo != null ? +(mr / Math.max(mo, 1)).toFixed(2) : null;
+    const isNew = now - first < 2 * WINDOW * DAY && (mine[0].reach == null || mine[0].reach < first - 7 * DAY);
+    const word = isNew ? "NEW" : rec.length >= 2 && old.length >= 2 ? (ratio >= 1.3 ? "RISING" : ratio <= 0.7 ? "FALLING" : "STEADY") : "too few";
+    const best = [...rec].sort((x, y) => y.views - x.views)[0];
+    out.push({ platform: mine[0].platform || "tiktok", account: a, followers: mine[0].followers, usual: mine[0].usual, recent: rec.length, before: old.length,
+      medianRecent: mr, medianBefore: mo, ratio, word, best: best ? { url: best.url, views: best.views, title: best.title } : null });
+  }
+  const order = { RISING: 0, NEW: 1, STEADY: 2, FALLING: 3, "too few": 4 };
+  return out.sort((x, y) => order[x.word] - order[y.word] || (y.ratio || 0) - (x.ratio || 0));
+}
+export const channelSummary = (ch) => { const n = (w) => ch.filter((c) => c.word === w).length;
+  const rising = n("RISING"), falling = n("FALLING"), fresh = n("NEW"), judged = rising + falling + n("STEADY");
+  return { rising, falling, steady: n("STEADY"), fresh, judged,
+    word: rising >= 3 && rising >= 2 * falling ? "DEVELOPING: several channels rise at once" : falling >= 3 && falling >= 2 * rising ? "COOLING: more channels fall than rise" : judged < 3 ? "too few channels with 2+ videos a week" : "MIXED" }; };
+
 // Robustness (ChatGPT research 26 Nov): a rise that disappears without its biggest account is one account's run, not a trend.
 function fragileCheck(rows, ver, o, now, recentWeeks) {
   if (!/^(RISING|HEATING|NEW)/.test(ver.word)) return null;
@@ -183,7 +208,7 @@ export function ytRows(f, o) {
     activity[a] = feed.videos.map((v) => v.posted).filter(Boolean);
     const usual = median(feed.videos.map((v) => v.views)), reach = Math.min(...feed.videos.map((v) => v.posted || Infinity));
     for (const v of feed.videos) if (v.posted && f.re.test(v.desc))
-      rows.push({ platform: "youtube", format: f.name, account: a, followers: null, created: feed.created, usual, reach, posted: v.posted, views: v.views, url: v.url, title: v.title });
+      rows.push({ platform: "youtube", format: f.name, account: feed.name || a, channelId: a, followers: null, created: feed.created, usual, reach, posted: v.posted, views: v.views, url: v.url, title: v.title });
   }
   return { rows, accounts: accounts.length, activity };
 }
@@ -271,6 +296,9 @@ async function main() {
     `that post it vs the week before. Without enough accounts to compare with themselves: last week vs the week before, pooled. Hit = ${fmt(o.minViews)}+ views.\n`;
   const fastLine = (x) => x ? `Last 3 days vs the 3 before: ${x.word} (accounts posting it ${x.prev.C} of ${x.prev.N} -> ${x.last.C} of ${x.last.N}, x${x.growth}). ` : "";
   for (const { f, wins, ver, rows, newWin, accounts, yt, gap, fast } of report) {
+    const chMd = (rs, label) => { const ch = channelTable(rs, now), sm = channelSummary(ch); if (!ch.length) return "";
+      return `\n**${label} channels: ${sm.word}** (${sm.rising} rising, ${sm.steady} steady, ${sm.falling} falling, ${sm.fresh} new to it)\n\n| Channel | Followers | Last week | Week before | Change | Read | Best last week |\n|---|---|---|---|---|---|---|\n` +
+        ch.filter((c) => c.word !== "too few").map((c) => `| ${c.account} | ${c.followers == null ? "?" : fmt(c.followers)} | ${c.recent} videos, median ${c.medianRecent == null ? "-" : fmt(c.medianRecent)} | ${c.before} videos, median ${c.medianBefore == null ? "-" : fmt(c.medianBefore)} | ${c.ratio == null ? "-" : "x" + c.ratio} | ${c.word} | ${c.best ? `[${fmt(c.best.views)}](${c.best.url})` : ""} |`).join("\n") + "\n"; };
     md += `\n## ${f.name}: ${ver.word}\n\nReward x${ver.reward ?? "?"} (${ver.accountsCompared} accounts compared), entry x${ver.entry}. ` +
       `${rows.length} format videos from ${accounts} accounts. Newcomer odds: ${ver.newHits} of ${ver.newPosters} accounts new to the format that tried it in the last 7 days beat their own usual views 2x` +
       `${ver.newShare == null ? " (too few to judge room)" : ` (${Math.round(ver.newShare * 100)}%)`}` +
@@ -283,6 +311,7 @@ async function main() {
       (yt.accounts ? `\n**YouTube Shorts: ${yt.ver.word}** (${yt.rows.length} dated format Shorts from ${yt.accounts} channels; newcomer odds ${yt.ver.newHits} of ${yt.ver.newPosters})\n\n` +
         `| Window | Videos | Channels posting | Median views | Hits |\n|---|---|---|---|---|\n` +
         yt.wins.map((w) => `| ${w.from} to ${w.to} | ${w.videos} | ${w.posters} | ${fmt(w.medianViews)} | ${w.hits} |`).join("\n") + "\n" : "") +
+      chMd(rows, "TikTok") + chMd(yt.rows, "YouTube") +
       `\n**Platform gap, last 2 weeks: ${gap.word}.** TikTok ${gap.tiktok.posters} accounts, ${gap.tiktok.videos} videos, median ${fmt(gap.tiktok.medianViews)}, ${gap.tiktok.hits} hits; ` +
       `YouTube ${gap.youtube.posters} channels, ${gap.youtube.videos} Shorts, median ${fmt(gap.youtube.medianViews)}, ${gap.youtube.hits} hits.\n`;
   }
