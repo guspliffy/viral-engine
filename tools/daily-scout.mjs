@@ -64,19 +64,21 @@ export function page({ early, fresh, risers, repeats, trend, found, firstRun, st
   // covers: YouTube's are stable; TikTok's signed links (from the scan) expire after some days, then the black frame shows
   const thumb = (v) => yt(v.url) ? `https://i.ytimg.com/vi/${yt(v.url)}/oar2.jpg` : v.cover;
   const card = (v, note) => `<article class=card><div class=frame ${play(v.url)}>${thumb(v) ? `<img src="${esc(thumb(v))}" alt="" loading=lazy referrerpolicy=no-referrer onerror="this.remove()">` : ""}<button class=go aria-label="Play">&#9654;</button></div>
-<div class=meta><b>${fmt(v.views)}</b> views · <b>${v.followers ? Math.round(v.views / Math.max(v.followers, 1)) + "x" : "?"}</b> followers · ${esc(v.account)} (${fmt(v.followers)})${note ? ` · ${note}` : ""}
+<div class=meta><b>${fmt(v.views)}</b> views · <b>${v.followers ? Math.round(v.views / Math.max(v.followers, 1)) + "x" : "?"}</b> followers · ${esc(v.name && !/^UC[\w-]{22}$/.test(v.name) ? v.name : v.account)} (${fmt(v.followers)})${note ? ` · ${note}` : ""}
 <p>${esc((v.title || "").replace(/\s+/g, " ").slice(0, 110))}</p>${v.flags ? `<span class=tag>${esc(v.flags)}</span>` : ""}${v.duration && v.duration < 50 ? `<span class=tag>${v.duration} s: stretch to 80 s</span>` : ""}
 <a href="${esc(v.url)}" target=_blank rel=noopener>open</a></div></article>`;
   const grid = (vs, note) => vs.length ? `<div class=grid>${vs.map((v) => card(v, note && note(v))).join("")}</div>` : `<p class=muted>None today.</p>`;
   const spark = (xs) => { const m = Math.max(...xs, 1); return `<svg class=spark viewBox="0 0 ${xs.length * 8} 24" aria-hidden=true>${xs.map((x, i) => `<rect x="${i * 8 + 1}" y="${24 - Math.max(1, (22 * x) / m)}" width=6 height="${Math.max(1, (22 * x) / m)}"/>`).join("")}</svg>`; };
+  const hits = (hs) => hs?.length ? `<ul class=hits>${hs.map((h) => `<li><a href="${esc(h.url)}" target=_blank rel=noopener>${esc((h.title || h.account || "video").replace(/\s+/g, " ").slice(0, 60))}</a> <span class=muted>${fmt(h.perDay)}/day · ${fmt(h.views)}</span></li>`).join("")}</ul>` : "";
   const verdictClass = (w) => /RISING|HEATING/.test(w) ? "up" : /CROWD|FADING/.test(w) ? "down" : "flat";
   const fmtRows = (fs) => fs.map((f) => `<details class=fmt><summary><b>${esc(f.pattern)}</b> <span class=muted>${f.accounts} accounts · usual video ${f.medianRatio}x followers · ${f.breakouts} breakout${f.breakouts === 1 ? "" : "s"} · ${Math.round(f.recentShare * 100)}% from the last 7 days</span></summary>${grid(f.examples)}</details>`).join("");
   const ours = (found || []).filter((f) => !f.franchise), fan = (found || []).filter((f) => f.franchise);
   return `<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
 <title>Trend scout</title><style>
 :root{--bg:#fbfaf7;--card:#fff;--fg:#1d1c1a;--muted:#6b6862;--line:#e4e1da;--accent:#b4541a;--up:#2f7d4f;--down:#b23a3a}
-@media (prefers-color-scheme:dark){:root{--bg:#161513;--card:#1f1e1b;--fg:#ecebe7;--muted:#9b978f;--line:#2e2c28;--accent:#e58a4b;--up:#6cc28f;--down:#e07a7a}}
-*{box-sizing:border-box}body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;margin:0 auto;max-width:1200px;padding:16px}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#161513;--card:#1f1e1b;--fg:#ecebe7;--muted:#9b978f;--line:#2e2c28;--accent:#e58a4b;--up:#6cc28f;--down:#e07a7a;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#161513;--card:#1f1e1b;--fg:#ecebe7;--muted:#9b978f;--line:#2e2c28;--accent:#e58a4b;--up:#6cc28f;--down:#e07a7a;color-scheme:dark}
+*{box-sizing:border-box}body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;margin:0 auto;max-width:1200px;padding-block:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 h1{font-size:22px;margin:4px 0}h2{font-size:17px;margin:24px 0 4px}p{margin:4px 0}.muted{color:var(--muted)}a{color:var(--accent)}
 nav{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0;position:sticky;top:0;background:var(--bg);padding:6px 0;z-index:2}
 nav button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:20px;padding:6px 14px;cursor:pointer}
@@ -88,7 +90,7 @@ nav button[aria-selected=true]{background:var(--fg);color:var(--bg)}section{disp
 .meta{padding:8px 10px;font-size:13px}.meta p{margin:4px 0 6px}.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:10px;padding:0 6px;margin-right:4px;color:var(--muted)}
 table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;font-size:14px;vertical-align:middle}
 th{color:var(--muted);font-weight:500}td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.up{color:var(--up)}.down{color:var(--down)}.spark{width:64px;height:24px;fill:var(--accent)}h3{font-size:16px;margin:0 0 6px}.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:8px 0}.tcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.plat{display:flex;align-items:center;gap:8px;margin-top:6px}.plat .spark{margin-left:auto}.gap{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}details.fmt{border-bottom:1px solid var(--line);padding:8px 0}summary{cursor:pointer}
+.up{color:var(--up)}.down{color:var(--down)}.spark{width:64px;height:24px;fill:var(--accent)}h3{font-size:16px;margin:0 0 6px}.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:8px 0}.tcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.plat{display:flex;align-items:center;gap:8px;margin-top:6px}.plat .spark{margin-left:auto}.hits{margin:4px 0 6px;padding-left:18px;font-size:13px}.hits li{margin:2px 0}.gap{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}details.fmt{border-bottom:1px solid var(--line);padding:8px 0}summary{cursor:pointer}
 </style></head><body>
 <h1>Trend scout</h1><p class=muted>${today} · small accounts (under ${fmt(stats.maxFollowers)} followers) in animation, funny animation, comedy and comedy sketches on TikTok and YouTube Shorts · ${stats.videos} videos read, ${stats.accounts} small accounts opened. Lessons, not copies.${firstRun ? " First run: \"new\" and \"risers\" fill in from tomorrow." : ""}</p>
 <nav role=tablist>${["Today", "Formats", "Trends", "Accounts"].map((t, i) => `<button role=tab aria-selected=${i === 0} data-tab=${t}>${t}</button>`).join("")}</nav>
@@ -97,11 +99,11 @@ th{color:var(--muted);font-weight:500}td.n{text-align:right;white-space:nowrap;f
 <h2>New breakouts</h2><p class=muted>Over 10x followers and the views bar, not seen in an earlier run.</p>${grid(fresh)}</section>
 <section id=Formats><h2>Formats found today</h2><p class=muted>Caption patterns that 3+ different small accounts use, ranked by breakouts. Open one to watch its best examples.</p>${fmtRows(ours) || "<p class=muted>None today.</p>"}
 ${fan.length ? `<h2>Fandom trends (someone else's characters)</h2><p class=muted>Big on reach, but not ours to make.</p>${fmtRows(fan)}` : ""}</section>
-<section id=Trends><h2>Our formats${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>TikTok and YouTube Shorts, each judged on its own: last 2 weeks vs the 2 before. Reward = the same accounts' views with the format (1.0 = no change). Newcomers = new accounts that tried it in the last 2 weeks and beat their own usual views 2x: room for one more creator. Bars = views per day of the videos posted on each of the last 7 days.</p>
+<section id=Trends><h2>Our formats${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>TikTok and YouTube Shorts, each judged on its own: last 2 weeks vs the 2 before. Reward = the same accounts' views with the format (1.0 = no change). Newcomers = new accounts (under 150 days) that tried it in the last 7 days and beat their own usual views 2x: room for one more creator. Their videos are listed fastest first (views per day). YouTube compares the last week with the week before. Bars = views per day of the videos posted on each of the last 7 days.</p>
 <div class=tgrid>${trend.formats.map((t) => `<article class=tcard><h3>${esc(t.name)}</h3>
 <div class=plat><span class=muted>TikTok</span> <b class=${verdictClass(t.word)}>${esc(t.word.split(":")[0])}</b>${spark(t.days || [])}</div>
-<p class=muted>Reward ${t.reward ?? "?"} · accounts/week ${t.postersPerWeek ?? "?"} · newcomers ${t.newHits ?? "?"} of ${t.newPosters ?? "?"}${t.best ? ` · <a href="${esc(t.best.url)}" target=_blank rel=noopener>newcomer hit</a> ${fmt(t.best.views)}` : ""}</p>
-<div class=plat><span class=muted>YouTube</span> ${t.yt ? `<b class=${verdictClass(t.yt.word)}>${esc(t.yt.word.split(":")[0])}</b>${spark(t.yt.days || [])}` : "?"}</div>
+<p class=muted>Reward ${t.reward ?? "?"} · accounts/week ${t.postersPerWeek ?? "?"} · newcomers ${t.newHits ?? "?"} of ${t.newPosters ?? "?"}</p>${hits(t.newcomers)}
+<div class=plat><span class=muted>YouTube</span> ${t.yt ? `<b class=${verdictClass(t.yt.word)}>${esc(t.yt.word.split(":")[0])}</b>${spark(t.yt.days || [])}` : "?"}</div>${t.yt?.newPosters != null ? `<p class=muted>Last week vs the week before · newcomers ${t.yt.newHits} of ${t.yt.newPosters}</p>` : ""}${hits(t.yt?.newcomers)}
 ${t.gap ? `<p class="gap ${/^ROOM/.test(t.gap.word) ? "up" : ""}"><b>${esc(t.gap.word.split(":")[0])}</b> <span class=muted>last 2 weeks: TikTok ${t.gap.tiktok.posters} accounts, median ${fmt(t.gap.tiktok.medianViews)}, ${t.gap.tiktok.hits} hits · YouTube ${t.gap.youtube.posters} channels, median ${fmt(t.gap.youtube.medianViews)}, ${t.gap.youtube.hits} hits</span></p>` : ""}</article>`).join("")}</div>
 <p class=muted>Gap: ROOM ON YOUTUBE / ROOM ON TIKTOK = the format pays on one platform (median 50K+ or 3+ hits in 2 weeks) while few accounts make it on the other. That is where we can be early.</p>` : "<p class=muted>Not run yet.</p>"}</section>
 <section id=Accounts><h2>Repeat breakers (formats, not luck)</h2><p class=muted>Small accounts that beat their following again and again. Best and worst video side by side: the worst shows what fails.</p>
@@ -152,8 +154,10 @@ async function main() {
   if (o.trend) {
     const t = await runTrend(trendArgs(["node", "trend", "--preset", "ours", "--accounts", "20"]));
     h2.trend = { date: today, formats: t.report.map(({ f, ver, newWin, rows, yt, gap }) => ({ name: f.name, ...ver, days: dailyTable(rows, t.now).map((d) => d.perDay),
-      best: newWin[0] ? { url: newWin[0].url, views: newWin[0].views } : null,
-      yt: { word: yt.ver.word, days: yt.days.map((d) => d.perDay), channels: yt.accounts }, gap })) };
+      best: newWin[0] ? { url: newWin[0].url, views: newWin[0].views, perDay: newWin[0].perDay } : null,
+      newcomers: newWin.slice(0, 3).map((r) => ({ url: r.url, views: r.views, perDay: r.perDay, title: r.title, account: r.account, platform: "tiktok" })),
+      yt: { word: yt.ver.word, days: yt.days.map((d) => d.perDay), channels: yt.accounts, newHits: yt.ver.newHits, newPosters: yt.ver.newPosters,
+        newcomers: yt.newWin.slice(0, 3).map((r) => ({ url: r.url, views: r.views, perDay: r.perDay, title: r.title, account: r.account, platform: "youtube" })) }, gap })) };
   }
   const repeats = ranked.filter(isRepeat);
   const found = findFormats(vids.filter(small), { minAccounts: 3, top: 30 });

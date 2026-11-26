@@ -12,10 +12,10 @@ import { median, FRANCHISE } from "./small-big-scan.mjs";
 
 // words that say nothing about a format, and hashtags every animation video carries
 const STOP = new Set("a an the and or but of to in on at for with is are was be it this that my your our his her their i you he she we they me him us them so just when what who how why not no yes do does did have has had will can its it's im i'm if would like make back get got one all out up about from into then than there here by as be all".split(" "));
-const FAN = /#?(dandy|dandysworld|pomni|jax|funnybunny|theamazingdigitalcircus|robloxanimation|tsundere|anime|mha|naruto|ersatz)/i; // fandom tags beyond FRANCHISE
-const GENERIC_TAGS = /^#(fyp|fypシ|foryou|foryoupage|viral|trending|funny|comedy|animation|animated|cartoon|shorts|short|meme|memes|explore|xyzbca|capcut|tiktok|funnyvideo|funnyvideos|lol|humor|3danimation|2danimation|animationmeme|funnyanimation|cartoons|fy|parati|viralvideo|edit|story|storytime|relatable|fun|ai|aivideo|aivideos|animator|animations|cute|kids|family|foryourpage|reels|youtubeshorts|art|artist|oc|animatic|stickman|stickmananimation|comedyvideo|comedyvideos|skit|skits|sketch|sketchcomedy|pov|entertainment|funnytiktok|funnyreels|tiktokcomedy|funnymoments|funnycartoon|cartooncomedy|comedyskits|drawing|funnyshorts|shortsfeed|trend|trendingvideo)$/i;
+const FAN = /#?(dandy|dandysworld|pomni|jax|funnybunny|theamazingdigitalcircus|robloxanimation|tsundere|anime|mha|naruto|ersatz|ddlc|natsuki|monika|sayori|yuri|deltarune|undertale|hazbin|helluva|gacha|oc|vtuber|genshin|hsr|evangelion|bluelock|jjk|demonslayer|onepiece)/i; // fandom tags beyond FRANCHISE
+const GENERIC_TAGS = /^#(fyp|fypシ|foryou|foryoupage|viral|trending|funny|comedy|animation|animated|cartoon|shorts|short|meme|memes|explore|xyzbca|capcut|tiktok|funnyvideo|funnyvideos|lol|humor|3danimation|2danimation|animationmeme|funnyanimation|cartoons|fy|parati|viralvideo|edit|story|storytime|relatable|fun|ai|aivideo|aivideos|animator|animations|cute|kids|family|foryourpage|reels|youtubeshorts|art|artist|oc|animatic|stickman|stickmananimation|comedyvideo|comedyvideos|skit|skits|sketch|sketchcomedy|pov|entertainment|funnytiktok|funnyreels|tiktokcomedy|funnymoments|funnycartoon|cartooncomedy|comedyskits|drawing|funnyshorts|shortsfeed|trend|trendingvideo|dance|english|china|usa|creatorsearchinsights|laugh|laughing|comedyshorts|comedyskit|kidsanimation|kidsvideo|hmph|lmao|wow|omg|satire|idk|eh|xyzabc|fypage|foru|viralshorts|trendingshorts|tiktokviral|funnyclips|meme|memesdaily|cartoonanimation|animationvideo|3d|2d|blender|animate|fyppppppppppppppppppppppp)$/i;
 // grams made only of genre words say nothing about the format
-const GENERIC_GRAM = /^((funny|cartoons?|comedy|animations?|animated|sketch|skits?|kids|3d|2d|moments|characters|videos?|for|the|of|best|story|stories|short|shorts|new|ai|cute)( |$))+$/;
+const GENERIC_GRAM = /^((funny|cartoons?|comedy|animations?|animated|sketch|skits?|kids|3d|2d|moments|characters|videos?|for|the|of|best|story|stories|short|shorts|new|ai|cute|memes?|trending|viral|fyp|lol|haha|part|episode|ep|follow|more|like|subscribe)( |$))+$/;
 
 export function patternsOf(caption) {
   const text = String(caption || "").toLowerCase();
@@ -54,7 +54,7 @@ export function findFormats(videos, { minAccounts = 3, top = 25 } = {}) {
       medianRatio: +median(vs.filter((v) => v.followers != null).map(ratio)).toFixed(1),
       breakouts: vs.filter((v) => v.followers != null && ratio(v) >= 10 && v.views >= 100000).length,
       recentShare: +(vs.filter((v) => v.ageDays != null && v.ageDays <= 7).length / vs.length).toFixed(2),
-      examples: vs.sort((a, b) => ratio(b) - ratio(a)).slice(0, 3).map((v) => ({ url: v.url, account: v.account, views: v.views, followers: v.followers, title: v.title, cover: v.cover, duration: v.duration, flags: v.flags })) });
+      examples: vs.sort((a, b) => ratio(b) - ratio(a)).slice(0, 3).map((v) => ({ url: v.url, account: v.account, name: v.name, views: v.views, followers: v.followers, title: v.title, cover: v.cover, duration: v.duration, flags: v.flags })) });
   }
   // a longer pattern used by the same accounts says more than its parts: drop a pattern contained in a longer one with
   // at least 80% of its accounts

@@ -49,6 +49,13 @@ export function parseArgs(argv) {
 }
 
 // rows: one per format video {account, posted (unix s), views, created (account, unix s)}; now in unix s
+// newcomer videos: accounts under 150 days, posted 1-7 days ago
+export const newcomerRows = (rows, now) => rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 7 * DAY && now - r.posted >= DAY);
+// newcomer hits, newest and fastest first: views per day since posting, 2x+ the account's usual video
+export const newcomerHits = (rows, o, now) => newcomerRows(rows, now)
+  .filter((r) => (r.usual != null ? r.views >= 2 * Math.max(r.usual, 1) && r.views >= 20000 : r.views >= o.minViews))
+  .map((r) => ({ ...r, perDay: Math.round(r.views / Math.max((now - r.posted) / DAY, 1)) })).sort((a, b) => b.perDay - a.perDay);
+
 export function trendTable(rows, o, now) {
   const end = now - FRESH * DAY;
   const wins = [];
@@ -81,8 +88,10 @@ export function dailyTable(rows, now) {
   return out;
 }
 
-export function verdict(rows, wins, o, now) {
-  const cut = now - FRESH * DAY - 2 * WINDOW * DAY, start = now - FRESH * DAY - o.windows * WINDOW * DAY;
+// recentWeeks: how many of the latest weeks count as "now" (TikTok 2; YouTube 1, since a channel's feed holds only its
+// 15 latest Shorts, about 2 weeks for a daily poster)
+export function verdict(rows, wins, o, now, recentWeeks = 2) {
+  const cut = now - FRESH * DAY - recentWeeks * WINDOW * DAY, start = now - FRESH * DAY - o.windows * WINDOW * DAY;
   const ratios = [];
   for (const a of new Set(rows.map((r) => r.account))) {
     const mine = rows.filter((r) => r.account === a && r.posted < now - FRESH * DAY && r.posted >= start);
@@ -92,28 +101,29 @@ export function verdict(rows, wins, o, now) {
   const reward = ratios.length >= 3 ? +median(ratios).toFixed(2) : null;
   const inRange = rows.filter((r) => r.posted < now - FRESH * DAY && r.posted >= start);
   const recV = inRange.filter((r) => r.posted >= cut).map((r) => r.views), oldV = inRange.filter((r) => r.posted < cut).map((r) => r.views);
-  const recentNew = wins.slice(-2).reduce((s, w) => s + w.newAccounts, 0);
-  const olderNew = wins.slice(0, -2).reduce((s, w) => s + w.newAccounts, 0) / Math.max((wins.length - 2) / 2, 1);
+  const recentNew = wins.slice(-recentWeeks).reduce((s, w) => s + w.newAccounts, 0);
+  const olderNew = wins.slice(0, -recentWeeks).reduce((s, w) => s + w.newAccounts, 0) / Math.max((wins.length - recentWeeks) / recentWeeks, 1);
   const entry = +(recentNew / Math.max(olderNew, 0.5)).toFixed(2);
-  // Newcomer odds: accounts under 150 days that tried it in the last 2 weeks, and how many of them got a format video
-  // at 2x+ their own usual views (older saved runs without `usual`: the --min-views bar instead)
-  const young = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 17 * DAY && now - r.posted >= FRESH * DAY);
+  // Newcomer odds: accounts under 150 days that tried it in the LAST 7 DAYS (Jonny 26 Nov: trends move fast, a hit from 2
+  // weeks ago can be over today), and how many of them got a format video at 2x+ their own usual views (older saved runs
+  // without `usual`: the --min-views bar instead). Videos under 1 day are too young to judge.
+  const young = newcomerRows(rows, now);
   const newPosters = new Set(young.map((r) => r.account)).size;
   const beat = (r) => (r.usual != null ? r.views >= 2 * Math.max(r.usual, 1) && r.views >= 20000 : r.views >= o.minViews);
   const newHits = new Set(young.filter(beat).map((r) => r.account)).size;
   const newShare = newPosters >= 3 ? +(newHits / newPosters).toFixed(2) : null; // room for one more? (under 3 = unknown)
   // pooled read when too few accounts can be compared with themselves: last 2 weeks vs the weeks before, accounts
   // posting per week and median views of all their format videos (more accounts but a lower median = crowding)
-  const lastW = wins.slice(-2), prevW = wins.slice(0, -2);
+  const lastW = wins.slice(-recentWeeks), prevW = wins.slice(0, -recentWeeks);
   const pv = (ws) => rows.filter((r) => ws.some((w) => r.posted >= Date.parse(w.from) / 1000 && r.posted < Date.parse(w.to) / 1000)).map((r) => r.views);
   const lastV = pv(lastW), prevV = pv(prevW);
-  const short = lastV.length >= 8 && prevV.length >= 8 ? { posters: (lastW.reduce((s, w) => s + w.posters, 0) / 2) / Math.max(prevW.reduce((s, w) => s + w.posters, 0) / prevW.length, 0.5),
+  const short = lastV.length >= 8 && prevV.length >= 8 ? { posters: (lastW.reduce((s, w) => s + w.posters, 0) / recentWeeks) / Math.max(prevW.reduce((s, w) => s + w.posters, 0) / prevW.length, 0.5),
     views: median(lastV) / Math.max(median(prevV), 1) } : null;
   const shortWord = !short ? null : short.posters >= 1.2 && short.views < 0.7 ? "CROWDING: more accounts per week, lower median views"
     : short.posters >= 1.2 ? "RISING: more accounts per week and views hold"
     : short.views < 0.7 ? "FADING: lower median views" : short.views > 1.4 ? "HEATING UP: higher median views" : "STEADY";
   const word = reward == null && shortWord ? shortWord
-    : reward == null && recV.length >= 20 && oldV.length < 6 ? "NEW: nearly all of it was posted in the last 2 weeks"
+    : reward == null && recV.length >= 20 && oldV.length < 6 ? `NEW: nearly all of it was posted in the last ${recentWeeks === 1 ? "week" : recentWeeks + " weeks"}`
     : reward == null ? "too little data (fewer than 3 accounts with history on both sides)"
     : reward >= 1.3 ? "HEATING UP: the same accounts get more views with it now"
     : reward >= 0.8 && (entry >= 1.5 || (short && short.posters >= 1.3)) ? "RISING: still pays, and more accounts are piling in (get in now)"
@@ -167,17 +177,17 @@ export async function runTrend(o) {
   const saved = o.from ? JSON.parse(fs.readFileSync(o.from, "utf8")) : null; // --from: rows.json of an earlier run, no fetching
   if (saved) now = saved.now;
   const ytReport = (rows, accounts) => { const wins = trendTable(rows, o, now);
-    const ver = verdict(rows, wins, o, now), start = now - (FRESH + o.windows * WINDOW) * DAY;
+    const ver = verdict(rows, wins.slice(-2), { ...o, windows: 2 }, now, 1), start = now - (FRESH + 2 * WINDOW) * DAY;
     // a channel's feed holds its 15 latest Shorts: a daily poster's don't reach the older weeks, which then look empty
     const chans = new Map(rows.map((r) => [r.account, r.reach])), deep = [...chans.values()].filter((t) => t != null && t <= start).length;
     if (ver.reward == null && chans.size && deep < chans.size / 2)
-      ver.word = `SHORT HISTORY: the latest 15 Shorts of only ${deep} of ${chans.size} channels reach back ${o.windows} weeks; read the last 2 weeks and the gap`;
-    return { rows, accounts, wins, ver, days: dailyTable(rows, now) }; };
+      ver.word = `SHORT HISTORY: the latest 15 Shorts of only ${deep} of ${chans.size} channels reach back 2 weeks; read the gap`;
+    return { rows, accounts, wins, ver, days: dailyTable(rows, now), newWin: newcomerHits(rows, o, now) }; };
   for (const f of o.formats) {
     if (saved) {
       const mine = saved.rows.filter((r) => r.format === f.name), rows = mine.filter((r) => r.platform !== "youtube"), yrows = mine.filter((r) => r.platform === "youtube");
       const wins = trendTable(rows, o, now), ver = verdict(rows, wins, o, now);
-      const newWin = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 17 * DAY && r.views >= o.minViews).sort((a, b) => b.views - a.views);
+      const newWin = newcomerHits(rows, o, now);
       report.push({ f, wins, ver, rows, newWin, accounts: new Set(rows.map((r) => r.account)).size, yt: ytReport(yrows, new Set(yrows.map((r) => r.account)).size) }); all.push(...mine);
       continue;
     }
@@ -197,7 +207,7 @@ export async function runTrend(o) {
         rows.push({ platform: "tiktok", format: f.name, account: a, followers: profile.followers, created: profile.created, usual, posted: v.posted, views: v.views, url: v.url, title: v.title, flags: v.flags });
     }
     const wins = trendTable(rows, o, now), ver = verdict(rows, wins, o, now);
-    const newWin = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 17 * DAY && r.views >= o.minViews).sort((a, b) => b.views - a.views);
+    const newWin = newcomerHits(rows, o, now);
     const y = o.youtube ? ytRows(f, o) : { rows: [], accounts: 0 };
     if (o.youtube) console.error(`  YouTube: ${y.accounts} channels, ${y.rows.length} dated format Shorts`);
     report.push({ f, wins, ver, rows, newWin, accounts: accounts.length, yt: ytReport(y.rows, y.accounts) });
@@ -220,9 +230,9 @@ async function main() {
     `that post it vs 2 earlier weeks. Without enough accounts to compare with themselves: last 2 weeks vs the 2 before, pooled. Hit = ${fmt(o.minViews)}+ views.\n`;
   for (const { f, wins, ver, rows, newWin, accounts, yt, gap } of report) {
     md += `\n## ${f.name}: ${ver.word}\n\nReward x${ver.reward ?? "?"} (${ver.accountsCompared} accounts compared), entry x${ver.entry}. ` +
-      `${rows.length} format videos from ${accounts} accounts. Newcomer odds: ${ver.newHits} of ${ver.newPosters} new accounts (under 150 days) that tried it in the last 2 weeks beat their own usual views 2x` +
+      `${rows.length} format videos from ${accounts} accounts. Newcomer odds: ${ver.newHits} of ${ver.newPosters} new accounts (under 150 days) that tried it in the last 7 days beat their own usual views 2x` +
       `${ver.newShare == null ? " (too few to judge room)" : ` (${Math.round(ver.newShare * 100)}%)`}` +
-      `${newWin.length ? ` (best: ${newWin[0].url} ${fmt(newWin[0].views)})` : ""}.\n\n` +
+      `${newWin.length ? ` (fastest: ${newWin[0].url} ${fmt(newWin[0].views)}, ${fmt(newWin[0].perDay)} a day)` : ""}.\n\n` +
       `| Window | Videos | Accounts posting | Accounts born | Median views | Hits |\n|---|---|---|---|---|---|\n` +
       wins.map((w) => `| ${w.from} to ${w.to} | ${w.videos} | ${w.posters} | ${w.newAccounts} | ${fmt(w.medianViews)} | ${w.hits} |`).join("\n") + "\n" +
       `\nLast 7 days, day by day (views still growing: compare views per day):\n\n| Day | Videos | Accounts | Median views | Views per day |\n|---|---|---|---|---|\n` +

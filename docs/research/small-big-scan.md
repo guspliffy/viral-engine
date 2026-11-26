@@ -52,11 +52,13 @@ videos, accounts, median views and views per day since posting (young videos are
 Verdict, last 2 weeks vs the 2 before: reward = the SAME accounts' views with the format (so a sample of today's active
 accounts can't fake it; pooled median when fewer than 3 accounts have both sides), supply = accounts posting per week and
 accounts born. RISING (more accounts, still pays), CROWDED (more accounts, each video gets less), FADING, HEATING UP,
-STEADY, NEW. Newcomer odds: of the new accounts (under 150 days) that tried it in the last 2 weeks, how many beat their
-own usual views 2x ("5 of 7"): if new accounts still win, the door is open. Videos under 3 days are left out of the
+STEADY, NEW. Newcomer odds: of the new accounts (under 150 days) that tried it in the last 7 days (Jonny 26 Nov: trends
+move fast, a 2-week-old hit can be over today), how many beat their own usual views 2x ("5 of 7"): if new accounts still
+win, the door is open. Their videos are listed fastest first (views per day since posting). Videos under 3 days are left out of the
 weeks. `--from <dir>/rows.json` re-judges a run without fetching. Limits: only accounts that are active now are found.
-YouTube side: Shorts search (this week + month) finds the channels, their feeds give the 15 latest Shorts with dates; when
-most channels' 15 don't reach back 4 weeks the verdict says SHORT HISTORY (read the last 2 weeks). **Platform gap**
+YouTube side: Shorts search (this week + month) finds the channels, their feeds give the 15 latest Shorts with dates
+(about 2 weeks for a daily poster), so YouTube compares the last week with the week before; when most channels' 15 don't
+reach back 2 weeks the verdict says SHORT HISTORY. **Platform gap**
 (Jonny 26 Nov: hyped on one platform, thin on the other = a content gap we can fill): last 2 weeks per platform, accounts
 posting, median views, hits. ROOM ON YOUTUBE / ROOM ON TIKTOK = it pays on one (median 50K+ or 3+ hits) while under a
 third as many accounts (or under 3) post it on the other. Both samples are capped at `--accounts`: read the numbers too.
