@@ -7,7 +7,7 @@
 //   node tools/small-big-scan.mjs --keywords "court animation,kid vs dad" --expand 2 --out out/small-big
 //   node tools/small-big-scan.mjs --seed handles.txt --no-youtube   # also score these TikTok handles (one per line)
 //
-// Options: --max-followers 100000  --min-ratio 10 (views / followers)  --min-views 300000  --days 180
+// Options: --max-followers 10000  --min-ratio 10 (views / followers)  --min-views 200000  --days 180
 //          --deep 40 (accounts to open, best first)  --videos 30 (latest videos per account)  --expand 0 (related
 //          TikTok keyword pages per keyword)  --no-tiktok  --no-youtube  --out <dir>
 // Needs: curl, yt-dlp (pip install yt-dlp) for TikTok account lists, Chromium (playwright-core) for TikTok keyword
@@ -19,14 +19,15 @@ import crypto from "node:crypto";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 
+// Our niche (Jonny 26 Nov): animation, funny animation, comedy, comedy sketches. Topic keywords go in --keywords.
 const DEFAULT_KEYWORDS = [
-  "funny animation", "animated skit", "cartoon comedy", "3d animation funny", "animation meme", "what if animation",
-  "court animation", "heaven and hell animation", "kid vs dad", "office humor animation", "food animation",
-  "potato animation", "animated story", "dark humor animation", "relatable animation", "animation series",
+  "animation", "funny animation", "comedy", "comedy sketch", "comedy skit", "animated comedy", "animated skit",
+  "cartoon comedy", "funny cartoon", "comedy animation", "animation meme", "sketch comedy", "animated sketch",
+  "3d animation funny", "2d animation funny", "funny animation story",
 ];
 
 export function parseArgs(argv) {
-  const o = { keywords: DEFAULT_KEYWORDS, maxFollowers: 100000, minRatio: 10, minViews: 300000, days: 180, deep: 40,
+  const o = { keywords: DEFAULT_KEYWORDS, maxFollowers: 10000, minRatio: 10, minViews: 200000, days: 180, deep: 40,
     videos: 30, expand: 0, tiktok: true, youtube: true, seed: null, out: `out/small-big-${new Date().toISOString().slice(0, 10)}` };
   const num = { "--max-followers": "maxFollowers", "--min-ratio": "minRatio", "--min-views": "minViews", "--days": "days",
     "--deep": "deep", "--videos": "videos", "--expand": "expand" };
@@ -104,7 +105,7 @@ export function ytChannel(html) {
 }
 
 // ---------- TikTok ----------
-async function tiktokKeywordPages(keywords, expand) {
+export async function tiktokKeywordPages(keywords, expand, keep = /anima|cartoon|skit|sketch|comed|funny|3d|comic/i) {
   const { chromium } = await import("playwright-core");
   const browser = await chromium.launch({ executablePath: findChrome(), args: ["--no-sandbox"] });
   const page = await browser.newPage({ locale: "en-US", viewport: { width: 1280, height: 900 } });
@@ -127,8 +128,8 @@ async function tiktokKeywordPages(keywords, expand) {
       await page.waitForTimeout(6000);
       await page.mouse.wheel(0, 5000); await page.waitForTimeout(2000);
     } catch (e) { console.error(`  tiktok ${slug}: ${e.message.split("\n")[0]}`); }
-    if (depth === 0 && expand > 0) // related pages, only those that stay in animation / sketch land
-      related.filter((w) => /anima|cartoon|skit|sketch|3d|comic/i.test(w)).slice(0, expand).forEach((w) => queue.push({ k: w, depth: 1 }));
+    if (depth === 0 && expand > 0) // related pages, only those that stay on topic
+      related.filter((w) => keep.test(w)).slice(0, expand).forEach((w) => queue.push({ k: w, depth: 1 }));
     console.error(`  tiktok ${slug}: ${found.length} videos so far`);
   }
   await browser.close();
@@ -137,21 +138,25 @@ async function tiktokKeywordPages(keywords, expand) {
 export function tiktokItem(it) {
   return { platform: "tiktok", account: it.author?.uniqueId, name: it.author?.nickname, id: it.id,
     url: `https://www.tiktok.com/@${it.author?.uniqueId}/video/${it.id}`, title: (it.desc || "").slice(0, 140),
-    views: +it.stats?.playCount || 0, likes: +it.stats?.diggCount || 0, shares: +it.stats?.shareCount || 0,
+    desc: it.desc || "", posted: +it.createTime || null, views: +it.stats?.playCount || 0, likes: +it.stats?.diggCount || 0, shares: +it.stats?.shareCount || 0,
     ageDays: Math.floor((Date.now() / 1000 - +it.createTime) / 86400), duration: it.video?.duration ?? null,
     followers: it.authorStats?.followerCount ?? null };
 }
-function tiktokFollowers(handle) {
+export function tiktokProfile(handle) { // followers + account creation day (unix s)
   const h = curl(`https://www.tiktok.com/@${handle}`);
   const m = h.match(/<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__"[^>]*>(.*?)<\/script>/s);
-  try { return JSON.parse(m[1]).__DEFAULT_SCOPE__["webapp.user-detail"].userInfo.stats.followerCount; } catch { return null; }
+  try {
+    const u = JSON.parse(m[1]).__DEFAULT_SCOPE__["webapp.user-detail"].userInfo;
+    return { followers: u.stats.followerCount, created: +u.user.createTime || null };
+  } catch { return { followers: null, created: null }; }
 }
-function tiktokVideos(handle, n) {
+const tiktokFollowers = (handle) => tiktokProfile(handle).followers;
+export function tiktokVideos(handle, n) {
   const r = spawnSync("yt-dlp", ["-J", "--flat-playlist", "--playlist-end", String(n), `https://www.tiktok.com/@${handle}`], { encoding: "utf8", maxBuffer: 64e6, timeout: 180e3 });
   if (r.error) throw new Error("yt-dlp not found: pip install yt-dlp");
   try {
     return (JSON.parse(r.stdout).entries || []).map((e) => ({ id: e.id, url: e.url, title: (e.title || e.description || "").slice(0, 140),
-      views: e.view_count ?? 0, likes: e.like_count ?? 0, shares: e.repost_count ?? 0, duration: e.duration,
+      desc: e.description || e.title || "", posted: e.timestamp || null, views: e.view_count ?? 0, likes: e.like_count ?? 0, shares: e.repost_count ?? 0, duration: e.duration,
       ageDays: e.timestamp ? Math.floor((Date.now() / 1000 - e.timestamp) / 86400) : null }));
   } catch { return []; }
 }
@@ -180,7 +185,7 @@ export function scoreAccount(acc, videos, o) {
   const shareRate = vs.some((v) => v.shares) ? median(vs.filter((v) => v.views > 0).map((v) => (1000 * (v.shares || 0)) / v.views)) : null;
   return { ...acc, n: vs.length, median: Math.round(med), medianRatio: +(med / F).toFixed(2), breakouts: breaks.length,
     bestRatio: vs.length ? +(Math.max(...vs.map((v) => v.views)) / F).toFixed(1) : 0, best: breaks[0] || [...vs].sort((a, b) => b.views - a.views)[0],
-    second: breaks[1] || null, worst: settled[0] || null, sharesPer1000: shareRate == null ? null : +shareRate.toFixed(2),
+    second: breaks[1] || null, worst: settled[0] || null, breakVideos: breaks, sharesPer1000: shareRate == null ? null : +shareRate.toFixed(2),
     medianSeconds: median(vs.map((v) => v.duration).filter(Boolean)) || null, boostFlag: boosted > 0 ? boosted : 0 };
 }
 export const rankAccounts = (rows) => [...rows].sort((a, b) => b.breakouts - a.breakouts || b.medianRatio - a.medianRatio || b.bestRatio - a.bestRatio);
@@ -188,12 +193,11 @@ export const rankAccounts = (rows) => [...rows].sort((a, b) => b.breakouts - a.b
 export const isRepeat = (a) => a.breakouts >= 3 || (a.breakouts >= 2 && a.medianRatio >= 3);
 
 const csvCell = (v) => { const s = v == null ? "" : typeof v === "object" ? v.url : String(v); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
-function writeCsv(file, rows, cols) { fs.writeFileSync(file, [cols.join(","), ...rows.map((r) => cols.map((c) => csvCell(r[c])).join(","))].join("\n") + "\n"); }
+export function writeCsv(file, rows, cols) { fs.writeFileSync(file, [cols.join(","), ...rows.map((r) => cols.map((c) => csvCell(r[c])).join(","))].join("\n") + "\n"); }
 
 // ---------- main ----------
-async function main() {
-  const o = parseArgs(process.argv);
-  fs.mkdirSync(o.out, { recursive: true });
+// Find, filter, open, score. Returns every video found and the scored small accounts, best first.
+export async function runScan(o) {
   let found = [];
   if (o.tiktok) { console.error("TikTok keyword pages..."); found.push(...await tiktokKeywordPages(o.keywords, o.expand)); }
   if (o.youtube) {
@@ -230,7 +234,13 @@ async function main() {
     const url = a.platform === "youtube" ? `https://www.youtube.com/${a.handle || "channel/" + a.account}` : `https://www.tiktok.com/@${a.account}`;
     scored.push(scoreAccount({ platform: a.platform, account: a.handle || a.account, name: a.name, url, followers: a.followers }, videos, o));
   }
-  const ranked = rankAccounts(scored);
+  return { vids, cands, ranked: rankAccounts(scored) };
+}
+
+async function main() {
+  const o = parseArgs(process.argv);
+  fs.mkdirSync(o.out, { recursive: true });
+  const { vids, cands, ranked } = await runScan(o);
   writeCsv(path.join(o.out, "videos-found.csv"), vids, ["platform", "account", "followers", "views", "likes", "shares", "ageDays", "duration", "title", "url"]);
   writeCsv(path.join(o.out, "accounts.csv"), ranked, ["platform", "account", "name", "followers", "n", "median", "medianRatio", "breakouts", "bestRatio",
     "sharesPer1000", "medianSeconds", "boostFlag", "url", "best", "second", "worst"]);
@@ -243,7 +253,7 @@ async function main() {
     `Bar: under ${fmt(o.maxFollowers)} followers; breakout = ${o.minRatio}x followers and ${fmt(o.minViews)}+ views within ${o.days} days. ` +
     `Keywords: ${o.keywords.join(", ")}.\n${vids.length} videos found, ${cands.length} small accounts opened.\n\n` +
     `## Repeat breakers (a format, not luck)\n\n${rep.map(line).join("\n") || "none"}\n\n## One-off breakouts (maybe luck)\n\n${one.map(line).join("\n") || "none"}\n\n` +
-    `Views and followers are public counts; retention and watch time are not visible. Lessons, not copies.\n`);
+    `Views and followers are public counts. Lessons, not copies.\n`);
   console.error(`wrote ${o.out}/report.md, accounts.csv, videos-found.csv: ${rep.length} repeat breakers, ${one.length} one-off`);
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main().catch((e) => { console.error(e.message); process.exit(1); });

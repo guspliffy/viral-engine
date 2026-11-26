@@ -10,9 +10,10 @@ identify viral formats we could use in our own style". Lessons, not copies.
 
 1. **Find.** TikTok keyword pages (`tiktok.com/discover/<keyword>`, about 16 videos each, with views and the author's
    follower count) and YouTube Shorts search (this month + this year, sorted by views). `--expand N` also opens N
-   related TikTok keyword pages per keyword that stay in animation/sketch land. `--seed <file>` adds TikTok handles.
-2. **Filter.** Accounts under `--max-followers` (100K) with a video at `--min-ratio` (10x) followers and `--min-views`
-   (300K).
+   related TikTok keyword pages per keyword that stay in animation/comedy land. `--seed <file>` adds TikTok handles.
+2. **Filter.** Accounts under `--max-followers` (10K, Jonny 26 Nov: 100K is already big) with a video at `--min-ratio`
+   (10x) followers and `--min-views` (200K). Default keywords = our niche: animation, funny animation, comedy, comedy
+   sketches; add topic keywords with `--keywords`.
 3. **Open.** The latest `--videos` (30) videos of the best `--deep` (40) accounts: TikTok through `yt-dlp`, YouTube
    from the channel's Shorts tab.
 4. **Rank.** Breakouts (videos over both bars within `--days` 180) first, then the usual video's views / followers.
@@ -25,7 +26,8 @@ Output in `--out` (default `out/small-big-<date>/`): `report.md` (ranked, links 
 ## What it can and cannot see
 
 - **Can:** public views, likes, shares, comments (TikTok), followers, post age, length, captions.
-- **Cannot:** retention, watch time, finish rate, where viewers came from. Those are private to each creator.
+- **Not needed:** retention and watch time are private, but a video only reaches 10x+ its followers when people watch it
+  through (Jonny 26 Nov), so the view count stands in for them.
 - Keyword pages show what TikTok picks for a US visitor, about 16 videos each: a sample, not a census.
 - Views can be bought or ad-boosted: likes under 0.3% of views on a 100K+ video is flagged (`boostFlag`).
 - YouTube Shorts tabs give no post dates, so YouTube breakouts are not limited to `--days`.
@@ -33,3 +35,26 @@ Output in `--out` (default `out/small-big-<date>/`): `report.md` (ranked, links 
   videos of the top repeat breakers and write down the format, then test it in our style.
 
 First run and findings: the 26 Nov tab of the channel analysis doc (memory `small-accounts-scan-2026-11-26`).
+
+## Format trend (`node tools/format-trend.mjs --preset ours`)
+
+Jonny 26 Nov: is a format already saturated, just picking up, or dying, so we know if it still pays to make it.
+TikTok only (YouTube Shorts tabs have no dates). For each format (a name + a caption regex; `--preset ours` = in this
+town, what if, court, heaven/hell, kid vs dad, folklore), keyword pages find the accounts that post it and their latest
+60 videos are read with dates. Per 4-week window: accounts posting it (supply), median views of its videos (reward),
+videos over 200K (hits), posters that are new accounts. Last 2 windows vs the ones before:
+RISING (supply up, reward holds), CROWDED (supply up, reward down), DYING (both down), FADING (reward down),
+HEATING UP (reward up), STEADY. It also counts new accounts (under 150 days) that got a hit with the format in the last
+60 days: if new accounts still win, the door is open. Videos under 10 days old are left out (still gaining views).
+Limits: only accounts that are active now are found; daily posters' 60 videos may not reach the oldest windows.
+
+## Daily scout (`tools/daily-scout.mjs`, `.github/workflows/scout.yml`)
+
+Jonny 26 Nov: scan every day and show new viral videos and formats for our niche, with references, on a page or in
+Telegram. Every morning (06:30 Berlin) a free GitHub runner runs the scan (under 10K followers, niche keywords),
+compares it with the history on the branch `scout-data` and lists: early breakouts (under 4 days old, already 10x
+followers), fastest risers since the last run (the 24/48 h signal), new breakouts, repeat breakers, and on Mondays the
+format trend. It publishes the page to GitHub Pages (public, like the repo) and sends the top 6 finds to Telegram.
+One-time setup by Jonny: Settings > Pages > Source "GitHub Actions"; a Telegram bot from @BotFather, its token as the
+repo secret `TELEGRAM_BOT_TOKEN`, then one message to the bot (or the secret `TELEGRAM_CHAT_ID`). Zero tokens: no
+Claude in the loop. Pull requests that touch the scout run a 2-minute smoke scan instead.
