@@ -1,22 +1,20 @@
-# Sol round 1: EDITOR pass (timing first) + glitch/logic review — "La Lechuza" (folklore legend ep 2, rough draft 2)
+# Sol round 2 (final check): glitches, logic and last timing notes — "La Lechuza" (folklore legend ep 2, draft 3)
 
-You are the editor and checker of a 68.1 s vertical (1080x1920, 30 fps) TikTok short. You get NO video, only images in this folder:
-- `beats.txt`: every beat with its start-end time (s), speaker, spoken line, and what the shot was meant to show.
-- `sheet-1fps-00-35s.jpg`, `sheet-1fps-35-end.jpg`: one frame per second (12 per row, left to right, top to bottom; the second sheet starts at 35 s).
+You checked draft 2 in round 1 (VERDICT FIX 26: 15 timing edits + 11 glitch/logic items). Draft 3 applies all of them and is now 60.4 s (vertical 1080x1920, 30 fps). You get NO video, only images in this folder:
+- `beats.txt`: every shot (start-end s, what it shows; this is your round-1 beat list, built) and every voice line with its times.
+- `sheet-1fps-00-31s.jpg`, `sheet-1fps-31-end.jpg`: one frame per second (12 per row, left to right, top to bottom; the second sheet starts at 31 s).
 - `strip-5fps-00s.jpg` ... `strip-5fps-60s.jpg`: five frames per second, each sheet covers 10 s (10 per row = 2 s per row), starting at the second in its name.
 
-## The video
-Real folklore of northern Mexico and South Texas: La Lechuza, a witch who turns into a giant owl and cries like a baby so children open the window. Told as a short story with recurring hosts: a stern grandmother (rule keeper, indigo cloak, white bun, staff with a candle lamp = fear meter) and a curious 12-year-old boy (red quilted jacket). Narrator voice-over + character lines, word-by-word subtitles in the upper third. Colour follows the threat (warm orange room = safe, violet/blue = owl close, warm floods back at the end).
-Story chain (approved by the producer, keep it): baby cries outside, boy lifts the latch -> grandma slams the shutter "Don't open it. That's not a baby." -> who La Lechuza is -> "What if it's a real baby?" "Real babies don't cry from the roof." -> it walks on the roof -> crying stops, then GRANDMA'S OWN VOICE outside: "Open the window, sweetheart." / "Grandma... that's you." / "I know." -> fact: lechuza = Spanish for barn owl, barn owls scream -> salt jar empty ("It was movie night!", popcorn) -> owl's eye in the shutter gap -> "The old way. We insult her." -> grandma yells insults until her voice cracks, owl stays -> "Your turn." boy too polite, owl leans in -> "Real babies BREATHE between crying!" -> owl, offended, flies off -> grandma, hoarse: "Not bad." HARD CUT.
-Music: borderlands folk-horror (bajo sexto, accordion, bowed bass), silent during the fake-voice beat and the winning line.
-The whole video is drawn in code (flat 2D vector, 2.5D sets with a moving camera). What can change cheaply: cut points, shot lengths, holds, pauses between lines, shot order, camera moves/zooms per shot, inserts (hands, the latch, the candle, the salt jar, the popcorn bowl, the owl's eye, feathers), poses and expressions, music/sfx timing. Lines can be trimmed, dropped or re-paced (gaps), not newly recorded.
+The video: real folklore of northern Mexico/South Texas, La Lechuza (a witch who becomes a giant owl and cries like a baby so children open the window). Hosts: stern grandmother (indigo cloak, white bun, staff lamp = fear meter) and a curious 12-year-old boy (red quilted jacket). Story (approved, keep): cry + latch + slam "Don't open it. That's not a baby." -> who La Lechuza is -> "Real babies don't cry from the roof." -> roof steps -> silence -> GRANDMA'S OWN VOICE outside "Open the window, sweetheart." -> "Grandma... that's you." "I know." -> barn owls scream (fact) -> salt jar empty, "It was movie night!" (popcorn) -> eye in the shutter gap -> "We insult her." -> grandma's insults, voice cracks -> "Your turn." polite boy -> "Real babies BREATHE between crying!" -> owl flies off -> "Not bad." hard cut. Drawn fully in code (flat 2D, 2.5D sets, moving camera); colour follows threat (warm = safe, violet/teal = owl close, warm returns at the end). Known engine limits: the owl rig has no per-foot lift (the roof step is a hop-and-sway); no on-screen text except subtitles.
 
-## Part A — EDITOR (main task; the producer cares most about the TIMING of the scenes)
-The producer: "see how it would edit the video to make it more interesting" and "it's more about the timing of the scenes rather than the visuals". So focus on pacing: which shots run too long or too short, where pauses kill momentum, where a beat needs a held breath (horror) or a faster cut (comedy), the comic timing of the punchlines ("Real babies don't cry from the roof.", "It was movie night!", "We insult her.", "Your feathers are... a bit messy?", "Not bad."), the scare timing (silence -> fake voice -> "I know."), and where the 11.7 s narrator block can be cut tighter. House rules: hook in the first 1-2 s; still shots lose viewers, so move the camera or cut right after each action; new picture every 2-3 s; end on the punchline; no on-screen title text (subtitles only); no gore; 60-80 s is fine if every beat earns it.
-Give a numbered EDIT LIST. Each item: the time range, what to change (trim/extend/cut/reorder/pause/insert/camera move), and why it plays better. Concrete enough to build without asking (e.g. "18.4-19.1: cut 0.4 s of the hold before 'I know.' and push in on her eyes"). Then give the NEW BEAT LIST you propose (one line per shot with its new approximate start time and length).
+## Part A — VERIFY round-1 items
+For each of your 26 round-1 items, one line: DONE / PARTLY (what is missing) / NOT DONE, judged from the images.
 
-## Part B — GLITCHES AND LOGIC (shorter)
-List visible glitches (pops, flicker, a limb or body through another, a prop in the air, a face cut off by the frame, subtitles over a face, size jumps between shots) and logic issues (effect before cause, prop jumping place, reaction to something not shown, character in the wrong place between cuts), each with its time. Already known and being fixed: none; report what you see.
+## Part B — NEW glitches and logic
+Every visible glitch (pops, flicker, limb through a body, prop in the air, face cut off by the frame, subtitles over a face or touching the side edges, size jumps between shots, colour/mood jumping wrongly) and logic issue (effect before cause, prop or shutter state jumping, reaction to something not shown, character in the wrong place between cuts), each with its time and a concrete fix. Only real problems a viewer would notice on a phone.
 
-End with exactly one last line: `VERDICT: PASS` or `VERDICT: FIX <n>` (n = number of Part A + Part B items).
+## Part C — at most 3 last timing notes
+Only if something still plays too slow or too fast. The producer said 2 Sol rounds are enough; after this round the fixes go straight to the final render, so be precise.
+
+End with exactly one last line: `VERDICT: PASS` or `VERDICT: FIX <n>` (n = number of PARTLY/NOT DONE in Part A + Part B items + Part C notes).
 Write your full answer to `answer.md` in this folder.

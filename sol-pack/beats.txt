@@ -1,48 +1,60 @@
-  0.00-  1.40  B0   (no line)
-        shot: (no line, 1.4 s) INTERIOR night, threat 0.2. Close on the shuttered window from inside, kid's hand (kid reachL) lifting the latch bar (latch 0 -> 0.8), shutters starting to open 0 -> 0.15. Baby cry SFX from 0.0. Slow push in.
-  1.40-  3.94  B1   G: "Don't open it. That's not a baby."
-        shot: L01 G "Don't open it. That's not a baby." At line start grandma's staff/hand slams the shutters shut (open 0.15 -> 0, latch -> 0, 3 frames, slight camera shake 0.15 s). Medium two-shot kid + grandma by the window, push in to grandma on "baby".
-  3.94-  5.28  B2   K: "Then what is it?"
-        shot: L02 K "Then what is it?" Close on the kid looking up at the shutter, eyes wide. threat 0.3.
-  5.28- 17.26  B3   N: "In Mexico, they call her La Lechuza. A witch who turns into a giant owl... and cries like a baby, so children open the window."
-        shot: L03 N (narrator, ~8 s): 3 cuts on word times. a) "In Mexico, they call her La Lechuza." EXTERIOR wide: house, moon, mesquite, the owl perched on the roof (OWL.perch, facing -1 then head turn 2 -> 0 slowly = the 180 head turn toward camera). threat 0.4. Slow pull back. b) "A witch who turns into a giant owl..." owl medium, OWL.watch, spread 0 -> 0.25 slow, feathers puff a bit; push in. c) "...and cries like a baby, so children open the window." close on owl face, OWL.cry (beak opens on 'cries'), baby cry SFX layered, push in slowly. threat 0.5.
- 17.26- 19.48  B4   K: "But what if it's a real baby?"
-        shot: L04 K "But what if it's a real baby?" INTERIOR two-shot, kid turned up to grandma. threat 0.35.
- 19.48- 23.06  B5   G: "Real babies don't cry from the roof."
-        shot: L05 G "Real babies don't cry from the roof." Close on grandma deadpan, then on "roof" both look UP: dust particles fall from the ceiling vigas (small ochre dots, seeded) + roof-steps SFX. Hold 0.6 s after the line on the ceiling view (camera tilt up).
- 23.06- 24.84  B6   K: "It's moving."
-        shot: L06 K "It's moving." (whisper) EXTERIOR roof level, owl walking along the roof edge right to left (X moves, crouch 0.3, step bob), then INTERIOR: kid + grandma heads turning following the sound. threat 0.55. Candle 0.6.
- 24.84- 26.04  B7   (no line)
-        shot: (no line, 1.2 s) SILENCE: crying stops, music killed (see mix). Interior, slow push on the shutter. threat 0.6.
- 26.04- 28.91  B8   O: "Open the window, sweetheart."
-        shot: L07 O "Open the window, sweetheart." Interior: the kid looks at grandma; grandma's mouth stays SHUT (no talk param during O's line!). Slow push on grandma's closed mouth. threat 0.75.
- 28.91- 31.21  B9   K: "Grandma... that's you."
-        shot: L08 K "Grandma... that's you." Close on the kid, frozen.
- 31.21- 33.22  B10  G: "I know."
-        shot: L09 G "I know." Extreme close on grandma, eyes sliding sideways to the shutter. Candle 0.4. Hold 0.4 s.
- 33.22- 39.24  B11  N: "Lechuza is the Spanish word for barn owl. And barn owls don't hoot. They scream."
-        shot: L10 N "Lechuza is the Spanish word for barn owl. And barn owls don't hoot. They scream." Cuts: a) EXTERIOR (different place: a fence post/mesquite branch in moonlight) real small barnOwl sitting, threat 0.3, push in. b) on "scream": barnOwl beak open, short screech SFX, camera shake 0.1.
- 39.24- 41.75  B12  G: "The salt. Where's the salt?"
-        shot: L11 G "The salt. Where's the salt?" Interior wide: grandma grabs the SAL jar from the shelf, tilts it: empty (pour 0, a few grains). threat 0.6.
- 41.75- 43.22  B13  K: "It was movie night!"
-        shot: L12 K "It was movie night!" Close on the kid, guilty, holding up an empty popcorn bowl (simple bowl prop in his hands is OK, small: a hand-drawn clay bowl with 3-4 popcorn bits; builder may draw it in the ep02 file). Comic beat, threat holds.
- 43.22- 44.72  B14  (no line)
-        shot: (no line, 1.4 s) The THREAT peak: latch bar bending (latch jiggles 0..0.3), shutter gap opens 0.08, the owl's eye fills the gap (room outside: MX.outside + lechuza at ROOM.owlSpot, human 1, eyes wide). threat 1. Candle 0.15. Roof-steps + scratching.
- 44.72- 47.85  B15  G: "Fine. The old way."
-        shot: L13 G "Fine. The old way." grandma close, stern, pulls up her sleeves (approximate with arm move). threat 0.9.
- 47.85- 49.97  B16  K: "The old way?"
-        shot: L14 K "The old way?" kid close.
- 49.97- 51.41  B17  G: "We insult her."
-        shot: L15 G "We insult her." grandma close, deadpan. Music TURN here (pulse starts on the next beat's shutter opening).
- 51.41- 56.70  B18  G: "You overgrown feather duster! You moth-eaten pillow! Your mother was a pigeon!"
-        shot: L16 G insults (~5 s): grandma throws the shutters open (open 0 -> 1 fast) and leans out yelling; 3 cuts on the three insults: a) two-shot from inside, shutters fly open, owl face right there outside; b) owl reaction: blinks, slightly startled (wide 0.4) but stays; c) grandma close, voice cracking at the end (her talk env does it), hand to her throat. threat 0.7 (warm starting to fight back: threat drops to 0.5 during the yelling, pops back to 0.8 when the owl doesn't leave).
- 56.70- 58.80  B19  G: "Your turn."
-        shot: L17 G "Your turn." (hoarse) grandma pushes the kid forward to the window. two-shot.
- 58.80- 61.57  B20  K: "Your feathers are... a bit messy?"
-        shot: L18 K "Your feathers are... a bit messy?" kid at the open window, polite; the owl LEANS IN closer (lean 0 -> 0.6, size grows by camera push). threat 0.95.
- 61.57- 65.14  B21  K: "You're not even a good baby! Real babies BREATHE between crying!"
-        shot: L19 K "You're not even a good baby! Real babies BREATHE between crying!" Cuts: a) kid close, brave, shouting; b) on "BREATHE": owl close, OWL.flinch (puff 1, wide 1), offended. threat 0.9 -> 0.3.
- 65.14- 66.84  B22  (no line)
-        shot: (no line, 1.6 s) Owl takes off: EXTERIOR wide, OWL.flight, rises and flies off past the moon, loose feathers drifting (MX.feathers), wing takeoff SFX. threat 0.3 -> -1 (warm floods back: relief).
- 66.84- 68.07  B23  G: "Not bad."
-        shot: L20 G "Not bad." Interior two-shot, warm relief (threat -1), candle flares 1.2, grandma hoarse, small proud nod, kid grin. HARD CUT at line end + 0.25 s. End.
+SHOTS (start-end, what the shot shows)
+ 0.00- 1.10 S0   Latch insert. Cry on frame one, fingers lift the bar, blue seam opens.
+ 1.10- 3.50 S1   Interior two-shot. Slam into "Don't open it," push toward Grandma on "That's."
+ 3.50- 4.80 S2   Boy close, "Then what is it?"
+ 4.80- 6.50 S3   Exterior wide on house and roof, "In Mexico, they call..."
+ 6.50- 8.00 S4   Tighter roof angle, owl turns toward camera on "La Lechuza."
+ 8.00-10.30 S5   Medium owl, "A witch who turns into a giant owl..."
+10.30-12.00 S6   Owl face and beak, "and cries like a baby."
+12.00-13.90 S7   Interior latch reverse, "so children open the window."
+13.90-15.90 S8   Boy and Grandma two-shot, "But what if it's a real baby?"
+15.90-18.50 S9   Grandma close, "Real babies don't cry from the roof."
+18.50-19.00 S10  Ceiling insert, dust and first roof creak.
+19.00-20.10 S11  Roof edge, talon lifts and plants. Boy starts whispering.
+20.10-20.90 S12  Interior reaction, both look up and track the step.
+20.90-22.30 S13  Slow push on the shut seam in silence.
+22.30-25.00 S14  Interior two-shot pushes toward Grandma's closed mouth. Mimic at the shutter.
+25.00-27.00 S15  Boy close, "Grandma... that's you."
+27.00-28.80 S16  Grandma's eyes, "I know," then a glance toward the shutter.
+28.80-31.30 S17  Real barn owl on fence post, the Spanish name explained.
+31.30-33.00 S18  Nearer on the post, "And barn owls don't hoot."
+33.00-33.80 S19  Tight beak, "They scream," then the screech.
+33.80-34.70 S20  Interior, Grandma reaches for the jar on "The salt."
+34.70-35.90 S21  Jar and open palm insert, "Where's the salt?"
+35.90-37.20 S22  Boy close, lifts the bowl on "movie."
+37.20-38.90 S23  Shutter insert, latch bows, seam opens, eye locks on.
+38.90-41.20 S24  Grandma single, "Fine. The old way."
+41.20-42.60 S25  Boy single, "The old way?"
+42.60-44.00 S26  Grandma single, "We insult her."
+44.00-45.90 S27  Interior wide, shutters open, "You overgrown feather duster!"
+45.90-47.20 S28  Owl close at sill, blink on "You moth-eaten pillow!"
+47.20-49.30 S29  Grandma with owl in frame, "Your mother was a pigeon!" Voice cracks, hand to throat.
+49.30-50.90 S30  "Your turn." Grandma sends the boy forward, he plants at the sill.
+50.90-52.10 S31  Boy and owl at the window, "Your feathers are..."
+52.10-53.70 S32  Owl leans in during the pause, "a bit messy?"
+53.70-56.00 S33  Boy close, music out, "You're not even a good baby! Real babies..."
+56.00-57.30 S34  Owl close, flinch on "BREATHE," recoil through "crying!"
+57.30-59.20 S35  Exterior, owl rises past eave and flies past moon.
+59.20-60.40 S36  Warm interior two-shot, "Not bad," proud nod, hard cut at 60.4.
+
+VOICE LINES (start-end, speaker, text)
+ 1.15- 3.37 G "Don't open it. That's not a baby."
+ 3.55- 4.63 K "Then what is it?"
+ 4.93-13.86 N "In Mexico, they call her La Lechuza. A witch who turns into a giant owl... and cries like a baby, so children open the window."
+14.00-15.72 K "But what if it's a real baby?"
+15.90-18.58 G "Real babies don't cry from the roof."
+19.30-20.68 K "It's moving."
+22.40-25.02 O "Open the window, sweetheart."
+25.05-26.79 K "Grandma... that's you."
+27.30-28.11 G "I know."
+28.80-33.61 N "Lechuza is the Spanish word for barn owl. And barn owls don't hoot. They scream."
+33.80-35.81 G "The salt. Where's the salt?"
+35.95-37.07 K "It was movie night!"
+38.95-41.13 G "Fine. The old way."
+41.25-42.05 K "The old way?"
+42.65-43.74 G "We insult her."
+44.05-49.13 G "You overgrown feather duster! You moth-eaten pillow! Your mother was a pigeon!"
+49.40-50.21 G "Your turn."
+51.00-53.61 K "Your feathers are... a bit messy?"
+53.90-57.22 K "You're not even a good baby! Real babies BREATHE between crying!"
+59.35-60.18 G "Not bad."
