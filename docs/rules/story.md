@@ -25,6 +25,11 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
   slaps the cookie jar shut, a sign on the fridge, a look). The rule itself stays, said by about 6 s; only the
   announcement goes. Outline check: search the lines for "one rule", "the rule" and "there is a rule"; each hit is
   rewritten as the command itself.
+- **Curiosity power words, pushed to the extreme** (Jonny 26 Nov, future videos, ON TRIAL): spoken lines and the
+  hook use more curiosity power words, or the extreme form of a normal word: "This is too dangerous." "The most
+  mysterious thing..." "Never", "forbidden", "nobody knows", "the worst". A plain "This is dangerous" becomes "This is
+  too dangerous". Use them where the story earns them (the opener, the rule, the turn), not on every line, so they
+  keep their punch. Outline check: the opener and the rule line each carry one.
 - **Suggestions, not a formula** (15 Nov, from the MrBeast study, on trial): the rules below guard against failures
   we have seen; they are not a recipe for the story. MrBeast's warning: strict beat checklists make every video look
   the same after about ten. So each new episode changes at least one visible thing about its shape from the last one
