@@ -1,0 +1,28 @@
+PROMPT START
+Use case: illustration-story. Create ONE finished full-colour storyboard contact sheet for a 70-second vertical animated comedy sketch. Square image, as large as possible. EXACTLY SIXTEEN cells in four columns and four rows (row 1 = 01-04, row 2 = 05-08, row 3 = 09-12, row 4 = 13-16). Every cell is a TALL vertical phone frame (portrait), thin charcoal gutters, a small panel-number badge in each cell's top-left corner, no title or header.
+LOOK: match the first attached reference (a panel sheet from our finished video): soft cel-shaded 3D cartoon with hand-drawn pencil line texture, warm cinematic light, the whole frame fully sharp, no depth of field, no motion blur. No speech bubbles, no captions, no comic impact marks, no speed lines, no floating symbols, no sweat drops. Hands have exactly three fingers and a thumb. Every character is a potato: no humans, no skeletons. NO WORDS OR LETTERS ANYWHERE: the scroll shows only tiny grey lines, never readable text; the only allowed marks are the gold numbers on stair risers. Keep the top third of every cell free of faces (sky, cloud or stairs above).
+CAST:
+THE HERO: exactly the potato of the second reference (Spud): teal knit sweater, one green leaf on his head, white sneakers (white socks in panels 04-10). A carefree guy who never reads anything.
+THE ANGEL: exactly the Angel of the first reference: golden-tan potato in a white robe with gold trim and rope belt, small white wings, glowing gold halo, small round gold reading glasses, twice the hero's height. Deadpan, half-lidded, always holding the rolled-up end of a parchment scroll.
+THE EX (panels 07-08): a NEW potato woman, the hero's size, light rosy-tan skin, a lilac cardigan over a white top, a high bun with a small yellow scrunchie, long lashes, a sweet, much too friendly smile.
+THE DEVIL (panels 10, 14, 16): exactly the red potato of the first reference: brick-red egg shape, sprout horns with purple tips, teal shirt with orange flame flowers, yellow sandals, small sunglasses.
+SET A, THE GATE (panels 01-03, 11): exactly the stairway of the third reference: 100 white marble steps, gold numbers on every tenth riser, the golden pearl gate and the cloud podium at the top; grey clouds lower down, an orange scorched zone, red stone steps and a glowing iron hatch with a striped deck chair at the very bottom.
+SET B, HEAVEN HOME (panels 04-10): NEW. A small round fluffy white cloud island floating in a pink-gold dawn sky, other cloud islands far away. On it: a cloud bed with a white pillow, a tall golden harp standing beside the bed. The cloud is soft and wet like real cloud.
+THE SCROLL: an endless cream parchment scroll with tiny grey unreadable lines and wooden end rollers.
+PANELS:
+01. Low wide at the top of the stairs: the hero on step 99 in front of the closed golden gate, casually wiping his sneakers on a plain gold doormat. The Angel behind the cloud podium holds up a huge rolled scroll, looking down at him over his glasses.
+02. High angle down the stairway from behind the hero: the Angel has let the scroll drop; it unrolls down ALL the steps as one long cream ribbon, down through grey and orange clouds into the red glow and the tiny hatch far below. The hero looks down after it, eyebrows up.
+03. Medium: the hero slams a big gold rubber stamp onto the scroll on the podium without looking, grinning, one hand on his hip. Behind him the golden gate swings open, warm light pouring out.
+04. SET B at dawn: the hero bolts upright in the cloud bed, eyes wide; the golden harp beside the bed, its strings vibrating.
+05. Same bed: the hero, sleepy and miserable, plucks the harp with one finger. The Angel's head and halo rise from behind the cloud's edge right next to the bed, deadpan, holding the scroll.
+06. Close low: the hero's white-socked feet step out of bed and sink into the cloud; water squeezes up around his socks; his face above is disgusted.
+07. A second cloud island with a small round cloud house has drifted against his. On it the ex waves sweetly with both hands. The hero hides behind the harp, only his eyes and leaf showing.
+08. The ex hugs the hero tightly, his cheek squished, arms pinned, his face suffering. The Angel stands behind them, deadpan, holding the scroll.
+09. The hero stands on tiptoe on the very top of the cloud bed, holding his phone up as high as he can to the sky, desperate.
+10. Looking down past the hero lying on his belly at the cloud's edge, holding his phone down into the void: far, far below at the bottom of the stairway the tiny Devil lounges in the deck chair and waves his own phone up at him.
+11. Back at the gate: the hero storms up to the podium, pointing angrily at the scroll. The Angel looks at him over his glasses, deadpan.
+12. Grey cloud zone around step 80: the hero walks DOWN the stairs reading the scroll ribbon in both hands like a newspaper, his face starting to worry. The gate small and bright above him.
+13. Orange scorched zone around step 40: the hero, lower, still reading, his face worried, the scroll ribbon still running down ahead of him.
+14. The bottom: dark red steps with glowing seams. The scroll's end roller lies right on the iron hatch. The Devil sits up in the deck chair in sunglasses, sipping a drink, watching. The hero steps onto step 1, reading.
+15. Close-up from below: the hero holds the very end of the scroll, eyes huge, mouth wide open in horror, red glow on his face.
+16. The hatch has dropped open under the hero: he falls into the orange glow, arms up, the scroll flying after him. The Devil raises his drink.

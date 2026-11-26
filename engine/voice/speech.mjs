@@ -116,7 +116,13 @@ export function withSpeech(sb, chars) {
     const info = JSON.parse(fs.readFileSync(path.join(CACHE, `${j.id}.json`), "utf8"));
     const r = rec?.rate ? speakingRate(info.phones) : null;
     if (r && (r / rec.rate - 1 > RATE_FAST || 1 - r / rec.rate > RATE_SLOW)) console.warn(`speech: "${item.line}" reads at ${r.toFixed(2)} syllables/s, ${Math.round(Math.abs(r / rec.rate - 1) * 100)} % ${r > rec.rate ? "faster" : "slower"} than this voice's usual ${rec.rate}: it will sound ${r > rec.rate ? "rushed" : "slow"} next to the other lines (and more so in a film sped up at the join); try "take": 2, or a "tempo" for this line`);
-    if (item.dur != null && Math.abs(item.dur - info.dur) > 0.25) console.warn(`speech: "${item.line}" lasts ${info.dur}s spoken, not the ${item.dur}s written; using the spoken length`);
+    // a take longer or shorter than the length the clip was timed with: the talk follows the take, but captions, cuts
+    // and props the generator keyed to its own length table do not (Potato Desk 14, 25 Nov 2026: a 1.92 s take written
+    // as 1.39 s; the caption faded on "bird" and Sol flagged it in both rounds). preflight lists these as "spoken-length"
+    if (item.dur != null && Math.abs(item.dur - info.dur) > 0.25) {
+      console.warn(`speech: "${item.line}" lasts ${info.dur}s spoken, not the ${item.dur}s written; using the spoken length`);
+      (out.respoken ||= []).push({ line: item.line, at: item.at ?? null, written: item.dur, spoken: info.dur });
+    }
     item.dur = info.dur;
     const mis = misread(item.line, info.heard);
     if (mis) (out.misreads ||= []).push({ line: item.line, heard: info.heard, extra: mis.extra, take: item.take ?? 0 });
@@ -133,9 +139,15 @@ export function withSpeech(sb, chars) {
 // first take of "He lifts her off four hooks..." went on after a silence with "this clear." Whisper heard it, tts.py
 // printed one warning while 35 lines were read, nobody saw it, and Jonny heard "a weird noise" on the draft.
 const said = (t) => String(t).toLowerCase().replace(/-/g, " ").replace(/[^a-z0-9' ]/g, "").split(/\s+/).filter(Boolean);
+// A laugh written and heard as laugh syllables only ("Hahaha! Ha ha!" heard as "HA HA HA HA HA HA HA!") is a match:
+// Whisper splits and counts the ha's its own way, so the made-up-words count failed every laugh take. Don't Laugh
+// (26 Nov 2026): three jury-laugh takes failed preflight in a row while sounding right.
+const LAUGH = /^(?:a?(?:h+[aeio]+)+h*|ah+)$/;
+const allLaugh = (w) => w.length > 0 && w.every((x) => LAUGH.test(x));
 export function misread(line, heard) {
   if (heard == null) return null;
   const a = said(line), b = said(heard);
+  if (allLaugh(a) && allLaugh(b)) return null;
   return a.join(" ") === b.join(" ") ? null : { extra: b.length - a.length };
 }
 

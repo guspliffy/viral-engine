@@ -1,0 +1,87 @@
+# Trend scout (Jonny 26 Nov, on trial): every morning, find small accounts in our niche whose videos break out, compare
+# with yesterday, check our formats' trend (last 4 weeks + last 7 days), publish the page and send the top finds to Telegram.
+# tools/daily-scout.mjs; method and limits in docs/research/small-big-scan.md.
+# Needs once: Settings > Pages > Source "GitHub Actions" (the page), and the secret TELEGRAM_BOT_TOKEN (+ optional
+# TELEGRAM_CHAT_ID). History lives on the branch scout-data. On a pull request only the smoke job runs.
+name: Trend scout
+on:
+  schedule:
+    - cron: "30 5 * * *"   # 06:30 Berlin in winter, 07:30 in summer
+  workflow_dispatch:
+    inputs:
+      trend:
+        description: "Also run the format trend check (about 40 min)"
+        type: boolean
+        default: true
+  pull_request:
+    paths: [tools/daily-scout.mjs, tools/small-big-scan.mjs, tools/format-trend.mjs, tools/format-finder.mjs, tools/look-check.py, .github/workflows/scout.yml]
+concurrency: scout
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  smoke:   # pull request: a 2-minute scan proves the keyword pages still load on GitHub's machines
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CHROME_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Tools (Chromium driver, yt-dlp, look check)
+        run: npm install --no-save --ignore-scripts playwright-core && pip install --user yt-dlp onnxruntime numpy pillow tokenizers && echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Look-check model (free CLIP, cached)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/look-model
+          key: look-model-clip-vit-b32-q-v1
+      - name: Look check on one cover
+        run: printf 'https://www.youtube.com/shorts/DQqxYegqUzU\thttps://i.ytimg.com/vi/DQqxYegqUzU/hqdefault.jpg\n' | python3 tools/look-check.py | grep -q '"fit"'
+      - name: Smoke scan
+        run: node tools/daily-scout.mjs --smoke --data /tmp/scout-data --site /tmp/scout-site
+
+  scout:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    env:
+      CHROME_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Tools (Chromium driver, yt-dlp, look check)
+        run: npm install --no-save --ignore-scripts playwright-core && pip install --user yt-dlp onnxruntime numpy pillow tokenizers && echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Look-check model (free CLIP, cached)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/look-model
+          key: look-model-clip-vit-b32-q-v1
+      - name: History from scout-data
+        run: |
+          url="https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}"
+          git clone -q --depth 1 --branch scout-data "$url" scout-data || { mkdir scout-data && cd scout-data && git init -q -b scout-data && git remote add origin "$url"; }
+      - name: Scan
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PAGE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+          TREND: ${{ (github.event_name == 'schedule' || inputs.trend) && '--trend' || '' }}
+        run: node tools/daily-scout.mjs --data scout-data --site site --telegram $TREND
+      - name: Save history
+        run: |
+          cd scout-data
+          git config user.name "github-actions[bot]"; git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add history.json shortlist-*.json 2>/dev/null; git add history.json && git commit -q -m "scout $(date -u +%F)" && git push -q origin HEAD:scout-data
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: site }
+      - name: Publish the page
+        id: pages
+        uses: actions/deploy-pages@v4
+        continue-on-error: true   # Pages source not set to GitHub Actions yet: Telegram still goes out

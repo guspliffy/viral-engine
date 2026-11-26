@@ -178,6 +178,14 @@ moving at once.
   `frost` > 0 (the clip keys frost 1 -> 0.5 with melt 1 over 0.6 s). Eyes, brows, mouth, gloves and the sprout's green
   stay clear. Only an actor whose storyboard keys `frost` or `melt` gets the layer, so other clips draw as before.
   Bench: `storyboards/lookdev/make-frost-bench.mjs`.
+- `{ "who", "do": "face", "square": 0..1, "sqCorner": 0..1, "sqTall": 0..1, "sqPhone": 0..1, "dur" }` squares the eyes (Kid vs Dad 03,
+  engine/page/squareeyes.js, a face layer like frost: any potato character, only an actor whose storyboard keys one of the four gets
+  it). `square` 0 = the rig's eyes .. 1 = a true square (0.5 a soft TV-tube box); `sqCorner` squares ONE corner, the character's left
+  eye's upper outer corner (with `square` 0.02: the H3 flicker; hold it 5 frames or more); `sqTall` 0..1 = 1:1 .. 1:2; `sqPhone` dresses the
+  tall eyes as phones (bezel, notch, home bar, glowing screen). On any frame where one of the four is above 0.001 the layer draws both
+  eyes and hides the rig's; switch only on a cut or under shut lids (a visible morph or flicker holds `square` 0.02 from its first frame).
+  Lids, blinks, gaze, pupil, `eye` widening and brows work as on round eyes (a blink is a flat roller blind); no tears. Bench:
+  `storyboards/series/kid-vs-dad/03-square-eyes/bench/bench-eyes.mjs`.
 - `{ "who", "do": "grip", "side": "R" | "L" | "both", "shape": "open" | "hold" | "fist" | "pinch" | "point" | "cup" | "flat", "dur" }`
   curls a mitten hand (`"hands": { "type": "mitten" }` in the character file, so far the Wizard). `hold` wraps a handle,
   a staff or a jar; `pinch` is thumb on index, for a cup handle or a lid; `cup` cradles an orb or a jar from below; `flat` is an open palm; `carry` holds something from below its side, palm half up (a bowl in both hands); `press` is a palm flat on a box's end with the thumb along the side; `tip` pinches a thin prop between the thumb and index pads at the same height, the index curled over the camera side, the palm beside the shaft and the other fingers curled loose (grip `set` tunes `roll`, `lean`, `close` 0 open to 1 closed, `thin` = the prop's radius in hand units). An arm pose with `"point": "pinch"` puts the pinch point, not the hand, on its target, and a grab with `"point": "pinch"` holds the prop there, so the hand stays aimed along the forearm. A character file sets its resting face in `face.neutral` (expression and per-side lid and brow keys) and its eye design in `face.eye` (`depth`, `iris`, `lash`, `flick`, `tilt`, `glints`), `face.browShape` and `face.blush`. Props attach at `character.gripPoint(side)`.
@@ -667,6 +675,7 @@ may use are in docs/CAMERA-MOVES.md). All are off unless a storyboard asks; time
   hand without a HUD; `"hud": { "sky": false }` or `"sky": false` keeps the picture as painted. A night clock on a day set
   with no night picture gets a warning when the storyboard loads: paint one, pick a night set, or move the clock.
   Plates with a night picture: `livingroom-golden`.
+- **Grade tint** (`engine/page/looks.js`, top-level `"grade": [[t, { s, w, c, lift, tint: "#hex" }, dur?]]`, keyed like the HUD): `tint` multiplies the finished picture (default white = no change; a key without it keeps the last); `"nv": true` in a key is night vision (s 0, c 1.25, lift 0.07, tint `#52ff7a`; flat green, no scan lines).
 - **Rule card** (`engine/page/card.js`): `{ "fx": "rule", "at", "dur": 1.6, "title": "RULE 1", "text": "...", "who" }`:
   an ink plate slammed in tilted, the title in who's caption colour, the rule in white, a slow drift, shrinks out.
 - **Comment-vote end card**: `{ "fx": "vote", "at", "dur", "question", "options": [{ "key": "A", "text", "who" }, ...],
