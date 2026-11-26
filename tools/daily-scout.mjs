@@ -21,7 +21,7 @@ import { findFormats } from "./format-finder.mjs";
 
 const today = new Date().toISOString().slice(0, 10);
 const fmt = (n) => (n == null ? "?" : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(n));
-const esc = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const esc = (t) => String(t ?? "").replace(/[\uD800-\uDFFF]/g, (c, i, str) => (/[\uD800-\uDBFF]/.test(c) ? /[\uDC00-\uDFFF]/.test(str[i + 1] || "") : /[\uD800-\uDBFF]/.test(str[i - 1] || "")) ? c : "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const key = (v) => `${v.platform || "tiktok"}:${v.id}`;
 // days from spotting a format to our video going live (Jonny's clip threads: about 2 days); picks are judged at that date
 const LEAD_DAYS = +(process.env.SCOUT_LEAD_DAYS || 2);
