@@ -189,6 +189,8 @@ import { HSTAIRS_KINDS, HSTAIRS_GRIPS } from "./props-heavenstairs.js";   // pot
 import { HTOP_KINDS, HTOP_GRIPS } from "./props-heaventop.js";   // heaven steps: gate, podium, ledger
 import { HSKY_KINDS, HSKY_GRIPS } from "./props-heavensky.js";   // heaven steps: sky, zone clouds, hell floor, hatch, parasol
 import { HITEMS_KINDS, HITEMS_GRIPS } from "./props-heavenitems.js";   // heaven steps: quill, case, flower, can, soapbox, jar
+import { HTERMS_KINDS, HTERMS_GRIPS } from "./props-heaventerms.js";   // heaven terms: scroll, stamp, mat
+import { HHOME_KINDS, HHOME_GRIPS } from "./props-heavenhome.js";   // heaven terms: cloud home, bed, harp, neighbour, dawn sky
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
 import { SKIPROOM_KINDS } from "./props-skiproom.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
@@ -1583,6 +1585,7 @@ Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, H
 Object.assign(KINDS, NORSE_SPEAR_KINDS, NORSE_RAVEN_KINDS, NORSE_HEAD_KINDS, NORSE_CAVE_KINDS, NORSE_WELL_KINDS, NORSE_TREE_KINDS, NORSE_WIND_KINDS, NORSE_ITEMS_KINDS, NORSE_CLASS_KINDS); Object.assign(GRIPS, NORSE_SPEAR_GRIPS, NORSE_RAVEN_GRIPS, NORSE_HEAD_GRIPS, NORSE_CAVE_GRIPS, NORSE_WELL_GRIPS, NORSE_TREE_GRIPS, NORSE_WIND_GRIPS, NORSE_ITEMS_GRIPS, NORSE_CLASS_GRIPS);   // norse myth 01 wednesday (props-norse-*.js)
 Object.assign(KINDS, KRAMPUS_LANE_KINDS, KRAMPUS_BEAST_KINDS, KRAMPUS_NICK_KINDS, KRAMPUS_BOOTS_KINDS, KRAMPUS_RUN_KINDS, KRAMPUS_CAT_KINDS); Object.assign(GRIPS, KRAMPUS_LANE_GRIPS, KRAMPUS_BEAST_GRIPS, KRAMPUS_NICK_GRIPS, KRAMPUS_BOOTS_GRIPS, KRAMPUS_RUN_GRIPS, KRAMPUS_CAT_GRIPS);   // krampus myth 01 (props-krampus-*.js)
 Object.assign(KINDS, HSTAIRS_KINDS, HTOP_KINDS, HSKY_KINDS, HITEMS_KINDS); Object.assign(GRIPS, HSTAIRS_GRIPS, HTOP_GRIPS, HSKY_GRIPS, HITEMS_GRIPS);   // potato desk heaven steps
+Object.assign(KINDS, HTERMS_KINDS, HHOME_KINDS); Object.assign(GRIPS, HTERMS_GRIPS, HHOME_GRIPS);   // potato desk heaven terms
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)

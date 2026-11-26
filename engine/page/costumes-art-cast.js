@@ -987,7 +987,7 @@ export function wash(W, H, p, seed, amp) {
   }
   return buf;
 }
-function knitTexture(cols, rows, W, H, seed, swap = false) {
+export function knitTexture(cols, rows, W, H, seed, swap = false) {
   const buf = wash(W, H, 90, seed, 0.05), cw = W / cols, chh = H / rows, base = 0.8;
   for (let k = 0; k < buf.length; k++) buf[k] += base;
   const lift = new Float32Array(W * H);   // how far a stroke lightens (max over strokes), and where a pencil line darkens
@@ -1520,6 +1520,84 @@ function spud(C, ch, out) {
   }
   if (C.rich) richCoat(C, ch, out);   // the rich outfit (spud-rich.json): fur coat, gold chain, aviators on the head
   if (C.gloves && ch.skinMat) ch.skinMat.color.set(C.gloves);   // costume.gloves (spud-gloves.json, Potato Desk 10): yellow rubber kitchen gloves = the hand skin's colour
+  if (C.feet != null || C.sockWet != null) feetKit(C, ch, out);   // costume.feet / costume.sockWet (Heaven's terms): sneakers or socks on his feet; no key, no change
   out.sitDepth = 0;
   return out;
+}
+
+// ---------- Spud's feet: sneakers or socks (Potato Desk "Heaven's terms and conditions", DESIGN.md section 5) ----------------------------------------
+// USAGE (character file, e.g. a clip copy of characters/potatobrawl/spud.json; no key = today's brown boots, nothing changes):
+//   "costume": { "type": "spud", ..., "feet": "socks", "sockWet": 0.6 }              a value holds ...
+//   "feet": [[0, "sneakers"], [8.4, "socks"], [40, "sneakers"]]                      ... or keyframes [[clip seconds, value], ...]: a name is held until the
+//   "sockWet": [[10.2, 0], [10.47, 1]]                                               next key, a number moves linearly between keys (held outside); the clip's own times
+//   feet     "boots" (default) | "sneakers" | "socks"
+//     sneakers  the foot in #f6f3ec, a sole rim #d9d4c8 round its underside, ONE grey lace stroke #bdb8ac across the instep (Chip's `shoes` build)
+//     socks     the foot at 0.92 size in warm white #f8f6f0, no sole rim, grey heel and toe caps #e4e2dc, one fold stroke at the instep and a ribbed cuff
+//               0.05 up the leg (outer r 0.042, 4 rib lines #dcd8cc, each drawn once). The brown leg shows above the cuff, as before.
+//   sockWet  0..1 (default 0): the lower 45 % of each sock turns #c9d3dc under an uneven tide line #aab8c6 (the tide climbs from the sole to the 45 % line as
+//            sockWet goes 0 -> 1, the colour wicks in over the first third of it); the cuff stays dry. Only the sock reads it. Wet socks stay wet: keep the key at 1.
+// Everything is a pure function of the clip time (no state kept between frames). Both feet are drawn alike (the same sock map).
+const FOOT_SCALE = [0.9, 0.5, 1.25];   // potato.js: the foot ball r 0.075, flattened
+function feetKit(C, ch, out) {
+  const stepped = (spec, def) => { if (!Array.isArray(spec)) return () => spec ?? def; return (t) => { let v = spec[0][1]; for (const [k, x] of spec) if (t >= k) v = x; return v; }; };
+  const keyed = (spec, def = 0) => { const kf = Array.isArray(spec) ? spec : null, base = kf ? 0 : +(spec ?? def); return (t) => { if (!kf) return base; if (t <= kf[0][0]) return kf[0][1]; for (let i = 1; i < kf.length; i++) if (t <= kf[i][0]) return kf[i - 1][1] + (kf[i][1] - kf[i - 1][1]) * ((t - kf[i - 1][0]) / Math.max(1e-6, kf[i][0] - kf[i - 1][0])); return kf[kf.length - 1][1]; }; };
+  const feetAt = stepped(C.feet, "boots"), wetAt = keyed(C.sockWet, 0);
+  const SOCK = "#f8f6f0", CAP = "#e4e2dc", WET = "#c9d3dc", TIDE = "#aab8c6", RIBC = "#dcd8cc";
+  const W = 128, H = 64, data = new Uint8Array(W * H * 4), tex = new THREE.DataTexture(data, W, H, THREE.RGBAFormat);
+  tex.wrapS = THREE.RepeatWrapping; tex.wrapT = THREE.ClampToEdgeWrapping; tex.magFilter = THREE.LinearFilter; tex.minFilter = THREE.LinearFilter; tex.colorSpace = THREE.SRGBColorSpace;
+  const cSock = new THREE.Color(SOCK), cCap = new THREE.Color(CAP), cWet = new THREE.Color(WET), cTide = new THREE.Color(TIDE), cFold = new THREE.Color(RIBC), c = new THREE.Color();
+  let lastWet = -1;
+  const paint = (wet) => {   // the sock's map for this wetness: every texel from its direction on the (unscaled) ball: y up, +z the toe
+    for (let py = 0; py < H; py++) for (let px = 0; px < W; px++) {
+      const u = (px + 0.5) / W, v = (py + 0.5) / H, th = Math.PI * (1 - v), ph = u * Math.PI * 2, sx = Math.sin(th), nx = -Math.cos(ph) * sx, ny = Math.cos(th), nz = Math.sin(ph) * sx, az = Math.atan2(nx, nz);
+      const toe = sstep(0.6, 0.66, nz + 0.03 * Math.sin(az * 5 + 1)), heel = sstep(0.5, 0.56, -nz + 0.03 * Math.sin(az * 4 + 2));
+      c.copy(cSock).lerp(cCap, Math.max(toe, heel));
+      const fold = (1 - sstep(0.012, 0.03, Math.abs(nz - (0.3 + 0.35 * nx * nx))) ) * sstep(0.45, 0.6, ny) * (1 - sstep(0.35, 0.45, Math.abs(nx)));   // one short curved fold across the instep
+      c.lerp(cFold, 0.8 * fold);
+      if (wet > 0.001) {
+        const tide = -1 + 0.9 * wet + 0.05 * Math.sin(az * 3 + 1) + 0.035 * Math.sin(az * 7 + 0.4) + 0.02 * Math.sin(az * 13 + 2.2), d = ny - tide, soak = Math.min(1, wet * 3);
+        c.lerp(cWet, soak * 0.95 * (1 - sstep(-0.02, 0.012, d)));
+        c.lerp(cTide, soak * 0.9 * (1 - sstep(0.02, 0.055, Math.abs(d))));   // the tide line, a thin darker edge
+      }
+      const k = (py * W + px) * 4; data[k] = Math.round(c.r * 255); data[k + 1] = Math.round(c.g * 255); data[k + 2] = Math.round(c.b * 255); data[k + 3] = 255;
+    }
+    tex.needsUpdate = true;
+  };
+  paint(0); lastWet = 0;
+  const noLine = (m) => { m.userData.noOutline = true; return m; };
+  const sneakerM = noLine(clothMat("#f6f3ec")), soleM = noLine(clothMat("#d9d4c8")), laceM = noLine(clothMat("#bdb8ac")), sockM = noLine(clothMat("#ffffff")), cuffM = noLine(clothMat("#ffffff", { side: THREE.DoubleSide }));
+  sockM.map = tex;
+  { const CW = 64, CH = 16, d = new Uint8Array(CW * CH * 4), ct = new THREE.DataTexture(d, CW, CH, THREE.RGBAFormat), base = new THREE.Color(SOCK), rib = new THREE.Color(RIBC);
+    const ribs = [0.1, 0.36, 0.62, 0.88].map((u, i) => ({ u: u + (hash2(i, 3.3) - 0.5) * 0.04, bend: (hash2(i, 5.1) - 0.5) * 0.03, ph: hash2(i, 7.7) * 6.28, w: 0.012 + 0.006 * hash2(i, 9.1) }));   // 4 lines, each its own place and lean
+    for (let y = 0; y < CH; y++) for (let x = 0; x < CW; x++) { const u = (x + 0.5) / CW, v = (y + 0.5) / CH; let k = 0; for (const r of ribs) k = Math.max(k, 1 - sstep(r.w * 0.5, r.w * 1.2, Math.abs(u - (r.u + r.bend * Math.sin(r.ph + v * 3)))));
+      c.copy(base).lerp(rib, 0.85 * k); const q = (y * CW + x) * 4; d[q] = Math.round(c.r * 255); d[q + 1] = Math.round(c.g * 255); d[q + 2] = Math.round(c.b * 255); d[q + 3] = 255; }
+    ct.wrapS = THREE.RepeatWrapping; ct.magFilter = ct.minFilter = THREE.LinearFilter; ct.colorSpace = THREE.SRGBColorSpace; ct.needsUpdate = true; cuffM.map = ct; }
+  const feet = {};
+  for (const s of ["L", "R"]) {
+    const foot = ch.legs?.[s]?.foot; if (!foot) continue;
+    const sn = new THREE.Group(), sk = new THREE.Group(); sn.visible = sk.visible = false; foot.add(sn); foot.add(sk);
+    const shell = (m, k) => { const o = new THREE.Mesh(new THREE.SphereGeometry(0.075, 32, 20), m); o.scale.setScalar(k); o.castShadow = true; return o; };
+    sn.add(shell(sneakerM, 1.025)); sk.add(shell(sockM, 1.03));
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.071, 0.012, 8, 36), soleM); rim.rotation.x = Math.PI / 2; rim.position.y = -0.03; sn.add(rim);
+    const lace = new THREE.Mesh(new THREE.TorusGeometry(0.0745, 0.0045, 6, 28, Math.PI), laceM); lace.position.z = 0.03; lace.scale.set(1.0, 1.0, 1.4); sn.add(lace);   // ONE stroke across the instep (a half ring over the top)
+    const cuff = new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.043, 0.05, 16, 1, true), cuffM); cuff.castShadow = true; cuff.visible = false; ch.root.add(cuff);
+    feet[s] = { foot, sn, sk, cuff };
+  }
+  const _d = new THREE.Vector3(), _up = new THREE.Vector3(0, 1, 0), base = out.apply;
+  out.apply = (st, t, ...r) => {
+    base && base(st, t, ...r);
+    const f = feetAt(t), socks = f === "socks", sneak = f === "sneakers", wet = Math.round(Math.max(0, Math.min(1, wetAt(t))) * 250) / 250;
+    if (socks && wet !== lastWet) { paint(wet); lastWet = wet; }
+    for (const s of ["L", "R"]) {
+      const F = feet[s]; if (!F) continue;
+      F.sn.visible = sneak; F.sk.visible = socks;
+      F.foot.scale.set(FOOT_SCALE[0], FOOT_SCALE[1], FOOT_SCALE[2]).multiplyScalar(socks ? 0.92 : 1);
+      const hip = ch.legs[s].hip, knee = ch.legs[s].knee, on = socks && F.foot.visible && !!hip && !!knee;
+      F.cuff.visible = on;
+      if (on) {   // on the leg's own curve (hip, knee, foot), 0.052 up from the foot's centre, its axis along the curve there
+        const curve = ch.constructor.armCurve(hip, knee, F.foot.position, ch.legs[s].joint), L = Math.max(0.1, curve.getLength()), u = Math.max(0.5, 1 - 0.052 / L);
+        F.cuff.position.copy(curve.getPointAt(u)); _d.copy(curve.getTangentAt(u)).multiplyScalar(-1).normalize(); F.cuff.quaternion.setFromUnitVectors(_up, _d);
+      }
+    }
+  };
 }
