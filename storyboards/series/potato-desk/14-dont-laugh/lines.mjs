@@ -29,3 +29,9 @@ export const LINES = [
   ["spud", "I... held it.", "sad", "squeaky, strained, tearful, proud, barely holding in a laugh", Y],
   ["vik", "All of you? TEN YEARS. EACH. Told you so.", "angry", "deep, very loud, furious, a judge", { ...J, take: 2 }],
 ];
+// The jury's breakdown (E4): one voiced burst each, overlapping (assets/sfx has no laugh). [who, line, tone, style, { voice }]
+export const LAUGHS = [
+  ["chip", "Ha! Ha ha ha ha ha!", "excited", "bursting out laughing, can't stop, wheezing, high", { voice: "chip-x115" }],
+  ["agent", "Hahaha! Ha ha ha!", "excited", "big belly laugh, snorting, losing it", { voice: "archaeologist" }],
+  ["rosti", "Ahahaha! Hahaha!", "excited", "crying with laughter, howling", { voice: "teo" }],
+];
