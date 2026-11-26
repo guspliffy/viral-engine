@@ -62,17 +62,17 @@ const CAPTEXT = {
 const T = [];
 const HIGH = 230, CAPPOS = {};   // over Dad's shots and the shots over Tato's shoulder the caption sits higher, off Dad's eyes (preflight, Sol r1 #2)
 for (const i of [1, 3, 4, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 23, 27, 28, 29]) CAPPOS[i] = HIGH;
-const say = (i, at, { capTo, tail = 0.25 } = {}) => {
+const say = (i, at, { capTo, tail = 0.25, asleep = false } = {}) => {
   T[i] = r3(at);
   const [who, line, tone, style, o = {}] = LINES[i];
-  A(r3(T[i] - 0.06), who, "expr", { set: { open: 0.1 }, dur: 0.05 });   // the talk moves a closed mouth only
+  A(r3(T[i] - 0.06), who, "expr", asleep ? { expr: FACE.asleep.expr, set: { ...FACE.asleep.set, open: 0.1 }, dur: 0.05 } : { set: { open: 0.1 }, dur: 0.05 });   // the talk moves a closed mouth only (asleep: keeps the named shut eyes)
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false });
   cap(T[i], capTo ?? r3(T[i] + DUR[i] + tail), CAPTEXT[line] ?? line, CAPPOS[i] ?? SUB, false, { size: 62 });
   return r3(T[i] + DUR[i]);
 };
 const at0 = (t, dur) => (dur <= 0.011 && t > 0.05 ? onCut(t) : r3(t));   // an instant change lands just before its cut (never before 0)
 const look = (t, who, to, dur = 0.2) => A(at0(t, dur), who, "look", { to, dur, blink: false });
-const expr = (t, who, e, dur = 0.2) => A(at0(t, dur), who, "expr", typeof e === "string" ? { expr: e, dur } : { set: e, dur });
+const expr = (t, who, e, dur = 0.2) => A(at0(t, dur), who, "expr", typeof e === "string" ? { expr: e, dur } : e.expr ? { expr: e.expr, set: e.set, dur } : { set: e, dur });
 const arm = (t, who, side, pose, dur = 0.3, ease = "inOut") => A(r3(t), who, "arm", { side, pose, dur, ease });
 const yaw = (t, who, to) => A(onCut(t), who, "turn", { to, dur: 0.01, ease: "linear", sync: true });
 const P = (t, id, set, dur = 0) => c.prop(r3(t), id, set, dur);
@@ -88,7 +88,7 @@ const OTS = { pos: [-1.20, 0.95, 0.75], look: [0.52, 1.0, -1.52], fov: 44 };    
 const DADC = { pos: [0.38, 1.02, 1.30], look: [0.42, 1.08, -1.52], fov: 34 };
 const DAD_CU = { pos: [0.40, 1.00, 0.85], look: [0.42, 1.06, -1.52], fov: 36 };
 const ROWC = { pos: [0.36, 0.40, 1.90], look: [0.36, 0.18, -0.80], fov: 46 };     // low on the rug: the row, Dad's shins behind
-const CLOCKC = { pos: [0.20, 1.66, -0.85], look: [CLOCK.x, CLOCK.y, CLOCK.z], fov: 30 };
+const CLOCKC = { pos: [-0.30, 1.70, -0.95], look: [CLOCK.x, CLOCK.y, CLOCK.z], fov: 30 };
 const WIDE = { pos: [0.65, 1.30, 3.30], look: [0.65, 0.70, -1.00], fov: 70 };
 // the row shot per entry: framed on the cups there are, so the row grows wider each time (5: one cup, 2: all four)
 const rowCam = (n) => { const xs = ROW.slice(0, n).map((r) => r[0]), x = r3((Math.min(...xs) + Math.max(...xs)) / 2), d = [1.4, 1.8, 2.3, 3.4][n - 1];   // Sol r1 #9: 3 below Dad's face, 4 shows all four
@@ -96,7 +96,7 @@ const rowCam = (n) => { const xs = ROW.slice(0, n).map((r) => r[0]), x = r3((Mat
 const GIANTC = { pos: [-0.12, 0.58, 1.50], look: [-0.62, 0.45, -0.70], fov: 38 };   // Tato and the giant cup, both
 
 const FACE = {
-  asleep: { eye: 0.04, tilt: 0.05, curve: 0.15, open: 0.1 },
+  asleep: { expr: "serene", set: { eye: 0.04, tilt: 0.05, curve: 0.15, open: 0.1 } },   // named serene: eyes shut on purpose (qa eyes-readable)
   oneEye: { eye: 0.28, tilt: -0.15, browY: -0.01 },
   awake: { eye: 1.3, pupil: 0.65, tilt: 0.35, browY: 0.05, open: 0.5, curve: 0.3 },
   pain: { eye: 0.15, tilt: 0.3, curve: -0.5, browY: 0.02 },
@@ -126,7 +126,7 @@ see(0, 1.2, ["spud.face", "dad.face"], "frame 0: a kid whispering to us in front
 e = say(0, t);
 const C1 = onCut(e + 0.15) + 0.02;
 shot("not asleep", C1, push(DADC, 0.06, DUR[1] + 0.6));
-e = say(1, C1 + 0.12);
+e = say(1, C1 + 0.12, { asleep: true });
 const C2 = r3(e + 0.12);
 P(onCut(C2), "cup5", { y: 0 }, 0); P(C2 + 0.1, "cup5", { glint: 1 }, 0.15); P(C2 + 0.5, "cup5", { glint: 0 }, 0.3);
 shot("five", C2, push(rowCam(1), 0.08, DUR[2] + 0.8));
@@ -142,7 +142,7 @@ shot("park", C4, push(OTS, 0.06, DUR[3] + 0.4));
 e = say(3, C4 + 0.1);
 const C5 = r3(e + 0.15);
 shot("nothing", C5, push(DAD_CU, 0.10, DUR[4] + 0.5));
-e = say(4, C5 + 0.1);
+e = say(4, C5 + 0.1, { asleep: true });
 const C6 = r3(e + 0.3);
 yaw(C6, "spud", YAW_CAM); expr(C6 - 0.02, "spud", FACE.sly, 0.01); look(C6, "spud", [0, 0], 0.01);
 shot("challenge", C6, push(KID_CU, 0.06, DUR[5] + 0.5));
@@ -155,21 +155,21 @@ shot("my room", C7, push(OTS, 0.05, DUR[6] + 0.3));
 e = say(6, C7 + 0.1);
 const C8 = r3(e + 0.05);
 shot("we'll see 1", C8, push(DADC, 0.05, DUR[7] + 0.4));
-e = say(7, C8 + 0.1);
+e = say(7, C8 + 0.1, { asleep: true });
 const C9 = r3(e + 0.15);
 shot("your room", C9, push({ ...OTS, fov: 38 }, 0.06, DUR[8] + 0.3));
 e = say(8, C9 + 0.05);
 const C10 = r3(e + 0.1);
 shot("we'll see 2", C10, push(DADC, 0.08, DUR[9] + 0.5));
 arm(C10, "dad", "R", { o: [0.40, 0.46, -0.02] }, 0.45);   // tease: his hand goes to his lower back
-e = say(9, C10 + 0.15);
+e = say(9, C10 + 0.15, { asleep: true });
 arm(e + 0.2, "dad", "R", "lap", 0.4);
 const C10b = r3(e + 0.15);
 shot("whole house", C10b, push({ ...OTS, fov: 36 }, 0.07, DUR[10] + 0.3));
 e = say(10, C10b + 0.05);
 const C10c = r3(e + 0.1);
 shot("we'll see 3", C10c, push(DAD_CU, 0.06, DUR[11] + 0.5));
-e = say(11, C10c + 0.15);
+e = say(11, C10c + 0.15, { asleep: true });
 const C11 = r3(e + 0.3);
 yaw(C11, "spud", YAW_CAM); expr(C11 - 0.02, "spud", FACE.flat, 0.01); look(C11, "spud", [0, 0], 0.01);
 shot("means no", C11, push(KID, 0.08, DUR[12] + 0.4));
@@ -231,12 +231,12 @@ shot("alone", C21, push(OTS, 0.05, DUR[20] + 0.3));
 e = say(20, C21 + 0.1);
 const C22 = r3(e + 0.1);
 shot("ask mother 1", C22, push(DADC, 0.05, DUR[21] + 0.3));
-e = say(21, C22 + 0.1);
+e = say(21, C22 + 0.1, { asleep: true });
 // the kitchen is off screen right: the voices come from there, the heads swing there and back
 const C23 = r3(e + 0.05);
-yaw(C23, "spud", YAW_CAM); look(C23, "spud", [0, 0], 0.01); expr(C23 - 0.02, "spud", FACE.flat, 0.01);
+A(r3(C23 - 0.55), "spud", "turn", { to: YAW_CAM, dur: 0.3, ease: "inOut" }); look(C23, "spud", [0, 0], 0.01);   // turns away from Dad in his shot (only his head top shows): the feet settle off screen expr(C23 - 0.02, "spud", FACE.flat, 0.01);
 shot("ping", C23, push(KID_CU, 0.05, DUR[22] + 0.35));
-look(C23 + 0.05, "spud", [0.9, 0.05], 0.12);
+look(C23 + 0.3, "spud", [0.35, 0.05], 0.25);   // a glance only: a wider look turns the body and steps the feet
 e = say(22, C23 + 0.15);
 const C24 = r3(e + 0.05);
 expr(C24 - 0.02, "dad", FACE.shout, 0.01); look(C24, "dad", [0.9, 0.1], 0.01);
