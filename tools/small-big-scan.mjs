@@ -105,6 +105,40 @@ export function ytChannel(html) {
   return { followers: subs ? shortNum(subs[1]) : null, handle: handle?.[1] ?? null, videos: shorts };
 }
 
+// The channel's Shorts feed (public RSS, no key, no 429 from the cloud; Jonny 26 Nov: "why can't the tool see when YouTube
+// videos were posted"): its 15 latest Shorts with exact post time and views. The feed's own date is when the Shorts list
+// started, used as the channel's start in Shorts (for the newcomer read). Older Shorts stay undated.
+export function ytFeed(channelId) {
+  const x = curl(`https://www.youtube.com/feeds/videos.xml?playlist_id=UUSH${String(channelId).slice(2)}`);
+  const head = x.split("<entry>")[0], unesc = (t) => t.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+  const at = (t) => { const d = Date.parse(t || ""); return Number.isNaN(d) ? null : Math.floor(d / 1000); };
+  const videos = x.split("<entry>").slice(1).map((e) => {
+    const g = (re) => (e.match(re) || [])[1];
+    const desc = unesc(g(/<media:description>([\s\S]*?)<\/media:description>/) || ""), title = unesc(g(/<title>([\s\S]*?)<\/title>/) || "");
+    const posted = at(g(/<published>([^<]+)/));
+    return { id: g(/<yt:videoId>([^<]+)/), title: title.slice(0, 140), desc: `${title} ${desc}`, posted, views: +(g(/<media:statistics views="(\d+)"/) || 0),
+      ageDays: posted ? Math.floor((Date.now() / 1000 - posted) / 86400) : null, url: `https://www.youtube.com/shorts/${g(/<yt:videoId>([^<]+)/)}` };
+  }).filter((v) => v.id);
+  return { created: at((head.match(/<published>([^<]+)/) || [])[1]), videos };
+}
+
+// Shorts search without the views sort (date 3 = this week, 4 = this month): YouTube now shows Shorts as lockups with no
+// channel in them, so each Short's channel comes from oEmbed (author @handle) and the handle's page (channel id).
+export function ytShortsSearch(keyword, date) {
+  const sp = encodeURIComponent(Buffer.from([0x12, 0x04, 0x08, date, 0x10, 0x09]).toString("base64"));
+  return walk(initData(curl(`https://www.youtube.com/results?search_query=${encodeURIComponent(keyword)}&sp=${sp}`)), "shortsLockupViewModel")
+    .map((x) => ({ id: walk(x, "videoId")[0], title: x.overlayMetadata?.primaryText?.content || "", views: shortNum(x.overlayMetadata?.secondaryText?.content) }))
+    .filter((v) => v.id);
+}
+const handleIds = new Map();
+export function ytChannelOf(videoId) { // -> UC... channel id, or null
+  let handle;
+  try { handle = JSON.parse(curl(`https://www.youtube.com/oembed?url=https://www.youtube.com/shorts/${videoId}&format=json`)).author_url; } catch { return null; }
+  if (!handle) return null;
+  if (!handleIds.has(handle)) handleIds.set(handle, (curl(handle).match(/"externalId":"(UC[\w-]{22})"/) || [])[1] || null);
+  return handleIds.get(handle);
+}
+
 // ---------- TikTok ----------
 export async function tiktokKeywordPages(keywords, expand, keep = /anima|cartoon|skit|sketch|comed|funny|3d|comic/i) {
   const { chromium } = await import("playwright-core");
@@ -148,7 +182,7 @@ export function tiktokItem(it) {
   return { platform: "tiktok", account: it.author?.uniqueId, name: it.author?.nickname, id: it.id,
     url: `https://www.tiktok.com/@${it.author?.uniqueId}/video/${it.id}`, title: (it.desc || "").slice(0, 140),
     desc: it.desc || "", posted: +it.createTime || null, views: +it.stats?.playCount || 0, likes: +it.stats?.diggCount || 0, shares: +it.stats?.shareCount || 0,
-    ageDays: Math.floor((Date.now() / 1000 - +it.createTime) / 86400), duration: it.video?.duration ?? null,
+    ageDays: Math.floor((Date.now() / 1000 - +it.createTime) / 86400), duration: it.video?.duration ?? null, cover: it.video?.cover || it.video?.originCover || null,
     followers: it.authorStats?.followerCount ?? null,
     flags: flagsOf({ desc: it.desc, music: it.music && { title: it.music.title, original: !!it.music.original } }) };
 }
@@ -166,7 +200,7 @@ export function tiktokVideos(handle, n) {
   if (r.error) throw new Error("yt-dlp not found: pip install yt-dlp");
   try {
     return (JSON.parse(r.stdout).entries || []).map((e) => ({ id: e.id, url: e.url, title: (e.title || e.description || "").slice(0, 140),
-      desc: e.description || e.title || "", posted: e.timestamp || null, flags: flagsOf({ desc: e.description || e.title }), views: e.view_count ?? 0, likes: e.like_count ?? 0, shares: e.repost_count ?? 0, duration: e.duration,
+      desc: e.description || e.title || "", posted: e.timestamp || null, flags: flagsOf({ desc: e.description || e.title }), views: e.view_count ?? 0, likes: e.like_count ?? 0, shares: e.repost_count ?? 0, duration: e.duration, cover: e.thumbnails?.[0]?.url || null,
       ageDays: e.timestamp ? Math.floor((Date.now() / 1000 - e.timestamp) / 86400) : null }));
   } catch { return []; }
 }
@@ -218,6 +252,15 @@ export async function runScan(o) {
       found.push(...ytSearchVideos(initData(curl(`https://www.youtube.com/results?search_query=${encodeURIComponent(k)}&sp=${ytSp(date)}`))));
       await sleep(300);
     }
+    // the views sort gives "No results" for some keywords now: also the plain Shorts search (this week + month), whose
+    // lockups carry no channel, so only Shorts already over the views bar get their channel looked up
+    const have = new Set(found.map((v) => v.id));
+    for (const k of o.keywords) for (const date of [3, 4]) for (const v of ytShortsSearch(k, date)) {
+      if (have.has(v.id) || !(v.views >= o.minViews)) continue;
+      have.add(v.id);
+      const ch = ytChannelOf(v.id);
+      if (ch) found.push({ platform: "youtube", account: ch, name: ch, id: v.id, url: `https://www.youtube.com/shorts/${v.id}`, title: v.title, views: v.views, ageDays: null, followers: null, duration: null });
+    }
   }
   // dedupe videos, then pick candidate accounts: any video already over the bar where followers are known
   const vids = [...new Map(found.filter((v) => v.account).map((v) => [`${v.platform}:${v.id}`, v])).values()];
@@ -233,7 +276,11 @@ export async function runScan(o) {
   }
   for (const a of accs.values()) if (a.platform === "youtube" && a.seenViews >= o.minViews) { // subscriber count needs the channel page
     const ch = ytChannel(curl(`https://www.youtube.com/channel/${a.account}/shorts`));
-    Object.assign(a, { followers: ch.followers, handle: ch.handle, _videos: ch.videos });
+    const feed = ytFeed(a.account), dated = new Map(feed.videos.map((v) => [v.id, v]));
+    // the Shorts tab has no dates: the feed dates the latest 15 (and adds any the tab missed)
+    const vs = ch.videos.map((v) => dated.has(v.id) ? { ...v, ...dated.get(v.id), views: Math.max(v.views, dated.get(v.id).views) } : v);
+    for (const v of feed.videos) if (!vs.some((x) => x.id === v.id)) vs.push(v);
+    Object.assign(a, { followers: ch.followers, handle: ch.handle, created: feed.created, _videos: vs });
   }
   for (const a of accs.values()) if (a.platform === "tiktok" && a.seed) a.followers = tiktokFollowers(a.account);
   const cands = [...accs.values()].filter((a) => a.followers != null && a.followers <= o.maxFollowers &&

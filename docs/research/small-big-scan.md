@@ -31,7 +31,11 @@ Output in `--out` (default `out/small-big-<date>/`): `report.md` (ranked, links 
   through (Jonny 26 Nov), so the view count stands in for them.
 - Keyword pages show what TikTok picks for a US visitor, about 16 videos each: a sample, not a census.
 - Views can be bought or ad-boosted: likes under 0.3% of views on a 100K+ video is flagged (`boostFlag`).
-- YouTube Shorts tabs give no post dates, so YouTube breakouts are not limited to `--days`.
+- YouTube dates: the Shorts tab has none, so each channel's public Shorts feed (RSS) dates its 15 latest Shorts
+  (Jonny 26 Nov: when a YouTube video was posted shows what is picking up). Older Shorts stay undated and are not
+  limited to `--days`. YouTube search now shows Shorts without their channel: oEmbed gives the @handle, its page the id.
+- Instagram Reels: not scanned. There is no public page to read without logging in; Meta's free API only covers our own
+  account, and a scripted login breaks Meta's terms and risks the account.
 - It finds leads, it does not predict our views (the predictor pilot scored 55%, 19 Nov). Watch the best and worst
   videos of the top repeat breakers and write down the format, then test it in our style.
 
@@ -40,8 +44,8 @@ First run and findings: the 26 Nov tab of the channel analysis doc (memory `smal
 ## Format trend (`node tools/format-trend.mjs --preset ours`)
 
 Jonny 26 Nov: is a format already saturated, just picking up, or dying, so we know if it still pays to make it; look
-at the last 1-2 weeks, the last 4 weeks week by week, and the last days day by day. TikTok only (YouTube Shorts tabs
-have no dates). For each format (a name + a caption regex; `--preset ours` = in this town, what if, court, heaven/hell,
+at the last 1-2 weeks, the last 4 weeks week by week, and the last days day by day. TikTok and YouTube Shorts, each judged
+on its own (`--no-youtube` skips YouTube). For each format (a name + a caption regex; `--preset ours` = in this town, what if, court, heaven/hell,
 kid vs dad, country vs country, folklore), keyword pages find the accounts that post it and their latest 150 videos are
 read with dates. Per week (last 4): accounts posting it, accounts born, median views, videos over 200K. Per day (last 7):
 videos, accounts, median views and views per day since posting (young videos are still growing).
@@ -51,6 +55,11 @@ accounts born. RISING (more accounts, still pays), CROWDED (more accounts, each 
 STEADY, NEW. Newcomer odds: of the new accounts (under 150 days) that tried it in the last 2 weeks, how many beat their
 own usual views 2x ("5 of 7"): if new accounts still win, the door is open. Videos under 3 days are left out of the
 weeks. `--from <dir>/rows.json` re-judges a run without fetching. Limits: only accounts that are active now are found.
+YouTube side: Shorts search (this week + month) finds the channels, their feeds give the 15 latest Shorts with dates; when
+most channels' 15 don't reach back 4 weeks the verdict says SHORT HISTORY (read the last 2 weeks). **Platform gap**
+(Jonny 26 Nov: hyped on one platform, thin on the other = a content gap we can fill): last 2 weeks per platform, accounts
+posting, median views, hits. ROOM ON YOUTUBE / ROOM ON TIKTOK = it pays on one (median 50K+ or 3+ hits) while under a
+third as many accounts (or under 3) post it on the other. Both samples are capped at `--accounts`: read the numbers too.
 
 ## Daily scout (`tools/daily-scout.mjs`, `.github/workflows/scout.yml`)
 
@@ -62,6 +71,11 @@ followers), fastest risers since the last run (the 24/48 h signal), new breakout
 One-time setup by Jonny: Settings > Pages > Source "GitHub Actions"; a Telegram bot from @BotFather, its token as the
 repo secret `TELEGRAM_BOT_TOKEN`, then one message to the bot (or the secret `TELEGRAM_CHAT_ID`). Zero tokens: no
 Claude in the loop. Pull requests that touch the scout run a 2-minute smoke scan instead.
+The page (Jonny 26 Nov: a clear overview with reference videos) has 4 tabs: Today (early breakouts, risers, new
+breakouts), Formats (found by `tools/format-finder.mjs`: caption phrases and hashtags that 3+ different small accounts
+use, ranked by breakouts, best 3 videos each; fandom ones shown apart), Trends (our formats, TikTok and YouTube, the gap)
+and Accounts (repeat breakers, best and worst video). Every video plays in place on a click. The finder reads caption
+text only, so it finds title templates and topics, not jokes: watch the examples to learn the mechanism.
 Flags: "franchise" (someone else's characters: Sprunki, Roblox, TADC ...) and "borrowed audio" mark the part of a hit
 we can't make our own. Every Monday the shortlist is saved (`shortlist-<date>.json` on `scout-data`) before the next
 week's results exist; after 4+ weeks, check whether its picks found the next breakouts better than the most-viewed list.

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Is a format rising, crowded or dying? (Jonny 26 Nov: "see if the series/format already is saturated or not and if the
-// format is just picking up ... if it's still rewarding to produce videos like this".) TikTok only, on trial.
+// format is just picking up ... if it's still rewarding to produce videos like this".) TikTok and YouTube Shorts side by
+// side, and the gap between them (Jonny 26 Nov: hyped on one platform, thin on the other = room for us). On trial.
 // Method and limits: docs/research/small-big-scan.md, "Format trend".
 //
 //   node tools/format-trend.mjs --preset ours                     # our formats (in this town, what if, court, ...)
@@ -13,7 +14,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { tiktokKeywordPages, tiktokVideos, tiktokProfile, median, writeCsv } from "./small-big-scan.mjs";
+import { tiktokKeywordPages, tiktokVideos, tiktokProfile, ytShortsSearch, ytChannelOf, ytFeed, median, writeCsv } from "./small-big-scan.mjs";
 
 const DAY = 86400, WINDOW = 7; // one window = one week (Jonny 26 Nov: the last 1-2 weeks show how a format is doing now)
 const FRESH = 3; // videos younger than this are still gaining views: left out (3-7 day old videos still grow a little)
@@ -28,7 +29,7 @@ export const PRESETS = { // our formats (26 Nov); regex runs on the caption
 };
 
 export function parseArgs(argv) {
-  const o = { formats: [], keywords: null, accounts: 25, videos: 150, windows: 4, minViews: 200000, expand: 3,
+  const o = { formats: [], keywords: null, youtube: true, accounts: 25, videos: 150, windows: 4, minViews: 200000, expand: 3,
     out: `out/format-trend-${new Date().toISOString().slice(0, 10)}` };
   const num = { "--accounts": "accounts", "--videos": "videos", "--windows": "windows", "--min-views": "minViews", "--expand": "expand" };
   for (let i = 2; i < argv.length; i++) {
@@ -36,6 +37,7 @@ export function parseArgs(argv) {
     if (num[a]) o[num[a]] = Number(argv[++i]);
     else if (a === "--preset") { if (argv[++i] !== "ours") throw new Error("only --preset ours"); for (const [n, [re, kw]] of Object.entries(PRESETS)) o.formats.push({ name: n, re, keywords: kw }); }
     else if (a === "--format") { const [n, r] = argv[++i].split("="); o.formats.push({ name: n, re: new RegExp(r || n, "i"), keywords: null }); }
+    else if (a === "--no-youtube") o.youtube = false;
     else if (a === "--keywords") o.keywords = argv[++i].split(",").map((s) => s.trim()).filter(Boolean);
     else if (a === "--out") o.out = argv[++i];
     else if (a === "--from") o.from = argv[++i];
@@ -121,6 +123,42 @@ export function verdict(rows, wins, o, now) {
   return { word, reward, postersPerWeek: short ? +short.posters.toFixed(2) : null, accountsCompared: ratios.length, entry, newHits, newPosters, newShare };
 }
 
+// YouTube Shorts side: Shorts search (this week + this month) finds the channels whose titles match, and each
+// channel's Shorts feed gives its 15 latest Shorts with exact dates (followers unknown: the newcomer read uses the
+// channel's own usual views and the date its Shorts began).
+export function ytRows(f, o) {
+  const count = new Map();
+  const seen = new Set();
+  for (const k of f.keywords) for (const date of [3, 4]) for (const v of ytShortsSearch(k, date)) {
+    if (seen.has(v.id) || !f.re.test(v.title)) continue;
+    seen.add(v.id);
+    const ch = ytChannelOf(v.id);
+    if (ch) count.set(ch, (count.get(ch) || 0) + 1);
+  }
+  const accounts = [...count.entries()].sort((a, b) => b[1] - a[1]).slice(0, o.accounts).map(([a]) => a), rows = [];
+  for (const a of accounts) {
+    const feed = ytFeed(a), usual = median(feed.videos.map((v) => v.views)), reach = Math.min(...feed.videos.map((v) => v.posted || Infinity));
+    for (const v of feed.videos) if (v.posted && f.re.test(v.desc))
+      rows.push({ platform: "youtube", format: f.name, account: a, followers: null, created: feed.created, usual, reach, posted: v.posted, views: v.views, url: v.url, title: v.title });
+  }
+  return { rows, accounts: accounts.length };
+}
+
+// Gap between the platforms, last 2 weeks (videos under 3 days left out): accounts posting, median views, hits. Hot =
+// median 50K+ or 3+ hits; thin = under a third of the other platform's posting accounts, or under 3. Hot on one and thin
+// on the other = the format works there and few make it here yet. Both samples are capped at --accounts, so read the
+// numbers, not only the word.
+export function platformGap(tt, yt, o, now) {
+  const side = (rows) => { const v = rows.filter((r) => r.posted >= now - (FRESH + 2 * WINDOW) * DAY && r.posted < now - FRESH * DAY);
+    return { posters: new Set(v.map((r) => r.account)).size, videos: v.length, medianViews: Math.round(median(v.map((r) => r.views))), hits: v.filter((r) => r.views >= o.minViews).length }; };
+  const a = side(tt), b = side(yt);
+  const hot = (x) => x.videos >= 2 && (x.medianViews >= 50000 || x.hits >= 3), thin = (x, y) => x.posters < 3 || x.posters * 3 <= y.posters;
+  const word = hot(a) && thin(b, a) ? (b.posters && b.medianViews >= 50000 ? "ROOM ON YOUTUBE: hot on TikTok, few make it on YouTube, and those few do well" : "ROOM ON YOUTUBE: hot on TikTok, thin on YouTube")
+    : hot(b) && thin(a, b) ? (a.posters && a.medianViews >= 50000 ? "ROOM ON TIKTOK: hot on YouTube, few make it on TikTok, and those few do well" : "ROOM ON TIKTOK: hot on YouTube, thin on TikTok")
+    : hot(a) && hot(b) ? "BOTH: works on both" : !a.videos && !b.videos ? "QUIET on both" : "NO GAP";
+  return { word, tiktok: a, youtube: b };
+}
+
 // Fetch (or read --from) and judge every format. Returns {now, all rows, report: [{f, wins, ver, rows, newWin, accounts}]}.
 export async function runTrend(o) {
   let now = Math.floor(Date.now() / 1000);
@@ -128,11 +166,19 @@ export async function runTrend(o) {
   const all = [], report = [];
   const saved = o.from ? JSON.parse(fs.readFileSync(o.from, "utf8")) : null; // --from: rows.json of an earlier run, no fetching
   if (saved) now = saved.now;
+  const ytReport = (rows, accounts) => { const wins = trendTable(rows, o, now);
+    const ver = verdict(rows, wins, o, now), start = now - (FRESH + o.windows * WINDOW) * DAY;
+    // a channel's feed holds its 15 latest Shorts: a daily poster's don't reach the older weeks, which then look empty
+    const chans = new Map(rows.map((r) => [r.account, r.reach])), deep = [...chans.values()].filter((t) => t != null && t <= start).length;
+    if (ver.reward == null && chans.size && deep < chans.size / 2)
+      ver.word = `SHORT HISTORY: the latest 15 Shorts of only ${deep} of ${chans.size} channels reach back ${o.windows} weeks; read the last 2 weeks and the gap`;
+    return { rows, accounts, wins, ver, days: dailyTable(rows, now) }; };
   for (const f of o.formats) {
     if (saved) {
-      const rows = saved.rows.filter((r) => r.format === f.name), wins = trendTable(rows, o, now), ver = verdict(rows, wins, o, now);
+      const mine = saved.rows.filter((r) => r.format === f.name), rows = mine.filter((r) => r.platform !== "youtube"), yrows = mine.filter((r) => r.platform === "youtube");
+      const wins = trendTable(rows, o, now), ver = verdict(rows, wins, o, now);
       const newWin = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 17 * DAY && r.views >= o.minViews).sort((a, b) => b.views - a.views);
-      report.push({ f, wins, ver, rows, newWin, accounts: new Set(rows.map((r) => r.account)).size }); all.push(...rows);
+      report.push({ f, wins, ver, rows, newWin, accounts: new Set(rows.map((r) => r.account)).size, yt: ytReport(yrows, new Set(yrows.map((r) => r.account)).size) }); all.push(...mine);
       continue;
     }
     console.error(`${f.name}: keyword pages ${f.keywords.join(", ")}`);
@@ -148,13 +194,16 @@ export async function runTrend(o) {
       const { videos, profile } = cache.get(a);
       const usual = median(videos.map((v) => v.views || 0)); // the account's usual video, format or not
       for (const v of videos) if (v.posted && f.re.test(v.desc || v.title))
-        rows.push({ format: f.name, account: a, followers: profile.followers, created: profile.created, usual, posted: v.posted, views: v.views, url: v.url, title: v.title, flags: v.flags });
+        rows.push({ platform: "tiktok", format: f.name, account: a, followers: profile.followers, created: profile.created, usual, posted: v.posted, views: v.views, url: v.url, title: v.title, flags: v.flags });
     }
     const wins = trendTable(rows, o, now), ver = verdict(rows, wins, o, now);
     const newWin = rows.filter((r) => r.created && now - r.created < 150 * DAY && now - r.posted < 17 * DAY && r.views >= o.minViews).sort((a, b) => b.views - a.views);
-    report.push({ f, wins, ver, rows, newWin, accounts: accounts.length });
-    all.push(...rows);
+    const y = o.youtube ? ytRows(f, o) : { rows: [], accounts: 0 };
+    if (o.youtube) console.error(`  YouTube: ${y.accounts} channels, ${y.rows.length} dated format Shorts`);
+    report.push({ f, wins, ver, rows, newWin, accounts: accounts.length, yt: ytReport(y.rows, y.accounts) });
+    all.push(...rows, ...y.rows);
   }
+  for (const r of report) r.gap = platformGap(r.rows, r.yt.rows, o, now);
   return { now, all, report, saved: !!saved };
 }
 
@@ -166,10 +215,10 @@ async function main() {
   writeCsv(path.join(o.out, "format-videos.csv"), all.map((r) => ({ ...r, posted: new Date(r.posted * 1000).toISOString().slice(0, 10) })),
     ["format", "account", "followers", "posted", "views", "title", "url"]);
   const fmt = (n) => (n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(n));
-  let md = `# Format trend (${new Date().toISOString().slice(0, 10)}, TikTok)\n\nWindows of ${WINDOW} days, videos younger than ${FRESH} days left out. ` +
+  let md = `# Format trend (${new Date().toISOString().slice(0, 10)}, TikTok + YouTube Shorts)\n\nWindows of ${WINDOW} days, videos younger than ${FRESH} days left out. ` +
     `Reward = the same accounts' format videos, last 2 weeks vs the weeks before (x1.00 = no change). Entry = accounts born in the last 2 weeks ` +
     `that post it vs 2 earlier weeks. Without enough accounts to compare with themselves: last 2 weeks vs the 2 before, pooled. Hit = ${fmt(o.minViews)}+ views.\n`;
-  for (const { f, wins, ver, rows, newWin, accounts } of report) {
+  for (const { f, wins, ver, rows, newWin, accounts, yt, gap } of report) {
     md += `\n## ${f.name}: ${ver.word}\n\nReward x${ver.reward ?? "?"} (${ver.accountsCompared} accounts compared), entry x${ver.entry}. ` +
       `${rows.length} format videos from ${accounts} accounts. Newcomer odds: ${ver.newHits} of ${ver.newPosters} new accounts (under 150 days) that tried it in the last 2 weeks beat their own usual views 2x` +
       `${ver.newShare == null ? " (too few to judge room)" : ` (${Math.round(ver.newShare * 100)}%)`}` +
@@ -177,7 +226,12 @@ async function main() {
       `| Window | Videos | Accounts posting | Accounts born | Median views | Hits |\n|---|---|---|---|---|---|\n` +
       wins.map((w) => `| ${w.from} to ${w.to} | ${w.videos} | ${w.posters} | ${w.newAccounts} | ${fmt(w.medianViews)} | ${w.hits} |`).join("\n") + "\n" +
       `\nLast 7 days, day by day (views still growing: compare views per day):\n\n| Day | Videos | Accounts | Median views | Views per day |\n|---|---|---|---|---|\n` +
-      dailyTable(rows, now).map((d) => `| ${d.day} | ${d.videos} | ${d.posters} | ${fmt(d.medianViews)} | ${fmt(d.perDay)} |`).join("\n") + "\n";
+      dailyTable(rows, now).map((d) => `| ${d.day} | ${d.videos} | ${d.posters} | ${fmt(d.medianViews)} | ${fmt(d.perDay)} |`).join("\n") + "\n" +
+      (yt.accounts ? `\n**YouTube Shorts: ${yt.ver.word}** (${yt.rows.length} dated format Shorts from ${yt.accounts} channels; newcomer odds ${yt.ver.newHits} of ${yt.ver.newPosters})\n\n` +
+        `| Window | Videos | Channels posting | Median views | Hits |\n|---|---|---|---|---|\n` +
+        yt.wins.map((w) => `| ${w.from} to ${w.to} | ${w.videos} | ${w.posters} | ${fmt(w.medianViews)} | ${w.hits} |`).join("\n") + "\n" : "") +
+      `\n**Platform gap, last 2 weeks: ${gap.word}.** TikTok ${gap.tiktok.posters} accounts, ${gap.tiktok.videos} videos, median ${fmt(gap.tiktok.medianViews)}, ${gap.tiktok.hits} hits; ` +
+      `YouTube ${gap.youtube.posters} channels, ${gap.youtube.videos} Shorts, median ${fmt(gap.youtube.medianViews)}, ${gap.youtube.hits} hits.\n`;
   }
   md += `\nLimits: only accounts that TikTok's keyword pages show today, so "accounts posting" always looks like it grows; the verdict uses ` +
     `the same-account reward and account birth dates instead. Daily posters' latest ${o.videos} videos may not reach the oldest windows.\n`;

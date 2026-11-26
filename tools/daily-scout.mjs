@@ -16,6 +16,7 @@ import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 import { parseArgs as scanArgs, runScan, isRepeat } from "./small-big-scan.mjs";
 import { parseArgs as trendArgs, runTrend, dailyTable } from "./format-trend.mjs";
+import { findFormats } from "./format-finder.mjs";
 
 const today = new Date().toISOString().slice(0, 10);
 const fmt = (n) => (n == null ? "?" : n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}K` : String(n));
@@ -55,34 +56,66 @@ export function mergeHistory(hist, seen, date) {
   return { hist: h, fresh, risers };
 }
 
-function page({ early, fresh, risers, repeats, trend, firstRun, stats }) {
-  const vrow = (v) => `<tr><td><a href="${esc(v.url)}">${esc((v.title || "(no caption)").slice(0, 90))}</a>${v.flags ? ` <span class=muted>(${esc(v.flags)})</span>` : ""}${v.duration && v.duration < 50 ? ` <span class=muted>(${v.duration} s: a theme to stretch to 80 s)</span>` : ""}</td><td>${esc(v.account)}</td>` +
-    `<td class=n>${fmt(v.followers)}</td><td class=n>${fmt(v.views)}</td><td class=n>${v.followers ? Math.round(v.views / Math.max(v.followers, 1)) + "x" : "?"}</td>` +
-    `${v.gain != null ? `<td class=n>+${fmt(v.gain)}</td>` : v.ageDays != null ? `<td class=n>${v.ageDays} d</td>` : "<td></td>"}</tr>`;
-  const vtab = (rows, last) => rows.length ? `<table><tr><th>Video</th><th>Account</th><th>Followers</th><th>Views</th><th>vs followers</th><th>${last}</th></tr>${rows.map(vrow).join("")}</table>` : "<p class=muted>None today.</p>";
-  const arow = (a) => `<tr><td><a href="${esc(a.url)}">${esc(a.name)}</a> <span class=muted>${a.platform}</span></td><td class=n>${fmt(a.followers)}</td>` +
-    `<td class=n>${a.breakouts}</td><td class=n>${a.medianRatio}x</td><td><a href="${esc(a.best?.url)}">${esc((a.best?.title || "best").slice(0, 70))}</a> ${fmt(a.best?.views)}</td>` +
-    `<td>${a.worst ? `<a href="${esc(a.worst.url)}">worst</a> ${fmt(a.worst.views)}` : ""}</td></tr>`;
-  const trow = (t) => `<tr><td>${esc(t.name)}</td><td><b>${esc(t.word.split(":")[0])}</b>${esc(t.word.includes(":") ? ":" + t.word.split(":").slice(1).join(":") : "")}</td>` +
-    `<td class=n>${t.reward ?? "?"}</td><td class=n>${t.entry ?? "?"}</td><td class=n>${t.newHits ?? "?"} of ${t.newPosters ?? "?"}</td>` +
-    `<td class=n>${(t.days || []).map(fmt).join(" ")}</td><td>${t.best ? `<a href="${esc(t.best.url)}">newcomer hit</a> ${fmt(t.best.views)}` : ""}</td></tr>`;
+// Dashboard (Jonny 26 Nov): tabs Today / Formats / Trends / Accounts; reference videos play in place on click.
+export function page({ early, fresh, risers, repeats, trend, found, firstRun, stats }) {
+  const tt = (u) => (String(u || "").match(/tiktok\.com\/@[^/]+\/video\/(\d+)/) || [])[1];
+  const yt = (u) => (String(u || "").match(/youtube\.com\/shorts\/([\w-]{6,})/) || [])[1];
+  const play = (u) => tt(u) ? `data-play="https://www.tiktok.com/player/v1/${tt(u)}?loop=1&rel=0"` : yt(u) ? `data-play="https://www.youtube.com/embed/${yt(u)}"` : "";
+  // covers: YouTube's are stable; TikTok's signed links (from the scan) expire after some days, then the black frame shows
+  const thumb = (v) => yt(v.url) ? `https://i.ytimg.com/vi/${yt(v.url)}/oar2.jpg` : v.cover;
+  const card = (v, note) => `<article class=card><div class=frame ${play(v.url)}>${thumb(v) ? `<img src="${esc(thumb(v))}" alt="" loading=lazy referrerpolicy=no-referrer onerror="this.remove()">` : ""}<button class=go aria-label="Play">&#9654;</button></div>
+<div class=meta><b>${fmt(v.views)}</b> views · <b>${v.followers ? Math.round(v.views / Math.max(v.followers, 1)) + "x" : "?"}</b> followers · ${esc(v.account)} (${fmt(v.followers)})${note ? ` · ${note}` : ""}
+<p>${esc((v.title || "").replace(/\s+/g, " ").slice(0, 110))}</p>${v.flags ? `<span class=tag>${esc(v.flags)}</span>` : ""}${v.duration && v.duration < 50 ? `<span class=tag>${v.duration} s: stretch to 80 s</span>` : ""}
+<a href="${esc(v.url)}" target=_blank rel=noopener>open</a></div></article>`;
+  const grid = (vs, note) => vs.length ? `<div class=grid>${vs.map((v) => card(v, note && note(v))).join("")}</div>` : `<p class=muted>None today.</p>`;
+  const spark = (xs) => { const m = Math.max(...xs, 1); return `<svg class=spark viewBox="0 0 ${xs.length * 8} 24" aria-hidden=true>${xs.map((x, i) => `<rect x="${i * 8 + 1}" y="${24 - Math.max(1, (22 * x) / m)}" width=6 height="${Math.max(1, (22 * x) / m)}"/>`).join("")}</svg>`; };
+  const verdictClass = (w) => /RISING|HEATING/.test(w) ? "up" : /CROWD|FADING/.test(w) ? "down" : "flat";
+  const fmtRows = (fs) => fs.map((f) => `<details class=fmt><summary><b>${esc(f.pattern)}</b> <span class=muted>${f.accounts} accounts · usual video ${f.medianRatio}x followers · ${f.breakouts} breakout${f.breakouts === 1 ? "" : "s"} · ${Math.round(f.recentShare * 100)}% from the last 7 days</span></summary>${grid(f.examples)}</details>`).join("");
+  const ours = (found || []).filter((f) => !f.franchise), fan = (found || []).filter((f) => f.franchise);
   return `<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
 <title>Trend scout</title><style>
-:root{--bg:#fbfaf7;--fg:#1d1c1a;--muted:#6b6862;--line:#e4e1da;--accent:#b4541a}
-@media (prefers-color-scheme:dark){:root{--bg:#161513;--fg:#ecebe7;--muted:#9b978f;--line:#2e2c28;--accent:#e58a4b}}
-body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;margin:0 auto;max-width:1100px;padding:16px}
-h1{font-size:22px;margin:8px 0 2px}h2{font-size:17px;margin:28px 0 6px;color:var(--accent)}
-p{margin:4px 0}.muted{color:var(--muted)}a{color:inherit}table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}
-th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top;font-size:14px}th{color:var(--muted);font-weight:500}
-td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}</style></head><body>
-<h1>Trend scout, ${today}</h1>
-<p class=muted>Small accounts (under ${fmt(stats.maxFollowers)} followers) in animation, funny animation, comedy and comedy sketches on TikTok and YouTube Shorts. ${stats.videos} videos read today, ${stats.accounts} small accounts opened. Lessons, not copies.${firstRun ? " First run: today's finds are the starting point, so \"new\" and \"risers\" fill in from tomorrow." : ""}</p>
-<h2>Early breakouts</h2><p class=muted>Under 4 days old and already 10x the account's followers. Act on these first.</p>${vtab(early, "Age")}
-<h2>Fastest risers since the last run</h2><p class=muted>The 24 and 48 hour signal: views gained since the last scan.</p>${vtab(risers, "Gained")}
-<h2>New breakouts</h2><p class=muted>Over 10x followers and the views bar, not seen in an earlier run.</p>${vtab(fresh, "Age")}
-<h2>Repeat breakers (formats, not luck)</h2><table><tr><th>Account</th><th>Followers</th><th>Breakouts</th><th>Usual video</th><th>Best</th><th>Worst</th></tr>${repeats.map(arow).join("") || "<tr><td colspan=6 class=muted>None today.</td></tr>"}</table>
-<h2>Format trends${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>Week by week, focus on the last 2 weeks. Reward = the same accounts' views with the format, last 2 weeks vs before (1.0 = no change). Entry = new accounts piling in (1.0 = as before). Newcomers = new accounts that tried it in the last 2 weeks and beat their own usual views 2x: the room for one more creator. Grey notes mark borrowed audio or someone else's characters, the part we can't make our own.</p><table><tr><th>Format</th><th>Verdict</th><th>Reward</th><th>Entry</th><th>Newcomers</th><th>Views per day, last 7 days</th><th>Example</th></tr>${trend.formats.map(trow).join("")}</table>` : "<p class=muted>Not run yet.</p>"}
-</body></html>`;
+:root{--bg:#fbfaf7;--card:#fff;--fg:#1d1c1a;--muted:#6b6862;--line:#e4e1da;--accent:#b4541a;--up:#2f7d4f;--down:#b23a3a}
+@media (prefers-color-scheme:dark){:root{--bg:#161513;--card:#1f1e1b;--fg:#ecebe7;--muted:#9b978f;--line:#2e2c28;--accent:#e58a4b;--up:#6cc28f;--down:#e07a7a}}
+*{box-sizing:border-box}body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;margin:0 auto;max-width:1200px;padding:16px}
+h1{font-size:22px;margin:4px 0}h2{font-size:17px;margin:24px 0 4px}p{margin:4px 0}.muted{color:var(--muted)}a{color:var(--accent)}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0;position:sticky;top:0;background:var(--bg);padding:6px 0;z-index:2}
+nav button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:20px;padding:6px 14px;cursor:pointer}
+nav button[aria-selected=true]{background:var(--fg);color:var(--bg)}section{display:none}section.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:8px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.frame{aspect-ratio:9/16;background:#000;display:grid;place-items:center;position:relative;overflow:hidden}.frame iframe{border:0;width:100%;height:100%}.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.go{position:relative}
+.go{font-size:28px;width:64px;height:64px;border-radius:50%;border:0;background:#ffffffd0;cursor:pointer}
+.meta{padding:8px 10px;font-size:13px}.meta p{margin:4px 0 6px}.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:10px;padding:0 6px;margin-right:4px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;font-size:14px;vertical-align:middle}
+th{color:var(--muted);font-weight:500}td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.up{color:var(--up)}.down{color:var(--down)}.spark{width:64px;height:24px;fill:var(--accent)}h3{font-size:16px;margin:0 0 6px}.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:8px 0}.tcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.plat{display:flex;align-items:center;gap:8px;margin-top:6px}.plat .spark{margin-left:auto}.gap{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}details.fmt{border-bottom:1px solid var(--line);padding:8px 0}summary{cursor:pointer}
+</style></head><body>
+<h1>Trend scout</h1><p class=muted>${today} · small accounts (under ${fmt(stats.maxFollowers)} followers) in animation, funny animation, comedy and comedy sketches on TikTok and YouTube Shorts · ${stats.videos} videos read, ${stats.accounts} small accounts opened. Lessons, not copies.${firstRun ? " First run: \"new\" and \"risers\" fill in from tomorrow." : ""}</p>
+<nav role=tablist>${["Today", "Formats", "Trends", "Accounts"].map((t, i) => `<button role=tab aria-selected=${i === 0} data-tab=${t}>${t}</button>`).join("")}</nav>
+<section id=Today class=on><h2>Early breakouts</h2><p class=muted>Under 4 days old and already 10x the account's followers. Act on these first.</p>${grid(early, (v) => `${v.ageDays} d old`)}
+<h2>Fastest risers since the last run</h2><p class=muted>Views gained since the last scan: the 24 and 48 hour signal.</p>${grid(risers, (v) => `+${fmt(v.gain)}`)}
+<h2>New breakouts</h2><p class=muted>Over 10x followers and the views bar, not seen in an earlier run.</p>${grid(fresh)}</section>
+<section id=Formats><h2>Formats found today</h2><p class=muted>Caption patterns that 3+ different small accounts use, ranked by breakouts. Open one to watch its best examples.</p>${fmtRows(ours) || "<p class=muted>None today.</p>"}
+${fan.length ? `<h2>Fandom trends (someone else's characters)</h2><p class=muted>Big on reach, but not ours to make.</p>${fmtRows(fan)}` : ""}</section>
+<section id=Trends><h2>Our formats${trend ? ` (${trend.date})` : ""}</h2>${trend ? `<p class=muted>TikTok and YouTube Shorts, each judged on its own: last 2 weeks vs the 2 before. Reward = the same accounts' views with the format (1.0 = no change). Newcomers = new accounts that tried it in the last 2 weeks and beat their own usual views 2x: room for one more creator. Bars = views per day of the videos posted on each of the last 7 days.</p>
+<div class=tgrid>${trend.formats.map((t) => `<article class=tcard><h3>${esc(t.name)}</h3>
+<div class=plat><span class=muted>TikTok</span> <b class=${verdictClass(t.word)}>${esc(t.word.split(":")[0])}</b>${spark(t.days || [])}</div>
+<p class=muted>Reward ${t.reward ?? "?"} · accounts/week ${t.postersPerWeek ?? "?"} · newcomers ${t.newHits ?? "?"} of ${t.newPosters ?? "?"}${t.best ? ` · <a href="${esc(t.best.url)}" target=_blank rel=noopener>newcomer hit</a> ${fmt(t.best.views)}` : ""}</p>
+<div class=plat><span class=muted>YouTube</span> ${t.yt ? `<b class=${verdictClass(t.yt.word)}>${esc(t.yt.word.split(":")[0])}</b>${spark(t.yt.days || [])}` : "?"}</div>
+${t.gap ? `<p class="gap ${/^ROOM/.test(t.gap.word) ? "up" : ""}"><b>${esc(t.gap.word.split(":")[0])}</b> <span class=muted>last 2 weeks: TikTok ${t.gap.tiktok.posters} accounts, median ${fmt(t.gap.tiktok.medianViews)}, ${t.gap.tiktok.hits} hits · YouTube ${t.gap.youtube.posters} channels, median ${fmt(t.gap.youtube.medianViews)}, ${t.gap.youtube.hits} hits</span></p>` : ""}</article>`).join("")}</div>
+<p class=muted>Gap: ROOM ON YOUTUBE / ROOM ON TIKTOK = the format pays on one platform (median 50K+ or 3+ hits in 2 weeks) while few accounts make it on the other. That is where we can be early.</p>` : "<p class=muted>Not run yet.</p>"}</section>
+<section id=Accounts><h2>Repeat breakers (formats, not luck)</h2><p class=muted>Small accounts that beat their following again and again. Best and worst video side by side: the worst shows what fails.</p>
+${repeats.map((a) => `<h2>${esc(a.name)} <span class=muted>${a.platform} · ${fmt(a.followers)} followers · ${a.breakouts} breakouts · usual video ${a.medianRatio}x · <a href="${esc(a.url)}" target=_blank rel=noopener>account</a></span></h2>${grid([a.best && { ...a.best, account: a.account, followers: a.followers }, a.worst && { ...a.worst, account: a.account, followers: a.followers }].filter(Boolean), (v) => v === a.best || v.url === a.best?.url ? "best" : "worst")}`).join("") || "<p class=muted>None today.</p>"}</section>
+<script>
+document.querySelectorAll("nav button").forEach((b) => b.onclick = () => {
+  document.querySelectorAll("nav button").forEach((x) => x.setAttribute("aria-selected", x === b));
+  document.querySelectorAll("section").forEach((s) => s.classList.toggle("on", s.id === b.dataset.tab));
+  try { localStorage.setItem("tab", b.dataset.tab); } catch (e) {}
+});
+try { const t = localStorage.getItem("tab"); if (t) document.querySelector('nav button[data-tab="' + t + '"]')?.click(); } catch (e) {}
+document.addEventListener("click", (e) => { const f = e.target.closest(".frame[data-play]"); if (!f || f.querySelector("iframe")) return;
+  f.innerHTML = '<iframe src="' + f.dataset.play + '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen loading=lazy></iframe>'; });
+</script></body></html>`;
 }
 
 function telegram(text) {
@@ -118,11 +151,13 @@ async function main() {
   const freshBreaks = firstRun ? [] : breaks.filter((v) => fresh.some((f) => key(f) === key(v))).slice(0, 20);
   if (o.trend) {
     const t = await runTrend(trendArgs(["node", "trend", "--preset", "ours", "--accounts", "20"]));
-    h2.trend = { date: today, formats: t.report.map(({ f, ver, newWin, rows }) => ({ name: f.name, ...ver, days: dailyTable(rows, t.now).map((d) => d.perDay),
-      best: newWin[0] ? { url: newWin[0].url, views: newWin[0].views } : null })) };
+    h2.trend = { date: today, formats: t.report.map(({ f, ver, newWin, rows, yt, gap }) => ({ name: f.name, ...ver, days: dailyTable(rows, t.now).map((d) => d.perDay),
+      best: newWin[0] ? { url: newWin[0].url, views: newWin[0].views } : null,
+      yt: { word: yt.ver.word, days: yt.days.map((d) => d.perDay), channels: yt.accounts }, gap })) };
   }
   const repeats = ranked.filter(isRepeat);
-  const html = page({ early, fresh: freshBreaks, risers: risers.filter((r) => r.gain > 0).slice(0, 15), repeats, trend: h2.trend, firstRun,
+  const found = findFormats(vids.filter(small), { minAccounts: 3, top: 30 });
+  const html = page({ found, early, fresh: freshBreaks, risers: risers.filter((r) => r.gain > 0).slice(0, 15), repeats, trend: h2.trend, firstRun,
     stats: { videos: vids.length, accounts: cands.length, maxFollowers: so.maxFollowers } });
   fs.writeFileSync(path.join(o.site, "index.html"), html);
   if (!o.smoke) fs.writeFileSync(histFile, JSON.stringify(h2));
@@ -136,6 +171,7 @@ async function main() {
   const msg = `Trend scout ${today}: ${early.length} early breakouts, ${freshBreaks.length} new breakouts, ${repeats.length} repeat breakers.\n\n` +
     top.map((v, i) => `${i + 1}. @${v.account} (${fmt(v.followers)} followers): ${fmt(v.views)} views. ${(v.title || "").replace(/\s+/g, " ").slice(0, 80)}\n${v.url}`).join("\n\n") +
     (h2.trend && o.trend ? `\n\nFormats: ${h2.trend.formats.map((t) => `${t.name} ${t.word.split(":")[0]}`).join(", ")}` : "") +
+    (h2.trend && o.trend && h2.trend.formats.some((t) => /^ROOM/.test(t.gap?.word || "")) ? `\nPlatform gaps: ${h2.trend.formats.filter((t) => /^ROOM/.test(t.gap?.word || "")).map((t) => `${t.name}: ${t.gap.word.split(":")[0].toLowerCase()}`).join(", ")}` : "") +
     (process.env.PAGE_URL ? `\n\nAll finds: ${process.env.PAGE_URL}` : "");
   console.log(msg);
   if (o.telegram && !o.smoke) telegram(msg);

@@ -14,7 +14,7 @@ on:
         type: boolean
         default: true
   pull_request:
-    paths: [tools/daily-scout.mjs, tools/small-big-scan.mjs, tools/format-trend.mjs, .github/workflows/scout.yml]
+    paths: [tools/daily-scout.mjs, tools/small-big-scan.mjs, tools/format-trend.mjs, tools/format-finder.mjs, .github/workflows/scout.yml]
 concurrency: scout
 permissions:
   contents: write
