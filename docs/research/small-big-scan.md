@@ -59,9 +59,10 @@ open (Jonny 26 Nov: trends move fast, a 2-week-old hit can be over today). Their
 Fast signal: share of sampled accounts posting it, last 3 days vs the 3 before, S = (C + 0.5) / (N + 1); HEATING UP at
 x1.5 with 3+ accounts, COOLING at x0.65. A rise that disappears without its biggest account is shown as a lead (fragile).
 Look check (Jonny 26 Nov: "does the engine actually check the video?"): `tools/look-check.py` runs a free CLIP model
-(ONNX, CPU, ~0.3 s a cover, model cached on the runner) on each shown video's cover and tags it 3D cartoon, 2D cartoon,
-stick figures (our kind) or real people, selfie, game footage, anime, text. The page hides covers under 0.25 "ours" by
-default (a toggle shows them). Covers only, so a clip with a misleading cover can be misjudged.
+(ONNX, CPU, model cached on the runner) on 3 frames from inside each shown video (25/50/75%; Jonny 26 Nov: covers
+mislead): YouTube's own frame thumbnails, TikTok frames from a low-quality download that is deleted right after (~3 s a
+video, 200 videos at most). It tags 3D cartoon, 2D cartoon, stick figures (our kind) or real people, selfie, game
+footage, anime, text. The page hides videos under 0.25 "ours" by default (a toggle shows them). LOOK_FRAMES=0 = covers only.
 Channel by channel (Jonny 26 Nov: are several channels on the topic rising at once?): each account's format videos last
 week vs the week before; RISING x1.3+, FALLING x0.7 or less (2+ videos a side), NEW = first format video in 14 days.
 DEVELOPING = 3+ channels rising and at least twice as many rising as falling; COOLING the other way round.
