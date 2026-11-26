@@ -1358,7 +1358,10 @@ export function renderAudio(sb, chars, opts = {}) {
     // a talk action's gain scales its line (a shout, a mumble across the room); 1 = as the voice is set
     if (e.kind === "voice" && e.action.speech) voices.add(e.at, speechSamples(e.action.speech.id), 0.5 * cfg.voice * (e.action.gain ?? 1), e.pan); // real speech (engine/voice/)
     else if (e.kind === "voice") {
-      const c = sb.cast.find((x) => x.id === e.who), def = chars[c.character] || {};
+      // an offscreen speaker (a castless part of a film: the voice was meant to come from its real take, engine/voice/)
+      // gets the plain gibberish voice when that take isn't there (a cold speech cache, no model): the loader refuses
+      // a speaker that is neither in the cast nor given a "voice", so only a deliberate offscreen line gets here
+      const c = (sb.cast || []).find((x) => x.id === e.who), def = (c && chars[c.character]) || {};
       voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice * (e.action.gain ?? 1));
     } else if (e.kind === "speech") { if (e.speech) vo.add(e.at, speechSamples(e.speech.id), e.gain * cfg.voice, e.pan); } // narrator: a voice-over, dry (not in the set's room: a hall gave it an echo, Jonny 16 Nov 2026)
     else if (isSignature(e.kind)) { // a lead's signature: always the same take, its hit (Phoenix's burst, the bell's strike) on the event

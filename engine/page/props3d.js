@@ -42,6 +42,9 @@ import { BUSSTOP_KINDS } from "./props-busstop.js";
 import { DESK_KINDS } from "./props-desk.js";   // potato desk: service counter set
 import { COURT_KINDS } from "./props-court.js";   // potato desk 05 court day: judgebench, dadopanels, floormarks, soundblock, courtfloor, sentenceboard, axegavel, fryfan, chipbag, mashbowl, courtspoon
 import { CARTON_KINDS } from "./props-carton.js";   // potato desk 11 court kid and dad: friescarton, loosefry
+import { DESK14_SET_KINDS } from "./props-desk14-set.js";   // potato desk 14 don't laugh: jurybox, exhibitboard, courtdoorway, deskmic, snotbubble
+import { DESK14_PHOTO_KINDS } from "./props-desk14-photo.js";   // potato desk 14 don't laugh: bowlcut, bracesgrin (worn on spud-kid for Exhibit A)
+import { DESK14HEAD_KINDS } from "./props-desk14-head.js";   // potato desk 14 don't laugh: hashtoupee, hashcrumbs, judgeshadow
 import { IKEA_KINDS } from "./props-ikea.js";   // friends try to, episode 1 (friends-try-to-shared)
 import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode 3: the cat, the plaid bed (friends-try-to-shared)
 import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
@@ -108,6 +111,10 @@ import { DRIVETHRU_KINDS } from "./props-drivethru.js";   // kid vs dad 02: driv
 import { FRIDGE_KINDS } from "./props-fridge.js";   // kid vs dad 02: openfridge
 import { FOODHOME_KINDS } from "./props-foodhome.js";   // kid vs dad 02: wrapburger, fogglass, cablight, sweatbead
 import { GUM_KINDS } from "./props-gum.js";   // kid vs dad 06: gumbubble, gumstick, eggtimer, ovenmitts, colanderhat, basketarmour, potlid, xrayfilm
+import { CARROTS_KINDS } from "./props-carrots.js";   // kid vs dad 05: carrotstick, carrotpile, carrotbowl, carrotbag, crumbs
+import { CARROTS_JAR_KINDS } from "./props-carrots-jar.js";   // kid vs dad 05: pantryshelf, cookiejar, jarstool
+import { CARROTS_WEAR_KINDS } from "./props-carrots-wear.js";   // kid vs dad 05: nvgoggles, eyeshine, moonlamp, daywindow
+import { CARROTS_HALL_KINDS } from "./props-carrots-hall.js";   // kid vs dad 05: kidhall, floortoys, toyblock
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { LUNCH_KINDS } from "./props-lunch.js";   // potato desk 10 lunch trial: lunchbox, yogurtcup, kitchensink, microwave, beanmachine, corkboard, blindwindow, carpettiles, ceilingtiles, mouldbox, lanyard, collarstain, pocketglow
 import { THERMO_KINDS, THERMO_GRIPS } from "./props-thermo.js";   // potato desk 11 thermostat war: thermostat, thermobox, stepstool
@@ -151,6 +158,7 @@ import { WAKEFX_KINDS } from "./props-wakeup-fx.js";
 import { WAKEOUT_KINDS } from "./props-wakeup-out.js";
 import { SINKCAR_KINDS } from "./props-sinkcar.js";
 import { SKIPREMOTE_KINDS } from "./props-skipremote.js";
+import { SQEYES_KINDS } from "./props-sqeyes.js";   // Kid vs Dad 03: wallclock, eyechart, smallruler
 import { ARCH_KINDS, ARCH_GRIPS } from "./props-archaeologist.js";
 import { REPORTER_KINDS, REPORTER_GRIPS } from "./props-reporter.js";   // kid vs dad 01: newsmic, rephelmet
 import { HELLA_KINDS, HELLA_GRIPS } from "./props-hella.js";   // potato desk 09 hell reviews: set A (doors, badges, clouds, sky) + tablet + hand props
@@ -177,10 +185,14 @@ import { KRAMPUS_BOOTS_KINDS, KRAMPUS_BOOTS_GRIPS, KRAMPUS_BOOTS_STATE } from ".
 import { KRAMPUS_RUN_KINDS, KRAMPUS_RUN_GRIPS, KRAMPUS_RUN_STATE } from "./props-krampus-run.js";   // krampus myth 01 (DESIGN.md)
 import { KRAMPUS_CAT_KINDS, KRAMPUS_CAT_GRIPS, KRAMPUS_CAT_STATE } from "./props-krampus-cat.js";   // krampus myth 01 (DESIGN.md)
 import { HELLB_KINDS, HELLB_GRIPS } from "./props-hellb.js";   // potato desk 09 hell reviews: set B (hell resort lobby)   // the archaeologist's conservation brush: archbrush
+import { HELLWAIT_KINDS, HELLWAIT_GRIPS } from "./props-hellwait.js";   // potato desk 13 who's in your hell: hellcouch, pingphone, crystalball
 import { HSTAIRS_KINDS, HSTAIRS_GRIPS } from "./props-heavenstairs.js";   // potato desk heaven steps: the stairway
 import { HTOP_KINDS, HTOP_GRIPS } from "./props-heaventop.js";   // heaven steps: gate, podium, ledger
 import { HSKY_KINDS, HSKY_GRIPS } from "./props-heavensky.js";   // heaven steps: sky, zone clouds, hell floor, hatch, parasol
 import { HITEMS_KINDS, HITEMS_GRIPS } from "./props-heavenitems.js";   // heaven steps: quill, case, flower, can, soapbox, jar
+import { HSEARCH_KINDS, HSEARCH_GRIPS } from "./props-heavensearch.js";   // potato desk 14: search screen, trapdoor, search tablet, casserole, hell button
+import { HTERMS_KINDS, HTERMS_GRIPS } from "./props-heaventerms.js";   // heaven terms: scroll, stamp, mat
+import { HHOME_KINDS, HHOME_GRIPS } from "./props-heavenhome.js";   // heaven terms: cloud home, bed, harp, neighbour, dawn sky
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
 import { SKIPROOM_KINDS } from "./props-skiproom.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
@@ -1517,6 +1529,7 @@ Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtra
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, DRIVETHRU_KINDS, FRIDGE_KINDS, FOODHOME_KINDS);   // kid vs dad 02 (props-drivethru.js, props-fridge.js, props-foodhome.js)
 Object.assign(KINDS, GUM_KINDS);   // kid vs dad 06 (props-gum.js)
+Object.assign(KINDS, CARROTS_KINDS, CARROTS_JAR_KINDS, CARROTS_WEAR_KINDS, CARROTS_HALL_KINDS);   // kid vs dad 05 (props-carrots*.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
 Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
 Object.assign(KINDS, THERMO_KINDS, CLIMATE_KINDS, OFFICE11_KINDS);   // potato desk 11 thermostat war (props-thermo.js, props-climate.js, props-office11.js)
@@ -1551,7 +1564,7 @@ Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.j
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 Object.assign(KINDS, WAKECABIN_KINDS, WAKEFX_KINDS, WAKEOUT_KINDS);   // you wake up mid EP01 (props-wakeup-*.js)
 Object.assign(KINDS, SINKCAR_KINDS);   // you wake up mid EP02: cabinwater, carglass, dashglow, headrest, headbeams, lakebubbles (props-sinkcar.js)
-Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
+Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS, SQEYES_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
 Object.assign(KINDS, ARCH_KINDS); Object.assign(GRIPS, ARCH_GRIPS);   // the archaeologist: archbrush (props-archaeologist.js)
 Object.assign(KINDS, REPORTER_KINDS); Object.assign(GRIPS, REPORTER_GRIPS);   // kid vs dad 01: newsmic, rephelmet (props-reporter.js)
 Object.assign(KINDS, COASTER_KINDS);   // never looks up 07 (props-coaster.js)
@@ -1566,11 +1579,17 @@ Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRI
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 Object.assign(KINDS, COURT_KINDS);   // potato desk 05 court day (props-court.js)
 Object.assign(KINDS, CARTON_KINDS);   // potato desk 11: friescarton, loosefry (props-carton.js)
+Object.assign(KINDS, DESK14_SET_KINDS);   // potato desk 14: jurybox, exhibitboard, courtdoorway, deskmic, snotbubble (props-desk14-set.js)
+Object.assign(KINDS, DESK14_PHOTO_KINDS);   // potato desk 14: bowlcut, bracesgrin (props-desk14-photo.js)
+Object.assign(KINDS, DESK14HEAD_KINDS);   // potato desk 14: hashtoupee, hashcrumbs, judgeshadow (props-desk14-head.js)
 Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
+Object.assign(KINDS, HELLWAIT_KINDS); Object.assign(GRIPS, HELLWAIT_GRIPS);   // potato desk 13 (props-hellwait.js)
 Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, HEART_HEART_KINDS, HEART_SOUL_KINDS, HEART_JUICE_KINDS, HEART_CASE_KINDS); Object.assign(GRIPS, HEART_HALL_GRIPS, HEART_SCALE_GRIPS, HEART_MONSTER_GRIPS, HEART_HEART_GRIPS, HEART_SOUL_GRIPS, HEART_JUICE_GRIPS, HEART_CASE_GRIPS);   // egypt myth 01 heart (props-heart-*.js)
 Object.assign(KINDS, NORSE_SPEAR_KINDS, NORSE_RAVEN_KINDS, NORSE_HEAD_KINDS, NORSE_CAVE_KINDS, NORSE_WELL_KINDS, NORSE_TREE_KINDS, NORSE_WIND_KINDS, NORSE_ITEMS_KINDS, NORSE_CLASS_KINDS); Object.assign(GRIPS, NORSE_SPEAR_GRIPS, NORSE_RAVEN_GRIPS, NORSE_HEAD_GRIPS, NORSE_CAVE_GRIPS, NORSE_WELL_GRIPS, NORSE_TREE_GRIPS, NORSE_WIND_GRIPS, NORSE_ITEMS_GRIPS, NORSE_CLASS_GRIPS);   // norse myth 01 wednesday (props-norse-*.js)
 Object.assign(KINDS, KRAMPUS_LANE_KINDS, KRAMPUS_BEAST_KINDS, KRAMPUS_NICK_KINDS, KRAMPUS_BOOTS_KINDS, KRAMPUS_RUN_KINDS, KRAMPUS_CAT_KINDS); Object.assign(GRIPS, KRAMPUS_LANE_GRIPS, KRAMPUS_BEAST_GRIPS, KRAMPUS_NICK_GRIPS, KRAMPUS_BOOTS_GRIPS, KRAMPUS_RUN_GRIPS, KRAMPUS_CAT_GRIPS);   // krampus myth 01 (props-krampus-*.js)
 Object.assign(KINDS, HSTAIRS_KINDS, HTOP_KINDS, HSKY_KINDS, HITEMS_KINDS); Object.assign(GRIPS, HSTAIRS_GRIPS, HTOP_GRIPS, HSKY_GRIPS, HITEMS_GRIPS);   // potato desk heaven steps
+Object.assign(KINDS, HTERMS_KINDS, HHOME_KINDS); Object.assign(GRIPS, HTERMS_GRIPS, HHOME_GRIPS);   // potato desk heaven terms
+Object.assign(KINDS, HSEARCH_KINDS); Object.assign(GRIPS, HSEARCH_GRIPS);   // potato desk 14 heaven search
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
@@ -1775,13 +1794,34 @@ function bedDrape(spec, frame, blanketM, { top, W, L, Z0 }) {
   };
 }
 
+// each prop's own actions ("prop" sets, grabs, let-gos, carries), sorted by time once per storyboard: propState runs for
+// every prop at every frame, and scanning and sorting the whole action list each time was most of its cost (Copy
+// Money: 34 props, 421 actions; 57 -> 34 ms in the engine audit, 24 Nov 2026). The order is the old one: a stable sort
+// by time of the actions in storyboard order. Keyed on the actions array (a new array is a new index) and its length.
+const ACTS = new WeakMap();
+function propActs(sb, id) {
+  const list = sb.actions || [];
+  let ix = ACTS.get(list);
+  if (!ix || ix.n !== list.length) {
+    ix = { n: list.length, by: new Map() };
+    for (const a of list) {
+      if (a.do !== "prop" && a.do !== "grab" && a.do !== "release" && a.do !== "carry") continue;
+      const k = a.do === "prop" ? a.id : a.prop;
+      let l = ix.by.get(k); if (!l) ix.by.set(k, (l = [])); l.push(a);
+    }
+    for (const l of ix.by.values()) l.sort((a, b) => a.at - b.at);
+    ACTS.set(list, ix);
+  }
+  return ix.by.get(id) || [];
+}
+
 export function propState(sb, spec, t) {
   const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, lights: spec.lights ?? 0, rock: 0, shh: 0, crook: spec.crook ?? 0, wrap: spec.wrap ?? 0, ...(typeof spec.look === "number" && { look: spec.look }), steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, lean: spec.lean ?? 0, neckY: spec.neckY ?? 0, neckP: spec.neckP ?? 0, headY: spec.headY ?? 0, headP: spec.headP ?? 0, headR: spec.headR ?? 0, jaw: spec.jaw ?? 0, sniff: 0, squint: spec.squint ?? 0, blink: 0, brow: spec.brow ?? 0, lookX: spec.lookX ?? 0, lookY: spec.lookY ?? 0, curl: 0, arms: 0, breath: spec.breath ?? 0, step: 0, wag: 0, part: spec.part ?? 0, pop: spec.pop ?? 0, mouth: spec.mouth ?? 0, hope: spec.hope ?? 0, sad: spec.sad ?? 0, wilt: spec.wilt ?? 0, bank: spec.bank ?? 0, bob: spec.bob ?? 1, squeeze: 0, jet: 0, port: 0, straw: spec.straw ?? 0, ...kitState(spec), hold: null, left: null, carry: null, pull: spec.pull ?? 0, alarm: spec.alarm ?? 0 };
   // Sprout Man's own numbers (engine/shared/sprout-rig.js): only on his prop, so no other prop's state changes
   if (spec.kind === "sproutman") for (const [k, v] of Object.entries(SPROUT_STATE)) ps[k] = spec[k] ?? v;
   if (spec.kind === "selfieframe") { ps.filter = spec.filter ?? 0; ps.snap = 0; }
   Object.assign(ps, snowPropKeys(spec), desk11PropKeys(spec));   // amount, dump, grow, trickle, depth, sweep, logs (props-survive-snow.js): so they tween
-  const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
+  const acts = propActs(sb, spec.id).filter((a) => a.at <= t);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);
     if (a.do === "prop") {

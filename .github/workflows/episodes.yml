@@ -37,10 +37,19 @@ jobs:
           # with "tool" (its reason) is never a video, e.g. a voice probe that only makes and measures the line takes
           # (Potato Desk 05, 18 Nov 2026: the probe's cast, standing in a row, failed this job's preflight)
           keep=""; for f in $files; do [ -f "$f" ] && node -e "const j=require('./'+process.argv[1]); process.exit(Array.isArray(j.cast)&&j.cast.length&&!j.tool?0:1)" "$f" && keep="$keep $f"; done
+          # castless storyboards that are still video (a film's narrator-only part, Atlantis B3: no cast, a "voice" on
+          # each line) get their sound mixed from a cold voice cache instead (qa/mixcheck.mjs, seconds): the layout has
+          # nobody to judge, but the mix crashed there (engine audit, 24 Nov 2026). Sets, grip tables and sound lists
+          # have no beats or actions and stay out.
+          mix=""; for f in $files; do [ -f "$f" ] && node -e "const j=require('./'+process.argv[1]); const n=(a)=>Array.isArray(a)&&a.length; process.exit(!n(j.cast)&&!j.tool&&(n(j.beats)||n(j.actions))?0:1)" "$f" && mix="$mix $f"; done
           echo "files=$keep" >> "$GITHUB_OUTPUT"
-          echo "episode storyboards: ${keep:-none}"
-      - if: steps.list.outputs.files != ''
+          echo "mix=$mix" >> "$GITHUB_OUTPUT"
+          echo "episode storyboards: ${keep:-none}; castless, sound only: ${mix:-none}"
+      - if: steps.list.outputs.files != '' || steps.list.outputs.mix != ''
         uses: ./.github/actions/setup
+      - if: steps.list.outputs.mix != ''
+        name: Mix the sound of each castless storyboard
+        run: node qa/mixcheck.mjs ${{ steps.list.outputs.mix }}
       - if: steps.list.outputs.files != ''
         name: Lay out and judge each storyboard
         shell: bash

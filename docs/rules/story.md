@@ -14,9 +14,22 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 
 - **The story spine** (Jonny 22 Nov, every video; the Siren myth channel opens the same way): scene + a name + a weird
   rule -> stakes -> hide the twist, tease the twist -> ending. The name comes first and the rule right after it, then
-  what is at stake: "We're live. Tato, age seven, just asked for burgers. And in this car, there is one rule:
-  whoever says 'We have food at home' has to eat it." The twist is hidden but teased two or three times (a stomach
-  growl, a glance), and the ending pays off the rule. Every outline names its rule, its stake and its teases.
+  what is at stake: "We're live. Tato, age seven, just asked for burgers." Dad, eyes on the road: "Say 'We have
+  food at home'... and you eat it." The twist is hidden but teased two or three times (a stomach growl, a glance),
+  and the ending pays off the rule. Every outline names its rule, its stake and its teases.
+- **The story tells the rule, nobody announces it** (Jonny 26 Nov, every video; refines the spine above): the rule
+  is never introduced with a meta line such as "In this house, there is one rule", "At this table, one rule" or
+  "One rule:". His words: "This is boring and states out that there is a rule but the rule must tell itself
+  naturally." The rule comes inside the story as a short command, warning or consequence a character says or does:
+  "Don't drink it." "Don't touch it." "Swallow that and it glues your stomach shut." A shown rule counts too (a hand
+  slaps the cookie jar shut, a sign on the fridge, a look). The rule itself stays, said by about 6 s; only the
+  announcement goes. Outline check: search the lines for "one rule", "the rule" and "there is a rule"; each hit is
+  rewritten as the command itself.
+- **Curiosity power words, pushed to the extreme** (Jonny 26 Nov, future videos, ON TRIAL): spoken lines and the
+  hook use more curiosity power words, or the extreme form of a normal word: "This is too dangerous." "The most
+  mysterious thing..." "Never", "forbidden", "nobody knows", "the worst". A plain "This is dangerous" becomes "This is
+  too dangerous". Use them where the story earns them (the opener, the rule, the turn), not on every line, so they
+  keep their punch. Outline check: the opener and the rule line each carry one.
 - **Suggestions, not a formula** (15 Nov, from the MrBeast study, on trial): the rules below guard against failures
   we have seen; they are not a recipe for the story. MrBeast's warning: strict beat checklists make every video look
   the same after about ten. So each new episode changes at least one visible thing about its shape from the last one
@@ -101,9 +114,12 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 
 ## 2. The opening (first 3 seconds)
 
+- **No lettering burned into the video** (Jonny, 25 Nov 2026, every video): no 0 s label, hook statement, title or
+  other caption lettering of our own in the render. He adds it by hand in TikTok, and asks when a YouTube cut needs
+  it. Write the text in the post pack ("Label at 0 s, add in TikTok"). The subtitles of spoken lines stay.
 - **Build the video around its hook** (18 Nov, ON TRIAL on four videos; a rule only once finished videos prove it):
   the hook, the curiosity gap and the ending matter most, and the story is built between them. Write in this order:
-  (1) a statement on screen in the first 3 s and the caption question about the same thing, both opening ONE gap
+  (1) a statement for the first 3 s (in the post pack, Jonny letters it in TikTok) and the caption question about the same thing, both opening ONE gap
   ("He found the perfect crime." / caption "Did he really find the perfect crime?"), with the video already in the
   action; (2) the ending that releases that gap clearly (Court Day: three characters lined up, the last one reveals);
   (3) only then the beats between, each keeping the gap open. Court Day: 51 % finish, 58 % at 0:05.
@@ -200,6 +216,11 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Faster voices: Reaper and Mash** (Jonny 23 Nov, Kid vs Dad 02: "super slow, even on 1.25x"): both recipes carry
   `"tempo": 1.25` in `engine/voice/voices.json`, so new takes read 25 % faster with the pitch kept. Older clips keep their
   cached takes until re-rendered. Kid vs Dad 02 itself is sped up 1.3x as a whole at the join instead.
+- **Voices 15 % faster, every new video** (Jonny 25 Nov, Kid vs Dad 03 rough draft: "speed the voices up by 15% ...
+  generally i think the voices can be sped up by 15% for future videos"): every voice a new clip uses reads 15 % faster
+  than it did on 25 Nov: its recipe's `"tempo"` goes up by x1.15 (no tempo = 1, so 1.15; Reaper and Mash 1.25 -> 1.44).
+  Set it the first time a new clip uses a voice, never in a clip in work (its takes are timed); older clips keep their
+  cached takes. A draft already made with the old takes is sped up as a whole at the join instead.
 - **Food series**: every potato that gets eaten is ALIVE (face, reaction, ideally a line).
 - **Held cards and phones**: cards face the holder (show a hand with an over-the-shoulder shot); a phone shown to
   others uses the edge hold (`docs/rules/clip-lessons.md`).

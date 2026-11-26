@@ -51,8 +51,8 @@
    "tagW": 150,
    "count": false,
    "show": [
-    5.533,
-    10.18
+    7.1,
+    11.76
    ]
   }
  },
@@ -71,8 +71,8 @@
  },
  "creative": {
   "length": [
-   10.18,
-   10.18
+   11.76,
+   11.76
   ]
  },
  "hook": {
@@ -87,7 +87,7 @@
    "id": "spud",
    "character": "potatobrawl/spud-kid",
    "at": [
-    -0.22,
+    -0.24,
     -1.52
    ],
    "face": 12,
@@ -97,9 +97,9 @@
   },
   {
    "id": "wedge",
-   "character": "potatobrawl/wedge",
+   "character": "potatobrawl/dad",
    "at": [
-    0.7,
+    0.77,
     -1.52
    ],
    "face": -6,
@@ -155,9 +155,9 @@
   {
    "id": "plant",
    "kind": "gplant",
-   "x": 1.95,
+   "x": -0.95,
    "y": 0,
-   "z": -1.15
+   "z": -2.3
   },
   {
    "id": "rug",
@@ -190,23 +190,23 @@
  "captions": [
   {
    "from": 0.12,
-   "to": 4.37,
+   "to": 5.45,
    "text": "*Danger.* One more hour... *square. Forever.*",
    "pos": 430,
    "pop": false,
    "size": 62
   },
   {
-   "from": 4.57,
-   "to": 5.39,
+   "from": 5.65,
+   "to": 6.97,
    "text": "Is it *true?*",
    "pos": 430,
    "pop": false,
    "size": 62
   },
   {
-   "from": 5.59,
-   "to": 9.88,
+   "from": 7.17,
+   "to": 11.46,
    "text": "*Tato,* age seven. *Nine hours* of TV.",
    "pos": 430,
    "pop": false,
@@ -226,33 +226,33 @@
   {
    "name": "danger",
    "at": 0,
-   "len": 4.5,
+   "len": 5.6,
    "shot": {
     "pos": [
-     0.4,
+     0.47,
      1.01,
      2.5
     ],
     "look": [
-     0.66,
+     0.73,
      1.01,
      -1.17
     ],
     "fov": 36,
     "to": {
      "pos": [
-      0.421,
+      0.491,
       1.01,
       2.206
      ],
      "look": [
-      0.66,
+      0.73,
       1.01,
       -1.17
      ],
      "fov": 36
     },
-    "dur": 4.45,
+    "dur": 5.53,
     "ease": "inOut"
    },
    "do": [
@@ -452,7 +452,8 @@
      "line": "Danger. One more hour, and your eyes go square. Forever.",
      "tone": "calm",
      "style": "a stern dad warning, not looking up from his phone",
-     "dur": 4.15,
+     "voice": "dad",
+     "dur": 5.23,
      "caption": false,
      "at": 0.12
     },
@@ -489,6 +490,22 @@
      "at": 2.76
     },
     {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 4.4
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 4.56
+    },
+    {
      "who": "spud",
      "do": "expr",
      "set": {
@@ -497,23 +514,15 @@
       "curve": -0.15
      },
      "dur": 0.2,
-     "at": 4.37
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "L",
-     "shape": "scroll",
-     "dur": 0.1,
-     "at": 4.4
+     "at": 5.45
     }
    ],
    "kind": "hook"
   },
   {
    "name": "true",
-   "at": 4.5,
-   "len": 1,
+   "at": 5.6,
+   "len": 1.5,
    "shot": {
     "pos": [
      -0.45,
@@ -539,18 +548,10 @@
      ],
      "fov": 36
     },
-    "dur": 1.12,
+    "dur": 1.62,
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "L",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 0.06
-    },
     {
      "who": "spud",
      "macro": "say",
@@ -558,16 +559,32 @@
      "tone": "whisper",
      "style": "small, worried, eyes still on the TV",
      "voice": "tato",
-     "dur": 0.72,
+     "dur": 1.22,
      "caption": false,
-     "at": 0.07
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "scroll",
+     "dur": 0.1,
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.66
     }
    ]
   },
   {
    "name": "live",
-   "at": 5.5,
-   "len": 4.68,
+   "at": 7.1,
+   "len": 4.66,
    "shot": {
     "pos": [
      1,
@@ -606,7 +623,7 @@
      "voice": "reaper",
      "dur": 3.99,
      "caption": false,
-     "at": 0.09
+     "at": 0.07
     },
     {
      "who": "wedge",
@@ -614,7 +631,7 @@
      "side": "L",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 0.6
+     "at": 1.1
     },
     {
      "who": "wedge",
@@ -622,7 +639,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.76
+     "at": 1.26
     },
     {
      "who": "wedge",
@@ -630,7 +647,7 @@
      "side": "L",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 2.7
+     "at": 3.3
     },
     {
      "who": "wedge",
@@ -638,7 +655,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 2.86
+     "at": 3.46
     }
    ]
   }
@@ -646,7 +663,7 @@
  "visible": [
   {
    "from": 0,
-   "to": 4.27,
+   "to": 5.35,
    "see": [
     "wedge.face"
    ],
@@ -658,7 +675,7 @@
    "who": "spud",
    "with": "sofa",
    "from": 0,
-   "to": 10.18,
+   "to": 11.76,
    "checks": [
     "shell",
     "clipping",
@@ -672,7 +689,7 @@
    "who": "wedge",
    "with": "sofa",
    "from": 0,
-   "to": 10.18,
+   "to": 11.76,
    "checks": [
     "shell",
     "clipping",
@@ -683,5 +700,5 @@
    "reason": "sitting on the sofa"
   }
  ],
- "notes": "Generated by storyboards/series/kid-vs-dad/03-square-eyes/make-openings.mjs (h4). Dad = potatobrawl/wedge."
+ "notes": "Generated by storyboards/series/kid-vs-dad/03-square-eyes/make-openings.mjs (h4). Dad = potatobrawl/dad."
 }

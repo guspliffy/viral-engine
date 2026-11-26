@@ -60,7 +60,7 @@ export function signature(def, all = false) {
 }
 
 export function probe(stillFile, idsFile, cast, defs) {
-  const rgb = readRGB(stillFile, W, H), ids = readRGB(idsFile, W, H), N = W * H, res = [];
+  const rgb = readRGB(stillFile, W, H), ids = readRGB(idsFile, W, H, "neighbor"), N = W * H, res = [];
   const px = cast.map(() => []);
   for (let p = 0; p < N; p++) { const k = ids[p * 3]; if (k && k <= cast.length) px[k - 1].push(p); }
   cast.forEach((id, i) => {

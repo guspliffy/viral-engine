@@ -9,7 +9,8 @@ import { clamp, rng } from "./util.js";
 // (fix, melt, pulse, bright, cluster, xs, peels ...) is read from the state when a `prop` action set it, else from the spec, and a tween of it
 // STEPS at its `at` (hide the step under the engine's fx poof). The keys that tween are named per kind below.
 //
-// lobbyroom     the room shell. Origin: the floor at x 0, z 0 (place at 0, 0, 0): back wall front face at z -1.30, side walls x -2.60 / +2.60 (spec.w 5.2,
+// lobbyroom     (opt-in spec.holes [[x0, x1, y0, y1], ...] (default none = today's window hole) cuts the back wall by those boxes INSTEAD of the window: Potato Desk 13 sets [[1.75, 2.75, 0, 1.58]] with w 6.4, the doorway; the gold rail stops at each hole it crosses.)
+//               the room shell. Origin: the floor at x 0, z 0 (place at 0, 0, 0): back wall front face at z -1.30, side walls x -2.60 / +2.60 (spec.w 5.2,
 //               spec.h 4.2) running to z +4.30 (spec.front 4.3), no front wall, no ceiling. Wall: dado y 0..0.80 #5a2a24, gold rail 0.05 at 0.80 #d9a93a, band
 //               to 2.40 #3a2a2e, above #2a2024. The back wall has the window hole x -2.10..-1.10, y 0.35..1.85 (curtainwindow fills it). Floor 0.40 tiles
 //               #4a2226 / #57292b (own checker: checkerfloor's colours are fixed) y 0, red runner 1.0 wide #8f1f1c at x 0. spec.bright 0..1 (default 0; a
@@ -115,7 +116,7 @@ export const HELLB_KINDS = {
   // ---- the room ----------------------------------------------------------------------------------------------------------------------
   lobbyroom(P) {
     const S = P.spec, W = S.w ?? 5.2, H = S.h ?? 4.2, ZB = -1.30, ZF = S.front ?? 4.3, DEP = ZF - ZB, XL = -W / 2, XR = W / 2, T = 0.04;
-    const WIN0 = -2.10, WIN1 = -1.10, WS = 0.35, WT = 1.85;
+    const WIN0 = -2.10, WIN1 = -1.10, WS = 0.35, WT = 1.85, HOLES = Array.isArray(S.holes) ? S.holes : null;   // holes [[x0, x1, y0, y1], ...] replaces the window hole
     const mDado = mat("#5a2a24", { roughness: 0.9 }), mBand = mat("#3a2a2e", { roughness: 0.9 }), mTop = mat("#2a2024", { roughness: 0.95 }), mRail = mat("#d9a93a", { roughness: 0.4, metalness: 0.3 });
     for (const m of [mDado, mBand, mTop]) m.userData.noHatch = true;
     // floor: 0.40 tiles, own checker (checkerfloor's colours are fixed), with a thin grout line; the top face is y 0
@@ -135,12 +136,24 @@ export const HELLB_KINDS = {
     // walls: boxes per band, the back wall cut by the window; the side walls run the full depth
     const band = (y0, y1, m) => {
       const seg = (xa, xb, ya, yb) => { if (yb - ya > 1e-4 && xb - xa > 1e-4) flat(box(xb - xa, yb - ya, T, m, P.whole, (xa + xb) / 2, (ya + yb) / 2, ZB - T / 2), false); };
-      seg(XL, WIN0, y0, y1); seg(WIN1, XR, y0, y1); seg(WIN0, WIN1, y0, Math.min(y1, WS)); seg(WIN0, WIN1, Math.max(y0, WT), y1);
+      if (HOLES) {   // spec.holes: the wall is cut by these boxes only (solid where today's window would be)
+        const xs = [...new Set([XL, XR, ...HOLES.flatMap((h) => [h[0], h[1]])].filter((x) => x >= XL && x <= XR))].sort((a, b) => a - b);
+        for (let i = 0; i + 1 < xs.length; i++) {
+          const a = xs[i], b = xs[i + 1]; let ya = y0;
+          for (const h of HOLES.filter((q) => q[0] <= a + 1e-6 && q[1] >= b - 1e-6).sort((p, q) => p[2] - q[2])) { seg(a, b, ya, Math.min(y1, h[2])); ya = Math.max(ya, h[3]); }
+          seg(a, b, ya, y1);
+        }
+      } else { seg(XL, WIN0, y0, y1); seg(WIN1, XR, y0, y1); seg(WIN0, WIN1, y0, Math.min(y1, WS)); seg(WIN0, WIN1, Math.max(y0, WT), y1); }
       for (const s of [-1, 1]) flat(box(T, y1 - y0, DEP, m, P.whole, s * (W / 2 + T / 2), (y0 + y1) / 2, (ZF + ZB) / 2));
     };
     band(0, 0.80, mDado); band(0.85, 2.40, mBand); band(2.40, H, mTop);
-    flat(box(WIN0 - XL, 0.05, 0.03, mRail, P.whole, (XL + WIN0) / 2, 0.825, ZB + 0.015), false);
-    flat(box(XR - WIN1, 0.05, 0.03, mRail, P.whole, (WIN1 + XR) / 2, 0.825, ZB + 0.015), false);
+    if (HOLES) {   // the gold rail runs along the wall and stops at every hole it crosses (the door casing hides the cut)
+      const cut = HOLES.filter((h) => h[2] <= 0.85 && h[3] >= 0.80).map((h) => [Math.max(XL, h[0]), Math.min(XR, h[1])]).sort((a, b) => a[0] - b[0]);
+      let xa = XL; for (const [h0, h1] of [...cut, [XR, XR]]) { if (h0 - xa > 1e-4) flat(box(h0 - xa, 0.05, 0.03, mRail, P.whole, (xa + h0) / 2, 0.825, ZB + 0.015), false); xa = Math.max(xa, h1); }
+    } else {
+      flat(box(WIN0 - XL, 0.05, 0.03, mRail, P.whole, (XL + WIN0) / 2, 0.825, ZB + 0.015), false);
+      flat(box(XR - WIN1, 0.05, 0.03, mRail, P.whole, (WIN1 + XR) / 2, 0.825, ZB + 0.015), false);
+    }
     for (const s of [-1, 1]) flat(box(0.03, 0.05, DEP, mRail, P.whole, s * (W / 2 - 0.015), 0.825, (ZF + ZB) / 2), false);
     const c0 = new THREE.Color("#3a2a2e"), c1 = new THREE.Color("#6a3a34");
     return {
