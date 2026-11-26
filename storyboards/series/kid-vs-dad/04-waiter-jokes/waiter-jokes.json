@@ -3056,6 +3056,31 @@
      "at": 0.054
     },
     {
+     "who": "wT",
+     "do": "hide",
+     "at": 1.247
+    },
+    {
+     "do": "prop",
+     "id": "tray",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.247
+    },
+    {
+     "do": "prop",
+     "id": "apronT",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.247
+    },
+    {
      "who": "rep",
      "do": "expr",
      "set": {

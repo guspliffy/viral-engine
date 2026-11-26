@@ -217,6 +217,7 @@ expr(C10, "wT", FACES.frozen, 0.01);
 say(17, "wT");            // And... how would you like your steak?
 say(18, "kid2");         // Dad, no.
 // the dad stands (on the reporter's line: cut to the spotlight)
+hide(cutAt(19), "wT"); c.prop(onCut(cutAt(19)), "tray", { scale: 0.001 }, 0.01); c.prop(onCut(cutAt(19)), "apronT", { scale: 0.001 }, 0.01);   // camera-inside (#321): the S02 lens sits inside him again in "standing"
 say(19);                 // He's standing up. He's standing up!
 const C11 = r3(END_OF(19) + 0.15);
 swap(C11, "dad", "dadU"); c.prop(onCut(C11), "carpet", { scale: 0.001 }, 0.01); c.prop(onCut(C11), "carpetN", { scale: 1 }, 0.01);
