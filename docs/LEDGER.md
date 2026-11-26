@@ -137,6 +137,11 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   `beats()` in `storyboards/lib/clip.mjs` now prints `warn after-cut` with the time to use (the cut minus 0.02). Should
   keep one-frame face and pose snaps after cuts at 0. Proof: carrots before the fix gives 24 warnings (Sol's 21.37,
   31.60 and 42.37 among them), the delivered one 0; no render changes.
+- `camera-inside` (25 Nov, from Heaven Terms draft 2; waits for Jonny's word): the "hide" shot's camera stood inside the
+  Angel's wing and filled the frame with flat orange for 2 s; preflight passed and camfit said nothing, so a full
+  draft (11 min) found it by eye. `qa/camin.mjs` (run by preflight, a fail; camfit prints `CAMERA INSIDE <who>`) tests
+  every layout sample's camera against each body. Should keep draft rounds lost to a frame filled by a body at 0.
+  Proof: draft 2's storyboard fails 19.8-21.8 s, the fixed one passes.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
