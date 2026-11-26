@@ -1,0 +1,28 @@
+# Kid vs Dad 05 "Carrots help you see in the dark": 15-panel storyboard. Refs (in order): kid-vs-dad-02-panels-v2.png, kid-vs-dad-reporter-v1.png, dad-B-v1.png
+PROMPT START
+Use case: illustration-story. Create ONE finished full-colour fifteen-panel storyboard contact sheet for an 80-second vertical animated comedy sketch. Image size 1536x1024 landscape. EXACTLY FIFTEEN panels in five columns and three rows (row 1 = 01-05, row 2 = 06-10, row 3 = 11-15). Every cell is a vertical phone frame (portrait), thin charcoal gutters, a small panel-number badge in each cell's top corner showing its own number, no title or header. Match the look of the first attached reference exactly: soft cel-shaded 3D cartoon with hand-drawn line texture, the whole frame fully sharp, no depth of field, no motion blur. Characters must match the references exactly in shape, size and clothes. Hands have exactly three fingers and a thumb. Every character is a potato: no humans. No speech bubbles, no captions, no comic impact marks, no speed lines, no floating symbols, sweat drops or sparkles.
+The ONLY words allowed: in panels 02 and 11 a TV news bar across the bottom of the frame, a red block with the white word "LIVE" and a dark navy strip with the white words "NIGHT MISSION". No other text anywhere: the cookie jar, boxes and toys show no letters.
+
+THE SETTING: a family house at night: a kitchen with a wooden table, a hanging lamp, a white fridge and tall wooden shelves with a glass cookie jar full of cookies on the very top shelf; a dark hallway with blue moonlight from a window and toys scattered on the floor. Night panels are dark blue moonlight but every character stays clearly readable.
+THE KID = TATO: the small round golden potato in the teal knit sweater with ONE green leaf on top, from the first reference. The top of his head is level with Dad's chest.
+THE DAD: the big round potato father from the DAD B sheet (third reference), exactly as drawn there: big round belly pushing out a pale sky-blue short-sleeved polo, tucked in tight, top button closed; bushy dark chestnut walrus moustache drooping over his mouth; thick flat eyebrows; large brown eyes; three thin green leaves combed sideways over a bald crown; beige cargo shorts worn high; brown belt with a big brass buckle; small leather phone holster on his right hip; white tube socks with two navy rings; brown two-strap sandals.
+THE REPORTER: the potato war correspondent from the second reference: pale blue helmet with chin strap, navy padded vest over a pale blue shirt, blank white patch, giant microphone with a blank red cube, serious low brows. He reports this like a war.
+Vary the camera from panel to panel (wide, two-shot, close-up, low angle, high angle), never the same framing twice in a row.
+In this episode the reporter's panels (02, 11) are seen through night-vision: the whole panel tinted bright green.
+
+PANELS:
+01 | Evening, kitchen table under the warm lamp: Dad slides a plate of orange carrot sticks across the table to Tato and points two fingers at his own eyes. Tato leans back, disgusted.
+02 | Night-vision, all green: the reporter crouched in the dark hallway, helmet on, mic out, whispering. News bar at the bottom.
+03 | Tato stands on the kitchen floor looking up at the glass cookie jar full of cookies on the very top shelf, far out of reach.
+04 | Close-up: Tato eats ONE carrot stick, eyes squeezed shut, face scrunched.
+05 | Night, dark hallway, blue moonlight: Tato tiptoes with both arms stretched out in front of him and walks face first into a closed door.
+06 | Dark hallway: under the closed kitchen door a thin strip of light glows; Tato in his bed in the room across, lying awake, listening.
+07 | Morning, kitchen table in sunlight: Tato with a big bowl of carrots, his skin slightly orange now. Across the table Dad sips coffee, innocent, with cookie crumbs stuck in his moustache.
+08 | Night hallway: Tato, more orange, has stepped on a small toy block, frozen on one leg, both hands over his mouth to stay quiet.
+09 | Tato eats a whole bag of carrots at once, cheeks stuffed; he is now bright orange.
+10 | Dark hallway: bright orange Tato with softly glowing orange eyes does a spy roll across the floor between the scattered toys.
+11 | Night-vision, all green: the reporter, amazed, pushes his mic forward. News bar at the bottom.
+12 | The pitch-dark kitchen, only moonlight: glowing-eyed Tato climbs the tall shelves toward the cookie jar.
+13 | Close-up in the dark: Tato's hand reaches for the jar, and right next to the jar, in the black, a second pair of round eyes glows green: two night-vision goggle lenses.
+14 | The fridge door swings open and its white light floods the kitchen: DAD stands there with black night-vision goggles strapped over his eyes, one hand deep in the cookie jar, cheeks full, frozen.
+15 | Close-up: Dad has pushed the goggles up onto his forehead, cheeks full of cookie, crumbs in his moustache, guilty sideways eyes; in the foreground Tato's bright orange face, flat and unimpressed.

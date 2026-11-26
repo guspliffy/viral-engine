@@ -1,0 +1,495 @@
+{
+ "id": "bench-jar",
+ "title": "Jar bench: pantry unit, cookie jar, stool (Kid vs Dad 05 T2)",
+ "idea": "Prop bench for props-carrots-jar.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#2a3346",
+  "floor": "none",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   1,
+   30
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "prop test"
+ },
+ "cast": [
+  {
+   "id": "tato",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -4.63,
+    -0.5
+   ],
+   "y": 0.65,
+   "face": 180,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    -3.94,
+    -1.15
+   ],
+   "y": 0.24,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "kitchen",
+   "kind": "kitchenroom",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fridge": false,
+   "lamp": 1,
+   "time": 2.75
+  },
+  {
+   "id": "fridge",
+   "kind": "openfridge",
+   "x": -3,
+   "y": 0,
+   "z": -1.9,
+   "rot": 0,
+   "open": 0,
+   "lit": 0
+  },
+  {
+   "id": "unit",
+   "kind": "pantryshelf",
+   "x": -4.66,
+   "y": 0,
+   "z": -1.3,
+   "rot": 90,
+   "wall": 3.6
+  },
+  {
+   "id": "jar",
+   "kind": "cookiejar",
+   "x": -4.66,
+   "y": 0.95,
+   "z": -1.42,
+   "rot": 0,
+   "fill": 1,
+   "lid": 1
+  },
+  {
+   "id": "stool",
+   "kind": "jarstool",
+   "x": -3.94,
+   "y": 0,
+   "z": -1.15,
+   "rot": 0
+  },
+  {
+   "id": "j0",
+   "kind": "cookiejar",
+   "x": -0.5,
+   "y": 0,
+   "z": 1.7,
+   "rot": 0,
+   "fill": 1,
+   "lid": 1
+  },
+  {
+   "id": "j1",
+   "kind": "cookiejar",
+   "x": 0,
+   "y": 0,
+   "z": 1.7,
+   "rot": 0,
+   "fill": 1,
+   "lid": 0
+  },
+  {
+   "id": "j2",
+   "kind": "cookiejar",
+   "x": 0.5,
+   "y": 0,
+   "z": 1.7,
+   "rot": 0,
+   "fill": 0.45,
+   "lid": 1
+  },
+  {
+   "id": "j3",
+   "kind": "cookiejar",
+   "x": -0.25,
+   "y": 0,
+   "z": 0.95,
+   "rot": 0,
+   "fill": 0.45,
+   "lid": 0
+  },
+  {
+   "id": "j4",
+   "kind": "cookiejar",
+   "x": 0.25,
+   "y": 0,
+   "z": 0.95,
+   "rot": 0,
+   "fill": 0.25,
+   "lid": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "03",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.9,
+     0.35,
+     1.2
+    ],
+    "look": [
+     -4.45,
+     0.8,
+     -1.1
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "tato",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.505,
+       1.005,
+       0.12
+      ],
+      "palm": [
+       -0.505,
+       -0.05,
+       0.12
+      ]
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "tato",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.505,
+       0.705,
+       -0.12
+      ],
+      "palm": [
+       -0.505,
+       -0.35,
+       -0.12
+      ]
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "fill": 0.45,
+      "lid": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.97
+    }
+   ]
+  },
+  {
+   "name": "12",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.5,
+     0.9,
+     2.3
+    ],
+    "look": [
+     -4.35,
+     0.75,
+     -0.95
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "tato",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "jar",
+      "grip": [
+       0,
+       0.29,
+       0.15
+      ]
+     },
+     "dur": 0.05,
+     "at": 0.9
+    },
+    {
+     "who": "tato",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.05,
+     "at": 0.9
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "jar",
+      "grip": [
+       0,
+       0.15,
+       0
+      ]
+     },
+     "dur": 0.05,
+     "at": 0.95
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.05,
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "fill": 0.45,
+      "lid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.97
+    }
+   ]
+  },
+  {
+   "name": "13",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.15,
+     1.3,
+     0.55
+    ],
+    "look": [
+     -4.5,
+     1.1,
+     -1.25
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tato",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.05,
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "fill": 0.25,
+      "lid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.97
+    }
+   ]
+  },
+  {
+   "name": "14",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.4,
+     1.05,
+     2
+    ],
+    "look": [
+     -3.8,
+     0.95,
+     -1.3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "tato",
+     "do": "hide",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "lineup",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     4.4
+    ],
+    "look": [
+     0,
+     0.2,
+     1.3
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "top",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.66,
+     2.6,
+     -1.25
+    ],
+    "look": [
+     -4.66,
+     1.1,
+     -1.42
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "stool",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3.3,
+     0.5,
+     0.6
+    ],
+    "look": [
+     -3.94,
+     0.15,
+     -1.15
+    ],
+    "fov": 35
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "dad",
+   "with": "unit",
+   "from": 0,
+   "to": 30,
+   "reason": "director: the reach-into-the-jar test pose; the upper arm grazes the top plank's front edge by 5 cm (staged out in the clip by camera and stool height)"
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/kid-vs-dad/05-carrots/bench/bench-jar.mjs (T2)."
+}
