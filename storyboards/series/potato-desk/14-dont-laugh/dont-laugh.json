@@ -1,0 +1,6888 @@
+{
+ "id": "dont-laugh",
+ "title": "Don't. Laugh.",
+ "idea": "Potato Desk 14: you laughed in court again; one more laugh is ten years and you must not look at the judge's head. Your best friend testifies (fart chair, helium oath, your bowl-cut school photo, a snot bubble); you hold it. The judge stands: a steaming hash-brown toupee with a bite missing. You hold it; the jury laughs: ten years each.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  210,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "lowCut": 150,
+  "gain": 0.15
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor"
+ },
+ "creative": {
+  "length": [
+   60,
+   80
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "spud",
+   "wedge"
+  ],
+  "hint": 0,
+  "what": "a judge, his head cut off at the eyebrows by the frame top, slams his gavel at you; your lawyer beside you"
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge-toupee",
+   "at": [
+    -0.69,
+    -0.66
+   ],
+   "face": 24,
+   "expr": "stern",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.02,
+    1.3
+   ],
+   "face": -22,
+   "expr": "sad",
+   "follow": 0.4,
+   "seed": 2.3
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0.85,
+    1.08
+   ],
+   "face": -28,
+   "expr": "focused",
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    6.5,
+    2.5
+   ],
+   "face": -20,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "agent",
+   "character": "potatobrawl/agent",
+   "at": [
+    0.665,
+    -0.87
+   ],
+   "y": 0.26,
+   "face": 8,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    1.33,
+    -0.87
+   ],
+   "y": 0.38,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.6
+  },
+  {
+   "id": "rosti",
+   "character": "potatobrawl/rosti",
+   "at": [
+    1.98,
+    -0.87
+   ],
+   "y": 0.16,
+   "face": -8,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 5.2
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "courtfloor",
+   "x": 1,
+   "y": 0,
+   "z": 2.1,
+   "w": 8.32
+  },
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 12,
+   "h": 6
+  },
+  {
+   "id": "dado",
+   "staged": "panels fixed to the back wall",
+   "kind": "dadopanels",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "trim": true,
+   "trimW": 12,
+   "xs": [
+    -4.5,
+    -3.75,
+    -3,
+    -2.25,
+    -1.5,
+    -0.75,
+    0,
+    0.75,
+    1.5,
+    2.25,
+    4.5
+   ]
+  },
+  {
+   "id": "board",
+   "staged": "screwed to the back wall",
+   "kind": "exhibitboard",
+   "x": 0.85,
+   "y": 2.01,
+   "z": -1.255
+  },
+  {
+   "id": "bench",
+   "kind": "judgebench",
+   "x": -0.69,
+   "y": 0,
+   "z": 0.145
+  },
+  {
+   "id": "chair",
+   "staged": "on a block on the bench's riser, hidden by the bench",
+   "kind": "chair",
+   "x": -0.69,
+   "y": 0.72,
+   "z": -0.66,
+   "rot": 0
+  },
+  {
+   "id": "plate",
+   "staged": "fixed to the bench front",
+   "kind": "officesign",
+   "x": -0.5,
+   "y": 1.068,
+   "z": 0.49,
+   "w": 0.58,
+   "h": 0.1,
+   "frameW": 0.009,
+   "lines": [
+    [
+     "JUDGE VIKING",
+     0.043
+    ]
+   ],
+   "plate": "#24323f",
+   "ink": "#f3ead2",
+   "frame": "#b08a3c"
+  },
+  {
+   "id": "block",
+   "kind": "soundblock",
+   "x": -1.12,
+   "y": 1.18,
+   "z": 0.22
+  },
+  {
+   "id": "mic",
+   "kind": "deskmic",
+   "x": -0.42,
+   "y": 1.18,
+   "z": 0.2
+  },
+  {
+   "id": "papers",
+   "kind": "paperstack",
+   "x": -0.42,
+   "y": 1.18,
+   "z": 0
+  },
+  {
+   "id": "jury",
+   "kind": "jurybox",
+   "x": 1.3,
+   "y": 0,
+   "z": -0.85
+  },
+  {
+   "id": "wchair",
+   "kind": "chair",
+   "x": 2.3,
+   "y": 0,
+   "z": 0.45,
+   "rot": -25
+  },
+  {
+   "id": "cushion",
+   "kind": "floorcushion",
+   "x": 2.3,
+   "y": 0.42,
+   "z": 0.45,
+   "r": 0.2,
+   "h": 0.1,
+   "color": "#8a2b2b"
+  },
+  {
+   "id": "door",
+   "kind": "courtdoorway",
+   "x": 3.25,
+   "y": 0,
+   "z": -1.3,
+   "open": 0
+  },
+  {
+   "id": "toup",
+   "kind": "hashtoupee",
+   "wear": "vik",
+   "x": 0,
+   "y": 1.113,
+   "z": 0.139,
+   "tip": 30,
+   "rot": 8,
+   "tilt": 4,
+   "steam": 0
+  },
+  {
+   "id": "shadow",
+   "kind": "judgeshadow",
+   "x": -0.36,
+   "y": 1.27,
+   "z": -1.296
+  },
+  {
+   "id": "crumbs",
+   "kind": "hashcrumbs",
+   "staged": "falls from his head",
+   "x": -0.42,
+   "y": 2.1,
+   "z": -0.4
+  },
+  {
+   "id": "tie",
+   "kind": "necktie",
+   "wear": "wedge",
+   "x": 0,
+   "y": 0.38,
+   "z": 0.27,
+   "len": 0.22,
+   "color": "#23262d",
+   "stripe": "#2f333c"
+  },
+  {
+   "id": "balR",
+   "kind": "balloon",
+   "wear": "mash",
+   "x": 0.34,
+   "y": 0.24,
+   "z": 0.16,
+   "color": "#e0475b",
+   "scale": 1,
+   "tilt": 6,
+   "tip": -8
+  },
+  {
+   "id": "balY",
+   "kind": "balloon",
+   "wear": "mash",
+   "x": 0.34,
+   "y": 0.24,
+   "z": 0.16,
+   "color": "#ffd23f",
+   "scale": 0.85,
+   "tilt": 30,
+   "tip": -4
+  },
+  {
+   "id": "balB",
+   "kind": "balloon",
+   "wear": "mash",
+   "x": 0.34,
+   "y": 0.24,
+   "z": 0.16,
+   "color": "#3d8fb0",
+   "scale": 0.72,
+   "tilt": 8,
+   "tip": 32
+  },
+  {
+   "id": "snot",
+   "kind": "snotbubble",
+   "wear": "mash",
+   "x": -0.05,
+   "y": 0.75,
+   "z": 0.29,
+   "puff": 0
+  },
+  {
+   "id": "gavel",
+   "kind": "axegavel",
+   "x": -1.12,
+   "y": 1.57,
+   "z": 0.22,
+   "rot": 0,
+   "tip": 180
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 3.21,
+   "text": "You laughed in my courtroom. Not once. But *TWICE.*",
+   "pos": 1120,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 3.44,
+   "to": 6.96,
+   "text": "One more, it's ten years. So here's my advice:",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 7.16,
+   "to": 9.84,
+   "text": "Keep your face still, and whatever you do...",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 10.04,
+   "to": 12.74,
+   "text": "*DON'T* look at his head. It's too dangerous for you.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 12.97,
+   "to": 14.56,
+   "text": "Why? What's on his head?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 14.79,
+   "to": 18.68,
+   "text": "The most dangerous thing. Eyes down, like I said.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 18.91,
+   "to": 21.13,
+   "text": "Defense, your witness. Let's get this done.",
+   "pos": 1120,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 21.36,
+   "to": 24.52,
+   "text": "Your Honor, his best friend. The most serious one.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 24.75,
+   "to": 25.68,
+   "text": "Oh no.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 28.66,
+   "to": 31.52,
+   "text": "A smile is *five* years. A giggle is *ten.*",
+   "pos": 1120,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 31.75,
+   "to": 34.34,
+   "text": "Now raise your right hand. And swear it. And then...",
+   "pos": 236,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 34.94,
+   "to": 37.65,
+   "text": "I swear to tell the truth, the whole truth, *amen!*",
+   "pos": 236,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 37.88,
+   "to": 40.91,
+   "text": "Think sad thoughts. Think rain. Think tax.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 41.14,
+   "to": 43.58,
+   "text": "Is he a serious man? Just give me the facts.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 43.81,
+   "to": 45.57,
+   "text": "The most serious man that I've ever known.",
+   "pos": 236,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 45.8,
+   "to": 49.74,
+   "text": "*Exhibit A:* his serious face. Fully grown.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 49.97,
+   "to": 52.66,
+   "text": "Did he ever laugh at something... he shouldn't?",
+   "pos": 1120,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 52.89,
+   "to": 56.52,
+   "text": "At your head? Oh, he *NEVER!* I mean... he couldn't!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 56.75,
+   "to": 59.18,
+   "text": "Case dismissed. You are free to go.",
+   "pos": 1120,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 61.36,
+   "to": 62.98,
+   "text": "I... held it.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 64.6,
+   "to": 67.72,
+   "text": "All of you? *TEN YEARS. EACH.* Told you so.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "charge",
+   "at": 0,
+   "len": 3.366,
+   "shot": {
+    "pos": [
+     0.75,
+     1.25,
+     6
+    ],
+    "look": [
+     0.45,
+     -0.296,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.735,
+      1.173,
+      5.7
+     ],
+     "look": [
+      0.45,
+      -0.296,
+      0
+     ],
+     "fov": 40
+    },
+    "dur": 3.44,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "shadow",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "shred": 0,
+      "steam": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.65,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "agent",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "agent",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.3,
+       0.17
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "agent",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       0.3,
+       0.17
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.3,
+       0.17
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.3,
+       0.17
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.01,
+       0.3,
+       0.17
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.01,
+       0.3,
+       0.17
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "agent",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rosti",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.34,
+       0.24,
+       0.16
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.15,
+       1.82,
+       0.24
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.067
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "gavel",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.121,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You laughed in my courtroom. Not once. But TWICE.",
+     "tone": "angry",
+     "style": "deep, stern, furious, slow, a judge",
+     "voice": "viking-x115",
+     "dur": 3.04,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.57,
+       0.22
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.297
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.4,
+     "at": 0.367
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.15,
+       1.72,
+       0.24
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 2.533
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.57,
+       0.22
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 2.763
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.1,
+     "at": 2.833
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.84,
+      1.12
+     ],
+     "dur": 0.5,
+     "at": 2.84
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.24
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -70,
+     "dur": 0.3,
+     "at": 3.34
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.34
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "whisper",
+   "at": 3.366,
+   "len": 9.534,
+   "shot": {
+    "pos": [
+     0.55,
+     0.72,
+     3.7
+    ],
+    "look": [
+     0.45,
+     0.68,
+     1.2
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.544,
+      0.718,
+      3.55
+     ],
+     "look": [
+      0.45,
+      0.68,
+      1.2
+     ],
+     "fov": 32
+    },
+    "dur": 9.530000000000001,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.3,
+     "at": 0.024
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.074
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 0.074
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "One more, it's ten years. So here's my advice:",
+     "tone": "whisper",
+     "style": "urgent whisper, serious, close to the ear",
+     "voice": "wedge-x115",
+     "dur": 3.57,
+     "caption": false,
+     "at": 0.074
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.234
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.374
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 0.374
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.834
+    },
+    {
+     "who": "agent",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.934
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.734
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Keep your face still, and whatever you do...",
+     "tone": "whisper",
+     "style": "urgent whisper, deadly serious",
+     "voice": "wedge-x115",
+     "dur": 2.73,
+     "caption": false,
+     "at": 3.794
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.034
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.15,
+     "at": 6.624
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "DON'T look at his head. It's too dangerous for you.",
+     "tone": "whisper",
+     "style": "urgent whisper, scared, deadly serious",
+     "voice": "wedge-x115",
+     "dur": 2.63,
+     "caption": false,
+     "at": 6.674
+    },
+    {
+     "who": "rosti",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 7.234
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 8.034
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 9.134
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.95
+     ],
+     "dur": 0.5,
+     "blink": false,
+     "at": 9.404
+    }
+   ]
+  },
+  {
+   "name": "what's on his head",
+   "at": 12.9,
+   "len": 1.833,
+   "shot": {
+    "pos": [
+     -0.5,
+     0.85,
+     3.6
+    ],
+    "look": [
+     0.02,
+     0.85,
+     1.3
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.469,
+      0.85,
+      3.462
+     ],
+     "look": [
+      0.02,
+      0.85,
+      1.3
+     ],
+     "fov": 34
+    },
+    "dur": 1.9200000000000002,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Why? What's on his head?",
+     "tone": "whisper",
+     "style": "curious whisper, nervous",
+     "voice": "spud-x115",
+     "dur": 1.62,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.3
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.45,
+       0.32
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.79
+    }
+   ]
+  },
+  {
+   "name": "eyes down",
+   "at": 14.733,
+   "len": 4.1,
+   "shot": {
+    "pos": [
+     0.55,
+     0.72,
+     3.7
+    ],
+    "look": [
+     0.45,
+     0.68,
+     1.2
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.45,
+      0.72,
+      3.7
+     ],
+     "look": [
+      0.4,
+      0.68,
+      1.2
+     ],
+     "fov": 32
+    },
+    "dur": 4.07,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "The most dangerous thing. Eyes down, like I said.",
+     "tone": "whisper",
+     "style": "sharp whisper, stern",
+     "voice": "wedge-x115",
+     "dur": 3.77,
+     "caption": false,
+     "at": 0.057
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.207
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.257
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.25,
+     "at": 0.257
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.257
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.877
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 3.877
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 3.927
+    }
+   ]
+  },
+  {
+   "name": "your witness",
+   "at": 18.833,
+   "len": 2.467,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.3,
+     2
+    ],
+    "look": [
+     -0.69,
+     1.233,
+     -0.4
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.319,
+      1.297,
+      1.88
+     ],
+     "look": [
+      -0.69,
+      1.233,
+      -0.4
+     ],
+     "fov": 30
+    },
+    "dur": 2.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 0.077
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Defense, your witness. Let's get this done.",
+     "tone": "calm",
+     "style": "deep, stern, impatient, a judge",
+     "voice": "viking-x115",
+     "dur": 2.2,
+     "caption": false,
+     "at": 0.077
+    },
+    {
+     "who": "agent",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.367
+    },
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "shred": 1
+     },
+     "dur": 0.27,
+     "ease": "back",
+     "at": 1.077
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.85,
+      1.08
+     ],
+     "dur": 0.5,
+     "at": 2.227
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -28,
+     "dur": 0.3,
+     "at": 2.427
+    }
+   ]
+  },
+  {
+   "name": "best friend",
+   "at": 21.3,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     0.55,
+     0.72,
+     3.7
+    ],
+    "look": [
+     0.45,
+     0.68,
+     1.2
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.65,
+      0.72,
+      3.7
+     ],
+     "look": [
+      0.5,
+      0.68,
+      1.2
+     ],
+     "fov": 32
+    },
+    "dur": 1.3500000000000014,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0.06
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Your Honor, his best friend. The most serious one.",
+     "tone": "calm",
+     "style": "proud, confident, a lawyer presenting",
+     "voice": "wedge-x115",
+     "dur": 3.19,
+     "caption": false,
+     "at": 0.06
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.42,
+       0.5,
+       0.2
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.16
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.36
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.5,
+     "at": 0.86
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      3.4,
+      -0.75
+     ],
+     "dur": 0.01,
+     "at": 1.21
+    }
+   ]
+  },
+  {
+   "name": "the door",
+   "at": 22.6,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     2.1,
+     1,
+     2.9
+    ],
+    "look": [
+     3.1,
+     0.95,
+     -1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      2.16,
+      0.997,
+      2.666
+     ],
+     "look": [
+      3.1,
+      0.95,
+      -1
+     ],
+     "fov": 34
+    },
+    "dur": 2.039999999999999,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0.11
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      3.15,
+      -0.35
+     ],
+     "dur": 0.6,
+     "at": 0.31
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.9
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.8,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.95
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 2.05
+    }
+   ]
+  },
+  {
+   "name": "oh no",
+   "at": 24.7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.5,
+     0.85,
+     3.6
+    ],
+    "look": [
+     0.02,
+     0.85,
+     1.3
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.474,
+      0.85,
+      3.485
+     ],
+     "look": [
+      0.02,
+      0.85,
+      1.3
+     ],
+     "fov": 34
+    },
+    "dur": 1.11,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Oh no.",
+     "tone": "sad",
+     "style": "quiet, dread, horrified",
+     "voice": "spud-x115",
+     "dur": 0.91,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "he sits",
+   "at": 25.7,
+   "len": 2.9,
+   "shot": {
+    "pos": [
+     0.9,
+     0.9,
+     4.4
+    ],
+    "look": [
+     1.8,
+     0.75,
+     0.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.945,
+      0.893,
+      4.19
+     ],
+     "look": [
+      1.8,
+      0.75,
+      0.2
+     ],
+     "fov": 36
+    },
+    "dur": 3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      2.36,
+      0.72
+     ],
+     "dur": 1.4,
+     "at": 0.01
+    },
+    {
+     "who": "mash",
+     "do": "sit",
+     "seat": "wchair",
+     "dur": 0.35,
+     "height": 0.465,
+     "at": 1.46
+    },
+    {
+     "do": "prop",
+     "id": "cushion",
+     "set": {
+      "squash": 0.55
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.79
+    },
+    {
+     "sfx": "oga/fart-viking",
+     "gain": 0.9,
+     "at": 1.79
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 1,
+     "dur": 0.12,
+     "at": 1.89
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 1.89
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 1.89
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.32,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.89
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.32,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.89
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.9
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 1.94
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.94
+    },
+    {
+     "who": "agent",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 1.94
+    },
+    {
+     "who": "agent",
+     "do": "face",
+     "press": 1,
+     "dur": 0.2,
+     "at": 1.94
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 1.94
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.94
+    },
+    {
+     "who": "rosti",
+     "do": "face",
+     "press": 1,
+     "dur": 0.2,
+     "at": 1.94
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 1.961
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 2.032
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 2.103
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 2.174
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 2.245
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 2.316
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 2.387
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 2.458
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 2.529
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 2.671
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 2.742
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 2.813
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 2.884
+    }
+   ]
+  },
+  {
+   "name": "five years",
+   "at": 28.6,
+   "len": 3.1,
+   "shot": {
+    "pos": [
+     -0.35,
+     1.3,
+     2.3
+    ],
+    "look": [
+     -0.69,
+     1.252,
+     -0.5
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -0.37,
+      1.297,
+      2.132
+     ],
+     "look": [
+      -0.69,
+      1.252,
+      -0.5
+     ],
+     "fov": 26
+    },
+    "dur": 3.1399999999999997,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 0.055
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.06
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.65,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.06
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "A smile is five years. A giggle is ten.",
+     "tone": "angry",
+     "style": "deep, stern, slow, threatening, a judge",
+     "voice": "viking-x115",
+     "dur": 2.84,
+     "caption": false,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 0.126
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 0.197
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 0.268
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 0.339
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 0.41
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.025,
+     "dur": 0.071,
+     "at": 0.481
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.055,
+     "dur": 0.071,
+     "at": 0.552
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.66
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 0,
+     "dur": 0.25,
+     "at": 0.66
+    },
+    {
+     "who": "rosti",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.5
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.6
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "raise your hand",
+   "at": 31.7,
+   "len": 3.166,
+   "shot": {
+    "pos": [
+     1.75,
+     1.5,
+     3
+    ],
+    "look": [
+     2.3,
+     1.5,
+     0.45
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.778,
+      1.5,
+      2.873
+     ],
+     "look": [
+      2.3,
+      1.5,
+      0.45
+     ],
+     "fov": 40
+    },
+    "dur": 3.1899999999999977,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.95,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Now raise your right hand. And swear it. And then...",
+     "tone": "calm",
+     "style": "deep, stern, a judge",
+     "voice": "viking-x115",
+     "dur": 2.29,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "balB",
+     "set": {
+      "tilt": -38,
+      "tip": 21
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.44
+    },
+    {
+     "do": "prop",
+     "id": "balB",
+     "set": {
+      "scale": 0.62,
+      "x": 0.296,
+      "y": 0.298,
+      "z": 0.188
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.74
+    },
+    {
+     "sfx": "deflate",
+     "gain": 0.5,
+     "at": 2.74
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.4,
+     "at": 2.74
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "press": 1,
+     "dur": 0.3,
+     "at": 2.74
+    }
+   ]
+  },
+  {
+   "name": "the oath",
+   "at": 34.866,
+   "len": 2.934,
+   "shot": {
+    "pos": [
+     1.75,
+     1.5,
+     3
+    ],
+    "look": [
+     2.3,
+     1.5,
+     0.45
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.794,
+      1.5,
+      2.796
+     ],
+     "look": [
+      2.3,
+      1.5,
+      0.45
+     ],
+     "fov": 40
+    },
+    "dur": 2.94,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 0.074
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "I swear to tell the truth, the whole truth, amen!",
+     "tone": "calm",
+     "style": "solemn, serious, very sincere",
+     "voice": "mash-helium",
+     "dur": 2.64,
+     "caption": false,
+     "at": 0.074
+    },
+    {
+     "do": "prop",
+     "id": "balB",
+     "set": {
+      "tilt": 8,
+      "tip": 32
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.124
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.124
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "press": 0,
+     "dur": 0.2,
+     "at": 0.124
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.334
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 1,
+     "dur": 0.12,
+     "at": 0.374
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.374
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      2.2,
+      0.6
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.374
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.445
+    },
+    {
+     "who": "agent",
+     "do": "face",
+     "press": 1,
+     "dur": 0.12,
+     "at": 0.474
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 0.474
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.516
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 0.557
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.587
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 0.64
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.658
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 0.723
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.729
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.8
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 0.806
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.871
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 0.889
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.942
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 0.972
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.013
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 1.055
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.084
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 1.138
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.155
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 1.221
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.226
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.297
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 1.304
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.368
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 1.387
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.439
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 1.47
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.51
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 1.553
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.581
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 1.636
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.652
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 1.719
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.723
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.734
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.794
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 1.802
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.865
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 1.885
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.936
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 1.968
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.007
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 2.051
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.078
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 2.134
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.149
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 2.217
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.22
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.291
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.362
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 2.383
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.433
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 2.466
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.504
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 2.549
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.575
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 2.632
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.646
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 2.715
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.717
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.788
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 2.798
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.814
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.859
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.083,
+     "at": 2.881
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.914
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.93
+    }
+   ]
+  },
+  {
+   "name": "sad thoughts",
+   "at": 37.8,
+   "len": 3.266,
+   "shot": {
+    "pos": [
+     0.55,
+     0.72,
+     3.7
+    ],
+    "look": [
+     0.45,
+     0.68,
+     1.2
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.63,
+      0.72,
+      3.7
+     ],
+     "look": [
+      0.49,
+      0.68,
+      1.2
+     ],
+     "fov": 32
+    },
+    "dur": 3.26,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.083,
+     "at": 0.03
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.067
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.3
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 0.08
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 0.08
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Think sad thoughts. Think rain. Think tax.",
+     "tone": "whisper",
+     "style": "urgent whisper, panicked",
+     "voice": "wedge-x115",
+     "dur": 2.96,
+     "caption": false,
+     "at": 0.08
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.138
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.18
+    },
+    {
+     "who": "agent",
+     "do": "face",
+     "press": 0,
+     "dur": 0.25,
+     "at": 0.18
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.209
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.28
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.351
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.422
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.493
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.564
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.635
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.706
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.777
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.848
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.919
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.99
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.061
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.132
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.203
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.274
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.345
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.416
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.487
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.558
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.629
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.771
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.842
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.913
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.984
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.055
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.126
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.197
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.268
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.339
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.41
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.481
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.552
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.623
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.694
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.765
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.836
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.907
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 3.04
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 0,
+     "dur": 0.25,
+     "at": 3.04
+    }
+   ]
+  },
+  {
+   "name": "the shadow",
+   "at": 41.066,
+   "len": 2.667,
+   "shot": {
+    "pos": [
+     1.7,
+     1.75,
+     1.4
+    ],
+    "look": [
+     -0.36,
+     2.05,
+     -1.296
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.576,
+      1.768,
+      1.238
+     ],
+     "look": [
+      -0.36,
+      2.05,
+      -1.296
+     ],
+     "fov": 30
+    },
+    "dur": 2.77,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Is he a serious man? Just give me the facts.",
+     "tone": "calm",
+     "style": "deep, stern, a judge",
+     "voice": "viking-x115",
+     "dur": 2.47,
+     "caption": false,
+     "at": 0.074
+    },
+    {
+     "who": "agent",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.434
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.534
+    }
+   ]
+  },
+  {
+   "name": "most serious",
+   "at": 43.733,
+   "len": 2,
+   "shot": {
+    "pos": [
+     1.75,
+     1.5,
+     3
+    ],
+    "look": [
+     2.3,
+     1.5,
+     0.45
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.783,
+      1.5,
+      2.847
+     ],
+     "look": [
+      2.3,
+      1.5,
+      0.45
+     ],
+     "fov": 40
+    },
+    "dur": 2.14,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "The most serious man that I've ever known.",
+     "tone": "calm",
+     "style": "solemn, sincere, proud",
+     "voice": "mash-helium",
+     "take": 2,
+     "dur": 1.74,
+     "caption": false,
+     "at": 0.077
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.067
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.95
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.867
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "press": 1,
+     "dur": 0.15,
+     "at": 1.917
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.15,
+     "at": 1.917
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       1,
+       -0.05
+      ],
+      "elbow": 0.15
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.967
+    }
+   ]
+  },
+  {
+   "name": "exhibit a",
+   "at": 45.733,
+   "len": 4.167,
+   "shot": {
+    "pos": [
+     0.55,
+     1.15,
+     2.6
+    ],
+    "look": [
+     0.85,
+     1.75,
+     -1.255
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      0.571,
+      1.192,
+      2.33
+     ],
+     "look": [
+      0.85,
+      1.75,
+      -1.255
+     ],
+     "fov": 32
+    },
+    "dur": 4.17,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Exhibit A: his serious face. Fully grown.",
+     "tone": "calm",
+     "style": "proud, confident, presenting evidence",
+     "voice": "wedge-x115",
+     "dur": 3.87,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.467
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.767
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 0.917
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 1,
+     "dur": 0.12,
+     "at": 1.067
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.067
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "tear": 0.6,
+     "dur": 0.4,
+     "at": 1.067
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0.25,
+     "dur": 0.3,
+     "at": 1.067
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.138
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.209
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.351
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.367
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.422
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.493
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.564
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.635
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.706
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.777
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.848
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.919
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.99
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.061
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.132
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.203
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.274
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.345
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.416
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.487
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.558
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.629
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.771
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.842
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.913
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.984
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.055
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.126
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.197
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.268
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.339
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.41
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.481
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.552
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.623
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.694
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.765
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.767
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.836
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.907
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.937
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.978
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.62,
+      0.92
+     ],
+     "dur": 0.9,
+     "at": 4.037
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 4.049
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 4.12
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "the scratch",
+   "at": 49.9,
+   "len": 2.933,
+   "shot": {
+    "pos": [
+     0.15,
+     1.4,
+     1.9
+    ],
+    "look": [
+     -0.6,
+     1.277,
+     -0.4
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      0.112,
+      1.394,
+      1.785
+     ],
+     "look": [
+      -0.6,
+      1.277,
+      -0.4
+     ],
+     "fov": 28
+    },
+    "dur": 3.02,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 0.024
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.95,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Did he ever laugh at something... he shouldn't?",
+     "tone": "calm",
+     "style": "deep, slow, suspicious, a judge",
+     "voice": "viking-x115",
+     "dur": 2.72,
+     "caption": false,
+     "at": 0.07
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 0.095
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 0.166
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.17
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 0.27
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 0,
+     "dur": 0.25,
+     "at": 0.27
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       1.05,
+       0.05
+      ],
+      "elbow": 0.15
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.27
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       1.02,
+       0.05
+      ],
+      "elbow": 0.15
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.8,
+     "at": 0.59
+    },
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "shred": 2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "crumbs",
+     "set": {
+      "on": 1,
+      "fall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "crumbs",
+     "set": {
+      "fall": 1.6
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0.62
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.16,
+       1.02,
+       0.05
+      ],
+      "elbow": 0.15
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.73
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       1.02,
+       0.05
+      ],
+      "elbow": 0.15
+     },
+     "dur": 0.16,
+     "ease": "inOut",
+     "at": 0.89
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.17
+    },
+    {
+     "who": "rosti",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.9
+    }
+   ]
+  },
+  {
+   "name": "the blurt",
+   "at": 52.833,
+   "len": 3.867,
+   "shot": {
+    "pos": [
+     1.4,
+     1.55,
+     3.5
+    ],
+    "look": [
+     2,
+     1.5,
+     0.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.436,
+      1.547,
+      3.326
+     ],
+     "look": [
+      2,
+      1.5,
+      0.6
+     ],
+     "fov": 40
+    },
+    "dur": 3.86,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.2,
+     "at": 0.057
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "At your head? Oh, he NEVER! I mean... he couldn't!",
+     "tone": "excited",
+     "style": "blurting, panicked, then backpedalling",
+     "voice": "mash-helium",
+     "dur": 3.56,
+     "caption": false,
+     "at": 0.057
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.267
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 1,
+     "dur": 0.12,
+     "at": 0.557
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 0.557
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 0.628
+    },
+    {
+     "who": "agent",
+     "do": "face",
+     "press": 1,
+     "dur": 0.12,
+     "at": 0.657
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.657
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "press": 1,
+     "dur": 0.12,
+     "at": 0.657
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.657
+    },
+    {
+     "who": "rosti",
+     "do": "face",
+     "press": 1,
+     "dur": 0.12,
+     "at": 0.657
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.657
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 0.699
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.728
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.728
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.728
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 0.77
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.799
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.799
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.799
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 0.841
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.87
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.87
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 0.87
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 0.912
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.941
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.941
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 0.941
+    },
+    {
+     "do": "prop",
+     "id": "snot",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.957
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 0.983
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.012
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.012
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.012
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.054
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.083
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.083
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.083
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.125
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.154
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.154
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.154
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.196
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.225
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.225
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.225
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.267
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.296
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.296
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.296
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.338
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.367
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.367
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.367
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.409
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.438
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.438
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.438
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.48
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.509
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.509
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.509
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.551
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.8,
+      0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.557
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.58
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.58
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.58
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.45,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.607
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.622
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.651
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.651
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.651
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.693
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.722
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.722
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.722
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.764
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.793
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.793
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.793
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 1.807
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.7,
+     "at": 1.807
+    },
+    {
+     "do": "prop",
+     "id": "snot",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.07,
+     "ease": "inOut",
+     "at": 1.807
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.835
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.864
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.864
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 1.864
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 1.906
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.935
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.935
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 1.935
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 1.977
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.006
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.006
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.006
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.048
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.077
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.077
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.077
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.119
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.148
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.148
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.148
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.19
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.219
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.219
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.219
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.261
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.29
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.29
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.29
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.332
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.361
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.361
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.361
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.403
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.432
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.432
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.432
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.474
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.503
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.503
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.503
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.545
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.574
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.574
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.574
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.616
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.645
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.645
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.645
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.687
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.716
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.716
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.716
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.758
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.787
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.787
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.787
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.829
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.858
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.858
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 2.858
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 2.9
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.929
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.929
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 2.929
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 2.971
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.042
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.071
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.071
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.071
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.113
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3.142
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3.142
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3.142
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.184
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.213
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.213
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.213
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.255
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3.284
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3.284
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3.284
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.326
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.355
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.355
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.355
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.397
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3.426
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3.426
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.071,
+     "at": 3.426
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 0.071,
+     "at": 3.468
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.497
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.497
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.071,
+     "at": 3.497
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.065,
+     "dur": 0.071,
+     "at": 3.539
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 3.617
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 0,
+     "dur": 0.25,
+     "at": 3.617
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 3.617
+    },
+    {
+     "who": "agent",
+     "do": "face",
+     "press": 0,
+     "dur": 0.25,
+     "at": 3.617
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 3.617
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "press": 0,
+     "dur": 0.25,
+     "at": 3.617
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 3.617
+    },
+    {
+     "who": "rosti",
+     "do": "face",
+     "press": 0,
+     "dur": 0.25,
+     "at": 3.617
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.717
+    }
+   ]
+  },
+  {
+   "name": "dismissed",
+   "at": 56.7,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     -0.35,
+     1.3,
+     2.3
+    ],
+    "look": [
+     -0.69,
+     1.252,
+     -0.5
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -0.367,
+      1.298,
+      2.16
+     ],
+     "look": [
+      -0.69,
+      1.252,
+      -0.5
+     ],
+     "fov": 26
+    },
+    "dur": 2.509999999999998,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.65,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Case dismissed. You are free to go.",
+     "tone": "calm",
+     "style": "deep, stern, flat, final",
+     "voice": "viking-x115",
+     "dur": 2.21,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.15,
+       1.77,
+       0.24
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.57,
+       0.22
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.13
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.3,
+     "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.2,
+     "at": 2.26
+    }
+   ]
+  },
+  {
+   "name": "the reveal",
+   "at": 59.2,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     0.25,
+     0.85,
+     3.7
+    ],
+    "look": [
+     -0.5,
+     1.75,
+     -0.6
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.205,
+      0.904,
+      3.442
+     ],
+     "look": [
+      -0.5,
+      1.75,
+      -0.6
+     ],
+     "fov": 42
+    },
+    "dur": 2.1000000000000014,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "stand",
+     "dur": 0.4,
+     "at": 0.06
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      -0.69,
+      -0.66
+     ],
+     "y": 0.86,
+     "dur": 0.4,
+     "at": 0.06
+    },
+    {
+     "do": "prop",
+     "id": "toup",
+     "set": {
+      "steam": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.06
+    },
+    {
+     "do": "prop",
+     "id": "shadow",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.75,
+      1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.16
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.35,
+     "at": 0.26
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 0.26
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 0.41
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 1,
+     "dur": 0.12,
+     "at": 0.56
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.56
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.623
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "tear": 1,
+     "dur": 0.4,
+     "at": 0.66
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.686
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.749
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.812
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.875
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.938
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.001
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.064
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.127
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.19
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.253
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.316
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.379
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.442
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.505
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.568
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.631
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.694
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.757
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.82
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.883
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.946
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 2.009
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 2.072
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "held it",
+   "at": 61.3,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     -0.45,
+     0.85,
+     3.5
+    ],
+    "look": [
+     0.02,
+     0.85,
+     1.3
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.422,
+      0.85,
+      3.368
+     ],
+     "look": [
+      0.02,
+      0.85,
+      1.3
+     ],
+     "fov": 34
+    },
+    "dur": 1.8400000000000034,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.035
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I... held it.",
+     "tone": "sad",
+     "style": "squeaky, strained, tearful, proud, barely holding in a laugh",
+     "voice": "spud-x115",
+     "dur": 1.54,
+     "caption": false,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.098
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.161
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.224
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.287
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.413
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.476
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.539
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.602
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.665
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.728
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.791
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.854
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 0.917
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.043
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.106
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.169
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.232
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.295
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.358
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.04,
+     "dur": 0.063,
+     "at": 1.421
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.063,
+     "at": 1.484
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "press": 0,
+     "dur": 0.25,
+     "at": 1.6
+    }
+   ]
+  },
+  {
+   "name": "the jury",
+   "at": 63,
+   "len": 1.533,
+   "shot": {
+    "pos": [
+     1.3,
+     0.95,
+     2.7
+    ],
+    "look": [
+     1.3,
+     0.8,
+     -0.87
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      1.3,
+      0.941,
+      2.486
+     ],
+     "look": [
+      1.3,
+      0.8,
+      -0.87
+     ],
+     "fov": 34
+    },
+    "dur": 1.3999999999999915,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ha! Ha ha ha ha ha!",
+     "tone": "excited",
+     "style": "bursting out laughing, can't stop, wheezing, high",
+     "voice": "chip-x115",
+     "dur": 2.33,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.1,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.2,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.2,
+       0.22
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "agent",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.1,
+     "at": 0.167
+    },
+    {
+     "who": "agent",
+     "macro": "say",
+     "line": "Hahaha! Ha ha ha!",
+     "tone": "excited",
+     "style": "big belly laugh, snorting, losing it",
+     "voice": "archaeologist",
+     "dur": 1.53,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "agent",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "rosti",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.1,
+     "at": 0.233
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.267
+    },
+    {
+     "who": "rosti",
+     "macro": "say",
+     "line": "Hahaha! Ha ha!",
+     "tone": "excited",
+     "style": "crying with laughter, howling",
+     "voice": "teo",
+     "dur": 2.7,
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.3
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.333
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.367
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.4
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.433
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.467
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.5
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.533
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.567
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.633
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.667
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.7
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.733
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.767
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.8
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.833
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.867
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.9
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 0.933
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 0.967
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 1.033
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 1.067
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 1.1
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0.035,
+     "dur": 0.1,
+     "at": 1.133
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 1.167
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": -0.03,
+     "dur": 0.1,
+     "at": 1.233
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.9,
+      -0.15
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.5
+    }
+   ]
+  },
+  {
+   "name": "ten years each",
+   "at": 64.533,
+   "len": 3.337,
+   "shot": {
+    "pos": [
+     0.9,
+     1.2,
+     4.6
+    ],
+    "look": [
+     0,
+     1.55,
+     -0.6
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.846,
+      1.221,
+      4.288
+     ],
+     "look": [
+      0,
+      1.55,
+      -0.6
+     ],
+     "fov": 44
+    },
+    "dur": 3.2700000000000102,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.067
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "All of you? TEN YEARS. EACH. Told you so.",
+     "tone": "angry",
+     "style": "deep, very loud, furious, a judge",
+     "voice": "viking-x115",
+     "take": 2,
+     "dur": 2.82,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "point",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.267
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.4,
+     "at": 1.267
+    },
+    {
+     "who": "agent",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.417
+    },
+    {
+     "who": "agent",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.07,
+     "at": 1.417
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.417
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.07,
+     "at": 1.417
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.417
+    },
+    {
+     "who": "rosti",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.07,
+     "at": 1.417
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.19,
+   "see": [
+    "vik.face",
+    "spud.face",
+    "wedge.face"
+   ],
+   "why": "a judge (his head cut by the frame top) shouts at you; your lawyer beside you; the jury behind"
+  },
+  {
+   "from": 3.44,
+   "to": 12.67,
+   "see": [
+    "wedge.face",
+    "spud.face"
+   ],
+   "why": "the lawyer whispers the rule into your ear: ten years; don't look at his head"
+  },
+  {
+   "from": 14.79,
+   "to": 18.56,
+   "see": [
+    "wedge.face",
+    "spud.face"
+   ],
+   "why": "his hand turns your face back down"
+  },
+  {
+   "from": 18.91,
+   "to": 21.11,
+   "see": [
+    "vik.face"
+   ],
+   "why": "the judge, impatient; a crispy golden shred flops down beside his eye"
+  },
+  {
+   "from": 22.71,
+   "to": 24.55,
+   "see": [
+    "mash.face"
+   ],
+   "why": "the door: your best friend walks in with three party balloons, grinning"
+  },
+  {
+   "from": 27.49,
+   "to": 28.66,
+   "see": [
+    "spud.face",
+    "mash.face",
+    "chip.face"
+   ],
+   "why": "the cushion farts as he sits; you bite your lip; the jury holds it in"
+  },
+  {
+   "from": 34.94,
+   "to": 37.58,
+   "see": [
+    "mash.face"
+   ],
+   "why": "Mash swears the oath in a squeaky helium voice, his hand up"
+  },
+  {
+   "from": 41.14,
+   "to": 43.61,
+   "see": [
+    "shadow"
+   ],
+   "why": "the judge's shadow on the wall: a ragged spiky flat blob on top of his head"
+  },
+  {
+   "from": 46.5,
+   "to": 49.67,
+   "see": [
+    "board",
+    "spud.face"
+   ],
+   "why": "Exhibit A: your bowl-cut school photo with braces; you, tears in your eyes, holding it in"
+  },
+  {
+   "from": 50.17,
+   "to": 52.69,
+   "see": [
+    "vik.face",
+    "crumbs"
+   ],
+   "why": "the judge scratches the top of his head: crunch, golden crumbs rain onto his papers"
+  },
+  {
+   "from": 52.89,
+   "to": 56.45,
+   "see": [
+    "mash.face",
+    "wedge.face"
+   ],
+   "why": "Mash nearly blurts it, a snot bubble; the lawyer's hand slaps over his mouth"
+  },
+  {
+   "from": 59.26,
+   "to": 61.36,
+   "see": [
+    "vik.face",
+    "toup",
+    "spud.face"
+   ],
+   "why": "the judge stands: a steaming hash brown with a bite missing sits on his head; you go red and HOLD it"
+  },
+  {
+   "from": 63.2,
+   "to": 64.6,
+   "see": [
+    "chip.face",
+    "agent.face",
+    "rosti.face"
+   ],
+   "why": "the jury bursts out laughing"
+  },
+  {
+   "from": 64.6,
+   "to": 67.87,
+   "see": [
+    "vik.face",
+    "toup"
+   ],
+   "why": "the judge sentences the whole jury"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "vik",
+   "with": "chair",
+   "from": 0,
+   "to": 67.87,
+   "reason": "the judge sits in his chair, then stands on its seat"
+  },
+  {
+   "who": "mash",
+   "with": "wchair",
+   "from": 26.56,
+   "to": 67.87,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "the witness sits in the witness chair"
+  },
+  {
+   "who": "mash",
+   "with": "cushion",
+   "from": 26.56,
+   "to": 67.87,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "he sits on the fart cushion"
+  },
+  {
+   "who": "vik",
+   "with": "chair",
+   "from": 59.16,
+   "to": 67.87,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "he stands on his chair's seat for the reveal (DESIGN 1c)"
+  },
+  {
+   "who": "mash",
+   "with": "door",
+   "from": 23.56,
+   "to": 24.01,
+   "reason": "his free hand brushes the open door leaf as he walks past it"
+  },
+  {
+   "who": "mash",
+   "with": "wchair",
+   "from": 26.56,
+   "to": 27.06,
+   "reason": "his hand finds the chair back as he turns to sit"
+  },
+  {
+   "who": "wedge",
+   "with": "spud",
+   "from": 24.35,
+   "to": 24.95,
+   "reason": "the lawyer's hand brushes your sweater as he lowers it"
+  },
+  {
+   "who": "mash",
+   "with": "balR",
+   "from": 0,
+   "to": 67.87,
+   "reason": "the balloon strings are tied in his fist"
+  },
+  {
+   "who": "mash",
+   "with": "balY",
+   "from": 0,
+   "to": 67.87,
+   "reason": "the balloon strings are tied in his fist"
+  },
+  {
+   "who": "mash",
+   "with": "balB",
+   "from": 0,
+   "to": 67.87,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "the balloon strings are tied in his fist; he sucks the blue one at his lips"
+  },
+  {
+   "who": "agent",
+   "with": "chip",
+   "from": 0,
+   "to": 67.87,
+   "reason": "jurors shoulder to shoulder: their arms hang behind the jury box rail"
+  },
+  {
+   "who": "chip",
+   "with": "rosti",
+   "from": 0,
+   "to": 67.87,
+   "reason": "jurors shoulder to shoulder: their arms hang behind the jury box rail"
+  },
+  {
+   "who": "agent",
+   "with": "jury",
+   "from": 0,
+   "to": 67.87,
+   "reason": "the jurors stand on the steps inside the jury box"
+  },
+  {
+   "who": "chip",
+   "with": "jury",
+   "from": 0,
+   "to": 67.87,
+   "reason": "the jurors stand on the steps inside the jury box"
+  },
+  {
+   "who": "rosti",
+   "with": "jury",
+   "from": 0,
+   "to": 67.87,
+   "reason": "the jurors stand on the steps inside the jury box"
+  },
+  {
+   "who": "rosti",
+   "with": "jury",
+   "from": 0,
+   "to": 67.87,
+   "checks": [
+    "shell"
+   ],
+   "reason": "his flank brushes the jury box's side wall (13-14 %, 1.8 s in all) while he shakes holding it in; kept as is (Jonny took the draft as final, 26 Nov)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/14-dont-laugh/make-dont-laugh.mjs."
+}

@@ -675,6 +675,7 @@ may use are in docs/CAMERA-MOVES.md). All are off unless a storyboard asks; time
   hand without a HUD; `"hud": { "sky": false }` or `"sky": false` keeps the picture as painted. A night clock on a day set
   with no night picture gets a warning when the storyboard loads: paint one, pick a night set, or move the clock.
   Plates with a night picture: `livingroom-golden`.
+- **Grade tint** (`engine/page/looks.js`, top-level `"grade": [[t, { s, w, c, lift, tint: "#hex" }, dur?]]`, keyed like the HUD): `tint` multiplies the finished picture (default white = no change; a key without it keeps the last); `"nv": true` in a key is night vision (s 0, c 1.25, lift 0.07, tint `#52ff7a`; flat green, no scan lines).
 - **Rule card** (`engine/page/card.js`): `{ "fx": "rule", "at", "dur": 1.6, "title": "RULE 1", "text": "...", "who" }`:
   an ink plate slammed in tilted, the title in who's caption colour, the rule in white, a slow drift, shrinks out.
 - **Comment-vote end card**: `{ "fx": "vote", "at", "dur", "question", "options": [{ "key": "A", "text", "who" }, ...],

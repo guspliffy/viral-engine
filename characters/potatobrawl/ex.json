@@ -1,0 +1,73 @@
+{
+  "id": "potatobrawl/ex",
+  "name": "The ex (no name on screen: \"your ex\")",
+  "franchise": "PotatoBrawl",
+  "source": "Potato Desk Heaven's terms and conditions, storyboards/series/potato-desk/heaven-terms/DESIGN.md section 4 and the approved sheet sheets/heaven-terms-panels-v1.png panels 07-08",
+  "rig": "potato",
+  "body": {
+    "color": "#ecb787",
+    "keepSkin": true,
+    "height": 0.84,
+    "width": 0.72,
+    "depth": 0.62,
+    "lump": 0.03,
+    "seed": 41,
+    "taper": 0.12,
+    "specks": 0
+  },
+  "limbs": {
+    "color": "#f4efe6",
+    "width": 0.032,
+    "shoulder": -0.32
+  },
+  "face": {
+    "default": "happy",
+    "iris": "#5a3418",
+    "cheeks": "#ff9aa8",
+    "neutral": {
+      "tilt": 0,
+      "curve": 1.0,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0.8,
+      "lash": 1.4
+    },
+    "browShape": {
+      "arch": 0.1,
+      "thick": 0.55
+    },
+    "size": 0.92
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none",
+    "leaves": 1
+  },
+  "costume": {
+    "type": "ex"
+  },
+  "personality": "Your ex: sweet, much too friendly, never stops smiling. Waves with both gloves, hugs before anyone has answered, her eyes close when she smiles (proposal until Jonny has seen her).",
+  "voice": {
+    "pitch": 178,
+    "rate": 3.0,
+    "formant": 1.04,
+    "range": 6,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 93
+  },
+  "voiceNote": "bright, sing-song, one long word (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.2,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Standing 0.98 (the hero's size), bun top 1.12, no leaf. Costume in engine/page/costumes-ex.js (type ex; USAGE header there): lilac knit cardigan open over a white top, cream skirt band, lilac flats, high bun with a gold scrunchie, 3 long lashes per eye, 5 pale freckles. Faces: happy (the wave, 'Hiii.') and serene with curve 1.0 (eyes shut, beaming): never any other. She waves with BOTH gloves outside her own outline (x +-0.42, y 0.55), never in front of her face."
+}
