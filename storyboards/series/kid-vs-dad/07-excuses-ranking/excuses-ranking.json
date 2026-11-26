@@ -1,0 +1,3477 @@
+{
+ "id": "excuses-ranking",
+ "title": "Kid vs Dad 07: Ranking Dad's excuses (rough draft)",
+ "idea": "Kid vs Dad 07: Tato ranks his dad's worst excuses live, from 'I'm resting my eyes' to number one, 'My back' - which Dad disproves the second the ice cream truck plays.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1230
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "captionOverBody": {
+  "reason": "close-ups where the speaker fills the phone frame; captions in the upper third over the body, never the eyes (rule from the 8-min film trial, Jonny OK 20 Nov)"
+ },
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "far": 200,
+ "set": {
+  "type": "gravroom",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "lowCut": 150,
+  "gain": 0.15
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false,
+  "surface": "wood",
+  "room": "livingroom"
+ },
+ "creative": {
+  "length": [
+   66.383,
+   66.383
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "dad"
+  ],
+  "hint": 0,
+  "what": "My dad has the worst excuses in the world. I ranked them."
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.45,
+    -0.45
+   ],
+   "face": 12,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.1
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    0.42,
+    -1.52
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "mom",
+   "character": "potatobrawl/mash",
+   "at": [
+    6,
+    4
+   ],
+   "face": 0,
+   "follow": 0,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "sofa",
+   "kind": "gsofa",
+   "x": 0.2,
+   "y": 0,
+   "z": -1.61,
+   "rot": 0,
+   "sink": 0.02,
+   "damage": 0
+  },
+  {
+   "id": "tv",
+   "kind": "gtv",
+   "x": -1.52,
+   "y": 0,
+   "z": -0.99,
+   "rot": 34,
+   "glow": 1,
+   "picture": "cartoon",
+   "light": 0.55,
+   "castLight": 4,
+   "on": 1,
+   "card": 0
+  },
+  {
+   "id": "lamp",
+   "kind": "glamp",
+   "x": -1.75,
+   "y": 0,
+   "z": -2.35,
+   "rot": 180
+  },
+  {
+   "id": "plant",
+   "kind": "gplant",
+   "x": 1.8,
+   "y": 0,
+   "z": -1.6
+  },
+  {
+   "id": "rug",
+   "kind": "grug",
+   "x": 0.18,
+   "y": 0,
+   "z": 0.11
+  },
+  {
+   "id": "clock",
+   "kind": "wallclock",
+   "x": 0.2,
+   "y": 1.62,
+   "z": -2.62,
+   "rot": 0,
+   "time": 17,
+   "staged": "hung on the back wall over the sofa"
+  },
+  {
+   "id": "giant",
+   "kind": "trophy",
+   "x": -0.8,
+   "y": 0,
+   "z": -0.95,
+   "rot": 18,
+   "scale": 2.6,
+   "glint": 0,
+   "staged": "a giant cup standing on the floor beside Tato"
+  },
+  {
+   "id": "cup5",
+   "kind": "trophy",
+   "x": 0.02,
+   "y": -9,
+   "z": -0.86,
+   "rot": -8,
+   "scale": 0.55,
+   "glint": 0
+  },
+  {
+   "id": "cup4",
+   "kind": "trophy",
+   "x": 0.34,
+   "y": -9,
+   "z": -0.88,
+   "rot": -3,
+   "scale": 0.8,
+   "glint": 0
+  },
+  {
+   "id": "cup3",
+   "kind": "trophy",
+   "x": 0.7,
+   "y": -9,
+   "z": -0.9,
+   "rot": 2,
+   "scale": 1.1,
+   "glint": 0
+  },
+  {
+   "id": "cup2",
+   "kind": "trophy",
+   "x": 1.12,
+   "y": -9,
+   "z": -0.92,
+   "rot": 7,
+   "scale": 1.45,
+   "glint": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.12,
+   "to": 3.413,
+   "text": "My dad has the *worst excuses* in the world. I ranked them.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 3.553,
+   "to": 8.88,
+   "text": "*Tato.* I'm not asleep. I'm *resting my eyes.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 9.073,
+   "to": 10.223,
+   "text": "*Number five.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 11.123,
+   "to": 13.78,
+   "text": "Dad. The park closes *at eight.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 13.913,
+   "to": 16.623,
+   "text": "*Nothing in the world* gets me off this sofa.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 16.773,
+   "to": 18.093,
+   "text": "*Challenge accepted.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 18.243,
+   "to": 19.113,
+   "text": "I'll clean my room.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 19.263,
+   "to": 20.146,
+   "text": "We'll see.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 20.223,
+   "to": 21.413,
+   "text": "I'll clean *your* room.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 21.583,
+   "to": 22.68,
+   "text": "We'll see.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 22.763,
+   "to": 24.113,
+   "text": "I'll clean *the whole house.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 24.313,
+   "to": 25.383,
+   "text": "We'll see.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 25.533,
+   "to": null,
+   "text": "*We'll see* means *no.* Number four.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 29.133,
+   "to": 30.913,
+   "text": "Dad. It's *six.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 31.053,
+   "to": 33.046,
+   "text": "Five more minutes.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 33.823,
+   "to": 34.513,
+   "text": "It's *seven.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 35.833,
+   "to": 37.746,
+   "text": "Five more minutes.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 38.693,
+   "to": 40.246,
+   "text": "Dad. The TV is *off.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 40.493,
+   "to": 42.453,
+   "text": "Five more minutes.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 42.603,
+   "to": null,
+   "text": "His minutes are *an hour* long. *Number three.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 45.783,
+   "to": 46.813,
+   "text": "Can I go alone?",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 46.963,
+   "to": 48.08,
+   "text": "Ask your mother.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 48.253,
+   "to": 49.313,
+   "text": "Ask your father!",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 49.463,
+   "to": 50.313,
+   "text": "Ask your mother!",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 50.483,
+   "to": 51.713,
+   "text": "Ask your father!",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 51.843,
+   "to": 52.946,
+   "text": "*Number two.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 54.043,
+   "to": 56.593,
+   "text": "And number one... *the worst one.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 57.393,
+   "to": 60.013,
+   "text": "Dad. Quarter to eight. *Last chance.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 60.243,
+   "to": 62.383,
+   "text": "I can't, buddy. *My back.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 63.133,
+   "to": 64.043,
+   "text": "*ICE CREAM!*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 65.133,
+   "to": 66.183,
+   "text": "...*Number one.*",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  }
+ ],
+ "beats": [
+  {
+   "name": "hook",
+   "at": 0,
+   "len": 3.433,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.95,
+     2.15
+    ],
+    "look": [
+     -0.22,
+     0.62,
+     -1
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.296,
+      0.934,
+      1.993
+     ],
+     "look": [
+      -0.22,
+      0.62,
+      -1
+     ],
+     "fov": 50
+    },
+    "dur": 3.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "sit",
+     "rot": 0,
+     "height": 0.45,
+     "dur": 0,
+     "hands": "lap",
+     "feet": [
+      0.06,
+      0.04
+     ],
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "pitch",
+     "to": -6,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.04,
+      "tilt": 0.05,
+      "curve": 0.15,
+      "open": 0.1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mom",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.2,
+      "curve": 0.25,
+      "smirk": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 17
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "giant",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cup5",
+     "set": {
+      "y": -9,
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cup4",
+     "set": {
+      "y": -9,
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cup3",
+     "set": {
+      "y": -9,
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cup2",
+     "set": {
+      "y": -9,
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "My dad has the worst excuses in the world. I ranked them.",
+     "tone": "whisper",
+     "style": "a seven-year-old whispering to the camera, deadpan, like a nature documentary",
+     "voice": "tato",
+     "dur": 3.19,
+     "caption": false,
+     "at": 0.12
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "not asleep",
+   "at": 3.433,
+   "len": 5.467,
+   "shot": {
+    "pos": [
+     0.38,
+     1.02,
+     1.3
+    ],
+    "look": [
+     0.42,
+     0.95,
+     -1.52
+    ],
+    "fov": 33,
+    "to": {
+     "pos": [
+      0.382,
+      1.016,
+      1.131
+     ],
+     "look": [
+      0.42,
+      0.95,
+      -1.52
+     ],
+     "fov": 33
+    },
+    "dur": 5.85,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.06
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Tato. I'm not asleep. I'm resting my eyes.",
+     "tone": "calm",
+     "style": "eyes shut, slurred, half asleep on the sofa",
+     "voice": "dad",
+     "dur": 5.25,
+     "caption": false,
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "cup5",
+     "set": {
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 5.447
+    }
+   ]
+  },
+  {
+   "name": "five",
+   "at": 8.9,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.02,
+     0.36,
+     0.52
+    ],
+    "look": [
+     0.02,
+     0.16,
+     -0.88
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.02,
+      0.344,
+      0.408
+     ],
+     "look": [
+      0.02,
+      0.16,
+      -0.88
+     ],
+     "fov": 42
+    },
+    "dur": 1.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "tink",
+     "at": 0.073
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.113
+    },
+    {
+     "do": "prop",
+     "id": "cup5",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.123
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Number five.",
+     "tone": "calm",
+     "style": "flat, dry, a judge giving a score",
+     "voice": "tato",
+     "dur": 0.9,
+     "caption": false,
+     "at": 0.173
+    },
+    {
+     "do": "prop",
+     "id": "cup5",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.523
+    }
+   ]
+  },
+  {
+   "name": "five pm",
+   "at": 10.3,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     0.2,
+     1.5,
+     -1.3
+    ],
+    "look": [
+     0.2,
+     1.62,
+     -2.62
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.2,
+      1.507,
+      -1.379
+     ],
+     "look": [
+      0.2,
+      1.62,
+      -2.62
+     ],
+     "fov": 30
+    },
+    "dur": 0.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "knock-tap",
+     "at": 0.073
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 128,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 0.68
+    }
+   ]
+  },
+  {
+   "name": "park",
+   "at": 11,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     0.75
+    ],
+    "look": [
+     0.42,
+     0.85,
+     -1.52
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -1.103,
+      0.944,
+      0.614
+     ],
+     "look": [
+      0.42,
+      0.85,
+      -1.52
+     ],
+     "fov": 40
+    },
+    "dur": 2.94,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.063
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. The park closes at eight.",
+     "tone": "calm",
+     "style": "flat, patient, standing in front of the sofa",
+     "voice": "tato",
+     "dur": 2.54,
+     "caption": false,
+     "at": 0.123
+    }
+   ]
+  },
+  {
+   "name": "nothing",
+   "at": 13.8,
+   "len": 2.866,
+   "shot": {
+    "pos": [
+     0.4,
+     1,
+     0.85
+    ],
+    "look": [
+     0.42,
+     0.9,
+     -1.52
+    ],
+    "fov": 35,
+    "to": {
+     "pos": [
+      0.402,
+      0.99,
+      0.613
+     ],
+     "look": [
+      0.42,
+      0.9,
+      -1.52
+     ],
+     "fov": 35
+    },
+    "dur": 2.96,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.053
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Nothing in the world gets me off this sofa.",
+     "tone": "calm",
+     "style": "dead certain, proud, eyes still shut",
+     "voice": "dad",
+     "dur": 2.46,
+     "caption": false,
+     "at": 0.113
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.2,
+      "curve": 0.25,
+      "smirk": 0.4
+     },
+     "dur": 0.01,
+     "at": 2.813
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 12,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.847
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.847
+    }
+   ]
+  },
+  {
+   "name": "challenge",
+   "at": 16.666,
+   "len": 1.467,
+   "shot": {
+    "pos": [
+     -0.12,
+     0.46,
+     1.15
+    ],
+    "look": [
+     -0.45,
+     0.4,
+     -0.45
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.14,
+      0.456,
+      1.054
+     ],
+     "look": [
+      -0.45,
+      0.4,
+      -0.45
+     ],
+     "fov": 34
+    },
+    "dur": 1.57,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.047
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Challenge accepted.",
+     "tone": "whisper",
+     "style": "to the camera, narrowed eyes, determined",
+     "voice": "tato",
+     "dur": 1.07,
+     "caption": false,
+     "at": 0.107
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "pupil": 0.8,
+      "tilt": 0.25,
+      "curve": 0.25
+     },
+     "dur": 0.01,
+     "at": 1.414
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 128,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.447
+    }
+   ]
+  },
+  {
+   "name": "my room",
+   "at": 18.133,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     0.75
+    ],
+    "look": [
+     0.42,
+     0.85,
+     -1.52
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -1.119,
+      0.945,
+      0.637
+     ],
+     "look": [
+      0.42,
+      0.85,
+      -1.52
+     ],
+     "fov": 40
+    },
+    "dur": 1.12,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'll clean my room.",
+     "tone": "calm",
+     "style": "bargaining, hopeful",
+     "voice": "tato",
+     "dur": 0.82,
+     "caption": false,
+     "at": 0.11
+    }
+   ]
+  },
+  {
+   "name": "we'll see 1",
+   "at": 19.133,
+   "len": 1.033,
+   "shot": {
+    "pos": [
+     0.38,
+     1.02,
+     1.3
+    ],
+    "look": [
+     0.42,
+     0.95,
+     -1.52
+    ],
+    "fov": 33,
+    "to": {
+     "pos": [
+      0.382,
+      1.017,
+      1.159
+     ],
+     "look": [
+      0.42,
+      0.95,
+      -1.52
+     ],
+     "fov": 33
+    },
+    "dur": 1.16,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.07
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "We'll see.",
+     "tone": "calm",
+     "style": "lazy, not listening",
+     "voice": "dad",
+     "dur": 0.76,
+     "caption": false,
+     "at": 0.13
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.03
+    }
+   ]
+  },
+  {
+   "name": "your room",
+   "at": 20.166,
+   "len": 1.267,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     0.75
+    ],
+    "look": [
+     0.42,
+     0.85,
+     -1.52
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.103,
+      0.944,
+      0.614
+     ],
+     "look": [
+      0.42,
+      0.85,
+      -1.52
+     ],
+     "fov": 34
+    },
+    "dur": 1.41,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'll clean your room.",
+     "tone": "calm",
+     "style": "bigger offer, a bit desperate",
+     "voice": "tato",
+     "dur": 1.11,
+     "caption": false,
+     "at": 0.057
+    }
+   ]
+  },
+  {
+   "name": "we'll see 2",
+   "at": 21.433,
+   "len": 1.267,
+   "shot": {
+    "pos": [
+     0.38,
+     1.02,
+     1.3
+    ],
+    "look": [
+     0.42,
+     0.95,
+     -1.52
+    ],
+    "fov": 33,
+    "to": {
+     "pos": [
+      0.383,
+      1.014,
+      1.074
+     ],
+     "look": [
+      0.42,
+      0.95,
+      -1.52
+     ],
+     "fov": 33
+    },
+    "dur": 1.48,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.42,
+       -0.22
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.09
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "We'll see.",
+     "tone": "calm",
+     "style": "the same lazy tone, rubbing his back",
+     "voice": "dad",
+     "dur": 0.98,
+     "caption": false,
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "whole house",
+   "at": 22.7,
+   "len": 1.433,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     0.75
+    ],
+    "look": [
+     0.42,
+     0.85,
+     -1.52
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.087,
+      0.943,
+      0.591
+     ],
+     "look": [
+      0.42,
+      0.85,
+      -1.52
+     ],
+     "fov": 30
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.003
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.063
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'll clean the whole house.",
+     "tone": "calm",
+     "style": "biggest offer yet, desperate, both hands out",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 0.063
+    }
+   ]
+  },
+  {
+   "name": "we'll see 3",
+   "at": 24.133,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     0.4,
+     1,
+     0.85
+    ],
+    "look": [
+     0.42,
+     0.9,
+     -1.52
+    ],
+    "fov": 35,
+    "to": {
+     "pos": [
+      0.401,
+      0.994,
+      0.708
+     ],
+     "look": [
+      0.42,
+      0.9,
+      -1.52
+     ],
+     "fov": 35
+    },
+    "dur": 1.32,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.12
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "We'll see.",
+     "tone": "calm",
+     "style": "lazy, not listening, the exact same",
+     "voice": "dad",
+     "dur": 0.82,
+     "caption": false,
+     "at": 0.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 12,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.247
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 1.247
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.247
+    }
+   ]
+  },
+  {
+   "name": "means no",
+   "at": 25.433,
+   "len": 2.133,
+   "shot": {
+    "pos": [
+     0.03,
+     0.52,
+     1.8
+    ],
+    "look": [
+     -0.58,
+     0.42,
+     -0.55
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.019,
+      0.512,
+      1.612
+     ],
+     "look": [
+      -0.58,
+      0.42,
+      -0.55
+     ],
+     "fov": 36
+    },
+    "dur": 2.33,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "We'll see means no. Number four.",
+     "tone": "calm",
+     "style": "to the camera, flat, unimpressed",
+     "voice": "tato",
+     "dur": 1.93,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "cup4",
+     "set": {
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.114
+    }
+   ]
+  },
+  {
+   "name": "four",
+   "at": 27.566,
+   "len": 0.767,
+   "shot": {
+    "pos": [
+     0.18,
+     0.4,
+     0.92
+    ],
+    "look": [
+     0.18,
+     0.16,
+     -0.88
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.18,
+      0.386,
+      0.812
+     ],
+     "look": [
+      0.18,
+      0.16,
+      -0.88
+     ],
+     "fov": 42
+    },
+    "dur": 0.75,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "tink",
+     "at": 0.067
+    },
+    {
+     "do": "prop",
+     "id": "cup4",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.117
+    },
+    {
+     "do": "prop",
+     "id": "cup4",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.517
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 17
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.714
+    }
+   ]
+  },
+  {
+   "name": "six pm",
+   "at": 28.333,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     0.2,
+     1.5,
+     -1.3
+    ],
+    "look": [
+     0.2,
+     1.62,
+     -2.62
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.2,
+      1.507,
+      -1.379
+     ],
+     "look": [
+      0.2,
+      1.62,
+      -2.62
+     ],
+     "fov": 30
+    },
+    "dur": 0.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 18
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 128,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.647
+    }
+   ]
+  },
+  {
+   "name": "it's six",
+   "at": 29.033,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     0.75
+    ],
+    "look": [
+     0.42,
+     0.85,
+     -1.52
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -1.119,
+      0.945,
+      0.637
+     ],
+     "look": [
+      0.42,
+      0.85,
+      -1.52
+     ],
+     "fov": 40
+    },
+    "dur": 2.02,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. It's six.",
+     "tone": "calm",
+     "style": "flat, pointing at the clock",
+     "voice": "tato",
+     "dur": 1.72,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.45,
+      "tilt": -0.1
+     },
+     "dur": 0.01,
+     "at": 1.847
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.88
+    }
+   ]
+  },
+  {
+   "name": "five more 1",
+   "at": 30.933,
+   "len": 2.133,
+   "shot": {
+    "pos": [
+     0.38,
+     1.02,
+     1.3
+    ],
+    "look": [
+     0.42,
+     0.95,
+     -1.52
+    ],
+    "fov": 33,
+    "to": {
+     "pos": [
+      0.382,
+      1.016,
+      1.131
+     ],
+     "look": [
+      0.42,
+      0.95,
+      -1.52
+     ],
+     "fov": 33
+    },
+    "dur": 2.17,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.06
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Five more minutes.",
+     "tone": "calm",
+     "style": "eyes on the TV, mumbling",
+     "voice": "dad",
+     "dur": 1.77,
+     "caption": false,
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 18
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.114
+    }
+   ]
+  },
+  {
+   "name": "seven pm",
+   "at": 33.066,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     0.2,
+     1.5,
+     -1.3
+    ],
+    "look": [
+     0.2,
+     1.62,
+     -2.62
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.2,
+      1.51,
+      -1.406
+     ],
+     "look": [
+      0.2,
+      1.62,
+      -2.62
+     ],
+     "fov": 30
+    },
+    "dur": 0.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 19
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.057
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0.057
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.697
+    }
+   ]
+  },
+  {
+   "name": "it's seven",
+   "at": 33.766,
+   "len": 0.767,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     0.75
+    ],
+    "look": [
+     0.42,
+     0.85,
+     -1.52
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -1.103,
+      0.944,
+      0.614
+     ],
+     "look": [
+      0.42,
+      0.85,
+      -1.52
+     ],
+     "fov": 34
+    },
+    "dur": 0.91,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "It's seven.",
+     "tone": "calm",
+     "style": "flatter, a little louder",
+     "voice": "tato",
+     "dur": 0.61,
+     "caption": false,
+     "at": 0.057
+    }
+   ]
+  },
+  {
+   "name": "jingle tease",
+   "at": 34.533,
+   "len": 3.233,
+   "shot": {
+    "pos": [
+     0.4,
+     1,
+     0.85
+    ],
+    "look": [
+     0.42,
+     0.9,
+     -1.52
+    ],
+    "fov": 35,
+    "to": {
+     "pos": [
+      0.401,
+      0.994,
+      0.708
+     ],
+     "look": [
+      0.42,
+      0.9,
+      -1.52
+     ],
+     "fov": 35
+    },
+    "dur": 1.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/icecream-jingle",
+     "at": 0.05
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.65,
+      "tilt": 0.35,
+      "browY": 0.05,
+      "open": 0.5,
+      "curve": 0.3
+     },
+     "dur": 0.12,
+     "at": 0.35
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.6,
+      0.15
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.45,
+      "tilt": -0.1
+     },
+     "dur": 0.25,
+     "at": 1
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 1.24
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Five more minutes.",
+     "tone": "calm",
+     "style": "eyes on the TV, mumbling, the exact same",
+     "voice": "dad",
+     "dur": 1.71,
+     "caption": false,
+     "at": 1.3
+    }
+   ]
+  },
+  {
+   "name": "tv off",
+   "at": 37.766,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     -0.68,
+     0.9,
+     0.26
+    ],
+    "look": [
+     -1.52,
+     0.78,
+     -0.99
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.714,
+      0.895,
+      0.21
+     ],
+     "look": [
+      -1.52,
+      0.78,
+      -0.99
+     ],
+     "fov": 40
+    },
+    "dur": 0.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.327
+    },
+    {
+     "sfx": "click",
+     "at": 0.327
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 128,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.781
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 0.781
+    }
+   ]
+  },
+  {
+   "name": "tv is off",
+   "at": 38.566,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     0.75
+    ],
+    "look": [
+     0.42,
+     0.85,
+     -1.52
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.103,
+      0.944,
+      0.614
+     ],
+     "look": [
+      0.42,
+      0.85,
+      -1.52
+     ],
+     "fov": 32
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.067
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. The TV is off.",
+     "tone": "calm",
+     "style": "flat, holding the remote, the screen just went black",
+     "voice": "tato",
+     "dur": 1.5,
+     "caption": false,
+     "at": 0.127
+    }
+   ]
+  },
+  {
+   "name": "five more 3",
+   "at": 40.266,
+   "len": 2.234,
+   "shot": {
+    "pos": [
+     0.38,
+     1.02,
+     1.3
+    ],
+    "look": [
+     0.42,
+     0.95,
+     -1.52
+    ],
+    "fov": 33,
+    "to": {
+     "pos": [
+      0.384,
+      1.013,
+      1.018
+     ],
+     "look": [
+      0.42,
+      0.95,
+      -1.52
+     ],
+     "fov": 33
+    },
+    "dur": 2.31,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.167
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Five more minutes.",
+     "tone": "calm",
+     "style": "eyes on the TV, mumbling, the exact same",
+     "voice": "dad",
+     "dur": 1.71,
+     "caption": false,
+     "at": 0.227
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 12,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.214
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.214
+    }
+   ]
+  },
+  {
+   "name": "hour long",
+   "at": 42.5,
+   "len": 2.433,
+   "shot": {
+    "pos": [
+     0.03,
+     0.52,
+     1.8
+    ],
+    "look": [
+     -0.58,
+     0.42,
+     -0.55
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.019,
+      0.512,
+      1.612
+     ],
+     "look": [
+      -0.58,
+      0.42,
+      -0.55
+     ],
+     "fov": 36
+    },
+    "dur": 2.61,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.043
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "His minutes are an hour long. Number three.",
+     "tone": "calm",
+     "style": "to the camera, deadpan",
+     "voice": "tato",
+     "dur": 2.21,
+     "caption": false,
+     "at": 0.103
+    },
+    {
+     "do": "prop",
+     "id": "cup3",
+     "set": {
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.38
+    }
+   ]
+  },
+  {
+   "name": "three",
+   "at": 44.933,
+   "len": 0.733,
+   "shot": {
+    "pos": [
+     0.36,
+     0.46,
+     1.52
+    ],
+    "look": [
+     0.36,
+     0.16,
+     -0.88
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.36,
+      0.442,
+      1.376
+     ],
+     "look": [
+      0.36,
+      0.16,
+      -0.88
+     ],
+     "fov": 42
+    },
+    "dur": 0.75,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "tink",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "cup3",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "cup3",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 1.1,
+      "pupil": 0.8,
+      "tilt": 0.25,
+      "curve": 0.25
+     },
+     "dur": 0.01,
+     "at": 0.68
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.04,
+      "tilt": 0.05,
+      "curve": 0.15,
+      "open": 0.1
+     },
+     "dur": 0.01,
+     "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 128,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.714
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.714
+    }
+   ]
+  },
+  {
+   "name": "alone",
+   "at": 45.666,
+   "len": 1.167,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     0.75
+    ],
+    "look": [
+     0.42,
+     0.85,
+     -1.52
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -1.119,
+      0.945,
+      0.637
+     ],
+     "look": [
+      0.42,
+      0.85,
+      -1.52
+     ],
+     "fov": 40
+    },
+    "dur": 1.28,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.057
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Can I go alone?",
+     "tone": "question",
+     "style": "small, hopeful",
+     "voice": "tato",
+     "dur": 0.98,
+     "caption": false,
+     "at": 0.117
+    }
+   ]
+  },
+  {
+   "name": "ask mother 1",
+   "at": 46.833,
+   "len": 1.267,
+   "shot": {
+    "pos": [
+     0.38,
+     1.02,
+     1.3
+    ],
+    "look": [
+     0.42,
+     0.95,
+     -1.52
+    ],
+    "fov": 33,
+    "to": {
+     "pos": [
+      0.382,
+      1.017,
+      1.159
+     ],
+     "look": [
+      0.42,
+      0.95,
+      -1.52
+     ],
+     "fov": 33
+    },
+    "dur": 1.34,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.07
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Ask your mother.",
+     "tone": "calm",
+     "style": "eyes shut, waving it away",
+     "voice": "dad",
+     "dur": 1.04,
+     "caption": false,
+     "at": 0.13
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 1.214
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 12,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.247
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.247
+    }
+   ]
+  },
+  {
+   "name": "ping",
+   "at": 48.1,
+   "len": 1.233,
+   "shot": {
+    "pos": [
+     -0.12,
+     0.46,
+     1.15
+    ],
+    "look": [
+     -0.45,
+     0.4,
+     -0.45
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.136,
+      0.457,
+      1.07
+     ],
+     "look": [
+      -0.45,
+      0.4,
+      -0.45
+     ],
+     "fov": 34
+    },
+    "dur": 1.41,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.053
+    },
+    {
+     "who": "mom",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.093
+    },
+    {
+     "who": "mom",
+     "macro": "say",
+     "line": "Ask your father!",
+     "tone": "excited",
+     "style": "a mom shouting from the kitchen, off screen, busy",
+     "voice": "mom",
+     "dur": 1.06,
+     "caption": false,
+     "at": 0.153
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.1,
+      "open": 0.55
+     },
+     "dur": 0.01,
+     "at": 1.213
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.9,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.213
+    }
+   ]
+  },
+  {
+   "name": "pong",
+   "at": 49.333,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.38,
+     1.02,
+     1.3
+    ],
+    "look": [
+     0.42,
+     0.95,
+     -1.52
+    ],
+    "fov": 33,
+    "to": {
+     "pos": [
+      0.383,
+      1.014,
+      1.074
+     ],
+     "look": [
+      0.42,
+      0.95,
+      -1.52
+     ],
+     "fov": 33
+    },
+    "dur": 1.15,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.07
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Ask your mother!",
+     "tone": "excited",
+     "style": "louder, shouting back over his shoulder",
+     "voice": "dad",
+     "dur": 0.85,
+     "caption": false,
+     "at": 0.13
+    }
+   ]
+  },
+  {
+   "name": "ping 2",
+   "at": 50.333,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.12,
+     0.46,
+     1.15
+    ],
+    "look": [
+     -0.45,
+     0.4,
+     -0.45
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.15,
+      0.455,
+      1.006
+     ],
+     "look": [
+      -0.45,
+      0.4,
+      -0.45
+     ],
+     "fov": 34
+    },
+    "dur": 1.41,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.014
+    },
+    {
+     "who": "mom",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.09
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.13
+    },
+    {
+     "who": "mom",
+     "macro": "say",
+     "line": "Ask your father!",
+     "tone": "excited",
+     "style": "louder still, from the kitchen, fed up",
+     "voice": "mom",
+     "dur": 1.06,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "two",
+   "at": 51.733,
+   "len": 1.233,
+   "shot": {
+    "pos": [
+     0.03,
+     0.52,
+     1.8
+    ],
+    "look": [
+     -0.58,
+     0.42,
+     -0.55
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.007,
+      0.514,
+      1.659
+     ],
+     "look": [
+      -0.58,
+      0.42,
+      -0.55
+     ],
+     "fov": 36
+    },
+    "dur": 1.28,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Number two.",
+     "tone": "calm",
+     "style": "flat, head still turning back and forth",
+     "voice": "tato",
+     "dur": 1.03,
+     "caption": false,
+     "at": 0.11
+    },
+    {
+     "do": "prop",
+     "id": "cup2",
+     "set": {
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.214
+    }
+   ]
+  },
+  {
+   "name": "row of four",
+   "at": 52.966,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     0.57,
+     0.53,
+     2.22
+    ],
+    "look": [
+     0.57,
+     0.16,
+     -0.88
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      0.57,
+      0.508,
+      2.034
+     ],
+     "look": [
+      0.57,
+      0.16,
+      -0.88
+     ],
+     "fov": 42
+    },
+    "dur": 0.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "tink",
+     "at": 0.077
+    },
+    {
+     "do": "prop",
+     "id": "cup2",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.127
+    },
+    {
+     "do": "prop",
+     "id": "cup2",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.527
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.2,
+      "curve": 0.25,
+      "smirk": 0.4
+     },
+     "dur": 0.01,
+     "at": 0.881
+    }
+   ]
+  },
+  {
+   "name": "number one",
+   "at": 53.866,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     -0.12,
+     0.58,
+     1.5
+    ],
+    "look": [
+     -0.62,
+     0.45,
+     -0.7
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -0.18,
+      0.564,
+      1.236
+     ],
+     "look": [
+      -0.62,
+      0.45,
+      -0.7
+     ],
+     "fov": 38
+    },
+    "dur": 2.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.117
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "And number one... the worst one.",
+     "tone": "whisper",
+     "style": "to the camera, slow, a big reveal, hand on the giant cup",
+     "voice": "tato",
+     "dur": 2.3,
+     "caption": false,
+     "at": 0.177
+    },
+    {
+     "do": "prop",
+     "id": "giant",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.327
+    },
+    {
+     "do": "prop",
+     "id": "giant",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.677
+    },
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 19
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 2.781
+    }
+   ]
+  },
+  {
+   "name": "quarter to",
+   "at": 56.666,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.2,
+     1.5,
+     -1.3
+    ],
+    "look": [
+     0.2,
+     1.62,
+     -2.62
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.2,
+      1.51,
+      -1.406
+     ],
+     "look": [
+      0.2,
+      1.62,
+      -2.62
+     ],
+     "fov": 30
+    },
+    "dur": 0.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "clock",
+     "set": {
+      "time": 19.75
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.077
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 128,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.581
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 0.581
+    }
+   ]
+  },
+  {
+   "name": "last chance",
+   "at": 57.266,
+   "len": 2.767,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.95,
+     0.75
+    ],
+    "look": [
+     0.42,
+     0.85,
+     -1.52
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.07,
+      0.942,
+      0.568
+     ],
+     "look": [
+      0.42,
+      0.85,
+      -1.52
+     ],
+     "fov": 32
+    },
+    "dur": 2.85,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.067
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. Quarter to eight. Last chance.",
+     "tone": "calm",
+     "style": "serious, quiet, holding his breath",
+     "voice": "tato",
+     "dur": 2.55,
+     "caption": false,
+     "at": 0.127
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.15,
+      "tilt": 0.3,
+      "curve": -0.5,
+      "browY": 0.02
+     },
+     "dur": 0.01,
+     "at": 2.714
+    }
+   ]
+  },
+  {
+   "name": "my back",
+   "at": 60.033,
+   "len": 3.533,
+   "shot": {
+    "pos": [
+     0.4,
+     1,
+     0.85
+    ],
+    "look": [
+     0.42,
+     0.9,
+     -1.52
+    ],
+    "fov": 35,
+    "to": {
+     "pos": [
+      0.402,
+      0.992,
+      0.66
+     ],
+     "look": [
+      0.42,
+      0.9,
+      -1.52
+     ],
+     "fov": 35
+    },
+    "dur": 3.19,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.42,
+       -0.22
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.06
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.15
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "I can't, buddy. My back.",
+     "tone": "sad",
+     "style": "groaning, holding his lower back, very sorry for himself",
+     "voice": "dad",
+     "dur": 1.89,
+     "caption": false,
+     "at": 0.21
+    },
+    {
+     "sfx": "ai/icecream-jingle",
+     "at": 2.35
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.65
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 1.3,
+      "pupil": 0.65,
+      "tilt": 0.35,
+      "browY": 0.05,
+      "open": 0.5,
+      "curve": 0.3
+     },
+     "dur": 0.08,
+     "at": 2.8
+    },
+    {
+     "who": "dad",
+     "do": "look",
+     "to": [
+      0.4,
+      0.2
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 2.8
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 3.04
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Ice cream!",
+     "tone": "excited",
+     "style": "suddenly wide awake, shouting with joy, already running",
+     "voice": "dad",
+     "dur": 0.66,
+     "caption": false,
+     "at": 3.1
+    },
+    {
+     "who": "dad",
+     "do": "stand",
+     "dur": 0.3,
+     "at": 3.1
+    },
+    {
+     "sfx": "cushion-poof",
+     "at": 3.15
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": -0.05,
+      "browY": -0.02,
+      "curve": -0.05
+     },
+     "dur": 0.01,
+     "at": 3.48
+    },
+    {
+     "who": "dad",
+     "do": "move",
+     "to": [
+      1.3,
+      -0.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.514
+    },
+    {
+     "who": "dad",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.514
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 128,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.514
+    }
+   ]
+  },
+  {
+   "name": "bolts",
+   "at": 63.566,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0.4,
+     1.3,
+     3.3
+    ],
+    "look": [
+     0.4,
+     0.7,
+     -1
+    ],
+    "fov": 64,
+    "to": {
+     "pos": [
+      0.4,
+      1.276,
+      3.128
+     ],
+     "look": [
+      0.4,
+      0.7,
+      -1
+     ],
+     "fov": 64
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "move",
+     "to": [
+      2,
+      2.85
+     ],
+     "dur": 0.75,
+     "steps": 4,
+     "stride": 0.45,
+     "ease": "in",
+     "at": 0.037
+    },
+    {
+     "sfx": "whoosh",
+     "at": 0.117
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.117
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.4,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.467
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "eye": 0.55,
+      "tilt": -0.1,
+      "curve": -0.1,
+      "browY": -0.02
+     },
+     "dur": 0.01,
+     "at": 1.147
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 1.181
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 12,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.181
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.181
+    }
+   ]
+  },
+  {
+   "name": "number one",
+   "at": 64.766,
+   "len": 1.617,
+   "shot": {
+    "pos": [
+     -0.12,
+     0.58,
+     1.5
+    ],
+    "look": [
+     -0.62,
+     0.45,
+     -0.7
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -0.15,
+      0.572,
+      1.368
+     ],
+     "look": [
+      -0.62,
+      0.45,
+      -0.7
+     ],
+     "fov": 38
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.05,
+     "at": 0.307
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...Number one.",
+     "tone": "calm",
+     "style": "alone, deadpan, to the camera, not surprised at all",
+     "voice": "tato",
+     "dur": 0.8,
+     "caption": false,
+     "at": 0.367
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.2,
+   "see": [
+    "spud.face",
+    "dad.face"
+   ],
+   "why": "frame 0: a kid whispering to us in front of his dad asleep on the sofa, a giant gold cup beside him"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "dad",
+   "with": "sofa",
+   "from": 0,
+   "to": 63.683,
+   "checks": [
+    "shell",
+    "clipping",
+    "limb-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "sitting on the sofa"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/07-excuses-ranking/make-excuses-ranking.mjs. Rough draft for Jonny's story check (hook H2, ending E1, ranking R1). Mom is never shown (voice from the kitchen off screen right)."
+}
