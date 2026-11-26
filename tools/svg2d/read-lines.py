@@ -1,12 +1,15 @@
 """Read an episode's lines with VoxCPM2 (legend channel, 26 Nov 2026), checked by Whisper, then tempo x1.15.
   engine/voice/.venv-vox/bin/python tools/svg2d/read-lines.py <lines.json> <out_dir> [ids...]
 -> <out_dir>/<id>.wav (44.1 kHz mono, -16 LUFS) + <id>.words.json [[word, start, end], ...] (after the tempo change)
-A voice may set "pitch" (semitones, rubberband) for a younger read of the same voice.
+A voice may set "pitch" (semitones, rubberband) for a younger read of the same voice, and "af" (an ffmpeg filter
+chain run before the tempo, e.g. a brightening EQ). Every take is measured by qa/voicebright.py: MUFFLED = fix first.
 Deterministic: each line's seed is fixed; a take Whisper hears wrong is retried with the next seed (up to 4)."""
 import json, os, re, subprocess, sys
 import numpy as np, soundfile as sf, torch
 from voxcpm import VoxCPM
 from faster_whisper import WhisperModel
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "qa"))
+import voicebright
 spec = json.load(open(sys.argv[1])); out = sys.argv[2]; only = set(sys.argv[3:])
 TEMPO = spec.get("tempo", 1.15)
 os.makedirs(out, exist_ok=True)
@@ -32,11 +35,14 @@ for lid, who, text, tone in spec["lines"]:
         if miss <= 1 and abs(len(want) - len(got)) <= 1: break
     miss, w, words, seed = best
     raw = f"{out}/{lid}.raw.wav"; sf.write(raw, w, sr)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", (f"rubberband=pitch={2 ** (v['pitch'] / 12):.5f}," if v.get("pitch") else "") + f"atempo={TEMPO},loudnorm=I=-16:TP=-2,silenceremove=start_periods=1:start_threshold=-50dB",
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", (v["af"] + "," if v.get("af") else "") + (f"rubberband=pitch={2 ** (v['pitch'] / 12):.5f}," if v.get("pitch") else "") + f"atempo={TEMPO},loudnorm=I=-16:TP=-2,silenceremove=start_periods=1:start_threshold=-50dB",
                     "-ar", "44100", "-ac", "1", f"{out}/{lid}.wav"], check=True)
     os.remove(raw)
     # word times after the tempo change and the trimmed lead-in
     lead = words[0][1] if words else 0
     json.dump([[x[0], round(max(0, (x[1] - lead)) / TEMPO, 3), round(max(0, (x[2] - lead)) / TEMPO, 3)] for x in words], open(f"{out}/{lid}.words.json", "w"))
     dur = sf.info(f"{out}/{lid}.wav").duration
-    print(lid, who, f"{dur:.2f}s", "seed", seed, "miss", miss, "|", " ".join(x[0] for x in words), flush=True)
+    hi = voicebright.share(f"{out}/{lid}.wav")
+    print(lid, who, f"{dur:.2f}s", "seed", seed, "miss", miss, f"hi {hi:.2f}%" if hi is not None else "", "|", " ".join(x[0] for x in words), flush=True)
+    if hi is not None and hi < voicebright.LIMIT:
+        print(f"  MUFFLED: {lid} ({who}) has {hi:.2f} % above 3 kHz (limit {voicebright.LIMIT}); give the voice an \"af\" EQ (see qa/voicebright.py) or a new read before anyone listens", flush=True)

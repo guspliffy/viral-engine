@@ -80,7 +80,9 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   stands 6 dB or more over the music and effects in the band a phone plays (`phone-line`, under 3 dB warns), and the
   loop seam doesn't click (`loop-seam-sound`: render.mjs fades in 3 ms and out 20 ms since 7 Nov). `node qa/lines.mjs
   <sb> [--clip <mp4> --hear]` in seconds; `--hear` runs Whisper on the phone-filtered file for real-speech lines.
-  Claude can't hear audio. Say so when you deliver, and leave the judgement on how it sounds to Jonny.
+  Claude can't hear audio. Say so when you deliver, and leave the judgement on how it sounds to Jonny. What can be
+  measured first is: `python3 qa/voicebright.py <takes>` fails a take with under 0.5 % of its energy above 3 kHz (heard
+  as "through a mask"; the svg2d `read-lines.py` runs it on every take).
 
 **Publishing: the platforms' published requirements, per profile** (`"profile"` in the storyboard or `--profile`;
 `short` = TikTok + Shorts, up to 3 min; `rewards` = TikTok Creator Rewards, over 1 min). Each profile records the
