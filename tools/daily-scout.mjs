@@ -12,6 +12,7 @@
 // Telegram: TELEGRAM_BOT_TOKEN (and TELEGRAM_CHAT_ID; without it the chat that last wrote to the bot is used).
 import fs from "node:fs";
 import path from "node:path";
+import os from "node:os";
 import { spawnSync } from "node:child_process";
 import crypto from "node:crypto";
 import { pathToFileURL } from "node:url";
@@ -119,7 +120,7 @@ th{color:var(--muted);font-weight:500}td.n{text-align:right;white-space:nowrap;f
 .up{color:var(--up)}.down{color:var(--down)}.spark{width:64px;height:24px;fill:var(--accent)}h3{font-size:16px;margin:0 0 6px}.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:8px 0}.tcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.plat{display:flex;align-items:center;gap:8px;margin-top:6px}.plat .spark{margin-left:auto}.only{display:flex;gap:8px;align-items:center;margin:8px 0;font-size:14px}body.hide .card.other{display:none}.tag.look{border-color:var(--accent);color:var(--accent)}.pill{display:inline-block;font-size:12px;font-weight:600;border:1px solid currentColor;border-radius:10px;padding:0 8px;margin:0 0 6px}.first{font-size:15px;margin:0 0 4px}.hits{margin:4px 0 6px;padding-left:18px;font-size:13px}.hits li{margin:2px 0}.gap{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}details.fmt{border-bottom:1px solid var(--line);padding:8px 0}summary{cursor:pointer}
 </style></head><body>
 <h1>Trend scout</h1><p class=muted>${today} · small accounts (under ${fmt(stats.maxFollowers)} followers) in animation, funny animation, comedy and comedy sketches on TikTok and YouTube Shorts · ${stats.videos} videos read, ${stats.accounts} small accounts opened. Lessons, not copies.${firstRun ? " First run: \"new\" and \"risers\" fill in from tomorrow." : ""}</p>
-<label class=only><input type=checkbox id=only checked> Only videos that look animated, like ours (cover check)</label>
+<label class=only><input type=checkbox id=only checked> Only videos that look animated, like ours (checked on 3 frames inside each video)</label>
 <nav role=tablist>${["Today", "Formats", "Trends", "Accounts"].map((t, i) => `<button role=tab aria-selected=${i === 0} data-tab=${t}>${t}</button>`).join("")}</nav>
 <section id=Today class=on><h2>Early breakouts</h2><p class=muted>Under 4 days old and already 10x the account's followers. Act on these first.</p>${grid(early, (v) => `${v.ageDays} d old`)}
 <h2>Fastest risers since the last run</h2><p class=muted>Views gained since the last scan: the 24 and 48 hour signal.</p>${grid(risers, (v) => `+${fmt(v.gain)}`)}
@@ -151,19 +152,40 @@ document.addEventListener("click", (e) => { const f = e.target.closest(".frame[d
 </script></body></html>`;
 }
 
-// Look check (tools/look-check.py, free CLIP on the cover): marks each shown video animated (our look) or not, in place.
-// Skipped when python or its packages are missing (LOOK_PYTHON picks the interpreter).
+// Look check (tools/look-check.py, free CLIP): marks each shown video animated (our look) or not, in place. It looks at 3
+// frames from inside the video (Jonny 26 Nov: covers can mislead): YouTube's own frame thumbnails (1/2/3.jpg), TikTok
+// frames at 25/50/75% from a low-quality download (yt-dlp + ffmpeg, ~2 s a video, deleted after). Falls back to the
+// cover. Skipped when python or its packages are missing (LOOK_PYTHON picks the interpreter).
+function framesOf(v, dir) {
+  const yt = (String(v.url).match(/youtube\.com\/shorts\/([\w-]{6,})/) || [])[1];
+  if (yt) return [1, 2, 3].map((n) => `https://i.ytimg.com/vi/${yt}/${n}.jpg`);
+  const id = (String(v.url).match(/video\/(\d+)/) || [])[1];
+  if (!id || process.env.LOOK_FRAMES === "0") return v.cover ? [v.cover] : [];
+  const mp4 = path.join(dir, `${id}.mp4`);
+  spawnSync("yt-dlp", ["-q", "--no-warnings", "-f", "worst[ext=mp4]/worst", "-o", mp4, v.url], { timeout: 60e3 });
+  const dur = +spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", mp4], { encoding: "utf8" }).stdout || 0;
+  const out = [];
+  if (dur > 0) for (const f of [0.25, 0.5, 0.75]) {
+    const jpg = path.join(dir, `${id}-${f}.jpg`);
+    spawnSync("ffmpeg", ["-v", "error", "-y", "-ss", String(dur * f), "-i", mp4, "-frames:v", "1", "-vf", "scale=-2:320", jpg]);
+    if (fs.existsSync(jpg)) out.push(jpg);
+  }
+  fs.rmSync(mp4, { force: true });
+  return out.length ? out : v.cover ? [v.cover] : [];
+}
 const LOOK_NAMES = { "3d": "3D cartoon", "2d": "2D cartoon", stick: "stick figures", real: "real people", selfie: "selfie video", game: "game footage", anime: "anime", text: "text" };
-function lookCheck(vs) {
-  const ytId = (u) => (String(u).match(/youtube\.com\/shorts\/([\w-]{6,})/) || [])[1];
-  const todo = [...new Map(vs.filter(Boolean).map((v) => [v.url, ytId(v.url) ? `https://i.ytimg.com/vi/${ytId(v.url)}/hqdefault.jpg` : v.cover]).filter(([, c]) => c)).entries()];
+export function lookCheck(vs) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "look-"));
+  const uniq = [...new Map(vs.filter((v) => v?.url).map((v) => [v.url, v])).values()].slice(0, 200);
+  const todo = uniq.map((v) => [v.url, framesOf(v, dir).join("|")]).filter(([, c]) => c);
   if (!todo.length) return;
   const r = spawnSync(process.env.LOOK_PYTHON || "python3", [path.join(path.dirname(new URL(import.meta.url).pathname), "look-check.py"), ...(process.env.LOOK_MODEL_DIR ? [process.env.LOOK_MODEL_DIR] : [])],
     { input: todo.map(([u, c]) => `${u}\t${c}`).join("\n") + "\n", encoding: "utf8", maxBuffer: 16e6, timeout: 900e3 });
+  fs.rmSync(dir, { recursive: true, force: true });
   let res = {};
   try { res = JSON.parse(r.stdout); } catch { console.error(`look check skipped: ${(r.stderr || r.error?.message || "").split("\n").filter(Boolean).pop() || "no output"}`); return; }
   for (const v of vs) if (v && res[v.url]) { v.fit = res[v.url].fit; v.look = LOOK_NAMES[res[v.url].look] || res[v.url].look; }
-  console.error(`look check: ${Object.values(res).filter((x) => x && x.fit >= 0.5).length} of ${todo.length} covers look animated`);
+  console.error(`look check: ${Object.values(res).filter((x) => x && x.fit >= 0.5).length} of ${todo.length} videos look animated`);
 }
 
 function telegram(text) {

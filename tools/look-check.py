@@ -4,7 +4,9 @@ we wouldn't fit in"). Reads each video's cover image and asks a small free CLIP 
 which look it has: 3D cartoon, 2D cartoon, stick figures (our kind) or real people, selfie video, game footage, anime,
 text. fit = the share for our kinds (0-1). Covers only: a cover can mislead, so the page hides, never deletes.
 
-  printf 'url\tcover_url\n' | python3 tools/look-check.py [model_dir]   ->  {url: {fit, look}} on stdout
+  printf 'url\timage|image|image\n' | python3 tools/look-check.py [model_dir]   ->  {url: {fit, look, frames}} on stdout
+Each image is a URL or a local file (frames from inside the video, Jonny 26 Nov: a cover can mislead); the shares are
+averaged over the images that load.
 Needs: pip install onnxruntime numpy pillow tokenizers. The model (~155 MB, Xenova/clip-vit-base-patch32, MIT) is
 downloaded into model_dir (default ~/.cache/look-model) on first use.
 """
@@ -37,13 +39,19 @@ def prep(im):
     return a.transpose(2, 0, 1)[None].astype(np.float32)
 out = {}
 for line in sys.stdin:
-    url, cover = line.rstrip("\n").split("\t")
-    try:
-        raw = urllib.request.urlopen(urllib.request.Request(cover, headers={"User-Agent": "Mozilla/5.0"}), timeout=15).read()
-        vo = vis.run(None, {vis.get_inputs()[0].name: prep(Image.open(io.BytesIO(raw)))})
-        V = [o for o, m in zip(vo, vis.get_outputs()) if "embed" in m.name][0][0]; V = V / np.linalg.norm(V)
-        p = np.exp(100 * T @ V); p /= p.sum()
-        k = list(LABELS); out[url] = {"fit": round(float(sum(p[i] for i, x in enumerate(k) if x in FIT)), 2), "look": k[int(p.argmax())]}
-    except Exception:
-        out[url] = None  # cover gone or unreadable: no verdict
+    if not line.strip(): continue
+    url, imgs = line.rstrip("\n").split("\t")
+    ps = []
+    for img in imgs.split("|"):
+        try:
+            raw = open(img, "rb").read() if os.path.exists(img) else urllib.request.urlopen(urllib.request.Request(img, headers={"User-Agent": "Mozilla/5.0"}), timeout=15).read()
+            vo = vis.run(None, {vis.get_inputs()[0].name: prep(Image.open(io.BytesIO(raw)))})
+            V = [o for o, m in zip(vo, vis.get_outputs()) if "embed" in m.name][0][0]; V = V / np.linalg.norm(V)
+            p = np.exp(100 * T @ V); ps.append(p / p.sum())
+        except Exception:
+            pass  # image gone or unreadable
+    if not ps:
+        out[url] = None; continue
+    p = np.mean(ps, axis=0); k = list(LABELS)
+    out[url] = {"fit": round(float(sum(p[i] for i, x in enumerate(k) if x in FIT)), 2), "look": k[int(p.argmax())], "frames": len(ps)}
 json.dump(out, sys.stdout)
