@@ -93,6 +93,9 @@ import { TRAIN_KINDS, TRAIN_GRIPS } from "./props-score-train.js";   // happines
 import { SCORE_ITEMS_KINDS, SCORE_ITEMS_GRIPS } from "./props-score-items.js";   // happiness score film: hill bench, kettle, mirror, reflections
 import { SMALL_KINDS, SMALL_GRIPS } from "./props-score-small.js";   // happiness score film: speaker, cups, bun, tape, satchel, hats
 import { MONALISA_KINDS, MONALISA_GRIPS } from "./props-monalisa.js";
+import { EATERY_KINDS, EATERY_GRIPS } from "./props-eatery.js";   // kid vs dad 04 waiter jokes: roundtable, hoopchair, dinecarpet
+import { WAITER_KINDS, WAITER_GRIPS } from "./props-waiter.js";   // kid vs dad 04 waiter jokes: tallmenu, servetray, mealplate, tipbill
+import { EATERYDOOR_KINDS } from "./props-eatery-door.js";   // kid vs dad 04 waiter jokes: kitchendoor (T2 bench-local line; the director registers)
 import { GRAVROOM_KINDS } from "./props-gravroom.js";   // fact what-if 02 gravity: room props (sofa, TV, tunnel, haze)
 import { GRAVCITY_KINDS } from "./props-gravcity.js";   // fact what-if 02 gravity: street, tower, city
 import { GRAVSKY_KINDS } from "./props-gravsky.js";  // fact what-if 02 gravity: sky, Moon, satellites, clouds   // fact story 01 Mona Lisa: painting, hooks, trunk, newspaper, day pad
@@ -110,6 +113,7 @@ import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinerco
 import { DRIVETHRU_KINDS } from "./props-drivethru.js";   // kid vs dad 02: drivethru, burgersign, trafficlight, trafficcone, speakerpost, menuboard
 import { FRIDGE_KINDS } from "./props-fridge.js";   // kid vs dad 02: openfridge
 import { FOODHOME_KINDS } from "./props-foodhome.js";   // kid vs dad 02: wrapburger, fogglass, cablight, sweatbead
+import { GUM_KINDS } from "./props-gum.js";   // kid vs dad 06: gumbubble, gumstick, eggtimer, ovenmitts, colanderhat, basketarmour, potlid, xrayfilm
 import { CARROTS_KINDS } from "./props-carrots.js";   // kid vs dad 05: carrotstick, carrotpile, carrotbowl, carrotbag, crumbs
 import { CARROTS_JAR_KINDS } from "./props-carrots-jar.js";   // kid vs dad 05: pantryshelf, cookiejar, jarstool
 import { CARROTS_WEAR_KINDS } from "./props-carrots-wear.js";   // kid vs dad 05: nvgoggles, eyeshine, moonlamp, daywindow
@@ -191,6 +195,9 @@ import { HSTAIRS_KINDS, HSTAIRS_GRIPS } from "./props-heavenstairs.js";   // pot
 import { HTOP_KINDS, HTOP_GRIPS } from "./props-heaventop.js";   // heaven steps: gate, podium, ledger
 import { HSKY_KINDS, HSKY_GRIPS } from "./props-heavensky.js";   // heaven steps: sky, zone clouds, hell floor, hatch, parasol
 import { HITEMS_KINDS, HITEMS_GRIPS } from "./props-heavenitems.js";   // heaven steps: quill, case, flower, can, soapbox, jar
+import { HSEARCH_KINDS, HSEARCH_GRIPS } from "./props-heavensearch.js";   // potato desk 14: search screen, trapdoor, search tablet, casserole, hell button
+import { HTERMS_KINDS, HTERMS_GRIPS } from "./props-heaventerms.js";   // heaven terms: scroll, stamp, mat
+import { HHOME_KINDS, HHOME_GRIPS } from "./props-heavenhome.js";   // heaven terms: cloud home, bed, harp, neighbour, dawn sky
 import { SKIPCAR_KINDS } from "./props-skipcar.js";
 import { SKIPROOM_KINDS } from "./props-skiproom.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
@@ -1526,6 +1533,7 @@ Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);  
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, DRIVETHRU_KINDS, FRIDGE_KINDS, FOODHOME_KINDS);   // kid vs dad 02 (props-drivethru.js, props-fridge.js, props-foodhome.js)
+Object.assign(KINDS, GUM_KINDS);   // kid vs dad 06 (props-gum.js)
 Object.assign(KINDS, CARROTS_KINDS, CARROTS_JAR_KINDS, CARROTS_WEAR_KINDS, CARROTS_HALL_KINDS);   // kid vs dad 05 (props-carrots*.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
 Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
@@ -1586,6 +1594,8 @@ Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, H
 Object.assign(KINDS, NORSE_SPEAR_KINDS, NORSE_RAVEN_KINDS, NORSE_HEAD_KINDS, NORSE_CAVE_KINDS, NORSE_WELL_KINDS, NORSE_TREE_KINDS, NORSE_WIND_KINDS, NORSE_ITEMS_KINDS, NORSE_CLASS_KINDS); Object.assign(GRIPS, NORSE_SPEAR_GRIPS, NORSE_RAVEN_GRIPS, NORSE_HEAD_GRIPS, NORSE_CAVE_GRIPS, NORSE_WELL_GRIPS, NORSE_TREE_GRIPS, NORSE_WIND_GRIPS, NORSE_ITEMS_GRIPS, NORSE_CLASS_GRIPS);   // norse myth 01 wednesday (props-norse-*.js)
 Object.assign(KINDS, KRAMPUS_LANE_KINDS, KRAMPUS_BEAST_KINDS, KRAMPUS_NICK_KINDS, KRAMPUS_BOOTS_KINDS, KRAMPUS_RUN_KINDS, KRAMPUS_CAT_KINDS); Object.assign(GRIPS, KRAMPUS_LANE_GRIPS, KRAMPUS_BEAST_GRIPS, KRAMPUS_NICK_GRIPS, KRAMPUS_BOOTS_GRIPS, KRAMPUS_RUN_GRIPS, KRAMPUS_CAT_GRIPS);   // krampus myth 01 (props-krampus-*.js)
 Object.assign(KINDS, HSTAIRS_KINDS, HTOP_KINDS, HSKY_KINDS, HITEMS_KINDS); Object.assign(GRIPS, HSTAIRS_GRIPS, HTOP_GRIPS, HSKY_GRIPS, HITEMS_GRIPS);   // potato desk heaven steps
+Object.assign(KINDS, HTERMS_KINDS, HHOME_KINDS); Object.assign(GRIPS, HTERMS_GRIPS, HHOME_GRIPS);   // potato desk heaven terms
+Object.assign(KINDS, HSEARCH_KINDS); Object.assign(GRIPS, HSEARCH_GRIPS);   // potato desk 14 heaven search
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
@@ -1594,6 +1604,9 @@ Object.assign(KINDS, TRAIN_KINDS); Object.assign(GRIPS, TRAIN_GRIPS);   // happi
 Object.assign(KINDS, SCORE_ITEMS_KINDS); Object.assign(GRIPS, SCORE_ITEMS_GRIPS);   // happiness score film (props-score-items.js)
 Object.assign(KINDS, SMALL_KINDS); Object.assign(GRIPS, SMALL_GRIPS);   // happiness score film (props-score-small.js)
 Object.assign(KINDS, MONALISA_KINDS); Object.assign(GRIPS, MONALISA_GRIPS);   // fact story 01 Mona Lisa (props-monalisa.js)
+Object.assign(KINDS, WAITER_KINDS); Object.assign(GRIPS, WAITER_GRIPS);   // kid vs dad 04 waiter jokes (props-waiter.js)
+Object.assign(KINDS, EATERY_KINDS); Object.assign(GRIPS, EATERY_GRIPS);   // kid vs dad 04 waiter jokes (props-eatery.js)
+Object.assign(KINDS, EATERYDOOR_KINDS);   // kid vs dad 04 waiter jokes (props-eatery-door.js)
 Object.assign(KINDS, GRAVROOM_KINDS, GRAVCITY_KINDS, GRAVSKY_KINDS, GRAVRUIN_KINDS, GRAVSTRIKE_KINDS, GRAVALPS_KINDS, GRAVMOON_KINDS);   // fact what-if 02 gravity (props-gravroom.js, props-gravcity.js, props-gravsky.js)
 Object.assign(KINDS, SPINROOM_KINDS, SPINSKY_KINDS, SPINANDES_KINDS, SPINSTREET_KINDS, SPINSPACE_KINDS);   // fact what-if 03 spin
 Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS, SPREE_KINDS, TOW_KINDS, HARBOUR_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)

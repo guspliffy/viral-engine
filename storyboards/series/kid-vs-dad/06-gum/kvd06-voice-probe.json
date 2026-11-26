@@ -1,0 +1,321 @@
+{
+ "id": "kvd06-voice-probe",
+ "title": "Kid vs Dad 06 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   69.7,
+   69.7
+  ]
+ },
+ "cast": [
+  {
+   "id": "rep",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 69.7,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Swallowed. Don't. Move.",
+     "tone": "calm",
+     "style": "frozen, deadly serious, a bomb-squad whisper, one word at a time",
+     "voice": "dad",
+     "dur": 1.7,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Swallowed. Is it deadly?",
+     "tone": "whisper",
+     "style": "tense, crouched, a war correspondent under cover",
+     "voice": "reaper",
+     "dur": 2.1,
+     "caption": false,
+     "at": 2.9
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Tato, age seven, swallowed his gum.",
+     "tone": "calm",
+     "style": "grave, low, a correspondent under cover",
+     "voice": "reaper",
+     "dur": 3.7,
+     "caption": false,
+     "at": 6
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And in this house, there is one rule: swallow your gum, and your stomach glues shut. For seven years.",
+     "tone": "calm",
+     "style": "slow, ominous, a pause before the last words",
+     "voice": "reaper",
+     "dur": 8.1,
+     "caption": false,
+     "at": 10.7
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Dinner's in one minute. If it's glued, nothing goes down.",
+     "tone": "calm",
+     "style": "grim, setting the egg timer, a man defusing a bomb",
+     "voice": "dad",
+     "dur": 4.5,
+     "caption": false,
+     "at": 19.8
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Mitts.",
+     "tone": "calm",
+     "style": "short, a surgeon asking for a tool",
+     "voice": "dad",
+     "dur": 0.9,
+     "caption": false,
+     "at": 25.3
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "It's sticking.",
+     "tone": "whisper",
+     "style": "horrified whisper, ear on the glass",
+     "voice": "dad",
+     "dur": 1.3,
+     "caption": false,
+     "at": 27.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Sir... that was your stomach.",
+     "tone": "question",
+     "style": "suspicious, slow, mic pushed in",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 29.5
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Mine is fine.",
+     "tone": "calm",
+     "style": "too quick, too calm, a lie",
+     "voice": "dad",
+     "dur": 1.7,
+     "caption": false,
+     "at": 33
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Helmet.",
+     "tone": "calm",
+     "style": "short, grim, pulling it on",
+     "voice": "dad",
+     "dur": 0.9,
+     "caption": false,
+     "at": 35.7
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Red wire... or blue wire?",
+     "tone": "whisper",
+     "style": "sweating, tongs hovering over the sweater",
+     "voice": "dad",
+     "dur": 2.5,
+     "caption": false,
+     "at": 37.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "It's my sweater.",
+     "tone": "calm",
+     "style": "flat, bored, lying on the table",
+     "voice": "tato",
+     "dur": 1.7,
+     "caption": false,
+     "at": 41.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Want one?",
+     "tone": "calm",
+     "style": "innocent, holding out a gum",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 43.8
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Get that away from me!",
+     "tone": "excited",
+     "style": "panicked, jumping back as if from a snake",
+     "voice": "dad",
+     "dur": 2.5,
+     "caption": false,
+     "at": 46.1
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "He's been through this before.",
+     "tone": "whisper",
+     "style": "quiet, knowing, to the camera",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 49.6
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Full armour. The moment of truth.",
+     "tone": "calm",
+     "style": "hushed, tense, the countdown",
+     "voice": "reaper",
+     "dur": 2.9,
+     "caption": false,
+     "at": 53.1
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "One spoon. Slowly... slowly...",
+     "tone": "whisper",
+     "style": "trembling, behind the pot-lid shield",
+     "voice": "dad",
+     "dur": 2.1,
+     "caption": false,
+     "at": 57
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Still works.",
+     "tone": "calm",
+     "style": "flat, after a burp, unimpressed",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 60.1
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Impossible.",
+     "tone": "whisper",
+     "style": "stunned, lowering the shield",
+     "voice": "dad",
+     "dur": 0.9,
+     "caption": false,
+     "at": 62.4
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Then what... is this?",
+     "tone": "question",
+     "style": "slow, holding up an X-ray, a reporter with proof",
+     "voice": "reaper",
+     "dur": 2.1,
+     "caption": false,
+     "at": 64.3
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "...That's different.",
+     "tone": "calm",
+     "style": "a dry swallow, sweating, caught",
+     "voice": "dad",
+     "dur": 1.3,
+     "caption": false,
+     "at": 67.4
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Kid vs Dad 06: makes and measures every take. rep stands in as Spud's body; its voice is reaper."
+}

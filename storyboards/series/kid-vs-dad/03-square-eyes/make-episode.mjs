@@ -291,7 +291,7 @@ expr(r3(T[23] - 0.1), "spud", { eye: 0.85, curve: 0, tilt: 0, browY: -0.02 }, 0.
 say(23);
 
 // ---------------------------------------------------------------- label + storyboard
-cap(0, 3.2, LABEL, LABY, false, { size: 58, kinetic: false });
+if (!RHY) cap(0, 3.2, LABEL, LABY, false, { size: 58, kinetic: false });   // the rhyme cut has no label: Jonny adds it himself in TikTok (25 Nov, carrots + gum); its text goes in the post pack
 const beats = c.beats(shots, END);
 
 const sb = {
