@@ -53,9 +53,13 @@ videos, accounts, median views and views per day since posting (young videos are
 Verdict, last week vs the week before: reward = the SAME accounts' views with the format (so a sample of today's active
 accounts can't fake it; pooled median when fewer than 3 accounts have both sides), supply = accounts posting per week and
 accounts born. RISING (more accounts, still pays), CROWDED (more accounts, each video gets less), FADING, HEATING UP,
-STEADY, NEW. Newcomer odds: of the new accounts (under 150 days) that tried it in the last 7 days (Jonny 26 Nov: trends
-move fast, a 2-week-old hit can be over today), how many beat their own usual views 2x ("5 of 7"): if new accounts still
-win, the door is open. Their videos are listed fastest first (views per day since posting). Videos under 2 days are left out of the
+STEADY, NEW. Newcomer odds: of the accounts NEW TO THE FORMAT (first format video in the last 7 days, with 14+ days of
+history before it that has none), how many beat their own usual views 2x ("5 of 7"): if newcomers still win, the door is
+open (Jonny 26 Nov: trends move fast, a 2-week-old hit can be over today). Their videos are listed fastest first.
+Fast signal: share of sampled accounts posting it, last 3 days vs the 3 before, S = (C + 0.5) / (N + 1); HEATING UP at
+x1.5 with 3+ accounts, COOLING at x0.65. A rise that disappears without its biggest account is shown as a lead (fragile).
+These three came from a ChatGPT research read (26 Nov); its other ideas (age-matched 48 h views from the daily snapshots,
+a fixed account panel, weekly replay scoring) wait for a few weeks of history. Videos under 2 days are left out of the
 weeks. `--from <dir>/rows.json` re-judges a run without fetching. Limits: only accounts that are active now are found.
 YouTube side: Shorts search (this week + month) finds the channels, their feeds give the 15 latest Shorts with dates
 (about 2 weeks for a daily poster), enough for the same week-vs-week read; when most channels' 15 don't
