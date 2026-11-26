@@ -81,9 +81,10 @@ export function page({ early, fresh, risers, repeats, trend, found, firstRun, st
   const play = (u) => tt(u) ? `data-play="https://www.tiktok.com/player/v1/${tt(u)}?loop=1&rel=0"` : yt(u) ? `data-play="https://www.youtube.com/embed/${yt(u)}"` : "";
   // covers: YouTube's are stable; TikTok's signed links (from the scan) expire after some days, then the black frame shows
   const thumb = (v) => yt(v.url) ? `https://i.ytimg.com/vi/${yt(v.url)}/oar2.jpg` : v.cover;
-  const card = (v, note) => `<article class=card><div class=frame ${play(v.url)}>${thumb(v) ? `<img src="${esc(thumb(v))}" alt="" loading=lazy referrerpolicy=no-referrer onerror="this.remove()">` : ""}<button class=go aria-label="Play">&#9654;</button></div>
+  const lookCls = (v) => v.fit == null ? "" : v.fit >= 0.5 ? " ours" : v.fit < 0.25 ? " other" : "";
+  const card = (v, note) => `<article class="card${lookCls(v)}"><div class=frame ${play(v.url)}>${thumb(v) ? `<img src="${esc(thumb(v))}" alt="" loading=lazy referrerpolicy=no-referrer onerror="this.remove()">` : ""}<button class=go aria-label="Play">&#9654;</button></div>
 <div class=meta><b>${fmt(v.views)}</b> views · <b>${v.followers ? Math.round(v.views / Math.max(v.followers, 1)) + "x" : "?"}</b> followers · ${esc(v.name && !/^UC[\w-]{22}$/.test(v.name) ? v.name : v.account)} (${fmt(v.followers)})${note ? ` · ${note}` : ""}
-<p>${esc((v.title || "").replace(/\s+/g, " ").slice(0, 110))}</p>${v.flags ? `<span class=tag>${esc(v.flags)}</span>` : ""}${v.duration && v.duration < 50 ? `<span class=tag>${v.duration} s: stretch to 80 s</span>` : ""}
+<p>${esc((v.title || "").replace(/\s+/g, " ").slice(0, 110))}</p>${v.look ? `<span class="tag look">${esc(v.look)}${v.fit >= 0.5 ? " · our look" : ""}</span>` : ""}${v.flags ? `<span class=tag>${esc(v.flags)}</span>` : ""}${v.duration && v.duration < 50 ? `<span class=tag>${v.duration} s: stretch to 80 s</span>` : ""}
 <a href="${esc(v.url)}" target=_blank rel=noopener>open</a></div></article>`;
   const grid = (vs, note) => vs.length ? `<div class=grid>${vs.map((v) => card(v, note && note(v))).join("")}</div>` : `<p class=muted>None today.</p>`;
   const spark = (xs) => { const m = Math.max(...xs, 1); return `<svg class=spark viewBox="0 0 ${xs.length * 8} 24" aria-hidden=true>${xs.map((x, i) => `<rect x="${i * 8 + 1}" y="${24 - Math.max(1, (22 * x) / m)}" width=6 height="${Math.max(1, (22 * x) / m)}"/>`).join("")}</svg>`; };
@@ -115,9 +116,10 @@ nav button[aria-selected=true]{background:var(--fg);color:var(--bg)}section{disp
 .meta{padding:8px 10px;font-size:13px}.meta p{margin:4px 0 6px}.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:10px;padding:0 6px;margin-right:4px;color:var(--muted)}
 table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;font-size:14px;vertical-align:middle}
 th{color:var(--muted);font-weight:500}td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.up{color:var(--up)}.down{color:var(--down)}.spark{width:64px;height:24px;fill:var(--accent)}h3{font-size:16px;margin:0 0 6px}.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:8px 0}.tcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.plat{display:flex;align-items:center;gap:8px;margin-top:6px}.plat .spark{margin-left:auto}.pill{display:inline-block;font-size:12px;font-weight:600;border:1px solid currentColor;border-radius:10px;padding:0 8px;margin:0 0 6px}.first{font-size:15px;margin:0 0 4px}.hits{margin:4px 0 6px;padding-left:18px;font-size:13px}.hits li{margin:2px 0}.gap{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}details.fmt{border-bottom:1px solid var(--line);padding:8px 0}summary{cursor:pointer}
+.up{color:var(--up)}.down{color:var(--down)}.spark{width:64px;height:24px;fill:var(--accent)}h3{font-size:16px;margin:0 0 6px}.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:8px 0}.tcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}.plat{display:flex;align-items:center;gap:8px;margin-top:6px}.plat .spark{margin-left:auto}.only{display:flex;gap:8px;align-items:center;margin:8px 0;font-size:14px}body.hide .card.other{display:none}.tag.look{border-color:var(--accent);color:var(--accent)}.pill{display:inline-block;font-size:12px;font-weight:600;border:1px solid currentColor;border-radius:10px;padding:0 8px;margin:0 0 6px}.first{font-size:15px;margin:0 0 4px}.hits{margin:4px 0 6px;padding-left:18px;font-size:13px}.hits li{margin:2px 0}.gap{border-top:1px solid var(--line);margin-top:8px;padding-top:8px}details.fmt{border-bottom:1px solid var(--line);padding:8px 0}summary{cursor:pointer}
 </style></head><body>
 <h1>Trend scout</h1><p class=muted>${today} · small accounts (under ${fmt(stats.maxFollowers)} followers) in animation, funny animation, comedy and comedy sketches on TikTok and YouTube Shorts · ${stats.videos} videos read, ${stats.accounts} small accounts opened. Lessons, not copies.${firstRun ? " First run: \"new\" and \"risers\" fill in from tomorrow." : ""}</p>
+<label class=only><input type=checkbox id=only checked> Only videos that look animated, like ours (cover check)</label>
 <nav role=tablist>${["Today", "Formats", "Trends", "Accounts"].map((t, i) => `<button role=tab aria-selected=${i === 0} data-tab=${t}>${t}</button>`).join("")}</nav>
 <section id=Today class=on><h2>Early breakouts</h2><p class=muted>Under 4 days old and already 10x the account's followers. Act on these first.</p>${grid(early, (v) => `${v.ageDays} d old`)}
 <h2>Fastest risers since the last run</h2><p class=muted>Views gained since the last scan: the 24 and 48 hour signal.</p>${grid(risers, (v) => `+${fmt(v.gain)}`)}
@@ -141,9 +143,27 @@ document.querySelectorAll("nav button").forEach((b) => b.onclick = () => {
   try { localStorage.setItem("tab", b.dataset.tab); } catch (e) {}
 });
 try { const t = localStorage.getItem("tab"); if (t) document.querySelector('nav button[data-tab="' + t + '"]')?.click(); } catch (e) {}
+const only = document.getElementById("only"), setOnly = () => document.body.classList.toggle("hide", only.checked);
+try { const k = localStorage.getItem("only"); if (k != null) only.checked = k === "1"; } catch (e) {}
+only.onchange = () => { setOnly(); try { localStorage.setItem("only", only.checked ? "1" : "0"); } catch (e) {} }; setOnly();
 document.addEventListener("click", (e) => { const f = e.target.closest(".frame[data-play]"); if (!f || f.querySelector("iframe")) return;
   f.innerHTML = '<iframe src="' + f.dataset.play + '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen loading=lazy></iframe>'; });
 </script></body></html>`;
+}
+
+// Look check (tools/look-check.py, free CLIP on the cover): marks each shown video animated (our look) or not, in place.
+// Skipped when python or its packages are missing (LOOK_PYTHON picks the interpreter).
+const LOOK_NAMES = { "3d": "3D cartoon", "2d": "2D cartoon", stick: "stick figures", real: "real people", selfie: "selfie video", game: "game footage", anime: "anime", text: "text" };
+function lookCheck(vs) {
+  const ytId = (u) => (String(u).match(/youtube\.com\/shorts\/([\w-]{6,})/) || [])[1];
+  const todo = [...new Map(vs.filter(Boolean).map((v) => [v.url, ytId(v.url) ? `https://i.ytimg.com/vi/${ytId(v.url)}/hqdefault.jpg` : v.cover]).filter(([, c]) => c)).entries()];
+  if (!todo.length) return;
+  const r = spawnSync(process.env.LOOK_PYTHON || "python3", [path.join(path.dirname(new URL(import.meta.url).pathname), "look-check.py"), ...(process.env.LOOK_MODEL_DIR ? [process.env.LOOK_MODEL_DIR] : [])],
+    { input: todo.map(([u, c]) => `${u}\t${c}`).join("\n") + "\n", encoding: "utf8", maxBuffer: 16e6, timeout: 900e3 });
+  let res = {};
+  try { res = JSON.parse(r.stdout); } catch { console.error(`look check skipped: ${(r.stderr || r.error?.message || "").split("\n").filter(Boolean).pop() || "no output"}`); return; }
+  for (const v of vs) if (v && res[v.url]) { v.fit = res[v.url].fit; v.look = LOOK_NAMES[res[v.url].look] || res[v.url].look; }
+  console.error(`look check: ${Object.values(res).filter((x) => x && x.fit >= 0.5).length} of ${todo.length} covers look animated`);
 }
 
 function telegram(text) {
@@ -191,6 +211,7 @@ async function main() {
   const used = new Set(found.flatMap((f) => f.examples.map((e) => e.url)));
   const watch = vids.filter((v) => small(v) && !used.has(v.url) && (v.duration == null || v.duration >= so.minSeconds))
     .sort((a, b) => crypto.createHash("md5").update(today + a.url).digest("hex").localeCompare(crypto.createHash("md5").update(today + b.url).digest("hex"))).slice(0, 10);
+  lookCheck([...early, ...freshBreaks, ...risers.slice(0, 15), ...repeats.flatMap((a) => [a.best, a.worst]), ...found.flatMap((f) => f.examples), ...watch]);
   const html = page({ watch, found, early, fresh: freshBreaks, risers: risers.filter((r) => r.gain > 0).slice(0, 15), repeats, trend: h2.trend, firstRun,
     stats: { videos: vids.length, accounts: cands.length, maxFollowers: so.maxFollowers } });
   fs.writeFileSync(path.join(o.site, "index.html"), html);
