@@ -8,6 +8,8 @@
 //                 is left alone: rocks and plants sit in it on purpose). A prop hung or floating on purpose names it in its spec: "staged": "<why>"
 //                 (or a release with keep: "air" and a reason).
 //   physics-tween with "physics": true, a loose prop brought down 15 cm or more by a "prop" tween (use c.drop / c.throw)
+//   physics-owned a "prop" tween of x/y/z (or a second throw) on a prop the physics bake already owns: ignored, the body
+//                 keeps tumbling (one prop per throw, a tweened flight, or grab it first)
 //   hold-owner    a held prop that a "prop" tween also moves (two writers: the hand and the tween). Move the
 //                 hand (arm poses on the prop) and let the prop follow, or let go first.
 //   tween-cut     a "prop" tween that a later "prop" action of the same prop overwrites while it still runs (one of
@@ -24,7 +26,7 @@ export const SUPPORT = { gap: 10, hold: 0.2 };
 
 export function supportResults(layout, sb = null) {
   const S = layout.samples || [], out = [];
-  if (!S.some((s) => (s.props || []).some((p) => p.support))) return [...physicsTweens(sb), ...tweenCuts(sb)];
+  if (!S.some((s) => (s.props || []).some((p) => p.support))) return [...physicsTweens(sb), ...physicsOwned(sb), ...tweenCuts(sb)];
   const step = S.length > 1 ? S[1].t - S[0].t : 0.1;
   const runs = new Map();   // prop -> [{ from, to, gap, kind }]
   const add = (id, kind, t, gap) => {
@@ -47,7 +49,36 @@ export function supportResults(layout, sb = null) {
       : { level: gateLevel(sb, "holds"), check: "prop-support", msg: `${r.id} sinks ${Math.round(-r.gap / 10)} cm into what is under it at ${r.from.toFixed(2)}-${(r.to + step).toFixed(2)}s` });
   }
   if (!out.length) out.push({ level: "pass", check: "prop-support", msg: "every prop is held, riding, in flight, resting or staged with a reason" });
-  out.push(...physicsTweens(sb), ...tweenCuts(sb));
+  out.push(...physicsTweens(sb), ...physicsOwned(sb), ...tweenCuts(sb));
+  return out;
+}
+
+// physics-owned (26 Nov, from Country vs Country 01): once the bake owns a prop (a throw, drop or knock, or a let-go
+// it bakes) it keeps it until a hand grabs it (engine/page/physics.js segs: end Infinity); a later "prop" tween of its
+// place (x, y, z) or a second throw is ignored, so a prop "hidden" after a throw by a tween to y -60 keeps tumbling
+// through the later shots (draft 2 of that clip: nine reused belt goods fell through faces and bodies for 50 s).
+// Warn on each such action: give each throw its own prop, tween the flight instead, or "settle" it and stage it.
+export function physicsOwned(sb) {
+  if (!sb?.physics) return [];
+  const A = sb.actions || [], out = [], wear = new Set((sb.props || []).filter((p) => p.wear).map((p) => p.id));
+  const byProp = new Map();
+  for (const a of A) {
+    const id = a.do === "prop" ? a.id : (a.do === "physics" || a.do === "grab" || a.do === "release") ? a.prop : null;
+    if (!id || wear.has(id)) continue;
+    (byProp.get(id) || byProp.set(id, []).get(id)).push(a);
+  }
+  for (const [id, L] of byProp) {
+    let owned = null;
+    for (const a of L.sort((x, y) => x.at - y.at)) {
+      if (a.do === "grab") { owned = null; continue; }
+      if (a.do === "physics" && a.mode !== "settle") { if (owned) out.push({ level: "warn", check: "physics-owned", msg: `${id}: a second physics "${a.mode}" at ${a.at.toFixed(2)}s while the bake still owns it from ${owned.at.toFixed(2)}s: it is ignored (grab it first, or use another prop)` }); else owned = a; continue; }
+      if (a.do === "release" && !a.to && a.keep !== "air") { owned = owned || a; continue; }
+      if (owned && a.do === "prop" && a.set && PLACE_KEYS.some((k) => k in a.set) && !a.reason) {
+        out.push({ level: "warn", check: "physics-owned", msg: `${id}: its "prop" tween at ${a.at.toFixed(2)}s (${PLACE_KEYS.filter((k) => k in a.set).join(", ")}) is ignored: the physics bake owns it since ${owned.at.toFixed(2)}s (${owned.mode || owned.do}) and keeps it falling and tumbling. One prop per throw, a tweened flight, or grab it first` });
+      }
+    }
+  }
+  if (!out.length) out.push({ level: "pass", check: "physics-owned", msg: "no tween or second throw on a prop the physics bake owns" });
   return out;
 }
 
