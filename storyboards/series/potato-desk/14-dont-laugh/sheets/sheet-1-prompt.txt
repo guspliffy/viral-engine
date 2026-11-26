@@ -1,0 +1,30 @@
+# Potato Desk 14 "Don't. Laugh." sheet 1 of 1, 12 panels, tall cells (Codex gpt-image-2, driver gpt-6-luna low)
+# References (full paths on the PC, pass them as referenced_image_paths):
+#   ...\codex-image-trial\out\credit-crime\court-day-set-cast.png   (frames of the finished Court Day video: set + judge)
+#   ...\codex-image-trial\references\spud-reference-sheet-2026-11-11.png
+#   the Wedge and Mash reference sheets (wedge*.png, mash*.png in ...\codex-image-trial\out\ or references\)
+
+PROMPT START
+Use case: illustration-story. Create ONE finished full-colour twelve-panel storyboard contact sheet for a 60-second vertical animated courtroom comedy sketch. Image size 1536x1024 landscape. EXACTLY TWELVE panels in six columns and two rows (row 1 = 01-06, row 2 = 07-12). Every cell is a TALL vertical phone frame (portrait), thin charcoal gutters, a small panel-number badge in each cell's top corner showing its own number, no title or header. Match the look of the first attached reference (frames from the finished video): soft cel-shaded 3D cartoon with hand-drawn line texture, warm beige courtroom, the whole frame fully sharp, no depth of field or motion blur. The characters must match the references exactly in shape, size and clothes. No speech bubbles, no captions, no comic impact marks, no speed lines, no floating symbols or sparkles. The ONLY words allowed anywhere are the small "JUDGE VIKING" plate on the bench. Hands have exactly three fingers and a thumb. Every character is a potato: no humans.
+
+THE SET (same as the reference): left, a tall dark-wood judge's bench with a small brass plate "JUDGE VIKING", a short desk microphone, a stack of papers and a small wooden axe used as a gavel; on the wall right of the judge a dark navy board with a brass frame (blank until panel 09); beige plaster wall with a thin wooden rail, dark wainscot, grey checker floor; a simple wooden witness chair right of the bench. The defendant and his lawyer stand on the floor in front of the bench. On the right, a small wooden JURY BOX with three jurors: Chip (the smallest round potato, yellow hoodie, from the Chip sheet) and two other plain golden potatoes in grey cardigans; they are visible in the wide shots, all trying hard to keep a straight face. The camera is never locked: vary the framing from panel to panel (wide, two-shot, close-up, low angle on the judge).
+
+THE JUDGE (the Viking from the reference): a golden potato with green eyes and stern thick brows, a black judge's robe, black gloves, seen from the chest up behind the bench. IMPORTANT: in panels 01 to 10 the TOP of his head is NEVER visible: the frame edge cuts him off at the eyebrows (or something in the foreground hides it). Only panels 11 and 12 show his whole head.
+THE DEFENDANT = SPUD: the potato from the Spud reference sheet: teal knit sweater, one leaf on top, brown boots. He is trying desperately not to laugh.
+THE LAWYER = WEDGE: the biggest friend from the Wedge sheet, red bomber jacket with a cream collar, plus a thin dark tie; sure of himself, serious.
+THE WITNESS = MASH: the tall narrow potato from the Mash sheet, charcoal hoodie, holding three bright party balloons on strings.
+THE SECRET: the judge's "wig" is a big golden crispy HASH BROWN (a flat shredded fried potato patty) sitting on his head like a toupee, with one bite missing and a little steam rising. Shown ONLY from panel 11; hints in 04, 08 and 10.
+
+PANELS:
+01 | Wide, slightly low. The judge brings the axe gavel down hard, his head cut off by the top frame edge at the eyebrows, glaring down. Spud stands in front of the bench, guilty, Wedge beside him; the jury box on the right.
+02 | Two-shot: Wedge leans down and whispers into Spud's ear behind a cupped hand, deadly serious; Spud's eyes wide.
+03 | Close-up: Spud's eyes drift UP toward the judge's head (off frame) while Wedge's big hand on his chin turns his face back DOWN.
+04 | Medium on the judge, head cut at the eyebrows; one crispy golden shred pokes into the frame from the top edge above him. Nobody reacts.
+05 | The courtroom door swings open: Mash walks in with three party balloons and a big grin. Foreground: Spud's horrified face.
+06 | Mash sits in the witness chair and the cushion squishes; Spud bites his lip hard, cheeks red, shaking; behind him in the jury box Chip clamps both hands over his mouth.
+07 | Medium on Mash: one hand raised for the oath, the other pressing a balloon to his mouth, cheeks puffed with its air.
+08 | The beige wall behind the bench: the judge's shadow, with a ragged spiky flat blob on top of his head where a wig would be; Mash glances up at it, lips pressed.
+09 | The navy board now shows a big framed school photo of young Spud with a bowl haircut and braces, grinning awkwardly. Foreground: Spud, cheeks puffed, tears in his eyes, holding it in.
+10 | Two-shot: the judge's gloved hand scratches the top of his head (still cut off), golden crumbs falling onto his papers; Mash with a big snot bubble, Wedge's hand clapped over Mash's mouth.
+11 | Low angle, the judge STANDING tall, his whole head finally visible: on top sits the golden crispy hash brown toupee, a bite missing, steam rising, his face stern. Foreground: Spud bright red, cheeks bulging, tears, but mouth shut: he HOLDS it.
+12 | The jury box: Chip and the two jurors EXPLODE with laughter, falling over each other, tears flying; the judge's axe gavel points at them from the left edge.
