@@ -64,6 +64,7 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
   behind reads as hanging: film a leap side-on, at full speed.
 - Blinks: keep `open` >= 0.3 and 9 frames linear each way, or the strobe check fails in the first second.
 - A caption ends with its beat: start narration inside the shot it should show over.
+- Code-drawn (svg2d) clips: subtitles come from `tools/svg2d/lib/captions.mjs` (`align` written words to the heard words, `captionSvg` plans the 2 rows on the whole chunk); never time written words straight from Whisper.
 - A line said in an open-mouthed face (`shocked` 0.95, `terrified` 0.8) freezes the mouth: the face's open beats the
   talk. Close it to ~0.1 for the line (`expr` with `set: { open: 0.1 }`). An expression name the engine lacks (`worried`)
   silently keeps the last one: check `engine/page/face.js` (egypt-myth 01).
