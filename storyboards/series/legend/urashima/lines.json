@@ -1,0 +1,203 @@
+{
+ "_about": "Legend: Urashima Taro (box from the sea), lines for H1+E1 (Jonny picked 26 Nov 23:11 Berlin). Speakers: N narrator, G grandmother, K kid, O Otohime, U Urashima, V old villager.",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "engine/voice/targets/legend-grandma-ref.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "engine/voice/targets/legend-kid-ref.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction",
+   "_picked": "Jonny 26 Nov 19:15 Berlin: voice-test-legend-06 kid 2",
+   "steps": 25,
+   "cfg": 3.0
+  },
+  "O": {
+   "ref": "engine/voice/targets/legend-woman-ref.wav",
+   "style": "a young noble woman, soft, kind and calm, a little sad, slow"
+  },
+  "U": {
+   "ref": "engine/voice/targets/teo-ref.wav",
+   "style": "a young man in his twenties, gentle fisherman, homesick, quiet",
+   "_note": "ref to confirm by ear"
+  },
+  "V": {
+   "ref": "engine/voice/targets/wizard-ref.wav",
+   "style": "a very old village man, puzzled, dry and slow"
+  }
+ },
+ "lines": [
+  [
+   "L01",
+   "G",
+   "Never open a box from the sea.",
+   "sharp, stern, urgent"
+  ],
+  [
+   "L02",
+   "K",
+   "Why? What's inside?",
+   "curious"
+  ],
+  [
+   "L03",
+   "G",
+   "Someone's three hundred years.",
+   "low, grim"
+  ],
+  [
+   "L04",
+   "N",
+   "In Japan, they tell of Urashima Taro, a young fisherman who saved a sea turtle from kids with sticks.",
+   ""
+  ],
+  [
+   "L05",
+   "K",
+   "Good guy.",
+   "approving"
+  ],
+  [
+   "L06",
+   "G",
+   "Too good.",
+   "dry"
+  ],
+  [
+   "L07",
+   "N",
+   "The turtle carried him down, to the Dragon Palace under the sea.",
+   ""
+  ],
+  [
+   "L08",
+   "O",
+   "You saved my messenger. Stay as long as you like.",
+   "warm, soft"
+  ],
+  [
+   "L09",
+   "N",
+   "Every room had a window to another season. Spring. Summer. Autumn. Winter.",
+   "slow, wonder"
+  ],
+  [
+   "L10",
+   "K",
+   "Four seasons in one house?",
+   "amazed"
+  ],
+  [
+   "L11",
+   "G",
+   "Every window is a year. He didn't count.",
+   "quiet, grim"
+  ],
+  [
+   "L12",
+   "U",
+   "I have to see my mother.",
+   "homesick, gentle"
+  ],
+  [
+   "L13",
+   "O",
+   "Then take this. But never open it.",
+   "soft, sad"
+  ],
+  [
+   "L14",
+   "K",
+   "Then why give it to him?!",
+   "outraged"
+  ],
+  [
+   "L15",
+   "G",
+   "Keep listening.",
+   "calm"
+  ],
+  [
+   "L16",
+   "N",
+   "Back home, the pines were giants. Nobody knew his face.",
+   "slow, uneasy"
+  ],
+  [
+   "L17",
+   "V",
+   "Urashima? He drowned three hundred years ago.",
+   "puzzled, old"
+  ],
+  [
+   "L18",
+   "N",
+   "His mother's grave was covered in moss.",
+   "quiet, heavy"
+  ],
+  [
+   "L19",
+   "K",
+   "But he was only gone three years...",
+   "small, shocked"
+  ],
+  [
+   "L20",
+   "N",
+   "Japan's ancient chronicle dates his voyage to the year 478. A shrine on that coast still keeps his box.",
+   ""
+  ],
+  [
+   "L21",
+   "N",
+   "Scientists even named an effect after him. Fly near light speed, and you come home to a world that aged without you.",
+   "intrigued"
+  ],
+  [
+   "L22",
+   "N",
+   "Alone on the beach, he hoped the box could take him back.",
+   "slow, tense"
+  ],
+  [
+   "L23",
+   "K",
+   "No, no, no...",
+   "scared, pleading, clear voice, not whispering"
+  ],
+  [
+   "L24",
+   "N",
+   "White smoke. And three hundred years, in one breath.",
+   "slow, dark"
+  ],
+  [
+   "L25",
+   "N",
+   "It was never a gift. She had locked his years inside.",
+   "quiet, sad"
+  ],
+  [
+   "L26",
+   "K",
+   "Grandma... did you ever open one?",
+   "small, careful"
+  ],
+  [
+   "L27",
+   "G",
+   "Once. Just a peek.",
+   "calm, matter-of-fact"
+  ],
+  [
+   "L28",
+   "G",
+   "I was nineteen.",
+   "dry, deadpan"
+  ]
+ ]
+}
