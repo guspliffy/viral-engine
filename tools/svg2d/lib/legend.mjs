@@ -231,17 +231,17 @@ export function lamp(c, fl) {
 }
 
 // ---------------------------------------------------------------- cast helpers
-const place = (p, rot = 0) => `translate(${n(p.x)},${n(p.y)}) rotate(${n(rot)}) scale(${(p.s / 100).toFixed(4)})`;
+export const place = (p, rot = 0) => `translate(${n(p.x)},${n(p.y)}) rotate(${n(rot)}) scale(${(p.s / 100).toFixed(4)})`;
 export function toScreen(p, rot, lx, ly) { const a = rot * Math.PI / 180, k = p.s / 100; return { x: p.x + k * (lx * Math.cos(a) - ly * Math.sin(a)), y: p.y + k * (lx * Math.sin(a) + ly * Math.cos(a)) }; }
-const shadow = (p, w) => `<ellipse cx="${n(p.x)}" cy="${n(p.y)}" rx="${n(w * p.s)}" ry="${n(w * 0.2 * p.s)}" fill="url(#soft)"/>`;
-function limb(ptsL, w, col, shade) {
+export const shadow = (p, w) => `<ellipse cx="${n(p.x)}" cy="${n(p.y)}" rx="${n(w * p.s)}" ry="${n(w * 0.2 * p.s)}" fill="url(#soft)"/>`;
+export function limb(ptsL, w, col, shade) {
   const d = "M" + ptsL.map(([x, y]) => `${n(x)},${n(y)}`).join(" L");
   return `<path d="${d}" stroke="${INK}" stroke-width="${n(w + 1.2)}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>` +
     `<path d="${d}" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>` +
     (shade ? `<path d="${d}" stroke="${shade}" stroke-width="${n(w * 0.4)}" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(${n(w * 0.28)},0)"/>` : "");
 }
 let EYE = 0;
-function eye(x, y, w, h, look, open, dir, iris = "#2a1d24", pupil = 0.45) {
+export function eye(x, y, w, h, look, open, dir, iris = "#2a1d24", pupil = 0.45) {
   h *= Math.max(0.08, open);
   const id = `e${EYE++}`;
   const shape = `M${n(x - w * dir)},${n(y + h * 0.1)} Q${n(x - w * 0.25 * dir)},${n(y - h * 1.05)} ${n(x + w * dir)},${n(y - h * 0.25)} Q${n(x + w * 0.2 * dir)},${n(y + h * 0.75)} ${n(x - w * dir)},${n(y + h * 0.1)} Z`;
@@ -251,12 +251,12 @@ function eye(x, y, w, h, look, open, dir, iris = "#2a1d24", pupil = 0.45) {
     `<g clip-path="url(#${id})"><circle cx="${n(ix)}" cy="${n(y - h * 0.15)}" r="${n(ir)}" fill="${iris}"/><circle cx="${n(ix)}" cy="${n(y - h * 0.15)}" r="${n(ir * pupil)}" fill="#0b0710"/><circle cx="${n(ix + ir * 0.35)}" cy="${n(y - h * 0.15 - ir * 0.35)}" r="${n(ir * 0.28)}" fill="#fff"/></g>` +
     `<path d="M${n(x - w * dir)},${n(y + h * 0.1)} Q${n(x - w * 0.25 * dir)},${n(y - h * 1.05)} ${n(x + w * dir)},${n(y - h * 0.25)} l${n(0.9 * dir)},-0.7" stroke="${INK}" stroke-width="1.1" fill="none" stroke-linecap="round"/>`;
 }
-function headPath(hx, hy, rx, ry, fx, chin = 1) {
+export function headPath(hx, hy, rx, ry, fx, chin = 1) {
   const jx = hx + fx * rx * 0.38;
   return `M${n(hx - rx)},${n(hy - ry * 0.15)} C${n(hx - rx * 1.05)},${n(hy - ry * 1.35)} ${n(hx + rx * 1.05)},${n(hy - ry * 1.35)} ${n(hx + rx)},${n(hy - ry * 0.15)} C${n(hx + rx * 0.98 - (fx < 0 ? 0 : fx * 1.5))},${n(hy + ry * 0.45)} ${n(jx + rx * 0.45)},${n(hy + ry * 0.95 * chin)} ${n(jx)},${n(hy + ry * chin)} C${n(jx - rx * 0.45)},${n(hy + ry * 0.95 * chin)} ${n(hx - rx * 0.98 - (fx > 0 ? 0 : fx * 1.5))},${n(hy + ry * 0.45)} ${n(hx - rx)},${n(hy - ry * 0.15)} Z`;
 }
 // a talking mouth: open 0..1
-const talkMouth = (x, y, w, open, col = "#5a1f30") => open > 0.12
+export const talkMouth = (x, y, w, open, col = "#5a1f30") => open > 0.12
   ? `<path d="M${n(x - w)},${n(y)} Q${n(x)},${n(y - 0.6)} ${n(x + w)},${n(y)} Q${n(x)},${n(y + 1 + open * 3.4)} ${n(x - w)},${n(y)} Z" fill="${col}"/>`
   : `<path d="M${n(x - w)},${n(y)} Q${n(x)},${n(y + 0.8)} ${n(x + w)},${n(y - 0.2)}" stroke="#6a2a38" stroke-width="0.8" fill="none" stroke-linecap="round"/>`;
 

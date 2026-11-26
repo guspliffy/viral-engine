@@ -22,6 +22,7 @@ def hear(w):
     return [[x.word.strip(), x.start, x.end] for s in segs for x in s.words]
 for lid, who, text, tone in spec["lines"]:
     if only and lid not in only: continue
+    text = spec.get("say", {}).get(lid, text)   # spoken spelling ("say" map); subtitles keep the line text
     v = spec["voices"][who]; style = ", ".join(s for s in [v.get("style", ""), tone] if s)
     best = None
     for k in range(4):

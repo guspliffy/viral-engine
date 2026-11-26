@@ -1,0 +1,12 @@
+{
+ "_note": "Music beds for the lesson-legend The Monkey's Paw (26 Nov 2026), from Codex Sol's music direction on high (project files videos/folklore-legend/monkeys-paw/music/music-direction-sol.md): felt upright piano + viola + cello parlour trio, 60 BPM, D minor, paw motif D3-Eb3-D3. Pauses, fades and the knock silence are made in the edit.",
+ "sfx": [],
+ "music": [
+  {"id": "paw-a-parlour", "bpm": 60, "bars": 6, "prompts": ["24-second seamless loop, 60 BPM, D minor, felt upright piano open fifths, soft bowed viola, close parlour recording, sparse hymn voicing"], "seeds": [311, 733], "mood": "calm"},
+  {"id": "paw-b-wish", "bpm": 60, "bars": 6, "prompts": ["24-second seamless loop, 60 BPM, D minor, muted upright piano D3 E-flat3 D3, soft cello and viola, long gaps, subdued grief"], "seeds": [312, 734], "mood": "sad"},
+  {"id": "paw-c-plea", "bpm": 60, "bars": 6, "prompts": ["24-second seamless loop, 60 BPM, D minor, middle-register viola and cello, slow soft bow swell settling to held D3"], "seeds": [313, 735], "mood": "sad"},
+  {"id": "paw-d-door", "bpm": 60, "bars": 6, "prompts": ["24-second seamless loop, 60 BPM, D minor, solo bowed cello holding D3, very soft even bow, dry close recording, minimal movement"], "seeds": [314, 736], "mood": "danger"},
+  {"id": "paw-e-attic", "bpm": 60, "bars": 6, "prompts": ["24-second seamless loop, 60 BPM, D minor, faint cello D3, isolated felt upright piano D3 E-flat3 D3, dry room, long spaces"], "seeds": [315, 737], "mood": "danger"}
+ ],
+ "negative": "synth pads, chiptune, percussion, vocals, knocks, sound effects, whistles, shrill highs, bright bells, heavy reverb"
+}

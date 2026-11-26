@@ -1,0 +1,203 @@
+{
+ "_about": "Lesson-legend: The Monkey's Paw (W. W. Jacobs, 1902 short story). H1 attic + E1 grandma's wrong voice (Jonny 26 Nov 23:08 Berlin). Speakers: N narrator (deep storyteller), G grandmother, K kid, GX grandmother's wrong flat voice (post-fx), S the soldier, F the father, M the mother, C the company man. Read by VoxCPM2 (tempo x1.15), then G/GX/K atempo 1.07 and the kid EQ + -13 LUFS as in tools/svg2d/post-ep01.py. 'say' = spoken spelling; subtitles show the line text.",
+ "say": {
+  "L04": "This isn't an old legend. In nineteen oh two, the English writer W. W. Jacobs wrote the story of the most dangerous gift in England.",
+  "L08": "I wish for two hundred pounds.",
+  "L13": "The firm takes no blame. But they wish to give you... two hundred pounds."
+ },
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "engine/voice/targets/legend-grandma-ref.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "GX": {
+   "ref": "engine/voice/targets/legend-grandma-ref.wav",
+   "style": "an old woman in her eighties, completely flat and empty, no emotion at all, slow, like something else is speaking through her",
+   "_post": "pitch -2 semitones, atempo 0.92, short dark room reverb, no 1.07"
+  },
+  "K": {
+   "ref": "engine/voice/targets/legend-kid-ref.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction",
+   "steps": 25,
+   "cfg": 3.0
+  },
+  "S": {
+   "ref": "engine/voice/targets/gunslinger-ref.wav",
+   "style": "a weathered old British army sergeant-major, gruff and low, haunted, telling a warning by the fire"
+  },
+  "F": {
+   "ref": "engine/voice/targets/dad-ref.wav",
+   "style": "a gentle elderly English father in 1900, half joking, a little nervous"
+  },
+  "M": {
+   "ref": "engine/voice/targets/legend-woman-ref.wav",
+   "style": "an elderly English mother, desperate, out of breath, grief-stricken, pleading"
+  },
+  "C": {
+   "ref": "engine/voice/targets/wizard-ref.wav",
+   "style": "a polite, nervous English office clerk in 1900, quiet, avoiding eye contact"
+  }
+ },
+ "lines": [
+  [
+   "L01",
+   "G",
+   "Put it down! Three wishes. Don't make one.",
+   "sharp, urgent, stern"
+  ],
+  [
+   "L02",
+   "K",
+   "What's the worst that happens?",
+   "curious, cheeky, half smiling"
+  ],
+  [
+   "L04",
+   "N",
+   "This isn't an old legend. In 1902, the English writer W. W. Jacobs wrote the story of the most dangerous gift in England.",
+   ""
+  ],
+  [
+   "L05",
+   "N",
+   "A soldier brought it home from India. An old holy man had cursed it, to show that fate punishes anyone who meddles.",
+   ""
+  ],
+  [
+   "L06",
+   "S",
+   "Three men can have three wishes each. The first man's last wish... was for death.",
+   "low, slow, haunted"
+  ],
+  [
+   "L07",
+   "N",
+   "He threw it on the fire. The father of the house pulled it back out.",
+   ""
+  ],
+  [
+   "L08",
+   "F",
+   "I wish for 200 pounds.",
+   "half joking, a little nervous"
+  ],
+  [
+   "L09",
+   "N",
+   "The paw twisted in his hand like a snake. And then... nothing.",
+   ""
+  ],
+  [
+   "L10",
+   "K",
+   "See? Nothing happened.",
+   "relieved, a bit smug"
+  ],
+  [
+   "L11",
+   "G",
+   "Wait.",
+   "quiet, grave"
+  ],
+  [
+   "L12",
+   "N",
+   "The next day, their son was caught in the machines at work.",
+   "slower, heavy"
+  ],
+  [
+   "L13",
+   "C",
+   "The firm takes no blame. But they wish to give you... 200 pounds.",
+   "quiet, nervous, avoiding eyes"
+  ],
+  [
+   "L14",
+   "K",
+   "That's... the same money.",
+   "small, shocked whisper"
+  ],
+  [
+   "L15",
+   "N",
+   "Ten days later, the mother grabbed the paw.",
+   ""
+  ],
+  [
+   "L16",
+   "M",
+   "Wish him back! Bring our boy back!",
+   "desperate, shouting, crying"
+  ],
+  [
+   "L17",
+   "K",
+   "That's good, right?",
+   "hopeful, unsure"
+  ],
+  [
+   "L18",
+   "G",
+   "He'd been in the ground for ten days.",
+   "very quiet, slow"
+  ],
+  [
+   "L19",
+   "N",
+   "That night... something knocked at the door.",
+   "hushed, slow"
+  ],
+  [
+   "L20",
+   "M",
+   "It's him! It's my boy!",
+   "frantic, joyful and desperate"
+  ],
+  [
+   "L21",
+   "N",
+   "The father crawled through the dark, found the paw... and made his last wish.",
+   "fast, tense whisper"
+  ],
+  [
+   "L22",
+   "N",
+   "The knocking stopped. The door swung open. The road was empty.",
+   "slow, quiet"
+  ],
+  [
+   "L23",
+   "K",
+   "What did he wish for?",
+   "whispering, scared"
+  ],
+  [
+   "L24",
+   "G",
+   "Nobody knows.",
+   "quiet, final"
+  ],
+  [
+   "L25",
+   "K",
+   "Just one tiny wish. I wish Grandma would let me keep it.",
+   "quick, sneaky whisper to himself"
+  ],
+  [
+   "L26",
+   "GX",
+   "Keep it.",
+   "flat, empty, no emotion"
+  ],
+  [
+   "L27",
+   "K",
+   "Grandma?",
+   "tiny, frightened"
+  ]
+ ]
+}
