@@ -31,7 +31,7 @@ const END_OF = (i) => r3(T[i] + DUR[i]);
 // ---------------------------------------------------------------- marks (DESIGN §2-4; x right, z toward us)
 const AWAY = -60;
 const DE = { H: [-3.00, 1.00], H5: [-2.20, 1.40], H9: [-2.45, 1.25], OUT: [-3.30, 1.60], W: [-1.30, -0.05], W12: [-1.42, 0.35],
-  R1: [-3.40, -0.30], R5: [-3.05, 0.15], R7: [-3.38, 0.25], R12: [-2.72, 0.53], RS: [-2.70, 0.45], HS: [-3.10, 1.10] };   // HS: you, just before the shove   // RS: his shoulder at your right side (Sol r1: the shove was hidden)
+  R1: [-3.40, -0.30], R5: [-3.05, 0.15], R7: [-3.38, 0.25], R12: [-2.50, 1.12], RS: [-2.60, 0.62], HS: [-3.10, 1.10] };   // HS: you, just before the shove   // RS: his shoulder at your right side (Sol r1: the shove was hidden)
 const US = { HU: [1.30, 0.85], H6: [1.36, -0.20], H8: [1.12, 0.95], H10: [1.45, 1.30], H10F: [1.88, 1.55], M: [2.62, 0.30], M8: [2.20, 1.45], M10: [2.80, -0.40] };   // M10: behind the till's line from cam 10 (stills 2: the till hid his face)
 const S11 = [0, 3.15];
 const PLAT = 0.20;   // Wedge stands on the lane's platform
@@ -58,7 +58,7 @@ const props = [
   { id: "flagde", staged: "on the till post", kind: "miniflag", flag: "de", ...at3(-1.70, 0.66, -0.62), scale: 1.7 },   // Jonny 26 Nov: flags more visible
   { id: "bannerde", staged: "hangs from the ceiling over the lane", kind: "miniflag", flag: "de", ...at3(-1.40, 2.05, -1.60), scale: 5 },
   { id: "flagus", staged: "on the till pedestal", kind: "miniflag", flag: "us", ...at3(3.00, 0.66, 1.00), scale: 1.4 },   // Sol r1: it sat on the right edge (at 2.90 it covered Mash in cam 10)   // right of the till: at 1.7 on the till it covered Mash's face (cams 03, 10)
-  { id: "bannerus", staged: "hangs from the ceiling over the lane", kind: "miniflag", flag: "us", ...at3(3.25, 1.55, -2.00), scale: 5 },   // Sol r1: a sliver at the top, the bag mountain covered it
+  { id: "bannerus", staged: "hangs from the ceiling over the lane", kind: "miniflag", flag: "us", ...at3(3.20, 1.50, -0.90), scale: 5 },   // Sol r1: a sliver at the top, the bag mountain covered it
   ...[0, 1, 2].map((i) => ({ id: `rackb${i}`, staged: "against the back wall", kind: "stockrack", ...at3(-3.675 + 1.35 * i, 0, -3.95), seed: 11 + i })),
   ...[0, 1, 2, 3].map((i) => ({ id: `rackl${i}`, staged: "against the left wall", kind: "stockrack", ...at3(-4.05, 0, -3.325 + 1.35 * i), rot: 90, seed: 21 + i })),
   ...[0, 1, 2].map((i) => ({ id: `racks${i}`, staged: "against the seam wall", kind: "stockrack", ...at3(-0.29, 0, -3.425 + 1.35 * i), rot: -90, seed: 51 + i })),
@@ -71,18 +71,18 @@ const props = [
   // belt goods ride the belt (tweened with its `len`), then fly to his armful (physics)
   ...BELT_GOODS.map((k, i) => ({ id: `g${i}`, staged: "rides the belt, then thrown to his arms", kind: k, ...at3(BELT_X, BELT_Y, goodZ(i)), ...(k === "tin" && { scale: 1.4 }) })),
   // worn hand props (body frame: x his left, y up from his body's bottom, z his front), hands posed on them
-  { id: "teeth", staged: "worn: the card between his teeth", kind: "bankcard", wear: "spud", x: 0, y: 0.33, z: 0.47, rot: 0, tip: -20, scale: 1.5 },   // Sol r1: a blue bank card, the same one everywhere
+  { id: "teeth", staged: "worn: the card between his teeth", kind: "bankcard", wear: "spud", x: 0, y: 0.52, z: 0.48, rot: 0, tip: -12, scale: 1.8 },   // Sol r1: a blue bank card, the same one everywhere
   { id: "armful", staged: "worn: the goods in both arms", kind: "groceryarmful", wear: "spud", x: 0, y: 0.12, z: 0.44, n: 2 },
-  { id: "eggs", staged: "worn: on his flat left palm", kind: "eggcarton", wear: "spud", x: 0.28, y: AWAY, z: 0.34, rattle: 0, scale: 1.25 },
-  { id: "eggfly", staged: "thrown off the belt onto his palm", kind: "eggcarton", ...at3(-1.95, AWAY, 0.10), rattle: 0, scale: 1.25 },
+  { id: "eggs", staged: "worn: on his flat left palm", kind: "eggcarton", wear: "spud", x: 0.28, y: AWAY, z: 0.34, rattle: 0, scale: 1.5 },
+  { id: "eggfly", staged: "thrown off the belt onto his palm", kind: "eggcarton", ...at3(-1.95, AWAY, 0.10), rattle: 0, scale: 1.5 },
   { id: "card", staged: "worn: held out in his right hand", kind: "bankcard", wear: "spud", x: -0.20, y: AWAY, z: 0.56, scale: 1.9, rot: 180 },
   { id: "cash", staged: "worn: the cash roll in his hand", kind: "cashroll", wear: "spudus", x: -0.24, y: 0.24, z: 0.30, scale: 1.4 },
-  { id: "grape", staged: "worn: pinched in his right hand", kind: "grape", wear: "mash", x: -0.30, y: 0.62, z: 0.30, scale: 1.6 },   // Sol r1: lost against his glove
+  { id: "grape", staged: "worn: pinched in his right hand", kind: "grape", wear: "mash", x: -0.30, y: 0.62, z: 0.30, scale: 1.8 },   // Sol r1: lost against his glove
   { id: "apron", staged: "worn", kind: "apron", wear: "mash", color: "#3f8a3a", bib: { top: 0.60, w: 0.24 }, straps: true },
   { id: "cap", staged: "worn", kind: "tweedcap", wear: "retiree", color: "#75695a", fit: { H: 0.69, W: 0.74, D: 0.68, taper: 0.02, legH: 0.14 } },
   { id: "purse", staged: "worn: tucked in his crossed arms", kind: "pouch", wear: "retiree", x: 0.10, y: 0.30, z: 0.32, scale: 0.8 },
   { id: "tote", staged: "stands on the floor", kind: "shopbag", ...at3(-2.40, 0, 1.48), w: 0.34, h: 0.30, d: 0.16, color: "#e6dcc3", rope: "#e6dcc3" },
-  { id: "coins", staged: "on the packing shelf", kind: "centrow", ...at3(-2.10, AWAY, 0.64), count: 0, scale: 1.05 },
+  { id: "coins", staged: "on the packing shelf", kind: "centrow", ...at3(-1.93, AWAY, 0.75), count: 0, scale: 1.05 },   // at the shelf's front corner, in his reach
   // the US bags: one, ten (a row), a mountain
   ...Array.from({ length: 10 }, (_, i) => ({ id: `bag${i}`, staged: "stands on the bagging top", kind: "paperbag", ...at3(2.06, AWAY, r3(0.72 - 0.27 * i)), rot: ((i * 37) % 17) - 8 })),
   ...["grape", "apple", "loaf", "egg", "milkcarton", "cheesewedge", "tin", "yogurtcup", "cinnabun", "candy"].map((k, i) => ({ id: `bi${i}`, staged: "stands in its bag", kind: k, ...at3(2.06, AWAY, r3(0.72 - 0.27 * i)), ...(k === "loaf" && { tip: 90 }), ...(k === "candy" && { scale: 2 }), ...(k === "tin" && { scale: 1.4 }) })),
@@ -182,7 +182,7 @@ const CAM = {
   14: { pos: [-3.75, 0.74, 3.6], look: [-3.46, 0.80, -0.3], fov: 33, push: [-3.75, 0.74, 3.3] },   // stills 2: Spud (H moved left) covered the retiree; Sol r1: his far lens and hand were cut by the right edge
   15: { pos: [1.40, 0.72, 4.6], look: [1.60, 0.76, -0.2], fov: 24, push: [1.42, 0.72, 4.25] },
   17: { pos: [-1.05, 1.05, 4.1], look: [-2.95, 0.78, 0.75], fov: 32, push: [-1.10, 1.04, 3.85] },   // Sol r1: the shove from the side, both bodies in the clear
-  16: { pos: [-2.00, 1.35, 2.65], look: [-2.30, 0.58, 0.60], fov: 30, push: [-2.01, 1.31, 2.45] },   // Sol r1: the coins insert (tray + his fingertip)
+  16: { pos: [-1.70, 1.60, 1.72], look: [-2.08, 0.50, 0.80], fov: 30, push: [-1.71, 1.55, 1.60] },   // Sol r1: the coins insert (tray + his fingertip)
 };
 const LANE = (k) => ({ 3: "us", 6: "us", 8: "us", 10: "us", 15: "us", 11: "seam" }[k] ?? "de");
 const GRADE = { de: { s: 0.98, w: -0.45, c: 1.06 }, us: { s: 1.16, w: 0.50, c: 1.00 }, seam: { s: 1.16, w: 0.50, c: 1.00 } };
@@ -192,8 +192,9 @@ const shot = (name, t, k, kind) => {
   shots.push([name, at, { ...cam, push }, kind].filter((v) => v !== undefined)); CUTS.add(at);
   grade.push([at, GRADE[LANE(k)]]);
   // the retiree's reaction shots (cam 14) are his alone: you step out of the line of sight (gate: his eyes were behind you)
-  if (k === 14 && !SOLO.on) { c.A(r3(at - 0.02), "spud", "hide"); SOLO.on = true; }
-  else if (k !== 14 && SOLO.on) { c.A(r3(at - 0.02), "spud", "show"); SOLO.on = false; }
+  // Sol r2: the queue extras touched his cap: they step out of his close-ups too
+  if (k === 14 && !SOLO.on) { c.A(r3(at - 0.02), "spud", "hide"); for (const q of ["q2", "q3"]) c.prop(r3(at - 0.02), q, { y: AWAY }, 0); SOLO.on = true; }
+  else if (k !== 14 && SOLO.on) { c.A(r3(at - 0.02), "spud", "show"); for (const q of ["q2", "q3"]) c.prop(r3(at - 0.02), q, { y: 0 }, 0); SOLO.on = false; }
   return at;
 };
 
@@ -238,7 +239,7 @@ expr(S4, "spudus", "kind", 0.01); look(S4, "spudus", [0.6, 0.1], 0.01);
 showBag(S4, 0, false);
 t = say(3, r3(S4 + 0.12));   // Paper or plastic?
 arm(r3(t + 0.05), "mash", "R", { o: [-0.12, 0.72, 0.28] }, 0.25);
-t = say(4, r3(t + 0.2));   // For each grape?
+t = say(4, r3(t + 0.12));   // For each grape?
 expr(r3(T[4] + 0.2), "spudus", "deadpan", 0.2);
 // Sol r1: show the grape go over the bag's rim and the next one come up in a clear second pinch
 arm(r3(t + 0.1), "mash", "R", { o: [-0.20, 0.50, 0.36] }, 0.45);   // down into bag 1
@@ -263,19 +264,19 @@ const S6 = shot("faster", t, 2);
 t = say(6, r3(S6 + 0.08));   // Faster.
 belt(r3(T[6] + 0.3), 1.6);
 scan(r3(T[6] + 0.2), 0.7, 5);
-const S7 = shot("eggs", r3(t + 0.12), 4);
+const S7 = shot("eggs", r3(t + 0.12), 13);   // Sol r2: the catch in the close-up (cam 04 had you cut by the edge)
 // Sol r1: the eggs fly off the belt and LAND on his flat palm, on their own (the other goods come after the catch)
-arm(S7, "spud", "L", { o: [0.22, 0.44, 0.38] }, 0.01); grip(S7, "spud", "L", "flat", 0.01);
-const PALM = world(DE.H, 55, [0.22, 0.46, 0.38]), EGG = r3(S7 + 0.1), LAND = r3(EGG + 0.32);
+arm(S7, "spud", "L", { o: [0.22, 0.52, 0.40] }, 0.01); grip(S7, "spud", "L", "flat", 0.01);
+const PALM = world(DE.H, 55, [0.22, 0.54, 0.40]), EGG = r3(S7 + 0.1), LAND = r3(EGG + 0.32);
 wear(EGG, "eggfly", { x: BELT_X, y: BELT_Y, z: 0.10 });
 c.prop(EGG, "eggfly", { x: r3((BELT_X + PALM[0]) / 2), y: 0.66, z: r3((0.10 + PALM[2]) / 2), rot: 120 }, 0.16, "out");
 c.prop(r3(EGG + 0.16), "eggfly", { x: PALM[0], y: PALM[1], z: PALM[2], rot: 55 }, 0.16, "in");
-hideProp(LAND, "eggfly"); wear(LAND, "eggs", { y: 0.46, x: 0.22, z: 0.38, rattle: 0 });
+hideProp(LAND, "eggfly"); wear(LAND, "eggs", { y: 0.54, x: 0.22, z: 0.40, rattle: 0 });
 sfx(LAND, "ai-package/box-set-down", { gain: 0.35 });
 c.prop(LAND, "eggs", { rattle: 1 }, 0.3, "out");
 expr(r3(LAND - 0.1), "spud", "terrified", 0.15, { open: 0.1 });
 t = say(7, r3(LAND - 0.05));   // Not the eggs!
-fling(r3(LAND + 0.45), 0.2); fling(r3(LAND + 0.75), 0.2);
+// Sol r2: nothing else flies while the eggs land (a milk carton read as the eggs)
 scan(S7, r3(t - S7), 5, 0.3);
 t = r3(Math.max(t, LAND + 0.97));
 see(S7, t, ["spud.face", "eggs", "wedge.face"], "he catches the eggs one-handed, the belt a blur");
@@ -293,26 +294,27 @@ place(S8, "mash", US.M, -60); A(S8, "mash", "pitch", { to: 25, dur: 0.01 });
 arm(S8, "mash", "L", { o: [0.05, 0.75, 0.25] }, 0.01); arm(S8, "mash", "R", DOWN, 0.01); grip(S8, "mash", "R", "relaxed", 0.01);   // draft 1: his grape arm stayed up by his head
 for (let i = 6; i < 10; i++) { showBag(r3(S8 + 0.3 + (i - 6) * 0.35), i); sfx(r3(S8 + 0.3 + (i - 6) * 0.35), "kenney/book-place", { gain: 0.3 }); }
 t = say(8, r3(S8 + 0.15));   // So... how's your mom?
-t = r3(Math.max(t, S8 + 1.5));
+t = r3(Math.max(t, S8 + 1.4));
 see(S8, t, ["mash.face", "spudus.face", "bag0", "bag9"], "ten bags, one thing in each, and small talk");
 const S9 = shot("hero-us", r3(t + 0.05), 15);
 A(S9, "spudus", "turn", { to: 25, dur: 0.01 });   // face 3/4 to the lens (DESIGN cam 15)
 expr(S9, "spudus", "annoyed", 0.01);
 t = say(9, r3(S9 + 0.08));   // Please. Just. Bag.
-c.prop(r3(S9 + 0.1), "heap", { grow: 0.25 }, 0.01);
+c.prop(r3(S9 - 0.02), "heap", { grow: 0.25 }, 0);   // Sol r2: the bags popped in behind you mid-shot
 see(S9, t, ["spudus.face"], "please, just bag");
 
 // ================================================================ 5 THE RETIREE + THE CARD (05, 13, 14)
 const S10 = shot("sigh-ots", r3(t + 0.1), 5);
-place(S10, "spud", DE.H5, 200); hideProp(S10, "armful"); hideProp(S10, "teeth"); hideProp(S10, "tote"); arm(S10, "spud", "both", DOWN, 0.01);
+place(S10, "spud", DE.H5, 200); hideProp(S10, "armful"); hideProp(S10, "teeth"); hideProp(S10, "tote"); A(r3(S10 - 0.02), "spud", "hide"); for (const q of ["q2", "q3"]) hideProp(S10, q);   // Sol r2: your sleeve and the queue crowded his watch: his shot alone
 place(S10, "retiree", DE.R5, 10); A(S10, "retiree", "pitch", { to: 12, dur: 0.01 });
-arm(S10, "retiree", "L", { o: [0.04, 0.44, 0.34] }, 0.01);   // Sol r1: the watch wrist in front of his own chest, clear of your cuff
+arm(S10, "retiree", "L", { o: [-0.04, 0.46, 0.36] }, 0.01);   // Sol r1: the watch wrist in front of his own chest, clear of your cuff
 sigh(r3(S10 + 0.05), 0.9);
 t = say(10, r3(S10 + 0.08));   // Hhhhhhhhh. Too slow.
-tapWatch(r3(T[10] + 1.4));
+tapWatch(r3(T[10] + 0.3));   // Sol r2: tap inside the breath
 see(S10, t, ["retiree.face"], "he sighs and taps his watch: too slow");
 const S11a = shot("card-tease", r3(t + 0.1), 13);
-place(S11a, "spud", DE.H, 55); wear(S11a, "armful", { y: 0.12 }); wear(S11a, "teeth", { y: 0.33 }); wear(S11a, "tote", { y: 0 }); arm(S11a, "spud", "both", CARRY, 0.01);
+A(r3(S11a - 0.02), "spud", "show"); for (const q of ["q2", "q3"]) wear(S11a, q, { y: 0 });
+place(S11a, "spud", DE.H, 55); wear(S11a, "armful", { y: 0.12 }); wear(S11a, "teeth", { y: 0.52 }); wear(S11a, "tote", { y: 0 }); arm(S11a, "spud", "both", CARRY, 0.01);
 const S11b = shot("tsk", r3(S11a + 0.45), 14);
 place(S11b, "retiree", DE.R1, 20); A(S11b, "retiree", "pitch", { to: 0, dur: 0.01 });
 for (const s of ["R", "L"]) arm(S11b, "retiree", s, FOLD, 0.01);
@@ -332,7 +334,7 @@ for (let k = 0; k < 3; k++) { const ts = r3(S12 + 0.3 + k * 0.25); SHAKES.push({
 for (let k = 0; k < 5; k++) fling(r3(S12 + 0.1 + k * 0.32), k < 2 ? 0.2 : 0.35, k < 2, [r3(-2.45 + k * 0.08), 0.04, r3(1.65 + (k % 2) * 0.12)]);
 expr(S12, "spud", "terrified", 0.01, { open: 0.2 });
 t = say(12, r3(S12 + 0.5));   // Use your feet.
-A(r3(T[12] + 0.3), "spud", "tap", { side: "R", count: 2, every: 0.22, lift: 1.3 });   // Sol r1: one visible foot on "feet"
+A(r3(T[12] + 0.3), "spud", "tap", { side: "R", count: 2, every: 0.24, lift: 2.0 });   // Sol r1: one visible foot on "feet"
 t = r3(t + 0.35);
 see(S12, t, ["spud.face", "wedge.face", "retiree.face", "lanede"], "the peak: sparks, goods flying, he packs with his feet");
 const S13 = shot("too-slow", t, 14);
@@ -340,7 +342,7 @@ place(S13, "retiree", DE.R1, 20); expr(S13, "retiree", "angry", 0.01);
 sigh(r3(S13 + 0.05), 1.0);
 t = say(13, r3(S13 + 0.12));   // TOO. SLOW.
 see(S13, t, ["retiree.face"], "TOO. SLOW.");
-const S14 = shot("us-peak", r3(t + 0.1), 8);
+const S14 = shot("us-peak", r3(t + 0.03), 8);
 c.prop(r3(S14 - 0.02), "heap", { grow: 1 }, 0);
 for (let i = 0; i < 10; i++) { hideProp(S14, `bag${i}`); hideProp(S14, `bi${i}`); }
 place(S14, "spudus", US.H8, 10); A(S14, "spudus", "pitch", { to: 0, dur: 0.01 });
@@ -397,11 +399,11 @@ for (const p of props.filter((p) => p.id.startsWith("st"))) wear(S21, p.id, { y:
 place(S21, "retiree", [-0.58, 2.10], 172); for (const s of ["R", "L"]) arm(S21, "retiree", s, FOLD, 0.01);
 expr(S21, "retiree", "annoyed", 0.01);
 place(S21, "spud", S11, 0); wear(S21, "armful", { y: 0.12, n: 6 }); hideProp(S21, "card");
-arm(S21, "spud", "both", { o: [0.17, 0.15, 0.42] }, 0.01);   // Sol r1: forearms UNDER the armful (it floated against his sweater)
+arm(S21, "spud", "R", { o: [0.02, 0.13, 0.44] }, 0.01); arm(S21, "spud", "L", { o: [0.30, 0.34, 0.30] }, 0.01); grip(S21, "spud", "L", "open", 0.01);   // Sol r2: one forearm across under the armful, the other hand free for the plea   // Sol r1: forearms UNDER the armful (it floated against his sweater)
 expr(S21, "spud", "sad", 0.01); look(S21, "spud", [0, -0.5], 0.01);
 look(r3(S21 + 0.8), "spud", [0, 0.05], 0.3);
-t = say(20, r3(S21 + 0.2));   // I just want to go home.
-t = r3(t + 0.2);
+t = say(20, r3(S21 + 0.1));   // I just want to go home.
+t = r3(t + 0.1);
 SPLIT.to = t;
 see(S21, t, ["spud.face", "st0", "st5"], "both lines stare at you: nobody lets you pay");
 
@@ -425,27 +427,26 @@ t = r3(HIT + 0.4);   // cut on the slide (his step to the tray is behind the cut
 see(S22, t, ["retiree", "spud"], "the retiree shoulders you aside");
 // Sol r1: cut in on the tray; each count is a fingertip down, a coin, the finger up
 const S23 = shot("coins", t, 16);
-place(S23, "retiree", DE.R12, 75); place(S23, "wedge", DE.W12, -40, PLAT); A(S23, "wedge", "pitch", { to: 10, dur: 0.01 });
+place(S23, "retiree", DE.R12, 144); place(S23, "wedge", DE.W12, -40, PLAT); A(S23, "wedge", "pitch", { to: 10, dur: 0.01 });
 wear(S23, "coins", { y: 0.46, count: 0 });
 wear(S23, "purse", { y: AWAY }); hideProp(S23, "q2"); hideProp(S23, "q3");   // the queue extras sat right behind the tray in the insert
 expr(S23, "wedge", "deadpan", 0.01); look(S23, "wedge", [-0.4, -0.5], 0.01);
 look(S23, "retiree", [0.3, -0.7], 0.01); expr(S23, "retiree", "focused", 0.01);
-arm(S23, "retiree", "R", { o: [-0.02, 0.52, 0.46] }, 0.01); A(S23, "retiree", "pitch", { to: 8, dur: 0.01 }); grip(S23, "retiree", "R", "point", 0.01);
+arm(S23, "retiree", "R", { o: [-0.02, 0.64, 0.44] }, 0.01); A(S23, "retiree", "pitch", { to: 8, dur: 0.01 }); grip(S23, "retiree", "R", "pinch", 0.01);   // Sol r2: a coin between his fingertips, not a pointing finger
 t = say(22, r3(S23 + 0.15));   // One cent. Two cent. Three cent...
 for (let k = 0; k < 3; k++) {
   const tc = r3(T[22] + 0.1 + k * 1.15);
-  arm(tc, "retiree", "R", { o: [r3(-0.05 + k * 0.035), 0.49, 0.48] }, 0.18, "in");
+  arm(tc, "retiree", "R", { o: [r3(-0.02 - k * 0.049), 0.56, r3(0.46 + k * 0.035)] }, 0.18, "in");
   c.prop(r3(tc + 0.18), "coins", { count: k + 1 }, 0.1); sfx(r3(tc + 0.18), "coins", { gain: 0.4 });
-  arm(r3(tc + 0.4), "retiree", "R", { o: [r3(-0.04 + k * 0.035), 0.52, 0.46] }, 0.25, "out");
+  arm(r3(tc + 0.4), "retiree", "R", { o: [r3(-0.02 - k * 0.049), 0.64, r3(0.44 + k * 0.035)] }, 0.25, "out");
 }
-const S24 = shot("take-your-time", r3(t + 0.05), 12);
+const S24 = shot("take-your-time", r3(t - 0.15), 12);
 const SMILE = r3(S24 + 0.1);
 expr(SMILE, "wedge", "happy", 0.3, { open: 0.05 });
 t = say(23, r3(SMILE + 0.2));   // Take your time.
-arm(r3(t - 0.4), "retiree", "R", { o: [0.06, 0.49, 0.48] }, 0.18, "in");
-c.prop(r3(t - 0.22), "coins", { count: 4 }, 0.1); sfx(r3(t - 0.22), "coins", { gain: 0.4 });
-const END = F2(t + 0.5);
-see(S24, END, ["retiree.face", "wedge.face", "coins"], "he pays in cents and the cashier who rushed you smiles: take your time");
+// Sol r2: no fourth coin (it appeared with no hand)
+const END = F2(t + 0.45);
+see(S24, END, ["wedge.face", "coins"], "he pays in cents and the cashier who rushed you smiles: take your time");
 
 // blinks between the lines (no blink on a line)
 act.blinksAt(c, "spud", [4.0, 15.0, 30.0]);
@@ -488,6 +489,9 @@ write(import.meta.url, {
     { who: "spud", with: "retiree", from: r3(HIT - 0.15), to: r3(HIT + 0.15), maxReach: 0.08, checks: ["character-overlap", "clipping", "reach"], reason: "the shove: your arm meets his shoulder (6 cm, five frames)" },
     { who: "retiree", with: "lanede", from: r3(HIT - 0.1), to: r3(HIT + 0.55), checks: ["costume-in-prop"], reason: "his cardigan brushes the packing shelf's end as he shoves past (6 cm, two frames)" },
     { who: "spud", with: "purse", from: r3(HIT - 0.1), to: r3(HIT + 0.15), checks: ["costume-in-prop", "arm-in-prop"], reason: "the shove: the purse in his folded arms touches your sweater" },
+    { who: "retiree", with: "lanede", from: 44.9, to: END, checks: ["hand-in-prop"], reason: "his hand rests on the packing shelf's edge while he places the coins (Sol r2: the hand must reach the tray); 5-6 cm, the glove's pad on the steel" },
+    { who: "retiree", with: "coins", from: 44.9, to: END, checks: ["hand-in-prop"], reason: "his fingertips set each coin on the pay tray (3-4 cm into the tray's lip)" },
+    { who: "mash", with: "grape", from: 6.2, to: 10.8, checks: ["costume-in-prop"], reason: "the big grape hangs from his pinch against his hoodie cuff (3 cm)" },
     { who: "mash", with: "apron", from: 0, to: END, checks: ["clipping"], reason: "the apron is worn on his body (DESIGN §6)" },
     { who: "retiree", with: "cap", from: 0, to: END, checks: ["clipping"], reason: "the cap is worn on his head (DESIGN §5)" },
     { who: "spudus", with: "laneus", from: 0, to: END, checks: ["clipping", "costume-in-prop", "hand-in-prop", "arm-in-prop"], reason: "his forearms rest folded on the counter edge (panel 6, DESIGN §3 H6); rough draft" },
