@@ -1,0 +1,64 @@
+// Potato Desk 14 set bench (task T2): the new set pieces of engine/page/props-desk14-set.js at their DESIGN sizes and spots
+// (storyboards/series/potato-desk/14-dont-laugh/DESIGN.md sections 0, 2, 3c, 4). Not a clip. One shot per beat (1.1 s each, the still is 0.4 s in):
+//   box07, box14     the jury box with agent, chip, rosti on their steps, from the front, lens y 0.7 and 1.4 (every mouth >= 0.10 above the rail)
+//   flip0, flip05, flip1   the exhibit board, flip 0 / 0.5 / 1 (src = a repo picture; the school photo is another builder's file)
+//   door0, door1     the court doorway, open 0 and 1 (the leaf swings out toward the camera, 100 deg)
+//   mic              the desk mic on the judge bench's deck
+//   puff05, puff1, pop05   Mash with the snot bubble (wear "mash" at the DESIGN's spot), puff 0.5, puff 1, pop 0.5
+//   node storyboards/series/potato-desk/bench/make-desk14-set-bench.mjs
+//   node engine/render.mjs storyboards/series/potato-desk/bench/desk14-set-bench.json --stills 0.5,1.6,2.7,3.8,4.9,6.0,7.1,8.2,9.3,10.4,11.5 --draft --safe --out <dir>
+//   node qa/contact.mjs <dir>/desk14-set-bench-*.png --out out/desk14-set-bench-sheet.png
+import { clip, write } from "../../../lib/clip.mjs";
+
+const c = clip(), { A } = c, r3 = (v) => Math.round(v * 1000) / 1000;
+const END = 12.1, BOX = [1.30, -0.85], MASH_AT = [-2.3, 0.9], BOARD = [0.85, 2.01, -1.255], DOOR = [3.25, 0, -1.30], MIC = [-0.42, 1.18, 0.20];
+const R = 0.055;   // the bubble's radius at puff 1
+const cast = [
+  { id: "agent", character: "potatobrawl/agent", at: [0.665, -0.87], y: 0.26, face: 0, expr: "deadpan", follow: 0.2, seed: 1.1 },
+  { id: "chip", character: "potatobrawl/chip", at: [1.33, -0.87], y: 0.38, face: 0, expr: "kind", follow: 0.2, seed: 2.2 },
+  { id: "rosti", character: "potatobrawl/rosti", at: [1.98, -0.87], y: 0.16, face: 0, expr: "deadpan", follow: 0.2, seed: 3.3 },
+  { id: "mash", character: "potatobrawl/mash", at: MASH_AT, face: 0, expr: "kind", follow: 0.2, seed: 4.4 },
+];
+for (const id of ["agent", "chip", "rosti", "mash"]) { A(0, id, "noblink"); A(0, id, "look", { to: [0, 0], dur: 0.01, blink: false }); }
+// the jurors as the clip stages them (26 Nov): spacing and hands folded in front, behind the rail
+for (const j of ["agent", "chip", "rosti"]) for (const side of ["L", "R"]) A(0, j, "arm", { side, pose: { o: [j === "agent" ? 0.04 : -0.01, 0.3, 0.17] }, dur: 0, ease: "inOut" });
+const props = [
+  { id: "floor", kind: "courtfloor", x: 1.0, y: 0, z: 2.1, w: 8.32 },
+  { id: "wall", kind: "officewall", x: 1.0, y: 0, z: -1.3, w: 10, h: 6 },
+  { id: "dado", kind: "dadopanels", x: 0, y: 0, z: -1.3, trim: true, trimW: 10, xs: [-3.75, -3, -2.25, -1.5, -0.75, 0, 0.75, 1.5, 2.25, 3, 3.75, 4.5] },
+  { id: "box", kind: "jurybox", x: BOX[0], y: 0, z: BOX[1] },
+  { id: "board", kind: "exhibitboard", x: BOARD[0], y: BOARD[1], z: BOARD[2], src: "assets/props/score/spud-reflect-front.png" },
+  { id: "door", kind: "courtdoorway", x: DOOR[0], y: DOOR[1], z: DOOR[2], color: "#5c4033" },
+  { id: "bench", kind: "judgebench", x: -0.69, y: 0, z: 0.145 },
+  { id: "mic", kind: "deskmic", x: MIC[0], y: MIC[1], z: MIC[2] },
+  { id: "bubble", kind: "snotbubble", wear: "mash", x: -0.05, y: 0.75, z: r3(0.246 + 0.8 * R) },
+];
+// each tween steps at its beat's start (dur 0); the keys are not in the spec (propState owns flip, open, puff, pop)
+c.prop(0, "board", { flip: 0 }, 0); c.prop(3.3, "board", { flip: 0.5 }, 0); c.prop(4.4, "board", { flip: 1 }, 0);
+c.prop(0, "door", { open: 0 }, 0); c.prop(6.6, "door", { open: 1 }, 0);
+c.prop(0, "bubble", { puff: 0.5, pop: 0 }, 0); c.prop(9.9, "bubble", { puff: 1 }, 0); c.prop(11, "bubble", { pop: 0.5 }, 0);
+
+const BOX7 = { pos: [BOX[0], 0.7, 6.7], look: [BOX[0], 0.7, 0], fov: 34 };
+const BOX14 = { pos: [BOX[0], 1.4, 6.7], look: [BOX[0], 1.4, 0], fov: 34 };
+const BRD = { pos: [BOARD[0], 2.0, 4.4], look: [BOARD[0], 2.0, -1.2], fov: 28 };
+const DR = { pos: [DOOR[0] + 0.3, 1.0, 5.2], look: [DOOR[0] + 0.3, 0.95, -1.3], fov: 32 };
+const MICS = { pos: [MIC[0], 1.42, 1.5], look: [MIC[0], 1.3, MIC[2]], fov: 22 };
+const BUB = { pos: [MASH_AT[0], 0.9, 3.5], look: [MASH_AT[0], 0.85, MASH_AT[1]], fov: 26 };
+const end = END;
+write(import.meta.url, {
+  id: "desk14-set-bench", title: "Potato Desk 14 set bench", idea: "Engine look bench for the Desk 14 set kit (task T2), not a clip",
+  fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, motion: "natural", physics: false,
+  set: { type: "plain", color: "#aab6bc", floor: "none", light: "soft", para: 0, aperture: 0, lighting: 2, hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
+  music: false, sound: { auto: false },
+  hook: { show: ["agent", "chip", "rosti"], hint: 0, what: "engine bench" },
+  cast, props, captions: c.captions,
+  beats: c.beats([["box07", 0, BOX7], ["box14", 1.1, BOX14], ["flip0", 2.2, BRD], ["flip05", 3.3, BRD], ["flip1", 4.4, BRD], ["door0", 5.5, DR], ["door1", 6.6, DR], ["mic", 7.7, MICS], ["puff05", 8.8, BUB], ["puff1", 9.9, BUB], ["pop05", 11, BUB]], end),
+  allowClip: [
+    { who: "agent", with: "chip", from: 0, to: END, reason: "jurors shoulder to shoulder, as the clip stages them" },
+    { who: "chip", with: "rosti", from: 0, to: END, reason: "jurors shoulder to shoulder, as the clip stages them" },
+    { who: "agent", with: "box", from: 0, to: END, reason: "the jurors stand on the steps inside the jury box" },
+    { who: "chip", with: "box", from: 0, to: END, reason: "the jurors stand on the steps inside the jury box" },
+    { who: "rosti", with: "box", from: 0, to: END, reason: "the jurors stand on the steps inside the jury box" },
+  ],
+  notes: "Generated by storyboards/series/potato-desk/bench/make-desk14-set-bench.mjs (engine bench, no reviews).",
+});

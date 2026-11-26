@@ -51,6 +51,11 @@ const SIZE = {
   foamcan: { r: 0.034, h: 0.15 },                  // props-prank.js FOAMCAN: held round its body like a mug
   hotsauce: { r: 0.023, h: 0.112 },                // props-copycat.js: a small sauce bottle, held round its label like a mug
   phone: { w: 0.078, h: 0.155, t: 0.012 },         // props3d.js phone (and style "iphone")
+  pingphone: { w: 0.078, h: 0.155, t: 0.012 },     // props-hellwait.js (Potato Desk 13): the phone's body (use scale 1.8), phone hold on a side edge
+  // props-hellwait.js crystalball (Potato Desk 13): origin the ball's CENTRE (r 0.10, dish stand to y -0.14). bowl hold (both gloves cupped on its lower sides; proof:
+  // make-grip-tests.mjs --prop crystalball --hold bowl): rim -0.0375 puts the default height 0.8 at y -0.03; wall = [height from the centre, radius]. The one-hand
+  // cup (palm up, glove shape "cup") is the arm-pose grip name "cup" = (0, -0.12, 0) in HELLWAIT_GRIPS.
+  crystalball: { rim: -0.0375, wall: [[-0.14, 0.0], [-0.1, 0.066], [-0.07, 0.071], [-0.03, 0.095], [0.03, 0.095], [0.1, 0.0]] },
   sscardfan: { w: 0.44, h: 0.3, t: 0.02 },        // props-sos.js: SHARE and STEAL fanned about the bottom middle (the pivot = the origin; 0.32 wide, spec.solid 0.44): the phone hold on the lower edge
   cardfan: { w: 0.22, h: 0.16, t: 0.03 },          // props-casino.js: 2-4 playing cards fanned 14 degrees apart about the bottom middle (the pivot = the origin; 0.11 x 0.155 cards): the phone hold on the lower edge
   playcard: { w: 0.11, h: 0.155, t: 0.004 },       // props-casino.js: one card standing upright (the origin = its bottom edge's middle): the phone hold
@@ -190,6 +195,13 @@ const SIZE = {
   drumsticks: { r: 0.008, h: 0 },
   // props-foodhome.js (Kid vs Dad 02): wrapburger = box hold, both palms on the paper (origin bottom centre, 0.24 across, 0.155 tall; the design's y 0.05 = height 0.32, gap 0.03)
   wrapburger: { w: 0.24, h: 0.155, d: 0.24 },
+  // props-carrots.js (Kid vs Dad 05): carrotstick = thin pinch with spec up: true (origin the thick end, thin end up, len = its true 0.11): call thin with { from: 0.28 } (y 0.031 from the thick end; 0.32 hides the thick end in the glove: thin-prop-hidden); carrotbag = box hold, palms on the sides (height 0.4 = y 0.12)
+  carrotstick: { len: 0.11, r: 0.009, w: 0.11, h: 0.02, d: 0.02 },
+  carrotbag: { w: 0.22, h: 0.30, d: 0.14 },
+  // props-sqeyes.js (Kid vs Dad 03): eyechart = phone hold on a side edge, origin the bottom edge's middle (0.30 x 0.42 x 0.01; pass { height: 0.2 } = 8 cm up); smallruler = thin pinch at the held end
+  // (origin = the end, along +x; pass { from: 0 }; len 0.02 puts the default from 0.6 at 1.2 cm, inside the 0.035 width)
+  eyechart: { w: 0.30, h: 0.42, t: 0.01 },
+  smallruler: { len: 0.02, r: 0.002 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
