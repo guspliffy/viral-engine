@@ -23,6 +23,7 @@ export const PRESETS = { // our formats (26 Nov); regex runs on the caption
   "Court sketch": [/\b(court|judge|lawyer|guilty|your honou?r|objection)\b/i, ["court animation", "court skit"]],
   "Heaven / hell": [/\b(heaven|hell|angel|reaper|afterlife|devil)\b/i, ["heaven and hell animation", "grim reaper animation"]],
   "Kid vs dad": [/\b(dad|daddy|father|papa)\b/i, ["dad animation", "dad jokes animation", "dad and son animation"]],
+  "Country vs country": [/\b(germany|german|america|american|usa|us|europe|european|british|uk|japan|france|india)\b[\s\S]*\bvs\.?\b|\bvs\.?\b[\s\S]*\b(germany|german|america|american|usa|europe|european|british|uk|japan|france|india)\b|\bin (germany|america|the usa|europe|the uk|japan)\b/i, ["germany vs usa", "america vs europe", "usa vs uk comedy"]],
   "Folklore / legend": [/\b(legend|folklore|folktale|myth|if you hear)\b/i, ["folklore animation", "scary legend story"]],
 };
 
