@@ -74,6 +74,8 @@ export function verdict(rows, wins, o, now) {
     if (rec.length >= 3 && old.length >= 3) ratios.push(median(rec) / Math.max(median(old), 1));
   }
   const reward = ratios.length >= 3 ? +median(ratios).toFixed(2) : null;
+  const inRange = rows.filter((r) => r.posted < now - FRESH * DAY && r.posted >= start);
+  const recV = inRange.filter((r) => r.posted >= cut).map((r) => r.views), oldV = inRange.filter((r) => r.posted < cut).map((r) => r.views);
   const recentNew = wins.slice(-2).reduce((s, w) => s + w.newAccounts, 0);
   const olderNew = wins.slice(0, -2).reduce((s, w) => s + w.newAccounts, 0) / Math.max((wins.length - 2) / 2, 1);
   const entry = +(recentNew / Math.max(olderNew, 0.5)).toFixed(2);
@@ -84,7 +86,15 @@ export function verdict(rows, wins, o, now) {
   const beat = (r) => (r.usual != null ? r.views >= 2 * Math.max(r.usual, 1) && r.views >= 20000 : r.views >= o.minViews);
   const newHits = new Set(young.filter(beat).map((r) => r.account)).size;
   const newShare = newPosters >= 3 ? +(newHits / newPosters).toFixed(2) : null; // room for one more? (under 3 = unknown)
-  const word = reward == null ? "too little data (fewer than 3 accounts with history on both sides)"
+  // short read when the long one can't be made: last 4 weeks vs the 4 before (more accounts but a lower median = crowding)
+  const [w1, w2] = wins.slice(-2), short = w1 && w2 && w1.videos >= 10 && w2.videos >= 10
+    ? { posters: w2.posters / Math.max(w1.posters, 1), views: w2.medianViews / Math.max(w1.medianViews, 1) } : null;
+  const shortWord = !short ? null : short.posters >= 1.2 && short.views < 0.7 ? "CROWDING (4-week read): more accounts, lower median views"
+    : short.posters >= 1.2 ? "RISING (4-week read): more accounts and views hold"
+    : short.views < 0.7 ? "FADING (4-week read): lower median views" : short.views > 1.4 ? "HEATING UP (4-week read): higher median views" : "STEADY (4-week read)";
+  const word = reward == null && shortWord ? shortWord
+    : reward == null && recV.length >= 20 && oldV.length < 6 ? "NEW: nearly all of it was posted in the last 8 weeks"
+    : reward == null ? "too little data (fewer than 3 accounts with history on both sides)"
     : reward >= 1.3 ? "HEATING UP: the same accounts get more views with it now"
     : reward >= 0.8 && entry >= 1.5 ? "RISING: still pays, and new accounts are piling in (get in now)"
     : reward >= 0.8 ? "STEADY: still pays as before"

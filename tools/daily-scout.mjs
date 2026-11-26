@@ -56,7 +56,7 @@ export function mergeHistory(hist, seen, date) {
 }
 
 function page({ early, fresh, risers, repeats, trend, firstRun, stats }) {
-  const vrow = (v) => `<tr><td><a href="${esc(v.url)}">${esc((v.title || "(no caption)").slice(0, 90))}</a>${v.flags ? ` <span class=muted>(${esc(v.flags)})</span>` : ""}</td><td>${esc(v.account)}</td>` +
+  const vrow = (v) => `<tr><td><a href="${esc(v.url)}">${esc((v.title || "(no caption)").slice(0, 90))}</a>${v.flags ? ` <span class=muted>(${esc(v.flags)})</span>` : ""}${v.duration && v.duration < 50 ? ` <span class=muted>(${v.duration} s: a theme to stretch to 80 s)</span>` : ""}</td><td>${esc(v.account)}</td>` +
     `<td class=n>${fmt(v.followers)}</td><td class=n>${fmt(v.views)}</td><td class=n>${v.followers ? Math.round(v.views / Math.max(v.followers, 1)) + "x" : "?"}</td>` +
     `${v.gain != null ? `<td class=n>+${fmt(v.gain)}</td>` : v.ageDays != null ? `<td class=n>${v.ageDays} d</td>` : "<td></td>"}</tr>`;
   const vtab = (rows, last) => rows.length ? `<table><tr><th>Video</th><th>Account</th><th>Followers</th><th>Views</th><th>vs followers</th><th>${last}</th></tr>${rows.map(vrow).join("")}</table>` : "<p class=muted>None today.</p>";
@@ -110,7 +110,8 @@ async function main() {
   const firstRun = !hist.videos;
   const small = (v) => v.followers != null && v.followers <= so.maxFollowers;
   const breaks = ranked.flatMap((a) => (a.breakVideos || []).map((v) => ({ ...v, platform: a.platform, account: a.account, followers: a.followers })));
-  const early = vids.filter((v) => small(v) && v.ageDays != null && v.ageDays <= 3 && v.views >= 50000 && v.views >= 10 * Math.max(v.followers, 1))
+  const early = vids.filter((v) => small(v) && v.ageDays != null && v.ageDays <= 3 && v.views >= 50000 && v.views >= 10 * Math.max(v.followers, 1) &&
+    (v.duration == null || v.duration >= so.minSeconds))
     .sort((a, b) => b.views / Math.max(b.followers, 1) - a.views / Math.max(a.followers, 1)).slice(0, 15);
   const track = [...new Map([...vids.filter(small), ...breaks].map((v) => [key(v), v])).values()];
   const { hist: h2, fresh, risers } = mergeHistory(hist, track, today);

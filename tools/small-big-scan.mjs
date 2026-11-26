@@ -7,7 +7,7 @@
 //   node tools/small-big-scan.mjs --keywords "court animation,kid vs dad" --expand 2 --out out/small-big
 //   node tools/small-big-scan.mjs --seed handles.txt --no-youtube   # also score these TikTok handles (one per line)
 //
-// Options: --max-followers 10000  --min-ratio 10 (views / followers)  --min-views 200000  --days 180
+// Options: --max-followers 10000  --min-ratio 10 (views / followers)  --min-views 200000  --min-seconds 20  --days 180
 //          --deep 40 (accounts to open, best first)  --videos 30 (latest videos per account)  --expand 0 (related
 //          TikTok keyword pages per keyword)  --no-tiktok  --no-youtube  --out <dir>
 // Needs: curl, yt-dlp (pip install yt-dlp) for TikTok account lists, Chromium (playwright-core) for TikTok keyword
@@ -27,10 +27,10 @@ const DEFAULT_KEYWORDS = [
 ];
 
 export function parseArgs(argv) {
-  const o = { keywords: DEFAULT_KEYWORDS, maxFollowers: 10000, minRatio: 10, minViews: 200000, days: 180, deep: 40,
+  const o = { keywords: DEFAULT_KEYWORDS, maxFollowers: 10000, minRatio: 10, minViews: 200000, days: 180, deep: 40, minSeconds: 20,
     videos: 30, expand: 0, tiktok: true, youtube: true, seed: null, out: `out/small-big-${new Date().toISOString().slice(0, 10)}` };
   const num = { "--max-followers": "maxFollowers", "--min-ratio": "minRatio", "--min-views": "minViews", "--days": "days",
-    "--deep": "deep", "--videos": "videos", "--expand": "expand" };
+    "--deep": "deep", "--videos": "videos", "--expand": "expand", "--min-seconds": "minSeconds" };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
     if (num[a]) o[num[a]] = Number(argv[++i]);
@@ -90,7 +90,8 @@ export function ytSearchVideos(data) {
     const id = run?.navigationEndpoint?.browseEndpoint?.browseId;
     if (!id) continue;
     out.push({ platform: "youtube", account: id, name: run.text, id: v.videoId, url: `https://www.youtube.com/shorts/${v.videoId}`,
-      title: txt(v.title), views: shortNum(txt(v.viewCountText)), ageDays: agoDays(txt(v.publishedTimeText)), followers: null });
+      title: txt(v.title), views: shortNum(txt(v.viewCountText)), ageDays: agoDays(txt(v.publishedTimeText)), followers: null,
+      duration: (() => { const t = txt(v.lengthText); return t ? t.split(":").reduce((s, x) => s * 60 + +x, 0) : null; })() });
   }
   return out;
 }
@@ -187,7 +188,9 @@ export function scoreAccount(acc, videos, o) {
   const F = Math.max(acc.followers || 0, 1);
   const vs = videos.filter((v) => v.views != null);
   const med = median(vs.map((v) => v.views));
-  const isBreak = (v) => v.views >= o.minRatio * F && v.views >= o.minViews && (v.ageDays == null || v.ageDays <= o.days);
+  // under --min-seconds (20) is too thin to carry a story (Jonny 26 Nov); unknown length (YouTube tabs) counts
+  const isBreak = (v) => v.views >= o.minRatio * F && v.views >= o.minViews && (v.ageDays == null || v.ageDays <= o.days) &&
+    (v.duration == null || v.duration >= (o.minSeconds ?? 0));
   const breaks = vs.filter(isBreak).sort((a, b) => b.views - a.views);
   const settled = vs.filter((v) => v.ageDays == null || v.ageDays >= 3).sort((a, b) => a.views - b.views);
   const boosted = vs.filter((v) => v.likes != null && v.views >= 100000 && v.likes / v.views < 0.003).length;

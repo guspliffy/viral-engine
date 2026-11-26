@@ -12,7 +12,8 @@ identify viral formats we could use in our own style". Lessons, not copies.
    follower count) and YouTube Shorts search (this month + this year, sorted by views). `--expand N` also opens N
    related TikTok keyword pages per keyword that stay in animation/comedy land. `--seed <file>` adds TikTok handles.
 2. **Filter.** Accounts under `--max-followers` (10K, Jonny 26 Nov: 100K is already big) with a video at `--min-ratio`
-   (10x) followers and `--min-views` (200K). Default keywords = our niche: animation, funny animation, comedy, comedy
+   (10x) followers and `--min-views` (200K). Videos under `--min-seconds` (20) don't count (Jonny 26 Nov: our target stays
+   80 s; a 20-50 s hit is a theme we can stretch to 80 s, and the page marks it so). Default keywords = our niche: animation, funny animation, comedy, comedy
    sketches; add topic keywords with `--keywords`.
 3. **Open.** The latest `--videos` (30) videos of the best `--deep` (40) accounts: TikTok through `yt-dlp`, YouTube
    from the channel's Shorts tab.
@@ -46,7 +47,10 @@ videos over 200K (hits), posters that are new accounts. Last 2 windows vs the on
 RISING (supply up, reward holds), CROWDED (supply up, reward down), DYING (both down), FADING (reward down),
 HEATING UP (reward up), STEADY. Newcomer odds: of the new accounts (under 150 days) that tried the format in the last 60 days, how many got a
 format video at 2x+ their own usual views ("8 of 30"): if new accounts still win, the door is open. Videos under 10 days old are left out (still gaining views).
-Limits: only accounts that are active now are found; daily posters' 60 videos may not reach the oldest windows.
+When too few accounts have history on both sides (most posters are new; daily posters' 150 videos cover ~2 months),
+it falls back to a 4-week read: last 4 weeks vs the 4 before (more accounts + lower median = CROWDING), or NEW.
+The daily scout's own history makes this sharper week by week. `--from <dir>/rows.json` re-judges a run without fetching.
+Limits: only accounts that are active now are found.
 
 ## Daily scout (`tools/daily-scout.mjs`, `.github/workflows/scout.yml`)
 
