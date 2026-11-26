@@ -138,6 +138,11 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   these lines and `qa/preflight.mjs` lists each as `warn spoken-length` with the gap and the fix (put the spoken length
   in the length table). Should keep caption cut-offs from a stale length at 0 and save a Sol finding. Proof: the bird
   line written 1.39 s gives 1 warning (0.28 s early), written 1.92 s gives 0; selftest passes; no render changes.
+- `camera-inside` (25 Nov, from Heaven Terms draft 2; waits for Jonny's word): the "hide" shot's camera stood inside the
+  Angel's wing and filled the frame with flat orange for 2 s; preflight passed and camfit said nothing, so a full
+  draft (11 min) found it by eye. `qa/camin.mjs` (run by preflight, a fail; camfit prints `CAMERA INSIDE <who>`) tests
+  every layout sample's camera against each body. Should keep draft rounds lost to a frame filled by a body at 0.
+  Proof: draft 2's storyboard fails 19.8-21.8 s, the fixed one passes.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
