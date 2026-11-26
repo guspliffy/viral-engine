@@ -1,0 +1,210 @@
+{
+ "id": "kvd03-voice-probe",
+ "title": "Kid vs Dad 03 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   45.6,
+   45.6
+  ]
+ },
+ "cast": [
+  {
+   "id": "rep",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    3.2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 45.6,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Warning. This man watched too much TV.",
+     "tone": "calm",
+     "style": "deadly serious, low, a warning",
+     "voice": "reaper",
+     "dur": 3.3,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "One more hour, and that's you.",
+     "tone": "calm",
+     "style": "flat, pointing, eyes still on his phone",
+     "voice": "dad",
+     "dur": 2.9,
+     "caption": false,
+     "at": 4.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Square forever? Is it true?",
+     "tone": "whisper",
+     "style": "scared, small, staring at the neighbour",
+     "voice": "tato",
+     "dur": 2.5,
+     "caption": false,
+     "at": 8.4
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "We're live. Tato, age seven, has watched TV for nine hours.",
+     "tone": "calm",
+     "style": "grave, low, a correspondent under cover",
+     "voice": "reaper",
+     "dur": 4.9,
+     "caption": false,
+     "at": 11.9
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "And in this house, there is one rule: one more hour... and your eyes go square.",
+     "tone": "calm",
+     "style": "slow, ominous, a pause before the last words",
+     "voice": "reaper",
+     "dur": 6.9,
+     "caption": false,
+     "at": 17.8
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Breaking. Square eyes are spreading.",
+     "tone": "excited",
+     "style": "urgent breaking news, out of breath",
+     "voice": "reaper",
+     "dur": 2.5,
+     "caption": false,
+     "at": 25.7
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Is this kid next?",
+     "tone": "question",
+     "style": "low, suspicious, mic pushed toward the window",
+     "voice": "reaper",
+     "dur": 2.1,
+     "caption": false,
+     "at": 29.2
+    },
+    {
+     "who": "rep",
+     "macro": "say",
+     "line": "Lies. Your parents lied to you... or did they?",
+     "tone": "calm",
+     "style": "straight to camera, slow, a twist on the last words",
+     "voice": "reaper",
+     "dur": 4.1,
+     "caption": false,
+     "at": 32.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Danger. One more hour, and your eyes go square. Forever.",
+     "tone": "calm",
+     "style": "a stern dad warning, not looking up from his phone",
+     "voice": "dad",
+     "dur": 4.5,
+     "caption": false,
+     "at": 37.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Is it true?",
+     "tone": "whisper",
+     "style": "small, worried, eyes still on the TV",
+     "voice": "tato",
+     "dur": 1.7,
+     "caption": false,
+     "at": 42.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Kid vs Dad 03 openings: makes and measures every take. rep stands in as Spud's body; its voice is reaper."
+}

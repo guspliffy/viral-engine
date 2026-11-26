@@ -42,6 +42,9 @@ import { BUSSTOP_KINDS } from "./props-busstop.js";
 import { DESK_KINDS } from "./props-desk.js";   // potato desk: service counter set
 import { COURT_KINDS } from "./props-court.js";   // potato desk 05 court day: judgebench, dadopanels, floormarks, soundblock, courtfloor, sentenceboard, axegavel, fryfan, chipbag, mashbowl, courtspoon
 import { CARTON_KINDS } from "./props-carton.js";   // potato desk 11 court kid and dad: friescarton, loosefry
+import { DESK14_SET_KINDS } from "./props-desk14-set.js";   // potato desk 14 don't laugh: jurybox, exhibitboard, courtdoorway, deskmic, snotbubble
+import { DESK14_PHOTO_KINDS } from "./props-desk14-photo.js";   // potato desk 14 don't laugh: bowlcut, bracesgrin (worn on spud-kid for Exhibit A)
+import { DESK14HEAD_KINDS } from "./props-desk14-head.js";   // potato desk 14 don't laugh: hashtoupee, hashcrumbs, judgeshadow
 import { IKEA_KINDS } from "./props-ikea.js";   // friends try to, episode 1 (friends-try-to-shared)
 import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode 3: the cat, the plaid bed (friends-try-to-shared)
 import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
@@ -107,6 +110,10 @@ import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinerco
 import { DRIVETHRU_KINDS } from "./props-drivethru.js";   // kid vs dad 02: drivethru, burgersign, trafficlight, trafficcone, speakerpost, menuboard
 import { FRIDGE_KINDS } from "./props-fridge.js";   // kid vs dad 02: openfridge
 import { FOODHOME_KINDS } from "./props-foodhome.js";   // kid vs dad 02: wrapburger, fogglass, cablight, sweatbead
+import { CARROTS_KINDS } from "./props-carrots.js";   // kid vs dad 05: carrotstick, carrotpile, carrotbowl, carrotbag, crumbs
+import { CARROTS_JAR_KINDS } from "./props-carrots-jar.js";   // kid vs dad 05: pantryshelf, cookiejar, jarstool
+import { CARROTS_WEAR_KINDS } from "./props-carrots-wear.js";   // kid vs dad 05: nvgoggles, eyeshine, moonlamp, daywindow
+import { CARROTS_HALL_KINDS } from "./props-carrots-hall.js";   // kid vs dad 05: kidhall, floortoys, toyblock
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { LUNCH_KINDS } from "./props-lunch.js";   // potato desk 10 lunch trial: lunchbox, yogurtcup, kitchensink, microwave, beanmachine, corkboard, blindwindow, carpettiles, ceilingtiles, mouldbox, lanyard, collarstain, pocketglow
 import { THERMO_KINDS, THERMO_GRIPS } from "./props-thermo.js";   // potato desk 11 thermostat war: thermostat, thermobox, stepstool
@@ -150,6 +157,7 @@ import { WAKEFX_KINDS } from "./props-wakeup-fx.js";
 import { WAKEOUT_KINDS } from "./props-wakeup-out.js";
 import { SINKCAR_KINDS } from "./props-sinkcar.js";
 import { SKIPREMOTE_KINDS } from "./props-skipremote.js";
+import { SQEYES_KINDS } from "./props-sqeyes.js";   // Kid vs Dad 03: wallclock, eyechart, smallruler
 import { ARCH_KINDS, ARCH_GRIPS } from "./props-archaeologist.js";
 import { REPORTER_KINDS, REPORTER_GRIPS } from "./props-reporter.js";   // kid vs dad 01: newsmic, rephelmet
 import { HELLA_KINDS, HELLA_GRIPS } from "./props-hella.js";   // potato desk 09 hell reviews: set A (doors, badges, clouds, sky) + tablet + hand props
@@ -176,6 +184,7 @@ import { KRAMPUS_BOOTS_KINDS, KRAMPUS_BOOTS_GRIPS, KRAMPUS_BOOTS_STATE } from ".
 import { KRAMPUS_RUN_KINDS, KRAMPUS_RUN_GRIPS, KRAMPUS_RUN_STATE } from "./props-krampus-run.js";   // krampus myth 01 (DESIGN.md)
 import { KRAMPUS_CAT_KINDS, KRAMPUS_CAT_GRIPS, KRAMPUS_CAT_STATE } from "./props-krampus-cat.js";   // krampus myth 01 (DESIGN.md)
 import { HELLB_KINDS, HELLB_GRIPS } from "./props-hellb.js";   // potato desk 09 hell reviews: set B (hell resort lobby)   // the archaeologist's conservation brush: archbrush
+import { HELLWAIT_KINDS, HELLWAIT_GRIPS } from "./props-hellwait.js";   // potato desk 13 who's in your hell: hellcouch, pingphone, crystalball
 import { HSTAIRS_KINDS, HSTAIRS_GRIPS } from "./props-heavenstairs.js";   // potato desk heaven steps: the stairway
 import { HTOP_KINDS, HTOP_GRIPS } from "./props-heaventop.js";   // heaven steps: gate, podium, ledger
 import { HSKY_KINDS, HSKY_GRIPS } from "./props-heavensky.js";   // heaven steps: sky, zone clouds, hell floor, hatch, parasol
@@ -1515,6 +1524,7 @@ Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);  
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, DRIVETHRU_KINDS, FRIDGE_KINDS, FOODHOME_KINDS);   // kid vs dad 02 (props-drivethru.js, props-fridge.js, props-foodhome.js)
+Object.assign(KINDS, CARROTS_KINDS, CARROTS_JAR_KINDS, CARROTS_WEAR_KINDS, CARROTS_HALL_KINDS);   // kid vs dad 05 (props-carrots*.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
 Object.assign(KINDS, LUNCH_KINDS);   // potato desk 10 lunch trial (props-lunch.js)
 Object.assign(KINDS, THERMO_KINDS, CLIMATE_KINDS, OFFICE11_KINDS);   // potato desk 11 thermostat war (props-thermo.js, props-climate.js, props-office11.js)
@@ -1549,7 +1559,7 @@ Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.j
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 Object.assign(KINDS, WAKECABIN_KINDS, WAKEFX_KINDS, WAKEOUT_KINDS);   // you wake up mid EP01 (props-wakeup-*.js)
 Object.assign(KINDS, SINKCAR_KINDS);   // you wake up mid EP02: cabinwater, carglass, dashglow, headrest, headbeams, lakebubbles (props-sinkcar.js)
-Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
+Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS, SQEYES_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
 Object.assign(KINDS, ARCH_KINDS); Object.assign(GRIPS, ARCH_GRIPS);   // the archaeologist: archbrush (props-archaeologist.js)
 Object.assign(KINDS, REPORTER_KINDS); Object.assign(GRIPS, REPORTER_GRIPS);   // kid vs dad 01: newsmic, rephelmet (props-reporter.js)
 Object.assign(KINDS, COASTER_KINDS);   // never looks up 07 (props-coaster.js)
@@ -1564,7 +1574,11 @@ Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRI
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 Object.assign(KINDS, COURT_KINDS);   // potato desk 05 court day (props-court.js)
 Object.assign(KINDS, CARTON_KINDS);   // potato desk 11: friescarton, loosefry (props-carton.js)
+Object.assign(KINDS, DESK14_SET_KINDS);   // potato desk 14: jurybox, exhibitboard, courtdoorway, deskmic, snotbubble (props-desk14-set.js)
+Object.assign(KINDS, DESK14_PHOTO_KINDS);   // potato desk 14: bowlcut, bracesgrin (props-desk14-photo.js)
+Object.assign(KINDS, DESK14HEAD_KINDS);   // potato desk 14: hashtoupee, hashcrumbs, judgeshadow (props-desk14-head.js)
 Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
+Object.assign(KINDS, HELLWAIT_KINDS); Object.assign(GRIPS, HELLWAIT_GRIPS);   // potato desk 13 (props-hellwait.js)
 Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, HEART_HEART_KINDS, HEART_SOUL_KINDS, HEART_JUICE_KINDS, HEART_CASE_KINDS); Object.assign(GRIPS, HEART_HALL_GRIPS, HEART_SCALE_GRIPS, HEART_MONSTER_GRIPS, HEART_HEART_GRIPS, HEART_SOUL_GRIPS, HEART_JUICE_GRIPS, HEART_CASE_GRIPS);   // egypt myth 01 heart (props-heart-*.js)
 Object.assign(KINDS, NORSE_SPEAR_KINDS, NORSE_RAVEN_KINDS, NORSE_HEAD_KINDS, NORSE_CAVE_KINDS, NORSE_WELL_KINDS, NORSE_TREE_KINDS, NORSE_WIND_KINDS, NORSE_ITEMS_KINDS, NORSE_CLASS_KINDS); Object.assign(GRIPS, NORSE_SPEAR_GRIPS, NORSE_RAVEN_GRIPS, NORSE_HEAD_GRIPS, NORSE_CAVE_GRIPS, NORSE_WELL_GRIPS, NORSE_TREE_GRIPS, NORSE_WIND_GRIPS, NORSE_ITEMS_GRIPS, NORSE_CLASS_GRIPS);   // norse myth 01 wednesday (props-norse-*.js)
 Object.assign(KINDS, KRAMPUS_LANE_KINDS, KRAMPUS_BEAST_KINDS, KRAMPUS_NICK_KINDS, KRAMPUS_BOOTS_KINDS, KRAMPUS_RUN_KINDS, KRAMPUS_CAT_KINDS); Object.assign(GRIPS, KRAMPUS_LANE_GRIPS, KRAMPUS_BEAST_GRIPS, KRAMPUS_NICK_GRIPS, KRAMPUS_BOOTS_GRIPS, KRAMPUS_RUN_GRIPS, KRAMPUS_CAT_GRIPS);   // krampus myth 01 (props-krampus-*.js)
