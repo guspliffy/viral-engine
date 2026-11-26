@@ -202,6 +202,11 @@ const SIZE = {
   drumsticks: { r: 0.008, h: 0 },
   // props-foodhome.js (Kid vs Dad 02): wrapburger = box hold, both palms on the paper (origin bottom centre, 0.24 across, 0.155 tall; the design's y 0.05 = height 0.32, gap 0.03)
   wrapburger: { w: 0.24, h: 0.155, d: 0.24 },
+  // props-gum.js (Kid vs Dad 06): gumstick = thin pinch on the foil sleeve (from: 0.25 = y 0.0275, under the paper band); potlid = the shield, held rigid in the right mitt by GUM_GRIPS.potlid.back (built facing +z, origin the rim plane's centre);
+  // xrayfilm = box hold, both palms on the side edges at y 0.253 (the reviewtablet hold; the picture on -z)
+  gumstick: { len: 0.11, r: 0.005 },
+  potlid: { w: 0.44, h: 0.44, d: 0.07 },
+  xrayfilm: { w: 0.34, h: 0.46, d: 0.02 },
   // props-carrots.js (Kid vs Dad 05): carrotstick = thin pinch with spec up: true (origin the thick end, thin end up, len = its true 0.11): call thin with { from: 0.28 } (y 0.031 from the thick end; 0.32 hides the thick end in the glove: thin-prop-hidden); carrotbag = box hold, palms on the sides (height 0.4 = y 0.12)
   carrotstick: { len: 0.11, r: 0.009, w: 0.11, h: 0.02, d: 0.02 },
   carrotbag: { w: 0.22, h: 0.30, d: 0.14 },
