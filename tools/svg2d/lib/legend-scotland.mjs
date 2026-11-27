@@ -21,7 +21,7 @@
 //           hands 0..1 (raised to the face, standing), shock, grin, talk, blink, look, lean deg, size }
 //   hostRide(c, seat) -> { cam, X, Z } for L.kid (draw the kid BEFORE the kelpie), riderLeg(c, seat) his near leg AFTER it
 //   kidHand(kd, reachL, lean) -> screen px of L.kid's bell hand (aim the kelpie's nose there: st.nod)
-//   nineHand(x, y, k, { missing 0 index..3 pinky, rot, spread, warm 0..1, arm cm }) Grandma's open hand, k px per cm
+//   nineHand(x, y, k, { missing 0 index..3 pinky (default 2, the ring finger), rot, spread, warm 0..1, arm cm }) Grandma's open hand, k px per cm
 //   keeperRaise(kp, { k, warm }) the same hand raised from L.keeper's shoulder (use instead of kp.arm)
 //   stuckFinger(x, y, k, { pull 0..1, dir -1 from screen right }, t) close-up hand, fingertip glued at (x, y) = kelpie().nose
 //   bridleLoose(x, y, k, { rot, drip }, t) the torn weed bridle with its silver rings, k px per cm
@@ -75,8 +75,8 @@ export const MOOD = { loch: 0, under: 1, croft: 2 };
 const KC = {      // [loch, under, croft]
   coat: ["#090c17", "#06191b", "#0c0a15"], far: ["#182238", "#0f3536", "#201a2c"], edge: ["#22304e", "#1a4a48", "#2c2640"],
   rim: ["#5682bc", "#62b89e", "#7286b4"], hi: ["#d6ebff", "#e2fff2", "#ffe6c0"],
-  mane: ["#16363f", "#124a44", "#1a2f38"], maneHi: ["#bdf3e6", "#d8ffe9", "#cfe9dc"], weed: ["#3fb265", "#4ccf7c", "#4a9a58"], weedHi: ["#a4f5ae", "#c4ffc8", "#b6e6a4"], weedS: ["#16553a", "#1a6a48", "#1c4a34"],
-  eye: ["#f2fff0", "#f4fff4", "#fff4dc"], hoof: ["#2c3446", "#234a4a", "#342c3c"],
+  mane: ["#0f2226", "#0c302c", "#141f24"], maneHi: ["#a9d4e2", "#bfeedd", "#d8cdb4"], weed: ["#1d4a30", "#1f6046", "#22442c"], weedHi: ["#4d8a5c", "#62b088", "#5c8452"], weedS: ["#0c2a1c", "#0c3a2c", "#10261a"],
+  eye: ["#f2fff0", "#f4fff4", "#fff4dc"], hoof: ["#3d4860", "#2f5c5a", "#463c50"],
   vig: ["#02040f", "#021612", "#070410"], tint: ["#c6d4ff", "#b6ead6", "#ffe6d0"],
 };
 const LC = { sky0: "#060a22", sky1: "#0c1a44", sky2: "#173564", sky3: "#2a5682", moon: "#eef6ff", moonS: "#c2d4ec", cloud: "#1f3a66", star: "#dfeaff",
@@ -324,26 +324,29 @@ export function kelpie(c, st = {}, t = 0) {
   const K = clamp(st.kneel || 0), E = Math.max(0, (st.len ?? 1) - 1) * 36, ob = clamp(st.obey || 0), turn = clamp(st.turn || 0), fl = clamp(st.float || 0);
   const pitch = st.pitch || 0, wk = st.walk == null ? 0 : 1, walk = st.walk ?? 0, drip = st.drip ?? 1, glint = (st.glint ?? 1) * (1 - ob * 0.85);
   const bob = wk * Math.abs(Math.cos(walk * Math.PI * 2)) * 2.5;
-  const hipX = -52 - E, a = Math.asin(K * 26 / (92 + E)), ca = Math.cos(a), sa = Math.sin(a), dropY = K * 28 - bob;
+  const hipX = -52 - E, a = Math.asin(K * 50 / (92 + E)), ca = Math.cos(a), sa = Math.sin(a), dropY = K * 18 - bob;
   const T = (x, y) => { const dx = x - hipX, dy = y + 100; return [hipX + dx * ca - dy * sa, -100 + dx * sa + dy * ca + dropY]; };
-  const back = (x) => { const u = clamp((36 - x) / (36 - hipX)); return lerp(-152, -151, u) + Math.sin(Math.PI * u) * (7 + E * 0.05); };
-  const belly = (x) => { const u = clamp((34 - x) / (34 - hipX - 8)); return lerp(-88, -91, u) + Math.sin(Math.PI * Math.min(1, u * 1.15)) * (6 + E * 0.03); };
+  const back = (x) => { const u = clamp((36 - x) / (36 - hipX)); return lerp(-152, -151, u) + Math.sin(Math.PI * u) * (7 + E * 0.085); };
+  const belly = (x) => { const u = clamp((34 - x) / (34 - hipX - 8)); return lerp(-88, -91, u) + Math.sin(Math.PI * Math.min(1, u * 1.15)) * (6 - E * 0.1); };
   const coat = M.coat, es = `stroke="${M.edge}" stroke-width="0.9" stroke-linejoin="round"`;
   // legs: [upper joint, knee/hock, fetlock, hoof], near and far
   function leg(front, far) {
     const ph = wk ? walk * Math.PI * 2 + (front ? 0 : Math.PI) + (far ? Math.PI * 0.5 : 0) : 0, sw = wk * Math.sin(ph), lift = wk * Math.max(0, Math.cos(ph)) * 10, off = far ? (front ? 10 : 11) : 0;
     let J;
     if (front) {
-      const el = T(40 + off * 0.6, -100), kn = [lerp(41, 62, K) + off + sw * 9 + lift * 0.7, lerp(-52, -7, K) - lift * 0.6], fe = [lerp(41, 37, K) + off + sw * 15, lerp(-13, -7, K) - lift], hf = [lerp(44, 23, K) + off + sw * 17, lerp(0, -5, K) - lift];
+      const el = T(40 + off * 0.6, -100), e0 = T(40, -100)[0], kn = [lerp(41, e0 + 45, K) + off + sw * 9 + lift * 0.7, lerp(-52, -8, K) - lift * 0.6], fe = [lerp(41, e0 + 15, K) + off + sw * 15, lerp(-13, -7, K) - lift], hf = [lerp(44, e0 + 1, K) + off + sw * 17, lerp(0, -6, K) - lift];
       J = [el, kn, fe, hf];
     } else {
-      const sf = T(hipX + 2 + off * 0.6, -100), hk = [lerp(hipX - 18, hipX - 22, K) + off + sw * 9, lerp(-54, -36, K) - lift * 0.5], fe = [lerp(hipX - 10, hipX - 8, K) + off + sw * 15, lerp(-13, -10, K) - lift], hf = [hipX - 6 + off + sw * 17, -lift];
+      const sf = T(hipX + 2 + off * 0.6, -100), hk = [lerp(hipX - 18, hipX - 21, K) + off + sw * 9, lerp(-54, -45, K) - lift * 0.5], fe = [lerp(hipX - 10, hipX - 8, K) + off + sw * 15, lerp(-13, -10, K) - lift], hf = [hipX - 6 + off + sw * 17, -lift];
       J = [sf, hk, fe, hf];
     }
-    const col = far ? M.far : coat, ha = front ? K * 105 : 0;
-    let s = taper(J[0], J[1], front ? 19 : 25, front ? 10.5 : 11.5, col, es) + taper(J[1], J[2], front ? 9 : 10, 7.5, col, es) + `<circle cx="${n(J[1][0])}" cy="${n(J[1][1])}" r="${front ? 5.8 : 6.2}" fill="${col}" ${es}/>` + taper(J[2], [J[3][0] - 1, J[3][1] - 6], 8, 7.5, col, es);
-    s += `<g transform="translate(${n(J[3][0])},${n(J[3][1])}) rotate(${n(-ha)})"><path d="M-6.5,0 L7.5,0 L5.2,-9.5 L-3.6,-9.5 Z" fill="${M.hoof}" stroke="${INK}" stroke-width="0.8" stroke-linejoin="round"/><path d="M-4,-8 L5,-8" stroke="${M.rim}" stroke-width="1" opacity="0.8"/></g>`;
-    if (!far) s += ln(`M${n(J[0][0] + (front ? 7 : 9))},${n(J[0][1] + 10)} L${n(J[1][0] + 4)},${n(J[1][1] - 4)} M${n(J[1][0] + 3)},${n(J[1][1] + 6)} L${n(J[2][0] + 2.6)},${n(J[2][1] - 2)}`, M.rim, 1.5, `opacity="0.75"`);
+    const col = far ? M.far : coat, ha = front ? K * 105 : 0, mid = (A, B, u) => [lerp(A[0], B[0], u), lerp(A[1], B[1], u)];
+    // forearm / gaskin muscle, a bony knee / hock, the cannon, a round fetlock, the pastern, a clear hoof
+    const m = mid(J[0], J[1], 0.3);
+    let s = taper(J[0], J[1], front ? 25 : 33, front ? 13 : 14.5, col, es) + `<ellipse cx="${n(m[0] + (front ? 1.5 : -2))}" cy="${n(m[1])}" rx="${front ? 12.5 : 16}" ry="${front ? 15 : 19}" transform="rotate(${n(Math.atan2(J[1][1] - J[0][1], J[1][0] - J[0][0]) * 180 / Math.PI - 90)} ${n(m[0])} ${n(m[1])})" fill="${col}" stroke="none"/>` +
+      taper(J[1], J[2], front ? 11.5 : 12.5, 9.5, col, es) + `<circle cx="${n(J[1][0])}" cy="${n(J[1][1])}" r="${front ? 7.6 : 8.2}" fill="${col}" ${es}/>` + taper(J[2], [J[3][0] - 1, J[3][1] - 8], 10.5, 10, col, es) + `<circle cx="${n(J[2][0])}" cy="${n(J[2][1])}" r="6.2" fill="${col}" ${es}/>`;
+    s += `<g transform="translate(${n(J[3][0])},${n(J[3][1])}) rotate(${n(-ha)})"><path d="M-8.5,0 L10.5,0 L7,-11.5 L-5.4,-11.5 Z" fill="${M.hoof}" stroke="${INK}" stroke-width="1" stroke-linejoin="round"/><path d="M-5.6,-10.2 L7,-10.2" stroke="${M.rim}" stroke-width="1.4"/><path d="M4,-8 L6.4,-2" stroke="${M.hi}" stroke-width="1" opacity="0.6" stroke-linecap="round"/></g>`;
+    if (!far) s += ln(`M${n(J[0][0] + (front ? 9 : 12))},${n(J[0][1] + 12)} Q${n(m[0] + (front ? 13 : 15))},${n(m[1] + 6)} ${n(J[1][0] + 5.5)},${n(J[1][1] - 6)} M${n(J[1][0] + 4.6)},${n(J[1][1] + 8)} L${n(J[2][0] + 3.8)},${n(J[2][1] - 4)}`, M.rim, 1.9, `opacity="0.8"`) + ln(`M${n(J[1][0] + 2.5)},${n(J[1][1] - 3)} q2.5,3 0,6`, M.hi, 1.1, `opacity="0.8"`);
     return s;
   }
   // barrel
@@ -351,16 +354,20 @@ export function kelpie(c, st = {}, t = 0) {
   for (let j = 0; j <= NB; j++) { const x = lerp(36, hipX + 2, j / NB); top.push(T(x, back(x))); }
   for (let j = 0; j <= NB; j++) { const x = lerp(hipX + 8, 30, j / NB); bot.push(T(x, belly(x))); }
   const body = spline([...top, T(hipX - 15, -145), T(hipX - 26, -127), T(hipX - 25, -104), T(hipX - 12, -91), ...bot, T(44, -94), T(58, -112), T(58, -132), T(48, -147)]);
-  let sheen = ln(spline(top.map(([x, y]) => [x, y + 2.6]), false), M.rim, 2.6) + ln(spline(top.slice(1, -1).map(([x, y]) => [x - 2, y + 5.5]), false), M.hi, 1.1, `opacity="0.9" stroke-dasharray="14 9 5 12"`);
+  let sheen = ln(spline(top.map(([x, y]) => [x, y + 2.6]), false), M.rim, 3.2) + ln(spline(top.slice(1, -1).map(([x, y]) => [x - 2, y + 5.5]), false), M.hi, 1.1, `opacity="0.9" stroke-dasharray="14 9 5 12"`);
+  if (E > 6) { const eo = Math.min(1, E / 70);
+    for (let x = 28; x > hipX + 4; x -= 7.5) { const q = T(x, back(x) + 1.2); sheen += `<circle cx="${n(q[0])}" cy="${n(q[1])}" r="2.1" fill="${M.rim}" stroke="${M.hi}" stroke-width="0.5" opacity="${n(eo * 0.95)}"/>`; }
+    [[0.3, 2.2, 0.75], [0.52, 1.3, 0.5]].forEach(([f, w, o2]) => { const pts = []; for (let x = 22; x >= hipX + 12; x -= 12) pts.push(T(x, lerp(back(x), belly(x), f))); sheen += ln(spline(pts, false), f < 0.4 ? M.hi : M.rim, w, `opacity="${n(eo * o2)}"`); });
+  }
   const rp = T(hipX - 6, -128), shd = T(40, -122);
   sheen += ln(`M${n(rp[0] - 14)},${n(rp[1] - 6)} Q${n(rp[0] + 2)},${n(rp[1] - 20)} ${n(rp[0] + 20)},${n(rp[1] - 12)}`, M.rim, 3.2, `opacity="0.85"`) + ln(`M${n(rp[0] - 6)},${n(rp[1] - 9)} q8,-5 16,-3`, M.hi, 1.4);
   sheen += ln(`M${n(shd[0] - 12)},${n(shd[1] - 12)} Q${n(shd[0] + 6)},${n(shd[1] - 10)} ${n(shd[0] + 10)},${n(shd[1] + 12)}`, M.rim, 2.6, `opacity="0.7"`) + ln(`M${n(shd[0] + 2)},${n(shd[1] - 9)} q6,5 6,13`, M.hi, 1.2, `opacity="0.9"`);
-  for (let x = 14; x > hipX + 16; x -= 13) { const q = T(x, back(x) + 16), q2 = T(x - 5, belly(x) - 12); sheen += ln(`M${n(q[0])},${n(q[1])} Q${n(q[0] - 9)},${n((q[1] + q2[1]) / 2)} ${n(q2[0])},${n(q2[1])}`, M.rim, 1, `opacity="${n(0.1 + Math.min(0.2, E * 0.003))}"`); }
+  for (let x = 14; x > hipX + 16; x -= 13) { const q = T(x, back(x) + 16), q2 = T(x - 5, belly(x) - 12); sheen += ln(`M${n(q[0])},${n(q[1])} Q${n(q[0] - 9)},${n((q[1] + q2[1]) / 2)} ${n(q2[0])},${n(q2[1])}`, M.rim, 1, `opacity="${n(0.1 + Math.min(0.32, E * 0.004))}"`); }
   for (let i = 0; i < 6 + NB; i++) { const x = lerp(30, hipX - 8, hash(i * 2.3 + 1)), q = T(x, lerp(back(x) + 12, belly(x) - 8, hash(i * 5.1))); sheen += ln(`M${n(q[0])},${n(q[1])} l${n(1 + hash(i) * 2)},${n(5 + hash(i + 2) * 6)}`, M.hi, 0.9, `opacity="${n(0.35 + 0.3 * hash(i + 7))}"`); }
   // tail (hangs; drifts back and up when floating)
   const dock = T(hipX - 22, -137), td = [lerp(-0.22, -0.95, fl), lerp(1, -0.32, fl)], tl = Math.hypot(td[0], td[1]), tdx = td[0] / tl, tdy = td[1] / tl;
   const tailC = [0, 0.2, 0.45, 0.72, 1].map((u) => { const sv = Math.sin(t * (1.3 + fl) + u * 3) * (5 + fl * 9) * u; return [dock[0] + tdx * 104 * u - tdy * sv + (u > 0 ? -6 * Math.sin(u * Math.PI) * (1 - fl) : 0), dock[1] + tdy * 104 * u + tdx * sv]; });
-  let tail = `<path d="${ribbon(tailC, [9, 16, 19, 15, 2])}" fill="${M.mane}" ${es}/>` + ln(spline(tailC.slice(0, 4).map(([x, y]) => [x - 3, y]), false), M.maneHi, 1.5, `opacity="0.85"`) + ln(spline(tailC.slice(1).map(([x, y], i) => [x + 3 + (i % 2) * 2, y]), false), M.weed, 2.2) + ln(spline(tailC.slice(1, 4).map(([x, y]) => [x + 1, y + 4]), false), M.weedHi, 0.8);
+  let tail = `<path d="${ribbon(tailC, [9, 16, 19, 15, 2])}" fill="${M.mane}" ${es}/>` + ln(spline(tailC.slice(0, 4).map(([x, y]) => [x - 3, y]), false), M.maneHi, 1.2, `opacity="0.7"`) + ln(spline(tailC.slice(1).map(([x, y], i) => [x + 3 + (i % 2) * 2, y]), false), M.weed, 2.2) + ln(spline(tailC.slice(1, 4).map(([x, y]) => [x + 1, y + 4]), false), M.weedHi, 0.8);
   // neck + head
   const bT = T(24, -151), bB = T(58, -118), bC = T(44, -136);
   const A = (lerp(58 - 18 * K, -14, ob) - (st.nod || 0) + wk * Math.sin(walk * Math.PI * 4) * 3) * Math.PI / 180, dA = [Math.cos(A), -Math.sin(A)], nA = [-Math.sin(A), -Math.cos(A)];
@@ -414,8 +421,8 @@ export function kelpie(c, st = {}, t = 0) {
   const lock = (s0, L, i, weed) => {
     const cs = [0, 0.34, 0.68, 1].map((u) => { const sv = (Math.sin(t * (1.2 + fl) + i * 1.9 + u * 2.6) * (2.2 + fl * 6) + jit(i * 3 + 7, 3)) * u; return [s0[0] + mdx * L * u - mdy * sv, s0[1] + mdy * L * u + mdx * sv]; });
     const tip = cs[3];
-    if (weed) return { svg: `<path d="${ribbon(cs, [3.4, 5, 4.2, 0.6])}" fill="${M.weed}" stroke="${M.weedS}" stroke-width="0.8"/>` + ln(spline(cs.slice(0, 3), false), M.weedHi, 1.1), tip };
-    return { svg: `<path d="${ribbon(cs, [7.5, 8.5, 6, 0.6])}" fill="${M.mane}" ${es}/>` + ln(spline(cs.slice(0, 3).map(([x, y]) => [x - 1.2, y]), false), M.maneHi, 1.9) + ln(spline(cs.slice(1).map(([x, y]) => [x + 1.6, y]), false), M.rim, 0.9, `opacity="0.8"`), tip };
+    if (weed) return { svg: `<path d="${ribbon(cs, [3.4, 5, 4.2, 0.6])}" fill="${M.weed}" stroke="${M.weedS}" stroke-width="0.8"/>` + (i % 3 === 0 ? ln(spline(cs.slice(0, 3), false), M.weedHi, 0.9) : ""), tip };
+    return { svg: `<path d="${ribbon(cs, [7.5, 8.5, 6, 0.6])}" fill="${M.mane}" ${es}/>` + (i % 3 === 1 ? ln(spline(cs.slice(0, 3).map(([x, y]) => [x - 1.2, y]), false), M.maneHi, 1.5) : ln(spline(cs.slice(0, 3).map(([x, y]) => [x - 1.2, y]), false), M.rim, 0.9, `opacity="0.55"`)), tip };
   };
   for (let i = 0; i < NL; i++) {
     const u = 0.04 + i / (NL - 1) * 0.92, q = [(1 - u) ** 2 * pT[0] + 2 * u * (1 - u) * cT[0] + u * u * bT[0], (1 - u) ** 2 * pT[1] + 2 * u * (1 - u) * cT[1] + u * u * bT[1]];
@@ -542,15 +549,15 @@ export function kidHand(kd, reachL = 1, lean = 0) { return toScreen(kd.p, lean, 
 // ---------------------------------------------------------------- Grandma's hand: nine fingers (one clean old stump, no blood)
 // Open palm to the camera, fingers up; origin = the wrist; k px per cm.
 export function nineHand(x, y, k, o = {}) {
-  const miss = o.missing ?? 0, sp = o.spread ?? 1, warm = o.warm ?? 0, lw = n(Math.min(0.3, 3.2 / k));
+  const miss = o.missing ?? 2, sp = o.spread ?? 1, warm = o.warm ?? 0, lw = n(Math.min(0.3, 3.2 / k));
   const skin = mix("#e6bf9e", "#ffb46a", warm * 0.3), skS = mix("#c2906e", "#c8602a", warm * 0.4), skL = mix("#f6dcc4", "#ffe0a0", warm * 0.6);
-  const F = [[-3.5, -9.3, -13, 6.6, 2.2], [-1.15, -10, -4, 7.7, 2.25], [1.25, -9.8, 5, 7.1, 2.15], [3.5, -8.9, 15, 5.4, 1.85]];
+  const F = [[-3.5, -9.3, -15, 6.8, 2.0], [-1.15, -10, -5, 7.8, 2.05], [1.3, -9.8, 6, 7.1, 2.0], [3.6, -8.9, 20, 5.5, 1.7]];
   const st = `stroke="${INK}" stroke-width="${lw}" stroke-linejoin="round"`;
   const fingers = F.map(([fx, fy, a, len, w], i) => {
-    const gone = i === miss, L = gone ? 2.3 : len;
-    return `<g transform="translate(${fx},${fy}) rotate(${n(a * sp)})"><rect x="${n(-w / 2)}" y="${n(-L)}" width="${w}" height="${n(L + 2)}" rx="${n(w / 2)}" fill="${gone ? mix(skin, "#d89a8a", 0.45) : skin}" ${st}/>` +
-      (gone ? `<path d="M${n(-w * 0.32)},${n(-L * 0.62)} Q0,${n(-L * 0.95)} ${n(w * 0.32)},${n(-L * 0.62)}" stroke="${skS}" stroke-width="${n(lw * 0.8)}" fill="none" stroke-linecap="round"/>`
-        : `<path d="M${n(-w * 0.3)},${n(-L * 0.36)} h${n(w * 0.6)} M${n(-w * 0.3)},${n(-L * 0.66)} h${n(w * 0.6)}" stroke="${skS}" stroke-width="${n(lw * 0.7)}" fill="none" stroke-linecap="round"/><path d="M${n(w * 0.26)},${n(-L + w * 0.5)} L${n(w * 0.26)},${n(-L * 0.2)}" stroke="${skL}" stroke-width="${n(w * 0.16)}" stroke-linecap="round" opacity="0.8"/>`) + `</g>`;
+    const gone = i === miss, L = gone ? 2.1 : len;
+    return `<g transform="translate(${fx},${fy}) rotate(${n(a * sp)})"><rect x="${n(-w / 2)}" y="${n(-L)}" width="${w}" height="${n(L + 2)}" rx="${n(w / 2)}" fill="${skin}" ${st}/>` +
+      (gone ? `<path d="M${n(-w / 2 + 0.12)},${n(-L + w * 0.62)} Q${n(-w / 2 + 0.1)},${n(-L + 0.12)} 0,${n(-L + 0.12)} Q${n(w / 2 - 0.1)},${n(-L + 0.12)} ${n(w / 2 - 0.12)},${n(-L + w * 0.62)} Q0,${n(-L + w * 0.9)} ${n(-w / 2 + 0.12)},${n(-L + w * 0.62)} Z" fill="#f4cfc4" stroke="none"/><path d="M${n(-w * 0.3)},${n(-L + w * 0.5)} Q0,${n(-L + w * 0.2)} ${n(w * 0.3)},${n(-L + w * 0.5)} M0,${n(-L + w * 0.3)} L0,${n(-L + w * 0.62)}" stroke="#b47a6a" stroke-width="${n(lw * 0.8)}" fill="none" stroke-linecap="round"/>`
+        : `<path d="M${n(-w * 0.3)},${n(-L * 0.36)} h${n(w * 0.6)} M${n(-w * 0.3)},${n(-L * 0.66)} h${n(w * 0.6)}" stroke="${skS}" stroke-width="${n(lw * 0.7)}" fill="none" stroke-linecap="round"/><path d="M${n(w * 0.26)},${n(-L + w * 0.5)} L${n(w * 0.26)},${n(-L * 0.2)}" stroke="${skL}" stroke-width="${n(w * 0.16)}" stroke-linecap="round" opacity="0.8"/><ellipse cx="0" cy="${n(-L * 0.5)}" rx="${n(w * 0.58)}" ry="${n(w * 0.42)}" fill="${skin}" stroke="none"/><path d="M${n(-w * 0.58)},${n(-L * 0.5 - 0.5)} q-0.12,0.5 0,1 M${n(w * 0.58)},${n(-L * 0.5 - 0.5)} q0.12,0.5 0,1" stroke="${INK}" stroke-width="${lw}" fill="none" stroke-linecap="round"/><path d="M${n(-w * 0.3)},${n(-L * 0.46)} h${n(w * 0.6)} M${n(-w * 0.28)},${n(-L * 0.54)} h${n(w * 0.56)}" stroke="${skS}" stroke-width="${n(lw * 0.6)}" fill="none" stroke-linecap="round"/>`) + `</g>`;
   }).join("");
   const arm = o.arm ?? 14;
   return `<g transform="translate(${n(x)},${n(y)}) rotate(${n(o.rot || 0)}) scale(${k.toFixed(3)})">
@@ -560,6 +567,7 @@ export function nineHand(x, y, k, o = {}) {
     <path d="M-4.7,-9.6 Q-5.4,-4 -3.9,0 L3.7,0 Q5,-4 4.6,-9 Q0,-11.6 -4.7,-9.6 Z" fill="${skin}" ${st}/>
     <path d="M-4.4,-5.4 Q-5,-2.5 -3.6,-0.3 L-0.6,-0.3 Q-1.2,-4 -4.4,-5.4 Z" fill="${skL}" opacity="0.55"/>
     <path d="M-3.6,-6.6 Q-0.5,-5 -0.6,-0.6 M-3.2,-7.8 Q0.5,-8.4 3.9,-6.4 M-1.4,-5.4 Q1.4,-5.6 3.6,-3.6" stroke="${skS}" stroke-width="${n(lw * 0.75)}" fill="none" stroke-linecap="round"/>
+    <path d="M-3.4,-0.9 q3.4,-0.7 6.6,0 M-3.2,-1.7 q3.2,-0.6 6.2,0.1 M2.2,-2.8 q1,-1.6 1.6,-3 M-2.6,-3.4 q1.2,0.8 1.6,2" stroke="${skS}" stroke-width="${n(lw * 0.55)}" fill="none" stroke-linecap="round"/><ellipse cx="2.4" cy="-4.6" rx="0.42" ry="0.3" fill="#b8866a" opacity="0.6"/><ellipse cx="0.6" cy="-2.6" rx="0.3" ry="0.22" fill="#b8866a" opacity="0.55"/><ellipse cx="3.1" cy="-7.4" rx="0.28" ry="0.2" fill="#b8866a" opacity="0.5"/>
     <path d="M-3,-9.3 q0.6,0.5 1.4,0 M-0.6,-9.9 q0.7,0.5 1.5,0 M1.8,-9.7 q0.7,0.5 1.5,0" stroke="${skS}" stroke-width="${n(lw * 0.6)}" fill="none"/>
   </g>`;
 }
