@@ -24,19 +24,21 @@ const F2 = (t) => Math.ceil((Math.round(t * 15) * 2 / 30) * 1000 - 1e-6) / 1000;
 // measured spoken lengths (voice probe cvc02-voice-probe.json, 27 Nov 2026), in LINES order (line 9: take 2, re-measure)
 const DUR = [1.81, 1.12, 2.91, 1.67, 1.32, 0.90, 2.71, 0.95, 1.21, 1.77, 0.67, 0.84, 1.15, 2.14, 0.84, 0.64, 0.73, 0.98, 0.73,
   1.51, 0.69, 1.91, 0.98, 2.89, 0.74, 0.65];
+DUR[9] = 0.69;   // "Morning!" take 2 (preflight 27 Nov)
+DUR.push(1.6, 2.25, 1.22, 2.86);   // lines 26-29 (preflight 28 Nov)
 const T = new Array(LINES.length).fill(null);
 const END_OF = (i) => r3(T[i] + DUR[i]);
 
 // ---------------------------------------------------------------- marks (DESIGN §2-3: x right, z toward us; pavements y 0.10)
 const AWAY = -60, PV = 0.10;
-const DE = { K: [-9.25, -0.10], S11: [-8.60, -0.10], S12: [-7.36, -0.10], T: [-9.32, 0.62], NP: [-9.15, 1.10], RW: [-14.52, 0.675] };
-const US = { HU: [16.78, -0.10], CJ0: [9.2, 1.9], CJ: [12.2, 1.5], CJ1: [16.6, 1.9], W10: [7.10, -0.10], B18a: [7.10, -0.50], B18b: [7.10, -2.15], B18c: [7.90, -2.15] };
+const DE = { K: [-9.25, -0.10], S11: [-8.60, -0.10], S12: [-7.36, -0.10], T: [-9.45, 0.72], NP: [-9.15, 1.10], RW: [-14.28, 0.675] };
+const US = { HU: [16.78, -0.10], CJ0: [9.2, 1.9], CJ: [12.2, 1.5], CJ1: [17.4, 0.9], W10: [7.10, -0.10], B18a: [7.10, -0.50], B18b: [7.10, -2.15], B18c: [7.90, -2.15] };
 const BUSDE = [-4.20, -4.40], BUSUS = [8.60, -4.10];
 
 const cast = [
   { id: "spud", character: "potatobrawl/spud", at: DE.K, y: PV, face: 90, expr: "shocked", follow: 0.3, seed: 1.3 },
   { id: "spudus", character: "potatobrawl/spud", at: US.HU, y: PV, face: -90, expr: "focused", follow: 0.3, seed: 1.9 },
-  { id: "retiree", character: "potatobrawl/retiree", at: DE.RW, y: 1.45, face: 90, expr: "angry", follow: 0.3, seed: 4.4 },
+  { id: "retiree", character: "potatobrawl/retiree", at: DE.RW, y: 1.66, face: 90, expr: "angry", follow: 0.3, seed: 4.4 },
   { id: "wedge", character: "potatobrawl/wedge", at: [-3.78, -2.45], face: 0, expr: "deadpan", follow: 0.2, seed: 3.1 },
   { id: "mash", character: "potatobrawl/mash", at: [14.55, 4.0], face: 180, expr: "happy", follow: 0.3, seed: 5.2 },
   { id: "chip", character: "potatobrawl/chip", at: US.CJ0, face: 110, expr: "happy", follow: 0.3, seed: 6.6 },
@@ -78,10 +80,10 @@ const props = [
   { id: "flagde", staged: "hangs from the balcony", kind: "miniflag", flag: "de", ...at3(-13.45, 2.05, -0.675), scale: 2.7, tip: 35, rot: 90 },
   { id: "w1box", staged: "the retiree's flower box", kind: "flowerbox", ...at3(-13.92, 1.73, 0.675), w: 0.90, rot: 90, flower: "#d8352b" },
   { id: "watcher", staged: "behind the lace across the street", kind: "streetpotato", ...at3(-0.22, 1.45, 2.025), rot: -90, h: 0.90, hat: 3, capColor: "#4f5a52",
-    dress: "cardigan", color: "#6f6457", raise: 1, skin: "#f9b75c", brow: "#b9b4aa" },
+    dress: "cardigan", color: "#6f6457", raise: 1, clapHz: 0, feet: false, skin: "#f9b75c", brow: "#b9b4aa" },
   { id: "binos", staged: "held up by the watcher", kind: "binoculars", ...at3(-0.40, 1.99, 2.025), rot: -90, glint: 0 },
   ...CROWD.map(([f, col, look], i) => ({ id: `old${i}`, staged: "an old neighbour in a window (hidden until the payoff)", kind: "streetpotato",
-    ...at3(f === 1 && col === 6 ? -13.75 : -14.22, AWAY, COLZ(col)), rot: 90, dress: "cardigan", skin: "#f9b75c", brow: "#b9b4aa", angry: 0, clapHz: 0, lean: 0, ...look })),
+    ...at3(f === 1 && col === 6 ? -13.75 : -14.22, AWAY, COLZ(col)), rot: 90, dress: "cardigan", skin: "#f9b75c", brow: "#b9b4aa", angry: 0, clapHz: 0, raise: 0, lean: 0, feet: false, ...look })),
   // American street
   { id: "usroad", staged: "the wide road, plaza and pavements", kind: "usroad", ...at3(0, 0, 0) },
   { id: "barsus", staged: "white bars across the wide road", kind: "crossbars", ...at3(7.81, 0.004, -0.10), n: 10, w: 0.42, len: 2.0, pitch: 0.84, axis: "x" },
@@ -116,6 +118,7 @@ const CAPTEXT = { 0: "*DON'T.* You. *DARE.*", 1: "Who's even *WATCHING?!*", 2: "
 const say = (i, at, extra = {}) => {
   T[i] = r3(at);
   const [who, line, tone, style, o = {}] = LINES[i];
+  if (who !== "button") A(r3(T[i] - 0.05), who, "expr", { set: { open: 0.1 }, dur: 0.05 });   // preflight: an open mouth can't talk
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false, ...extra });
   cap(T[i], r3(END_OF(i) + 0.3), CAPTEXT[i] ?? line, SUB, false, { size: 64 });
   return END_OF(i);
@@ -130,7 +133,7 @@ const place = (t, who, to, yaw, y = 0) => {
 };
 const P = (t, id, set, dur = 0, ease = "linear") => c.prop(t, id, set, dur, ease);
 const press = (t, side = "R") => {   // a fist on the button: the dome sinks with it
-  arm(t, "spudus", side, { x: [16.22, 0.72, -0.18] }, 0.08, "out"); grip(t, "spudus", side, "fist", 0.05);
+  arm(t, "spudus", side, { o: [0.05, 0.55, 0.48] }, 0.08, "out");   // the button: 0.56 in front, 0.62 up grip(t, "spudus", side, "fist", 0.05);
   P(r3(t + 0.08), "pole", { press: 1 }, 0.04); P(r3(t + 0.16), "pole", { press: 0 }, 0.06);
   sfx(r3(t + 0.08), "click", { gain: 0.35 });
   arm(r3(t + 0.12), "spudus", side, { o: [0.20, 0.45, 0.30] }, 0.08, "in");
@@ -171,7 +174,7 @@ const shot = (name, t, k, kind) => {
 };
 
 // ---------------------------------------------------------------- frame 0
-A(0, "kid", "hide"); A(0, "wedge", "noblink"); A(0, "kid", "noblink");
+A(0, "kid", "hide"); A(0, "wedge", "noblink"); A(0, "kid", "noblink"); A(0, "button", "noblink"); A(0, "chip", "noblink");
 A(0, "wedge", "ride", { prop: "busde", off: [0.42, 0.54, 1.95], sit: true, dur: 0.01 });
 A(0, "mash", "ride", { prop: "pickup", off: [0.40, 0.30, 0.20], sit: true, dur: 0.01 });
 A(0, "wedge", "face", { lid: 0, dur: 0.01 });
@@ -193,6 +196,8 @@ arm(0, "spudus", "R", { o: [0.20, 0.45, 0.30] }, 0.01);
 let t;
 const S1 = shot("de-wide", 0, 1, "hook");
 sfx(0.0, "slam", { gain: 0.5 });   // the window bangs open
+// re-hook (Jonny 27 Nov, "hookloops and rehooks"): a flash of the ending in the hook shot, every lace on the block twitches once
+P(2.2, "flatsL", { part: 0.25 }, 0.1, "out"); P(2.55, "flatsL", { part: 0 }, 0.15, "in"); sfx(2.2, "leafrustle", { gain: 0.25 });
 t = say(0, 0.12);   // DON'T. You. DARE.
 see(0, t, ["spud.face", "retiree.face", "pedde"], "frame 0: you mid-step on an empty street, the red man, a retiree bangs his window open");
 const S2 = shot("hero-de", r3(t + 0.04), 13);
@@ -205,10 +210,10 @@ look(S3, "retiree", [0.2, -0.5], 0.01);
 t = say(2, r3(S3 + 0.08));   // Red means STAND. Forever.
 see(S3, t, ["retiree.face"], "the rule, from the window");
 const S4 = shot("bus-across", r3(t + 0.06), 16);
-sfx(r3(S4 + 0.1), "doorslide", { gain: 0.3 });
 const S5 = shot("wedge", r3(S4 + 0.9), 5);
 tapWatch(r3(S5 + 0.15));
 t = say(3, r3(S5 + 0.1));   // Bus leaves in one minute.
+t = say(26, r3(t + 0.25));   // This bus is NEVER late.
 see(S4, t, ["wedge.face", "busde"], "the stake: your bus waits across the road, one minute");
 
 // ================================================================ 2 AMERICA: the button and right on red (03)
@@ -233,6 +238,8 @@ see(S7, t, ["retiree.face"], "the lecture: think of the children");
 const S8 = shot("hero-arms", r3(t + 0.06), 13);
 arm(S8, "spud", "both", "shrug", 0.2); look(S8, "spud", [-0.5, 0.1], 0.1); look(r3(S8 + 0.4), "spud", [0.5, 0.1], 0.15);
 t = say(7, r3(S8 + 0.1));   // There ARE no children!
+const S8b = shot("always", r3(t + 0.06), 14);
+t = say(27, r3(S8b + 0.1));   // There are ALWAYS children.
 place(r3(t + 0.04), "kid", DE.T, 100, PV); A(r3(t + 0.04), "kid", "show");
 const S9 = shot("kerb-two", r3(t + 0.06), 4);
 arm(S9, "spud", "both", "rest", 0.3); look(S9, "spud", [-0.6, -0.7], 0.2); expr(S9, "spud", "shocked", 0.15);
@@ -256,6 +263,7 @@ const S12 = shot("chip", r3(t + 0.06), 17);
 arm(S12, "chip", "R", "shrug", 0.2);
 t = say(11, r3(S12 + 0.1));   // It's a suggestion.
 A(r3(t + 0.1), "chip", "move", { to: US.CJ1, dur: 6.4, ease: "linear" });
+t = say(28, r3(t + 0.35));   // Nobody walks here, man.
 t = r3(t + 0.25);
 see(S11, t, ["chip.face", "spudus.face"], "red is a suggestion here");
 
@@ -270,7 +278,6 @@ const S15 = shot("binoculars", r3(t + 0.04), 7);
 P(S15, "flatsR", { soloPart: 1 }, 0.15, "out");
 t = say(14, r3(S15 + 0.3));   // I SEE you.
 P(r3(T[14] + 0.15), "binos", { glint: 1 }, 0.13, "out"); P(r3(T[14] + 0.28), "binos", { glint: 0 }, 0.13, "in");
-sfx(r3(T[14] + 0.15), "ting", { gain: 0.3 });
 t = r3(t + 0.3);
 see(S15, t, ["watcher", "binos"], "tease 1: binoculars glint behind the lace across the street");
 
@@ -300,6 +307,8 @@ const S20 = shot("retiree-five", r3(S19 + 0.9), 14);
 arm(S20, "retiree", "R", { o: [0.10, 0.75, 0.30] }, 0.1); grip(S20, "retiree", "R", "open", 0.05);
 A(S20, "spud", "move", { to: DE.K, dur: 0.3, y: PV });
 t = say(19, r3(S20 + 0.1));   // Five. Euros.
+arm(r3(t + 0.1), "retiree", "R", "point", 0.2); grip(r3(t + 0.1), "retiree", "R", "point", 0.1);
+t = say(29, r3(t + 0.25));   // And I'm telling your MOTHER.
 see(S19, t, ["spud", "flatsL", "retiree.face"], "tease 2: your toe slides off the kerb, every curtain on the street twitches; the fine");
 
 // ================================================================ 8 AMERICA: YOU JUST WALK (19, 10, 18)
@@ -334,7 +343,7 @@ see(S24, t, ["wedge.face", "spud.face"], "the clock runs down, you stare at the 
 const S26 = shot("too-late", r3(t + 0.04), 5);
 t = say(24, r3(S26 + 0.05));   // Too late.
 const S27 = shot("green", r3(S26 + 0.75), 11);
-P(r3(S27 - 0.02), "pedde", { go: 1 }); sfx(S27, "ding", { gain: 0.4 });
+P(r3(S27 - 0.02), "pedde", { go: 1 });
 expr(r3(S27 + 0.1), "spud", "happy", 0.1);
 A(r3(S27 + 0.35), "spud", "move", { to: DE.S11, dur: 0.5, y: 0 });
 const S28 = shot("bus-leaves", r3(S27 + 1.0), 16);
@@ -343,8 +352,9 @@ P(r3(S28 + 0.4), "busde", { z: 9, len: 13.4, blink: 1 }, 2.4, "in");
 arm(r3(S28 + 0.8), "spud", "R", { o: [0.20, 0.70, 0.40] }, 0.3);
 expr(r3(S28 + 0.5), "spud", "sad", 0.2);
 const S29 = shot("good", r3(S28 + 1.9), 14);
+A(S29, "wedge", "hide"); P(r3(S29 - 0.02), "busde", { y: AWAY });   // the bus has left the street
 place(S29, "spud", DE.S12, 90, 0); arm(S29, "spud", "both", "rest", 0.01); A(S29, "spud", "droop", { to: 1, dur: 0.01 });
-place(S29, "kid", [-7.70, 0.40], 100, 0);
+place(S29, "kid", [-7.40, 0.80], 100, 0);
 arm(S29, "retiree", "both", { o: [0.08, 0.50, 0.30] }, 0.2);
 t = say(25, r3(S29 + 0.1));   // Good.
 arm(r3(T[25] + 0.3), "retiree", "both", { o: [0.0, 0.50, 0.32] }, 0.12, "out"); sfx(r3(T[25] + 0.42), "pat", { gain: 0.5 });
@@ -400,7 +410,9 @@ write(import.meta.url, {
     { who: "mash", with: "pickup", from: 0, to: END, checks: ["clipping", "costume-in-prop", "hand-in-prop", "arm-in-prop"], reason: "he sits in the pickup's cab, an arm out of the open window (DESIGN §8); rough draft" },
     { who: "chip", with: "burger", from: 0, to: END, checks: ["hand-in-prop", "arm-in-prop"], reason: "the burger is worn in his hand (rough draft, no grip polish)" },
     { who: "spudus", with: "pole", from: 0, to: END, checks: ["hand-in-prop", "arm-in-prop"], reason: "his fists press the button (contact by design)" },
-    { who: "spudus", with: "busus", from: S23, to: END, checks: ["clipping", "costume-in-prop"], reason: "he steps up into the bus door" },
+    { who: "spudus", from: S16, to: r3(S18 + 1.2), checks: ["face-covered"], reason: "he hammers a button at his own eye height (DESIGN §7: centre 0.62 up); the face shows between the blows (rough draft, judge in the strip)" },
+    { who: "spudus", with: "busus", from: S23, to: END, checks: ["clipping", "costume-in-prop", "hand-in-prop", "arm-in-prop"], reason: "he steps up into the bus door, a hand on the door frame (4 cm)" },
+    { who: "wedge", with: "busde", from: S28, to: END, checks: ["shell"], reason: "the driver rides his own bus as it pulls out; at speed the seat lags the shell a frame (rough draft; the bus is hidden after it leaves cam 16)" },
   ],
   notes: "Generated by storyboards/series/country-vs-country/02-traffic-light/make-traffic.mjs. Rough draft: staging only, no hand polish.",
 });

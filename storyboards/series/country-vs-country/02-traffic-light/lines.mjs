@@ -33,4 +33,9 @@ export const LINES = [
   ["spud", "Come on, come on, come on...", "calm", "whispering, foot hovering, staring at the red man", { voice: "spud-x115" }], // 23
   ["wedge", "Too late.", "calm", `${DE}, doors hiss shut as the light turns green`, { voice: "wedge-x115" }],         // 24 green + the bus leaves
   ["retiree", "Good.", "calm", `${OLD}, suddenly proud, slow-clapping with the whole street`, { voice: "retiree-x115" }], // 25 punchline: everyone was watching, cut
+  // added 27 Nov ~00:10 Berlin for length (real beats toward 60 s+; Jonny asleep, "do the next choices yourself"): used by index
+  ["wedge", "This bus is NEVER late.", "calm", `${DE}, proud, deadpan`, { voice: "wedge-x115" }],                     // 26 after line 3: clock + national pride
+  ["retiree", "There are ALWAYS children.", "calm", `${OLD}, ominous, certain`, { voice: "retiree-x115" }],          // 27 after line 7: and then the kid is there
+  ["chip", "Nobody walks here, man.", "calm", "relaxed, chewing, strolling on", { voice: "chip-x115" }],                 // 28 after line 11: he walks off
+  ["retiree", "And I'm telling your MOTHER.", "excited", `${OLD}, the worst threat`, { voice: "retiree-x115" }],    // 29 after line 19: the fine escalates
 ];
