@@ -39,6 +39,11 @@ import { ribTexture, hash2 } from "./costumes-art-cast.js";
 //   dust   0..1  #b9b3a6 at 55 % x dust on UPWARD faces only: 14 flakes on the head top and one scatter along the hood's rolled cowl
 //               (the hoodie shoulders and the neck roll). Seat edge and bell dust belong to the chair and the bell props.
 //   crease     (as for Spud) ink of the face lines; chip-old keeps the default.
+// A WRIST WATCH on the aged costume (any type that takes `age`), opt-in and default off:
+//   watch  "L" | "R"  (true = "L"; absent / false = none, nothing else changes). A brown strap #6b4423 0.022 wide round that wrist 0.07 before
+//          the hand's centre (past the cardigan sleeve, before the glove), a steel case r 0.038 x 0.012 #c9ced6 on the back of the wrist (the
+//          side that faces up, out and forward, as the dauphin's watch), a cream dial #f7f4ea, 12 ticks, two hands #2b2f3a, no numerals.
+//          Rides the arm every frame, no key of its own. `watchStrap` hex overrides the strap colour.
 // Posture (lean 4 / 14 degrees) and walk speed (0.85 / 0.55) are NOT character data keys: the clip generator sets them.
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -397,6 +402,35 @@ function chipAge(C, ch, parts, kit) {
   if (u) chipDust(C, ch, parts, u, kit);
 }
 
+// ---------------------------------------------------------------- the wrist watch (opt-in: costume.watch "L" | "R")
+function wristWatch(C, ch, out, side) {
+  const grp = new THREE.Group(), face = new THREE.Group(); grp.visible = false; ch.root.add(grp); grp.add(face);
+  const stM = new THREE.MeshStandardMaterial({ color: C.watchStrap || "#6b4423", roughness: 0.75, side: THREE.DoubleSide }), steel = new THREE.MeshStandardMaterial({ color: "#c9ced6", roughness: 0.3, metalness: 0.7 });
+  const dialM = new THREE.MeshStandardMaterial({ color: "#f7f4ea", roughness: 0.5 }), inkM = new THREE.MeshStandardMaterial({ color: "#2b2f3a", roughness: 0.6 });
+  for (const m of [stM, steel, dialM, inkM]) m.userData.lookRole = "cloth";
+  const W = 0.022, RO = 0.0385, RI = 0.0345, ax = new THREE.Matrix4().makeRotationX(Math.PI / 2);   // the strap is a thin ring round the arm's tangent (the group's z)
+  const ring = new THREE.Group(); grp.add(ring);
+  { const o = new THREE.CylinderGeometry(RO, RO, W, 28, 1, true).applyMatrix4(ax), i = new THREE.CylinderGeometry(RI, RI, W, 28, 1, true).applyMatrix4(ax);
+    ring.add(mesh(o, stM, true), mesh(i, stM, false));
+    for (const z of [-W / 2, W / 2]) ring.add(mesh(new THREE.RingGeometry(RI, RO, 28).translate(0, 0, z), stM, false)); }
+  // the case on the back of the wrist (group y = outward): axis y, 0.012 thick, sitting on the strap
+  const cy = RO + 0.006 - 0.001; face.position.y = cy;
+  face.add(mesh(new THREE.CylinderGeometry(0.038, 0.038, 0.012, 28), steel, true));
+  const dl = mesh(new THREE.CylinderGeometry(0.031, 0.031, 0.002, 28), dialM, false); dl.position.y = 0.0065; face.add(dl);
+  for (let k = 0; k < 12; k++) { const a = (k / 12) * Math.PI * 2, t = mesh(new THREE.BoxGeometry(0.0022, 0.0016, k % 3 ? 0.004 : 0.007), inkM, false); t.position.set(Math.sin(a) * 0.0255, 0.0078, Math.cos(a) * 0.0255); t.rotation.y = a; face.add(t); }
+  for (const [l, a, w] of [[0.021, 0.5, 0.0024], [0.014, 2.6, 0.003]]) { const h = mesh(new THREE.BoxGeometry(w, 0.0016, l), inkM, false); h.position.set(Math.sin(a) * l / 2, 0.0078, Math.cos(a) * l / 2); h.rotation.y = a; face.add(h); }
+  const pin = mesh(new THREE.CylinderGeometry(0.0028, 0.0028, 0.0024, 10), inkM, false); pin.position.y = 0.0082; face.add(pin);
+  const _m = new THREE.Matrix4(), _o = V(0, 0, 0), _t = V(0, 0, 0), _n = V(0, 0, 0), _b = V(0, 0, 0), base = out.apply, sx = side === "R" ? -1 : 1;
+  out.apply = (st, t, ...r) => {
+    base && base(st, t, ...r);
+    const A = ch.arms?.[side]; if (!A?.shoulder || !A.elbow || !A.hand) { grp.visible = false; return; }
+    const curve = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), Ln = Math.max(0.05, curve.getLength()), u = Math.min(1, 1 - 0.07 / Ln);
+    curve.getPointAt(u, _o); curve.getTangentAt(u, _t);
+    _n.set(0.6 * sx, 0.8, 1.0); _n.addScaledVector(_t, -_n.dot(_t)).normalize();
+    _b.crossVectors(_n, _t).normalize(); _m.makeBasis(_b, _n, _t); grp.quaternion.setFromRotationMatrix(_m); grp.position.copy(_o); grp.visible = true;
+  };
+}
+
 export function skipAge(C, ch, out, kit) {
   const age = C.age; if (age !== "mid" && age !== "old") return out;
   const parts = ch.potatoParts; if (!parts) return out;
@@ -404,5 +438,6 @@ export function skipAge(C, ch, out, kit) {
   if (C.glasses !== false) glasses(C, ch, parts);
   if (age === "old" && C.type === "spud") cardigan(C, ch, parts, out);   // the cardigan is Spud's
   if (C.type === "chip") chipAge(C, ch, parts, kit);
+  if (C.watch === true || C.watch === "L" || C.watch === "R") wristWatch(C, ch, out, C.watch === "R" ? "R" : "L");
   return out;
 }

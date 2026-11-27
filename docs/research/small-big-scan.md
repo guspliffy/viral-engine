@@ -47,7 +47,7 @@ Jonny 26 Nov: is a format already saturated, just picking up, or dying, so we kn
 the last 2 weeks count ("trends 4 weeks ago are probably out today"): more accounts in a short frame, week by week and
 day by day. TikTok and YouTube Shorts, each judged
 on its own (`--no-youtube` skips YouTube). For each format (a name + a caption regex; `--preset ours` = in this town, what if, court, heaven/hell,
-kid vs dad, country vs country, folklore), keyword pages find the accounts that post it and their latest 150 videos are
+kid vs dad, country vs country, folklore, plus four new to us since 26 Nov: absurd fix machine, invention origin, how X really works (POV), guess the right one), keyword pages find the accounts that post it and their latest 150 videos are
 read with dates (40 accounts, their latest 60 videos). Per week (last 2): accounts posting it, accounts born, median views, videos over 200K. Per day (last 14):
 videos, accounts, median views and views per day since posting (young videos are still growing).
 Verdict, last week vs the week before: reward = the SAME accounts' views with the format (so a sample of today's active
