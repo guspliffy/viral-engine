@@ -10,7 +10,7 @@ import numpy as np, soundfile as sf, torch
 from voxcpm import VoxCPM
 from faster_whisper import WhisperModel
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "qa"))
-import voicebright
+import voicebright, voicecut
 spec = json.load(open(sys.argv[1])); out = sys.argv[2]; only = set(sys.argv[3:])
 TEMPO = spec.get("tempo", 1.15)
 os.makedirs(out, exist_ok=True)
@@ -48,3 +48,5 @@ for lid, who, text, tone in spec["lines"]:
     print(lid, who, f"{dur:.2f}s", "seed", seed, "miss", miss, f"hi {hi:.2f}%" if hi is not None else "", "|", " ".join(x[0] for x in words), flush=True)
     if hi is not None and hi < voicebright.LIMIT:
         print(f"  MUFFLED: {lid} ({who}) has {hi:.2f} % above 3 kHz (limit {voicebright.LIMIT}); give the voice an \"af\" EQ (see qa/voicebright.py) or a new read before anyone listens", flush=True)
+    if voicecut.tail_db(f"{out}/{lid}.wav") > voicecut.LIMIT:
+        print(f"  CUT: {lid} ({who}) ends while the voice still sounds; re-read it (qa/voicecut.py), and end any later trim at voicecut.quiet_after()", flush=True)
