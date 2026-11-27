@@ -235,7 +235,7 @@ export function paw(c, X, Y, Z, st = {}, t = 0) {
 // the kid host's left hand on screen (legend.mjs kid(), same numbers), so the paw can sit in it: { x, y, k }
 export function kidHand(c, st) {
   const p = P(c, st.X, 0, st.Z), S = 0.8, DY = 78 * (1 - 0.74), r = st.reachL || 0;
-  const q = toScreen(p, st.lean || 0, lerp(-16, -36, r) * S, (lerp(-80, -108, r) + DY + 5) * S - (st.hop || 0));
+  const bob = st.run == null ? 0 : Math.abs(Math.cos(st.run * Math.PI * 2)) * 4, q = toScreen(p, st.lean || 0, lerp(-16, -36, r) * S, (lerp(-80, -108, r) + DY + 5) * S - (st.hop || 0) - bob * S);
   return { x: q.x, y: q.y, k: p.s / 100 };
 }
 
@@ -723,7 +723,7 @@ export function frontDoor(c, t, m, st = {}) {
   d += `<circle cx="${n(kb.x)}" cy="${n(kb.y)}" r="${n(ds * 0.038)}" fill="${C("#d8a838")}" stroke="${INK}" stroke-width="${lw}"/><circle cx="${n(kb.x - ds * 0.01)}" cy="${n(kb.y - ds * 0.012)}" r="${n(ds * 0.012)}" fill="${C("#fff0b0", 0.3)}"/><path d="M${n(kh.x)},${n(kh.y - ds * 0.012)} l0,${n(ds * 0.03)}" stroke="${C("#d8a838")}" stroke-width="${n(ds * 0.012)}" stroke-linecap="round"/>`;
   // the bolts: an iron bar in two staples, shot into a keeper on the frame
   const boltAt = (v, b, sd, big) => {
-    const h = big ? 0.034 : 0.024, o = b * 0.24;
+    const h = big ? 0.034 : 0.024, o = b * 0.36;
     let r = sh(pq(DL, 0.46, 0.95, v + h * 2.1, v - h * 2.1), C("#22222a"), sd, { k: 1 });
     r += `<path d="M${n(DL(0.56 - o, v).x)},${n(DL(0.56 - o, v).y)} L${n(DL(1.02 - o, v).x)},${n(DL(1.02 - o, v).y)}" stroke="${INK}" stroke-width="${n(ds * h * 2 + lw * 2)}" stroke-linecap="round"/><path d="M${n(DL(0.56 - o, v).x)},${n(DL(0.56 - o, v).y)} L${n(DL(1.02 - o, v).x)},${n(DL(1.02 - o, v).y)}" stroke="${C("#7a7a86")}" stroke-width="${n(ds * h * 2)}" stroke-linecap="round"/><path d="M${n(DL(0.58 - o, v + h * 0.4).x)},${n(DL(0.58 - o, v + h * 0.4).y)} L${n(DL(1.0 - o, v + h * 0.4).x)},${n(DL(1.0 - o, v + h * 0.4).y)}" stroke="${C("#b8b8c4")}" stroke-width="${n(ds * h * 0.5)}" stroke-linecap="round"/>`;
     for (const u of [0.56, 0.86]) r += sh(pq(DL, u, u + 0.05, v + h * 1.7, v - h * 1.7), C("#16161c"), sd + u * 10, { k: 1 });

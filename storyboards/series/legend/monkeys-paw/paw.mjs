@@ -38,15 +38,15 @@ mkdirSync(VEDIT, { recursive: true });
 for (const ln of Object.values(LINE)) {
   const { sr, s } = readWav(`${VOICE}/${ln.id}.wav`);
   let words = JSON.parse(readFileSync(`${VOICE}/${ln.id}.words.json`, "utf8")), src = s, file = `${VOICE}/${ln.id}.wav`;
-  const ed = EDITS[ln.id];
-  if (ed) {
+  const ed = EDITS[ln.id] || {};   // every take also loses its trailing silence (last word + 0.3 s)
+  {
     const segs = []; let a = 0, k0 = 0;
     if (ed.from) { k0 = words.findIndex((w) => norm(w[0]).startsWith(ed.from)); a = Math.max(0, words[k0][1] - 0.04); if (k0 > 0) a = Math.max(a, words[k0 - 1][2] - 0.02); }
     for (let k = k0; k < words.length - 1; k++) {
       const g = words[k + 1][1] - words[k][2];
       if (ed.gap && g > ed.gap + 0.12) { segs.push([a, words[k][2] + ed.gap / 2]); a = words[k + 1][1] - ed.gap / 2; }
     }
-    segs.push([a, s.length / sr]);
+    segs.push([a, Math.min(s.length / sr, words[words.length - 1][2] + 0.3)]);
     const out = []; let off = 0; const map = [];   // map: [srcStart, srcEnd, newStart]
     for (const [x, y] of segs) {
       const i0 = Math.round(x * sr), i1 = Math.min(s.length, Math.round(y * sr)), seg = Int16Array.from(s.subarray(i0, i1)), fd = Math.round(0.015 * sr);
@@ -95,6 +95,7 @@ const A = PW.ATTIC, R = PW.PARLOUR, HL = PW.HALL;
 const cam = (u, a, b, k = "inOut") => { const e = ease(u, k); return { x: lerp(a[0], b[0], e), y: lerp(a[1], b[1], e), z: lerp(a[2], b[2], e) }; };
 const byZ = (list) => list.filter((q) => q && q[1]).sort((p, q) => q[0] - p[0]).map((q) => q[1]).join("");
 const pulse = (u, times, len = 0.22) => { let v = 0; for (const t0 of times) if (u >= t0 && u < t0 + len) v = Math.max(v, Math.exp(-(u - t0) * 10) * (0.6 + 0.4 * Math.sin((u - t0) * 80))); return clamp(v); };
+const KO = [0.0, 0.25, 0.5, 0.74, 0.98, 1.2, 1.42, 1.62, 1.82, 2.02];   // the ten knocks of L20 (offsets from the line start)
 const TRUNK = { X: -1.5, Y: 0.5, Z: 5.5 };                 // where the hosts' paw lies
 const RUG = { X: -0.15, Z: 4.9 };                          // where the story paw lies on the parlour floor
 const KX = 0.15;                                           // the keeper after "Nobody knows" (nearer the boy, so lantern + his face fit one frame)
@@ -102,6 +103,11 @@ const wpt = (c, P, size = 1.6) => { const q = L.P(c, P.X, P.Y, P.Z); return { x:
 // a paw in the air between two screen points (so a release / a pick-up is always connected): a, b = {x, y, k}
 const flyPaw = (a, b, f, st, T, rot = [-10, 40], arc = 90) => { const e = ease(f); return PW.pawAt(lerp(a.x, b.x, e), lerp(a.y, b.y, e) - Math.sin(f * Math.PI) * arc, lerp(a.k, b.k, e), { rot: lerp(rot[0], rot[1], e), ...st }, T); };
 const heldPt = (r, k) => ({ x: r.held.x, y: r.held.y, k });
+// a puff of sparks from a screen point (deterministic), age in seconds
+const sparks = (q, age, nSp = 16) => age < 0 || age > 0.9 ? "" : Array.from({ length: nSp }, (_, i) => {
+  const a = -Math.PI / 2 + (hash(i * 3 + 1) - 0.5) * 2.2, v = 90 + 220 * hash(i * 5 + 2), x = q.x + Math.cos(a) * v * age * 0.7, y = q.y + Math.sin(a) * v * age + 260 * age * age * 0.5;
+  return `<circle cx="${n(x)}" cy="${n(y)}" r="${n(2 + 4 * hash(i + 9) * (1 - age))}" fill="${hash(i) > 0.5 ? "#ffd070" : "#ff8a30"}" opacity="${n(1 - age / 0.9)}" style="mix-blend-mode:screen"/>`;
+}).join("");
 
 // ---------------------------------------------------------------- the attic (the two hosts)
 // o: kid / keeper state overrides (false = leave out), paw = paw in the kid's hand (state or null), pawW = {X,Y,Z,st} paw in the
@@ -118,7 +124,7 @@ function atticScene(T, c, o = {}) {
   let fly = "";
   if (o.fly) { const pt = (q) => (q === "hand" ? hp : wpt(c, q)); fly = flyPaw(pt(o.fly.from), pt(o.fly.to), o.fly.f, { fingers: 0, m, ...o.fly.st }, T, [-10, 40], o.fly.arc ?? 90); }
   const kidDraw = o.kid === false ? "" : kd.svg + hand;
-  return PW.attic(c, T, m, { light: kp.jar || { x: 540, y: 600 }, dust: o.dust ?? 1 }) + pawW + (kp.jar ? PW.candleLight(kp.jar, m, o.glow ?? 1, T) : "") + byZ([[ks.Z, kidDraw], [gs.Z, o.keeper === false ? "" : kp.svg + kp.arm]]) + fly + PW.grade(m, o.tint ?? 0.9);
+  return PW.attic(c, T, m, { light: kp.jar || { x: 540, y: 600 }, dust: o.dust ?? 1 }) + pawW + (kp.jar ? PW.candleLight(kp.jar, m, o.glow ?? 1, T) : "") + byZ([[ks.Z, kidDraw], [gs.Z, o.keeper === false ? "" : kp.svg + kp.arm]]) + fly + PW.grade(m, o.tint ?? 0.9) + (o.over ? o.over(kp) : "");
 }
 
 // ---------------------------------------------------------------- the parlour
@@ -140,6 +146,8 @@ function handOn(fn, c, st, which, tx, ty, T) {
   r = fn(c, { ...st, [which]: h }, T); return [st.Z, r.svg, r];
 }
 const boltPt = (c) => L.P(c, HL.bolt.X + 0.02, HL.bolt.Y - 0.02, HL.bolt.Z);
+const knobPt = (c, b) => L.P(c, 0.24 - 0.36 * b, 1.78, HL.Z - 0.02);   // the bolt's handle, b = how far it has slid (0 shut .. 1 clear)
+const doorKnob = (c, op) => { const a = op * 1.75; return L.P(c, -0.48 + Math.cos(a) * 0.84, 1.07, HL.Z - Math.sin(a) * 0.84 - 0.03); };   // the doorknob while the leaf swings
 const STORY = (f, o = {}) => ({ fingers: f, ...o });       // the story paw: 0 -> 1 (wish 1) -> 2 (wish 2) -> 3 (wish 3)
 
 // ---------------------------------------------------------------- the beats: [line or null, pre-gap, hold-after, shot fn]
@@ -171,15 +179,11 @@ const BEATS = [
   } },
   // 3. PARLOUR: the credit over one push toward the soldier and the paw (no lead-in; the tail stays)
   { line: "L04", pre: 0.12, hold: 0.05, shot(u, d, T, ln) {
-    const m = PW.mood("parlour"), w0 = wordAt(ln, "1902", 0.2) - 0.04, w1 = wordAt(ln, "english", 1.4) - 0.05;
-    const mk = (c, hu) => {
-      const so = act(PW.soldier, c, { ...SOLDIER, hold: "paw", holdUp: hu, paw: STORY(0), m }, T);
-      const rest = [act(PW.whiteFather, c, fatherSit(m, { leanIn: 2 }), T), act(PW.son, c, sonSit(m, { hold: "piece", holdUp: 0.3 }), T), act(PW.whiteMother, c, motherSit(m), T)];
-      return parlourScene(T, c, m, {}, [so, ...rest].map((a) => [a[0], a[1]]));
-    };
-    if (u < w0) return mk(cam(u / w0, [-0.05, 1.3, 0.3], [-0.1, 1.24, 1.5]), 0.3);
-    if (u < w1) return PW.parlour(cam((u - w0) / (w1 - w0), [1.2, 1.55, 3.3], [1.4, 1.58, 4.0]), T, m, { noTable: true });
-    return mk(cam((u - w1) / (d + 0.05 - w1), [-0.75, 1.3, 2.2], [-1.0, 1.32, 3.9], "inOut"), tr([[w1, 0.3], [w1 + 0.8, 1]], u));
+    const m = PW.mood("parlour"), f = u / (d + 0.05);
+    const c = cam(f, [-0.35, 1.3, 0.9], [-0.95, 1.28, 3.7], "inOut");   // one push, from the cottage toward the grip on the paw, the whole line
+    const so = act(PW.soldier, c, { ...SOLDIER, hold: "paw", holdUp: lerp(0.3, 1, ease(f)), paw: STORY(0), m }, T);
+    const rest = [act(PW.whiteFather, c, fatherSit(m, { leanIn: 2 }), T), act(PW.son, c, sonSit(m, { hold: "piece", holdUp: 0.3 }), T), act(PW.whiteMother, c, motherSit(m), T)];
+    return parlourScene(T, c, m, {}, [so, ...rest].map((a) => [a[0], a[1]]));
   } },
   // 4. the soldier lifts the paw on "brought it home"; "holy man" = paw close with a slow glow; "fate punishes" = the listeners
   { line: "L05", pre: 0.1, hold: 0, shot(u, d, T, ln) {
@@ -209,12 +213,13 @@ const BEATS = [
   { line: "L07", pre: 0.04, hold: 0, shot(u, d, T, ln) {
     const m = PW.mood("parlour"), th = wordAt(ln, "threw", 0.3), fi = wordAt(ln, "fire", 1.0), fa = wordAt(ln, "father", 2.0), pl = wordAt(ln, "pulled", 3.0), ot = wordEnd(ln, "out", d - 0.1);
     const FP = { X: R.fire.X + 0.05, Y: R.fire.Y + 0.05, Z: R.fire.Z - 0.2 };
-    if (u < fa - 0.05) {   // soldier wind-up and fling; the paw flies from his hand into the grate
-      const c = cam(u / (fa - 0.05), [-0.85, 1.05, 2.6], [-0.95, 1.05, 3.0]);
+    if (u < fa - 0.05) {   // soldier wind-up and fling; the paw flies from his hand in an arc into the grate, a puff of sparks
+      const S7 = { ...SOLDIER, X: -0.55, Z: 5.3 }, c = cam(u / (fa - 0.05), [-0.8, 1.0, 2.5], [-0.9, 1.0, 2.8]);
       const tk0 = clamp((u - th + 0.2) / (fi - th + 0.4)), rel = clamp((tk0 - 0.55) / 0.4), fl = pulse(u, [th + 0.5], 0.6);
-      const so = act(PW.soldier, c, { ...SOLDIER, hold: "paw", throw: tk0, haunted: 0.5, paw: STORY(0), pawSize: rel > 0 ? 0.01 : 1.15, m }, T);
-      const q = wpt(c, FP, 1.3), pawF = rel > 0 ? flyPaw(heldPt(so[2], q.k), q, rel, STORY(0, { m }), T, [-20, 520], 120) : "";
-      return parlourScene(T, c, m, { fire: 1 + fl * 0.6 }, [[so[0], so[1]]]) + pawF + (fl > 0.05 ? `<rect width="${W}" height="${H}" fill="#ffb040" opacity="${n(fl * 0.3)}" style="mix-blend-mode:screen"/>` : "");
+      const so = act(PW.soldier, c, { ...S7, hold: "paw", throw: tk0, haunted: 0.5, paw: STORY(0), pawSize: rel > 0 ? 0.01 : 1.15, m }, T);
+      const q = wpt(c, FP, 1.3), pawF = rel > 0 ? flyPaw(heldPt(so[2], q.k), q, rel, STORY(0, { m }), T, [-20, 560], 150) : "";
+      const tL = th - 0.2 + (fi - th + 0.4) * (0.55 + 0.4);   // the moment it lands
+      return parlourScene(T, c, m, { fire: 1 + fl * 0.6 }, [[so[0], so[1]]]) + pawF + sparks({ x: q.x, y: q.y }, u - tL) + (fl > 0.05 ? `<rect width="${W}" height="${H}" fill="#ffb040" opacity="${n(fl * 0.3)}" style="mix-blend-mode:screen"/>` : "");
     }
     const c = cam((u - fa + 0.05) / (d - fa + 0.05), [-0.5, 1.0, 3.3], [-0.65, 0.95, 3.7]);
     const kn = tr([[fa - 0.05, 0], [fa + 0.4, 1]], u), reach = tr([[fa + 0.2, 0], [pl - 0.1, 1], [ot, 0.5]], u), up = tr([[pl, 0], [ot, 1]], u);
@@ -226,15 +231,16 @@ const BEATS = [
   { line: "L08", pre: 0.05, hold: 0.03, shot(u, d, T, ln) {
     const m = PW.mood("parlour");
     const set = (c) => {
-      const f = act(PW.whiteFather, c, { X: 0.2, Z: 4.9, fx: -0.4, hold: "paw", holdUp: 1, paw: STORY(0), smile: 0.5, brow: 0.4, talk: tk("F", T), m }, T);
-      const so = act(PW.son, c, { X: 0.95, Z: 5.7, fx: -0.4, smile: 1, m }, T), mo = act(PW.whiteMother, c, { X: -0.95, Z: 5.7, fx: 0.5, m }, T);
+      const rise = tr([[0, 0.8], [0.35, 0]], u);
+      const f = act(PW.whiteFather, c, { X: lerp(-0.45, 0.1, ease(clamp(u / 0.5))), Z: 5.0, fx: -0.4, kneel: rise, hold: "paw", holdUp: 1, paw: STORY(0), smile: 0.5 * (1 - rise), brow: 0.4, talk: tk("F", T), m }, T);
+      const so = act(PW.son, c, { X: 0.95, Z: 5.7, fx: -0.4, smile: 1, m }, T), mo = act(PW.whiteMother, c, { X: -0.6, Z: 5.7, fx: 0.5, m }, T);
       return parlourScene(T, c, m, {}, [f, so, mo].map((a) => [a[0], a[1]]));
     };
     const cut = d * 0.6;
-    return u < cut ? set(cam(u / cut, [0.1, 1.3, 2.9], [0.1, 1.33, 3.2])) : set(cam((u - cut) / (d - cut), [0.55, 1.2, 1.8], [0.5, 1.2, 2.2]));
+    return u < cut ? set(cam(u / cut, [-0.1, 1.25, 2.7], [0.0, 1.3, 3.1])) : set(cam((u - cut) / (d - cut), [0.55, 1.2, 1.8], [0.5, 1.2, 2.2]));
   } },
   // 8. the wish: green twist + the first finger, the father lets go (the paw falls to the rug), the family's stillness
-  { line: "L09", pre: 0.1, hold: 0.7, shot(u, d, T, ln) {
+  { line: "L09", pre: 0.1, hold: 0.2, shot(u, d, T, ln) {
     const tw = wordAt(ln, "twisted", 0.3), sn = wordEnd(ln, "snake", 2.2), nt = wordAt(ln, "nothing", 2.9);
     const k = tr([[tw - 0.1, 0], [tw + 0.3, 1], [sn - 0.2, 1], [sn + 0.4, 0]], u), m = k > 0 ? PW.moodMix("parlour", "paw", k) : PW.mood("parlour");
     const fing = tr([[tw + 0.2, 0], [tw + 0.7, 1]], u), glow = Math.max(k, pulse(u, [tw + 0.5], 0.5));
@@ -258,7 +264,7 @@ const BEATS = [
     return parlourScene(T, c, mP, {}, [f, so].map((a) => [a[0], a[1]])) + PW.paw(c, 0.45, 0.03, 4.8, STORY(1, { rot: 80, lying: 1, size: 1.3, m: mP }), T);
   } },
   // 9-10. silence: the kid is smug, the keeper says wait (flame shrinks), the cut comes off her last syllable
-  { line: "L10", pre: 0.12, hold: 0, shot(u, d, T) {
+  { line: "L10", pre: 0.06, hold: 0, shot(u, d, T) {
     const c = cam(u / d, [-0.4, 1.0, 2.8], [-0.38, 1.01, 2.95]);
     return atticScene(T, c, { kid: { fx: 0.6, grin: 1, look: 0.9 }, keeper: { flame: 1 }, pawW: { ...TRUNK, st: { fingers: 0, rot: 40 } } });
   } },
@@ -268,12 +274,12 @@ const BEATS = [
   } },
   // 11. the factory gate (no lettering); "caught" tilts down to the cap, the cap carries the rest
   { line: "L12", pre: 0.05, hold: 0, shot(u, d, T, ln) {
-    const m = PW.mood("grief"), ca = wordAt(ln, "caught", 2.0) + 0.1, cp = PW.FACTORY.cap;
+    const m = PW.mood("grief"), ca = wordAt(ln, "caught", 2.0) - 0.2, cp = PW.FACTORY.cap;
     if (u < ca) return PW.factoryGate(cam(u / ca, [0.0, 1.5, -0.6], [0.1, 1.4, 1.6]), T, m);
-    return PW.factoryGate(cam((u - ca) / (d - ca + 0.05), [0.12, 1.35, 1.9], [cp.X - 0.05, 0.38, 2.9], "out"), T, m);
+    return PW.factoryGate(cam((u - ca) / (d - ca + 0.05), [cp.X - 0.05, 0.5, 2.2], [cp.X - 0.05, 0.38, 2.9], "out"), T, m);
   } },
   // 12. the man from the firm: medium by "takes no blame", envelope offered on "200 pounds" (the hat stays in his other hand)
-  { line: "L13", pre: 0.05, hold: 0.05, shot(u, d, T, ln) {
+  { line: "L13", pre: 0.05, hold: 0, shot(u, d, T, ln) {
     const m = PW.mood("grief"), wi = wordAt(ln, "wish", 2.3) - 0.1, tw = wordAt(ln, "200", 3.3) - 0.15, w1 = 0.4;
     const CL = (extra) => ({ X: 0.05, Z: HL.Z - 0.1, fx: -0.2, hat: 1, nervous: 1, talk: tk("C", T), m, ...extra });
     const mother = (c) => act(PW.whiteMother, c, { X: -0.68, Z: 4.35, fx: 0.7, grief: 1, tears: 0.6, m }, T), father = (c) => act(PW.whiteFather, c, { X: 0.7, Z: 4.3, fx: -0.7, brow: 1, m }, T);
@@ -289,9 +295,10 @@ const BEATS = [
       const cl = act(PW.clerk, c, CL({ tilt: 9 * dn, look: -0.3 }), T);
       return door(c) + cl[1];
     }
-    const c = cam((u - tw) / (d + 0.1 - tw), [-0.12, 1.32, 3.6], [-0.14, 1.3, 3.9]);
-    const cl = act(PW.clerk, c, CL({ fx: -0.3, nervous: 0.6, offer: clamp((u - tw) / 0.3), hold: "envelope" }), T);
-    return door(c) + cl[1];
+    const c = cam((u - tw) / (d + 0.1 - tw), [-0.2, 1.3, 3.2], [-0.2, 1.3, 3.3]);   // "200 pounds": the envelope goes out and a hand takes it
+    const off = clamp((u - tw) / 0.3), cl = act(PW.clerk, c, CL({ fx: -0.3, nervous: 0.6, offer: off, hold: "envelope" }), T);
+    const hd = cl[2].held ? handOn(PW.whiteFather, c, { X: 0.2, Z: 4.4, fx: -0.9, brow: 1, m }, "handL", cl[2].held.x - 20, cl[2].held.y + 25, T) : null;
+    return door(c) + cl[1] + (hd ? hd[1] : "");
   } },
   // 13. "That's... the same money."
   { line: "L14", pre: 0.05, hold: 0, shot(u, d, T) {
@@ -302,36 +309,37 @@ const BEATS = [
   { line: "L15", pre: 0.1, hold: 0, shot(u, d, T, ln) {
     const m = PW.mood("grief"), gr = wordAt(ln, "grabbed", 1.5) - 0.2;
     const MP = { X: R.mantel.X, Y: R.mantel.Y + 0.01, Z: R.mantel.Z - 0.1 };
-    const mo = (c, o) => act(PW.whiteMother, c, { X: -0.95, Z: 5.3, fx: 0.3, grief: 1, tears: 0.3, m, ...o }, T);
+    const mo = (c, o) => act(PW.whiteMother, c, { X: -0.55, Z: 5.3, fx: 0.3, grief: 1, tears: 0.3, m, ...o }, T);
     const fa = (c) => act(PW.whiteFather, c, fatherSit(m, { fx: -0.5, brow: 1, smile: -0.5 }), T);
-    if (u < gr) {
-      const c = cam(u / gr, [-0.7, 1.55, 2.8], [-0.85, 1.5, 3.4]);
-      const reach = clamp((u - 0.15) / (gr - 0.15)), a = mo(c, { reach, reachTo: [30, -148] });
-      return parlourScene(T, c, m, { fire: 0, lamp: 0.2 }, [a, fa(c)].map((q) => [q[0], q[1]])) + PW.paw(c, MP.X, MP.Y, MP.Z, STORY(1, { rot: -80, size: 1.5, lying: 1, m }), T);
+    if (u < gr) {   // her hand starts up under "Ten days later" and closes on the paw on the mantel (in reach, in contact)
+      const c = cam(u / gr, [-0.95, 1.4, 3.0], [-0.95, 1.36, 3.25]), pq = wpt(c, MP, 1.5), e = ease(clamp((u - 0.1) / (gr - 0.1)));
+      const a = handOn(PW.whiteMother, c, { X: -0.55, Z: 5.3, fx: 0.3, grief: 1, tears: 0.3, m }, "handL", lerp(pq.x + 90, pq.x, e), lerp(pq.y + 420, pq.y + 6, e), T);
+      return parlourScene(T, c, m, { fire: 0, lamp: 0.2 }, [[a[0], a[1]], fa(c)].map((q) => [q[0], q[1]])) + PW.paw(c, MP.X, MP.Y, MP.Z, STORY(1, { rot: -80, size: 1.5, lying: 1, m }), T);
     }
     const c = cam((u - gr) / (d - gr + 0.1), [-0.82, 1.3, 4.2], [-0.82, 1.25, 4.5], "out");
     const a = mo(c, { hold: "paw", holdUp: tr([[gr, 0.6], [gr + 0.4, 1]], u), paw: STORY(1), pawSize: 1.5 });
     return parlourScene(T, c, m, { fire: 0, lamp: 0.2 }, [[a[0], a[1]]]);
   } },
   // 15. "Bring our boy back!" (the second finger closes on "back"), then she lets go and the paw falls to the rug
-  { line: "L16", pre: 0.08, hold: 0.4, shot(u, d, T, ln) {
+  { line: "L16", pre: 0.06, hold: 1.05, shot(u, d, T, ln) {
     const m = PW.mood("grief"), bk = wordAt(ln, "back", d - 0.4), be = wordEnd(ln, "back", d), bb = wordAt(ln, "boy", 1.0);
-    const fing = tr([[bk, 1], [bk + 0.35, 2]], u), tw = tr([[bk, 0], [bk + 0.2, 1], [be + 0.3, 0.3]], u), glow = pulse(u, [be - 0.05], 0.5);
-    const rel = clamp((u - (d - 0.05)) / 0.4);
+    const f2 = be + 0.3;   // the second finger folds 0.2-0.4 s after "back", on the close shot of the paw
+    const fing = tr([[f2, 1], [f2 + 0.3, 2]], u), tw = tr([[bk, 0], [bk + 0.2, 1], [f2 + 0.5, 0.5]], u), glow = pulse(u, [f2 + 0.25], 0.5);
+    const dr0 = f2 + 0.55, rel = clamp((u - dr0) / 0.4);
     const MO = { X: -1.2, Z: 5.4, fx: 0.5, hold: "paw", holdUp: 1, paw: STORY(fing, { twist: tw, glow }), pawSize: rel > 0 ? 0.01 : 1.4, grief: 1, tears: 1, brow: 0.6, talk: tk("M", T), lean: 3, m };
     const FA = { X: 0.0, Z: 5.5, fx: -0.6, brow: 1, smile: -0.8, reach: 0.25, m };
     if (u < bb) {
       const c = cam(u / bb, [-1.0, 1.33, 4.2], [-1.05, 1.34, 4.45]);
       return parlourScene(T, c, m, { fire: 0, lamp: 0 }, [act(PW.whiteMother, c, MO, T)].map((q) => [q[0], q[1]]));
     }
-    if (u < d - 0.05) {
-      const c = cam((u - bb) / (d - bb), [-0.9, 1.3, 3.1], [-0.95, 1.3, 3.5]);
-      return parlourScene(T, c, m, { fire: 0, lamp: 0 }, [act(PW.whiteMother, c, { ...MO, lean: 4 }, T), act(PW.whiteFather, c, FA, T)].map((q) => [q[0], q[1]]));
+    if (u < dr0) {   // mother and the paw together through "back" and the fold
+      const c = cam((u - bb) / (dr0 - bb), [-1.05, 1.3, 3.8], [-1.06, 1.29, 4.0]);
+      return parlourScene(T, c, m, { fire: 0, lamp: 0 }, [act(PW.whiteMother, c, { ...MO, lean: 4 }, T)].map((q) => [q[0], q[1]]));
     }
-    const c = cam((u - d + 0.05) / 0.5, [-0.7, 1.05, 2.5], [-0.65, 1.0, 2.7]);   // she lets go: the paw falls to the rug where he will crawl
+    const c = cam((u - dr0) / 0.6, [-0.7, 1.05, 2.5], [-0.65, 1.0, 2.7]);   // she lets go: the paw (one finger + thumb up) falls to the rug where he will crawl
     const mo = act(PW.whiteMother, c, { ...MO, lean: 4 }, T), q = wpt(c, { X: RUG.X, Y: 0.03, Z: RUG.Z }, 1.3);
     const pw = rel < 1 ? flyPaw(heldPt(mo[2], q.k), q, rel, STORY(2, { m }), T, [-10, 80], 30) : PW.paw(c, RUG.X, 0.03, RUG.Z, STORY(2, { rot: 80, lying: 1, size: 1.3, m }), T);
-    return parlourScene(T, c, m, { fire: 0, lamp: 0 }, [mo, act(PW.whiteFather, c, FA, T)].map((x) => [x[0], x[1]])) + pw;
+    return parlourScene(T, c, m, { fire: 0, lamp: 0 }, [mo, act(PW.whiteFather, c, { ...FA, X: -0.1 }, T)].map((x) => [x[0], x[1]])) + pw;
   } },
   // 16-17. the kid hopeful, the keeper very quiet
   { line: "L17", pre: 0.1, hold: 0, shot(u, d, T) {
@@ -348,26 +356,27 @@ const BEATS = [
     return PW.frontDoor(cam(u / d, [0.0, 1.35, 1.2], [0.06, 1.45, 3.0]), T, m, { knock: pulse(u, [kn], 0.5), bolt: 0 });
   } },
   // 19. quiet, the first hit (door), the second hit on the mother's face; the third is saved for the crawl
-  { id: "KN", line: null, dur: 1.55, pre: 0.3, hold: 0, shot(u, d, T) {
+  { id: "KN", line: null, dur: 1.4, pre: 0.0, hold: 0, shot(u, d, T) {
     const m = PW.mood("knock");
-    if (u < 1.0) return PW.frontDoor(cam(u / 1.0, [0.02, 1.4, 1.2], [0.05, 1.42, 2.3]), T, m, { knock: pulse(u, [0.35], 0.45), bolt: 0 });
-    const c = cam((u - 1.0) / 0.55, [0.12, 1.2, 3.35], [0.13, 1.22, 3.55]);
-    const mo = handOn(PW.whiteMother, c, { X: 0.14, Z: 4.72, fx: 0.25, tiptoe: 0.5, grief: 1, tears: 1, wide: 0.8, shock: 1, m }, "handR", boltPt(c).x, boltPt(c).y, T);
-    return PW.frontDoor(c, T, m, { knock: pulse(u, [1.0], 0.45), bolt: 0 }) + mo[1];
+    if (u < 0.9) return PW.frontDoor(cam(u / 0.9, [0.06, 1.45, 3.0], [0.07, 1.46, 3.12], "linear"), T, m, { knock: pulse(u, [0.3], 0.45), bolt: 0 });
+    const c = cam((u - 0.9) / 0.5, [0.12, 1.2, 3.35], [0.13, 1.22, 3.55]), f = ease(clamp((u - 0.9) / 0.22)), k = knobPt(c, 0);   // second hit: she steps in and her hand comes up to the bolt
+    const mo = handOn(PW.whiteMother, c, { X: lerp(0.7, 0.42, f), Z: 4.72, fx: 0.25, tiptoe: 0.5 * f, grief: 1, tears: 1, wide: 0.8, shock: 1, m }, "handL", k.x, lerp(k.y + 330, k.y, f), T);
+    return PW.frontDoor(c, T, m, { knock: pulse(u, [0.9], 0.45), bolt: 0 }) + mo[1];
   } },
   // 20. the mother at the bolt, the knocks louder and faster
   { line: "L20", pre: 0.04, hold: 0.04, shot(u, d, T, ln) {
-    const m = PW.mood("knock"), cut = d * 0.5, bolt = tr([[0.3, 0], [0.8, 0.2], [1.1, 0.1], [1.6, 0.35], [2.0, 0.25], [2.5, 0.4]], u);
-    const kn = pulse(u, [0.0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.05, 2.3, 2.55], 0.2) * 0.8;
+    const m = PW.mood("knock"), cut = d * 0.5, bolt = tr([[0.3, 0], [0.7, 0.18], [0.95, 0.08], [1.4, 0.3], [1.7, 0.2], [2.1, 0.34]], u);
+    const kn = pulse(u, KO, 0.2) * 0.8;
     const c = u < cut ? cam(u / cut, [0.12, 1.22, 3.35], [0.13, 1.24, 3.6]) : cam((u - cut) / (d - cut), [0.18, 1.3, 3.6], [0.2, 1.32, 3.85]);
-    const b = boltPt(c), mo = handOn(PW.whiteMother, c, { X: 0.14, Z: 4.72, fx: 0.25, tiptoe: 1, grief: 1, tears: 1, talk: tk("M", T), m }, "handR", b.x - bolt * 30, b.y, T);
+    const k = knobPt(c, bolt), mo = handOn(PW.whiteMother, c, { X: 0.42, Z: 4.72, fx: 0.25, tiptoe: 1, grief: 1, tears: 1, talk: tk("M", T), m }, "handL", k.x, k.y, T);
     return PW.frontDoor(c, T, m, { knock: kn, bolt }) + mo[1];
   } },
   // 21. the dark parlour: the father crawls, a cut to her fingers on the bolt, his hand finds the paw (two fingers down), the last wish
-  { line: "L21", pre: 0.08, hold: 0.3, shot(u, d, T, ln) {
-    const m = PW.mood("knock"), fo = wordAt(ln, "found", 1.7) - 0.05, ls = wordAt(ln, "last", 3.2), ws = wordAt(ln, "wish", 3.5), we = wordEnd(ln, "wish", d);
-    const fing = tr([[ws, 2], [we, 3]], u), glow = Math.max(pulse(u, [we], 0.7), tr([[we, 0], [we + 0.15, 0.7]], u));
-    const pawW = (c) => PW.paw(c, RUG.X, 0.03, RUG.Z, STORY(fing, { glow, rot: 64, size: 1.3, lying: 1, m }), T);
+  { line: "L21", pre: 0.08, hold: 0.15, shot(u, d, T, ln) {
+    const m = PW.mood("knock"), fo = wordAt(ln, "found", 1.7) - 0.05, ws = wordAt(ln, "wish", 3.5), we = wordEnd(ln, "wish", d);
+    const fing = tr([[we - 0.25, 2], [we + 0.05, 3]], u), fl = we + 0.1, glow = Math.max(pulse(u, [fl], 0.7), tr([[fl, 0], [fl + 0.15, 0.7]], u));
+    const lift = tr([[ws - 0.45, 0], [ws - 0.05, 1]], u);   // he lifts it off the rug and turns it, clear of his forearm, before the last finger folds
+    const pawW = (c) => PW.paw(c, RUG.X + 0.12 * lift, 0.03 + 0.2 * lift, RUG.Z - 0.12 * lift, STORY(fing, { glow, rot: 64 + 40 * lift, size: 1.3 + 0.3 * lift, lying: 1 - 0.5 * lift, m }), T);
     const fx = (X, o = {}) => ({ X, Z: 4.9, fx: 0.7, crawl: 1, wide: 1, brow: 1, m, ...o });
     const cutA = fo - 0.55, cutB = fo - 0.02;
     if (u < cutA) {
@@ -375,9 +384,9 @@ const BEATS = [
       const f = act(PW.whiteFather, c, fx(X, { reach: 0.3 + 0.2 * Math.sin(u * 5) }), T);
       return PW.parlour(c, T, m, { fire: 0.1, lamp: 0 }) + pawW(c) + f[1];
     }
-    if (u < cutB) {   // the hall: her fingers slide the bolt
-      const c = cam((u - cutA) / (cutB - cutA), [0.18, 1.3, 3.6], [0.2, 1.32, 3.75]), bolt = tr([[cutA, 0.4], [cutB, 0.75]], u), b = boltPt(c);
-      const mo = handOn(PW.whiteMother, c, { X: 0.14, Z: 4.72, fx: 0.25, tiptoe: 1, grief: 1, tears: 1, m }, "handR", b.x - bolt * 30, b.y, T);
+    if (u < cutB) {   // close on the bolt: her fingers start it sliding out of its keeper
+      const c = cam((u - cutA) / (cutB - cutA), [0.25, 1.76, 3.95], [0.22, 1.76, 4.05], "linear"), bolt = tr([[cutA, 0.12], [cutB, 0.55]], u), k = knobPt(c, bolt);
+      const mo = handOn(PW.whiteMother, c, { X: 0.42, Z: 4.72, fx: 0.25, tiptoe: 1, grief: 1, tears: 1, m }, "handL", k.x, k.y, T);
       return PW.frontDoor(c, T, m, { knock: pulse(u, [cutA + 0.1], 0.3) * 0.8, bolt }) + mo[1];
     }
     if (u < ws - 0.05) {
@@ -385,24 +394,21 @@ const BEATS = [
       const f = act(PW.whiteFather, c, fx(-0.5, { reach: tr([[cutB, 0.5], [ws - 0.4, 1]], u), reachTo: [60, -10] }), T);
       return PW.parlour(c, T, m, { fire: 0.1, lamp: 0 }) + pawW(c) + f[1];
     }
-    const c = cam((u - ws) / (d + 0.3 - ws), [-0.1, 0.4, 3.7], [-0.05, 0.36, 3.9]);
+    const c = cam((u - ws) / (d + 0.15 - ws), [-0.1, 0.45, 3.7], [-0.05, 0.42, 3.85]);
     const f = act(PW.whiteFather, c, fx(-0.5, { reach: 1, reachTo: [60, -10] }), T);
-    return PW.parlour(c, T, m, { fire: 0.1, lamp: 0 }) + pawW(c) + f[1] + (pulse(u, [we], 0.25) > 0.02 ? `<rect width="${W}" height="${H}" fill="#cfe34a" opacity="${n(pulse(u, [we], 0.25) * 0.25)}" style="mix-blend-mode:screen"/>` : "");
+    return PW.parlour(c, T, m, { fire: 0.1, lamp: 0 }) + f[1] + pawW(c) + (pulse(u, [fl], 0.25) > 0.02 ? `<rect width="${W}" height="${H}" fill="#cfe34a" opacity="${n(pulse(u, [fl], 0.25) * 0.25)}" style="mix-blend-mode:screen"/>` : "");
   } },
-  // 22. silence; she clears the bolt and the door swings open in one move; the empty road
-  { line: "L22", pre: 0.05, hold: 0, shot(u, d, T, ln) {
-    const st = wordEnd(ln, "stopped", 1.0), sw = wordAt(ln, "swung", 1.8) - 0.1, op = wordEnd(ln, "swung", 2.5) + 0.2, rd = wordAt(ln, "road", 3.0) - 0.05;
-    const MO = (c, o = {}) => ({ X: 0.6, Z: 4.7, fx: -0.4, grief: 1, tears: 1, m: o.m, ...o });
-    if (u < sw) {
-      const m = PW.mood("knock"), c = cam(u / sw, [0.06, 1.4, 1.9], [0.08, 1.42, 2.4], "linear");
-      const bolt = tr([[st + 0.1, 0.75], [sw - 0.05, 1]], u), b = boltPt(c);
-      const mo = handOn(PW.whiteMother, c, MO(c, { m, tiptoe: 1 }), "handR", b.x - bolt * 30, b.y, T);
-      return PW.frontDoor(c, T, m, { knock: u < st - 0.05 ? pulse(u % 0.35, [0], 0.3) * 0.9 : 0, bolt }) + mo[1];
-    }
+  // 22. silence on the stop (no knock streaks); she clears the bolt and her hand swings the door in one move; the empty road
+  { line: "L22", pre: 0.4, hold: 0.5, shot(u, d, T, ln) {
+    const st = wordEnd(ln, "stopped", 1.0), sw = wordAt(ln, "swung", 1.8) - 0.1, op = wordEnd(ln, "swung", 2.5) + 0.1, rd = wordAt(ln, "road", 3.0) - 0.05;
+    const MO = (o = {}) => ({ X: 0.42, Z: 4.62, fx: 0.15, grief: 1, tears: 1, ...o });
+    const bolt = tr([[sw - 0.5, 0.55], [sw + 0.05, 1]], u), opn = tr([[sw + 0.1, 0], [op, 1]], u);
     if (u < rd) {
-      const k = tr([[sw, 0], [op, 1]], u), m = PW.moodMix("knock", "road", k), c = cam((u - sw) / (rd - sw), [0.2, 1.4, 2.3], [0.2, 1.4, 3.0]);
-      const mo = act(PW.whiteMother, c, MO(c, { m, X: lerp(0.6, 0.78, ease(clamp((u - sw) / 0.5))), fx: -0.5 }), T);
-      return PW.frontDoor(c, T, m, { bolt: 1, chain: 0, open: tr([[sw + 0.05, 0], [op, 1]], u) }) + mo[1];
+      const k = tr([[sw, 0], [op, 1]], u), m = PW.moodMix("knock", "road", k);
+      const c = u < sw ? cam((u + 0.5) / (sw + 0.5), [0.1, 1.5, 2.1], [0.12, 1.5, 2.4], "linear") : cam((u - sw) / (rd - sw), [0.14, 1.45, 2.4], [0.2, 1.4, 3.0]);
+      const target = u < sw + 0.1 ? (() => { const a = knobPt(c, bolt), b = doorKnob(c, 0), f = ease(clamp((u - sw + 0.15) / 0.25)); return { x: lerp(a.x, b.x, f), y: lerp(a.y, b.y, f) }; })() : doorKnob(c, opn);
+      const mo = handOn(PW.whiteMother, c, MO({ m, tiptoe: tr([[sw, 1], [sw + 0.4, 0]], u), X: lerp(0.42, 0.55, ease(clamp((u - sw) / 0.7))) }), "handL", target.x, target.y, T);
+      return PW.frontDoor(c, T, m, { bolt, chain: 0, open: opn }) + mo[1];
     }
     const m = PW.mood("road");
     return PW.road(cam((u - rd) / (d - rd + 0.05), [0, 1.45, -1.4], [0.08, 1.5, 0.5], "out"), T, m);
@@ -413,11 +419,11 @@ const BEATS = [
     return atticScene(T, c, { kid: { fx: 0.5, shock: 0.5, look: 0.5, reachL: 0 }, keeper: { flame: 0.8 }, pawW: { ...TRUNK, st: { fingers: 0, rot: 40 } } });
   } },
   { line: "L24", pre: 0.06, hold: 0.75, shot(u, d, T) {
-    const c = cam(u / (d + 0.75), [-0.25, 1.0, 1.5], [-0.15, 1.0, 1.75]);
+    const c = cam(u / (d + 0.75), [-0.15, 1.0, 1.5], [-0.1, 1.0, 1.75]);
     const out = clamp(u / 0.5), back = clamp((u - 1.0) / 0.7), pick = clamp((u - 0.5) / 0.4);
     const X = lerp(A.kid.X, -0.85, ease(out)) + (-0.35 - (-0.85)) * ease(back), walking = (u > 0 && u < 0.5) || (u > 1.0 && u < 1.7);
     const kfx = u < 1.0 ? -0.6 : 0.2;
-    return atticScene(T, c, { kid: { X, fx: kfx, run: walking ? u * 2.4 : null, reachL: pick > 0 ? 0.9 * Math.min(1, pick * 2) : 0, lean: walking ? 3 : 0 }, keeper: { X: lerp(A.keeper.X, KX, ease(clamp(u / 0.5))), fx: 0.7, flame: 0.7 },
+    return atticScene(T, c, { kid: { X, fx: kfx, run: walking ? u * 2.4 : null, reachL: pick > 0 ? 0.9 * Math.min(1, pick * 2) : 0, lean: walking ? 3 : 0 }, keeper: { X: lerp(0.38, KX, ease(clamp(u / 0.5))), fx: 0.7, flame: 0.7 },
       pawW: pick <= 0 ? { ...TRUNK, st: { fingers: 0, rot: 40 } } : null, fly: pick > 0 && pick < 1 ? { from: TRUNK, to: "hand", f: pick, st: { fingers: 0 }, arc: 60 } : null, paw: pick >= 1 ? { fingers: 0, size: 1.05 } : null });
   } },
   { line: "L25", pre: 0.1, hold: 0.04, shot(u, d, T) {
@@ -431,20 +437,27 @@ const BEATS = [
     const sleeve = `<g class="ol"><path d="M360,1920 L420,1330 Q540,1290 650,1330 L720,1920 Z" fill="#e8476a" stroke="${L.INK}" stroke-width="5"/><path d="M430,1480 L640,1470 M440,1640 L655,1630" stroke="#bd2f50" stroke-width="5" fill="none"/><path d="M430,1330 Q540,1290 650,1330 L650,1370 Q540,1340 430,1370 Z" fill="#f2c8a0" stroke="${L.INK}" stroke-width="4"/></g>`;
     return PW.attic(c, T, m, { dust: 0.6 }) + sleeve + PW.pawAt(540, 1360 - u * 20, 22, { rot: -4, fingers: f, glow: glow * 0.6, m }, T) + PW.grade(m, 0.9);
   } },
-  // 27. the wrong voice: she drains, close, dead still, lantern whole
+  // 27. the wrong voice: she drains, tight on her and the lantern (the wick lit), dead still
   { line: "L26", pre: 0.2, hold: 0, shot(u, d, T) {
-    const k = clamp((u + 0.15) / 0.15), m = PW.moodMix("attic", "blank", k), c = cam((u + 0.2) / (d + 0.2), [0.12, 1.12, 1.95], [0.12, 1.12, 2.05]);
-    return atticScene(T, c, { m, blank: k, kid: false, keeper: { X: KX, fx: -0.45, flame: 1 - 0.6 * k }, glow: 1 - 0.4 * k, dust: 1 - 0.7 * k }) + PW.grade(m, k);
+    const k = clamp((u + 0.15) / 0.15), m = PW.moodMix("attic", "blank", k), c = cam((u + 0.2) / (d + 0.2), [0.14, 1.12, 1.75], [0.14, 1.12, 1.85]);
+    return atticScene(T, c, { m, blank: k, kid: false, keeper: { X: KX, fx: -0.45, flame: 1 - 0.5 * k }, glow: 1 - 0.4 * k, dust: 1 - 0.7 * k }) + PW.grade(m, k);
   } },
-  // 28. "Grandma?": the wick is lit in this shot and goes out on the end of the question, then black
-  { line: "L27", pre: 0.1, hold: 0.28, shot(u, d, T) {
-    const out = clamp((u - d) / 0.12), cl = 1 - out, m = PW.moodMix("attic", "blank", 1 - 0.0);
-    const c = cam(u / (d + 0.28), [0.15, 1.05, 2.3], [0.13, 1.05, 2.2]);
-    const turn = tr([[0, 0.7], [0.5, -0.1]], u);
-    return atticScene(T, c, { m, blank: 1, kid: { X: -0.35, fx: turn, shock: 1, worry: 1, reachL: 0.9 }, paw: { fingers: 1, size: 1.0 }, keeper: { X: KX, fx: -0.5, flame: cl, talk: 0 }, glow: cl, dust: 0.3 * cl }) + PW.grade(m, 1)
-      + (out > 0 ? `<rect width="${W}" height="${H}" fill="#02050a" opacity="${n(out * 0.6)}"/>` : "");
+  // 28. "Grandma?": the boy's first look; the wick goes out on the last syllable (flame to an ember in 3 frames, a curl of smoke), no fade before, then black
+  { line: "L27", pre: 0.1, hold: 0.32, shot(u, d, T) {
+    const tS = d - 0.12, off = clamp((u - tS) / 0.1), m = PW.moodMix("attic", "blank", 1);
+    const c = cam(u / (d + 0.32), [0.15, 1.05, 2.3], [0.13, 1.05, 2.2]);
+    const turn = tr([[0, 0.7], [0.5, -0.1]], u), fl = lerp(0.5, 0.06, off), gl = lerp(0.6, 0.22, off);
+    const over = (kp) => {
+      if (u < tS || !kp.jar) return "";
+      const s0 = kp.p.s / 100, wx = kp.jar.x, wy = kp.jar.y + 12 * s0, a = u - tS;
+      const ember = `<circle cx="${n(wx)}" cy="${n(wy)}" r="${n(4 * s0 * (1 - 0.5 * clamp((a - 0.2) / 0.3)))}" fill="#ff5a28" opacity="${n(1 - clamp((a - 0.1) / 0.3))}"/>`;
+      if (a < 0.1) return ember;
+      const sm = clamp((a - 0.1) / 0.35), pts = Array.from({ length: 8 }, (_, i) => `${n(wx + Math.sin(i * 1.1 + T * 3) * (0.5 + i * 0.9) * s0)},${n(wy - 4 - i * 4.5 * s0 * sm)}`);
+      return ember + `<path d="M${pts.join(" L")}" fill="none" stroke="#cfd6e0" stroke-width="${n(1.3 * s0)}" stroke-linecap="round" opacity="${n(0.6 * (1 - clamp((a - 0.3) / 0.3)))}"/>`;
+    };
+    return atticScene(T, c, { m, blank: 1, kid: { X: -0.35, fx: turn, shock: 1, worry: 1, reachL: 0.9 }, paw: { fingers: 1, size: 1.0 }, keeper: { X: KX, fx: -0.5, flame: fl, talk: 0 }, glow: gl, dust: 0.3, over }) + PW.grade(m, 1);
   } },
-  { black: 0.3 },
+  { black: 0.14 },
 ];
 
 // ---------------------------------------------------------------- the timeline
@@ -535,19 +548,19 @@ export function prepare(outPath) {
   add(S, sfx("ai/flare/flare-01.wav"), L07.lineAt + wordAt(L07.ln, "threw", 0.3) + 0.5, 0.8, LP5);           // the fire takes it
   add(S, sfx("kenney/rpg/creak1.ogg"), L09.lineAt + wordAt(L09.ln, "twisted", 0.3) + 0.1, 0.8, LP5);       // dry creak on the twist
   add(S, sfx("kenney/impact/impactSoft_medium_001.ogg"), L09.lineAt + wordEnd(L09.ln, "snake", 2.2) + 0.45, 0.5, LP5);   // the paw lands on the rug
-  add(S, sfx("kenney/rpg/creak2.ogg"), L16.lineAt + wordAt(L16.ln, "back", L16.d - 0.4) + 0.05, 0.6, LP5);  // finger 2
-  add(S, sfx("kenney/impact/impactSoft_medium_002.ogg"), L16.lineAt + L16.d + 0.3, 0.5, LP5);              // it lands on the rug
+  add(S, sfx("kenney/rpg/creak2.ogg"), L16.lineAt + wordEnd(L16.ln, "back", L16.d) + 0.3, 0.6, LP5);  // finger 2, on the fold
+  add(S, sfx("kenney/impact/impactSoft_medium_002.ogg"), L16.lineAt + wordEnd(L16.ln, "back", L16.d) + 0.3 + 0.55 + 0.4, 0.5, LP5);              // it lands on the rug
   // the knocks: the loudest sounds in the film
   // every knock take is levelled to a -1 dBFS peak after the 5 kHz lowpass, so each hit is as loud as the next
   const kn = (i, at0, g = 1) => { let gg = 1; try { const out = execFileSync("sh", ["-c", `ffmpeg -nostats -i ${sfx(`ai/knock/knock-0${i}.wav`)} -af lowpass=f=5000,volumedetect -f null - 2>&1 | grep -o 'max_volume: [-0-9.]*'`], { encoding: "utf8" }); gg = 10 ** ((-1 - parseFloat(out.split(" ")[1])) / 20); } catch (e) {} add(K, sfx(`ai/knock/knock-0${i}.wav`), at0, g * gg * 1.41, LP5); };
-  kn(4, KN.lineAt + 0.35); kn(5, KN.lineAt + 1.0);
-  [0.0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.05, 2.3, 2.55].forEach((o, i) => kn([1, 2, 3, 7, 8, 4, 5, 6, 1, 2][i], L20.lineAt + o));
+  kn(4, KN.lineAt + 0.3); kn(5, KN.lineAt + 0.9);
+  KO.forEach((o, i) => kn([1, 2, 3, 7, 8, 4, 5, 6, 1, 2][i], L20.lineAt + o));
   const ws = L21.lineAt + wordAt(L21.ln, "wish", 3.5);
   for (let o = L21.lineAt + 0.2, i = 0; o < ws - 0.2; o += 0.5 - 0.03 * i, i++) kn([3, 7, 8, 1, 2, 5, 4, 6][i % 8], o);
-  add(S, sfx("ai/flare/flare-01.wav"), L21.lineAt + wordEnd(L21.ln, "wish", 3.8) - 0.05, 0.3, LP5);          // glow flash
-  add(S, sfx("kenney/rpg/doorOpen_1.ogg"), L22.lineAt + wordAt(L22.ln, "swung", 1.8) - 0.05, 0.55, LP5);
+  add(S, sfx("ai/flare/flare-01.wav"), L21.lineAt + wordEnd(L21.ln, "wish", 3.8) + 0.1, 0.3, LP5);          // glow flash, after the last finger folds
+  add(S, sfx("kenney/rpg/doorOpen_1.ogg"), L22.lineAt + wordAt(L22.ln, "swung", 1.8) + 0.1, 0.55, LP5);
   add(S, sfx("kenney/rpg/creak3.ogg"), CURL.at + 0.08, 0.7, LP5);                                          // the finger curls
-  const snuffAt = L27.lineAt + L27.d + 0.02;
+  const snuffAt = L27.lineAt + L27.d - 0.12;
   add(S, sfx("ai/snuff/snuff-03.wav"), snuffAt, 0.9, LP5);
   const blk = TL.find((b) => b.black).at, end = `atrim=0:${blk.toFixed(2)},afade=t=out:st=${(blk - 0.04).toFixed(2)}:d=0.04,apad=whole_dur=${DUR.toFixed(2)}`;
   const premix = `${OUT}/paw-premix.wav`, mixPath = `${OUT}/paw-mix.wav`;
