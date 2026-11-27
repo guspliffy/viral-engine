@@ -57,6 +57,14 @@
    }
   ],
   [
+   43.667,
+   {
+    "tint": "#d6c4d0",
+    "s": 0.95
+   },
+   3.3
+  ],
+  [
    46.6,
    {
     "tint": "#ffd9b3",
@@ -109,7 +117,7 @@
  "fx": [
   {
    "do": "shake",
-   "at": 43.767,
+   "at": 43.917,
    "dur": 0.35,
    "amp": 0.03
   },
@@ -269,7 +277,7 @@
    "z": -0.7,
    "round": 2,
    "fill": 1,
-   "hang": 0.1,
+   "hang": 0.02,
    "scale": 0,
    "staged": "it hangs from the ceiling beam on its rope"
   },
@@ -622,7 +630,7 @@
    "from": 51.48,
    "to": 53.622,
    "text": "So you stop going bigger.",
-   "pos": 330,
+   "pos": 250,
    "pop": false,
    "said": "So you stop going bigger.",
    "across": true
@@ -653,28 +661,28 @@
    "len": 3.9,
    "shot": {
     "pos": [
-     -0.3,
+     -0.7,
      2.25,
      4.4
     ],
     "look": [
-     -0.35,
+     -0.65,
      0.85,
      -0.6
     ],
     "fov": 56,
     "to": {
      "pos": [
-      -0.55,
+      -0.95,
       2.05,
       3.3
      ],
      "look": [
-      -0.35,
+      -0.65,
       0.85,
       -0.6
      ],
-     "fov": 50
+     "fov": 52
     },
     "dur": 1.4,
     "ease": "inOut"
@@ -851,7 +859,7 @@
      "do": "prop",
      "id": "win",
      "set": {
-      "x": 1.45,
+      "x": 1.502,
       "y": 1.584
      },
      "dur": 0,
@@ -1221,11 +1229,11 @@
      0.95
     ],
     "look": [
-     0.95,
+     0.92,
      1.15,
      -0.62
     ],
-    "fov": 48,
+    "fov": 56,
     "to": {
      "pos": [
       0.56,
@@ -1233,11 +1241,11 @@
       0.75
      ],
      "look": [
-      0.95,
+      0.92,
       1.15,
       -0.62
      ],
-     "fov": 48
+     "fov": 56
     },
     "dur": 4.1,
     "ease": "inOut"
@@ -1559,14 +1567,14 @@
      "pose": {
       "prop": "hut",
       "grip": [
-       0.61,
-       0.871,
-       -0.279
+       0.573,
+       0.772,
+       -0.301
       ]
      },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.6
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.35
     },
     {
      "who": "spud",
@@ -1575,14 +1583,14 @@
      "pose": {
       "prop": "hut",
       "grip": [
-       0.61,
-       0.871,
-       -0.479
+       0.603,
+       0.94,
+       -0.44
       ]
      },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.6
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.35
     },
     {
      "macro": "narrate",
@@ -2445,7 +2453,7 @@
       "palm": true,
       "at": [
        0.253,
-       0.16,
+       0.28,
        -0.7
       ]
      },
@@ -2467,7 +2475,7 @@
       "palm": true,
       "at": [
        0.253,
-       0.16,
+       0.28,
        -0.7
       ]
      },
@@ -2496,7 +2504,7 @@
       "palm": true,
       "at": [
        0.303,
-       0.16,
+       0.4,
        -0.656
       ]
      },
@@ -2518,7 +2526,7 @@
       "palm": true,
       "at": [
        0.303,
-       0.16,
+       0.4,
        -0.656
       ]
      },
@@ -2533,7 +2541,7 @@
      "dur": 0,
      "to": [
       0.303,
-      0.16,
+      0.4,
       -0.656
      ],
      "at": 2.82
@@ -2553,6 +2561,21 @@
      "shape": "open",
      "dur": 0.15,
      "at": 2.82
+    },
+    {
+     "do": "prop",
+     "id": "rooster",
+     "set": {
+      "x": 0.155,
+      "y": 0.52,
+      "z": -1.094,
+      "rot": 55,
+      "sleep": 0,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.85
     },
     {
      "who": "spud",
@@ -2630,26 +2653,11 @@
      "at": 2.88
     },
     {
-     "do": "prop",
-     "id": "rooster",
-     "set": {
-      "x": 0.978,
-      "y": 1.421,
-      "z": -0.665,
-      "rot": -25,
-      "sleep": 0,
-      "tip": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 2.88
-    },
-    {
      "who": "spud",
      "do": "move",
      "to": [
-      0.06,
-      -1.18
+      -0.14,
+      -1.3
      ],
      "dur": 0.01,
      "ease": "linear",
@@ -2662,6 +2670,50 @@
      "to": 55,
      "dur": 0.01,
      "ease": "linear",
+     "at": 2.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.5,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.5,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.88
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "dur": 0.01,
+     "at": 2.88
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.01,
      "at": 2.88
     },
     {
@@ -2681,50 +2733,6 @@
      "dur": 0.01,
      "blink": false,
      "at": 2.88
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.05,
-       0.42,
-       0.24
-      ]
-     },
-     "dur": 0.01,
-     "at": 2.89
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.05,
-       0.42,
-       0.24
-      ]
-     },
-     "dur": 0.01,
-     "at": 2.89
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.01,
-     "at": 2.89
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.01,
-     "at": 2.89
     }
    ]
   },
@@ -2739,28 +2747,126 @@
      2.75
     ],
     "look": [
-     0.95,
-     1.22,
+     0.55,
+     1.12,
      -0.95
     ],
-    "fov": 40,
+    "fov": 46,
     "to": {
      "pos": [
-      -0.2,
-      1.58,
-      2.25
+      -0.3,
+      1.62,
+      2.45
      ],
      "look": [
-      0.95,
-      1.22,
+      0.55,
+      1.12,
       -0.95
      ],
-     "fov": 40
+     "fov": 46
     },
     "dur": 5.6,
     "ease": "inOut"
    },
    "do": [
+    {
+     "sfx": "flutter",
+     "gain": 0.35,
+     "reason": "the rooster flutters up from your hands",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "rooster",
+     "set": {
+      "flap": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "rooster",
+     "set": {
+      "x": 0.567,
+      "y": 1.541,
+      "z": -0.88,
+      "rot": -35
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.16
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.16
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.16
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.16
+    },
+    {
+     "do": "prop",
+     "id": "rooster",
+     "set": {
+      "x": 0.978,
+      "y": 1.421,
+      "z": -0.665,
+      "rot": -25
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.23
+    },
+    {
+     "do": "prop",
+     "id": "rooster",
+     "set": {
+      "flap": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.32
+    },
     {
      "do": "prop",
      "id": "rooster",
@@ -2769,13 +2875,13 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.25
+     "at": 0.35
     },
     {
      "sfx": "ai/rooster-crow",
      "gain": 1,
      "reason": "the rooster crows on Mash's forehead",
-     "at": 0.25
+     "at": 0.35
     },
     {
      "who": "spud",
@@ -2787,28 +2893,28 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 0.3
+     "at": 0.4
     },
     {
      "who": "spud",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 0.3
+     "at": 0.4
     },
     {
      "who": "spud",
      "do": "still",
      "dur": 0.8,
      "idle": 0.08,
-     "at": 0.3
+     "at": 0.4
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.06,
      "dur": 0.2,
-     "at": 0.3
+     "at": 0.4
     },
     {
      "who": "mash",
@@ -2919,6 +3025,21 @@
      "at": 4.89
     },
     {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.14,
+       0.92,
+       0.22
+      ]
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 5.42
+    },
+    {
      "do": "prop",
      "id": "win",
      "set": {
@@ -2962,11 +3083,11 @@
      2.7
     ],
     "look": [
-     0.6,
+     0.48,
      1,
      -0.55
     ],
-    "fov": 38,
+    "fov": 40,
     "to": {
      "pos": [
       -0.55,
@@ -2974,31 +3095,16 @@
       2.3
      ],
      "look": [
-      0.6,
+      0.48,
       1,
       -0.55
      ],
-     "fov": 38
+     "fov": 40
     },
     "dur": 2.767,
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.1,
-       0.95,
-       0.3
-      ]
-     },
-     "dur": 0.15,
-     "ease": "in",
-     "at": 0.15
-    },
     {
      "do": "prop",
      "id": "rooster",
@@ -3007,39 +3113,32 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.3
+     "at": 0.13
     },
     {
      "do": "prop",
      "id": "rooster",
      "set": {
-      "x": 1,
-      "y": 1.571,
-      "z": -0.3,
-      "rot": -40
+      "x": 1.278,
+      "y": 1.641,
+      "z": -0.815,
+      "rot": -60
      },
-     "dur": 0.4,
+     "dur": 0.3,
      "ease": "out",
-     "at": 0.3
+     "at": 0.13
     },
     {
      "sfx": "slap",
      "gain": 0.6,
-     "reason": "his glove swats at the bird's feet",
-     "at": 0.3
+     "reason": "his glove swats the bird off his head",
+     "at": 0.13
     },
     {
      "sfx": "flutter",
      "gain": 0.5,
      "reason": "the rooster flutters off his head",
-     "at": 0.32
-    },
-    {
-     "who": "mash",
-     "do": "face",
-     "open": 0.6,
-     "dur": 1,
-     "at": 0.4
+     "at": 0.15
     },
     {
      "who": "mash",
@@ -3052,21 +3151,29 @@
        -0.12
       ]
      },
-     "dur": 0.5,
+     "dur": 0.45,
      "ease": "inOut",
-     "at": 0.6
+     "at": 0.18
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "open": 0.6,
+     "dur": 1,
+     "at": 0.4
     },
     {
      "do": "prop",
      "id": "rooster",
      "set": {
-      "x": 0.822,
-      "y": 1.029,
-      "z": 0.065
+      "x": 0.55,
+      "y": 0,
+      "z": -1.5,
+      "rot": -90
      },
-     "dur": 0.4,
+     "dur": 0.55,
      "ease": "in",
-     "at": 0.7
+     "at": 0.43
     },
     {
      "do": "prop",
@@ -3076,7 +3183,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.1
+     "at": 1
     },
     {
      "do": "prop",
@@ -3086,7 +3193,7 @@
      },
      "dur": 0.8,
      "ease": "inOut",
-     "at": 1.3
+     "at": 1.2
     },
     {
      "who": "mash",
@@ -3199,16 +3306,6 @@
      "id": "lane",
      "set": {
       "woke": 0.25
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 2.747
-    },
-    {
-     "do": "prop",
-     "id": "rooster",
-     "set": {
-      "scale": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -3632,16 +3729,33 @@
      "who": "spud",
      "do": "grip",
      "side": "R",
-     "shape": "relaxed",
-     "dur": 0.15,
-     "at": 5.401
+     "shape": "open",
+     "dur": 0.1,
+     "at": 5.351
     },
     {
      "who": "spud",
      "do": "grip",
      "side": "L",
-     "shape": "relaxed",
-     "dur": 0.15,
+     "shape": "open",
+     "dur": 0.1,
+     "at": 5.351
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "pull": 0,
+      "slack": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 5.401
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.4,
+     "reason": "you drip",
      "at": 5.401
     },
     {
@@ -3651,7 +3765,7 @@
      "pose": "rest",
      "dur": 0.5,
      "ease": "inOut",
-     "at": 5.401
+     "at": 5.501
     },
     {
      "who": "spud",
@@ -3660,24 +3774,7 @@
      "pose": "rest",
      "dur": 0.5,
      "ease": "inOut",
-     "at": 5.401
-    },
-    {
-     "do": "prop",
-     "id": "r2",
-     "set": {
-      "pull": 0,
-      "slack": 1
-     },
-     "dur": 0.5,
-     "ease": "out",
-     "at": 5.401
-    },
-    {
-     "sfx": "ai/drip",
-     "gain": 0.4,
-     "reason": "you drip",
-     "at": 5.401
+     "at": 5.501
     },
     {
      "macro": "narrate",
@@ -3721,18 +3818,8 @@
      "do": "prop",
      "id": "win",
      "set": {
-      "x": 1.43,
-      "y": 1.716
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 6.781
-    },
-    {
-     "do": "prop",
-     "id": "drips",
-     "set": {
-      "on": 0
+      "x": 1.485,
+      "y": 1.698
      },
      "dur": 0,
      "ease": "linear",
@@ -3795,16 +3882,6 @@
      "at": 6.781
     },
     {
-     "do": "prop",
-     "id": "rooster",
-     "set": {
-      "scale": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 6.781
-    },
-    {
      "who": "spud",
      "do": "move",
      "to": [
@@ -3837,7 +3914,7 @@
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": "cheeks",
+     "pose": "rest",
      "dur": 0.01,
      "at": 6.781
     },
@@ -3845,7 +3922,7 @@
      "who": "spud",
      "do": "arm",
      "side": "L",
-     "pose": "cheeks",
+     "pose": "rest",
      "dur": 0.01,
      "at": 6.781
     },
@@ -3875,26 +3952,26 @@
    "len": 4.4,
    "shot": {
     "pos": [
-     0.1,
-     1.3,
+     -0.25,
+     1.42,
      3.3
     ],
     "look": [
      0.3,
-     0.95,
-     -0.5
+     0.98,
+     -0.45
     ],
     "fov": 42,
     "to": {
      "pos": [
-      0.12,
-      1.25,
-      2.8
+      -0.15,
+      1.36,
+      2.85
      ],
      "look": [
       0.3,
-      0.95,
-      -0.5
+      0.98,
+      -0.45
      ],
      "fov": 42
     },
@@ -3928,6 +4005,24 @@
      "dur": 4.4,
      "ease": "linear",
      "at": 0.001
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "cheeks",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.151
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "cheeks",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.151
     },
     {
      "macro": "narrate",
@@ -4150,11 +4245,11 @@
      2.9
     ],
     "look": [
-     0.7,
-     1.2,
+     0.4,
+     1.15,
      -0.55
     ],
-    "fov": 42,
+    "fov": 46,
     "to": {
      "pos": [
       -0.35,
@@ -4162,11 +4257,11 @@
       2.55
      ],
      "look": [
-      0.7,
-      1.2,
+      0.4,
+      1.15,
       -0.55
      ],
-     "fov": 42
+     "fov": 48
     },
     "dur": 3.9,
     "ease": "inOut"
@@ -4176,9 +4271,9 @@
      "do": "prop",
      "id": "bk",
      "set": {
-      "flip": 180
+      "flip": 160
      },
-     "dur": 0.35,
+     "dur": 0.3,
      "ease": "in",
      "at": 0.051
     },
@@ -4196,7 +4291,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.201
+     "at": 0.321
     },
     {
      "do": "prop",
@@ -4206,7 +4301,7 @@
      },
      "dur": 1.2,
      "ease": "linear",
-     "at": 0.201
+     "at": 0.321
     },
     {
      "who": "mash",
@@ -4233,7 +4328,7 @@
      },
      "dur": 0.5,
      "ease": "out",
-     "at": 0.551
+     "at": 0.651
     },
     {
      "do": "prop",
@@ -4243,7 +4338,7 @@
      },
      "dur": 0.3,
      "ease": "linear",
-     "at": 0.551
+     "at": 0.651
     },
     {
      "who": "spud",
@@ -4253,7 +4348,7 @@
       "open": 0.3
      },
      "dur": 0.15,
-     "at": 0.551
+     "at": 0.651
     },
     {
      "who": "spud",
@@ -4264,13 +4359,13 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.551
+     "at": 0.651
     },
     {
      "sfx": "splash",
      "gain": 1,
      "reason": "the water lands on Mash",
-     "at": 0.551
+     "at": 0.651
     },
     {
      "do": "prop",
@@ -4386,11 +4481,32 @@
      "at": 3.001
     },
     {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "h": 0
+     },
+     "dur": 0.5,
+     "ease": "in",
+     "at": 3.301
+    },
+    {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 0.3,
      "at": 3.781
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "on": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.821
     },
     {
      "do": "prop",
@@ -4435,30 +4551,9 @@
     },
     {
      "do": "prop",
-     "id": "jet",
+     "id": "drips",
      "set": {
-      "on": 0,
-      "scale": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 3.881
-    },
-    {
-     "do": "prop",
-     "id": "bk",
-     "set": {
-      "scale": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 3.881
-    },
-    {
-     "do": "prop",
-     "id": "r3",
-     "set": {
-      "scale": 0
+      "on": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -4683,26 +4778,6 @@
      "at": 2.571
     },
     {
-     "do": "prop",
-     "id": "an",
-     "set": {
-      "fall": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 2.571
-    },
-    {
-     "do": "prop",
-     "id": "an",
-     "set": {
-      "fall": 1.2
-     },
-     "dur": 1.2,
-     "ease": "linear",
-     "at": 2.571
-    },
-    {
      "sfx": "kenney/impact-generic-light",
      "gain": 0.3,
      "reason": "the rope parts",
@@ -4729,11 +4804,11 @@
      "id": "rooster",
      "set": {
       "scale": 1,
-      "x": 0.3,
+      "x": 0.55,
       "y": 0,
-      "z": -1.3,
+      "z": -1.5,
       "rot": -90,
-      "sleep": 0,
+      "sleep": 1,
       "crow": 0,
       "flap": 0,
       "walk": 0,
@@ -4779,11 +4854,63 @@
    },
    "do": [
     {
+     "do": "prop",
+     "id": "an",
+     "set": {
+      "fall": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.021
+    },
+    {
+     "do": "prop",
+     "id": "an",
+     "set": {
+      "fall": 1.2
+     },
+     "dur": 1.08,
+     "ease": "linear",
+     "at": 0.021
+    },
+    {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 0.98,
      "at": 0.121
+    },
+    {
+     "do": "prop",
+     "id": "win",
+     "set": {
+      "dawn": 0.85,
+      "sun": 0.1
+     },
+     "dur": 2.9,
+     "ease": "linear",
+     "at": 0.301
+    },
+    {
+     "do": "prop",
+     "id": "lane",
+     "set": {
+      "dawn": 0.85,
+      "sun": 0.1
+     },
+     "dur": 2.9,
+     "ease": "linear",
+     "at": 0.301
+    },
+    {
+     "do": "prop",
+     "id": "hut",
+     "set": {
+      "dawn": 0.85
+     },
+     "dur": 2.9,
+     "ease": "linear",
+     "at": 0.301
     },
     {
      "do": "prop",
@@ -4793,7 +4920,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.381
+     "at": 0.531
     },
     {
      "do": "prop",
@@ -4803,7 +4930,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.381
+     "at": 0.531
     },
     {
      "do": "prop",
@@ -4813,33 +4940,43 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.381
+     "at": 0.531
     },
     {
      "sfx": "impact",
      "gain": 1,
      "reason": "the anvil smashes through the floorboards",
-     "at": 0.381
+     "at": 0.531
     },
     {
      "who": "mash",
      "do": "squash",
      "amount": 0.04,
      "dur": 0.2,
-     "at": 0.401
+     "at": 0.551
     },
     {
      "sfx": "kenney/impact-wood-heavy",
      "gain": 0.8,
      "reason": "the planks break",
-     "at": 0.401
+     "at": 0.551
+    },
+    {
+     "do": "prop",
+     "id": "rooster",
+     "set": {
+      "sleep": 0
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.581
     },
     {
      "sfx": "rumble",
      "gain": 0.6,
      "dur": 0.8,
      "reason": "the hut shakes",
-     "at": 0.451
+     "at": 0.601
     },
     {
      "do": "prop",
@@ -4849,7 +4986,7 @@
      },
      "dur": 2.1,
      "ease": "linear",
-     "at": 0.701
+     "at": 0.851
     },
     {
      "who": "mash",
@@ -4937,7 +5074,7 @@
      "id": "win",
      "set": {
       "dawn": 1,
-      "sun": 0.35,
+      "sun": 0.2,
       "woke": 0
      },
      "dur": 0,
@@ -4949,7 +5086,7 @@
      "id": "lane",
      "set": {
       "dawn": 1,
-      "sun": 0.35,
+      "sun": 0.2,
       "woke": 0
      },
      "dur": 0,
@@ -4961,6 +5098,26 @@
      "id": "hut",
      "set": {
       "dawn": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.214
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.214
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "scale": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -5341,32 +5498,9 @@
     },
     {
      "do": "prop",
-     "id": "an",
-     "set": {
-      "scale": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 1.78
-    },
-    {
-     "do": "prop",
      "id": "r4",
      "set": {
       "scale": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 1.78
-    },
-    {
-     "do": "prop",
-     "id": "tp",
-     "set": {
-      "scale": 1,
-      "x": 0.17,
-      "y": 0,
-      "z": 0.03
      },
      "dur": 0,
      "ease": "linear",
@@ -5389,7 +5523,7 @@
   {
    "name": "C12a the low point, tink",
    "at": 48.4,
-   "len": 1.7,
+   "len": 0.733,
    "shot": {
     "pos": [
      -0.05,
@@ -5452,13 +5586,59 @@
     },
     {
      "do": "prop",
+     "id": "win",
+     "set": {
+      "x": 1.33,
+      "y": 1.969
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.73
+    }
+   ]
+  },
+  {
+   "name": "C12n nail A falls (insert)",
+   "at": 49.133,
+   "len": 0.967,
+   "shot": {
+    "pos": [
+     0.95,
+     0.5,
+     1.2
+    ],
+    "look": [
+     0.25,
+     0.32,
+     -0.1
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.9,
+      0.48,
+      1.05
+     ],
+     "look": [
+      0.25,
+      0.32,
+      -0.1
+     ],
+     "fov": 44
+    },
+    "dur": 0.95,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
      "id": "nc",
      "set": {
       "nailA": 0
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.8
+     "at": 0.067
     },
     {
      "do": "prop",
@@ -5468,7 +5648,7 @@
      },
      "dur": 1.5,
      "ease": "linear",
-     "at": 0.8
+     "at": 0.067
     },
     {
      "who": "spud",
@@ -5479,7 +5659,7 @@
       "open": 0.1
      },
      "dur": 0.12,
-     "at": 1.27
+     "at": 0.537
     },
     {
      "who": "spud",
@@ -5490,20 +5670,20 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 1.27
+     "at": 0.537
     },
     {
      "sfx": "tink",
      "gain": 0.9,
      "reason": "the nail drops out of the candle onto the tin plate",
-     "at": 1.27
+     "at": 0.537
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
      "dur": 1,
-     "at": 1.41
+     "at": 0.677
     },
     {
      "do": "prop",
@@ -5514,7 +5694,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.68
+     "at": 0.947
     }
    ]
   },
@@ -5576,8 +5756,8 @@
      "do": "prop",
      "id": "win",
      "set": {
-      "x": 1.336,
-      "y": 1.846
+      "x": 1.225,
+      "y": 1.775
      },
      "dur": 0,
      "ease": "linear",
@@ -5591,28 +5771,28 @@
    "len": 2.4,
    "shot": {
     "pos": [
-     0.85,
-     0.8,
-     1.9
+     1.4,
+     0.98,
+     2.95
     ],
     "look": [
      -0.1,
-     0.5,
-     0.55
+     0.62,
+     0.45
     ],
-    "fov": 34,
+    "fov": 40,
     "to": {
      "pos": [
-      0.72,
-      0.76,
-      1.65
+      1.3,
+      0.95,
+      2.7
      ],
      "look": [
       -0.1,
-      0.5,
-      0.55
+      0.62,
+      0.45
      ],
-     "fov": 34
+     "fov": 40
     },
     "dur": 2.4,
     "ease": "inOut"
@@ -5805,6 +5985,29 @@
      "expr": "focused",
      "dur": 0.01,
      "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "hut",
+      "grip": [
+       0.256,
+       0.572,
+       -0.098
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "dur": 0.01,
+     "at": 2.38
     }
    ]
   },
@@ -5842,38 +6045,14 @@
    },
    "do": [
     {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "hut",
-      "grip": [
-       0.265,
-       0.572,
-       -0.11
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.05
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "pinch",
-     "dur": 0.15,
-     "at": 0.05
-    },
-    {
      "do": "prop",
      "id": "nc",
      "set": {
       "nailB": 1
      },
-     "dur": 1.4,
+     "dur": 1.1,
      "ease": "inOut",
-     "at": 0.3
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -5882,14 +6061,14 @@
      "pose": {
       "prop": "hut",
       "grip": [
-       0.295,
+       0.286,
        0.572,
-       -0.15
+       -0.138
       ]
      },
-     "dur": 1.4,
+     "dur": 1.1,
      "ease": "inOut",
-     "at": 0.3
+     "at": 0.1
     },
     {
      "sfx": "kenney/metal-click",
@@ -5903,6 +6082,23 @@
      "open": 0.35,
      "dur": 1,
      "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.1,
+     "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.35
     },
     {
      "who": "mash",
@@ -6004,11 +6200,11 @@
      3.6
     ],
     "look": [
-     0.4,
-     1.12,
+     0.3,
+     1.1,
      -0.62
     ],
-    "fov": 46,
+    "fov": 52,
     "to": {
      "pos": [
       1.1,
@@ -6016,11 +6212,11 @@
       3.25
      ],
      "look": [
-      0.4,
-      1.12,
+      0.3,
+      1.1,
       -0.62
      ],
-     "fov": 46
+     "fov": 52
     },
     "dur": 1.6,
     "ease": "inOut"
@@ -6067,23 +6263,6 @@
      "at": 0
     },
     {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
      "do": "prop",
      "id": "nc",
      "set": {
@@ -6123,7 +6302,7 @@
   {
    "name": "C14b the nail falls (insert)",
    "at": 57,
-   "len": 0.533,
+   "len": 0.4,
    "shot": {
     "pos": [
      1.05,
@@ -6149,7 +6328,7 @@
      ],
      "fov": 28
     },
-    "dur": 0.55,
+    "dur": 0.4,
     "ease": "inOut"
    },
    "do": [
@@ -6187,12 +6366,6 @@
      "at": 0.26
     },
     {
-     "sfx": "ding",
-     "gain": 0.35,
-     "reason": "the nail rattles on the dome",
-     "at": 0.45
-    },
-    {
      "do": "prop",
      "id": "win",
      "set": {
@@ -6201,7 +6374,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.53
+     "at": 0.38
     },
     {
      "who": "spud",
@@ -6213,7 +6386,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 0.53
+     "at": 0.38
     },
     {
      "who": "spud",
@@ -6221,7 +6394,7 @@
      "to": 30,
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.53
+     "at": 0.38
     },
     {
      "who": "spud",
@@ -6235,7 +6408,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 0.53
+     "at": 0.38
     },
     {
      "who": "spud",
@@ -6249,14 +6422,14 @@
       ]
      },
      "dur": 0.01,
-     "at": 0.53
+     "at": 0.38
     }
    ]
   },
   {
    "name": "C14c he sits up",
-   "at": 57.533,
-   "len": 3.667,
+   "at": 57.4,
+   "len": 3.8,
    "shot": {
     "pos": [
      0.6,
@@ -6282,15 +6455,21 @@
      ],
      "fov": 54
     },
-    "dur": 3.65,
+    "dur": 3.8,
     "ease": "inOut"
    },
    "do": [
     {
      "sfx": "ding",
+     "gain": 0.35,
+     "reason": "the nail rattles on the dome",
+     "at": 0.05
+    },
+    {
+     "sfx": "ding",
      "gain": 0.22,
      "reason": "the nail rattles on the dome",
-     "at": 0.047
+     "at": 0.18
     },
     {
      "who": "mash",
@@ -6303,41 +6482,53 @@
      ],
      "yaw": -12,
      "dur": 0.2,
-     "ease": "back",
-     "at": 0.067
+     "ease": "out",
+     "at": 0.2
     },
     {
      "who": "mash",
      "do": "pitch",
      "to": 0,
      "dur": 0.2,
-     "ease": "back",
-     "at": 0.067
+     "ease": "out",
+     "at": 0.2
     },
     {
      "who": "mash",
      "do": "lean",
      "to": 0,
      "dur": 0.2,
-     "at": 0.067
-    },
-    {
-     "do": "prop",
-     "id": "bedm",
-     "set": {
-      "tuck": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.067
+     "at": 0.2
     },
     {
      "who": "mash",
-     "do": "face",
-     "lid": 0,
-     "open": 0.5,
-     "dur": 0.08,
-     "at": 0.067
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.62,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.62,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.2
     },
     {
      "who": "mash",
@@ -6348,7 +6539,7 @@
       "open": 0.5
      },
      "dur": 0.08,
-     "at": 0.067
+     "at": 0.2
     },
     {
      "who": "mash",
@@ -6359,19 +6550,29 @@
      ],
      "dur": 0.08,
      "blink": false,
-     "at": 0.067
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bedm",
+     "set": {
+      "tuck": 0
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.22
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 0.5,
      "reason": "the bed frame knocks as he bolts upright",
-     "at": 0.117
+     "at": 0.25
     },
     {
      "sfx": "ding",
      "gain": 0.14,
      "reason": "the nail rattles on the dome",
-     "at": 0.167
+     "at": 0.3
     },
     {
      "who": "spud",
@@ -6380,7 +6581,7 @@
      "pose": "up",
      "dur": 0.25,
      "ease": "out",
-     "at": 0.567
+     "at": 0.7
     },
     {
      "who": "spud",
@@ -6389,7 +6590,7 @@
      "pose": "up",
      "dur": 0.25,
      "ease": "out",
-     "at": 0.567
+     "at": 0.7
     },
     {
      "who": "spud",
@@ -6397,14 +6598,32 @@
      "height": 0.12,
      "count": 1,
      "quiet": true,
-     "at": 0.567
+     "at": 0.7
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "delighted",
      "dur": 0.2,
-     "at": 0.567
+     "at": 0.7
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.8
     },
     {
      "macro": "narrate",
@@ -6414,14 +6633,14 @@
      "caption": false,
      "pos": 330,
      "gain": 4,
-     "at": 1.067
+     "at": 1.2
     },
     {
      "who": "mash",
      "do": "face",
      "lid": 0.6,
      "dur": 0.9,
-     "at": 3.067
+     "at": 3.2
     },
     {
      "who": "mash",
@@ -6431,18 +6650,18 @@
       "curve": 0.2
      },
      "dur": 0.9,
-     "at": 3.067
+     "at": 3.2
     },
     {
      "do": "prop",
      "id": "win",
      "set": {
-      "x": 1.336,
-      "y": 1.607
+      "x": 1.325,
+      "y": 1.609
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.647
+     "at": 3.78
     },
     {
      "do": "prop",
@@ -6452,12 +6671,12 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.647
+     "at": 3.78
     },
     {
      "who": "boss",
      "do": "show",
-     "at": 3.647
+     "at": 3.78
     },
     {
      "who": "boss",
@@ -6469,7 +6688,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.647
+     "at": 3.78
     },
     {
      "who": "boss",
@@ -6477,14 +6696,14 @@
      "to": 10,
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.647
+     "at": 3.78
     },
     {
      "who": "boss",
      "do": "expr",
      "expr": "stern",
      "dur": 0.01,
-     "at": 3.647
+     "at": 3.78
     }
    ]
   },
@@ -6494,28 +6713,28 @@
    "len": 4.3,
    "shot": {
     "pos": [
-     0.7,
-     2,
-     3.3
+     0.78,
+     1.98,
+     3.2
     ],
     "look": [
-     0.18,
-     0.63,
-     -0.64
+     0.36,
+     0.66,
+     -0.62
     ],
-    "fov": 54,
+    "fov": 60,
     "to": {
      "pos": [
-      0.66,
-      1.92,
-      3
+      0.74,
+      1.9,
+      2.9
      ],
      "look": [
-      0.18,
-      0.63,
-      -0.64
+      0.36,
+      0.66,
+      -0.62
      ],
-     "fov": 54
+     "fov": 60
     },
     "dur": 4.3,
     "ease": "inOut"
@@ -6567,7 +6786,7 @@
     {
      "who": "mash",
      "do": "lean",
-     "to": -20,
+     "to": -32,
      "dur": 0.28,
      "at": 0.22
     },
@@ -6626,8 +6845,8 @@
       ]
      },
      "dur": 0.4,
-     "ease": "inOut",
-     "at": 0.75
+     "ease": "out",
+     "at": 0.56
     },
     {
      "do": "prop",
@@ -6637,48 +6856,22 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.8
+     "at": 0.6
     },
     {
      "who": "mash",
      "do": "lean",
      "to": 0,
-     "dur": 0.2,
-     "at": 0.8
-    },
-    {
-     "who": "mash",
-     "do": "ride",
-     "prop": "bedm",
-     "off": [
-      -0.2,
-      0.32,
-      0.3
-     ],
-     "yaw": -12,
-     "dur": 0.3,
-     "at": 1
+     "dur": 0.25,
+     "at": 0.65
     },
     {
      "who": "mash",
      "do": "pitch",
      "to": -40,
      "dur": 0.3,
-     "at": 1
-    },
-    {
-     "who": "mash",
-     "do": "lean",
-     "to": 0,
-     "dur": 0.3,
-     "at": 1
-    },
-    {
-     "who": "mash",
-     "do": "face",
-     "lid": 1,
-     "dur": 0.3,
-     "at": 1
+     "ease": "out",
+     "at": 0.95
     },
     {
      "who": "mash",
@@ -6692,7 +6885,7 @@
       ]
      },
      "dur": 0.3,
-     "at": 1
+     "at": 0.95
     },
     {
      "who": "mash",
@@ -6706,6 +6899,38 @@
       ]
      },
      "dur": 0.3,
+     "at": 0.95
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "bedm",
+     "off": [
+      -0.2,
+      0.32,
+      0.3
+     ],
+     "yaw": -12,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "bedm",
+     "set": {
+      "tuck": 1,
+      "bolster": 1
+     },
+     "dur": 0.35,
+     "ease": "inOut",
      "at": 1
     },
     {
@@ -6713,7 +6938,7 @@
      "do": "squash",
      "amount": 0.05,
      "dur": 0.2,
-     "at": 1.3
+     "at": 1.35
     },
     {
      "who": "spud",
@@ -6772,18 +6997,11 @@
      "id": "hut",
      "set": {
       "door": 1.06,
-      "doorlight": 1,
-      "shadow": 1
+      "doorlight": 1
      },
-     "dur": 0.12,
+     "dur": 0.3,
      "ease": "out",
-     "at": 3.6
-    },
-    {
-     "sfx": "slam",
-     "gain": 1,
-     "reason": "the boss bangs the door open at sunrise",
-     "at": 3.6
+     "at": 3.52
     },
     {
      "who": "spud",
@@ -6807,11 +7025,27 @@
      "do": "prop",
      "id": "hut",
      "set": {
+      "shadow": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.67
+    },
+    {
+     "sfx": "slam",
+     "gain": 1,
+     "reason": "the boss bangs the door open at sunrise",
+     "at": 3.76
+    },
+    {
+     "do": "prop",
+     "id": "hut",
+     "set": {
       "door": 1
      },
      "dur": 0.17,
      "ease": "settle",
-     "at": 3.72
+     "at": 3.82
     },
     {
      "who": "mash",
@@ -7003,12 +7237,13 @@
    "who": "spud",
    "with": "rooster",
    "from": 12.6,
-   "to": 16.2,
+   "to": 16.45,
    "checks": [
     "hand-in-prop",
-    "arm-in-prop"
+    "arm-in-prop",
+    "clipping"
    ],
-   "reason": "the box hold: both gloves on the rooster's flanks"
+   "reason": "the box hold: both gloves on the rooster's flanks, then it stands on his cupped gloves and flutters off (C04b)"
   },
   {
    "who": "mash",
@@ -7029,9 +7264,10 @@
    "to": 30.167,
    "checks": [
     "hand-in-prop",
-    "arm-in-prop"
+    "arm-in-prop",
+    "clipping"
    ],
-   "reason": "both gloves close round the rope's tail"
+   "reason": "both gloves close round the rope's tail (the rope runs through his fists)"
   },
   {
    "who": "mash",
@@ -7059,7 +7295,7 @@
    "who": "mash",
    "with": "bk",
    "from": 36.767,
-   "to": 38.567,
+   "to": 46.6,
    "checks": [
     "clipping",
     "shell"
@@ -7080,7 +7316,7 @@
    "who": "mash",
    "with": "r3",
    "from": 31.367,
-   "to": 40.667,
+   "to": 46.6,
    "checks": [
     "clipping"
    ],
@@ -7120,7 +7356,7 @@
   {
    "who": "spud",
    "with": "nc",
-   "from": 53.65,
+   "from": 53.5,
    "to": 55.4,
    "checks": [
     "hand-in-prop"
