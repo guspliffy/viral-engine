@@ -3,11 +3,13 @@
 // music/sfx come from out/legend-pandora/{music,sfx}; a sound that is missing is skipped and listed. The evils make no sound.
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
-import { LINE, DUR, TIMELINE, wordAt } from "./pandora.mjs";
+import { TIMELINE } from "./pandora.mjs";
+import { LINE, DUR, wordAt } from "./pd-voice.mjs";
 const OUT = "out/legend-pandora", [mixPath = `${OUT}/mix.wav`] = process.argv.slice(2);
 const missing = [], used = [];
 const find = (dir, id, k = 0) => {
   const d = `${OUT}/${dir}`, mf = `${d}/manifest.json`; let files = [];
+  if (k === "bed") { const b = `${d}/${id}/${id}-bed.wav`; if (existsSync(b)) return b; k = 0; }
   if (existsSync(mf)) { const m = JSON.parse(readFileSync(mf, "utf8").replace(/NaN/g, "null")).sounds?.find((s) => s.id === id); if (m) files = m.files.map((f) => `${d}/${f}`); }
   if (!files.length && existsSync(d)) files = readdirSync(d).filter((f) => f.startsWith(id) && f.endsWith(".wav")).sort().map((f) => `${d}/${f}`);
   if (!files.length) { const r = `${OUT}/raw/${id}`; if (existsSync(r)) files = readdirSync(r).filter((f) => f.endsWith(".wav")).sort().map((f) => `${r}/${f}`); }
@@ -39,10 +41,10 @@ M("pd-dread", at("L13"), lift - 0.04, 0.4, 0.5, 0.06);
 M("pd-dread", at("L18") - 0.05, end("L20") + 0.1, 0.25, 0.25, 0.4);
 M("pd-hope", at("L21") - 0.1, DUR, 0.45, 0.3, 0.12);
 // room tone and the lamp: quiet beds; room tone alone under L17
-loop("sfx", find("sfx", "night-room"), 0, at("L03"), 0.35, 0.05, 0.3);
-loop("sfx", find("sfx", "night-room"), end("L10"), at("L21"), 0.3, 0.4, 0.3);
-loop("sfx", find("sfx", "oil-lamp"), at("L13"), lift - 0.04, 0.2, 0.4, 0.05);
-loop("sfx", find("sfx", "oil-lamp"), at("L18"), at("L20"), 0.16, 0.2, 0.4);
+loop("sfx", find("sfx", "night-room", "bed"), 0, at("L03"), 0.35, 0.05, 0.3);
+loop("sfx", find("sfx", "night-room", "bed"), end("L10"), at("L21"), 0.3, 0.4, 0.3);
+loop("sfx", find("sfx", "oil-lamp", "bed"), at("L13"), lift - 0.04, 0.2, 0.4, 0.05);
+loop("sfx", find("sfx", "oil-lamp", "bed"), at("L18"), at("L20"), 0.16, 0.2, 0.4);
 // sfx (the evils themselves are silent)
 const th = find("sfx", "thunder-crack", 0);
 one("sfx", th, w("L04", "laughed") - 0.05, 0.9, 3.5, 1.0); one("sfx", find("sfx", "thunder-crack", 1) || th, sh("5b") + 0.02, 0.7, 2.6, 0.8);
@@ -52,7 +54,8 @@ one("sfx", find("sfx", "door-open"), sh("10") + 0.05, 0.85, 2.0, 0.4);
 one("sfx", find("sfx", "lid-scrape"), lift + 0.15, 0.9, Math.min(0.78, at("L17") - lift - 0.17), 0.12);
 one("sfx", find("sfx", "cough"), sh("17b") + 0.12, 0.9, 1.0, 0.2);
 one("sfx", find("sfx", "lid-slam"), sh("19a") + 0.38, 1.0, 1.2, 0.3);
-one("sfx", find("sfx", "jar-tap"), at("L24") - 0.06 + 0.15 - 0.02, 1.0, 0.7, 0.2);
+one("sfx", find("sfx", "jar-tap", 0), at("L24") - 0.06 + 0.15 - 0.02, 1.0, 0.7, 0.1);
+one("sfx", find("sfx", "lid-slam", 0), at("L24") - 0.06 + 0.15 - 0.02, 0.25, 0.5, 0.1);
 // bus: voices, music ducked under the voices (sidechain), sfx; loudness at the end
 const sum = (b, name) => (bus[b].length ? `${bus[b].map((k) => `[a${k}]`).join("")}amix=inputs=${bus[b].length}:normalize=0[${name}]` : `anullsrc=r=44100:cl=mono,atrim=0:${DUR}[${name}]`);
 const graph = [...filt, sum("vo", "vo"), sum("mus", "mus"), sum("sfx", "sfx"), "[vo]asplit=2[vo1][vo2]", "[mus][vo1]sidechaincompress=threshold=0.03:ratio=5:attack=30:release=400[musd]",
