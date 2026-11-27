@@ -2,6 +2,7 @@
  "id": "alarm-bench-gags",
  "title": "How you invented 01: gag props bench",
  "idea": "Props bench (engine/page/props-alarm-gags.js), not a clip",
+ "tool": "prop bench for the gag props (How you invented 01), never a video",
  "fps": 30,
  "look": "anime-pro",
  "castLook": "sheet",

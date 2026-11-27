@@ -125,7 +125,7 @@ const END = r3(T + 0.1);
 console.log("stills:", STILLS.join(","));
 console.log("names:", SHOTS.map(([n]) => n).join(","));
 write(import.meta.url, {
-  id: "bench-rooster", title: "How you invented 01: rooster and fly bench", idea: "Props bench for the rooster and the fly (task C), not a clip",
+  id: "bench-rooster", title: "How you invented 01: rooster and fly bench", idea: "Props bench for the rooster and the fly (task C), not a clip", tool: "prop bench for the rooster and the fly (How you invented 01), never a video",
   frame: "tall", fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet", motion: MOTION, rig: RIG, physics: false,
   set: { type: "plain", color: "#bcd4ea", floor: "none" }, music: false, sound: { auto: false },
   hook: { show: [cast[0].id], hint: 0, what: "engine test" },

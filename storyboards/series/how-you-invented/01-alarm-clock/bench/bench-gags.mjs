@@ -140,7 +140,7 @@ console.log("labels:", shots.map(([nm], i) => `${i}:${nm}`).join(" | "));
 console.log("zones:", JSON.stringify(ZT));
 
 write(import.meta.url, {
-  id: "alarm-bench-gags", title: "How you invented 01: gag props bench", idea: "Props bench (engine/page/props-alarm-gags.js), not a clip",
+  id: "alarm-bench-gags", title: "How you invented 01: gag props bench", idea: "Props bench (engine/page/props-alarm-gags.js), not a clip", tool: "prop bench for the gag props (How you invented 01), never a video",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 }, physics: false,
   set: { type: "plain", color: "#2a3050", floor: "#6e4c2f", para: 0, lighting: 2, cel: { at: 0.25 }, ink: true },
   music: false, sound: { auto: false }, hook: { show: ["mash"], hint: 0, what: "engine bench" },
