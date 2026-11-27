@@ -85,17 +85,17 @@
   "from": 0,
   "gain": 0.45,
   "lowCut": 120,
-  "until": 48.1,
+  "until": 48.8,
   "then": {
    "file": "ai/sos-warm/sos-warm-01.ogg",
-   "from": 51.3,
+   "from": 49.8,
    "gain": 0.45
   }
  },
  "sound": {
   "signature": false,
   "sfx": 0.65,
-  "ambience": 0.04,
+  "ambience": 0.06,
   "surface": "wood",
   "guard": true
  },
@@ -5604,6 +5604,13 @@
      "open": 0.35,
      "dur": 0.01,
      "at": 0.2
+    },
+    {
+     "sfx": "ai/snore",
+     "gain": 0.4,
+     "dur": 2.4,
+     "reason": "Mash snores through the quiet low point (no music there)",
+     "at": 0.25
     },
     {
      "who": "mash",

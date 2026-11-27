@@ -394,6 +394,7 @@ P(before("C12a"), "nc", { burn: 0.78, nailA: 0, nailB: -1 });
 P(53.6, "nc", { burn: 0.80 }, 2.4, "linear"); P(55.96, "nc", { nailA: 0.03 }); P(55.96, "nc", { nailA: 1.5 }, 1.47, "linear");
 look(55.7, "spud", [0.45, -0.45], 0.2);   // a glance at the candle, cut on it (Sol r2 42)
 expr(56.47, "spud", "shocked", { eye: 1.2, open: 0.1 }, 0.12); look(56.47, "spud", [0.4, -0.6], 0.12);
+sfx(55.45, "ai/snore", { gain: 0.4, dur: 2.4, reason: "Mash snores through the quiet low point (no music there)" });
 sfx(56.47, "tink", { gain: 0.9, reason: "the nail drops out of the candle onto the tin plate" });
 // C12b: his right eye opens to 0.25 for 0.8 s, shuts
 face(56.88, "mash", { lidR: 1 }, 0.01); face(57.1, "mash", { lidR: 0.3 }, 0.15); face(57.6, "mash", { lidR: 1 }, 0.15);
@@ -499,8 +500,8 @@ const SB = {
   physics: false, animeTiming: true,
   set: { type: "plain", color: "#0b1026", floor: "none", para: 0, lighting: 2, cel: { at: 0.25 }, ink: true, satsuei: true },
   grade,
-  music: { file: "ai/sneaky/sneaky-01.ogg", from: 0, gain: 0.45, lowCut: 120, until: 53.6, then: { file: "ai/sos-warm/sos-warm-01.ogg", from: 58.4, gain: 0.45 } },
-  sound: { signature: false, sfx: 0.65, ambience: 0.04, surface: "wood", guard: true },
+  music: { file: "ai/sneaky/sneaky-01.ogg", from: 0, gain: 0.45, lowCut: 120, until: 55.9, then: { file: "ai/sos-warm/sos-warm-01.ogg", from: 56.9, gain: 0.45 } },   // the warm cue starts on Mash's eye (the turn); a short hush with the tink between (a 3 s silence failed audio-dropout)
+  sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: "wood", guard: true },   // 0.06 = the house wind bed; 0.04 left the music gap at the low point silent (farm audio-dropout)
   creative: { length: [END, END] },
   hook: { show: ["boss", "spud", "hut"], hint: 0, what: "the door bangs open, a furious boss points into the dark hut: 'Sunrise. Not one minute later. Or you're BOTH fired.'" },
   fx: c.fx || [],
