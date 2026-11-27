@@ -100,3 +100,5 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
 - Renders cost no tokens; every step in a long thread does. Batch edits; keep title, post pack and merge short.
 - A segment's `ins()` insert points must fall before its pre-cut resets, or the reset fires inside the insert.
 - One Sol glitch round costs ~8 min and ~110k tokens (Egypt EP04: FIX 13, then FIX 10). Settle the topic before them.
+- Trimming a voice take (shorter pauses, dropped words, a shorter tail): end it at `qa/voicecut.py` `quiet_after()` and run
+  `python3 qa/voicecut.py` on every trimmed take. Silence measured at -30 dB cut 4 Pied Piper tails mid-sound.
