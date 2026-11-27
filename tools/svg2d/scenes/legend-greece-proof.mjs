@@ -15,7 +15,7 @@ const frame = (inner) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" h
 function shotA(t) {
   GR.mood(1);
   const u = t / 2, c = { x: 2.7, y: 0.78, z: lerp(3.2, 4.1, u), h0: 1010 };
-  const hs = GR.hillside(c, t), wf = GR.wolf(c, { X: 2.72, Z: 6.9, pose: "hidden", size: 1.3, eyeSize: 1.5, blink: blinkAmt(t, [1.44]), look: tr([[0, -0.5], [0.9, 0.1], [2, 0]], t), reveal: tr([[1.6, 0], [2, 0.16]], t) }, t);
+  const hs = GR.hillside(c, t), wf = GR.wolf(c, { X: 2.72, Z: 6.2, pose: "hidden", size: 1.3, eyeSize: 1.9, blink: blinkAmt(t, [1.44]), look: tr([[0, -0.5], [0.9, 0.1], [2, 0]], t), reveal: tr([[1.6, 0], [2, 0.16]], t) }, t);
   return frame(GR.sky(c, t, { moon: false, stars: 0.5 }) + hs.svg + GR.mist(c, t) + GR.grade() + GR.blackout(0.62) + wf.eyes);
 }
 // (b) the kid with the crook at the pen, the flock looks up, eyes in the olive trees
@@ -54,10 +54,18 @@ function shotD(t) {
   const c = { x: 0.3 - t * 0.1, y: 1.3, z: 0, f: 2000, h0: 760 };
   return frame(GR.sky(c, t, { moon: [260, 230, 56] }) + GR.far(c, t) + GR.villageFar(c, t, { lightsOn: tr([[0, 1, "linear"], [1.15, 0.03, "linear"]], t) }) + GR.near(c, t) + GR.grade());
 }
+// (w) check sheet: POSE=teeth|stalk|crouch|lunge|runAway|sheep, TH=mood  (SHOT=w)
+function shotW(t) {
+  const pose = process.env.POSE || "teeth", th = +(process.env.TH ?? 0); GR.mood(th);
+  const c = { x: 3.3, y: 0.95, z: 2.3, h0: 1120 }, hs = GR.hillside(c, t);
+  if (pose === "sheep") { const fl = GR.flock(c, [{ X: 3.75, Z: 5.4, pose: "run", phase: 0.1 }, { X: 2.8, Z: 5.0, pose: "run", phase: 0.45, mark: 1 }, { X: 3.5, Z: 4.5, pose: "run", phase: 0.8, dir: -1 }], t); return frame(GR.sky(c, t) + hs.svg + fl.svg + GR.grade()); }
+  const wf = GR.wolf(c, { X: 3.25, Z: 4.5, pose, phase: 0.15, Y: pose === "lunge" ? 0.25 : 0 }, t);
+  return frame(GR.sky(c, t) + hs.svg + wf.svg + GR.grade() + wf.eyes);
+}
 const CUTS = [[0, shotA], [2, shotB], [3.5, shotC], [4.8, shotD]];
 export function draw(t) {
   L.resetIds();
-  if (ONLY) return { a: shotA, b: shotB, c: shotC, d: shotD }[ONLY](t);
+  if (ONLY) return { a: shotA, b: shotB, c: shotC, d: shotD, w: shotW }[ONLY](t);
   let k = 0; for (let i = 0; i < CUTS.length; i++) if (t >= CUTS[i][0]) k = i;
   return CUTS[k][1](t - CUTS[k][0]);
 }

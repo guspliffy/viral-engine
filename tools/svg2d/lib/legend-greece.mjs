@@ -93,8 +93,8 @@ const MOODS = {
   roof: ["#c8502a", "#6a3f9a", "#0e1230"], roofS: ["#8a2f2a", "#44287a", "#070a1c"], bell: ["#ffc04a", "#8a86c8", "#22305f"],
   wood: ["#8a5230", "#3a3478", "#070a1a"], woodS: ["#5a3024", "#22204f", "#03050c"], woodL: ["#c08a4a", "#6a6ab8", "#1c2c5a"],
   pave: ["#c9804a", "#3a4eaa", "#091230"], pave2: ["#e8a85a", "#5068c8", "#101e48"], paveS: ["#7a3f34", "#1c2870", "#030713"], pane: ["#3a2a5a", "#0e1a55", "#030714"],
-  wool: ["#ffe9c4", "#c8d4ff", "#3a558f"], woolS: ["#d89a6a", "#7f8fdc", "#14264f"], woolL: ["#fff8e6", "#f0f4ff", "#7fa4e0"], face: ["#3a2230", "#1c1a44", "#04060f"],
-  wolf: ["#9a7658", "#6a6490", "#141f3c"], wolfS: ["#5a3f3a", "#3a3668", "#070c1c"], wolfL: ["#d8b890", "#a8a8d8", "#2a3f6a"],
+  wool: ["#ffe9c4", "#c8d4ff", "#3a558f"], woolS: ["#d89a6a", "#7f8fdc", "#14264f"], woolL: ["#fff8e6", "#f0f4ff", "#7fa4e0"], face: ["#4a2c3a", "#34306e", "#121a3e"], faceL: ["#c89a8a", "#8a8cd0", "#2c4278"],
+  wolf: ["#9a7658", "#6a6490", "#1c2a52"], wolfS: ["#5a3f3a", "#3a3668", "#0a1228"], wolfL: ["#d8b890", "#a8a8d8", "#34508a"],
 };
 export const M = {};
 let TH = 0;
@@ -167,23 +167,23 @@ export function mist(c, t, zs = [14, 9]) {
 export function stoneWall(c, a, b, y0, h, seed, o = {}) {
   const zMin = Math.min(a[1], b[1]), zMid = (a[1] + b[1]) / 2;
   if (!vis(c, zMin - 0.1)) return "";
-  const len = Math.hypot(b[0] - a[0], b[1] - a[1]), per = o.per || 0.34 + Math.max(0, zMid - c.z) * 0.016, rows = o.rows || Math.max(2, Math.round(h / (0.2 + Math.max(0, zMid - c.z) * 0.006)));
+  const dzc = Math.max(0, zMid - c.z), soft = clamp((dzc - 5) / 22), len = Math.hypot(b[0] - a[0], b[1] - a[1]), per = o.per || 0.36 + dzc * 0.034, rows = o.rows || Math.max(2, Math.round(h / (0.23 + dzc * 0.013)));
   const at = (u, y, dx = 0, dz = 0) => P(c, lerp(a[0], b[0], u) + dx, y0 + y, lerp(a[1], b[1], u) + dz);
   let s = "";
   if (o.thick) s += poly([at(0, h, ...o.thick), at(1, h, ...o.thick), at(1, h), at(0, h)], fade(mix(M.stone, M.stoneL, 0.45), zMid));
-  s += poly([at(0, h * 0.97), at(1, h * 0.97), at(1, 0), at(0, 0)], fade(M.stoneS, zMid));
+  s += poly([at(0, h * 0.97), at(1, h * 0.97), at(1, 0), at(0, 0)], fade(mix(M.stoneS, M.stone, soft * 0.62), zMid));
   const g = 0.013 / len;
   for (let r = 0; r < rows; r++) {
     const cap = r === rows - 1, ya = h * r / rows + 0.012, yb = h * (r + 1) / rows - 0.012;
     let u = -hash(seed + r * 7.7) * per / len * 0.7;
     for (let j = 0; u < 1; j++) {
-      const id = seed * 3.7 + r * 131 + j, w = per * (0.55 + 0.95 * hash(id + 0.1)) * (cap ? 1.3 : 1) / len, u0 = Math.max(0, u) + g, u1 = Math.min(1, u + w) - g; u += w;
-      if (u1 - u0 < g * 2 || (!cap && hash(id + 0.7) < 0.045)) continue;   // a stone fell out
-      const q = [at(u0, yb + (cap ? jit(id + 1, 0.05) : jit(id + 1, 0.012))), at(u1, yb + (cap ? jit(id + 2, 0.05) : jit(id + 2, 0.012))), at(u1 - g * hash(id + 3) * 3, ya + jit(id + 4, 0.012)), at(u0 + g * hash(id + 5) * 3, ya)];
+      const id = seed * 3.7 + r * 131 + j, w = per * (0.4 + 1.5 * hash(id + 0.1) ** 1.4) * (cap ? 1.3 : 1) / len, u0 = Math.max(0, u) + g, u1 = Math.min(1, u + w) - g; u += w;
+      if (u1 - u0 < g * 2 || (!cap && hash(id + 0.7) < 0.045 + soft * 0.12)) continue;   // a stone fell out
+      const q = [at(u0 + g * hash(id + 6) * 5, yb + (cap ? jit(id + 1, 0.06) : jit(id + 1, 0.035))), at(u1 - g * hash(id + 7) * 5, yb + (cap ? jit(id + 2, 0.06) : jit(id + 2, 0.035))), at(u1 - g * hash(id + 3) * 4, ya + jit(id + 4, 0.03)), at(u0 + g * hash(id + 5) * 4, ya + jit(id + 8, 0.02))];
       if (Math.max(q[0].x, q[1].x) < -30 || Math.min(q[0].x, q[1].x) > W + 30) continue;
       const hh = hash(id + 0.3), col = hh < 0.14 ? mix(M.stone, M.stoneS, 0.5) : mix(M.stone, M.stoneL, hh * 0.55 + (cap ? 0.2 : 0));
-      s += poly(q, fade(col, zMid));
-      if (cap || hh > 0.72) s += `<path d="M${pt(q[0])} L${pt(q[1])}" stroke="${M.rim}" stroke-width="${n(Math.max(0.8, 0.012 * q[0].s))}" opacity="${cap ? 0.6 : 0.3}" stroke-linecap="round"/>`;
+      s += poly(q, fade(mix(col, mix(M.stone, M.stoneS, 0.25), soft * 0.75), zMid));
+      if (cap || hh > 0.72) s += `<path d="M${pt(q[0])} L${pt(q[1])}" stroke="${M.rim}" stroke-width="${n(Math.max(0.8, 0.012 * q[0].s))}" opacity="${n((cap ? 0.6 : 0.3) * (1 - soft * 0.6))}" stroke-linecap="round"/>`;
       if (q[0].s > 60) {
         if (hash(id + 0.9) < 0.12) s += `<path d="${blob(ring(lerp(q[0].x, q[2].x, 0.3 + 0.4 * hash(id)), lerp(q[0].y, q[2].y, 0.5), 0.035 * q[0].s, id, 6, 0.3))}" fill="${mix(M.stoneL, M.grass, 0.6)}" opacity="0.55"/>`;   // lichen
         if (hash(id + 1.9) < 0.1) s += `<path d="M${n(lerp(q[0].x, q[1].x, 0.4))},${n(q[0].y)} l${n(jit(id, 0.03) * q[0].s)},${n((q[3].y - q[0].y) * 0.5)} l${n(jit(id + 1, 0.03) * q[0].s)},${n((q[3].y - q[0].y) * 0.4)}" stroke="${M.stoneS}" stroke-width="${n(0.008 * q[0].s)}" fill="none"/>`;   // crack
@@ -565,7 +565,7 @@ export function sheep(c, st, t = 0) {
   const p = P(c, st.X, Y, Z), seed = st.seed ?? 1, size = (st.size ?? 1) * (0.94 + 0.12 * hash(seed + 0.5)), dir = st.dir ?? 1, ph = st.phase ?? 0;
   const len = 36 * (1 - 0.5 * ps.squat), drop = 36 - len, cy = -58 + drop, bob = ps.gait * -Math.abs(Math.sin(ph * Math.PI * 2)) * 4 + Math.sin(t * 1.6 + seed) * 0.5, J = (i, a = 1) => jit(seed * 19 + i, a);
   let s = `<ellipse cx="0" cy="0" rx="46" ry="7" fill="${M.earthS}" opacity="0.5"/>`;
-  const leg = (x, off, farSide) => { const a = (ph + off) * Math.PI * 2, sw = ps.gait * Math.sin(a) * 15, lift = ps.gait * Math.max(0, Math.cos(a)) * 9, top = -len - 6 + bob, d = `M${x},${n(top)} Q${n(x + sw * 0.2 - 2.5)},${n(top * 0.45)} ${n(x + sw)},${n(-lift - 2)}`; return limb2(d, farSide ? mix(M.face, INK, 0.4) : M.face, 5.2) + `<path d="M${n(x + sw - 3.4)},${n(-lift)} l6.6,0 l-1,-4 l-4.6,0 Z" fill="${INK}"/>`; };
+  const leg = (x, off, farSide) => { const a = (ph + off) * Math.PI * 2, sw = ps.gait * Math.sin(a) * 10, lift = ps.gait * Math.max(0, Math.cos(a)) * 7, top = -len - 2 + bob, d = `M${x},${n(top)} Q${n(x + sw * 0.2 - 2.5)},${n(top * 0.45)} ${n(x + sw)},${n(-lift - 2)}`; return limb2(d, farSide ? mix(M.face, INK, 0.4) : M.face, 6) + `<path d="M${n(x + sw - 3.4)},${n(-lift)} l6.6,0 l-1,-4 l-4.6,0 Z" fill="${INK}"/>`; };
   s += leg(27, 0.5, 1) + leg(-17, 0, 1);
   s += `<g transform="translate(0,${n(bob)})">`;
   // tail, then the fleece: a scalloped cloud, no two bumps alike
@@ -585,13 +585,14 @@ export function sheep(c, st, t = 0) {
   const hx = ps.hx, hy = ps.hy + drop + bob, nd = `M25,${n(cy - 2)} Q${n(lerp(25, hx, 0.5) + 4)},${n(lerp(cy, hy, 0.5) - 3)} ${n(hx - 5)},${n(hy + 3)}`;
   s += stroke(nd, INK, 25.5) + stroke(nd, M.wool, 23) + `<path d="M0,0 q3,-4 6,-1" transform="translate(${n(lerp(25, hx, 0.45))},${n(lerp(cy, hy, 0.45))})" fill="none" stroke="${M.woolS}" stroke-width="1.3"/>`;
   const jr = ps.mouth * 24, bl = st.blink || 0;
-  s += `<g transform="translate(${n(hx)},${n(hy)}) rotate(${n(ps.ha)})">`;
+  s += `<g transform="translate(${n(hx)},${n(hy)}) rotate(${n(ps.ha)}) scale(1.22)">`;
   s += `<path d="M0,0 Q8,-5 15,-1 Q8,4 0,0" transform="translate(-6,-7) rotate(${n(168 + ps.ear)})" fill="${mix(M.face, INK, 0.4)}" stroke="${INK}" stroke-width="0.9"/>`;
   if (ps.mouth > 0.06) s += `<path d="M5,5 L19,4 L${n(5 + 14 * Math.cos(jr * Math.PI / 180))},${n(6 + 14 * Math.sin(jr * Math.PI / 180))} Z" fill="#5a1c30"/>`;
   s += `<g transform="rotate(${n(jr)} 4 5)"><path d="M3,4 L18,5 Q19.5,8 15,9 L-2,10 Z" fill="${M.face}" stroke="${INK}" stroke-width="1"/>${ps.mouth > 0.3 ? `<path d="M6,4.6 Q12,2.6 16,4.8 L7,5.6 Z" fill="#e07a90"/>` : ""}</g>`;
   s += `<path d="M-11,-7 Q-3,-14.5 7,-9.5 L18,-4.5 Q22,-1 20,4 L5,5 L-4,10 Q-12.5,8 -11,-7 Z" fill="${M.face}" stroke="${INK}" stroke-width="1.1" stroke-linejoin="round"/><path d="M17,-1.5 q1.6,0.6 1.4,2.2" stroke="${INK}" stroke-width="0.9" fill="none"/><path d="M9,-6.5 L17,-3" stroke="${M.rim}" stroke-width="0.9" opacity="0.5"/>`;
-  s += `<ellipse cx="5" cy="-4" rx="2.9" ry="${n(2.3 * (1 - bl) + 0.2)}" fill="#f0c860" stroke="${INK}" stroke-width="0.7"/>${bl < 0.6 ? `<rect x="3.2" y="-4.6" width="3.6" height="1.2" rx="0.5" fill="${INK}"/>` : ""}`;
-  s += `<path d="M0,0 Q8,-5 15,-1 Q8,4.5 0,0" transform="translate(-8,-5) rotate(${n(158 + ps.ear)})" fill="${M.face}" stroke="${INK}" stroke-width="1"/>`;
+  s += `<path d="M11,-4.6 L18,-3.6 Q21,-1 19.4,3.4 L9,4.4 Q8,0 11,-4.6 Z" fill="${M.faceL}" opacity="0.85"/><path d="M17.4,-1.4 q1.6,0.6 1.2,2.2 M12,4.3 L19,3.6" stroke="${INK}" stroke-width="0.8" fill="none"/>`;
+  s += `<ellipse cx="4.6" cy="-4" rx="3.4" ry="${n(2.8 * (1 - bl) + 0.2)}" fill="#ffd870" stroke="${INK}" stroke-width="0.8"/>${bl < 0.6 ? `<rect x="2.6" y="-4.7" width="4" height="1.4" rx="0.6" fill="${INK}"/><circle cx="3.4" cy="-5.4" r="0.9" fill="#ffffff"/>` : ""}`;
+  s += `<path d="M0,0 Q8,-5 15,-1 Q8,4.5 0,0" transform="translate(-8,-5) rotate(${n(158 + ps.ear)})" fill="${M.face}" stroke="${INK}" stroke-width="1"/><path d="M2,0 Q8,-2.6 12.4,-0.6 Q8,2.4 2,0" transform="translate(-8,-5) rotate(${n(158 + ps.ear)})" fill="${M.faceL}" opacity="0.8"/>`;
   for (const [x, y, r] of [[-7, -11, 4.2], [-1.5, -13, 3.8], [3.5, -11.5, 3]]) s += `<circle cx="${x}" cy="${y}" r="${n(r * (0.9 + 0.2 * hash(seed + x)))}" fill="${M.wool}" stroke="${INK}" stroke-width="0.9"/>`;
   s += `</g>`;
   return { svg: `<g transform="${place(p)} scale(${n(dir * size * 100) / 100},${n(size * 100) / 100})">${s}</g>`, Z, p };
@@ -602,13 +603,13 @@ export function flock(c, list, t = 0) {
 }
 
 // ---------------------------------------------------------------- the wolf
-const WSTALK = { drop: 10, pitch: 0, hx: 62, hy: -62, ha: 8, jaw: 0, snarl: 0.15, ear: 0.6, tail: -12, gait: 0.5, stretch: 0, hackle: 0.2 };
+const WSTALK = { drop: 12, pitch: 3, hx: 56, hy: -68, ha: 10, jaw: 0, snarl: 0.1, ear: 0.9, tail: -52, gait: 0.5, stretch: 0, hackle: 0.2 };
 export const WOLF = {
   hidden: WSTALK, stalk: WSTALK,
-  crouch: { drop: 24, pitch: 4, hx: 60, hy: -52, ha: 3, jaw: 0.1, snarl: 0.55, ear: -0.3, tail: -28, gait: 0, stretch: 0, hackle: 0.6 },
-  lunge: { drop: -16, pitch: -20, hx: 66, hy: -84, ha: -10, jaw: 0.95, snarl: 1, ear: -0.8, tail: 22, gait: 0, stretch: 1, hackle: 0.8 },
-  teeth: { drop: 6, pitch: 2, hx: 60, hy: -72, ha: 3, jaw: 0.55, snarl: 1, ear: -0.9, tail: 4, gait: 0, stretch: 0, hackle: 1 },
-  runAway: { drop: 4, pitch: -3, hx: 64, hy: -72, ha: 6, jaw: 0.2, snarl: 0, ear: -1, tail: -60, gait: 1, stretch: 0.35, hackle: 0 },
+  crouch: { drop: 24, pitch: 5, hx: 55, hy: -62, ha: 4, jaw: 0.1, snarl: 0.55, ear: -0.2, tail: -42, gait: 0, stretch: 0, hackle: 0.6 },
+  lunge: { drop: -14, pitch: -22, hx: 56, hy: -90, ha: -4, jaw: 0.95, snarl: 1, ear: -0.6, tail: 10, gait: 0, stretch: 1, hackle: 0.8 },
+  teeth: { drop: 4, pitch: 0, hx: 53, hy: -85, ha: 6, jaw: 0.6, snarl: 1, ear: 0.2, tail: -18, gait: 0, stretch: 0, hackle: 1 },
+  runAway: { drop: 2, pitch: -4, hx: 56, hy: -84, ha: 2, jaw: 0.15, snarl: 0, ear: -0.7, tail: -72, gait: 1, stretch: 0.4, hackle: 0 },
 };
 export const wolfPose = (a, b, u) => blendPose(WOLF, a, b, u);
 // two eyes facing us. (x,y) = between the eyes, k = px per cm. o: { blink, look, open, reveal, snarl, seed }
@@ -639,55 +640,63 @@ export function wolf(c, st, t = 0) {
   const pr = ps.pitch * Math.PI / 180, rot = (x, y) => { const dx = x, dy = y + 60; return { x: dx * Math.cos(pr) - dy * Math.sin(pr), y: -60 + dx * Math.sin(pr) + dy * Math.cos(pr) + ps.drop }; };
   const hl = rot(ps.hx, ps.hy), head = { x: p.x + dir * hl.x * k, y: p.y + hl.y * k, s: p.s * size };
   if (st.eyesOnly || st.pose === "hidden") return { svg: "", eyes: eyePair(head.x, head.y, k * (st.eyeSize ?? 1), { blink: bl, look: st.look, open: st.open, reveal: st.reveal, snarl: st.reveal ? ps.snarl : 0, seed }), head, p, Z };
-  const g = -ps.drop, S = { x: 28, y: -54 }, Hp = { x: -34, y: -58 };
-  let far = "", nearL = "";
-  const paw = (F, col) => `<path d="M${n(F.x - 4)},${n(F.y + 1.2)} Q${n(F.x - 4)},${n(F.y - 4.5)} ${n(F.x + 3)},${n(F.y - 4)} Q${n(F.x + 9)},${n(F.y - 3)} ${n(F.x + 9)},${n(F.y + 1.2)} Z" fill="${col}" stroke="${INK}" stroke-width="1"/><path d="M${n(F.x + 4)},${n(F.y - 1)} v2 M${n(F.x + 6.6)},${n(F.y - 0.6)} v1.8" stroke="${INK}" stroke-width="0.7"/>`;
-  const fore = (off, dx, col) => { const a = (ph + off) * 6.283, F = { x: lerp(S.x + dx + 2 + ps.gait * Math.sin(a) * 24, S.x + dx + 46, ps.stretch), y: lerp(g - ps.gait * Math.max(0, Math.cos(a)) * 12, S.y + 8, ps.stretch) }, E = { x: lerp(S.x + dx, F.x, 0.3) - 5 * (1 - ps.stretch), y: lerp(S.y, F.y, 0.45) }; return limb2(`M${n(S.x + dx)},${S.y} L${pt(E)}`, col, 9) + limb2(`M${pt(E)} Q${n(lerp(E.x, F.x, 0.6) + 2)},${n(lerp(E.y, F.y, 0.6))} ${n(F.x)},${n(F.y - 2)}`, col, 6) + paw(F, col); };
-  const hind = (off, dx, col) => { const a = (ph + off) * 6.283, F = { x: lerp(Hp.x + dx - 4 + ps.gait * Math.sin(a) * 24, Hp.x + dx - 46, ps.stretch), y: lerp(g - ps.gait * Math.max(0, Math.cos(a)) * 12, Hp.y + 26, ps.stretch) }, K = { x: lerp(Hp.x + dx, F.x, 0.3) + 13 * (1 - ps.stretch * 0.6), y: lerp(Hp.y, F.y, 0.42) }, Hk = { x: F.x - 8 + ps.stretch * 4, y: lerp(Hp.y, F.y, 0.74) }; return limb2(`M${n(Hp.x + dx + 2)},${Hp.y} Q${n(K.x + 5)},${n(lerp(Hp.y, K.y, 0.4))} ${pt(K)}`, col, 12.5) + limb2(`M${pt(K)} Q${n(Hk.x - 3)},${n(Hk.y - 4)} ${pt(Hk)} L${n(F.x)},${n(F.y - 2)}`, col, 5.6) + paw(F, col); };
-  far += hind(0.5, 7, M.wolfS) + fore(0, 7, M.wolfS); nearL += hind(0, 0, M.wolf) + fore(0.5, 0, M.wolf);
-  // tail: ragged brush, dark tip
-  const ta = (ps.tail + Math.sin(t * 2 + seed) * 3) * Math.PI / 180, tw = [4, 8, 9.5, 8.5, 5, 0.5], up = [], dn = [];
-  tw.forEach((w, i) => { const u = i / 5, x = -45 - Math.cos(ta) * 48 * u, y = -64 - Math.sin(ta) * 48 * u + u * u * 9; up.push({ x: x + J(i + 80, 1.2), y: y - w + (i % 2 ? -2 : 0) }); dn.push({ x: x + 3 + J(i + 90, 1.5), y: y + w + (i % 2 ? 2.4 : 0) }); });
-  const tail = `<path d="${lineD([...up, ...dn.reverse()], true)}" fill="${M.wolf}" stroke="${INK}" stroke-width="1.2" stroke-linejoin="round"/><path d="${lineD([up[3], up[4], up[5], dn[0], dn[1], dn[2]], true)}" fill="${M.wolfS}"/>`;
-  // torso: ragged back, deep chest, tucked belly
-  const back = []; for (let i = 0; i <= 26; i++) { const u = i / 26, x = lerp(38, -46, u) + (i % 2 ? 1.2 : 0), y = -79 + 13 * u * u - 6 * Math.sin(u * Math.PI) * 0.4 + (u > 0.75 ? (u - 0.75) * 20 : 0); back.push({ x, y: y - (i % 2 ? (1.3 + ps.hackle * 3.4 * (1 - u * 0.75)) * (0.6 + 0.8 * hash(seed + i)) : 0) }); }
-  const under = [[-49, -57], [-45, -44], [-36, -40], [-27, -50], [-9, -48], [8, -43], [22, -37], [31, -39], [35, -45], [40, -44], [39, -52], [45, -53], [43, -62], [46, -68]].map(([x, y], i) => ({ x: x + J(i + 100, 0.8), y }));
-  let torso = `<path d="${lineD([...back, ...under], true)}" fill="${M.wolf}" stroke="${INK}" stroke-width="1.3" stroke-linejoin="round"/>`;
-  torso += `<path d="${lineD([...back, { x: -44, y: -60 }, { x: -34, y: -66 }, { x: -24, y: -61 }, { x: -12, y: -67 }, { x: -2, y: -62 }, { x: 10, y: -68 }, { x: 20, y: -63 }, { x: 30, y: -70 }], true)}" fill="${M.wolfS}" opacity="0.85"/>`;
-  torso += `<path d="${lineD([{ x: -26, y: -50 }, { x: -9, y: -48 }, { x: 8, y: -43 }, { x: 22, y: -37 }, { x: 31, y: -39 }, { x: 38, y: -46 }, { x: 30, y: -47 }, { x: 22, y: -43 }, { x: 12, y: -49 }, { x: 2, y: -47 }, { x: -10, y: -52 }], true)}" fill="${M.wolfL}" opacity="0.75"/>`;
-  for (const x of [3, 10, 17]) torso += stroke(`M${x},-62 q5,8 2,${n(15 + J(x, 2))}`, M.wolfS, 1.1, `opacity="0.55"`);   // lean: the ribs show
-  for (let i = 0; i < 30; i++) { const x = -40 + hash(seed + i * 1.9) * 76, y = -72 + hash(seed + i * 2.7) * 24, l = 4 + 5 * hash(i + seed); torso += `<path d="M${n(x)},${n(y)} l${n(-l)},${n(l * (0.25 + 0.5 * hash(i)))}" stroke="${y < -62 ? INK : i % 2 ? M.wolfS : M.wolfL}" stroke-width="1" stroke-linecap="round" opacity="${y < -62 ? 0.5 : 0.7}"/>`; }
-  torso += `<path d="${lineD(back.filter((_, i) => i % 2 === 0))}" fill="none" stroke="${M.rim}" stroke-width="1.1" opacity="0.75" transform="translate(0,1.2)"/>`;
-  // neck + head
-  const nd = `M34,-66 Q${n(lerp(34, ps.hx, 0.5))},${n(lerp(-66, ps.hy, 0.5) - 3)} ${n(ps.hx - 6)},${n(ps.hy + 2)}`;
-  let neck = stroke(nd, INK, 27) + stroke(nd, M.wolf, 24.5);
-  for (let i = 0; i < 4; i++) { const u = 0.2 + i * 0.2, x = lerp(34, ps.hx - 6, u), y = lerp(-66, ps.hy + 2, u) + 10; neck += `<path d="M${n(x - 4)},${n(y - 2)} L${n(x - 3 + J(i + 120, 2))},${n(y + 7)} L${n(x + 4)},${n(y - 1)} Z" fill="${M.wolfL}" stroke="${INK}" stroke-width="0.9" stroke-linejoin="round"/>`; }
-  const jr = ps.jaw * 30, sn = ps.snarl, jc = Math.cos(jr * Math.PI / 180), js = Math.sin(jr * Math.PI / 180), rj = (x, y) => `${n(7 + (x - 7) * jc - (y - 5) * js)},${n(5 + (x - 7) * js + (y - 5) * jc)}`;
-  const show = clamp(Math.max(ps.jaw * 4, sn * 1.6)), tooth = "#fff6dc", et = lerp(-9, -24, (ps.ear + 1) / 2), ex = lerp(-25, -6, (ps.ear + 1) / 2);
-  const earD = (ox, oy) => `M${-10 + ox},${-11 + oy} L${n(lerp(-10, ex, 0.55) - 2 + ox)},${n(lerp(-11, et, 0.55) + oy)} L${n(lerp(-10, ex, 0.62) + 0.6 + ox)},${n(lerp(-11, et, 0.6) + 1.6 + oy)} L${n(ex + ox)},${n(et + oy)} Q${n(ex + 5 + ox)},${n(et + 7 + oy)} ${0 + ox},${-13 + oy} Z`;   // a notch torn out of the back edge
-  let hd = `<g transform="translate(${n(ps.hx)},${n(ps.hy)}) rotate(${n(ps.ha)}) scale(1.1)">`;
-  hd += `<path d="${earD(5, -0.6)}" fill="${M.wolfS}" stroke="${INK}" stroke-width="1"/>`;
-  if (show > 0.05) hd += `<path d="M7,4 L30,3 L${rj(29, 5)} L${rj(8, 7)} Z" fill="#2a0a18"/>`;
-  hd += `<g transform="rotate(${n(jr)} 7 5)"><path d="M5,3.4 L27,4 Q30.5,5 28.5,7.6 L10,10.4 Q4,10.4 3,6 Z" fill="${M.wolfL}" stroke="${INK}" stroke-width="1.1" stroke-linejoin="round"/>`;
-  if (show > 0.05) hd += `<g opacity="${n(show)}"><path d="M10,4.4 Q18,1.6 25,4.2 L11,5.6 Z" fill="#d8607f"/><path d="M22.4,4.8 L24.1,-2.6 L26,4.9 Z M19,4.6 l1.2,-2.6 l1.2,2.7 Z M15.8,4.6 l1.1,-2.3 l1.2,2.4 Z M12.8,4.6 l1,-1.9 l1.1,2 Z M26.6,4.7 l0.9,-1.8 l0.9,1.9 Z" fill="${tooth}" stroke="${INK}" stroke-width="0.45" stroke-linejoin="round"/></g>`;
+  const g = -ps.drop, sq = Math.max(0, ps.drop), S = { x: 25, y: -60 }, Hp = { x: -32, y: -64 }, O = `stroke="${INK}" stroke-width="1.2" stroke-linejoin="round"`;
+  // a joint between A and B, pushed "forward" (+) or "back" (-) of the line: this is what bends elbow, knee and hock
+  const jt = (A, B, u, off) => { const dx = B.x - A.x, dy = B.y - A.y, l = Math.hypot(dx, dy) || 1; return { x: lerp(A.x, B.x, u) + dy / l * off, y: lerp(A.y, B.y, u) - dx / l * off }; };
+  const paw = (F, col) => `<path d="M${n(F.x - 3.4)},${n(F.y)} Q${n(F.x - 4)},${n(F.y - 5.4)} ${n(F.x + 2)},${n(F.y - 5)} Q${n(F.x + 8.6)},${n(F.y - 4.4)} ${n(F.x + 9.4)},${n(F.y)} Z" fill="${col}" ${O}/><path d="M${n(F.x + 4)},${n(F.y - 2.4)} v2.2 M${n(F.x + 6.8)},${n(F.y - 2)} v1.8" stroke="${INK}" stroke-width="0.7"/>`;
+  const fore = (off, dx, col) => {
+    const a = (ph + off) * 6.283, A = { x: S.x + dx, y: S.y }, F = { x: lerp(A.x + 1 + ps.gait * Math.sin(a) * 20, A.x + 42, ps.stretch), y: lerp(g - ps.gait * Math.max(0, Math.cos(a)) * 10, A.y + 12, ps.stretch) };
+    const E = jt(A, F, 0.36, -(4 + sq * 0.32)), Wr = jt(A, F, 0.78, 1.6);
+    return limb2(`M${pt(E)} L${pt(Wr)} L${n(F.x)},${n(F.y - 3)}`, col, 5.4) + `<path d="${blob([{ x: A.x - 10, y: A.y - 11 }, { x: A.x + 9, y: A.y - 12 }, { x: E.x + 5.5, y: E.y }, { x: E.x, y: E.y + 5 }, { x: E.x - 6, y: E.y + 1 }])}" fill="${col}" ${O}/>` + paw(F, col);
+  };
+  const hind = (off, dx, col) => {
+    const a = (ph + off) * 6.283, A = { x: Hp.x + dx, y: Hp.y }, F = { x: lerp(A.x - 7 + ps.gait * Math.sin(a) * 20, A.x - 46, ps.stretch), y: lerp(g - ps.gait * Math.max(0, Math.cos(a)) * 10, A.y + 32, ps.stretch) };
+    const K = jt(A, F, 0.38, 12 * (1 - 0.6 * ps.stretch) + sq * 0.38), Hk = jt(A, F, 0.72, -(10 * (1 - 0.5 * ps.stretch) + sq * 0.22));
+    return limb2(`M${pt(K)} L${pt(Hk)} L${n(F.x)},${n(F.y - 3)}`, col, 5.8) + `<path d="${blob([{ x: A.x - 12, y: A.y - 10 }, { x: A.x + 12, y: A.y - 12 }, { x: K.x + 7, y: K.y - 2 }, { x: K.x + 1, y: K.y + 6 }, { x: K.x - 7, y: K.y + 3 }, { x: A.x - 15, y: A.y + 9 }])}" fill="${col}" ${O}/>` + paw(F, col);
+  };
+  const far = hind(0.5, 8, M.wolfS) + fore(0, 8, M.wolfS), nearL = hind(0, 0, M.wolf) + fore(0.5, 0, M.wolf);
+  // tail: long and bushy, ragged underneath, dark tip
+  const ta = (ps.tail + Math.sin(t * 2 + seed) * 3) * Math.PI / 180, tw = [4.5, 8, 11, 12.5, 11, 7, 1], up = [], dn = [];
+  tw.forEach((w, i) => { const u = i / 6, x = -45 - Math.cos(ta) * 60 * u, y = -70 - Math.sin(ta) * 60 * u - Math.sin(u * Math.PI) * 5; up.push({ x: x + Math.sin(ta) * w * 0.8, y: y - Math.cos(ta) * w * 0.8 }); dn.push({ x: x - Math.sin(ta) * w * (i % 2 ? 1.25 : 0.9) + J(i + 90, 1), y: y + Math.cos(ta) * w * (i % 2 ? 1.25 : 0.9) }); });
+  const tail = `<path d="${lineD([...up, ...dn.slice().reverse()], true)}" fill="${M.wolf}" ${O}/><path d="${lineD([up[4], up[5], up[6], dn[5], dn[4]], true)}" fill="${M.wolfS}"/><path d="${lineD([dn[1], dn[2], dn[3], { x: lerp(up[3].x, dn[3].x, 0.5), y: lerp(up[3].y, dn[3].y, 0.5) }, { x: lerp(up[1].x, dn[1].x, 0.6), y: lerp(up[1].y, dn[1].y, 0.6) }], true)}" fill="${M.wolfL}" opacity="0.6"/>`;
+  // torso: deep chest, narrow waist
+  let torso = `<path d="${blob([{ x: 27, y: -86 }, { x: 2, y: -80 }, { x: -22, y: -81 }, { x: -40, y: -78 }, { x: -49, y: -67 }, { x: -44, y: -54 }, { x: -18, y: -55 }, { x: 0, y: -49 }, { x: 20, y: -40 }, { x: 34, y: -45 }, { x: 40, y: -60 }, { x: 37, y: -76 }])}" fill="${M.wolf}" ${O}/>`;
+  torso += `<path d="${blob([{ x: 25, y: -84 }, { x: 0, y: -79.5 }, { x: -22, y: -80 }, { x: -40, y: -76 }, { x: -45, y: -67 }, { x: -30, y: -71 }, { x: -10, y: -72 }, { x: 10, y: -72 }, { x: 26, y: -75 }])}" fill="${M.wolfS}" opacity="0.85"/>`;
+  torso += `<path d="${blob([{ x: -16, y: -56 }, { x: 0, y: -51 }, { x: 20, y: -42.5 }, { x: 32, y: -47 }, { x: 37, y: -60 }, { x: 28, y: -55 }, { x: 14, y: -51 }, { x: 0, y: -56 }])}" fill="${M.wolfL}" opacity="0.8"/>`;
+  torso += `<path d="M37,-68 L42,-61 L37,-59 L41,-52 L35,-50 L36,-44 L29,-43.4 L27,-52 Z" fill="${M.wolfL}" ${O}/><path d="M-13,-54 l2,5 l3,-4 l2.4,5 l3,-4.4" fill="${M.wolfL}" stroke="${INK}" stroke-width="1" stroke-linejoin="round"/>`;
+  for (const x of [3, 10]) torso += stroke(`M${x},-63 q4,6 1.6,${n(11 + J(x, 1.5))}`, M.wolfS, 1, `opacity="0.45"`);   // lean: the ribs show
+  for (const [x, y] of [[9, -68], [-14, -67], [-30, -64], [19, -57], [-3, -61]]) torso += `<path d="M${x},${y} l-3,3.2 M${x + 3.2},${y + 0.8} l-3,3.4 M${x + 6.2},${y - 0.4} l-3,3.6" stroke="${y < -62 ? INK : M.wolfS}" stroke-width="1" stroke-linecap="round" opacity="0.6"/>`;
+  for (let i = 0; i < 7; i++) { const x = 27 - i * 6.4, y = -85.5 + i * 0.9 + (i > 4 ? (i - 4) * -0.2 : 0), hh = (1.4 + ps.hackle * 5.2 * (1 - i * 0.1)) * (0.7 + 0.6 * hash(seed + i)); torso += `<path d="M${n(x + 3)},${n(y + 1.5)} L${n(x - 1.5)},${n(y - hh)} L${n(x - 4)},${n(y + 1.6)} Z" fill="${M.wolfS}" stroke="${INK}" stroke-width="0.9" stroke-linejoin="round"/>`; }
+  torso += stroke(`M22,-83.4 Q0,-78.6 -22,-79.6 Q-38,-77 -45.5,-68`, M.rim, 1.1, `opacity="0.75"`);
+  // neck: thick, with a ruff underneath
+  const hx = ps.hx, hy = ps.hy, nb = [0.2, 0.4, 0.6, 0.8].map((u, i) => ({ x: lerp(hx - 3, 38, u) + (i % 2 ? 0 : 1), y: lerp(hy + 14, -57, u) + (i % 2 ? 5.5 : 0.5) }));
+  let neck = `<path d="${lineD([{ x: 20, y: -85 }, { x: lerp(20, hx - 13, 0.5), y: lerp(-85, hy - 11, 0.5) - 2.5 }, { x: hx - 13, y: hy - 11 }, { x: hx - 3, y: hy + 14 }, ...nb, { x: 38, y: -57 }, { x: 24, y: -58 }], true)}" fill="${M.wolf}" ${O}/>`;
+  neck += `<path d="${lineD([{ x: hx - 6, y: hy + 8 }, { x: hx - 3, y: hy + 14 }, ...nb, { x: 38, y: -57 }, { x: 31, y: -62 }], true)}" fill="${M.wolfL}" opacity="0.8"/>`;
+  const jr = ps.jaw * 30, sn = ps.snarl, jc = Math.cos(jr * Math.PI / 180), js = Math.sin(jr * Math.PI / 180), rj = (x, y) => `${n(6 + (x - 6) * jc - (y - 6) * js)},${n(6 + (x - 6) * js + (y - 6) * jc)}`;
+  const show = clamp(Math.max(ps.jaw * 4, sn * 1.6)), tooth = "#fff6dc", eu = (ps.ear + 1) / 2, tip = { x: lerp(-25, -6, eu), y: lerp(-21, -34, eu) }, lip = (x) => 5 - sn * (x > 15 ? 2.8 : 2);
+  const earD = (ox, oy) => `M${-10 + ox},${-9.5 + oy} L${n(lerp(-10, tip.x, 0.5) - 1.6 + ox)},${n(lerp(-9.5, tip.y, 0.5) + oy)} L${n(lerp(-10, tip.x, 0.58) + 1 + ox)},${n(lerp(-9.5, tip.y, 0.56) + 1.4 + oy)} L${n(tip.x + ox)},${n(tip.y + oy)} Q${n(tip.x + 7 + ox)},${n(tip.y + 10 + oy)} ${1 + ox},${-13.5 + oy} Z`;   // a notch torn out of the back edge
+  let hd = `<g transform="translate(${n(hx)},${n(hy)}) rotate(${n(ps.ha)}) scale(1.22)">`;
+  hd += `<path d="${earD(7, -0.6)}" fill="${M.wolfS}" stroke="${INK}" stroke-width="1"/>`;
+  if (show > 0.05) hd += `<path d="M6,5 L25,4 L${rj(23, 6.5)} L${rj(7, 8)} Z" fill="#2a0a18"/>`;
+  hd += `<g transform="rotate(${n(jr)} 6 6)"><path d="M4.6,4.6 L21,5 Q24,6 22.6,8.4 L9,11.8 Q4,11.4 3,7 Z" fill="${M.wolfL}" stroke="${INK}" stroke-width="1.1" stroke-linejoin="round"/>`;
+  if (show > 0.05) hd += `<g opacity="${n(show)}"><path d="M8,5.4 Q14,3 19,5.2 L9,6.6 Z" fill="#d8607f"/><path d="M17.2,5.5 L18.8,-1.2 L20.3,5.6 Z M14,5.3 l1.1,-2.4 l1.2,2.5 Z M11,5.2 l1,-2 l1.1,2.1 Z M20.9,5.5 l0.8,-1.8 l0.9,1.9 Z" fill="${tooth}" stroke="${INK}" stroke-width="0.45" stroke-linejoin="round"/></g>`;
   hd += `</g>`;
-  const lip = (x) => 5.2 - sn * (x > 20 ? 2.6 : 2.0) - (x > 28 ? 1.4 : 0);
-  hd += `<path d="M-14,-3 Q-12,-13 -3,-14 L5,-11.6 Q8,-8 12,-7.6 L29,-5.6 Q34.4,-4 33.6,0 L31,${n(lip(31))} L22,${n(lip(22))} L12,${n(lip(12))} L7,5 Q2,11 -6,12 L-14,8 Z" fill="${M.wolf}" stroke="${INK}" stroke-width="1.2" stroke-linejoin="round"/>`;
-  hd += `<path d="M11,-1.5 L30,-1.8 L31,${n(lip(31) - 0.6)} L22,${n(lip(22) - 0.6)} L12,${n(lip(12) - 0.6)} Z" fill="${M.wolfL}" opacity="0.7"/><path d="M-13,-4 Q-10,-12 -3,-13 L4,-11 L8,-8 L-2,-8 Z" fill="${M.wolfS}" opacity="0.75"/>`;
+  hd += `<path d="M-13,3 Q-15.5,-8 -8,-13 L-1,-14.6 L6,-11.6 Q9,-8.4 11.4,-6.4 L22,-4.8 Q26.8,-4.2 26.4,0 L25,${n(lip(25) - 0.8)} L17,${n(lip(17))} L10,${n(lip(10))} L6,6 Q3,11.4 -4,12.4 L-12,9 Z" fill="${M.wolf}" ${O}/>`;
+  hd += `<path d="M9,-2.4 L24.6,-1.6 L25,${n(lip(25) - 1.4)} L17,${n(lip(17) - 0.6)} L10,${n(lip(10) - 0.6)} L6,5.4 Q3,10.6 -4,11.6 L-9,9 Q-3,6 1,0 Z" fill="${M.wolfL}" opacity="0.8"/><path d="M-12.4,-2 Q-11,-11 -5,-13 L4,-11.4 L9,-7.4 L-1,-8.4 Z" fill="${M.wolfS}" opacity="0.75"/>`;
   if (show > 0.05) {
-    hd += `<g opacity="${n(show)}"><path d="M11.5,${n(lip(12))} L22,${n(lip(22))} L31.4,${n(lip(31))} L31.6,${n(lip(31) + 1.6)} L22,${n(lip(22) + 1.7)} L11.6,${n(lip(12) + 1.4)} Z" fill="#8a2a4a" stroke="${INK}" stroke-width="0.5"/>`;
-    hd += `<path d="M26.2,${n(lip(26) + 1.2)} L28.2,${n(lip(26) + 10)} L30,${n(lip(28) + 1.2)} Z M30.4,${n(lip(31) + 1.3)} l0.8,2.6 l0.9,-2.5 Z M22.6,${n(lip(22) + 1.4)} l1.3,3.4 l1.3,-3.3 Z M19.2,${n(lip(20) + 1.4)} l1.2,2.8 l1.2,-2.7 Z M15.9,${n(lip(16) + 1.3)} l1.2,3.1 l1.2,-3 Z M12.8,${n(lip(13) + 1.2)} l1,2.2 l1.1,-2.1 Z" fill="${tooth}" stroke="${INK}" stroke-width="0.45" stroke-linejoin="round"/></g>`;
+    hd += `<g opacity="${n(show)}"><path d="M9.6,${n(lip(10))} L17,${n(lip(17))} L25.2,${n(lip(25) - 0.8)} L25.4,${n(lip(25) + 0.9)} L17,${n(lip(17) + 1.6)} L9.8,${n(lip(10) + 1.4)} Z" fill="#8a2a4a" stroke="${INK}" stroke-width="0.5"/>`;
+    hd += `<path d="M19.4,${n(lip(20) + 1.1)} L21.2,${n(lip(20) + 9.4)} L23,${n(lip(22) + 1)} Z M23.6,${n(lip(24) + 0.9)} l0.8,2.4 l0.9,-2.4 Z M16.2,${n(lip(17) + 1.3)} l1.2,3 l1.3,-2.9 Z M13.2,${n(lip(13) + 1.3)} l1.1,2.6 l1.2,-2.5 Z M10.6,${n(lip(11) + 1.2)} l0.9,2 l1,-1.9 Z" fill="${tooth}" stroke="${INK}" stroke-width="0.45" stroke-linejoin="round"/></g>`;
   }
-  hd += `<path d="M30,-5.8 Q35.4,-5.8 34.8,-1 Q32,0.6 30,-1.2 Z" fill="#07060c" stroke="${INK}" stroke-width="0.6"/><path d="M31.4,-4.6 l1.8,0.2" stroke="${M.rim}" stroke-width="0.8" stroke-linecap="round"/>`;
-  for (let i = 0; i < 4; i++) hd += `<path d="M${14 + i * 3.6},${n(-6.6 + i * 0.2)} q1.6,2.2 0.4,${n(3.4 + i * 0.3)}" stroke="${INK}" stroke-width="0.8" fill="none" opacity="${n(sn * 0.9)}"/>`;
-  hd += `<path d="M6,-11.4 L29,-5.8" stroke="${M.rim}" stroke-width="0.9" opacity="0.6"/>`;
-  const eyeSvg = `<g transform="translate(6.4,-7.4) rotate(${n(-10 - sn * 9)})"><path d="M-4.2,0.9 Q0,${n(-3.4 * (1 - bl))} 4.4,${n(-1.2 * (1 - bl))} Q0.5,${n(2.2 * (1 - bl) + 0.4)} -4.2,0.9 Z" fill="${EYE}" stroke="#1a0c00" stroke-width="0.7"/>${bl < 0.7 ? `<path d="M-2.2,0.4 Q0,${n(-2 * (1 - bl))} 2.6,-0.7 Q0.4,1 -2.2,0.4 Z" fill="${EYEHOT}"/><circle cx="${n(0.7 + (st.look || 0) * 0.8)}" cy="-0.5" r="1.05" fill="#150900"/>` : ""}</g>`;
-  hd += eyeSvg + `<path d="M-1,-11.5 L11,${n(-9.6 + sn * 1.8)}" stroke="${INK}" stroke-width="${n(1.3 + sn * 1.1)}" stroke-linecap="round"/>`;
-  hd += `<path d="${earD(0, 0)}" fill="${M.wolf}" stroke="${INK}" stroke-width="1.1" stroke-linejoin="round"/><path d="M-7,-12.5 L${n(lerp(-8, ex, 0.75))},${n(lerp(-12, et, 0.75))} L-3,-13.4 Z" fill="${M.wolfS}"/>`;
-  hd += `<path d="M-14,1 L-19,5 L-13.5,6.4 L-17,11.5 L-10.6,10.6 L-10.4,15 L-4,11.6 Z" fill="${M.wolfL}" stroke="${INK}" stroke-width="1" stroke-linejoin="round"/></g>`;
+  hd += `<path d="M22.6,-5.2 Q27.8,-5.4 27.4,-0.8 Q25,0.6 23.2,-1 Z" fill="#07060c" stroke="${INK}" stroke-width="0.6"/><path d="M24.4,-4 l1.6,0.2" stroke="${M.rim}" stroke-width="0.8" stroke-linecap="round"/>`;
+  for (let i = 0; i < 3; i++) hd += `<path d="M${12.5 + i * 3.2},${n(-5.6 + i * 0.3)} q1.5,1.8 0.4,${n(3 + i * 0.3)}" stroke="${INK}" stroke-width="0.8" fill="none" opacity="${n(sn * 0.9)}"/>`;
+  hd += `<path d="M6,-11.2 L22,-4.9" stroke="${M.rim}" stroke-width="0.9" opacity="0.6"/>`;
+  const eyeSvg = `<g transform="translate(5.6,-6.2) rotate(${n(-10 - sn * 9)}) scale(1.12)"><path d="M-4.2,0.9 Q0,${n(-3.4 * (1 - bl))} 4.4,${n(-1.2 * (1 - bl))} Q0.5,${n(2.2 * (1 - bl) + 0.4)} -4.2,0.9 Z" fill="${EYE}" stroke="#1a0c00" stroke-width="0.7"/>${bl < 0.7 ? `<path d="M-2.2,0.4 Q0,${n(-2 * (1 - bl))} 2.6,-0.7 Q0.4,1 -2.2,0.4 Z" fill="${EYEHOT}"/><circle cx="${n(0.7 + (st.look || 0) * 0.8)}" cy="-0.5" r="1.05" fill="#150900"/>` : ""}</g>`;
+  hd += eyeSvg + `<path d="M-1.6,-10.8 L10.4,${n(-8.6 + sn * 1.8)}" stroke="${INK}" stroke-width="${n(1.3 + sn * 1.1)}" stroke-linecap="round"/>`;
+  hd += `<path d="${earD(0, 0)}" fill="${M.wolf}" ${O}/><path d="M-7,-11.4 L${n(lerp(-8, tip.x, 0.78))},${n(lerp(-11, tip.y, 0.78))} L-1.6,-13 Z" fill="${M.wolfS}"/>`;
+  hd += `<path d="M-13,-2 L-20,3 L-14,5 L-19.5,11 L-12.4,11 L-13.4,17 L-5.6,13.2 L0,11.4 L-6,6 Z" fill="${M.wolfL}" stroke="${INK}" stroke-width="1" stroke-linejoin="round"/></g>`;
   const G = `translate(0,${n(ps.drop)}) rotate(${n(ps.pitch)} 0 -60)`, wrap = (inner) => `<g transform="${place(p)} scale(${n(dir * size * 1000) / 1000},${n(size * 1000) / 1000})">${inner}</g>`;
-  const svg = wrap(`<ellipse cx="0" cy="0" rx="${n(58 - ps.stretch * 14)}" ry="${n(7 - ps.stretch * 3)}" fill="${M.earthS}" opacity="0.55"/><g transform="${G}">${far}${tail}${torso}${nearL}${neck}${hd}</g>`);
-  const eyes = wrap(`<g transform="${G}"><g transform="translate(${n(ps.hx)},${n(ps.hy)}) rotate(${n(ps.ha)}) scale(1.1)">${eyeSvg}</g></g>`);
+  const svg = wrap(`<ellipse cx="0" cy="0" rx="${n(56 - ps.stretch * 14)}" ry="${n(7 - ps.stretch * 3)}" fill="${M.earthS}" opacity="0.55"/><g transform="${G}">${far}${tail}${torso}${nearL}${neck}${hd}</g>`);
+  const eyes = wrap(`<g transform="${G}"><g transform="translate(${n(hx)},${n(hy)}) rotate(${n(ps.ha)}) scale(1.22)">${eyeSvg}</g></g>`);
   return { svg, eyes, head, p, Z };
 }
 export function eyesInTrees(c, list, t = 0) {
