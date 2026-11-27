@@ -166,5 +166,18 @@
    "Why do you think we came here?",
    "dry, warm"
   ]
- ]
+ ],
+ "cap": {
+  "L03": "Down.|Face in the grass.|Eyes shut.",
+  "L04": "In Hawaii,|they're called huakaʻi pō.|The night marchers.|Ghost warriors|who guard their chiefs,|and still walk the paths|they walked when they were alive.",
+  "L09": "For generations,|people on these islands|have told the same story.|Drums in the dark.|A conch shell.|And torches,|where no one should be.",
+  "L10": "Not a sound.|Whatever happens.",
+  "L11": "Some say ti plants|around a home|make the marchers|walk around it.",
+  "L12": "Grandma...|do we have ti plants?",
+  "L16": "They say...|you never go home.",
+  "L17": "Only one thing can save|someone who looks.|If one of the marchers|is their ancestor...|that ancestor can claim them.",
+  "L19": "Leave him.|He is mine.",
+  "L21": "Your great-great-grandfather.|You have his ears."
+ },
+ "_cap": "subtitle phrases (| splits); a phrase shows whole from its first spoken word; lines not listed show whole"
 }

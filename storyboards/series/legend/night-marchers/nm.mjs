@@ -2,6 +2,7 @@
 // ending E1 the ancestor claims him). Set + poses: tools/svg2d/lib/legend-hawaii.mjs (Fable 5.2 design). RESPECT RULE:
 // the camera never looks at the marchers; only their torch points far away, their light, their shadows, their sound.
 //   engine/voice/.venv-vox/bin/python tools/svg2d/read-lines.py storyboards/series/legend/night-marchers/lines.json out/legend-nm/voice
+//   engine/voice/.venv-vox/bin/python storyboards/series/legend/night-marchers/remeasure.py out/legend-nm/voice   (after any voice edit)
 //   node tools/svg2d/render.mjs storyboards/series/legend/night-marchers/nm.mjs out/legend-nm/nm-draft.mp4
 import { readFileSync, existsSync, writeFileSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
@@ -26,8 +27,13 @@ for (const ln of Object.values(LINE)) {
   const hop = Math.round(sr / FPS), env = [];
   for (let i = 0; i < s.length; i += hop) { let a = 0; for (let j = i; j < Math.min(s.length, i + hop); j++) a += (s[j] / 32768) ** 2; env.push(Math.sqrt(a / hop)); }
   const mx = Math.max(...env) || 1; ln.env = env.map((v) => clamp((v / mx - 0.08) * 1.6));
-  let words = JSON.parse(readFileSync(`${VOICE}/${ln.id}.words.json`, "utf8"));
+  // word times heard on the FINAL voice files (after trims + the 1.07 tempo on G/K): remeasure.py writes *.words.final.json
+  const wf = `${VOICE}/${ln.id}.words.final.json`;
+  let words = JSON.parse(readFileSync(existsSync(wf) ? wf : `${VOICE}/${ln.id}.words.json`, "utf8"));
   ln.words = align(ln.text.split(/\s+/), words);
+  // subtitle phrases (lines.json "cap", | splits): each shows WHOLE from its first spoken word (no word-by-word fill)
+  let k = 0;
+  ln.phrases = (SPEC.cap?.[ln.id] ?? ln.text).split("|").map((ph) => { const ws = ln.words.slice(k, k + ph.trim().split(/\s+/).length); k += ws.length; return { ws, at: ws[0]?.[1] ?? 0 }; });
 }
 // subtitles show the written words with the heard words' times: words that match keep their own time; a run that
 // differs (a spoken spelling, a hyphenated word Whisper split, a word it missed) spreads over the heard run's span
@@ -216,22 +222,19 @@ function captions(time) {
   // Sol r2: a caption never outlives its beat (no tails over the next shot); it sits at y 560 (upper third, under the moon)
   const b = TL.find((x) => x.ln && time >= x.lineAt && time < Math.min(x.lineAt + x.d + 0.35, x.end));
   if (!b || !b.ln.words.length) return "";
-  const u = time - b.lineAt, words = b.ln.words;
-  const chunks = []; let cur = [];
-  words.forEach((w, i) => { cur.push(w); const brk = /[.,?!]$/.test(w[0]) || cur.length >= 4; if (brk || i === words.length - 1) { chunks.push(cur); cur = []; } });
-  const ch = chunks.find((c, i) => u < (chunks[i + 1] ? chunks[i + 1][0][1] : 1e9)) || chunks[chunks.length - 1];
-  const shown = ch.filter((w) => u >= w[1] - 0.04);
-  if (!shown.length) return "";
+  const u = time - b.lineAt, P = b.ln.phrases;
+  let pi = -1; for (let i = 0; i < P.length; i++) if (u >= P[i].at - 0.04) pi = i;
+  if (pi < 0) return "";
+  const ch = P[pi].ws;
   const col = (w) => (KEY.test(w[0].replace(/[^a-zʻō]/gi, "")) ? "#ffc04a" : "#ffffff");
   const span = (ws) => ws.map((w) => `<tspan fill="${col(w)}">${w[0].replace(/&/g, "&amp;")}</tspan>`).join(" ");
   const len = (ws) => ws.reduce((a, w) => a + w[0].length + 1, -1);
-  // layout (rows, size, position) is planned on the WHOLE chunk, so nothing shrinks or jumps while words appear
+  // 2 rows when the phrase is long, split where the rows come out most even
   let k = ch.length;
   if (len(ch) > 19 && ch.length > 1) { let best = 1e9; for (let i = 1; i < ch.length; i++) { const d2 = Math.abs(len(ch.slice(0, i)) - len(ch.slice(i))); if (d2 < best) { best = d2; k = i; } } }
-  const plan = k < ch.length ? [ch.slice(0, k), ch.slice(k)] : [ch];
-  const fs = Math.min(74, Math.round(940 / Math.max(1, Math.max(...plan.map(len)) * 0.6)));
-  const rows = [shown.slice(0, k), shown.slice(k)];
-  return rows.map((r, i) => (r.length ? `<text x="540" y="${n(560 + (i - (plan.length - 1) / 2) * fs * 1.08)}" text-anchor="middle" font-family="Inter" font-weight="900" font-size="${fs}" stroke="#120c24" stroke-width="${Math.round(fs * 0.19)}" stroke-linejoin="round" paint-order="stroke" letter-spacing="-1">${span(r)}</text>` : "")).join("");
+  const rows = k < ch.length ? [ch.slice(0, k), ch.slice(k)] : [ch];
+  const fs = Math.min(74, Math.round(940 / Math.max(1, Math.max(...rows.map(len)) * 0.6)));
+  return rows.map((r, i) => `<text x="540" y="${n(560 + (i - (rows.length - 1) / 2) * fs * 1.08)}" text-anchor="middle" font-family="Inter" font-weight="900" font-size="${fs}" stroke="#120c24" stroke-width="${Math.round(fs * 0.19)}" stroke-linejoin="round" paint-order="stroke" letter-spacing="-1">${span(r)}</text>`).join("");
 }
 
 
