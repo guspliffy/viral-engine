@@ -16,7 +16,7 @@
 //   jetty(c, t) -> { svg, cam }                                        the weathered jetty (JETTY); cam = a camera that stands a host ON the deck:
 //                                                                      L.kid(jetty.cam, { X: JETTY.X, Z: 11.5, ... })  (or deckCam(c))
 //   home(c, { X, Z, stage, light, smoke }, t) -> { svg, door, top }    stage 0 the pot-shaped tar hut | 1 brick cottage, red tiles |
-//                                                                      2 stone castle | 3 royal palace with banners. Fractions cross-fade.
+//                                                                      2 stone castle | 3 brick-Gothic Hanseatic palace, green copper, gold banners. Fractions cross-fade.
 //   near(c, t)                                                         foreground dune corners with big grass (draw last, before rain)
 //   rain(t, amt)                                                       storm rain streaks + spray (screen space)
 //   coast(c, t, { stage, towers, bolt, sun, glitter, drift: true, light, rain }) -> { back, front, jetty }   the whole set in order
@@ -106,14 +106,21 @@ const horizon = (c) => P(c, 0, 0, 4000).y;
 function streak(x, y, w, h, seed, col, op = 1) { return flat(blob([{ x: x - w, y }, { x: x - w * 0.3, y: y - h * (1 + jit(seed, 0.4)) }, { x: x + w * 0.4, y: y - h * 0.6 }, { x: x + w, y: y + jit(seed + 1, h * 0.4) }, { x: x + w * 0.2, y: y + h * 0.7 }, { x: x - w * 0.5, y: y + h * (0.8 + jit(seed + 2, 0.3)) }]), col, `opacity="${n(op)}"`); }
 export function sky(c, t, o = {}) {
   const hy = horizon(c), cw = wCalm(), ov = wOver(), st = wStorm();
-  let s = `<rect width="${W}" height="${H}" fill="${M.sky0}"/>`;
-  [0.3, 0.58, 0.83].forEach((f, i) => { s += band(wline(hy * f, 11 + i, 20, 150), M["sky" + (i + 1)]); });
+  const gid = "skyb" + (UID++);
+  let s = `<linearGradient id="${gid}" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="${n(hy)}"><stop offset="0" stop-color="${M.sky0}"/><stop offset="0.36" stop-color="${M.sky1}"/><stop offset="0.68" stop-color="${M.sky2}"/><stop offset="0.93" stop-color="${M.sky3}"/></linearGradient><rect width="${W}" height="${H}" fill="url(#${gid})"/>`;
+  [0.3, 0.55, 0.8].forEach((f, i) => { s += band(wline(hy * f, 11 + i, 26, 130), M["sky" + (i + 1)], `opacity="0.3"`) + flat(blob(wline(hy * (f + 0.07), 14 + i, 22, 180).slice(1 + i, 6 + i).concat([{ x: 500 + i * 120, y: hy * (f + 0.14) }])), M["sky" + (i + 1)], `opacity="0.3"`); });
   if (cw > 0.02 && o.sun !== false) {      // the low evening sun, cut by hand, sinking behind the water
     const [sx, sy, sr] = o.sun || [330, hy - 30, 78];
     s += `<g opacity="${n(cw)}">` + flat(ring(sx, sy, sr * 2.3, 5, 0.07, 18, 0.7), "#fff3a0", `opacity="0.22"`) + flat(ring(sx, sy, sr * 1.5, 9, 0.07, 18, 0.8), "#fff3a0", `opacity="0.4"`) + flat(ring(sx, sy, sr, 3, 0.025, 22), "#fffbd0") + `</g>`;
   }
   // thin evening streaks (calm) turning into heavy shelves hanging from the top (every wish adds a layer)
-  for (let i = 0; i < 6; i++) { const x = ((hash(i + 4) * 1500 + t * (4 + 3 * hash(i))) % 1500) - 200, y = hy * (0.36 + 0.52 * hash(i + 21)); s += streak(x, y, 130 + 170 * hash(i + 7), 9 + 10 * hash(i + 9), i * 5, i % 2 ? M.cloudS : M.cloud, 0.9 * (1 - 0.6 * ov)); }
+  for (let i = 0; i < 6; i++) { const x = ((hash(i + 4) * 1500 + t * (4 + 3 * hash(i))) % 1500) - 200, y = hy * (0.4 + 0.5 * hash(i + 21)); s += streak(x, y, 130 + 170 * hash(i + 7), 9 + 10 * hash(i + 9), i * 5, i % 2 ? M.cloudS : M.cloud, 0.9 * (1 - 0.6 * ov)); }
+  if (ov < 0.98) for (let i = 0; i < 4; i++) {      // a few hand-cut evening clouds: lit top, burning underside
+    const w = 150 + 150 * hash(i + 33), x = ((hash(i + 31) * 1400 + t * (3 + 2 * hash(i + 2))) % 1500) - 220, y = hy * (0.2 + 0.16 * i + 0.06 * hash(i + 35)), top = [], N = 7;
+    for (let j = 0; j <= N; j++) { const u = j / N; top.push({ x: x + u * w * 2, y: y - Math.sin(u * Math.PI) ** 0.7 * w * (0.2 + 0.14 * hash(i * 9 + j)) - (j % 2) * w * 0.05 }); }
+    const d = blob([...top, { x: x + w * 1.7, y: y + w * 0.07 }, { x: x + w, y: y + w * 0.04 + jit(i + 37, 6) }, { x: x + w * 0.3, y: y + w * 0.08 }]);
+    s += `<g opacity="${n(1 - ov)}">${flat(d, M.cloudS, `transform="translate(0,${n(w * 0.05)})"`)}${flat(d, mix(M.cloud, "#fff3b0", 0.35))}${ln(curve(top.slice(1, 6).map((q) => ({ x: q.x, y: q.y + w * 0.07 }))), "#fff8d0", 3, `opacity="0.8"`)}</g>`;
+  }
   if (ov > 0.02) {
     const drift = t * (6 + 22 * st);
     [[0.5, M.cloud, 0.75], [0.36, mix(M.cloud, M.cloudS, 0.5), 0.9], [0.2, M.cloudS, 1]].forEach(([f, col, op], i) => {
@@ -152,32 +159,40 @@ export function sea(c, t, o = {}) {
     s += ln(`M${n(p.x - len)},${n(p.y)} q${n(len * 0.5)},${n(-h)} ${n(len)},0 q${n(len * 0.5)},${n(h)} ${n(len)},0`, lit ? M.seaL : M.seaInk, w, `opacity="${lit ? 0.8 : 0.5}"`);
     if (st > 0.1 && id % 4 === 1) s += flat(ring(p.x, p.y - h, Math.max(2, 0.07 * p.s), id, 0.3, 7, 0.45), M.foam, `opacity="${n(0.85 * st)}"`);
   }
-  if (oil > 0.05) for (let i = 0; i < 16; i++) {      // thick water: fat slow lenses of light and a thin rainbow skin
-    const Z = SHORE + 1.2 + i * i * 0.16, X = c.x + jit(i + 500, Z * 0.5) + Math.sin(t * 0.25 + i) * 0.3, p = P(c, X, 0, Z), w = (0.5 + 0.7 * hash(i + 510)) * p.s, h = Math.max(2.5, 0.07 * p.s);
-    s += flat(blob([{ x: p.x - w, y: p.y }, { x: p.x - w * 0.2, y: p.y - h }, { x: p.x + w, y: p.y + jit(i, h * 0.3) }, { x: p.x + w * 0.1, y: p.y + h }]), i % 3 ? M.seaL : M.sea1, `opacity="${n((i % 3 ? 0.42 : 0.7) * oil)}"`);
-    if (i % 2) s += ln(`M${n(p.x - w * 0.8)},${n(p.y + h * 1.2)} q${n(w * 0.7)},${n(h)} ${n(w * 1.5)},${n(-h * 0.3)}`, i % 4 === 1 ? "#d23cd2" : "#22d2b6", Math.max(1.2, h * 0.3), `opacity="${n(0.55 * oil)}"`);
+  if (oil > 0.05) {      // thick water: slow fat swells, big lenses of light, a rainbow skin
+    for (let i = 0; i < 7; i++) { const Z = SHORE + 1.6 + i * i * 1.5, p = P(c, c.x, 0, Z), a = wline(p.y + Math.sin(t * 0.5 + i * 1.3) * p.s * 0.05, 240 + i, Math.max(3, p.s * 0.05), 160, t * 0.4 + i), th = Math.max(5, p.s * 0.2);
+      s += `<path d="${curve(a)} ${curve(a.map((q, j) => ({ x: q.x, y: q.y + th * (0.5 + 0.5 * Math.sin(j * 1.1 + i)) })).reverse()).replace("M", "L")} Z" fill="${i % 2 ? M.seaInk : M.sea3}" opacity="${n((i % 2 ? 0.55 : 0.5) * oil)}"/>`; }
+    for (let i = 0; i < 20; i++) { const Z = SHORE + 1.0 + i * i * 0.2, X = c.x + jit(i + 500, Z * 0.55) + Math.sin(t * 0.25 + i) * 0.3, p = P(c, X, 0, Z), w = (0.9 + 1.3 * hash(i + 510)) * p.s, h = Math.max(4, 0.14 * p.s), d = blob([{ x: p.x - w, y: p.y }, { x: p.x - w * 0.3, y: p.y - h }, { x: p.x + w * 0.5, y: p.y - h * 0.5 }, { x: p.x + w, y: p.y + jit(i, h * 0.3) }, { x: p.x + w * 0.1, y: p.y + h }]);
+      s += flat(d, i % 3 ? M.seaL : "#0a1250", `opacity="${n((i % 3 ? 0.5 : 0.8) * oil)}"`);
+      if (i % 3) s += ln(d, i % 2 ? "#e040d8" : "#22e0c0", Math.max(2, h * 0.22), `opacity="${n(0.7 * oil)}"`) + ln(`M${n(p.x - w * 0.5)},${n(p.y - h * 0.2)} q${n(w * 0.4)},${n(-h * 0.5)} ${n(w * 0.8)},0`, "#fff6a0", Math.max(1.5, h * 0.14), `opacity="${n(0.6 * oil)}"`); }
   }
   if (wCalm() > 0.05 && o.glitter !== false) { const gx = o.glitter ?? 330; for (let i = 0; i < 26; i++) { const Z = SHORE + 2 + i * i * 0.22, p = P(c, 0, 0, Z), x = gx + jit(i + 300, 16 + 500 / Z), on = Math.sin(t * 3 + i * 1.7) > -0.3; if (on) s += ln(`M${n(x - 6 - 240 / Z)},${n(p.y)} h${n(12 + 500 / Z)}`, "#fff6b0", Math.max(1.5, 26 / Z), `opacity="${n(0.85 * wCalm())}"`); } }
   return s;
 }
-// one wave standing up: narrow, tall, the crest curling over with foam claws
+// one wave standing up: a wall of water rising to a point like a spire, leaning in, foam pouring down its face
 function tower(x, y, h, dir, seed, t) {
-  const sw = Math.sin(t * 0.9 + seed) * 0.035, cl = 0.5 + 0.5 * Math.sin(t * 1.4 + seed * 2);
-  const raw = [[-0.27, 0.03], [-0.2, -0.2], [-0.135, -0.45], [-0.1, -0.7], [-0.05, -0.89], [0.05, -0.99], [0.18, -1.0], [0.29, -0.93], [0.34, -0.82], [0.32 + 0.02 * cl, -0.7 + 0.04 * cl], [0.25, -0.79], [0.17, -0.8], [0.11, -0.71], [0.1, -0.5], [0.14, -0.25], [0.25, 0.03]];
-  const a = raw.map(([px, py], i) => ({ x: x + dir * (px * 0.72 + sw * py * py + jit(seed * 7 + i, 0.008)) * h, y: y + (py + jit(seed * 7 + i + 0.5, 0.01)) * h }));
-  let s = flat(blob(a), "#0d1560") + flat(blob([a[8], a[9], a[10], a[11], a[12], a[13], { x: lerp(a[4].x, a[11].x, 0.7), y: a[4].y }, a[6], a[7]]), "#05072a") + ln(curve(a.slice(0, 7)), "#4a64ff", Math.max(2.5, h * 0.012));
-  for (const u of [0.2, 0.36]) { const q = [0, 1, 2, 3, 4].map((i) => ({ x: lerp(a[i].x, a[15 - i].x, u), y: lerp(a[i].y, a[15 - i].y, u) })); q.push({ x: lerp(a[5].x, a[10].x, u), y: lerp(a[5].y, a[10].y, 0.4) }, { x: a[8].x - dir * h * 0.05, y: a[8].y + h * 0.02 * u }); s += ln(curve(q), "#2a40ff", Math.max(1.5, h * (0.006 + 0.008 * hash(seed + u * 9))), `opacity="0.8"`); }
-  // the crest: foam lumps along the top, claws at the lip, flecks blown off
-  for (let i = 0; i < 15; i++) { const u = i / 14, k = 3.6 + u * 5.4, i0 = Math.floor(k), q = { x: lerp(a[i0].x, a[Math.min(15, i0 + 1)].x, k - i0), y: lerp(a[i0].y, a[Math.min(15, i0 + 1)].y, k - i0) }; s += flat(ring(q.x, q.y - h * 0.008, h * (0.012 + 0.014 * hash(seed + i)), seed + i, 0.25, 8), M.foam); }
-  for (let i = 0; i < 4; i++) { const q = a[9], dx = dir * h * (0.02 - i * 0.035), L = h * (0.06 + 0.05 * hash(seed + i + 20)) * (0.7 + 0.3 * cl); s += flat(`M${n(q.x + dx - h * 0.012)},${n(q.y - h * 0.03)} Q${n(q.x + dx + dir * h * 0.02)},${n(q.y + L * 0.5)} ${n(q.x + dx - dir * h * 0.01)},${n(q.y + L)} Q${n(q.x + dx + dir * h * 0.035)},${n(q.y + L * 0.4)} ${n(q.x + dx + h * 0.014)},${n(q.y - h * 0.03)} Z`, M.foam); }
-  for (let i = 0; i < 12; i++) { const ph = (hash(seed + i * 3.1) + t * 0.35) % 1, fx = a[7].x - dir * h * (0.1 + 0.5 * hash(seed + i + 40)) * ph - dir * h * 0.02, fy = a[6].y - h * 0.05 + h * (0.5 * ph * ph - 0.12 * ph) + jit(seed + i + 50, h * 0.05); s += flat(ring(fx, fy, Math.max(1.5, h * 0.008 * (1 + hash(seed + i))), seed + i, 0.3, 6), M.foam, `opacity="${n(0.9 - ph * 0.6)}"`); }
-  s += flat(blob([{ x: x - dir * h * 0.36, y: y + h * 0.03 }, { x: x - dir * h * 0.1, y: y - h * 0.03 }, { x: x + dir * h * 0.3, y: y + h * 0.01 }, { x: x + dir * h * 0.36, y: y + h * 0.06 }, { x: x, y: y + h * 0.08 }]), M.foam, `opacity="0.85"`);
+  const sw = Math.sin(t * 0.9 + seed) * 0.025 + 0.085, mp = (q) => ({ x: x + dir * (q[0] + sw * q[1] * q[1] + jit(seed * 7 + q[1] * 9, 0.008)) * h, y: y + q[1] * h });
+  const Lr = [[-0.27, 0.04], [-0.22, -0.22], [-0.165, -0.46], [-0.115, -0.68], [-0.07, -0.84], [-0.02, -0.95], [0.05, -1.04]].map(mp), Rr = [[0.05, -1.04], [0.085, -0.93], [0.075, -0.85], [0.1, -0.68], [0.15, -0.45], [0.21, -0.22], [0.29, 0.04]].map(mp), tip = Lr[6];
+  const at = (a, u) => { const k = u * (a.length - 1), i = Math.min(a.length - 2, Math.floor(k)); return { x: lerp(a[i].x, a[i + 1].x, k - i), y: lerp(a[i].y, a[i + 1].y, k - i) }; };
+  const mid = (u, v) => { const a = at(Lr, u), b2 = at(Rr, 1 - u); return { x: lerp(a.x, b2.x, v), y: lerp(a.y, b2.y, v) }; };
+  let s = `<path d="${curve(Lr)} ${curve(Rr).replace("M", "L")} Z" fill="#101a72"/>`;
+  s += `<path d="${curve([0, 0.2, 0.4, 0.6, 0.8, 1].map((u) => mid(u, 0.56)))} ${curve(Rr).replace("M", "L")} Z" fill="#070b3c"/>` + ln(curve(Lr), "#5a74ff", Math.max(2.5, h * 0.012));
+  // foam pouring down the face from the point, like the ribs of a spire
+  [0.14, 0.3, 0.46, 0.64, 0.82].forEach((v, i) => { const low = 0.34 + 0.3 * hash(seed + i * 3) + 0.05 * Math.sin(t * 1.2 + i), a = [1, 0.92, 0.8, 0.66, low].map((u) => mid(u, lerp(0.5, v, clamp((1 - u) * 3.2)))), w = h * (0.012 + 0.012 * hash(seed + i));
+    s += `<path d="${curve(a.map((q) => ({ x: q.x - w * (0.2 + (tip.y - q.y) / (tip.y - a[4].y)), y: q.y })))} ${curve(a.map((q) => ({ x: q.x + w * (0.2 + (tip.y - q.y) / (tip.y - a[4].y)), y: q.y })).reverse()).replace("M", "L")} Z" fill="${M.foam}" opacity="${v > 0.56 ? 0.7 : 0.95}"/>`;
+    s += flat(ring(a[4].x, a[4].y, w * 1.5, seed + i, 0.3, 7), M.foam); });
+  // foam lumps sitting on both edges of the upper third and a ragged cap on the point
+  for (let i = 0; i < 9; i++) { const u = 0.58 + i * 0.05, q = at(Lr, Math.min(1, u)), q2 = at(Rr, 1 - Math.min(1, u)); s += flat(ring(q.x, q.y, h * (0.012 + 0.012 * hash(seed + i)), seed + i, 0.25, 8), M.foam) + (i > 2 ? flat(ring(q2.x, q2.y, h * (0.01 + 0.01 * hash(seed + i + 9)), seed + i + 9, 0.25, 8), M.foam) : ""); }
+  s += flat(blob([{ x: tip.x - h * 0.035, y: tip.y + h * 0.05 }, { x: tip.x - h * 0.012, y: tip.y - h * 0.01 }, { x: tip.x + dir * h * 0.012, y: tip.y - h * 0.045 }, { x: tip.x + h * 0.03, y: tip.y + h * 0.02 }, { x: tip.x + dir * h * 0.05, y: tip.y + h * 0.1 }, { x: tip.x, y: tip.y + h * 0.07 }]), M.foam);
+  for (let i = 0; i < 10; i++) { const ph = (hash(seed + i * 3.1) + t * 0.35) % 1, fx = tip.x + dir * h * (0.03 + 0.25 * hash(seed + i + 40)) * ph, fy = tip.y + h * (0.55 * ph * ph - 0.08 * ph) + jit(seed + i + 50, h * 0.03); s += flat(ring(fx, fy, Math.max(1.5, h * 0.007 * (1 + hash(seed + i))), seed + i, 0.3, 6), M.foam, `opacity="${n(0.9 - ph * 0.6)}"`); }
+  s += flat(blob([{ x: x - h * 0.36, y: y + h * 0.03 }, { x: x - h * 0.1, y: y - h * 0.035 }, { x: x + h * 0.3, y: y - h * 0.01 }, { x: x + h * 0.38, y: y + h * 0.06 }, { x: x, y: y + h * 0.08 }]), M.foam, `opacity="0.9"`);
   return s;
 }
-const TOWERS = [{ X: 0.9, Z: 60, h: 20, d: -1 }, { X: -8.5, Z: 58, h: 17, d: 1 }, { X: -12.6, Z: 42, h: 23, d: 1 }, { X: 4.4, Z: 38, h: 17.5, d: -1 }, { X: -3.2, Z: 34, h: 20, d: 1 }, { X: 9.0, Z: 30, h: 13.5, d: -1 }];
+const TOWERS = [{ X: 3.5, Z: 62, h: 30, d: -1 }, { X: -15, Z: 60, h: 27, d: 1 }, { X: -12.6, Z: 42, h: 26, d: 1 }, { X: 5.2, Z: 38, h: 22, d: -1 }, { X: -3.4, Z: 33, h: 21, d: 1 }, { X: 9.3, Z: 29, h: 16, d: -1 }];
 export function towers(c, t, o = {}) {
   const amt = o.amt ?? 1; if (amt < 0.02) return "";
-  return TOWERS.slice(0, o.n ?? 6).map((w, i) => { const p = P(c, w.X + c.x, 0, w.Z), up = clamp(amt * 1.3 - i * 0.05); return tower(p.x, p.y + 4, w.h * p.s * up * (1 + 0.04 * Math.sin(t * 1.1 + i)), w.d, i + 3, t); }).join("");
+  const hy = horizon(c), wall = wline(hy - 190 * amt, 77, 70 * amt, 96, t * 1.1);     // the wall of water behind them
+  return band(wall, "#0a1258") + ln("M" + wall.map(pt).join(" L"), M.foam, 5, `opacity="0.85"`) + wall.map((q, i) => i % 2 ? flat(ring(q.x, q.y, 9 + 9 * hash(i + 78), i, 0.3, 7, 0.6), M.foam) : "").join("") + TOWERS.slice(0, o.n ?? 6).map((w, i) => { const p = P(c, w.X + c.x, 0, w.Z), up = clamp(amt * 1.3 - i * 0.05); return tower(p.x, p.y + 4, w.h * p.s * up * (1 + 0.04 * Math.sin(t * 1.1 + i)), w.d, i + 3, t); }).join("");
 }
 
 // ---------------------------------------------------------------- shore: sand, dunes, grass, driftwood
@@ -346,26 +361,38 @@ function banner(b, x, y, L, t, seed, col, colS) {
   const N = 7, top = [], bot = []; for (let i = 0; i <= N; i++) { const u = i / N, wv = Math.sin(t * 5 - u * 6 + seed) * 0.05 * u * (1 + MV * 0.3); top.push(b.pt(x + u * L, y + wv - u * 0.05)); bot.push(b.pt(x + u * L * (i === N ? 0.78 : 1), y - 0.2 + wv - u * 0.02 + (i === N ? 0.1 : 0))); }
   return ln(`M${b.pt(x, y - 0.5)} L${b.pt(x, y + 0.06)}`, INK, b.lw * 2) + shp(`M${top.join(" L")} L${b.pt(x + L * 0.8, y - 0.1 + Math.sin(t * 5 - 6 + seed) * 0.05)} L${bot.reverse().join(" L")} Z`, col, b.lw) + ln(`M${b.pt(x, y - 0.1)} L${b.pt(x + L * 0.75, y - 0.12 + Math.sin(t * 5 - 5 + seed) * 0.04)}`, colS, b.lw * 2);
 }
+// stage 3: a Hanseatic brick-Gothic palace (Backsteingotik): stepped gables, white blind niches, a tall pointed tower, green copper, gold banners
 function palace(b, st, t) {
-  const lw = b.lw, wall = tc("#fbe8ba"), wallS = tc("#e0aa6c"), gold = tc("#ffc21c", 0.5), goldS = tc("#d07a12", 0.6), red = tc("#e4223a"), redS = tc("#a01230"), blue = tc("#2438e0"), lit = st.light ?? 1;
+  const lw = b.lw, brick = tc("#cc4426"), brickS = tc("#96301e"), brickL = tc("#ea6a36"), white = tc("#f6eeda"), glaze = tc("#3a2440"), cop = tc("#38b890"), copS = tc("#1c7c68"), copL = tc("#8ae6c0"), gold = tc("#ffc21c", 0.5), goldS = tc("#d07a12", 0.6), lit = st.light ?? 1;
   let s = "";
-  const towerP = (x, w, h, seed, roof, roofS, bcol) => { let g = shp(hd(b, [[x - w / 2, 0], [x - w / 2, h], [x - w / 2 - 0.08, h + 0.08], [x - w / 2 - 0.08, h + 0.2], [x + w / 2 + 0.08, h + 0.2], [x + w / 2 + 0.08, h + 0.08], [x + w / 2, h], [x + w / 2, 0]], seed, 0.01, 0.35), wall, lw) + flat(hd(b, [[x + w * 0.2, 0], [x + w * 0.2, h], [x + w / 2, h], [x + w / 2, 0]], seed + 1, 0.008, 0.35), wallS, `opacity="0.7"`);
-    g += shp(hd(b, [[x - w / 2 - 0.12, h + 0.2], [x - 0.03, h + 1.1], [x + 0.03, h + 1.1], [x + w / 2 + 0.12, h + 0.2]], seed + 2, 0.008, 0.3), roof, lw) + flat(hd(b, [[x + 0.1, h + 0.22], [x + 0.02, h + 1.05], [x + w / 2 + 0.1, h + 0.22]], seed + 3, 0.006, 0.3), roofS, `opacity="0.75"`) + ln(`M${b.pt(x - w / 2 - 0.08, h + 0.14)} L${b.pt(x + w / 2 + 0.08, h + 0.14)}`, gold, lw * 2.4);
-    g += banner(b, x, h + 1.55, 0.62, t, seed, bcol, redS) + `<circle cx="${n(b.x(x))}" cy="${n(b.y(h + 1.62))}" r="${n(b.k * 0.04)}" fill="${gold}" stroke="${INK}" stroke-width="${lw * 0.7}"/>`;
-    for (let i = 0; i < 3; i++) g += litWin(b, x - 0.12, 0.9 + i * 0.85, 0.24, 0.46, seed + 5 + i, lit, true, "#d07a12");
-    return g; };
-  // tall centre block with a gold dome, behind
-  s += shp(hd(b, [[-0.9, 2.2], [-0.9, 3.3], [0.9, 3.3], [0.9, 2.2]], 700, 0.01, 0.35), wall, lw) + flat(hd(b, [[0.45, 2.2], [0.45, 3.3], [0.9, 3.3], [0.9, 2.2]], 701, 0.01, 0.35), wallS, `opacity="0.7"`);
-  s += shp(hd(b, [[-0.78, 3.3], [-0.84, 3.62], [-0.6, 3.98], [-0.2, 4.2], [0, 4.5], [0.2, 4.2], [0.6, 3.98], [0.84, 3.62], [0.78, 3.3]], 702, 0.008, 0.18), gold, lw) + flat(hd(b, [[0.2, 3.32], [0.4, 3.7], [0.14, 4.2], [0.6, 3.98], [0.84, 3.62], [0.78, 3.3]], 703, 0.008, 0.18), goldS, `opacity="0.7"`) + ln(`M${b.pt(-0.5, 3.4)} Q${b.pt(-0.56, 3.8)} ${b.pt(-0.12, 4.16)}`, tc("#fff2a0", 0.4), lw * 2);
-  s += banner(b, 0, 4.98, 0.8, t, 9, gold, goldS) + [0, 1, 2].map((i) => litWin(b, -0.62 + i * 0.5, 2.55, 0.26, 0.5, 705 + i, lit, true, "#d07a12")).join("");
-  // main block, balustrade, rows of lit arched windows, gold bands
-  s += shp(hd(b, [[-2.0, 0], [-2.0, 2.2], [2.0, 2.2], [2.0, 0]], 710, 0.012, 0.4), wall, lw) + flat(hd(b, [[1.2, 0], [1.2, 2.2], [2.0, 2.2], [2.0, 0]], 711, 0.01, 0.4), wallS, `opacity="0.5"`);
-  s += shp(hd(b, crenel(-2.04, 2.04, 2.2, 0.1, 0.12).concat([[2.04, 2.14], [-2.04, 2.14]]), 712, 0.004, 0.5), tc("#fff6dc"), lw * 0.8) + ln(`M${b.pt(-2.0, 1.16)} L${b.pt(2.0, 1.18)}`, gold, lw * 3) + ln(`M${b.pt(-2.0, 2.1)} L${b.pt(2.0, 2.1)}`, gold, lw * 2.4);
-  for (let i = 0; i < 7; i++) { const x = -1.72 + i * 0.5; if (i !== 3) s += litWin(b, x, 0.36, 0.26, 0.56, 720 + i, lit, true, "#d07a12"); s += litWin(b, x, 1.38, 0.26, 0.5, 730 + i, lit * (i % 3 === 1 ? 0.5 : 1), true, "#d07a12"); }
-  s += shp(hd(b, [[-0.4, 0], [-0.4, 0.74], [-0.2, 1.02], [0, 1.1], [0.2, 1.02], [0.4, 0.74], [0.4, 0]], 740, 0.006, 0.2), gold, lw) + shp(hd(b, [[-0.3, 0], [-0.3, 0.7], [0, 0.98], [0.3, 0.7], [0.3, 0]], 741, 0.006, 0.2), red, lw) + ln(`M${b.pt(0, 0.02)} L${b.pt(0, 0.96)}`, redS, lw * 1.4);
-  s += shp(hd(b, [[-0.7, 0], [-0.62, 0.1], [0.62, 0.1], [0.7, 0]], 742, 0.005, 0.3), tc("#fff6dc"), lw);
-  s += towerP(-2.2, 0.8, 3.0, 750, red, redS, red) + towerP(2.15, 0.74, 2.7, 770, blue, tc("#141c90"), gold);
-  return { svg: s, door: [0, 0], top: 5.0 };
+  const lancet = (x, y, w, h, seed, on = 1) => shp(hd(b, [[x, y], [x, y + h * 0.78], [x + w / 2, y + h], [x + w, y + h * 0.78], [x + w, y]], seed, 0.004, 0.25), on < 0 ? white : mix(tc("#1c1a3a"), WARM, lit * on), lw * 0.8) + (on < 0 ? "" : ln(`M${b.pt(x + w / 2, y)} L${b.pt(x + w / 2, y + h * 0.95)}`, glaze, lw));
+  const spire = (x, y, w, h, seed) => shp(hd(b, [[x - w / 2, y], [x - 0.02, y + h], [x + 0.02, y + h], [x + w / 2, y]], seed, 0.006, 0.3), cop, lw) + flat(hd(b, [[x + w * 0.1, y], [x + 0.01, y + h * 0.96], [x + w / 2, y]], seed + 1, 0.005, 0.3), copS, `opacity="0.8"`) + ln(`M${b.pt(x - w * 0.28, y + 0.04)} L${b.pt(x - 0.03, y + h * 0.9)}`, copL, lw * 1.3) + `<circle cx="${n(b.x(x))}" cy="${n(b.y(y + h + 0.04))}" r="${n(b.k * 0.035)}" fill="${gold}" stroke="${INK}" stroke-width="${n(lw * 0.7)}"/>`;
+  const courses = (x0, x1, y0, y1, seed) => { let g = ""; for (let y = y0 + 0.12, r = 0; y < y1 - 0.04; y += 0.12, r++) { g += ln(`M${b.pt(x0 + 0.03, y)} L${b.pt(x1 - 0.03, y + jit(seed + r, 0.008))}`, brickS, lw * 0.7, `opacity="0.75"`); for (let j = 0; j < 3; j++) { const x = lerp(x0 + 0.05, x1 - 0.3, hash(seed + r * 7 + j)); if (hash(seed + r * 3 + j) > 0.6) g += flat(hd(b, [[x, y - 0.1], [x + 0.22, y - 0.1], [x + 0.22, y - 0.02], [x, y - 0.02]], seed + r * 5 + j, 0.003, 0.3), j % 2 ? brickL : brickS, `opacity="0.8"`); } } return g; };
+  const gable = (cx, w, y0, h, steps, seed) => { const a = [[cx - w / 2, y0]]; for (let i = 0; i < steps; i++) { const x = cx - w / 2 + i * (w / 2 - 0.12) / steps, y = y0 + (i + 1) * h / steps; a.push([x, y], [x + (w / 2 - 0.12) / steps, y]); } for (let i = steps - 1; i >= 0; i--) { const x = cx + w / 2 - i * (w / 2 - 0.12) / steps, y = y0 + (i + 1) * h / steps; a.push([x - (w / 2 - 0.12) / steps, y], [x, y]); } a.push([cx + w / 2, y0]);
+    let g = shp(hd(b, a, seed, 0.006, 0.3), brick, lw) + courses(cx - w / 2, cx + w / 2, y0, y0 + h * 0.5, seed + 3);
+    [-1, 0, 1].forEach((i) => { g += lancet(cx + i * w * 0.24 - w * 0.07, y0 + 0.12, w * 0.14, h * (i ? 0.5 : 0.72), seed + 10 + i, i ? -1 : 1); });
+    return g + shp(ring(b.x(cx), b.y(y0 + h * 0.86), b.k * w * 0.05, seed + 20, 0.05, 10), white, lw * 0.8) + ln(`M${b.pt(cx - w / 2, y0)} L${b.pt(cx + w / 2, y0)}`, glaze, lw * 2.4); };
+  // the hall behind: a steep green copper roof with a ridge turret
+  s += shp(hd(b, [[-1.95, 2.1], [-1.5, 3.25], [1.6, 3.28], [1.95, 2.1]], 700, 0.01, 0.35), cop, lw) + flat(hd(b, [[0.6, 2.1], [0.7, 3.26], [1.6, 3.28], [1.95, 2.1]], 701, 0.01, 0.35), copS, `opacity="0.7"`);
+  for (let i = 0; i < 12; i++) s += ln(`M${b.pt(-1.8 + i * 0.32, 2.14)} L${b.pt(-1.42 + i * 0.27, 3.22)}`, i % 3 ? copS : copL, lw, `opacity="0.8"`);
+  s += spire(0.2, 3.26, 0.34, 0.95, 704) + banner(b, 0.2, 4.56, 0.6, t, 5, gold, goldS);
+  // main block: pointed arcade on the ground, a row of tall lit windows, glazed dark bands
+  s += shp(hd(b, [[-2.0, 0], [-2.0, 2.12], [2.0, 2.12], [2.0, 0]], 710, 0.012, 0.4), brick, lw) + flat(hd(b, [[1.25, 0], [1.25, 2.12], [2.0, 2.12], [2.0, 0]], 711, 0.01, 0.4), brickS, `opacity="0.5"`) + courses(-2.0, 2.0, 0, 2.12, 712);
+  s += ln(`M${b.pt(-2.0, 1.0)} L${b.pt(2.0, 1.02)}`, glaze, lw * 2.6) + ln(`M${b.pt(-2.0, 1.07)} L${b.pt(2.0, 1.09)}`, white, lw * 1.4);
+  for (let i = 0; i < 7; i++) { const x = -1.78 + i * 0.52; s += shp(hd(b, [[x, 0], [x, 0.55], [x + 0.19, 0.84], [x + 0.38, 0.55], [x + 0.38, 0]], 720 + i, 0.005, 0.25), i === 3 ? tc("#7a1420") : glaze, lw) + (i === 3 ? ln(`M${b.pt(x + 0.19, 0.02)} L${b.pt(x + 0.19, 0.8)}`, gold, lw * 1.4) : "") + lancet(x + 0.07, 1.24, 0.24, 0.7, 730 + i, i % 3 === 1 ? 0.55 : 1); }
+  // the show front: three stepped gables with copper spirelets between
+  s += gable(-1.18, 1.3, 2.12, 1.25, 4, 740) + gable(0.2, 1.5, 2.12, 1.7, 5, 750) + gable(1.42, 1.1, 2.12, 1.05, 4, 760);
+  s += spire(-0.5, 2.12, 0.16, 1.5, 770) + spire(0.92, 2.12, 0.16, 1.35, 772) + shp(hd(b, [[-0.66, 0], [-0.58, 0.09], [0.6, 0.09], [0.68, 0]], 742, 0.005, 0.3), white, lw);
+  // the tall tower on the left: brick shaft, white blind niches, gallery, a needle of green copper, the gold banner
+  const tx = -2.3, tw = 0.86, th = 3.7;
+  s += shp(hd(b, [[tx - tw / 2, 0], [tx - tw / 2, th], [tx + tw / 2, th], [tx + tw / 2, 0]], 780, 0.01, 0.35), brick, lw) + flat(hd(b, [[tx + tw * 0.2, 0], [tx + tw * 0.2, th], [tx + tw / 2, th], [tx + tw / 2, 0]], 781, 0.008, 0.35), brickS, `opacity="0.7"`) + courses(tx - tw / 2, tx + tw / 2, 0, th, 782);
+  [0.5, 1.5, 2.5].forEach((y, i) => { s += lancet(tx - 0.3, y, 0.2, 0.75, 784 + i, -1) + lancet(tx + 0.1, y, 0.2, 0.75, 788 + i, i === 2 ? 1 : -1) + ln(`M${b.pt(tx - tw / 2, y - 0.12)} L${b.pt(tx + tw / 2, y - 0.12)}`, glaze, lw * 2); });
+  s += shp(hd(b, crenel(tx - tw / 2 - 0.08, tx + tw / 2 + 0.08, th, 0.14, 0.17).concat([[tx + tw / 2 + 0.08, th - 0.08], [tx - tw / 2 - 0.08, th - 0.08]]), 790, 0.004, 0.5), white, lw * 0.8);
+  [-1, 1].forEach((d) => { s += spire(tx + d * tw * 0.42, th + 0.1, 0.14, 0.5, 792 + d); });
+  s += spire(tx, th + 0.12, tw * 0.8, 1.7, 795) + banner(b, tx, th + 2.25, 0.7, t, 9, gold, goldS);
+  // small stair turret on the right
+  s += shp(hd(b, [[1.86, 0], [1.86, 2.6], [2.36, 2.6], [2.36, 0]], 796, 0.008, 0.35), brickS, lw) + lancet(2.02, 1.7, 0.18, 0.5, 797, 1) + spire(2.11, 2.6, 0.62, 1.0, 798);
+  return { svg: s, door: [0, 0], top: 5.6 };
 }
 const STAGES = [hut, cottage, castle, palace];
 export function home(c, st = {}, t = 0) {
@@ -379,7 +406,7 @@ export function home(c, st = {}, t = 0) {
 
 // ---------------------------------------------------------------- the whole set
 export const BALTIC = { home: { X: -1.15, Z: 6.6 }, kid: { X: JETTY.X - 0.05, Z: 11.4 }, keeper: { X: -0.45, Z: 5.9 }, drift: { X: 0.9, Z: 4.7 },
-  cam: { wide: { x: 0, y: 3.0, z: 0.6, h0: 760 }, far: { x: 0.1, y: 2.6, z: -2.2, h0: 900 }, door: { x: -0.72, y: 1.0, z: 3.0, h0: 1020 }, jetty: { x: 1.2, y: 1.5, z: 8.0, h0: 1000 }, two: { x: -0.1, y: 1.25, z: 1.0, h0: 1040 }, storm: { x: 2.9, y: 2.0, z: 1.5, h0: 1000 } } };
+  cam: { wide: { x: 0, y: 3.0, z: 0.6, h0: 760 }, far: { x: 0.1, y: 2.6, z: -2.2, h0: 900 }, door: { x: -0.95, y: 1.0, z: 2.2, h0: 1020 }, jetty: { x: 1.2, y: 1.5, z: 8.0, h0: 1000 }, two: { x: -0.1, y: 1.25, z: 1.0, h0: 1040 }, storm: { x: 2.9, y: 2.0, z: 1.5, h0: 1000 } } };
 // o: { stage, towers 0..1, bolt, boltX, sun, glitter, drift: true, light, smoke, rain 0..1, tufts }. Returns { back, front, home, cam }:
 // draw back, then the cast (hosts on the jetty use cam = deckCam(c)), then grade(), then front.
 export function coast(c, t, o = {}) {

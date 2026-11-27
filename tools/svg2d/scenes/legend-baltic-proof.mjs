@@ -41,7 +41,7 @@ export function draw(t) {
   } else if (k === 7) {          // the waves stand up like church towers
     BAL.mood(4); const c = B.cam.storm, s = BAL.coast(c, t, { stage: 3, light: 0.5, bolt: 0.9, boltX: 860 });
     const kd = L.kid(BAL.deckCam(c), { ...B.kid, fx: -0.5, shock: 1, reachL: 0.6, lean: 8, blink: 0 }, t);
-    body = s.back + kd.svg; front = s.front;
+    body = s.back; front = kd.svg + s.front;      // the kid after grade(): his jacket keeps its pink
   } else if (k === 8) {          // gone: the old hut and a green sea
     BAL.mood(0); const c = B.cam.two, s = BAL.coast(c, t, { sun: [800, 990, 84], glitter: 800, drift: false });
     const kd = L.kid(c, { X: 0.95, Z: 5.3, fx: -0.7, worry: 1, shock: 0.2, talk: 0.5, blink: bl }, t), kp = L.keeper(c, { X: 0.3, Z: 5.45, fx: 0.7, stern: 0.2, flame: 1, blink: bl }, t);
