@@ -162,6 +162,13 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   `read-lines.py` prints it on every take (MUFFLED line) and takes a voice "af" EQ chain. Should keep voice rounds lost
   to a dull take at 0. Proof: raw ep 1 kid 0.01-0.02 % MUFFLED, after the kid EQ 0.9-3.7 % passes, grandmother 7.7 %,
   woman 4.8 %; no render changes.
+- Clip helpers stop on a NaN time (26 Nov, from Kid vs Dad 07 excuses ranking; waits for Jonny's word): a helper
+  read a line's time before it was set, the caption end became NaN, and the engine dropped two captions without a
+  word; they reached Jonny's rough draft and only Sol round 1 found them. A bare number as `c.sfx` options (the gain)
+  was dropped the same silent way. `storyboards/lib/clip.mjs` now throws at the generator, naming the action or
+  caption, and takes a bare number as the gain. Should keep rounds lost to silently dropped actions at 0. Proof: run
+  over all 425 generators: only make-zombies-v2.mjs throws (its broom release at NaN was never in that video); no
+  render changes.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
