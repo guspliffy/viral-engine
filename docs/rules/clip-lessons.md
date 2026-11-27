@@ -13,6 +13,8 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
 - Code-drawn (svg2d) clips: export `probe(t)` from the scene and run `node tools/svg2d/framecheck.mjs <scene.mjs>`
   (seconds) before stills or Sol: faces cut by the edge, captions on faces, props jumping or switching hands, finger
   counts going back. Sol's round 2 on The Monkey's Paw (16 glitches) had 4 it would have caught.
+  A full `tools/svg2d/render.mjs` run does this itself and stops on a FAIL or a scene with no probe(t), unless
+  `--force "<reason>"` (Cried Wolf draft 1 had no probe, so captions over faces reached Jonny).
 - A reported glitch is DESCRIBED back first (timestamp, what moves wrong, why), then fixed.
 - Look at a full-size crop of every hero prop (an empty glass passed two reviews at sheet size).
 - Draft 1 already carries the drama, the commentator and the real music: the producer judges the first video, not the
