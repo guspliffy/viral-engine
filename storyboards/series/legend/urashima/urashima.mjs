@@ -36,7 +36,7 @@ function cues(ln, ws) {
 const KEEP = { L02: [[1, 2]], L07: [[0, 8]], L16: [[0, 5]], L08: [[0, 3], [4, 9]], L27: [[0, 0], [1, 3]], L28: [[0, 2]] };
 const TEXT = { L02: "What's inside?", L07: "The turtle carried him down, to the Dragon Palace.", L16: "Back home, the pines were giants." };
 const CAPS = { L02: "What's inside?", L07: "The turtle carried him down,|to the Dragon Palace", L16: "Back home,|the pines were giants.", L08: "You saved my messenger.|Stay as long as you like." };
-const SIL = 0.14, PAD = 0.03;
+const SIL = 0.14, PAD = 0.04, TAIL = 0.16;   // Jonny 27 Nov: A clipped voice ends -> keep each word's decay (Whisper ends early)
 delete LINE.L19;
 for (const ln of Object.values(LINE)) {
   if (TEXT[ln.id]) ln.text = TEXT[ln.id];
@@ -45,12 +45,12 @@ for (const ln of Object.values(LINE)) {
   const nS = s.length / ch, mono = new Float32Array(nS); for (let i = 0; i < nS; i++) mono[i] = s[i * ch] / 32768;
   const keep = KEEP[ln.id] || [[0, all.length - 1]];
   let mx0 = 0; for (let i = 0; i < nS; i++) mx0 = Math.max(mx0, Math.abs(mono[i]));
-  const voiced = (i) => { let a = 0; const w = Math.round(sr * 0.01); for (let j = i; j < Math.min(nS, i + w); j++) a += mono[j] * mono[j]; return Math.sqrt(a / w) > mx0 * 0.03; };
+  const voiced = (i) => { let a = 0; const w = Math.round(sr * 0.01); for (let j = i; j < Math.min(nS, i + w); j++) a += mono[j] * mono[j]; return Math.sqrt(a / w) > mx0 * 0.012; };
   const parts = [], words = []; let at = 0; ln.segs = [];
   keep.forEach(([i0, i1], k) => {
     let a = KEEP[ln.id] && (i0 > 0 || ln.id === "L27") ? Math.max(all[i0][1] - PAD, i0 > 0 ? all[i0 - 1][2] : 0) : 0;
-    let b = KEEP[ln.id] ? Math.min(nS / sr, all[i1][2] + PAD) : nS / sr;
-    if (KEEP[ln.id]) { let e = Math.floor(b * sr); while (e > a * sr + sr * 0.1 && !voiced(e - Math.round(sr * 0.01))) e -= Math.round(sr * 0.005); b = Math.min(b, e / sr + 0.05); }
+    let b = KEEP[ln.id] ? Math.min(nS / sr, all[i1][2] + TAIL, i1 + 1 < all.length ? all[i1 + 1][1] - 0.03 : 1e9) : nS / sr;
+    if (KEEP[ln.id]) { let e = Math.floor(b * sr); while (e > a * sr + sr * 0.1 && !voiced(e - Math.round(sr * 0.01))) e -= Math.round(sr * 0.005); b = Math.min(b, e / sr + 0.1); }
     const i0s = Math.floor(a * sr), i1s = Math.floor(b * sr); parts.push(mono.subarray(i0s, i1s)); ln.segs.push([a, b]);
     for (let w = i0; w <= i1; w++) words.push([all[w][0], at + Math.max(0, all[w][1] - a), at + Math.min(b - a, all[w][2] - a)]);
     at += b - a; if (k < keep.length - 1) { parts.push(new Float32Array(Math.round(SIL * sr))); at += SIL; }
@@ -526,7 +526,7 @@ export function prepare(outPath) {
   const at = (id) => TL.find((b) => b.line === id);
   const voice = (ln) => {   // trimmed take: each kept span cut at its word times with 10 ms fades, joined by SIL of silence
     if (!ln.cut) return `${VOICE}/${ln.id}.wav`;
-    const p = `${OUT}/vcut/${ln.id}.wav`, parts = ln.segs.map(([a, b], i) => `[0:a]atrim=start=${a.toFixed(3)}:end=${b.toFixed(3)},asetpts=PTS-STARTPTS,afade=t=in:st=0:d=0.01,afade=t=out:st=${(b - a - 0.01).toFixed(3)}:d=0.01${i < ln.segs.length - 1 ? `,apad=pad_dur=${SIL}` : ""}[s${i}]`);
+    const p = `${OUT}/vcut/${ln.id}.wav`, parts = ln.segs.map(([a, b], i) => `[0:a]atrim=start=${a.toFixed(3)}:end=${b.toFixed(3)},asetpts=PTS-STARTPTS,afade=t=in:st=0:d=0.01,afade=t=out:st=${(b - a - 0.04).toFixed(3)}:d=0.04${i < ln.segs.length - 1 ? `,apad=pad_dur=${SIL}` : ""}[s${i}]`);
     execFileSync("ffmpeg", ["-v", "error", "-y", "-i", `${VOICE}/${ln.id}.wav`, "-filter_complex", parts.join(";") + ";" + ln.segs.map((_, i) => `[s${i}]`).join("") + `concat=n=${ln.segs.length}:v=0:a=1[o]`, "-map", "[o]", p]);
     return p;
   };
