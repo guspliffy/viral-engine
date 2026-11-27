@@ -1536,7 +1536,7 @@
      "clap": 0.039,
      "snrDb": 69.6,
      "loudnessLUFS": -17,
-     "note": "trimmed to its two hits (0-1.4 s) by hand: d\u00f6 ... d\u00f6m"
+     "note": "trimmed to its two hits (0-1.4 s) by hand: dö ... döm"
     }
    ]
   },
@@ -5121,6 +5121,143 @@
      "loudnessLUFS": -21.8
     }
    ]
+  },
+  {
+   "id": "icecream-jingle",
+   "kind": "sfx",
+   "files": [
+    "icecream-jingle/icecream-jingle-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "ice cream truck",
+    "jingle",
+    "street",
+    "chimes",
+    "music box",
+    "speaker"
+   ],
+   "durationSec": 8.2,
+   "prompt": [
+    "code synth (Kid vs Dad 07, 26 Nov 2026): an original 16-note chime tune played twice on a music-box timbre through a small horn speaker, warble, heard from the street"
+   ],
+   "model": "code synth, no model (scratch synth.py, numpy)",
+   "license": "own work (code-made, no samples)",
+   "loudnessLUFS": null,
+   "replaces": null
+  },
+  {
+   "id": "night-insects",
+   "kind": "sfx",
+   "files": [
+    "night-insects/night-insects-01.wav"
+   ],
+   "gain": 0.18,
+   "tags": [
+    "night",
+    "crickets",
+    "insects",
+    "grass",
+    "ambience",
+    "loop"
+   ],
+   "prompt": [
+    "quiet tropical night on a grassy hillside, soft crickets chirping, light wind in tall grass, distant, outdoor field recording, no music, no voices",
+    "calm warm night ambience, crickets and insects, gentle breeze through long grass, very quiet, field recording, no music"
+   ],
+   "seed": [
+    951,
+    952
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "says": "quiet tropical night ambience with crickets and soft wind in tall grass",
+   "note": "Night Marchers 26 Nov 2026: steady bed cut by hand from take p0 (0.4-9.6 s, 0.3 s fades, -20 LUFS); pick.py on main has no 'steady' kind"
+  },
+  {
+   "id": "march-drums",
+   "kind": "sfx",
+   "files": [
+    "march-drums/march-drums-01.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "drums",
+    "march",
+    "distant",
+    "night",
+    "loop"
+   ],
+   "prompt": [
+    "deep large hand drums with skin heads beating a slow steady marching rhythm far away across a valley at night, echoing, outdoors, no other instruments, no voices",
+    "slow heavy beats of big wooden hand drums in the distance at night, steady procession rhythm, low and booming, outdoor echo, no music, no voices"
+   ],
+   "seed": [
+    953,
+    954
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "says": "deep large hand drums beating a slow steady march far away at night",
+   "note": "Night Marchers 26 Nov 2026: steady bed cut by hand from take p0 (0.4-9.6 s, 0.3 s fades, -20 LUFS); pick.py on main has no 'steady' kind"
+  },
+  {
+   "id": "torch-flame",
+   "kind": "sfx",
+   "files": [
+    "torch-flame/torch-flame-01.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "torch",
+    "flame",
+    "fire",
+    "crackle",
+    "loop"
+   ],
+   "prompt": [
+    "several burning hand torches close by outdoors, soft flame flutter in the wind and small wood crackles, no roar, no music, no voices",
+    "a flaming torch carried past close up, fluttering fire and light crackling, quiet night, field recording, no music"
+   ],
+   "seed": [
+    958,
+    959
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "says": "burning torches flickering close by: soft flame flutter and small crackles",
+   "note": "Night Marchers 26 Nov 2026: steady bed cut by hand from take p0 (0.4-9.6 s, 0.3 s fades, -20 LUFS); pick.py on main has no 'steady' kind"
+  },
+  {
+   "id": "conch-call",
+   "kind": "sfx",
+   "files": [
+    "conch-call/conch-call-01.wav",
+    "conch-call/conch-call-02.wav",
+    "conch-call/conch-call-03.wav",
+    "conch-call/conch-call-04.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "conch",
+    "shell",
+    "horn",
+    "call",
+    "distant"
+   ],
+   "prompt": [
+    "a single long blast on a conch shell horn, deep hollow mournful tone, far away across a valley at night, echo, outdoors, no music, no voices",
+    "one deep conch shell trumpet call held for three seconds then fading, distant, natural echo, field recording, no music"
+   ],
+   "seed": [
+    955,
+    956,
+    957
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "says": "a single long conch shell horn blast far away at night",
+   "note": "Night Marchers 26 Nov 2026: pick.py cuts, CLAP ranked"
   },
   {
    "id": "rooster-crow",

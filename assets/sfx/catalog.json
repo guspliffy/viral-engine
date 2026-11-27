@@ -3684,91 +3684,21 @@
     "change"
    ]
   },
-  "ai/rooster-crow": {
-   "family": "animal",
-   "says": "an AI rooster crow, 2.1-2.6 s (measured: a loud tonal call, main pitch 735-1700 Hz, no low end, peak at 0.35 s, many short syllables)",
+  "ai/icecream-jingle": {
+   "family": "music",
+   "says": "an ice cream truck heard from the street: an original 16-note chime tune twice on a tinny horn speaker with a warble, 8.2 s, distant; Dad's cue in Kid vs Dad 07 (code synth, own work, not heard yet)",
    "source": "ai",
    "files": [
-    "ai/rooster-crow/rooster-crow-01.wav",
-    "ai/rooster-crow/rooster-crow-02.wav",
-    "ai/rooster-crow/rooster-crow-03.wav",
-    "ai/rooster-crow/rooster-crow-04.wav"
-   ],
-   "gain": 0.7,
-   "tags": [
-    "rooster",
-    "crow",
-    "cock-a-doodle-doo",
-    "farm"
-   ]
-  },
-  "ai/snore": {
-   "family": "body",
-   "says": "an AI snore, 2.0-2.4 s (measured: a rough low drone at 83-90 Hz, most of its energy under 200 Hz, a few breathy pulses); it may read as a growl, Jonny's ears decide",
-   "source": "ai",
-   "files": [
-    "ai/snore/snore-01.wav",
-    "ai/snore/snore-02.wav",
-    "ai/snore/snore-03.wav",
-    "ai/snore/snore-04.wav"
+    "ai/icecream-jingle/icecream-jingle-01.wav"
    ],
    "gain": 0.5,
    "tags": [
-    "snore",
-    "sleep",
-    "snoring"
-   ]
-  },
-  "ai/dog-bark": {
-   "family": "animal",
-   "says": "an AI dog barking in the distance, 1.4 s (measured: 4-7 short tonal hits at 550-670 Hz, no low end); weak CLAP score, it may not read as a dog: keep it low or drop it",
-   "source": "ai",
-   "files": [
-    "ai/dog-bark/dog-bark-01.wav",
-    "ai/dog-bark/dog-bark-02.wav",
-    "ai/dog-bark/dog-bark-03.wav",
-    "ai/dog-bark/dog-bark-04.wav"
-   ],
-   "gain": 0.4,
-   "tags": [
-    "dog",
-    "bark",
-    "village",
-    "night"
-   ]
-  },
-  "ai/shutters": {
-   "family": "door",
-   "says": "AI wooden shutters banging open, 1.1-1.2 s (measured: two bright knocks, centroid about 4.2 kHz, the loud one near the end)",
-   "source": "ai",
-   "files": [
-    "ai/shutters/shutters-01.wav",
-    "ai/shutters/shutters-02.wav",
-    "ai/shutters/shutters-03.wav",
-    "ai/shutters/shutters-04.wav"
-   ],
-   "gain": 0.5,
-   "tags": [
-    "shutters",
-    "wooden",
-    "window",
-    "bang"
-   ]
-  },
-  "ai/fly-buzz": {
-   "family": "animal",
-   "says": "an AI house-fly buzz, 1.3-1.5 s (measured: a steady 165-170 Hz hum with bright hiss on top, one swell peaking near its end); not heard by Claude, keep it low",
-   "source": "ai",
-   "files": [
-    "ai/fly-buzz/fly-buzz-01.wav",
-    "ai/fly-buzz/fly-buzz-02.wav",
-    "ai/fly-buzz/fly-buzz-03.wav"
-   ],
-   "gain": 0.35,
-   "tags": [
-    "fly",
-    "buzz",
-    "insect"
+    "ice cream truck",
+    "jingle",
+    "street",
+    "chimes",
+    "music box",
+    "speaker"
    ]
   },
   "ai-package/cardboard-rustle": {
@@ -3902,6 +3832,93 @@
    ],
    "gain": 0.45,
    "anchor": "hit"
+  },
+  "ai/rooster-crow": {
+   "family": "animal",
+   "says": "an AI rooster crow, 2.1-2.6 s (measured: a loud tonal call, main pitch 735-1700 Hz, no low end, peak at 0.35 s, many short syllables)",
+   "source": "ai",
+   "files": [
+    "ai/rooster-crow/rooster-crow-01.wav",
+    "ai/rooster-crow/rooster-crow-02.wav",
+    "ai/rooster-crow/rooster-crow-03.wav",
+    "ai/rooster-crow/rooster-crow-04.wav"
+   ],
+   "gain": 0.7,
+   "tags": [
+    "rooster",
+    "crow",
+    "cock-a-doodle-doo",
+    "farm"
+   ]
+  },
+  "ai/snore": {
+   "family": "body",
+   "says": "an AI snore, 2.0-2.4 s (measured: a rough low drone at 83-90 Hz, most of its energy under 200 Hz, a few breathy pulses); it may read as a growl, Jonny's ears decide",
+   "source": "ai",
+   "files": [
+    "ai/snore/snore-01.wav",
+    "ai/snore/snore-02.wav",
+    "ai/snore/snore-03.wav",
+    "ai/snore/snore-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "snore",
+    "sleep",
+    "snoring"
+   ]
+  },
+  "ai/dog-bark": {
+   "family": "animal",
+   "says": "an AI dog barking in the distance, 1.4 s (measured: 4-7 short tonal hits at 550-670 Hz, no low end); weak CLAP score, it may not read as a dog: keep it low or drop it",
+   "source": "ai",
+   "files": [
+    "ai/dog-bark/dog-bark-01.wav",
+    "ai/dog-bark/dog-bark-02.wav",
+    "ai/dog-bark/dog-bark-03.wav",
+    "ai/dog-bark/dog-bark-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "dog",
+    "bark",
+    "village",
+    "night"
+   ]
+  },
+  "ai/shutters": {
+   "family": "door",
+   "says": "AI wooden shutters banging open, 1.1-1.2 s (measured: two bright knocks, centroid about 4.2 kHz, the loud one near the end)",
+   "source": "ai",
+   "files": [
+    "ai/shutters/shutters-01.wav",
+    "ai/shutters/shutters-02.wav",
+    "ai/shutters/shutters-03.wav",
+    "ai/shutters/shutters-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "shutters",
+    "wooden",
+    "window",
+    "bang"
+   ]
+  },
+  "ai/fly-buzz": {
+   "family": "animal",
+   "says": "an AI house-fly buzz, 1.3-1.5 s (measured: a steady 165-170 Hz hum with bright hiss on top, one swell peaking near its end); not heard by Claude, keep it low",
+   "source": "ai",
+   "files": [
+    "ai/fly-buzz/fly-buzz-01.wav",
+    "ai/fly-buzz/fly-buzz-02.wav",
+    "ai/fly-buzz/fly-buzz-03.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "fly",
+    "buzz",
+    "insect"
+   ]
   }
  }
 }

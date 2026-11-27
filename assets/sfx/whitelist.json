@@ -348,6 +348,7 @@
   "ai/water-gush": { "family": "wet", "says": "a roaring torrent of water pouring in, steady, 6 s (AI, EP02: water coming into the car)" },
   "ai/water-leak-hiss": { "family": "wet", "says": "water spraying and hissing through small gaps, trickling, 6 s, one take only (AI, EP02)" },
   "ai/rimshot": { "family": "music", "says": "an AI real drum-kit rimshot sting 'ba-dum-tss' (snare/tom hits then a crash cymbal ringing out), 1.6 s, dry; the neighbour's drums behind the fence after a dad joke (AI, Kid vs Dad 01; CLAP 0.28-0.30, not heard yet)" },
+  "ai/icecream-jingle": {"family": "music", "says": "an ice cream truck heard from the street: an original 16-note chime tune twice on a tinny horn speaker with a warble, 8.2 s, distant; Dad's cue in Kid vs Dad 07 (code synth, own work, not heard yet)"},
   "ai/snare-hit": { "family": "hit", "says": "one AI hit on a real acoustic snare drum, about 0.2 s, dry, one take per hit (AI, Kid vs Dad 01; weak CLAP 0.02-0.05, not heard yet)" },
   "ai/coin-jar": { "family": "handling", "says": "one metal coin dropped into a big glass jar full of coins: a short glassy clink and coin rattle, 0.3-0.6 s, one take per drop (AI, Kid vs Dad 01; CLAP 0.24-0.41, not heard yet)" },
   "ai/glass-shatter-car": { "family": "hit", "says": "a car side window smashing: a sharp burst of tempered glass in tiny pieces, 1.6 s (AI, EP02)" },

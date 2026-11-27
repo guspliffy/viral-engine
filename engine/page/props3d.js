@@ -156,6 +156,8 @@ import { FIREREWIND_KINDS, FIREREWIND_GRIPS } from "./props-firerewind.js";   //
 import { GORGE_KINDS } from "./props-gorge.js";   // there's a catch 09b teleport forget: gorge, bridgerope, planks
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
 import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, the steakhouse: steaktable, servingboard, bakedpotato, toppingbowl, butterpat, creamdollop, cheeseslice, baconbits, tablespoon, skilletsteak, corncob, lemonade, barcounter
+import { ARMREST_KINDS, ARMREST_GRIPS, ARMREST_STATE } from "./props-armrest.js";   // rival duel 01 armrest war: sharedarm, butterknife, fakearm, crowbar
+import { ARMREST_FX_KINDS, ARMREST_FX_STATE } from "./props-armrest-fx.js";   // rival duel 01 armrest war: pilothat, sleepmask, wingspin, ejecthatch, seatrocket, cockpitcard
 import { FRIES_KINDS } from "./props-fries.js";   // always orders potatoes 01, the burger place: burgertable, boothback, burgertray, frycone, dippot, tomatosoup, fullshake
 import { COASTER_KINDS } from "./props-coaster.js";   // never looks up 07, the roller coaster: coastertrack, coastercar, photopost, photoscreen
 import { CITY_KINDS } from "./props-city.js";
@@ -216,6 +218,8 @@ import { HP_KINDS, HP_GRIPS } from "./props-hotpotato.js";   // hot potato: the 
 import { HAPPY_KINDS } from "./props-happy.js";   // happiness 01: limo, ambulance, bank front, fountain, iron gate, city dressing
 import { COUPE_KINDS } from "./props-coupe.js";
 import { SPREE_KINDS } from "./props-spree.js";   // happiness 01 redo: check, bag mountain, sun disc, side-cast bits
+import { CHECKOUT_SET_KINDS, CHECKOUT_SET_GRIPS } from "./props-checkout-set.js";   // country vs country 01: halls, lanes, racks, flags
+import { CHECKOUT_GOODS_KINDS, CHECKOUT_GOODS_GRIPS } from "./props-checkout-goods.js";   // country vs country 01: goods, bags, coins
 import { TOW_KINDS } from "./props-tow.js";   // happiness 01 redo: tow truck, coat heap
 import { HARBOUR_KINDS } from "./props-harbour.js";   // happiness 01 redo: pier, yacht   // happiness 01: the gold coupe (a prop, not a rig)
 
@@ -1545,7 +1549,7 @@ Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
 Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS, ZFIGHT_KINDS, ZROOF_KINDS, ZSTAIRS_KINDS, ZWAIT_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS, ZFIGHT_GRIPS, ZROOF_GRIPS, ZSTAIRS_GRIPS, ZWAIT_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
-const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE , ...NORSE_SPEAR_STATE, ...NORSE_RAVEN_STATE, ...NORSE_HEAD_STATE, ...NORSE_CAVE_STATE, ...NORSE_WELL_STATE, ...NORSE_TREE_STATE, ...NORSE_WIND_STATE, ...NORSE_ITEMS_STATE, ...NORSE_CLASS_STATE, ...KRAMPUS_LANE_STATE, ...KRAMPUS_BEAST_STATE, ...KRAMPUS_NICK_STATE, ...KRAMPUS_BOOTS_STATE, ...KRAMPUS_RUN_STATE, ...KRAMPUS_CAT_STATE, ...ALARM_ROOSTER_STATE, ...ALARM_HUT_STATE };
+const KIT_STATE = { ...ARMREST_STATE, ...ARMREST_FX_STATE, ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE , ...NORSE_SPEAR_STATE, ...NORSE_RAVEN_STATE, ...NORSE_HEAD_STATE, ...NORSE_CAVE_STATE, ...NORSE_WELL_STATE, ...NORSE_TREE_STATE, ...NORSE_WIND_STATE, ...NORSE_ITEMS_STATE, ...NORSE_CLASS_STATE, ...KRAMPUS_LANE_STATE, ...KRAMPUS_BEAST_STATE, ...KRAMPUS_NICK_STATE, ...KRAMPUS_BOOTS_STATE, ...KRAMPUS_RUN_STATE, ...KRAMPUS_CAT_STATE, ...ALARM_ROOSTER_STATE, ...ALARM_HUT_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, CASINO_KINDS, MIND_KINDS, NIGHTCITY_KINDS, NEONSTREET_KINDS);   // there's a catch 06 (props-casino.js, props-mind.js, props-nightcity.js)
@@ -1569,6 +1573,7 @@ Object.assign(KINDS, STEAK_KINDS);   // always orders potatoes 03 (props-steak.j
 Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.js)
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 Object.assign(KINDS, WAKECABIN_KINDS, WAKEFX_KINDS, WAKEOUT_KINDS);   // you wake up mid EP01 (props-wakeup-*.js)
+Object.assign(KINDS, ARMREST_KINDS, ARMREST_FX_KINDS); Object.assign(GRIPS, ARMREST_GRIPS);   // rival duel 01 armrest war (props-armrest.js, props-armrest-fx.js)
 Object.assign(KINDS, SINKCAR_KINDS);   // you wake up mid EP02: cabinwater, carglass, dashglow, headrest, headbeams, lakebubbles (props-sinkcar.js)
 Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS, SQEYES_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
 Object.assign(KINDS, ARCH_KINDS); Object.assign(GRIPS, ARCH_GRIPS);   // the archaeologist: archbrush (props-archaeologist.js)
@@ -1611,6 +1616,7 @@ Object.assign(KINDS, EATERYDOOR_KINDS);   // kid vs dad 04 waiter jokes (props-e
 Object.assign(KINDS, GRAVROOM_KINDS, GRAVCITY_KINDS, GRAVSKY_KINDS, GRAVRUIN_KINDS, GRAVSTRIKE_KINDS, GRAVALPS_KINDS, GRAVMOON_KINDS);   // fact what-if 02 gravity (props-gravroom.js, props-gravcity.js, props-gravsky.js)
 Object.assign(KINDS, SPINROOM_KINDS, SPINSKY_KINDS, SPINANDES_KINDS, SPINSTREET_KINDS, SPINSPACE_KINDS);   // fact what-if 03 spin
 Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS, SPREE_KINDS, TOW_KINDS, HARBOUR_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)
+Object.assign(KINDS, CHECKOUT_SET_KINDS, CHECKOUT_GOODS_KINDS); Object.assign(GRIPS, CHECKOUT_SET_GRIPS, CHECKOUT_GOODS_GRIPS);   // country vs country 01
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {

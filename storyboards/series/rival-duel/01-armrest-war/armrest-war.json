@@ -1,0 +1,6319 @@
+{
+ "id": "armrest-war",
+ "title": "Armrest war",
+ "idea": "Rival duel 01: one armrest, two strangers, and a red button nobody may touch. Every round escalates (elbow, both elbows and chin, butter, a fake third arm, a crowbar) and every near-press brings the attendant back. You press it on him; his seat blasts through the roof. Then the speaker: this is your captain, I was in seat 14B.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  210,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#c9ced6",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": {
+   "diffuse": 0.08,
+   "hal": 0.2
+  }
+ },
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "lowCut": 150,
+  "gain": 0.15
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor"
+ },
+ "creative": {
+  "length": [
+   55,
+   80
+  ]
+ },
+ "hook": {
+  "show": [
+   "console"
+  ],
+  "hint": 0,
+  "what": "a big red button under a clear cover on a shared plane armrest; two sleeves slam down either side of it"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.12,
+    0.03
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.9
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -0.97,
+    0.03
+   ],
+   "face": 0,
+   "expr": "smug",
+   "follow": 0.3,
+   "seed": 3.3
+  },
+  {
+   "id": "att",
+   "character": "potatobrawl/mash-attendant",
+   "at": [
+    -0.2,
+    -3
+   ],
+   "face": -60,
+   "expr": "serene",
+   "follow": 0.2,
+   "seed": 3.7
+  }
+ ],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "cabinhall",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "omit": [
+    [
+     0,
+     "C"
+    ],
+    [
+     0,
+     "D"
+    ],
+    [
+     1,
+     "C"
+    ],
+    [
+     1,
+     "D"
+    ],
+    [
+     2,
+     "C"
+    ],
+    [
+     2,
+     "D"
+    ]
+   ]
+  },
+  {
+   "id": "seatD",
+   "kind": "planeseat",
+   "w": 0.96,
+   "color": "#2f4d8c",
+   "cover": 0.34,
+   "arms": "R",
+   "x": -2.12,
+   "z": 0
+  },
+  {
+   "id": "seatC",
+   "kind": "planeseat",
+   "w": 0.96,
+   "color": "#2f4d8c",
+   "cover": 0.34,
+   "arms": "L",
+   "x": -0.97,
+   "z": 0
+  },
+  {
+   "id": "rocket",
+   "kind": "seatrocket",
+   "x": -0.97,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "console",
+   "kind": "sharedarm",
+   "x": -1.555,
+   "y": 0,
+   "z": 0.1,
+   "h": 0.72
+  },
+  {
+   "id": "bag",
+   "kind": "duffel",
+   "x": -1.1,
+   "y": 0.13,
+   "z": 0.82,
+   "color": "#a8352b",
+   "trim": "#c9a25a"
+  },
+  {
+   "id": "hat",
+   "kind": "pilothat",
+   "x": -1.1,
+   "y": -40,
+   "z": 0.82,
+   "staged": "in the open bag"
+  },
+  {
+   "id": "cap",
+   "kind": "paperhat",
+   "wear": "att",
+   "x": -0.1,
+   "y": 1.34,
+   "z": 0,
+   "scale": 0.58,
+   "tilt": 16,
+   "color": "#1c2748",
+   "stripe": "#e8b93a"
+  },
+  {
+   "id": "mask",
+   "kind": "sleepmask",
+   "wear": "wedge",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0
+  },
+  {
+   "id": "pin",
+   "kind": "wingspin",
+   "wear": "wedge",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "hatch",
+   "kind": "ejecthatch",
+   "x": -1.08,
+   "y": 2.35,
+   "z": 0.05
+  },
+  {
+   "id": "cockpit",
+   "kind": "cockpitcard",
+   "x": 0,
+   "y": 0,
+   "z": 10.56,
+   "rot": 180
+  },
+  {
+   "id": "knife",
+   "kind": "butterknife",
+   "x": -1.95,
+   "y": -40,
+   "z": 0.5,
+   "staged": "in your hand from the cut"
+  },
+  {
+   "id": "fakearm",
+   "kind": "fakearm",
+   "x": -0.95,
+   "y": -40,
+   "z": 0.7,
+   "staged": "in his bag, then held up, then lying on the console"
+  },
+  {
+   "id": "crowbar",
+   "kind": "crowbar",
+   "x": -2,
+   "y": -40,
+   "z": 0.5,
+   "staged": "dropped from the bin into your hands off camera"
+  },
+  {
+   "id": "spudC",
+   "kind": "carrier",
+   "x": -2.12,
+   "y": 0,
+   "z": 0.13
+  },
+  {
+   "id": "wedgeC",
+   "kind": "carrier",
+   "x": -0.97,
+   "y": 0,
+   "z": 0.13
+  }
+ ],
+ "captions": [
+  {
+   "from": 1,
+   "to": 3,
+   "text": "Never. *Touch.* The red button.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 3.2,
+   "to": 4.2,
+   "text": "What does it do?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.4,
+   "to": 6.413,
+   "text": "Nobody who pressed it... *came back.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 7,
+   "to": 8,
+   "text": "Mine.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 8.2,
+   "to": 9.813,
+   "text": "That armrest is *MINE.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 10.3,
+   "to": 11.2,
+   "text": "Hnnngh!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 13.2,
+   "to": 14.68,
+   "text": "Too. *Dangerous.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 16,
+   "to": 17.59,
+   "text": "Whole arm.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 17.75,
+   "to": 19.88,
+   "text": "Whole arm. And chin.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 20.2,
+   "to": 21.81,
+   "text": "I fly a lot.",
+   "pos": 400,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 24.3,
+   "to": 25.08,
+   "text": "Oops.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 25.9,
+   "to": 27.7,
+   "text": "Whoa, whoa, whoa!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 27.9,
+   "to": 29.38,
+   "text": "Too. *Dangerous.*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 30.9,
+   "to": 32.98,
+   "text": "I know this plane better than you.",
+   "pos": 255,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 34,
+   "to": 34.84,
+   "text": "Zzz.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 35.9,
+   "to": 36.98,
+   "text": "Not on my flight.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 38.1,
+   "to": 39.44,
+   "text": "Hey! Hnnngh!",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 40,
+   "to": 41.38,
+   "text": "Too. *DANGEROUS!*",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 44.2,
+   "to": 45.98,
+   "text": "Nobody comes back, huh?",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 48.8,
+   "to": 49.89,
+   "text": "...Mine.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 50.5,
+   "to": 54.48,
+   "text": "Ladies and gentlemen... this is your captain.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 54.8,
+   "to": 56.746,
+   "text": "I was in seat 14B.",
+   "pos": 250,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "slam",
+   "at": 0,
+   "len": 0.933,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.5,
+     1.65
+    ],
+    "look": [
+     -1.555,
+     0.74,
+     0.25
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "spudC",
+     "off": [
+      0,
+      0.33,
+      0
+     ],
+     "yaw": 0,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "ride",
+     "prop": "wedgeC",
+     "off": [
+      0,
+      0.33,
+      0
+     ],
+     "yaw": 0,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "att",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "att",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.08,
+       0.9,
+       0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0.08,
+       0.9,
+       0.06
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.7
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.7
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hat",
+     "set": {
+      "y": 0.255
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.13,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.07,
+       0.775,
+       -0.02
+      ],
+      "palm": [
+       -0.07,
+       -0.28,
+       -0.02
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.13,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0.07,
+       0.775,
+       -0.02
+      ],
+      "palm": [
+       0.07,
+       -0.28,
+       -0.02
+      ]
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.9,
+     "reason": "two elbows slam down on the console",
+     "at": 0.33
+    },
+    {
+     "fx": "shake",
+     "amp": 0.02,
+     "dur": 0.25,
+     "at": 0.33
+    },
+    {
+     "who": "att",
+     "do": "move",
+     "to": [
+      -0.04,
+      0.62
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.58
+    },
+    {
+     "who": "att",
+     "do": "turn",
+     "to": -62,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.58
+    },
+    {
+     "who": "att",
+     "do": "look",
+     "to": [
+      -0.9,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.93
+    },
+    {
+     "who": "att",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 0.93
+    },
+    {
+     "who": "att",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.86,
+       0.14
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.93
+    },
+    {
+     "who": "att",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.01,
+     "at": 0.93
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "never touch",
+   "at": 0.933,
+   "len": 2.067,
+   "shot": {
+    "pos": [
+     -1.12,
+     1.32,
+     3.35
+    ],
+    "look": [
+     -1.12,
+     1,
+     0.1
+    ],
+    "fov": 86,
+    "to": {
+     "pos": [
+      -1.12,
+      1.304,
+      3.188
+     ],
+     "look": [
+      -1.12,
+      1,
+      0.1
+     ],
+     "fov": 86
+    },
+    "dur": 2.25,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Never. Touch. The red button.",
+     "tone": "whisper",
+     "style": "deadly serious whisper, slow, leaning in close",
+     "voice": "mash",
+     "dur": 1.92,
+     "caption": false,
+     "at": 0.067
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.8,
+      0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.117
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.6,
+      0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.117
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 0.117
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 0.117
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.467
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.967
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.7
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.017
+    }
+   ]
+  },
+  {
+   "name": "what does it do",
+   "at": 3,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -2.12,
+     1.12,
+     2.8
+    ],
+    "look": [
+     -2.12,
+     0.95,
+     0.1
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -2.12,
+      1.112,
+      2.665
+     ],
+     "look": [
+      -2.12,
+      0.95,
+      0.1
+     ],
+     "fov": 46
+    },
+    "dur": 1.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "att",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "set": {
+      "open": 0.1
+     },
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "What does it do?",
+     "tone": "question",
+     "style": "nervous, curious, a little scared",
+     "voice": "spud-x115",
+     "dur": 0.89,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0.06,
+       0.775,
+       -0.12
+      ],
+      "palm": [
+       0.06,
+       -0.28,
+       -0.12
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.8,
+      0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.14
+    }
+   ]
+  },
+  {
+   "name": "nobody came back",
+   "at": 4.2,
+   "len": 2.233,
+   "shot": {
+    "pos": [
+     -1.12,
+     1.32,
+     3.35
+    ],
+    "look": [
+     -1.12,
+     1,
+     0.1
+    ],
+    "fov": 86,
+    "to": {
+     "pos": [
+      -1.12,
+      1.294,
+      3.09
+     ],
+     "look": [
+      -1.12,
+      1,
+      0.1
+     ],
+     "fov": 86
+    },
+    "dur": 2.0999999999999996,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "att",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "att",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Nobody who pressed it... came back.",
+     "tone": "whisper",
+     "style": "mysterious whisper, a pause before came back",
+     "voice": "mash",
+     "dur": 1.74,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.2
+    }
+   ]
+  },
+  {
+   "name": "mine",
+   "at": 6.433,
+   "len": 1.567,
+   "shot": {
+    "pos": [
+     -1.2,
+     1.12,
+     2.9
+    ],
+    "look": [
+     -1.2,
+     0.98,
+     0.1
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -1.2,
+      1.112,
+      2.732
+     ],
+     "look": [
+      -1.2,
+      0.98,
+      0.1
+     ],
+     "fov": 52
+    },
+    "dur": 1.6999999999999993,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "att",
+     "do": "hide",
+     "at": 0.057
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.067
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.15,
+     "at": 0.067
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.02,
+       0.775,
+       0.12
+      ],
+      "palm": [
+       -0.02,
+       -0.28,
+       0.12
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.067
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.5,
+     "at": 0.067
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.067
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0.167
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.3,
+     "at": 0.267
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Mine.",
+     "tone": "calm",
+     "style": "smug, slow, sliding his arm over, eyes half closed",
+     "voice": "wedge-x115",
+     "dur": 0.79,
+     "caption": false,
+     "at": 0.567
+    }
+   ]
+  },
+  {
+   "name": "armrest is mine",
+   "at": 8,
+   "len": 1.833,
+   "shot": {
+    "pos": [
+     -2.12,
+     1.12,
+     2.8
+    ],
+    "look": [
+     -2.12,
+     0.95,
+     0.1
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -2.12,
+      1.108,
+      2.611
+     ],
+     "look": [
+      -2.12,
+      0.95,
+      0.1
+     ],
+     "fov": 46
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "That armrest is MINE.",
+     "tone": "angry",
+     "style": "offended, through his teeth",
+     "voice": "spud-x115",
+     "dur": 1.42,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.4
+    }
+   ]
+  },
+  {
+   "name": "round 1",
+   "at": 9.833,
+   "len": 2.167,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.12,
+     3.4
+    ],
+    "look": [
+     -1.555,
+     0.92,
+     0.1
+    ],
+    "fov": 68,
+    "to": {
+     "pos": [
+      -1.555,
+      1.11,
+      3.235
+     ],
+     "look": [
+      -1.555,
+      0.92,
+      0.1
+     ],
+     "fov": 68
+    },
+    "dur": 2.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.15,
+     "at": 0.117
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.07,
+       0.775,
+       -0.02
+      ],
+      "palm": [
+       -0.07,
+       -0.28,
+       -0.02
+      ]
+     },
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.117
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.15,
+     "at": 0.117
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0.07,
+       0.775,
+       -0.02
+      ],
+      "palm": [
+       0.07,
+       -0.28,
+       -0.02
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.117
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -3,
+     "dur": 0.3,
+     "at": 0.117
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.3,
+     "at": 0.217
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.217
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.217
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.217
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.217
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.417
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Hnnngh!",
+     "tone": "angry",
+     "style": "straining, pushing",
+     "voice": "spud-x115",
+     "dur": 0.6,
+     "caption": false,
+     "at": 0.467
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 0.467
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.48
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.063,
+     "at": 0.53
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.543
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 0.593
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.606
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.063,
+     "at": 0.656
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.669
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 0.719
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.732
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.063,
+     "at": 0.782
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.795
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 0.845
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.858
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.063,
+     "at": 0.908
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.921
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 0.971
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.984
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.063,
+     "at": 1.034
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.047
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 1.097
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 1.11
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.063,
+     "at": 1.16
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.173
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 1.223
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 1.236
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.063,
+     "at": 1.286
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.299
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 1.349
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 1.362
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.063,
+     "at": 1.412
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.425
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.15,
+     "at": 1.467
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.05,
+       0.775,
+       0.145
+      ],
+      "palm": [
+       -0.05,
+       -0.28,
+       0.145
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.467
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 1.475
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 1.488
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.015,
+     "dur": 0.063,
+     "at": 1.538
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.551
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.063,
+     "at": 1.601
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.667
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.667
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.7
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.667
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.7
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.667
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.12,
+     "set": {
+      "open": 0.3
+     },
+     "at": 1.667
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.12,
+     "set": {
+      "open": 0.3
+     },
+     "at": 1.667
+    },
+    {
+     "sfx": "recordscratch",
+     "gain": 0.6,
+     "reason": "the music stops: your hand is next to the button",
+     "at": 1.687
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.717
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.717
+    }
+   ]
+  },
+  {
+   "name": "one centimetre",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.5,
+     1.65
+    ],
+    "look": [
+     -1.555,
+     0.74,
+     0.25
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.555,
+      1.47,
+      1.594
+     ],
+     "look": [
+      -1.555,
+      0.74,
+      0.25
+     ],
+     "fov": 32
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "who": "att",
+     "do": "move",
+     "to": [
+      0.12,
+      -0.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "att",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "att",
+     "do": "show",
+     "at": 0.98
+    },
+    {
+     "who": "att",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "att",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.98
+    },
+    {
+     "who": "att",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "att",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.98
+    },
+    {
+     "who": "att",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0.98
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "too dangerous 1",
+   "at": 13,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.25,
+     1.9
+    ],
+    "look": [
+     -0.05,
+     1.05,
+     -0.1
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -0.287,
+      1.24,
+      1.8
+     ],
+     "look": [
+      -0.05,
+      1.05,
+      -0.1
+     ],
+     "fov": 44
+    },
+    "dur": 1.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Too. Dangerous.",
+     "tone": "whisper",
+     "style": "deadpan, flat, appearing out of nowhere",
+     "voice": "mash",
+     "dur": 1.35,
+     "caption": false,
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "back off",
+   "at": 14.7,
+   "len": 5.2,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.12,
+     3.4
+    ],
+    "look": [
+     -1.555,
+     0.92,
+     0.1
+    ],
+    "fov": 68,
+    "to": {
+     "pos": [
+      -1.555,
+      1.104,
+      3.136
+     ],
+     "look": [
+      -1.555,
+      0.92,
+      0.1
+     ],
+     "fov": 68
+    },
+    "dur": 5.149999999999999,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "att",
+     "do": "hide",
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "att",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.15,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.05,
+       0.775,
+       0.1
+      ],
+      "palm": [
+       -0.05,
+       -0.28,
+       0.1
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Whole arm.",
+     "tone": "happy",
+     "style": "smug, victorious",
+     "voice": "spud-x115",
+     "dur": 1.64,
+     "caption": false,
+     "at": 1.3
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.15,
+     "at": 2.95
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0.055,
+       0.775,
+       0.1
+      ],
+      "palm": [
+       0.055,
+       -0.28,
+       0.1
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 2.95
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 3.05
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Whole arm. And chin.",
+     "tone": "calm",
+     "style": "calm, smug, chin coming down",
+     "voice": "wedge-x115",
+     "take": 3,
+     "dur": 1.92,
+     "caption": false,
+     "at": 3.05
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.5,
+     "at": 4.05
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -7,
+     "dur": 0.6,
+     "at": 4.15
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 4.15
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 4.25
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 4.45
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 4.5
+    }
+   ]
+  },
+  {
+   "name": "the hat",
+   "at": 19.9,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     -1.1,
+     0.78,
+     1.75
+    ],
+    "look": [
+     -1.1,
+     0.18,
+     0.82
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -1.1,
+      0.708,
+      1.638
+     ],
+     "look": [
+      -1.1,
+      0.18,
+      0.82
+     ],
+     "fov": 42
+    },
+    "dur": 2.200000000000003,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I fly a lot.",
+     "tone": "calm",
+     "style": "relaxed, knowing",
+     "voice": "wedge-x115",
+     "dur": 1.31,
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "x": -1.72,
+      "y": 0.8,
+      "z": 0.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.18
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.004,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.01,
+     "at": 2.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.72,
+       0.85,
+       0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.18
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 2.19
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.004
+     },
+     "dur": 0.12,
+     "at": 2.196
+    }
+   ]
+  },
+  {
+   "name": "butter",
+   "at": 22.1,
+   "len": 3,
+   "shot": {
+    "pos": [
+     -1.92,
+     1.2,
+     2.1
+    ],
+    "look": [
+     -1.92,
+     0.88,
+     0.1
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      -1.92,
+      1.184,
+      2
+     ],
+     "look": [
+      -1.92,
+      0.88,
+      0.1
+     ],
+     "fov": 58
+    },
+    "dur": 3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "knife",
+     "hand": "L",
+     "grip": [
+      0,
+      0.12,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.575,
+       0.745,
+       -0.05
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "console",
+     "set": {
+      "butter": 1
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.555,
+       0.745,
+       0.08
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "sfx": "squirt",
+     "gain": 0.25,
+     "reason": "butter spread",
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.575,
+       0.745,
+       0.02
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.555,
+       0.745,
+       0.15
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.87
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.87
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.575,
+       0.745,
+       -0.02
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "sfx": "squirt",
+     "gain": 0.2,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.555,
+       0.745,
+       0.2
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.42
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.42
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.575,
+       0.8,
+       0.45
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "console",
+     "set": {
+      "guard": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2
+    },
+    {
+     "sfx": "click",
+     "gain": 0.4,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Oops.",
+     "tone": "happy",
+     "style": "fake innocent, sly",
+     "voice": "spud-x115",
+     "dur": 0.59,
+     "caption": false,
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.8,
+       0.86,
+       0.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 15
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.4
+    }
+   ]
+  },
+  {
+   "name": "the slip",
+   "at": 25.1,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.12,
+     3.4
+    ],
+    "look": [
+     -1.555,
+     0.92,
+     0.1
+    ],
+    "fov": 68,
+    "to": {
+     "pos": [
+      -1.555,
+      1.11,
+      3.235
+     ],
+     "look": [
+      -1.555,
+      0.92,
+      0.1
+     ],
+     "fov": 68
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.15,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0.04,
+       0.775,
+       -0.1
+      ],
+      "palm": [
+       0.04,
+       -0.28,
+       -0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.1,
+     "at": 0.65
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0.03,
+       0.775,
+       0.12
+      ],
+      "palm": [
+       0.03,
+       -0.28,
+       0.12
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.65
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -7,
+     "dur": 0.15,
+     "at": 0.65
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.3,
+     "reason": "his elbow skids on the butter",
+     "at": 0.65
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0.02,
+       0.895,
+       0.27
+      ],
+      "palm": [
+       0.02,
+       -0.16,
+       0.27
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.73
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -4,
+     "dur": 0.4,
+     "at": 0.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Whoa, whoa, whoa!",
+     "tone": "scared",
+     "style": "slipping, panicking",
+     "voice": "wedge-x115",
+     "dur": 1.63,
+     "caption": false,
+     "at": 0.8
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.7
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.7
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.12,
+     "set": {
+      "open": 0.35
+     },
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.12,
+     "set": {
+      "open": 0.5
+     },
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "name": "over the button",
+   "at": 26.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.5,
+     1.65
+    ],
+    "look": [
+     -1.555,
+     0.74,
+     0.25
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.555,
+      1.47,
+      1.594
+     ],
+     "look": [
+      -1.555,
+      0.74,
+      0.25
+     ],
+     "fov": 32
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "att",
+     "do": "move",
+     "to": [
+      0.12,
+      -0.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.08
+    },
+    {
+     "who": "att",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.08
+    },
+    {
+     "who": "att",
+     "do": "show",
+     "at": 1.08
+    },
+    {
+     "who": "att",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.08
+    },
+    {
+     "who": "att",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.16,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.08
+    },
+    {
+     "who": "att",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 1.08
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "too dangerous 2",
+   "at": 27.7,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.25,
+     1.9
+    ],
+    "look": [
+     -0.05,
+     1.05,
+     -0.1
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -0.285,
+      1.238,
+      1.78
+     ],
+     "look": [
+      -0.05,
+      1.05,
+      -0.1
+     ],
+     "fov": 44
+    },
+    "dur": 1.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Too. Dangerous.",
+     "tone": "whisper",
+     "style": "deadpan, flat, right in their faces",
+     "voice": "mash",
+     "dur": 1.36,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.3
+    }
+   ]
+  },
+  {
+   "name": "shut it",
+   "at": 29.4,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.12,
+     3.4
+    ],
+    "look": [
+     -1.555,
+     0.92,
+     0.1
+    ],
+    "fov": 68
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.45,
+     "ease": "settle",
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.565,
+       0.86,
+       0.36
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "att",
+     "do": "hide",
+     "at": 0.16
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.565,
+       0.83,
+       0.4
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "console",
+     "set": {
+      "guard": 0
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -1.8,
+       0.86,
+       0.36
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "knife",
+     "set": {
+      "rot": -90,
+      "tip": 15
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "fakearm",
+     "set": {
+      "x": -0.94,
+      "y": 0.35,
+      "z": 0.42
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.78
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0.78
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fakearm",
+      "grip": [
+       0.116,
+       0.132,
+       0.031
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.78
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fakearm",
+      "grip": [
+       0.116,
+       0.132,
+       0.031
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.02,
+       0.35,
+       0.42
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.78
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "knife",
+     "dur": 0,
+     "to": [
+      -1.555,
+      0.3,
+      0.1
+     ],
+     "at": 0.79
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.004,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.15,
+     "at": 0.79
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fakearm",
+      "grip": [
+       0.116,
+       0.132,
+       0.031
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.79
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.796
+    }
+   ]
+  },
+  {
+   "name": "the fake arm",
+   "at": 30.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     -1,
+     1.15,
+     2.9
+    ],
+    "look": [
+     -1,
+     1.08,
+     0.1
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -1,
+      1.146,
+      2.732
+     ],
+     "look": [
+      -1,
+      1.08,
+      0.1
+     ],
+     "fov": 44
+    },
+    "dur": 2.8000000000000007,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "knife",
+      "grip": [
+       0,
+       0.12,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 0.03
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.04
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fakearm",
+      "grip": [
+       0.116,
+       0.132,
+       0.031
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.8,
+       0.56,
+       0.64
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "grab",
+     "prop": "fakearm",
+     "hand": "R",
+     "grip": [
+      0.116,
+      0.132,
+      0.031
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I know this plane better than you.",
+     "tone": "calm",
+     "style": "smug, slow, pulling on a sleep mask",
+     "voice": "wedge-x115",
+     "dur": 1.89,
+     "caption": false,
+     "at": 0.7
+    },
+    {
+     "fx": "glint",
+     "pos": [
+      -0.77,
+      0.74,
+      0.3
+     ],
+     "dur": 0.5,
+     "at": 1.7
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.3,
+     "reason": "the pin's glint",
+     "at": 1.7
+    },
+    {
+     "who": "wedge",
+     "do": "release",
+     "prop": "fakearm",
+     "dur": 0,
+     "to": [
+      -1.515,
+      0.785,
+      -0.06
+     ],
+     "at": 2.78
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "fakearm",
+     "set": {
+      "tip": 90,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.78
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.78
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.78
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.78
+    }
+   ]
+  },
+  {
+   "name": "asleep",
+   "at": 33,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.12,
+     3.4
+    ],
+    "look": [
+     -1.555,
+     0.92,
+     0.1
+    ],
+    "fov": 68,
+    "to": {
+     "pos": [
+      -1.555,
+      1.108,
+      3.202
+     ],
+     "look": [
+      -1.555,
+      0.92,
+      0.1
+     ],
+     "fov": 68
+    },
+    "dur": 2.3999999999999986,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fakearm",
+      "grip": [
+       0.116,
+       0.132,
+       0.031
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.02
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "serene",
+     "dur": 0.3,
+     "set": {
+      "open": 0.25
+     },
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.6,
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Zzz.",
+     "tone": "calm",
+     "style": "asleep",
+     "voice": "wedge-x115",
+     "dur": 0.54,
+     "caption": false,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.6
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "lid": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "crowbar",
+     "set": {
+      "x": -1.78,
+      "y": 0.15,
+      "z": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.78,
+       0.15,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.39
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.396
+    }
+   ]
+  },
+  {
+   "name": "the crowbar",
+   "at": 35.4,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -2,
+     0.78,
+     1.5
+    ],
+    "look": [
+     -2.03,
+     1.25,
+     0
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -2.002,
+      0.808,
+      1.41
+     ],
+     "look": [
+      -2.03,
+      1.25,
+      0
+     ],
+     "fov": 52
+    },
+    "dur": 1.6000000000000014,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.78,
+       0.42,
+       0.45
+      ]
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "crowbar",
+     "hand": "L",
+     "grip": [
+      -0.068,
+      0.42,
+      0.018
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Not on my flight.",
+     "tone": "angry",
+     "style": "low, dramatic, an action hero",
+     "voice": "spud-x115",
+     "dur": 0.96,
+     "caption": false,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.545,
+       0.8,
+       -0.02
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "crowbar",
+     "set": {
+      "rot": -90,
+      "tip": 55
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    }
+   ]
+  },
+  {
+   "name": "the lever",
+   "at": 37,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.5,
+     1.65
+    ],
+    "look": [
+     -1.555,
+     0.74,
+     0.25
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.555,
+      1.47,
+      1.594
+     ],
+     "look": [
+      -1.555,
+      0.74,
+      0.25
+     ],
+     "fov": 32
+    },
+    "dur": 0.8999999999999986,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.495,
+       0.775,
+       0.08
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "crowbar",
+     "set": {
+      "rot": -90,
+      "tip": 45
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.495,
+       0.8,
+       0.08
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "crowbar",
+     "set": {
+      "rot": -90,
+      "tip": 38
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "fakearm",
+     "set": {
+      "x": -1.6,
+      "y": 1.7,
+      "z": 0.9,
+      "tip": 160,
+      "rot": 40
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.5,
+     "reason": "the fake arm pops off",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "fakearm",
+     "set": {
+      "y": -40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.575,
+       0.9,
+       0.38
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "crowbar",
+     "set": {
+      "rot": -90,
+      "tip": 50
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "wedgeC",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.88
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "the tug",
+   "at": 37.9,
+   "len": 1.933,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.12,
+     3.4
+    ],
+    "look": [
+     -1.555,
+     0.92,
+     0.1
+    ],
+    "fov": 68,
+    "to": {
+     "pos": [
+      -1.555,
+      1.108,
+      3.202
+     ],
+     "look": [
+      -1.555,
+      0.92,
+      0.1
+     ],
+     "fov": 68
+    },
+    "dur": 1.9500000000000028,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.03,
+       0.97,
+       0.28
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hey! Hnnngh!",
+     "tone": "angry",
+     "style": "waking up, pulling back hard",
+     "voice": "wedge-x115",
+     "dur": 1.04,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.605,
+       0.9,
+       0.38
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "crowbar",
+     "set": {
+      "rot": -90,
+      "tip": 50
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.06,
+       0.97,
+       0.28
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.463
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.513
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.526
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.576
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.589
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.639
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.652
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.545,
+       0.9,
+       0.38
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.67
+    },
+    {
+     "do": "prop",
+     "id": "crowbar",
+     "set": {
+      "rot": -90,
+      "tip": 50
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.67
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0,
+       0.97,
+       0.28
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.67
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.702
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.715
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.765
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.778
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.828
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.841
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.605,
+       0.9,
+       0.38
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.89
+    },
+    {
+     "do": "prop",
+     "id": "crowbar",
+     "set": {
+      "rot": -90,
+      "tip": 50
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.89
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.06,
+       0.97,
+       0.28
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.89
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.891
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.904
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 0.954
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 0.967
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 1.017
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.03
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.08
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 1.093
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.545,
+       0.9,
+       0.38
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.11
+    },
+    {
+     "do": "prop",
+     "id": "crowbar",
+     "set": {
+      "rot": -90,
+      "tip": 50
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.11
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0,
+       0.97,
+       0.28
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.11
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 1.143
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.156
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.206
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 1.219
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": -0.02,
+     "dur": 0.063,
+     "at": 1.269
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.282
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.063,
+     "at": 1.332
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.4
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.45
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "fakearm",
+     "set": {
+      "y": -40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.93
+    },
+    {
+     "who": "att",
+     "do": "move",
+     "to": [
+      0.12,
+      -0.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.93
+    },
+    {
+     "who": "att",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.93
+    },
+    {
+     "who": "att",
+     "do": "show",
+     "at": 1.93
+    },
+    {
+     "who": "att",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.93
+    },
+    {
+     "who": "att",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       1,
+       0.14
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.93
+    },
+    {
+     "who": "att",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.18,
+       1,
+       0.14
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.93
+    },
+    {
+     "who": "att",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.93
+    },
+    {
+     "who": "att",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.93
+    },
+    {
+     "who": "att",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.01,
+     "set": {
+      "open": 0.15
+     },
+     "at": 1.93
+    }
+   ]
+  },
+  {
+   "name": "too dangerous 3",
+   "at": 39.833,
+   "len": 1.567,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.25,
+     1.9
+    ],
+    "look": [
+     -0.05,
+     1.05,
+     -0.1
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -0.28,
+      1.234,
+      1.74
+     ],
+     "look": [
+      -0.05,
+      1.05,
+      -0.1
+     ],
+     "fov": 44
+    },
+    "dur": 1.5499999999999972,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Too. DANGEROUS!",
+     "tone": "scared",
+     "style": "finally losing her calm, loud",
+     "voice": "mash",
+     "take": 2,
+     "dur": 1.24,
+     "caption": false,
+     "at": 0.167
+    }
+   ]
+  },
+  {
+   "name": "the cockpit",
+   "at": 41.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.25,
+     1.25,
+     0.8
+    ],
+    "look": [
+     0,
+     1.05,
+     10.5
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.24,
+      1.242,
+      1.188
+     ],
+     "look": [
+      0,
+      1.05,
+      10.5
+     ],
+     "fov": 34
+    },
+    "dur": 1.3999999999999986,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "att",
+     "do": "hide",
+     "at": 0.04
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "crowbar",
+     "dur": 0,
+     "to": [
+      -1.56,
+      -40,
+      0.6
+     ],
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "crowbar",
+      "grip": [
+       -0.068,
+       0.42,
+       0.018
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 0.09
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "spudC",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "wedgeC",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.35,
+     "reason": "the cockpit door swings open",
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "the decision",
+   "at": 42.8,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     -2.12,
+     1.12,
+     2.8
+    ],
+    "look": [
+     -2.12,
+     0.95,
+     0.1
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -2.12,
+      1.103,
+      2.53
+     ],
+     "look": [
+      -2.12,
+      0.95,
+      0.1
+     ],
+     "fov": 46
+    },
+    "dur": 3.200000000000003,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -3,
+     "dur": 0.4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.7
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.7
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Nobody comes back, huh?",
+     "tone": "calm",
+     "style": "quiet, cold, a decision made",
+     "voice": "spud-x115",
+     "dur": 1.56,
+     "caption": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "evil",
+     "dur": 0.3,
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.01,
+     "at": 3.18
+    }
+   ]
+  },
+  {
+   "name": "the press",
+   "at": 46,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     -1.555,
+     1.5,
+     1.65
+    ],
+    "look": [
+     -1.555,
+     0.74,
+     0.25
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -1.555,
+      1.462,
+      1.58
+     ],
+     "look": [
+      -1.555,
+      0.74,
+      0.25
+     ],
+     "fov": 32
+    },
+    "dur": 0.7000000000000028,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.03,
+       0.935,
+       0.4
+      ],
+      "palm": [
+       -0.03,
+       -0.12,
+       0.4
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "console",
+     "set": {
+      "guard": 1
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.16
+    },
+    {
+     "sfx": "click",
+     "gain": 0.45,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0,
+       0.855,
+       0.285
+      ],
+      "palm": [
+       0,
+       -0.2,
+       0.285
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       0,
+       0.82,
+       0.285
+      ],
+      "palm": [
+       0,
+       -0.235,
+       0.285
+      ]
+     },
+     "dur": 0.06,
+     "ease": "in",
+     "at": 0.42
+    },
+    {
+     "do": "prop",
+     "id": "console",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.06,
+     "ease": "in",
+     "at": 0.45
+    },
+    {
+     "sfx": "click",
+     "gain": 0.7,
+     "at": 0.48
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "launch",
+   "at": 46.7,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     -1.75,
+     0.45,
+     2.3
+    ],
+    "look": [
+     -1.15,
+     1.6,
+     0
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "sfx": "explosion",
+     "gain": 0.8,
+     "loud": true,
+     "reason": "the ejector seat fires",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "hatch": 1
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 0.06
+    },
+    {
+     "do": "prop",
+     "id": "rocket",
+     "set": {
+      "flame": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.97,
+      0.15,
+      0
+     ],
+     "color": "#f4f4f2",
+     "puffs": 16,
+     "sparks": 0,
+     "size": 0.9,
+     "dur": 1.1,
+     "at": 0.1
+    },
+    {
+     "sfx": "rocket",
+     "gain": 0.8,
+     "reason": "the seat's rocket",
+     "at": 0.1
+    },
+    {
+     "fx": "shake",
+     "amp": 0.05,
+     "dur": 0.5,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.08,
+     "set": {
+      "open": 0.8
+     },
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "seatC",
+     "set": {
+      "y": 0.06
+     },
+     "dur": 0.07,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "rocket",
+     "set": {
+      "y": 0.06
+     },
+     "dur": 0.07,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "wedgeC",
+     "set": {
+      "y": 0.06
+     },
+     "dur": 0.07,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.08,
+     "set": {
+      "open": 0.3
+     },
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.8
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.97,
+      0.85,
+      0
+     ],
+     "color": "#f4f4f2",
+     "puffs": 16,
+     "sparks": 0,
+     "size": 0.9,
+     "dur": 1.1,
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "seatC",
+     "set": {
+      "y": 3.4
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "rocket",
+     "set": {
+      "y": 3.4
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "wedgeC",
+     "set": {
+      "y": 3.4
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.97,
+      1.55,
+      0
+     ],
+     "color": "#f4f4f2",
+     "puffs": 16,
+     "sparks": 0,
+     "size": 0.9,
+     "dur": 1.1,
+     "at": 0.24
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "seatC",
+     "set": {
+      "y": 40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "rocket",
+     "set": {
+      "y": 40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "wedgeC",
+     "set": {
+      "y": 40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.55
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.02,
+       0.775,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.28,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.01,
+     "set": {
+      "open": 0.2
+     },
+     "at": 0.88
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "mine",
+   "at": 47.6,
+   "len": 6.9,
+   "shot": {
+    "pos": [
+     -1.95,
+     1.05,
+     2.5
+    ],
+    "look": [
+     -1.95,
+     1,
+     0
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      -1.95,
+      1.048,
+      2.375
+     ],
+     "look": [
+      -1.95,
+      1,
+      0
+     ],
+     "fov": 58
+    },
+    "dur": 6.899999999999999,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "windswell",
+     "gain": 0.35,
+     "dur": 10,
+     "reason": "wind roaring through the open hatch",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "console",
+      "grip": [
+       -0.02,
+       0.775,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.28,
+       0
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.6,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "serene",
+     "dur": 0.4,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.4,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...Mine.",
+     "tone": "happy",
+     "style": "blissful sigh, eyes closed",
+     "voice": "spud-x115",
+     "dur": 0.79,
+     "caption": false,
+     "at": 1.2
+    },
+    {
+     "sfx": "ding",
+     "gain": 0.6,
+     "reason": "the cabin speaker chime",
+     "at": 2.4
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Ladies and gentlemen... this is your captain.",
+     "tone": "calm",
+     "style": "cabin announcement, calm, wind roaring behind him",
+     "voice": "wedge-pa",
+     "dur": 3.85,
+     "caption": false,
+     "at": 2.9
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.4,
+     "dur": 0.4,
+     "at": 5.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.3,
+     "at": 5.5
+    }
+   ]
+  },
+  {
+   "name": "seat 14B",
+   "at": 54.5,
+   "len": 2.266,
+   "shot": {
+    "pos": [
+     -2.12,
+     1.12,
+     2.8
+    ],
+    "look": [
+     -2.12,
+     0.95,
+     0.1
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -2.12,
+      1.106,
+      2.584
+     ],
+     "look": [
+      -2.12,
+      0.95,
+      0.1
+     ],
+     "fov": 46
+    },
+    "dur": 2.279999999999994,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.15
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "set": {
+      "open": 0.1
+     },
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I was in seat 14B.",
+     "tone": "calm",
+     "style": "flat, a beat of silence before it",
+     "voice": "wedge-pa",
+     "dur": 1.93,
+     "caption": false,
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "name": "nose down",
+   "at": 56.766,
+   "len": 1.234,
+   "shot": {
+    "pos": [
+     -1.95,
+     1.05,
+     2.5
+    ],
+    "look": [
+     -1.95,
+     1,
+     0
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      -1.95,
+      1.35,
+      2.3
+     ],
+     "look": [
+      -1.8,
+      0.45,
+      -0.8
+     ],
+     "fov": 60,
+     "roll": 3
+    },
+    "dur": 1.1,
+    "ease": "in"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.15,
+     "set": {
+      "open": 0.7
+     },
+     "at": 0.014
+    },
+    {
+     "sfx": "groan",
+     "gain": 0.6,
+     "reason": "the airframe groans as the nose drops",
+     "at": 0.064
+    },
+    {
+     "fx": "shake",
+     "amp": 0.04,
+     "dur": 1.2,
+     "at": 0.064
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.4,
+     "at": 0.114
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "z": 1.25
+     },
+     "dur": 0.8,
+     "ease": "in",
+     "at": 0.114
+    },
+    {
+     "do": "prop",
+     "id": "hat",
+     "set": {
+      "z": 1.25
+     },
+     "dur": 0.8,
+     "ease": "in",
+     "at": 0.114
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 0.9,
+   "see": [
+    "console"
+   ],
+   "why": "frame 0: the red button under its clear cover, two sleeves slamming down either side"
+  },
+  {
+   "from": 1,
+   "to": 2.92,
+   "see": [
+    "att.face",
+    "spud.face",
+    "wedge.face"
+   ],
+   "why": "the attendant leans in between you, finger at her lips"
+  },
+  {
+   "from": 6.5,
+   "to": 7.79,
+   "see": [
+    "wedge.face"
+   ],
+   "why": "he slides his arm over the whole console, smug"
+  },
+  {
+   "from": 11.3,
+   "to": 12.9,
+   "see": [
+    "console"
+   ],
+   "why": "your hand has slid to a centimetre from the button; both freeze"
+  },
+  {
+   "from": 13.2,
+   "to": 14.55,
+   "see": [
+    "att.face"
+   ],
+   "why": "the attendant, right behind his shoulder, palm up: stop"
+  },
+  {
+   "from": 15.6,
+   "to": 19.67,
+   "see": [
+    "spud.face",
+    "wedge.face"
+   ],
+   "why": "both of you, whole forearms along the console, leaning in nose to nose"
+  },
+  {
+   "from": 19.9,
+   "to": 22,
+   "see": [
+    "hat"
+   ],
+   "why": "under the seats: his open bag, a captain's hat poking out"
+  },
+  {
+   "from": 22.1,
+   "to": 24.89,
+   "see": [
+    "spud.face",
+    "console"
+   ],
+   "why": "you butter the armrest; the knife flips the button's cover open"
+  },
+  {
+   "from": 25.75,
+   "to": 27.6,
+   "see": [
+    "wedge.face",
+    "console"
+   ],
+   "why": "his hand stops a centimetre over the open button"
+  },
+  {
+   "from": 33,
+   "to": 35.2,
+   "see": [
+    "wedge",
+    "fakearm",
+    "spud.face"
+   ],
+   "why": "a fake arm on the armrest, him asleep under a mask; you glare"
+  },
+  {
+   "from": 35.4,
+   "to": 36.86,
+   "see": [
+    "spud.face",
+    "crowbar"
+   ],
+   "why": "you, the open bin above, a big red crowbar in both hands"
+  },
+  {
+   "from": 37.9,
+   "to": 39.8,
+   "see": [
+    "spud.face",
+    "wedge.face",
+    "crowbar"
+   ],
+   "why": "the tug of war, the crowbar's tip wobbling over the button"
+  },
+  {
+   "from": 41.4,
+   "to": 42.6,
+   "see": [
+    "cockpit"
+   ],
+   "why": "far down the aisle the cockpit door swings open: nobody at the controls"
+  },
+  {
+   "from": 46,
+   "to": 46.6,
+   "see": [
+    "console"
+   ],
+   "why": "your finger flips the cover and presses the button"
+  },
+  {
+   "from": 46.7,
+   "to": 47.3,
+   "see": [
+    "wedge",
+    "hatch"
+   ],
+   "why": "his seat blasts straight up through a hatch in the ceiling"
+  },
+  {
+   "from": 47.6,
+   "to": 49.59,
+   "see": [
+    "spud.face",
+    "console"
+   ],
+   "why": "you alone, your arm over the whole console, eyes closed in bliss, daylight down through the hole"
+  },
+  {
+   "from": 54.5,
+   "to": 58,
+   "see": [
+    "spud.face"
+   ],
+   "why": "your face as it lands; the cabin tips nose down"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "seatD",
+   "from": 0,
+   "to": 58,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "you sit in your seat"
+  },
+  {
+   "who": "wedge",
+   "with": "seatC",
+   "from": 0,
+   "to": 58,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "he sits in his seat (it flies with him)"
+  },
+  {
+   "who": "spud",
+   "with": "console",
+   "from": 0,
+   "to": 58,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "your hands and forearm rest on the console top"
+  },
+  {
+   "who": "wedge",
+   "with": "seatC",
+   "from": 7.4,
+   "to": 8,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "Mine: his jacket brushes the side of his own seat as he leans over the armrest"
+  },
+  {
+   "who": "wedge",
+   "with": "seatC",
+   "from": 0.9,
+   "to": 3,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "his collar presses his own seat back as he turns to her; the seat back is behind him"
+  },
+  {
+   "who": "wedge",
+   "with": "seatC",
+   "from": 27.6,
+   "to": 28.6,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "his collar presses his own seat back as he turns to her; he is off frame in her shot"
+  },
+  {
+   "who": "wedge",
+   "with": "seatC",
+   "from": 46.9,
+   "to": 47.3,
+   "checks": [
+    "costume-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "the ejection: he is thrown into his seat as it fires, under the smoke"
+  },
+  {
+   "who": "spud",
+   "with": "seatD",
+   "from": 25.1,
+   "to": 25.3,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "your elbow brushes your own seat back as the hand comes back to your lap"
+  },
+  {
+   "who": "spud",
+   "with": "seatD",
+   "from": 36.95,
+   "to": 37.4,
+   "checks": [
+    "costume-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "the crowbar insert: your elbow brushes your own seat back, you are off frame (C1 sees x -1.81..-1.30)"
+  },
+  {
+   "who": "spud",
+   "with": "console",
+   "from": 22,
+   "to": 25.15,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "butter: the glove rides above the top beside the clear cover (the cover's box reaches 0.813); close stills at 22.5, 23.0, 24.1 show the hand clear of the top"
+  },
+  {
+   "who": "spud",
+   "with": "knife",
+   "from": 24.45,
+   "to": 30.2,
+   "checks": [
+    "thin-prop-hidden",
+    "hand-in-prop"
+   ],
+   "reason": "you hold the knife up by your cheek after the flip: the handle shows above the fist, the blade behind the glove (still 26.0); the palm touches the handle as it lifts"
+  },
+  {
+   "who": "spud",
+   "with": "knife",
+   "from": 24,
+   "to": 25.1,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "the flip: the blade tip is under the cover's lip, the handle shows past the fist (still 24.1)"
+  },
+  {
+   "who": "wedge",
+   "with": "crowbar",
+   "from": 37.9,
+   "to": 39.85,
+   "checks": [
+    "hand-in-prop"
+   ],
+   "reason": "the tug: his fist closes round the bar"
+  },
+  {
+   "who": "wedge",
+   "with": "console",
+   "from": 33.1,
+   "to": 33.6,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "his sleeve brushes the console top as both hands go up to the mask"
+  },
+  {
+   "who": "wedge",
+   "with": "console",
+   "from": 0,
+   "to": 58,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "his hands and forearm rest on the console top"
+  }
+ ],
+ "notes": "Generated by storyboards/series/rival-duel/01-armrest-war/make-armrest-war.mjs."
+}
