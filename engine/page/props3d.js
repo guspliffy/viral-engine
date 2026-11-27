@@ -44,7 +44,10 @@ import { COURT_KINDS } from "./props-court.js";   // potato desk 05 court day: j
 import { CARTON_KINDS } from "./props-carton.js";   // potato desk 11 court kid and dad: friescarton, loosefry
 import { DESK14_SET_KINDS } from "./props-desk14-set.js";   // potato desk 14 don't laugh: jurybox, exhibitboard, courtdoorway, deskmic, snotbubble
 import { DESK14_PHOTO_KINDS } from "./props-desk14-photo.js";   // potato desk 14 don't laugh: bowlcut, bracesgrin (worn on spud-kid for Exhibit A)
-import { DESK14HEAD_KINDS } from "./props-desk14-head.js";   // potato desk 14 don't laugh: hashtoupee, hashcrumbs, judgeshadow
+import { DESK14HEAD_KINDS } from "./props-desk14-head.js";
+import { ALARM_HUT_KINDS, ALARM_HUT_GRIPS, ALARM_HUT_STATE } from "./props-alarm-hut.js";   // how you invented 01 alarm clock: the hut (task A)
+import { ALARM_GAGS_KINDS, ALARM_GAGS_GRIPS } from "./props-alarm-gags.js";   // how you invented 01: ropes, bucket, jet, anvil, candle, plate (task B)
+import { ALARM_ROOSTER_KINDS, ALARM_ROOSTER_GRIPS, ALARM_ROOSTER_STATE } from "./props-alarm-rooster.js";   // how you invented 01: rooster, fly (task C)   // potato desk 14 don't laugh: hashtoupee, hashcrumbs, judgeshadow
 import { IKEA_KINDS } from "./props-ikea.js";   // friends try to, episode 1 (friends-try-to-shared)
 import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode 3: the cat, the plaid bed (friends-try-to-shared)
 import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
@@ -1546,7 +1549,7 @@ Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
 Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS, ZFIGHT_KINDS, ZROOF_KINDS, ZSTAIRS_KINDS, ZWAIT_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS, ZFIGHT_GRIPS, ZROOF_GRIPS, ZSTAIRS_GRIPS, ZWAIT_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
-const KIT_STATE = { ...ARMREST_STATE, ...ARMREST_FX_STATE, ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE , ...NORSE_SPEAR_STATE, ...NORSE_RAVEN_STATE, ...NORSE_HEAD_STATE, ...NORSE_CAVE_STATE, ...NORSE_WELL_STATE, ...NORSE_TREE_STATE, ...NORSE_WIND_STATE, ...NORSE_ITEMS_STATE, ...NORSE_CLASS_STATE, ...KRAMPUS_LANE_STATE, ...KRAMPUS_BEAST_STATE, ...KRAMPUS_NICK_STATE, ...KRAMPUS_BOOTS_STATE, ...KRAMPUS_RUN_STATE, ...KRAMPUS_CAT_STATE };
+const KIT_STATE = { ...ARMREST_STATE, ...ARMREST_FX_STATE, ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE , ...NORSE_SPEAR_STATE, ...NORSE_RAVEN_STATE, ...NORSE_HEAD_STATE, ...NORSE_CAVE_STATE, ...NORSE_WELL_STATE, ...NORSE_TREE_STATE, ...NORSE_WIND_STATE, ...NORSE_ITEMS_STATE, ...NORSE_CLASS_STATE, ...KRAMPUS_LANE_STATE, ...KRAMPUS_BEAST_STATE, ...KRAMPUS_NICK_STATE, ...KRAMPUS_BOOTS_STATE, ...KRAMPUS_RUN_STATE, ...KRAMPUS_CAT_STATE, ...ALARM_ROOSTER_STATE, ...ALARM_HUT_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, CASINO_KINDS, MIND_KINDS, NIGHTCITY_KINDS, NEONSTREET_KINDS);   // there's a catch 06 (props-casino.js, props-mind.js, props-nightcity.js)
@@ -1590,6 +1593,7 @@ Object.assign(KINDS, CARTON_KINDS);   // potato desk 11: friescarton, loosefry (
 Object.assign(KINDS, DESK14_SET_KINDS);   // potato desk 14: jurybox, exhibitboard, courtdoorway, deskmic, snotbubble (props-desk14-set.js)
 Object.assign(KINDS, DESK14_PHOTO_KINDS);   // potato desk 14: bowlcut, bracesgrin (props-desk14-photo.js)
 Object.assign(KINDS, DESK14HEAD_KINDS);   // potato desk 14: hashtoupee, hashcrumbs, judgeshadow (props-desk14-head.js)
+Object.assign(KINDS, ALARM_HUT_KINDS, ALARM_GAGS_KINDS, ALARM_ROOSTER_KINDS); Object.assign(GRIPS, ALARM_HUT_GRIPS, ALARM_GAGS_GRIPS, ALARM_ROOSTER_GRIPS);   // how you invented 01 alarm clock (props-alarm-*.js)
 Object.assign(KINDS, HELLA_KINDS, HELLB_KINDS); Object.assign(GRIPS, HELLA_GRIPS, HELLB_GRIPS);   // potato desk 09 hell reviews (props-hella.js, props-hellb.js)
 Object.assign(KINDS, HELLWAIT_KINDS); Object.assign(GRIPS, HELLWAIT_GRIPS);   // potato desk 13 (props-hellwait.js)
 Object.assign(KINDS, HEART_HALL_KINDS, HEART_SCALE_KINDS, HEART_MONSTER_KINDS, HEART_HEART_KINDS, HEART_SOUL_KINDS, HEART_JUICE_KINDS, HEART_CASE_KINDS); Object.assign(GRIPS, HEART_HALL_GRIPS, HEART_SCALE_GRIPS, HEART_MONSTER_GRIPS, HEART_HEART_GRIPS, HEART_SOUL_GRIPS, HEART_JUICE_GRIPS, HEART_CASE_GRIPS);   // egypt myth 01 heart (props-heart-*.js)

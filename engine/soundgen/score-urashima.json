@@ -1,0 +1,58 @@
+{
+ "out": "legend/urashima-score.wav",
+ "duration": 99.0,
+ "against": [
+  "Generic library orchestra with sweeping strings and heroic brass",
+  "Electronic synth pads and pulsing sequenced bass",
+  "EDM build with a kick drum and a bass drop",
+  "Trailer brass blasts and oversized cinematic drum hits",
+  "Horror strings with shrieking dissonance and jump scares",
+  "Loud chant or sung lyrics over the instruments",
+  "Cartoon slapstick with slide whistles and busy xylophone runs",
+  "people talking",
+  "Generic oriental pentatonic pastiche with gongs",
+  "Taiko drums and action percussion"
+ ],
+ "sections": [
+  {
+   "id": "ura-beach",
+   "from": 0.0,
+   "label": "Light close-miked koto plucks on a sunny seaside morning with a soft low shakuhachi note",
+   "lufs": -20,
+   "fadeIn": 0.1,
+   "onset": false
+  },
+  {
+   "id": "ura-palace",
+   "from": 20.6,
+   "label": "Rippling koto over a warm sustained cello, tender and sweet",
+   "lufs": -20,
+   "fadeIn": 0.6,
+   "onset": false
+  },
+  {
+   "id": "ura-grief",
+   "from": 47.3,
+   "label": "Solo bowed cello long soft tones, quiet grief",
+   "lufs": -21,
+   "fadeIn": 0.8,
+   "onset": false
+  },
+  {
+   "id": "ura-dread",
+   "from": 76.8,
+   "label": "One solo cello holding a low note, restrained dread",
+   "lufs": -22,
+   "fadeIn": 0.8,
+   "onset": false
+  },
+  {
+   "id": "ura-sunset",
+   "from": 91.0,
+   "label": "Solo koto spaced two-note phrase, warm evening, unresolved",
+   "lufs": -21,
+   "fadeIn": 0.4,
+   "onset": false
+  }
+ ]
+}
