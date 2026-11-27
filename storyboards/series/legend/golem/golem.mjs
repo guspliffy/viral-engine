@@ -81,10 +81,10 @@ const byZ = (list) => list.filter((a) => a && a[1]).sort((a, b) => b[0] - a[0]).
 const seg = (u, cuts) => { let i = 0; while (i < cuts.length && u >= cuts[i]) i++; const a = i ? cuts[i - 1] : 0, b = i < cuts.length ? cuts[i] : a + 1; return { i, f: clamp((u - a) / Math.max(0.01, b - a)), a, b }; };
 const todayMood = (k = 0) => G.moodMix("friday", "lane", k);
 const talk = (who, T) => tk(who, T);
-const hosts_ = (c, t, m, ks = {}, gs = {}) => hosts(c, t, m, { talk: talk("K", t), ...ks }, { talk: talk("G", t), ...gs });
+const hosts_ = (c, t, m, ks = {}, gs = {}) => hosts2(c, t, m, { talk: talk("K", t), ...ks }, { talk: talk("G", t), ...gs });
 const T_ = (c, t, m, ks, gs, extra = "") => G.todaySynagogue(c, t, m) + extra + hosts_(c, t, m, ks, gs);
-// the window on the synagogue wall: dark glass from the very first shot (B32), lit warm k = 0..1 on "twice"
-function wallWindow(c, t, k = 0) {   // glow only: the set's own lit window is the single opening (B34)
+// the set's own pointed window (X 2.95, Y 1.9-4.3) already glows; on "twice" a warm pool is added around it (B34: one opening only)
+function wallWindow(c, t, k = 0) {
   if (k < 0.03) return "";
   const p = L.P(c, 2.95, 3.1, S.wall - 0.02), fl = 0.9 + 0.1 * Math.sin(t * 9) * Math.sin(t * 3.1);
   return G.pool(p.x, p.y, p.s * 1.6, p.s * 1.9, "#ffb04a", 0.26 * k * fl, 5, 3, t);
@@ -99,6 +99,18 @@ const dustPuff = (c, since, big = 1) => {   // dust coming out of the attic door
   }
   return s;
 };
+function hosts2(c, t, m, kidSt = {}, keepSt = {}) {
+  const ks = { X: S.kid.X, Z: S.kid.Z, fx: -0.5, blink: L.blinkAmt(t % 3.9, [1.4]), ...kidSt };
+  const kd = ks.up > 0.01 ? G.kidUp(c, ks, t) : L.kid(c, ks, t);
+  const gs = { X: S.keeper.X, Z: S.keeper.Z, fx: 0.7, look: 0.7, stern: 1, open: 1, flame: 1, blink: L.blinkAmt(t % 3.3, [2.1]), ...keepSt };
+  const kp = L.keeper(c, gs, t, kd.back || kd.sleeve);
+  let fing = "";
+  if ((keepSt.grab || 0) > 0.3 && kd.back && kd.p) {   // fingers closed on the fabric (B2)
+    const q = kd.back, k = kd.p.s / 100;
+    fing = `<g transform="translate(${n(q.x)},${n(q.y)}) scale(${k.toFixed(3)})"><ellipse cx="0" cy="0" rx="7" ry="6" fill="#e6bf9e" stroke="#1a1328" stroke-width="1.2"/>` + [-4.5, -1.5, 1.5, 4.5].map((x) => `<path d="M${x},-4 L${x + 1},4" stroke="#8a6a50" stroke-width="0.9"/>`).join("") + `<path d="M-9,-9 L-5,-4" stroke="#2b2f6b" stroke-width="5" stroke-linecap="round"/></g>`;
+  }
+  return byZ([[ks.Z, kd.svg], [gs.Z, kp.svg + kp.arm]]) + fing + G.grade(m, 0.5);
+}
 const laneBase = (c, t, m, o = {}) => G.lane(c, t, m, o);
 const stepTimes = (t0, t1, rate, off = 0.25) => { const out = []; for (let k = Math.ceil((t0 * rate - off) * 2); k / 2 + off <= t1 * rate; k++) out.push((k / 2 + off) / rate); return out; };
 // a wooden ladder: vertical against the wall (x, from y0 to y1) or carried flat between two men (x0 -> x1 at height y)
@@ -122,17 +134,17 @@ const L1 = LINE.L01, TITLE_OUT = 2.6;
 const KID = { x: 0.95, y: 1.1, z: 6.15 }, KEEP = { x: -0.02, y: 1.22, z: 5.7 };
 const Tw = (c, t, m, ks, gs, extra = "") => G.todaySynagogue(c, t, m) + wallWindow(c, t, 0) + extra + hosts_(c, t, m, ks, gs);
 const BEATS = [
-  // 1. A2/B1/B2: tight on the boy's hand reaching for the first high rung, cut on "DOWN" to a medium two-shot: grandmother's hand on his jacket
+  // 1. A2/B1/B2/B3: one continuous jump and catch across the cut on "DOWN": tight on the hand under the rung, then a medium two-shot (fingers on the jacket)
   { line: "L01", pre: 0.3, holdTo: TITLE_OUT, shot(u, d, T) {
-    const m = G.mood("friday"), dnS = wordAt(L1, "down", 0.21) + 0.0, dnE = wordEnd(L1, "down", 0.55), cutA = dnS - 0.02;
-    const kz = 7.62;
+    const m = G.mood("friday"), dnS = wordAt(L1, "down", 0.21), dnE = wordEnd(L1, "down", 0.55), cutA = dnS - 0.02, kz = 7.62;
+    const hop = 78 * Math.sin(Math.PI * (0.35 + 0.65 * clamp((u + 0.3) / (dnE + 0.3)))), land = clamp((u - dnE + 0.1) / 0.35);
     if (u < cutA) {
-      const c = push(clamp(u / cutA), { x: 1.0, y: 1.7, z: 6.0 }, 0.2, 0, 0.1), hop = 78 * Math.abs(Math.sin(T * 5.2 + 0.1));
-      return G.todaySynagogue(c, T, m) + wallWindow(c, T, 0) + hosts(c, T, m, { up: 1, hop, fx: -0.2, Z: kz, X: 1.0, stretch: hop * 0.3 }, { X: S.keeper.X - 0.3, talk: 0, fx: 0.7 });
+      const c = push(clamp(u / cutA), { x: 1.0, y: 1.7, z: 6.0 }, 0.2, 0, 0.1);
+      return G.todaySynagogue(c, T, m) + hosts2(c, T, m, { up: 1, hop, fx: -0.2, Z: kz, X: 1.0, stretch: hop * 0.3 }, { X: S.keeper.X - 0.3, talk: 0, fx: 0.7 });
     }
-    const f = (u - cutA) / (d + 0.4 - cutA), c = push(f, { x: 0.45, y: 1.5, z: 5.3 }, 0.3);
+    const f = (u - cutA) / (d + 0.4 - cutA), c = push(f, { x: 0.3, y: 1.5, z: 4.9 }, 0.3);
     const grab = tr([[dnS, 0], [dnS + 0.2, 1]], u), back = tr([[dnE - 0.1, 0], [dnE + 0.35, 1]], u);
-    return G.todaySynagogue(c, T, m) + wallWindow(c, T, 0) + hosts(c, T, m, { up: tr([[0, 1], [dnS + 0.05, 1], [dnE, 0.1]], u), hop: tr([[0, 20], [dnE - 0.1, 8], [dnE + 0.3, 0]], u), fx: lerp(-0.2, -0.7, back), Z: kz, X: 1.0 - back * 0.2, shock: back, stretch: 0 },
+    return G.todaySynagogue(c, T, m) + hosts2(c, T, m, { up: tr([[0, 1], [dnS + 0.05, 1], [dnE, 0.1]], u), hop: hop * (1 - land), fx: lerp(-0.2, -0.7, back), Z: kz, X: 1.0 - back * 0.2, talk: 0, shock: back * 0.3, stretch: hop * 0.3 * (1 - land) },
       { grab, X: S.keeper.X + 0.05, talk: talk("G", T), fx: 0.7, look: 0.5, stern: 1 });
   } },
   // 2. B3: his whole question in his close-up; the tilt up the rungs happens in the gap before her answer
@@ -154,23 +166,23 @@ const BEATS = [
     if (s.i === 0) { const c = push(s.f, LN.CAM.wide, 0.2); return laneBase(c, T, m, { lamps: 1 }) + byZ(props(c)); }
     if (s.i === 1) { const c = cam(s.f, push(1, LN.CAM.wide, 0.2), { x: -0.2, y: 1.7, z: 1.6 }, "lin"); return laneBase(c, T, m, { lamps: 1 }) + byZ(props(c)); }
     if (s.i === 2) {   // the close view of a doorway: a resident hurries to it and goes in
-      const c = push(s.f, { x: -1.0, y: 1.35, z: 2.8 }, 0.5), a = clamp((u - s.a) / Math.max(0.6, en - s.a + 0.3));
+      const c = push(s.f, { x: -1.55, y: 1.35, z: 2.8 }, 0.4), a = clamp((u - s.a) / Math.max(0.6, en - s.a + 0.3));
       const tw = G.townswoman(c, { X: lerp(-0.1, -1.95, ease(a)), Z: lerp(6.8, 5.7, ease(a)), fx: -0.8, run: u * 2.6, wide: 0.7, brow: -0.6, m }, T);
       return laneBase(c, T, m, { lamps: 1 }) + byZ([...props(c), a < 0.97 ? [lerp(6.8, 5.7, a), tw.svg] : null]);
     }
     const c = push(s.f, { x: -0.9, y: 1.4, z: 3.8 }, 1.2, 0.8);   // carried past the doorway: the lane is empty
     return laneBase(c, T, m, { lamps: 1 }) + byZ(props(c));
   } },
-  // 5. A12/B6/B7: Loew already moving to kneel (the lantern was in the wide), his thumb in the clay on "shaped", the whole body on "giant"
+  // 5. B6/B7: Loew in frame from the first frame of the shot, thumb in the wet clay on "shaped", the golem opaque on "giant" (cuts as in draft 2)
   { line: "L05", shot(u, d, T, ln) {
     const m = G.mood("river"), sh = wordAt(ln, "shaped", 3.2) - 0.05, gi = wordAt(ln, "giant", 3.7) - 0.05, s = seg(u, [0.7, sh, gi]);
     const rb = (c, st) => G.rabbi(c, { ...RV.rabbi, fx: 0.7, m, ...st }, T);
-    if (s.i === 0) { const c = push(s.f, RV.CAM.wide, 0.35), a = ease(s.f); return G.river(c, T, m) + rb(c, { X: lerp(-3.2, RV.rabbi.X, a), walk: T * 1.3 }).svg + G.riverMist(c, T, m); }
+    if (s.i === 0) { const c = push(s.f, RV.CAM.wide, 0.35), a = ease(s.f); return G.river(c, T, m) + rb(c, { X: lerp(-2.3, RV.rabbi.X, a), walk: T * 1.3 }).svg + G.riverMist(c, T, m); }
     if (s.i === 1) { const c = push(s.f, { x: -1.5, y: 1.25, z: 2.6 }, 0.5), kn = ease(clamp(s.f * 1.4)); return G.river(c, T, m) + rb(c, { kneel: kn, look: 0.4 }).svg + G.riverMist(c, T, m); }
-    if (s.i === 2) { const c = push(s.f, { x: -1.35, y: 1.0, z: 3.7 }, 0.3), r = rb(c, { kneel: 1, shape: 1, shapeTo: [52 + 10 * Math.sin(T * 5), -34 + 6 * Math.sin(T * 4)] }); return G.river(c, T, m) + r.svg + G.riverMist(c, T, m, 0.5); }
-    const c = push(s.f, { x: -0.7, y: 1.55, z: 1.9 }, 0.5), rv = ease(clamp(s.f * 2.5));
-    const g = G.golem(c, { ...RV.golem, pose: "lie", fx: 0.4, awake: 0, m }, T), r = rb(c, { kneel: 1, shape: 1, shapeTo: [52 + 10 * Math.sin(T * 5), -34] });
-    return G.river(c, T, m) + byZ([[RV.golem.Z, `<g opacity="${n(rv)}">${g.svg}</g>`], [RV.rabbi.Z, r.svg]]) + G.riverMist(c, T, m);
+    if (s.i === 2) { const c = push(s.f, { x: -1.35, y: 1.0, z: 3.7 }, 0.3), r = rb(c, { kneel: 1, shape: 1, shapeTo: [58 + 8 * Math.sin(T * 5), -22 + 5 * Math.sin(T * 4)] }); return G.river(c, T, m) + r.svg + G.riverMist(c, T, m, 0.5); }
+    const c = push(s.f, { x: -0.7, y: 1.55, z: 1.9 }, 0.5);
+    const g = G.golem(c, { ...RV.golem, pose: "lie", fx: 0.4, awake: 0, m }, T), r = rb(c, { kneel: 1, shape: 1, shapeTo: [58, -22 + 4 * Math.sin(T * 4)] });
+    return G.river(c, T, m) + byZ([[RV.golem.Z, g.svg], [RV.rabbi.Z, r.svg]]) + G.riverMist(c, T, m);
   } },
   // 6. A10/B8/B9/B10: the writing hand; the slip meets the lips (the hand follows it in); the face, lids closed a beat before the first blink
   { line: "L06", shot(u, d, T, ln) {
@@ -182,7 +194,7 @@ const BEATS = [
     }
     if (s.i === 1) {   // the whole head and hand in frame
       const c = push(s.f, { x: -1.0, y: 1.2, z: 3.0 }, 0.2), g = G.golem(c, { ...RV.golem, pose: "lie", fx: 0.4, awake: 0, look: -0.3, slip: s.f > 0.62 ? 1 : 0, m }, T);
-      const rb = G.rabbi(c, { X: RV.rabbi.X + 0.35, Z: RV.rabbi.Z - 0.1, fx: 0.7, kneel: 1, reachAt: g.mouth, hold: s.f > 0.62 ? null : "slip", holdSize: 1.2, m }, T);
+      const rb = G.rabbi(c, { X: RV.rabbi.X + 0.35, Z: RV.rabbi.Z - 0.1, fx: 0.7, kneel: 1, reachAt: s.f < 0.8 ? g.mouth : { x: g.mouth.x - 150 * ease(clamp((s.f - 0.8) / 0.2)), y: g.mouth.y + 120 * ease(clamp((s.f - 0.8) / 0.2)) }, hold: s.f > 0.62 ? null : "slip", holdSize: 1.2, m }, T);
       return G.river(c, T, m) + byZ([[RV.golem.Z, g.svg], [RV.rabbi.Z - 0.1, rb.svg]]) + G.riverMist(c, T, m, 0.6);
     }
     const c = { x: -0.75, y: 1.3, z: 2.2 }, aw = tr([[0.25, 0], [0.75, 1]], u - op), g = G.golem(c, { ...RV.golem, pose: "lie", fx: 0.4, awake: aw, look: -0.3, slip: 1, m }, T);
@@ -212,9 +224,9 @@ const BEATS = [
       const g = G.golem(c, { X: gx, Z: z, fx: 0.95, walk: ph, awake: 1, slip: 1, m }, T);
       return laneBase(c, T, m) + byZ([[LN.well.Z, G.well(c, { m }, T)], [z, g.svg]]);
     }
-    const f = s.f, c = push(f, { x: 0.1, y: 2.0, z: 2.2 }, 0.4), z = lerp(8.4, 7.4, f);
-    const g = G.golem(c, { X: lerp(0.9, 0.2, f), Z: z, fx: -0.4, walk: ph, carry: 1, awake: 1, slip: 1, m }, T);
-    const bk = G.baker(c, { X: -1.25, Z: 5.4, fx: 0.7, wide: 0.8, brow: -0.5, hold: "loaf", m }, T), by = G.boy(c, { X: -0.75, Z: 5.1, fx: 0.6, wide: 0.6, smile: 0.8, point: 1, m }, T);
+    const f = s.f, c = push(f, { x: -0.1, y: 1.85, z: 2.2 }, 0.35), z = lerp(8.4, 7.6, f);
+    const g = G.golem(c, { X: lerp(0.8, 0.1, f), Z: z, fx: -0.2, walk: ph, carry: 0.85, awake: 1, slip: 1, m }, T);
+    const bk = G.baker(c, { X: -0.95, Z: 5.6, fx: 0.7, wide: 0.8, brow: -0.5, hold: "loaf", m }, T), by = G.boy(c, { X: -0.45, Z: 5.2, fx: 0.6, wide: 0.6, smile: 0.8, point: 1, m }, T);
     return laneBase(c, T, m) + byZ([[LN.well.Z, G.well(c, { m, gone: 1 }, T)], [z, g.svg], [LN.cart.Z, G.cart(c, { m, X: 1.2, Z: 5.9 }, T)], [5.4, bk.svg], [5.1, by.svg]]);
   } },
   { line: "L09", shot(u, d, T) { return Tw(push(u / d, KID, 0.2), T, G.mood("friday"), { fx: -0.7, grin: 1, look: 0.2 }, { fx: 0.7 }); } },
@@ -224,7 +236,7 @@ const BEATS = [
     if (u >= d) return Tw(push(clamp((u - d) / 0.3), KID, 0.1), T, G.mood("friday"), { fx: -0.7, look: 0.3 }, { fx: 0.7 });
     const s = seg(u, [d / 3, 2 * d / 3]), m = G.moodMix("river", "sabbath", [0.15, 0.55, 1][s.i]), f = s.f;
     const c = push(f, { x: -0.55, y: 1.35, z: 1.8 }, 0.25), out = ease(clamp((f - 0.2) / 0.45));
-    const g = G.golem(c, { ...RV.golem, Y: 0.1, pose: "lie", sit: 1, fx: 0.4, awake: 1 - ease(clamp((f - 0.6) / 0.25)), slip: out < 0.3 ? 1 : 0, m, look: -0.4 }, T);
+    const g = G.golem(c, { ...RV.golem, Y: 0.1, pose: "lie", sit: 1, fx: 0.4, awake: 1 - ease(clamp((f - 0.68) / 0.2)), slip: out < 0.3 ? 1 : 0, m, look: -0.4 }, T);
     const hand = out < 0.3 ? g.mouth : { x: g.mouth.x - 110 * ease(clamp((out - 0.3) / 0.7)), y: g.mouth.y + 30 };
     const rb = G.rabbi(c, { X: RV.rabbi.X + 0.55, Z: RV.rabbi.Z, fx: 0.7, reachAt: hand, hold: out >= 0.3 ? "slip" : null, holdSize: 1.2, brow: 0.1, m }, T);
     return G.river(c, T, m, { mist: 0.4 }) + byZ([[RV.golem.Z, g.svg], [RV.rabbi.Z, rb.svg]]) + G.riverMist(c, T, m, 0.3);
@@ -252,61 +264,63 @@ const BEATS = [
   { line: "L15", shot(u, d, T, ln) {
     const gi = wordAt(ln, "giant", 1.4) - 0.1, s = seg(u, [gi]), m = G.mood("sabbath");
     if (s.i === 0) {
-      const c = push(s.f, { x: 1.8, y: 1.5, z: 9.5 }, 0.3, -0.1), k = ease(clamp(u / 0.5));
+      const c = push(s.f, { x: 1.9, y: 1.45, z: 10.3 }, 0.25, -0.1), k = ease(clamp(u / 0.5));
       const wm = G.townswoman(c, { X: lerp(2.2, 1.7, k), Z: lerp(13.3, 11.6, k), fx: -0.5, run: T * 2.2, point: k > 0.8 ? 1 : 0, wide: 1, brow: -0.7, talk: talk("W", T), m }, T);
       return G.synagogueInside(c, T, m, { door: ease(clamp(u / 0.25)) }) + wm.svg + G.worshippers(c, T, { m, turn: s.f, rows: [] });
     }
-    const c = push(s.f, { x: -0.2, y: 1.75, z: 6.3 }, 0.3), rb = G.rabbi(c, { ...HL.rabbi, fx: 0.5, book: 1 - ease(s.f * 3), wide: 1, brow: -0.6, m }, T);
+    const c = push(s.f, { x: -0.2, y: 1.75, z: 6.3 }, 0.3), rb = G.rabbi(c, { ...HL.rabbi, fx: 0.5, book: 0.7, wide: 1, brow: -0.6, m }, T);
     return G.synagogueInside(c, T, m, { door: 1 }) + rb.svg + G.bimahFront(c, m);
   } },
-  // 16. A8/B21-24: each impact shot ends after its result; the cart is released; the growth against a doorway
+  // 16. A8/B17-B20: late windup, the split wood held; the cart leaves the golem's hand; growth steps beside the same doorways
   { line: "L16", shot(u, d, T, ln) {
-    const m = G.mood("rampage"), s = seg(u, [wordAt(ln, "doors", 1.4) - 0.05, wordAt(ln, "carts", 2.6) - 0.08, wordAt(ln, "and", 3.7) - 0.05]), gr = clamp(u / d);
+    const m = G.mood("rampage"), s = seg(u, [wordAt(ln, "doors", 1.4) - 0.05, wordAt(ln, "carts", 2.6) - 0.08, wordAt(ln, "and", 3.7) - 0.05]);
     const run = (c, X0, X1, Z0, Z1, a, fn, f0, fx) => fn(c, { X: lerp(X0, X1, a), Z: lerp(Z0, Z1, a), fx, run: T * 2.7 + f0, wide: 1, brow: -0.8, talk: 1, m }, T);
     if (s.i === 0) {
-      const c = push(s.f, LN.CAM.wide, 0.7, 0, 0.1), g = G.golem(c, { X: 0.25, Z: lerp(10.4, 8.4, s.f), fx: -0.6, walk: T * 0.7, grow: 0.2, anger: 1, awake: 1, slip: 1, look: -0.6, m }, T);
+      const c = push(s.f, LN.CAM.wide, 0.7, 0, 0.1), g = G.golem(c, { X: 0.25, Z: lerp(10.4, 8.4, s.f), fx: -0.6, walk: T * 0.7, grow: 0.15, anger: 1, awake: 1, slip: 1, look: -0.6, m }, T);
       const bk = run(c, 0.0, -2.0, 6.2, 4.8, s.f, G.baker, 0, -0.8), by = run(c, 0.7, 2.0, 5.8, 4.6, s.f, G.boy, 0.3, 0.8);
       return laneBase(c, T, m, { wreck: 0.2, lamps: 0.7 }) + byZ([[8.4, g.svg], [lerp(6.2, 4.8, s.f), bk.svg], [lerp(5.8, 4.6, s.f), by.svg]]);
     }
-    if (s.i === 1) {   // the fist comes down: the door is whole until contact, split after it
-      const c = push(s.f, { x: -1.1, y: 1.45, z: 2.3 }, 0.25), sm = clamp(s.f * 0.95), g = G.golem(c, { X: -0.55, Z: 5.5, fx: -0.8, smash: sm, grow: 0.3, anger: 1, awake: 1, slip: 1, m }, T);
-      return laneBase(c, T, m, { doors: [s.f > 0.66 ? ease(clamp((s.f - 0.66) / 0.3)) : 0, 0, 0, 0], wreck: s.f > 0.66 ? 0.8 : 0.2, lamps: 0.7 }) + g.svg;
+    if (s.i === 1) {   // wind up late, the hit at f = 0.62, the split wood held to the end of the shot
+      const c = push(s.f, { x: -1.0, y: 1.75, z: 2.0 }, 0.2), sm = 0.78 * ease(clamp((s.f - 0.1) / 0.55)), g = G.golem(c, { X: -1.4, Z: 6.0, fx: -0.8, smash: sm, grow: 0.3, anger: 1, awake: 1, slip: 1, m }, T);
+      return laneBase(c, T, m, { doors: [s.f > 0.62 ? ease(clamp((s.f - 0.62) / 0.12)) : 0, 0, 0, 0], wreck: s.f > 0.62 ? 0.8 : 0.2, lamps: 0.7 }) + g.svg;
     }
-    if (s.i === 2) {   // low shot: the golem lets go of the cart, it flies, and it is gone from frame at the end
-      const c = push(s.f, LN.CAM.low, 0.3), a = clamp((s.f - 0.25) / 0.75), rel = s.f > 0.25;
-      const ct = G.cart(c, { m, X: rel ? lerp(0.1, -2.2, a) : 0.1, Y: rel ? 0.3 + 3.0 * Math.sin(a * Math.PI * 0.8) : 0.3, Z: rel ? lerp(7.6, 4.6, a) : 7.6, rot: rel ? -20 - a * 280 : -5, spin: T * 300, broken: rel ? a : 0, load: 0 }, T);
-      const g = G.golem(c, { X: 0.4, Z: 8.4, fx: -0.6, grow: 0.5, smash: clamp(s.f * 3) * 0.9, anger: 1, awake: 1, slip: 1, m }, T);
-      return laneBase(c, T, m, { doors: [1, 1, 0, 0], wreck: 1, lamps: 0.7 }) + byZ([[8.4, g.svg], [rel ? lerp(7.6, 4.6, a) : 7.6, ct]]);
+    if (s.i === 2) {   // low: it holds the cart, lets go, the cart leaves along the lane and out of frame
+      const c = push(s.f, { x: -0.3, y: 0.95, z: 2.6 }, 0.25), a = clamp((s.f - 0.3) / 0.7), rel = s.f > 0.3;
+      const g = G.golem(c, { X: 0.4, Z: 8.4, fx: -0.6, grow: 0.5, smash: 0.3 + 0.4 * ease(clamp((s.f - 0.1) / 0.3)), anger: 1, awake: 1, slip: 1, m }, T);
+      const X = rel ? lerp(0.2, -2.6, a) : 0.2, Y = rel ? 0.5 + 2.0 * Math.sin(a * Math.PI * 0.85) : 0.5, Z = rel ? lerp(7.6, 4.6, a) : 7.6;
+      const cp = L.P(c, 0.2, 0.5, 7.6), hand = g.chest || { x: cp.x, y: cp.y }, glue = 1 - ease(clamp((s.f - 0.3) / 0.15)), dx = (hand.x - cp.x) * glue, dy = (hand.y - cp.y - 40) * glue;
+      const ct = G.cart(c, { m, X, Y, Z, rot: rel ? -15 - a * 260 : -8, spin: T * 300, broken: rel ? a : 0, load: 0 }, T);
+      return laneBase(c, T, m, { doors: [1, 1, 0, 0], wreck: 1, lamps: 0.7 }) + byZ([[8.4, g.svg], [Z, `<g transform="translate(${n(dx)},${n(dy)})">${ct}</g>`]]);
     }
-    const c = push(s.f, { x: 0.0, y: 1.15, z: 1.6 }, 0.3), z = lerp(10.4, 7.6, s.f), g = G.golem(c, { X: lerp(0.3, 0.0, s.f), Z: z, fx: -0.1, walk: T * 0.9, grow: lerp(0.5, 1, s.f), anger: 1, awake: 1, slip: 1, m }, T);
+    const c = push(s.f, { x: 0.0, y: 1.15, z: 1.6 }, 0.3), z = lerp(10.6, 7.4, s.f), g = G.golem(c, { X: lerp(0.3, 0.0, s.f), Z: z, fx: -0.1, walk: T * 0.9, grow: lerp(0.0, 1, s.f), anger: 1, awake: 1, slip: 1, m }, T);
     return laneBase(c, T, m, { doors: 1, wreck: 1, lamps: 0.6 }) + g.svg;
   } },
-  // 17. A4/B25-27: Loew runs in whole, the golem bends continuously, tight on the slip held in its lips, it clears on the end of "word" and the eyes go dead
+  // 17. A3/B22-B24: Loew runs in whole, the golem bends continuously; a profile close on lips, fingertips and paper; the slip clears at the end of "word" and the eyes close on clearance
   { line: "L17", hold: 0.4, shot(u, d, T, ln) {
     const m = G.mood("rampage"), rc = wordAt(ln, "reached", 2.3) - 0.05, ex = wordAt(ln, "pulled", 3.8) - 0.55, we_ = wordEnd(ln, "word", d - 0.2), s = seg(u, [rc, ex]);
-    const bend = tr([[0, 0], [rc, 0.55], [ex, 1]], u), out = tr([[we_ - 0.45, 0], [we_ - 0.02, 1]], u), aw = 1 - ease(clamp((u - we_ + 0.02) / 0.3));
+    const bend = tr([[0, 0], [rc, 0.55], [ex, 1]], u), out = tr([[we_ - 0.4, 0], [we_ - 0.02, 1]], u), aw = 1 - ease(clamp((u - we_ + 0.02) / 0.14));
     const gst = (c) => G.golem(c, { X: 0.7, Z: 7.4, fx: -0.6, grow: 1, bend, anger: 1 - out * 0.7, awake: aw, slip: out > 0.02 ? 0 : 1, look: -0.7, m }, T);
     if (s.i === 0) {
       const c = push(s.f, { x: 0.3, y: 1.5, z: 2.4 }, 0.5), a = ease(clamp(u / (rc * 0.8))), z = lerp(5.3, 7.0, a);
-      const rb = G.rabbi(c, { X: lerp(-0.9, -0.7, a), Z: z, fx: 0.7, run: a < 1 ? T * 2.4 : null, wide: 0.5, brow: 0.6, reachAt: a >= 1 ? { x: 0, y: 0 } : null, m }, T);
+      const rb = G.rabbi(c, { X: lerp(-0.9, -0.7, a), Z: z, fx: 0.7, run: a < 1 ? T * 2.4 : null, wide: 0.5, brow: 0.6, m }, T);
       return laneBase(c, T, m, { doors: 1, wreck: 1, lamps: 0.6 }) + byZ([[7.4, gst(c).svg], [z, rb.svg]]);
     }
     const c = s.i === 1 ? push(s.f, { x: 0.1, y: 1.6, z: 3.2 }, 0.3) : { x: 0.1, y: 1.9, z: 3.5 }, g = gst(c);
     const at = { x: g.mouth.x - 140 * out, y: g.mouth.y + 170 * out };
     const rb = G.rabbi(c, { X: -0.95, Z: 7.1, fx: 0.7, reachAt: at, tiptoe: 1 - out, hold: out > 0.02 ? "slip" : null, holdSize: 1.4, brow: 0.6, wide: 0.3, m }, T);
     const scene = laneBase(c, T, m, { doors: 1, wreck: 1, lamps: 0.6 }) + byZ([[7.4, g.svg], [7.1, rb.svg]]);
-    return s.i === 1 ? scene : zoomAbout(scene, (g.mouth.x + at.x) / 2, (g.mouth.y + at.y) / 2, lerp(2.0, 2.3, s.f), 1300);
+    return s.i === 1 ? scene : zoomAbout(scene, g.mouth.x - 50, g.mouth.y + 25, lerp(2.7, 3.0, s.f), 1340);
   } },
-  // 18. A15/B27/B28: the bend carries into the cracks; the settled pile held, a new angle during "into a pile of clay"
+  // 18. A9/B25/B26: the pile is shown as the last chunk lands, then a low angle with Loew in frame
   { line: "L18", shot(u, d, T, ln) {
     const into = wordAt(ln, "into", 1.4), k = tr([[0.4, 0], [d, 1]], u), m = G.moodMix("rampage", "lane", k), cr = tr([[0.05, 0], [into - 0.1, 1]], u);
     const rb = (c) => G.rabbi(c, { X: -0.95, Z: 7.1, fx: 0.7, hold: "slip", holdUp: 0.3, holdSize: 1.4, brow: 0.2, smile: -0.4, m }, T);
     if (u < into + 0.55) { const c = push(u / d, { x: 0.1, y: 1.45, z: 1.8 }, 0.4), g = G.golem(c, { X: 0.7, Z: 7.4, fx: -0.6, grow: 1, bend: lerp(1, 0.2, cr), crumble: cr, awake: 0.2, slip: 0, m }, T);
       return laneBase(c, T, m, { doors: 1, wreck: 1, lamps: lerp(0.6, 1, k) }) + byZ([[7.4, g.svg], [7.1, rb(c).svg]]); }
-    const c = push((u - into - 0.55) / (d - into - 0.55), { x: 0.5, y: 0.8, z: 3.0 }, 0.5), g = G.golem(c, { X: 0.7, Z: 7.4, fx: -0.6, grow: 1, crumble: 1, awake: 0, slip: 0, m }, T);
+    const c = push((u - into - 0.55) / (d - into - 0.55), { x: 0.05, y: 0.8, z: 3.0 }, 0.5), g = G.golem(c, { X: 0.7, Z: 7.4, fx: -0.6, grow: 1, crumble: 1, awake: 0, slip: 0, m }, T);
     return laneBase(c, T, m, { doors: 1, wreck: 1, lamps: 1 }) + byZ([[7.4, g.svg], [7.1, rb(c).svg]]);
   } },
-  // 19. A15/B29: the clay carried (the clay-coloured loads in the lane), the pile in the attic, the lower ladder carried off the wall
+  // 19. A10/B27/B28: the clay carried, the small heap in the attic, the lower ladder carried off the wall at hand height
   { line: "L19", shot(u, d, T, ln) {
     const at_ = wordAt(ln, "attic", 1.6) - 0.1, st = wordAt(ln, "took", 2.5) - 0.05, s = seg(u, [at_, st]);
     if (s.i === 0) {
@@ -315,35 +329,38 @@ const BEATS = [
       const bk = mk(G.baker, -1.8, 1.9, 6.0, 0), by = mk(G.boy, -2.6, 1.2, 6.4, 0.3), tw = mk(G.townswoman, -3.4, 0.5, 6.7, 0.6);
       return laneBase(c, T, m, { doors: 1, wreck: 0.6, lamps: 1 }) + byZ([[6.0, bk.svg], [6.4, by.svg], [6.7, tw.svg]]);
     }
-    if (s.i === 1) { const m = G.mood("attic"), c = push(s.f, AT.CAM.wide, 0.7); return G.golemAttic(c, T, m) + G.clayPile(c, { m, dry: 0.1 }); }
+    if (s.i === 1) { const m = G.mood("attic"), c = push(s.f, AT.CAM.wide, 0.7); return G.golemAttic(c, T, m) + G.clayPile(c, { m, dry: 0.3, k: 0.6 }); }
     const m = G.moodMix("lane", "friday", 0.5), c = push(s.f, { x: 1.0, y: 1.9, z: 3.4 }, 0.4), a = ease(s.f);
-    const bk = G.baker(c, { X: lerp(0.5, -2.6, a), Z: 7.1, fx: -0.8, walk: T * 1.4, m }, T), rbi = G.rabbi(c, { X: lerp(2.3, -0.9, a), Z: 7.1, fx: -0.8, walk: T * 1.4 + 0.3, m }, T);
-    return G.todaySynagogue(c, T, m) + wallWindow(c, T, 0) + bk.svg + ladderH(c, lerp(0.7, -2.4, a), lerp(2.2, -0.9, a), 1.35, 7.1, m) + rbi.svg;
+    const hn = { handL: [-26, -88], handR: [-24, -92] };
+    const bk = G.baker(c, { X: lerp(0.5, -2.6, a), Z: 7.1, fx: -0.8, walk: T * 1.4, m, ...hn }, T), rbi = G.rabbi(c, { X: lerp(2.3, -0.9, a), Z: 7.1, fx: -0.8, walk: T * 1.4 + 0.3, m, ...hn }, T);
+    return G.todaySynagogue(c, T, m) + wallWindow(c, T, 0) + bk.svg + ladderH(c, lerp(0.7, -2.4, a), lerp(2.2, -0.9, a), 0.9, 7.1, m) + rbi.svg;
   } },
-  // 20. B30/B31: he climbs a ladder he brought up the wall rungs and in through the small door; inside he steps onto boards; the pile is only dust
+  // 20. B28-B33: a ladder against the wall up to the small door (jamb masks the crossing), boots on boards inside, the heap already loose dust
   { line: "L20", shot(u, d, T, ln) {
     const th = wordAt(ln, "there", 2.4), od = wordAt(ln, "only", 3.3) - 0.2, s = seg(u, [th - 0.5, od]);
     if (s.i === 0) {
-      const m = G.moodMix("lane", "friday", 0.7), a = ease(clamp(u / (th - 0.5))), yb = lerp(0, 4.6, a), c = { x: 1.0, y: lerp(1.5, 3.6, a), z: 3.7 };
+      const m = G.moodMix("lane", "friday", 0.7), a = ease(clamp(u / (th - 0.5))), yb = lerp(0, 4.5, a), c = { x: 1.0, y: lerp(2.4, 4.3, a), z: 3.7 }, dr = S.door, sill = L.P(c, 1.0, S.Y(dr.y0), 7.6).y, hw = dr.w * 0.5, A_ = L.P(c, 1.0 - hw, 0, 7.6), B_ = L.P(c, 1.0 + hw, 0, 7.6), top = L.P(c, 1.0, S.Y(dr.y1), 7.6).y;
       const rp = G.reporter(c, { X: 1.0, Y: yb, Z: 7.4, fx: 0.1, climb: T * 1.6, hold2: "notebook", wide: 0.3, m }, T);
-      return G.todaySynagogue(c, T, m) + wallWindow(c, T, 0) + ladderV(c, 1.0, 0, 4.4, 7.5, m) + `<g opacity="${n(1 - clamp((a - 0.93) / 0.07))}">${rp.svg}</g>`;
+      const open = a > 0.7 ? `<rect x="${n(A_.x)}" y="${n(top)}" width="${n(B_.x - A_.x)}" height="${n(sill - top)}" fill="#120a18"/>` : "";
+      const clip = `<clipPath id="jamb"><path d="M0,${n(sill)} L${W},${n(sill)} L${W},${H} L0,${H} Z M${n(A_.x)},0 L${n(B_.x)},0 L${n(B_.x)},${n(sill)} L${n(A_.x)},${n(sill)} Z"/></clipPath>`;
+      return G.todaySynagogue(c, T, m) + wallWindow(c, T, 0) + open + ladderV(c, 1.0, 0, 4.75, 7.5, m) + clip + `<g clip-path="${a > 0.7 ? "url(#jamb)" : "none"}">${rp.svg}</g>`;
     }
     if (s.i === 1) {
-      const m = G.mood("attic"), c = push(s.f, { x: 0.2, y: 1.4, z: 2.6 }, 0.8, -0.1), a = ease(s.f), z = lerp(10.6, 8.6, a);
-      const rp = G.reporter(c, { X: lerp(1.3, 0.9, a), Z: z, fx: -0.6, walk: T * 1.5, hold: "lantern", holdUp: 0.9, hold2: "notebook", brow: -0.3, m }, T);
-      return G.golemAttic(c, T, m) + G.clayPile(c, { m, dry: 0.75, k: 0.9 }) + rp.svg + G.lanternPool(rp.held, m, 1, T);
+      const m = G.mood("attic"), c = push(s.f, { x: 0.9, y: 1.3, z: 2.4 }, 0.5), a = ease(s.f);
+      const rp = G.reporter(c, { X: lerp(2.0, 1.5, a), Z: 6.2, fx: -0.6, walk: T * 1.5, hold: "lantern", holdUp: 0.9, hold2: "notebook", brow: -0.3, m }, T);
+      return G.golemAttic(c, T, m) + G.clayPile(c, { m, dry: 0.9, k: 0.45 }) + rp.svg + G.lanternPool(rp.held, m, 1, T);
     }
     const m = G.moodMix("attic", "dust", 0.7), c = push(s.f, AT.CAM.pile, 0.5, 0, 0.05), col = clamp(s.f * 1.6);
-    return G.golemAttic(c, T, m) + G.clayPile(c, { m, dry: 1, k: lerp(0.9, 0.25, ease(col)) }) + G.lanternPool({ x: 380, y: 1000 }, m, 1, T, 600) + G.dust(T, m, { x: 540, y: 1050 }, { n: 40 + Math.round(80 * col), r: 520 });
+    return G.golemAttic(c, T, m) + G.clayPile(c, { m, dry: 1, k: lerp(0.35, 0.12, ease(col)) }) + G.lanternPool({ x: 380, y: 1000 }, m, 1, T, 600) + G.dust(T, m, { x: 540, y: 1050 }, { n: 40 + Math.round(80 * col), r: 520 });
   } },
   { line: "L21", shot(u, d, T) { return Tw(push(u / d, KID, 0.15), T, todayMood(0.4), { fx: -0.6, look: -0.9 }, { fx: 0.7, look: 0.7 }); } },
   // 22. A1/B35: grandmother close for the line; on "twice?" the song under the lit window; through "Every Friday" the camera climbs from the hosts to the dark attic door
   { line: "L22", hold: 0, shot(u, d, T, ln) {
     const m = todayMood(0.4), tw = wordAt(ln, "twice", 2.7) - 0.05, ef = wordAt(ln, "every", 3.9) - 0.08, s = seg(u, [tw, ef]);
     if (s.i === 0) return Tw(push(s.f, KEEP, 0.15), T, m, { fx: -0.7 }, { fx: 0.7, look: 1, stern: 0.2, open: 1, flame: 0.6 });
-    if (s.i === 1) { const c = push(s.f, { x: 2.1, y: 1.7, z: 3.6 }, 0.4, 0.15); return G.todaySynagogue(c, T, m) + wallWindow(c, T, clamp(s.f * 5)); }
+    if (s.i === 1) { const c = push(s.f, { x: 2.8, y: 2.9, z: 3.9 }, 0.4, 0.1); return G.todaySynagogue(c, T, m) + wallWindow(c, T, clamp(s.f * 5)); }
     const c = cam(s.f, { x: 0.45, y: 1.45, z: 5.0 }, { x: 0.5, y: 2.5, z: 4.2 }, "inOut");
-    return G.todaySynagogue(c, T, m) + wallWindow(c, T, 1) + hosts(c, T, m, { fx: -0.3, look: -1, talk: 0 }, { fx: 0.3, look: -1, talk: 0, flame: 0.6 });
+    return G.todaySynagogue(c, T, m) + wallWindow(c, T, 1) + hosts2(c, T, m, { fx: -0.3, look: -1, talk: 0 }, { fx: 0.3, look: -1, talk: 0, flame: 0.6 });
   } },
   // 23. the step: 0.62 s after the line, ONE heavy step; the door shudders, dust puffs, the flame gutters; hard cut 2 frames later
   { id: "TAIL", dur: 0.62 + 2 / 30, shot(u, d, T) {
