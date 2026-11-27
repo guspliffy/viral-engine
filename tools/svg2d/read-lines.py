@@ -1,6 +1,6 @@
 """Read an episode's lines with VoxCPM2 (legend channel, 26 Nov 2026), checked by Whisper, then tempo x1.15.
   engine/voice/.venv-vox/bin/python tools/svg2d/read-lines.py <lines.json> <out_dir> [ids...]
--> <out_dir>/<id>.wav (44.1 kHz mono, -16 LUFS) + <id>.words.json [[word, start, end], ...] (after the tempo change)
+-> <out_dir>/<id>.wav (44.1 kHz mono, -16 LUFS, plus the voice's "gain_db": the legend kid takes +3.5, Jonny 26 Nov "the kids voice could be louder" in 3 videos) + <id>.words.json [[word, start, end], ...] (after the tempo change)
 A voice may set "pitch" (semitones, rubberband) for a younger read of the same voice, and "af" (an ffmpeg filter
 chain run before the tempo, e.g. a brightening EQ). Every take is measured by qa/voicebright.py: MUFFLED = fix first.
 Deterministic: each line's seed is fixed; a take Whisper hears wrong is retried with the next seed (up to 4)."""
@@ -35,7 +35,7 @@ for lid, who, text, tone in spec["lines"]:
         if miss <= 1 and abs(len(want) - len(got)) <= 1: break
     miss, w, words, seed = best
     raw = f"{out}/{lid}.raw.wav"; sf.write(raw, w, sr)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", (v["af"] + "," if v.get("af") else "") + (f"rubberband=pitch={2 ** (v['pitch'] / 12):.5f}," if v.get("pitch") else "") + f"atempo={TEMPO},loudnorm=I=-16:TP=-2,silenceremove=start_periods=1:start_threshold=-50dB",
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", (v["af"] + "," if v.get("af") else "") + (f"rubberband=pitch={2 ** (v['pitch'] / 12):.5f}," if v.get("pitch") else "") + f"atempo={TEMPO},loudnorm=I=-16:TP=-2," + (f"volume={v['gain_db']}dB,alimiter=limit=0.95," if v.get("gain_db") else "") + "silenceremove=start_periods=1:start_threshold=-50dB",
                     "-ar", "44100", "-ac", "1", f"{out}/{lid}.wav"], check=True)
     os.remove(raw)
     # word times after the tempo change and the trimmed lead-in
