@@ -1,0 +1,23 @@
+{
+ "_about": "Sound cues for fw-mix.mjs. Files are under out/legend-fisher/ (music/ and sfx/ stems) or any repo path (assets/...). A file that does not exist is skipped with a warning. at / to: seconds, or an anchor 'L15:black' (line id : word start) or 'L15' (line start) or 'END', each optionally '+0.2' / '-0.1'. gain is linear (0.5 = -6 dB). loop: true repeats the file between at and to. trim: seconds of the file to use. fi/fo: fades in seconds. Music stems (fw-music-*.wav, added later) go in 'music': they are ducked under speech (about -7 dB). 'sfx' is not ducked.",
+ "music": [
+  { "file": "out/legend-fisher/music/fw-music-1-hook.wav", "at": 0, "to": "L03", "gain": 0.5, "loop": true, "fi": 0.02, "fo": 0.3 },
+  { "file": "out/legend-fisher/music/fw-music-2-evening.wav", "at": "L03", "to": "L15:black", "gain": 0.5, "loop": true, "fi": 0.3, "fo": 0.3 },
+  { "file": "out/legend-fisher/music/fw-music-3-black.wav", "at": "L16", "to": "L21", "gain": 0.5, "loop": true, "fi": 0.3, "fo": 0.3 },
+  { "file": "out/legend-fisher/music/fw-music-4-out.wav", "at": "L21:gone", "to": "L23", "gain": 0.4, "loop": true, "fi": 0.3, "fo": 0.5 }
+ ],
+ "sfx": [
+  { "file": "assets/sfx/ai/storm-lake/storm-lake-01.wav", "at": 0, "to": "L03-0.02", "gain": 0.55, "loop": true, "fi": 0.02, "fo": 0.05, "note": "draft ambience: storm surf + wind, hook" },
+  { "file": "assets/sfx/ai/thunder/thunder-01.wav", "at": 0.9, "gain": 0.28, "trim": 4.0, "fo": 1.5 },
+  { "file": "assets/sfx/ai/storm-lake/storm-lake-02.wav", "at": "L03-0.19", "to": "L03-0.02", "gain": 0.5, "note": "the glimpse" },
+  { "file": "assets/sfx/nature/lake-1.ogg", "at": "L03-0.02", "to": "L15:black+0.15", "gain": 0.7, "loop": true, "fi": 0.05, "fo": 0.2, "note": "draft ambience: waves on the shore" },
+  { "file": "assets/sfx/nature/birds-1.ogg", "at": "L03-0.02", "to": "L07:grey", "gain": 0.35, "loop": true, "fi": 0.2, "fo": 0.8 },
+  { "file": "assets/sfx/nature/wind-1.ogg", "at": "L07:grey-0.4", "to": "L15:black+0.15", "gain": 0.5, "loop": true, "fi": 1.0, "fo": 0.2 },
+  { "file": "assets/sfx/ai/storm-lake/storm-lake-03.wav", "at": "L16", "to": "L21:gone", "gain": 0.55, "loop": true, "fi": 0.2, "fo": 0.05 },
+  { "file": "assets/sfx/ai/thunder/thunder-02.wav", "at": "L15:black", "gain": 0.3, "trim": 5.0, "fo": 1.5 },
+  { "file": "assets/sfx/ai/thunder/thunder-03.wav", "at": "L19:stood-0.3", "gain": 0.6, "trim": 5.0, "fo": 1.5 },
+  { "file": "assets/sfx/ai/thunder/thunder-01.wav", "at": "L19:towers-0.5", "gain": 0.7, "trim": 5.5, "fo": 1.5 },
+  { "file": "assets/sfx/nature/lake-2.ogg", "at": "L21:gone", "to": "END", "gain": 0.7, "loop": true, "fi": 0.05, "fo": 0.01, "note": "sudden quiet: surf only, cut hard at the end" },
+  { "file": "assets/sfx/nature/birds-2.ogg", "at": "L22", "to": "END", "gain": 0.3, "loop": true, "fi": 0.5, "fo": 0.01 }
+ ]
+}
