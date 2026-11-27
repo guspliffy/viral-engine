@@ -1,0 +1,196 @@
+{
+ "_about": "Legend: Pandora's jar (Hesiod, Works and Days 42-105, c. 700 BC). Jonny 27 Nov 23:33 Berlin picked H1 silent crack + E1 Grandma's candle jar. Our take vs Siren's knocking hook: the evils come SILENTLY (WD 102-104), Hope stays under the rim (WD 96-99). Hero Pandora, her first night (our dramatisation). Speakers N narrator, G grandmother, K kid (off screen voice + ending), P Prometheus, E Epimetheus. Pandora never speaks (Hesiod gives no motive). Subtitles UPPER third word by word, story banner above them, TikTok export without subtitles.",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-01/grandma-1.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-06/kid-2.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and cheeky, speaks clearly with crisp diction",
+   "steps": 25,
+   "cfg": 3.0
+  },
+  "P": {
+   "ref": "engine/voice/targets/wizard-ref.wav",
+   "style": "a grown man in his forties, hoarse and urgent, a warning between brothers, no accent imitation"
+  },
+  "E": {
+   "ref": "engine/voice/targets/viking-ref.wav",
+   "style": "a big friendly man in his thirties, booming, cheerful, a bit slow, no accent imitation"
+  }
+ },
+ "say": {},
+ "lines": [
+  [
+   "L01",
+   "N",
+   "The most dangerous gift in history... made no sound.",
+   "low, slow, close to the mic; over the jar lid open a crack in total silence (frame 0)"
+  ],
+  [
+   "L02",
+   "K",
+   "What came out?",
+   "whisper, off screen, scared and curious"
+  ],
+  [
+   "L03",
+   "P",
+   "Brother. Never take a gift from Zeus. Never.",
+   "urgent, hoarse, gripping his brother's arm; Prometheus"
+  ],
+  [
+   "L04",
+   "N",
+   "He had just stolen fire from the gods. For us. And Zeus... laughed out loud.",
+   "quick storyteller, darker on 'laughed'"
+  ],
+  [
+   "L05",
+   "N",
+   "Then he ordered a gift humans would love... right up to the end.",
+   "cold smile in the voice"
+  ],
+  [
+   "L06",
+   "N",
+   "The smith god mixed mud and water into a woman. And every god gave her something.",
+   "fast, building, a montage voice"
+  ],
+  [
+   "L07",
+   "N",
+   "A dress. A smile. And from Hermes... a liar's tongue.",
+   "each gift a beat, last one sly"
+  ],
+  [
+   "L08",
+   "N",
+   "They called her Pandora. All-gifted. And one gift was a trap.",
+   "RE-HOOK 2 at ~20 s, last sentence low"
+  ],
+  [
+   "L09",
+   "N",
+   "Hermes walked her to the door of the other brother.",
+   "light, quick"
+  ],
+  [
+   "L10",
+   "E",
+   "Oh! For me?",
+   "booming, delighted, no idea; Epimetheus"
+  ],
+  [
+   "L11",
+   "K",
+   "Wait. He forgot already?",
+   "off screen, outraged, cheeky"
+  ],
+  [
+   "L12",
+   "G",
+   "His name means afterthought.",
+   "dry, deadpan"
+  ],
+  [
+   "L13",
+   "N",
+   "Her first night in the house. In the corner stood a jar, taller than a man. Sealed.",
+   "slow, the music thins"
+  ],
+  [
+   "L14",
+   "E",
+   "Just... don't open that one.",
+   "yawning, careless, already walking off"
+  ],
+  [
+   "L15",
+   "N",
+   "And here's the strangest part. Nobody ever wrote down WHY she did it.",
+   "RE-HOOK 3 at ~40 s, intrigued"
+  ],
+  [
+   "L16",
+   "K",
+   "She just... opened it?",
+   "off screen, small"
+  ],
+  [
+   "L17",
+   "N",
+   "No crash. No scream. Not a sound.",
+   "whisper, music cut to nothing; the lid lifts"
+  ],
+  [
+   "L18",
+   "N",
+   "Out came sickness. Hard work. Old age. Before that night, people had none of them.",
+   "low, each evil a beat"
+  ],
+  [
+   "L19",
+   "N",
+   "Zeus had taken their voices. So they still come for you... without a sound.",
+   "slow, a chill; the 'you' line"
+  ],
+  [
+   "L20",
+   "N",
+   "She slammed the lid. But one thing didn't make it out.",
+   "fast then hushed, RE-HOOK 4 at ~58 s"
+  ],
+  [
+   "L21",
+   "N",
+   "Under the rim, one tiny light. Hope.",
+   "soft, warm"
+  ],
+  [
+   "L22",
+   "K",
+   "So Hope's the good one?",
+   "hopeful, a bit unsure"
+  ],
+  [
+   "L23",
+   "G",
+   "Two thousand seven hundred years... and nobody agrees.",
+   "slow, a little smile"
+  ],
+  [
+   "L24",
+   "G",
+   "That one stays in.",
+   "flat, firm, right after her hand slaps the lid shut; cut out after 'in'"
+  ]
+ ],
+ "cap": {
+  "L01": "The most dangerous gift|in history...|made no sound.",
+  "L03": "Brother.|Never take a gift|from Zeus.|Never.",
+  "L04": "He had just stolen|fire from the gods.|For us.|And Zeus...|laughed out loud.",
+  "L05": "Then he ordered a gift|humans would love...|right up to the end.",
+  "L06": "The smith god|mixed mud and water|into a woman.|And every god|gave her something.",
+  "L07": "A dress.|A smile.|And from Hermes...|a liar's tongue.",
+  "L08": "They called her Pandora.|All-gifted.|And one gift|was a trap.",
+  "L09": "Hermes walked her|to the door|of the other brother.",
+  "L13": "Her first night|in the house.|In the corner|stood a jar,|taller than a man.|Sealed.",
+  "L14": "Just...|don't open that one.",
+  "L15": "And here's|the strangest part.|Nobody ever wrote down|WHY she did it.",
+  "L17": "No crash.|No scream.|Not a sound.",
+  "L18": "Out came sickness.|Hard work.|Old age.|Before that night,|people had none of them.",
+  "L19": "Zeus had taken|their voices.|So they still|come for you...|without a sound.",
+  "L20": "She slammed the lid.|But one thing|didn't make it out.",
+  "L21": "Under the rim,|one tiny light.|Hope.",
+  "L23": "Two thousand|seven hundred years...|and nobody agrees."
+ },
+ "_cap": "subtitle phrases (| splits); each word shows from its spoken start in the fixed layout of its phrase; key words gold; UPPER third",
+ "_keywords": "sound|never|zeus|trap|jar|why|hope|voices",
+ "_rehooks": "1: ~2.5 s 6-frame blurred flash of the kid's hand on Grandma's candle jar lid (the ending, unexplained); 2: L08 'one gift was a trap' ~20 s; 3: L15 'nobody ever wrote down WHY' ~40 s; 4: L20 'one thing didn't make it out' ~58 s. No section may feel like an ending."
+}
