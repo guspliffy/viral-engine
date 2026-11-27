@@ -25,6 +25,8 @@ OPENER: A or B · STAKE LINE: "<the first narrator line>"
   (0 comments on 31 posts with that style).
 - **Hashtags**: exactly `#funnyanimation #animation` + one situation tag (#friendgroup, #bestfriends, #brokefriend ...).
   No #comedy, #cartoon, #viral, #fyp. Check the spelling (a Cyrillic "у" slipped in 10 times).
+  **Folklore / myth videos** (producer, 27 Nov 2026): never `#funnyanimation`; use `#folklore #animation` + one
+  legend tag (`#japaneselegend` on Legend ep 1).
 - **Poll**: the question + 2 options matching line 2, pinned right after posting.
 - **Playlist** per series; **slot** 07-09 or 22-24 Berlin.
 - **Cover** = the video's biggest (10x) frame with no text on it.

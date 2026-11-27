@@ -1,0 +1,76 @@
+{
+ "_note": "Legend ep 02 La Lechuza music v2 (Codex Sol high, 27 Nov 2026 night): country check (more Mexican in the first 2 s, scarier eye beat). Prompt A = Sol, B = its fallback wording.",
+ "sfx": [],
+ "music": [
+  {
+   "id": "lechuza2-cue1",
+   "bpm": 72,
+   "bars": 6,
+   "mood": "folk horror",
+   "prompts": [
+    "72 BPM, E Phrygian, dry acoustic border conjunto horror, muted low bajo sexto E-F-E, clipped button accordion replies and bellows air, soft bowed upright bass, no vocals",
+    "slow eerie acoustic folk horror, muted low twelve-string guitar three-note half-step motif, short accordion replies and breathing bellows, soft bowed double bass, dry intimate recording, 72 BPM, E Phrygian, no vocals"
+   ],
+   "seeds": [
+    701,
+    702
+   ]
+  },
+  {
+   "id": "lechuza2-cue2",
+   "bpm": 72,
+   "bars": 6,
+   "mood": "folk horror",
+   "prompts": [
+    "72 BPM, E Phrygian, solo button accordion, one quiet low E with uneven bellows pressure, sparse dry acoustic suspense, no vocals",
+    "solo accordion holding one quiet low note with uneven wavering bellows pressure, sparse dry tense film underscore, 72 BPM, E minor, no vocals"
+   ],
+   "seeds": [
+    711,
+    712
+   ]
+  },
+  {
+   "id": "lechuza2-cue3",
+   "bpm": 72,
+   "bars": 6,
+   "mood": "folk horror",
+   "prompts": [
+    "72 BPM, E Phrygian, sparse muted bajo sexto, low button accordion E, brief scratchy bowed upright bass F against E, dry acoustic horror, no vocals",
+    "sparse muted twelve-string guitar plucks, low accordion note, brief scratchy dissonant bowed double bass rubbing a half step against it, dry acoustic horror underscore, 72 BPM, E Phrygian, no vocals"
+   ],
+   "seeds": [
+    721,
+    722
+   ]
+  },
+  {
+   "id": "lechuza2-cue4",
+   "bpm": 96,
+   "bars": 8,
+   "mood": "folk horror",
+   "prompts": [
+    "96 BPM, E Phrygian, palm-muted bajo sexto eighth notes, sparse upright bass plucks and a bowed E, dry acoustic tension, no vocals",
+    "driving palm-muted twelve-string guitar eighth notes, sparse plucked double bass, soft bowed low drone, dry acoustic tension film underscore, 96 BPM, E Phrygian, no vocals"
+   ],
+   "seeds": [
+    731,
+    732
+   ]
+  },
+  {
+   "id": "lechuza2-cue5",
+   "bpm": 72,
+   "bars": 6,
+   "mood": "folk horror",
+   "prompts": [
+    "72 BPM, E Dorian, open bajo sexto E-F#-E, soft button accordion with a brief C# for Dorian color, dry acoustic relief, no vocals",
+    "warm gentle open twelve-string guitar soft three-note motif, tender accordion, calm relief after danger, dry intimate acoustic recording, 72 BPM, E Dorian, no vocals"
+   ],
+   "seeds": [
+    741,
+    742
+   ]
+  }
+ ]
+}

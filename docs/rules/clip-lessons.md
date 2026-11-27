@@ -47,6 +47,9 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
 - A hand INTO a jar, pot or box from above: a potato's arm root sits ~0.54 m over its feet, so stand the body high
   enough that the root is ~0.25 m over the rim (KvD 05: stepstool x1.25), and use an open grip (`relaxed`): a fist
   (`hold`) pulls the elbow guide under the hand, and the arm comes up through the glass (Sol caught it, Jonny saw it).
+- A prop placed or a hidden character moved for the next shot goes on `cut(t)` or earlier while hidden, never a frame
+  before the cut: at 30 fps `cut(t) - 0.04` is drawn in the old shot (armrest war: knife and fake arm popped in, Sol r2).
+- A release `to` at a parked spot (y -40) aims the hand there for `back` s; release off frame with `back: 0.01`.
 
 ## Bodies, sets and moves
 
@@ -54,6 +57,9 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
   `top` ignores pitch, so judge stills. Bodies 0.35 m+ off set posts (`qa/clear.mjs` checks uprights listed in
   `engine/shared/obstacles.js`; list a new set's posts there). Line-ups need ~1 m between friends.
 - Sitting: check seat height in a still, bodies ON the cushion. Keep a seat's check window to the sitting itself.
+- Seat rows: a camera behind the row ahead shows a seat back, not the scene (armrest war: z past 3.45 blanked 2 shots
+  for a draft round; no check sees props yet). Seated rivals: one forearm each on a shared armrest, never both arms.
+- Widening a shot can add check fails: clip checks count what the camera sees. Re-run preflight after any framing fix.
 - A character taken off a carrier (`ride` null) keeps its height: give the first `move` after it `y: 0`. Never give
   `y` to a `move` while a drop or fly runs. A 0.01 `move` with y at t 0 hides the cast 3 frames: use dur 0.
 - Placing someone on a cut: move/turn dur 0.01 with `ease: "linear", sync: true`, at t - 0.02 (never earlier); keep an
