@@ -1,0 +1,5301 @@
+{
+ "id": "traffic",
+ "title": "Waiting at a red light: Germany vs America",
+ "idea": "Country vs Country 02: your bus waits across an empty street. In Germany the man is red, a retiree in a window forbids you to cross, a kid appears and waits too, binoculars glint, every curtain twitches when your toe slips, the light turns green as the bus leaves, and the whole street slow-claps. In America cars turn right on red past you, a jaywalker strolls by with a burger, the button only says Wait, so you just walk and make your bus.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  290,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#a9d4f2",
+  "floor": "none",
+  "light": "sun",
+  "para": 0,
+  "aperture": 0,
+  "shadow": {
+   "size": 20
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   2,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   3.267,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   6.334,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   7.267,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   9.134,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   11.934,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   14.8,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   15.934,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   17.8,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   20.134,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   20.934,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   22.134,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   23.467,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   25.934,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   27.4,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   29.534,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   30.667,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   31.934,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   32.867,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   34.534,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   35.4,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   37,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   40.2,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   41.334,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   44.4,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   45.134,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   46.134,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   48.067,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   49.2,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ]
+ ],
+ "music": {
+  "style": "bounce",
+  "lowCut": 150,
+  "gain": 0.26
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "street"
+ },
+ "creative": {
+  "length": [
+   55,
+   90
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "retiree",
+   "pedde"
+  ],
+  "hint": 0,
+  "what": "an empty street, the red man, you mid-step; a retiree bangs his window open: DON'T. You. DARE."
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -9.25,
+    -0.1
+   ],
+   "y": 0.1,
+   "face": 90,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "spudus",
+   "character": "potatobrawl/spud",
+   "at": [
+    16.78,
+    -0.1
+   ],
+   "y": 0.1,
+   "face": -90,
+   "expr": "focused",
+   "follow": 0.3,
+   "seed": 1.9
+  },
+  {
+   "id": "retiree",
+   "character": "potatobrawl/retiree",
+   "at": [
+    -14.52,
+    0.675
+   ],
+   "y": 1.45,
+   "face": 90,
+   "expr": "angry",
+   "follow": 0.3,
+   "seed": 4.4
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -3.78,
+    -2.45
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    14.55,
+    4
+   ],
+   "face": 180,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 5.2
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    9.2,
+    1.9
+   ],
+   "face": 110,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 6.6
+  },
+  {
+   "id": "kid",
+   "character": "potatobrawl/tot-kid",
+   "at": [
+    -9.32,
+    0.62
+   ],
+   "y": 0.1,
+   "face": 100,
+   "expr": "stern",
+   "follow": 0.1,
+   "seed": 8.1
+  },
+  {
+   "id": "button",
+   "character": "potatobrawl/spud",
+   "at": [
+    30,
+    30
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "staged": "the morning sky",
+   "kind": "shsky",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "time": "a"
+  },
+  {
+   "id": "flatsL",
+   "staged": "the retiree's block across the road",
+   "kind": "altbau",
+   "x": -14,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "look": "rose",
+   "d": 1.2,
+   "watch": [
+    -9.25,
+    0.77,
+    -0.1
+   ],
+   "solo": "1-5",
+   "soloOpen": 0.6,
+   "soloBlow": 0.6,
+   "part": 0,
+   "peek": 0,
+   "open": 0,
+   "from": 5,
+   "skip": [
+    "1-5",
+    "1-6"
+   ]
+  },
+  {
+   "id": "flatsR",
+   "staged": "the far block behind you",
+   "kind": "altbau",
+   "x": -0.6,
+   "y": 0,
+   "z": 0,
+   "rot": -90,
+   "look": "butter",
+   "d": 0.6,
+   "back": "none",
+   "solo": "1-4",
+   "soloPart": 0,
+   "part": 0,
+   "peek": 0,
+   "open": 0
+  },
+  {
+   "id": "forecourt",
+   "staged": "the forecourt pavement",
+   "kind": "flagway",
+   "x": -11.5,
+   "y": 0,
+   "z": 0,
+   "w": 22,
+   "d": 5,
+   "h": 0.1,
+   "rot": 90
+  },
+  {
+   "id": "kerbK",
+   "staged": "the kerb you wait on",
+   "kind": "kerb",
+   "x": -9,
+   "y": 0,
+   "z": 0,
+   "x0": -11,
+   "x1": 11,
+   "h": 0.1,
+   "seed": 3,
+   "rot": 90
+  },
+  {
+   "id": "roadde",
+   "staged": "the narrow cobbled road",
+   "kind": "street",
+   "x": -7.7,
+   "y": 0,
+   "z": 0,
+   "w": 2.6,
+   "d": 22,
+   "slope": 0,
+   "rot": 90
+  },
+  {
+   "id": "island",
+   "staged": "the bus island",
+   "kind": "flagway",
+   "x": -5.8,
+   "y": 0,
+   "z": 0,
+   "w": 22,
+   "d": 1.2,
+   "h": 0.1,
+   "rot": 90
+  },
+  {
+   "id": "buslane",
+   "staged": "the bus lane",
+   "kind": "street",
+   "x": -4.1,
+   "y": 0,
+   "z": 0,
+   "w": 2.2,
+   "d": 22,
+   "slope": 0,
+   "rot": 90
+  },
+  {
+   "id": "farpave",
+   "staged": "the far pavement",
+   "kind": "flagway",
+   "x": -1.8,
+   "y": 0,
+   "z": 0,
+   "w": 22,
+   "d": 2.4,
+   "h": 0.1,
+   "rot": 90
+  },
+  {
+   "id": "barsde",
+   "staged": "white bars across the road",
+   "kind": "crossbars",
+   "x": -8.83,
+   "y": 0.004,
+   "z": -0.1,
+   "n": 4,
+   "w": 0.34,
+   "len": 2,
+   "pitch": 0.65,
+   "axis": "x"
+  },
+  {
+   "id": "pedde",
+   "staged": "the pedestrian light at the kerb",
+   "kind": "pedlight",
+   "x": -9.15,
+   "y": 0.1,
+   "z": 1.1,
+   "face": 90,
+   "go": 0
+  },
+  {
+   "id": "busde",
+   "staged": "your bus waits at the island",
+   "kind": "citybus",
+   "x": -4.2,
+   "y": 0,
+   "z": -4.4,
+   "look": "de",
+   "open": 1,
+   "len": 0,
+   "blink": 0
+  },
+  {
+   "id": "shelter",
+   "staged": "on the island",
+   "kind": "busshelter",
+   "x": -5.8,
+   "y": 0.1,
+   "z": -4.7,
+   "w": 1.8,
+   "d": 0.8,
+   "h": 1.9,
+   "lit": 0,
+   "rot": 90
+  },
+  {
+   "id": "lamp1",
+   "staged": "on the forecourt",
+   "kind": "streetlamp",
+   "x": -10.2,
+   "y": 0.1,
+   "z": 3.6,
+   "h": 2.6,
+   "lit": 0
+  },
+  {
+   "id": "lamp2",
+   "staged": "on the forecourt",
+   "kind": "streetlamp",
+   "x": -10.2,
+   "y": 0.1,
+   "z": -4.4,
+   "h": 2.6,
+   "lit": 0
+  },
+  {
+   "id": "tree1",
+   "staged": "on the far pavement",
+   "kind": "tree",
+   "x": -1.8,
+   "y": 0.1,
+   "z": 6.2,
+   "scale": 1.3
+  },
+  {
+   "id": "tree2",
+   "staged": "on the far pavement",
+   "kind": "tree",
+   "x": -1.8,
+   "y": 0.1,
+   "z": -6.6,
+   "scale": 1.3
+  },
+  {
+   "id": "flagde",
+   "staged": "hangs from the balcony",
+   "kind": "miniflag",
+   "flag": "de",
+   "x": -13.45,
+   "y": 2.05,
+   "z": -0.675,
+   "scale": 2.7,
+   "tip": 35,
+   "rot": 90
+  },
+  {
+   "id": "w1box",
+   "staged": "the retiree's flower box",
+   "kind": "flowerbox",
+   "x": -13.92,
+   "y": 1.73,
+   "z": 0.675,
+   "w": 0.9,
+   "rot": 90,
+   "flower": "#d8352b"
+  },
+  {
+   "id": "watcher",
+   "staged": "behind the lace across the street",
+   "kind": "streetpotato",
+   "x": -0.55,
+   "y": 1.45,
+   "z": 2.025,
+   "rot": -90,
+   "h": 0.9,
+   "hat": 3,
+   "capColor": "#4f5a52",
+   "dress": "cardigan",
+   "color": "#6f6457",
+   "raise": 1,
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa"
+  },
+  {
+   "id": "binos",
+   "staged": "held up by the watcher",
+   "kind": "binoculars",
+   "x": -0.5,
+   "y": 1.99,
+   "z": 2.025,
+   "rot": -90,
+   "glint": 0
+  },
+  {
+   "id": "old0",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": 2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hair": "bun",
+   "glasses": 1,
+   "color": "#b98aa0",
+   "h": 0.88
+  },
+  {
+   "id": "old1",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -13.75,
+   "y": -60,
+   "z": -0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#5f6b78",
+   "glasses": 1,
+   "color": "#7f8f6a",
+   "h": 0.92
+  },
+  {
+   "id": "old2",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": -2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#75695a",
+   "color": "#9aa7b5",
+   "h": 0.9
+  },
+  {
+   "id": "old3",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": 2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#4f5a52",
+   "color": "#c9a66b",
+   "h": 0.92
+  },
+  {
+   "id": "old4",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": 0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hair": "bun",
+   "glasses": 1,
+   "color": "#8c6f8a",
+   "h": 0.86
+  },
+  {
+   "id": "old5",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": -0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#6b6257",
+   "glasses": 1,
+   "color": "#d6c39c",
+   "h": 0.9
+  },
+  {
+   "id": "old6",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": -2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hair": "tufts",
+   "glasses": 1,
+   "color": "#7a8fa0",
+   "h": 0.88
+  },
+  {
+   "id": "old7",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": 2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hair": "bun",
+   "color": "#a8504a",
+   "h": 0.86
+  },
+  {
+   "id": "old8",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": 0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#5a4030",
+   "glasses": 1,
+   "color": "#8fa08a",
+   "h": 0.92
+  },
+  {
+   "id": "old9",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": -0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#75695a",
+   "color": "#b9b4aa",
+   "h": 0.9
+  },
+  {
+   "id": "old10",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.05,
+   "y": -60,
+   "z": -2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "clapHz": 0,
+   "lean": 0,
+   "hair": "bun",
+   "glasses": 1,
+   "color": "#c8a0a8",
+   "h": 0.88
+  },
+  {
+   "id": "usroad",
+   "staged": "the wide road, plaza and pavements",
+   "kind": "usroad",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "barsus",
+   "staged": "white bars across the wide road",
+   "kind": "crossbars",
+   "x": 7.81,
+   "y": 0.004,
+   "z": -0.1,
+   "n": 10,
+   "w": 0.42,
+   "len": 2,
+   "pitch": 0.84,
+   "axis": "x"
+  },
+  {
+   "id": "pole",
+   "staged": "the button pole at the kerb",
+   "kind": "uspedpole",
+   "x": 16.14,
+   "y": 0.1,
+   "z": -0.1,
+   "face": 135,
+   "hand": 1,
+   "press": 0,
+   "talk": 0
+  },
+  {
+   "id": "span",
+   "staged": "the span wire over the road",
+   "kind": "spanwire",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "a": [
+    16.5,
+    0.1,
+    2.1
+   ],
+   "b": [
+    7.2,
+    0.1,
+    2.1
+   ],
+   "sag": 0.22
+  },
+  {
+   "id": "sig0",
+   "staged": "hangs on the span wire",
+   "kind": "trafficlight",
+   "x": 12.6,
+   "y": 4.48,
+   "z": 2.1,
+   "hang": true,
+   "housing": "#e8b923",
+   "scale": 0.75,
+   "go": 1,
+   "rot": 135
+  },
+  {
+   "id": "sig1",
+   "staged": "hangs on the span wire",
+   "kind": "trafficlight",
+   "x": 11,
+   "y": 4.44,
+   "z": 2.1,
+   "hang": true,
+   "housing": "#e8b923",
+   "scale": 0.75,
+   "go": 1,
+   "rot": 135
+  },
+  {
+   "id": "sig2",
+   "staged": "hangs on the span wire",
+   "kind": "trafficlight",
+   "x": 9.4,
+   "y": 4.48,
+   "z": 2.1,
+   "hang": true,
+   "housing": "#e8b923",
+   "scale": 0.75,
+   "go": 1,
+   "rot": 135
+  },
+  {
+   "id": "busus",
+   "staged": "the other bus waits at the far pavement",
+   "kind": "citybus",
+   "x": 8.6,
+   "y": 0,
+   "z": -4.1,
+   "look": "us",
+   "open": 1,
+   "len": 0
+  },
+  {
+   "id": "busdriver",
+   "staged": "drives the American bus",
+   "kind": "streetpotato",
+   "x": 9.02,
+   "y": 0.66,
+   "z": -2.15,
+   "h": 0.9,
+   "coat": "#2b3f8a",
+   "rot": 0
+  },
+  {
+   "id": "stopsign",
+   "staged": "on the far pavement",
+   "kind": "busstopsign",
+   "x": 7.3,
+   "y": 0.1,
+   "z": 3.4,
+   "rot": 90
+  },
+  {
+   "id": "flagus",
+   "staged": "on its tall pole by the road",
+   "kind": "miniflag",
+   "flag": "us",
+   "x": 7.25,
+   "y": 0.1,
+   "z": 5.2,
+   "scale": 4,
+   "poleH": 5,
+   "rot": 90
+  },
+  {
+   "id": "cardW",
+   "staged": "the diner and gas station far behind",
+   "kind": "usbackdrop",
+   "x": 1.2,
+   "y": 0,
+   "z": 1,
+   "view": "w"
+  },
+  {
+   "id": "cardN",
+   "staged": "the road running on",
+   "kind": "usbackdrop",
+   "x": 13,
+   "y": 0,
+   "z": 26,
+   "view": "n"
+  },
+  {
+   "id": "cardE",
+   "staged": "the store row behind you",
+   "kind": "usbackdrop",
+   "x": 23,
+   "y": 0,
+   "z": 1,
+   "view": "e"
+  },
+  {
+   "id": "pickup",
+   "staged": "Mash's truck turns right on red",
+   "kind": "pickup",
+   "x": 14.95,
+   "y": 0,
+   "z": 4,
+   "rot": 180,
+   "len": 0,
+   "bend": 15,
+   "bump": 0
+  },
+  {
+   "id": "q1",
+   "staged": "a car waiting",
+   "kind": "citycar",
+   "x": 12.6,
+   "y": -60,
+   "z": 7.4,
+   "rot": 180,
+   "scale": 0.8,
+   "color": "#9aa3a8"
+  },
+  {
+   "id": "q2",
+   "staged": "a car driving past",
+   "kind": "citycar",
+   "x": 14.95,
+   "y": 0,
+   "z": 14,
+   "rot": 180,
+   "scale": 0.8,
+   "color": "#3f8fd0"
+  },
+  {
+   "id": "q3",
+   "staged": "a car driving past",
+   "kind": "citycar",
+   "x": 14.95,
+   "y": 0,
+   "z": 14,
+   "rot": 180,
+   "scale": 0.8,
+   "color": "#e6dcc8"
+  },
+  {
+   "id": "ustree1",
+   "staged": "by the apron",
+   "kind": "tree",
+   "x": 4.2,
+   "y": 0,
+   "z": -6,
+   "scale": 1.4
+  },
+  {
+   "id": "ustree2",
+   "staged": "by the apron",
+   "kind": "tree",
+   "x": 3.6,
+   "y": 0,
+   "z": 12.5,
+   "scale": 1.4
+  },
+  {
+   "id": "uslamp1",
+   "staged": "on the plaza",
+   "kind": "streetlamp",
+   "x": 17,
+   "y": 0.1,
+   "z": 4.6,
+   "h": 3.4,
+   "lit": 0
+  },
+  {
+   "id": "uslamp2",
+   "staged": "on the plaza",
+   "kind": "streetlamp",
+   "x": 20.5,
+   "y": 0.1,
+   "z": -6,
+   "h": 3.4,
+   "lit": 0
+  },
+  {
+   "id": "cone",
+   "staged": "on the plaza",
+   "kind": "trafficcone",
+   "x": 18.9,
+   "y": 0.1,
+   "z": 2.2
+  },
+  {
+   "id": "cap",
+   "staged": "worn",
+   "kind": "tweedcap",
+   "wear": "retiree",
+   "color": "#75695a",
+   "fit": {
+    "H": 0.69,
+    "W": 0.74,
+    "D": 0.68,
+    "taper": 0.02,
+    "legH": 0.14
+   }
+  },
+  {
+   "id": "burger",
+   "staged": "worn: in Chip's left hand",
+   "kind": "wrapburger",
+   "wear": "chip",
+   "x": 0.2,
+   "y": 0.3,
+   "z": 0.26,
+   "wrap": 0.35,
+   "scale": 0.75
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.12,
+   "to": 1.98,
+   "text": "*DON'T.* You. *DARE.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 2.08,
+   "to": 3.246,
+   "text": "Who's even *WATCHING?!*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 3.347,
+   "to": 6.313,
+   "text": "Red means *STAND.* Forever.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 7.367,
+   "to": 9.113,
+   "text": "Bus leaves in one minute.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 9.284,
+   "to": 10.684,
+   "text": "Come on... come on.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 10.704,
+   "to": 11.904,
+   "text": "Right on red, hon!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 12.034,
+   "to": 14.78,
+   "text": "Think. Of. *The children.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 14.9,
+   "to": 15.913,
+   "text": "There ARE no children!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 16.184,
+   "to": 17.694,
+   "text": "...Where did YOU come from?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 18.3,
+   "to": 20.113,
+   "text": "Morning!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 20.234,
+   "to": 20.913,
+   "text": "It's RED!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 21.034,
+   "to": 22.113,
+   "text": "It's a suggestion.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 22.254,
+   "to": 23.446,
+   "text": "Thirty seconds.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 23.767,
+   "to": 25.913,
+   "text": "Okay. Nobody's looking...",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 26.234,
+   "to": 27.374,
+   "text": "I *SEE* you.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 27.5,
+   "to": 28.44,
+   "text": "Come ON!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 28.75,
+   "to": 29.513,
+   "text": "*Wait.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 29.614,
+   "to": 30.646,
+   "text": "I AM waiting!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 30.867,
+   "to": 31.897,
+   "text": "*Wait.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 32.967,
+   "to": 34.513,
+   "text": "*Five.* Euros.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 34.634,
+   "to": 35.38,
+   "text": "Go ahead, hon!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 37.9,
+   "to": 40.11,
+   "text": "...Huh. Made it.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 40.3,
+   "to": 41.313,
+   "text": "Ten seconds.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 41.484,
+   "to": 44.38,
+   "text": "Come on, come on, come on...",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 44.45,
+   "to": 45.113,
+   "text": "*Too late.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 48.167,
+   "to": 49.117,
+   "text": "*Good.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "de-wide",
+   "at": 0,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -2.2,
+     0.6,
+     0.1
+    ],
+    "look": [
+     -9.25,
+     1.33,
+     0.1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -2.5,
+      0.6,
+      0.1
+     ]
+    },
+    "dur": 2,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "kid",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "ride",
+     "prop": "busde",
+     "off": [
+      0.42,
+      0.54,
+      1.95
+     ],
+     "sit": true,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "pickup",
+     "off": [
+      0.4,
+      0.3,
+      0.2
+     ],
+     "sit": true,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "retiree",
+     "do": "pitch",
+     "to": 22,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "soloOpen": 0.6,
+      "soloBlow": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "binos",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pedde",
+     "set": {
+      "go": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 0,
+      "talk": 0,
+      "hand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 1,
+      "len": 0,
+      "blink": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "busus",
+     "set": {
+      "open": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pickup",
+     "set": {
+      "len": 0,
+      "bend": 15,
+      "bump": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "lean": 0,
+      "clapHz": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.01,
+     "set": {
+      "open": 0.1
+     },
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "retiree",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.01,
+     "set": {
+      "open": 0.2
+     },
+     "at": 0
+    },
+    {
+     "who": "retiree",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "retiree",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.5,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spudus",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "retiree",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "soloOpen": 1
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.03
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "DON'T. You. DARE.",
+     "tone": "excited",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, every word a command",
+     "voice": "retiree-x115",
+     "dur": 1.81,
+     "caption": false,
+     "at": 0.12
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.98
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "hero-de",
+   "at": 2,
+   "len": 1.266,
+   "shot": {
+    "pos": [
+     -5.2,
+     0.72,
+     1.2
+    ],
+    "look": [
+     -9.25,
+     1,
+     -0.1
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -4.95,
+      0.72,
+      1.12
+     ]
+    },
+    "dur": 1.267,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Who's even WATCHING?!",
+     "tone": "question",
+     "style": "startled, one foot in the air, looking around an empty street",
+     "voice": "spud-x115",
+     "dur": 1.12,
+     "caption": false,
+     "at": 0.08
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "retiree",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.247
+    }
+   ]
+  },
+  {
+   "name": "window-low",
+   "at": 3.266,
+   "len": 3.067,
+   "shot": {
+    "pos": [
+     -11,
+     0.7,
+     -0.5
+    ],
+    "look": [
+     -13.9,
+     2.05,
+     0.675
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -11.15,
+      0.7,
+      -0.45
+     ]
+    },
+    "dur": 3.067,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Red means STAND. Forever.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, deadly serious",
+     "voice": "retiree-x115",
+     "dur": 2.91,
+     "caption": false,
+     "at": 0.081
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.734
+    }
+   ]
+  },
+  {
+   "name": "bus-across",
+   "at": 6.333,
+   "len": 0.933,
+   "shot": {
+    "pos": [
+     -13,
+     1.05,
+     0.6
+    ],
+    "look": [
+     -5.31,
+     1.46,
+     -1.61
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -12.7,
+      1.05,
+      0.5
+     ]
+    },
+    "dur": 0.933,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "doorslide",
+     "gain": 0.3,
+     "at": 0.101
+    }
+   ]
+  },
+  {
+   "name": "wedge",
+   "at": 7.266,
+   "len": 1.867,
+   "shot": {
+    "pos": [
+     -5.9,
+     1.3,
+     1.6
+    ],
+    "look": [
+     -3.78,
+     1.38,
+     -2.15
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -5.75,
+      1.3,
+      1.35
+     ]
+    },
+    "dur": 1.867,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Bus leaves in one minute.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient German bus driver, a slight German accent, never blinking, flat",
+     "voice": "wedge-x115",
+     "dur": 1.67,
+     "caption": false,
+     "at": 0.101
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.52,
+       0.32
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.151
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.58,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.311
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.52,
+       0.32
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.481
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.58,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.641
+    }
+   ]
+  },
+  {
+   "name": "us-button",
+   "at": 9.133,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     19.8,
+     0.95,
+     -2.8
+    ],
+    "look": [
+     12.5,
+     1.51,
+     1.4
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      19.5,
+      0.95,
+      -2.65
+     ]
+    },
+    "dur": 2.8,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       16.22,
+       0.72,
+       -0.18
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.101
+    },
+    {
+     "who": "spudus",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.05,
+     "at": 0.101
+    },
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "Come on... come on.",
+     "tone": "calm",
+     "style": "impatient, pressing a crosswalk button",
+     "voice": "spud-x115",
+     "dur": 1.32,
+     "caption": false,
+     "at": 0.151
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.181
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "at": 0.181
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.221
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 0.261
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       16.22,
+       0.72,
+       -0.18
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.501
+    },
+    {
+     "who": "spudus",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.05,
+     "at": 0.501
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.581
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "at": 0.581
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.621
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 0.661
+    },
+    {
+     "who": "retiree",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.867
+    },
+    {
+     "do": "prop",
+     "id": "pickup",
+     "set": {
+      "z": -7,
+      "len": 11,
+      "bend": 0
+     },
+     "dur": 7.9,
+     "ease": "linear",
+     "at": 0.871
+    },
+    {
+     "sfx": "tyres",
+     "gain": 0.35,
+     "at": 0.871
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.271
+    },
+    {
+     "who": "spudus",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.15,
+     "at": 1.471
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Right on red, hon!",
+     "tone": "excited",
+     "style": "slow, cheerful, chatty American, all the time in the world, waving from a pickup truck window as he turns",
+     "voice": "mash-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 1.571
+    },
+    {
+     "who": "spudus",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 2.271
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.7,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.781
+    },
+    {
+     "who": "retiree",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.01,
+     "at": 2.781
+    }
+   ]
+  },
+  {
+   "name": "retiree",
+   "at": 11.933,
+   "len": 2.867,
+   "shot": {
+    "pos": [
+     -8.9,
+     1.55,
+     -1.3
+    ],
+    "look": [
+     -13.9,
+     2.07,
+     0.675
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      -9.2,
+      1.55,
+      -1.18
+     ]
+    },
+    "dur": 2.866,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.067
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Think. Of. The children.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, slow, a lecture",
+     "voice": "retiree-x115",
+     "dur": 2.71,
+     "caption": false,
+     "at": 0.101
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.72,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.401
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.72,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.101
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.72,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.801
+    },
+    {
+     "who": "spudus",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.067
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "shrug",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.847
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 2.847
+    }
+   ]
+  },
+  {
+   "name": "hero-arms",
+   "at": 14.8,
+   "len": 1.133,
+   "shot": {
+    "pos": [
+     -5.2,
+     0.72,
+     1.2
+    ],
+    "look": [
+     -9.25,
+     1,
+     -0.1
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -4.95,
+      0.72,
+      1.12
+     ]
+    },
+    "dur": 1.134,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "There ARE no children!",
+     "tone": "excited",
+     "style": "arms spread at the empty street",
+     "voice": "spud-x115",
+     "dur": 0.95,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "kid",
+     "do": "move",
+     "to": [
+      -9.32,
+      0.62
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.1,
+     "at": 1.07
+    },
+    {
+     "who": "kid",
+     "do": "turn",
+     "to": 100,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.07
+    },
+    {
+     "who": "kid",
+     "do": "show",
+     "at": 1.09
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.114
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.7
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.114
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 1.114
+    },
+    {
+     "who": "kid",
+     "do": "look",
+     "to": [
+      0.6,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.114
+    },
+    {
+     "who": "kid",
+     "do": "face",
+     "lid": 0.25,
+     "dur": 0.01,
+     "at": 1.114
+    }
+   ]
+  },
+  {
+   "name": "kerb-two",
+   "at": 15.933,
+   "len": 1.867,
+   "shot": {
+    "pos": [
+     -3.6,
+     0.6,
+     0.25
+    ],
+    "look": [
+     -9.25,
+     1.26,
+     0.25
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -3.9,
+      0.6,
+      0.25
+     ]
+    },
+    "dur": 1.866,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...Where did YOU come from?",
+     "tone": "question",
+     "style": "small, staring down at a tiny child",
+     "voice": "spud-x115",
+     "dur": 1.21,
+     "caption": false,
+     "at": 0.251
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      12.2,
+      1.5
+     ],
+     "dur": 4.3,
+     "ease": "linear",
+     "at": 1.367
+    },
+    {
+     "who": "spudus",
+     "do": "turn",
+     "to": -75,
+     "dur": 0.2,
+     "at": 1.847
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.4,
+       0.26
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.847
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 1.847
+    }
+   ]
+  },
+  {
+   "name": "us-jaywalk",
+   "at": 17.8,
+   "len": 2.333,
+   "shot": {
+    "pos": [
+     19.8,
+     0.95,
+     -2.8
+    ],
+    "look": [
+     12.3,
+     1.45,
+     1.2
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      19.5,
+      0.95,
+      -2.65
+     ]
+    },
+    "dur": 2.334,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Morning!",
+     "tone": "excited",
+     "style": "relaxed, mouth full of burger, strolling across the road",
+     "voice": "chip-x115",
+     "take": 2,
+     "dur": 1.77,
+     "caption": false,
+     "at": 0.5
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.8,
+       0.4
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.2
+    },
+    {
+     "who": "spudus",
+     "do": "turn",
+     "to": -150,
+     "dur": 0.01,
+     "at": 2.314
+    },
+    {
+     "who": "spudus",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 2.314
+    }
+   ]
+  },
+  {
+   "name": "hero-us",
+   "at": 20.133,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     14,
+     0.72,
+     -3.4
+    ],
+    "look": [
+     16.78,
+     1,
+     -0.1
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      14.2,
+      0.72,
+      -3.15
+     ]
+    },
+    "dur": 0.8,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "It's RED!",
+     "tone": "excited",
+     "style": "shocked, pointing at the light",
+     "voice": "spud-x115",
+     "dur": 0.67,
+     "caption": false,
+     "at": 0.101
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.781
+    }
+   ]
+  },
+  {
+   "name": "chip",
+   "at": 20.933,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     15.6,
+     0.6,
+     -1.9
+    ],
+    "look": [
+     12.2,
+     0.72,
+     1.5
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      15.35,
+      0.6,
+      -1.65
+     ]
+    },
+    "dur": 1.2,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "It's a suggestion.",
+     "tone": "calm",
+     "style": "shrugging, chewing",
+     "voice": "chip-x115",
+     "dur": 0.84,
+     "caption": false,
+     "at": 0.101
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      16.6,
+      1.9
+     ],
+     "dur": 6.4,
+     "ease": "linear",
+     "at": 1.041
+    }
+   ]
+  },
+  {
+   "name": "wedge-30",
+   "at": 22.133,
+   "len": 1.333,
+   "shot": {
+    "pos": [
+     -5.9,
+     1.3,
+     1.6
+    ],
+    "look": [
+     -3.78,
+     1.38,
+     -2.15
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -5.75,
+      1.3,
+      1.35
+     ]
+    },
+    "dur": 1.333,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.52,
+       0.32
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.101
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Thirty seconds.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient German bus driver, a slight German accent, never blinking, tapping his watch",
+     "voice": "wedge-x115",
+     "dur": 1.15,
+     "caption": false,
+     "at": 0.121
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.58,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.261
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.52,
+       0.32
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.431
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.58,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.591
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 14,
+     "dur": 0.6,
+     "at": 1.314
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.7,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.314
+    }
+   ]
+  },
+  {
+   "name": "lean",
+   "at": 23.466,
+   "len": 2.467,
+   "shot": {
+    "pos": [
+     -5.2,
+     0.72,
+     1.2
+    ],
+    "look": [
+     -9.25,
+     1,
+     -0.1
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -4.95,
+      0.72,
+      1.12
+     ]
+    },
+    "dur": 2.467,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Okay. Nobody's looking...",
+     "tone": "calm",
+     "style": "whispering, leaning over the kerb",
+     "voice": "spud-x115",
+     "dur": 2.14,
+     "caption": false,
+     "at": 0.301
+    }
+   ]
+  },
+  {
+   "name": "binoculars",
+   "at": 25.933,
+   "len": 1.467,
+   "shot": {
+    "pos": [
+     -6.6,
+     0.95,
+     2.6
+    ],
+    "look": [
+     -0.6,
+     2.08,
+     2.025
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      -6.2,
+      0.95,
+      2.55
+     ]
+    },
+    "dur": 1.466,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "soloPart": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.001
+    },
+    {
+     "who": "retiree",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.067
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "I SEE you.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, low, from behind binoculars",
+     "voice": "retiree-x115",
+     "dur": 0.84,
+     "caption": false,
+     "at": 0.301
+    },
+    {
+     "do": "prop",
+     "id": "binos",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.451
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.3,
+     "at": 0.451
+    },
+    {
+     "do": "prop",
+     "id": "binos",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0.13,
+     "ease": "in",
+     "at": 0.581
+    },
+    {
+     "who": "spudus",
+     "do": "turn",
+     "to": -110,
+     "dur": 0.01,
+     "at": 1.447
+    },
+    {
+     "who": "spudus",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.01,
+     "at": 1.447
+    }
+   ]
+  },
+  {
+   "name": "us-fists",
+   "at": 27.4,
+   "len": 2.133,
+   "shot": {
+    "pos": [
+     17.5,
+     0.72,
+     -3.6
+    ],
+    "look": [
+     16.5,
+     0.89,
+     -0.1
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      17.45,
+      0.72,
+      -3.3
+     ]
+    },
+    "dur": 2.134,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       16.22,
+       0.72,
+       -0.18
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spudus",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.05,
+     "at": 0.05
+    },
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "Come ON!",
+     "tone": "excited",
+     "style": "hammering a crosswalk button with both fists",
+     "voice": "spud-x115",
+     "dur": 0.64,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.13
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "at": 0.13
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 0.21
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       16.22,
+       0.72,
+       -0.18
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "spudus",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.05,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.33
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "at": 0.33
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.37
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 0.41
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       16.22,
+       0.72,
+       -0.18
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "who": "spudus",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.05,
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.53
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "at": 0.53
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.57
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 0.61
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       16.22,
+       0.72,
+       -0.18
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.65
+    },
+    {
+     "who": "spudus",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.05,
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.73
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "at": 0.73
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.77
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 0.81
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       16.22,
+       0.72,
+       -0.18
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.85
+    },
+    {
+     "who": "spudus",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.05,
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.93
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "at": 0.93
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.97
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 1.01
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       16.22,
+       0.72,
+       -0.18
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.05
+    },
+    {
+     "who": "spudus",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.05,
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 1.13
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "at": 1.13
+    },
+    {
+     "who": "spudus",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.17
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 1.21
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.35
+    },
+    {
+     "who": "button",
+     "macro": "say",
+     "line": "Wait.",
+     "tone": "calm",
+     "style": "flat robotic crosswalk speaker",
+     "voice": "button",
+     "dur": 0.73,
+     "caption": false,
+     "at": 1.35
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "talk": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 2.08
+    },
+    {
+     "who": "spudus",
+     "do": "turn",
+     "to": -150,
+     "dur": 0.01,
+     "at": 2.114
+    }
+   ]
+  },
+  {
+   "name": "hero-us-2",
+   "at": 29.533,
+   "len": 1.133,
+   "shot": {
+    "pos": [
+     14,
+     0.72,
+     -3.4
+    ],
+    "look": [
+     16.78,
+     1,
+     -0.1
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      14.2,
+      0.72,
+      -3.15
+     ]
+    },
+    "dur": 1.133,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "I AM waiting!",
+     "tone": "excited",
+     "style": "yelling at the button",
+     "voice": "spud-x115",
+     "dur": 0.98,
+     "caption": false,
+     "at": 0.081
+    },
+    {
+     "who": "spudus",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.467
+    },
+    {
+     "who": "spudus",
+     "do": "turn",
+     "to": -110,
+     "dur": 0.01,
+     "at": 1.114
+    },
+    {
+     "who": "spudus",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 1.114
+    }
+   ]
+  },
+  {
+   "name": "us-fists-2",
+   "at": 30.666,
+   "len": 1.267,
+   "shot": {
+    "pos": [
+     17.5,
+     0.72,
+     -3.6
+    ],
+    "look": [
+     16.5,
+     0.89,
+     -0.1
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      17.45,
+      0.72,
+      -3.3
+     ]
+    },
+    "dur": 1.267,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "talk": 1
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.201
+    },
+    {
+     "who": "button",
+     "macro": "say",
+     "line": "Wait.",
+     "tone": "calm",
+     "style": "flat robotic crosswalk speaker",
+     "voice": "button",
+     "dur": 0.73,
+     "caption": false,
+     "at": 0.201
+    },
+    {
+     "do": "prop",
+     "id": "pole",
+     "set": {
+      "talk": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.931
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -9.2,
+      -0.1
+     ],
+     "dur": 0.25,
+     "y": 0.1,
+     "at": 1.248
+    }
+   ]
+  },
+  {
+   "name": "de-peak",
+   "at": 31.933,
+   "len": 0.933,
+   "shot": {
+    "pos": [
+     -1,
+     0.25,
+     -0.1
+    ],
+    "look": [
+     -9.25,
+     2.66,
+     -0.1
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -1.3,
+      0.25,
+      -0.1
+     ]
+    },
+    "dur": 0.933,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 1
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.151
+    },
+    {
+     "sfx": "leafrustle",
+     "gain": 0.4,
+     "at": 0.151
+    },
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "peek": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.301
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.75,
+       0.3
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.914
+    },
+    {
+     "who": "retiree",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.05,
+     "at": 0.914
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -9.25,
+      -0.1
+     ],
+     "dur": 0.3,
+     "y": 0.1,
+     "at": 0.914
+    }
+   ]
+  },
+  {
+   "name": "retiree-five",
+   "at": 32.866,
+   "len": 1.667,
+   "shot": {
+    "pos": [
+     -8.9,
+     1.55,
+     -1.3
+    ],
+    "look": [
+     -13.9,
+     2.07,
+     0.675
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      -9.2,
+      1.55,
+      -1.18
+     ]
+    },
+    "dur": 1.667,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Five. Euros.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, holding up five fingers",
+     "voice": "retiree-x115",
+     "dur": 1.51,
+     "caption": false,
+     "at": 0.101
+    },
+    {
+     "do": "prop",
+     "id": "pickup",
+     "set": {
+      "x": 12.4,
+      "z": 3.25,
+      "len": 12,
+      "rot": 180,
+      "bend": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.111
+    },
+    {
+     "do": "prop",
+     "id": "q1",
+     "set": {
+      "x": 12.6,
+      "y": 0,
+      "z": 7.4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.111
+    },
+    {
+     "do": "prop",
+     "id": "q2",
+     "set": {
+      "x": 14.95,
+      "y": 0,
+      "z": 2.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.111
+    },
+    {
+     "do": "prop",
+     "id": "q3",
+     "set": {
+      "x": 14.95,
+      "y": 0,
+      "z": 6.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.111
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.134
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "wave",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.648
+    }
+   ]
+  },
+  {
+   "name": "mash-stop",
+   "at": 34.533,
+   "len": 0.867,
+   "shot": {
+    "pos": [
+     11.2,
+     1,
+     -2.6
+    ],
+    "look": [
+     12.45,
+     1.2,
+     2.4
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      11.3,
+      1,
+      -2.3
+     ]
+    },
+    "dur": 0.866,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Go ahead, hon!",
+     "tone": "calm",
+     "style": "slow, cheerful, chatty American, all the time in the world, stopping the truck, waving him across",
+     "voice": "mash-x115",
+     "dur": 0.69,
+     "caption": false,
+     "at": 0.101
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.4,
+       0.55,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.351
+    },
+    {
+     "who": "spudus",
+     "do": "move",
+     "to": [
+      10.9,
+      -0.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 0.847
+    },
+    {
+     "who": "spudus",
+     "do": "turn",
+     "to": -135,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.847
+    },
+    {
+     "who": "spudus",
+     "do": "move",
+     "to": [
+      9.3,
+      -0.1
+     ],
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0.847
+    }
+   ]
+  },
+  {
+   "name": "us-wide",
+   "at": 35.4,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     10.6,
+     1.05,
+     -10.5
+    ],
+    "look": [
+     10.6,
+     0.92,
+     0
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      10.6,
+      1.05,
+      -9.9
+     ]
+    },
+    "dur": 1.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spudus",
+     "do": "move",
+     "to": [
+      7.1,
+      -0.5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.1,
+     "at": 1.58
+    },
+    {
+     "who": "spudus",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "spudus",
+     "do": "move",
+     "to": [
+      7.1,
+      -2.15
+     ],
+     "dur": 1.4,
+     "ease": "linear",
+     "y": 0.1,
+     "at": 1.58
+    }
+   ]
+  },
+  {
+   "name": "board",
+   "at": 37,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     5.9,
+     1,
+     -5.4
+    ],
+    "look": [
+     7.1,
+     1,
+     -1.2
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      5.95,
+      1,
+      -5.1
+     ]
+    },
+    "dur": 3.2,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "...Huh. Made it.",
+     "tone": "calm",
+     "style": "surprised, stepping onto the bus",
+     "voice": "spud-x115",
+     "dur": 1.91,
+     "caption": false,
+     "at": 0.9
+    },
+    {
+     "who": "spudus",
+     "do": "turn",
+     "to": 135,
+     "dur": 0.3,
+     "at": 1
+    },
+    {
+     "who": "spudus",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.2,
+     "at": 2.41
+    },
+    {
+     "who": "spudus",
+     "do": "move",
+     "to": [
+      7.9,
+      -2.15
+     ],
+     "dur": 0.4,
+     "y": 0.36,
+     "at": 2.61
+    }
+   ]
+  },
+  {
+   "name": "wedge-10",
+   "at": 40.2,
+   "len": 1.133,
+   "shot": {
+    "pos": [
+     -5.9,
+     1.3,
+     1.6
+    ],
+    "look": [
+     -3.78,
+     1.38,
+     -2.15
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -5.75,
+      1.3,
+      1.35
+     ]
+    },
+    "dur": 1.134,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.52,
+       0.32
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Ten seconds.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient German bus driver, a slight German accent, never blinking",
+     "voice": "wedge-x115",
+     "dur": 0.98,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.58,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.26
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.52,
+       0.32
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.43
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.58,
+       0.34
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.59
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.114
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.7
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.114
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.1,
+     "at": 1.114
+    }
+   ]
+  },
+  {
+   "name": "come-on",
+   "at": 41.333,
+   "len": 3.067,
+   "shot": {
+    "pos": [
+     -5.2,
+     0.72,
+     1.2
+    ],
+    "look": [
+     -9.25,
+     1,
+     -0.1
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -4.95,
+      0.72,
+      1.12
+     ]
+    },
+    "dur": 3.066,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Come on, come on, come on...",
+     "tone": "calm",
+     "style": "whispering, foot hovering, staring at the red man",
+     "voice": "spud-x115",
+     "dur": 2.89,
+     "caption": false,
+     "at": 0.151
+    }
+   ]
+  },
+  {
+   "name": "too-late",
+   "at": 44.4,
+   "len": 0.733,
+   "shot": {
+    "pos": [
+     -5.9,
+     1.3,
+     1.6
+    ],
+    "look": [
+     -3.78,
+     1.38,
+     -2.15
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -5.75,
+      1.3,
+      1.35
+     ]
+    },
+    "dur": 0.734,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Too late.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient German bus driver, a slight German accent, never blinking, doors hiss shut as the light turns green",
+     "voice": "wedge-x115",
+     "dur": 0.74,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "pedde",
+     "set": {
+      "go": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.714
+    }
+   ]
+  },
+  {
+   "name": "green",
+   "at": 45.133,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3.2,
+     0.6,
+     0.28
+    ],
+    "look": [
+     -9.25,
+     1.31,
+     0.28
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -3.5,
+      0.6,
+      0.28
+     ]
+    },
+    "dur": 1,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "ding",
+     "gain": 0.4,
+     "at": 0.001
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.1,
+     "at": 0.101
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -8.6,
+      -0.1
+     ],
+     "dur": 0.5,
+     "y": 0,
+     "at": 0.351
+    }
+   ]
+  },
+  {
+   "name": "bus-leaves",
+   "at": 46.133,
+   "len": 1.933,
+   "shot": {
+    "pos": [
+     -13,
+     1.05,
+     0.6
+    ],
+    "look": [
+     -5.31,
+     1.46,
+     -1.61
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -12.7,
+      1.05,
+      0.5
+     ]
+    },
+    "dur": 1.933,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.33,
+     "ease": "inOut",
+     "at": 0.001
+    },
+    {
+     "sfx": "hiss",
+     "gain": 0.4,
+     "at": 0.001
+    },
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "z": 9,
+      "len": 13.4,
+      "blink": 1
+     },
+     "dur": 2.4,
+     "ease": "in",
+     "at": 0.401
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.501
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.7,
+       0.4
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.801
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -7.36,
+      -0.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.914
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.914
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.914
+    },
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 1,
+     "dur": 0.01,
+     "at": 1.914
+    },
+    {
+     "who": "kid",
+     "do": "move",
+     "to": [
+      -7.7,
+      0.4
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.914
+    },
+    {
+     "who": "kid",
+     "do": "turn",
+     "to": 100,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.914
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.08,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.914
+    }
+   ]
+  },
+  {
+   "name": "good",
+   "at": 48.066,
+   "len": 1.134,
+   "shot": {
+    "pos": [
+     -8.9,
+     1.55,
+     -1.3
+    ],
+    "look": [
+     -13.9,
+     2.07,
+     0.675
+    ],
+    "fov": 24,
+    "to": {
+     "pos": [
+      -9.2,
+      1.55,
+      -1.18
+     ]
+    },
+    "dur": 1.133,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Good.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, suddenly proud, slow-clapping with the whole street",
+     "voice": "retiree-x115",
+     "dur": 0.65,
+     "caption": false,
+     "at": 0.101
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0,
+       0.5,
+       0.32
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.401
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "at": 0.521
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": 1.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": 1.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": 1.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": 2.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": 2.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": 2.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": 2.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": 3.75
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": 3.75
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": 3.75
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": 3.75
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.114
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.114
+    },
+    {
+     "who": "kid",
+     "do": "look",
+     "to": [
+      0.3,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.114
+    }
+   ]
+  },
+  {
+   "name": "payoff",
+   "at": 49.2,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -1,
+     0.25,
+     -0.1
+    ],
+    "look": [
+     -7.36,
+     2.13,
+     -0.1
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -1,
+      0.32,
+      -0.1
+     ]
+    },
+    "dur": 2.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.67,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.13
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.13
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.13
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.13
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.197
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.264
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.264
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.264
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.264
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "lean": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.264
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "clapHz": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.264
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.08,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0,
+       0.5,
+       0.32
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.6,
+     "at": 1
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.08,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "retiree",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0,
+       0.5,
+       0.32
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.6,
+     "at": 2
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.93,
+   "see": [
+    "spud.face",
+    "retiree.face",
+    "pedde"
+   ],
+   "why": "frame 0: you mid-step on an empty street, the red man, a retiree bangs his window open"
+  },
+  {
+   "from": 2,
+   "to": 3.2,
+   "see": [
+    "spud.face"
+   ],
+   "why": "the question: who is watching, on a street with nobody in it"
+  },
+  {
+   "from": 3.267,
+   "to": 6.257,
+   "see": [
+    "retiree.face"
+   ],
+   "why": "the rule, from the window"
+  },
+  {
+   "from": 6.334,
+   "to": 9.037,
+   "see": [
+    "wedge.face",
+    "busde"
+   ],
+   "why": "the stake: your bus waits across the road, one minute"
+  },
+  {
+   "from": 9.134,
+   "to": 11.904,
+   "see": [
+    "spudus",
+    "pole",
+    "pickup",
+    "mash.face"
+   ],
+   "why": "you press, nothing; a pickup turns right on red past your nose"
+  },
+  {
+   "from": 11.934,
+   "to": 14.744,
+   "see": [
+    "retiree.face"
+   ],
+   "why": "the lecture: think of the children"
+  },
+  {
+   "from": 15.934,
+   "to": 17.744,
+   "see": [
+    "spud.face",
+    "kid.face",
+    "retiree"
+   ],
+   "why": "a tiny kid has appeared beside you, staring, waiting too"
+  },
+  {
+   "from": 17.8,
+   "to": 20.07,
+   "see": [
+    "chip.face",
+    "burger",
+    "spudus"
+   ],
+   "why": "a jaywalker strolls across mid-road eating a burger"
+  },
+  {
+   "from": 20.134,
+   "to": 22.124,
+   "see": [
+    "chip.face",
+    "spudus.face"
+   ],
+   "why": "red is a suggestion here"
+  },
+  {
+   "from": 25.934,
+   "to": 27.374,
+   "see": [
+    "watcher",
+    "binos"
+   ],
+   "why": "tease 1: binoculars glint behind the lace across the street"
+  },
+  {
+   "from": 27.4,
+   "to": 29.48,
+   "see": [
+    "spudus.face",
+    "pole"
+   ],
+   "why": "you hammer the button; it says: Wait."
+  },
+  {
+   "from": 29.534,
+   "to": 31.897,
+   "see": [
+    "spudus.face",
+    "pole"
+   ],
+   "why": "the button does nothing but say Wait."
+  },
+  {
+   "from": 31.934,
+   "to": 34.477,
+   "see": [
+    "spud",
+    "flatsL",
+    "retiree.face"
+   ],
+   "why": "tease 2: your toe slides off the kerb, every curtain on the street twitches; the fine"
+  },
+  {
+   "from": 34.534,
+   "to": 40.16,
+   "see": [
+    "mash.face",
+    "spudus"
+   ],
+   "why": "in America you just walk; the cars wait; you make your bus"
+  },
+  {
+   "from": 40.2,
+   "to": 44.374,
+   "see": [
+    "wedge.face",
+    "spud.face"
+   ],
+   "why": "the clock runs down, you stare at the red man"
+  },
+  {
+   "from": 49.2,
+   "to": 51.6,
+   "see": [
+    "spud.face",
+    "kid",
+    "flatsL",
+    "retiree"
+   ],
+   "why": "the answer: the whole street was watching, and slow-claps you"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "retiree",
+   "with": "flatsL",
+   "from": 0,
+   "to": 51.6,
+   "checks": [
+    "clipping",
+    "costume-in-prop",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "he leans out of his own open window over the sill (DESIGN §2 RW); rough draft"
+  },
+  {
+   "who": "retiree",
+   "with": "cap",
+   "from": 0,
+   "to": 51.6,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "the cap is worn on his head"
+  },
+  {
+   "who": "wedge",
+   "with": "busde",
+   "from": 0,
+   "to": 51.6,
+   "checks": [
+    "clipping",
+    "costume-in-prop",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "he sits in the driver's seat inside the bus cab (DESIGN §8); rough draft"
+  },
+  {
+   "who": "mash",
+   "with": "pickup",
+   "from": 0,
+   "to": 51.6,
+   "checks": [
+    "clipping",
+    "costume-in-prop",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "he sits in the pickup's cab, an arm out of the open window (DESIGN §8); rough draft"
+  },
+  {
+   "who": "chip",
+   "with": "burger",
+   "from": 0,
+   "to": 51.6,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "the burger is worn in his hand (rough draft, no grip polish)"
+  },
+  {
+   "who": "spudus",
+   "with": "pole",
+   "from": 0,
+   "to": 51.6,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "his fists press the button (contact by design)"
+  },
+  {
+   "who": "spudus",
+   "with": "busus",
+   "from": 37,
+   "to": 51.6,
+   "checks": [
+    "clipping",
+    "costume-in-prop"
+   ],
+   "reason": "he steps up into the bus door"
+  }
+ ],
+ "notes": "Generated by storyboards/series/country-vs-country/02-traffic-light/make-traffic.mjs. Rough draft: staging only, no hand polish."
+}
