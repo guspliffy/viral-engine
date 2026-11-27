@@ -420,8 +420,8 @@ export const HEAD = `<style>@font-face { font-family: Inter; font-weight: 900; s
 export const SHEET = TL.map((b) => +(b.lineAt + (b.d || 0) * 0.5).toFixed(2));   // one frame per shot, for the contact sheet
 
 // ---------------------------------------------------------------- the sound mix
-const MUSIC_DIR = `${OUT}/music`, SFX_DIR = `${OUT}/sfx`, MISSING = [];
-function best(dir, id) {   // top-ranked take of an id (CLAP rank in sg-raw/report.json), else the first file found
+const MUSIC_DIR = "assets/music/ai", SFX_DIR = "assets/sfx/ai", MISSING = [];   // the picked takes (were out/legend-golem/music + sfx)
+export function best(dir, id) {   // top-ranked take of an id (CLAP rank in sg-raw/report.json), else the first file found
   const files = [];
   if (existsSync(`${dir}/${id}`)) files.push(...readdirSync(`${dir}/${id}`).filter((f) => /\.(wav|ogg|mp3|flac)$/i.test(f)).map((f) => `${dir}/${id}/${f}`));
   if (existsSync(dir)) files.push(...readdirSync(dir).filter((f) => f.startsWith(id) && /\.(wav|ogg|mp3|flac)$/i.test(f)).map((f) => `${dir}/${f}`));
