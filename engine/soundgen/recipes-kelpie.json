@@ -1,0 +1,343 @@
+{
+ "_note": "Legend: The Kelpie (27 Nov 2026). Score from Codex gpt-6.2-sol high (project files videos/folklore-legend/kelpie/sol-music/answer.md): Scottish fiddle slow air + smallpipe D drone (no chanter) + wire-strung clarsach, live orchestral violas/cellos/basses for danger; motif D F E D (croft: F#). Hard silences: fingertip contact ~0.7 s, the pull ~0.3 s, all music out when Grandma raises her hand.",
+ "sfx": [
+  {
+   "id": "loch-lap",
+   "kind": "oneshot",
+   "len": [
+    4,
+    9
+   ],
+   "duration": 10,
+   "prompts": [
+    "gentle water lapping on a stony lake shore at night, calm, quiet, natural field recording",
+    "small waves on a Scottish loch shore at night, soft lapping, still air, field recording"
+   ],
+   "seeds": [
+    5001,
+    5002,
+    5003
+   ],
+   "tags": [
+    "water",
+    "lap",
+    "shore"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "water-drip",
+   "kind": "split",
+   "len": [
+    0.2,
+    0.8
+   ],
+   "duration": 10,
+   "prompts": [
+    "single water drops dripping from a wet horse mane into still water, close, clear plips",
+    "water dripping into a lake, individual drops, close up, quiet"
+   ],
+   "seeds": [
+    5011,
+    5012
+   ],
+   "tags": [
+    "drip",
+    "water"
+   ],
+   "gain": 0.45
+  },
+  {
+   "id": "horse-snort",
+   "kind": "split",
+   "len": [
+    0.5,
+    1.6
+   ],
+   "duration": 10,
+   "prompts": [
+    "a horse snorting and blowing softly through its nose, close, wet breath, natural recording",
+    "horse exhale and low nicker, close up, calm"
+   ],
+   "seeds": [
+    5021,
+    5022
+   ],
+   "tags": [
+    "horse",
+    "snort"
+   ],
+   "gain": 0.45
+  },
+  {
+   "id": "hoof-water",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.2
+   ],
+   "duration": 10,
+   "prompts": [
+    "heavy horse hooves stepping through shallow water, splashing, slow steps, close",
+    "a horse wading into a lake, splashing hoof steps in water"
+   ],
+   "seeds": [
+    5031,
+    5032,
+    5033
+   ],
+   "tags": [
+    "hoof",
+    "splash",
+    "water"
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "sticky-stretch",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "a slow wet sticky stretching sound like skin pulling off glue, squelch, close up, gross",
+    "tacky wet suction pulling apart slowly, sticky squelch, foley"
+   ],
+   "seeds": [
+    5041,
+    5042,
+    5043
+   ],
+   "tags": [
+    "sticky",
+    "squelch"
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "splash-in",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "a child splashing down into shallow lake water, one splash, close",
+    "someone sliding off into knee-deep water, single splash"
+   ],
+   "seeds": [
+    5051,
+    5052
+   ],
+   "tags": [
+    "splash"
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "underwater",
+   "kind": "oneshot",
+   "len": [
+    4,
+    9
+   ],
+   "duration": 10,
+   "prompts": [
+    "underwater ambience, muffled deep rumble, bubbles rising, heard from below the surface of a lake",
+    "submerged underwater sound, muffled low drone and bubbles, claustrophobic"
+   ],
+   "seeds": [
+    5061,
+    5062
+   ],
+   "tags": [
+    "underwater",
+    "bubbles"
+   ],
+   "gain": 0.45
+  },
+  {
+   "id": "bridle-rings",
+   "kind": "split",
+   "len": [
+    0.3,
+    1.0
+   ],
+   "duration": 10,
+   "prompts": [
+    "small metal rings clicking together underwater, a faint metallic tinkle, close",
+    "tiny silver rings jingling softly, wet, close up"
+   ],
+   "seeds": [
+    5071,
+    5072
+   ],
+   "tags": [
+    "metal",
+    "rings",
+    "jingle"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "bridle-rip",
+   "kind": "split",
+   "len": [
+    0.3,
+    1.0
+   ],
+   "duration": 10,
+   "prompts": [
+    "a wet rope tearing and snapping free with a hard tug, sharp rip, close foley",
+    "thick wet strap ripped off in one hard pull, snap and splash"
+   ],
+   "seeds": [
+    5081,
+    5082,
+    5083
+   ],
+   "tags": [
+    "rip",
+    "snap",
+    "tear"
+   ],
+   "gain": 0.55
+  },
+  {
+   "id": "peat-fire",
+   "kind": "oneshot",
+   "len": [
+    4,
+    9
+   ],
+   "duration": 10,
+   "prompts": [
+    "a small peat fire crackling softly inside a stone cottage, quiet warm crackle, night",
+    "gentle hearth fire crackle, indoor, calm, quiet"
+   ],
+   "seeds": [
+    5091,
+    5092
+   ],
+   "tags": [
+    "fire",
+    "crackle"
+   ],
+   "gain": 0.35
+  },
+  {
+   "id": "night-wind",
+   "kind": "oneshot",
+   "len": [
+    4,
+    9
+   ],
+   "duration": 10,
+   "prompts": [
+    "cold Highland night wind over heather and water, soft whistle, lonely, field recording",
+    "quiet wind across a moor at night, soft gusts, no rain"
+   ],
+   "seeds": [
+    5101,
+    5102
+   ],
+   "tags": [
+    "wind",
+    "moor",
+    "night"
+   ],
+   "gain": 0.35
+  }
+ ],
+ "music": [
+  {
+   "id": "kp-kneel",
+   "bpm": 60,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "60 BPM, D Dorian. Solo Scottish fiddle slow air, close and intimate, flexible bow with one quick grace-note cut, simple lullaby phrase D F E D over a soft open D drone from Scottish smallpipes without chanter, haunting, sparse. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "60 BPM, D Dorian. Lone Highland fiddle playing a slow lament air, gentle ornaments, soft bagpipe drone on D underneath, misty, eerie, still. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    4101,
+    4102,
+    4103
+   ]
+  },
+  {
+   "id": "kp-wait",
+   "bpm": 60,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "60 BPM, D Aeolian. One long held fiddle note on E, very quiet, a single wire-strung harp note ringing and decaying, low D drone, tense stillness, lots of air. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "60 BPM, D Aeolian. Sparse: sustained quiet fiddle tone, one plucked clarsach E, faint drone, suspense, almost silent. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    4111,
+    4112
+   ]
+  },
+  {
+   "id": "kp-drag",
+   "bpm": 72,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "72 BPM, D Aeolian. Recorded orchestral horror strings: uneven low cello pulses, double basses, violas bowed near the bridge sliding between F and E, low B-flat against a D pedal, rising dread, no melody. No drums. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "72 BPM, D minor. Dark live string orchestra, scraping sul ponticello violas, throbbing cellos and basses, chromatic friction, building menace like a drowning. No drums. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    4121,
+    4122,
+    4123
+   ]
+  },
+  {
+   "id": "kp-under",
+   "bpm": 72,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "72 BPM, D minor. Muffled deep cello D held low, upper strings filtered away as if heard underwater, slow, cold, one muted harp E plucked, suspended. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "72 BPM, D minor. Underwater feeling: low sustained cello and bass on D, dark and muffled, faint harp note, airless suspense. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    4131,
+    4132
+   ]
+  },
+  {
+   "id": "kp-obey",
+   "bpm": 60,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "60 BPM, D. A wire-strung clarsach harp ringing an open D and A, then a soft Scottish fiddle returns with the lullaby phrase D F E D, wonder, calm after danger, gentle. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "60 BPM, D Dorian. Harp open fifth D A ringing, quiet fiddle slow air, awe and relief, misty dawn feeling. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    4141,
+    4142
+   ]
+  },
+  {
+   "id": "kp-croft",
+   "bpm": 56,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "56 BPM, D major. Intimate solo clarsach harp playing D F# E D lullaby, warm peat fire cottage feeling, soft fiddle holding a long A, tender, simple. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "56 BPM, D major. Warm Celtic harp lullaby, gentle, homely, a quiet fiddle note, cosy night by the fire. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    4151,
+    4152
+   ]
+  }
+ ]
+}

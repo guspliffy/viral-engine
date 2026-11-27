@@ -28,7 +28,7 @@
   [
    "L01",
    "G",
-   "If a horse kneels for you by the loch, never touch it.",
+   "If a horse kneels for you, don't touch it.",
    "low, stern, urgent"
   ],
   [
@@ -195,7 +195,7 @@
   ]
  ],
  "captions": {
-  "L01": "If a horse kneels for you|by the loch,|never touch it.",
+  "L01": "If a horse kneels for you,|don't touch it.",
   "L02": "Not even|with one finger?",
   "L03": "Especially not|one finger.",
   "L04": "Loch Sunart, Scotland.|Eleven at night.|Three kids from the village|found it waiting|in the water.",
@@ -223,5 +223,6 @@
   "L26": "I said|never touch it!",
   "L27": "I didn't touch it.|I OWN it.",
   "L28": "That's what|I said too."
- }
+ },
+ "_order": "Board order (Sol r0 note): L01, L04, L02, L03, L05, then L06 on."
 }

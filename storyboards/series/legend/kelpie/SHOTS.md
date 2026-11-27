@@ -9,15 +9,16 @@ camera push/pull on held poses, one moving part per shot); faces read on a phone
 third (y about 480-580), never over faces or the kelpie's eye; story banner "THE KELPIE" above the subtitles in the
 first ~2.5 s (style picked later; leave a TITLE hook like pp.mjs / cw.mjs); NO other lettering; music from 0.0;
 end hard on the last line (no cut back to frame 0). Two exports: with captions and without (-nosubs).
+ORDER (Sol's leave-risk note): shots 1, 2, 5, 3, 4, 6... = L01, L04, L02, L03, L05. Music per cue in engine/soundgen/recipes-kelpie.json + Sol's answer.md (hard silences: finger contact 0.7 s, the pull 0.3 s, all music out a beat before L28).
 L.kid reaches only screen-left: put the kelpie screen-left facing right in kid+kelpie shots.
 
 | # | Lines | Picture | Mood / candle | Sound |
 |---|---|---|---|---|
 | 1 | (0.0) L01 | FRAME 0: kelpie alone in the shallows, moon on its wet coat + pale eye brightest; it slowly KNEELS toward us; slow push-in. Banner in at 0.25 s, out by the first cut | loch, haze on | music from 0.0, loch lap, drip |
 | 2 | (~1.2 s) | Re-hook: 0.5 s blurred glimpse of the ending (small hand gripping wet weed bridle, silver rings) | under-ish, blur | short swell, cut on it |
-| 3 | L02 | CLOSE kid (night, cold light), looking at his own finger | loch | |
-| 4 | L03 | CLOSE kelpie eye glint; candle jar in Grandma's hand at frame edge, flame dips | loch | low string |
-| 5 | L04 | WIDE shore: three village kids (SCO.villager 0/1/2) at the water, kelpie standing in the shallows; slow pan | loch | crickets off, wind |
+| 3 | L02 (after L04) | CLOSE kid (night, cold light), looking at his own finger | loch | |
+| 4 | L03 (after L02) | CLOSE kelpie eye glint; candle jar in Grandma's hand at frame edge, flame dips | loch | low string |
+| 5 | L04 (right after shot 2) | WIDE shore: three village kids (SCO.villager 0/1/2) at the water, kelpie standing in the shallows; slow pan | loch | crickets off, wind |
 | 6 | L05 | MED villager 0 grinning, pointing at the horse | loch | |
 | 7 | L06 | kelpie kneels; kids climb on one by one, cut per "Then the second / third" (len 1 -> 2 -> 3) | loch | splash per rider |
 | 8 | L07 | Re-hook: SIDE WIDE, back stretches len 3 -> 4 while they sit, too long; slow push | loch, cooler | stretched creak, music thins |
