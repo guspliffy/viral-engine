@@ -1,0 +1,116 @@
+LINES (start-end s, speaker, text)
+0.00-3.40 G If you smell gingerbread at night... turn around.
+3.50-5.37 K ...And if she smells ME?
+5.67-13.33 N Nine o'clock. Their father left them by a fire, deep in the forest. And this time, he wasn't coming back.
+13.63-18.87 N Last night, white pebbles led them home. Tonight, Hansel only had bread.
+18.99-20.62 N And the birds were hungry too.
+20.82-22.72 R Hansel... the crumbs are gone.
+23.02-26.45 N Midnight. Something sweet drifted through the trees.
+26.73-27.77 R Do you smell that?
+27.89-29.22 R Grandma said turn around.
+29.44-30.71 K Grandma's not hungry.
+31.01-36.21 N The Brothers Grimm, 1812. Their first version is darker than the one you know.
+36.41-40.17 N Walls of bread. A roof of cake. Windows of clear sugar.
+40.72-44.79 W Nibble, nibble, little mouse... who is nibbling at my house?
+44.99-45.56 K ...The wind?
+45.66-48.56 W Come in, my sweet ones. There are pancakes.
+49.26-50.02 N Three in the morning.
+50.47-56.44 N Witches have red eyes. They can't see far. But they smell you... like animals do.
+56.94-60.04 N He smelled her house. She smelled him first.
+60.89-62.49 W Stick out your finger.
+62.67-66.34 N Hansel held out a chicken bone. Her eyes couldn't tell the difference.
+66.49-67.45 W Still thin.
+68.15-71.05 N But a bone only works until she gets hungry.
+71.15-76.45 W Fat or thin, I eat him at dawn. Girl! Light the oven.
+76.80-78.94 W Crawl in. See if it's hot.
+79.08-82.54 R I don't know how... Show me?
+84.24-88.18 N She lured them with sweets. Gretel lured her with one sweet little question.
+88.68-92.64 N By sunrise, they were running home, pockets full of her pearls.
+93.04-96.51 K Gretel... gingerbread.
+96.96-97.89 R Turn around.
+98.39-100.96 K ...I'm turning.
+
+SHOTS (start-end s, id, note)
+0.00-3.40 1 
+3.40-5.57 2 
+5.57-8.06 3a 
+8.06-11.08 3b 
+11.08-13.53 3c 
+13.53-16.80 4a 
+16.80-18.87 4b 
+18.87-20.72 5 
+20.72-22.92 6 
+22.92-26.63 7 
+26.63-27.79 8 
+27.79-30.91 9 
+30.91-33.60 10a 
+33.60-36.26 10b 
+36.26-37.58 11a 
+37.58-38.73 11b 
+38.73-40.52 11c 
+40.52-42.41 12a 
+42.41-44.84 12b 
+44.84-45.36 13 
+45.36-49.16 14 
+49.16-50.37 15 
+50.37-52.08 16a 
+52.08-53.47 16b 
+53.47-56.84 16c 
+56.84-58.48 17a 
+58.48-60.79 17b 
+60.79-62.57 18 
+62.57-64.78 19a 
+64.78-66.39 19b 
+66.39-68.05 20 
+68.05-71.05 21 
+71.05-74.11 22a 
+74.11-76.70 22b 
+76.70-78.98 23 
+78.98-82.64 24 
+82.64-83.26 25a 
+83.26-83.68 25b 
+83.68-84.14 25c 
+84.14-85.78 26a 
+85.78-88.58 26b 
+88.58-91.12 27a 
+91.12-92.94 27b 
+92.94-96.86 28 
+96.86-98.24 29 
+98.24-100.26 30 
+
+DURATION 100.26
+
+SHOT LIST (the director's plan; the cut splits some shots into a/b/c angle changes)
+| # | Lines | Shot | Notes |
+|---|---|---|---|
+| 1 | L01 | FRAME 0: the frame-0 preset (house big in a black forest, RED EYES open in a sugar window), slow push-in from t=0; eyes look toward camera at ~1.5 s | Brightest thing on a dark frame. Owl/night-insects under. Banner + T1. |
+| 1b | (~2.4 s) | GLIMPSE: 6 frames of the open oven with red fire light, heavy blur + dark, then hard back | Re-hook; returns clearer at ~40 s (12 frames) and clear at the end. |
+| 2 | L02 | Kid close at the house door, sniffing, candle jar in hand; eyes in the window above him | Grandma never on screen in the opening. |
+| 3 | L03 | 9 p.m., forest clearing, campfire, father's back walking away into dark (silhouette ok, no new design: dark figure) push in on the two kids | Waldhorn D as he leaves. |
+| 4 | L04 | Low shot: Hansel drops crumbs on the path, pebbles glint memory (white pebbles) | |
+| 5 | L05 | Birds peck the crumbs (birds-peck), crumbs vanish one by one (eaten 0->1) | Hackbrett tap on last crumb. |
+| 6 | L06 | Gretel close, scared, empty path behind | |
+| 7 | L07 | Midnight, moon shafts, faint warm glow far between the trees, camera drifts toward it | Re-hook. |
+| 8 | L08 | Gretel sniffs + points | |
+| 9 | L09-L10 | Two-shot: Gretel worried; kid already walking toward the glow; candle flame shrinks on "hungry" | Comedy. |
+| 10 | L11 | Walking shot toward the house through trees, no stop | Sol: keep moving. |
+| 11 | L12 | House reveal mid: bread walls, cake roof, sugar windows; push in, one detail per phrase | |
+| 12 | L13 | Kid breaks off a piece (bite); eyes open in the window behind him | Witch voice from inside. |
+| 13 | L14 | Kid close, mouth full, frozen | |
+| 14 | L15 | Door opens (wood-door-creak), witch sweet in the doorway, light spill; kids small in front | Celesta full bait motif. |
+| 15 | L16 | Interior at night, dark, kids asleep in the little beds | |
+| 16 | L17 | Witch's face close: red eyes, milky pupils, nose sniffing (sniff sfx) over the sleeping kid | Scariest. |
+| 17 | L18 | Witch grabs the kid, drags him to the stable cage, cage-rattle | Violins slide on "first". Peak at grab. |
+| 18 | L19 | Close-up: bars, bony hand reaching in | MUSIC OUT from a breath before. |
+| 19 | L20 | Close-up: kid's fist holds out the bone, hand feels it | |
+| 20 | L21 | Witch close, annoyed | |
+| 21 | L22 | Wide stable, the kid in the cage, candle jar nearly out | Re-hook. Doubled cello pulse. |
+| 22 | L23 | Witch points at Gretel; oven-roar, red light floods | |
+| 23 | L24 | Witch at the oven mouth, door open, sweet again | |
+| 24 | L25 | Gretel close, small and sweet (small pose) — her eyes say she's pretending | |
+| 25 | (no line) | Witch leans into the oven, Gretel SHOVES, iron-slam | Music out from shove to one beat after the slam. Fast cuts. |
+| 26 | L26 | Gretel unlocks the cage; kid out | Waldhorn fifth. |
+| 27 | L27 | Dawn forest (mood 1), they run holding hands, pearls-rattle | hg-run 96 BPM. |
+| 28 | L28 | Kid stops, sniffs, a crumb of sugar window in his hand | Flute 2 notes. |
+| 29 | L29 | Gretel close, deadpan | Music OUT before. |
+| 30 | L30 | Kid turns around, chewing, cheeks full; cut right after "turning" | End on the punchline. |
