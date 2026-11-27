@@ -1,0 +1,59 @@
+# The Monkey's Paw · Rough draft 2 (after Sol round 1) · 87.9 s. Times are draft-2 times. Per beat: start-end (s), line as spoken, then what the picture shows.
+
+  0.00-  3.64  L01 Grandmother: "Put it down! Three wishes. Don't make one."
+                  attic: close paw in boy's hand; Grandma in by 0.65 s (medium 2-shot, hand slaps his wrist); close on her + flame flare (boy out of frame); 2-shot, his hand lets go and the paw arcs down to the trunk on "Don't make one"
+  3.64-  5.55  L02 Kid: "What's the worst that happens?"
+                  attic: close on the boy, cheeky half smile, eyes on the paw lying on the trunk
+  5.55- 12.14  L04 Narrator: "In 1902, the English writer W. W. Jacobs wrote the story of the most dangerous gift in England."
+                  parlour: wide push-in (soldier holds paw low, mother knits, father + son at chess); window outside on "1902"; one push toward the soldier and the paw in his grip (lead-in "This isn't an old legend." cut)
+ 12.14- 18.78  L05 Narrator: "A soldier brought it home from India. An old holy man had cursed it, to show that fate punishes anyone who meddles."
+                  parlour: soldier lifts the paw on "brought it home"; paw close with slow green glow on "holy man"; father + son listening on "fate punishes"
+ 18.78- 24.48  L06 Soldier: "Three men can have three wishes each. The first man's last wish... was for death."
+                  parlour: soldier close, haunted; fire dims; push stops short of cropping his face
+ 24.48- 28.47  L07 Narrator: "He threw it on the fire. The father of the house pulled it back out."
+                  parlour: soldier throws (same paw hand), paw flies into the fire + flare; father kneels, reaches in, pulls it out
+ 28.47- 30.02  L08 Father: "I wish for 200 pounds."
+                  parlour: father standing, paw up in left hand, half smile; son grinning behind (clear of the cuff), mother watching
+ 30.02- 36.19  L09 Narrator: "The paw twisted in his hand like a snake. And then... nothing."
+                  parlour: close paw twisting, first finger curls, green mood; father drops it (paw falls to the rug, one finger down); father + son stillness 0.7 s after "nothing"
+ 36.19- 38.15  L10 Kid: "See? Nothing happened."
+                  attic: boy close, smug (hosts' paw on the trunk)
+ 38.15- 39.26  L11 Grandmother: "Wait."
+                  attic: Grandma close (boy out of frame), flame shrinks
+ 39.26- 43.32  L12 Narrator: "The next day, their son was caught in the machines at work."
+                  factory gate (no lettering): wide push-in, smoke; tilt down to the cap on "caught"
+ 43.32- 48.14  L13 Company clerk: "The firm takes no blame. But they wish to give you... 200 pounds."
+                  hall: wide 0.4 s, then clerk medium (hat in hands, nervous), eyes down on "wish", envelope offered on "200 pounds" (hat stays in his other hand)
+ 48.14- 49.95  L14 Kid: "That's... the same money."
+                  attic (grief tint): boy close, shocked whisper, small flame
+ 49.95- 52.65  L15 Narrator: "Ten days later, the mother grabbed the paw."
+                  parlour (cold): mother reaches up to the paw lying on the mantel (one finger down), close on her hand holding it
+ 52.65- 54.56  L16 Mother: "Bring our boy back!"
+                  parlour: mother close, tears, "Bring our boy back!" (second finger curls on "back", flash); father reluctant at a distance; she lets go and the paw falls to the rug
+ 54.56- 55.70  L17 Kid: "That's good, right?"
+                  attic: boy close, hopeful
+ 55.70- 59.03  L18 Grandmother: "He'd been in the ground for ten days."
+                  attic: Grandma close, very quiet, flame tiny, 0.35 s hold
+ 59.03- 63.85  L19 Narrator: "That night... something knocked at the door."
+                  hall: dark, push toward the door; it shakes on "knocked"
+ 63.85- 65.70  (KN) no spoken line
+                  hall: 0.3 s quiet; knock 1 on the door (medium push); knock 2 cut to the mother's face at the bolt
+ 65.70- 68.71  L20 Mother: "It's him! It's my boy!"
+                  hall: mother close at the bolt, hand on it, knocks louder and faster; bolt begins to slide
+ 68.71- 73.00  L21 Narrator: "The father crawled through the dark, found the paw... and made his last wish."
+                  parlour dark: father crawls; cut to her fingers sliding the bolt; his hand finds the paw (two fingers down); on "wish" third finger curls, green flash on the completed word
+ 73.00- 78.18  L22 Narrator: "The knocking stopped. The door swung open. The road was empty."
+                  hall: "knocking stopped" silence; she clears the bolt, door swings open (she stands at the jamb); cut to the empty road, lamp, mist
+ 78.18- 79.91  L23 Kid: "What did he wish for?"
+                  attic: boy close, empty-handed, whispering
+ 79.91- 81.91  L24 Grandmother: "Nobody knows."
+                  attic: wide 2-shot; Grandma looks away ("Nobody knows"); boy walks to the trunk, fetches the hosts' paw and walks back
+ 81.91- 84.58  L25 Kid: "Just one tiny wish. I wish Grandma would let me keep it."
+                  attic: boy close, sneaky whisper, paw held near his face, turned away from her
+ 84.58- 85.08  (CURL) no spoken line
+                  attic: extreme close, ONE finger of the hosts' paw curls (paw + his sleeve only)
+ 85.08- 86.23  L26 Grandmother (wrong flat voice): "Keep it."
+                  attic: Grandma blank face close (wrong voice), lantern in frame, dead still
+ 86.23- 87.62  L27 Kid: "Grandma?"
+                  attic: boy + Grandma + lit lantern in one frame; flame goes out on the end of "Grandma?"; cut to black
+ 87.62- 87.92  BLACK end
