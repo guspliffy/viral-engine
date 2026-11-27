@@ -5121,6 +5121,30 @@
      "loudnessLUFS": -21.8
     }
    ]
+  },
+  {
+   "id": "icecream-jingle",
+   "kind": "sfx",
+   "files": [
+    "icecream-jingle/icecream-jingle-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "ice cream truck",
+    "jingle",
+    "street",
+    "chimes",
+    "music box",
+    "speaker"
+   ],
+   "durationSec": 8.2,
+   "prompt": [
+    "code synth (Kid vs Dad 07, 26 Nov 2026): an original 16-note chime tune played twice on a music-box timbre through a small horn speaker, warble, heard from the street"
+   ],
+   "model": "code synth, no model (scratch synth.py, numpy)",
+   "license": "own work (code-made, no samples)",
+   "loudnessLUFS": null,
+   "replaces": null
   }
  ]
 }
