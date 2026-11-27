@@ -1,0 +1,60 @@
+LINES (start-end s, speaker, text; end = last word heard)
+0.00-1.27  K  Why is the sea black?
+1.47-3.87  G  Because you didn't stop at one.
+4.37-8.77  N  Six hours earlier, the Baltic was green. And the fish he caught could talk.
+9.02-11.75  F  Let me go. I'm not a fish. I'm a prince.
+12.05-14.85  G  Wish once. Then throw it back.
+15.15-17.32  K  One wish. A real house for Grandma.
+17.77-20.70  N  The hut became a cottage. And the sea turned grey.
+21.00-22.30  G  Grey. That's one.
+22.80-26.20  N  In the Grimms' 1812 version, the couple lived in a pot.
+26.70-30.53  K  Flounder, flounder, in the sea! I want a castle!
+30.83-34.77  N  Dark blue. Thick. And it started to smell.
+35.12-38.00  G  I've seen the sea this colour once before.
+38.30-39.50  K  Then you know it's fine!
+39.70-41.54  K  Make me king of the whole coast!
+41.89-43.05  N  And the sea turned black.
+43.67-45.31  F  One more, and I can't give it back.
+45.66-47.12  G  Stop. Now.
+47.42-50.49  K  Just one more. Make the sun come up when I say!
+50.84-53.81  N  The waves stood up like church towers.
+54.11-55.75  F  Go home. It's all gone.
+56.25-62.71  N  Castle. Crown. Cottage. Gone. Just the old hut. And a green sea.
+63.21-65.05  K  Why didn't you warn me better?
+65.35-69.02  G  Child... why do you think I live in a pot?
+
+SHOTS (start-end s, shot id, line):
+0.00-0.92  1  L01
+0.92-1.37  1b  L01
+1.37-4.18  2  L02
+4.18-4.35  2b  L03
+4.35-8.14  3  L03
+8.14-8.98  3b  L03
+8.98-12.01  4  L04
+12.01-15.10  5  L05
+15.10-17.72  6  L06
+17.72-20.95  7  L07
+20.95-22.75  8  L08
+22.75-24.93  9a  L09
+24.93-26.65  9b  L09
+26.65-30.78  10  L10
+30.78-32.04  11a  L11
+32.04-33.11  11b  L11
+33.11-35.07  11c  L11
+35.07-38.25  12  L12
+38.25-39.65  13  L13
+39.65-41.84  14  L14
+41.84-43.47  15  L15
+43.47-45.61  16  L16
+45.61-47.37  17  L17
+47.37-48.80  18a  L18
+48.80-50.79  18b  L18
+50.79-54.06  19  L19
+54.06-56.20  20  L20
+56.20-57.31  21a  L21
+57.31-58.37  21b  L21
+58.37-59.50  21c  L21
+59.50-61.99  21d  L21
+61.99-63.16  21e  L21
+63.16-65.30  22  L22
+65.30-69.07  23  L23

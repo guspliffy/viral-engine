@@ -27,7 +27,7 @@
   [
    "L01",
    "K",
-   "Grandma... why is the sea black?",
+   "Why is the sea black?",
    "scared, shouting over wind"
   ],
   [
@@ -75,7 +75,7 @@
   [
    "L09",
    "N",
-   "The Brothers Grimm printed this story in 1812. The couple in it lived in a hut the tale calls a pot.",
+   "In the Grimms' 1812 version, the couple lived in a pot.",
    ""
   ],
   [
@@ -164,6 +164,6 @@
   ]
  ],
  "say": {
-  "L09": "The Brothers Grimm printed this story in eighteen twelve. The couple in it lived in a hut the tale calls a pot."
+  "L09": "In the Grimms' eighteen twelve version, the couple lived in a pot."
  }
 }
