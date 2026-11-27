@@ -1,0 +1,66 @@
+{
+ "default": {
+  "maxgap": 0.3,
+  "head": 0.08,
+  "tail": 0.22
+ },
+ "L02": {
+  "tail": 0.15
+ },
+ "L03": {
+  "drop": [
+   11,
+   14
+  ]
+ },
+ "L06": {
+  "maxgap": 0.18
+ },
+ "L12": {
+  "drop": [
+   0,
+   3
+  ],
+  "cutto": 2.17,
+  "wshift": -0.44
+ },
+ "L13": {
+  "maxgap": 0.3
+ },
+ "L15": {
+  "maxgap": 0.2,
+  "tail": 0.15
+ },
+ "L16": {
+  "maxgap": 0.2,
+  "tail": 0.15
+ },
+ "L18": {
+  "maxgap": 0.22
+ },
+ "L22": {
+  "maxgap": 0.22
+ },
+ "L23": {
+  "tail": 0.15
+ },
+ "L14": {
+  "maxgap": 0.22
+ },
+ "L17": {
+  "maxgap": 0.22
+ },
+ "L21": {
+  "maxgap": 0.22
+ },
+ "L08": {
+  "maxgap": 0.22
+ },
+ "L04": {
+  "maxgap": 0.22
+ },
+ "L19": {
+  "maxgap": 0.22
+ },
+ "_rule": "Jonny 27 Nov: no voice may be cut off: silences measured at -42 dB, at least 0.08 s kept before the first sound and 0.15 s after the last."
+}
