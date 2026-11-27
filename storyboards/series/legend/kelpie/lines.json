@@ -13,7 +13,10 @@
    "ref": "engine/voice/targets/legend-kid-ref.wav",
    "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction",
    "steps": 25,
-   "cfg": 3.0
+   "cfg": 3.0,
+   "af": "highpass=f=110,equalizer=f=650:t=q:w=1.2:g=-5,treble=g=12:f=2200,equalizer=f=5000:t=q:w=1:g=4",
+   "_af": "ep1 kid EQ, applied up front (wolf video: 7 of its kid takes read MUFFLED)",
+   "gain_db": 3.5
   },
   "A": {
    "ref": "engine/voice/targets/chip-ref.wav",
