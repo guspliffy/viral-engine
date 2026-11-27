@@ -99,6 +99,9 @@ import { MONALISA_KINDS, MONALISA_GRIPS } from "./props-monalisa.js";
 import { EATERY_KINDS, EATERY_GRIPS } from "./props-eatery.js";   // kid vs dad 04 waiter jokes: roundtable, hoopchair, dinecarpet
 import { WAITER_KINDS, WAITER_GRIPS } from "./props-waiter.js";   // kid vs dad 04 waiter jokes: tallmenu, servetray, mealplate, tipbill
 import { EATERYDOOR_KINDS } from "./props-eatery-door.js";   // kid vs dad 04 waiter jokes: kitchendoor (T2 bench-local line; the director registers)
+import { JOKESFRIDGE_KINDS } from "./props-jokes-fridge.js";   // kid vs dad 08 dad jokes come true: jokeladder, jokephoto, instacam
+import { JOKESREAL_KINDS } from "./props-jokes-real.js";   // kid vs dad 08: hotcorner, beardflood, tatosandwich, kidsocks, kidsneakers
+import { JOKESMOON_KINDS } from "./props-jokes-moon.js";   // kid vs dad 08: moonview, plateshards
 import { GRAVROOM_KINDS } from "./props-gravroom.js";   // fact what-if 02 gravity: room props (sofa, TV, tunnel, haze)
 import { GRAVCITY_KINDS } from "./props-gravcity.js";   // fact what-if 02 gravity: street, tower, city
 import { GRAVSKY_KINDS } from "./props-gravsky.js";  // fact what-if 02 gravity: sky, Moon, satellites, clouds   // fact story 01 Mona Lisa: painting, hooks, trunk, newspaper, day pad
@@ -1613,6 +1616,7 @@ Object.assign(KINDS, MONALISA_KINDS); Object.assign(GRIPS, MONALISA_GRIPS);   //
 Object.assign(KINDS, WAITER_KINDS); Object.assign(GRIPS, WAITER_GRIPS);   // kid vs dad 04 waiter jokes (props-waiter.js)
 Object.assign(KINDS, EATERY_KINDS); Object.assign(GRIPS, EATERY_GRIPS);   // kid vs dad 04 waiter jokes (props-eatery.js)
 Object.assign(KINDS, EATERYDOOR_KINDS);   // kid vs dad 04 waiter jokes (props-eatery-door.js)
+Object.assign(KINDS, JOKESFRIDGE_KINDS, JOKESREAL_KINDS, JOKESMOON_KINDS);   // kid vs dad 08 dad jokes come true (props-jokes-*.js)
 Object.assign(KINDS, GRAVROOM_KINDS, GRAVCITY_KINDS, GRAVSKY_KINDS, GRAVRUIN_KINDS, GRAVSTRIKE_KINDS, GRAVALPS_KINDS, GRAVMOON_KINDS);   // fact what-if 02 gravity (props-gravroom.js, props-gravcity.js, props-gravsky.js)
 Object.assign(KINDS, SPINROOM_KINDS, SPINSKY_KINDS, SPINANDES_KINDS, SPINSTREET_KINDS, SPINSPACE_KINDS);   // fact what-if 03 spin
 Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS, SPREE_KINDS, TOW_KINDS, HARBOUR_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)
