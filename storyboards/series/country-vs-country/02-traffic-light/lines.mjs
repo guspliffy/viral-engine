@@ -16,7 +16,7 @@ export const LINES = [
   ["retiree", "Think. Of. The children.", "calm", `${OLD}, slow, a lecture`, { voice: "retiree-x115" }],            // 6
   ["spud", "There ARE no children!", "excited", "arms spread at the empty street", { voice: "spud-x115" }],          // 7  then the tot appears and stares
   ["spud", "...Where did YOU come from?", "question", "small, staring down at a tiny child", { voice: "spud-x115" }], // 8
-  ["chip", "Morning!", "excited", "relaxed, mouth full of burger, strolling across the road", { voice: "chip-x115" }], // 9  US jaywalker
+  ["chip", "Morning!", "excited", "relaxed, mouth full of burger, strolling across the road", { voice: "chip-x115", take: 2 }], // 9  US jaywalker
   ["spudus", "It's RED!", "excited", "shocked, pointing at the light", { voice: "spud-x115" }],                     // 10
   ["chip", "It's a suggestion.", "calm", "shrugging, chewing", { voice: "chip-x115" }],                               // 11
   ["wedge", "Thirty seconds.", "calm", `${DE}, tapping his watch`, { voice: "wedge-x115" }],                         // 12 clock
