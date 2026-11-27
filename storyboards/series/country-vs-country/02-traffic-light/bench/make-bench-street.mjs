@@ -1,8 +1,8 @@
 // Country vs Country 02 street bench (T1): the block of flats `altbau` (engine/page/props-cvc-street.js) in the German street, both instances, at DESIGN
 // section 2 / 4 positions, with Spud for size, the real W1 flowerbox (`flower`) and stand-in potatoes in the windows. Not a clip: one still per beat,
 // 1 s apart, taken 0.6 s into its beat; a beat sets the block's keys (dur 0): all closed / lace parted with eyes / every window open.
-// The stand-in crowd is today's `streetpotato` (coat, no cardigan, no clap): the new streetpotato keys (dress "cardigan", hat 3, hair, glasses, brow,
-// clapHz, raise, lean) live in engine/page/props-neonstreet.js, which T1 does not own.
+// The crowd is `streetpotato` with the window-crowd keys (dress "cardigan", hat 3, hair, glasses, brow, feet false, clapHz, raise, lean;
+// engine/page/props-neonstreet.js); the clap meets on every whole second of the clock (2.05 s is just after a meet).
 //   node storyboards/series/country-vs-country/02-traffic-light/bench/make-bench-street.mjs   (prints the still times and what each shows)
 //   node engine/render.mjs storyboards/series/country-vs-country/02-traffic-light/bench/street-bench.json --stills <times> --draft --safe --out <dir>
 //   node qa/contact.mjs <dir>/street-bench-*.png --out storyboards/series/country-vs-country/02-traffic-light/bench/street-sheet.png
@@ -27,12 +27,12 @@ const CAMS = {
 const SHOTS = [
   ["cam 12, all closed", "c12", { part: 0, peek: 0, open: 0 }, "s12"],
   ["cam 12, lace parted, eyes peeking", "c12", { part: 1, peek: 1, open: 0 }, "s12"],
-  ["cam 12, every window open, 12 stand-ins", "c12", { part: 0, peek: 0, open: 1 }, "s12", true],
+  ["cam 12, every window open, 12 clapping neighbours", "c12", { part: 0, peek: 0, open: 1 }, "s12", true],
   ["cam 09, all closed", "c09", { part: 0, peek: 0, open: 0 }, "k"],
   ["cam 09, lace parted, eyes peeking", "c09", { part: 1, peek: 1, open: 0 }, "k"],
   ["cam 09, wave half way (open 0.45)", "c09", { part: 0, peek: 0, open: 0.45 }, "k", true],
   ["cam 01, W1 swinging open, lace blowing", "c01", { part: 0, peek: 0, open: 0 }, "k"],
-  ["cam 02 low on W1 (real flowerbox, retiree stand-in)", "c02", { part: 0, peek: 0, open: 0 }, "k"],
+  ["cam 02 low on W1 (real flowerbox)", "c02", { part: 0, peek: 0, open: 0 }, "k"],
   ["cam 07, BW lace parted, the watcher", "c07", { part: 0, peek: 0, open: 0 }, "k", false, true],
   ["balcony and door from the forecourt", "bal", { part: 0, peek: 0, open: 0 }, "k"],
   ["ground floor, door, steps (forecourt)", "door", { part: 0, peek: 0, open: 0 }, "k"],
@@ -42,9 +42,13 @@ const END = SHOTS.length;
 
 const at3 = (x, y, z) => ({ x: r3(x), y: r3(y), z: r3(z) });
 const COLZ = (col) => r3(7.425 - 1.35 * col), FLOORY = (f) => r3(1.45 + 1.15 * (f - 1));
-// stand-in crowd: [floor, column, colour, h] (DESIGN section 5); the 12th is in W1 (floor 1, column 5)
-const CROWD = [[1, 4, "#b98aa0", 0.88], [1, 5, "#c9a66b", 0.88], [1, 6, "#7f8f6a", 0.92], [1, 7, "#9aa7b5", 0.90], [2, 4, "#c9a66b", 0.92], [2, 5, "#8c6f8a", 0.86],
-  [2, 6, "#d6c39c", 0.90], [2, 7, "#7a8fa0", 0.88], [3, 4, "#a8504a", 0.86], [3, 5, "#8fa08a", 0.92], [3, 6, "#b9b4aa", 0.90], [3, 7, "#c8a0a8", 0.88]];
+// the crowd (DESIGN section 5: floor, column, look); the 12th is the retiree's window (floor 1, column 5), here a potato too
+const CROWD = [[1, 4, { hair: "bun", glasses: 1, color: "#b98aa0", h: 0.88 }], [1, 5, { hat: 3, capColor: "#4f5a52", glasses: 1, color: "#a9856a", h: 0.83 }],
+  [1, 6, { hat: 3, capColor: "#5f6b78", glasses: 1, color: "#7f8f6a", h: 0.92 }], [1, 7, { hat: 3, capColor: "#75695a", color: "#9aa7b5", h: 0.90 }],
+  [2, 4, { hat: 3, capColor: "#4f5a52", color: "#c9a66b", h: 0.92 }], [2, 5, { hair: "bun", glasses: 1, color: "#8c6f8a", h: 0.86 }],
+  [2, 6, { hat: 3, capColor: "#6b6257", glasses: 1, color: "#d6c39c", h: 0.90 }], [2, 7, { hair: "tufts", glasses: 1, color: "#7a8fa0", h: 0.88 }],
+  [3, 4, { hair: "bun", color: "#a8504a", h: 0.86 }], [3, 5, { hat: 3, capColor: "#5a4030", glasses: 1, color: "#8fa08a", h: 0.92 }],
+  [3, 6, { hat: 3, capColor: "#75695a", color: "#b9b4aa", h: 0.90 }], [3, 7, { hair: "bun", glasses: 1, color: "#c8a0a8", h: 0.88 }]];
 const AWAY = -60;
 const props = [
   { id: "sky", kind: "shsky", time: "a", ...at3(0, 0, 0) },
@@ -59,9 +63,9 @@ const props = [
   { id: "farpave", kind: "flagway", w: 22, d: 2.4, h: 0.10, rot: 90, ...at3(-1.8, 0, 0) },
   { id: "w1box", staged: "the retiree's real flower box on W1's sill", kind: "flowerbox", ...at3(-13.92, 1.73, 0.675), w: 0.90, rot: 90, flower: "#d8352b" },
   { id: "flag", staged: "on the balcony rail", kind: "miniflag", flag: "de", ...at3(-13.45, 2.05, -0.675), scale: 2.7, tip: 35, rot: 90 },
-  ...CROWD.map(([f, col, color, h], i) => ({ id: `old${i}`, staged: "stand-in neighbour (window opened at its beat)", kind: "streetpotato",
-    ...at3(f === 1 && col === 6 ? -13.75 : -14.22, AWAY, COLZ(col)), rot: 90, h, color, skin: "#f9b75c", angry: 0 })),
-  { id: "watcher", staged: "behind the lace of BW (stand-in)", kind: "streetpotato", ...at3(-0.22, AWAY, 2.025), rot: -90, h: 0.90, color: "#6f6457", skin: "#f9b75c", hat: 1 },
+  ...CROWD.map(([f, col, look], i) => ({ id: `old${i}`, staged: "an old neighbour in a window (hidden until the payoff)", kind: "streetpotato",
+    ...at3(f === 1 && col === 6 ? -13.75 : -14.22, AWAY, COLZ(col)), rot: 90, dress: "cardigan", skin: "#f9b75c", brow: "#b9b4aa", angry: 0, feet: false, clapHz: 1, clapFrom: 0, raise: 0, lean: 0, ...look })),
+  { id: "watcher", staged: "behind the lace of BW", kind: "streetpotato", ...at3(-0.22, AWAY, 2.025), rot: -90, h: 0.90, hat: 3, capColor: "#4f5a52", dress: "cardigan", color: "#6f6457", raise: 1, skin: "#f9b75c", brow: "#b9b4aa", feet: false },
 ];
 const cast = [
   { id: "spud", character: "potatobrawl/spud", at: [-9.25, -0.10], y: PV, face: 90, expr: "shocked", follow: 0.3, seed: 1.3 },
@@ -77,11 +81,11 @@ SHOTS.forEach(([, cam, k, who, crowd, bw], i) => {
   c.prop(t, "flatsL", { ...k, soloOpen: i === 6 || i === 7 ? 1 : 0, soloBlow: i === 6 ? 0.6 : 0 }, 0);
   c.prop(t, "flatsR", { ...k, soloPart: bw ? 1 : 0 }, 0);
   c.prop(t, "watcher", { y: bw ? 1.45 : AWAY }, 0);
-  CROWD.forEach(([f], j) => c.prop(t, `old${j}`, { y: crowd ? FLOORY(f) : AWAY }, 0));
+  CROWD.forEach(([f], j) => { c.prop(t, `old${j}`, { y: crowd ? FLOORY(f) : AWAY, lean: crowd ? 1 : 0 }, 0); });
   c.A(t, "spud", who === "k" ? "show" : "hide"); c.A(t, "spud12", who === "s12" ? "show" : "hide");
   grade.push([i, GRADE]);
 });
-console.log("stills:", SHOTS.map((_, i) => r3(i + 0.6)).join(","));
+console.log("stills:", [2.05, ...SHOTS.map((_, i) => r3(i + 0.6))].join(","), "(2.05 = the clap meets, 2.6 = hands apart)");
 SHOTS.forEach(([label], i) => console.log(`  ${r3(i + 0.6).toFixed(2)}s  ${label}`));
 
 write(import.meta.url, {

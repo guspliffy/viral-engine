@@ -327,172 +327,288 @@
   },
   {
    "id": "old0",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": 2.025,
    "rot": 90,
-   "h": 0.88,
-   "color": "#b98aa0",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "bun",
+   "glasses": 1,
+   "color": "#b98aa0",
+   "h": 0.88
   },
   {
    "id": "old1",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": 0.675,
    "rot": 90,
-   "h": 0.88,
-   "color": "#c9a66b",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#4f5a52",
+   "glasses": 1,
+   "color": "#a9856a",
+   "h": 0.83
   },
   {
    "id": "old2",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -13.75,
    "y": -60,
    "z": -0.675,
    "rot": 90,
-   "h": 0.92,
-   "color": "#7f8f6a",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#5f6b78",
+   "glasses": 1,
+   "color": "#7f8f6a",
+   "h": 0.92
   },
   {
    "id": "old3",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": -2.025,
    "rot": 90,
-   "h": 0.9,
-   "color": "#9aa7b5",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#75695a",
+   "color": "#9aa7b5",
+   "h": 0.9
   },
   {
    "id": "old4",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": 2.025,
    "rot": 90,
-   "h": 0.92,
-   "color": "#c9a66b",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#4f5a52",
+   "color": "#c9a66b",
+   "h": 0.92
   },
   {
    "id": "old5",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": 0.675,
    "rot": 90,
-   "h": 0.86,
-   "color": "#8c6f8a",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "bun",
+   "glasses": 1,
+   "color": "#8c6f8a",
+   "h": 0.86
   },
   {
    "id": "old6",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": -0.675,
    "rot": 90,
-   "h": 0.9,
-   "color": "#d6c39c",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#6b6257",
+   "glasses": 1,
+   "color": "#d6c39c",
+   "h": 0.9
   },
   {
    "id": "old7",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": -2.025,
    "rot": 90,
-   "h": 0.88,
-   "color": "#7a8fa0",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "tufts",
+   "glasses": 1,
+   "color": "#7a8fa0",
+   "h": 0.88
   },
   {
    "id": "old8",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": 2.025,
    "rot": 90,
-   "h": 0.86,
-   "color": "#a8504a",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "bun",
+   "color": "#a8504a",
+   "h": 0.86
   },
   {
    "id": "old9",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": 0.675,
    "rot": 90,
-   "h": 0.92,
-   "color": "#8fa08a",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#5a4030",
+   "glasses": 1,
+   "color": "#8fa08a",
+   "h": 0.92
   },
   {
    "id": "old10",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": -0.675,
    "rot": 90,
-   "h": 0.9,
-   "color": "#b9b4aa",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#75695a",
+   "color": "#b9b4aa",
+   "h": 0.9
   },
   {
    "id": "old11",
-   "staged": "stand-in neighbour (window opened at its beat)",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
    "x": -14.22,
    "y": -60,
    "z": -2.025,
    "rot": 90,
-   "h": 0.88,
-   "color": "#c8a0a8",
+   "dress": "cardigan",
    "skin": "#f9b75c",
-   "angry": 0
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "bun",
+   "glasses": 1,
+   "color": "#c8a0a8",
+   "h": 0.88
   },
   {
    "id": "watcher",
-   "staged": "behind the lace of BW (stand-in)",
+   "staged": "behind the lace of BW",
    "kind": "streetpotato",
    "x": -0.22,
    "y": -60,
    "z": 2.025,
    "rot": -90,
    "h": 0.9,
+   "hat": 3,
+   "capColor": "#4f5a52",
+   "dress": "cardigan",
    "color": "#6f6457",
+   "raise": 1,
    "skin": "#f9b75c",
-   "hat": 1
+   "brow": "#b9b4aa",
+   "feet": false
   }
  ],
  "captions": [],
@@ -593,7 +709,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -603,7 +720,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -613,7 +731,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -623,7 +742,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -633,7 +753,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -643,7 +764,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -653,7 +775,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -663,7 +786,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -673,7 +797,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -683,7 +808,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -693,7 +819,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -703,7 +830,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -781,7 +909,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -791,7 +920,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -801,7 +931,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -811,7 +942,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -821,7 +953,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -831,7 +964,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -841,7 +975,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -851,7 +986,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -861,7 +997,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -871,7 +1008,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -881,7 +1019,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -891,7 +1030,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -969,7 +1109,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": 1.45
+      "y": 1.45,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -979,7 +1120,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": 1.45
+      "y": 1.45,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -989,7 +1131,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": 1.45
+      "y": 1.45,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -999,7 +1142,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": 1.45
+      "y": 1.45,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1009,7 +1153,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": 2.6
+      "y": 2.6,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1019,7 +1164,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": 2.6
+      "y": 2.6,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1029,7 +1175,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": 2.6
+      "y": 2.6,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1039,7 +1186,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": 2.6
+      "y": 2.6,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1049,7 +1197,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": 3.75
+      "y": 3.75,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1059,7 +1208,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": 3.75
+      "y": 3.75,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1069,7 +1219,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": 3.75
+      "y": 3.75,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1079,7 +1230,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": 3.75
+      "y": 3.75,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1096,7 +1248,7 @@
      "at": 0
     }
    ],
-   "kind": "cam 12, every window open, 12 stand-ins"
+   "kind": "cam 12, every window open, 12 clapping neighbours"
   },
   {
    "name": "s4",
@@ -1157,7 +1309,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1167,7 +1320,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1177,7 +1331,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1187,7 +1342,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1197,7 +1353,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1207,7 +1364,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1217,7 +1375,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1227,7 +1386,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1237,7 +1397,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1247,7 +1408,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1257,7 +1419,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1267,7 +1430,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1345,7 +1509,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1355,7 +1520,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1365,7 +1531,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1375,7 +1542,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1385,7 +1553,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1395,7 +1564,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1405,7 +1575,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1415,7 +1586,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1425,7 +1597,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1435,7 +1608,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1445,7 +1619,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1455,7 +1630,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1533,7 +1709,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": 1.45
+      "y": 1.45,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1543,7 +1720,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": 1.45
+      "y": 1.45,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1553,7 +1731,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": 1.45
+      "y": 1.45,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1563,7 +1742,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": 1.45
+      "y": 1.45,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1573,7 +1753,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": 2.6
+      "y": 2.6,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1583,7 +1764,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": 2.6
+      "y": 2.6,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1593,7 +1775,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": 2.6
+      "y": 2.6,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1603,7 +1786,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": 2.6
+      "y": 2.6,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1613,7 +1797,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": 3.75
+      "y": 3.75,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1623,7 +1808,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": 3.75
+      "y": 3.75,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1633,7 +1819,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": 3.75
+      "y": 3.75,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1643,7 +1830,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": 3.75
+      "y": 3.75,
+      "lean": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -1721,7 +1909,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1731,7 +1920,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1741,7 +1931,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1751,7 +1942,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1761,7 +1953,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1771,7 +1964,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1781,7 +1975,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1791,7 +1986,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1801,7 +1997,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1811,7 +2008,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1821,7 +2019,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1831,7 +2030,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1909,7 +2109,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1919,7 +2120,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1929,7 +2131,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1939,7 +2142,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1949,7 +2153,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1959,7 +2164,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1969,7 +2175,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1979,7 +2186,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1989,7 +2197,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -1999,7 +2208,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2009,7 +2219,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2019,7 +2230,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2036,7 +2248,7 @@
      "at": 0
     }
    ],
-   "kind": "cam 02 low on W1 (real flowerbox, retiree stand-in)"
+   "kind": "cam 02 low on W1 (real flowerbox)"
   },
   {
    "name": "s9",
@@ -2097,7 +2309,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2107,7 +2320,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2117,7 +2331,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2127,7 +2342,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2137,7 +2353,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2147,7 +2364,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2157,7 +2375,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2167,7 +2386,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2177,7 +2397,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2187,7 +2408,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2197,7 +2419,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2207,7 +2430,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2285,7 +2509,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2295,7 +2520,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2305,7 +2531,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2315,7 +2542,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2325,7 +2553,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2335,7 +2564,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2345,7 +2575,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2355,7 +2586,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2365,7 +2597,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2375,7 +2608,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2385,7 +2619,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2395,7 +2630,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2473,7 +2709,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2483,7 +2720,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2493,7 +2731,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2503,7 +2742,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2513,7 +2753,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2523,7 +2764,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2533,7 +2775,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2543,7 +2786,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2553,7 +2797,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2563,7 +2808,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2573,7 +2819,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2583,7 +2830,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2661,7 +2909,8 @@
      "do": "prop",
      "id": "old0",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2671,7 +2920,8 @@
      "do": "prop",
      "id": "old1",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2681,7 +2931,8 @@
      "do": "prop",
      "id": "old2",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2691,7 +2942,8 @@
      "do": "prop",
      "id": "old3",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2701,7 +2953,8 @@
      "do": "prop",
      "id": "old4",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2711,7 +2964,8 @@
      "do": "prop",
      "id": "old5",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2721,7 +2975,8 @@
      "do": "prop",
      "id": "old6",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2731,7 +2986,8 @@
      "do": "prop",
      "id": "old7",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2741,7 +2997,8 @@
      "do": "prop",
      "id": "old8",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2751,7 +3008,8 @@
      "do": "prop",
      "id": "old9",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2761,7 +3019,8 @@
      "do": "prop",
      "id": "old10",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -2771,7 +3030,8 @@
      "do": "prop",
      "id": "old11",
      "set": {
-      "y": -60
+      "y": -60,
+      "lean": 0
      },
      "dur": 0,
      "ease": "inOut",
