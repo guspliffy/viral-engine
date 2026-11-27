@@ -26,7 +26,7 @@ const expr = (t, who, e, set, dur = 0.2) => A(r3(t), who, "expr", { ...(e && { e
 const look = (t, who, to, dur = 0.2) => A(r3(t), who, "look", { to, dur, blink: false });
 const face = (t, who, set, dur = 0.01) => A(r3(t), who, "face", { ...set, dur });
 const turn = (t, who, to, dur = 0.01) => A(r3(t), who, "turn", { to, dur, ease: "linear" });
-const place = (t, who, [x, z], yaw) => { A(r3(t), who, "move", { to: [x, z], y: 0, dur: 0.01, ease: "linear", sync: true }); turn(t, who, yaw); };
+const place = (t, who, [x, z], yaw, y) => { A(r3(t), who, "move", { to: [x, z], ...(y != null && { y }), dur: 0.01, ease: "linear", sync: true }); turn(t, who, yaw); };
 const END = 73.9;
 
 // ---------------------------------------------------------------- the cut list (DESIGN 0 and 5)
@@ -65,7 +65,8 @@ const CAPTEXT = { "Mash! Wake UP!": "Mash! Wake UP!" };
 LINES.forEach(([kind, who, line, tone, o = {}], i) => {
   const t = START[i], d = LEN[line]; if (!d) throw new Error(`no measured length for "${line}"`);
   if (kind === "narr") c.at(t, { macro: "narrate", line, voice: NARRATOR, dur: d, caption: false, pos: SUB, gain: 4.0 });
-  else c.macro(t, who, "say", { line, tone, ...o, dur: d, caption: false });
+  // the cast lines came out 17 dB under the narrator (draft 1, Jonny 27 Nov: "the voices of the characters are really silent"): gain 7 = narrator level
+  else c.macro(t, who, "say", { line, tone, ...o, dur: d, caption: false, gain: 7 });
   const next = START[i + 1] ?? END;
   const end = Math.min(r3(t + d + 0.3), r3(next - LEAD - 0.02), r3(END - 0.01));
   const t0 = CUTS.find((k) => k > t - LEAD - 0.01 && k <= t) ?? Math.max(0, r3(t - LEAD));
@@ -82,21 +83,21 @@ LINES.forEach(([kind, who, line, tone, o = {}], i) => {
 // ---------------------------------------------------------------- the set and the props (DESIGN 1, 2)
 const BED_M = [1.10, -0.84], BED_S = [-1.15, 0.65];
 const LB = { id: "lb", kind: "lightbeam", x: 1.25, y: 1.66, z: -1.74, rot: 149.4, tip: -30.5, len: 2.01, w: 0.45, color: "#ffd9a0", glow: 0, scale: 0 };
-const ROOSTER0 = { id: "rooster", kind: "rooster", sleep: 0.35, ...grips.placeFor("rooster", [-0.17, 0.16, -1.07], 49), scale: 0, staged: "carried, then on Mash" };
+const ROOSTER0 = { id: "rooster", kind: "rooster", sleep: 0.35, ...grips.placeFor("rooster", [-0.10, 0.16, -1.01], 49), scale: 0, staged: "carried, then on Mash" };
 const props = [
   { id: "hut", kind: "alarmhut", x: 0, y: 0, z: 0, door: 0.6, doorlight: 1, dawn: 0 },
-  { id: "win", kind: "alarmview", mode: "window", x: 1.25, y: 1.66, z: -2.6 },
+  { id: "win", kind: "alarmview", mode: "window", x: 1.25, y: 1.66, z: -2.6, staged: "the painted sky card behind the window" },
   { id: "lane", kind: "alarmview", mode: "lane", x: -1.2, y: 0, z: -16 },
   { id: "bedm", kind: "strawbed", shape: "lie", x: BED_M[0], y: 0, z: BED_M[1] },
-  { id: "beds", kind: "strawbed", shape: "sit", x: BED_S[0], y: 0, z: BED_S[1] },
+  { id: "beds", kind: "strawbed", shape: "sit", x: BED_S[0], y: 0, z: BED_S[1], staged: "stands on the hut's own boards (set floor none)" },
   ...[["p1", 0.85, -0.06, 2.02], ["p2", 0.7, 2.0, -1.3], ["p3", 0.5, 1.8, -1.0]].map(([id, s, x, z]) => ({ id, kind: "claypot", s, x, y: 0, z })),
   { id: "stool", kind: "stool", r: 0.17, x: 0.32, y: 0, z: -0.20 },
-  { id: "nc", kind: "nailcandle", x: 0.37, y: 0.42, z: -0.25, lit: 1 },
+  { id: "nc", kind: "nailcandle", x: 0.37, y: 0.42, z: -0.25, lit: 1, staged: "stands on the stool top" },
   { id: "tp", kind: "tinplate", x: 0.17, y: 0, z: 0.03, scale: 0 },
-  { id: "bell", kind: "callbell", scale: 0, x: 0.286, y: 0.432, z: -0.138 },
+  { id: "bell", kind: "callbell", staged: "on the tin plate on the stool", scale: 0, x: 0.286, y: 0.432, z: -0.138 },
   { id: "bk", kind: "waterbucket", x: 0.90, y: 2.05, z: -0.70, round: 2, fill: 1, hang: 0.10, scale: 0, staged: "it hangs from the ceiling beam on its rope" },
   { id: "r2", kind: "beamrope", to: "bk", xa: 0.55, xb: -0.25, tail: [-0.25, 0.26, -0.70], scale: 0 },
-  { id: "r3", kind: "beamrope", to: "bk", xa: 0.62, xb: 0.37, bridle: true, knot: [0.37, 0.85, -0.25], hangLen: 0.15, scale: 0 },
+  { id: "r3", kind: "beamrope", to: "bk", xa: 0.62, xb: 0.37, bridle: true, knot: [0.37, 0.85, -0.25], hangLen: 0.06, scale: 0 },
   { id: "an", kind: "anvil", x: -0.40, y: 0, z: -0.70, scale: 0, staged: "it hangs from the beam on its rope, then lies in the pit" },
   { id: "r4", kind: "beamrope", to: "an", xa: -0.40, xb: 0.37, bridle: true, knot: [0.37, 0.80, -0.25], scale: 0 },
   { id: "jet", kind: "mouthjet", mouth: "mash", target: "jet", scale: 0, staged: "the water column stands at Mash's mouth" },
@@ -190,7 +191,7 @@ see(0.3, 3.5, ["boss.face", "spud.face"], "the threat and the one who hears it")
 
 // ================================================================ C02 3.9-8.0: "One problem. Mash never wakes up." The fly.
 place(before("C02"), "boss", [-0.55, -3.60], 10); A(before("C02"), "boss", "hide", {});   // outside, clear of the floor plan (the wall stands between)
-A(before("C02"), "spud", "ride", { prop: null }); place(before("C02"), "spud", [-0.55, -1.40], 55);
+A(before("C02"), "spud", "ride", { prop: null }); place(before("C02"), "spud", [-0.55, -1.40], 55, 0);   // y 0: off the bed (air-walk)
 // fly: circles 0.25 over his face from 4.1, lands between eyes and mouth at 4.9, walks 0.03, gone under the glove at 6.6
 const FLY_ON = MP([0, 0.79, 0.29]);
 P(4.0, "fly", { scale: 1, x: 0.75, y: 1.45, z: -0.30, buzz: 1 });
@@ -199,7 +200,7 @@ P(4.9, "fly", { x: FLY_ON[0], y: FLY_ON[1], z: FLY_ON[2], tip: 50 }, 0.15, "out"
 P(5.6, "fly", { x: r3(FLY_ON[0] - 0.03) }, 0.4, "inOut");
 sfx(4.1, "ai/fly-buzz", { gain: 0.35, dur: 0.9, reason: "the fly circles his face" });
 // his right glove slaps flat over the fly, holds 12 frames, sinks back
-c.arm(6.45, "mash", "R", { o: [0.10, 0.82, 0.38] }, 0.15, "in");
+c.arm(6.3, "mash", "R", { o: [0.10, 0.82, 0.38] }, 0.3, "in");   // 0.15 s jumped 20 cm a frame (preflight rig-jump)
 P(6.6, "fly", { scale: 0 });
 sfx(6.6, "slap", { gain: 0.8, reason: "his glove slaps flat on his own face in his sleep" });
 c.arm(7.0, "mash", "R", UNDER, 0.5, "inOut");
@@ -234,7 +235,7 @@ expr(13.27, "spud", "eager", null, 0.01); look(13.27, "spud", [0, -0.2], 0.01);
 const hr = grips.box(c, "spud", ROOSTER0, { gap: 0.04 });
 let th = hr.take(13.27, { reach: 0.005, settle: 0.005 });
 const yawR = (49 * Math.PI) / 180, ahead = ([x, z], d) => [r3(x + d * Math.sin(yawR)), r3(z + d * Math.cos(yawR))];
-const carryAt = (u) => { const [x, z] = [-0.55 + 0.40 * u, -1.40 + 0.35 * u], [ax, az] = ahead([x, z], 0.50); return [ax, 0.16, az]; };   // 0.30 sank it into his belly (prop-in-self 41 %)
+const carryAt = (u) => { const [x, z] = [-0.55 + 0.40 * u, -1.40 + 0.35 * u], [ax, az] = ahead([x, z], 0.60); return [ax, 0.16, az]; };   // 0.30 sank it into his belly (prop-in-self 41 %)
 hr.carry(r3(th + 0.002), carryAt(0), 0.01, "inOut");
 const W0 = 13.45, WD = 2.6;
 A(W0, "spud", "move", { to: [-0.15, -1.05], dur: WD, ease: "linear" });
@@ -302,7 +303,7 @@ P(before("C07"), "drips", { on: 0 }); P(before("C07"), "r2", { scale: 0 }); P(be
 P(before("C07"), "bk", { round: 3, swing: 0, flip: 0, pour: 0, fill: 1 }); P(before("C07"), "r3", { scale: 1, burn: 0, snap: -1 });
 P(before("C07"), "nc", { burn: 0.25 }); P(before("C07"), "rooster", { scale: 0 });
 place(before("C07"), "spud", [-0.20, 0.42], 30);
-A(before("C07"), "spud", "sit", { rot: 30, height: 0.06, dur: 0.01, hands: "keep" });
+A(before("C07"), "spud", "sit", { rot: 30, height: 0.06, dur: 0, hands: "keep" });
 arms(before("C07"), "spud", "cheeks", 0.01); expr(before("C07"), "spud", "eager", null, 0.01); look(before("C07"), "spud", [0.45, 0.3], 0.01);
 P(32.6, "r3", { burn: 0.6 }, 4.8, "linear"); P(32.6, "nc", { burn: 0.32 }, 4.8, "linear");
 face(36.0, "spud", { lid: 0.6 }, 0.6); face(36.9, "spud", { lid: 0 }, 0.08); A(36.9, "spud", "squash", { amount: 0.04, dur: 0.15 });
@@ -330,7 +331,7 @@ see(38.9, 42.9, ["mash.face", "jet", "spud.face"], "a fountain, still asleep");
 for (const id of ["bk", "r3", "splM"]) P(before("C09"), id, id === "splM" ? { puff: 0 } : { scale: 0 });
 P(before("C09"), "an", { scale: 1, fall: 0 }); P(before("C09"), "r4", { scale: 1, burn: 0.5, snap: -1 }); P(before("C09"), "nc", { burn: 0.45 });
 P(before("C09"), "bedm", { wet: 0.6 });
-place(before("C09"), "spud", [-0.10, 1.38], 0); A(before("C09"), "spud", "crouch", { to: 1, dur: 0.01 });
+place(before("C09"), "spud", [-0.10, 1.38], 0); A(before("C09"), "spud", "crouch", { to: 1, dur: 0 });
 expr(before("C09"), "spud", "terrified", { open: 0.1 }, 0.01); look(before("C09"), "spud", [0.05, 0.75], 0.01);
 P(43.0, "r4", { burn: 0.98 }, 3.3, "linear");
 A(45.0, "spud", "squash", { amount: 0.05, dur: 0.15 });
@@ -366,7 +367,7 @@ see(50.7, 53.5, ["boss.face"], "the boss is coming, sunrise");
 
 // ================================================================ C12a 53.6-56.9 the low point, tink; C12b one eye; C12c "So you stop going bigger."
 place(before("C11"), "spud", [-0.20, 0.42], 30);
-A(before("C12a"), "spud", "sit", { rot: 30, height: 0.06, dur: 0.01, hands: "keep" }); A(before("C12a"), "spud", "crouch", { to: 0, dur: 0.01 });
+A(before("C12a"), "spud", "sit", { rot: 30, height: 0.06, dur: 0, hands: "keep" }); A(before("C12a"), "spud", "crouch", { to: 0, dur: 0 });
 arms(before("C12a"), "spud", "lap", 0.01); A(before("C12a"), "spud", "squash", { amount: 0.08, dur: 0.01 }); A(before("C12a"), "spud", "lean", { to: -6, dur: 0.01 });
 expr(before("C12a"), "spud", "sad", { eye: 0.45 }, 0.01); look(before("C12a"), "spud", [0.1, -0.3], 0.01);
 for (const id of ["an", "r4"]) P(before("C12a"), id, { scale: 0 }); P(before("C12a"), "tp", { scale: 1, x: 0.17, y: 0, z: 0.03 });
@@ -375,7 +376,7 @@ P(53.6, "nc", { burn: 0.80 }, 2.4, "linear"); P(56.0, "nc", { nailA: 0 }); P(56.
 expr(56.47, "spud", "shocked", { eye: 1.2, open: 0.1 }, 0.12); look(56.47, "spud", [0.4, -0.6], 0.12);
 sfx(56.47, "tink", { gain: 0.9, reason: "the nail drops out of the candle onto the tin plate" });
 // C12b: his right eye opens to 0.25 for 0.8 s, shuts
-face(57.0, "mash", { lidR: 0.55 }, 0.15); face(57.8, "mash", { lidR: 1 }, 0.15);
+face(57.0, "mash", { lidR: 0.3 }, 0.15); face(57.8, "mash", { lidR: 1 }, 0.15);
 // C12c: eyes to the nail, to the candle, the idea
 look(58.0, "spud", [0.45, -0.55], 0.01); A(58.2, "spud", "lean", { to: 0, dur: 0.3 }); A(58.2, "spud", "squash", { amount: 0, dur: 0.3 });
 act.idea(c, 58.9, "spud", { at: [0.5, 0.25], hold: 0.8 });
@@ -413,12 +414,12 @@ see(66.1, 69.5, ["mash.face", "spud.face", "bell"], "it works: he is awake");
 // ================================================================ C15 69.6-73.9: "...and he just invented snooze." the slap, the flop, the door
 arms(69.6, "spud", "rest", 0.4, "inOut"); expr(69.6, "spud", "deadpan", null, 0.4); look(69.7, "spud", [0.5, -0.2], 0.2);
 face(69.6, "mash", { lid: 1 }, 0.3);
-A(70.0, "mash", "lean", { to: -20, dur: 0.1 });
-grips.rest(c, "mash", "R", { id: "bell", kind: "callbell", scale: 1.15, x: 0.286, y: 0.432, z: -0.138 }, [0, 0], 70.0, { dur: 0.1, ease: "in", top: 0.079 });
+A(69.82, "mash", "lean", { to: -20, dur: 0.28 });
+grips.rest(c, "mash", "R", { id: "bell", kind: "callbell", scale: 1.15, x: 0.286, y: 0.432, z: -0.138 }, [0, 0], 69.82, { dur: 0.28, ease: "in", top: 0.079 });
 P(70.1, "bell", { press: 1 }, 0.04); P(70.4, "bell", { press: 0 }, 0.1);
 sfx(70.1, "slap", { gain: 0.8, reason: "his glove slaps the bell quiet" });
 sfx(70.11, "ding", { gain: 0.3, reason: "the bell's ring is cut short under the glove" });
-c.arm(70.4, "mash", "R", UNDER, 0.25, "inOut"); A(70.4, "mash", "lean", { to: 0, dur: 0.2 });
+c.arm(70.35, "mash", "R", UNDER, 0.4, "inOut"); A(70.4, "mash", "lean", { to: 0, dur: 0.2 });
 sleep(70.6, 0.3); A(70.9, "mash", "squash", { amount: 0.05, dur: 0.2 });
 snore(71.3, END); sfx(71.3, "ai/snore", { gain: 0.6, dur: 2.0, reason: "he snores again" });
 look(71.0, "spud", [0.4, 0.1], 0.2); expr(72.0, "spud", "deadpan", { curve: -0.2 }, 0.3);
@@ -429,8 +430,40 @@ sfx(73.2, "slam", { gain: 1.0, reason: "the boss bangs the door open at sunrise"
 see(70.0, 73.6, ["mash.face", "bell", "spud.face"], "the slap and the snore: snooze");
 
 // ---------------------------------------------------------------- beats and the storyboard
-const beats = c.beats(SHOTS, END);
-write(import.meta.url, {
+// ---------------------------------------------------------------- the trims (Jonny 27 Nov on draft 1: "too many still moments
+// with no movement, you can cut them"): the staging above keeps the draft-1 clock; these spans (old seconds, never inside a line)
+// come out and every time after them moves up. A point in a span maps to its start, except the last 0.1 s before a cut (the
+// "before(shot)" sets), which keep their place before the new cut; a sound that started inside a span is dropped
+// each span a whole number of frames, so every later cut stays ON a frame and a "before(shot)" set (0.02 s before the
+// cut, dur 0.01) still ends before the new shot's first frame (a 0.45 s span put the C07 cut at 31.35 -> frame 31.333: the
+// sit-down landed one frame into the shot)
+const TRIM = [[24.55, 25.0], [31.8, 32.6], [37.0, 37.4], [42.3, 43.0], [45.2, 46.0], [47.6, 48.0], [50.15, 50.6], [52.4, 53.6], [53.8, 55.4], [62.2, 62.8], [63.9, 64.9]]
+  .map(([a, b]) => [r3(b - Math.round((b - a) * 30) / 30), b]);
+const W = (t) => {
+  let cut = 0;
+  for (const [a, b] of TRIM) {
+    if (t >= b) { cut += b - a; continue; }
+    if (t > a) return r3(b - t <= 0.1 ? b - cut - (b - a) - (b - t) : a - cut);
+    break;
+  }
+  return r3(t - cut);
+};
+const inTrim = (t) => TRIM.some(([a, b]) => t > a + 1e-6 && t < b - 0.1);
+const WDUR = (at, dur) => r3(W(at + dur) - W(at));
+for (let i = c.items.length - 1; i >= 0; i--) {
+  const x = c.items[i];
+  if (x.sfx && inTrim(x.at)) { c.items.splice(i, 1); continue; }
+  if (x.dur != null && !x.macro) x.dur = Math.max(x.dur > 0 ? 0.01 : 0, WDUR(x.at, x.dur));
+  x.at = W(x.at);
+}
+for (const k of c.captions) { k.from = W(k.from); k.to = W(k.to); }
+for (const v of c.visible) { v.from = W(v.from); v.to = W(v.to); }
+for (const g of grade) g[0] = W(g[0]);
+for (const x of c.fx) { x.dur = WDUR(x.at, x.dur); x.at = W(x.at); }
+const SHOTS_W = SHOTS.map(([n, t, s]) => [n, W(t), { ...s, dur: WDUR(t, s.dur) }]);
+const END_W = W(END);
+const beats = c.beats(SHOTS_W, END_W);
+const SB = {
   id: "alarm-clock", title: "How you invented the alarm clock",
   idea: "How you invented X 01: the boss wants you both at work by sunrise, Mash never wakes up; rooster, bucket, candle rope, anvil each backfire; a nail in a candle over a bell works, Mash slaps it quiet and sleeps on: he just invented snooze.",
   format: "How you invented X (vertical, ~74 s)",
@@ -454,7 +487,9 @@ write(import.meta.url, {
     { who: "spud", with: "r2", from: 25.0, to: 30.6, checks: ["hand-in-prop", "arm-in-prop"], reason: "both gloves close round the rope's tail" },
     { who: "mash", with: "jet", from: 39.4, to: 43.0, checks: ["clipping", "costume-in-prop"], reason: "the water column stands at his mouth" },
     { who: "mash", with: "bell", from: 70.0, to: 70.5, checks: ["hand-in-prop", "arm-in-prop"], reason: "the slap: his glove flat on the bell" },
-    { who: "mash", with: "bk", from: 38.6, to: 40.2, checks: ["clipping"], reason: "the round-3 water pours onto him (the stream is part of the bucket prop)" },
+    { who: "mash", with: "bk", from: 38.4, to: 40.2, checks: ["clipping", "shell"], reason: "the round-3 water pours onto him (the stream is part of the bucket prop)" },
+    { who: "mash", with: "r2", from: 25.0, to: 31.8, checks: ["clipping"], reason: "the trip rope's load leg runs past the back of his headphone band to the bucket over him (side lens: the rope clears his head)" },
+    { who: "mash", with: "r3", from: 32.6, to: 43.0, checks: ["clipping"], reason: "the candle rope's load leg and its burnt end hang just behind his head (side lens: clear of his face)" },
     { who: "mash", with: "fly", from: 4.8, to: 6.7, checks: ["clipping"], reason: "the fly lands and walks on his face" },
     { who: "spud", with: "mash", from: 9.6, to: 11.6, checks: ["character-overlap"], reason: "the shove: both gloves push his flank through the blanket" },
     { who: "spud", with: "bedm", from: 9.6, to: 11.6, checks: ["hand-in-prop", "arm-in-prop"], reason: "the shove: both gloves press into the straw blanket" },
@@ -463,4 +498,7 @@ write(import.meta.url, {
   ],
   captionOverBody: { reason: "close shots where Mash's head or Spud fills the frame (C02, C12c): the line sits over the top of his head or the beam, never on an eye" },
   notes: "Generated by storyboards/series/how-you-invented/01-alarm-clock/make-alarm-clock.mjs.",
-});
+};
+for (const w of SB.allowClip) { w.from = W(w.from); w.to = W(w.to); }
+SB.music.until = W(SB.music.until); SB.music.then.from = W(SB.music.then.from); SB.creative.length = [END_W, END_W];
+write(import.meta.url, SB);

@@ -50,21 +50,21 @@
    }
   ],
   [
-   43,
+   40.667,
    {
     "tint": "#b3b9de",
     "s": 0.9
    }
   ],
   [
-   50.6,
+   46.6,
    {
     "tint": "#ffd9b3",
     "s": 1
    }
   ],
   [
-   62.8,
+   55.4,
    {
     "tint": "#ffe6c4",
     "s": 1.05
@@ -77,10 +77,10 @@
   "from": 0,
   "gain": 0.45,
   "lowCut": 120,
-  "until": 53.6,
+  "until": 48.4,
   "then": {
    "file": "ai/sos-warm/sos-warm-01.ogg",
-   "from": 58.4,
+   "from": 51.6,
    "gain": 0.45
   }
  },
@@ -93,8 +93,8 @@
  },
  "creative": {
   "length": [
-   73.9,
-   73.9
+   65.5,
+   65.5
   ]
  },
  "hook": {
@@ -109,7 +109,7 @@
  "fx": [
   {
    "do": "shake",
-   "at": 46.9,
+   "at": 43.767,
    "dur": 0.35,
    "amp": 0.03
   },
@@ -175,7 +175,8 @@
    "mode": "window",
    "x": 1.25,
    "y": 1.66,
-   "z": -2.6
+   "z": -2.6,
+   "staged": "the painted sky card behind the window"
   },
   {
    "id": "lane",
@@ -199,7 +200,8 @@
    "shape": "sit",
    "x": -1.15,
    "y": 0,
-   "z": 0.65
+   "z": 0.65,
+   "staged": "stands on the hut's own boards (set floor none)"
   },
   {
    "id": "p1",
@@ -239,7 +241,8 @@
    "x": 0.37,
    "y": 0.42,
    "z": -0.25,
-   "lit": 1
+   "lit": 1,
+   "staged": "stands on the stool top"
   },
   {
    "id": "tp",
@@ -252,6 +255,7 @@
   {
    "id": "bell",
    "kind": "callbell",
+   "staged": "on the tin plate on the stool",
    "scale": 0,
    "x": 0.286,
    "y": 0.432,
@@ -294,7 +298,7 @@
     0.85,
     -0.25
    ],
-   "hangLen": 0.15,
+   "hangLen": 0.06,
    "scale": 0
   },
   {
@@ -346,9 +350,9 @@
    "id": "rooster",
    "kind": "rooster",
    "sleep": 0.35,
-   "x": -0.17,
+   "x": -0.1,
    "y": 0.16,
-   "z": -1.07,
+   "z": -1.01,
    "rot": 229,
    "scale": 0,
    "staged": "carried, then on Mash"
@@ -543,8 +547,8 @@
    "across": true
   },
   {
-   "from": 25.08,
-   "to": 28.142,
+   "from": 24.647,
+   "to": 27.709,
    "text": "Water. Nobody sleeps through water.",
    "pos": 330,
    "pop": false,
@@ -552,8 +556,8 @@
    "across": true
   },
   {
-   "from": 30.48,
-   "to": 31.974,
+   "from": 30.047,
+   "to": 31.367,
    "text": "Wrong side.",
    "pos": 330,
    "pop": false,
@@ -561,8 +565,8 @@
    "across": true
   },
   {
-   "from": 32.68,
-   "to": 34.46,
+   "from": 31.447,
+   "to": 33.227,
    "text": "But you can't stay up all night.",
    "pos": 330,
    "pop": false,
@@ -570,8 +574,8 @@
    "across": true
   },
   {
-   "from": 34.46,
-   "to": 36.915,
+   "from": 33.227,
+   "to": 35.682,
    "text": "So the candle pulls the rope for you.",
    "pos": 330,
    "pop": false,
@@ -579,8 +583,8 @@
    "across": true
   },
   {
-   "from": 39.88,
-   "to": 42.42,
+   "from": 38.247,
+   "to": 40.667,
    "text": "He's not awake. He's a fountain.",
    "pos": 330,
    "pop": false,
@@ -588,8 +592,8 @@
    "across": true
   },
   {
-   "from": 43.08,
-   "to": 45.289,
+   "from": 40.747,
+   "to": 42.867,
    "text": "Fine. Something heavier.",
    "pos": 330,
    "pop": false,
@@ -597,8 +601,8 @@
    "across": true
   },
   {
-   "from": 48.88,
-   "to": 50.27,
+   "from": 45.347,
+   "to": 46.6,
    "text": "...Too heavy.",
    "pos": 330,
    "pop": false,
@@ -606,8 +610,8 @@
    "across": true
   },
   {
-   "from": 50.78,
-   "to": 52.254,
+   "from": 46.78,
+   "to": 48.254,
    "text": "And the sun is coming up.",
    "pos": 330,
    "pop": false,
@@ -615,8 +619,8 @@
    "across": true
   },
   {
-   "from": 58.28,
-   "to": 60.422,
+   "from": 51.48,
+   "to": 53.622,
    "text": "So you stop going bigger.",
    "pos": 330,
    "pop": false,
@@ -624,8 +628,8 @@
    "across": true
   },
   {
-   "from": 66.88,
-   "to": 69.223,
+   "from": 58.48,
+   "to": 60.823,
    "text": "You've invented the alarm clock.",
    "pos": 330,
    "pop": false,
@@ -633,8 +637,8 @@
    "across": true
   },
   {
-   "from": 71.38,
-   "to": 73.76,
+   "from": 62.98,
+   "to": 65.36,
    "text": "...and he just invented snooze.",
    "pos": 330,
    "pop": false,
@@ -1033,6 +1037,7 @@
      "style": "deep, stern, furious, a boss at the door",
      "dur": 3.0079,
      "caption": false,
+     "gain": 7,
      "at": 0.05
     },
     {
@@ -1158,7 +1163,6 @@
       -0.55,
       -3.6
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1371,9 +1375,9 @@
        0.38
       ]
      },
-     "dur": 0.15,
+     "dur": 0.3,
      "ease": "in",
-     "at": 2.55
+     "at": 2.4
     },
     {
      "do": "prop",
@@ -1438,7 +1442,6 @@
       0.06,
       -1.18
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1532,6 +1535,7 @@
      "style": "yelling, desperate",
      "dur": 1.3363,
      "caption": false,
+     "gain": 7,
      "at": 0.15
     },
     {
@@ -1836,7 +1840,6 @@
       -0.55,
       -1.4
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1890,7 +1893,7 @@
      "do": "grip",
      "side": "R",
      "shape": "open",
-     "dur": 0.005,
+     "dur": 0.01,
      "at": 5.27
     },
     {
@@ -1911,7 +1914,7 @@
        0.041
       ]
      },
-     "dur": 0.005,
+     "dur": 0.01,
      "ease": "inOut",
      "at": 5.27
     },
@@ -1920,7 +1923,7 @@
      "do": "grip",
      "side": "L",
      "shape": "open",
-     "dur": 0.005,
+     "dur": 0.01,
      "at": 5.27
     },
     {
@@ -1941,7 +1944,7 @@
        -0.08
       ]
      },
-     "dur": 0.005,
+     "dur": 0.01,
      "ease": "inOut",
      "at": 5.27
     },
@@ -1958,7 +1961,7 @@
       ],
       "palm": true
      },
-     "dur": 0.005,
+     "dur": 0.01,
      "ease": "settle",
      "at": 5.275
     },
@@ -1975,7 +1978,7 @@
       ],
       "palm": true
      },
-     "dur": 0.005,
+     "dur": 0.01,
      "ease": "settle",
      "at": 5.275
     },
@@ -2085,9 +2088,9 @@
       ],
       "palm": true,
       "at": [
-       -0.173,
+       -0.097,
        0.16,
-       -1.072
+       -1.006
       ]
      },
      "dur": 0.01,
@@ -2107,9 +2110,9 @@
       ],
       "palm": true,
       "at": [
-       -0.173,
+       -0.097,
        0.16,
-       -1.072
+       -1.006
       ]
      },
      "dur": 0.01,
@@ -2150,9 +2153,9 @@
       ],
       "palm": true,
       "at": [
-       -0.123,
+       -0.047,
        0.16,
-       -1.028
+       -0.963
       ]
      },
      "dur": 0.325,
@@ -2172,9 +2175,9 @@
       ],
       "palm": true,
       "at": [
-       -0.123,
+       -0.047,
        0.16,
-       -1.028
+       -0.963
       ]
      },
      "dur": 0.325,
@@ -2194,9 +2197,9 @@
       ],
       "palm": true,
       "at": [
-       -0.073,
+       0.003,
        0.16,
-       -0.984
+       -0.919
       ]
      },
      "dur": 0.325,
@@ -2216,9 +2219,9 @@
       ],
       "palm": true,
       "at": [
-       -0.073,
+       0.003,
        0.16,
-       -0.984
+       -0.919
       ]
      },
      "dur": 0.325,
@@ -2238,9 +2241,9 @@
       ],
       "palm": true,
       "at": [
-       -0.023,
+       0.053,
        0.16,
-       -0.941
+       -0.875
       ]
      },
      "dur": 0.325,
@@ -2260,9 +2263,9 @@
       ],
       "palm": true,
       "at": [
-       -0.023,
+       0.053,
        0.16,
-       -0.941
+       -0.875
       ]
      },
      "dur": 0.325,
@@ -2292,9 +2295,9 @@
       ],
       "palm": true,
       "at": [
-       0.027,
+       0.103,
        0.16,
-       -0.897
+       -0.831
       ]
      },
      "dur": 0.325,
@@ -2314,9 +2317,9 @@
       ],
       "palm": true,
       "at": [
-       0.027,
+       0.103,
        0.16,
-       -0.897
+       -0.831
       ]
      },
      "dur": 0.325,
@@ -2343,9 +2346,9 @@
       ],
       "palm": true,
       "at": [
-       0.077,
+       0.153,
        0.16,
-       -0.853
+       -0.788
       ]
      },
      "dur": 0.325,
@@ -2365,9 +2368,9 @@
       ],
       "palm": true,
       "at": [
-       0.077,
+       0.153,
        0.16,
-       -0.853
+       -0.788
       ]
      },
      "dur": 0.325,
@@ -2387,9 +2390,9 @@
       ],
       "palm": true,
       "at": [
-       0.127,
+       0.203,
        0.16,
-       -0.809
+       -0.744
       ]
      },
      "dur": 0.325,
@@ -2409,9 +2412,9 @@
       ],
       "palm": true,
       "at": [
-       0.127,
+       0.203,
        0.16,
-       -0.809
+       -0.744
       ]
      },
      "dur": 0.325,
@@ -2441,9 +2444,9 @@
       ],
       "palm": true,
       "at": [
-       0.177,
+       0.253,
        0.16,
-       -0.766
+       -0.7
       ]
      },
      "dur": 0.325,
@@ -2463,9 +2466,9 @@
       ],
       "palm": true,
       "at": [
-       0.177,
+       0.253,
        0.16,
-       -0.766
+       -0.7
       ]
      },
      "dur": 0.325,
@@ -2492,9 +2495,9 @@
       ],
       "palm": true,
       "at": [
-       0.227,
+       0.303,
        0.16,
-       -0.722
+       -0.656
       ]
      },
      "dur": 0.325,
@@ -2514,9 +2517,9 @@
       ],
       "palm": true,
       "at": [
-       0.227,
+       0.303,
        0.16,
-       -0.722
+       -0.656
       ]
      },
      "dur": 0.325,
@@ -2529,9 +2532,9 @@
      "prop": "rooster",
      "dur": 0,
      "to": [
-      0.227,
+      0.303,
       0.16,
-      -0.722
+      -0.656
      ],
      "at": 2.82
     },
@@ -2648,7 +2651,6 @@
       0.06,
       -1.18
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -2952,7 +2954,7 @@
   {
    "name": "C05 the swat",
    "at": 21.8,
-   "len": 3.2,
+   "len": 2.766,
    "shot": {
     "pos": [
      -0.7,
@@ -2978,7 +2980,7 @@
      ],
      "fov": 38
     },
-    "dur": 3.2,
+    "dur": 2.767,
     "ease": "inOut"
    },
    "do": [
@@ -3127,7 +3129,7 @@
        0.03
       ]
      },
-     "dur": 0.5,
+     "dur": 0.467,
      "ease": "inOut",
      "at": 2.3
     },
@@ -3142,7 +3144,7 @@
        0.03
       ]
      },
-     "dur": 0.5,
+     "dur": 0.467,
      "ease": "inOut",
      "at": 2.3
     },
@@ -3150,14 +3152,14 @@
      "who": "spud",
      "do": "turn",
      "to": 0,
-     "dur": 0.5,
+     "dur": 0.167,
      "at": 2.6
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
-     "dur": 1,
+     "dur": 0.567,
      "at": 2.62
     },
     {
@@ -3167,17 +3169,9 @@
       0,
       0
      ],
-     "dur": 0.35,
+     "dur": 0.067,
      "blink": false,
      "at": 2.7
-    },
-    {
-     "who": "spud",
-     "do": "still",
-     "dur": 1.1,
-     "idle": 0.1,
-     "sink": 0.012,
-     "at": 3.1
     },
     {
      "do": "prop",
@@ -3188,7 +3182,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.747
     },
     {
      "do": "prop",
@@ -3198,7 +3192,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.747
     },
     {
      "do": "prop",
@@ -3208,7 +3202,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.747
     },
     {
      "do": "prop",
@@ -3218,7 +3212,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.747
     },
     {
      "do": "prop",
@@ -3233,7 +3227,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.747
     },
     {
      "do": "prop",
@@ -3245,7 +3239,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.747
     },
     {
      "who": "spud",
@@ -3254,11 +3248,10 @@
       -0.25,
       -1.13
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.18
+     "at": 2.747
     },
     {
      "who": "spud",
@@ -3266,21 +3259,21 @@
      "to": 20,
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.747
     },
     {
      "who": "spud",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.747
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "focused",
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.747
     },
     {
      "who": "spud",
@@ -3291,7 +3284,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 3.18
+     "at": 2.747
     },
     {
      "who": "spud",
@@ -3306,7 +3299,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.747
     },
     {
      "who": "spud",
@@ -3321,7 +3314,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.747
     },
     {
      "who": "spud",
@@ -3329,7 +3322,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.747
     },
     {
      "who": "spud",
@@ -3337,14 +3330,14 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.747
     }
    ]
   },
   {
    "name": "C06 the bucket",
-   "at": 25,
-   "len": 7.6,
+   "at": 24.566,
+   "len": 6.8,
    "shot": {
     "pos": [
      -0.15,
@@ -3370,10 +3363,18 @@
      ],
      "fov": 46
     },
-    "dur": 7.6,
+    "dur": 6.8,
     "ease": "inOut"
    },
    "do": [
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.1,
+     "sink": 0.012,
+     "at": 0.001
+    },
     {
      "macro": "narrate",
      "line": "Water. Nobody sleeps through water.",
@@ -3382,28 +3383,28 @@
      "caption": false,
      "pos": 330,
      "gain": 4,
-     "at": 0.2
+     "at": 0.201
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
      "dur": 1,
-     "at": 0.53
+     "at": 0.531
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 1,
-     "at": 1.64
+     "at": 1.641
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
      "dur": 1,
-     "at": 2.75
+     "at": 2.751
     },
     {
      "do": "prop",
@@ -3413,7 +3414,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 3
+     "at": 3.001
     },
     {
      "who": "spud",
@@ -3429,7 +3430,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 3
+     "at": 3.001
     },
     {
      "who": "spud",
@@ -3445,20 +3446,20 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 3
+     "at": 3.001
     },
     {
      "who": "spud",
      "do": "lean",
      "to": -6,
      "dur": 0.2,
-     "at": 3
+     "at": 3.001
     },
     {
      "sfx": "creak",
      "gain": 0.5,
      "reason": "the rope creaks over the beam",
-     "at": 3
+     "at": 3.001
     },
     {
      "do": "prop",
@@ -3468,7 +3469,7 @@
      },
      "dur": 0.25,
      "ease": "out",
-     "at": 3.05
+     "at": 3.051
     },
     {
      "do": "prop",
@@ -3478,13 +3479,13 @@
      },
      "dur": 0.65,
      "ease": "inOut",
-     "at": 3.3
+     "at": 3.301
     },
     {
      "sfx": "kenney/creak",
      "gain": 0.3,
      "reason": "the bucket's bail creaks on the swing",
-     "at": 3.3
+     "at": 3.301
     },
     {
      "who": "spud",
@@ -3495,14 +3496,14 @@
      ],
      "dur": 0.3,
      "blink": false,
-     "at": 3.4
+     "at": 3.401
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 1,
-     "at": 3.86
+     "at": 3.861
     },
     {
      "do": "prop",
@@ -3512,7 +3513,7 @@
      },
      "dur": 0.8,
      "ease": "inOut",
-     "at": 3.95
+     "at": 3.951
     },
     {
      "who": "spud",
@@ -3523,7 +3524,7 @@
      ],
      "dur": 0.25,
      "blink": false,
-     "at": 4.4
+     "at": 4.401
     },
     {
      "do": "prop",
@@ -3533,7 +3534,7 @@
      },
      "dur": 0.3,
      "ease": "in",
-     "at": 4.45
+     "at": 4.451
     },
     {
      "do": "prop",
@@ -3543,7 +3544,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.75
+     "at": 4.751
     },
     {
      "do": "prop",
@@ -3553,20 +3554,20 @@
      },
      "dur": 1.1,
      "ease": "linear",
-     "at": 4.75
+     "at": 4.751
     },
     {
      "sfx": "splash",
      "gain": 0.5,
      "reason": "water slops out of the bucket",
-     "at": 4.8
+     "at": 4.801
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
      "dur": 1,
-     "at": 4.97
+     "at": 4.971
     },
     {
      "who": "spud",
@@ -3578,28 +3579,28 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 5.1
+     "at": 5.101
     },
     {
      "who": "spud",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 5.1
+     "at": 5.101
     },
     {
      "who": "spud",
      "do": "still",
      "dur": 1,
      "idle": 0.08,
-     "at": 5.1
+     "at": 5.101
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.08,
      "dur": 0.25,
-     "at": 5.1
+     "at": 5.101
     },
     {
      "do": "prop",
@@ -3609,13 +3610,13 @@
      },
      "dur": 0.5,
      "ease": "out",
-     "at": 5.1
+     "at": 5.101
     },
     {
      "sfx": "splash",
      "gain": 1,
      "reason": "the bucket of water lands on you",
-     "at": 5.1
+     "at": 5.101
     },
     {
      "do": "prop",
@@ -3625,7 +3626,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 5.15
+     "at": 5.151
     },
     {
      "who": "spud",
@@ -3633,7 +3634,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.15,
-     "at": 5.4
+     "at": 5.401
     },
     {
      "who": "spud",
@@ -3641,7 +3642,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.15,
-     "at": 5.4
+     "at": 5.401
     },
     {
      "who": "spud",
@@ -3650,7 +3651,7 @@
      "pose": "rest",
      "dur": 0.5,
      "ease": "inOut",
-     "at": 5.4
+     "at": 5.401
     },
     {
      "who": "spud",
@@ -3659,7 +3660,7 @@
      "pose": "rest",
      "dur": 0.5,
      "ease": "inOut",
-     "at": 5.4
+     "at": 5.401
     },
     {
      "do": "prop",
@@ -3670,13 +3671,13 @@
      },
      "dur": 0.5,
      "ease": "out",
-     "at": 5.4
+     "at": 5.401
     },
     {
      "sfx": "ai/drip",
      "gain": 0.4,
      "reason": "you drip",
-     "at": 5.4
+     "at": 5.401
     },
     {
      "macro": "narrate",
@@ -3686,7 +3687,7 @@
      "caption": false,
      "pos": 330,
      "gain": 4,
-     "at": 5.6
+     "at": 5.601
     },
     {
      "do": "prop",
@@ -3697,7 +3698,7 @@
      },
      "dur": 0.9,
      "ease": "settle",
-     "at": 5.85
+     "at": 5.851
     },
     {
      "who": "spud",
@@ -3707,21 +3708,14 @@
       "curve": -0.15
      },
      "dur": 0.3,
-     "at": 6
+     "at": 6.001
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
-     "dur": 1,
-     "at": 6.08
-    },
-    {
-     "who": "mash",
-     "do": "face",
-     "open": 0.35,
-     "dur": 1,
-     "at": 7.19
+     "dur": 0.72,
+     "at": 6.081
     },
     {
      "do": "prop",
@@ -3732,7 +3726,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "do": "prop",
@@ -3742,7 +3736,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "do": "prop",
@@ -3752,7 +3746,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "do": "prop",
@@ -3762,7 +3756,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "do": "prop",
@@ -3776,7 +3770,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "do": "prop",
@@ -3788,7 +3782,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "do": "prop",
@@ -3798,7 +3792,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "do": "prop",
@@ -3808,7 +3802,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "who": "spud",
@@ -3817,11 +3811,10 @@
       -0.2,
       0.42
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 7.58
+     "at": 6.781
     },
     {
      "who": "spud",
@@ -3829,16 +3822,16 @@
      "to": 30,
      "dur": 0.01,
      "ease": "linear",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "who": "spud",
      "do": "sit",
      "rot": 30,
      "height": 0.06,
-     "dur": 0.01,
+     "dur": 0,
      "hands": "keep",
-     "at": 7.58
+     "at": 6.781
     },
     {
      "who": "spud",
@@ -3846,7 +3839,7 @@
      "side": "R",
      "pose": "cheeks",
      "dur": 0.01,
-     "at": 7.58
+     "at": 6.781
     },
     {
      "who": "spud",
@@ -3854,14 +3847,14 @@
      "side": "L",
      "pose": "cheeks",
      "dur": 0.01,
-     "at": 7.58
+     "at": 6.781
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "eager",
      "dur": 0.01,
-     "at": 7.58
+     "at": 6.781
     },
     {
      "who": "spud",
@@ -3872,14 +3865,14 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 7.58
+     "at": 6.781
     }
    ]
   },
   {
    "name": "C07 the candle",
-   "at": 32.6,
-   "len": 4.8,
+   "at": 31.366,
+   "len": 4.4,
    "shot": {
     "pos": [
      0.1,
@@ -3905,19 +3898,26 @@
      ],
      "fov": 42
     },
-    "dur": 4.8,
+    "dur": 4.4,
     "ease": "inOut"
    },
    "do": [
+    {
+     "who": "mash",
+     "do": "face",
+     "open": 0.35,
+     "dur": 0.59,
+     "at": 0.001
+    },
     {
      "do": "prop",
      "id": "r3",
      "set": {
       "burn": 0.6
      },
-     "dur": 4.8,
+     "dur": 4.4,
      "ease": "linear",
-     "at": 0
+     "at": 0.001
     },
     {
      "do": "prop",
@@ -3925,9 +3925,9 @@
      "set": {
       "burn": 0.32
      },
-     "dur": 4.8,
+     "dur": 4.4,
      "ease": "linear",
-     "at": 0
+     "at": 0.001
     },
     {
      "macro": "narrate",
@@ -3937,63 +3937,63 @@
      "caption": false,
      "pos": 330,
      "gain": 4,
-     "at": 0.2
+     "at": 0.201
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 1,
-     "at": 0.7
+     "at": 0.701
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
      "dur": 1,
-     "at": 1.81
+     "at": 1.811
     },
     {
      "sfx": "sizzle",
      "gain": 0.3,
-     "dur": 2.4,
+     "dur": 2,
      "reason": "the flame singes the hemp knot",
-     "at": 2.4
+     "at": 2.401
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 1,
-     "at": 2.92
+     "at": 2.921
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.6,
      "dur": 0.6,
-     "at": 3.4
+     "at": 3.401
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
-     "dur": 1,
-     "at": 4.03
+     "dur": 0.6,
+     "at": 4.031
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0,
      "dur": 0.08,
-     "at": 4.3
+     "at": 4.301
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.04,
-     "dur": 0.15,
-     "at": 4.3
+     "dur": 0.1,
+     "at": 4.301
     },
     {
      "do": "prop",
@@ -4004,7 +4004,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.78
+     "at": 4.381
     },
     {
      "who": "spud",
@@ -4013,11 +4013,10 @@
       -0.25,
       -1.13
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 4.78
+     "at": 4.381
     },
     {
      "who": "spud",
@@ -4025,13 +4024,13 @@
      "to": 45,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.78
+     "at": 4.381
     },
     {
      "who": "spud",
      "do": "stand",
      "dur": 0.01,
-     "at": 4.78
+     "at": 4.381
     },
     {
      "who": "spud",
@@ -4039,7 +4038,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.01,
-     "at": 4.78
+     "at": 4.381
     },
     {
      "who": "spud",
@@ -4047,13 +4046,13 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.01,
-     "at": 4.78
+     "at": 4.381
     }
    ]
   },
   {
    "name": "C08a the knot (insert)",
-   "at": 37.4,
+   "at": 35.766,
    "len": 1,
    "shot": {
     "pos": [
@@ -4092,14 +4091,14 @@
      },
      "dur": 0.85,
      "ease": "linear",
-     "at": 0
+     "at": 0.001
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 1,
-     "at": 0.34
+     "at": 0.341
     },
     {
      "do": "prop",
@@ -4109,7 +4108,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.85
+     "at": 0.851
     },
     {
      "do": "prop",
@@ -4119,13 +4118,13 @@
      },
      "dur": 2.4,
      "ease": "linear",
-     "at": 0.85
+     "at": 0.851
     },
     {
      "sfx": "kenney/impact-generic-light",
      "gain": 0.3,
      "reason": "the burnt rope snaps",
-     "at": 0.85
+     "at": 0.851
     },
     {
      "do": "prop",
@@ -4136,14 +4135,14 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.98
+     "at": 0.981
     }
    ]
   },
   {
    "name": "C08b the fountain",
-   "at": 38.4,
-   "len": 4.6,
+   "at": 36.766,
+   "len": 3.9,
    "shot": {
     "pos": [
      -0.45,
@@ -4169,7 +4168,7 @@
      ],
      "fov": 42
     },
-    "dur": 4.6,
+    "dur": 3.9,
     "ease": "inOut"
    },
    "do": [
@@ -4181,13 +4180,13 @@
      },
      "dur": 0.35,
      "ease": "in",
-     "at": 0.05
+     "at": 0.051
     },
     {
      "sfx": "kenney/creak",
      "gain": 0.4,
      "reason": "the bucket swings over on its pins",
-     "at": 0.1
+     "at": 0.101
     },
     {
      "do": "prop",
@@ -4197,7 +4196,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.2
+     "at": 0.201
     },
     {
      "do": "prop",
@@ -4207,14 +4206,14 @@
      },
      "dur": 1.2,
      "ease": "linear",
-     "at": 0.2
+     "at": 0.201
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
      "dur": 1,
-     "at": 0.45
+     "at": 0.451
     },
     {
      "do": "prop",
@@ -4224,7 +4223,7 @@
      },
      "dur": 0.3,
      "ease": "linear",
-     "at": 0.55
+     "at": 0.551
     },
     {
      "do": "prop",
@@ -4234,7 +4233,7 @@
      },
      "dur": 0.5,
      "ease": "out",
-     "at": 0.55
+     "at": 0.551
     },
     {
      "do": "prop",
@@ -4244,7 +4243,7 @@
      },
      "dur": 0.3,
      "ease": "linear",
-     "at": 0.55
+     "at": 0.551
     },
     {
      "who": "spud",
@@ -4254,7 +4253,7 @@
       "open": 0.3
      },
      "dur": 0.15,
-     "at": 0.55
+     "at": 0.551
     },
     {
      "who": "spud",
@@ -4265,13 +4264,13 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.55
+     "at": 0.551
     },
     {
      "sfx": "splash",
      "gain": 1,
      "reason": "the water lands on Mash",
-     "at": 0.55
+     "at": 0.551
     },
     {
      "do": "prop",
@@ -4281,7 +4280,7 @@
      },
      "dur": 0.4,
      "ease": "linear",
-     "at": 0.85
+     "at": 0.851
     },
     {
      "do": "prop",
@@ -4293,7 +4292,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.1
+     "at": 1.101
     },
     {
      "do": "prop",
@@ -4303,21 +4302,21 @@
      },
      "dur": 0.6,
      "ease": "out",
-     "at": 1.1
+     "at": 1.101
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.7,
      "dur": 0.2,
-     "at": 1.1
+     "at": 1.101
     },
     {
      "sfx": "ai/water-gush",
      "gain": 0.25,
-     "dur": 3.3,
+     "dur": 2.8,
      "reason": "the water spouts out of his snoring mouth",
-     "at": 1.1
+     "at": 1.101
     },
     {
      "do": "prop",
@@ -4327,14 +4326,14 @@
      },
      "dur": 0.4,
      "ease": "linear",
-     "at": 1.25
+     "at": 1.251
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 1,
-     "at": 1.56
+     "at": 1.561
     },
     {
      "macro": "narrate",
@@ -4344,7 +4343,7 @@
      "caption": false,
      "pos": 330,
      "gain": 4,
-     "at": 1.6
+     "at": 1.601
     },
     {
      "do": "prop",
@@ -4354,7 +4353,7 @@
      },
      "dur": 0.4,
      "ease": "linear",
-     "at": 1.65
+     "at": 1.651
     },
     {
      "do": "prop",
@@ -4364,34 +4363,34 @@
      },
      "dur": 0.5,
      "ease": "linear",
-     "at": 2.05
+     "at": 2.051
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
      "dur": 1,
-     "at": 2.67
+     "at": 2.671
     },
     {
      "who": "spud",
      "do": "blink",
      "dur": 0.5,
-     "at": 2.8
+     "at": 2.801
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.3,
-     "at": 3
+     "at": 3.001
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
-     "dur": 1,
-     "at": 3.78
+     "dur": 0.3,
+     "at": 3.781
     },
     {
      "do": "prop",
@@ -4402,7 +4401,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4412,7 +4411,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4422,7 +4421,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4432,7 +4431,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4443,7 +4442,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4453,7 +4452,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4463,7 +4462,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4473,7 +4472,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4484,7 +4483,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4496,7 +4495,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4506,7 +4505,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "do": "prop",
@@ -4516,7 +4515,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "who": "spud",
@@ -4525,11 +4524,10 @@
       -0.1,
       1.38
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 4.58
+     "at": 3.881
     },
     {
      "who": "spud",
@@ -4537,14 +4535,14 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.58
+     "at": 3.881
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 1,
-     "dur": 0.01,
-     "at": 4.58
+     "dur": 0,
+     "at": 3.881
     },
     {
      "who": "spud",
@@ -4554,7 +4552,7 @@
       "open": 0.1
      },
      "dur": 0.01,
-     "at": 4.58
+     "at": 3.881
     },
     {
      "who": "spud",
@@ -4565,14 +4563,14 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.58
+     "at": 3.881
     }
    ]
   },
   {
    "name": "C09 the anvil",
-   "at": 43,
-   "len": 3.5,
+   "at": 40.666,
+   "len": 2.7,
    "shot": {
     "pos": [
      0.25,
@@ -4598,7 +4596,7 @@
      ],
      "fov": 50
     },
-    "dur": 3.5,
+    "dur": 2.7,
     "ease": "inOut"
    },
    "do": [
@@ -4608,15 +4606,15 @@
      "set": {
       "burn": 0.98
      },
-     "dur": 3.3,
+     "dur": 2.5,
      "ease": "linear",
-     "at": 0
+     "at": 0.001
     },
     {
      "sfx": "creak",
      "gain": 0.5,
      "reason": "the beam creaks under the anvil",
-     "at": 0.1
+     "at": 0.101
     },
     {
      "macro": "narrate",
@@ -4626,42 +4624,42 @@
      "caption": false,
      "pos": 330,
      "gain": 4,
-     "at": 0.2
+     "at": 0.201
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
      "dur": 1,
-     "at": 0.29
+     "at": 0.291
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
-     "dur": 1,
-     "at": 1.4
+     "dur": 0.8,
+     "at": 1.401
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.15,
-     "at": 2
+     "at": 2.001
     },
     {
      "sfx": "sizzle",
      "gain": 0.35,
-     "dur": 1.4,
+     "dur": 0.6,
      "reason": "the ember eats the knot",
-     "at": 2
+     "at": 2.001
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
-     "dur": 1,
-     "at": 2.51
+     "dur": 0.51,
+     "at": 2.201
     },
     {
      "do": "prop",
@@ -4672,7 +4670,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.37
+     "at": 2.571
     },
     {
      "do": "prop",
@@ -4680,9 +4678,9 @@
      "set": {
       "snap": 2
      },
-     "dur": 2,
+     "dur": 1.6,
      "ease": "linear",
-     "at": 3.37
+     "at": 2.571
     },
     {
      "do": "prop",
@@ -4692,7 +4690,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.37
+     "at": 2.571
     },
     {
      "do": "prop",
@@ -4702,13 +4700,13 @@
      },
      "dur": 1.2,
      "ease": "linear",
-     "at": 3.37
+     "at": 2.571
     },
     {
      "sfx": "kenney/impact-generic-light",
      "gain": 0.3,
      "reason": "the rope parts",
-     "at": 3.37
+     "at": 2.571
     },
     {
      "do": "prop",
@@ -4719,12 +4717,12 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.48
+     "at": 2.681
     },
     {
      "who": "spud",
      "do": "hide",
-     "at": 3.48
+     "at": 2.681
     },
     {
      "do": "prop",
@@ -4743,14 +4741,14 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.48
+     "at": 2.681
     }
    ]
   },
   {
    "name": "C10 the hole",
-   "at": 46.5,
-   "len": 4.1,
+   "at": 43.366,
+   "len": 3.234,
    "shot": {
     "pos": [
      -0.2,
@@ -4776,7 +4774,7 @@
      ],
      "fov": 50
     },
-    "dur": 4.1,
+    "dur": 3.233,
     "ease": "inOut"
    },
    "do": [
@@ -4784,8 +4782,8 @@
      "who": "mash",
      "do": "face",
      "open": 0.6,
-     "dur": 1,
-     "at": 0.12
+     "dur": 0.98,
+     "at": 0.121
     },
     {
      "do": "prop",
@@ -4795,7 +4793,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.38
+     "at": 0.381
     },
     {
      "do": "prop",
@@ -4805,7 +4803,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.38
+     "at": 0.381
     },
     {
      "do": "prop",
@@ -4815,33 +4813,33 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.38
+     "at": 0.381
     },
     {
      "sfx": "impact",
      "gain": 1,
      "reason": "the anvil smashes through the floorboards",
-     "at": 0.38
+     "at": 0.381
     },
     {
      "who": "mash",
      "do": "squash",
      "amount": 0.04,
      "dur": 0.2,
-     "at": 0.4
+     "at": 0.401
     },
     {
      "sfx": "kenney/impact-wood-heavy",
      "gain": 0.8,
      "reason": "the planks break",
-     "at": 0.4
+     "at": 0.401
     },
     {
      "sfx": "rumble",
      "gain": 0.6,
-     "dur": 1.2,
+     "dur": 0.8,
      "reason": "the hut shakes",
-     "at": 0.45
+     "at": 0.451
     },
     {
      "do": "prop",
@@ -4849,23 +4847,23 @@
      "set": {
       "puff": 1
      },
-     "dur": 2.5,
+     "dur": 2.1,
      "ease": "linear",
-     "at": 0.7
+     "at": 0.701
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
-     "dur": 1,
-     "at": 1.23
+     "dur": 0.73,
+     "at": 1.101
     },
     {
      "sfx": "ai/snore",
      "gain": 0.6,
      "dur": 1,
      "reason": "Mash snores on, on his side",
-     "at": 1.5
+     "at": 1.101
     },
     {
      "do": "prop",
@@ -4875,7 +4873,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 1.6
+     "at": 1.201
     },
     {
      "do": "prop",
@@ -4886,14 +4884,14 @@
      },
      "dur": 0.8,
      "ease": "linear",
-     "at": 1.6
+     "at": 1.201
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 1,
-     "at": 2.34
+     "at": 1.941
     },
     {
      "do": "prop",
@@ -4904,7 +4902,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 2.4
+     "at": 2.001
     },
     {
      "macro": "narrate",
@@ -4914,14 +4912,14 @@
      "caption": false,
      "pos": 330,
      "gain": 4,
-     "at": 2.5
+     "at": 2.101
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
-     "dur": 1,
-     "at": 3.45
+     "dur": 0.533,
+     "at": 3.051
     },
     {
      "do": "prop",
@@ -4932,7 +4930,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.214
     },
     {
      "do": "prop",
@@ -4944,7 +4942,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.214
     },
     {
      "do": "prop",
@@ -4956,7 +4954,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.214
     },
     {
      "do": "prop",
@@ -4966,7 +4964,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.214
     },
     {
      "do": "prop",
@@ -4976,7 +4974,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "mash",
@@ -4989,28 +4987,28 @@
      ],
      "yaw": -12,
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "mash",
      "do": "pitch",
      "to": -40,
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "mash",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "mash",
      "do": "face",
      "lid": 1,
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "mash",
@@ -5024,7 +5022,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "mash",
@@ -5038,7 +5036,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "do": "prop",
@@ -5049,7 +5047,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.214
     },
     {
      "do": "prop",
@@ -5059,12 +5057,12 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "boss",
      "do": "show",
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "boss",
@@ -5073,11 +5071,10 @@
       -1.2,
       -10.5
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "boss",
@@ -5085,14 +5082,14 @@
      "to": 10,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "boss",
      "do": "expr",
      "expr": "stern",
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "boss",
@@ -5100,7 +5097,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "boss",
@@ -5108,7 +5105,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "spud",
@@ -5117,11 +5114,10 @@
       -0.2,
       0.42
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 4.08
+     "at": 3.214
     },
     {
      "who": "spud",
@@ -5129,14 +5125,14 @@
      "to": 30,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.214
     }
    ]
   },
   {
    "name": "C11 the boss through the window",
-   "at": 50.6,
-   "len": 3,
+   "at": 46.6,
+   "len": 1.8,
    "shot": {
     "pos": [
      2,
@@ -5162,7 +5158,7 @@
      ],
      "fov": 23
     },
-    "dur": 3,
+    "dur": 1.8,
     "ease": "inOut"
    },
    "do": [
@@ -5172,7 +5168,7 @@
      "set": {
       "sun": 0.5
      },
-     "dur": 3,
+     "dur": 1.8,
      "ease": "linear",
      "at": 0
     },
@@ -5182,7 +5178,7 @@
      "set": {
       "sun": 0.5
      },
-     "dur": 3,
+     "dur": 1.8,
      "ease": "linear",
      "at": 0
     },
@@ -5193,7 +5189,7 @@
       -0.2,
       -6.5
      ],
-     "dur": 2.8,
+     "dur": 1.8,
      "ease": "linear",
      "at": 0
     },
@@ -5242,27 +5238,8 @@
      "who": "mash",
      "do": "face",
      "open": 0.35,
-     "dur": 1,
+     "dur": 0.23,
      "at": 1.57
-    },
-    {
-     "sfx": "step-grass",
-     "gain": 0.55,
-     "reason": "the boss's heavy boots on the lane",
-     "at": 2.03
-    },
-    {
-     "sfx": "step-grass",
-     "gain": 0.55,
-     "reason": "the boss's heavy boots on the lane",
-     "at": 2.5
-    },
-    {
-     "who": "mash",
-     "do": "face",
-     "open": 0.6,
-     "dur": 1,
-     "at": 2.68
     },
     {
      "do": "prop",
@@ -5273,12 +5250,12 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "do": "prop",
@@ -5288,28 +5265,28 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "boss",
      "do": "hide",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "spud",
      "do": "sit",
      "rot": 30,
      "height": 0.06,
-     "dur": 0.01,
+     "dur": 0,
      "hands": "keep",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0,
-     "dur": 0.01,
-     "at": 2.98
+     "dur": 0,
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -5317,7 +5294,7 @@
      "side": "R",
      "pose": "lap",
      "dur": 0.01,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -5325,21 +5302,21 @@
      "side": "L",
      "pose": "lap",
      "dur": 0.01,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.08,
      "dur": 0.01,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "spud",
      "do": "lean",
      "to": -6,
      "dur": 0.01,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -5349,7 +5326,7 @@
       "eye": 0.45
      },
      "dur": 0.01,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -5360,7 +5337,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "do": "prop",
@@ -5370,7 +5347,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "do": "prop",
@@ -5380,7 +5357,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "do": "prop",
@@ -5393,7 +5370,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "do": "prop",
@@ -5405,14 +5382,14 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.78
     }
    ]
   },
   {
    "name": "C12a the low point, tink",
-   "at": 53.6,
-   "len": 3.3,
+   "at": 48.4,
+   "len": 1.7,
    "shot": {
     "pos": [
      -0.05,
@@ -5438,17 +5415,24 @@
      ],
      "fov": 46
     },
-    "dur": 3.3,
+    "dur": 1.7,
     "ease": "inOut"
    },
    "do": [
+    {
+     "who": "mash",
+     "do": "face",
+     "open": 0.6,
+     "dur": 0.2,
+     "at": 0
+    },
     {
      "do": "prop",
      "id": "nc",
      "set": {
       "burn": 0.8
      },
-     "dur": 2.4,
+     "dur": 0.8,
      "ease": "linear",
      "at": 0
     },
@@ -5456,15 +5440,15 @@
      "who": "mash",
      "do": "face",
      "open": 0.35,
-     "dur": 1,
-     "at": 0.79
+     "dur": 0.01,
+     "at": 0.2
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
      "dur": 1,
-     "at": 1.9
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -5474,7 +5458,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.4
+     "at": 0.8
     },
     {
      "do": "prop",
@@ -5484,7 +5468,7 @@
      },
      "dur": 1.5,
      "ease": "linear",
-     "at": 2.4
+     "at": 0.8
     },
     {
      "who": "spud",
@@ -5495,7 +5479,7 @@
       "open": 0.1
      },
      "dur": 0.12,
-     "at": 2.87
+     "at": 1.27
     },
     {
      "who": "spud",
@@ -5506,20 +5490,20 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2.87
+     "at": 1.27
     },
     {
      "sfx": "tink",
      "gain": 0.9,
      "reason": "the nail drops out of the candle onto the tin plate",
-     "at": 2.87
+     "at": 1.27
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.35,
      "dur": 1,
-     "at": 3.01
+     "at": 1.41
     },
     {
      "do": "prop",
@@ -5530,13 +5514,13 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.28
+     "at": 1.68
     }
    ]
   },
   {
    "name": "C12b one eye (insert)",
-   "at": 56.9,
+   "at": 50.1,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -5570,7 +5554,7 @@
     {
      "who": "mash",
      "do": "face",
-     "lidR": 0.55,
+     "lidR": 0.3,
      "dur": 0.15,
      "at": 0.1
     },
@@ -5603,7 +5587,7 @@
   },
   {
    "name": "C12c the idea",
-   "at": 58,
+   "at": 51.2,
    "len": 2.4,
    "shot": {
     "pos": [
@@ -5789,7 +5773,6 @@
       0.02,
       0.36
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -5827,8 +5810,8 @@
   },
   {
    "name": "C13 the nail (insert)",
-   "at": 60.4,
-   "len": 2.4,
+   "at": 53.6,
+   "len": 1.8,
    "shot": {
     "pos": [
      1.05,
@@ -5854,7 +5837,7 @@
      ],
      "fov": 30
     },
-    "dur": 2.4,
+    "dur": 1.8,
     "ease": "inOut"
    },
    "do": [
@@ -5925,25 +5908,8 @@
      "who": "mash",
      "do": "face",
      "open": 0.6,
-     "dur": 1,
-     "at": 1.76
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
      "dur": 0.4,
-     "ease": "inOut",
-     "at": 1.9
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 1.9
+     "at": 1.76
     },
     {
      "do": "prop",
@@ -5954,14 +5920,14 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.38
+     "at": 1.78
     },
     {
      "who": "spud",
      "do": "pitch",
      "to": 0,
      "dur": 0.01,
-     "at": 2.38
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -5975,7 +5941,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 2.38
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -5989,7 +5955,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 2.38
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -5997,7 +5963,7 @@
      "side": "R",
      "shape": "fist",
      "dur": 0.01,
-     "at": 2.38
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -6005,14 +5971,14 @@
      "side": "L",
      "shape": "fist",
      "dur": 0.01,
-     "at": 2.38
+     "at": 1.78
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "eager",
      "dur": 0.01,
-     "at": 2.38
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -6023,14 +5989,14 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 2.38
+     "at": 1.78
     }
    ]
   },
   {
    "name": "C14a the sun, the ray",
-   "at": 62.8,
-   "len": 2.6,
+   "at": 55.4,
+   "len": 1.6,
    "shot": {
     "pos": [
      1.2,
@@ -6056,7 +6022,7 @@
      ],
      "fov": 46
     },
-    "dur": 2.6,
+    "dur": 1.6,
     "ease": "inOut"
    },
    "do": [
@@ -6066,7 +6032,7 @@
      "set": {
       "sun": 1
      },
-     "dur": 1.5,
+     "dur": 1.1,
      "ease": "linear",
      "at": 0
     },
@@ -6076,7 +6042,7 @@
      "set": {
       "sun": 1
      },
-     "dur": 1.5,
+     "dur": 1.1,
      "ease": "linear",
      "at": 0
     },
@@ -6096,8 +6062,25 @@
      "set": {
       "glow": 0.8
      },
-     "dur": 1.5,
+     "dur": 1.1,
      "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
      "at": 0
     },
     {
@@ -6106,7 +6089,7 @@
      "set": {
       "burn": 0.955
      },
-     "dur": 2.5,
+     "dur": 1.5,
      "ease": "linear",
      "at": 0
     },
@@ -6114,15 +6097,15 @@
      "who": "mash",
      "do": "face",
      "open": 0.35,
-     "dur": 1,
+     "dur": 0.63,
      "at": 0.47
     },
     {
      "who": "mash",
      "do": "face",
      "open": 0.6,
-     "dur": 1,
-     "at": 1.58
+     "dur": 0.48,
+     "at": 1.1
     },
     {
      "do": "prop",
@@ -6133,13 +6116,13 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.58
+     "at": 1.58
     }
    ]
   },
   {
    "name": "C14b the nail falls (insert)",
-   "at": 65.4,
+   "at": 57,
    "len": 0.533,
    "shot": {
     "pos": [
@@ -6227,7 +6210,6 @@
       -0.2,
       0.42
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -6273,7 +6255,7 @@
   },
   {
    "name": "C14c he sits up",
-   "at": 65.933,
+   "at": 57.533,
    "len": 3.667,
    "shot": {
     "pos": [
@@ -6484,7 +6466,6 @@
       -0.55,
       -2.35
      ],
-     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -6509,7 +6490,7 @@
   },
   {
    "name": "C15 snooze",
-   "at": 69.6,
+   "at": 61.2,
    "len": 4.3,
    "shot": {
     "pos": [
@@ -6587,8 +6568,8 @@
      "who": "mash",
      "do": "lean",
      "to": -20,
-     "dur": 0.1,
-     "at": 0.4
+     "dur": 0.28,
+     "at": 0.22
     },
     {
      "who": "mash",
@@ -6607,9 +6588,9 @@
        0
       ]
      },
-     "dur": 0.1,
+     "dur": 0.28,
      "ease": "in",
-     "at": 0.4
+     "at": 0.22
     },
     {
      "do": "prop",
@@ -6634,16 +6615,6 @@
      "at": 0.51
     },
     {
-     "do": "prop",
-     "id": "bell",
-     "set": {
-      "press": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
      "who": "mash",
      "do": "arm",
      "side": "R",
@@ -6654,8 +6625,18 @@
        -0.12
       ]
      },
-     "dur": 0.25,
+     "dur": 0.4,
      "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "bell",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.1,
+     "ease": "linear",
      "at": 0.8
     },
     {
@@ -6890,7 +6871,7 @@
   },
   {
    "from": 22,
-   "to": 24.9,
+   "to": 24.567,
    "see": [
     "rooster",
     "mash.face",
@@ -6899,8 +6880,8 @@
    "why": "even the bird gives up"
   },
   {
-   "from": 28,
-   "to": 30.5,
+   "from": 27.567,
+   "to": 30.067,
    "see": [
     "bk",
     "spud.face",
@@ -6909,8 +6890,8 @@
    "why": "the swing and who gets the water"
   },
   {
-   "from": 32.8,
-   "to": 37.3,
+   "from": 31.567,
+   "to": 35.767,
    "see": [
     "spud.face",
     "nc",
@@ -6919,8 +6900,8 @@
    "why": "you wait by the candle, the knot over the flame"
   },
   {
-   "from": 38.9,
-   "to": 42.9,
+   "from": 37.267,
+   "to": 40.667,
    "see": [
     "mash.face",
     "jet",
@@ -6929,8 +6910,8 @@
    "why": "a fountain, still asleep"
   },
   {
-   "from": 43.1,
-   "to": 46.4,
+   "from": 40.767,
+   "to": 43.267,
    "see": [
     "an",
     "nc",
@@ -6939,8 +6920,8 @@
    "why": "the anvil over the bed and the burning knot"
   },
   {
-   "from": 46.9,
-   "to": 50.5,
+   "from": 43.767,
+   "to": 46.6,
    "see": [
     "mash.face",
     "rooster"
@@ -6948,16 +6929,16 @@
    "why": "a hole in the floor, he sleeps on"
   },
   {
-   "from": 50.7,
-   "to": 53.5,
+   "from": 46.7,
+   "to": 48.4,
    "see": [
     "boss.face"
    ],
    "why": "the boss is coming, sunrise"
   },
   {
-   "from": 53.7,
-   "to": 56.8,
+   "from": 48.5,
+   "to": 50,
    "see": [
     "spud.face",
     "nc",
@@ -6966,8 +6947,8 @@
    "why": "the low point: the candle drops its nail on the plate"
   },
   {
-   "from": 60.5,
-   "to": 62.7,
+   "from": 53.7,
+   "to": 55.3,
    "see": [
     "nc",
     "bell"
@@ -6975,8 +6956,8 @@
    "why": "the new idea: a nail in the candle over the bell"
   },
   {
-   "from": 66.1,
-   "to": 69.5,
+   "from": 57.7,
+   "to": 61.1,
    "see": [
     "mash.face",
     "spud.face",
@@ -6985,8 +6966,8 @@
    "why": "it works: he is awake"
   },
   {
-   "from": 70,
-   "to": 73.6,
+   "from": 61.6,
+   "to": 65.2,
    "see": [
     "mash.face",
     "bell",
@@ -7000,7 +6981,7 @@
    "who": "mash",
    "with": "bedm",
    "from": 0,
-   "to": 73.9,
+   "to": 65.5,
    "checks": [
     "shell",
     "clipping",
@@ -7033,7 +7014,7 @@
    "who": "mash",
    "with": "rooster",
    "from": 16.2,
-   "to": 25,
+   "to": 24.567,
    "checks": [
     "clipping",
     "shell",
@@ -7044,8 +7025,8 @@
   {
    "who": "spud",
    "with": "r2",
-   "from": 25,
-   "to": 30.6,
+   "from": 24.567,
+   "to": 30.167,
    "checks": [
     "hand-in-prop",
     "arm-in-prop"
@@ -7055,8 +7036,8 @@
   {
    "who": "mash",
    "with": "jet",
-   "from": 39.4,
-   "to": 43,
+   "from": 37.767,
+   "to": 40.667,
    "checks": [
     "clipping",
     "costume-in-prop"
@@ -7066,8 +7047,8 @@
   {
    "who": "mash",
    "with": "bell",
-   "from": 70,
-   "to": 70.5,
+   "from": 61.6,
+   "to": 62.1,
    "checks": [
     "hand-in-prop",
     "arm-in-prop"
@@ -7077,12 +7058,33 @@
   {
    "who": "mash",
    "with": "bk",
-   "from": 38.6,
-   "to": 40.2,
+   "from": 36.767,
+   "to": 38.567,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "the round-3 water pours onto him (the stream is part of the bucket prop)"
+  },
+  {
+   "who": "mash",
+   "with": "r2",
+   "from": 24.567,
+   "to": 31.367,
    "checks": [
     "clipping"
    ],
-   "reason": "the round-3 water pours onto him (the stream is part of the bucket prop)"
+   "reason": "the trip rope's load leg runs past the back of his headphone band to the bucket over him (side lens: the rope clears his head)"
+  },
+  {
+   "who": "mash",
+   "with": "r3",
+   "from": 31.367,
+   "to": 40.667,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "the candle rope's load leg and its burnt end hang just behind his head (side lens: clear of his face)"
   },
   {
    "who": "mash",
@@ -7118,8 +7120,8 @@
   {
    "who": "spud",
    "with": "nc",
-   "from": 60.45,
-   "to": 62.4,
+   "from": 53.65,
+   "to": 55.4,
    "checks": [
     "hand-in-prop"
    ],
