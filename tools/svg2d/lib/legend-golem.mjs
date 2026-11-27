@@ -1209,10 +1209,10 @@ function titleClay(t, ap, cr) {
 // ---- B "stone": chiselled into an old weathered plaque; the Friday sunset slides across it, then leaves it to the dark
 function titleStone(t, ap, cr) {
   if (ap <= 0 || cr >= 1) return "";
-  const x0 = 150, x1 = 930, y0 = 626, y1 = 896, sink = ease(clamp((cr - 0.35) / 0.65));
+  const x0 = 150, x1 = 930, y0 = 626, y1 = 914, sink = ease(clamp((cr - 0.35) / 0.65));
   const out = [[x0 + 6, y1], [x0, y0 + 60], [x0 + 26, y0 + 22], [x0 + 150, y0 + 6], [540, y0 - 2], [x1 - 160, y0 + 5], [x1 - 22, y0 + 20], [x1 - 40, y0 + 44], [x1 - 6, y0 + 58], [x1 + 2, y1 - 70], [x1 - 14, y1 - 52], [x1 - 4, y1]];
   const od = wp(out, 21, 3, true, 3.2);
-  const big = 112, small = 44, gw = capsWidth("GOLEM", big, { track: 14 }), tw = capsWidth("THE", small, { track: 12 }), hw = handWidth(TEASER, 1.22);
+  const big = 112, small = 44, gw = capsWidth("GOLEM", big, { track: 14 }), tw = capsWidth("THE", small, { track: 12 }), hw = handWidth(TEASER, 1.38);
   const gl = [...capsLine("THE", 540 - tw / 2, y0 + 26, small, { track: 12, seed: 3, amp: 2 }).g, ...capsLine("GOLEM", 540 - gw / 2, y0 + 82, big, { track: 14, seed: 7, amp: 2.2, jy: 1.5 }).g];
   // one drawing in two lights: pal = [stone, shade, light, cut dark, cut facet, moss, moss2, teaser]
   const draw = (pal, lit) => { let a = `<path d="${od}" fill="${pal[0]}"/><g clip-path="url(#tBs)">`;
@@ -1224,11 +1224,11 @@ function titleStone(t, ap, cr) {
     a += `<path d="M${x1 - 190},${y0} l14,34 l-10,22 l18,30 l-6,18 M${x1 - 186},${y0 + 56} l-22,12" fill="none" stroke="${pal[3]}" stroke-width="2.2" stroke-linejoin="round"/><path d="M${x0 + 4},${y0 + 150} l30,10 l16,24" fill="none" stroke="${pal[3]}" stroke-width="2" stroke-linejoin="round"/>`;
     // the letters: a V-cut, shadow wall up-left, lit wall down-right, a bright arris under each stroke
     gl.forEach((g, i) => { const d = g.h > 100 ? 7 : 4, id = `tB${lit}${i}`; a += `<path d="${g.d}" fill="${pal[2]}" fill-rule="evenodd" transform="translate(${n(d * 0.4)},${n(d * 0.5)})"/><clipPath id="${id}"><path d="${g.d}" clip-rule="evenodd"/></clipPath><path d="${g.d}" fill="${pal[3]}" fill-rule="evenodd"/><g clip-path="url(#${id})"><path d="${g.d}" fill="${pal[4]}" fill-rule="evenodd" transform="translate(${d},${d})"/></g>`; });
-    a += `<path d="M${n(540 - hw / 2 - 20)},${y1 - 66} L${n(540 + hw / 2 + 20)},${y1 - 68}" stroke="${pal[3]}" stroke-width="2.4" stroke-linecap="round"/>` + handLine(TEASER, 540 - hw / 2 + 12 + 1.6, y1 - 28 + 1.6, 1.22, pal[2], 1, 2.9, 6).s + handLine(TEASER, 540 - hw / 2 + 12, y1 - 28, 1.22, pal[7], 1, 2.9, 6).s;
+    a += handLine(TEASER, 540 - hw / 2 + 12 + 1.8, y1 - 26 + 1.8, 1.38, pal[2], 1, 3.4, 6).s + handLine(TEASER, 540 - hw / 2 + 12, y1 - 26, 1.38, pal[7], 1, 3.6, 6).s;
     // chips knocked off the edge
     for (const [cx, cy, r, sd] of [[x0 + 30, y0 + 24, 16, 1], [x1 - 34, y0 + 44, 20, 2], [x1 - 4, y1 - 64, 16, 3], [x0 + 2, y1 - 30, 12, 4], [470, y0 + 2, 10, 5]]) a += blob(cx, cy, r, r * 0.7, pal[1], sd + 130, { N: 7, irr: 0.35 }) + blob(cx + 2, cy + 2, r * 0.6, r * 0.4, pal[3], sd + 136, { N: 6, irr: 0.3, ex: `opacity="0.6"` });
     return a + `</g><path d="${od}" fill="none" stroke="${INK}" stroke-width="2.6" stroke-linejoin="round"/>`; };
-  const dark = ["#5a4f78", "#453a66", "#74689a", "#241a40", "#3a2f5c", "#3f5a4a", "#4f6a50", "#2a2048"], sun = ["#e2ae8e", "#c08a80", "#ffe2b4", "#3a1630", "#743a4c", "#6f8f3a", "#9aae48", "#3a1630"];
+  const dark = ["#5a4f78", "#453a66", "#74689a", "#241a40", "#3a2f5c", "#3f5a4a", "#4f6a50", "#120a26"], sun = ["#e2ae8e", "#c08a80", "#ffe2b4", "#3a1630", "#743a4c", "#6f8f3a", "#9aae48", "#1c0818"];
   // the light: a slanted band; its leading edge crosses on the way in, its trailing edge on the way out
   const e = ease(ap), lead = lerp(x0 - 240, x1 + 260, e), trail = lerp(x0 - 300, x1 + 240, ease(clamp(cr / 0.6))), sl = 150;
   const band = `M${n(trail)},${y0 - 40} L${n(lead)},${y0 - 40} L${n(lead - sl)},${y1 + 40} L${n(trail - sl)},${y1 + 40} Z`;
@@ -1281,7 +1281,7 @@ function titleRelief(t, ap, cr, o = {}) {
 // the registry: add a style here ({ fn(t, appear, crumble, opts), time: { in: [a, b], out: [a, b], teaser } })
 export const TITLE_STYLES = {
   clay: { fn: titleClay, time: { in: [0.25, 0.58], out: [2.02, 2.6] } },
-  stone: { fn: titleStone, time: { in: [0.25, 0.75], out: [1.95, 2.6] } },
+  stone: { fn: titleStone, time: { in: [0.25, 0.4], out: [2.29, 2.6] } },
   ink: { fn: titleInk, time: { in: [0.25, 0.85], out: [2.2, 2.6] } },
   relief: { fn: titleRelief, time: { in: [0.25, 0.4], out: [2.25, 2.6], teaser: 0.48 } },
 };
