@@ -1,0 +1,325 @@
+{
+ "_note": "Legend: Pandora's jar (27 Nov 2026). Director's score (Sol not asked: Jonny's PC busy/asleep; Sol r1 gets a music opinion). Ancient Greek kithara/lyre + aulos + frame drum, live strings for dread; motif D F E D; SILENCE is the motif: frame-0 hush, hard silence when the lid lifts (L17), the evils make no sound. Hope = warm lyre + strings.",
+ "sfx": [
+  {
+   "id": "thunder-crack",
+   "kind": "oneshot",
+   "len": [
+    2,
+    6
+   ],
+   "duration": 10,
+   "prompts": [
+    "a close loud thunder crack followed by a long rolling rumble, storm, natural recording",
+    "sharp thunderclap and rolling thunder over hills, field recording"
+   ],
+   "seeds": [
+    3101,
+    3102,
+    3103
+   ],
+   "tags": [
+    "thunder",
+    "storm"
+   ],
+   "gain": 0.45
+  },
+  {
+   "id": "forge-fire",
+   "kind": "oneshot",
+   "len": [
+    3,
+    8
+   ],
+   "duration": 10,
+   "prompts": [
+    "a blacksmith forge fire roaring and crackling, bellows pumping, embers, close",
+    "roaring forge fire with bellows and crackling coals, workshop"
+   ],
+   "seeds": [
+    3111,
+    3112,
+    3113
+   ],
+   "tags": [
+    "forge",
+    "fire"
+   ],
+   "gain": 0.35
+  },
+  {
+   "id": "clay-squish",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "wet clay being squeezed and shaped by hands, squelch, close",
+    "hands pressing and slapping wet mud clay, squishy, close"
+   ],
+   "seeds": [
+    3121,
+    3122,
+    3123
+   ],
+   "tags": [
+    "clay",
+    "mud"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "door-open",
+   "kind": "oneshot",
+   "len": [
+    0.8,
+    2.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "a heavy old wooden door creaking open on its hinges, close",
+    "old wooden house door opening slowly, creak, indoors"
+   ],
+   "seeds": [
+    3131,
+    3132,
+    3133
+   ],
+   "tags": [
+    "door",
+    "creak"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "lid-scrape",
+   "kind": "oneshot",
+   "len": [
+    0.8,
+    2.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "a heavy clay pottery lid sliding and scraping slowly off a big ceramic jar, gritty, close",
+    "stone lid grinding and scraping across a ceramic rim, slow, close"
+   ],
+   "seeds": [
+    3141,
+    3142,
+    3143
+   ],
+   "tags": [
+    "lid",
+    "scrape",
+    "jar"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "lid-slam",
+   "kind": "split",
+   "len": [
+    0.3,
+    1.2
+   ],
+   "duration": 10,
+   "prompts": [
+    "a heavy clay lid slammed down hard onto a big ceramic storage jar, hollow thud, close",
+    "heavy ceramic lid dropped onto a jar, deep hollow knock"
+   ],
+   "seeds": [
+    3151,
+    3152,
+    3153
+   ],
+   "tags": [
+    "lid",
+    "slam",
+    "thud"
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "jar-tap",
+   "kind": "split",
+   "len": [
+    0.2,
+    0.8
+   ],
+   "duration": 10,
+   "prompts": [
+    "a hand slapping down quickly on a small glass jar lid, short tap, close",
+    "palm slapping a small lid shut on a jar, quick knock"
+   ],
+   "seeds": [
+    3161,
+    3162,
+    3163
+   ],
+   "tags": [
+    "slap",
+    "lid",
+    "tap"
+   ],
+   "gain": 0.45
+  },
+  {
+   "id": "night-room",
+   "kind": "oneshot",
+   "len": [
+    5,
+    10
+   ],
+   "duration": 10,
+   "prompts": [
+    "quiet room tone at night in an old stone house, very faint crickets outside, almost silent",
+    "still night indoors, distant crickets, soft air, nearly silent"
+   ],
+   "seeds": [
+    3171,
+    3172,
+    3173
+   ],
+   "tags": [
+    "night",
+    "room",
+    "crickets"
+   ],
+   "gain": 0.2
+  },
+  {
+   "id": "cough",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "a tired man coughing a few times, sick, dry cough, close",
+    "an old farmer coughing hoarsely, close, indoors"
+   ],
+   "seeds": [
+    3181,
+    3182,
+    3183
+   ],
+   "tags": [
+    "cough",
+    "sick"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "oil-lamp",
+   "kind": "oneshot",
+   "len": [
+    3,
+    8
+   ],
+   "duration": 10,
+   "prompts": [
+    "a small oil lamp flame flickering, very soft crackle, quiet room",
+    "tiny flame burning quietly, faint flicker, close"
+   ],
+   "seeds": [
+    3191,
+    3192,
+    3193
+   ],
+   "tags": [
+    "flame",
+    "lamp"
+   ],
+   "gain": 0.2
+  }
+ ],
+ "music": [
+  {
+   "id": "pd-hush",
+   "bpm": 56,
+   "bars": 2,
+   "mood": "myth",
+   "prompts": [
+    "56 BPM, D minor. One sustained low bowed cello D2, a single high harmonic on a viola very quiet above it, ominous, almost silent, lots of air. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "56 BPM, D minor. Low cello drone on D with a faint glassy high string harmonic, dark and still, barely moving. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2201,
+    2202
+   ]
+  },
+  {
+   "id": "pd-myth",
+   "bpm": 96,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "96 BPM, D minor. Ancient Greek lyre (kithara) plucking a four-note motif D F E D over a soft frame drum pulse, mythic, storytelling, two players. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "96 BPM, D minor. A plucked ancient lyre and a hand frame drum playing a steady old Mediterranean figure D F E D, mythic and quick. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2211,
+    2212
+   ]
+  },
+  {
+   "id": "pd-forge",
+   "bpm": 112,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "112 BPM, D minor. Ancient Greek aulos double reed playing a bright bold phrase over a strong frame drum and a plucked lyre, forging, building, proud. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "112 BPM, D minor. Double reed pipe (aulos) and frame drum, energetic ancient festive figure, plucked lyre underneath, building. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2221,
+    2222
+   ]
+  },
+  {
+   "id": "pd-lyre",
+   "bpm": 84,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "84 BPM, D minor. Gentle solo ancient lyre, warm fingerpicked D minor figure, intimate, a grandmother telling a story by candlelight, slightly playful. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "84 BPM, D minor. Solo plucked lyre, soft and warm, short folk figure, calm and a little cheeky. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2231,
+    2232
+   ]
+  },
+  {
+   "id": "pd-dread",
+   "bpm": 60,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "60 BPM, D minor. Live string quartet, low tremolo cello and viola on D and Eb, a slow aulos note bending above, creeping dread, night, something sealed. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "60 BPM, D minor. Low bowed strings tremolo rising slowly, dissonant Eb against D, a lone reed pipe note far away, dark suspense. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2241,
+    2242
+   ]
+  },
+  {
+   "id": "pd-hope",
+   "bpm": 72,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "72 BPM, D minor. Warm solo lyre with soft sustained strings in D major, tender, a small light in the dark, quietly hopeful but uncertain. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "72 BPM, D minor. Plucked lyre over warm low strings, D major, gentle, hopeful, one held note at the end. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2251,
+    2252
+   ]
+  }
+ ]
+}
