@@ -177,20 +177,33 @@ const talkAt = (who, time) => {
 
 // ---------------------------------------------------------------- captions: word by word, short groups so they never touch the edges
 const KEY = /^(lechuza|baby|babies|owl|scream|salt|insult|breathe)/i;
+// caption groups, written by hand ("|" = new group): whole group appears on its first word, never one word at a time,
+// so the centred line does not jump while it fills; a long group shrinks to fit the safe width (Sol r1 B10)
+const CAP = {
+  L01: "Don't open it. | That's not a baby.", L02: "Then what is it?",
+  L03: "In Mexico, | they call her | La Lechuza. | A witch who turns | into a giant owl... | and cries like a baby, | so children | open the window.",
+  L04: "But what if | it's a real baby?", L05: "Real babies | don't cry from the roof.", L06: "It's moving.",
+  L07: "Open the window, | sweetheart.", L08: "Grandma... | that's you.", L09: "I know.",
+  L10: "Lechuza is | the Spanish word | for barn owl. | And barn owls | don't hoot. | They scream.",
+  L11: "The salt. | Where's the salt?", L12: "It was movie night!", L13: "Fine. | The old way.", L14: "The old way?", L15: "We insult her.",
+  L16: "You overgrown | feather duster! | You moth-eaten pillow! | Your mother | was a pigeon!", L17: "Your turn.",
+  L18: "Your feathers are... | a bit messy?", L19: "You're not even | a good baby! | Real babies BREATHE | between crying!", L20: "Not bad.",
+};
+for (const ln of Object.values(LINE)) {
+  const groups = (CAP[ln.id] || ln.text).split("|").map((g) => g.trim().split(/\s+/));
+  if (groups.flat().join(" ") !== ln.text.split(/\s+/).join(" ")) throw new Error(`CAP ${ln.id} does not match the line text`);
+  let k = 0; ln.caps = groups.map((g) => { const at = ln.words[k] ? ln.words[k][1] : 0; k += g.length; return { at, words: g }; });
+}
+const capW = (str, fs) => [...str].reduce((a, ch) => a + (/[A-Z]/.test(ch) ? 0.74 : /[a-z0-9]/.test(ch) ? 0.6 : /\s/.test(ch) ? 0.26 : 0.34), 0) * fs;
 function captions(time) {
   const ln = Object.values(LINE).find((x) => x.words.length && time >= x.at && time < x.at + x.dur);
   if (!ln) return "";
-  const u = time - ln.at, words = ln.words, it = ln.who === "O" ? ` font-style="italic"` : "";
-  const chunks = []; let cur = [];
-  words.forEach((w, i) => {
-    cur.push(w); const next = words[i + 1], len = cur.map((x) => x[0]).join(" ").length;
-    if (/[.,?!]$/.test(w[0]) || cur.length >= 4 || (next && len + 1 + next[0].length > 19) || i === words.length - 1) { chunks.push(cur); cur = []; }
-  });
-  const ch = chunks.find((c, i) => u < (chunks[i + 1] ? chunks[i + 1][0][1] : 1e9)) || chunks[chunks.length - 1];
-  const shown = ch.filter((w) => u >= w[1] - 0.04);
-  if (!shown.length) return "";
-  const txt = shown.map((w) => `<tspan fill="${KEY.test(w[0].replace(/[^a-z0-9]/gi, "")) ? "#ffc04a" : "#ffffff"}">${w[0].replace(/&/g, "&amp;")}</tspan>`).join(" ");
-  return `<text x="540" y="420" text-anchor="middle"${it} font-family="Inter" font-weight="900" font-size="74" stroke="#120c24" stroke-width="14" stroke-linejoin="round" paint-order="stroke" letter-spacing="-1">${txt}</text>`;
+  const u = time - ln.at, it = ln.who === "O" ? ` font-style="italic"` : "";
+  const ch = [...ln.caps].reverse().find((c) => u >= c.at - 0.04);
+  if (!ch) return "";
+  const str = ch.words.join(" "), fs = Math.max(58, Math.min(74, Math.floor(74 * 900 / (capW(str, 74) + 8 * (ch.words.length - 1)))));
+  const txt = ch.words.map((w) => `<tspan fill="${KEY.test(w.replace(/[^a-z0-9]/gi, "")) ? "#ffc04a" : "#ffffff"}">${w.replace(/&/g, "&amp;")}</tspan>`).join(" ");
+  return `<text x="540" y="420" text-anchor="middle"${it} font-family="Inter" font-weight="900" font-size="${fs}" stroke="#120c24" stroke-width="${Math.round(fs * 0.19)}" stroke-linejoin="round" paint-order="stroke" letter-spacing="-1" word-spacing="8">${txt}</text>`;
 }
 
 // ---------------------------------------------------------------- props and little hand-drawn extras
