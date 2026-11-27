@@ -22,7 +22,8 @@
     "thunder",
     "storm"
    ],
-   "gain": 0.45
+   "gain": 0.45,
+   "label": "a loud thunder crack"
   },
   {
    "id": "forge-fire",
@@ -45,7 +46,8 @@
     "forge",
     "fire"
    ],
-   "gain": 0.35
+   "gain": 0.35,
+   "label": "a roaring forge fire crackling"
   },
   {
    "id": "clay-squish",
@@ -68,7 +70,8 @@
     "clay",
     "mud"
    ],
-   "gain": 0.4
+   "gain": 0.4,
+   "label": "wet clay squished by hands"
   },
   {
    "id": "door-open",
@@ -91,7 +94,8 @@
     "door",
     "creak"
    ],
-   "gain": 0.4
+   "gain": 0.4,
+   "label": "an old wooden door creaking open"
   },
   {
    "id": "lid-scrape",
@@ -115,7 +119,8 @@
     "scrape",
     "jar"
    ],
-   "gain": 0.4
+   "gain": 0.4,
+   "label": "a heavy ceramic lid scraping off a jar"
   },
   {
    "id": "lid-slam",
@@ -139,7 +144,8 @@
     "slam",
     "thud"
    ],
-   "gain": 0.5
+   "gain": 0.5,
+   "label": "a heavy lid slammed onto a jar"
   },
   {
    "id": "jar-tap",
@@ -163,7 +169,8 @@
     "lid",
     "tap"
    ],
-   "gain": 0.45
+   "gain": 0.45,
+   "label": "a hand slapping a small lid shut"
   },
   {
    "id": "night-room",
@@ -187,7 +194,8 @@
     "room",
     "crickets"
    ],
-   "gain": 0.2
+   "gain": 0.2,
+   "label": "quiet night room tone with faint crickets"
   },
   {
    "id": "cough",
@@ -210,7 +218,8 @@
     "cough",
     "sick"
    ],
-   "gain": 0.4
+   "gain": 0.4,
+   "label": "a man coughing"
   },
   {
    "id": "oil-lamp",
@@ -233,7 +242,8 @@
     "flame",
     "lamp"
    ],
-   "gain": 0.2
+   "gain": 0.2,
+   "label": "a small flame flickering softly"
   }
  ],
  "music": [
