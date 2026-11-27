@@ -243,7 +243,8 @@
     1501,
     1502
    ],
-   "mood": "tense"
+   "mood": "tense",
+   "label": "quiet zither and low cello, eerie night forest underscore"
   },
   {
    "id": "hg-forest",
@@ -257,7 +258,8 @@
     1511,
     1512
    ],
-   "mood": "calm"
+   "mood": "calm",
+   "label": "sparse zither folk underscore in a minor key, lonely forest"
   },
   {
    "id": "hg-sweet",
@@ -271,7 +273,8 @@
     1521,
     1522
    ],
-   "mood": "calm"
+   "mood": "calm",
+   "label": "tender celesta music box lullaby"
   },
   {
    "id": "hg-hunger",
@@ -285,7 +288,8 @@
     1531,
     1532
    ],
-   "mood": "dread"
+   "mood": "dread",
+   "label": "creeping horror strings, cello and viola"
   },
   {
    "id": "hg-oven",
@@ -299,7 +303,8 @@
     1541,
     1542
    ],
-   "mood": "dread"
+   "mood": "dread",
+   "label": "tense low cello pulse building"
   },
   {
    "id": "hg-run",
@@ -313,7 +318,8 @@
     1551,
     1552
    ],
-   "mood": "happy"
+   "mood": "happy",
+   "label": "light bright folk trio with zither, flute and horn"
   }
  ]
 }
