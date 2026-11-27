@@ -1,0 +1,319 @@
+{
+ "_note": "Hansel and Gretel legend (27 Nov 2026): beds follow Codex Sol's brief (/mnt/project-files/videos/folklore-legend/hansel-gretel/sol-music/answer-summary.md): zither, Hackbrett, wooden flute, Waldhorn, celesta bait, live horror strings; 72 BPM 6/8, run 96. Existing library reused: crunch, branch-snap, step-grass, step-wood, knock, night-insects, fog-air, wing-flap.",
+ "sfx": [
+  {
+   "id": "campfire-crackle",
+   "kind": "oneshot",
+   "len": [
+    3,
+    8
+   ],
+   "duration": 10,
+   "tags": [
+    "fire",
+    "campfire",
+    "crackle"
+   ],
+   "prompts": [
+    "a small campfire crackling and popping in a quiet forest at night, close, realistic field recording, no music",
+    "small wood fire crackling, soft pops and hiss, outdoors at night, realistic, no music"
+   ],
+   "seeds": [
+    1601,
+    1602,
+    1603
+   ],
+   "gain": 0.4,
+   "label": "a small campfire crackling"
+  },
+  {
+   "id": "birds-peck",
+   "kind": "oneshot",
+   "len": [
+    2,
+    6
+   ],
+   "duration": 10,
+   "tags": [
+    "birds",
+    "peck",
+    "chirp"
+   ],
+   "prompts": [
+    "small songbirds pecking crumbs on a forest floor, tiny pecks and soft chirps, flutter, realistic field recording, no music",
+    "a few small birds pecking at bread crumbs on the ground, quick pecks, small chirps, realistic, no music"
+   ],
+   "seeds": [
+    1611,
+    1612,
+    1613
+   ],
+   "gain": 0.45,
+   "label": "small birds pecking crumbs"
+  },
+  {
+   "id": "owl-hoot",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    4
+   ],
+   "duration": 10,
+   "tags": [
+    "owl",
+    "hoot",
+    "night"
+   ],
+   "prompts": [
+    "a tawny owl hooting once in a dark forest at night, distant, realistic field recording, no music",
+    "a single owl hoot far away in a night forest, realistic, no music"
+   ],
+   "seeds": [
+    1621,
+    1622,
+    1623
+   ],
+   "gain": 0.35,
+   "label": "an owl hooting in the night forest"
+  },
+  {
+   "id": "sniff",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.5
+   ],
+   "duration": 10,
+   "tags": [
+    "sniff",
+    "nose",
+    "smell"
+   ],
+   "prompts": [
+    "a person sniffing the air deeply through the nose twice, close, dry recording, no music",
+    "an old woman sniffing loudly through her nose, smelling the air, close, realistic, no music"
+   ],
+   "seeds": [
+    1631,
+    1632,
+    1633
+   ],
+   "gain": 0.5,
+   "label": "a person sniffing through the nose"
+  },
+  {
+   "id": "wood-door-creak",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    4
+   ],
+   "duration": 10,
+   "tags": [
+    "door",
+    "creak",
+    "wood"
+   ],
+   "prompts": [
+    "an old wooden cottage door creaking slowly open, close, realistic, no music",
+    "a small wooden door slowly creaking open on old hinges, realistic, no music"
+   ],
+   "seeds": [
+    1641,
+    1642,
+    1643
+   ],
+   "gain": 0.5,
+   "label": "a wooden door creaking open"
+  },
+  {
+   "id": "cage-rattle",
+   "kind": "split",
+   "len": [
+    0.8,
+    2.5
+   ],
+   "duration": 10,
+   "tags": [
+    "cage",
+    "wood",
+    "rattle",
+    "bars"
+   ],
+   "prompts": [
+    "hands shaking old wooden cage bars, wood knocking and rattling, close, realistic, no music",
+    "a wooden cage door slammed shut and rattled, wooden bars clatter, realistic, no music"
+   ],
+   "seeds": [
+    1651,
+    1652,
+    1653
+   ],
+   "gain": 0.5,
+   "label": "wooden cage bars rattling"
+  },
+  {
+   "id": "oven-roar",
+   "kind": "oneshot",
+   "len": [
+    2,
+    6
+   ],
+   "duration": 10,
+   "tags": [
+    "fire",
+    "oven",
+    "roar",
+    "whoosh"
+   ],
+   "prompts": [
+    "a big wood-fired iron oven roaring as the fire catches, deep whoosh of flames, realistic, no music",
+    "fire flaring up inside a large brick oven, roaring flames, realistic, no music"
+   ],
+   "seeds": [
+    1661,
+    1662,
+    1663
+   ],
+   "gain": 0.5,
+   "label": "a big oven fire roaring"
+  },
+  {
+   "id": "iron-slam",
+   "kind": "oneshot",
+   "len": [
+    0.6,
+    2.5
+   ],
+   "duration": 10,
+   "tags": [
+    "iron",
+    "door",
+    "slam",
+    "clang"
+   ],
+   "prompts": [
+    "a heavy iron oven door slammed shut with a loud metallic clang and latch, realistic, no music",
+    "a cast iron door slamming shut, heavy clang and bolt, close, realistic, no music"
+   ],
+   "seeds": [
+    1671,
+    1672,
+    1673
+   ],
+   "gain": 0.6,
+   "label": "a heavy iron oven door slamming shut"
+  },
+  {
+   "id": "pearls-rattle",
+   "kind": "oneshot",
+   "len": [
+    1,
+    3
+   ],
+   "duration": 10,
+   "tags": [
+    "pearls",
+    "jewels",
+    "rattle"
+   ],
+   "prompts": [
+    "a handful of pearls and small jewels rattling in a cloth pocket while running, realistic, no music",
+    "small glass beads and pearls clinking together, close, realistic, no music"
+   ],
+   "seeds": [
+    1681,
+    1682,
+    1683
+   ],
+   "gain": 0.35,
+   "label": "pearls rattling in a pocket"
+  }
+ ],
+ "music": [
+  {
+   "id": "hg-open",
+   "bpm": 72,
+   "bars": 4,
+   "prompts": [
+    "Quiet German folk horror underscore under narration, close dry zither plucking a D-A open fifth in slow 6/8, low bowed solo cello holding D, intimate live recording, night forest unease, no percussion, no synths, no vocals, no choir",
+    "Sparse acoustic underscore, intimate zither pluck on an open fifth and a low cello drone, slow cradle-song 6/8, eerie and tender, live recording, no percussion, no synths, no vocals, no choir"
+   ],
+   "seeds": [
+    1501,
+    1502
+   ],
+   "mood": "tense"
+  },
+  {
+   "id": "hg-forest",
+   "bpm": 72,
+   "bars": 4,
+   "prompts": [
+    "Sparse German forest folk underscore, dry zither broken fifths in D minor, slow 6/8 cradle-song lilt, one distant French horn note far away, cold night, live acoustic recording, no percussion, no synths, no vocals, no choir",
+    "Quiet acoustic underscore, zither in D minor slow 6/8, soft hammered dulcimer touches, a distant horn, lonely dark forest, live recording, no percussion, no synths, no vocals, no choir"
+   ],
+   "seeds": [
+    1511,
+    1512
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "hg-sweet",
+   "bpm": 72,
+   "bars": 4,
+   "prompts": [
+    "Tender music-box celesta lullaby in D major, slow 6/8, over a soft zither open fifth, lovely but slightly wrong, a hair out of time, intimate, no percussion, no synths, no vocals, no choir",
+    "Sweet celesta cradle song in D major, slow 6/8, gentle zither, warm candlelit cottage, lovely with a faint unease, solo instruments, no percussion, no synths, no vocals, no choir"
+   ],
+   "seeds": [
+    1521,
+    1522
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "hg-hunger",
+   "bpm": 72,
+   "bars": 4,
+   "prompts": [
+    "Recorded orchestral horror strings, cello and viola in D minor, slow 6/8 pulse, cello sliding flat, audible bow scrape, violins slowly sliding up, creeping dread, live orchestra, no percussion, no synths, no vocals, no choir",
+    "Live chamber strings horror underscore, low cello and viola D minor ostinato, detuned slides, bow noise, menacing and hungry, slow 6/8, no percussion, no synths, no vocals, no choir"
+   ],
+   "seeds": [
+    1531,
+    1532
+   ],
+   "mood": "dread"
+  },
+  {
+   "id": "hg-oven",
+   "bpm": 72,
+   "bars": 4,
+   "prompts": [
+    "Tense live strings, low cello pulse doubling its subdivision, D minor, building pressure, dry and close, red firelight dread, slow 6/8, no percussion, no synths, no vocals, no choir",
+    "Recorded cello and viola pulse in D minor, quickening subdivision, held tension, close live recording, no percussion, no synths, no vocals, no choir"
+   ],
+   "seeds": [
+    1541,
+    1542
+   ],
+   "mood": "dread"
+  },
+  {
+   "id": "hg-run",
+   "bpm": 96,
+   "bars": 4,
+   "prompts": [
+    "Light German folk trio, bright zither, wooden flute and warm French horn in D major, lilting 6/8 at dawn, relieved running home, live acoustic recording, no percussion, no synths, no vocals, no choir",
+    "Airy acoustic folk at sunrise, zither and horn in D major, quick 6/8 lilt, wooden flute melody, warm relief, live recording, no percussion, no synths, no vocals, no choir"
+   ],
+   "seeds": [
+    1551,
+    1552
+   ],
+   "mood": "happy"
+  }
+ ]
+}
