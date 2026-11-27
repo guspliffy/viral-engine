@@ -841,7 +841,6 @@ export function factoryGate(c, t, m, st = {}) {
     }
     const SB = pl(c, [0, 0, wz - 0.26], [1, 0, 0], [0, 1, 0]), a0 = SB(-1.3, 3.36), a1 = SB(1.3, 3.36), sk = a0.s;
     s += sh([SB(-1.3, 3.42), SB(-0.6, 3.98), SB(0, 4.1), SB(0.6, 3.98), SB(1.3, 3.42), SB(1.3, 3.0), SB(0.6, 3.52), SB(0, 3.62), SB(-0.6, 3.52), SB(-1.3, 3.0)], C("#12265a"), 990, { k: 2 });
-    s += `<path id="fgarc" d="M${n(SB(-1.16, 3.17).x)},${n(SB(-1.16, 3.17).y)} Q${n(SB(0, 4.28).x)},${n(SB(0, 4.28).y)} ${n(SB(1.16, 3.17).x)},${n(SB(1.16, 3.17).y)}" fill="none"/><text font-family="Georgia, 'DejaVu Serif', 'Liberation Serif', serif" font-weight="700" font-size="${n(sk * 0.215)}" fill="${C("#c8dcf6")}" letter-spacing="${n(sk * 0.012)}"><textPath href="#fgarc" startOffset="50%" text-anchor="middle">MAW &amp; MEGGINS</textPath></text>`;
     for (let i = 0; i < 9; i++) { const q = SB(-1.0 + hash(i + 2) * 2, 3.25 + (1 - Math.abs(-1.0 + hash(i + 2) * 2)) * 0.5 + hash(i + 6) * 0.2); s += `<rect x="${n(q.x)}" y="${n(q.y)}" width="${n(sk * (0.02 + 0.04 * hash(i)))}" height="${n(sk * 0.025)}" fill="${C("#12265a")}"/>`; }
     void a1;
   }
@@ -1104,7 +1103,7 @@ const CLERK = {
   sleeve: { col: "#2a2c3e", cuff: "#f6f0e4" },
   legG: ({ T }, near) => `<path d="M${n(near[0][0] - 1)},${n(near[0][1] + 6)} L${n(near[1][0] - 1)},${n(near[1][1])} L${n(near[2][0] - 1)},${n(near[2][1] - 6)}" stroke="${T("#4a4c62")}" stroke-width="0.4" fill="none"/>`,
   both: ({ st, fx, dir }, to, X2, kind) => { const h = st.hat || 0; if (h > 0) { to("L", X2(-8 + dir * 2, -106), h); to("R", X2(8 + dir * 2, -106), h); if (h > 0.5) kind.L = kind.R = "fist"; } },
-  frontG: ({ st, T, t }, wp) => { if (!((st.hat || 0) > 0.5)) return ""; const a = wp.L, b = wp.R, cx = (a[0] + b[0]) / 2, cy = (a[1] + b[1]) / 2 + 1, tw = Math.sin(t * 4.6) * 6 * (st.nervous || 0); return `<g transform="translate(${n(cx)},${n(cy)}) rotate(${n(tw)})">${bowler(T)}</g>`; },
+  frontG: ({ st, T, t }, wp) => { if (!((st.hat || 0) > 0.5)) return ""; const of = (st.offer || 0) > 0.3, hh = (st.fx ?? 0.5) >= 0 ? wp.L : wp.R, a = of ? hh : wp.L, b = of ? hh : wp.R, cx = (a[0] + b[0]) / 2, cy = (a[1] + b[1]) / 2 + 1, tw = Math.sin(t * 4.6) * 6 * (st.nervous || 0); return `<g transform="translate(${n(cx)},${n(cy)}) rotate(${n(tw)})">${bowler(T)}</g>`; },
   both2: true,
   torso: ({ T, w, fx }) => torsoPath(w, T("#2a2c3e")) +
     `<path d="M${n(-4 + fx * 2)},-141 L${n(fx * 2)},-118 L${n(4 + fx * 2)},-141 Z" fill="${T("#f6f0e4")}"/><path d="M${n(-1.2 + fx * 2)},-139 L${n(1.2 + fx * 2)},-139 L${n(1.6 + fx * 2)},-124 L${n(fx * 2)},-121 L${n(-1.6 + fx * 2)},-124 Z" fill="${T("#16161c")}"/>` +
