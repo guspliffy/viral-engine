@@ -36,13 +36,15 @@ export function phrases(words, text, cap) {
   let k = 0;
   return (cap ?? text).split("|").map((ph) => { const ws = words.slice(k, k + ph.trim().split(/\s+/).length); k += ws.length; return { ws, at: ws[0]?.[1] ?? 0 }; }).filter((p) => p.ws.length);
 }
-export function captionSvg(phr, u, { key = null, y = 560, x = 540, maxFs = 74, width = 940, wrapAt = 19, keyColor = "#ffc04a", stroke = "#120c24" } = {}) {
+export function captionSvg(phr, u, { key = null, y = 560, x = 540, maxFs = 74, width = 940, wrapAt = 19, keyColor = "#ffc04a", stroke = "#120c24", reveal = false } = {}) {
+  // reveal (Jonny 27 Nov, Urashima): each word appears as it is spoken, in the layout of the whole phrase (nothing moves)
   let pi = -1;
   for (let i = 0; i < phr.length; i++) if (u >= phr[i].at - 0.04) pi = i;
   if (pi < 0) return "";
   const ch = phr[pi].ws;
   const col = (w) => (key && key.test(w[0].replace(/[^a-zʻō0-9]/gi, "")) ? keyColor : "#ffffff");
-  const span = (ws) => ws.map((w) => `<tspan fill="${col(w)}">${w[0].replace(/&/g, "&amp;").replace(/</g, "&lt;")}</tspan>`).join(" ");
+  const hid = (w) => (reveal && u < w[1] - 0.04 ? ` fill-opacity="0" stroke-opacity="0"` : "");
+  const span = (ws) => ws.map((w) => `<tspan fill="${col(w)}"${hid(w)}>${w[0].replace(/&/g, "&amp;").replace(/</g, "&lt;")}</tspan>`).join(" ");
   const len = (ws) => ws.reduce((a, w) => a + w[0].length + 1, -1);
   let k = ch.length;
   if (len(ch) > wrapAt && ch.length > 1) { let best = 1e9; for (let i = 1; i < ch.length; i++) { const d = Math.abs(len(ch.slice(0, i)) - len(ch.slice(i))); if (d < best) { best = d; k = i; } } }

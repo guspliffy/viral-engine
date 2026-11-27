@@ -14,7 +14,7 @@ const [scenePath, outPath, ...rest] = process.argv.slice(2);
 const opt = (k) => { const i = rest.indexOf(k); return i >= 0 ? rest[i + 1] : null; };
 const S = await import(pathToFileURL(resolve(scenePath)).href);
 const { W = 1080, H = 1920, FPS = 30, DUR, GAIN = 0.5 } = S;
-let MUSIC = S.MUSIC;
+let MUSIC = S.MUSIC; const FADE = S.FADE ?? 0.4;   // a scene may export FADE = 0 for a hard audio end
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: W, height: H } });
@@ -35,7 +35,7 @@ if (opt("--stills")) {
   if (S.prepare) MUSIC = await S.prepare(outPath);   // the scene builds its own sound mix
   const N = Math.round(DUR * FPS);
   const args = ["-v", "error", "-y", "-f", "image2pipe", "-framerate", String(FPS), "-i", "-"];
-  if (MUSIC) args.push("-i", MUSIC, "-map", "0:v", "-map", "1:a", "-af", `volume=${GAIN},afade=t=out:st=${DUR - 0.4}:d=0.4`, "-c:a", "aac", "-b:a", "160k");
+  if (MUSIC) args.push("-i", MUSIC, "-map", "0:v", "-map", "1:a", "-af", FADE > 0 ? `volume=${GAIN},afade=t=out:st=${DUR - FADE}:d=${FADE}` : `volume=${GAIN}`, "-c:a", "aac", "-b:a", "160k");
   args.push("-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p", "-t", String(DUR), outPath);
   const ff = spawn("ffmpeg", args, { stdio: ["pipe", "inherit", "inherit"] });
   const t0 = Date.now();
