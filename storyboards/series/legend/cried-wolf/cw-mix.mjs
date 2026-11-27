@@ -1,13 +1,14 @@
 // The sound mix for cw-draft: voices (lines.json order, times from cw.mjs) + Sol's cue sheet (music) + realistic sfx.
 //   node storyboards/series/legend/cried-wolf/cw-mix.mjs out/legend-wolf/mix.wav
 // music/sfx come from out/legend-wolf/{music,sfx} (pick.py output); a missing sound is skipped and listed.
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { LINE, DUR } from "./cw.mjs";
 const OUT = "out/legend-wolf", [mixPath = `${OUT}/mix.wav`] = process.argv.slice(2);
-const man = (d) => (existsSync(`${OUT}/${d}/manifest.json`) ? JSON.parse(readFileSync(`${OUT}/${d}/manifest.json`, "utf8")).sounds : []);
-const MUS = man("music"), SFX = man("sfx"), missing = [];
-const find = (arr, dir, id, k = 0) => { const m = arr.find((s) => s.id === id); if (!m) { if (!missing.includes(id)) missing.push(id); return null; } return `${OUT}/${dir}/${m.files[k % m.files.length]}`; };
+const man = (d) => (existsSync(`${OUT}/${d}/manifest.json`) ? JSON.parse(readFileSync(`${OUT}/${d}/manifest.json`, "utf8").replace(/NaN/g, "null")).sounds : []);
+const MUS = man("music"), SFX = man("sfx"), missing = [], usedRaw = [];
+const rawTake = (id, k) => { const d = `${OUT}/raw/${id}`; if (!existsSync(d)) return null; const fl = readdirSync(d).filter((x) => x.endsWith(".wav")).sort(); return fl.length ? `${d}/${fl[k % fl.length]}` : null; };   // pick.py cut nothing: use the raw take
+const find = (arr, dir, id, k = 0) => { const m = arr.find((s) => s.id === id); if (m && !m.files.length) { const r = rawTake(id, k); if (r) { if (!usedRaw.includes(id)) usedRaw.push(id); return r; } } if (!m) { if (!missing.includes(id)) missing.push(id); return null; } return `${OUT}/${dir}/${m.files[k % m.files.length]}`; };
 const ins = [], f = [];
 const add = (file, t0, gain, extra = "") => { if (!file) return; ins.push("-i", file); const k = ins.length / 2 - 1; f.push(`[${k}:a]${extra}volume=${gain},adelay=${Math.round(Math.max(0, t0) * 1000)}:all=1[a${k}]`); };
 const loop = (file, t0, t1, gain, fi = 0.25, fo = 0.25) => add(file, t0, gain, `aloop=loop=-1:size=2e9,atrim=0:${(t1 - t0).toFixed(2)},afade=t=in:d=${fi},afade=t=out:st=${Math.max(0, t1 - t0 - fo).toFixed(2)}:d=${fo},`);
@@ -42,4 +43,4 @@ add(find(SFX, "sfx", "chapel-bell"), at("L24") + 0.55, 0.5, "atrim=0:3.5,afade=t
 loop(find(SFX, "sfx", "cicadas-night"), 0, DUR, 0.06, 0.1, 0.1);
 const k = ins.length / 2;
 execFileSync("ffmpeg", ["-v", "error", "-y", ...ins, "-filter_complex", f.join(";") + ";" + Array.from({ length: k }, (_, i) => `[a${i}]`).join("") + `amix=inputs=${k}:normalize=0,atrim=0:${DUR.toFixed(2)},loudnorm=I=-14:TP=-1.5[out]`, "-map", "[out]", "-ar", "44100", "-ac", "2", mixPath]);
-console.log("mix", mixPath, "inputs", k, missing.length ? "MISSING: " + missing.join(",") : "all sounds present");
+console.log("mix", mixPath, "inputs", k, missing.length ? "MISSING: " + missing.join(",") : "all sounds present", usedRaw.length ? "(raw takes: " + usedRaw.join(",") + ")" : "");
