@@ -52,3 +52,20 @@ export function captionSvg(phr, u, { key = null, y = 560, x = 540, maxFs = 74, w
   const fs = Math.min(maxFs, Math.round(width / Math.max(1, Math.max(...rows.map(len)) * 0.6)));
   return rows.map((r, i) => `<text x="${x}" y="${r2(y + (i - (rows.length - 1) / 2) * fs * 1.08)}" text-anchor="middle" font-family="Inter" font-weight="900" font-size="${fs}" stroke="${stroke}" stroke-width="${Math.round(fs * 0.19)}" stroke-linejoin="round" paint-order="stroke" letter-spacing="-1">${span(r)}</text>`).join("");
 }
+
+// ---------------------------------------------------------------- opening titles (Jonny 27 Nov 2026, Golem title trial)
+// An episode's opening title (name + teaser, 0.25-2.6 s) sits ABOVE the spoken subtitles ("the title of the video should be
+// above the speech lettering") and below TikTok's top bar. titleSlot(box) takes the title's drawn bounding box at its own
+// coordinates ({x, y, w, h}, e.g. from getBBox once) and returns the SVG transform that fits it into that slot: bottom 20 px
+// above the top of a 2-row subtitle at `captionY`, top at or below `top`, centred on x 540, scaled down (never up) to fit.
+export function captionTop({ captionY = 560, maxFs = 74, rows = 2 } = {}) {
+  return captionY - (rows - 1) / 2 * maxFs * 1.08 - maxFs * 0.75;   // cap height of the first row's text
+}
+export function titleSlot(box, { captionY = 560, maxFs = 74, rows = 2, top = 190, gap = 20, x = 540, maxW = 960 } = {}) {
+  const bottom = captionTop({ captionY, maxFs, rows }) - gap;
+  const s = Math.min(1, (bottom - top) / box.h, maxW / box.w);
+  const cx = box.x + box.w / 2, by = box.y + box.h;
+  const r = (v) => Math.round(v * 1000) / 1000;
+  return { transform: `translate(${r(x)},${r(bottom)}) scale(${r(s)}) translate(${r(-cx)},${r(-by)})`, scale: s,
+    y0: r(bottom - box.h * s), y1: r(bottom) };
+}
