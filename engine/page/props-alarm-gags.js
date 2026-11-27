@@ -57,7 +57,7 @@ import { flameMesh, glowMesh } from "./props-candle.js";
 //               it let go (0 stuck, 0.162 up the side, 0.035 in the wax): droops 20 degrees for 0.12 s, slides out at 0.5 m/s,
 //               flicks clear of the stool rim (0.24 from the axis) and falls 0.57 m onto the floor plate at spec.plate
 //               [0.17, 0.012, 0.03] (WORLD, the plate's top) at 0.46 s, one hop of 0.02, lies still. nailB: -1 absent, 0..1 pushed in
-//               (0.152 up; at 1 its head is 0.125 from the axis), 1 + seconds since it let go: tips 0.10 s, slides out 0.035,
+//               (0.152 up; head 0.21 from the axis at 0, 0.125 at 1), 1 + seconds since it let go: tips 0.10 s, slides out 0.07,
 //               falls onto the bell (spec.bell [0.286, 0.432, -0.138] WORLD, spec.bellScale 1.15 = the kit callbell), its head
 //               strikes at 0.21 s, skips once and lies leaning on the dome with its tip on the plate. No hold.
 //   tinplate    Origin: bottom centre. Lathe r 0.10, flat middle r 0.07 (top y 0.012), rim to 0.020, dull tin, 3 dents. ONE prop:
@@ -377,7 +377,7 @@ export const ALARM_GAGS_KINDS = {
         cv.z = lz == null ? 0 : (lz - c0.z) / cth;
         const cp = (u) => V(c0.x + cv.x * u, c0.y + cv.y * u - 0.5 * G * u * u, c0.z + cv.z * u);
         const uh = Math.min(pourT, cth), ut = Math.min(Math.max(0, pourT - 0.35), cth);
-        if (uh - ut > 0.02) { const pts = []; for (let i = 0; i <= 12; i++) pts.push(cp(ut + ((uh - ut) * i) / 12)); ribbon.set(pts, (u) => 0.007 + 0.009 * Math.sin(Math.PI * Math.min(1, u * 1.15)), 0.02); } else ribbon.mesh.visible = false;
+        if (uh - ut > 0.02) { const pts = []; for (let i = 0; i <= 12; i++) pts.push(cp(ut + ((uh - ut) * i) / 12)); ribbon.set(pts, (u) => 0.012 + 0.011 * Math.sin(Math.PI * Math.min(1, u * 1.15)), 0.02); } else ribbon.mesh.visible = false;
         // the crown of drops where it lands
         const land = cp(cth); land.y = hitL;
         for (const c of crown) {
@@ -510,12 +510,12 @@ export const ALARM_GAGS_KINDS = {
       return [c.clone().addScaledVector(n, -L / 2), n];
     };
     const nailBState = (nb, bl, ps) => {
-      const k = clamp(nb), tau = nb - 1, dh = 0.16 + (0.125 - 0.16) * k;
+      const k = clamp(nb), tau = nb - 1, dh = 0.21 + (0.125 - 0.21) * k;   // at 0 the point is 5 cm clear of the wax, so the push shows (alarm clock Sol r2 24)
       if (nb <= 1) return [D.clone().multiplyScalar(dh - L).add(V(0, yB, 0)), D.clone()];
       const tipA = D.clone().multiplyScalar(0.125 - L).add(V(0, yB, 0));
       let tip, n;
-      if (tau < 0.10) { const e = sm(tau / 0.10); tip = tipA.clone().addScaledVector(D, 0.035 * e); n = pitchN(D, -10 * DEG * e); return [tip, n]; }
-      tip = tipA.clone().addScaledVector(D, 0.035); const headAfter = tip.clone().addScaledVector(pitchN(D, -10 * DEG), L);
+      if (tau < 0.10) { const e = sm(tau / 0.10); tip = tipA.clone().addScaledVector(D, 0.07 * e); n = pitchN(D, -10 * DEG * e); return [tip, n]; }
+      tip = tipA.clone().addScaledVector(D, 0.07); const headAfter = tip.clone().addScaledVector(pitchN(D, -10 * DEG), L);
       // strike geometry
       const bl0 = V(bl.x - ps.x, bl.y - ps.y, bl.z - ps.z), hz = V(headAfter.x - bl0.x, 0, headAfter.z - bl0.z), rho = hz.length();
       const strikeY = bl0.y + domeTop(rho) + 0.011, F = Math.max(0.01, headAfter.y - strikeY);

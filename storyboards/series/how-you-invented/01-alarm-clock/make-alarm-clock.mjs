@@ -42,18 +42,18 @@ const SHOTS = [
   ["C07 the candle", 32.6, push([-0.25, 1.42, 3.30], [0.30, 0.98, -0.45], 42, { pos: [-0.15, 1.36, 2.85] }, 4.8)],
   ["C08a the knot (insert)", 37.4, push([-0.25, 1.05, 0.95], [0.37, 0.90, -0.25], 40, { fov: 36 }, 1.0)],
   ["C08b the fountain", 38.4, push([-0.45, 1.55, 2.90], [0.40, 1.15, -0.55], 46, { pos: [-0.35, 1.50, 2.55], fov: 48 }, 4.6)],
-  ["C09 the anvil", 43.0, push([0.25, 1.30, 3.50], [0.18, 0.62, -0.70], 50, { pos: [0.25, 1.28, 3.20] }, 3.5)],
+  ["C09 the anvil", 43.0, push([0.25, 1.30, 3.50], [0.10, 0.62, -0.70], 54, { pos: [0.25, 1.28, 3.20] }, 3.5)],
   ["C10 the hole", 46.5, push([-0.20, 2.10, 2.60], [0.30, 0.75, -0.75], 50, { pos: [-0.15, 2.00, 2.30] }, 4.1)],
   ["C11 the boss through the window", 50.6, push([2.00, 1.75, 0.60], [1.25, 1.66, -1.80], 26, { fov: 23 }, 3.0)],
   ["C12a the low point, tink", 53.6, push([-0.05, 1.30, 3.10], [0.22, 0.52, -0.15], 46, { pos: [-0.02, 1.26, 2.80] }, 3.3)],
-  ["C12n nail A falls (insert)", 55.95, push([0.95, 0.50, 1.20], [0.25, 0.32, -0.10], 44, { pos: [0.90, 0.48, 1.05] }, 0.95)],
+  ["C12n nail A falls (insert)", 55.95, push([0.85, 0.42, 1.10], [0.20, 0.20, -0.05], 44, { pos: [0.80, 0.40, 0.98] }, 0.95)],
   ["C12b one eye (insert)", 56.9, push([0.35, 1.95, 0.55], [0.95, 1.05, -0.62], 30, { fov: 27 }, 1.1)],
   ["C12c the idea", 58.0, push([1.40, 0.98, 2.95], [-0.10, 0.62, 0.45], 40, { pos: [1.30, 0.95, 2.70] }, 2.4)],
   ["C13 the nail (insert)", 60.4, push([1.05, 0.66, 0.30], [0.32, 0.55, -0.19], 30, { pos: [0.95, 0.65, 0.23] }, 2.4)],
   ["C14a the sun, the ray", 62.8, push([1.20, 1.45, 3.60], [0.30, 1.10, -0.62], 52, { pos: [1.10, 1.42, 3.25] }, 2.6)],
   ["C14b the nail falls (insert)", 65.4, push([1.05, 0.66, 0.30], [0.32, 0.55, -0.19], 28, {}, 0.4)],
   ["C14c he sits up", 65.8, push([0.60, 1.35, 3.90], [0.32, 1.05, -0.09], 54, { pos: [0.57, 1.33, 3.40] }, 3.8)],
-  ["C15 snooze", 69.6, push([0.78, 1.98, 3.20], [0.36, 0.66, -0.62], 60, { pos: [0.74, 1.90, 2.90] }, 4.3)],
+  ["C15 snooze", 69.6, push([0.78, 1.98, 3.20], [0.52, 0.66, -0.62], 60, { pos: [0.74, 1.90, 2.90] }, 4.3)],
 ];
 const CUTS = SHOTS.map(([, t]) => t).filter((t) => t > 0);
 const cutOf = (name) => SHOTS.find(([n]) => n.startsWith(name))[1];
@@ -63,7 +63,7 @@ const before = (name) => r3(cutOf(name) - 0.02);
 const SUB = 330, LEAD = 0.12;
 const START = [0.05, 4.10, 8.15, 9.80, 13.45, 18.65, 25.20, 30.60, 32.80, 40.00, 43.20, 49.00, 50.90, 58.40, 67.00, 71.50];
 const CAPTEXT = { "Mash! Wake UP!": "Mash! Wake UP!" };
-const CAPPOS = { "So you stop going bigger.": 250 };   // C12c: over his head, not his brow (Sol r1 23)
+const CAPPOS = { "So you stop going bigger.": 250, "One problem. Mash never wakes up.": 225 };   // C12c: over his head, not his brow (Sol r1 23)
 LINES.forEach(([kind, who, line, tone, o = {}], i) => {
   const t = START[i], d = LEN[line]; if (!d) throw new Error(`no measured length for "${line}"`);
   if (kind === "narr") c.at(t, { macro: "narrate", line, voice: NARRATOR, dur: d, caption: false, pos: SUB, gain: 4.0 });
@@ -102,7 +102,7 @@ const props = [
   { id: "r2", kind: "beamrope", to: "bk", xa: 0.55, xb: -0.25, tail: [-0.25, 0.26, -0.70], scale: 0 },
   { id: "r3", kind: "beamrope", to: "bk", xa: 0.62, xb: 0.37, bridle: true, knot: [0.37, 0.85, -0.25], hangLen: 0.06, scale: 0 },
   { id: "an", kind: "anvil", x: -0.40, y: 0, z: -0.70, scale: 0, staged: "it hangs from the beam on its rope, then lies in the pit" },
-  { id: "r4", kind: "beamrope", to: "an", xa: -0.40, xb: 0.37, bridle: true, knot: [0.37, 0.80, -0.25], scale: 0 },
+  { id: "r4", kind: "beamrope", to: "an", hang: -1, xa: -0.40, xb: 0.37, bridle: true, knot: [0.37, 0.80, -0.25], scale: 0 },
   { id: "jet", kind: "mouthjet", mouth: "mash", target: "jet", scale: 0, staged: "the water column stands at Mash's mouth" },
   LB,
   ROOSTER0,
@@ -204,10 +204,11 @@ P(4.9, "fly", { x: FLY_ON[0], y: FLY_ON[1], z: FLY_ON[2], tip: 50 }, 0.15, "out"
 P(5.6, "fly", { x: r3(FLY_ON[0] - 0.03) }, 0.4, "inOut");
 sfx(4.1, "ai/fly-buzz", { gain: 0.35, dur: 0.9, reason: "the fly circles his face" });
 // his right glove slaps flat over the fly, holds 12 frames, sinks back
-c.arm(6.3, "mash", "R", { o: [0.10, 0.82, 0.38] }, 0.3, "in");   // 0.15 s jumped 20 cm a frame (preflight rig-jump)
+c.arm(6.15, "mash", "R", { o: [0.28, 0.80, 0.30] }, 0.3, "inOut");   // wind-up beside his head (0.15 s jumped 20 cm a frame)
+c.arm(6.48, "mash", "R", { prop: "hut", grip: [FLY_ON[0], FLY_ON[1], r3(FLY_ON[2] + 0.05)] }, 0.12, "in");   // the glove lands on the fly (Sol r2 31)
 P(6.6, "fly", { scale: 0 });
 sfx(6.6, "slap", { gain: 0.8, reason: "his glove slaps flat on his own face in his sleep" });
-c.arm(7.0, "mash", "R", UNDER, 0.5, "inOut");
+c.arm(6.85, "mash", "R", UNDER, 0.45, "inOut");
 sfx(4.2, "ai/snore", { gain: 0.45, dur: 3.6, reason: "Mash snores" });
 see(4.1, 7.9, ["mash.face"], "he sleeps through everything");
 
@@ -219,7 +220,7 @@ expr(8.1, "spud", "angry", { open: 0.1, eye: 1.2 }, 0.1);
 const FLANK = MP([-0.30, 0.55, 0.02]);
 const flank = (dx) => ({ prop: "hut", grip: [r3(FLANK[0] + dx), FLANK[1], FLANK[2]] });
 const FLANK_R = MP([-0.32, 0.42, 0.02]), FLANK_L = MP([-0.32, 0.64, 0.02]);   // two palms 0.28 apart along his flank (Sol r1 4: the gloves overlapped)
-for (const [s, g] of [["R", FLANK_R], ["L", FLANK_L]]) c.arm(9.35, "spud", s, { prop: "hut", grip: g }, 0.4, "inOut");
+for (const [s, g] of [["R", FLANK_R], ["L", FLANK_L]]) c.arm(9.2, "spud", s, { prop: "hut", grip: g }, 0.55, "inOut");
 for (let k = 0; k < 5; k++) {
   const t = r3(9.8 + k * 0.32);
   A(t, "spud", "lean", { to: 16, dur: 0.12, ease: "out" }); A(r3(t + 0.14), "spud", "lean", { to: 8, dur: 0.16, ease: "inOut" });
@@ -228,6 +229,7 @@ for (let k = 0; k < 5; k++) {
 A(11.5, "mash", "lean", { to: 0, dur: 0.3 });
 expr(9.8, "mash", null, { curve: 0.5 }, 0.3);
 arms(11.5, "spud", "rest", 0.4, "inOut"); expr(11.6, "spud", "annoyed", null, 0.3);
+turn(12.75, "spud", -110, 0.45); look(12.75, "spud", [-0.4, 0.1], 0.3);   // you turn away to fetch something: the cut lands on the turn (Sol r2 40)
 P(9.9, "beamdust", { burst: 1 }, 0.3, "out"); P(10.2, "beamdust", { puff: 1 }, 2.5);
 sfx(8.2, "ai/snore", { gain: 0.3, dur: 1.2, reason: "Mash snores under the yell" });
 for (let k = 0; k < 5; k++) sfx(r3(9.85 + k * 0.32), "kenney/impact-plank-medium", { gain: 0.3, reason: "the bed frame knocks with each shove" });
@@ -240,7 +242,7 @@ expr(13.27, "spud", "eager", null, 0.01); look(13.27, "spud", [0, -0.2], 0.01);
 const hr = grips.box(c, "spud", ROOSTER0, { gap: 0.04 });
 let th = hr.take(13.27, { reach: 0.005, settle: 0.005 });
 const yawR = (49 * Math.PI) / 180, ahead = ([x, z], d) => [r3(x + d * Math.sin(yawR)), r3(z + d * Math.cos(yawR))];
-const carryAt = (u) => { const [x, z] = [-0.55 + 0.40 * u, -1.40 + 0.35 * u], [ax, az] = ahead([x, z], 0.60); return [ax, r3(0.16 + 0.24 * Math.max(0, (u - 0.75) / 0.25)), az]; };   // the last quarter lifts it to 0.40 (Sol r1 5: show the end of the lift before the cut)   // 0.30 sank it into his belly (prop-in-self 41 %)
+const carryAt = (u) => { const f = Math.max(0, (u - 0.75) / 0.25), [x, z] = [-0.55 + 0.40 * u, -1.40 + 0.35 * u], [ax, az] = ahead([x, z], 0.60 + 0.16 * f); return [ax, r3(0.16 + 0.24 * f), az]; };   // lifted out ahead, clear of his chest   // the last quarter lifts it to 0.40 (Sol r1 5: show the end of the lift before the cut)   // 0.30 sank it into his belly (prop-in-self 41 %)
 hr.carry(r3(th + 0.002), carryAt(0), 0.01, "inOut");
 const W0 = 13.45, WD = 2.6;
 A(W0, "spud", "move", { to: [-0.15, -1.05], dur: WD, ease: "linear" });
@@ -249,14 +251,14 @@ P(13.3, "rooster", { headY: 0.4 }, 0.8, "inOut"); P(14.2, "rooster", { headY: -0
 see(13.4, 16.1, ["spud.face", "rooster"], "the loudest thing in the village");
 
 // ================================================================ C04b 16.2-21.8: the crow, the village wakes, "Now the whole village is awake. Except Mash."
-const HEAD = MP([0, 1.20, 0.10]), BELLY = MP([0, 0.42, 0.42]);
+const HEAD = MP([0, 1.17, 0.13]), BELLY = MP([0, 0.42, 0.42]);
 hr.release(16.12, { rest: false, back: 0.01, to: carryAt(1) });
 // C04b opens on the same hold (Sol r1 5: the bird jumped from his hands to Mash's head across the cut): his gloves lift and let go, it flutters up
 const SPOT_B = [-0.14, -1.30], yawB = (55 * Math.PI) / 180, HAND_B = [r3(SPOT_B[0] + 0.45 * Math.sin(yawB)), 0.30, r3(SPOT_B[1] + 0.45 * Math.cos(yawB))];   // 0.13 back from the bed: the raised gloves cleared its edge
 // no hold in C04b (a box hold's let-go tracks the bird, the arms flew after it): the bird stands on his raised gloves from the first frame and flutters up
-const PERCH = [r3(SPOT_B[0] + 0.36 * Math.sin(yawB)), 0.52, r3(SPOT_B[1] + 0.36 * Math.cos(yawB))];
+const PERCH = [r3(SPOT_B[0] + 0.50 * Math.sin(yawB)), 0.56, r3(SPOT_B[1] + 0.50 * Math.cos(yawB))];   // 0.38 put its body 39 % into his (preflight shell)
 place(before("C04b"), "spud", SPOT_B, 55);
-arms(before("C04b"), "spud", { o: [0.10, 0.50, 0.32] }, 0.01); for (const s of ["R", "L"]) A(before("C04b"), "spud", "grip", { side: s, shape: "cup", dur: 0.01 });
+arms(before("C04b"), "spud", { o: [0.10, 0.50, 0.40] }, 0.01); for (const s of ["R", "L"]) A(before("C04b"), "spud", "grip", { side: s, shape: "cup", dur: 0.01 });
 P(16.15, "rooster", { x: PERCH[0], y: PERCH[1], z: PERCH[2], rot: 55, sleep: 0, tip: 0 });
 arms(16.36, "spud", { o: [0.05, 0.42, 0.24] }, 0.35, "inOut"); for (const s of ["R", "L"]) A(16.36, "spud", "grip", { side: s, shape: "relaxed", dur: 0.2 });
 P(16.3, "rooster", { flap: 1 }); P(16.3, "rooster", { x: r3((PERCH[0] + HEAD[0]) / 2), y: r3(HEAD[1] + 0.12), z: r3((PERCH[2] + HEAD[2]) / 2), rot: -35 }, 0.13, "out");
@@ -275,8 +277,8 @@ see(16.4, 18.4, ["rooster", "mash.face", "win"], "the crow, the village lights, 
 
 // ================================================================ C05 21.8-25.0: the swat, the bird lands on his belly, Spud's sigh
 const FLOOR_R = [0.55, 0, -1.50];   // where the bird sleeps until the anvil wakes it (C10 starts it there)
-c.arm(21.62, "mash", "L", { o: [0.14, 0.92, 0.22] }, 0.3, "in");
-c.arm(21.98, "mash", "L", UNDER, 0.45, "inOut");
+c.arm(21.5, "mash", "L", { o: [0.10, 0.97, 0.30] }, 0.43, "inOut");   // travelling through the C05 cut (Sol r2 7)
+c.arm(22.02, "mash", "L", UNDER, 0.45, "inOut");
 P(21.93, "rooster", { flap: 1 }); P(21.93, "rooster", { x: r3(HEAD[0] + 0.30), y: r3(HEAD[1] + 0.22), z: r3(HEAD[2] - 0.15), rot: -60 }, 0.3, "out");
 P(22.23, "rooster", { x: FLOOR_R[0], y: 0, z: FLOOR_R[2], rot: -90 }, 0.55, "in"); P(22.8, "rooster", { flap: 0 });
 P(23.0, "rooster", { sleep: 1 }, 0.8, "inOut");
@@ -300,27 +302,28 @@ P(29.45, "bk", { flip: 115 }, 0.3, "in");
 P(29.75, "bk", { pour: 0 }); P(29.75, "bk", { pour: 1.1 }, 1.1, "linear");
 P(30.85, "bk", { swing: 0, flip: 0 }, 0.9, "settle");
 look(28.4, "spud", [0.6, 0.6], 0.3); look(29.4, "spud", [0.1, 0.7], 0.25);
-act.shock(c, 30.1, "spud", { open: 0.4, hold: 0.8 }); A(30.1, "spud", "squash", { amount: 0.08, dur: 0.25 });
-P(30.1, "splS", { puff: 1 }, 0.5, "out"); P(30.15, "drips", { on: 1 });
+act.shock(c, 30.22, "spud", { open: 0.4, hold: 0.8 }); A(30.22, "spud", "squash", { amount: 0.08, dur: 0.25 });
+P(30.22, "splS", { puff: 1 }, 0.5, "out"); P(30.25, "drips", { on: 1 });   // when the first drops reach him (Sol r2 33)
 for (const s of ["R", "L"]) A(30.35, "spud", "grip", { side: s, shape: "open", dur: 0.1 });   // fingers open first, the rope swings clear (Sol r1 12)
 P(30.4, "r2", { pull: 0, slack: 1 }, 0.25, "out"); arms(30.5, "spud", "rest", 0.5, "inOut");
 expr(31.0, "spud", "deadpan", { curve: -0.15 }, 0.3);
 sfx(28.0, "creak", { gain: 0.5, reason: "the rope creaks over the beam" });
 sfx(28.3, "kenney/creak", { gain: 0.3, reason: "the bucket's bail creaks on the swing" });
 sfx(29.8, "splash", { gain: 0.5, reason: "water slops out of the bucket" });
-sfx(30.1, "splash", { gain: 1.0, reason: "the bucket of water lands on you" });
+sfx(30.22, "splash", { gain: 1.0, reason: "the bucket of water lands on you" });
 sfx(30.4, "ai/drip", { gain: 0.4, reason: "you drip" });
 see(28.0, 30.5, ["bk", "spud.face", "mash.face"], "the swing and who gets the water");
 
 // ================================================================ C07 32.6-37.4: "But you can't stay up all night. So the candle pulls the rope for you."
 P(before("C07"), "r2", { scale: 0 }); P(before("C07"), "splS", { puff: 0 });
-P(before("C07"), "bk", { round: 3, swing: 0, flip: 0, pour: 0, fill: 1 }); P(before("C07"), "r3", { scale: 1, burn: 0, snap: -1 });
+P(before("C07"), "bk", { round: 3, swing: 0, flip: 0, pour: 0, fill: 1, y: 2.14 });   // pivot up inside the beam: the tip clears his leaf (Sol r2 15) P(before("C07"), "r3", { scale: 1, burn: 0, snap: -1 });
 P(before("C07"), "nc", { burn: 0.25 });
 place(before("C07"), "spud", [-0.20, 0.42], 30);
 A(before("C07"), "spud", "sit", { rot: 30, height: 0.06, dur: 0, hands: "keep" });
-arms(before("C07"), "spud", "rest", 0.01); arms(32.75, "spud", "cheeks", 0.5, "inOut"); expr(before("C07"), "spud", "eager", null, 0.01); look(before("C07"), "spud", [0.45, 0.3], 0.01);
+arms(before("C07"), "spud", "rest", 0.01); arms(32.75, "spud", { o: [0.16, 0.40, 0.27] }, 0.5, "inOut");   // chin in hands, below the eyes (Sol r2 34: "cheeks" crossed an eye) expr(before("C07"), "spud", "eager", null, 0.01); look(before("C07"), "spud", [0.45, 0.3], 0.01);
 P(32.6, "r3", { burn: 0.6 }, 4.8, "linear"); P(32.6, "nc", { burn: 0.32 }, 4.8, "linear");
-face(36.0, "spud", { lid: 0.6 }, 0.6); face(36.9, "spud", { lid: 0 }, 0.08); A(36.9, "spud", "squash", { amount: 0.04, dur: 0.15 });
+face(36.0, "spud", { lid: 0.6 }, 0.6); A(36.1, "spud", "pitch", { to: 9, dur: 0.7, ease: "in" });
+face(36.85, "spud", { lid: 0 }, 0.08); A(36.85, "spud", "pitch", { to: 0, dur: 0.1, ease: "out" }); A(36.85, "spud", "squash", { amount: 0.04, dur: 0.15 });   // the nod and the snap awake, cut on it (Sol r2 41)
 sfx(35.0, "sizzle", { gain: 0.3, dur: 2.4, reason: "the flame singes the hemp knot" });
 see(32.8, 37.3, ["spud.face", "nc", "r3"], "you wait by the candle, the knot over the flame");
 
@@ -343,7 +346,7 @@ sfx(39.5, "ai/water-gush", { gain: 0.25, dur: 3.3, reason: "the water spouts out
 see(38.9, 42.9, ["mash.face", "jet", "spud.face"], "a fountain, still asleep");
 
 // ================================================================ C09 43.0-46.5: "Fine. Something heavier." the anvil
-P(before("C09"), "splM", { puff: 0 }); for (const id of ["bk", "r3"]) P(before("C11"), id, { scale: 0 });
+P(before("C09"), "splM", { puff: 0 });   // the empty bucket and the burnt rope stay up to the end (Sol r2 36)
 P(before("C09"), "an", { scale: 1, fall: 0 }); P(before("C09"), "r4", { scale: 1, burn: 0.5, snap: -1 }); P(before("C09"), "nc", { burn: 0.45 });
 P(before("C09"), "bedm", { wet: 0.6 });
 place(before("C09"), "spud", [-0.10, 1.38], 0); A(before("C09"), "spud", "crouch", { to: 1, dur: 0 });
@@ -386,13 +389,14 @@ place(before("C11"), "spud", [-0.20, 0.42], 30);
 A(before("C12a"), "spud", "sit", { rot: 30, height: 0.06, dur: 0, hands: "keep" }); A(before("C12a"), "spud", "crouch", { to: 0, dur: 0 });
 arms(before("C12a"), "spud", "lap", 0.01); A(before("C12a"), "spud", "squash", { amount: 0.08, dur: 0.01 }); A(before("C12a"), "spud", "lean", { to: -6, dur: 0.01 });
 expr(before("C12a"), "spud", "sad", { eye: 0.45 }, 0.01); look(before("C12a"), "spud", [0.1, -0.3], 0.01);
-P(before("C12a"), "r4", { scale: 0 });   // the anvil stays in its pit (Sol r1 20) P(before("C12a"), "tp", { scale: 1, x: 0.17, y: 0, z: 0.03 });
+P(before("C12a"), "r4", { scale: 0 }); P(before("C12a"), "tp", { scale: 1, x: 0.17, y: 0, z: 0.03 });   // the anvil stays in its pit (Sol r1 20)
 P(before("C12a"), "nc", { burn: 0.78, nailA: 0, nailB: -1 });
-P(53.6, "nc", { burn: 0.80 }, 2.4, "linear"); P(56.0, "nc", { nailA: 0 }); P(56.0, "nc", { nailA: 1.5 }, 1.5, "linear");
+P(53.6, "nc", { burn: 0.80 }, 2.4, "linear"); P(55.96, "nc", { nailA: 0.03 }); P(55.96, "nc", { nailA: 1.5 }, 1.47, "linear");
+look(55.7, "spud", [0.45, -0.45], 0.2);   // a glance at the candle, cut on it (Sol r2 42)
 expr(56.47, "spud", "shocked", { eye: 1.2, open: 0.1 }, 0.12); look(56.47, "spud", [0.4, -0.6], 0.12);
 sfx(56.47, "tink", { gain: 0.9, reason: "the nail drops out of the candle onto the tin plate" });
 // C12b: his right eye opens to 0.25 for 0.8 s, shuts
-face(57.0, "mash", { lidR: 0.3 }, 0.15); face(57.8, "mash", { lidR: 1 }, 0.15);
+face(56.88, "mash", { lidR: 1 }, 0.01); face(57.1, "mash", { lidR: 0.3 }, 0.15); face(57.6, "mash", { lidR: 1 }, 0.15);
 // C12c: eyes to the nail, to the candle, the idea
 look(58.0, "spud", [0.45, -0.55], 0.01); A(58.2, "spud", "lean", { to: 0, dur: 0.3 }); A(58.2, "spud", "squash", { amount: 0, dur: 0.3 });
 act.idea(c, 58.9, "spud", { at: [0.5, 0.25], hold: 0.8 });
@@ -403,7 +407,7 @@ see(53.7, 56.8, ["spud.face", "nc", "tp"], "the low point: the candle drops its 
 P(before("C13"), "bell", { scale: 1.15 }); P(before("C13"), "tp", { x: 0.286, y: 0.42, z: -0.138 }); P(before("C13"), "nc", { burn: 0.82, nailA: 1.5, nailB: 0 });
 place(before("C13"), "spud", [0.02, 0.36], 15); A(before("C13"), "spud", "stand", { dur: 0.01 }); A(before("C13"), "spud", "pitch", { to: 10, dur: 0.01 });
 expr(before("C13"), "spud", "focused", null, 0.01);
-const NAILB = (k) => { const r = 0.125 + 0.05 * (1 - k) + 0.015; return { prop: "hut", grip: [r3(0.37 - 0.6 * r), 0.572, r3(-0.25 + 0.8 * r)] }; };   // +0.015: fingertips on the head, not the palm round the shaft
+const NAILB = (k) => { const r = 0.125 + 0.085 * (1 - k) + 0.015; return { prop: "hut", grip: [r3(0.37 - 0.6 * r), 0.572, r3(-0.25 + 0.8 * r)] }; };   // +0.015: fingertips on the head, not the palm round the shaft
 c.arm(before("C13"), "spud", "L", NAILB(0), 0.01); A(before("C13"), "spud", "grip", { side: "L", shape: "pinch", dur: 0.01 });
 P(60.5, "nc", { nailB: 1 }, 1.1, "inOut"); c.arm(60.5, "spud", "L", NAILB(1), 1.1, "inOut");
 A(61.65, "spud", "grip", { side: "L", shape: "relaxed", dur: 0.1 }); c.arm(61.75, "spud", "L", "rest", 0.35, "inOut");
@@ -420,7 +424,7 @@ sfx(65.66, "ding", { gain: 1.0, reason: "the nail strikes the brass bell" });
 for (const [t, g] of [[65.85, 0.35], [65.98, 0.22], [66.1, 0.14]]) sfx(t, "ding", { gain: g, reason: "the nail rattles on the dome" });
 // the sit-up: 6 frames, ease back, the blanket thrown off in the same frames
 up(66.0, 0.2); P(66.02, "bedm", { tuck: 0 }, 0.2, "out");
-arms(66.0, "mash", { o: [0.30, 0.62, 0.12] }, 0.2, "out"); arms(66.6, "mash", "lap", 0.4, "inOut");   // his own startled arms (Sol r1 27) face(66.0, "mash", { lid: 0, open: 0.5 }, 0.08);
+arms(66.0, "mash", { o: [0.30, 0.62, 0.12] }, 0.2, "out"); arms(66.6, "mash", "lap", 0.4, "inOut");   // his own startled arms (Sol r1 27) face(66.0, "mash", { lid: 0, lidR: 0, lidL: 0, open: 0.5 }, 0.08);
 expr(66.0, "mash", "shocked", { eye: 1.3, open: 0.5 }, 0.08); look(66.0, "mash", [0, 0], 0.08);
 place(before("C14c"), "spud", [-0.20, 0.42], 30); arms(before("C14c"), "spud", { o: [0.05, 0.42, 0.24] }, 0.01);
 arms(66.5, "spud", "up", 0.25, "out"); A(66.5, "spud", "hop", { height: 0.12, count: 1, quiet: true }); expr(66.5, "spud", "delighted", null, 0.2);
@@ -431,17 +435,18 @@ see(66.1, 69.5, ["mash.face", "spud.face", "bell"], "it works: he is awake");
 // ================================================================ C15 69.6-73.9: "...and he just invented snooze." the slap, the flop, the door
 arms(69.6, "spud", "rest", 0.4, "inOut"); expr(69.6, "spud", "deadpan", null, 0.4); look(69.7, "spud", [0.5, -0.2], 0.2);
 face(69.6, "mash", { lid: 1 }, 0.3);
+c.arm(69.5, "mash", "L", { o: [0.15, 0.45, 0.28] }, 0.3, "inOut");   // on the quilt, inside the bed board (Sol r2 29)
 A(69.82, "mash", "lean", { to: -32, dur: 0.28 });
 grips.rest(c, "mash", "R", { id: "bell", kind: "callbell", scale: 1.15, x: 0.286, y: 0.432, z: -0.138 }, [0, 0], 69.82, { dur: 0.28, ease: "in", top: 0.079 });
 P(70.1, "bell", { press: 1 }, 0.04); P(70.2, "bell", { press: 0 }, 0.1);
 sfx(70.1, "slap", { gain: 0.8, reason: "his glove slaps the bell quiet" });
 sfx(70.11, "ding", { gain: 0.3, reason: "the bell's ring is cut short under the glove" });
-c.arm(70.16, "mash", "R", UNDER, 0.4, "out"); A(70.25, "mash", "lean", { to: 0, dur: 0.25 });   // the glove springs off the bell (Sol r1 28)
+c.arm(70.16, "mash", "R", UNDER, 0.45, "out"); A(70.2, "mash", "lean", { to: 0, dur: 0.55, ease: "inOut" });   // the glove springs off the bell; lean, pitch and hips go back as one move (Sol r2 28)
 // the flop (item 29): torso back first, hips down into the straw, the quilt pulled up with it
-A(70.55, "mash", "pitch", { to: PITCH, dur: 0.3, ease: "out" });
-A(70.6, "mash", "ride", { prop: "bedm", off: [-0.20, SY, OZ], yaw: -12, dur: 0.35, ease: "inOut" });
-face(70.6, "mash", { lid: 1 }, 0.1); arms(70.55, "mash", UNDER, 0.3); P(70.6, "bedm", { tuck: 1, bolster: 1 }, 0.35, "inOut");
-A(70.95, "mash", "squash", { amount: 0.05, dur: 0.2 });
+A(70.3, "mash", "pitch", { to: PITCH, dur: 0.45, ease: "inOut" });
+A(70.3, "mash", "ride", { prop: "bedm", off: [-0.20, SY, OZ], yaw: -12, dur: 0.45, ease: "inOut" });
+face(70.4, "mash", { lid: 1 }, 0.1); c.arm(70.35, "mash", "L", UNDER, 0.4, "inOut"); P(70.35, "bedm", { tuck: 1, bolster: 1 }, 0.45, "inOut");
+A(70.8, "mash", "squash", { amount: 0.05, dur: 0.2 });
 snore(71.3, END); sfx(71.3, "ai/snore", { gain: 0.6, dur: 2.0, reason: "he snores again" });
 look(71.0, "spud", [0.4, 0.1], 0.2); expr(72.0, "spud", "deadpan", { curve: -0.2 }, 0.3);
 A(before("C15"), "boss", "show", {}); place(before("C15"), "boss", [-0.55, -2.35], 10); expr(before("C15"), "boss", "stern", null, 0.01);
@@ -458,7 +463,7 @@ see(70.0, 73.6, ["mash.face", "bell", "spud.face"], "the slap and the snore: sno
 // each span a whole number of frames, so every later cut stays ON a frame and a "before(shot)" set (0.02 s before the
 // cut, dur 0.01) still ends before the new shot's first frame (a 0.45 s span put the C07 cut at 31.35 -> frame 31.333: the
 // sit-down landed one frame into the shot)
-const TRIM = [[24.55, 25.0], [31.8, 32.6], [37.0, 37.4], [42.3, 43.0], [45.2, 46.0], [47.6, 48.0], [50.15, 50.6], [52.4, 53.6], [53.8, 55.4], [62.2, 62.8], [63.9, 64.9]]
+const TRIM = [[7.68, 7.98], [24.55, 25.0], [31.8, 32.6], [37.0, 37.4], [42.3, 43.0], [45.2, 46.0], [47.6, 48.0], [50.15, 50.6], [52.4, 53.6], [53.8, 55.4], [62.2, 62.8], [63.9, 64.9]]
   .map(([a, b]) => [r3(b - Math.round((b - a) * 30) / 30), b]);
 const W = (t) => {
   let cut = 0;
@@ -503,14 +508,14 @@ const SB = {
   allowClip: [
     { who: "mash", with: "bedm", from: 0, to: END, checks: ["shell", "clipping", "limb-in-prop", "costume-in-prop", "hand-in-prop", "arm-in-prop"], reason: "Mash lies, sits up and flops back in his bed under the blanket (an enclosing prop)" },
     { who: "spud", with: "beds", from: 0, to: 3.9, reason: "Spud sits up in his bed in the blanket's ring" },
-    { who: "spud", with: "rooster", from: 12.6, to: 16.45, checks: ["hand-in-prop", "arm-in-prop", "clipping"], reason: "the box hold: both gloves on the rooster's flanks, then it stands on his cupped gloves and flutters off (C04b)" },
+    { who: "spud", with: "rooster", from: 12.6, to: 16.45, checks: ["hand-in-prop", "arm-in-prop", "clipping", "shell"], reason: "the box hold: both gloves on the rooster's flanks, then it stands on his cupped gloves (its feet and belly on the gloves) and flutters off (C04b)" },
     { who: "mash", with: "rooster", from: 16.2, to: 25.0, checks: ["clipping", "shell", "costume-in-prop"], reason: "the rooster stands on his head, then sleeps on his belly" },
     { who: "spud", with: "r2", from: 25.0, to: 30.6, checks: ["hand-in-prop", "arm-in-prop", "clipping"], reason: "both gloves close round the rope's tail (the rope runs through his fists)" },
     { who: "mash", with: "jet", from: 39.4, to: 43.0, checks: ["clipping", "costume-in-prop"], reason: "the water column stands at his mouth" },
     { who: "mash", with: "bell", from: 70.0, to: 70.5, checks: ["hand-in-prop", "arm-in-prop"], reason: "the slap: his glove flat on the bell" },
-    { who: "mash", with: "bk", from: 38.4, to: 50.6, checks: ["clipping", "shell"], reason: "the round-3 water pours onto him (the stream is part of the bucket prop)" },
+    { who: "mash", with: "bk", from: 38.4, to: END, checks: ["clipping", "shell"], reason: "the round-3 water pours onto him (the stream is part of the bucket prop)" },
     { who: "mash", with: "r2", from: 25.0, to: 31.8, checks: ["clipping"], reason: "the trip rope's load leg runs past the back of his headphone band to the bucket over him (side lens: the rope clears his head)" },
-    { who: "mash", with: "r3", from: 32.6, to: 50.6, checks: ["clipping"], reason: "the candle rope's load leg and its burnt end hang just behind his head (side lens: clear of his face)" },
+    { who: "mash", with: "r3", from: 32.6, to: END, checks: ["clipping"], reason: "the candle rope's load leg and its burnt end hang just behind his head (side lens: clear of his face)" },
     { who: "mash", with: "fly", from: 4.8, to: 6.7, checks: ["clipping"], reason: "the fly lands and walks on his face" },
     { who: "spud", with: "mash", from: 9.6, to: 11.6, checks: ["character-overlap"], reason: "the shove: both gloves push his flank through the blanket" },
     { who: "spud", with: "bedm", from: 9.6, to: 11.6, checks: ["hand-in-prop", "arm-in-prop"], reason: "the shove: both gloves press into the straw blanket" },

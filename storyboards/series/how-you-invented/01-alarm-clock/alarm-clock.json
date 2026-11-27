@@ -50,14 +50,14 @@
    }
   ],
   [
-   40.667,
+   40.367,
    {
     "tint": "#b3b9de",
     "s": 0.9
    }
   ],
   [
-   43.667,
+   43.367,
    {
     "tint": "#d6c4d0",
     "s": 0.95
@@ -65,14 +65,14 @@
    3.3
   ],
   [
-   46.6,
+   46.3,
    {
     "tint": "#ffd9b3",
     "s": 1
    }
   ],
   [
-   55.4,
+   55.1,
    {
     "tint": "#ffe6c4",
     "s": 1.05
@@ -85,10 +85,10 @@
   "from": 0,
   "gain": 0.45,
   "lowCut": 120,
-  "until": 48.4,
+  "until": 48.1,
   "then": {
    "file": "ai/sos-warm/sos-warm-01.ogg",
-   "from": 51.6,
+   "from": 51.3,
    "gain": 0.45
   }
  },
@@ -101,8 +101,8 @@
  },
  "creative": {
   "length": [
-   65.5,
-   65.5
+   65.2,
+   65.2
   ]
  },
  "hook": {
@@ -117,13 +117,13 @@
  "fx": [
   {
    "do": "shake",
-   "at": 43.917,
+   "at": 43.617,
    "dur": 0.35,
    "amp": 0.03
   },
   {
    "do": "shake",
-   "at": 9.85,
+   "at": 9.55,
    "dur": 1.5,
    "amp": 0.012
   }
@@ -322,6 +322,7 @@
    "id": "r4",
    "kind": "beamrope",
    "to": "an",
+   "hang": -1,
    "xa": -0.4,
    "xb": 0.37,
    "bridle": true,
@@ -502,16 +503,16 @@
   },
   {
    "from": 3.98,
-   "to": 7.942,
+   "to": 7.642,
    "text": "One problem. Mash never wakes up.",
-   "pos": 330,
+   "pos": 225,
    "pop": false,
    "said": "One problem. Mash never wakes up.",
    "across": true
   },
   {
-   "from": 8.03,
-   "to": 9.66,
+   "from": 7.73,
+   "to": 9.36,
    "text": "Mash! Wake UP!",
    "pos": 330,
    "pop": false,
@@ -519,8 +520,8 @@
    "across": true
   },
   {
-   "from": 9.68,
-   "to": 13.31,
+   "from": 9.38,
+   "to": 13.01,
    "text": "You yell. You shake. Nothing.",
    "pos": 330,
    "pop": false,
@@ -528,8 +529,8 @@
    "across": true
   },
   {
-   "from": 13.33,
-   "to": 16.388,
+   "from": 13.03,
+   "to": 16.088,
    "text": "So you borrow the loudest thing in the village.",
    "pos": 330,
    "pop": false,
@@ -537,8 +538,8 @@
    "across": true
   },
   {
-   "from": 18.53,
-   "to": 20.758,
+   "from": 18.23,
+   "to": 20.458,
    "text": "Now the whole village is awake.",
    "pos": 330,
    "pop": false,
@@ -546,8 +547,8 @@
    "across": true
   },
   {
-   "from": 20.758,
-   "to": 21.921,
+   "from": 20.458,
+   "to": 21.621,
    "text": "Except Mash.",
    "pos": 330,
    "pop": false,
@@ -555,8 +556,8 @@
    "across": true
   },
   {
-   "from": 24.647,
-   "to": 27.709,
+   "from": 24.347,
+   "to": 27.409,
    "text": "Water. Nobody sleeps through water.",
    "pos": 330,
    "pop": false,
@@ -564,8 +565,8 @@
    "across": true
   },
   {
-   "from": 30.047,
-   "to": 31.367,
+   "from": 29.747,
+   "to": 31.067,
    "text": "Wrong side.",
    "pos": 330,
    "pop": false,
@@ -573,8 +574,8 @@
    "across": true
   },
   {
-   "from": 31.447,
-   "to": 33.227,
+   "from": 31.147,
+   "to": 32.927,
    "text": "But you can't stay up all night.",
    "pos": 330,
    "pop": false,
@@ -582,8 +583,8 @@
    "across": true
   },
   {
-   "from": 33.227,
-   "to": 35.682,
+   "from": 32.927,
+   "to": 35.382,
    "text": "So the candle pulls the rope for you.",
    "pos": 330,
    "pop": false,
@@ -591,8 +592,8 @@
    "across": true
   },
   {
-   "from": 38.247,
-   "to": 40.667,
+   "from": 37.947,
+   "to": 40.367,
    "text": "He's not awake. He's a fountain.",
    "pos": 330,
    "pop": false,
@@ -600,8 +601,8 @@
    "across": true
   },
   {
-   "from": 40.747,
-   "to": 42.867,
+   "from": 40.447,
+   "to": 42.567,
    "text": "Fine. Something heavier.",
    "pos": 330,
    "pop": false,
@@ -609,8 +610,8 @@
    "across": true
   },
   {
-   "from": 45.347,
-   "to": 46.6,
+   "from": 45.047,
+   "to": 46.3,
    "text": "...Too heavy.",
    "pos": 330,
    "pop": false,
@@ -618,8 +619,8 @@
    "across": true
   },
   {
-   "from": 46.78,
-   "to": 48.254,
+   "from": 46.48,
+   "to": 47.954,
    "text": "And the sun is coming up.",
    "pos": 330,
    "pop": false,
@@ -627,8 +628,8 @@
    "across": true
   },
   {
-   "from": 51.48,
-   "to": 53.622,
+   "from": 51.18,
+   "to": 53.322,
    "text": "So you stop going bigger.",
    "pos": 250,
    "pop": false,
@@ -636,8 +637,8 @@
    "across": true
   },
   {
-   "from": 58.48,
-   "to": 60.823,
+   "from": 58.18,
+   "to": 60.523,
    "text": "You've invented the alarm clock.",
    "pos": 330,
    "pop": false,
@@ -645,8 +646,8 @@
    "across": true
   },
   {
-   "from": 62.98,
-   "to": 65.36,
+   "from": 62.68,
+   "to": 65.06,
    "text": "...and he just invented snooze.",
    "pos": 330,
    "pop": false,
@@ -1221,7 +1222,7 @@
   {
    "name": "C02 Mash asleep, the fly",
    "at": 3.9,
-   "len": 4.1,
+   "len": 3.8,
    "shot": {
     "pos": [
      0.5,
@@ -1247,7 +1248,7 @@
      ],
      "fov": 56
     },
-    "dur": 4.1,
+    "dur": 3.8,
     "ease": "inOut"
    },
    "do": [
@@ -1297,7 +1298,7 @@
     {
      "sfx": "ai/snore",
      "gain": 0.45,
-     "dur": 3.6,
+     "dur": 3.48,
      "reason": "Mash snores",
      "at": 0.3
     },
@@ -1378,14 +1379,30 @@
      "side": "R",
      "pose": {
       "o": [
-       0.1,
-       0.82,
-       0.38
+       0.28,
+       0.8,
+       0.3
       ]
      },
      "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "hut",
+      "grip": [
+       0.893,
+       1.229,
+       -0.215
+      ]
+     },
+     "dur": 0.12,
      "ease": "in",
-     "at": 2.4
+     "at": 2.58
     },
     {
      "do": "prop",
@@ -1421,16 +1438,9 @@
        -0.12
       ]
      },
-     "dur": 0.5,
+     "dur": 0.45,
      "ease": "inOut",
-     "at": 3.1
-    },
-    {
-     "who": "mash",
-     "do": "face",
-     "open": 0.35,
-     "dur": 1,
-     "at": 3.87
+     "at": 2.95
     },
     {
      "do": "prop",
@@ -1441,7 +1451,14 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.78
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "open": 0.35,
+     "dur": 0.79,
+     "at": 3.78
     },
     {
      "who": "spud",
@@ -1453,7 +1470,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 4.08
+     "at": 3.78
     },
     {
      "who": "spud",
@@ -1461,21 +1478,21 @@
      "to": 55,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.08
+     "at": 3.78
     },
     {
      "who": "spud",
      "do": "lean",
      "to": 8,
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.78
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.01,
-     "at": 4.08
+     "at": 3.78
     },
     {
      "who": "spud",
@@ -1486,13 +1503,13 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.08
+     "at": 3.78
     }
    ]
   },
   {
    "name": "C03 Mash! Wake UP!",
-   "at": 8,
+   "at": 7.7,
    "len": 5.3,
    "shot": {
     "pos": [
@@ -1572,9 +1589,9 @@
        -0.301
       ]
      },
-     "dur": 0.4,
+     "dur": 0.55,
      "ease": "inOut",
-     "at": 1.35
+     "at": 1.2
     },
     {
      "who": "spud",
@@ -1588,9 +1605,9 @@
        -0.44
       ]
      },
-     "dur": 0.4,
+     "dur": 0.55,
      "ease": "inOut",
-     "at": 1.35
+     "at": 1.2
     },
     {
      "macro": "narrate",
@@ -1843,6 +1860,25 @@
     },
     {
      "who": "spud",
+     "do": "turn",
+     "to": -110,
+     "dur": 0.45,
+     "ease": "linear",
+     "at": 4.75
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 4.75
+    },
+    {
+     "who": "spud",
      "do": "move",
      "to": [
       -0.55,
@@ -2021,7 +2057,7 @@
   },
   {
    "name": "C04a the rooster carry",
-   "at": 13.3,
+   "at": 13,
    "len": 2.9,
    "shot": {
     "pos": [
@@ -2452,9 +2488,9 @@
       ],
       "palm": true,
       "at": [
-       0.253,
+       0.313,
        0.28,
-       -0.7
+       -0.648
       ]
      },
      "dur": 0.325,
@@ -2474,9 +2510,9 @@
       ],
       "palm": true,
       "at": [
-       0.253,
+       0.313,
        0.28,
-       -0.7
+       -0.648
       ]
      },
      "dur": 0.325,
@@ -2503,9 +2539,9 @@
       ],
       "palm": true,
       "at": [
-       0.303,
+       0.424,
        0.4,
-       -0.656
+       -0.551
       ]
      },
      "dur": 0.325,
@@ -2525,9 +2561,9 @@
       ],
       "palm": true,
       "at": [
-       0.303,
+       0.424,
        0.4,
-       -0.656
+       -0.551
       ]
      },
      "dur": 0.325,
@@ -2540,9 +2576,9 @@
      "prop": "rooster",
      "dur": 0,
      "to": [
-      0.303,
+      0.424,
       0.4,
-      -0.656
+      -0.551
      ],
      "at": 2.82
     },
@@ -2566,9 +2602,9 @@
      "do": "prop",
      "id": "rooster",
      "set": {
-      "x": 0.155,
-      "y": 0.52,
-      "z": -1.094,
+      "x": 0.27,
+      "y": 0.56,
+      "z": -1.013,
       "rot": 55,
       "sleep": 0,
       "tip": 0
@@ -2680,7 +2716,7 @@
       "o": [
        0.1,
        0.5,
-       0.32
+       0.4
       ]
      },
      "dur": 0.01,
@@ -2694,7 +2730,7 @@
       "o": [
        0.1,
        0.5,
-       0.32
+       0.4
       ]
      },
      "dur": 0.01,
@@ -2738,7 +2774,7 @@
   },
   {
    "name": "C04b the crow",
-   "at": 16.2,
+   "at": 15.9,
    "len": 5.6,
    "shot": {
     "pos": [
@@ -2789,9 +2825,9 @@
      "do": "prop",
      "id": "rooster",
      "set": {
-      "x": 0.567,
-      "y": 1.541,
-      "z": -0.88,
+      "x": 0.619,
+      "y": 1.537,
+      "z": -0.818,
       "rot": -35
      },
      "dur": 0.13,
@@ -2848,9 +2884,9 @@
      "do": "prop",
      "id": "rooster",
      "set": {
-      "x": 0.978,
-      "y": 1.421,
-      "z": -0.665,
+      "x": 0.969,
+      "y": 1.417,
+      "z": -0.624,
       "rot": -25
      },
      "dur": 0.1,
@@ -3030,14 +3066,14 @@
      "side": "L",
      "pose": {
       "o": [
-       0.14,
-       0.92,
-       0.22
+       0.1,
+       0.97,
+       0.3
       ]
      },
-     "dur": 0.3,
-     "ease": "in",
-     "at": 5.42
+     "dur": 0.43,
+     "ease": "inOut",
+     "at": 5.3
     },
     {
      "do": "prop",
@@ -3074,7 +3110,7 @@
   },
   {
    "name": "C05 the swat",
-   "at": 21.8,
+   "at": 21.5,
    "len": 2.766,
    "shot": {
     "pos": [
@@ -3119,9 +3155,9 @@
      "do": "prop",
      "id": "rooster",
      "set": {
-      "x": 1.278,
-      "y": 1.641,
-      "z": -0.815,
+      "x": 1.269,
+      "y": 1.637,
+      "z": -0.774,
       "rot": -60
      },
      "dur": 0.3,
@@ -3153,7 +3189,7 @@
      },
      "dur": 0.45,
      "ease": "inOut",
-     "at": 0.18
+     "at": 0.22
     },
     {
      "who": "mash",
@@ -3433,7 +3469,7 @@
   },
   {
    "name": "C06 the bucket",
-   "at": 24.566,
+   "at": 24.266,
    "len": 6.8,
    "shot": {
     "pos": [
@@ -3676,28 +3712,28 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 5.101
+     "at": 5.221
     },
     {
      "who": "spud",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 5.101
+     "at": 5.221
     },
     {
      "who": "spud",
      "do": "still",
      "dur": 1,
      "idle": 0.08,
-     "at": 5.101
+     "at": 5.221
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.08,
      "dur": 0.25,
-     "at": 5.101
+     "at": 5.221
     },
     {
      "do": "prop",
@@ -3707,13 +3743,13 @@
      },
      "dur": 0.5,
      "ease": "out",
-     "at": 5.101
+     "at": 5.221
     },
     {
      "sfx": "splash",
      "gain": 1,
      "reason": "the bucket of water lands on you",
-     "at": 5.101
+     "at": 5.221
     },
     {
      "do": "prop",
@@ -3723,7 +3759,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 5.151
+     "at": 5.251
     },
     {
      "who": "spud",
@@ -3853,19 +3889,8 @@
       "swing": 0,
       "flip": 0,
       "pour": 0,
-      "fill": 1
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 6.781
-    },
-    {
-     "do": "prop",
-     "id": "r3",
-     "set": {
-      "scale": 1,
-      "burn": 0,
-      "snap": -1
+      "fill": 1,
+      "y": 2.14
      },
      "dur": 0,
      "ease": "linear",
@@ -3925,30 +3950,12 @@
      "pose": "rest",
      "dur": 0.01,
      "at": 6.781
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "eager",
-     "dur": 0.01,
-     "at": 6.781
-    },
-    {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      0.45,
-      0.3
-     ],
-     "dur": 0.01,
-     "blink": false,
-     "at": 6.781
     }
    ]
   },
   {
    "name": "C07 the candle",
-   "at": 31.366,
+   "at": 31.066,
    "len": 4.4,
    "shot": {
     "pos": [
@@ -4010,7 +4017,13 @@
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": "cheeks",
+     "pose": {
+      "o": [
+       0.16,
+       0.4,
+       0.27
+      ]
+     },
      "dur": 0.5,
      "ease": "inOut",
      "at": 0.151
@@ -4019,7 +4032,13 @@
      "who": "spud",
      "do": "arm",
      "side": "L",
-     "pose": "cheeks",
+     "pose": {
+      "o": [
+       0.16,
+       0.4,
+       0.27
+      ]
+     },
      "dur": 0.5,
      "ease": "inOut",
      "at": 0.151
@@ -4070,6 +4089,14 @@
      "at": 3.401
     },
     {
+     "who": "spud",
+     "do": "pitch",
+     "to": 9,
+     "dur": 0.7,
+     "ease": "in",
+     "at": 3.501
+    },
+    {
      "who": "mash",
      "do": "face",
      "open": 0.35,
@@ -4081,14 +4108,22 @@
      "do": "face",
      "lid": 0,
      "dur": 0.08,
-     "at": 4.301
+     "at": 4.251
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 4.251
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.04,
-     "dur": 0.1,
-     "at": 4.301
+     "dur": 0.15,
+     "at": 4.251
     },
     {
      "do": "prop",
@@ -4147,7 +4182,7 @@
   },
   {
    "name": "C08a the knot (insert)",
-   "at": 35.766,
+   "at": 35.466,
    "len": 1,
    "shot": {
     "pos": [
@@ -4236,7 +4271,7 @@
   },
   {
    "name": "C08b the fountain",
-   "at": 36.766,
+   "at": 36.466,
    "len": 3.9,
    "shot": {
     "pos": [
@@ -4664,7 +4699,7 @@
   },
   {
    "name": "C09 the anvil",
-   "at": 40.666,
+   "at": 40.366,
    "len": 2.7,
    "shot": {
     "pos": [
@@ -4673,11 +4708,11 @@
      3.5
     ],
     "look": [
-     0.18,
+     0.1,
      0.62,
      -0.7
     ],
-    "fov": 50,
+    "fov": 54,
     "to": {
      "pos": [
       0.25,
@@ -4685,11 +4720,11 @@
       3.2
      ],
      "look": [
-      0.18,
+      0.1,
       0.62,
       -0.7
      ],
-     "fov": 50
+     "fov": 54
     },
     "dur": 2.7,
     "ease": "inOut"
@@ -4822,7 +4857,7 @@
   },
   {
    "name": "C10 the hole",
-   "at": 43.366,
+   "at": 43.066,
    "len": 3.234,
    "shot": {
     "pos": [
@@ -5105,26 +5140,6 @@
     },
     {
      "do": "prop",
-     "id": "bk",
-     "set": {
-      "scale": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 3.214
-    },
-    {
-     "do": "prop",
-     "id": "r3",
-     "set": {
-      "scale": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 3.214
-    },
-    {
-     "do": "prop",
      "id": "win",
      "set": {
       "scale": 0
@@ -5288,7 +5303,7 @@
   },
   {
    "name": "C11 the boss through the window",
-   "at": 46.6,
+   "at": 46.3,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -5508,6 +5523,19 @@
     },
     {
      "do": "prop",
+     "id": "tp",
+     "set": {
+      "scale": 1,
+      "x": 0.17,
+      "y": 0,
+      "z": 0.03
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
      "id": "nc",
      "set": {
       "burn": 0.78,
@@ -5522,7 +5550,7 @@
   },
   {
    "name": "C12a the low point, tink",
-   "at": 48.4,
+   "at": 48.1,
    "len": 0.733,
    "shot": {
     "pos": [
@@ -5585,11 +5613,22 @@
      "at": 0.3
     },
     {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.45
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.5
+    },
+    {
      "do": "prop",
      "id": "win",
      "set": {
-      "x": 1.33,
-      "y": 1.969
+      "x": 1.36,
+      "y": 2.002
      },
      "dur": 0,
      "ease": "linear",
@@ -5599,30 +5638,30 @@
   },
   {
    "name": "C12n nail A falls (insert)",
-   "at": 49.133,
+   "at": 48.833,
    "len": 0.967,
    "shot": {
     "pos": [
-     0.95,
-     0.5,
-     1.2
+     0.85,
+     0.42,
+     1.1
     ],
     "look": [
-     0.25,
-     0.32,
-     -0.1
+     0.2,
+     0.2,
+     -0.05
     ],
     "fov": 44,
     "to": {
      "pos": [
-      0.9,
-      0.48,
-      1.05
+      0.8,
+      0.4,
+      0.98
      ],
      "look": [
-      0.25,
-      0.32,
-      -0.1
+      0.2,
+      0.2,
+      -0.05
      ],
      "fov": 44
     },
@@ -5634,11 +5673,11 @@
      "do": "prop",
      "id": "nc",
      "set": {
-      "nailA": 0
+      "nailA": 0.03
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.067
+     "at": 0.027
     },
     {
      "do": "prop",
@@ -5646,9 +5685,9 @@
      "set": {
       "nailA": 1.5
      },
-     "dur": 1.5,
+     "dur": 1.47,
      "ease": "linear",
-     "at": 0.067
+     "at": 0.027
     },
     {
      "who": "spud",
@@ -5695,12 +5734,19 @@
      "dur": 0,
      "ease": "linear",
      "at": 0.947
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lidR": 1,
+     "dur": 0.01,
+     "at": 0.947
     }
    ]
   },
   {
    "name": "C12b one eye (insert)",
-   "at": 50.1,
+   "at": 49.8,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -5736,7 +5782,14 @@
      "do": "face",
      "lidR": 0.3,
      "dur": 0.15,
-     "at": 0.1
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lidR": 1,
+     "dur": 0.15,
+     "at": 0.7
     },
     {
      "who": "mash",
@@ -5744,13 +5797,6 @@
      "open": 0.6,
      "dur": 1,
      "at": 0.82
-    },
-    {
-     "who": "mash",
-     "do": "face",
-     "lidR": 1,
-     "dur": 0.15,
-     "at": 0.9
     },
     {
      "do": "prop",
@@ -5767,7 +5813,7 @@
   },
   {
    "name": "C12c the idea",
-   "at": 51.2,
+   "at": 50.9,
    "len": 2.4,
    "shot": {
     "pos": [
@@ -5993,9 +6039,9 @@
      "pose": {
       "prop": "hut",
       "grip": [
-       0.256,
+       0.235,
        0.572,
-       -0.098
+       -0.07
       ]
      },
      "dur": 0.01,
@@ -6013,7 +6059,7 @@
   },
   {
    "name": "C13 the nail (insert)",
-   "at": 53.6,
+   "at": 53.3,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -6191,7 +6237,7 @@
   },
   {
    "name": "C14a the sun, the ray",
-   "at": 55.4,
+   "at": 55.1,
    "len": 1.6,
    "shot": {
     "pos": [
@@ -6301,7 +6347,7 @@
   },
   {
    "name": "C14b the nail falls (insert)",
-   "at": 57,
+   "at": 56.7,
    "len": 0.4,
    "shot": {
     "pos": [
@@ -6428,7 +6474,7 @@
   },
   {
    "name": "C14c he sits up",
-   "at": 57.4,
+   "at": 57.1,
    "len": 3.8,
    "shot": {
     "pos": [
@@ -6653,6 +6699,21 @@
      "at": 3.2
     },
     {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       0.45,
+       0.28
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.7
+    },
+    {
      "do": "prop",
      "id": "win",
      "set": {
@@ -6709,7 +6770,7 @@
   },
   {
    "name": "C15 snooze",
-   "at": 61.2,
+   "at": 60.9,
    "len": 4.3,
    "shot": {
     "pos": [
@@ -6718,7 +6779,7 @@
      3.2
     ],
     "look": [
-     0.36,
+     0.52,
      0.66,
      -0.62
     ],
@@ -6730,7 +6791,7 @@
       2.9
      ],
      "look": [
-      0.36,
+      0.52,
       0.66,
       -0.62
      ],
@@ -6844,7 +6905,7 @@
        -0.12
       ]
      },
-     "dur": 0.4,
+     "dur": 0.45,
      "ease": "out",
      "at": 0.56
     },
@@ -6862,30 +6923,31 @@
      "who": "mash",
      "do": "lean",
      "to": 0,
-     "dur": 0.25,
-     "at": 0.65
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.6
     },
     {
      "who": "mash",
      "do": "pitch",
      "to": -40,
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.95
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.7
     },
     {
      "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       -0.02,
-       0.3,
-       -0.12
-      ]
-     },
-     "dur": 0.3,
-     "at": 0.95
+     "do": "ride",
+     "prop": "bedm",
+     "off": [
+      -0.2,
+      0.32,
+      0.3
+     ],
+     "yaw": -12,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.7
     },
     {
      "who": "mash",
@@ -6898,29 +6960,9 @@
        -0.12
       ]
      },
-     "dur": 0.3,
-     "at": 0.95
-    },
-    {
-     "who": "mash",
-     "do": "ride",
-     "prop": "bedm",
-     "off": [
-      -0.2,
-      0.32,
-      0.3
-     ],
-     "yaw": -12,
-     "dur": 0.35,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 1
-    },
-    {
-     "who": "mash",
-     "do": "face",
-     "lid": 1,
-     "dur": 0.1,
-     "at": 1
+     "at": 0.75
     },
     {
      "do": "prop",
@@ -6929,16 +6971,23 @@
       "tuck": 1,
       "bolster": 1
      },
-     "dur": 0.35,
+     "dur": 0.45,
      "ease": "inOut",
-     "at": 1
+     "at": 0.75
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.1,
+     "at": 0.8
     },
     {
      "who": "mash",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.2,
-     "at": 1.35
+     "at": 1.2
     },
     {
      "who": "spud",
@@ -7069,15 +7118,15 @@
   },
   {
    "from": 4.1,
-   "to": 7.9,
+   "to": 7.6,
    "see": [
     "mash.face"
    ],
    "why": "he sleeps through everything"
   },
   {
-   "from": 8.15,
-   "to": 13.2,
+   "from": 7.85,
+   "to": 12.9,
    "see": [
     "spud.face",
     "mash.face"
@@ -7085,8 +7134,8 @@
    "why": "the yell and the shove, nothing"
   },
   {
-   "from": 13.4,
-   "to": 16.1,
+   "from": 13.1,
+   "to": 15.8,
    "see": [
     "spud.face",
     "rooster"
@@ -7094,8 +7143,8 @@
    "why": "the loudest thing in the village"
   },
   {
-   "from": 16.4,
-   "to": 18.4,
+   "from": 16.1,
+   "to": 18.1,
    "see": [
     "rooster",
     "mash.face",
@@ -7104,8 +7153,8 @@
    "why": "the crow, the village lights, Mash asleep"
   },
   {
-   "from": 22,
-   "to": 24.567,
+   "from": 21.7,
+   "to": 24.267,
    "see": [
     "rooster",
     "mash.face",
@@ -7114,8 +7163,8 @@
    "why": "even the bird gives up"
   },
   {
-   "from": 27.567,
-   "to": 30.067,
+   "from": 27.267,
+   "to": 29.767,
    "see": [
     "bk",
     "spud.face",
@@ -7124,8 +7173,8 @@
    "why": "the swing and who gets the water"
   },
   {
-   "from": 31.567,
-   "to": 35.767,
+   "from": 31.267,
+   "to": 35.467,
    "see": [
     "spud.face",
     "nc",
@@ -7134,8 +7183,8 @@
    "why": "you wait by the candle, the knot over the flame"
   },
   {
-   "from": 37.267,
-   "to": 40.667,
+   "from": 36.967,
+   "to": 40.367,
    "see": [
     "mash.face",
     "jet",
@@ -7144,8 +7193,8 @@
    "why": "a fountain, still asleep"
   },
   {
-   "from": 40.767,
-   "to": 43.267,
+   "from": 40.467,
+   "to": 42.967,
    "see": [
     "an",
     "nc",
@@ -7154,8 +7203,8 @@
    "why": "the anvil over the bed and the burning knot"
   },
   {
-   "from": 43.767,
-   "to": 46.6,
+   "from": 43.467,
+   "to": 46.3,
    "see": [
     "mash.face",
     "rooster"
@@ -7163,16 +7212,16 @@
    "why": "a hole in the floor, he sleeps on"
   },
   {
-   "from": 46.7,
-   "to": 48.4,
+   "from": 46.4,
+   "to": 48.1,
    "see": [
     "boss.face"
    ],
    "why": "the boss is coming, sunrise"
   },
   {
-   "from": 48.5,
-   "to": 50,
+   "from": 48.2,
+   "to": 49.7,
    "see": [
     "spud.face",
     "nc",
@@ -7181,8 +7230,8 @@
    "why": "the low point: the candle drops its nail on the plate"
   },
   {
-   "from": 53.7,
-   "to": 55.3,
+   "from": 53.4,
+   "to": 55,
    "see": [
     "nc",
     "bell"
@@ -7190,8 +7239,8 @@
    "why": "the new idea: a nail in the candle over the bell"
   },
   {
-   "from": 57.7,
-   "to": 61.1,
+   "from": 57.4,
+   "to": 60.8,
    "see": [
     "mash.face",
     "spud.face",
@@ -7200,8 +7249,8 @@
    "why": "it works: he is awake"
   },
   {
-   "from": 61.6,
-   "to": 65.2,
+   "from": 61.3,
+   "to": 64.9,
    "see": [
     "mash.face",
     "bell",
@@ -7215,7 +7264,7 @@
    "who": "mash",
    "with": "bedm",
    "from": 0,
-   "to": 65.5,
+   "to": 65.2,
    "checks": [
     "shell",
     "clipping",
@@ -7236,20 +7285,21 @@
   {
    "who": "spud",
    "with": "rooster",
-   "from": 12.6,
-   "to": 16.45,
+   "from": 12.3,
+   "to": 16.15,
    "checks": [
     "hand-in-prop",
     "arm-in-prop",
-    "clipping"
+    "clipping",
+    "shell"
    ],
-   "reason": "the box hold: both gloves on the rooster's flanks, then it stands on his cupped gloves and flutters off (C04b)"
+   "reason": "the box hold: both gloves on the rooster's flanks, then it stands on his cupped gloves (its feet and belly on the gloves) and flutters off (C04b)"
   },
   {
    "who": "mash",
    "with": "rooster",
-   "from": 16.2,
-   "to": 24.567,
+   "from": 15.9,
+   "to": 24.267,
    "checks": [
     "clipping",
     "shell",
@@ -7260,8 +7310,8 @@
   {
    "who": "spud",
    "with": "r2",
-   "from": 24.567,
-   "to": 30.167,
+   "from": 24.267,
+   "to": 29.867,
    "checks": [
     "hand-in-prop",
     "arm-in-prop",
@@ -7272,8 +7322,8 @@
   {
    "who": "mash",
    "with": "jet",
-   "from": 37.767,
-   "to": 40.667,
+   "from": 37.467,
+   "to": 40.367,
    "checks": [
     "clipping",
     "costume-in-prop"
@@ -7283,8 +7333,8 @@
   {
    "who": "mash",
    "with": "bell",
-   "from": 61.6,
-   "to": 62.1,
+   "from": 61.3,
+   "to": 61.8,
    "checks": [
     "hand-in-prop",
     "arm-in-prop"
@@ -7294,8 +7344,8 @@
   {
    "who": "mash",
    "with": "bk",
-   "from": 36.767,
-   "to": 46.6,
+   "from": 36.467,
+   "to": 65.2,
    "checks": [
     "clipping",
     "shell"
@@ -7305,8 +7355,8 @@
   {
    "who": "mash",
    "with": "r2",
-   "from": 24.567,
-   "to": 31.367,
+   "from": 24.267,
+   "to": 31.067,
    "checks": [
     "clipping"
    ],
@@ -7315,8 +7365,8 @@
   {
    "who": "mash",
    "with": "r3",
-   "from": 31.367,
-   "to": 46.6,
+   "from": 31.067,
+   "to": 65.2,
    "checks": [
     "clipping"
    ],
@@ -7335,8 +7385,8 @@
   {
    "who": "spud",
    "with": "mash",
-   "from": 9.6,
-   "to": 11.6,
+   "from": 9.3,
+   "to": 11.3,
    "checks": [
     "character-overlap"
    ],
@@ -7345,8 +7395,8 @@
   {
    "who": "spud",
    "with": "bedm",
-   "from": 9.6,
-   "to": 11.6,
+   "from": 9.3,
+   "to": 11.3,
    "checks": [
     "hand-in-prop",
     "arm-in-prop"
@@ -7356,8 +7406,8 @@
   {
    "who": "spud",
    "with": "nc",
-   "from": 53.5,
-   "to": 55.4,
+   "from": 53.2,
+   "to": 55.1,
    "checks": [
     "hand-in-prop"
    ],
