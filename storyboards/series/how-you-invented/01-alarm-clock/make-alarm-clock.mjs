@@ -500,7 +500,7 @@ const SB = {
   physics: false, animeTiming: true,
   set: { type: "plain", color: "#0b1026", floor: "none", para: 0, lighting: 2, cel: { at: 0.25 }, ink: true, satsuei: true },
   grade,
-  music: { file: "ai/sneaky/sneaky-01.ogg", from: 0, gain: 0.45, lowCut: 120, until: 55.9, then: { file: "ai/sos-warm/sos-warm-01.ogg", from: 56.9, gain: 0.45 } },   // the warm cue starts on Mash's eye (the turn); a short hush with the tink between (a 3 s silence failed audio-dropout)
+  music: { file: "ai/sneaky/sneaky-01.ogg", from: 0, gain: 0.45, lowCut: 120, until: 55.9, then: { file: "ai/calm-landscape/calm-landscape-04.ogg", from: 56.9, gain: 0.45 } },   // a calm dawn bed from Mash's eye (the turn) to the end; sos-warm is a 6.5 s cue that faded out under the nail (farm audio-dropout)
   sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: "wood", guard: true },   // 0.06 = the house wind bed; 0.04 left the music gap at the low point silent (farm audio-dropout)
   creative: { length: [END, END] },
   hook: { show: ["boss", "spud", "hut"], hint: 0, what: "the door bangs open, a furious boss points into the dark hut: 'Sunrise. Not one minute later. Or you're BOTH fired.'" },

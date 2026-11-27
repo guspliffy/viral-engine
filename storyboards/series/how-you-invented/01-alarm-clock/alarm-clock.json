@@ -87,7 +87,7 @@
   "lowCut": 120,
   "until": 48.8,
   "then": {
-   "file": "ai/sos-warm/sos-warm-01.ogg",
+   "file": "ai/calm-landscape/calm-landscape-04.ogg",
    "from": 49.8,
    "gain": 0.45
   }
