@@ -86,7 +86,7 @@ const props = [
   { id: "usroad", staged: "the wide road, plaza and pavements", kind: "usroad", ...at3(0, 0, 0) },
   { id: "barsus", staged: "white bars across the wide road", kind: "crossbars", ...at3(7.81, 0.004, -0.10), n: 10, w: 0.42, len: 2.0, pitch: 0.84, axis: "x" },
   { id: "pole", staged: "the button pole at the kerb", kind: "uspedpole", ...at3(16.14, PV, -0.10), face: 135, hand: 1, press: 0, talk: 0 },
-  { id: "span", staged: "the span wire over the road", kind: "spanwire", ...at3(0, 0, 0), a: [16.5, PV, 2.1], b: [7.2, PV, 2.1], sag: 0.22 },
+  { id: "span", staged: "the span wire over the road", kind: "spanwire", ...at3(0, 0, 2.1), sag: 0.22 },
   ...[[12.6, 4.48], [11.0, 4.44], [9.4, 4.48]].map(([x, y], i) => ({ id: `sig${i}`, staged: "hangs on the span wire", kind: "trafficlight", ...at3(x, y, 2.1), hang: true, housing: "#e8b923", scale: 0.75, go: 1, rot: 135 })),
   { id: "busus", staged: "the other bus waits at the far pavement", kind: "citybus", ...at3(BUSUS[0], 0, BUSUS[1]), look: "us", open: 1, len: 0 },
   { id: "busdriver", staged: "drives the American bus", kind: "streetpotato", ...at3(9.02, 0.66, -2.15), h: 0.9, coat: "#2b3f8a", rot: 0 },
