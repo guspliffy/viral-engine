@@ -33,9 +33,9 @@ function cues(ln, ws) {
   return align(ln.text.split(/\s+/), out);
 }
 // edit round 1: trims. KEEP = inclusive heard-word index ranges kept per line (joined by SIL s of silence); TEXT/CAPS = the written line / caption phrases after the cut
-const KEEP = { L02: [[1, 2]], L07: [[0, 8]], L16: [[0, 5]], L08: [[0, 3], [4, 9]], L27: [[0, 0], [1, 3]], L28: [[0, 2]] };
-const TEXT = { L02: "What's inside?", L07: "The turtle carried him down, to the Dragon Palace.", L16: "Back home, the pines were giants." };
-const CAPS = { L02: "What's inside?", L07: "The turtle carried him down,|to the Dragon Palace", L16: "Back home,|the pines were giants.", L08: "You saved my messenger.|Stay as long as you like." };
+const KEEP = { L16: [[0, 5]], L08: [[0, 3], [4, 9]], L27: [[0, 0], [1, 3]] };   // L02 "Why? What's" and L07 "Palace under" run together with no silence: kept whole (no cut-off voices beats Sol's trim)
+const TEXT = { L16: "Back home, the pines were giants." };
+const CAPS = { L16: "Back home,|the pines were giants.", L08: "You saved my messenger.|Stay as long as you like." };
 const SIL = 0.14, PAD = 0.04, TAIL = 0.16;   // Jonny 27 Nov: A clipped voice ends -> keep each word's decay (Whisper ends early)
 delete LINE.L19;
 for (const ln of Object.values(LINE)) {
@@ -48,9 +48,17 @@ for (const ln of Object.values(LINE)) {
   const voiced = (i) => { let a = 0; const w = Math.round(sr * 0.01); for (let j = i; j < Math.min(nS, i + w); j++) a += mono[j] * mono[j]; return Math.sqrt(a / w) > mx0 * 0.012; };
   const parts = [], words = []; let at = 0; ln.segs = [];
   keep.forEach(([i0, i1], k) => {
-    let a = KEEP[ln.id] && (i0 > 0 || ln.id === "L27") ? Math.max(all[i0][1] - PAD, i0 > 0 ? all[i0 - 1][2] : 0) : 0;
-    let b = KEEP[ln.id] ? Math.min(nS / sr, all[i1][2] + TAIL, i1 + 1 < all.length ? all[i1 + 1][1] - 0.03 : 1e9) : nS / sr;
-    if (KEEP[ln.id]) { let e = Math.floor(b * sr); while (e > a * sr + sr * 0.1 && !voiced(e - Math.round(sr * 0.01))) e -= Math.round(sr * 0.005); b = Math.min(b, e / sr + 0.1); }
+    // Jonny 27 Nov: A clipped voice starts/ends. Whisper word edges are 20-100 ms off, so cut in the quietest 10 ms
+    // between two words (never at a word edge), and never trim a line's own first onset or last tail.
+    const rms = (t) => { const i = Math.max(0, Math.floor(t * sr)), w = Math.round(sr * 0.01); let q = 0; for (let j = i; j < Math.min(nS, i + w); j++) q += mono[j] * mono[j]; return Math.sqrt(q / w); };
+    const quiet = (lo, hi) => { let best = lo, bv = 1e9; for (let t = lo; t <= hi; t += 0.005) { const v = rms(t); if (v < bv) { bv = v; best = t; } } return best; };
+    const TH = mx0 * 0.006, still = (t) => rms(t) < TH && rms(t + 0.01) < TH && rms(t - 0.01) < TH;   // sibilants (s, ce) sit near 2-5 % of peak: keep them
+    const back = (from, lo) => { for (let t = from; t >= lo; t -= 0.005) if (still(t)) { let u = t; while (u - 0.005 >= Math.max(lo, t - 0.02) && still(u - 0.005)) u -= 0.005; return u; } return quiet(lo, from); };   // onset: last silence before the word
+    const fwd = (from, hi) => { for (let t = from; t <= hi; t += 0.005) if (still(t)) { let u = t; while (u + 0.005 <= Math.min(hi, t + 0.04) && still(u + 0.005)) u += 0.005; return u; } return quiet(from, hi); };   // stop inside the silence, never at the next word's onset    // tail: first silence after the word
+    let a = 0, b = nS / sr;
+    if (KEEP[ln.id] && i0 > 0) a = back(all[i0][1] + 0.02, Math.max(all[i0 - 1][2] - 0.02, all[i0][1] - 0.35));
+    else if (ln.id === "L27") a = back(all[0][1] + 0.02, Math.max(0, all[0][1] - 0.35));
+    if (KEEP[ln.id] && i1 + 1 < all.length) b = fwd(all[i1][2] - 0.02, Math.min(all[i1 + 1][1] + 0.03, all[i1][2] + 0.4));
     const i0s = Math.floor(a * sr), i1s = Math.floor(b * sr); parts.push(mono.subarray(i0s, i1s)); ln.segs.push([a, b]);
     for (let w = i0; w <= i1; w++) words.push([all[w][0], at + Math.max(0, all[w][1] - a), at + Math.min(b - a, all[w][2] - a)]);
     at += b - a; if (k < keep.length - 1) { parts.push(new Float32Array(Math.round(SIL * sr))); at += SIL; }
@@ -504,7 +512,7 @@ function captions(time) {
   const b = TL.find((x) => x.ln && time >= x.lineAt - 0.04 && time < x.lineAt + x.d + 0.15);
   if (!b || !b.ln.phr.length) return "";
   const lane = { L03: 300, L23: 520, L24: 400, L25: 400, L27: 330, L28: 330, L17: 430 }[b.line] ?? 480;
-  return captionSvg(b.ln.phr, time - b.lineAt, { key: KEY, y: lane });
+  return captionSvg(b.ln.phr, time - b.lineAt, { reveal: true, key: KEY, y: lane });
 }
 
 // ---------------------------------------------------------------- one frame

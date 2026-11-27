@@ -177,8 +177,8 @@ function openInsert(T, v, fl) {
   const bx = { ...BX, Y: 0, worn: 1, weed: 1 }, bs = SEA.box(c, { ...bx, lid: o, cord }, T), pt = boxPts(c, bx, o, T);
   const back = v > 0.5 ? ease(clamp((v - 0.5) / 0.2)) * 520 : -Math.sin(clamp((v + 0.3) / 0.8) * 3) * 10;
   const hand = pinchHand({ x: pt.bow.x - back * 0.6 - 4, y: pt.bow.y + back * 0.8 }, 48, pt.sc * 1.25, { sleeve: SLEEVE_KID });
-  const gap = v < 0.18 ? 0.9 : v < 0.46 ? lerp(0.9, 0.05, ease(clamp((v - 0.18) / 0.28), "in")) : v < 0.5 ? lerp(0.05, 0, (v - 0.46) / 0.04) : lerp(0, 0.8, ease(clamp((v - 0.5) / 0.28)));
-  const tipY = 0.29 + 0.12 * o + gap, tipX = BX.X + 0.04 + (v < 0.5 ? lerp(0.5, 0.0, ease(clamp((v - 0.1) / 0.4))) : lerp(0, 0.35, ease(clamp((v - 0.5) / 0.28))));
+  const gap = v < 0.18 ? 0.9 : v < 0.46 ? lerp(0.9, 0.05, ease(clamp((v - 0.18) / 0.28), "in")) : v < 0.5 ? lerp(0.05, 0, (v - 0.46) / 0.04) : v < 0.62 ? 0 : lerp(0, 0.8, ease(clamp((v - 0.62) / 0.28)));   // Sol r2: contact holds 0.5-0.62
+  const tipY = 0.29 + 0.12 * o + gap, tipX = BX.X + 0.04 + (v < 0.5 ? lerp(0.5, 0.0, ease(clamp((v - 0.1) / 0.4))) : lerp(0, 0.35, ease(clamp((v - 0.62) / 0.28))));
   const stf = SEA.staff(c, { X: tipX, Y: tipY, Z: BX.Z - 0.05, rot: 10 + 18 * (tipX - BX.X), flame: fl }, T);
   return `<g transform="translate(${n(shake(v, 0.5, 7))},${n(shake(v, 0.5, 9, 0.18))})">` + b.back + bs.svg + hand + stf + b.front + `</g>`;
 }
@@ -192,7 +192,7 @@ beat("L01", (v, d, T, ln) => {
   return keeperClose(T, (v - 1.3) / 1, { keeper: { stern: 1, flame: fl } }).svg;
 });
 beat("L02", (v, d, T) => { SEA.mood(0); return kidClose(T, v / d, { kid: { look: -0.8 } }).svg; });
-beat("L03", (v, d, T, ln) => { SEA.mood(0.1); return keeperClose(T, clamp(v / d), { dx: 0.17, dy: 300, keeper: { stern: 1 } }).svg; });
+beat("L03", (v, d, T, ln) => { SEA.mood(0.1); return keeperClose(T, clamp(v / d) * 0.5, { dx: 0.17, dy: 300, keeper: { stern: 1 } }).svg; });
 
 // ---- the rescue: four sub-shots (wide, pokes, the block, the surf), kids with real hands and feet
 const TU = B.turtle;
@@ -202,7 +202,7 @@ beat("L04", (v, d, T, ln) => {
   if (k < 3) {
     const c = [cam(v / 1.5, C(-0.2, 1.55, -1.2, 800), C(0.0, 1.5, -0.6, 820)), cam((v - 1.5) / 1.5, C(0.1, 0.9, 4.5, 980), C(0.12, 0.9, 4.7, 980)), cam((v - 3.0) / 1.4, C(0.0, 0.9, 4.6, 980), C(0.06, 0.9, 4.8, 980))][k];
     const b = SEA.beach(c, T, { sun: [800, 190, 64], boat: true });
-    const tu = SEA.turtle(c, { X: TU.X, Y: 0, Z: TU.Z, size: 0.45, dir: 1, tuck: 0.6 + 0.4 * Math.sin(v * 9) * 0.5, swim: T * 0.4 }, T);
+    const tu = SEA.turtle(c, { X: TU.X, Y: -0.035, Z: TU.Z, size: 0.45, dir: 1, tuck: 0.92 + 0.08 * Math.sin(v * 9), swim: T * 0.4 }, T);
     const blocking = k === 2, away = blocking ? clamp((v - 3.75) / 0.6) : 0;
     let uxx = k === 0 ? lerp(-3.4, -1.9, ease(clamp(v / 1.5))) : k === 1 ? lerp(-1.9, -1.35, ease(clamp((v - 1.5) / 1.5))) : lerp(-1.35, KP[1].X + 0.05, ease(clamp((v - 3.0) / 0.4)));
     const ur = SEA.urashima(c, { X: uxx, Z: k < 2 ? 7.2 : 7.2, fx: 0.85, reach: blocking ? ease(clamp((v - 3.1) / 0.3)) : 0, look: 0.6, lean: k < 2 ? 5 : 3, Y: k < 2 ? Math.abs(Math.sin(v * 12)) * 0.04 : 0, shock: 0.2 }, T);
@@ -248,12 +248,12 @@ beat("L06", (v, d, T) => { SEA.mood(0.1); return keeperClose(T, v / d, { keeper:
 // ---- the dive: ONE follow with a fixed camera (no size snap), the turtle's nose in frame; only the exterior cut changes size
 function palaceExterior(T, v) {
   const dc = { ...SEA.DIVE.cam.main }, e = clamp(v / 1.6), dv = SEA.dive(dc, T, { depth: 0.95, palace: 1 });
-  const tu = SEA.turtle(dc, { X: lerp(-1.2, -0.7, e), Y: 3.1, Z: 8.5, size: 1, dir: 1, pitch: 24, swim: T * 0.9 }, T), ur = SEA.urashima(dc, { ...tu.seat, ride: 1, fx: 0.75, bow: 12 }, T);
+  const tu = SEA.turtle(dc, { X: lerp(-1.2, -0.7, e), Y: 2.45, Z: 8.5, size: 1, dir: 1, pitch: 24, swim: T * 0.9 }, T), ur = SEA.urashima(dc, { ...tu.seat, ride: 1, fx: 0.75, bow: 12 }, T);
   return dv.back + tu.svg + ur.svg + tu.front + dv.front;
 }
 beat("L07", (v, d, T, ln) => {
   const f = v / d; SEA.mood(lerp(0.55, 1.25, ease(f)));
-  if (v < 3.0) { const dc = { ...SEA.DIVE.cam.main, h0: SEA.DIVE.cam.main.h0 + 150 }, e = clamp(v / 3.0), dv = SEA.dive(dc, T, { depth: lerp(0.0, 0.85, e) }), tu = SEA.turtle(dc, { X: -0.1, Y: 1.15, Z: 3.9, size: 1, dir: 1, pitch: lerp(10, 24, e), swim: T * 0.9 }, T), ur = SEA.urashima(dc, { ...tu.seat, ride: 1, fx: 0.75, shock: 0.3, bow: 8, look: 0.6 }, T); return dv.back + tu.svg + ur.svg + tu.front + dv.front; }
+  if (v < 3.0) { const dc = { ...SEA.DIVE.cam.main, h0: SEA.DIVE.cam.main.h0 + 150 }, e = clamp(v / 3.0), dv = SEA.dive(dc, T, { depth: lerp(0.0, 0.85, e) }), tu = SEA.turtle(dc, { X: -0.28, Y: 1.15, Z: 3.9, size: 1, dir: 1, pitch: lerp(10, 24, e), swim: T * 0.9 }, T), ur = SEA.urashima(dc, { ...tu.seat, ride: 1, fx: 0.75, shock: 0.3, bow: 8, look: 0.6 }, T); return dv.back + tu.svg + ur.svg + tu.front + dv.front; }
   return palaceExterior(T, v - 3.0);
 });
 
@@ -276,7 +276,8 @@ beat("L09", (v, d, T, ln) => {
   const k = S.findIndex((x) => v >= x && v < x + 0.8);
   if (k >= 0) { const z = 1 + 0.05 * clamp((v - S[k]) / 0.8); return `<g transform="translate(540,960) scale(${n(z)}) translate(-540,-960)">${SEA.seasonView(k, 0, 0, W, H, T)}</g>`; }
   const c = cam(v / w0, C(0, 2.5, 0.6, 960), C(0, 2.55, 1.9, 960));
-  return SEA.seasons(v < w0 ? c : SEA.SEASONS.cam.all, T, { open: [1, 1, 1, 1] });
+  const lastK = S.reduce((a, x, i) => (v >= x ? i : a), -1);   // Sol r2: 'Autumn.' over the wall keeps the autumn pane lit
+  return SEA.seasons(v < w0 ? c : SEA.SEASONS.cam.all, T, lastK >= 0 ? { open: [1, 1, 1, 1], focus: lastK } : { open: [1, 1, 1, 1] });
 });
 beat("L10", (v, d, T) => { SEA.mood(0.1); return kidClose(T, v / d, { kid: { shock: 0.5, grin: 0.8 } }).svg; });
 beat("L11", (v, d, T, ln) => {
@@ -289,7 +290,7 @@ beat("L12", (v, d, T) => { SEA.mood(2.6); const c = cam(v / d, C(-0.5, 1.28, 8.0
 beat("L13", (v, d, T, ln) => {
   SEA.mood(2.4); const w = ws(ln, "but", 1.8) - 0.1, c = cam(v / d, C(0.0, 1.25, 7.2, 1080), C(0.0, 1.15, 7.8, 1080));
   const u = ease(clamp((v - w) / (d - w - 0.25)));
-  const { h, ot, ur } = hall(c, T, { give: 1 - 0.5 * u, ot: { sad: 0.8 }, ur: { reach: 0.3 + 0.7 * u, sad: 0.7, fx: 0.75 } });
+  const { h, ot, ur } = hall(c, T, { give: 1 - 0.5 * u, ot: { sad: 0.8 }, ur: { reach: 0.3 + 0.7 * ease(clamp((v - w + 0.45) / 0.4)), sad: 0.7, fx: 0.75 } });   // Sol r2: palm under the base first
   const a = ot.hold, b2 = ur.hold || a, bp = { X: lerp(a.X, b2.X, u), Y: lerp(a.Y, b2.Y, u), Z: lerp(a.Z, b2.Z, u) };
   return h.back + ot.svg + ur.svg + SEA.box(c, { ...bp, X: bp.X - 0.02 * (1 - u), held: true }, T).svg + h.front;
 });
@@ -391,8 +392,9 @@ beat("L24", (v, d, T, ln) => {
   const bx = SEA.box(c, { ...ur.hold, held: true, lid: 0.9, cord: 1, hinge: true }, T), hp = L.P(c, ur.hold.X, ur.hold.Y, ur.hold.Z), sk = ag > 0.5 ? "#dccbbd" : "#f0c49c";
   const palm = `<ellipse cx="${n(hp.x - hp.s * 0.02)}" cy="${n(hp.y + hp.s * 0.02)}" rx="${n(hp.s * 0.15)}" ry="${n(hp.s * 0.045)}" fill="${sk}" stroke="${INKC}" stroke-width="2.5"/>`;
   const thumb = `<path d="M${n(hp.x - hp.s * 0.12)},${n(hp.y - hp.s * 0.02)} q${n(hp.s * 0.05)},${n(-hp.s * 0.1)} ${n(hp.s * 0.1)},${n(-hp.s * 0.05)}" stroke="${INKC}" stroke-width="${n(hp.s * 0.05)}" stroke-linecap="round" fill="none"/><path d="M${n(hp.x - hp.s * 0.12)},${n(hp.y - hp.s * 0.02)} q${n(hp.s * 0.05)},${n(-hp.s * 0.1)} ${n(hp.s * 0.1)},${n(-hp.s * 0.05)}" stroke="${sk}" stroke-width="${n(hp.s * 0.04)}" stroke-linecap="round" fill="none"/>`;
-  const sm = SEA.smoke(c, { ...bx.mouth, amt, rise: 1.4 + 1.6 * amt, spread: lerp(0.6, 1.3, amt), drift: 0.4, seed: 2 }, T);
-  return b.back + ur.svg + palm + bx.svg + thumb + `<g opacity="${n(clamp(amt * 3))}">${sm}</g>`;
+  const pk = v < t3 ? amt : 1, late = Math.max(0, v - t3 - 1.0);   // Sol r2: after the peak the puffs keep their size and drift up while they thin
+  const sm = SEA.smoke(c, { ...bx.mouth, amt: pk, rise: 1.4 + 1.6 * pk + 0.5 * late, spread: lerp(0.6, 1.3, pk), drift: 0.4 + 0.3 * late, seed: 2 }, T);
+  return b.back + ur.svg + palm + bx.svg + thumb + `<g opacity="${n(v < t3 + 1.0 ? clamp(amt * 3) : Math.pow(amt, 0.7))}">${sm}</g>`;
 });
 beat("L25", (v, d, T) => {
   SEA.mood(3.6); const c = cam(v / d, C(0.2, 1.1, 3.0, 1150), C(0.3, 1.05, 3.5, 1180)), b = SEA.beach(c, T, { boat: false, pines: false, sun: [200, 700, 110], glitter: [200] });
@@ -404,12 +406,12 @@ beat("L25", (v, d, T) => {
 beat("L26", (v, d, T, ln) => {
   SEA.mood(4); const sw = 1.1;
   if (v < sw) {
-    const c = cam(v / sw, C(0.25, 0.6, 2.6, 1010), C(0.3, 0.6, 2.8, 1010)), b = SEA.beach(c, T, { sun: [230, 600, 120], glitter: [230], boat: false });
-    const push = clamp((v - 0.2) / 0.5), bxX = B.box.X + 0.9 * ease(clamp((v - 0.35) / 0.7), "out"), kx = B.kid.X, kz = 4.5;
+    const c = cam(v / sw, C(0.22, 0.6, 2.6, 1010), C(0.24, 0.6, 2.75, 1010)), b = SEA.beach(c, T, { sun: [230, 600, 120], glitter: [230], boat: false });
+    const push = clamp((v - 0.2) / 0.5), bxX = B.box.X + 0.45 * ease(clamp((v - 0.35) / 0.6), "out"), kx = B.kid.X, kz = 4.5;
     const kidSvg = hosts(c, T, { kid: { X: kx, Z: kz, reachL: 0, worry: 0.8 }, keeper: { stern: 0.8 } });
-    const foot = (px) => { const hip = L.P(c, kx + 0.04, 0.5, kz), fp = L.P(c, Math.min(px - 0.24, kx + 0.34), 0.0, 4.3), kn = { x: lerp(hip.x, fp.x, 0.5) - 6, y: lerp(hip.y, fp.y, 0.5) - 25 };
+    const foot = (px) => { const hip = L.P(c, kx + 0.04, 0.5, kz), fp0 = L.P(c, Math.min(px - 0.24, kx + 0.34), 0.0, 4.3), fp = { ...fp0, s: fp0.s * 0.55 }, kn = { x: lerp(hip.x, fp.x, 0.5) - 6, y: lerp(hip.y, fp.y, 0.5) - 25 };
       return `<path d="M${n(hip.x)},${n(hip.y)} L${n(kn.x)},${n(kn.y + 30)} L${n(fp.x)},${n(fp.y - 14)}" stroke="${INKC}" stroke-width="${n(fp.s * 0.05)}" stroke-linecap="round" fill="none"/><path d="M${n(hip.x)},${n(hip.y)} L${n(kn.x)},${n(kn.y + 30)} L${n(fp.x)},${n(fp.y - 14)}" stroke="#d9cba9" stroke-width="${n(fp.s * 0.038)}" stroke-linecap="round" fill="none"/><path d="M${n(fp.x - fp.s * 0.1)},${n(fp.y - fp.s * 0.04)} q${n(fp.s * 0.02)},${n(-fp.s * 0.1)} ${n(fp.s * 0.1)},${n(-fp.s * 0.08)} L${n(fp.x + fp.s * 0.18)},${n(fp.y - fp.s * 0.04)} Q${n(fp.x + fp.s * 0.2)},${n(fp.y + fp.s * 0.02)} ${n(fp.x + fp.s * 0.12)},${n(fp.y + fp.s * 0.02)} L${n(fp.x - fp.s * 0.1)},${n(fp.y + fp.s * 0.02)} Z" fill="#f2eff6" stroke="${INKC}" stroke-width="2.5"/><path d="M${n(fp.x - fp.s * 0.1)},${n(fp.y)} h${n(fp.s * 0.28)}" stroke="#b8344c" stroke-width="${n(fp.s * 0.02)}"/>`; };
-    return b.back + kidSvg + (push > 0 ? foot(bxX) : "") + SEA.box(c, { ...B.box, X: bxX, worn: 1, weed: 1 }, T).svg + b.front;
+    return b.back + kidSvg + SEA.box(c, { ...B.box, worn: 1, weed: 1 }, T).svg + b.front;   // Sol r2: the drawn push leg read as a third leg, so the box stays put
   }
   return kidClose(T, (v - sw) / (d - sw), { kid: { look: -0.9 } }, undefined, true).svg;
 });
@@ -417,7 +419,7 @@ beat("L26", (v, d, T, ln) => {
 const grandma = (T, u, hand) => {
   SEA.mood(4);
   const h = ease(hand);
-  return keeperClose(T, u, { dy: 0, keeper: { stern: 0.3, open: 1 }, noArm: true, extra: (c) => grandmaArm(c, CA.keeper.X, CA.keeper.Z, [lerp(-18, -9, h), lerp(-68, -126, h)], { rot: lerp(180, 282, h), ext: [0.3, 0.3, 0.3, 0.25] }) }, undefined, true).svg;
+  return keeperClose(T, u, { dy: 0, keeper: { stern: 0.3, open: 1 }, noArm: true, extra: (c) => grandmaArm(c, CA.keeper.X, CA.keeper.Z, [lerp(-18, -9, h) - 16 * Math.sin(Math.PI * h), lerp(-68, -126, h)], { rot: lerp(180, 296, h), ext: [0.3, 0.3, 0.3, 0.25] }) }, undefined, true).svg;
 };
 beat("L27", (v, d, T, ln) => { const p = ws(ln, "peek", 2.0); return grandma(T, (v + 0.2) / 4.5, v < p - 0.5 ? 0 : v < p + 0.1 ? clamp((v - p + 0.5) / 0.6) : clamp(1 - (v - p - 0.1) / 0.5)); }, { hold: 0.6 });
 beat("L28", (v, d, T) => grandma(T, (v + 0.6 + 3.15 + 0.2) / 4.5, 0.0), { end: true });
@@ -446,8 +448,8 @@ const KEY = /^(three|hundred|478|nineteen|window|years?|box|sea|smoke|never|gift
 function captions(time) {
   const b = TL.find((x) => x.ln && time >= x.lineAt && time < Math.min(x.lineAt + x.d + 0.2, x.end));
   if (!b || !b.ln.words.length) return "";
-  const lane = { L03: 300, L11: 430, L17: 300, L23: 520, L24: 400, L25: 400, L27: 330, L28: 330 }[b.line] ?? 480;
-  return captionSvg(b.ln.phr, time - b.lineAt, { key: KEY, y: lane });
+  const lane = { L03: 300, L11: 430, L17: 300, L23: 520, L24: 400, L25: 400, L26: 300, L27: 190, L28: 190 }[b.line] ?? 480;
+  return captionSvg(b.ln.phr, time - b.lineAt, { reveal: true, key: KEY, y: lane });
 }
 
 // ---------------------------------------------------------------- one frame
