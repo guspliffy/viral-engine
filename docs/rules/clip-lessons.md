@@ -10,6 +10,9 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
   EVERY character in EVERY shot: feet on something? whole body inside the room (heads vs ceiling, cloth, walls)? every
   worn or held prop on the right body part? hands ON what they hold? Then a close still per contact and a 15 fps
   strip of every grab, release, raise and hand-on-table. Look at every character, not only what you changed.
+- Code-drawn (svg2d) clips: export `probe(t)` from the scene and run `node tools/svg2d/framecheck.mjs <scene.mjs>`
+  (seconds) before stills or Sol: faces cut by the edge, captions on faces, props jumping or switching hands, finger
+  counts going back. Sol's round 2 on The Monkey's Paw (16 glitches) had 4 it would have caught.
 - A reported glitch is DESCRIBED back first (timestamp, what moves wrong, why), then fixed.
 - Look at a full-size crop of every hero prop (an empty glass passed two reviews at sheet size).
 - Draft 1 already carries the drama, the commentator and the real music: the producer judges the first video, not the
