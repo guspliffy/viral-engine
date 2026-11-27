@@ -4,6 +4,7 @@
 import { readFileSync, existsSync, writeFileSync, mkdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import * as L from "../../../../tools/svg2d/lib/legend.mjs";
+import { align, captionSvg } from "../../../../tools/svg2d/lib/captions.mjs";
 import * as SEA from "../../../../tools/svg2d/lib/legend-sea.mjs";
 const { lerp, clamp, tr, ease, hash, blinkAmt, n } = L;
 
@@ -19,19 +20,17 @@ function readWav(p) {
   const s = new Int16Array(data.buffer.slice(data.byteOffset, data.byteOffset + (data.length & ~1)));
   return { sr, s, ch };
 }
-// whisper wrote "300" / "19." where the line says "three hundred" / "nineteen.": rebuild word cues from the written text
+// whisper writes "300" / "19." where the line says "three hundred" / "nineteen.": expand, then align the written
+// words to the heard ones (shared lib, PR #338) so a differing word never throws the captions off
 function cues(ln, ws) {
   const out = [];
   for (const w of ws) {
     const g = w[0].replace(/[^a-z0-9]/gi, "");
     if (g === "300") { const m = (w[1] + w[2]) / 2; out.push(["three", w[1], m], ["hundred", m, w[2]]); }
-    else if (g === "19") out.push(["nineteen" + (/[.!?]$/.test(w[0]) ? w[0].slice(-1) : ""), w[1], w[2]]);
+    else if (g === "19") out.push(["nineteen", w[1], w[2]]);
     else out.push(w);
   }
-  const written = ln.text.split(/\s+/);
-  if (written.length === out.length) return out.map((w, i) => [written[i], w[1], w[2]]);
-  console.warn(`caption words differ for ${ln.id}: ${written.length} written vs ${out.length} heard (using the heard words)`);
-  return out;
+  return align(ln.text.split(/\s+/), out);
 }
 for (const ln of Object.values(LINE)) {
   const { sr, s, ch } = readWav(`${VOICE}/${ln.id}.wav`);
@@ -353,14 +352,7 @@ const KEY = /^(three|hundred|478|nineteen|window|years?|box|sea|smoke|never|gift
 function captions(time) {
   const b = TL.find((x) => x.ln && time >= x.lineAt && time < Math.min(x.lineAt + x.d + 0.2, x.end));
   if (!b || !b.ln.words.length) return "";
-  const u = time - b.lineAt, words = b.ln.words;
-  const chunks = []; let cur = [];
-  words.forEach((w, i) => { cur.push(w); const brk = /[.,?!]$/.test(w[0]) || cur.length >= 4; if (brk || i === words.length - 1) { chunks.push(cur); cur = []; } });
-  const ch = chunks.find((c, i) => u < (chunks[i + 1] ? chunks[i + 1][0][1] : 1e9)) || chunks[chunks.length - 1];
-  const shown = ch.filter((w) => u >= w[1] - 0.04);
-  if (!shown.length) return "";
-  const txt = shown.map((w) => `<tspan fill="${KEY.test(w[0].replace(/[^a-z0-9]/gi, "")) ? "#ffc04a" : "#ffffff"}">${w[0].replace(/&/g, "&amp;")}</tspan>`).join(" ");
-  return `<text x="540" y="${/^L2[78]$/.test(b.line) ? 330 : 480}" text-anchor="middle" font-family="Inter" font-weight="900" font-size="${n(Math.min(74, 74 * 22 / Math.max(1, shown.map((w) => w[0]).join(" ").length)))}" stroke="#120c24" stroke-width="14" stroke-linejoin="round" paint-order="stroke" letter-spacing="-1">${txt}</text>`;
+  return captionSvg(b.ln.words, time - b.lineAt, { key: KEY, y: /^L2[78]$/.test(b.line) ? 330 : 480 });
 }
 
 // ---------------------------------------------------------------- one frame
