@@ -27,7 +27,7 @@ const DAD_TOP = [0.80, -1.02], DAD_TOP_YAW = 60;      // side on, LEFT palm on t
 const KID_CORNER = [-5.00, -1.82], KID_CORNER_YAW = 20;
 const DAD_BEARD = [0.0, -0.85], DAD_BEARD_YAW = 55, KID_BEARD = [1.80, 0.41];
 const DAD_SNEAK = [0.25, -0.55], KID_SNEAK = [1.45, -0.95];
-const STEP = [1.10, -1.22];
+const STEP = [1.10, -1.02];
 const DOOR_Z = -1.4965;                               // a photo's centre on the door
 const TOPP = { x: 1.35, y: 1.2325, z: DOOR_Z, roll: -2 };
 const SLOT = { b1: [1.586, 4], b2: [1.429, -3], b3: [1.272, 2], b4: [1.115, -5] };
@@ -109,23 +109,25 @@ const swapBack = (t, from, to, at, yaw) => { const a = onCut(t); A(a, from, "hid
 const camOff = (t, who, id, to = [0, HIDE, 0]) => A(onCut(t), who, "release", { prop: id, dur: 0, to });
 const camOn = (t, at, yaw) => { P(onCut(t), "camD", grips.placeFor("instacam", [at[0], 0, at[1]], yaw), 0); camHold.take(onCut(t), { reach: 0.01, settle: 0.01 }); arm(onCut(t), "dad", "R", { o: [0.36, 0.48, 0.28] }, 0.01); };
 // the photo on the door: Dad slaps it under the gold magnet (his LEFT palm on its picture), then Tato moves it to slot b
-const palmOn = (id) => ({ prop: id, grip: [0, 0.015, 0.05], palm: [0, 0.015, -0.4] });
+const palmOn = (id) => ({ prop: id, grip: [0, 0.015, 0.10], palm: [0, 0.015, -0.4] });
 const toTop = (t, id) => P(onCut(t), id, { ...TOPP }, 0);
+const slapTop = (C, id, at) => { P(onCut(C), id, { ...TOPP, scale: 0.001 }, 0); P(r3(at), id, { scale: 1 }, 0); };   // on the door (unseen) from the cut, so the palm reaches a still target; it shows as the palm lands
 const toSlot = (t, id, b) => { P(onCut(t), id, { ...slot(b), y: r3(slot(b).y + 0.12) }, 0); P(r3(t + 0.05), id, slot(b), 0.3, "out"); };   // the cut + a 0.12 slide down (Q6)
 
 // cameras (DESIGN 1 where given; every shot pushes a little)
 const MASTER = { pos: [0.65, 1.05, 3.60], look: [0.80, 0.80, -1.20], fov: 46 };
-const TOPI = { pos: [0.95, 1.25, -0.20], look: [1.38, 1.27, -1.50], fov: 34 };
+const TOPI = { pos: [0.40, 1.15, 0.55], look: [1.15, 1.10, -1.45], fov: 44 };   // draft 1: the old insert showed only an arm over the photo
+const MOONTOP = { pos: [0.85, 1.45, 1.70], look: [1.10, 1.45, -1.30], fov: 52 };
 const LADDER = { pos: [1.35, 0.875, 1.20], look: [1.35, 0.875, -1.50], fov: 30 };
 const CORNERC = { pos: [-4.30, 0.62, -0.03], look: [-5.08, 0.42, -1.98], fov: 40 };
-const SNEAKC = { pos: [1.10, 0.22, 1.35], look: [0.45, 0.55, -0.80], fov: 44 };
+const SNEAKC = { pos: [0.65, 0.32, 1.45], look: [0.25, 0.28, -0.40], fov: 50 };   // the feet in the tiny sneakers fill the frame
 const MOONW = { pos: [0.45, 1.55, 3.90], look: [0.45, 1.75, -2.00], fov: 56 };
 const KIDCU = { pos: [0.80, 0.52, 0.55], look: [0.95, 0.46, -0.95], fov: 34 };
 const DADMED = { pos: [0.05, 0.98, 1.30], look: [0.25, 0.82, -0.60], fov: 40 };
 const TWO = { pos: [0.95, 0.85, 2.40], look: [0.60, 0.62, -0.80], fov: 42 };
 const ROWKID = (b) => ({ pos: [r3(SLOT[b][0] - 0.05), 0.70, 0.45], look: [r3(SLOT[b][0] - 0.25), 0.55, -1.30], fov: 42 });
 const BEARDW = { pos: [0.95, 1.35, 3.70], look: [0.90, 0.40, -0.30], fov: 50 };
-const BEARDK = { pos: [1.55, 0.62, 1.75], look: [1.80, 0.36, 0.41], fov: 36 };
+const BEARDK = { pos: [1.35, 0.80, 2.70], look: [1.75, 0.35, 0.41], fov: 40 };
 const SANDC = { pos: [0.95, 0.55, 0.80], look: [0.95, 0.45, -0.95], fov: 40 };
 const FLOORC = { pos: [0.30, 0.55, 1.80], look: [0.55, 0.15, 0.10], fov: 44 };
 const TOASTC = { pos: [0.55, 0.85, 2.30], look: [0.45, 0.62, -0.40], fov: 42 };
@@ -200,15 +202,17 @@ const C4 = r3(e + 0.15);
 for (let i = 0; i < 3; i++) P(onCut(C4), `wisp${i}`, { scale: 0.001 }, 0);
 for (let i = 0; i < 2; i++) P(onCut(C4), `flush${i}`, { scale: 0.001 }, 0);
 P(onCut(C4), "corner", { heat: 0 }, 0); A(onCut(C4), "spud", "squash", { amount: 0, dur: 0.01 });
-const snap = (C, i, line) => {   // Dad on the top spot, the flash, the slap; returns the end of his "Top spot!"
+const SLAPS = [];
+const snap = (C, i, line) => {
+  SLAPS.push(C);   // Dad on the top spot, the flash, the slap; returns the end of his "Top spot!"
   place(C, "dad", DAD_TOP, DAD_TOP_YAW); place(C, "spud", [0.10, -0.05], 120);
   camOn(C, DAD_TOP, DAD_TOP_YAW); arm(onCut(C), "dad", "L", "rest", 0.01);
   P(onCut(C), "camD", { flash: 1, eject: 1 }, 0); P(r3(C + 0.07), "camD", { flash: 0.25 }, 0.25); P(r3(C + 0.35), "camD", { eject: 0 }, 0.01);
   fx.push({ do: "flash", at: r3(C + 0.02), dur: 0.1, peak: 0.5 });
   sfx(r3(C + 0.02), "click", { gain: 0.5, reason: "the instant camera's shutter" });
   expr(C, "dad", FACE.showman, 0.01); look(C, "dad", [-0.5, 0.2], 0.01);
-  toTop(C + 0.35, `ph${i}`);
-  arm(r3(C + 0.15), "dad", "L", palmOn(`ph${i}`), 0.25, "out"); grip(r3(C + 0.15), "dad", "L", "flat");
+  slapTop(C, `ph${i}`, C + 0.38);
+  arm(r3(C + 0.15), "dad", "L", palmOn(`ph${i}`), 0.25, "out"); grip(r3(C + 0.15), "dad", "L", "flat"); arm(r3(C + 0.75), "dad", "L", { o: [0.12, 0.80, 0.30] }, 0.25); arm(r3(C + 1.0), "dad", "L", "rest", 0.3);   // back off the door, then down
   sfx(r3(C + 0.38), "slap", { gain: 0.45 });
   shot(`top spot ${i}`, C, push(TOPI, 0.05, DUR[line] + 0.7));
   return say(line, C + 0.3);
@@ -301,7 +305,7 @@ const C15 = r3(e + 0.25);
 place(C15, "spud", KID_M, 0); place(C15, "dad", [-0.15, -0.45], 30); arm(onCut(C15), "dad", "R", "rest", 0.01); arm(onCut(C15), "dad", "L", "rest", 0.01);
 expr(C15, "spud", { eye: 0.75, tilt: 0.3, curve: -0.2 }, 0.01); look(C15, "spud", [-0.5, 0.15], 0.01);
 expr(C15, "dad", FACE.proud, 0.01); look(C15, "dad", [0.6, -0.15], 0.01);
-shot("sandwich ask", C15, push(TWO, 0.05, DUR[19] + DUR[20] + 0.5));
+shot("sandwich ask", C15, push({ pos: [0.40, 0.90, 2.90], look: [0.40, 0.60, -0.70], fov: 44 }, 0.05, DUR[19] + DUR[20] + 0.5));
 e = say(19, C15 + 0.1);
 e = say(20, e + 0.3);
 const TP = r3(e - 0.2);
@@ -353,10 +357,10 @@ place(C21, "dad", DAD_TOP, DAD_TOP_YAW, 1.05); A(onCut(C21), "dad", "pitch", { t
 P(onCut(C21), "camD", { flash: 1, eject: 1 }, 0); P(r3(C21 + 0.07), "camD", { flash: 0.25 }, 0.25); P(r3(C21 + 0.35), "camD", { eject: 0 }, 0.01);
 fx.push({ do: "flash", at: r3(C21 + 0.02), dur: 0.1, peak: 0.4 });
 sfx(r3(C21 + 0.02), "click", { gain: 0.5 });
-toTop(C21 + 0.35, "ph5");
-arm(r3(C21 + 0.15), "dad", "L", palmOn("ph5"), 0.25, "out"); grip(r3(C21 + 0.15), "dad", "L", "flat");
+toTop(C21, "ph5");
+arm(onCut(C21), "dad", "L", palmOn("ph5"), 0.01); grip(onCut(C21), "dad", "L", "flat", 0.01);   // already pressing it on the cut (a reach while upside down jumped)
 expr(C21, "dad", FACE.showman, 0.01);
-shot("moon top", C21, push(TOPI, 0.04, DUR[28] + 0.6));
+shot("moon top", C21, push(MOONTOP, 0.04, DUR[28] + 0.6));
 e = say(28, C21 + 0.3);
 
 // ---------------------------------------------------------------- 68-80 s ENDING: the crash, "You're toast.", POOF, top spot
@@ -369,7 +373,7 @@ for (const id of ["cup1", "cup2", "cup3", "plate3"]) P(onCut(C22), id, { x: { cu
 sfx(onCut(C22), "ai/glass-smash", { gain: 0.45, reason: "the plates crash when gravity comes back" });
 sfx(onCut(C22), "slam", { gain: 0.4 });
 A(onCut(C22), "spud", "pitch", { to: 0, dur: 0.01 }); place(C22, "spud", [0.55, 0.10], 0, 0);
-A(onCut(C22), "spud", "flat", { to: 0.7, dur: 0.01 });   // flat on his belly on the floor
+A(onCut(C22), "spud", "flat", { to: 0.4, dur: 0.01 });   // flat on his belly on the floor
 expr(C22, "spud", { eye: 0.3, tilt: 0.1, curve: -0.2 }, 0.01);
 A(onCut(C22), "dad", "pitch", { to: 0, dur: 0.01 }); place(C22, "dad", DAD_M, DAD_M_YAW, 0);
 arm(onCut(C22), "dad", "L", { o: [0.30, 0.42, 0.15] }, 0.01); arm(onCut(C22), "dad", "R", { o: [0.30, 0.42, 0.15] }, 0.01);   // fists on his belt
@@ -402,12 +406,12 @@ see(TT, r3(TT + 1.2), ["dadT.face", "spud.face"], "POOF: dad is a giant slice of
 P(r3(C24 + 0.8), "camT", { flash: 1, eject: 1 }, 0); P(r3(C24 + 0.87), "camT", { flash: 0 }, 0.25);
 fx.push({ do: "flash", at: r3(C24 + 0.8), dur: 0.1, peak: 0.5 }); sfx(r3(C24 + 0.8), "click", { gain: 0.5 });
 const C25 = r3(C24 + 1.5);
-camOff(C25, "spud", "camT"); arm(onCut(C25), "spud", "L", "rest", 0.01);
+camOff(C25, "spud", "camT");
 place(C25, "spud", STEP, 90, 0.30); P(onCut(C25), "stool", { x: STEP[0], z: STEP[1] }, 0);
 place(C25, "dadT", [0.40, -0.70], 20);
 toTop(C25, "ph6");
-arm(onCut(C25), "spud", "R", { o: [0.25, 0.70, 0.25] }, 0.01);
-arm(r3(C25 + 0.15), "spud", "R", palmOn("ph6"), 0.2, "out"); grip(r3(C25 + 0.15), "spud", "R", "flat");
+arm(onCut(C25), "spud", "L", { o: [0.12, 0.70, 0.25] }, 0.01); arm(onCut(C25), "spud", "R", "rest", 0.01);
+arm(r3(C25 + 0.15), "spud", "L", palmOn("ph6"), 0.2, "out"); grip(r3(C25 + 0.15), "spud", "L", "flat"); arm(r3(C25 + 0.7), "spud", "L", { o: [0.10, 0.85, 0.35] }, 0.3);   // his LEFT side is to the door
 sfx(r3(C25 + 0.3), "slap", { gain: 0.45 });
 expr(C25, "spud", FACE.smug, 0.01); look(C25, "spud", [0.3, 0.1], 0.01);
 shot("top spot toast", C25, push(TOPI, 0.05, DUR[32] + 1.0), "payoff");
@@ -432,6 +436,7 @@ write(import.meta.url, {
   hook: { show: ["dad", "spud"], hint: 0, what: LINES[0][1] },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
+    ...SLAPS.map((C) => ({ who: "dad", with: "fridge", from: r3(C + 0.1), to: r3(C + 0.45), checks: ["hand-in-prop"], reason: "the slap: his palm brushes past the door handle onto the photo (up to 5 cm, 0.3 s; Sol to judge)" })),
     { who: "spud", with: "beard", from: onCut(C11), to: onCut(C13), checks: ["shell", "clipping", "limb-in-prop", "hand-in-prop", "costume-in-prop"], reason: "tangled to his waist in the beard carpet (DESIGN 7)" },
     { who: "spud", with: "stool", from: onCut(C25), to: END, reason: "standing on the step stool (DESIGN 1)" },
     { who: "spud", with: "bread", from: TP, to: onCut(C19), checks: ["shell", "clipping", "limb-in-prop", "arm-in-prop", "hand-in-prop", "costume-in-prop"], reason: "the worn sandwich slices around him (DESIGN 8)" },
