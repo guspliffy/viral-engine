@@ -872,6 +872,261 @@
    ],
    "madeBy": "engine/soundgen/score.py from recipes-zombies.json + score-zombies.json",
    "pickedBy": "Claude 12 Nov 2026 (no ears): best CLAP margin per part against cartoon, game and pop music; for Survive it 04 zombies only (cut to its seconds)"
+  },
+  {
+   "id": "paw-a-parlour",
+   "kind": "music",
+   "files": [
+    "paw-a-parlour/paw-a-parlour-01.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 59.9,
+   "bars": 6,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": true,
+   "durationSec": 24.032,
+   "prompt": [
+    "24-second seamless loop, 60 BPM, D minor, felt upright piano open fifths, soft bowed viola, close parlour recording, sparse hymn voicing"
+   ],
+   "seed": [
+    311,
+    733
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "paw-a-parlour/paw-a-parlour-01.ogg",
+     "seed": 311,
+     "durationSec": 24.044,
+     "bars": 6,
+     "bpm": 59.9,
+     "beatSpread": 0.027,
+     "steadyBeat": true,
+     "clap": -0.204,
+     "loudnessLUFS": -17.1
+    },
+    {
+     "file": "paw-a-parlour/paw-a-parlour-02.ogg",
+     "seed": 733,
+     "durationSec": 24.021,
+     "bars": 6,
+     "bpm": 59.9,
+     "beatSpread": 0.019,
+     "steadyBeat": true,
+     "clap": -0.176,
+     "loudnessLUFS": -16.1
+    }
+   ]
+  },
+  {
+   "id": "paw-b-wish",
+   "kind": "music",
+   "files": [
+    "paw-b-wish/paw-b-wish-01.ogg"
+   ],
+   "tags": [
+    "sad"
+   ],
+   "mood": "sad",
+   "bpm": 60.0,
+   "bars": 3,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": true,
+   "durationSec": 18.001,
+   "prompt": [
+    "24-second seamless loop, 60 BPM, D minor, muted upright piano D3 E-flat3 D3, soft cello and viola, long gaps, subdued grief"
+   ],
+   "seed": [
+    312,
+    734
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "paw-b-wish/paw-b-wish-01.ogg",
+     "seed": 312,
+     "durationSec": 11.993,
+     "bars": 3,
+     "bpm": 60.0,
+     "beatSpread": 0.008,
+     "steadyBeat": true,
+     "clap": -0.241,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "paw-b-wish/paw-b-wish-02.ogg",
+     "seed": 734,
+     "durationSec": 24.009,
+     "bars": 6,
+     "bpm": 60.0,
+     "beatSpread": 0.003,
+     "steadyBeat": true,
+     "clap": -0.212,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "paw-c-plea",
+   "kind": "music",
+   "files": [
+    "paw-c-plea/paw-c-plea-01.ogg"
+   ],
+   "tags": [
+    "sad"
+   ],
+   "mood": "sad",
+   "bpm": 65.3,
+   "bars": 6,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": false,
+   "durationSec": 22.047,
+   "prompt": [
+    "24-second seamless loop, 60 BPM, D minor, middle-register viola and cello, slow soft bow swell settling to held D3"
+   ],
+   "seed": [
+    313,
+    735
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "paw-c-plea/paw-c-plea-01.ogg",
+     "seed": 313,
+     "durationSec": 22.338,
+     "bars": 6,
+     "bpm": 64.5,
+     "beatSpread": 0.089,
+     "steadyBeat": false,
+     "clap": -0.2,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "paw-c-plea/paw-c-plea-02.ogg",
+     "seed": 735,
+     "durationSec": 21.757,
+     "bars": 6,
+     "bpm": 66.2,
+     "beatSpread": 0.057,
+     "steadyBeat": true,
+     "clap": -0.22,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "paw-d-door",
+   "kind": "music",
+   "files": [
+    "paw-d-door/paw-d-door-01.ogg"
+   ],
+   "tags": [
+    "danger"
+   ],
+   "mood": "danger",
+   "bpm": 62.0,
+   "bars": 3,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": false,
+   "durationSec": 17.009,
+   "prompt": [
+    "24-second seamless loop, 60 BPM, D minor, solo bowed cello holding D3, very soft even bow, dry close recording, minimal movement"
+   ],
+   "seed": [
+    314,
+    736
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "paw-d-door/paw-d-door-01.ogg",
+     "seed": 314,
+     "durationSec": 21.235,
+     "bars": 6,
+     "bpm": 67.8,
+     "beatSpread": 0.105,
+     "steadyBeat": false,
+     "clap": -0.179,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "paw-d-door/paw-d-door-02.ogg",
+     "seed": 736,
+     "durationSec": 12.783,
+     "bars": 3,
+     "bpm": 56.3,
+     "beatSpread": 0.034,
+     "steadyBeat": true,
+     "clap": -0.194,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "paw-e-attic",
+   "kind": "music",
+   "files": [
+    "paw-e-attic/paw-e-attic-01.ogg"
+   ],
+   "tags": [
+    "danger"
+   ],
+   "mood": "danger",
+   "bpm": 56.3,
+   "bars": 3,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": true,
+   "durationSec": 12.852,
+   "prompt": [
+    "24-second seamless loop, 60 BPM, D minor, faint cello D3, isolated felt upright piano D3 E-flat3 D3, dry room, long spaces"
+   ],
+   "seed": [
+    315,
+    737
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "paw-e-attic/paw-e-attic-01.ogg",
+     "seed": 315,
+     "durationSec": 12.005,
+     "bars": 3,
+     "bpm": 60.0,
+     "beatSpread": 0.003,
+     "steadyBeat": true,
+     "clap": -0.249,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "paw-e-attic/paw-e-attic-02.ogg",
+     "seed": 737,
+     "durationSec": 13.7,
+     "bars": 3,
+     "bpm": 52.6,
+     "beatSpread": 0.045,
+     "steadyBeat": true,
+     "clap": -0.167,
+     "loudnessLUFS": -16.0
+    }
+   ]
   }
  ]
 }

@@ -10,7 +10,7 @@ import * as PW from "../../../../tools/svg2d/lib/legend-paw.mjs";
 const { lerp, clamp, tr, ease, hash, blinkAmt, n } = L;
 
 export const W = 1080, H = 1920, FPS = 30;
-const VOICE = "out/legend-paw/voice", VEDIT = "out/legend-paw/voice-edit", MUS = "out/legend-paw/music", OUT = "out/legend-paw";
+const VOICE = "out/legend-paw/voice", VEDIT = "out/legend-paw/voice-edit", MUS = "assets/music/ai", OUT = "out/legend-paw";
 const SPEC = JSON.parse(readFileSync("storyboards/series/legend/monkeys-paw/lines.json", "utf8"));
 const LINE = Object.fromEntries(SPEC.lines.map(([id, who, text]) => [id, { id, who, text }]));
 
