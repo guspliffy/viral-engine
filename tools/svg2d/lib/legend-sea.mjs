@@ -1041,7 +1041,13 @@ export function box(c, st = {}, t = 0) {
     cordLid += strand([bx, by], [bx - 5.4 + sway, by + 13 + (1 - bw) * 5], [bx - 4.6, by + 5]) + strand([bx, by], [bx + 5 - sway, by + 11 + (1 - bw) * 6], [bx + 5, by + 4]) + tassel(bx - 5.4 + sway, by + 14 + (1 - bw) * 5, 8) + tassel(bx + 5 - sway, by + 12 + (1 - bw) * 6, -8);
     cordLid += `<path d="M${bx - 2},${by - 1.6} Q${bx},${by - 3} ${bx + 2},${by - 1.6} Q${bx + 2.4},${by + 1.4} ${bx},${by + 2} Q${bx - 2.4},${by + 1.4} ${bx - 2},${by - 1.6} Z" fill="${R}" stroke="${INK}" stroke-width="0.6"/>`;
   }
-  s += cordFront + `<g transform="translate(${n(-o * 5)},${n(-o * 12)}) rotate(${n(-o * 24)} -6 -24)">${lid}${cordLid}</g>`;
+  if (st.weed) {      // edit round 1: a green seaweed tuft draped over the front and a chipped front-right corner (differs from the shrine box)
+    const wv = Math.sin(t * 1.6) * 0.8;
+    s += `<path d="M15,-17 L15,-9 L10.5,-12 L12.5,-17 Z" fill="#8a2832" stroke="${INK}" stroke-width="0.5"/><path d="M15,-10 L11,-12.6 L13.4,-14.4 Z" fill="#d2a874" stroke="none"/>`;
+    s += [0, 1, 2, 3, 4].map((i) => `<path d="M${n(-13 + i * 2.4)},-17 q${n(-3 + wv + i)},${n(7 + i * 1.2)} ${n(-1 - i * 1.2 + wv)},${n(14 + i * 1.5)}" stroke="${INK}" stroke-width="2.3" fill="none" stroke-linecap="round"/><path d="M${n(-13 + i * 2.4)},-17 q${n(-3 + wv + i)},${n(7 + i * 1.2)} ${n(-1 - i * 1.2 + wv)},${n(14 + i * 1.5)}" stroke="${i % 2 ? "#3f9a5a" : "#2f7a4a"}" stroke-width="1.4" fill="none" stroke-linecap="round"/>`).join("");
+  }
+  const lidT = st.hinge ? `rotate(${n(o * 34)} 8 -29)` : `translate(${n(-o * 5)},${n(-o * 12)}) rotate(${n(-o * 24)} -6 -24)`;
+  s += cordFront + `<g transform="${lidT}">${lid}${cordLid}</g>`;
   const sc = p.s / 100 * size, rot = st.rot || 0;
   return { svg: `<ellipse cx="${n(p.x + 4 * sc)}" cy="${n(p.y)}" rx="${n(24 * sc)}" ry="${n(5 * sc)}" fill="url(#softs)"/><g filter="url(#wb)" transform="${place(p, rot, size)}">${s}</g>`, mouth: { X: st.X + 0.04 * size, Y: Y0 + 0.2 * size, Z: st.Z - 0.01 }, top: { x: p.x + 4 * sc, y: p.y - 26 * sc }, topW: { X: st.X + 0.04 * size, Y: Y0 + 0.255 * size, Z: st.Z } };
 }
