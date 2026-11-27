@@ -3684,6 +3684,23 @@
     "change"
    ]
   },
+  "ai/icecream-jingle": {
+   "family": "music",
+   "says": "an ice cream truck heard from the street: an original 16-note chime tune twice on a tinny horn speaker with a warble, 8.2 s, distant; Dad's cue in Kid vs Dad 07 (code synth, own work, not heard yet)",
+   "source": "ai",
+   "files": [
+    "ai/icecream-jingle/icecream-jingle-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "ice cream truck",
+    "jingle",
+    "street",
+    "chimes",
+    "music box",
+    "speaker"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
