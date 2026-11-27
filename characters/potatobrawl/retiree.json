@@ -1,0 +1,79 @@
+{
+  "id": "potatobrawl/retiree",
+  "name": "Retiree (grumpy old man in the German checkout line)",
+  "franchise": "PotatoBrawl",
+  "source": "potatobrawl/chip-old copied (skin, face, hands, aged face lines), bigger body, Spud's aged costume (sweater + cardigan + glasses) and a wrist watch; Country vs Country 01 DESIGN.md section 5 (26 Nov 2026)",
+  "rig": "potato",
+  "tts": "retiree-x115",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.69,
+    "width": 0.74,
+    "depth": 0.68,
+    "lump": 0.045,
+    "seed": 41,
+    "taper": 0.02
+  },
+  "limbs": {
+    "color": "#5a4030",
+    "width": 0.032,
+    "shoulder": -0.34
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1,
+      "lidL": 0.35,
+      "lidR": 0.35
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 1.1
+    },
+    "size": 0.68,
+    "brow": "#b9b4aa"
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none",
+    "size": 1.25
+  },
+  "costume": {
+    "type": "spud",
+    "sweater": "#6f6457",
+    "cardigan": "#d6c39c",
+    "age": "old",
+    "watch": "L"
+  },
+  "personality": "The grumpy retiree in the German checkout line (Country vs Country 01): sighs and taps his watch all film, pays in cents at the end. Voice recipe retiree-x115 in engine/voice/voices.json.",
+  "voice": {
+    "pitch": 168,
+    "rate": 3.9,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 71
+  },
+  "voiceNote": "spoken with the tts recipe; the gibberish `voice` block is only the fallback",
+  "hands": {
+    "type": "glove",
+    "size": 1.1,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Variant file like chip-old.json (not the cast `scale` key: that would shrink the gloves). Body 0.69 x 0.74 x 0.68 (Chip's ball x 1.30) stands about 0.83: at Chip's size his eyes sit under the 0.46 counter. Costume type spud + age old: sweater #6f6457, beige cardigan #d6c39c with the built rib knit (cable knit cut), round gold glasses on, `watch: \"L\"` (costumes-skipage.js USAGE). brows, oldBeard, dust off; no leaf (placement none: the cap covers the sprout). The tweed cap is the separate worn prop `tweedcap`; temple tufts cut. Posture (lean 8, walk 0.6) is the clip's."
+}

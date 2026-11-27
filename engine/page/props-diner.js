@@ -24,7 +24,7 @@ import { mat, basic, mesh, canvasTex } from "./props-trend.js";
 //   wallet        a worn brown leather bifold (closed 0.12 x 0.095 x 0.022, open 0.24 wide). Origin: the spine; the back
 //                 half lies on -x, closed the front half lies over it; `open` 0..1 swings the front half over the +z side
 //                 onto +x (both insides face +z when open: the empty card pockets show); `puff` 0..1 a puff of dust.
-//   paperhat      a white paper soda-jerk cap with a red stripe (worn: spec.wear, in the body's frame, on the head).
+//   paperhat      a white paper soda-jerk cap with a red stripe (worn: spec.wear, in the body's frame, on the head). spec.color (default "#fbfaf6"), spec.stripe (default "#c8302c").
 //   checkerfloor  the black-and-white checker floor: a thin tiled sheet on the ground (spec.w, spec.d, spec.tile).
 //   pendant       a copper dome lamp hanging on a cord (spec.len, spec.r), its warm bulb lit; not solid (over the heads).
 //   condiments    a ketchup and a mustard squeeze bottle and a steel napkin holder (counter dressing).
@@ -216,7 +216,7 @@ export const DINER_KINDS = {
   },
 
   paperhat(P) {
-    const white = mat("#fbfaf6", { roughness: 0.8, side: THREE.DoubleSide }), red = mat("#c8302c", { roughness: 0.7, side: THREE.DoubleSide });
+    const white = mat(P.spec.color ?? "#fbfaf6", { roughness: 0.8, side: THREE.DoubleSide }), red = mat(P.spec.stripe ?? "#c8302c", { roughness: 0.7, side: THREE.DoubleSide });   // spec.color / spec.stripe (opt-in hex): the cap and its stripe
     // a folded paper garrison cap: a band round the head and a ridge on top, a red stripe along it
     const band = mesh(new THREE.CylinderGeometry(0.2, 0.215, 0.1, 32, 1, true), white, P.whole, 0, 0.05, 0); band.scale.z = 0.88;
     const ridge = new THREE.Shape(); ridge.moveTo(-0.2, 0); ridge.quadraticCurveTo(-0.16, 0.07, 0, 0.075); ridge.quadraticCurveTo(0.16, 0.07, 0.2, 0); ridge.lineTo(-0.2, 0);

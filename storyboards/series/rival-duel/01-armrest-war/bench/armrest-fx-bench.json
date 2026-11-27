@@ -1,0 +1,630 @@
+{
+ "id": "armrest-fx-bench",
+ "title": "Armrest war fx bench",
+ "idea": "Look bench for props-armrest-fx.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "wedge"
+  ],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [
+  {
+   "id": "hatch",
+   "kind": "ejecthatch",
+   "x": -30,
+   "y": 2.35,
+   "z": 0.05,
+   "staged": "bench: hung on a bin that is not drawn"
+  },
+  {
+   "id": "rocket",
+   "kind": "seatrocket",
+   "x": -20,
+   "y": 1.2,
+   "z": 0,
+   "staged": "bench: raised so the nozzle shows above the floor"
+  },
+  {
+   "id": "seat",
+   "kind": "planeseat",
+   "w": 0.96,
+   "arms": "none",
+   "color": "#2f4d8c",
+   "cover": 0.34,
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "seatC",
+   "kind": "carrier",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "mask",
+   "kind": "sleepmask",
+   "wear": "wedge",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 1
+  },
+  {
+   "id": "pin",
+   "kind": "wingspin",
+   "wear": "wedge",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "bag",
+   "kind": "duffel",
+   "color": "#a8352b",
+   "trim": "#c9a25a",
+   "x": 10,
+   "y": 0.13,
+   "z": 0.62
+  },
+  {
+   "id": "hat",
+   "kind": "pilothat",
+   "x": 10,
+   "y": 0.255,
+   "z": 0.62,
+   "staged": "in the bag"
+  },
+  {
+   "id": "card",
+   "kind": "cockpitcard",
+   "x": 20,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "hatch-0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -29.2,
+     1,
+     3
+    ],
+    "look": [
+     -30,
+     1.7,
+     0.05
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "ride",
+     "prop": "seatC",
+     "off": [
+      0,
+      0.3,
+      0
+     ],
+     "yaw": 0,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pin",
+     "set": {
+      "show": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "hatch": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "hatch-05",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -29.2,
+     1,
+     3
+    ],
+    "look": [
+     -30,
+     1.7,
+     0.05
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "hatch": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "hatch-1",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -29.2,
+     1,
+     3
+    ],
+    "look": [
+     -30,
+     1.7,
+     0.05
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "hatch": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "hatch-1-floor",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -28.6,
+     0.9,
+     3.4
+    ],
+    "look": [
+     -30.2,
+     0.4,
+     0
+    ],
+    "fov": 56
+   },
+   "do": []
+  },
+  {
+   "name": "hatch-1-below",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -30.2,
+     0.2,
+     1.2
+    ],
+    "look": [
+     -30,
+     2.3,
+     0.05
+    ],
+    "fov": 70
+   },
+   "do": []
+  },
+  {
+   "name": "rocket-0",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -18.7,
+     0.95,
+     1.5
+    ],
+    "look": [
+     -20,
+     0.85,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rocket",
+     "set": {
+      "flame": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "rocket-1",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -18.7,
+     0.95,
+     1.5
+    ],
+    "look": [
+     -20,
+     0.85,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rocket",
+     "set": {
+      "flame": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "rocket-half",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -18.7,
+     0.95,
+     1.5
+    ],
+    "look": [
+     -20,
+     0.85,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rocket",
+     "set": {
+      "flame": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "mask-front",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     2.6
+    ],
+    "look": [
+     0,
+     0.95,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "mask-34",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.7,
+     1.1,
+     2.1
+    ],
+    "look": [
+     0,
+     0.95,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 15,
+     "dur": 0.3,
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "mask-lean15",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.6,
+     1.05,
+     2.6
+    ],
+    "look": [
+     0,
+     0.95,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "mask-lean15-34",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.7,
+     1.1,
+     2.1
+    ],
+    "look": [
+     0.1,
+     0.95,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "pin-front",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     0.8,
+     2
+    ],
+    "look": [
+     0.17,
+     0.72,
+     0
+    ],
+    "fov": 18
+   },
+   "do": []
+  },
+  {
+   "name": "pin-34",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.3,
+     0.85,
+     1.8
+    ],
+    "look": [
+     0.17,
+     0.72,
+     0
+    ],
+    "fov": 18
+   },
+   "do": []
+  },
+  {
+   "name": "wedge-c2",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.1,
+     3.3
+    ],
+    "look": [
+     0,
+     0.92,
+     0
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "hat-c2",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     9.59,
+     1.1,
+     3.3
+    ],
+    "look": [
+     9.59,
+     0.92,
+     0
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "hat-low",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     10,
+     0.3,
+     1.7
+    ],
+    "look": [
+     10,
+     0.25,
+     0.62
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "hat-close",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     10,
+     0.75,
+     1.5
+    ],
+    "look": [
+     10,
+     0.22,
+     0.62
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "cockpit",
+   "at": 18,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     20,
+     1,
+     3.2
+    ],
+    "look": [
+     20,
+     1,
+     0
+    ],
+    "fov": 56
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "notes": "Generated by make-bench-fx.mjs (engine bench, no reviews)."
+}
