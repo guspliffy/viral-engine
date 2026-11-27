@@ -15,7 +15,7 @@ const frame = (inner) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" h
 function shotA(t) {
   GR.mood(1);
   const u = t / 2, c = { x: 2.7, y: 0.78, z: lerp(3.2, 4.1, u), h0: 1010 };
-  const hs = GR.hillside(c, t), wf = GR.wolf(c, { X: 1.95, Z: 6.2, pose: "hidden", size: 1.3, eyeSize: 1.9, blink: blinkAmt(t, [1.44]), look: tr([[0, -0.5], [0.9, 0.1], [2, 0]], t), reveal: tr([[1.6, 0], [2, 0.16]], t) }, t);
+  const hs = GR.hillside(c, t), wf = GR.wolf(c, { X: 1.95, Z: 6.2, pose: "hidden", size: 1.3, eyeSize: 1.9, blink: blinkAmt(t, [1.44]), look: tr([[0, -0.5], [0.9, 0.1], [2, 0]], t) }, t);
   return frame(GR.sky(c, t, { moon: false, stars: 0.5 }) + hs.svg + GR.mist(c, t) + GR.grade() + GR.blackout(0.62) + wf.eyes);
 }
 // (b) the kid with the crook at the pen, the flock looks up, eyes in the olive trees

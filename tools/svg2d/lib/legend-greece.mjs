@@ -618,7 +618,7 @@ function eyePair(x, y, k, o = {}) {
   let s = `<g transform="translate(${n(x)},${n(y)}) scale(${n(k * 100) / 100})">`;
   if (rv > 0.01) {   // the head around them: ragged ears and ruff, moon on one side only
     s += `<g opacity="${n(rv)}"><path d="M-9,-11 L-12.5,-24 L-3,-14 L4,-14.5 L12,-25 L11,-11 L16,-3 L19,6 L13,6.5 L14,12 L8,10 L6,19 Q0,24 -5.5,19 L-8,10 L-13,13 L-12.5,7 L-18.5,7 L-15,-3 Z" fill="${M.wolfS}" stroke="${INK}" stroke-width="0.8" stroke-linejoin="round"/>
-      <path d="M12,-25 L11,-11 L16,-3 L19,6 M5,-14 L11,-23" stroke="${M.rim}" stroke-width="0.9" fill="none" opacity="0.8" stroke-linejoin="round"/><path d="M-4,8 L-3,17 Q0,20 3.4,17 L4.5,8 Z" fill="${M.wolf}"/><path d="M-3,15.5 Q0,13.5 3.2,15.6 Q2,19.5 0,19.6 Q-2.4,19.4 -3,15.5 Z" fill="#06060c"/>`;
+      <path d="M12,-25 L11,-11 L16,-3 L19,6 M5,-14 L11,-23" stroke="${M.rim}" stroke-width="0.6" fill="none" opacity="0.35" stroke-linejoin="round"/><path d="M-4,8 L-3,17 Q0,20 3.4,17 L4.5,8 Z" fill="${M.wolf}"/><path d="M-3,15.5 Q0,13.5 3.2,15.6 Q2,19.5 0,19.6 Q-2.4,19.4 -3,15.5 Z" fill="#06060c"/>`;
     if (sn > 0.05) s += `<path d="M-6,20 Q0,${n(21 + sn * 2)} 6.4,20 L5,${n(22 + sn * 5)} Q0,${n(24 + sn * 6)} -4.6,${n(22 + sn * 5)} Z" fill="#3a0c1e" stroke="${INK}" stroke-width="0.6"/><path d="M-5,20.4 l1.2,${n(4.5 * sn)} l1.3,-${n(4.2 * sn)} l1.3,${n(2 * sn)} l1.2,-${n(2 * sn)} l1.2,${n(2.2 * sn)} l1.2,-${n(2 * sn)} l1.5,${n(4.8 * sn)} l1.3,-${n(4.6 * sn)} Z" fill="#fff6dc" stroke="${INK}" stroke-width="0.35"/>`;
     s += `</g>`;
   }
