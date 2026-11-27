@@ -6,6 +6,8 @@ import { readFileSync, existsSync, writeFileSync, mkdirSync, readdirSync } from 
 import { execFileSync } from "node:child_process";
 import * as L from "../../../../tools/svg2d/lib/legend.mjs";
 import * as HM from "../../../../tools/svg2d/lib/legend-hamelin.mjs";
+import { titleSvg } from "../../../../tools/svg2d/lib/legend-hamelin-title.mjs";   // opening title (trial, Jonny 27 Nov picked C banner = "motley"); TITLE=<style> tries another, TITLE=none drops it
+const TITLE = process.env.TITLE || "motley";
 const { lerp, clamp, tr, ease, hash, blinkAmt, n } = L;
 
 export const W = 1080, H = 1920, FPS = 30;
@@ -369,7 +371,7 @@ export function draw(time) {
   const b = TL.find((x) => time >= x.at && time < x.end) || TL[TL.length - 1];
   const u = Math.max(0, time - b.lineAt), D = b.d + (b.hold || 0);
   const svg = b.shot(u, D, time, b.ln, b);
-  return svg + `${process.env.NOCAP ? "" : captions(time)}</svg>`;
+  return svg + `${TITLE !== "none" ? titleSvg(TITLE, time) : ""}${process.env.NOCAP ? "" : captions(time)}</svg>`;
 }
 
 // ---------------------------------------------------------------- the sound mix
