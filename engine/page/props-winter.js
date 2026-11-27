@@ -299,10 +299,17 @@ export const WINTER_KINDS = {
   // apron: a vendor's half apron in red and white vertical stripes, worn (spec.wear) round the lower body: a curved
   // panel hanging from a waistband at spec.y0 down to spec.y1, wrapping spec.arc degrees of the front. Origin: the body's
   // axis; spec.rx, spec.rz the band's radii (a little outside the body there).
+  // Opt-in keys (absent = the striped half apron above, unchanged):
+  //   color  hex: a plain apron in that colour, no stripes (the waistband the same colour x 0.9)
+  //   bib    { top, w, cy?, ry? }: a bib from the waistband up to y `top`, `w` wide at its top corners (a little wider at the waist), following
+  //          the body's curve; cy, ry are the body's centre height and half height (defaults 0.76 / 0.62 = Mash) so the cloth hugs the chest
+  //   straps true: two 0.03 straps from the bib's top corners up and round the chest's sides (the face stays clear) to y 0.98, 72 deg out, where
+  //          the headphone cups hide the ends (needs `bib`)
   apron(P) {
     const S = P.spec, y0 = S.y0 ?? 0.42, y1 = S.y1 ?? 0.08, rx = S.rx ?? 0.44, rz = S.rz ?? 0.39, arc = ((S.arc ?? 110) * Math.PI) / 180, flare = S.flare ?? 1.06;
-    const tex = canvasTex(256, 128, (g, w, h) => { const n = 9, sw = w / n; for (let i = 0; i < n; i++) { g.fillStyle = i % 2 ? "#f6f1e6" : "#c4282c"; g.fillRect(i * sw, 0, sw, h); } g.fillStyle = "rgba(0,0,0,0.06)"; g.fillRect(0, h - 6, w, 6); });
-    const m = mat("#ffffff", { map: tex, roughness: 0.85, side: THREE.DoubleSide });
+    const plain = typeof S.color === "string" ? S.color : null;
+    const tex = plain ? null : canvasTex(256, 128, (g, w, h) => { const n = 9, sw = w / n; for (let i = 0; i < n; i++) { g.fillStyle = i % 2 ? "#f6f1e6" : "#c4282c"; g.fillRect(i * sw, 0, sw, h); } g.fillStyle = "rgba(0,0,0,0.06)"; g.fillRect(0, h - 6, w, 6); });
+    const m = plain ? mat(plain, { roughness: 0.85, side: THREE.DoubleSide }) : mat("#ffffff", { map: tex, roughness: 0.85, side: THREE.DoubleSide });
     const geo = new THREE.CylinderGeometry(1, flare, 1, 24, 4, true, -arc / 2, arc), p = geo.attributes.position;
     geo.translate(0, -0.5, 0); geo.scale(rx, y0 - y1, rz);
     for (let i = 0; i < p.count; i++) { const k = (y0 - y1 - (-p.getY(i))) / (y0 - y1); p.setZ(i, p.getZ(i) + 0.004 * Math.sin(p.getX(i) * 40) * (1 - k)); }   // soft folds at the hem
@@ -311,7 +318,38 @@ export const WINTER_KINDS = {
     // the waistband: a tie round the waist, on the same ellipse a little wider than the panel (the cylinder's theta 0
     // is +z, x = sin, z = cos)
     const pts = []; for (let i = 0; i <= 32; i++) { const a = -(arc + 0.5) / 2 + ((arc + 0.5) * i) / 32; pts.push(new THREE.Vector3(Math.sin(a) * rx * 1.01, 0, Math.cos(a) * rz * 1.01)); }
-    mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 48, 0.012, 6, false), mat("#c4282c", { roughness: 0.8 }), P.whole, 0, y0 - 0.005, 0).castShadow = false;
+    mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 48, 0.012, 6, false), mat(plain ? `#${new THREE.Color(plain).multiplyScalar(0.9).getHexString()}` : "#c4282c", { roughness: 0.8 }), P.whole, 0, y0 - 0.005, 0).castShadow = false;
+    const B = S.bib && typeof S.bib === "object" ? S.bib : null;
+    if (B) {
+      const top = B.top ?? y0 + 0.14, bw = B.w ?? 0.24, cy = B.cy ?? 0.76, ry = B.ry ?? 0.62, gap0 = Math.max(0.01, Math.min(rx, rz) * 0.04 + 0.01);
+      const body = (y) => Math.sqrt(Math.max(0.05, 1 - ((y - cy) / ry) ** 2));
+      // the ellipse radius factor at height y: it follows the body's curve; the clearance to the skin shrinks from the band's to 12 mm at the top
+      const fr = (y) => { const t = Math.max(0, Math.min(1, (y - y0) / Math.max(0.01, top - y0))), g = 0.045 + (gap0 - 0.045) * (1 - t); return [body(y) / body(y0) * (rx - gap0) + g, body(y) / body(y0) * (rz - gap0) + g]; };
+      const bibM = plain ? mat(plain, { roughness: 0.85, side: THREE.DoubleSide }) : mat("#f6f1e6", { roughness: 0.85, side: THREE.DoubleSide });
+      const NU = 8, NV = 6, pos = [], idx = [], hw = (y) => (bw / 2) * (1 + 0.3 * (top - y) / Math.max(0.01, top - y0));
+      for (let j = 0; j <= NV; j++) { const y = y0 + (top - y0) * (j / NV), [ax, az] = fr(y), h = hw(y);
+        for (let i = 0; i <= NU; i++) { const x = h * (2 * i / NU - 1), a = Math.asin(Math.max(-0.95, Math.min(0.95, x / ax))); pos.push(Math.sin(a) * ax, y, Math.cos(a) * az); } }
+      for (let j = 0; j < NV; j++) for (let i = 0; i < NU; i++) { const a = j * (NU + 1) + i, b2 = a + 1, c = a + NU + 1, d = c + 1; idx.push(a, c, b2, b2, c, d); }
+      const bg = new THREE.BufferGeometry(); bg.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); bg.setIndex(idx); bg.computeVertexNormals();
+      mesh(bg, bibM, P.whole).castShadow = false;
+      if (S.straps) {
+        const sTop = 0.98, sw = 0.03, N = 14, gm = mat(plain ? `#${new THREE.Color(plain).multiplyScalar(0.9).getHexString()}` : "#c4282c", { roughness: 0.8, side: THREE.DoubleSide });
+        for (const sd of [-1, 1]) {
+          const pts = [], nr = [], a0 = Math.asin(Math.min(0.95, hw(top) / fr(top)[0])), a1 = 1.25;   // the strap swings round the chest's side (the face stays clear) to the cup, 72 deg out
+          for (let q = 0; q <= N; q++) {
+            const t = q / N, y = top + (sTop - top) * t, [ax, az] = fr(top), s2 = body(y) / body(top), r0x = ax * s2 + 0.012 * (1 - s2), r0z = az * s2 + 0.012 * (1 - s2);
+            const a = a0 + (a1 - a0) * Math.pow(t, 0.55);
+            pts.push(new THREE.Vector3(sd * Math.sin(a) * r0x, y, Math.cos(a) * r0z)); nr.push(new THREE.Vector3(sd * Math.sin(a) / r0x, 0, Math.cos(a) / r0z).normalize());
+          }
+          const sp = [], si = [];
+          for (let q = 0; q <= N; q++) { const T = pts[Math.min(N, q + 1)].clone().sub(pts[Math.max(0, q - 1)]).normalize(), Bv = new THREE.Vector3().crossVectors(T, nr[q]).normalize();
+            for (const k of [-1, 1]) { const p = pts[q].clone().addScaledVector(Bv, k * sw / 2).addScaledVector(nr[q], 0.004); sp.push(p.x, p.y, p.z); } }
+          for (let q = 0; q < N; q++) { const a = q * 2; si.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+          const sg = new THREE.BufferGeometry(); sg.setAttribute("position", new THREE.Float32BufferAttribute(sp, 3)); sg.setIndex(si); sg.computeVertexNormals();
+          mesh(sg, gm, P.whole).castShadow = false;
+        }
+      }
+    }
     return { grip: 0 };
   },
 

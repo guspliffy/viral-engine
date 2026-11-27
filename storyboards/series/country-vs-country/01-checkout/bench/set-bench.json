@@ -1,0 +1,1110 @@
+{
+ "id": "set-bench",
+ "title": "Checkout set bench",
+ "idea": "Props bench for Country vs Country 01 (the halls, lanes, racks and flags), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#dfe5e8",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "shadow": {
+   "size": 5
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   1,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   2,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   3,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   4,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   5,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   6,
+   {
+    "s": 1.16,
+    "w": 0.5,
+    "c": 1
+   }
+  ],
+  [
+   7,
+   {
+    "s": 1.16,
+    "w": 0.5,
+    "c": 1
+   }
+  ],
+  [
+   8,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   9,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   10,
+   {
+    "s": 1.16,
+    "w": 0.5,
+    "c": 1
+   }
+  ],
+  [
+   11,
+   {
+    "s": 1.16,
+    "w": 0.5,
+    "c": 1
+   }
+  ],
+  [
+   12,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   13,
+   {
+    "s": 1.16,
+    "w": 0.5,
+    "c": 1
+   }
+  ],
+  [
+   14,
+   {
+    "s": 0.98,
+    "w": -0.45,
+    "c": 1.06
+   }
+  ],
+  [
+   15,
+   {
+    "s": 1.16,
+    "w": 0.5,
+    "c": 1
+   }
+  ]
+ ],
+ "split": {
+  "from": 11,
+  "to": 12,
+  "x": 540,
+  "soft": 6,
+  "s": 0.98,
+  "w": -0.45
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "wedge",
+   "lanede"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.72,
+    1
+   ],
+   "face": 55,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -1.3,
+    -0.05
+   ],
+   "y": 0.2,
+   "face": -65,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    2.62,
+    0.3
+   ],
+   "face": -60,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 5.2
+  }
+ ],
+ "props": [
+  {
+   "id": "hallde",
+   "kind": "shophall",
+   "x": -2.2,
+   "y": 0,
+   "z": 0,
+   "look": "de",
+   "x0": -4.4,
+   "x1": 0
+  },
+  {
+   "id": "hallus",
+   "kind": "shophall",
+   "x": 2.2,
+   "y": 0,
+   "z": 0,
+   "look": "us",
+   "x0": 0,
+   "x1": 4.4
+  },
+  {
+   "id": "lanede",
+   "kind": "discountlane",
+   "x": -2,
+   "y": 0,
+   "z": 0,
+   "speed": 0.5,
+   "len": 0,
+   "glow": 0
+  },
+  {
+   "id": "laneus",
+   "kind": "baglane",
+   "x": 2,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "flagde",
+   "staged": "on the till box",
+   "kind": "miniflag",
+   "flag": "de",
+   "x": -1.7,
+   "y": 0.66,
+   "z": -0.62
+  },
+  {
+   "id": "flagus",
+   "staged": "on the till box",
+   "kind": "miniflag",
+   "flag": "us",
+   "x": 2.7,
+   "y": 0.66,
+   "z": 0.98
+  },
+  {
+   "id": "rackb0",
+   "kind": "stockrack",
+   "x": -3.675,
+   "y": 0,
+   "z": -3.95,
+   "seed": 11
+  },
+  {
+   "id": "rackb1",
+   "kind": "stockrack",
+   "x": -2.325,
+   "y": 0,
+   "z": -3.95,
+   "seed": 12
+  },
+  {
+   "id": "rackb2",
+   "kind": "stockrack",
+   "x": -0.975,
+   "y": 0,
+   "z": -3.95,
+   "seed": 13
+  },
+  {
+   "id": "rackl0",
+   "kind": "stockrack",
+   "x": -4.05,
+   "y": 0,
+   "z": -3.325,
+   "rot": 90,
+   "seed": 21
+  },
+  {
+   "id": "rackl1",
+   "kind": "stockrack",
+   "x": -4.05,
+   "y": 0,
+   "z": -1.975,
+   "rot": 90,
+   "seed": 22
+  },
+  {
+   "id": "rackl2",
+   "kind": "stockrack",
+   "x": -4.05,
+   "y": 0,
+   "z": -0.625,
+   "rot": 90,
+   "seed": 23
+  },
+  {
+   "id": "rackl3",
+   "kind": "stockrack",
+   "x": -4.05,
+   "y": 0,
+   "z": 0.725,
+   "rot": 90,
+   "seed": 24
+  },
+  {
+   "id": "racks0",
+   "kind": "stockrack",
+   "x": -0.29,
+   "y": 0,
+   "z": -3.425,
+   "rot": -90,
+   "seed": 51
+  },
+  {
+   "id": "racks1",
+   "kind": "stockrack",
+   "x": -0.29,
+   "y": 0,
+   "z": -2.075,
+   "rot": -90,
+   "seed": 52
+  },
+  {
+   "id": "racks2",
+   "kind": "stockrack",
+   "x": -0.29,
+   "y": 0,
+   "z": -0.725,
+   "rot": -90,
+   "seed": 53
+  },
+  {
+   "id": "candy0",
+   "kind": "candyrack",
+   "x": 0.22,
+   "y": 0,
+   "z": -3.4,
+   "rot": 90,
+   "seed": 31
+  },
+  {
+   "id": "candy1",
+   "kind": "candyrack",
+   "x": 0.22,
+   "y": 0,
+   "z": -2.2,
+   "rot": 90,
+   "seed": 32
+  },
+  {
+   "id": "candy2",
+   "kind": "candyrack",
+   "x": 0.22,
+   "y": 0,
+   "z": -1,
+   "rot": 90,
+   "seed": 33
+  },
+  {
+   "id": "candy3",
+   "kind": "candyrack",
+   "x": 0.22,
+   "y": 0,
+   "z": 0.2,
+   "rot": 90,
+   "seed": 34
+  },
+  {
+   "id": "candyb0",
+   "kind": "candyrack",
+   "x": 1.05,
+   "y": 0,
+   "z": -4.02,
+   "tiers": 8,
+   "h": 2.4,
+   "seed": 41
+  },
+  {
+   "id": "candyb1",
+   "kind": "candyrack",
+   "x": 2.25,
+   "y": 0,
+   "z": -4.02,
+   "tiers": 8,
+   "h": 2.4,
+   "seed": 42
+  },
+  {
+   "id": "candyb2",
+   "kind": "candyrack",
+   "x": 3.45,
+   "y": 0,
+   "z": -4.02,
+   "tiers": 8,
+   "h": 2.4,
+   "seed": 43
+  },
+  {
+   "id": "gum",
+   "kind": "candyrack",
+   "x": 1.61,
+   "y": 0,
+   "z": -2.25,
+   "rot": -90,
+   "scale": 0.6,
+   "seed": 5
+  },
+  {
+   "id": "pend00",
+   "staged": "hangs on its cord from the ceiling",
+   "kind": "pendant",
+   "x": 1.1,
+   "y": 2.6,
+   "z": -2.8,
+   "len": 0.8,
+   "r": 0.16
+  },
+  {
+   "id": "pool00",
+   "kind": "lightpool",
+   "x": 1.1,
+   "y": 0.01,
+   "z": -2.8,
+   "color": "#ffd9a0",
+   "w": 1.2,
+   "d": 0.8
+  },
+  {
+   "id": "pend01",
+   "staged": "hangs on its cord from the ceiling",
+   "kind": "pendant",
+   "x": 1.1,
+   "y": 2.6,
+   "z": -1.2,
+   "len": 0.8,
+   "r": 0.16
+  },
+  {
+   "id": "pool01",
+   "kind": "lightpool",
+   "x": 1.1,
+   "y": 0.01,
+   "z": -1.2,
+   "color": "#ffd9a0",
+   "w": 1.2,
+   "d": 0.8
+  },
+  {
+   "id": "pend02",
+   "staged": "hangs on its cord from the ceiling",
+   "kind": "pendant",
+   "x": 1.1,
+   "y": 2.6,
+   "z": 0.4,
+   "len": 0.8,
+   "r": 0.16
+  },
+  {
+   "id": "pool02",
+   "kind": "lightpool",
+   "x": 1.1,
+   "y": 0.01,
+   "z": 0.4,
+   "color": "#ffd9a0",
+   "w": 1.2,
+   "d": 0.8
+  },
+  {
+   "id": "pend10",
+   "staged": "hangs on its cord from the ceiling",
+   "kind": "pendant",
+   "x": 2.7,
+   "y": 2.6,
+   "z": -2.8,
+   "len": 0.8,
+   "r": 0.16
+  },
+  {
+   "id": "pool10",
+   "kind": "lightpool",
+   "x": 2.7,
+   "y": 0.01,
+   "z": -2.8,
+   "color": "#ffd9a0",
+   "w": 1.2,
+   "d": 0.8
+  },
+  {
+   "id": "pend11",
+   "staged": "hangs on its cord from the ceiling",
+   "kind": "pendant",
+   "x": 2.7,
+   "y": 2.6,
+   "z": -1.2,
+   "len": 0.8,
+   "r": 0.16
+  },
+  {
+   "id": "pool11",
+   "kind": "lightpool",
+   "x": 2.7,
+   "y": 0.01,
+   "z": -1.2,
+   "color": "#ffd9a0",
+   "w": 1.2,
+   "d": 0.8
+  },
+  {
+   "id": "pend12",
+   "staged": "hangs on its cord from the ceiling",
+   "kind": "pendant",
+   "x": 2.7,
+   "y": 2.6,
+   "z": 0.4,
+   "len": 0.8,
+   "r": 0.16
+  },
+  {
+   "id": "pool12",
+   "kind": "lightpool",
+   "x": 2.7,
+   "y": 0.01,
+   "z": 0.4,
+   "color": "#ffd9a0",
+   "w": 1.2,
+   "d": 0.8
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.85,
+     1.15,
+     7.2
+    ],
+    "look": [
+     -2.45,
+     1.05,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pool00",
+     "set": {
+      "on": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pool01",
+     "set": {
+      "on": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pool02",
+     "set": {
+      "on": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pool10",
+     "set": {
+      "on": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pool11",
+     "set": {
+      "on": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pool12",
+     "set": {
+      "on": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 0.5,
+      "len": 0.7,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE cam 01, belt 0.5 m/s, glow 0"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.85,
+     1.15,
+     7.2
+    ],
+    "look": [
+     -2.45,
+     1.05,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 2.4,
+      "len": 7.3,
+      "glow": 1.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE cam 01, belt 2.4 m/s, glow 1.6"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.75,
+     1.75,
+     2.2
+    ],
+    "look": [
+     -2.05,
+     0.46,
+     -1.4
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 0.5,
+      "len": 0.7,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE belt from above, 0.5 m/s"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.75,
+     1.75,
+     2.2
+    ],
+    "look": [
+     -2.05,
+     0.46,
+     -1.4
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 2.4,
+      "len": 7.3,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE belt from above, 2.4 m/s (streaks)"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.55,
+     1,
+     1.7
+    ],
+    "look": [
+     -1.95,
+     0.47,
+     0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 0.5,
+      "len": 0.7,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE scanner glow 0"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.55,
+     1,
+     1.7
+    ],
+    "look": [
+     -1.95,
+     0.47,
+     0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 2.4,
+      "len": 7.3,
+      "glow": 1.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE scanner glow 1.6"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.85,
+     1.35,
+     7.6
+    ],
+    "look": [
+     1.7,
+     1.35,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [],
+   "kind": "US cam 08"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     1.05,
+     5.4
+    ],
+    "look": [
+     2,
+     0.98,
+     0.4
+    ],
+    "fov": 32
+   },
+   "do": [],
+   "kind": "US cam 03"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.45,
+     0.95,
+     5
+    ],
+    "look": [
+     -1.8,
+     1.05,
+     0
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 0.5,
+      "len": 0.7,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE cam 09 (flag 80-190 px)"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.5,
+     0.95,
+     2.6
+    ],
+    "look": [
+     -1.8,
+     0.78,
+     -0.62
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 0.5,
+      "len": 0.7,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE flag close"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.95,
+     2.8
+    ],
+    "look": [
+     2.45,
+     0.78,
+     0.98
+    ],
+    "fov": 22
+   },
+   "do": [],
+   "kind": "US flag close"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.15,
+     8.2
+    ],
+    "look": [
+     0,
+     0.95,
+     2.4
+    ],
+    "fov": 24
+   },
+   "do": [],
+   "kind": "seam, cam 11"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.2,
+     1.5,
+     6
+    ],
+    "look": [
+     -2.2,
+     1.4,
+     -4
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 0.5,
+      "len": 0.7,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE hall down the aisle (racks, strips)"
+  },
+  {
+   "name": "s14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.2,
+     1.5,
+     6
+    ],
+    "look": [
+     2.2,
+     1.4,
+     -4
+    ],
+    "fov": 58
+   },
+   "do": [],
+   "kind": "US hall down the aisle (candy, pendants)"
+  },
+  {
+   "name": "s15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.7,
+     1.3,
+     -1.2
+    ],
+    "look": [
+     -3.7,
+     1.3,
+     -3.95
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lanede",
+     "set": {
+      "speed": 0.5,
+      "len": 0.7,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "DE back racks close"
+  },
+  {
+   "name": "s16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2,
+     1.2,
+     0.2
+    ],
+    "look": [
+     0.22,
+     1,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": [],
+   "kind": "US candy racks close"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wedge",
+   "with": "lanede",
+   "from": 0,
+   "to": 16,
+   "reason": "the cashier stands on the lane's own platform"
+  }
+ ],
+ "notes": "Generated by storyboards/series/country-vs-country/01-checkout/bench/make-bench-set.mjs (props bench, no reviews)."
+}
