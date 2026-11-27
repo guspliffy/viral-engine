@@ -84,13 +84,10 @@ const talk = (who, T) => tk(who, T);
 const hosts_ = (c, t, m, ks = {}, gs = {}) => hosts(c, t, m, { talk: talk("K", t), ...ks }, { talk: talk("G", t), ...gs });
 const T_ = (c, t, m, ks, gs, extra = "") => G.todaySynagogue(c, t, m) + extra + hosts_(c, t, m, ks, gs);
 // the window on the synagogue wall: dark glass from the very first shot (B32), lit warm k = 0..1 on "twice"
-function wallWindow(c, t, k = 0) {
-  const f = (X, Y) => L.P(c, X, Y, S.wall - 0.02), X0 = 2.0, X1 = 2.8, Y0 = 1.0, Y1 = 2.5;
-  const pts = [f(X0, Y0), f(X1, Y0), f(X1, Y1 - 0.5), f((X0 + X1) / 2, Y1), f(X0, Y1 - 0.5)];
-  if (pts.every((p) => p.x < -60 || p.x > 1140)) return "";
-  const q = pts.map((p) => `${n(p.x)},${n(p.y)}`).join(" "), cx = (pts[0].x + pts[1].x) / 2, cy = (pts[0].y + pts[3].y) / 2, r = pts[1].x - pts[0].x;
-  const fl = 0.9 + 0.1 * Math.sin(t * 9) * Math.sin(t * 3.1), fillc = k > 0.02 ? L.mix("#3a2a58", "#ffd27a", clamp(k * fl)) : "#34285a";
-  return (k > 0.05 ? G.pool(cx, cy, r * 2.4, r * 2.2, "#ffb04a", 0.2 * k * fl, 5, 3, t) : "") + `<polygon points="${q}" fill="${fillc}" stroke="#2a1634" stroke-width="${n(Math.max(2, r * 0.06))}"/><path d="M${n(cx)},${n(pts[3].y)} L${n(cx)},${n(pts[0].y)} M${n(pts[0].x)},${n(cy)} L${n(pts[1].x)},${n(cy)}" stroke="#2a1634" stroke-width="${n(Math.max(1.5, r * 0.04))}"/>`;
+function wallWindow(c, t, k = 0) {   // glow only: the set's own lit window is the single opening (B34)
+  if (k < 0.03) return "";
+  const p = L.P(c, 2.95, 3.1, S.wall - 0.02), fl = 0.9 + 0.1 * Math.sin(t * 9) * Math.sin(t * 3.1);
+  return G.pool(p.x, p.y, p.s * 1.6, p.s * 1.9, "#ffb04a", 0.26 * k * fl, 5, 3, t);
 }
 const dustPuff = (c, since, big = 1) => {   // dust coming out of the attic door
   if (since < 0) return "";
