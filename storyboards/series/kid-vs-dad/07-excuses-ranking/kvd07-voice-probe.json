@@ -1,0 +1,354 @@
+{
+ "id": "kvd07-voice-probe",
+ "title": "Kid vs Dad 07 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   79,
+   79
+  ]
+ },
+ "cast": [
+  {
+   "id": "mom",
+   "character": "potatobrawl/mash",
+   "at": [
+    -1.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 79,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "My dad has the worst excuses in the world. I ranked them.",
+     "tone": "whisper",
+     "style": "a seven-year-old whispering to the camera, deadpan, like a nature documentary",
+     "voice": "tato",
+     "dur": 5.3,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Tato. I'm not asleep. I'm resting my eyes.",
+     "tone": "calm",
+     "style": "eyes shut, slurred, half asleep on the sofa",
+     "voice": "dad",
+     "dur": 3.7,
+     "caption": false,
+     "at": 6.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Number five.",
+     "tone": "calm",
+     "style": "flat, dry, a judge giving a score",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 11.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. The park closes at eight.",
+     "tone": "calm",
+     "style": "flat, patient, standing in front of the sofa",
+     "voice": "tato",
+     "dur": 2.9,
+     "caption": false,
+     "at": 13.5
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Nothing in the world gets me off this sofa.",
+     "tone": "calm",
+     "style": "dead certain, proud, eyes still shut",
+     "voice": "dad",
+     "dur": 4.1,
+     "caption": false,
+     "at": 17.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Challenge accepted.",
+     "tone": "whisper",
+     "style": "to the camera, narrowed eyes, determined",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 22.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'll clean my room.",
+     "tone": "calm",
+     "style": "bargaining, hopeful",
+     "voice": "tato",
+     "dur": 2.1,
+     "caption": false,
+     "at": 24.8
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "We'll see.",
+     "tone": "calm",
+     "style": "lazy, not listening",
+     "voice": "dad",
+     "dur": 1.3,
+     "caption": false,
+     "at": 27.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'll clean your room.",
+     "tone": "calm",
+     "style": "bigger offer, a bit desperate",
+     "voice": "tato",
+     "dur": 2.1,
+     "caption": false,
+     "at": 30.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "We'll see means no. Number four.",
+     "tone": "calm",
+     "style": "to the camera, flat, unimpressed",
+     "voice": "tato",
+     "dur": 2.9,
+     "caption": false,
+     "at": 33.3
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. It's six.",
+     "tone": "calm",
+     "style": "flat, pointing at the clock",
+     "voice": "tato",
+     "dur": 1.7,
+     "caption": false,
+     "at": 37.2
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Five more minutes.",
+     "tone": "calm",
+     "style": "eyes on the TV, mumbling",
+     "voice": "dad",
+     "dur": 1.7,
+     "caption": false,
+     "at": 39.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "It's seven.",
+     "tone": "calm",
+     "style": "flatter, a little louder",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 42.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "His minutes are an hour long. Number three.",
+     "tone": "calm",
+     "style": "to the camera, deadpan",
+     "voice": "tato",
+     "dur": 3.7,
+     "caption": false,
+     "at": 44.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Can I go alone?",
+     "tone": "question",
+     "style": "small, hopeful",
+     "voice": "tato",
+     "dur": 2.1,
+     "caption": false,
+     "at": 49.6
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Ask your mother.",
+     "tone": "calm",
+     "style": "eyes shut, waving it away",
+     "voice": "dad",
+     "dur": 1.7,
+     "caption": false,
+     "at": 52.7
+    },
+    {
+     "who": "mom",
+     "macro": "say",
+     "line": "Ask your father!",
+     "tone": "excited",
+     "style": "a mom shouting from the kitchen, off screen, busy",
+     "voice": "mom",
+     "dur": 1.7,
+     "caption": false,
+     "at": 55.4
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Ask your mother!",
+     "tone": "excited",
+     "style": "louder, shouting back over his shoulder",
+     "voice": "dad",
+     "dur": 1.7,
+     "caption": false,
+     "at": 58.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Number two.",
+     "tone": "calm",
+     "style": "flat, head still turning back and forth",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 60.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "And number one... the worst one.",
+     "tone": "whisper",
+     "style": "to the camera, slow, a big reveal, hand on the giant cup",
+     "voice": "tato",
+     "dur": 2.9,
+     "caption": false,
+     "at": 63.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. Quarter to eight. Last chance.",
+     "tone": "calm",
+     "style": "serious, quiet, holding his breath",
+     "voice": "tato",
+     "dur": 2.9,
+     "caption": false,
+     "at": 67
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "I can't, buddy. My back.",
+     "tone": "sad",
+     "style": "groaning, holding his lower back, very sorry for himself",
+     "voice": "dad",
+     "dur": 2.5,
+     "caption": false,
+     "at": 70.9
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Ice cream!",
+     "tone": "excited",
+     "style": "suddenly wide awake, shouting with joy, already running",
+     "voice": "dad",
+     "dur": 1.3,
+     "caption": false,
+     "at": 74.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...Number one.",
+     "tone": "calm",
+     "style": "alone, deadpan, to the camera, not surprised at all",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 76.7
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Kid vs Dad 07 excuses ranking: makes and measures every take. mom stands in on Mash's body (off screen in the clip); her voice is mom."
+}
