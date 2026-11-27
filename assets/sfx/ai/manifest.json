@@ -1536,7 +1536,7 @@
      "clap": 0.039,
      "snrDb": 69.6,
      "loudnessLUFS": -17,
-     "note": "trimmed to its two hits (0-1.4 s) by hand: dö ... döm"
+     "note": "trimmed to its two hits (0-1.4 s) by hand: d\u00f6 ... d\u00f6m"
     }
    ]
   },
@@ -5633,6 +5633,631 @@
      "loudnessLUFS": -21.9
     }
    ]
+  },
+  {
+   "id": "wolf-howl",
+   "kind": "sfx",
+   "files": [
+    "wolf-howl/wolf-howl-01.wav",
+    "wolf-howl/wolf-howl-02.wav",
+    "wolf-howl/wolf-howl-03.wav",
+    "wolf-howl/wolf-howl-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "wolf",
+    "howl",
+    "night"
+   ],
+   "durationSec": 6.0,
+   "prompt": [
+    "a single lone wolf howling at night far up on a rocky hill, long rising and falling howl, eerie, natural recording",
+    "one wolf howl at night in the distance, mournful, echo across a valley, field recording"
+   ],
+   "seed": [
+    3003,
+    3002,
+    3001,
+    3003
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -11.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "wolf-howl/wolf-howl-01.wav",
+     "take": "p1-s3003",
+     "prompt": "one wolf howl at night in the distance, mournful, echo across a valley, field recording",
+     "seed": 3003,
+     "startSec": 0.128,
+     "durationSec": 6.0,
+     "clap": -0.015,
+     "snrDb": 42.3,
+     "loudnessLUFS": -8.8
+    },
+    {
+     "file": "wolf-howl/wolf-howl-02.wav",
+     "take": "p1-s3002",
+     "prompt": "one wolf howl at night in the distance, mournful, echo across a valley, field recording",
+     "seed": 3002,
+     "startSec": 0.439,
+     "durationSec": 6.0,
+     "clap": -0.016,
+     "snrDb": 45.5,
+     "loudnessLUFS": -12.6
+    },
+    {
+     "file": "wolf-howl/wolf-howl-03.wav",
+     "take": "p0-s3001",
+     "prompt": "a single lone wolf howling at night far up on a rocky hill, long rising and falling howl, eerie, natural recording",
+     "seed": 3001,
+     "startSec": 0.229,
+     "durationSec": 6.0,
+     "clap": -0.021,
+     "snrDb": 44.8,
+     "loudnessLUFS": -9.4
+    },
+    {
+     "file": "wolf-howl/wolf-howl-04.wav",
+     "take": "p0-s3003",
+     "prompt": "a single lone wolf howling at night far up on a rocky hill, long rising and falling howl, eerie, natural recording",
+     "seed": 3003,
+     "startSec": 0.401,
+     "durationSec": 6.0,
+     "clap": -0.024,
+     "snrDb": 41.3,
+     "loudnessLUFS": -13.1
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "wolf-snarl",
+   "kind": "sfx",
+   "files": [
+    "wolf-snarl/wolf-snarl-01.wav",
+    "wolf-snarl/wolf-snarl-02.wav",
+    "wolf-snarl/wolf-snarl-03.wav",
+    "wolf-snarl/wolf-snarl-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "wolf",
+    "growl",
+    "snarl"
+   ],
+   "durationSec": 2.465,
+   "prompt": [
+    "a wolf snarling and growling close up, bared teeth, aggressive low growl, natural animal recording",
+    "angry wolf growl and snarl, close, menacing, field recording"
+   ],
+   "seed": [
+    3013,
+    3011,
+    3012,
+    3011
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -15.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "wolf-snarl/wolf-snarl-01.wav",
+     "take": "p1-s3013",
+     "prompt": "angry wolf growl and snarl, close, menacing, field recording",
+     "seed": 3013,
+     "startSec": 6.113,
+     "durationSec": 0.865,
+     "clap": 0.293,
+     "snrDb": 38.2,
+     "loudnessLUFS": -14.4
+    },
+    {
+     "file": "wolf-snarl/wolf-snarl-02.wav",
+     "take": "p1-s3011",
+     "prompt": "angry wolf growl and snarl, close, menacing, field recording",
+     "seed": 3011,
+     "startSec": 0.904,
+     "durationSec": 2.5,
+     "clap": 0.246,
+     "snrDb": 56.7,
+     "loudnessLUFS": -13.8
+    },
+    {
+     "file": "wolf-snarl/wolf-snarl-03.wav",
+     "take": "p1-s3012",
+     "prompt": "angry wolf growl and snarl, close, menacing, field recording",
+     "seed": 3012,
+     "startSec": 3.294,
+     "durationSec": 2.429,
+     "clap": 0.242,
+     "snrDb": 49.7,
+     "loudnessLUFS": -16.9
+    },
+    {
+     "file": "wolf-snarl/wolf-snarl-04.wav",
+     "take": "p0-s3011",
+     "prompt": "a wolf snarling and growling close up, bared teeth, aggressive low growl, natural animal recording",
+     "seed": 3011,
+     "startSec": 0.206,
+     "durationSec": 2.5,
+     "clap": 0.207,
+     "snrDb": 39.6,
+     "loudnessLUFS": -17.9
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "sheep-bleat",
+   "kind": "sfx",
+   "files": [
+    "sheep-bleat/sheep-bleat-01.wav",
+    "sheep-bleat/sheep-bleat-02.wav",
+    "sheep-bleat/sheep-bleat-03.wav",
+    "sheep-bleat/sheep-bleat-04.wav",
+    "sheep-bleat/sheep-bleat-05.wav",
+    "sheep-bleat/sheep-bleat-06.wav",
+    "sheep-bleat/sheep-bleat-07.wav",
+    "sheep-bleat/sheep-bleat-08.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "sheep",
+    "bleat",
+    "baa"
+   ],
+   "durationSec": 1.012,
+   "prompt": [
+    "a few sheep bleating close up, single baa calls, natural farm recording",
+    "sheep baaing one at a time, close, outdoor field recording"
+   ],
+   "seed": [
+    3021,
+    3022,
+    3023,
+    3023,
+    3021,
+    3022,
+    3022,
+    3022
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -10.9,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "sheep-bleat/sheep-bleat-01.wav",
+     "take": "p0-s3021",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3021,
+     "startSec": 1.188,
+     "durationSec": 1.021,
+     "clap": 0.18,
+     "snrDb": 42.3,
+     "loudnessLUFS": -10.5
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-02.wav",
+     "take": "p0-s3022",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3022,
+     "startSec": 2.511,
+     "durationSec": 1.306,
+     "clap": 0.141,
+     "snrDb": 35.9,
+     "loudnessLUFS": -13.2
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-03.wav",
+     "take": "p0-s3023",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3023,
+     "startSec": 4.029,
+     "durationSec": 1.004,
+     "clap": 0.136,
+     "snrDb": 37.7,
+     "loudnessLUFS": -12.9
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-04.wav",
+     "take": "p0-s3023",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3023,
+     "startSec": 0.401,
+     "durationSec": 1.132,
+     "clap": 0.134,
+     "snrDb": 38.7,
+     "loudnessLUFS": -10.5
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-05.wav",
+     "take": "p0-s3021",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3021,
+     "startSec": 0.27,
+     "durationSec": 0.865,
+     "clap": 0.121,
+     "snrDb": 34.5,
+     "loudnessLUFS": -10.8
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-06.wav",
+     "take": "p0-s3022",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3022,
+     "startSec": 7.766,
+     "durationSec": 1.276,
+     "clap": 0.106,
+     "snrDb": 44.5,
+     "loudnessLUFS": -10.2
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-07.wav",
+     "take": "p1-s3022",
+     "prompt": "sheep baaing one at a time, close, outdoor field recording",
+     "seed": 3022,
+     "startSec": 2.543,
+     "durationSec": 0.607,
+     "clap": 0.066,
+     "snrDb": 17.3,
+     "loudnessLUFS": -11.6
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-08.wav",
+     "take": "p1-s3022",
+     "prompt": "sheep baaing one at a time, close, outdoor field recording",
+     "seed": 3022,
+     "startSec": 4.464,
+     "durationSec": 0.569,
+     "clap": 0.046,
+     "snrDb": 17.4,
+     "loudnessLUFS": -11.1
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "sheep-bells",
+   "kind": "sfx",
+   "files": [
+    "sheep-bells/sheep-bells-01.wav",
+    "sheep-bells/sheep-bells-02.wav",
+    "sheep-bells/sheep-bells-03.wav",
+    "sheep-bells/sheep-bells-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "sheep",
+    "bells",
+    "flock",
+    "herd"
+   ],
+   "durationSec": 6.325,
+   "prompt": [
+    "a flock of sheep running with many small metal neck bells clanking, hooves on dry stony ground, Greek mountain, field recording",
+    "goat and sheep bells jingling and clanking as a herd moves fast over rocks, outdoor"
+   ],
+   "seed": [
+    3031,
+    3032,
+    3033,
+    3031
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -21.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "sheep-bells/sheep-bells-01.wav",
+     "take": "p1-s3031",
+     "prompt": "goat and sheep bells jingling and clanking as a herd moves fast over rocks, outdoor",
+     "seed": 3031,
+     "startSec": 3.251,
+     "durationSec": 4.978,
+     "clap": 0.02,
+     "snrDb": 30.1,
+     "loudnessLUFS": -20.5
+    },
+    {
+     "file": "sheep-bells/sheep-bells-02.wav",
+     "take": "p1-s3032",
+     "prompt": "goat and sheep bells jingling and clanking as a herd moves fast over rocks, outdoor",
+     "seed": 3032,
+     "startSec": 0.125,
+     "durationSec": 8.0,
+     "clap": 0.013,
+     "snrDb": 34.3,
+     "loudnessLUFS": -19.8
+    },
+    {
+     "file": "sheep-bells/sheep-bells-03.wav",
+     "take": "p1-s3033",
+     "prompt": "goat and sheep bells jingling and clanking as a herd moves fast over rocks, outdoor",
+     "seed": 3033,
+     "startSec": 0.615,
+     "durationSec": 7.671,
+     "clap": -0.006,
+     "snrDb": 36.3,
+     "loudnessLUFS": -23.4
+    },
+    {
+     "file": "sheep-bells/sheep-bells-04.wav",
+     "take": "p0-s3031",
+     "prompt": "a flock of sheep running with many small metal neck bells clanking, hooves on dry stony ground, Greek mountain, field recording",
+     "seed": 3031,
+     "startSec": 2.696,
+     "durationSec": 3.085,
+     "clap": -0.069,
+     "snrDb": 34.6,
+     "loudnessLUFS": -21.8
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "chapel-bell",
+   "kind": "sfx",
+   "files": [
+    "chapel-bell/chapel-bell-01.wav",
+    "chapel-bell/chapel-bell-02.wav",
+    "chapel-bell/chapel-bell-03.wav",
+    "chapel-bell/chapel-bell-04.wav",
+    "chapel-bell/chapel-bell-05.wav",
+    "chapel-bell/chapel-bell-06.wav",
+    "chapel-bell/chapel-bell-07.wav",
+    "chapel-bell/chapel-bell-08.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "bell",
+    "chapel",
+    "alarm"
+   ],
+   "durationSec": 1.22,
+   "prompt": [
+    "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+    "small church bell ringing urgently, alarm, bronze bell, outdoor, village"
+   ],
+   "seed": [
+    3043,
+    3043,
+    3043,
+    3041,
+    3041,
+    3041,
+    3043,
+    3041
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -18.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "chapel-bell/chapel-bell-01.wav",
+     "take": "p0-s3043",
+     "prompt": "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+     "seed": 3043,
+     "startSec": 1.025,
+     "durationSec": 1.109,
+     "clap": 0.034,
+     "snrDb": 32.0,
+     "loudnessLUFS": -13.3
+    },
+    {
+     "file": "chapel-bell/chapel-bell-02.wav",
+     "take": "p0-s3043",
+     "prompt": "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+     "seed": 3043,
+     "startSec": 2.133,
+     "durationSec": 1.367,
+     "clap": 0.001,
+     "snrDb": 23.0,
+     "loudnessLUFS": -13.0
+    },
+    {
+     "file": "chapel-bell/chapel-bell-03.wav",
+     "take": "p0-s3043",
+     "prompt": "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+     "seed": 3043,
+     "startSec": 0.023,
+     "durationSec": 1.001,
+     "clap": -0.021,
+     "snrDb": 53.7,
+     "loudnessLUFS": -17.6
+    },
+    {
+     "file": "chapel-bell/chapel-bell-04.wav",
+     "take": "p1-s3041",
+     "prompt": "small church bell ringing urgently, alarm, bronze bell, outdoor, village",
+     "seed": 3041,
+     "startSec": 4.505,
+     "durationSec": 1.12,
+     "clap": -0.045,
+     "snrDb": 36.2,
+     "loudnessLUFS": -17.7
+    },
+    {
+     "file": "chapel-bell/chapel-bell-05.wav",
+     "take": "p0-s3041",
+     "prompt": "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+     "seed": 3041,
+     "startSec": 0.028,
+     "durationSec": 2.965,
+     "clap": -0.052,
+     "snrDb": 48.1,
+     "loudnessLUFS": -19.2
+    },
+    {
+     "file": "chapel-bell/chapel-bell-06.wav",
+     "take": "p1-s3041",
+     "prompt": "small church bell ringing urgently, alarm, bronze bell, outdoor, village",
+     "seed": 3041,
+     "startSec": 2.309,
+     "durationSec": 1.319,
+     "clap": -0.066,
+     "snrDb": 42.1,
+     "loudnessLUFS": -19.5
+    },
+    {
+     "file": "chapel-bell/chapel-bell-07.wav",
+     "take": "p1-s3043",
+     "prompt": "small church bell ringing urgently, alarm, bronze bell, outdoor, village",
+     "seed": 3043,
+     "startSec": 4.572,
+     "durationSec": 1.093,
+     "clap": -0.081,
+     "snrDb": 45.2,
+     "loudnessLUFS": -18.7
+    },
+    {
+     "file": "chapel-bell/chapel-bell-08.wav",
+     "take": "p1-s3041",
+     "prompt": "small church bell ringing urgently, alarm, bronze bell, outdoor, village",
+     "seed": 3041,
+     "startSec": 0.033,
+     "durationSec": 1.917,
+     "clap": -0.092,
+     "snrDb": 42.3,
+     "loudnessLUFS": -18.9
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "village-rush",
+   "kind": "sfx",
+   "files": [
+    "village-rush/village-rush-01.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "crowd",
+    "run",
+    "village"
+   ],
+   "durationSec": null,
+   "prompt": [
+    "a group of village men running up a stony hill path at night, footsteps, heavy breathing, wooden sticks knocking, no words",
+    "a crowd of people running on gravel and stones, panting, sticks clattering, outdoor night, no speech"
+   ],
+   "seed": [],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": 0.0,
+   "replaces": null,
+   "takes": [],
+   "note": "raw take (pick.py cut nothing), first take as used in the mix",
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "wooden-gate",
+   "kind": "sfx",
+   "files": [
+    "wooden-gate/wooden-gate-01.wav",
+    "wooden-gate/wooden-gate-02.wav",
+    "wooden-gate/wooden-gate-03.wav",
+    "wooden-gate/wooden-gate-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "gate",
+    "creak",
+    "wood"
+   ],
+   "durationSec": 1.514,
+   "prompt": [
+    "an old wooden sheep pen gate creaking open on rusty hinges, outdoor",
+    "old wooden farm gate squeaking open, rusty hinge creak, close"
+   ],
+   "seed": [
+    3063,
+    3061,
+    3063,
+    3062
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -14.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "wooden-gate/wooden-gate-01.wav",
+     "take": "p1-s3063",
+     "prompt": "old wooden farm gate squeaking open, rusty hinge creak, close",
+     "seed": 3063,
+     "startSec": 5.734,
+     "durationSec": 1.476,
+     "clap": 0.188,
+     "snrDb": 52.6,
+     "loudnessLUFS": -22.8
+    },
+    {
+     "file": "wooden-gate/wooden-gate-02.wav",
+     "take": "p1-s3061",
+     "prompt": "old wooden farm gate squeaking open, rusty hinge creak, close",
+     "seed": 3061,
+     "startSec": 0.169,
+     "durationSec": 1.189,
+     "clap": 0.173,
+     "snrDb": 45.7,
+     "loudnessLUFS": -14.9
+    },
+    {
+     "file": "wooden-gate/wooden-gate-03.wav",
+     "take": "p1-s3063",
+     "prompt": "old wooden farm gate squeaking open, rusty hinge creak, close",
+     "seed": 3063,
+     "startSec": 3.565,
+     "durationSec": 1.552,
+     "clap": 0.164,
+     "snrDb": 43.5,
+     "loudnessLUFS": -13.3
+    },
+    {
+     "file": "wooden-gate/wooden-gate-04.wav",
+     "take": "p1-s3062",
+     "prompt": "old wooden farm gate squeaking open, rusty hinge creak, close",
+     "seed": 3062,
+     "startSec": 2.304,
+     "durationSec": 2.5,
+     "clap": 0.119,
+     "snrDb": 53.1,
+     "loudnessLUFS": -11.8
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "cicadas-night",
+   "kind": "sfx",
+   "files": [
+    "cicadas-night/cicadas-night-01.wav"
+   ],
+   "gain": 0.06,
+   "tags": [
+    "night",
+    "crickets",
+    "ambience"
+   ],
+   "durationSec": null,
+   "prompt": [
+    "night crickets and cicadas in olive trees on a warm Greek hillside, steady soft ambience, no wind",
+    "warm Mediterranean night ambience, crickets chirping in dry grass, calm, field recording"
+   ],
+   "seed": [],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": 0.0,
+   "replaces": null,
+   "takes": [],
+   "note": "raw take (pick.py cut nothing), first take as used in the mix",
+   "used_in": "storyboards/series/legend/cried-wolf"
   }
  ]
 }
