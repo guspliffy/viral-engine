@@ -1,0 +1,709 @@
+{
+ "id": "bench-chair",
+ "title": "Chair cart bench: the cart alone",
+ "idea": "Props bench for how-you-invented 02 (the chair cart, task C), not a clip",
+ "tool": "prop bench for the chair cart and its chain (How you invented 02), never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0ef",
+  "floor": "#cdbb98",
+  "para": 0,
+  "lighting": 2,
+  "ink": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "frame": "tall",
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.62,
+    0.15
+   ],
+   "face": 0,
+   "expr": "calm",
+   "follow": 0,
+   "seed": 2.9
+  }
+ ],
+ "props": [
+  {
+   "id": "cart",
+   "kind": "chaircart",
+   "lock": true,
+   "brake": true,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "plain",
+   "kind": "chaircart",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.916,
+     3.492
+    ],
+    "look": [
+     0,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 0,
+      "brake": 0,
+      "jolt": 0,
+      "fill": 0,
+      "basket": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plain",
+     "set": {
+      "spin": 0,
+      "brake": 0,
+      "jolt": 0,
+      "fill": 0,
+      "basket": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plain",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "FRONT (az 0) beside Spud, fill 0"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.492,
+     0.916,
+     0
+    ],
+    "look": [
+     0,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "SIDE (from +x)"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.916,
+     -3.492
+    ],
+    "look": [
+     0,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "BACK (az 180): rail, lock, step, pedal"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.72,
+     1.158,
+     -2.979
+    ],
+    "look": [
+     0,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "THREE-QUARTER from behind right"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.401,
+     0.236,
+     0.375
+    ],
+    "look": [
+     0.24,
+     0.07,
+     0.17
+    ],
+    "fov": 20
+   },
+   "do": [],
+   "kind": "crop front right wheel (boards, battens, nail hub)"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.401,
+     0.236,
+     -0.375
+    ],
+    "look": [
+     0.24,
+     0.07,
+     -0.17
+    ],
+    "fov": 20
+   },
+   "do": [],
+   "kind": "crop back right wheel + block + nails"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.492,
+     0.811,
+     -0.966
+    ],
+    "look": [
+     0.24,
+     0.18,
+     -0.3
+    ],
+    "fov": 24
+   },
+   "do": [],
+   "kind": "crop brake (3/4), brake 0"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.789,
+     0.278,
+     -0.3
+    ],
+    "look": [
+     0.24,
+     0.17,
+     -0.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "brake": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "crop brake side, brake 0"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.789,
+     0.278,
+     -0.3
+    ],
+    "look": [
+     0.24,
+     0.17,
+     -0.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "brake": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "crop brake side, brake 0.5"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.789,
+     0.278,
+     -0.3
+    ],
+    "look": [
+     0.24,
+     0.17,
+     -0.3
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "brake": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "crop brake side, brake 1"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.494,
+     0.852,
+     -1.139
+    ],
+    "look": [
+     0.17,
+     0.47,
+     -0.25
+    ],
+    "fov": 20
+   },
+   "do": [],
+   "kind": "crop lock box from behind, brake 0"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.131,
+     0.727,
+     -0.589
+    ],
+    "look": [
+     0.2,
+     0.48,
+     -0.25
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "fill": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "crop lock box and tab hole from the outer side"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.671,
+     1.315,
+     1.844
+    ],
+    "look": [
+     0,
+     0.4,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "fill 0.5 (heap 9 items)"
+  },
+  {
+   "name": "s14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.671,
+     1.315,
+     1.844
+    ],
+    "look": [
+     0,
+     0.4,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [],
+   "kind": "fill 1 (heap 18, 0.10 over the rim)"
+  },
+  {
+   "name": "s15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.492,
+     0.916,
+     0
+    ],
+    "look": [
+     0,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "jolt": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "fill 1 side view, rail 0.50 vs heap 0.54"
+  },
+  {
+   "name": "s16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.492,
+     0.916,
+     0
+    ],
+    "look": [
+     0,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "basket": 0,
+      "jolt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "jolt 0.5 (items hop 0.03)"
+  },
+  {
+   "name": "s17",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.72,
+     1.158,
+     -2.979
+    ],
+    "look": [
+     0,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "basket": 1,
+      "fill": 0,
+      "spin": 0.125
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "basket 0 (hidden)"
+  },
+  {
+   "name": "s18",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.401,
+     0.236,
+     0.375
+    ],
+    "look": [
+     0.24,
+     0.07,
+     0.17
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 0.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "spin 0.125 (wheel front right)"
+  },
+  {
+   "name": "s19",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.401,
+     0.236,
+     0.375
+    ],
+    "look": [
+     0.24,
+     0.07,
+     0.17
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 0.375
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "spin 0.25"
+  },
+  {
+   "name": "s20",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.401,
+     0.236,
+     0.375
+    ],
+    "look": [
+     0.24,
+     0.07,
+     0.17
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 0,
+      "brake": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "spin 0.375"
+  },
+  {
+   "name": "s21",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.401,
+     0.236,
+     -0.375
+    ],
+    "look": [
+     0.24,
+     0.07,
+     -0.17
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "scale": 0,
+      "spin": 0,
+      "brake": 0,
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "plain",
+     "set": {
+      "scale": 1,
+      "fill": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "brake 1 + spin 0: back-right wheel crop"
+  },
+  {
+   "name": "s22",
+   "at": 21,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.72,
+     1.158,
+     -2.979
+    ],
+    "look": [
+     0,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "plain variant (no lock, no brake): the cart hidden"
+  }
+ ],
+ "notes": "Generated by storyboards/series/how-you-invented/02-shopping-cart/bench/bench-chair.mjs (props bench, no reviews).",
+ "allowClip": []
+}

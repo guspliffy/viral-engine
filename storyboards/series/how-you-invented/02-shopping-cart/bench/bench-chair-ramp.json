@@ -1,0 +1,387 @@
+{
+ "id": "bench-chair-ramp",
+ "title": "Chair cart bench: 14 degree ramp",
+ "idea": "Props bench for how-you-invented 02 (the chair cart, task C), not a clip",
+ "tool": "prop bench for the chair cart and its chain (How you invented 02), never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0ef",
+  "floor": "none",
+  "para": 0,
+  "lighting": 2,
+  "ink": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "frame": "tall",
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -6,
+    -3
+   ],
+   "face": 0,
+   "expr": "calm",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    6,
+    3
+   ],
+   "face": 180,
+   "expr": "happy",
+   "follow": 0,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "cart",
+   "kind": "chaircart",
+   "lock": true,
+   "brake": true,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "tip": 14
+  },
+  {
+   "id": "ramp",
+   "kind": "limeblock",
+   "size": [
+    1.6,
+    0.3,
+    3.2
+   ],
+   "look": "weathered",
+   "x": 0,
+   "y": -0.309,
+   "z": 0,
+   "tip": 14
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.833,
+     1.023,
+     0
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 0,
+      "brake": 0,
+      "jolt": 0,
+      "fill": 0,
+      "basket": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.32,
+      0.02
+     ],
+     "yaw": 180,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.1,
+      -0.42
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.267,
+       0.22
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.267,
+       0.22
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0.98
+    }
+   ],
+   "kind": "tip 14 on the ramp, Mash in the basket + Spud behind the rail, from +x (front down)"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.421,
+     1.307,
+     -4.807
+    ],
+    "look": [
+     0,
+     0.8,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "tip 14, Mash only, from behind: eyes and mouth over the rail"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.09,
+     0.958,
+     0
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.1,
+      -0.42
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.267,
+       0.22
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.267,
+       0.22
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "tip 14, Mash only, from +x"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.09,
+     0.958,
+     0
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "tip 14, Spud only (behind the rail), from +x"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.356,
+     1.029,
+     -4.267
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.2
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0.98
+    }
+   ],
+   "kind": "tip 14, Spud only, from behind"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.247,
+     0.413,
+     0
+    ],
+    "look": [
+     0,
+     0.3,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [],
+   "kind": "tip 14 cart alone from +x: wheels on the plane"
+  }
+ ],
+ "notes": "Generated by storyboards/series/how-you-invented/02-shopping-cart/bench/bench-chair.mjs (props bench, no reviews).",
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "cart",
+   "from": 0,
+   "to": 6,
+   "reason": "Spud rides behind the rail"
+  },
+  {
+   "who": "mash",
+   "with": "cart",
+   "from": 0,
+   "to": 6,
+   "reason": "Mash sits in the basket"
+  }
+ ]
+}

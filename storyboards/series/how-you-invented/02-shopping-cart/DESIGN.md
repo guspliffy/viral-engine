@@ -314,3 +314,8 @@ Risks:
 - Six designed falls (orange, tower, apples, food up, food down, coin) are paths inside the kinds, not engine physics: each needs its strip judged. The two catches need the glove pinned to 1 cm.
 - The tower crosses the caption band in C03 and Mash's crown reaches y 485 in C04 and y 502 in C15a: captions there go to `pos` 250.
 - story.md asks for a 1.5 to 2 s hold after the last line and for about 80 s; the brief cuts on the line at about 66 s. The brief wins; said here once.
+
+## 8. Director's change after the design (27 Nov, re-hooks, Jonny "do all the stories have hook loops and rehooks inside?")
+- C10b: "...It works." (0.73 s) is now "It works... for about four seconds." (2.77 s), from 41.40 to 44.17: a tease before the turn (the theft).
+- C13: new narr "And Mash NEVER has a coin." (1.53 s), from 59.45 to 60.98, over the pocket pats: the viewer thinks you won, which the last catch flips.
+- The hook loop stays "How do you beat him?" (C02, about 5 s), answered by the coin lock and flipped by the catch. Length unchanged (66.1 s).

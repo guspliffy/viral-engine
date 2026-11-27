@@ -15,10 +15,11 @@ export const LINES = [
   ["narr", null, "So you give it wheels."],
   ["narr", null, "The village is on a hill."],
   ["narr", null, "Wheels need a brake."],
-  ["narr", null, "...It works."],
+  ["narr", null, "It works... for about four seconds."],   // re-hook before the turn (the theft), Jonny 27 Nov "hook loops and rehooks"
   ["narr", null, "Mash doesn't steal snacks anymore."],
   ["narr", null, "He steals the whole cart."],
   ["narr", null, "So you lock them up. Only a coin opens one."],
+  ["narr", null, "And Mash NEVER has a coin."],   // C13 re-hook over his pocket pat: sets up the flip (he catches YOUR coin)
   ["narr", null, "You've invented the shopping cart."],
   ["say", "mash", "Drop it... and it's MINE.", "smug", M],
 ];
