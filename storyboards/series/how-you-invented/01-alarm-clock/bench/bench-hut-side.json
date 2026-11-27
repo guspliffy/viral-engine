@@ -1,0 +1,491 @@
+{
+ "id": "bench-hut-side",
+ "title": "Alarm hut bench: side proofs",
+ "idea": "Props bench for how-you-invented 01 (the hut, task A), not a clip",
+ "tool": "prop bench for the hut (How you invented 01), never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#0b1026",
+  "floor": "none",
+  "para": 0,
+  "lighting": 2,
+  "ink": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "frame": "wide",
+ "cast": [
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.1,
+    -0.84
+   ],
+   "face": -12,
+   "expr": "calm",
+   "follow": 0,
+   "seed": 1.1
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.15,
+    0.45
+   ],
+   "face": 10,
+   "expr": "shocked",
+   "follow": 0,
+   "seed": 2.9
+  }
+ ],
+ "props": [
+  {
+   "id": "bedm",
+   "kind": "strawbed",
+   "shape": "lie",
+   "x": 1.1,
+   "y": 0,
+   "z": -0.84
+  },
+  {
+   "id": "beds",
+   "kind": "strawbed",
+   "shape": "sit",
+   "x": -1.15,
+   "y": 0,
+   "z": 0.65
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "c1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.2,
+     1,
+     -0.84
+    ],
+    "look": [
+     1.1,
+     0.8,
+     -0.84
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "beds",
+     "off": [
+      0,
+      0.14,
+      -0.2
+     ],
+     "yaw": 10,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "bedm",
+     "off": [
+      -0.2,
+      0.5,
+      0.54
+     ],
+     "yaw": -12,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "pitch",
+     "to": -60,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.3,
+       -0.12
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.3,
+       -0.12
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bedm",
+     "set": {
+      "tuck": 1,
+      "bolster": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "SLEEP side-on"
+  },
+  {
+   "name": "c2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.2,
+     1,
+     -0.84
+    ],
+    "look": [
+     1.1,
+     0.8,
+     -0.84
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "bedm",
+     "off": [
+      -0.38,
+      0.5,
+      0.54
+     ],
+     "yaw": -90,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 60,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bedm",
+     "set": {
+      "tuck": 0,
+      "bolster": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "SLEEP side-on, no blanket (tuck 0.1 hides tuck mesh)"
+  },
+  {
+   "name": "c3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.2,
+     1,
+     -0.84
+    ],
+    "look": [
+     1.1,
+     0.8,
+     -0.84
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "bedm",
+     "off": [
+      -0.2,
+      0.14,
+      0.54
+     ],
+     "yaw": -12,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bedm",
+     "set": {
+      "tuck": 0,
+      "bolster": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "SIDE side-on (tuck 0)"
+  },
+  {
+   "name": "c4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.2,
+     1,
+     -0.4
+    ],
+    "look": [
+     1.1,
+     0.7,
+     -0.4
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "bedm",
+     "off": [
+      -0.2,
+      0.5,
+      0.54
+     ],
+     "yaw": -12,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "pitch",
+     "to": -60,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.3,
+       -0.12
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.3,
+       -0.12
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bedm",
+     "set": {
+      "tuck": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "UP side-on tuck 0"
+  },
+  {
+   "name": "c5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -5.5,
+     1,
+     0.45
+    ],
+    "look": [
+     -1.15,
+     0.7,
+     0.45
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "Spud sit side-on"
+  },
+  {
+   "name": "c6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.1,
+     0.9,
+     3.2
+    ],
+    "look": [
+     1.1,
+     0.8,
+     -0.84
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "SLEEP front (from the foot), low"
+  },
+  {
+   "name": "c7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.1,
+     4.2,
+     -0.8
+    ],
+    "look": [
+     1.1,
+     0.5,
+     -0.85
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "SLEEP from above"
+  }
+ ],
+ "notes": "Generated by storyboards/series/how-you-invented/01-alarm-clock/bench/bench-hut.mjs (props bench, no reviews).",
+ "allowClip": [
+  {
+   "who": "mash",
+   "with": "bedm",
+   "from": 0,
+   "to": 7,
+   "reason": "in bed"
+  },
+  {
+   "who": "spud",
+   "with": "beds",
+   "from": 0,
+   "to": 7,
+   "reason": "in bed"
+  }
+ ]
+}

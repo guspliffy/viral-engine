@@ -1,0 +1,131 @@
+{
+ "_note": "AI sounds for How you invented 01 The alarm clock (26 Nov 2026), own recipe file so parallel clips don't edit recipes.json. generate.py -> pick.py (README).",
+ "sfx": [
+  {
+   "id": "rooster-crow",
+   "kind": "oneshot",
+   "len": [
+    1.2,
+    2.6
+   ],
+   "duration": 8,
+   "tags": [
+    "rooster",
+    "crow",
+    "cock-a-doodle-doo",
+    "farm"
+   ],
+   "prompts": [
+    "a rooster crowing loudly once, cock-a-doodle-doo, close up, farmyard at dawn, no music",
+    "a single loud rooster crow indoors, one long cock-a-doodle-doo, no other animals, no music"
+   ],
+   "seeds": [
+    201,
+    202,
+    203
+   ],
+   "gain": 0.7,
+   "label": "a rooster crowing once"
+  },
+  {
+   "id": "snore",
+   "kind": "oneshot",
+   "len": [
+    1.0,
+    2.4
+   ],
+   "duration": 8,
+   "tags": [
+    "snore",
+    "sleep",
+    "snoring"
+   ],
+   "prompts": [
+    "one deep loud snore of a sleeping man, a single slow inhale snore, quiet room, no music",
+    "a man snoring once, long rumbling snore in a quiet bedroom, close up, no music"
+   ],
+   "seeds": [
+    211,
+    212,
+    213
+   ],
+   "gain": 0.5,
+   "label": "one loud snore"
+  },
+  {
+   "id": "dog-bark",
+   "kind": "oneshot",
+   "len": [
+    0.4,
+    1.4
+   ],
+   "duration": 8,
+   "tags": [
+    "dog",
+    "bark",
+    "village",
+    "night"
+   ],
+   "prompts": [
+    "a dog barking twice in the distance at night, outdoors village, no music",
+    "a medium dog barking a few times far away down a street at night, no music"
+   ],
+   "seeds": [
+    221,
+    222
+   ],
+   "gain": 0.4,
+   "label": "a distant dog barking"
+  },
+  {
+   "id": "shutters",
+   "kind": "oneshot",
+   "len": [
+    0.4,
+    1.2
+   ],
+   "duration": 8,
+   "tags": [
+    "shutters",
+    "wooden",
+    "window",
+    "bang"
+   ],
+   "prompts": [
+    "wooden window shutters flung open and banging against a wall, one clatter, outdoors, no music",
+    "old wooden shutters slamming open, a single loud wooden clack, no music"
+   ],
+   "seeds": [
+    231,
+    232
+   ],
+   "gain": 0.5,
+   "label": "wooden shutters banging open"
+  },
+  {
+   "id": "fly-buzz",
+   "kind": "oneshot",
+   "len": [
+    1.0,
+    2.5
+   ],
+   "duration": 8,
+   "tags": [
+    "fly",
+    "buzz",
+    "insect"
+   ],
+   "prompts": [
+    "a single house fly buzzing close around, short buzz, quiet room, no music",
+    "a small fly buzzing past the ear, close up, quiet, no music"
+   ],
+   "seeds": [
+    241,
+    242
+   ],
+   "gain": 0.35,
+   "label": "a fly buzzing"
+  }
+ ],
+ "music": []
+}

@@ -16,7 +16,8 @@
 // engine), the contact and grip checks, the drawn rig (qa/rig.mjs), the subject-owns-the-front check and the must-see
 // list and the pupils the lids leave showing (qa/framing.mjs), the captions (safe zone, the brief's band, hidden
 // behind characters: qa/check.mjs captionResults), the storyboard's motion and acting habits (qa/motion.mjs), the camera lint (qa/camera.mjs), the camera inside a body (qa/camin.mjs, a fail), the
-// sound the render would make on a phone speaker (qa/sound.mjs --phone) and the readability stills (qa/readability.mjs).
+// sound the render would make on a phone speaker (qa/sound.mjs --phone), the mix's silent stretches (check.mjs audio-dropout,
+// the farm's fail at the join) and the readability stills (qa/readability.mjs).
 //
 // Verdict:
 //   FAIL   a check in GATE.fails failed: render.mjs refuses to render it (fix it, or a window with a reason for the rare
@@ -31,7 +32,9 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
-import { clipResults, contactResults, captionResults } from "./check.mjs";
+import { clipResults, contactResults, captionResults, dropoutGaps, RULES } from "./check.mjs";
+import { writeWav } from "../engine/audio.mjs";
+import os from "node:os";
 import { GATE } from "./gate.mjs";
 import { motionResults, storyNotes } from "./motion.mjs";
 import { visibility, frontResults, eyesResults, cardResults } from "./framing.mjs";
@@ -120,6 +123,14 @@ export async function preflight(sb, lay, { quick = false, sbFile = null } = {}) 
       const { soundNotes, freshMix, phoneBand } = await import("./sound.mjs");
       for (const r of soundNotes(sb)) add(r, "sound");
       const f = freshMix(sb, chars); for (const r of phoneBand(f.mix, f.events)) add(r, "sound");
+      // the farm's audio-dropout fail, on the fresh mix before any frame is drawn (alarm clock, 27 Nov 2026: a music
+      // gap at the low point and a 6.5 s cue that faded out failed two farm runs at the join, ~20 min each)
+      const wav = path.join(os.tmpdir(), `preflight-mix-${process.pid}.wav`);
+      writeWav(wav, f.a.L, f.a.R, f.a.sr ?? 44100);
+      const eb = spawnSync("ffmpeg", ["-v", "info", "-nostats", "-i", wav, "-af", "ebur128", "-f", "null", "-"], { encoding: "utf8", maxBuffer: 256 << 20 });
+      fs.rmSync(wav, { force: true });
+      const { gaps } = dropoutGaps(eb.stderr || "");
+      if (gaps.length) add({ level: "fail", check: "audio-dropout", msg: `the mix goes silent at ${gaps.map((r) => `${r.from.toFixed(1)}-${r.to.toFixed(1)} s`).join(", ")} (momentary loudness under ${RULES.dropoutLUFS} LUFS for ${RULES.dropoutHold} s): the farm's check fails it at the join; put a quiet bed (music, room tone, a breath) under it` }, "sound");
     } catch (e) { add({ level: "warn", check: "sound", msg: `the sound wasn't measured (${e.message.split("\n")[0]})` }, "sound"); }
     if (sbFile) {
       const r = spawnSync(process.execPath, [path.join(ROOT, "qa/readability.mjs"), sbFile, "--json"], { cwd: ROOT, encoding: "utf8", maxBuffer: 64 << 20 });
