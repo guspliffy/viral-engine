@@ -67,7 +67,7 @@ Channel by channel (Jonny 26 Nov: are several channels on the topic rising at on
 week vs the week before; RISING x1.3+, FALLING x0.7 or less (2+ videos a side), NEW = first format video in 14 days.
 DEVELOPING = 3+ channels rising and at least twice as many rising as falling; COOLING the other way round.
 Stages on the page: Animate (just rising), Storyboard (early lead: 2+ accounts posted it in 3 days and a first-timer beat
-their usual views within 3 days; cheap action = premise + rough board), lead, steady, crowded, dying. Every day the scout
+their usual views within 3 days; cheap action = premise + rough board), lead, room on the other platform (a gap, not a rise), steady, crowded, dying. Every day the scout
 saves its picks with the date our video could go live (`SCOUT_LEAD_DAYS`, 2); after a few weeks, score each pick by
 whether first-timers posting around that date still beat their usual views 2x at 48 h, against the most-viewed list.
 The Formats tab also shows 10 random small-account clips the finder missed, to watch muted and note setup + reversal.
