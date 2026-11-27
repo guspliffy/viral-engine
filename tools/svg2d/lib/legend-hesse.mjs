@@ -10,6 +10,8 @@
 //
 // PALETTE   night(mood) -> D        mood 0 = black night, 1 = cold dawn blue. forest()/water() call it for you.
 //           grade(mood, a = 1)      multiply wash that pushes cast + set into the night; defs() = legend defs + ours
+//           lit(svg, o)             a figure drawn AFTER grade()/room.light: own shade + warm rim, stays opaque.
+//                                   o { shade "#hex", a, rim "#hex", rimA, side -1|1, w px }   HOOK = the frame-0 preset
 // FOREST    forest(c, t, mood, o)   -> { back, front }   o: { split (world Z: nearer trees go to front, default c.z + 3),
 //                                   clear: { X, Z, r } (no trees there: the house clearing), moon (default true), shafts 0..1,
 //                                   fog 0..1, path (default true) }
@@ -90,6 +92,14 @@ export function defs() {
 }
 // the night over everything drawn so far (multiply); the light layers go on top of it
 export const grade = (mood = MOOD, a = 1) => `<rect width="${W}" height="${H}" fill="${mix("#54728a", "#b4cce0", mood)}" opacity="${op(a)}" style="mix-blend-mode:multiply"/>`;
+// a figure drawn AFTER grade()/room.light, with its own shade and a warm rim: lit(kid.svg, { shade, a, rim, side, w })
+// shade = multiply colour (default the night grade), a its strength, rim = light colour, side -1 lit from the left / 1 right
+export function lit(svg, o = {}) {
+  const id = `hsl${UID++}`, w = o.w ?? 5, side = o.side ?? -1;
+  return `<filter id="${id}" filterUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}" color-interpolation-filters="sRGB"><feFlood flood-color="${o.shade || D.grade}" flood-opacity="${op(o.a ?? 0.8)}" result="f"/><feComposite in="f" in2="SourceAlpha" operator="in" result="fc"/><feBlend in="fc" in2="SourceGraphic" mode="multiply" result="sh"/><feComposite in="sh" in2="SourceAlpha" operator="in" result="shc"/>
+    <feOffset in="SourceAlpha" dx="${n(-side * w)}" dy="${n(w * 0.35)}" result="off"/><feComposite in="SourceAlpha" in2="off" operator="out" result="edge"/><feFlood flood-color="${o.rim || "#ffb060"}" flood-opacity="${op(o.rimA ?? 0.85)}" result="rf"/><feComposite in="rf" in2="edge" operator="in" result="rimc"/>
+    <feMerge><feMergeNode in="shc"/><feMergeNode in="rimc"/></feMerge></filter><g filter="url(#${id})">${svg}</g>`;
+}
 export const vignette = (a = 1) => `<rect width="${W}" height="${H}" fill="url(#vig)" opacity="${op(a)}"/>`;
 
 // ================================================================= forest
@@ -297,19 +307,21 @@ export function pearls(p, o = {}) {
 }
 
 // ================================================================= the witch's house: bread walls, cake roof, sugar windows
-const BREAD = ["#c98a3e", "#b87a32", "#d69a4c", "#a86a2a"], SUGAR = "#ffe7a6", ICING = "#fff6e6";
-export const HOUSE = { w: 3.4, wall: 1.7, peak: 3.35, door: { w: 0.86, h: 1.42 }, win: { x: 1.07, y: 0.82, w: 0.62, h: 0.66 }, top: { y: 2.3, r: 0.3 }, bite: { x: 1.92, y: 1.42 } };
+const BREAD = ["#e2a03c", "#d48c2a", "#ecb452", "#c97c22"], SUGAR = "#ffe7a6", ICING = "#fff6e6";
+export const HOUSE = { w: 3.4, wall: 1.7, peak: 3.35, door: { w: 0.86, h: 1.42 }, win: { x: 1.08, y: 0.78, w: 0.8, h: 0.74 }, top: { y: 2.3, r: 0.3 }, bite: { x: 1.92, y: 1.42 } };
+// frame 0: the house fills about half the width, two red eyes in the right sugar window. forest(c, t, 0, { clear, split })
+export const HOOK = { cam: { x: 0.15, y: 1.45, z: 0 }, house: { X: 0.15, Z: 8.3, eyes: 1, eyesWin: "R", eyeK: 1.45 }, clear: { X: 0.15, Z: 8.3, r: 3.4 }, split: 4 };
 // the witch's eyes alone, frontal: red, a milky near-blind pupil. k = px per eye half-width
 export function redEyes(x, y, k, o = {}) {
   const open = o.open ?? 1, look = o.look || 0, gl = o.glow ?? 1;
   if (open < 0.04) return "";
   let s = gl > 0 ? lightBlobs(x, y, [k * 4.6, k * 2.8], "#ff2a1a", [0.14 * gl * open, 0.22 * gl * open], 201, 0.6) : "";
   for (const d of [-1, 1]) {
-    const ex = x + d * k * 1.55, h = k * 0.78 * open;
+    const ex = x + d * k * (o.gap ?? 1.55), h = k * 0.82 * open;
     const sh = `M${n(ex - k)},${n(y + h * 0.15 * d)} Q${n(ex - k * 0.2 * d)},${n(y - h * 1.25)} ${n(ex + k)},${n(y - h * 0.15 * d)} Q${n(ex)},${n(y + h * 0.95)} ${n(ex - k)},${n(y + h * 0.15 * d)} Z`;
     const id = `hse${UID++}`, ix = ex + look * k * 0.4;
-    s += `<clipPath id="${id}"><path d="${sh}"/></clipPath><path d="${sh}" fill="#ff3a22" stroke="#3a0408" stroke-width="${n(Math.max(0.8, k * 0.14))}"/>`;
-    s += `<g clip-path="url(#${id})"><circle cx="${n(ix)}" cy="${n(y)}" r="${n(k * 0.62)}" fill="#a80c10"/><circle cx="${n(ix)}" cy="${n(y)}" r="${n(k * 0.36)}" fill="#f6ecdf"/><circle cx="${n(ix + k * 0.06)}" cy="${n(y + k * 0.04)}" r="${n(k * 0.17)}" fill="#c9ccd6"/><path d="M${n(ex - k)},${n(y - h * 1.3)} L${n(ex + k)},${n(y - h * 1.3)} L${n(ex + k)},${n(y - h * 0.55 + d * h * 0.2)} L${n(ex - k)},${n(y - h * 0.55 - d * h * 0.2)} Z" fill="#5a0508" opacity="0.5"/></g>`;
+    s += `<clipPath id="${id}"><path d="${sh}"/></clipPath><path d="${sh}" fill="#ff2412" stroke="#3a0408" stroke-width="${n(Math.max(0.8, k * 0.14))}"/>`;
+    s += `<g clip-path="url(#${id})"><circle cx="${n(ix)}" cy="${n(y)}" r="${n(k * 0.6)}" fill="#c20e12"/><circle cx="${n(ix)}" cy="${n(y)}" r="${n(k * 0.27)}" fill="#f6ecdf"/><circle cx="${n(ix + k * 0.05)}" cy="${n(y + k * 0.03)}" r="${n(k * 0.12)}" fill="#c9ccd6"/><path d="M${n(ex - k)},${n(y - h * 1.3)} L${n(ex + k)},${n(y - h * 1.3)} L${n(ex + k)},${n(y - h * 0.55 + d * h * 0.2)} L${n(ex - k)},${n(y - h * 0.55 - d * h * 0.2)} Z" fill="#5a0508" opacity="0.5"/></g>`;
   }
   return s;
 }
@@ -342,21 +354,23 @@ export function house(c, st, t = 0) {
   for (let i = 0; i < 4 && smk > 0; i++) { const u = (t * 0.22 + i / 4) % 1, x = chx + 0.1 + u * 0.9 + Math.sin(t * 1.3 + i * 2) * 0.12, y = 3.4 + u * 2.2, r = 0.16 + u * 0.34; o += `<path d="${blob(Array.from({ length: 9 }, (_, e) => q(x + Math.cos(e / 9 * TAU) * r * (1 + jit(i * 17 + e, 0.2)), y + Math.sin(e / 9 * TAU) * r * 0.8)))}" fill="#c9bfd0" opacity="${op(0.42 * (1 - u) * smk)}"/>`; }
   // bread wall (front gable), loaves like big stones
   const wall = [q(-hw, 0), q(-hw, G.wall), q(0, G.peak), q(hw, G.wall), q(hw, 0)];
-  o += `<clipPath id="${id}"><polygon points="${wall.map(pt).join(" ")}"/></clipPath>` + poly(wall, "#7a4a1e");
+  o += `<clipPath id="${id}"><polygon points="${wall.map(pt).join(" ")}"/></clipPath>` + poly(wall, "#7a3c0c");
   let lv = "";
-  for (let r = 0, y = 0.02; y < G.peak; r++) {
-    const rh = 0.27 + hash(r + 40) * 0.05;
-    for (let x = -hw - hash(r * 7 + 1) * 0.5, j = 0; x < hw; j++) {
-      const w = 0.5 + hash(r * 13 + j * 3) * 0.26, sdd = r * 31 + j, col = BREAD[Math.floor(hash(sdd + 5) * 4)];
-      const a = q(x + 0.025, y + rh - 0.02), w2 = (w - 0.05) * s, h2 = (rh - 0.045) * s;
-      lv += `<rect x="${n(a.x)}" y="${n(a.y)}" width="${n(w2)}" height="${n(h2)}" rx="${n(h2 * 0.42)}" fill="${col}" stroke="#5a3210" stroke-width="${n(lw * 0.8)}"/>`;
-      lv += `<path d="M${n(a.x + h2 * 0.3)},${n(a.y + h2 * 0.2)} Q${n(a.x + w2 * 0.5)},${n(a.y + h2 * 0.02)} ${n(a.x + w2 - h2 * 0.3)},${n(a.y + h2 * 0.2)}" stroke="#f0cf8a" stroke-width="${n(h2 * 0.16)}" fill="none" stroke-linecap="round" opacity="0.8"/>`;
-      for (let e = 0; e < 2; e++) { const sx = a.x + w2 * (0.33 + e * 0.3); lv += `<path d="M${n(sx)},${n(a.y + h2 * 0.3)} l${n(h2 * 0.3)},${n(h2 * 0.36)}" stroke="#f3dcA8" stroke-width="${n(h2 * 0.12)}" stroke-linecap="round" fill="none"/>`; }
+  for (let r = 0, y = 0.02; y < G.peak; r++) {       // rows of round loaves: light crust on top, scoring cuts, crumb specks
+    const rh = 0.34 + hash(r + 40) * 0.05;
+    for (let x = -hw - hash(r * 7 + 1) * 0.6, j = 0; x < hw; j++) {
+      const w = 0.66 + hash(r * 13 + j * 3) * 0.3, sdd = r * 31 + j, col = BREAD[Math.floor(hash(sdd + 5) * 4)];
+      const a = q(x + 0.02, y + rh - 0.015), w2 = (w - 0.04) * s, h2 = (rh - 0.03) * s, rr = h2 * 0.5;
+      lv += `<rect x="${n(a.x)}" y="${n(a.y)}" width="${n(w2)}" height="${n(h2)}" rx="${n(rr)}" fill="${col}" stroke="#6a3208" stroke-width="${n(lw)}"/>`;
+      lv += `<path d="M${n(a.x + rr * 0.5)},${n(a.y + h2 * 0.62)} Q${n(a.x + w2 * 0.5)},${n(a.y + h2 * 1.02)} ${n(a.x + w2 - rr * 0.5)},${n(a.y + h2 * 0.62)} Q${n(a.x + w2 * 0.5)},${n(a.y + h2 * 0.8)} ${n(a.x + rr * 0.5)},${n(a.y + h2 * 0.62)} Z" fill="#a85a14" opacity="0.6"/>`;
+      lv += `<path d="M${n(a.x + rr * 0.7)},${n(a.y + h2 * 0.24)} Q${n(a.x + w2 * 0.5)},${n(a.y + h2 * 0.02)} ${n(a.x + w2 - rr * 0.7)},${n(a.y + h2 * 0.24)}" stroke="#ffe2a0" stroke-width="${n(h2 * 0.2)}" fill="none" stroke-linecap="round" opacity="0.85"/>`;
+      for (let e = 0; e < 3; e++) { const sx = a.x + w2 * (0.27 + e * 0.2); lv += `<path d="M${n(sx)},${n(a.y + h2 * 0.3)} q${n(h2 * 0.26)},${n(h2 * 0.1)} ${n(h2 * 0.32)},${n(h2 * 0.44)}" stroke="#fff0c4" stroke-width="${n(h2 * 0.15)}" stroke-linecap="round" fill="none"/><path d="M${n(sx + h2 * 0.05)},${n(a.y + h2 * 0.42)} q${n(h2 * 0.2)},${n(h2 * 0.1)} ${n(h2 * 0.24)},${n(h2 * 0.3)}" stroke="#b86a1a" stroke-width="${n(h2 * 0.05)}" fill="none"/>`; }
+      for (let e = 0; e < 4; e++) lv += `<circle cx="${n(a.x + rr + hash(sdd * 3 + e) * (w2 - rr * 2))}" cy="${n(a.y + h2 * (0.5 + hash(sdd * 5 + e) * 0.36))}" r="${n(h2 * 0.035)}" fill="#8a4a10"/>`;
       x += w;
     }
     y += rh;
   }
-  o += `<g clip-path="url(#${id})">${lv}<polygon points="${[q(-hw, G.wall), q(0, G.peak), q(hw, G.wall), q(hw, G.wall - 0.5), q(-hw, G.wall - 0.5)].map(pt).join(" ")}" fill="#3a1c08" opacity="0.28"/></g>` + poly(wall, "none", ink);
+  o += `<g clip-path="url(#${id})">${lv}<polygon points="${[q(-hw, G.wall), q(0, G.peak), q(hw, G.wall), q(hw, G.wall - 0.5), q(-hw, G.wall - 0.5)].map(pt).join(" ")}" fill="#5a2a08" opacity="0.2"/></g>` + poly(wall, "none", ink);
   // cake roof: two thick slabs, cut faces show sponge / cream / jam, white icing runs over the edge
   const th = 0.36;
   for (const d of [-1, 1]) {
@@ -401,15 +415,17 @@ export function house(c, st, t = 0) {
     const ey = st.eyesWin ?? "top", on = (st.eyes || 0) > 0.02 && ((ey === "top" && round) || (ey === "L" && key === 1) || (ey === "R" && key === 2));
     if (on) {
       const e = clamp(st.eyes), cx = A.x + ww / 2, cy = A.y + hh * 0.5, hk = Math.min(ww, hh);
-      g += `<path d="M${n(cx - hk * 0.62)},${n(A.y + hh + 2)} Q${n(cx - hk * 0.62)},${n(cy - hk * 0.42)} ${n(cx - hk * 0.1)},${n(cy - hk * 0.5)} Q${n(cx + hk * 0.5)},${n(cy - hk * 0.55)} ${n(cx + hk * 0.62)},${n(A.y + hh + 2)} Z" fill="#1a0a10" opacity="${op(0.93 * Math.min(1, e * 2.5))}"/>`;
-      g += redEyes(cx + (st.look || 0) * hk * 0.06, cy - hk * 0.04, hk * 0.15 * (st.eyeK || 1), { open: e, look: st.look || 0, glow: 0 });
+      g += `<path d="M${n(cx - hk * 0.62)},${n(A.y + hh + 2)} Q${n(cx - hk * 0.62)},${n(cy - hk * 0.42)} ${n(cx - hk * 0.1)},${n(cy - hk * 0.5)} Q${n(cx + hk * 0.5)},${n(cy - hk * 0.55)} ${n(cx + hk * 0.62)},${n(A.y + hh + 2)} Z" fill="#12060c" opacity="${op(0.96 * Math.min(1, e * 2.5))}"/>`;
+      g += redEyes(cx + (st.look || 0) * hk * 0.06, cy - hk * 0.04, hk * 0.15 * (st.eyeK || 1), { open: e, look: st.look || 0, glow: 0, gap: 1.25 });
     }
     g += `</g>`;
     if (!round) g += `<path d="M${n(A.x + ww / 2)},${n(A.y)} V${n(A.y + hh)} M${n(A.x)},${n(A.y + hh / 2)} H${n(A.x + ww)}" stroke="${ICING}" stroke-width="${n(0.035 * s)}" opacity="${on ? 0.25 : 1}"/>`;
     return g;
   };
-  wins.forEach(([key, wx, wy, ww, wh]) => { L += pane(wx - ww / 2, wy, ww, wh, false, key === "L" ? 1 : 2); });
-  L += pane(-G.top.r, G.top.y - G.top.r, G.top.r * 2, G.top.r * 2, true, 3);
+  const ew0 = (st.eyes || 0) > 0.02 ? (st.eyesWin ?? "top") : ""; let eyePane = "";
+  wins.forEach(([key, wx, wy, ww, wh]) => { const g2 = pane(wx - ww / 2, wy, ww, wh, false, key === "L" ? 1 : 2); L += g2; if (ew0 === key) eyePane = g2; });
+  { const g2 = pane(-G.top.r, G.top.y - G.top.r, G.top.r * 2, G.top.r * 2, true, 3); L += g2; if (ew0 === "top") eyePane = g2; }
+  if ((st.eyes || 0) > 0.02) { const ew = st.eyesWin ?? "top", m = q(ew === "L" ? -G.win.x : ew === "R" ? G.win.x : 0, ew === "top" ? G.top.y : G.win.y + G.win.h / 2); L += lightBlobs(m.x, m.y, [0.75 * s, 0.42 * s], "#ff2a1a", [0.16 * st.eyes, 0.2 * st.eyes], 207); }
   // heart in the door / the open doorway
   if (doorO > 0.03) {
     L += `<path d="M${pt(q(lx1, 0))} L${pt(q(lx1, dh - 0.36))} Q${pt(q(lx1, dh))} ${pt(q(Math.max(lx1, 0), dh))} Q${pt(q(dw / 2, dh))} ${pt(q(dw / 2, dh - 0.36))} L${pt(q(dw / 2, 0))} Z" fill="${mix("#ffd98a", "#ffc0c8", 0.35)}" opacity="${op(glow)}"/>`;
@@ -426,6 +442,7 @@ export function house(c, st, t = 0) {
     for (const [, wx, wy, ww, wh] of wins) { const m = q(wx, wy + wh / 2); L += lightBlobs(m.x, m.y, [1.05 * s, 0.62 * s], "#ff9a3a", [0.13 * fl, 0.2 * fl], wx * 10 + 300); }
     L += lightBlobs(tc.x, tc.y, [0.8 * s, 0.48 * s], "#ffa040", [0.12 * fl, 0.2 * fl], 333);
     const m = q(0, 1.2); L += lightBlobs(m.x, m.y, [3.6 * s, 2.4 * s], "#ff8a2e", [0.07 * fl, 0.09 * fl], 341, 0.8);
+    L += `<polygon points="${wall.map(pt).join(" ")}" fill="#d07a1c" opacity="${op(0.42 * fl)}" style="mix-blend-mode:screen"/>`;
     if (doorO > 0.03) { const dm = q(lx1 / 2 + dw / 4, dh * 0.5); L += lightBlobs(dm.x, dm.y, [1.5 * s, 0.85 * s], "#ffb060", [0.16 * fl * doorO, 0.24 * fl * doorO], 351); }
     const zN = Math.max(c.z + NEAR + 0.05, st.Z - 3.2 - doorO * 1.4);
     for (const [wx, w0] of [[-G.win.x, 0.3], [G.win.x, 0.3], [0, doorO * 0.42]]) if (w0 > 0.02) {
@@ -434,6 +451,7 @@ export function house(c, st, t = 0) {
     }
     L += `<path d="${blob(ring(c, st.X, Math.max(c.z + 0.6, st.Z - 1.3), 3.2, 1.4, 361))}" fill="#ff8a2e" opacity="${op(0.13 * fl)}" style="mix-blend-mode:screen"/>`;
   }
+  L += eyePane;                                   // the eye window again, on top of the warm wash: dark head, pure red eyes
   const g = shadowBlob(c, st.X, st.Z + 1.2, 2.6, 1.6);
   return { svg: g + o, light: panes + L, panes, spill: L, door: q(0, 0), bite: q(G.bite.x, G.bite.y), win: q(st.eyesWin === "L" ? -G.win.x : st.eyesWin === "R" ? G.win.x : 0, (st.eyesWin ?? "top") === "top" ? G.top.y : G.win.y + G.win.h / 2), p: b };
 }
@@ -747,19 +765,19 @@ export function gretel(c, st, t = 0) {
 export function witch(c, st, t = 0) {
   if (st.Z < c.z + NEAR) return { svg: "", light: "", p: null };
   const p = P(c, st.X, 0, st.Z), dir = st.dir ?? 1, b = st.bend ?? 0.4, ln = st.lean || 0, sv = st.shoved || 0, sn = st.sniff || 0, rch = st.reach || 0, sweet = st.sweet ?? 1;
-  const A = Math.min(78, 12 + b * 26 + sn * 12 + ln * 50 + sv * 30), bodyRot = sv * 16, shift = sv * 12 + ln * 8, HSC = 1.22;
-  const hA = -A * 0.78 * (1 - ln * 0.55 - sv * 0.45) - sn * 13 + sv * 8;
+  const A = Math.min(74, 12 + b * 26 + sn * 12 + ln * 44 + sv * 50), bodyRot = sv * 5, shift = sv * 8 + ln * 8, HSC = 1.22, kx = sv * 11;
+  const hA = -A * 0.78 * (1 - ln * 0.2 - sv * 0.3) - sn * 13;
   const skin = WSKIN, skinS = WSKINS, dress = "#66744e", dressS = "#4a573a", scarf = "#b52a5e", scarfS = "#8a1c46", shawl = "#f4a8c2", shawlS = "#d67fa2";
-  const HIP = [0, -90], NECK = [2, -137];
-  const toBody = (x, y) => rotP(x, y, A, HIP[0], HIP[1]);
+  const HIP = [sv * 4, -90 + sv * 10], NECK = [2, -137];
+  const toBody = (x, y) => rotP(x + HIP[0], y + sv * 10, A, HIP[0], HIP[1]);
   const headToBody = (x, y) => { const q = rotP(NECK[0] + (x - NECK[0]) * HSC + sn * 5, NECK[1] + (y - NECK[1]) * HSC, hA, NECK[0], NECK[1]); return toBody(q[0], q[1]); };
   const sh = toBody(3, -131);
   let hN = [sh[0] + 9, sh[1] + 25], hFar = [sh[0] + 12, sh[1] + 27];
   hN = lp2(hN, [sh[0] + 15, sh[1] + 30], sn); hFar = lp2(hFar, [sh[0] + 22, sh[1] + 24], sn);
   hN = lp2(hN, [st.reachX ?? 54, st.reachY ?? -104], rch);
   hN = lp2(hN, [sh[0] + 30, sh[1] + 6], ln); hFar = lp2(hFar, [sh[0] + 34, sh[1] + 14], ln);
-  hN = lp2(hN, [sh[0] + 18 + Math.sin(t * 20) * 3, sh[1] - 30], sv); hFar = lp2(hFar, [sh[0] + 36, sh[1] - 6], sv);
-  const aN = ik(sh, hN, 50, sv > 0.5), aF = ik([sh[0] + 2, sh[1] + 1], hFar, 50);
+  hN = lp2(hN, [sh[0] + 8 + Math.sin(t * 20) * 4, sh[1] - 42], sv); hFar = lp2(hFar, [sh[0] + 40 + Math.cos(t * 20) * 3, sh[1] - 16], sv);
+  const aN = ik(sh, hN, 50, sv > 0.5), aF = ik([sh[0] + 2, sh[1] + 1], hFar, 50, sv > 0.5);
   const bonyH = (el, h, col, curl = 0) => { const a = Math.atan2(h[1] - el[1], h[0] - el[0]); let g = `<ellipse cx="${n(h[0])}" cy="${n(h[1])}" rx="3.4" ry="2.5" transform="rotate(${n(a * 180 / Math.PI)} ${n(h[0])} ${n(h[1])})" fill="${col}"/>`;
     for (let i = 0; i < 4; i++) { const fa = a + (-0.5 + i * 0.3) + curl * 0.5, m = [h[0] + Math.cos(fa) * 4.6, h[1] + Math.sin(fa) * 4.6], fb = fa + 0.5 + curl, e = [m[0] + Math.cos(fb) * 4, m[1] + Math.sin(fb) * 4]; g += stroke2([[h[0] + Math.cos(fa) * 2, h[1] + Math.sin(fa) * 2], m, e], 1.5, col, 0.45); }
     return g; };
@@ -769,7 +787,7 @@ export function witch(c, st, t = 0) {
   // face (head space; the profile looks right)
   const blink = st.blink || 0, eo = Math.max(0.12, 1 - blink), talk = st.talk || 0;
   const browN = `M${n(lerp(8.5, 9.5, sweet))},${n(lerp(-160.5, -158.2, sweet))} Q14,${n(lerp(-158.4, -161.4, sweet))} ${n(lerp(20.5, 19, sweet))},${n(lerp(-155.6, -158.4, sweet))}`;
-  const redEye = (x, y, w, far) => `<path d="M${n(x - w)},${n(y + 0.3)} Q${n(x)},${n(y - 3.4 * eo * (far ? 0.85 : 1))} ${n(x + w)},${n(y)} Q${n(x)},${n(y + lerp(2.2, 0.9, sweet) * eo)} ${n(x - w)},${n(y + 0.3)} Z" fill="#ff3a22" stroke="#3a0408" stroke-width="0.6"/><circle cx="${n(x + 0.5 + (st.look || 0))}" cy="${n(y - 0.5)}" r="${n(Math.min(1.25, w * 0.42) * Math.min(1, eo * 1.4))}" fill="#f6ecdf" stroke="#a80c10" stroke-width="0.5"/><circle cx="${n(x + 0.6 + (st.look || 0))}" cy="${n(y - 0.45)}" r="0.4" fill="#c9ccd6" stroke="none"/>`;
+  const redEye = (x, y, w, far) => `<path d="M${n(x - w)},${n(y + 0.3)} Q${n(x)},${n(y - 3.4 * eo * (far ? 0.85 : 1))} ${n(x + w)},${n(y)} Q${n(x)},${n(y + lerp(2.2, 0.9, sweet) * eo)} ${n(x - w)},${n(y + 0.3)} Z" fill="#ff2412" stroke="#3a0408" stroke-width="0.6"/><circle cx="${n(x + 0.5 + (st.look || 0))}" cy="${n(y - 0.5)}" r="${n(Math.min(1.25, w * 0.42) * Math.min(1, eo * 1.4))}" fill="#f6ecdf" stroke="#a80c10" stroke-width="0.5"/><circle cx="${n(x + 0.6 + (st.look || 0))}" cy="${n(y - 0.45)}" r="0.4" fill="#c9ccd6" stroke="none"/>`;
   let mouth;
   if (talk > 0.12) mouth = `<path d="M17.2,-142.4 L7.5,-143 L15.6,${n(-140.4 + talk * 3.6)} Z" fill="#3a0c14"/><path d="M14.6,-142.6 l0.9,2 l0.9,-1.9 Z" fill="#efe6c8" stroke="none"/>`;
   else if (sweet > 0.5) mouth = `<path d="M17.4,-142.8 Q12.5,-139.2 7.2,-143.6" stroke="#5a1f30" stroke-width="1" fill="none" stroke-linecap="round"/><path d="M7.2,-143.6 q-1.2,-0.6 -1.4,-2" stroke="#98a37e" stroke-width="0.7" fill="none"/><path d="M13.2,-141 l0.8,1.6 l0.9,-1.5 Z" fill="#efe6c8" stroke="${INK}" stroke-width="0.3"/>`;
@@ -794,7 +812,7 @@ export function witch(c, st, t = 0) {
     <path d="M11,-158.4 Q9.5,-153 10.4,-149.6 M8.6,-158.8 Q6.4,-153 7,-148.6" stroke="#b8b8a8" stroke-width="0.9" fill="none" stroke-linecap="round"/>
     ${sniffL}
   </g>`;
-  const torso = `<g class="ol" transform="rotate(${n(A)} ${HIP[0]} ${HIP[1]})">
+  const torso = `<g class="ol" transform="translate(${n(HIP[0])},${n(sv * 10)}) rotate(${n(A)} 0 -90)">
     <path d="M-9,-88 Q-18,-112 -13,-128 Q-8,-139 0,-139 L5,-137 Q10,-120 9,-88 Z" fill="${dress}"/>
     <path d="M-9,-88 Q-18,-112 -13,-128 Q-10,-118 -4,-88 Z" fill="${dressS}" stroke="none"/>
     <path d="M-14,-128 Q-10,-142 1,-141 L7.5,-137.5 Q12.5,-128 11.5,-116 L6.5,-106.5 Q-4,-112 -17,-107 Q-19.5,-120 -14,-128 Z" fill="${shawl}"/>
@@ -803,9 +821,10 @@ export function witch(c, st, t = 0) {
     <path d="M-13,-106.6 l-1,5 M-7,-108.4 l-0.6,5 M-1,-108.6 l0,5 M4,-107 l0.8,5 M7.5,-108.6 l2,4.4" stroke="${shawlS}" stroke-width="0.9" fill="none" stroke-linecap="round"/>
     ${head}
   </g>`;
-  let hem = "M-9,-92 L9,-92 Q13.5,-50 16,-2"; for (let i = 0; i <= 7; i++) hem += ` L${n(16 - i * 4.1)},${n(i % 2 ? -8 + jit(i + 40, 1.5) : -1.5)}`; hem += " Q-11,-50 -9,-92 Z";
-  const legsSv = `<path d="M-10,-4 L-2,-5 Q5,-4 7,0 L-10,0 Z" fill="#1c141c"/><g transform="rotate(${n(-sv * 50)} 4 -30)"><path d="M3,-4 L13,-5.5 Q24,-5 29,0 L3,0 Z" fill="#1c141c"/></g>
-    <path d="${hem}" fill="${dress}"/><ellipse cx="0" cy="-90" rx="9.6" ry="7" fill="${dress}" stroke="none"/><path d="M-9,-92 Q-11,-50 -12.7,-2 L-8.6,-8 L-4.5,-2 Q-5,-50 -3,-92 Z" fill="${dressS}" stroke="none"/><path d="M4,-80 Q7,-40 8,-9 M-1,-70 Q0,-40 0,-6" stroke="${dressS}" stroke-width="0.8" fill="none"/>`;
+  const hy0 = -92 + sv * 10; let hem = `M${n(-9 + HIP[0])},${n(hy0)} L${n(9 + HIP[0])},${n(hy0)} Q${n(13.5 + kx * 2.2)},-48 16,-2`; for (let i = 0; i <= 7; i++) hem += ` L${n(16 - i * 4.1)},${n(i % 2 ? -8 + jit(i + 40, 1.5) : -1.5)}`; hem += ` Q${n(-11 + kx * 1.6)},-46 ${n(-9 + HIP[0])},${n(hy0)} Z`;
+  const kick = sv > 0.15 ? limb([[-4, -52], [-16, -34], [-30 * sv, -30 - 8 * sv]], 4, "#d9d2c4") + `<g transform="translate(${n(-30 * sv)},${n(-30 - 8 * sv)}) rotate(${n(-120)})"><path d="M-3,-4 L5,-5 Q14,-4 17,0 L-3,0 Z" fill="#1c141c"/></g>` : `<path d="M-10,-4 L-2,-5 Q5,-4 7,0 L-10,0 Z" fill="#1c141c"/>`;
+  const legsSv = `${kick}<path d="M3,-4 L13,-5.5 Q24,-5 29,0 L3,0 Z" fill="#1c141c"/>
+    <path d="${hem}" fill="${dress}"/><ellipse cx="${n(HIP[0])}" cy="${n(HIP[1])}" rx="9.6" ry="7" fill="${dress}" stroke="none"/><path d="M${n(-9 + HIP[0])},${n(hy0)} Q${n(-11 + kx * 1.6)},-46 -12.7,-2 L-8.6,-8 L-4.5,-2 Q${n(-5 + kx * 1.6)},-46 ${n(-3 + HIP[0])},${n(hy0)} Z" fill="${dressS}" stroke="none"/>`;
   const svg = shadow(p, 0.3) + `<g class="ol" transform="${place(p, bodyRot * dir)} scale(${dir},1) translate(${n(shift)},0)">${armFar}${legsSv}${torso}${armNear}</g>`;
   const ls = (x, y) => toScreen(p, bodyRot * dir, (x + shift) * dir, y);
   const ep = headToBody(13.2, -153.2), eS = ls(ep[0], ep[1]), np = headToBody(32.5, -146.5), gl = st.eyeGlow || 0;

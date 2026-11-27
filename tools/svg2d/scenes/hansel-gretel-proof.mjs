@@ -14,10 +14,10 @@ const svg = (b, vig = 0.8) => `<svg xmlns="http://www.w3.org/2000/svg" width="${
 const sub = (txt) => `<text x="540" y="580" text-anchor="middle" font-family="Inter" font-weight="900" font-size="62" fill="#fff" stroke="#0a0612" stroke-width="12" stroke-linejoin="round" paint-order="stroke">${txt}</text>`;
 const label = (txt) => `<text x="40" y="1880" font-family="Inter" font-weight="700" font-size="30" fill="#fff" stroke="#000" stroke-width="7" paint-order="stroke">${txt}</text>`;
 
-function hook(t) {            // frame 0: one warm house deep in a black forest; two red eyes open in the sugar window
-  const u = ease(clamp(t / 1)), c = { x: 0.15, y: 1.5, z: lerp(0, 0.8, u) }, hz = 12.5;
-  const f = HS.forest(c, t, 0, { clear: { X: 0.2, Z: hz, r: 3.3 }, split: 5 });
-  const h = HS.house(c, { X: 0.2, Z: hz, eyes: 1, eyeK: 2.0, look: lerp(-0.6, 0.8, u) }, t);
+function hook(t) {            // frame 0 (HS.HOOK): the house half the frame wide, two red eyes in a sugar window
+  const u = ease(clamp(t / 1)), K = HS.HOOK, c = { ...K.cam, z: lerp(0, 0.5, u) };
+  const f = HS.forest(c, t, 0, { clear: K.clear, split: K.split });
+  const h = HS.house(c, { ...K.house, look: lerp(-0.6, 0.8, u) }, t);
   return f.back + h.svg + f.front + HS.grade() + h.light + (TITLE ? titleSvg(TITLE, t + 0.4, { teaser: TEASER }) + sub("If you smell gingerbread...") : "");
 }
 function forestNight(t) {
@@ -26,7 +26,7 @@ function forestNight(t) {
   const kd = L.kid(c, { X: -0.35, Z: 4.4, fx: 0.7, worry: 1, blink: blinkAmt(t, [0.3]) }, t);
   const gr = HS.gretel(c, { X: 0.55, Z: 4.1, fx: 0.7, sniff: 1, point: 0.9 }, t);
   const birds = HS.bird(P(c, 0.75, 0, 6.3), { peck: 0.5 + 0.5 * Math.sin(t * 14), dir: -1 }) + HS.bird(P(c, 0.1, 0, 7.6), { peck: 0.5 + 0.5 * Math.sin(t * 14 + 2) }) + HS.bird(P(c, 0.5, 0, 3.0), { dir: -1, peck: 1 }) + HS.bird(P(c, 1.25, 1.75, 6.5), { white: true, fly: t * 3, k: 1.3 });
-  return f.back + fire.svg + HS.crumbs(c, tr, { eaten: 3.5 }) + HS.pebbles(c, [{ X: -0.9, Z: 3.1 }, { X: -1.3, Z: 3.9 }, { X: 1.3, Z: 3.3 }], t) + birds + kd.svg + gr.svg + f.front + HS.grade(0, 0.6) + fire.light;
+  return f.back + fire.svg + HS.crumbs(c, tr, { eaten: 3.5 }) + HS.pebbles(c, [{ X: -0.9, Z: 3.1 }, { X: -1.3, Z: 3.9 }, { X: 1.3, Z: 3.3 }], t) + birds + f.front + HS.grade(0, 1) + HS.lit(kd.svg, { a: 0.55, side: -1 }) + HS.lit(gr.svg, { a: 0.55, side: -1 }) + fire.light;
 }
 function houseClose(t) {
   const c = { x: 0.25, y: 1.15, z: 0 }, hz = 5.6;
@@ -36,7 +36,7 @@ function houseClose(t) {
   const kd = L.kid(c, { X: 1.55, Z: 4.4, fx: -0.7, shock: 0.6 }, t), gr = HS.gretel(c, { X: 0.95, Z: 4.0, fx: -0.6, worry: 1 }, t);
   const pc = L.toScreen(kd.p, 0, -30, -92);
   // someone in the doorway: the lit panes go under her, the spill of light over everybody
-  return f.back + h.svg + f.front + HS.grade(0, 1) + h.panes + wi.svg + kd.svg + HS.piece({ x: pc.x, y: pc.y, s: kd.p.s * 0.9 }, { rot: -14 }) + gr.svg + `<rect width="${W}" height="${H}" fill="#8a7a8a" opacity="0.5" style="mix-blend-mode:multiply"/>` + h.spill;
+  return f.back + h.svg + f.front + HS.grade(0, 1) + h.panes + HS.lit(wi.svg, { shade: "#8a6a5a", a: 0.6, rim: "#ffd08a", side: 1 }) + HS.lit(kd.svg + HS.piece({ x: pc.x, y: pc.y, s: kd.p.s * 0.9 }, { rot: -14 }) + gr.svg, { a: 0.5, rim: "#ffc070", side: -1 }) + h.spill;
 }
 function interior(t) {
   const c = { x: 0, y: 1.3, z: -0.6 }, R = HS.ROOM, r = HS.room(c, t, {});
@@ -64,7 +64,8 @@ function ovenShot(t, sh) {
   const c = { x: -0.75, y: 1.2, z: 1.3 }, r = HS.room(c, t, { lamp: 0.25, red: 0.75, oven: { door: 1, fire: 1 }, dawn: 0.6 }), sp = r.oven.spot;
   const wi = HS.witch(c, { ...sp, dir: -1, sweet: 0, lean: sh ? 0.7 : 1, shoved: sh, bend: 0.3 }, t);
   const gr = HS.gretel(c, { X: sp.X + (sh ? 0.5 : 0.85), Z: sp.Z - 0.05, fx: -0.7, small: sh ? 0 : 1, shove: sh }, t);
-  return r.back + wi.svg + gr.svg + r.light;
+  // the cast goes AFTER room.light, opaque, with its own red shade and a fire rim
+  return r.back + r.light + HS.lit(wi.svg, { shade: "#b0523a", a: 0.75, rim: "#ffb040", side: -1, w: 6 }) + HS.lit(gr.svg, { shade: "#b0523a", a: 0.7, rim: "#ff9a3a", side: -1 });
 }
 const sheetBg = (col) => `<rect width="${W}" height="${H}" fill="${col}"/><rect y="930" width="${W}" height="60" fill="#00000030"/><rect y="990" width="${W}" height="800" fill="#f4a6c0"/><rect y="1790" width="${W}" height="130" fill="#00000030"/>`;
 function gretelPoses(t) {
