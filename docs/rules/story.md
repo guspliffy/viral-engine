@@ -157,6 +157,13 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Lettering in the upper third** (12 Nov): spoken and narrated captions sit in the top third (above y 640, below the
   app bar at ~y 200), never over eyes or faces. Set `captionBand` to the upper third and take each caption's `pos` from
   `node qa/camfit.mjs <sb> --at <s>`. A face in the top third moves the camera or the caption, not the rule.
+- **Captions word by word, fixed layout** (27 Nov, Jonny's pick): each word appears exactly as it is spoken, inside
+  the layout of its whole hand-set phrase (2-4 words), so nothing moves or re-centres. Word times are heard on the
+  FINAL voice files (re-run Whisper after any trim or tempo change); a caption never runs over the next shot. svg2d:
+  `captionSvg(phr, u, { reveal: true })` in `tools/svg2d/lib/captions.mjs`.
+- **No voice cut off** (27 Nov, "really important"): cut a take only inside measured silence, never at a word time
+  (Whisper edges are 20-100 ms off), never trim a line's own first onset or last tail, and keep a line whole when the
+  words to drop run into the rest with no silence. `python3 qa/voiceedges.py --src <uncut takes> <cut takes>` must pass.
 - **No call to action in the video** (18 Nov, replaces the 15 Nov follow-ask test): no spoken or on-screen ask to
   follow, share, comment, like or tag a friend ("Follow, or you'll miss part 2.", "Send this to your friend who...").
   The story ends on its payoff. Asks in the post itself (caption question, poll) are posting rules

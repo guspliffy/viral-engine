@@ -5260,6 +5260,381 @@
    "note": "Night Marchers 26 Nov 2026: pick.py cuts, CLAP ranked"
   },
   {
+   "id": "rooster-crow",
+   "kind": "sfx",
+   "files": [
+    "rooster-crow/rooster-crow-01.wav",
+    "rooster-crow/rooster-crow-02.wav",
+    "rooster-crow/rooster-crow-03.wav",
+    "rooster-crow/rooster-crow-04.wav"
+   ],
+   "gain": 0.7,
+   "tags": [
+    "rooster",
+    "crow",
+    "cock-a-doodle-doo",
+    "farm"
+   ],
+   "durationSec": 2.433,
+   "prompt": [
+    "a rooster crowing loudly once, cock-a-doodle-doo, close up, farmyard at dawn, no music",
+    "a single loud rooster crow indoors, one long cock-a-doodle-doo, no other animals, no music"
+   ],
+   "seed": [
+    202,
+    201,
+    203,
+    203
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -11.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "rooster-crow/rooster-crow-01.wav",
+     "take": "p0-s202",
+     "prompt": "a rooster crowing loudly once, cock-a-doodle-doo, close up, farmyard at dawn, no music",
+     "seed": 202,
+     "startSec": 0.622,
+     "durationSec": 2.6,
+     "clap": 0.214,
+     "snrDb": 66.6,
+     "loudnessLUFS": -11.1
+    },
+    {
+     "file": "rooster-crow/rooster-crow-02.wav",
+     "take": "p1-s201",
+     "prompt": "a single loud rooster crow indoors, one long cock-a-doodle-doo, no other animals, no music",
+     "seed": 201,
+     "startSec": 0.329,
+     "durationSec": 2.155,
+     "clap": 0.21,
+     "snrDb": 53.7,
+     "loudnessLUFS": -11.8
+    },
+    {
+     "file": "rooster-crow/rooster-crow-03.wav",
+     "take": "p1-s203",
+     "prompt": "a single loud rooster crow indoors, one long cock-a-doodle-doo, no other animals, no music",
+     "seed": 203,
+     "startSec": 0.33,
+     "durationSec": 2.265,
+     "clap": 0.201,
+     "snrDb": 58.2,
+     "loudnessLUFS": -12.1
+    },
+    {
+     "file": "rooster-crow/rooster-crow-04.wav",
+     "take": "p0-s203",
+     "prompt": "a rooster crowing loudly once, cock-a-doodle-doo, close up, farmyard at dawn, no music",
+     "seed": 203,
+     "startSec": 0.699,
+     "durationSec": 2.6,
+     "clap": 0.168,
+     "snrDb": 70.3,
+     "loudnessLUFS": -10.8
+    }
+   ]
+  },
+  {
+   "id": "snore",
+   "kind": "sfx",
+   "files": [
+    "snore/snore-01.wav",
+    "snore/snore-02.wav",
+    "snore/snore-03.wav",
+    "snore/snore-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "snore",
+    "sleep",
+    "snoring"
+   ],
+   "durationSec": 2.3,
+   "prompt": [
+    "one deep loud snore of a sleeping man, a single slow inhale snore, quiet room, no music",
+    "a man snoring once, long rumbling snore in a quiet bedroom, close up, no music"
+   ],
+   "seed": [
+    213,
+    211,
+    211,
+    212
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "snore/snore-01.wav",
+     "take": "p0-s213",
+     "prompt": "one deep loud snore of a sleeping man, a single slow inhale snore, quiet room, no music",
+     "seed": 213,
+     "startSec": 0.607,
+     "durationSec": 2.199,
+     "clap": 0.289,
+     "snrDb": 50.2,
+     "loudnessLUFS": -16.5
+    },
+    {
+     "file": "snore/snore-02.wav",
+     "take": "p1-s211",
+     "prompt": "a man snoring once, long rumbling snore in a quiet bedroom, close up, no music",
+     "seed": 211,
+     "startSec": 0.64,
+     "durationSec": 2.4,
+     "clap": 0.261,
+     "snrDb": 75.9,
+     "loudnessLUFS": -18.2
+    },
+    {
+     "file": "snore/snore-03.wav",
+     "take": "p0-s211",
+     "prompt": "one deep loud snore of a sleeping man, a single slow inhale snore, quiet room, no music",
+     "seed": 211,
+     "startSec": 2.557,
+     "durationSec": 1.77,
+     "clap": 0.225,
+     "snrDb": 59.0,
+     "loudnessLUFS": -16.2
+    },
+    {
+     "file": "snore/snore-04.wav",
+     "take": "p1-s212",
+     "prompt": "a man snoring once, long rumbling snore in a quiet bedroom, close up, no music",
+     "seed": 212,
+     "startSec": 0.504,
+     "durationSec": 2.4,
+     "clap": 0.205,
+     "snrDb": 75.7,
+     "loudnessLUFS": -15.8
+    }
+   ]
+  },
+  {
+   "id": "dog-bark",
+   "kind": "sfx",
+   "files": [
+    "dog-bark/dog-bark-01.wav",
+    "dog-bark/dog-bark-02.wav",
+    "dog-bark/dog-bark-03.wav",
+    "dog-bark/dog-bark-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "dog",
+    "bark",
+    "village",
+    "night"
+   ],
+   "durationSec": 1.4,
+   "prompt": [
+    "a dog barking twice in the distance at night, outdoors village, no music",
+    "a medium dog barking a few times far away down a street at night, no music"
+   ],
+   "seed": [
+    221,
+    222,
+    222,
+    222
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -17.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "dog-bark/dog-bark-01.wav",
+     "take": "p0-s221",
+     "prompt": "a dog barking twice in the distance at night, outdoors village, no music",
+     "seed": 221,
+     "startSec": 0.006,
+     "durationSec": 1.4,
+     "clap": -0.114,
+     "snrDb": 75.9,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "dog-bark/dog-bark-02.wav",
+     "take": "p1-s222",
+     "prompt": "a medium dog barking a few times far away down a street at night, no music",
+     "seed": 222,
+     "startSec": 1.016,
+     "durationSec": 1.4,
+     "clap": -0.121,
+     "snrDb": 80.8,
+     "loudnessLUFS": -17.0
+    },
+    {
+     "file": "dog-bark/dog-bark-03.wav",
+     "take": "p1-s222",
+     "prompt": "a medium dog barking a few times far away down a street at night, no music",
+     "seed": 222,
+     "startSec": 4.639,
+     "durationSec": 1.4,
+     "clap": -0.128,
+     "snrDb": 81.9,
+     "loudnessLUFS": -17.2
+    },
+    {
+     "file": "dog-bark/dog-bark-04.wav",
+     "take": "p0-s222",
+     "prompt": "a dog barking twice in the distance at night, outdoors village, no music",
+     "seed": 222,
+     "startSec": 0.245,
+     "durationSec": 1.4,
+     "clap": -0.133,
+     "snrDb": 72.2,
+     "loudnessLUFS": -19.6
+    }
+   ]
+  },
+  {
+   "id": "shutters",
+   "kind": "sfx",
+   "files": [
+    "shutters/shutters-01.wav",
+    "shutters/shutters-02.wav",
+    "shutters/shutters-03.wav",
+    "shutters/shutters-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "shutters",
+    "wooden",
+    "window",
+    "bang"
+   ],
+   "durationSec": 1.06,
+   "prompt": [
+    "wooden window shutters flung open and banging against a wall, one clatter, outdoors, no music",
+    "old wooden shutters slamming open, a single loud wooden clack, no music"
+   ],
+   "seed": [
+    232,
+    231,
+    232,
+    232
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "shutters/shutters-01.wav",
+     "take": "p0-s232",
+     "prompt": "wooden window shutters flung open and banging against a wall, one clatter, outdoors, no music",
+     "seed": 232,
+     "startSec": 3.432,
+     "durationSec": 1.2,
+     "clap": 0.102,
+     "snrDb": 51.6,
+     "loudnessLUFS": -21.0
+    },
+    {
+     "file": "shutters/shutters-02.wav",
+     "take": "p0-s231",
+     "prompt": "wooden window shutters flung open and banging against a wall, one clatter, outdoors, no music",
+     "seed": 231,
+     "startSec": 3.664,
+     "durationSec": 1.2,
+     "clap": 0.101,
+     "snrDb": 49.2,
+     "loudnessLUFS": -23.1
+    },
+    {
+     "file": "shutters/shutters-03.wav",
+     "take": "p0-s232",
+     "prompt": "wooden window shutters flung open and banging against a wall, one clatter, outdoors, no music",
+     "seed": 232,
+     "startSec": 2.17,
+     "durationSec": 0.921,
+     "clap": 0.1,
+     "snrDb": 49.5,
+     "loudnessLUFS": -23.3
+    },
+    {
+     "file": "shutters/shutters-04.wav",
+     "take": "p1-s232",
+     "prompt": "old wooden shutters slamming open, a single loud wooden clack, no music",
+     "seed": 232,
+     "startSec": 1.514,
+     "durationSec": 0.846,
+     "clap": 0.078,
+     "snrDb": 80.7,
+     "loudnessLUFS": -24.0
+    }
+   ]
+  },
+  {
+   "id": "fly-buzz",
+   "kind": "sfx",
+   "files": [
+    "fly-buzz/fly-buzz-01.wav",
+    "fly-buzz/fly-buzz-02.wav",
+    "fly-buzz/fly-buzz-03.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "fly",
+    "buzz",
+    "insect"
+   ],
+   "durationSec": 1.501,
+   "prompt": [
+    "a single house fly buzzing close around, short buzz, quiet room, no music",
+    "a small fly buzzing past the ear, close up, quiet, no music"
+   ],
+   "seed": [
+    241,
+    242,
+    241
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.5,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "fly-buzz/fly-buzz-01.wav",
+     "take": "p1-s241",
+     "prompt": "a small fly buzzing past the ear, close up, quiet, no music",
+     "seed": 241,
+     "startSec": 2.508,
+     "durationSec": 1.3,
+     "clap": 0.15,
+     "snrDb": 42.4,
+     "loudnessLUFS": -19.5
+    },
+    {
+     "file": "fly-buzz/fly-buzz-02.wav",
+     "take": "p1-s242",
+     "prompt": "a small fly buzzing past the ear, close up, quiet, no music",
+     "seed": 242,
+     "startSec": 2.821,
+     "durationSec": 1.501,
+     "clap": 0.117,
+     "snrDb": 33.9,
+     "loudnessLUFS": -17.2
+    },
+    {
+     "file": "fly-buzz/fly-buzz-03.wav",
+     "take": "p0-s241",
+     "prompt": "a single house fly buzzing close around, short buzz, quiet room, no music",
+     "seed": 241,
+     "startSec": 0.293,
+     "durationSec": 2.5,
+     "clap": -0.054,
+     "snrDb": 55.7,
+     "loudnessLUFS": -21.9
+    }
+   ]
+  },
+  {
    "id": "golem-step",
    "kind": "sfx",
    "files": [

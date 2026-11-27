@@ -1,0 +1,153 @@
+{
+ "_note": "Urashima Taro legend (26 Nov 2026): music from Codex gpt-6.2-sol high direction (project files videos/folklore-legend/urashima/music/music-direction-sol.md), prompt 1 = Sol's verbatim, prompt 2 = a variant. Negative (Sol): Vocals, synth pads, chiptune, taiko, trailer hits, ticking clocks, risers, cartoon stings, piercing flute, bright bells, heavy reverb.",
+ "sfx": [
+  {
+   "id": "shore-surf",
+   "kind": "oneshot",
+   "len": [
+    6,
+    10
+   ],
+   "duration": 10,
+   "tags": [
+    "surf",
+    "waves",
+    "shore",
+    "sea",
+    "beach"
+   ],
+   "prompts": [
+    "gentle sea waves washing on a sandy beach, soft calm surf, no wind, no birds, no music",
+    "calm small waves rolling onto sand and pulling back over pebbles, quiet beach, no birds, no music"
+   ],
+   "seeds": [
+    301,
+    302
+   ],
+   "gain": 0.3,
+   "label": "calm surf on a beach"
+  },
+  {
+   "id": "smoke-release",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    3.5
+   ],
+   "duration": 8,
+   "tags": [
+    "smoke",
+    "whoosh",
+    "breath",
+    "release"
+   ],
+   "prompts": [
+    "a soft low airy whoosh of thick smoke pouring out of a wooden box, gentle, no high hiss, no music",
+    "a slow deep breathy rush of air and smoke, soft and low, no whistle, no music"
+   ],
+   "seeds": [
+    311,
+    312
+   ],
+   "gain": 0.35,
+   "label": "soft low smoke rush"
+  },
+  {
+   "id": "pine-wind",
+   "kind": "oneshot",
+   "len": [
+    6,
+    10
+   ],
+   "duration": 10,
+   "tags": [
+    "wind",
+    "pines",
+    "trees",
+    "breeze"
+   ],
+   "prompts": [
+    "soft low wind through tall pine trees on a coast, gentle rustle of needles, no whistle, no birds, no music",
+    "a calm breeze moving through big old pine branches, low soft rustle, no whistle, no music"
+   ],
+   "seeds": [
+    321,
+    322
+   ],
+   "gain": 0.2,
+   "label": "soft wind in pines"
+  }
+ ],
+ "music": [
+  {
+   "id": "ura-beach",
+   "bpm": 80,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "Acoustic film underscore, 80 BPM, D major, close-miked koto D4 E4 F#4 short short long, soft low shakuhachi notes in koto rests, sunny, sparse repeating bed.",
+    "Close recorded solo koto plucks a light D-E-F# figure, short short long, with rests, one breathy low shakuhachi note, sunny seaside morning, acoustic film score, 80 BPM, D major."
+   ],
+   "seeds": [
+    901,
+    902
+   ]
+  },
+  {
+   "id": "ura-palace",
+   "bpm": 80,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "Acoustic film underscore, 80 BPM, D major add6, rippling mid-register koto with rests exposing sustained cello A, tender palace dance, even dynamics, repeating bed.",
+    "Rippling koto arpeggios in D major with an added B over one warm sustained bowed cello A, tender and a little too sweet, gentle dance, acoustic film score, 80 BPM."
+   ],
+   "seeds": [
+    901,
+    902
+   ]
+  },
+  {
+   "id": "ura-grief",
+   "bpm": 60,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "Acoustic film underscore, 60 BPM, B minor, solo bowed cello B3 and F#3, long tones separated by rests, subdued grief, sparse repeating bed.",
+    "Solo bowed cello plays long soft B and F# tones with silence between them, quiet grief, intimate close recording, acoustic film score, 60 BPM, B minor."
+   ],
+   "seeds": [
+    901,
+    902
+   ]
+  },
+  {
+   "id": "ura-dread",
+   "bpm": 60,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "Acoustic film underscore, 60 BPM, B minor, solo bowed cello B3 pedal, steady soft bow, long even sustains, restrained dread, loopable texture.",
+    "One solo cello holds a low B with a steady soft bow, long even sustain, restrained dread, no melody, close recording, acoustic film score, 60 BPM, B minor."
+   ],
+   "seeds": [
+    901,
+    902
+   ]
+  },
+  {
+   "id": "ura-sunset",
+   "bpm": 72,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "Acoustic film underscore, 72 BPM, D major, solo close-miked koto, spaced D4 E4 two-note phrase, unresolved, warm and delicate, sparse repeating bed.",
+    "Solo close-miked koto plays a spaced two-note D-E phrase and leaves it unresolved, warm golden evening, delicate, long rests, acoustic film score, 72 BPM, D major."
+   ],
+   "seeds": [
+    901,
+    902
+   ]
+  }
+ ]
+}
