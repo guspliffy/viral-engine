@@ -1,0 +1,147 @@
+{
+ "_about": "Legend ep 02, La Lechuza (northern Mexico / South Texas). Speakers: N narrator, G grandmother, K kid, O La Lechuza copying grandma. Hook H1 + ending E2 (Jonny 'go' 26 Nov). Read by tools/svg2d/read-lines.py (tempo x1.15); after reading: G+K atempo 1.07, K highpass 100 + 3.2 kHz +4 dB + -13 LUFS, O lowpass 2.6 kHz + short echo + slight pitch-down (through the window); pause trims per SOL-R1.md were cut into the wavs (originals in out/legend-ep02/voice/orig).",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "engine/voice/targets/legend-grandma-ref.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "engine/voice/targets/legend-kid-ref.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction",
+   "_picked": "Jonny 26 Nov 19:15 Berlin: voice-test-legend-06 kid 2",
+   "steps": 25,
+   "cfg": 3.0
+  },
+  "O": {
+   "ref": "engine/voice/targets/legend-grandma-ref.wav",
+   "style": "an old woman in her eighties, sweet, warm and coaxing, slow, too gentle",
+   "_note": "La Lechuza copying grandma's voice; post: muffled through the window, slight pitch drift, short room reverb"
+  }
+ },
+ "lines": [
+  [
+   "L01",
+   "G",
+   "Don't open it. That's not a baby.",
+   "urgent whisper, stern"
+  ],
+  [
+   "L02",
+   "K",
+   "Then what is it?",
+   "scared, curious"
+  ],
+  [
+   "L03",
+   "N",
+   "In Mexico, they call her La Lechuza. A witch who turns into a giant owl... and cries like a baby, so children open the window.",
+   ""
+  ],
+  [
+   "L04",
+   "K",
+   "But what if it's a real baby?",
+   "worried, earnest"
+  ],
+  [
+   "L05",
+   "G",
+   "Real babies don't cry from the roof.",
+   "dry, flat"
+  ],
+  [
+   "L06",
+   "K",
+   "It's moving.",
+   "whisper, frightened"
+  ],
+  [
+   "L07",
+   "O",
+   "Open the window, sweetheart.",
+   "sweet, coaxing, slow"
+  ],
+  [
+   "L08",
+   "K",
+   "Grandma... that's you.",
+   "tiny whisper, frozen"
+  ],
+  [
+   "L09",
+   "G",
+   "I know.",
+   "very low, calm"
+  ],
+  [
+   "L10",
+   "N",
+   "Lechuza is the Spanish word for barn owl. And barn owls don't hoot. They scream.",
+   ""
+  ],
+  [
+   "L11",
+   "G",
+   "The salt. Where's the salt?",
+   "urgent, searching"
+  ],
+  [
+   "L12",
+   "K",
+   "It was movie night!",
+   "guilty, fast"
+  ],
+  [
+   "L13",
+   "G",
+   "Fine. The old way.",
+   "grim, determined"
+  ],
+  [
+   "L14",
+   "K",
+   "The old way?",
+   "nervous"
+  ],
+  [
+   "L15",
+   "G",
+   "We insult her.",
+   "deadpan"
+  ],
+  [
+   "L16",
+   "G",
+   "You overgrown feather duster! You moth-eaten pillow! Your mother was a pigeon!",
+   "shouting, furious, cracking at the end"
+  ],
+  [
+   "L17",
+   "G",
+   "Your turn.",
+   "hoarse, croaky whisper"
+  ],
+  [
+   "L18",
+   "K",
+   "Your feathers are... a bit messy?",
+   "polite, unsure"
+  ],
+  [
+   "L19",
+   "K",
+   "You're not even a good baby! Real babies BREATHE between crying!",
+   "shouting, brave, triumphant"
+  ],
+  [
+   "L20",
+   "G",
+   "Not bad.",
+   "hoarse, proud, quiet"
+  ]
+ ]
+}

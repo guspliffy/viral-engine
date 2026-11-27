@@ -40,7 +40,11 @@ export const SUB_CLEAR = 180;
 
 export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
   const items = [], captions = [], hitStops = [], visible = [], subs = [];
-  const at = (t, it) => items.push({ ...it, at: r3(t) });
+  // a time that is not a number (a helper reading a time before it was set gives NaN) would write an action or caption
+  // the engine silently drops: stop the generator at once and name it (Kid vs Dad 07, 26 Nov 2026: two captions
+  // vanished from a rough draft Jonny saw, found only by the Sol check)
+  const num = (x, what) => { if (!Number.isFinite(x)) throw new Error(`clip: ${what} has the time ${x}: a time read before it was set?`); return r3(x); };
+  const at = (t, it) => items.push({ ...it, at: num(t, JSON.stringify(it).slice(0, 80)) });
   const A = (t, who, what, o = {}) => at(t, { who, do: what, ...o });
   return {
     items, captions, hitStops, visible, at, A, faces, fps, lines,
@@ -52,7 +56,8 @@ export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
     // the video gets that much longer and every sound after it moves with its picture
     hitStop: (t, frames = 3) => hitStops.push({ at: r3(Math.round(t * fps) / fps), frames }),
     prop: (t, id, set, dur = 0.3, ease = "inOut") => at(t, { do: "prop", id, set, dur, ease }),
-    sfx: (t, s, o = {}) => at(t, { sfx: s, ...o }),
+    // o: { gain, reason, ... }; a bare number is the gain (spread as an object it was silently dropped, 26 Nov 2026)
+    sfx: (t, s, o = {}) => at(t, { sfx: s, ...(typeof o === "number" ? { gain: o } : o) }),
     arm: (t, who, side, pose, dur, ease) => A(t, who, "arm", { side, pose, dur, ...(ease && { ease }) }),
     still: (t, who, dur, idle = 0.12) => A(t, who, "still", { dur, idle }),
     // a line of dialogue: the talk action (the voice and the mouth), plus what clip({ lines }) asks for: a subtitle
@@ -78,7 +83,7 @@ export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
     knock: (t, id, o = {}) => at(t, { do: "physics", prop: id, mode: "knock", ...o }),
     // the world's gravity eases to g (m/s², up +: 0 is zero-g, -9.81 normal) over dur; damp: air drag per second
     float: (t, g = 0, o = {}) => at(t, { do: "physics", mode: "float", g, ...o }),
-    cap: (from, to, text, pos, pop = false, o = {}) => captions.push({ from: r3(from), to: r3(to), text, pos, pop, ...o }),
+    cap: (from, to, text, pos, pop = false, o = {}) => captions.push({ from: num(from, `caption "${text}" start`), to: num(to, `caption "${text}" end`), text, pos, pop, ...o }),
     // a text pop: one comic word beside a character's head (docs/STORYBOARD.md, "Text pops")
     textPop: (t, who, text, o = {}) => at(t, { fx: "pop", text, who, ...o }),
     // shots: [[name, start, shot | null (keep the camera; in a directed clip, the beat's kind picks it), kind?], ...]

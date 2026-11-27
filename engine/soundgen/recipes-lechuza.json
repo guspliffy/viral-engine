@@ -1,0 +1,233 @@
+{
+ "_note": "Legend ep 02 La Lechuza: music direction by Codex gpt-6.2-sol high (26 Nov 2026, project files videos/folklore-legend/ep02/music/music-direction-sol.md). Borderlands folk-horror: bajo sexto, button accordion, bowed upright bass; E Phrygian 72 -> 96 pulse at the turn -> E Dorian release. Prompt A = Sol word for word, B = same with plainer instrument names.",
+ "sfx": [
+  {
+   "id": "baby-cry-outside",
+   "kind": "oneshot",
+   "len": [
+    3,
+    6
+   ],
+   "duration": 8,
+   "label": "a baby crying outside a house at night, muffled through a window",
+   "replaces": null,
+   "tags": [
+    "baby",
+    "cry",
+    "night",
+    "lure"
+   ],
+   "prompts": [
+    "a newborn baby crying outside at night, heard muffled through a closed wooden window, distant, desert night, real field recording, no music",
+    "an infant wailing outdoors in the dark, slightly far away and muffled behind a wall, realistic recording, no music"
+   ],
+   "seeds": [
+    601,
+    602
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "barn-owl-screech",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    3
+   ],
+   "duration": 8,
+   "label": "a real barn owl screech at night",
+   "replaces": null,
+   "tags": [
+    "owl",
+    "screech",
+    "scream",
+    "night"
+   ],
+   "prompts": [
+    "a real barn owl screeching at night, long harsh hissing scream, wildlife field recording, no music",
+    "barn owl call, raspy shrieking scream in the dark, real bird recording close up, no music"
+   ],
+   "seeds": [
+    611,
+    612
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "roof-steps",
+   "kind": "split",
+   "len": [
+    0.3,
+    0.8
+   ],
+   "duration": 8,
+   "label": "heavy talon steps scraping on a flat roof above",
+   "replaces": null,
+   "tags": [
+    "roof",
+    "steps",
+    "claws",
+    "scratch"
+   ],
+   "prompts": [
+    "slow heavy footsteps of a large bird walking on a flat dirt roof above, claws scraping on wood beams, dust falling, heard from inside, no music",
+    "something heavy walking slowly across a roof overhead, scratching talons on wooden beams, creaking, interior perspective, no music"
+   ],
+   "seeds": [
+    621,
+    622
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "shutter-slam",
+   "kind": "split",
+   "len": [
+    0.3,
+    1.0
+   ],
+   "duration": 8,
+   "label": "a wooden window shutter slammed shut",
+   "replaces": null,
+   "tags": [
+    "shutter",
+    "slam",
+    "wood",
+    "window"
+   ],
+   "prompts": [
+    "a heavy wooden window shutter slammed shut hard, wood bang and iron latch rattle, close up, no music",
+    "old wooden shutters banging closed, loud wooden thud with a metal latch clack, room recording, no music"
+   ],
+   "seeds": [
+    631,
+    632
+   ],
+   "gain": 0.55
+  },
+  {
+   "id": "owl-wings-takeoff",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    3
+   ],
+   "duration": 8,
+   "label": "huge wings flapping as a giant owl takes off",
+   "replaces": null,
+   "tags": [
+    "wings",
+    "flap",
+    "owl",
+    "takeoff"
+   ],
+   "prompts": [
+    "a very large bird taking off, several deep heavy wing beats whooshing away into the night, feathers, close up, no music",
+    "huge wings beating hard as a giant owl launches from a roof and flies away, deep whooshing flaps fading, no music"
+   ],
+   "seeds": [
+    641,
+    642
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "desert-night-bed",
+   "kind": "oneshot",
+   "len": [
+    6,
+    7.5
+   ],
+   "duration": 8,
+   "label": "quiet desert night ambience with crickets",
+   "replaces": null,
+   "tags": [
+    "night",
+    "crickets",
+    "desert",
+    "ambience"
+   ],
+   "prompts": [
+    "quiet desert night ambience, soft crickets, faint warm wind, very calm, field recording, no music",
+    "still night outside a rural house in northern Mexico, crickets chirping softly, distant dog far away, field recording, no music"
+   ],
+   "seeds": [
+    651,
+    652
+   ],
+   "gain": 0.3
+  }
+ ],
+ "music": [
+  {
+   "id": "lechuza-motif",
+   "bpm": 72,
+   "bars": 6,
+   "mood": "folk horror",
+   "prompts": [
+    "72 BPM, E Phrygian, loopable acoustic folk-horror underscore, muted bajo sexto E-F-E motif, soft bowed upright bass, dry close mics.",
+    "slow eerie acoustic folk horror film underscore, muted twelve-string acoustic guitar playing a low three-note half-step motif, soft bowed double bass drone, sparse, dry intimate recording, Mexican borderlands, 72 BPM, E Phrygian"
+   ],
+   "seeds": [
+    501,
+    502
+   ]
+  },
+  {
+   "id": "lechuza-accordion",
+   "bpm": 72,
+   "bars": 6,
+   "mood": "suspense",
+   "prompts": [
+    "72 BPM, E Phrygian, loopable suspense underscore, solo low button accordion holding E, soft even bellows, dry close mic.",
+    "quiet tense film underscore, solo low accordion holding one long low note, slow soft breathing bellows, dark and still, dry intimate recording, 72 BPM, E minor"
+   ],
+   "seeds": [
+    511,
+    512
+   ]
+  },
+  {
+   "id": "lechuza-sparse",
+   "bpm": 72,
+   "bars": 6,
+   "mood": "suspense",
+   "prompts": [
+    "72 BPM, E Phrygian, loopable acoustic suspense underscore, widely spaced muted bajo sexto plucks, low sustained button accordion E, dry close mics.",
+    "sparse acoustic suspense film underscore, widely spaced muted twelve-string guitar plucks, low sustained accordion note underneath, night in the desert, dry intimate recording, 72 BPM, E Phrygian"
+   ],
+   "seeds": [
+    521,
+    522
+   ]
+  },
+  {
+   "id": "lechuza-pulse",
+   "bpm": 96,
+   "bars": 8,
+   "mood": "tension",
+   "prompts": [
+    "96 BPM, E Phrygian, loopable acoustic tension underscore, steady muted bajo sexto eighth notes, sparse upright bass plucks and a soft bowed E, dry close mics.",
+    "driving acoustic tension film underscore, steady palm-muted twelve-string guitar eighth notes, sparse plucked double bass, soft bowed low drone, confrontation, dry intimate recording, 96 BPM, E Phrygian"
+   ],
+   "seeds": [
+    531,
+    532
+   ]
+  },
+  {
+   "id": "lechuza-release",
+   "bpm": 72,
+   "bars": 6,
+   "mood": "relief",
+   "prompts": [
+    "72 BPM, E Dorian, loopable acoustic relief underscore, gentle open bajo sexto E-F#-E, soft button accordion, dry close mics.",
+    "warm gentle acoustic relief film underscore, open twelve-string guitar playing a soft three-note motif, tender button accordion, calm after danger, dry intimate recording, 72 BPM, E Dorian"
+   ],
+   "seeds": [
+    541,
+    542
+   ]
+  }
+ ]
+}
