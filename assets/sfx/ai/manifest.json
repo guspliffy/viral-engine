@@ -5635,6 +5635,553 @@
    ]
   },
   {
+   "id": "golem-step",
+   "kind": "sfx",
+   "files": [
+    "golem-step/golem-step-01.wav"
+   ],
+   "gain": 0.8,
+   "tags": [
+    "footstep",
+    "giant",
+    "heavy",
+    "stone",
+    "clay"
+   ],
+   "durationSec": 0.423,
+   "prompt": [
+    "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+    "massive stone statue walking, heavy thumping footsteps, low rumble, close, no music"
+   ],
+   "seed": [
+    512,
+    512,
+    512,
+    511,
+    513,
+    511,
+    513,
+    513
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-step/golem-step-01.wav",
+     "take": "p0-s512",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 512,
+     "startSec": 0.226,
+     "durationSec": 0.406,
+     "clap": 0.038,
+     "snrDb": 73.0,
+     "loudnessLUFS": -25.8
+    },
+    {
+     "file": "golem-step/golem-step-02.wav",
+     "take": "p0-s512",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 512,
+     "startSec": 1.557,
+     "durationSec": 0.41,
+     "clap": 0.035,
+     "snrDb": 71.0,
+     "loudnessLUFS": -26.6
+    },
+    {
+     "file": "golem-step/golem-step-03.wav",
+     "take": "p0-s512",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 512,
+     "startSec": 3.03,
+     "durationSec": 0.421,
+     "clap": 0.007,
+     "snrDb": 71.0,
+     "loudnessLUFS": -27.5
+    },
+    {
+     "file": "golem-step/golem-step-04.wav",
+     "take": "p1-s511",
+     "prompt": "massive stone statue walking, heavy thumping footsteps, low rumble, close, no music",
+     "seed": 511,
+     "startSec": 1.106,
+     "durationSec": 0.401,
+     "clap": -0.001,
+     "snrDb": 64.2,
+     "loudnessLUFS": -22.6
+    },
+    {
+     "file": "golem-step/golem-step-05.wav",
+     "take": "p0-s513",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 513,
+     "startSec": 4.369,
+     "durationSec": 0.425,
+     "clap": -0.031,
+     "snrDb": 90.7,
+     "loudnessLUFS": -20.9
+    },
+    {
+     "file": "golem-step/golem-step-06.wav",
+     "take": "p0-s511",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 511,
+     "startSec": 3.942,
+     "durationSec": 0.462,
+     "clap": -0.036,
+     "snrDb": 88.3,
+     "loudnessLUFS": -24.5
+    },
+    {
+     "file": "golem-step/golem-step-07.wav",
+     "take": "p0-s513",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 513,
+     "startSec": 2.242,
+     "durationSec": 0.46,
+     "clap": -0.038,
+     "snrDb": 90.6,
+     "loudnessLUFS": -21.1
+    },
+    {
+     "file": "golem-step/golem-step-08.wav",
+     "take": "p0-s513",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 513,
+     "startSec": 0.335,
+     "durationSec": 0.472,
+     "clap": -0.038,
+     "snrDb": 86.5,
+     "loudnessLUFS": -21.1
+    }
+   ]
+  },
+  {
+   "id": "golem-door-split",
+   "kind": "sfx",
+   "files": [
+    "golem-door-split/golem-door-split-01.wav"
+   ],
+   "gain": 0.8,
+   "tags": [
+    "door",
+    "wood",
+    "break",
+    "smash"
+   ],
+   "durationSec": 1.48,
+   "prompt": [
+    "a heavy wooden door smashed and split apart, cracking splintering wood, one impact, no music",
+    "old oak door bursting into splinters, loud wood crack, no music"
+   ],
+   "seed": [
+    521,
+    522,
+    521,
+    521
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -21.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-door-split/golem-door-split-01.wav",
+     "take": "p1-s521",
+     "prompt": "old oak door bursting into splinters, loud wood crack, no music",
+     "seed": 521,
+     "startSec": 4.394,
+     "durationSec": 2.0,
+     "clap": 0.129,
+     "snrDb": 57.2,
+     "loudnessLUFS": -22.3
+    },
+    {
+     "file": "golem-door-split/golem-door-split-02.wav",
+     "take": "p0-s522",
+     "prompt": "a heavy wooden door smashed and split apart, cracking splintering wood, one impact, no music",
+     "seed": 522,
+     "startSec": 5.05,
+     "durationSec": 0.961,
+     "clap": 0.093,
+     "snrDb": 70.0,
+     "loudnessLUFS": -18.7
+    },
+    {
+     "file": "golem-door-split/golem-door-split-03.wav",
+     "take": "p0-s521",
+     "prompt": "a heavy wooden door smashed and split apart, cracking splintering wood, one impact, no music",
+     "seed": 521,
+     "startSec": 1.718,
+     "durationSec": 0.661,
+     "clap": 0.019,
+     "snrDb": 69.6,
+     "loudnessLUFS": -23.6
+    },
+    {
+     "file": "golem-door-split/golem-door-split-04.wav",
+     "take": "p1-s521",
+     "prompt": "old oak door bursting into splinters, loud wood crack, no music",
+     "seed": 521,
+     "startSec": 0.192,
+     "durationSec": 2.0,
+     "clap": 0.007,
+     "snrDb": 56.9,
+     "loudnessLUFS": -20.2
+    }
+   ]
+  },
+  {
+   "id": "golem-cart-crash",
+   "kind": "sfx",
+   "files": [
+    "golem-cart-crash/golem-cart-crash-01.wav"
+   ],
+   "gain": 0.75,
+   "tags": [
+    "cart",
+    "crash",
+    "wood",
+    "wheel"
+   ],
+   "durationSec": 1.646,
+   "prompt": [
+    "a wooden hand cart thrown and crashing onto cobblestones, wood breaking, a wheel rolling, no music",
+    "wooden cart smashing to pieces on stone street, no music"
+   ],
+   "seed": [
+    533,
+    533,
+    532,
+    532
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -22.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-cart-crash/golem-cart-crash-01.wav",
+     "take": "p0-s533",
+     "prompt": "a wooden hand cart thrown and crashing onto cobblestones, wood breaking, a wheel rolling, no music",
+     "seed": 533,
+     "startSec": 0.643,
+     "durationSec": 2.5,
+     "clap": -0.039,
+     "snrDb": 63.6,
+     "loudnessLUFS": -27.7
+    },
+    {
+     "file": "golem-cart-crash/golem-cart-crash-02.wav",
+     "take": "p1-s533",
+     "prompt": "wooden cart smashing to pieces on stone street, no music",
+     "seed": 533,
+     "startSec": 2.627,
+     "durationSec": 1.477,
+     "clap": -0.041,
+     "snrDb": 33.7,
+     "loudnessLUFS": -21.8
+    },
+    {
+     "file": "golem-cart-crash/golem-cart-crash-03.wav",
+     "take": "p1-s532",
+     "prompt": "wooden cart smashing to pieces on stone street, no music",
+     "seed": 532,
+     "startSec": 2.223,
+     "durationSec": 1.019,
+     "clap": -0.048,
+     "snrDb": 35.6,
+     "loudnessLUFS": -22.7
+    },
+    {
+     "file": "golem-cart-crash/golem-cart-crash-04.wav",
+     "take": "p1-s532",
+     "prompt": "wooden cart smashing to pieces on stone street, no music",
+     "seed": 532,
+     "startSec": 0.253,
+     "durationSec": 1.814,
+     "clap": -0.036,
+     "snrDb": 18.7,
+     "loudnessLUFS": -17.9
+    }
+   ]
+  },
+  {
+   "id": "golem-crumble",
+   "kind": "sfx",
+   "files": [
+    "golem-crumble/golem-crumble-01.wav"
+   ],
+   "gain": 0.8,
+   "tags": [
+    "crumble",
+    "clay",
+    "collapse",
+    "rubble"
+   ],
+   "durationSec": 2.325,
+   "prompt": [
+    "a large clay statue crumbling and collapsing into a pile, chunks of wet earth falling, dust settling, no music",
+    "dirt and clay collapsing heavily, falling clods, then quiet trickle, no music"
+   ],
+   "seed": [
+    541,
+    541,
+    542,
+    542
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -25.5,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-crumble/golem-crumble-01.wav",
+     "take": "p1-s541",
+     "prompt": "dirt and clay collapsing heavily, falling clods, then quiet trickle, no music",
+     "seed": 541,
+     "startSec": 0.718,
+     "durationSec": 1.714,
+     "clap": 0.194,
+     "snrDb": 87.5,
+     "loudnessLUFS": -32.9
+    },
+    {
+     "file": "golem-crumble/golem-crumble-02.wav",
+     "take": "p1-s541",
+     "prompt": "dirt and clay collapsing heavily, falling clods, then quiet trickle, no music",
+     "seed": 541,
+     "startSec": 4.126,
+     "durationSec": 2.181,
+     "clap": 0.177,
+     "snrDb": 79.3,
+     "loudnessLUFS": -28.1
+    },
+    {
+     "file": "golem-crumble/golem-crumble-03.wav",
+     "take": "p1-s542",
+     "prompt": "dirt and clay collapsing heavily, falling clods, then quiet trickle, no music",
+     "seed": 542,
+     "startSec": 3.684,
+     "durationSec": 2.47,
+     "clap": 0.086,
+     "snrDb": 46.2,
+     "loudnessLUFS": -22.0
+    },
+    {
+     "file": "golem-crumble/golem-crumble-04.wav",
+     "take": "p0-s542",
+     "prompt": "a large clay statue crumbling and collapsing into a pile, chunks of wet earth falling, dust settling, no music",
+     "seed": 542,
+     "startSec": 0.676,
+     "durationSec": 4.0,
+     "clap": 0.051,
+     "snrDb": 56.1,
+     "loudnessLUFS": -22.8
+    }
+   ]
+  },
+  {
+   "id": "golem-clay-squelch",
+   "kind": "sfx",
+   "files": [
+    "golem-clay-squelch/golem-clay-squelch-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "clay",
+    "mud",
+    "hands",
+    "squelch"
+   ],
+   "durationSec": 0.453,
+   "prompt": [
+    "hands shaping wet clay, soft squelches and pats of mud, close up, no music",
+    "sculptor pressing and slapping wet clay with hands, close, no music"
+   ],
+   "seed": [
+    551,
+    552,
+    551,
+    551,
+    551,
+    552,
+    552,
+    551
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -24.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-01.wav",
+     "take": "p0-s551",
+     "prompt": "hands shaping wet clay, soft squelches and pats of mud, close up, no music",
+     "seed": 551,
+     "startSec": 4.011,
+     "durationSec": 0.578,
+     "clap": 0.1,
+     "snrDb": 36.5,
+     "loudnessLUFS": -22.0
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-02.wav",
+     "take": "p1-s552",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 552,
+     "startSec": 8.525,
+     "durationSec": 0.372,
+     "clap": 0.023,
+     "snrDb": 33.4,
+     "loudnessLUFS": -24.1
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-03.wav",
+     "take": "p0-s551",
+     "prompt": "hands shaping wet clay, soft squelches and pats of mud, close up, no music",
+     "seed": 551,
+     "startSec": 1.132,
+     "durationSec": 0.456,
+     "clap": 0.015,
+     "snrDb": 41.2,
+     "loudnessLUFS": -24.2
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-04.wav",
+     "take": "p0-s551",
+     "prompt": "hands shaping wet clay, soft squelches and pats of mud, close up, no music",
+     "seed": 551,
+     "startSec": 5.411,
+     "durationSec": 0.449,
+     "clap": -0.008,
+     "snrDb": 42.9,
+     "loudnessLUFS": -19.6
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-05.wav",
+     "take": "p1-s551",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 551,
+     "startSec": 1.067,
+     "durationSec": 0.649,
+     "clap": -0.222,
+     "snrDb": 39.1,
+     "loudnessLUFS": -25.5
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-06.wav",
+     "take": "p1-s552",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 552,
+     "startSec": 5.647,
+     "durationSec": 0.536,
+     "clap": -0.228,
+     "snrDb": 37.9,
+     "loudnessLUFS": -29.5
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-07.wav",
+     "take": "p1-s552",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 552,
+     "startSec": 0.648,
+     "durationSec": 0.309,
+     "clap": -0.261,
+     "snrDb": 49.3,
+     "loudnessLUFS": -23.7
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-08.wav",
+     "take": "p1-s551",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 551,
+     "startSec": 8.795,
+     "durationSec": 0.412,
+     "clap": -0.274,
+     "snrDb": 36.9,
+     "loudnessLUFS": -26.6
+    }
+   ]
+  },
+  {
+   "id": "golem-attic-thud",
+   "kind": "sfx",
+   "files": [
+    "golem-attic-thud/golem-attic-thud-01.wav"
+   ],
+   "gain": 0.85,
+   "tags": [
+    "thud",
+    "floor",
+    "wood",
+    "attic"
+   ],
+   "durationSec": 0.464,
+   "prompt": [
+    "one single heavy footstep on old wooden floorboards above, deep muffled thud, creak, quiet room, no music",
+    "a heavy thump on an attic floor overhead, one hit, wooden creak, no music"
+   ],
+   "seed": [
+    563,
+    563,
+    561,
+    561
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-attic-thud/golem-attic-thud-01.wav",
+     "take": "p1-s563",
+     "prompt": "a heavy thump on an attic floor overhead, one hit, wooden creak, no music",
+     "seed": 563,
+     "startSec": 0.148,
+     "durationSec": 0.487,
+     "clap": 0.097,
+     "snrDb": 60.5,
+     "loudnessLUFS": -19.0
+    },
+    {
+     "file": "golem-attic-thud/golem-attic-thud-02.wav",
+     "take": "p1-s563",
+     "prompt": "a heavy thump on an attic floor overhead, one hit, wooden creak, no music",
+     "seed": 563,
+     "startSec": 2.501,
+     "durationSec": 0.425,
+     "clap": 0.094,
+     "snrDb": 59.7,
+     "loudnessLUFS": -18.1
+    },
+    {
+     "file": "golem-attic-thud/golem-attic-thud-03.wav",
+     "take": "p0-s561",
+     "prompt": "one single heavy footstep on old wooden floorboards above, deep muffled thud, creak, quiet room, no music",
+     "seed": 561,
+     "startSec": 3.248,
+     "durationSec": 1.03,
+     "clap": 0.072,
+     "snrDb": 65.7,
+     "loudnessLUFS": -21.1
+    },
+    {
+     "file": "golem-attic-thud/golem-attic-thud-04.wav",
+     "take": "p0-s561",
+     "prompt": "one single heavy footstep on old wooden floorboards above, deep muffled thud, creak, quiet room, no music",
+     "seed": 561,
+     "startSec": 4.59,
+     "durationSec": 0.44,
+     "clap": 0.07,
+     "snrDb": 56.8,
+     "loudnessLUFS": -21.5
+    }
+   ]
+  },
+  {
    "id": "whistle-note",
    "kind": "sfx",
    "files": [

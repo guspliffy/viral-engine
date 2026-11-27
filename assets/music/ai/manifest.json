@@ -1603,6 +1603,312 @@
    ]
   },
   {
+   "id": "golem-a-dusk",
+   "kind": "music",
+   "files": [
+    "golem-a-dusk/golem-a-dusk-01.ogg"
+   ],
+   "tags": [
+    "danger"
+   ],
+   "mood": "danger",
+   "bpm": 59.7,
+   "bars": 3,
+   "key": null,
+   "askedBpm": 56,
+   "loopable": false,
+   "durationSec": 18.024,
+   "prompt": [
+    "24-second seamless loop, slow, D minor, solo bass viol holding a low D pedal with soft bow, one sparse Renaissance lute pluck, dry intimate early-music recording, eerie dusk"
+   ],
+   "seed": [
+    411,
+    833
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-a-dusk/golem-a-dusk-01.ogg",
+     "seed": 411,
+     "durationSec": 18.251,
+     "bars": 6,
+     "bpm": 78.9,
+     "beatSpread": 0.01,
+     "steadyBeat": true,
+     "clap": -0.275,
+     "loudnessLUFS": -16.7
+    },
+    {
+     "file": "golem-a-dusk/golem-a-dusk-02.ogg",
+     "seed": 833,
+     "durationSec": 17.798,
+     "bars": 3,
+     "bpm": 40.5,
+     "beatSpread": 0.107,
+     "steadyBeat": false,
+     "clap": -0.129,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-b-clay",
+   "kind": "music",
+   "files": [
+    "golem-b-clay/golem-b-clay-01.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 48.6,
+   "bars": 3,
+   "key": null,
+   "askedBpm": 56,
+   "loopable": false,
+   "durationSec": 21.601,
+   "prompt": [
+    "24-second seamless loop, 56 BPM, D dorian, sparse gut-string Renaissance lute over an open D and A drone on bass viol, misty dawn, wonder, Prague 1600 early music"
+   ],
+   "seed": [
+    412,
+    834
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-b-clay/golem-b-clay-01.ogg",
+     "seed": 412,
+     "durationSec": 25.925,
+     "bars": 6,
+     "bpm": 55.5,
+     "beatSpread": 0.065,
+     "steadyBeat": false,
+     "clap": -0.106,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "golem-b-clay/golem-b-clay-02.ogg",
+     "seed": 834,
+     "durationSec": 17.276,
+     "bars": 3,
+     "bpm": 41.7,
+     "beatSpread": 0.137,
+     "steadyBeat": false,
+     "clap": -0.06,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-c-guard",
+   "kind": "music",
+   "files": [
+    "golem-c-guard/golem-c-guard-01.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 84.0,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 84,
+   "loopable": true,
+   "durationSec": 11.425,
+   "prompt": [
+    "22-second seamless loop, 84 BPM, D dorian, low steady Renaissance lute walking bass pattern, soft bass viol, warm lamplit night street, gentle early music"
+   ],
+   "seed": [
+    413,
+    835
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-c-guard/golem-c-guard-01.ogg",
+     "seed": 413,
+     "durationSec": 11.413,
+     "bars": 4,
+     "bpm": 84.1,
+     "beatSpread": 0.019,
+     "steadyBeat": true,
+     "clap": -0.071,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "golem-c-guard/golem-c-guard-02.ogg",
+     "seed": 835,
+     "durationSec": 11.436,
+     "bars": 4,
+     "bpm": 83.9,
+     "beatSpread": 0.014,
+     "steadyBeat": true,
+     "clap": -0.191,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-d-rampage",
+   "kind": "music",
+   "files": [
+    "golem-d-rampage/golem-d-rampage-01.ogg"
+   ],
+   "tags": [
+    "danger"
+   ],
+   "mood": "danger",
+   "bpm": 112.0,
+   "bars": 8,
+   "key": null,
+   "askedBpm": 112,
+   "loopable": true,
+   "durationSec": 17.148,
+   "prompt": [
+    "18-second seamless loop, 112 BPM, D minor, rough aggressive bass viol strokes near the bridge, hand-damped calfskin frame drum heavy pulse, D and E-flat clashing, dark early-music horror"
+   ],
+   "seed": [
+    414,
+    836
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-d-rampage/golem-d-rampage-01.ogg",
+     "seed": 414,
+     "durationSec": 17.148,
+     "bars": 8,
+     "bpm": 112.0,
+     "beatSpread": 0.018,
+     "steadyBeat": true,
+     "clap": -0.072,
+     "loudnessLUFS": -16.5
+    },
+    {
+     "file": "golem-d-rampage/golem-d-rampage-02.ogg",
+     "seed": 836,
+     "durationSec": 17.148,
+     "bars": 8,
+     "bpm": 112.0,
+     "beatSpread": 0.023,
+     "steadyBeat": true,
+     "clap": -0.193,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-e-attic",
+   "kind": "music",
+   "files": [
+    "golem-e-attic/golem-e-attic-01.ogg"
+   ],
+   "tags": [
+    "danger"
+   ],
+   "mood": "danger",
+   "bpm": 20.0,
+   "bars": 1,
+   "key": null,
+   "askedBpm": 50,
+   "loopable": true,
+   "durationSec": 11.999,
+   "prompt": [
+    "24-second seamless loop, very slow, faint bass viol harmonics, long silences, dusty empty attic, haunting, sparse"
+   ],
+   "seed": [
+    415,
+    837
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-e-attic/golem-e-attic-01.ogg",
+     "seed": 415,
+     "durationSec": 11.993,
+     "bars": 1,
+     "bpm": 20.0,
+     "beatSpread": 0.001,
+     "steadyBeat": true,
+     "clap": -0.252,
+     "loudnessLUFS": -16.2
+    },
+    {
+     "file": "golem-e-attic/golem-e-attic-02.ogg",
+     "seed": 837,
+     "durationSec": 12.005,
+     "bars": 1,
+     "bpm": 20.0,
+     "beatSpread": 0.002,
+     "steadyBeat": true,
+     "clap": -0.281,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-f-psalm",
+   "kind": "music",
+   "files": [
+    "golem-f-psalm/golem-f-psalm-01.ogg"
+   ],
+   "tags": [
+    "sad"
+   ],
+   "mood": "sad",
+   "bpm": 70.3,
+   "bars": 3,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": false,
+   "durationSec": 14.913,
+   "prompt": [
+    "24-second solo viol playing a slow, simple, prayerful chant-like melody in D minor, legato, reverent, distant room"
+   ],
+   "seed": [
+    416,
+    838
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-f-psalm/golem-f-psalm-01.ogg",
+     "seed": 416,
+     "durationSec": 17.647,
+     "bars": 6,
+     "bpm": 81.6,
+     "beatSpread": 0.075,
+     "steadyBeat": false,
+     "clap": 0.273,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "golem-f-psalm/golem-f-psalm-02.ogg",
+     "seed": 838,
+     "durationSec": 12.179,
+     "bars": 3,
+     "bpm": 59.1,
+     "beatSpread": 0.045,
+     "steadyBeat": true,
+     "clap": 0.27,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
    "id": "pp-dusk",
    "kind": "music",
    "files": [
