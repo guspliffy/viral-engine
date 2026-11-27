@@ -1,0 +1,388 @@
+{
+ "tool": "a builder bench for toast Dad (Kid vs Dad 08 T4), never a video",
+ "id": "t4-bench-toast",
+ "title": "T4 bench: toast Dad",
+ "idea": "Bench for Kid vs Dad 08 (DESIGN.md T4), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#f3d9a4",
+  "floor": "#d9b27a",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "shade": "soft"
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   4,
+   40
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "ta",
+   "character": "potatobrawl/dad-toast",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.1
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    -1.25,
+    -0.2
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.2
+  },
+  {
+   "id": "tato",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    1,
+    -0.2
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.9
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.8,
+     5
+    ],
+    "look": [
+     -0.2,
+     0.62,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "ta",
+     "do": "expr",
+     "set": {
+      "eye": 1.25,
+      "pupil": 0.6,
+      "tilt": 0.3,
+      "browY": 0.05,
+      "open": 0.25
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "ta",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.1,
+     "at": 0.6
+    }
+   ],
+   "kind": "0.5 front"
+  },
+  {
+   "name": "s1",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.8,
+     5
+    ],
+    "look": [
+     -0.2,
+     0.62,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "ta",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.1,
+     "at": 0.6
+    }
+   ],
+   "kind": "1.5 3/4"
+  },
+  {
+   "name": "s2",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.8,
+     5
+    ],
+    "look": [
+     -0.2,
+     0.62,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "ta",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.1,
+     "at": 0.6
+    }
+   ],
+   "kind": "2.5 side"
+  },
+  {
+   "name": "s3",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.8,
+     5
+    ],
+    "look": [
+     -0.2,
+     0.62,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "ta",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0.6
+    }
+   ],
+   "kind": "3.5 back"
+  },
+  {
+   "name": "s4",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.88,
+     2
+    ],
+    "look": [
+     0,
+     0.84,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "4.5 head, kind"
+  },
+  {
+   "name": "s5",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.88,
+     2
+    ],
+    "look": [
+     0,
+     0.84,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "ta",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 0
+    }
+   ],
+   "kind": "5.5 shocked"
+  },
+  {
+   "name": "s6",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.88,
+     2
+    ],
+    "look": [
+     0,
+     0.84,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "ta",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "ta",
+     "do": "expr",
+     "set": {
+      "open": 0.7
+     },
+     "dur": 0.1,
+     "at": 0
+    }
+   ],
+   "kind": "6.5 talking"
+  },
+  {
+   "name": "s7",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.8,
+     4.2
+    ],
+    "look": [
+     0,
+     0.7,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "ta",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "ta",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 0
+    }
+   ],
+   "kind": "7.5 both arms up"
+  },
+  {
+   "name": "s8",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.9,
+     1.9,
+     2.6
+    ],
+    "look": [
+     0,
+     0.9,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "8.5 from above"
+  },
+  {
+   "name": "s9",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.9,
+     0.12,
+     2.4
+    ],
+    "look": [
+     0,
+     0.35,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "9.5 underside, low"
+  },
+  {
+   "name": "s10",
+   "at": 10,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.9,
+     9
+    ],
+    "look": [
+     -0.2,
+     0.62,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [],
+   "kind": "10.5 beside dad.json and Tato"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/08-dad-jokes-true/bench/t4-bench-toast.mjs (builder bench, no reviews)."
+}

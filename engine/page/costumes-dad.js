@@ -44,6 +44,22 @@ import { hash2 } from "./costumes-art-cast.js";
 //   polo "#a9c8e8" | poloShade "#7fa3cc" | collar "#b9d3ee" | buttons "#f3ead6" | belly 0.028 (0 = a flat shirt; the dome's height over the
 //   polo's 0.018) | hands "#f6dcae" (the glove) | belt "#6f4628" | buckle "#dba935" | holster "#7a4b2a" | holsterOn true | shorts "#d3ba8c" |
 //   shortsShade "#a88e62" | socks "#f4f1e8" | rings "#34507f" | sandal "#5a3a22" | strap "#7a4b2a" | moustache "#6a3f24" | leaf "#8fb03a"
+//   NEW (Kid vs Dad 08, DESIGN.md sections 6 and 10; all default off, so every earlier picture of Dad is unchanged):
+//   shoes "kidsneakers"  Tato's tiny red sneakers on Dad's big sock feet instead of the sandals (characters/potatobrawl/dad-sneakers.json). Socks, rings
+//                        and the 1.15 foot size stay. Per foot (foot frame: +z toes, floor y 0): white sole 0.092 x 0.150 x 0.016 under the front (z -0.035
+//                        to +0.115, the sock bulges past it and the heel hangs 0.073 behind), foxing line, red canvas cap far too small (z 0 to 0.108,
+//                        |x| under 0.056), white toe cap (z 0.08 to 0.115) with 3 toe bumps, 2 split seams, a tongue up and back, 6 eyelets, one lace
+//                        crossing and 4 burst free ends with knots, a crushed red heel flap behind the sole. Colours fixed: red "#d8322b", foxing
+//                        "#b8241f", white "#f4f1ea".
+//   toast true           Dad as a slice of toast (characters/potatobrawl/dad-toast.json: body 0.98 x 0.86 x 0.20, square 6, taper -0.06): no polo, collar, sleeves,
+//                        shorts, belt, buckle or holster. Drawn instead, on the body's surface: a crust band "#8a4f1e" 0.006 proud over the whole rim and 0.035
+//                        onto the front and back faces (inner edge wavering +-0.004 from a fixed sum of sines; shade "#6f3d16" blended in on the underside), a
+//                        browning ring 0.08 wide inside it in 3 steps ("#c07a2e" toward the body colour), 60 pores a face (dark "#b46f2a", light "#f0c27a",
+//                        r 0.003 to 0.009) and 5 flecks "#6b3a16" from fixed tables. Nothing inside the eye zone (b 0.496 to 0.86, |x| under 0.25) or the
+//                        mouth and moustache zone (b 0.33 to 0.50, |x| under 0.25) on the front. Moustache, leaves (lifted 0.006 over the crust), socks, rings
+//                        and sandals stay. The costume reads the body's own height and width, so the toast is the same size as Dad.
+//   armSkin "#f9b75c"    the bare arm below the sleeve (or from the shoulder on the toast) in this colour. Unset: Dad's own skin colour read from the body
+//                        (on the toast that is the bread colour, so set it there).
 //   Fixed in the file: sleeve hem "#9dbde0", belt stitch "#4e2f1a", flap "#643c20", holster stitch "#a06a3c", lining "#6f5a3c", pocket button
 //   "#b98f3e", nub "#7d9a34", midrib "#6c8a2a", strands "#4a2c18", light strokes "#8a5a36", buckle shade "#b0811f".
 // HANDS: the rig's glove (hands.type glove, Wedge's), so every grip proven on the old Dad carries over. The belt-hitch pose (both arms
@@ -410,7 +426,7 @@ function holster(C, ch, R, D) {
 function socksAndSandals(C, ch) {
   const ringC = C.rings || "#34507f", rm = cloth(ringC), sandalC = C.sandal || "#5a3a22", strapC = C.strap || "#7a4b2a";
   const soleM = cloth(sandalC, { roughness: 0.8, side: THREE.FrontSide }), strapM = cloth(strapC, { roughness: 0.7, side: THREE.FrontSide }), brass = metal(C.buckle || "#dba935");
-  const SIZE = 1.15, feet = {};
+  const SIZE = 1.15, feet = {}, sneaker = C.shoes === "kidsneakers";
   const outline = (w, l) => { const s = new THREE.Shape(), n = 40; for (let i = 0; i < n; i++) { const a = (i / n) * TAU, c = Math.cos(a), sn = Math.sin(a), x = Math.sign(c) * Math.abs(c) ** 0.8 * (w / 2) * (sn < 0 ? 1 : 0.88), y = Math.sign(sn) * Math.abs(sn) ** 0.8 * (l / 2); (i ? s.lineTo : s.moveTo).call(s, x, y); } s.closePath(); return s; };
   const soleG = new THREE.ExtrudeGeometry(outline(0.175, 0.24), { depth: 0.02, bevelEnabled: false, curveSegments: 12 }); soleG.rotateX(-PI / 2);
   const rings = { L: [], R: [] };
@@ -418,10 +434,10 @@ function socksAndSandals(C, ch) {
     const f = ch.legs?.[s]?.foot; if (!f) continue;
     f.scale.multiplyScalar(SIZE);   // Mash's shoeSize: the foot ball is the sock foot in the sandal
     const sc = f.scale, g = new THREE.Group(); g.scale.set(1 / sc.x, 1 / sc.y, 1 / sc.z); g.position.set(0, -0.035 / sc.y, 0);   // undo the foot ball's squash: the floor at the group's origin
-    g.add(mesh(soleG, soleM));
+    if (sneaker) kidSneakers(g, SIZE); else g.add(mesh(soleG, soleM));
     // the foot ball in world-sized coordinates (semi axes) and its centre 0.035 above the floor
     const A = 0.075 * 0.9 * SIZE, Bh = 0.075 * 0.5 * SIZE, Cz = 0.075 * 1.25 * SIZE, outer = s === "L" ? 1 : -1;
-    [0.045, -0.02].forEach((z0, k) => {
+    if (!sneaker) [0.045, -0.02].forEach((z0, k) => {
       const q = Math.sqrt(Math.max(0.05, 1 - (z0 / Cz) ** 2)), ax = A * q + 0.0045, ay = Bh * q + 0.0045, pts = [];
       const a0 = Math.asin(clamp((0.021 - 0.035) / ay, -1, 1)), a1 = PI - a0;
       for (let i = 0; i <= 20; i++) { const a = lerp(a0, a1, i / 20); pts.push(V(Math.cos(a) * ax, 0.035 + Math.sin(a) * ay, 0)); }
@@ -491,19 +507,19 @@ function moustache(C, ch, R) {
 }
 
 // ------------------------------------------------------------------ the three leaves on the crown, combed over to his left
-function leaves(C, ch, R) {
+function leaves(C, ch, R, lift = 0) {   // lift: the toast's crust is 0.006 proud of the skin, so the nub and the leaves sit that much higher
   const parts = ch.potatoParts, G = new THREE.Group(), lc = C.leaf || "#8fb03a", rib = "#6c8a2a", lm = cloth(lc, { roughness: 0.7 }), rm = lineMat(rib);
   const X0 = -0.11, Z0 = 0.02;
   // each: length, widest, z in front of the back leaf, tip lower than the back leaf
   const L3 = [[0.34, 0.062, 0.0, 0.0], [0.31, 0.058, 0.022, 0.028], [0.27, 0.052, 0.045, 0.05]];
-  const nub = new THREE.Mesh(new THREE.SphereGeometry(0.02, 14, 10), cloth("#7d9a34")); { const c = R.crown(X0, Z0); nub.position.copy(c.pos).addScaledVector(c.normal, 0.002); nub.scale.set(1, 0.7, 1); nub.castShadow = true; G.add(nub); }
+  const nub = new THREE.Mesh(new THREE.SphereGeometry(0.02, 14, 10), cloth("#7d9a34")); { const c = R.crown(X0, Z0); nub.position.copy(c.pos).addScaledVector(c.normal, 0.002 + lift); nub.scale.set(1, 0.7, 1); nub.castShadow = true; G.add(nub); }
   L3.forEach(([len, wid, zf, drop], k) => {
     const N = 34, cs = [];
     for (let i = 0; i <= N; i++) {
       const s = i / N, x = X0 + len * s, z = Z0 + zf + 0.01 * s, c = R.crown(x, z), T25 = Math.tan(25 * PI / 180), T12 = Math.tan(12 * PI / 180);
       // height over the skin: rises 25 degrees over the first third, runs level over the head (parallel to its curve), curls up 12 degrees over the last quarter; the lower leaves' tips sit lower
       const hup = s < 1 / 3 ? T25 * len * s : (T25 * len) / 3, curl = s > 0.75 ? T12 * len * 0.25 * 0.9 * ((s - 0.75) / 0.25) ** 1.5 : 0;
-      cs.push(c.pos.clone().add(V(0, 0.004 + hup + curl - drop * s * s, 0)));
+      cs.push(c.pos.clone().add(V(0, 0.004 + lift + hup + curl - drop * s * s, 0)));
     }
     // the blade: widest 0.062 / 0.058 / 0.052, pointed, 0.008 thick, tipped 40 degrees toward the lens (the broad face turns toward +z)
     const pos = [], idx = [], rows = 5, tilt = 40 * PI / 180;
@@ -527,9 +543,143 @@ function leaves(C, ch, R) {
   softFollow(ch, G, 0.35);   // the leaves lag the head a little
 }
 
+// ------------------------------------------------------------------ Tato's sneakers on Dad's feet (costume.shoes "kidsneakers", DESIGN.md section 6)
+// built in the foot's frame with the foot ball's squash undone (g: floor y 0, +z the toes, 1 unit = 1 m). The foot ball is the sock foot:
+// centre 0.035 above the floor, semi axes A x Bh x Cz. Every number here is the design's; the colours are fixed.
+function kidSneakers(g, SIZE) {
+  const A = 0.075 * 0.9 * SIZE, Bh = 0.075 * 0.5 * SIZE, Cz = 0.075 * 1.25 * SIZE, CY = 0.035;
+  const RED = cloth("#d8322b", { roughness: 0.8 }), FOX = cloth("#b8241f", { roughness: 0.8 }), WHT = cloth("#f4f1ea", { roughness: 0.7 }), SOCK = cloth("#f4f1e8", { roughness: 0.9 }), EYE = cloth("#ece7d8", { roughness: 0.5 });
+  const add = (o) => { g.add(o); return o; };
+  // the sock's surface grown by off: height and normal at (x, z)
+  const ep = (x, z, off) => {
+    const a = A + off, b = Bh + off, c = Cz + off, k = 1 - (x / a) ** 2 - (z / c) ** 2, y = CY + b * Math.sqrt(Math.max(0, k));
+    return { p: V(x, y, z), n: V(x / (a * a), (y - CY) / (b * b), z / (c * c)).normalize(), ok: k > 0 };
+  };
+  const xmax = (z, off) => { const c = Cz + off, a = A + off; return a * Math.sqrt(Math.max(0, 1 - (z / c) ** 2)); };
+  // a cap over the sock: z0 to z1, |x| under xw (and inside the ball), floating off above it, with a skirt down to the sock on both sides
+  const cap = (z0, z1, xw, off, mat, nz = 14, nx = 8) => {
+    const top = grid(nx, nz, (i, j) => { const z = lerp(z0, z1, j / nz), xr = Math.min(xw, xmax(z, off) * 0.98); return ep(xr * (-1 + (2 * i) / nx), z, off).p; });
+    add(mesh(top, mat));
+    for (const sd of [-1, 1]) add(mesh(grid(1, nz, (i, j) => { const z = lerp(z0, z1, j / nz), xr = Math.min(xw, xmax(z, off) * 0.98); return ep(sd * xr, z, i ? 0 : off).p; }), mat, false));
+  };
+  // sole: a rounded plate 0.092 x 0.150 x 0.016, toe at +z, under the front of the foot (z -0.035 to 0.115)
+  const plate = (w, l, r, h, y, hole = 0) => {
+    const sh = rrShape(w, l, r);   // shape y runs to -z after the turn: the toe is the shape's bottom edge
+    if (hole) sh.holes.push(new THREE.Path(rrShape(w - 2 * hole, l - 2 * hole, r.map((q) => Math.max(0.004, q - hole))).getPoints(12)));
+    const geo = new THREE.ExtrudeGeometry(sh, { depth: h, bevelEnabled: false, curveSegments: 10 }); geo.rotateX(-PI / 2); geo.translate(0, y, 0.04); return geo;
+  };
+  add(mesh(plate(0.092, 0.150, [0.034, 0.034, 0.02, 0.02], 0.016, 0), WHT));
+  add(mesh(plate(0.092, 0.150, [0.034, 0.034, 0.02, 0.02], 0.004, 0.004).clone(), FOX)).position.y = 0.016;   // foxing: 0.004 round the sole's top edge
+  // upper: red canvas 0.004 outside the sock, z 0 to 0.108, only where |x| is under 0.056: a cap far too small
+  cap(0, 0.108, 0.056, 0.004, RED);
+  // toe cap: white rubber over z 0.08 to 0.115 (the ball ends at 0.108), and 3 bumps r 0.016, y scale 0.6, pushing it up
+  cap(0.08, 0.1075, 0.062, 0.0058, WHT, 6, 8);
+  [-0.03, 0, 0.03].forEach((x) => { const b = mesh(new THREE.SphereGeometry(0.016, 14, 10), WHT); b.scale.set(1, 0.6, 1); b.position.copy(ep(x, 0.085, 0.0058).p).add(V(0, 0.001, 0)); add(b); });
+  // 2 split seams a shoe, 0.03 x 0.008, at x +-0.05, z 0.04: the white sock shows
+  for (const sd of [-1, 1]) { const pts = [], nr = []; for (let i = 0; i <= 6; i++) { const q = ep(sd * 0.05, 0.025 + 0.03 * (i / 6), 0.0048); pts.push(q.p); nr.push(q.n); } add(mesh(ribbon(pts, nr, 0.008, (u) => Math.sin(PI * u) ** 0.5), SOCK, false)); }
+  // tongue 0.04 x 0.05, standing 55 degrees up and back from z 0.01, white underside; 3 eyelets a side r 0.004 at z 0.015, 0.035, 0.055, x +-0.022
+  { const a = 55 * PI / 180, t = V(0, Math.sin(a), -Math.cos(a)), n = V(0, Math.cos(a), Math.sin(a)), plateG = new THREE.BoxGeometry(0.04, 0.003, 0.05); plateG.translate(0, 0.0015, 0.025);
+    const tg = new THREE.Mesh(plateG, [RED, RED, RED, WHT, RED, RED]); tg.castShadow = true;   // +y red, -y white: the box's faces are +x -x +y -y +z -z
+    tg.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(V(-1, 0, 0), n, t)); tg.position.copy(ep(0, 0.01, 0.003).p); add(tg); }
+  const EZ = [0.015, 0.035, 0.055], eyelet = {};
+  for (const sd of [-1, 1]) EZ.forEach((z, k) => { const q = ep(sd * 0.022, z, 0.0042), e = mesh(new THREE.SphereGeometry(0.004, 10, 8), EYE, false); e.position.copy(q.p); add(e); eyelet[`${sd}${k}`] = q.p; });
+  // laces, tube r 0.003: ONE crossing at the front eyelets, 4 free ends (2 a side) springing out and up on 4 fixed curves, a knot r 0.006 on each tip
+  const tube = (curve, seg) => add(mesh(new THREE.TubeGeometry(curve, seg, 0.003, 6, false), WHT, false));
+  [[-1, 2, 1, 1, 0.0045], [1, 2, -1, 1, 0.0068]].forEach(([sa, ka, sb, kb, lift]) => {
+    const p0 = eyelet[`${sa}${ka}`], p1 = eyelet[`${sb}${kb}`], mid = p0.clone().lerp(p1, 0.5); mid.y = ep(0, mid.z, lift).p.y;
+    tube(new THREE.CatmullRomCurve3([p0.clone().add(V(0, 0.002, 0)), mid, p1.clone().add(V(0, 0.002, 0))]), 12);
+  });
+  [[-1, 1, [-0.80, 0.50, 0.30], 0.060], [-1, 0, [-0.90, 0.40, -0.25], 0.050], [1, 1, [0.85, 0.45, 0.35], 0.070], [1, 0, [0.75, 0.55, -0.30], 0.055]].forEach(([sd, k, d, len]) => {
+    const p0 = eyelet[`${sd}${k}`].clone(), dir = V(...d).normalize(), p1 = p0.clone().addScaledVector(dir, len * 0.5).add(V(0, 0.012, 0)), p2 = p0.clone().addScaledVector(dir, len).add(V(0, 0.004, 0));
+    tube(new THREE.QuadraticBezierCurve3(p0, p1, p2), 10);
+    const kn = mesh(new THREE.SphereGeometry(0.006, 10, 8), WHT, false); kn.position.copy(p2); add(kn);
+  });
+  // crushed heel: a red flap 0.07 x 0.03 flat on the floor behind the sole, under his heel
+  const flap = mesh(new THREE.BoxGeometry(0.07, 0.004, 0.03), RED, false); flap.position.set(0, 0.002, -0.05); add(flap);
+}
+
+// ------------------------------------------------------------------ Dad as toast (costume.toast, DESIGN.md section 10)
+// A slab body (dad-toast.json: depth 0.20, square 6). Every mark is built in direction space: P(a, g) is the skin where a runs round the slab's outline
+// (0 = +x, pi/2 = the top) and g is the elevation toward the front (g > 0, +z) or the back (g < 0); the rim is g 0. e(a, g) is how far the point has
+// moved in from the rim, in metres, in the face's plane: the crust is e under w(a), the browning rings follow it, the pores and flecks keep out of the
+// face zones. All from fixed tables: no random.
+function toastSlab(C, ch, R) {
+  const parts = ch.potatoParts, cy = ch.cy, body = new THREE.Color(ch.def.body.color || "#e3a857");
+  const Pt = (a, g) => ch.bodyPoint(V(Math.cos(g) * Math.cos(a), Math.cos(g) * Math.sin(a), Math.sin(g)));
+  const Nm = (a, g) => {
+    const e = 0.002, da = Pt(a + e, g).sub(Pt(a - e, g)), dg = Pt(a, g + e).sub(Pt(a, g - e)), n = new THREE.Vector3().crossVectors(da, dg).normalize(), p = Pt(a, g);
+    return n.dot(V(p.x, p.y - cy, p.z)) < 0 ? n.negate() : n;
+  };
+  const rho = (a, g) => { const p = Pt(a, g); return Math.hypot(p.x, p.y - cy); };
+  const wob = (a) => 0.5 * Math.sin(3 * a + 1.1) + 0.3 * Math.sin(7 * a + 0.3) + 0.2 * Math.sin(13 * a + 2.2);
+  const W = (a) => 0.035 + 0.004 * wob(a);   // the crust's inner edge, 0.035 onto the face, wavering +-0.004
+  const GMAX = 1.45, gAt = (a, e) => {   // the elevation (0 to GMAX) where the point is e in from the rim
+    const r0 = rho(a, 0); if (r0 - rho(a, GMAX) <= e) return GMAX;
+    let lo = 0, hi = GMAX; for (let i = 0; i < 24; i++) { const m = (lo + hi) / 2; if (r0 - rho(a, m) < e) lo = m; else hi = m; } return (lo + hi) / 2;
+  };
+  const NA = 240, base = R.base;
+  // a (NA+1) x (cols) sheet: gs(a) lists the elevations of a row, off the stand-off along the normal, colour(a, k) optional vertex colour
+  const sheet = (gs, off, A0 = 0, A1 = TAU) => {   // rows over the outline angle A0 to A1 (a whole turn closes on itself)
+    const pos = [], nrm = [], idx = [], NR = Math.max(2, Math.ceil((NA * (A1 - A0)) / TAU));
+    let nc = 0;
+    for (let i = 0; i <= NR; i++) {
+      const a = A0 + ((A1 - A0) * i) / NR, row = gs(a); nc = row.length;
+      row.forEach((g) => { const p = Pt(a, g), n = Nm(a, g); pos.push(p.x + n.x * off, p.y + n.y * off, p.z + n.z * off); nrm.push(n.x, n.y, n.z); });
+    }
+    for (let i = 0; i < NR; i++) for (let k = 0; k < nc - 1; k++) { const a0 = i * nc + k, b0 = a0 + 1, c0 = a0 + nc, d0 = c0 + 1; idx.push(a0, c0, b0, b0, c0, d0); }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute("normal", new THREE.Float32BufferAttribute(nrm, 3));
+    geo.setIndex(idx); return geo;
+  };
+  // crust: front face edge, the rim, the back face edge; 0.006 off the skin
+  // (vertex colours are not read by the looks, so the shade on the underside is 3 solid steps of one sheet: the top and sides, a blend, the underside)
+  const FR = [1, 0.7, 0.45, 0.25, 0.12], RIM = 10;
+  const crustCols = (a) => {   // elevations from the front face's inner edge, over the rim, to the back face's: descending
+    const w = W(a), f = FR.map((q) => gAt(a, w * q)), edge = f[f.length - 1];
+    return [...f, ...[...Array(RIM - 1)].map((_, k) => edge * (1 - (2 * (k + 1)) / RIM)), ...f.slice().reverse().map((q) => -q)];
+  };
+  const s1 = Math.asin(0.2), s2 = Math.asin(0.55);   // the underside is where sin(a) < -0.2 (a blend) and < -0.55 (the shade)
+  [["#8a4f1e", 0, PI + s1], ["#8a4f1e", TAU - s1, TAU], ["#7c4719", PI + s1, PI + s2], ["#7c4719", TAU - s2, TAU - s1], ["#6f3d16", PI + s2, TAU - s2]].forEach(([c, a0, a1]) => parts.add(mesh(sheet(crustCols, 0.006, a0, a1), cloth(c, { roughness: 0.9 }))));
+  // browning: a ring 0.08 wide inside the crust, 3 steps from "#c07a2e" toward the body's colour; decals 0.002 off the skin, both faces
+  const steps = [0, 1, 2].map((k) => new THREE.Color("#c07a2e").lerp(body, k / 3));
+  for (const sg of [1, -1]) steps.forEach((c, k) => {
+    const m = lineMat(`#${c.getHexString()}`);
+    parts.add(mesh(sheet((a) => { const w = W(a); return [0, 1, 2, 3].map((q) => sg * gAt(a, w + 0.08 * ((k + q / 3) / 3))); }, 0.002 + 0.0002 * k), m, false));
+  });
+  // pores and flecks: discs from fixed hash tables, kept out of the face zones on the front (margin = the mark's radius + 0.01)
+  const inZone = (p, r) => { const b = p.y - base, ax = Math.abs(p.x); return ax < 0.25 + r + 0.01 && ((b > 0.496 - r - 0.01 && b < 0.86 + r + 0.01) || (b > 0.33 - r - 0.01 && b < 0.50 + r + 0.01)); };
+  const discGeo = (list) => {
+    const pos = [], nrm = [], idx = [];
+    for (const { p, n, r, asp } of list) {
+      const u = new THREE.Vector3().crossVectors(n, Math.abs(n.y) < 0.9 ? V(0, 1, 0) : V(1, 0, 0)).normalize(), v = new THREE.Vector3().crossVectors(n, u), o = pos.length / 3;
+      pos.push(p.x, p.y, p.z); nrm.push(n.x, n.y, n.z);
+      for (let i = 0; i < 10; i++) { const t = (TAU * i) / 10, c = Math.cos(t) * r * (asp || 1), s = Math.sin(t) * r; pos.push(p.x + u.x * c + v.x * s, p.y + u.y * c + v.y * s, p.z + u.z * c + v.z * s); nrm.push(n.x, n.y, n.z); idx.push(o, o + 1 + i, o + 1 + ((i + 1) % 10)); }
+    }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute("normal", new THREE.Float32BufferAttribute(nrm, 3)); geo.setIndex(idx); return geo;
+  };
+  const FLECK = [[0.9, 0.55, 0.011, 1.6], [2.3, 0.40, 0.008, 1.2], [3.7, 0.65, 0.010, 1.5], [4.9, 0.50, 0.007, 1.3], [5.8, 0.35, 0.009, 1.7]];   // a, share of the way in, r, stretch
+  for (const sg of [1, -1]) {
+    const dark = [], light = [], flecks = [], at = (a, f, r = 0) => gAt(a, Math.min(rho(a, 0) - 0.01, Math.max(W(a) + 0.012 + r, rho(a, 0) * (1 - f))));   // a point f of the way from the rim (0) to the middle (1)
+    for (let i = 0, got = 0; i < 400 && got < 60; i++) {
+      const a = TAU * hs(i + (sg < 0 ? 500 : 0), 1), f = Math.sqrt(hs(i + (sg < 0 ? 500 : 0), 2)), r = 0.003 + 0.006 * hs(i + (sg < 0 ? 500 : 0), 3);
+      const g = sg * at(a, f, r), p = Pt(a, g), n = Nm(a, g);
+      if (sg > 0 && inZone(p, r)) continue;
+      (hs(i + (sg < 0 ? 500 : 0), 4) < 0.5 ? dark : light).push({ p: p.addScaledVector(n, 0.003), n, r }); got++;
+    }
+    FLECK.forEach(([a0, f, r, asp]) => { const a = sg > 0 ? a0 : TAU - a0, g = sg * at(a, f, r), p = Pt(a, g), n = Nm(a, g); if (sg > 0 && inZone(p, r * asp)) return; flecks.push({ p: p.addScaledVector(n, 0.0035), n, r, asp }); });
+    for (const [list, c] of [[dark, "#b46f2a"], [light, "#f0c27a"], [flecks, "#6b3a16"]]) if (list.length) parts.add(mesh(discGeo(list), lineMat(c), false));
+  }
+}
+
 // ------------------------------------------------------------------ the kit
 export function dadKit(C, ch) {
-  const R = rigOf(ch), skin = ch.skin?.color ? ch.skin.color.clone() : new THREE.Color("#f9b75c");
+  const R = rigOf(ch), skin = C.armSkin ? new THREE.Color(C.armSkin) : ch.skin?.color ? ch.skin.color.clone() : new THREE.Color("#f9b75c");
+  if (C.toast) {   // Dad as toast: a slab with crust and browning instead of the clothes; his face, moustache, leaves, socks and sandals are his own parts
+    toastSlab(C, ch, R);
+    const legs = socksAndSandals(C, ch);
+    moustache(C, ch, R);
+    leaves(C, ch, R, 0.006);
+    return { sl: () => {}, apply: () => { if (ch.armMat && ch.armMat !== ch.limbMat) { ch.armMat.color.copy(skin); ch.armMat.userData.lookRole = "skin"; } legs(); } };
+  }
   const P = polo(C, ch, R);
   collar(C, ch, R, P);
   const D = shortsDrum(ch, R), SB = shortsAndBelt(C, ch, R, D, P);
