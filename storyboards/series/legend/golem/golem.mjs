@@ -350,12 +350,14 @@ function captions(time) {
 }
 
 // ---------------------------------------------------------------- one frame
-const TITLE_DY = { stone: 20, clay: 14, relief: 45 };   // keeps every title's top edge at y >= 640
+// Jonny 27 Nov 09:55 Berlin: "the title of the video should be above the speech lettering" -> every title sits ABOVE the
+// subtitle (2 rows at y=560 span ~465-615): bottom edge at y <= ~445; stone scaled 0.8 so its top stays below TikTok's top bar (~y 190).
+const TITLE_TF = { stone: "translate(540,445) scale(0.8) translate(-540,-936)", clay: "translate(540,445) scale(0.8) translate(-540,-900)", relief: "translate(0,-270)" };
 export function draw(time) {
   L.resetIds();
   const b = TL.find((x) => time >= x.at && time < x.end) || TL[TL.length - 1];
   const u = time - b.lineAt, body = b.shot(Math.max(u, -0.5), b.d, time, b.ln);
-  const title = time < 2.7 ? `<g transform="translate(0,${TITLE_DY[TITLE] ?? 20})">${G.titleCard(time, { style: TITLE })}</g>` : "";
+  const title = time < 2.7 ? `<g transform="${TITLE_TF[TITLE] ?? TITLE_TF.stone}">${G.titleCard(time, { style: TITLE })}</g>` : "";
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${L.defs("night")}${body}${L.vignette()}${title}${captions(time)}</svg>`;
 }
 export const HEAD = `<style>@font-face { font-family: Inter; font-weight: 900; src: url(data:font/otf;base64,${readFileSync("assets/fonts/Inter-Black.otf").toString("base64")}); }</style>`;
