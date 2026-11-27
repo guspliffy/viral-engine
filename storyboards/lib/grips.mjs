@@ -25,6 +25,7 @@ const mirror = ([x, y, z]) => [-x, y, z];
 
 // the sizes the holds need, per prop kind (metres before the prop's scale; engine/page/props*.js)
 const SIZE = {
+  rooster: { w: 0.17, h: 0.20, d: 0.30 },          // props-alarm-rooster.js (how you invented 01): carried once in both gloves on its flanks (box hold), sleep 0.35
   norsecup: { r: 0.0475, h: 0.085 },               // norse myth 01: Chip's carved wooden cup (props-norse-items.js), mug hold
   norsesheet: { len: 0.32, r: 0.004 },             // norse myth 01: the crumpled test sheet, thin hold on its edge
   norsebud: { len: 0.011, r: 0.008 },              // norse myth 01: the plucked potato eye, pinched
