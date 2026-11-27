@@ -205,7 +205,7 @@ P(onCut(C4), "corner", { heat: 0 }, 0); A(onCut(C4), "spud", "squash", { amount:
 const SLAPS = [];
 const snap = (C, i, line) => {
   SLAPS.push(C);   // Dad on the top spot, the flash, the slap; returns the end of his "Top spot!"
-  place(C, "dad", DAD_TOP, DAD_TOP_YAW); place(C, "spud", [0.10, -0.05], 120);
+  place(C, "dad", DAD_TOP, DAD_TOP_YAW); place(C, "spud", [-0.30, -1.00], 100);   // out of the top-spot insert, clear of the table
   camOn(C, DAD_TOP, DAD_TOP_YAW); arm(onCut(C), "dad", "L", "rest", 0.01);
   P(onCut(C), "camD", { flash: 1, eject: 1 }, 0); P(r3(C + 0.07), "camD", { flash: 0.25 }, 0.25); P(r3(C + 0.35), "camD", { eject: 0 }, 0.01);
   fx.push({ do: "flash", at: r3(C + 0.02), dur: 0.1, peak: 0.5 });
@@ -403,8 +403,9 @@ camK.take(onCut(C24), { reach: 0.01, settle: 0.01 });
 expr(C24, "spud", FACE.smug, 0.01); look(C24, "spud", [-0.5, 0.2], 0.01);
 shot("poof toast", C24, push(TOASTC, 0.05, 1.5));
 see(TT, r3(TT + 1.2), ["dadT.face", "spud.face"], "POOF: dad is a giant slice of toast with his face and moustache, the kid aims the instant camera at him");
-P(r3(C24 + 0.8), "camT", { flash: 1, eject: 1 }, 0); P(r3(C24 + 0.87), "camT", { flash: 0 }, 0.25);
-fx.push({ do: "flash", at: r3(C24 + 0.8), dur: 0.1, peak: 0.5 }); sfx(r3(C24 + 0.8), "click", { gain: 0.5 });
+// the photo flash sits 1.05 s after the poof and softer (draft 2: cut + poof + flash = strobe FAIL at 63.7 s)
+P(r3(C24 + 1.05), "camT", { flash: 1, eject: 1 }, 0); P(r3(C24 + 1.12), "camT", { flash: 0 }, 0.25);
+fx.push({ do: "flash", at: r3(C24 + 1.05), dur: 0.1, peak: 0.3 }); sfx(r3(C24 + 1.05), "click", { gain: 0.5 });
 const C25 = r3(C24 + 1.5);
 camOff(C25, "spud", "camT");
 place(C25, "spud", STEP, 90, 0.30); P(onCut(C25), "stool", { x: STEP[0], z: STEP[1] }, 0);
@@ -426,7 +427,7 @@ write(import.meta.url, {
   captionBand: [200, 1230], captionStyle: "kinetic", castLook: "sheet", cleanStart: true,
   captionOverBody: { reason: "close-ups where the speaker fills the phone frame; captions in the upper third over the body, never the eyes (rule from the 8-min film trial, Jonny OK 20 Nov)" },
   motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 },
-  physics: true, animeTiming: true,
+  physics: false, animeTiming: true,   // the floaters are prop tweens (a physics world held them on the table in draft 2)
   set: { type: "plain", night: true, floor: "none", light: "dusk", para: 0, aperture: 0, lighting: 2, bloom: "emissive",
     hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
   grade, fx,

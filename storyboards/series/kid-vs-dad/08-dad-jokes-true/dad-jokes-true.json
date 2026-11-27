@@ -27,7 +27,7 @@
   "eyes": 2,
   "hold": 2
  },
- "physics": true,
+ "physics": false,
  "animeTiming": true,
  "set": {
   "type": "plain",
@@ -152,9 +152,9 @@
   },
   {
    "do": "flash",
-   "at": 64.43,
+   "at": 64.68,
    "dur": 0.1,
-   "peak": 0.5
+   "peak": 0.3
   }
  ],
  "music": {
@@ -1814,8 +1814,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.1,
-      -0.05
+      -0.3,
+      -1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1826,7 +1826,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 120,
+     "to": 100,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -3059,8 +3059,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.1,
-      -0.05
+      -0.3,
+      -1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -3071,7 +3071,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 120,
+     "to": 100,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -4094,8 +4094,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.1,
-      -0.05
+      -0.3,
+      -1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4106,7 +4106,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 120,
+     "to": 100,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -4953,8 +4953,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.1,
-      -0.05
+      -0.3,
+      -1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4965,7 +4965,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 120,
+     "to": 100,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -7147,12 +7147,12 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 0.83
+     "at": 1.08
     },
     {
      "sfx": "click",
      "gain": 0.5,
-     "at": 0.83
+     "at": 1.08
     },
     {
      "do": "prop",
@@ -7162,7 +7162,7 @@
      },
      "dur": 0.25,
      "ease": "inOut",
-     "at": 0.9
+     "at": 1.15
     },
     {
      "who": "spud",
