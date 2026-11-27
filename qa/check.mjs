@@ -96,6 +96,22 @@ export const RULES = {
   strobeJump: 20, strobeMax: 3, // brightness jumps per second before it reads as strobing
 };
 
+// the silent stretches inside a clip, from ffmpeg ebur128's log (momentary loudness, a 400 ms window read every
+// 100 ms): under RULES.dropoutLUFS for RULES.dropoutHold s or more. The first 0.4 s (the window filling) and the last
+// 0.3 s (the fade) don't count. Shared with qa/preflight.mjs, which runs it on the fresh mix before any render.
+export function dropoutGaps(e) {
+  const M = [...e.matchAll(/\bt:\s*([\d.]+)\s+TARGET:\S+\s+LUFS\s+M:\s*(\S+)/g)].map((m) => [Number(m[1]), Number(m[2])]);
+  const end = (M.length ? M[M.length - 1][0] : 0) - 0.3, runs = [];
+  let run = null;
+  for (const [t, m] of M) {
+    if (t < 0.45 || t > end) continue;
+    if (!(m >= RULES.dropoutLUFS)) { if (!run) run = { from: Math.max(0, t - 0.4), to: t, low: m }; run.to = t; if (!(m >= run.low)) run.low = m; }
+    else if (run) { runs.push(run); run = null; }
+  }
+  if (run) runs.push(run);
+  return { M, gaps: runs.filter((r) => r.to - r.from + 1e-6 >= RULES.dropoutHold) };
+}
+
 // Creative defaults: the house style from the algorithm research (docs/PLAN.md, Studio roadmap). None of these is a
 // published platform rule; they are the starting point for experiments (experiments/README.md), so they only add notes.
 export const CREATIVE = {
@@ -648,16 +664,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
       // silent from 4.0 s, and the whole-clip loudness above still passed. Momentary loudness (a 400 ms window, read
       // every 100 ms) under dropoutLUFS for dropoutHold s or more fails. The first 0.4 s (the window filling) and the
       // last 0.3 s (the fade) don't count
-      const M = [...e.matchAll(/\bt:\s*([\d.]+)\s+TARGET:\S+\s+LUFS\s+M:\s*(\S+)/g)].map((m) => [Number(m[1]), Number(m[2])]);
-      const end = (M.length ? M[M.length - 1][0] : 0) - 0.3, runs = [];
-      let run = null;
-      for (const [t, m] of M) {
-        if (t < 0.45 || t > end) continue;
-        if (!(m >= RULES.dropoutLUFS)) { if (!run) run = { from: Math.max(0, t - 0.4), to: t, low: m }; run.to = t; if (!(m >= run.low)) run.low = m; }
-        else if (run) { runs.push(run); run = null; }
-      }
-      if (run) runs.push(run);
-      const gaps = runs.filter((r) => r.to - r.from + 1e-6 >= RULES.dropoutHold);
+      const { M, gaps } = dropoutGaps(e);
       if (gaps.length) add("fail", "audio-dropout", `the sound goes silent at ${gaps.map((r) => `${r.from.toFixed(1)}-${r.to.toFixed(1)} s`).join(", ")} (momentary loudness under ${RULES.dropoutLUFS} LUFS): look for a NaN or a muted bus in the mix (the render prints "sound:" lines), or a deliberate silence that needs a quiet bed under it`);
       else if (M.length) add("pass", "audio-dropout", `no silent stretch of ${RULES.dropoutHold} s or more inside the clip`);
     }
