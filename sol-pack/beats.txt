@@ -1,26 +1,28 @@
-  0.00-  1.15  (no line)  | shot: kid walking, plays two soft whistle notes
-  1.15-  3.71  L01 Grandmother: "Not on this street. Not one note."  | shot: today; grandma's hand covers the whistle, two-shot close, her eyes hard; candle flares then dips
-  3.71-  5.78  L02 Kid: "Why no music here?"  | shot: today; kid close, looks down the empty street; candle mid
-  5.78- 13.33  L03 Narrator: "In Hamelin, Germany, there is one street where nobody plays music. Not for five hundred years. Because of what happened here, in twelve eighty-four."  | shot: today; wide push down Bungelosenstrasse (houses lean in), then the carved beam, then candle glow fills frame; amber -> gold glass
- 13.33- 18.44  L04 Grandmother: "The town was full of rats. In the bread. In the beds."  | shot: 1284; market square, rats pour over bread loaves, a cradle-bed with rats on the blanket (no harm shown); sick grey-green panes
- 18.44- 21.60  L05 Narrator: "Then a stranger came, in a coat of many colours."  | shot: 1284; town gate, a tall stranger steps in, patchwork red/yellow coat, feathered hat, pipe; piper = the loudest colour
- 21.60- 25.95  L06 Piper: "Every rat. Gone. For a thousand coins."  | shot: 1284; piper close, calm almond eyes, holds up 1 finger... a coin; 
- 25.95- 27.98  L07 Mayor: "Done! You have my word!"  | shot: 1284; mayor close, round, fur robe, gold chain, shakes the piper's hand too hard; gold
- 27.98- 33.40  L08 Narrator: "He played one tune, and every rat in Hamelin followed him... straight into the river."  | shot: 1284; piper plays walking, rat river behind him; then the Weser, rats leap in (splash, no drowning shown); blue river panes
- 33.40- 35.37  L09 Kid: "So he's the hero?"  | shot: today; kid close, hopeful; candle tall
- 35.37- 36.62  L10 Grandmother: "Wait."  | shot: today; grandma close, one word; candle shrinks
- 36.62- 39.21  L11 Mayor: "The rats are gone! Why would we pay?"  | shot: 1284; mayor laughing with council, drops 3 coins on the floor; gold turns brass
- 39.21- 43.48  L12 Narrator: "The piper didn't argue. He just left."  | shot: 1284; piper picks nothing up, turns, walks out the gate; long shadow; cold
- 43.48- 47.47  L13 Grandmother: "A man like that doesn't argue... He comes back."  | shot: today; grandma very close, candle low under her chin; candle low blue
- 47.47- 53.83  L14 Narrator: "On the twenty-sixth of June, while the grown-ups sat in church, he came back. With a new tune."  | shot: 1284; church exterior, adults inside (warm windows); empty street; the piper returns at the far end; moon blue
- 53.83- 56.88  L15 Kid: "What did it sound like?"  | shot: today; kid whisper close; 
- 56.88- 59.57  L16 Grandmother: "Like someone calling you home."  | shot: today; grandma close, soft; candle flickers
- 59.57- 70.30  L17 Narrator: "One by one, the children opened their doors and followed him. Down this street. Out of the gate. Up the hill... into the fog."  | shot: 1284; doors open one by one; children step out (backs, small silhouettes, wooden shoes); line down THIS street; gate; hill path; fog; moon blue -> fog white
- 70.30- 75.33  L18 Narrator: "A hundred and thirty children. And the fog closed behind them."  | shot: 1284; the hill: fog rolls in and closes like a door; last shot a small wooden horse toy on the cobbles; white -> near black
- 75.33- 81.53  L19 Grandmother: "Only a few stayed. One too slow to keep up. One who couldn't hear the song."  | shot: 1284; one slow boy with a crutch stops at the foot of the hill; one small girl looks around, hears nothing; pale dawn panes
- 81.53- 83.33  L20 Kid: "That's just a story, right?"  | shot: today; kid close, scared; candle low
- 83.33- 92.00  L21 Narrator: "The town wrote it down. It is a hundred years since our children left. And on this street... nobody plays music. Still."  | shot: today; old chronicle page (illegible script), the carved house beam, back to the empty street; amber returns slowly
- 92.00- 95.51  L22 Grandmother: "Now. The five euros you promised me."  | shot: today; grandma holds out her open hand, close; candle steadies
- 95.51- 97.17  L23 Kid: "Right now?"  | shot: today; kid groans, puts a coin in her palm; candle grows tall + warm; then three soft pipe notes far down the street; both freeze, look; hard cut; warm -> one cold flicker
- 97.17- 98.89  L24 Grandmother: "Right now."  | shot: today; kid groans, puts a coin in her palm; candle grows tall + warm; then three soft pipe notes far down the street; both freeze, look; hard cut; warm -> one cold flicker
- 98.89-101.79  (no line)  | shot: silent end: three distant pipe notes, both hosts freeze and look down the street, hard cut
+  0.00-  0.55  (no line)  | shot: boy plays two soft notes, her hand arrives on the second
+  0.55-  2.91  L01 Grandmother: "Not on this street. Not one note."  | shot: today; her hand takes the whistle from his lips and lowers it; two-shot
+  2.91-  4.35  L02 Kid: "Why no music here?"  | shot: today; kid medium close-up, eyes go from her hand to the far end of the street
+  4.35- 10.19  L03 Narrator: "In Hamelin, Germany, there is one street where nobody plays music. Because of what happened here, in twelve eighty-four."  | shot: today; one push down the street (Hamelin + the ban), grandmother + staff with the jar on 'Because', jar amber turns to glass
+ 10.19- 13.88  L04 Grandmother: "The town was full of rats. In the bread. In the beds."  | shot: 1284; market square / rats over the bread / bed with rats on the blanket; sick green panes
+ 13.88- 16.74  L05 Narrator: "Then a stranger came, in a coat of many colours."  | shot: 1284; town gate, the stranger takes one step from green shade into warm light
+ 16.74- 20.24  L06 Piper: "Every rat. Gone. For a thousand coins."  | shot: 1284; piper close, finger up on 'Gone', coin between two fingers on 'thousand'
+ 20.24- 21.77  L07 Mayor: "Done! You have my word!"  | shot: 1284; mayor 'Done!' then tight two-shot, grip and shake
+ 21.77- 26.53  L08 Narrator: "He played one tune, and every rat in Hamelin followed him... straight into the river."  | shot: 1284; piper plays (close) / rat stream behind him at the gate / the Weser, leaps and splash
+ 26.53- 27.86  L09 Kid: "So he's the hero?"  | shot: today; kid close, hopeful
+ 27.86- 28.55  L10 Grandmother: "Wait."  | shot: today; grandmother single with the staff light, flame dips; music dead
+ 28.55- 31.04  L11 Mayor: "The rats are gone! Why would we pay?"  | shot: 1284; mayor laughing close, then the hall with the piper in frame, three coins released and settle
+ 31.04- 32.14  (no line)  | shot: piper leaves the coins and pivots through profile
+ 32.14- 33.54  L12 Narrator: "He just left."  | shot: 1284; he walks out through the gate arch, long shadow
+ 33.54- 36.54  L13 Grandmother: "A man like that doesn't argue... He comes back."  | shot: today; grandmother single, low flame, push only on 'He comes back'
+ 36.54- 41.73  L14 Narrator: "On the twenty-sixth of June, while the grown-ups sat in church, he came back. With a new tune."  | shot: 1284; church windows with seated silhouettes, then the piper steps into moonlight raising the pipe
+ 41.73- 43.41  L15 Kid: "What did it sound like?"  | shot: today; kid close, whisper
+ 43.41- 45.39  L16 Grandmother: "Like someone calling you home."  | shot: today; grandmother single, flame flickers
+ 45.39- 53.50  L17 Narrator: "One by one, the children opened their doors and followed him. Down this street. Out of the gate. Up the hill... into the fog."  | shot: 1284; doors open one by one, the blue boy crosses the threshold, toy at the curb / down the street / the gate / the hill / fog enters
+ 53.50- 58.13  L18 Narrator: "A hundred and thirty children. And the fog closed behind them."  | shot: 1284; the fog closes over the last child, sealed seam, then the same toy at the same curb
+ 58.13- 63.07  L19 Grandmother: "Only a few stayed. One too slow to keep up. One who couldn't hear the song."  | shot: 1284; dawn, two children at the fork / crutch step / the girl stays
+ 63.07- 64.51  L20 Kid: "That's just a story, right?"  | shot: today; kid close, smile drops, small recoil
+ 64.51- 71.31  L21 Narrator: "The town wrote it down. It is a hundred years since our children left. And on this street... nobody plays music. Still."  | shot: today; chronicle page (whole quote), carved beam, empty street push
+ 71.31- 74.26  L22 Grandmother: "Now. The five euros you promised me."  | shot: today; two-shot, her open hand comes out toward him
+ 74.26- 75.14  L23 Kid: "Right now?"  | shot: today; kid close
+ 75.14- 75.95  L24 Grandmother: "Right now."  | shot: today; grandmother single
+ 75.95- 77.15  (no line)  | shot: payment: his fingers release the coin into her palm, she closes her hand, jar flame rises
+ 77.15- 79.45  (no line)  | shot: two-shot, three far pipe notes, both freeze and look, local cold flicker on the jar, hard cut
