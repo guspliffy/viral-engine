@@ -77,11 +77,11 @@ const props = [
   { id: "tree2", staged: "on the far pavement", kind: "tree", ...at3(-1.8, PV, -6.6), scale: 1.3 },
   { id: "flagde", staged: "hangs from the balcony", kind: "miniflag", flag: "de", ...at3(-13.45, 2.05, -0.675), scale: 2.7, tip: 35, rot: 90 },
   { id: "w1box", staged: "the retiree's flower box", kind: "flowerbox", ...at3(-13.92, 1.73, 0.675), w: 0.90, rot: 90, flower: "#d8352b" },
-  { id: "watcher", staged: "behind the lace across the street", kind: "streetpotato", ...at3(-0.55, 1.45, 2.025), rot: -90, h: 0.90, hat: 3, capColor: "#4f5a52",
+  { id: "watcher", staged: "behind the lace across the street", kind: "streetpotato", ...at3(-0.22, 1.45, 2.025), rot: -90, h: 0.90, hat: 3, capColor: "#4f5a52",
     dress: "cardigan", color: "#6f6457", raise: 1, skin: "#f9b75c", brow: "#b9b4aa" },
-  { id: "binos", staged: "held up by the watcher", kind: "binoculars", ...at3(-0.50, 1.99, 2.025), rot: -90, glint: 0 },
+  { id: "binos", staged: "held up by the watcher", kind: "binoculars", ...at3(-0.40, 1.99, 2.025), rot: -90, glint: 0 },
   ...CROWD.map(([f, col, look], i) => ({ id: `old${i}`, staged: "an old neighbour in a window (hidden until the payoff)", kind: "streetpotato",
-    ...at3(f === 1 && col === 6 ? -13.75 : -14.05, AWAY, COLZ(col)), rot: 90, dress: "cardigan", skin: "#f9b75c", brow: "#b9b4aa", angry: 0, clapHz: 0, lean: 0, ...look })),
+    ...at3(f === 1 && col === 6 ? -13.75 : -14.22, AWAY, COLZ(col)), rot: 90, dress: "cardigan", skin: "#f9b75c", brow: "#b9b4aa", angry: 0, clapHz: 0, lean: 0, ...look })),
   // American street
   { id: "usroad", staged: "the wide road, plaza and pavements", kind: "usroad", ...at3(0, 0, 0) },
   { id: "barsus", staged: "white bars across the wide road", kind: "crossbars", ...at3(7.81, 0.004, -0.10), n: 10, w: 0.42, len: 2.0, pitch: 0.84, axis: "x" },
@@ -135,7 +135,8 @@ const press = (t, side = "R") => {   // a fist on the button: the dome sinks wit
   sfx(r3(t + 0.08), "click", { gain: 0.35 });
   arm(r3(t + 0.12), "spudus", side, { o: [0.20, 0.45, 0.30] }, 0.08, "in");
 };
-const tapWatch = (t, n = 2) => { for (let k = 0; k < n; k++) { arm(r3(t + k * 0.33), "wedge", "R", { o: [0.05, 0.52, 0.32] }, 0.15, "out"); arm(r3(t + k * 0.33 + 0.16), "wedge", "R", { o: [0.10, 0.58, 0.34] }, 0.15, "in"); } };
+const tapWatch = (t, n = 2) => { for (let k = 0; k < n; k++) { arm(r3(t + k * 0.33), "wedge", "R", { o: [0.05, 0.52, 0.32] }, 0.15, "out"); arm(r3(t + k * 0.33 + 0.16), "wedge", "R", { o: [0.10, 0.58, 0.34] }, 0.15, "in"); } arm(r3(t + n * 0.33 + 0.1), "wedge", "R", WHEEL, 0.25); };
+const WHEEL = { o: [-0.273, 0.322, 0.453] };
 
 // ---------------------------------------------------------------- cameras (DESIGN §0): every shot pushes in, linear
 const CAM = {
@@ -157,7 +158,7 @@ const CAM = {
   16: { pos: [-13.0, 1.05, 0.6], look: [-5.31, 1.46, -1.61], fov: 34, push: [-12.7, 1.05, 0.5] },
   17: { pos: [15.6, 0.60, -1.9], look: [12.2, 0.72, 1.5], fov: 26, push: [15.35, 0.60, -1.65] },
   18: { pos: [5.9, 1.00, -5.4], look: [7.1, 1.00, -1.2], fov: 32, push: [5.95, 1.00, -5.1] },
-  19: { pos: [11.2, 1.00, -2.6], look: [12.45, 1.20, 2.4], fov: 30, push: [11.3, 1.00, -2.3] },
+  19: { pos: [11.2, 1.25, -2.6], look: [12.45, 1.25, 2.4], fov: 30, push: [11.3, 1.25, -2.3] },   // T2: at y 1.0 only his forehead showed over the hood,
 };
 const US_CAMS = new Set([3, 6, 8, 10, 15, 17, 18, 19]);
 const GRADE = { de: { s: 1.00, w: -0.15, c: 1.04 }, us: { s: 1.16, w: 0.35, c: 1.00 } };
@@ -174,7 +175,7 @@ A(0, "kid", "hide"); A(0, "wedge", "noblink"); A(0, "kid", "noblink");
 A(0, "wedge", "ride", { prop: "busde", off: [0.42, 0.54, 1.95], sit: true, dur: 0.01 });
 A(0, "mash", "ride", { prop: "pickup", off: [0.40, 0.30, 0.20], sit: true, dur: 0.01 });
 A(0, "wedge", "face", { lid: 0, dur: 0.01 });
-arm(0, "wedge", "L", { o: [0.10, 0.52, 0.30] }, 0.01);   // the watch wrist up at his chest
+arm(0, "wedge", "both", { o: [-0.273, 0.322, 0.453] }, 0.01); grip(0, "wedge", "both", "hold", 0.01);   // hands on the wheel (T2 header)
 arm(0, "mash", "both", { o: [0.18, 0.50, 0.40] }, 0.01); grip(0, "mash", "both", "hold", 0.01);
 A(0, "retiree", "pitch", { to: 22, dur: 0.01 });   // leaning out over the sill
 for (const id of ["flatsL", "flatsR"]) P(0, id, { part: 0, peek: 0, open: 0 });

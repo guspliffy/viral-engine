@@ -654,7 +654,7 @@
    "id": "watcher",
    "staged": "behind the lace across the street",
    "kind": "streetpotato",
-   "x": -0.55,
+   "x": -0.22,
    "y": 1.45,
    "z": 2.025,
    "rot": -90,
@@ -671,7 +671,7 @@
    "id": "binos",
    "staged": "held up by the watcher",
    "kind": "binoculars",
-   "x": -0.5,
+   "x": -0.4,
    "y": 1.99,
    "z": 2.025,
    "rot": -90,
@@ -681,7 +681,7 @@
    "id": "old0",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": 2.025,
    "rot": 90,
@@ -720,7 +720,7 @@
    "id": "old2",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": -2.025,
    "rot": 90,
@@ -739,7 +739,7 @@
    "id": "old3",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": 2.025,
    "rot": 90,
@@ -758,7 +758,7 @@
    "id": "old4",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": 0.675,
    "rot": 90,
@@ -777,7 +777,7 @@
    "id": "old5",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": -0.675,
    "rot": 90,
@@ -797,7 +797,7 @@
    "id": "old6",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": -2.025,
    "rot": 90,
@@ -816,7 +816,7 @@
    "id": "old7",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": 2.025,
    "rot": 90,
@@ -834,7 +834,7 @@
    "id": "old8",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": 0.675,
    "rot": 90,
@@ -854,7 +854,7 @@
    "id": "old9",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": -0.675,
    "rot": 90,
@@ -873,7 +873,7 @@
    "id": "old10",
    "staged": "an old neighbour in a window (hidden until the payoff)",
    "kind": "streetpotato",
-   "x": -14.05,
+   "x": -14.22,
    "y": -60,
    "z": -2.025,
    "rot": 90,
@@ -1445,16 +1445,24 @@
     {
      "who": "wedge",
      "do": "arm",
-     "side": "L",
+     "side": "both",
      "pose": {
       "o": [
-       0.1,
-       0.52,
-       0.3
+       -0.273,
+       0.322,
+       0.453
       ]
      },
      "dur": 0.01,
      "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0.01,
      "at": 0
     },
     {
@@ -2106,6 +2114,21 @@
      "dur": 0.15,
      "ease": "in",
      "at": 0.641
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.273,
+       0.322,
+       0.453
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.911
     }
    ]
   },
@@ -2958,6 +2981,21 @@
      "dur": 0.15,
      "ease": "in",
      "at": 0.591
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.273,
+       0.322,
+       0.453
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.861
     },
     {
      "who": "spud",
@@ -3901,19 +3939,19 @@
    "shot": {
     "pos": [
      11.2,
-     1,
+     1.25,
      -2.6
     ],
     "look": [
      12.45,
-     1.2,
+     1.25,
      2.4
     ],
     "fov": 30,
     "to": {
      "pos": [
       11.3,
-      1,
+      1.25,
       -2.3
      ]
     },
@@ -4207,6 +4245,21 @@
      "dur": 0.15,
      "ease": "in",
      "at": 0.59
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.273,
+       0.322,
+       0.453
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.86
     },
     {
      "who": "spud",
