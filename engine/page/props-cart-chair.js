@@ -12,13 +12,15 @@ import { clamp } from "./util.js";
 // ===== chaircart   ORIGIN: the ground under the seat's middle; the front (the basket side) is +z, the rail is at the back (-z).
 //   A small plank chair on four wooden wheels with a basket on its seat. Wood of the kit `woodchair` (#a2703f, dark #7d5230).
 //   Placed in the row / on the hill with rot 180 (front downhill); `tip` 14 leans the front down about the origin (the wheels then
-//   stand on a 14 degree slope that passes through the origin). ONE prop, about 3 900 triangles (budget 4 500). Solid except the
+//   stand on a 14 degree slope that passes through the origin). ONE prop, 2 650 triangles plain, 2 974 with lock and brake (budget 4 500). Solid except the
 //   basket's items. NOT held: it moves by its own x, y, z, rot, tip tweens (the wheels need `spin`, below).
 //   SIZES  seat 0.44 x 0.40, top y 0.24, 0.03 thick; 4 legs 0.04 square; back posts (z -0.20) up to 0.52; top rail 0.44 x 0.05, its
 //          top at 0.50; slat top at 0.40. Wheels r 0.06, 0.035 thick at (+-0.24, 0.06, +-0.17), track 0.48. Basket rim at 0.44.
 //          Total length 0.50 without the step; the step board reaches back to z -0.47.
 //   RAIL GRIP POINTS (prop frame, where a glove pinned on the rail goes): RL (-0.17, 0.475, -0.20), RR (+0.17, 0.475, -0.20).
-//          With rot 180 they are at (x - -0.17.. i.e. the prop's x - local x, 0.475, z + 0.20): the pusher stands on the +z side.
+//          With rot 180 a local point (lx, ly, lz) is at world (x - lx, y + ly, z - lz): the rail is at z + 0.20 and the pusher
+//          stands on the +z side. A glove CENTRED on the rail sinks 3 to 6 cm into it (the hand-in-prop check fails): the bench pins
+//          Spud's gloves on the rail's TOP instead (y 0.56, z -0.20: arm pose { o: [-0.21, 0.364, 0.32] } for his feet at z -0.52).
 //   STEP   a board 0.40 x 0.10 on two cleats from the back legs at y 0.10 (top), centred z -0.42: both boots stand on it when a
 //          body rides behind the rail: ride off [0, 0.10, -0.42].
 //   RIDING (director): behind the rail (Spud) ride off [0, 0.10, -0.42]; in the basket, backwards (Mash) ride off [0, 0.32, 0.02],
@@ -34,13 +36,17 @@ import { clamp } from "./util.js";
 //                   a block 0.06 x 0.05 x 0.04 on a leather strap over the back right wheel's tread (0.012 clear), a flat pedal
 //                   0.08 x 0.06 at (0.24, 0.27, -0.50). NOTE the key `brake` is a number: seed `brake: 0` at t 0 with a duration-0
 //                   `prop` action (spec true reads as 0 until then).
+//     stepZ  -0.42  z of the step's middle (and of the rider's feet: ride off z); the cleats follow. DESIGN says -0.42, but Spud's body
+//                   is 0.66 deep: at -0.42 his belly (at the rail's height it reaches z -0.13) swallows the rail and the basket's back
+//                   edge (seen on the bench stills; no check measures it). -0.52 clears them: the bench uses stepZ -0.52.
 //     basket 1      0 hides the basket and its items (and the stubs).
 //     fill   0      0..1: the heap in the basket, 18 items to 0.10 over the rim (0.54 world), they appear bottom-up, one by one.
 //   STATE KEYS (tween with `prop`)
 //     spin   0   turns of the four wheels. Tween it with the travel: distance / 0.377 per turn; rolling toward the prop's local +z
 //                (front) is a positive spin. The wheels show their own boards and battens, so a sliding wheel is visible.
-//     brake  0   0..1: pedal down 0.07, the block drops onto the tread (touching from about 0.95); from 0.9 the back right wheel is
-//                the director's to stop: this kind has no memory, so HOLD `spin` (end its tween) when `brake` passes 0.9.
+//     brake  0   0..1: pedal down 0.07 (the stick turns from 21.8 to 8.9 degrees), the block drops 0.014 onto the tread (it touches at 1).
+//                A kind has no memory, so it cannot freeze ONE wheel: the four wheels follow `spin`; END the `spin` tween when `brake`
+//                passes 0.9 (the cart stops dead at that time anyway; in 10a only the back right wheel is in the lens).
 //     jolt   0   0..1 (tween 0 to 1): the basket items hop 0.03 once (a sine; the upper layers a little later).
 //     fill   0   see above.      basket 1   see above.
 //   NOTE the basket here is a PLACEHOLDER with the numbers of DESIGN 2.6 (oval 0.52 x 0.40 at the rim, 0.42 x 0.32 at the foot, 0.20
@@ -49,7 +55,7 @@ import { clamp } from "./util.js";
 //
 // ===== lockchain   ORIGIN: the world origin (spec x, y, z, rot, scale stay 0 / 0 / 0 / 0 / 1: its points are absolute).
 //   20 oval iron links (#7d858c, wire 0.006, centre-line length 0.035, pitch 0.035: 0.70 m) from `a` to `b`, hanging in a catenary
-//   0.06 deep; at the `b` end a flat tab 0.05 long with a round head, sitting in the lock box's tab hole. ~780 triangles. Not held,
+//   0.06 deep; at the `b` end a flat tab 0.05 long with a round head, sitting in the lock box's tab hole. 764 triangles (800 with `ring`). Not held,
 //   not solid. SPEC KEYS (default)
 //     chair  5      1..5 picks both points from the row of DESIGN 3 (chairs at x 0.95, z 0.75 + 0.62 (n - 1), rot 180): `b` = the tab
 //                   hole of chair n's box (0.73, 0.47, z + 0.25), `a` = the eye of chair n - 1 (0.75, 0.53, z - 0.62 + 0.20); for
@@ -149,7 +155,7 @@ function buildBasket(parent, M) {
 }
 
 function chaircart(P) {
-  const S = P.spec, M = woodM(), root = P.whole;
+  const S = P.spec, M = woodM(), root = P.whole, STEPZ = S.stepZ ?? -0.42;
   // ---- the chair
   box(0.44, 0.03, 0.40, M.light, root, 0, 0.225, 0);                                   // seat, top 0.24
   box(0.003, 0.032, 0.40, M.dark, root, 0, 0.2255, 0);                                 // the gap line between its two boards
@@ -161,11 +167,11 @@ function chaircart(P) {
     for (const [bz, k] of [[0.17, 1], [-0.17, -1]]) for (const [nx, ny, bend] of [[-0.011, 0.082, 0.45], [0.011, 0.05, -0.4]]) {   // two bent nails showing on each block's outer z face
       const nl = box(0.004, 0.004, 0.02, M.iron, root, sx * 0.20 + nx, ny, bz + k * 0.04); nl.rotation.set(k * bend, 0, 0);
     }
-    box(0.025, 0.03, 0.27, M.darkH, root, sx * 0.185, 0.085, -0.335);                  // the step's two cleats, from the back legs
+    box(0.025, 0.03, -0.15 - STEPZ, M.darkH, root, sx * 0.185, 0.085, (-0.20 + STEPZ - 0.05) / 2);   // the step's two cleats, from the back legs
   }
   box(0.44, 0.05, 0.03, M.lightH, root, 0, 0.475, -0.20);                                // the top rail, top at 0.50
   box(0.40, 0.04, 0.025, M.lightH, root, 0, 0.38, -0.20);                              // the slat, y 0.36 to 0.40
-  box(0.40, 0.025, 0.10, M.lightH, root, 0, 0.0875, -0.42);                            // the step, top at 0.10
+  box(0.40, 0.025, 0.10, M.lightH, root, 0, 0.0875, STEPZ);                            // the step, top at 0.10
   // ---- wheels: [right, left] x [front, back]; each a spinner group turned by `spin`
   const spinners = [];
   for (const [sx, sz] of WHEELS) {
@@ -250,7 +256,7 @@ function lockchain(P) {
   mesh(new THREE.BoxGeometry(0.038, 0.016, 0.003), tm, tab, 0.019, 0, 0).userData.solid = false;     // along +x of the tab frame (origin = the outer end); its inner end is +x
   mesh(new THREE.CylinderGeometry(0.0115, 0.0115, 0.003, 8), tm, tab, 0.0385, 0, 0).rotation.x = Math.PI / 2;   // the round head
   tab.children.forEach((c) => { c.userData.solid = false; });
-  const ring = S.ring ? mesh(new THREE.TorusGeometry(0.014, 0.003, 3, 8), ironM, P.whole, A.x, A.y, A.z) : null;
+  const ring = S.ring ? mesh(new THREE.TorusGeometry(0.014, 0.003, 3, 6), ironM, P.whole, A.x, A.y, A.z) : null;
   if (ring) ring.userData.solid = false;
   const Z = V(0, 0, 1), UP = V(0, 1, 0), DN = V(0, -1, 0), tmp = V(), bas = new THREE.Matrix4(), qq = new THREE.Quaternion();
   const cat = (u, endPt, depth) => tmp.copy(A).lerp(endPt, u).add(V(0, -depth * 4 * u * (1 - u), 0)).clone();

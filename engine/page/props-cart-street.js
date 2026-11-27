@@ -103,12 +103,13 @@ class Batch {
   constructor(boost = 1) { this.list = []; this.boost = boost; }
   add(geo, color = "#ffffff", m = null, o = {}) {
     let g = geo.index ? geo.toNonIndexed() : geo.clone();
+    const own = o.ownColor ? g.attributes.color : null;   // ownColor: the geometry brings its own vertex colours (an awning's stripes)
     for (const k of Object.keys(g.attributes)) if (k !== "position" && k !== "normal" && k !== "uv") g.deleteAttribute(k);
     if (o.drop) g = dropFaces(g, o.drop);
     if (m) g.applyMatrix4(m);
     if (!o.keepUV) planarUV(g, o.s ?? 0.625, !!o.rot, o.ox ?? 0, o.oy ?? 0);
     const c = hexc(color), k = this.boost * (o.k ?? 1), n = g.attributes.position.count, col = new Float32Array(n * 3);
-    for (let i = 0; i < n; i++) { col[3 * i] = c.r * k; col[3 * i + 1] = c.g * k; col[3 * i + 2] = c.b * k; }
+    for (let i = 0; i < n; i++) { col[3 * i] = (own ? own.getX(i) : c.r) * k; col[3 * i + 1] = (own ? own.getY(i) : c.g) * k; col[3 * i + 2] = (own ? own.getZ(i) : c.b) * k; }
     g.setAttribute("color", new THREE.BufferAttribute(col, 3));
     this.list.push(g); return this;
   }
@@ -118,10 +119,10 @@ const BOOST = { plaster: 1.1, wood: 1.12, roof: 1.12, shingle: 1.12, rubble: 1.1
 const newBatches = () => Object.fromEntries(Object.keys(BOOST).map((k) => [k, new Batch(BOOST[k])]));
 const CASTS = new Set(["plaster", "wood", "roof", "shingle", "rubble", "flat", "flatDS"]);
 function partsOf(B, extra = {}) { const out = []; for (const k of Object.keys(B)) { const geo = B[k].geometry(); if (geo) out.push({ geo, mk: k, cast: CASTS.has(k) && extra.cast !== false, ...extra }); } return out; }
-function addParts(parent, parts) {
+function addParts(parent, parts, role = "set", lookOnly = false) {   // lookOnly: no contact oval under a world-sized piece (looks.js groundShadows would draw one the size of the village)
   for (const p of parts) {
-    const m = new THREE.Mesh(p.geo, getMat(p.mk)); m.castShadow = !!p.cast; m.receiveShadow = true;
-    if (p.solid === false) m.userData.solid = false; if (p.steam) m.userData.steam = true; if (p.order) m.renderOrder = p.order;
+    const m = new THREE.Mesh(p.geo, getMat(p.mk, role)); m.name = p.mk; m.castShadow = !!p.cast; m.receiveShadow = true;
+    if (p.solid === false) m.userData.solid = false; if (p.steam) m.userData.steam = true; if (p.order) m.renderOrder = p.order; if (lookOnly) { m.userData.lookOnly = true; m.userData.surfaceOnly = true; }
     parent.add(m);
   }
 }
@@ -257,12 +258,14 @@ const TEXDEF = { cobble: () => mkTex(2048, 2048, (g) => paintCobble(g, 2048)), p
 const TEXS = {}, MATS = {};
 const getTex = (k) => (TEXS[k] ??= TEXDEF[k]());
 const MATDEF = { cobble: { tex: "cobble", rough: 0.95 }, dirt: { tex: "dirt", rough: 1 }, plaster: { tex: "plaster", rough: 0.95 }, wood: { tex: "wood", rough: 0.85 }, roof: { tex: "roof", rough: 0.85, ds: 1 }, shingle: { tex: "shingle", rough: 0.9, ds: 1 }, rubble: { tex: "rubble", rough: 0.95 }, flat: { rough: 0.85 }, flatDS: { rough: 0.9, ds: 1 }, straw: { tex: "straw", rough: 1, ds: 1 }, hay: { rough: 1, ds: 1 }, glow: { basic: 1 } };
-function getMat(k) {
-  if (MATS[k]) return MATS[k];
+function getMat(k, role = "set") {   // role: the look's shading (looks.js ROLE): scenery is "set", the hay cart is a prop ("wood")
+  const key = k + "|" + role;
+  if (MATS[key]) return MATS[key];
   const d = MATDEF[k]; let m;
   if (d.basic) { m = new THREE.MeshBasicMaterial({ vertexColors: true }); m.userData.noOutline = true; m.userData.noHatch = true; }
   else m = new THREE.MeshStandardMaterial({ map: d.tex ? getTex(d.tex) : null, vertexColors: true, roughness: d.rough ?? 0.9, side: d.ds ? THREE.DoubleSide : THREE.FrontSide });
-  return (MATS[k] = m);
+  m.userData.lookRole = role;
+  return (MATS[key] = m);
 }
 
 // ---------------------------------------------------------------- shapes
@@ -305,14 +308,14 @@ function win(B, M, x, y, w, h, shut, o = {}) {   // a window in a wall facing +z
 
 // ---------------------------------------------------------------- the ground
 function groundGrid(xs, zs, yf, cf, sel) {
-  const nx = xs.length, nz = zs.length, pos = new Float32Array(nx * nz * 3), uv = new Float32Array(nx * nz * 2), col = new Float32Array(nx * nz * 3), idx = [];
+  const down = zs[zs.length - 1] < zs[0], nx = xs.length, nz = zs.length, pos = new Float32Array(nx * nz * 3), uv = new Float32Array(nx * nz * 2), col = new Float32Array(nx * nz * 3), idx = [];
   for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) {
     const k = j * nx + i, x = xs[i], z = zs[j], y = yf(x, z), c = cf(x, z);
     pos[3 * k] = x; pos[3 * k + 1] = y; pos[3 * k + 2] = z; uv[2 * k] = x / 4; uv[2 * k + 1] = z / 4; col[3 * k] = c[0]; col[3 * k + 1] = c[1]; col[3 * k + 2] = c[2];
   }
   for (let j = 0; j < nz - 1; j++) for (let i = 0; i < nx - 1; i++) {
     if (sel && !sel((xs[i] + xs[i + 1]) / 2, (zs[j] + zs[j + 1]) / 2)) continue;
-    const a = j * nx + i, b = a + 1, c = a + nx, d = c + 1; idx.push(a, c, b, b, c, d);
+    const a = j * nx + i, b = a + 1, c = a + nx, d = c + 1; if (down) idx.push(a, b, c, b, d, c); else idx.push(a, c, b, b, c, d);
   }
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.BufferAttribute(uv, 2)); g.setAttribute("color", new THREE.BufferAttribute(col, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
 }
@@ -478,17 +481,17 @@ function valleyParts() {
 }
 MATDEF.wisp = { tex: "wisp", rough: 1, alpha: 1 }; MATDEF.cloud = { tex: "cloud", basic: 1, alpha: 1 };
 const _getMat = getMat;
-function getMat2(k) {
+function getMat2(k, role = "set") {
   if (MATS[k]) return MATS[k];
-  if (k === "wisp") { const m = new THREE.MeshStandardMaterial({ map: getTex("wisp"), color: "#ffffff", roughness: 1, alphaTest: 0.4, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); m.userData.noOutline = true; return (MATS[k] = m); }
+  if (k === "wisp") { const m = new THREE.MeshStandardMaterial({ map: getTex("wisp"), color: "#ffffff", roughness: 1, alphaTest: 0.4, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); m.userData.noOutline = true; m.userData.lookRole = "set"; return (MATS[k] = m); }
   if (k === "cloud") { const m = new THREE.MeshBasicMaterial({ map: getTex("cloud"), transparent: true, depthWrite: false, side: THREE.DoubleSide }); m.userData.noOutline = true; m.userData.noHatch = true; return (MATS[k] = m); }
-  return _getMat(k);
+  return _getMat(k, role);
 }
 // the hillside planes behind both rows keep every lens from seeing past the village
 function hillsideParts() {
   const out = [], pos = [], col = [], zs = [9.5, 0.125, -21.35, -30.85];
   const side = (x0, x1, dz) => { for (let j = 0; j < zs.length - 1; j++) { const z0 = zs[j], z1 = zs[j + 1], y0 = gy(z0) - 0.3 - dz, y1 = gy(z1) - 0.3 - dz, P = [[x0, y0, z0], [x1, y0, z0], [x0, y1, z1], [x1, y1, z1]]; for (const k of [0, 2, 1, 1, 2, 3]) { pos.push(...P[k]); const c = hexc(mixHex("#8fb26a", "#a9c57f", sstep(8, 60, Math.abs(P[k][0])))); col.push(c.r, c.g, c.b); } } };
-  side(8.2, 80, 0); side(-80, -12.6, 0);
+  side(8.2, 40, 0); side(-40, -12.6, 0);   // not wider: instance 2 (rot 180, 5.32 up, 61.85 across) must not roof instance 1's street
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("color", new THREE.Float32BufferAttribute(col, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(new Float32Array(pos.length / 3 * 2), 2)); g.computeVertexNormals();
   out.push({ geo: g, mk: "flatDS", cast: false, solid: false });
   return out;
@@ -496,6 +499,10 @@ function hillsideParts() {
 let HILL = null;
 
 // ---------------------------------------------------------------- grocerfront
+function rafter(B, x, yWall, yFront, depth, t, col, key = "wood") {   // a sloping bar under an awning, wall to front
+  const L = Math.hypot(depth, yWall - yFront), a = Math.atan2(yWall - yFront, depth);
+  B[key].add(new THREE.BoxGeometry(t, t, L).rotateX(a).translate(x, (yWall + yFront) / 2 - 0.03, depth / 2), col, null);
+}
 function awningCloth(B, x0, x1, nS, yWall, yFront, depth, sag, colA, colB, valance) {
   const pos = [], col = [], nz = 6, w = (x1 - x0) / nS, cA = hexc(colA), cB = hexc(colB);
   const ya = (x, z) => lerp(yWall, yFront, z / depth) - sag * Math.sin((Math.PI * z) / depth) * (0.75 + 0.25 * Math.sin(((x - x0) / (x1 - x0)) * Math.PI));
@@ -505,8 +512,8 @@ function awningCloth(B, x0, x1, nS, yWall, yFront, depth, sag, colA, colB, valan
     for (let k = 0; k < nz; k++) { const za = (k / nz) * depth, zb = ((k + 1) / nz) * depth; push([xa, ya(xa, za), za], [xb, ya(xb, za), za], [xa, ya(xa, zb), zb], cc); push([xb, ya(xb, za), za], [xb, ya(xb, zb), zb], [xa, ya(xa, zb), zb], cc); }
     if (valance) { const yf = (x) => ya(x, depth), m = 5; for (let k = 0; k < m; k++) { const t0 = k / m, t1 = (k + 1) / m, xa2 = lerp(xa, xb, t0), xb2 = lerp(xa, xb, t1), d0 = 0.08 + 0.06 * Math.sin(Math.PI * t0), d1 = 0.08 + 0.06 * Math.sin(Math.PI * t1); push([xa2, yf(xa2), depth], [xb2, yf(xb2), depth], [xa2, yf(xa2) - d0, depth + 0.02], cc); push([xb2, yf(xb2), depth], [xb2, yf(xb2) - d1, depth + 0.02], [xa2, yf(xa2) - d0, depth + 0.02], cc); } }
   }
-  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(new Float32Array(pos.length / 3 * 2), 2)); g.computeVertexNormals();
-  B.flatDS.add(g, "#ffffff", null, { keepUV: true });
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(new Float32Array(pos.length / 3 * 2), 2)); g.setAttribute("color", new THREE.Float32BufferAttribute(col, 3)); g.computeVertexNormals();
+  B.flatDS.add(g, "#ffffff", null, { keepUV: true, ownColor: true });
 }
 function jar(B, x, y, z, i, M) {
   const r = 0.042 + 0.012 * ((i * 7) % 3) / 2, h = 0.13 + 0.05 * ((i * 5) % 3), cs = ["#c8923c", "#6d8a4a", "#a8643c", "#e6d9b0", "#8a5a3c"][i % 5];
@@ -541,36 +548,34 @@ function grocerParts() {
   B.flat.add(cylG(0.012, 0.012, 0.8, 5, -1.55, 2.05, -0.7), "#c9b48a", I); B.flat.add(new THREE.SphereGeometry(1, 10, 8).scale(0.13, 0.2, 0.11).translate(-1.55, 1.52, -0.7), "#b5654a", I); B.flat.add(cylG(0.03, 0.03, 0.12, 6, -1.55, 1.3, -0.7), "#e6d9b0", I);
   // the awning: cloth, rail, rafters, 2 posts from the posts list
   awningCloth(B, -2.85, 0.05, 13, 2.45, 2.05, 1.05, 0.05, "#c8372d", "#f3ead2", true);
-  B.wood.add(cylG(0.02, 0.02, 2.9, 6).rotateZ(Math.PI / 2).translate(-1.4, 2.03, 1.05), "#6b4a2c", I);
-  for (const x of [-2.85, -1.4, 0.05]) strut(B, "wood", M4(0, 0, 0), 0, 0, 0, 0, 0, 0, "#000"), 0;
-  for (const x of [-2.85, -1.4, 0.05]) B.wood.add(bx(0.04, 0.04, 1.08, x, 2.24, 0.52).rotateX(0), "#6b4a2c", mul(M4(0, 0, 0)), { drop: [] });
+  B.wood.add(cylG(0.02, 0.02, 2.9, 6).rotateZ(Math.PI / 2).translate(-1.4, 2.03, 1.05), TIMBER, I);
+  for (const x of [-2.85, -1.4, 0.05]) rafter(B, x, 2.45, 2.05, 1.05, 0.04, TIMBER);
   for (const k of [2, 3]) B.wood.add(bx(0.07, P[k][4], 0.07, P[k][0], P[k][4] / 2, P[k][2]), "#6b4a2c", I);
   // orange crates (one stacked), world (-5.55, 1.25)
   crate(B, I, -2.80, 0, 0.35, 0.05, 22, r); crate(B, I, -2.78, 0.3, 0.33, -0.12, 18, r);
   // annex front with the window hole x 0.45..1.05, y 1.00..1.70
-  const RB = "#cfc3a8"; B.rubble.add(bx(2.9, 1.0, 0.12, 1.6, 0.5, -0.06), RB, I, { s: 0.5 }); B.rubble.add(bx(2.9, 0.65, 0.12, 1.6, 2.025, -0.06), RB, I, { s: 0.5 }); B.rubble.add(bx(0.3, 0.7, 0.12, 0.30, 1.35, -0.06), "#bfb398", I, { s: 0.5 }); B.rubble.add(bx(2.0, 0.7, 0.12, 2.05, 1.35, -0.06), RB, I, { s: 0.5 });
+  const RB = "#cfc3a8"; B.rubble.add(bx(2.9, 1.0, 0.12, 1.6, 0.5, -0.06), RB, I, { s: 0.5 }); B.rubble.add(bx(2.9, 0.65, 0.12, 1.6, 2.025, -0.06), RB, I, { s: 0.5 }); B.rubble.add(bx(0.3, 0.7, 0.12, 0.30, 1.35, -0.06), RB, I, { s: 0.5 }); B.rubble.add(bx(2.0, 0.7, 0.12, 2.05, 1.35, -0.06), RB, I, { s: 0.5 });
   B.rubble.add(gableXY(0.15, 3.05, 1.6, 2.35, 3.2, -0.12, 0.1), RB, I, { s: 0.5 });
   B.flat.add(bx(0.6, 0.7, 0.04, 0.75, 1.35, -0.14), "#2b2118", I); B.wood.add(bx(0.03, 0.7, 0.03, 0.75, 1.35, -0.1), "#c9b48a", I); B.wood.add(bx(0.6, 0.03, 0.03, 0.75, 1.4, -0.1), "#c9b48a", I);
-  B.wood.add(bx(0.74, 0.07, 0.08, 0.75, 1.735, 0.0), TIMB(), I); B.wood.add(bx(0.74, 0.07, 0.08, 0.75, 0.965, 0.0), TIMB(), I); B.wood.add(bx(0.07, 0.7, 0.08, 0.415, 1.35, 0.0), TIMB(), I); B.wood.add(bx(0.07, 0.7, 0.08, 1.085, 1.35, 0.0), TIMB(), I);
+  B.wood.add(bx(0.74, 0.07, 0.08, 0.75, 1.735, 0.0), TIMBER, I); B.wood.add(bx(0.74, 0.07, 0.08, 0.75, 0.965, 0.0), TIMBER, I); B.wood.add(bx(0.07, 0.7, 0.08, 0.415, 1.35, 0.0), TIMBER, I); B.wood.add(bx(0.07, 0.7, 0.08, 1.085, 1.35, 0.0), TIMBER, I);
   B.rubble.add(bx(0.8, 0.06, 0.16, 0.75, 0.94, 0.07), "#e8dcc0", I, { s: 0.5 });
-  for (const s of [-1, 1]) B.wood.add(bx(0.30, 0.74, 0.035, 0.75 + s * 0.55, 1.35, 0.045).rotateY(0), "#5f7f8a", I);
+  for (const s of [-1, 1]) B.wood.add(bx(0.30, 0.74, 0.035, 0.75 + s * 0.45, 1.35, 0.045), "#5f7f8a", I);
   // corner post and the iron ring
   B.wood.add(bx(0.12, P[4][4], 0.12, P[4][0], P[4][4] / 2, 0.03), "#6b4a2c", I);
   B.flat.add(new THREE.TorusGeometry(0.05, 0.007, 6, 16).translate(3.17, 0.40, 0.05), "#2a2420", I); B.flat.add(bx(0.05, 0.02, 0.02, 3.115, 0.455, 0.05), "#2a2420", I);
   // bench: x 0.09..1.39, z 0.06..0.46, top 0.30
-  for (const k of [0, 1, 2]) B.wood.add(bx(1.3, 0.04, 0.125, 0.74, 0.28, 0.1275 + k * 0.1325), "#8a7358", I, { rot: true, s: 0.8 });
+  for (const k of [0, 1, 2]) B.wood.add(bx(1.3, 0.04, 0.125, 0.74, 0.28, 0.1275 + k * 0.1325), "#a58c68", I, { rot: true, s: 0.8 });
   for (const x of [0.14, 1.34]) for (const z of [0.1, 0.42]) B.wood.add(bx(0.05, 0.26, 0.05, x, 0.13, z), "#7a6448", I);
   B.wood.add(bx(0.03, 0.05, 0.4, 1.35, 0.27, 0.26).rotateZ(0.15), "#3a2c1c", I);   // the split end
   // stall awning and its shelf
   awningCloth(B, 1.9, 3.05, 6, 2.25, 1.95, 0.9, 0.03, "#c8372d", "#f3ead2", true);
-  for (const x of [1.95, 3.0]) strut(B, "flat", M4(x, 0, 0), 0, 2.24, 0, 1.94, 0.45, 0.025, "#2a2420"), 0;
+  for (const x of [1.95, 3.0]) rafter(B, x, 2.22, 1.92, 0.9, 0.025, "#2a2420", "flat");
   B.wood.add(bx(1.15, 0.03, 0.18, 2.475, 1.25, 0.09), "#8b6240", I);
   for (let i = 0; i < 6; i++) jar(B, 1.98 + i * 0.18, 1.265, 0.09, 40 + i, I);
   // roofs z +1.15 to -0.70 (world frame -> local through SH)
   shopRoofs(B, SH, 0.9 + 0.25 + 0, -0.7);
   return partsOf(B);
 }
-const TIMB = () => "#6b4a2c";
 
 // ---------------------------------------------------------------- haycart
 const HAY = { x: 1.1, z: 0.7 }, CR = { x: 0.35, z: 0, r: 0.4 };
@@ -581,38 +586,90 @@ function hayH(x, z, dent) {
   if (dent > 0) { const rr = Math.hypot(x - CR.x, z - CR.z); if (rr < CR.r) h -= dent * 0.45 * Math.pow(1 - (rr / CR.r) ** 2, 1.2); h += dent * 0.10 * Math.exp(-Math.pow((rr - 0.46) / 0.1, 2)); }
   return h;
 }
-const TUFT = (() => { const r = rng(6161), a = []; for (let i = 0; i < 40; i++) { const hay = i < 28, T = 0.62 + 0.46 * r(), th = r() * Math.PI * 2; let tx, tz; if (hay) { do { const ang = r() * 6.28, rad = 0.5 + 0.3 * r(); tx = CR.x + Math.cos(ang) * rad; tz = Math.sin(ang) * rad * 0.7; } while (Math.abs(tx) > 0.88 || Math.abs(tz) > 0.46 || Math.hypot(tx - CR.x, tz) < 0.52); } else { let rad; do { rad = 1.0 + 1.5 * r(); tx = CR.x + Math.cos(th) * rad; tz = Math.sin(th) * rad; } while (Math.abs(tx) < 1.18 && Math.abs(tz) < 0.78 || (tx < -0.9 && Math.abs(tz) < 0.45)); }
-  a.push({ T, hay, sx: CR.x + (r() - 0.5) * 0.3, sz: (r() - 0.5) * 0.3, tx, tz, w: [3 + 9 * r(), 3 + 9 * r(), 3 + 9 * r()], ph: [r() * 6, r() * 6, r() * 6], yaw: r() * 6.28, sc: 0.8 + 0.5 * r(), c: i % 3 }); } return a; })();
+// 40 tufts, fixed table: 28 land in the hay (index < 28), 12 on the cobbles; T = flight time (all under 1.1 s)
+const TUFT = (() => {
+  const r = rng(6161), a = [];
+  for (let i = 0; i < 40; i++) {
+    const hay = i < 28, T = 0.62 + 0.46 * r(); let tx, tz;
+    if (hay) { do { const ang = r() * 6.28, rad = 0.5 + 0.35 * r(); tx = CR.x + Math.cos(ang) * rad; tz = Math.sin(ang) * rad * 0.75; } while (Math.abs(tx) > 0.88 || Math.abs(tz) > 0.46 || Math.hypot(tx - CR.x, tz) < 0.52); }
+    else { const th = r() * 6.28; let rad = 1.0 + 1.5 * r(); do { tx = CR.x + Math.cos(th) * rad; tz = Math.sin(th) * rad; rad += 0.25; } while ((Math.abs(tx) < 1.25 && Math.abs(tz) < 0.85) || (tx < -0.9 && tx > -2.3 && Math.abs(tz) < 0.5)); }
+    a.push({ T, hay, sx: CR.x + (r() - 0.5) * 0.3, sz: (r() - 0.5) * 0.3, tx, tz, W: [(r() - 0.5) * 24, (r() - 0.5) * 24, (r() - 0.5) * 24], fin: hay ? [0.6 + r(), r() * 6.28, 0.4 * r()] : [Math.PI / 2, r() * 6.28, 0], sc: 0.8 + 0.5 * r(), c: i % 3 });
+  }
+  return a;
+})();
 function tuftGeo(ci) {
   const cols = ["#e6c75a", "#d4b040", "#f2dc8a"], B = new Batch(1);
-  for (let k = 0; k < 3; k++) { const g = new THREE.PlaneGeometry(0.24, 0.032).rotateX((k * Math.PI) / 3 + 0.2); B.add(g, cols[(ci + k) % 3], M4(0, 0, 0, 0, 0, (k - 1) * 0.12), { keepUV: false }); }
+  for (let k = 0; k < 3; k++) B.add(new THREE.PlaneGeometry(0.22, 0.02).rotateX((k * Math.PI) / 3), cols[(ci + k) % 3], M4(0, 0, 0, 0, 0, (k - 1) * 0.1));
   return B.geometry();
 }
+const wheel = (B, z) => {
+  const I = new THREE.Matrix4();
+  B.wood.add(new THREE.TorusGeometry(0.395, 0.03, 6, 22).translate(0, 0.42, z), "#9a6f42", I); B.flat.add(new THREE.TorusGeometry(0.425, 0.013, 5, 24).translate(0, 0.42, z), "#3a3a40", I);
+  B.wood.add(cylG(0.07, 0.07, 0.11, 8).rotateX(Math.PI / 2).translate(0, 0.42, z), "#5c3f27", I);
+  for (let k = 0; k < 10; k++) B.wood.add(new THREE.BoxGeometry(0.032, 0.34, 0.032).translate(0, 0.2, 0).rotateZ((k * Math.PI) / 5).translate(0, 0.42, z), "#8b6240", I);
+};
 function buildHay(P) {
-  const S = P.spec, W = P.whole, B = newBatches(), I = new THREE.Matrix4(), r = rng(9090), wood = "#9a6f42", post = "#6b4a2c";
-  const body = new THREE.Group(); body.position.y = 0.42; W.add(body);   // rocks about the axle (x 0, y 0.42)
-  const Bd = newBatches(), Mb = M4(0, -0.42, 0);   // body parts are built in cart coordinates, then lowered into `body`
-  Bd.wood.add(bx(1.9, 0.05, 1.1, 0, 0.595, 0), "#8b6240", Mb, { rot: true }); for (const z of [-0.35, 0.35]) Bd.wood.add(bx(1.9, 0.07, 0.07, 0, 0.535, z), post, Mb);
+  const S = P.spec, W = P.whole, I = new THREE.Matrix4(), post = "#6b4a2c", wood = "#9a6f42";
+  // ground-bound: the wheels, the axle, the prop stick
+  const Bs = newBatches(); wheel(Bs, 0.655); wheel(Bs, -0.655);
+  Bs.flat.add(cylG(0.035, 0.035, 1.5, 8).rotateX(Math.PI / 2).translate(0, 0.42, 0), "#4a3a2a", I);
+  Bs.wood.add(bx(0.045, 0.34, 0.045, -1.95, 0.17, 0), post, I); Bs.wood.add(bx(0.05, 0.04, 0.78, -1.95, 0.34, 0), post, I);
+  addParts(W, partsOf(Bs), "wood");
+  // the body rocks about the axle (x 0, y 0.42)
+  const body = new THREE.Group(); body.position.y = 0.42; W.add(body);
+  const Bd = newBatches(), Mb = M4(0, -0.42, 0);
+  Bd.wood.add(bx(1.9, 0.05, 1.1, 0, 0.595, 0), "#8b6240", Mb, { rot: true });
+  for (const z of [-0.35, 0.35]) Bd.wood.add(bx(1.9, 0.07, 0.07, 0, 0.535, z), post, Mb);
   for (let k = 0; k < 5; k++) { const y = 0.655 + k * 0.062; for (const z of [-0.55, 0.55]) Bd.wood.add(bx(1.9, 0.052, 0.03, 0, y, z), wood, Mb, { rot: true }); for (const x of [-0.95, 0.95]) Bd.wood.add(bx(0.03, 0.052, 1.1, x, y, 0), wood, Mb); }
   for (const x of [-0.95, 0, 0.95]) for (const z of [-0.55, 0.55]) Bd.wood.add(bx(0.07, 0.34, 0.07, x, 0.77, z), post, Mb);
-  for (const z of [-0.3, 0.3]) { const A = Math.atan2(-0.2, 1.2); Bd.wood.add(bx(1.2, 0.06, 0.05, -1.55, 0.46, z), post, mul(Mb, M4(-0.95 + 0.0, 0, 0, 0, 0, 0)).clone().multiply(new THREE.Matrix4()), { rot: false, keepUV: false }); void A; }
-  // shafts: from the bed end x -0.95 down to a tip at x -2.15, y 0.36
-  Bd.wood.add(bx(0.06, 0.06, 0.06, 0, 0, 0).scale(0, 0, 0), post, I);
-  const parts = partsOf(Bd, { cast: true }); addParts(body, parts.filter((p) => p.mk !== "glow"));
-  // shafts as separate boxes rotated about z
-  const shM = getMat("wood"); for (const z of [-0.3, 0.3]) { const sg = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.06, 0.05), shM); sg.position.set(-1.55, 0.465 - 0.42 + 0.0, z); sg.rotation.z = Math.atan2(-0.2, 1.2) * -1 * -1; sg.castShadow = true; body.add(sg); }
-  void B; void r; void S;
-  return { body };
+  for (const z of [-0.3, 0.3]) Bd.wood.add(new THREE.BoxGeometry(1.217, 0.06, 0.05).rotateZ(Math.atan2(0.2, 1.2)).translate(-1.55, 0.46, z), post, Mb);
+  addParts(body, partsOf(Bd), "wood");
+  // the hay: one lumpy skin that can be dented, plus straws poking out of it
+  const nx = 44, nz = 28, N = (nx + 1) * (nz + 1), pos = new Float32Array(N * 3), uv = new Float32Array(N * 2), col = new Float32Array(N * 3), idx = [], cs = ["#e6c75a", "#d4b040", "#f2dc8a"].map(hexc);
+  for (let j = 0; j <= nz; j++) for (let i = 0; i <= nx; i++) {
+    const k = j * (nx + 1) + i, x = -HAY.x + (2 * HAY.x * i) / nx, z = -HAY.z + (2 * HAY.z * j) / nz, n = vnoise(x * 3.1, z * 3.1, 41), c = n < 0.4 ? cs[1].clone().lerp(cs[0], n / 0.4) : cs[0].clone().lerp(cs[2], (n - 0.4) / 0.6);
+    pos[3 * k] = x; pos[3 * k + 2] = z; uv[2 * k] = (x + HAY.x) / (2 * HAY.x); uv[2 * k + 1] = (z + HAY.z) / (2 * HAY.z); col[3 * k] = c.r * 0.92; col[3 * k + 1] = c.g * 0.92; col[3 * k + 2] = c.b * 0.92;
+  }
+  for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const a = j * (nx + 1) + i, b = a + 1, c = a + nx + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
+  const hg = new THREE.BufferGeometry(); hg.setAttribute("position", new THREE.BufferAttribute(pos, 3)); hg.setAttribute("uv", new THREE.BufferAttribute(uv, 2)); hg.setAttribute("color", new THREE.BufferAttribute(col, 3)); hg.setIndex(idx);
+  const setHay = (dent) => { for (let k = 0; k < N; k++) pos[3 * k + 1] = hayH(pos[3 * k], pos[3 * k + 2], dent) - 0.42; hg.attributes.position.needsUpdate = true; hg.computeVertexNormals(); hg.computeBoundingSphere(); };
+  setHay(0);
+  const hm = new THREE.Mesh(hg, getMat("straw", "wood")); hm.name = "hay"; hm.castShadow = hm.receiveShadow = true; hm.userData.solid = false; hm.frustumCulled = false; body.add(hm);
+  const rr = rng(2727), Bh = newBatches();
+  for (let i = 0; i < 90; i++) {
+    let x, z; do { x = (rr() * 2 - 1) * 1.02; z = (rr() * 2 - 1) * 0.62; } while (Math.hypot(x - CR.x, z) < 0.7);
+    const y = hayH(x, z, 0) - 0.42 - 0.02, L = 0.16 + 0.2 * rr(), dir = new THREE.Vector3((rr() - 0.5) * 1.2 + x * 0.4, 0.7 + 0.6 * rr(), (rr() - 0.5) * 1.2 + z * 0.4).normalize();
+    const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir), m = new THREE.Matrix4().compose(new THREE.Vector3(x, y, z), q, new THREE.Vector3(1, 1, 1));
+    Bh.flatDS.add(new THREE.PlaneGeometry(0.022, L).translate(0, L / 2, 0), cs[i % 3], m);
+  }
+  for (const p of partsOf(Bh, { solid: false })) { const m = new THREE.Mesh(p.geo, getMat(p.mk, "wood")); m.castShadow = true; m.userData.solid = false; body.add(m); }
+  // the tufts (burst)
+  const tg = new THREE.Group(); W.add(tg); const tufts = TUFT.map((t) => { const m = new THREE.Mesh(tuftGeo(t.c), getMat("flatDS", "wood")); m.castShadow = true; m.userData.solid = false; m.userData.lookOnly = true; m.visible = false; m.rotation.order = "YXZ"; tg.add(m); return m; });
+  let seen = 0;
+  return {
+    grip: 0,
+    apply(ps) {
+      const dent = clamp(ps.dent ?? S.dent ?? 0), burst = ps.burst ?? S.burst ?? -1, rock = clamp(ps.rock ?? S.rock ?? 0), dq = Math.round(dent * 200);
+      if (dq !== seen) { seen = dq; setHay(dq / 200); }
+      body.rotation.z = burst >= 0 ? rock * 3 * D2R * Math.sin(Math.PI * 4 * burst) : 0;
+      const d = dq / 200;
+      TUFT.forEach((t, i) => {
+        const m = tufts[i]; m.visible = burst >= 0; if (burst < 0) return;
+        const yL = t.hay ? hayH(t.tx, t.tz, d) - 0.045 : 0.02, y0 = 0.98, vy = (yL - y0 + 4.905 * t.T * t.T) / t.T, tt = Math.min(burst, t.T), u = tt / t.T, k = ((t.T - tt) / t.T) ** 2;
+        m.position.set(lerp(t.sx, t.tx, u), y0 + vy * tt - 4.905 * tt * tt, lerp(t.sz, t.tz, u)); m.rotation.set(t.fin[0] + t.W[0] * k, t.fin[1] + t.W[1] * k, t.fin[2] + t.W[2] * k); m.scale.setScalar(t.sc);
+      });
+    },
+  };
 }
 
 export const CART_STREET_KINDS = {
   hillstreet(P) {
     HILL ??= [...groundParts(), ...housesParts(), ...shellParts(), ...yardParts(), ...valleyParts(), ...hillsideParts()];
-    for (const p of HILL) { const m = new THREE.Mesh(p.geo, getMat2(p.mk)); m.castShadow = !!p.cast; m.receiveShadow = true; if (p.solid === false) m.userData.solid = false; if (p.steam) m.userData.steam = true; P.whole.add(m); }
+    for (const p of HILL) { const m = new THREE.Mesh(p.geo, getMat2(p.mk)); m.castShadow = !!p.cast; m.receiveShadow = p.cast !== false; if (p.solid === false) m.userData.solid = false; if (p.steam) m.userData.steam = true; m.userData.lookOnly = true; m.userData.surfaceOnly = true; P.whole.add(m); }
     return { grip: 0 };
   },
-  grocerfront(P) { addParts(P.whole, grocerParts()); return { grip: 0 }; },
-  haycart(P) { void buildHay; return { grip: 0 }; },
+  grocerfront(P) { addParts(P.whole, grocerParts(), "set", true); return { grip: 0 }; },
+  haycart(P) { return buildHay(P); },
 };
 export const CART_STREET_GRIPS = {};
 export const CART_STREET_STATE = { haycart: { dent: 0, burst: -1, rock: 0 } };

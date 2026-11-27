@@ -68,12 +68,13 @@
   {
    "id": "cart",
    "kind": "chaircart",
-   "lock": true,
+   "lock": false,
    "brake": true,
    "x": 0,
    "y": 0,
    "z": 0,
    "rot": 0,
+   "stepZ": -0.52,
    "tip": 14
   },
   {
@@ -156,57 +157,11 @@
     },
     {
      "who": "spud",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "ride",
-     "prop": "cart",
-     "off": [
-      0,
-      0.1,
-      -0.42
-     ],
-     "yaw": 0,
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       -0.21,
-       0.267,
-       0.22
-      ]
-     },
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       -0.21,
-       0.267,
-       0.22
-      ]
-     },
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "spud",
      "do": "hide",
-     "at": 0.98
+     "at": 0
     }
    ],
-   "kind": "tip 14 on the ramp, Mash in the basket + Spud behind the rail, from +x (front down)"
+   "kind": "tip 14 on the ramp, Mash in the basket (Spud away), from +x (front down)"
   },
   {
    "name": "s2",
@@ -252,6 +207,13 @@
      "at": 0.98
     },
     {
+     "who": "mash",
+     "do": "ride",
+     "prop": null,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
      "who": "spud",
      "do": "show",
      "at": 0.98
@@ -263,7 +225,7 @@
      "off": [
       0,
       0.1,
-      -0.42
+      -0.52
      ],
      "yaw": 0,
      "dur": 0,
@@ -276,8 +238,8 @@
      "pose": {
       "o": [
        -0.21,
-       0.267,
-       0.22
+       0.364,
+       0.32
       ]
      },
      "dur": 0,
@@ -290,8 +252,8 @@
      "pose": {
       "o": [
        -0.21,
-       0.267,
-       0.22
+       0.364,
+       0.32
       ]
      },
      "dur": 0,
@@ -374,14 +336,26 @@
    "with": "cart",
    "from": 0,
    "to": 6,
-   "reason": "Spud rides behind the rail"
+   "reason": "Spud rides behind the rail (a body in an enclosing prop)",
+   "checks": [
+    "clipping",
+    "shell",
+    "costume-in-prop"
+   ],
+   "max": 0.6
   },
   {
    "who": "mash",
    "with": "cart",
    "from": 0,
    "to": 6,
-   "reason": "Mash sits in the basket"
+   "reason": "Mash sits in the basket (a body in an enclosing prop)",
+   "checks": [
+    "clipping",
+    "shell",
+    "costume-in-prop"
+   ],
+   "max": 0.6
   }
  ]
 }

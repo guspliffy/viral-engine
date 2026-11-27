@@ -27,10 +27,10 @@ const c = clip();
 const ALL = ["tw", "tw2", "pile", "bench", "cd1", "cd2", "hs", "fr", "fu", "bk", "bk2", "bk3", "sf1", "sf2", "sf3", "cartbox", "fr2", "ramp"];
 const SP = [0, 0.5], MA = [1.2, 0.5], MYAW = -30;
 const props = [
-  { id: "tw", kind: "foodtower", n: 14, ...grips.placeFor("foodtower", [0, 0.26, 0.92], 0) },
+  { id: "tw", kind: "foodtower", n: 14, ...grips.placeFor("foodtower", [0, 0.26, 1.0], 0) },
   { id: "tw2", kind: "foodtower", n: 64, x: 0, y: 0, z: 0.40, rot: 0, scale: 0 },
-  { id: "bench", kind: "stoneblock", w: 1.3, h: 0.30, d: 0.40, x: 0.55, y: 0, z: 0.2, seed: 3, scale: 0 },
-  { id: "pile", kind: "foodpile", grow: 0, x: -0.1, y: 0.30, z: 0.2, scale: 0 },
+  { id: "bench", kind: "stoneblock", w: 1.3, h: 0.30, d: 0.40, x: 0.4, y: 0, z: 0.2, seed: 3, scale: 0 },
+  { id: "pile", kind: "foodpile", grow: 0, x: 0.05, y: 0.30, z: 0.2, scale: 0 },
   { id: "cd1", kind: "catchdrop", item: "orange", from: [MA[0] - 0.75, 0.72, MA[1] + 0.73], to: [MA[0] - 0.27, 0.38, MA[1] + 0.48], hop: 0.06, x: 0, y: 0, z: 0, scale: 0 },
   { id: "cd2", kind: "catchdrop", item: "coin", from: [MA[0] - 0.63, 1.12, MA[1] + 0.10], to: [MA[0] - 0.56, 0.14, MA[1] + 0.15], x: 0, y: 0, z: 0, scale: 0 },
   { id: "hs", kind: "hoodsack", wear: "mash", x: 0, y: 0, z: 0, fill: 0, scale: 0 },
@@ -38,9 +38,9 @@ const props = [
   { id: "bk", kind: "wickerbasket", x: 0, y: 0, z: 0.95, fill: 1, scale: 0 },
   { id: "bk2", kind: "wickerbasket", stub: 1, x: -0.4, y: 0, z: 0.95, fill: 0.5, rot: 25, scale: 0 },
   { id: "bk3", kind: "wickerbasket", x: -0.4, y: 0.2, z: 1.0, rot: 90, tip: 90, fill: 1, spillTo: [-0.30, 0.55], floorY: 0, scale: 0 },
-  { id: "sf1", kind: "snackfruit", fruit: "orange", x: 0.5, y: 0.045, z: 0.9, scale: 0 },
-  { id: "sf2", kind: "snackfruit", fruit: "apple", x: 0.8, y: 0.043, z: 0.9, scale: 0 },
-  { id: "sf3", kind: "snackfruit", fruit: "orange", bite: 1, x: 0.2, y: 0.045, z: 0.9, scale: 0 },
+  { id: "sf1", kind: "snackfruit", fruit: "orange", x: 0.5, y: 0, z: 0.9, scale: 0 },
+  { id: "sf2", kind: "snackfruit", fruit: "apple", x: 0.62, y: 0, z: 0.9, scale: 0 },
+  { id: "sf3", kind: "snackfruit", fruit: "orange", bite: 1, x: 0.38, y: 0, z: 0.9, scale: 0 },
   { id: "cartbox", kind: "stoneblock", w: 0.9, h: 0.1, d: 0.6, x: 0, y: 0.15, z: 0, seed: 7, scale: 0 },
   { id: "fr2", kind: "foodrain", mode: "up", from: [0, 0.60, 0], back: [0, 0, -1], accel: 2.4, x: 0, y: 0.15, z: 0.1, rot: 180, scale: 0 },
   { id: "ramp", kind: "stoneblock", w: 0.1, h: 0.1, d: 0.1, x: 5, y: 0, z: 5, seed: 1, scale: 0 },
@@ -51,19 +51,19 @@ const place = (t, who, [x, z], yaw) => { c.A(r3(t), who, "move", { to: [x, z], d
 
 const CAM = {
   front: { pos: [0, 1.0, 3.4], look: [0, 0.62, 0.7], fov: 40 }, side: { pos: [-2.6, 0.85, 1.0], look: [0, 0.5, 0.9], fov: 34 },
-  wide: { pos: [0.9, 1.3, 5.2], look: [0.1, 0.95, 0.6], fov: 50 }, tall: { pos: [0.9, 1.2, 6.2], look: [0.1, 1.0, 0.6], fov: 50 },
+  wide: { pos: [0.9, 1.3, 5.2], look: [0.1, 0.95, 0.6], fov: 50 }, tall: { pos: [0.3, 1.1, 5.8], look: [0.15, 1.05, 0.5], fov: 36 },
   low: { pos: [-0.1, 0.55, 3.2], look: [0.05, 0.4, 0.55], fov: 40 }, heap: { pos: [0.6, 1.35, 3.6], look: [0.1, 0.35, 0.5], fov: 40 },
   heapside: { pos: [3.0, 0.9, 0.5], look: [0, 0.35, 0.5], fov: 34 },
-  catch: { pos: [0.35, 0.8, 3.0], look: [0.9, 0.5, 0.8], fov: 34 }, catch2: { pos: [0.5, 0.45, 2.2], look: [0.62, 0.2, 0.62], fov: 28 },
-  bsk: { pos: [0.2, 0.75, 2.6], look: [0, 0.3, 0.95], fov: 34 }, bskclose: { pos: [0.15, 0.5, 1.9], look: [0, 0.3, 0.95], fov: 26 },
-  bskside: { pos: [1.5, 0.35, 2.3], look: [0, 0.25, 1.0], fov: 38 }, weave: { pos: [-0.4, 0.3, 1.65], look: [-0.4, 0.12, 1.0], fov: 20 },
+  catch: { pos: [0.35, 0.8, 3.0], look: [0.9, 0.5, 0.8], fov: 34 }, catch2: { pos: [0.55, 0.55, 1.9], look: [0.93, 0.38, 0.98], fov: 20 }, catch3: { pos: [0.35, 0.30, 1.5], look: [0.64, 0.14, 0.65], fov: 20 },
+  bsk: { pos: [0.2, 0.75, 2.6], look: [0, 0.3, 0.95], fov: 34 }, bskclose: { pos: [0.2, 0.25, 3.2], look: [0, 0.45, 0.95], fov: 24 },
+  bskside: { pos: [1.5, 0.35, 2.3], look: [0, 0.25, 1.0], fov: 38 }, weave: { pos: [0.0, 0.22, 1.55], look: [0, 0.1, 0.95], fov: 20 },
   spill: { pos: [0.5, 1.5, 3.0], look: [0.1, 0.0, 0.8], fov: 42 },
   hoodf: { pos: [MA[0] + 0.1, 0.9, 3.2], look: [MA[0] - 0.3, 0.55, MA[1]], fov: 36 }, hoods: { pos: [MA[0] - 3.0, 0.9, MA[1] - 0.2], look: [MA[0] - 0.3, 0.55, MA[1]], fov: 34 },
   hoodb: { pos: [MA[0] + 2.0, 0.9, MA[1] - 2.4], look: [MA[0] - 0.3, 0.55, MA[1]], fov: 34 },
   c09: { pos: [MA[0] - 0.6, 1.30, MA[1] + 4.95], look: [MA[0] - 0.8, 1.15, MA[1] - 0.35], fov: 50 },
   cartc: { pos: [2.6, 1.0, 2.8], look: [0, 0.8, 0.0], fov: 55 },
-  pile: { pos: [0.55, 1.1, 3.4], look: [0.45, 0.55, 0.2], fov: 38 },
-  fruit: { pos: [0.5, 0.35, 1.55], look: [0.5, 0.05, 0.9], fov: 22 },
+  pile: { pos: [0.35, 0.95, 4.2], look: [0.35, 0.55, 0.2], fov: 32 }, pileclose: { pos: [0.05, 0.75, 1.9], look: [0.05, 0.5, 0.2], fov: 30 },
+  fruit: { pos: [0.5, 0.3, 2.4], look: [0.5, 0.05, 0.9], fov: 28 },
   proof: { pos: [0.4, 0.75, 2.4], look: [0.4, 0.4, 0.9], fov: 30 },
 };
 const shots = [], stills = [], labels = [];
@@ -80,7 +80,7 @@ only(0, ["tw"]);
 {
   const h = grips.box(c, "spud", props[0]);
   let t = h.take(0.2);                                   // approach + secure (0.2 + 0.3 + 0.2)
-  t = h.carry(t + 0.05, [0, 0.26, 0.92], 0.5);
+  void t;   // the prop already stands where the hands hold it: no carry
   Bt("Z1 front", "front", 0);
   S("n14 held, front", "front", 1.6, null, 0.1);
   S("n14 held, side", "side", 2.2, null, 0.1);
@@ -94,13 +94,14 @@ only(0, ["tw"]);
   P(6.8, "tw", { sway: 0 }, 0.2);
   P(7.0, "tw", { sway: 6 }, 0.4); P(7.5, "tw", { sway: -8 }, 0.5); P(8.1, "tw", { sway: 14 }, 0.5);
   Bt("Z1 sway strip", "tall", 7.0);
-  h.release(8.7, { to: [0, 0.26, 0.92], rest: "rest" });
+  h.release(8.7, { to: [0, 0.26, 1.0], rest: "rest" });
 }
 // ---- Z2: 10 to 13 the fall onto Spud crouched at the heap centre
 Bt("Z2 fall", "wide", 10.0);
 {
   only(9.98, ["tw2"]); P(9.98, "tw2", { n: 64, sway: 14, fall: 0, scale: 1 });
-  c.A(9.98, "spud", "crouch", { to: 0.35, dur: 0 }); c.A(9.98, "spud", "face", { open: 0.1, dur: 0.01 });
+  place(9.98, "spud", [-1.6, 0.5], 0);   // steps into the hollow once the stack has gone over his place (0.25 s into the fall)
+  place(10.74, "spud", [0, 0.5], 0); c.A(10.74, "spud", "crouch", { to: 0.35, dur: 0 }); c.A(10.74, "spud", "face", { open: 0.1, dur: 0.01 });
   P(10.5, "tw2", { fall: 0 }); P(10.5, "tw2", { fall: 1.6 }, 1.6);
   // stills inside the fall window: 10.5 + fall
   for (const f of [0.15, 0.3, 0.5, 0.7, 0.9, 1.4]) stills.push(r3(10.5 + f)), labels.push(`fall ${f}`);
@@ -132,13 +133,13 @@ const CR = (t, who, to, id) => c.arm(t, who, "R", { prop: id, grip: to }, 0.1, "
   c.A(t0 + 0.3 + 0.447 - 0.02, "mash", "grip", { side: "R", shape: "hold", dur: 0.1 });
   Bt("Z3 coin", "catch", t0);
   for (const d of [0, 0.2, 0.35, 0.44, 0.447, 0.5]) stills.push(r3(t0 + 0.3 + d)), labels.push(`coin drop ${d}`);
-  Bt("Z3 coin close", "catch2", t0 + 1.2);
+  Bt("Z3 coin close", "catch3", t0 + 1.2);
   stills.push(t0 + 1.5); labels.push("coin in the glove, close");
 }
 
 // ---- Z4: the wicker basket
 {
-  c.A(29.98, "mash", "crouch", { to: 0, dur: 0 }); c.A(29.98, "mash", "lean", { to: 0, dur: 0 });
+  c.A(29.98, "mash", "crouch", { to: 0, dur: 0 }); c.A(29.98, "spud", "crouch", { to: 0, dur: 0 }); place(29.98, "spud", [0, 0.5], 0); c.A(29.98, "mash", "lean", { to: 0, dur: 0 });
   S("basket fill 0, empty", "bsk", 30, (t) => { only(t, ["bk"]); P(t, "bk", { fill: 0 }); c.arm(t, "mash", "R", "rest", 0.01); c.A(t, "mash", "grip", { side: "R", shape: "relaxed", dur: 0.01 }); }, 0.5);
   S("basket fill 1", "bsk", 31, (t) => P(t, "bk", { fill: 1 }), 0.5);
   S("basket fill 0.5", "bsk", 32, (t) => P(t, "bk", { fill: 0.5 }), 0.5);
@@ -148,9 +149,12 @@ const CR = (t, who, to, id) => c.arm(t, who, "R", { prop: id, grip: to }, 0.1, "
   S("basket lift: gloves on the arch", "bsk", t0, (t) => { P(t, "bk", { fill: 1, y: 0 }); c.arm(t, "spud", "L", { prop: "bk", grip: [-0.025, 0.42, 0] }, 0.01); c.arm(t, "spud", "R", { prop: "bk", grip: [0.025, 0.42, 0] }, 0.01); c.A(t, "spud", "grip", { side: "L", shape: "hold", dur: 0.01 }); c.A(t, "spud", "grip", { side: "R", shape: "hold", dur: 0.01 }); }, 0.3);
   P(t0 + 0.3, "bk", { y: 0.12 }, 0.8);
   c.arm(t0 + 0.3, "spud", "L", { prop: "bk", grip: [-0.025, 0.42, 0] }, 0.8); c.arm(t0 + 0.3, "spud", "R", { prop: "bk", grip: [0.025, 0.42, 0] }, 0.8);
+  // for the snap strip the gloves leave the arch (they would hide the break); the director pins them 0.05 apart on the apex
+  c.arm(t0 + 1.15, "spud", "L", { o: [0.25, 0.45, 0.1] }, 0.1); c.arm(t0 + 1.15, "spud", "R", { o: [0.25, 0.45, 0.1] }, 0.1);
   const ts = t0 + 1.3;
   P(ts, "bk", { snap: 0 }); P(ts, "bk", { snap: 1.0 }, 1.0);
   P(ts + 0.08, "bk", { y: 0.12 }); P(ts + 0.18, "bk", { y: 0 }, 0.1);
+  place(t0 + 1.12, "spud", [3.2, 1.5], 0);
   Bt("Z4 snap (strip, 30 fps)", "bskclose", t0 + 1.0);
   for (const d of [-0.1, 0.03, 0.06, 0.1, 0.14, 0.2, 0.3, 0.5]) stills.push(r3(ts + d)), labels.push(`snap ${d}`);
   S("basket stub 1 (after round 2)", "bsk", 36.0, (t) => { only(t, ["bk2"]); P(t, "bk2", { fill: 0.5 }); c.arm(t, "spud", "L", "rest", 0.01); c.arm(t, "spud", "R", "rest", 0.01); }, 0.5);
@@ -166,7 +170,7 @@ const CR = (t, who, to, id) => c.arm(t, who, "R", { prop: id, grip: to }, 0.1, "
 {
   Bt("Z5 hood", "hoodf", 50);
   only(49.98, ["hs"]); P(49.98, "hs", { fill: 0 });
-  c.arm(49.98, "mash", "R", "rest", 0.01); c.arm(49.98, "mash", "L", "rest", 0.01);
+  c.arm(49.98, "mash", "R", { x: [-0.55, 0.182, 0.284] }, 0.01); c.arm(49.98, "mash", "L", { x: [-0.55, 0.253, -0.044] }, 0.01);   // gloves on the ring: near and far points (GRIPS hoodsack)
   stills.push(50.5); labels.push("hood fill 0, front");
   P(51, "hs", { fill: 1 });
   Bt("Z5 hood f1", "hoodf", 51.0); stills.push(51.5); labels.push("hood fill 1, front");
@@ -193,21 +197,24 @@ const CR = (t, who, to, id) => c.arm(t, who, "R", { prop: id, grip: to }, 0.1, "
 }
 // ---- Z6: the pile beside Mash sitting on the bench
 {
-  c.A(69.98, "mash", "sit", { seat: "bench", rot: 0, height: 0.30, along: 0.35, dur: 0, hands: "lap" });
+  c.A(69.98, "mash", "sit", { seat: "bench", rot: 0, height: 0.30, along: 0.33, dur: 0, hands: "lap" });
+  place(69.97, "spud", [3.2, 1.5], 0);
   only(69.98, ["bench", "pile"]); P(69.98, "pile", { grow: 0 }); P(69.98, "hs", { scale: 0 });
   for (let g = 0; g <= 5; g++) {
     S(`pile grow ${g}`, "pile", 70 + g, (t) => P(t, "pile", { grow: g }), 0.5);
   }
-  S("pile grow 5 from the side", "heapside", 76, null, 0.5);
+  S("pile grow 5 close", "pileclose", 76, null, 0.5);
+  S("pile grow 5 from the side", "heapside", 77, null, 0.5);
 }
 // ---- Z7: the fruit (bite 0, 0.5, 1)
 {
   c.A(79.98, "mash", "stand", { dur: 0 });
+  place(79.98, "spud", [3.2, 1.5], 0);
   S("snackfruit orange bite 0, apple bite 0, orange bite 1", "fruit", 80, (t) => { only(t, ["sf1", "sf2", "sf3"]); P(t, "sf1", { bite: 0 }); P(t, "sf2", { bite: 0 }); }, 0.5);
   S("snackfruit bite 0.5", "fruit", 81, (t) => { P(t, "sf1", { bite: 0.5 }); P(t, "sf2", { bite: 0.5 }); P(t, "sf3", { bite: 0.5 }); }, 0.5);
   S("snackfruit bite 1", "fruit", 82, (t) => { P(t, "sf1", { bite: 1 }); P(t, "sf2", { bite: 1 }); P(t, "sf3", { bite: 1 }); }, 0.5);
 }
-const END = 84;
+const END = 85;
 const order = shots.sort((a, b) => a[1] - b[1]);
 const beats = c.beats(order, END);
 console.log("STILLS:", stills.slice().sort((a, b) => a - b).join(","));

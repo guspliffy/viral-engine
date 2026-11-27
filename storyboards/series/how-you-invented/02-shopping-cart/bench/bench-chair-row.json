@@ -112,31 +112,36 @@
    "id": "ch1",
    "kind": "lockchain",
    "chair": 1,
-   "ring": true
+   "ring": true,
+   "staged": "a chain hangs from its two fixed ends (eye or wall ring, and the lock box tab)"
   },
   {
    "id": "ch2",
    "kind": "lockchain",
    "chair": 2,
-   "ring": false
+   "ring": false,
+   "staged": "a chain hangs from its two fixed ends (eye or wall ring, and the lock box tab)"
   },
   {
    "id": "ch3",
    "kind": "lockchain",
    "chair": 3,
-   "ring": false
+   "ring": false,
+   "staged": "a chain hangs from its two fixed ends (eye or wall ring, and the lock box tab)"
   },
   {
    "id": "ch4",
    "kind": "lockchain",
    "chair": 4,
-   "ring": false
+   "ring": false,
+   "staged": "a chain hangs from its two fixed ends (eye or wall ring, and the lock box tab)"
   },
   {
    "id": "ch5",
    "kind": "lockchain",
    "chair": 5,
-   "ring": false
+   "ring": false,
+   "staged": "a chain hangs from its two fixed ends (eye or wall ring, and the lock box tab)"
   }
  ],
  "captions": [],

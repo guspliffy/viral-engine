@@ -23,17 +23,19 @@ import { clamp } from "./util.js";
 //               Items 1, 9 and 17 (oranges) land on the outer ring and roll on 0.22 m to 1.4 s. Spec: hole 0.10.
 //               HELD: grips.box, SIZE foodtower { w 0.46, h 0.36, d 0.30 } (both gloves on the two ends of the bottom layer, x +-0.275,
 //               y 0.55 h). The prop's own front is +z (the holder's side); place it with grips.placeFor("foodtower", [x, y, z], yaw).
-//               ~5 400 triangles at n 64 (solid bulk 350).
+//               Two invisible collision boxes (armful, column) stand in for the instanced food while it stands (the contact checks; the grip-gap
+//               check needs them). 2 660 triangles at n 64, 4 040 after the fall (bulk 350).
+//               Proof (bench-goods.mjs): the armful's top is y 0.36 + base 0.26 = 0.62: over Spud's mouth (0.54): his mouth shows only from a lens
+//               above about y 1.5. The hollow (r 0.40, 0.50 high) is narrower than Spud + arms: his gloves touch its wall (hand-in-prop 3 cm).
 //   foodpile    Mash's growing stolen pile. Origin: bottom centre (the bench top). Key grow 0..5 (default 0): each integer step pops in
 //               by scale as the key passes it (tween it over 4 frames on the cut): 1 = 6 orange-peel curls; 2 = + 9 tins and 3 oranges, 0.22
 //               high; 3 = + 12 apples, 0.34 high, 0.50 wide; 4 = a heap 0.55 wide, 0.62 high with a whole broken basket on top (two
 //               stubs, no arch); 5 = 0.60 wide, 0.95 high, + a wheel of cheese and a ham on it. Never wider than 0.60. The lumps under
 //               the food are solid. ~2 900 triangles at grow 5.
-//   snackfruit  One fruit to eat. Origin: its CENTRE (r 0.045, DESIGN). Spec: fruit "orange" | "apple" (orange), biteDir [x, y, z] (the
+//   snackfruit  One fruit to eat. Origin: the BOTTOM of the fruit (its centre is r = 0.045 up; DESIGN says centre, but the mug hold takes
+//               its origin as the bottom and misses a centre-origin fruit: see the proof sheet); spec origin "centre" gives DESIGN's. Spec: fruit "orange" | "apple" (orange), biteDir [x, y, z] (the
 //               bite's direction in the prop frame, default [0, 0.4, 0.9] = toward the holder's mouth side, +z). Key bite 0..1 (0): a
-//               hollow 0.05 across of pale flesh. HELD: the mug hold, SIZE snackfruit { r 0.045, h 0.09 }: its grip is 0.66 h = 0.059
-//               above the origin, so pass grips.mug(..., { height: 0.3 }) (the glove 0.027 above the centre) or place the prop 0.045
-//               higher: see the in-hand proof sheet. 192 triangles.
+//               hollow 0.05 across of pale flesh. HELD: the mug hold, SIZE snackfruit { r 0.045, h 0.09 } with its defaults. 192 triangles.
 //   catchdrop   The thing that falls into a waiting glove. Origin: the WORLD ORIGIN (from and to are absolute): keep x y z 0. Spec: item
 //               "orange" | "coin" (orange), from [x, y, z], to [x, y, z], hop (0): metres the orange rises first. The coin = the kit
 //               coin's look at r 0.05 (gold, potato emblem, face +z at drop 0 as the kit coin pinched). Key drop (0) = seconds since it left
@@ -55,7 +57,10 @@ import { clamp } from "./util.js";
 //               edge) at body frame ring [-0.55, 0.41, 0.12], tipped `lean` 15 degrees toward his front (+z); the belly hangs under the ring.
 //               Spec: ring, lean, collar [0, 0.55, -0.24], and 2 drawstring ends #f2d8bd. Key fill 0..1 (0): the belly sags from 0.10 to
 //               0.34 and 3 item shapes press through. His gloves: GRIPS hoodsack near (the ring's +z point) and far (its -z point), in the
-//               body frame, pinned with arm poses, no grip. Not solid. ~1 200 triangles.
+//               body frame. Pin a glove there with the arm pose { x: [-0.55, up, fwd] } (absolute body-frame x; up = (y - 0.14) / 1.24): near
+//               = { x: [-0.55, 0.182, 0.284] }, far = { x: [-0.55, 0.253, -0.044] } (the default ring). At yaw -30 the ring centre stands
+//               at (+0.664, 0.41, +0.329) from Mash's (1.2, 0.5): i.e. his world x,z minus (0.536, -0.171) rotated: put foodrain `to` there
+//               (the design's `to` (60.32, 0.55, 1.59) is 0.31 off in z and 0.14 high). Not solid. 1 200 triangles.
 //   wickerbasket An oval hand basket 0.52 (x) x 0.40 (z) at the rim, 0.42 x 0.32 at the foot, 0.20 tall, plaited rim roll 0.03; the weave drawn
 //               once (22 stakes, 9 rows: willow #c79a55, shade #9a7238, light #e0bb7a). Origin: the middle of its bottom. Arch handle of two
 //               twisted rods 0.022 thick in the xy plane, from the two long-side rim points (+-0.26, 0.20) up to 0.42. Keys: fill 0..1 (0)
@@ -400,6 +405,11 @@ export const CART_GOODS_KINDS = {
     // per-item fall constants
     const FC = types.map((t, i) => { const s = STACK[i], d = 0.14 * (1 - s.y / 2.05) * 0 + 0.14 * (1 - Math.min(1, s.y / 2.05)) + 0.02 * hash(i, 31); return { d, ax: V(hash(i, 32) - 0.5, hash(i, 33) - 0.5, hash(i, 34) - 0.5).normalize(), w: 5 + 8 * hash(i, 35) }; });
     const rot = new THREE.Quaternion(), pos = V();
+    // two collision proxies for the contact checks (the instanced food is not solid): the armful's box 0.46 x 0.36 x 0.30 and the column above it.
+    // They draw nothing (no colour, no depth), so only the checks (hand-in-prop, grip gap) see them; off while the heap's bulk is the solid
+    const ghost = new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false });
+    const proxyBase = mesh(new THREE.BoxGeometry(0.46, 0.36, 0.30), ghost, P.whole, 0, 0.18, 0), proxyCol = mesh(new THREE.BoxGeometry(0.26, 1, 0.22), ghost, P.whole);
+    for (const o of [proxyBase, proxyCol]) { o.castShadow = o.receiveShadow = false; o.frustumCulled = false; }
     return {
       grip: 0,
       apply(ps) {
@@ -434,6 +444,7 @@ export const CART_GOODS_KINDS = {
           }
         }
         items.flush();
+        { const up = fall <= 0 && n > 0; proxyBase.visible = up; const colH = Math.max(0, Ht - 0.36); proxyCol.visible = up && colH > 0.02; proxyCol.scale.y = Math.max(0.001, colH); proxyCol.position.set(Ht > 0.36 ? lean(0.36 + colH / 2)[0] : 0, 0.36 + colH / 2, 0); }
         bulk.visible = fall > 0.25 && n > 40;
         const bk = sm((fall - 0.25) / 0.45); bulk.scale.set(1, Math.max(0.01, bk), 1);
         bulk.userData.solid = fall > 0.7;
@@ -445,20 +456,20 @@ export const CART_GOODS_KINDS = {
   foodpile(P) {
     const S = P.spec, g = P.whole, lod = 1;
     // four stacked lumps (solid), each a dome over the last: [base, height, radius]
-    const LUMPS = [[0, 0.13, 0.21], [0.10, 0.17, 0.215], [0.22, 0.24, 0.225], [0.40, 0.32, 0.20]];
-    const pal = ["#7a4a2d", "#5e4b34", "#9a6a30", "#4f5a38", "#6e3a2c"];
+    const LUMPS = [[0, 0.13, 0.255], [0.05, 0.16, 0.245], [0.15, 0.22, 0.23], [0.32, 0.32, 0.2]];
+    const pal = ["#c0463a", "#d8842e", "#a5adb3", "#c98f4e", "#8fa24a", "#b9554a"];   // the core is a mass of food seen in shadow: apple, orange, tin, bread, green, plum
     const lumps = LUMPS.map(([b, h, r], s) => {
-      const pts = []; for (let k = 0; k <= 4; k++) { const rho = r * (1 - k / 4 * 0.97); pts.push(new THREE.Vector2(Math.max(rho, 0.0001), b + h * (1 - (rho / r) ** 2) ** 0.8)); }
-      const geo = new THREE.LatheGeometry(pts.reverse(), 10); paint(geo, (c, x, y, z) => c.set(pal[Math.floor(hash(Math.round(x * 14) * 5 + Math.round(z * 14) * 11 + s, 6) * pal.length)]));
+      const pts = []; for (let k = 0; k <= 4; k++) { const rho = r * (1 - k / 4 * 0.97); pts.push(new THREE.Vector2(Math.max(rho, 0.0001), b + h * (1 - (rho / r) ** 2) ** 0.5)); }
+      const geo = new THREE.LatheGeometry(pts.reverse(), 12); paint(geo, (c, x, y, z) => c.set(pal[Math.floor(hash(Math.round(x * 40) * 5 + Math.round(z * 40) * 11 + Math.round(y * 40) * 3 + s, 6) * pal.length)]).lerp(col("#6a4a30"), 0.35));
       const m = mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, side: THREE.DoubleSide }), g); m.visible = false; return m;
     });
-    const surf = (s, rho) => { const [b, h, r] = LUMPS[s]; return b + h * Math.max(0, 1 - (rho / r) ** 2) ** 0.8; };
+    const surf = (s, rho) => { const [b, h, r] = LUMPS[s]; return b + h * Math.max(0, 1 - (rho / r) ** 2) ** 0.5; };
     // items: [step, type, rho, theta]
     const plan = [];
     const add = (step, type, n, r0, r1, off) => { for (let i = 0; i < n; i++) plan.push({ step, type, rho: lerp(r0, r1, (i + 0.5) / n) * (0.9 + 0.2 * hash(plan.length, 41)), th: (off + i) * 2.39996 + 0.7 * hash(plan.length, 42) }); };
-    add(2, "tin", 9, 0.02, 0.17, 0); add(2, "orange", 3, 0.04, 0.12, 3);
-    add(3, "apple", 12, 0.02, 0.17, 5);
-    add(4, "tin", 3, 0.03, 0.16, 8); add(4, "orange", 2, 0.05, 0.14, 2); add(4, "bread", 2, 0.04, 0.12, 4);
+    add(2, "tin", 9, 0.02, 0.185, 0); add(2, "orange", 3, 0.04, 0.13, 3);
+    add(3, "apple", 12, 0.02, 0.19, 5);
+    add(4, "tin", 3, 0.03, 0.15, 8); add(4, "orange", 2, 0.05, 0.14, 2); add(4, "bread", 2, 0.04, 0.12, 4);
     add(5, "apple", 3, 0.03, 0.12, 6); add(5, "tin", 2, 0.04, 0.10, 1);
     const placed = [];
     for (const it of plan) {
@@ -488,7 +499,7 @@ export const CART_GOODS_KINDS = {
         const gr = clamp(num(ps, P, "grow", 0), 0, 5);
         peel.forEach((m, i) => { const k = clamp(gr - 0.0); m.visible = k > 0.001; m.scale.setScalar(Math.max(0.001, backOut(k * 1 - 0 + 0.0))); void i; });
         lumps.forEach((m, k) => { const kk = backOut(gr - (k + 1)); m.visible = gr > k + 1 + 0.001; m.scale.set(1, Math.max(0.01, kk), 1); });
-        plan.forEach((it, i) => { const k = gr - (it.step - 1); if (k <= 0.001) items.hide(i); else items.put(i, _p.set(it.x, it.y * 1.0, it.z), it.q, backOut(k)); });
+        plan.forEach((it, i) => { const k = gr - (it.step - 1); if (k <= 0.001) items.hide(i); else items.put(i, _p.set(it.x, it.y * 1.0, it.z), it.q, 1.12 * backOut(k)); });
         items.flush();
         const k4 = gr - 3; bg.visible = k4 > 0.001; bg.scale.setScalar(0.78 * Math.max(0.001, backOut(k4)));
         const k5 = gr - 4; cheese.visible = k5 > 0.001; cheese.scale.setScalar(Math.max(0.001, backOut(k5))); ham.visible = k5 > 0.001; ham.scale.setScalar(Math.max(0.001, backOut(k5 - 0.0)));
@@ -500,18 +511,18 @@ export const CART_GOODS_KINDS = {
   // ================================================================================================================
   snackfruit(P) {
     const S = P.spec, apple = S.fruit === "apple", R = apple ? 0.043 : 0.045, g = new THREE.SphereGeometry(R, 12, 9), bd = V(...(S.biteDir ?? [0, 0.4, 0.9])).normalize();
-    const flesh = apple ? "#f1ead0" : "#f7c46a", skin = apple ? "#d8342c" : "#f08a24";
+    const flesh = apple ? "#f8f3dc" : "#ffe9a8", skin = apple ? "#d8342c" : "#f08a24";
     { const p = g.attributes.position; for (let i = 0; i < p.count; i++) if (apple && p.getY(i) > R * 0.85) p.setY(i, p.getY(i) - 0.006); g.computeVertexNormals(); }
     const base = g.attributes.position.array.slice();
     const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: apple ? 0.5 : 0.62 });
     const cols = new Float32Array(g.attributes.position.count * 3); g.setAttribute("color", new THREE.BufferAttribute(cols, 3));
-    const m = mesh(g, material, P.whole);
+    const m = mesh(g, material, P.whole, 0, S.origin === "centre" ? 0 : R, 0);   // bottom-origin by default: the mug hold's grip 0.66 h is then at the fruit's equator band
     let last = -1;
     const paintBite = (b) => {
       const p = g.attributes.position, nrm = V();
       for (let i = 0; i < p.count; i++) {
         nrm.set(base[i * 3], base[i * 3 + 1], base[i * 3 + 2]).normalize();
-        const ang = Math.acos(clamp(nrm.dot(bd), -1, 1)), inb = b > 0.001 ? clamp(1 - ang / (0.62 * (0.4 + 0.6 * b))) : 0, depth = 0.016 * b * Math.sqrt(inb);
+        const ang = Math.acos(clamp(nrm.dot(bd), -1, 1)), inb = b > 0.001 ? clamp(1 - ang / (0.62 * (0.4 + 0.6 * b))) : 0, depth = 0.024 * b * Math.sqrt(inb);
         const rr = R - depth * (inb > 0 ? 1 : 0);
         p.setXYZ(i, nrm.x * rr * (apple ? 1 : 1), nrm.y * rr * (apple && nrm.y > 0.85 ? 0.88 : 1) , nrm.z * rr);
         if (inb > 0.05) _c.set(flesh); else { _c.set(skin); if (apple && nrm.y > 0.88) _c.set("#5a3a1e"); else if (!apple && nrm.y > 0.88) _c.set("#c26a14"); }
@@ -583,17 +594,17 @@ export const CART_GOODS_KINDS = {
     const nrm = V(0, Math.cos(lean), Math.sin(lean)), u = V(1, 0, 0), w = new THREE.Vector3().crossVectors(u, nrm).normalize(), uu = new THREE.Vector3().crossVectors(nrm, w).normalize();
     const cloth = mat("#7a716c", { roughness: 0.92 }), inside = mat("#5c5450", { roughness: 0.95, side: THREE.BackSide }), outside = mat("#7a716c", { roughness: 0.92 });
     // the rolled mouth
-    const ringG = new THREE.TorusGeometry(R, 0.022, 6, 24), ring = mesh(ringG, cloth, P.whole); ring.position.copy(RC); ring.quaternion.setFromUnitVectors(AX.z, nrm);
+    const ringG = new THREE.TorusGeometry(R, 0.022, 6, 20), ring = mesh(ringG, cloth, P.whole); ring.position.copy(RC); ring.quaternion.setFromUnitVectors(AX.z, nrm);
     // the tail: a flattened funnel from the collar's back over the right shoulder to the ring's body side
     const near = RC.clone().addScaledVector(uu, R * (RC.x < 0 ? 1 : -1)).add(V(0, 0.01, 0));
     const curve = new THREE.CatmullRomCurve3([collar.clone(), V(collar.x * 0.4 + RC.x * 0.25, collar.y + 0.17, collar.z + 0.02), V(RC.x * 0.55, collar.y + 0.20, -0.02), near.clone().add(V(RC.x * 0.12, 0.17, -0.02)), near.clone().add(V(0, 0.01, 0))], false, "catmullrom", 0.5);
-    const tailPts = curve.getPoints(12), tailG = sweepGeo(tailPts, 10, (t) => [lerp(0.045, 0.10, sm(t)), lerp(0.03, 0.05, t)], V(0, 1, 0));
+    const tailPts = curve.getPoints(12), tailG = sweepGeo(tailPts, 8, (t) => [lerp(0.05, 0.15, sm(t)), lerp(0.03, 0.05, t)], V(0, 1, 0));
     mesh(tailG, outside, P.whole); const tailIn = mesh(tailG, inside, P.whole); tailIn.castShadow = false;
     // two drawstring ends at the collar
     const strM = mat("#f2d8bd", { roughness: 0.8 });
     for (const sx of [-1, 1]) { const c = mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.09, 5), strM, P.whole, collar.x + sx * 0.04, collar.y - 0.02, collar.z + 0.02); c.rotation.z = sx * 0.2; }
     // the belly: a bag under the ring, rebuilt when fill changes
-    const NU = 16, NV = 5, belly = gridGeo(NU, NV, () => [0, 0, 0], true);
+    const NU = 14, NV = 5, belly = gridGeo(NU, NV, () => [0, 0, 0], true);
     const bOut = mesh(belly, outside, P.whole), bIn = mesh(belly, inside, P.whole); bIn.castShadow = false; void bOut;
     const bumps = [0, 1, 2].map((i) => mesh(new THREE.SphereGeometry(0.05, 7, 5), cloth, P.whole));
     let last = -1;
@@ -606,6 +617,7 @@ export const CART_GOODS_KINDS = {
       p.needsUpdate = true; belly.computeVertexNormals(); belly.computeBoundingSphere();
       bumps.forEach((b, i) => { const k = sm((f - 0.12 - i * 0.22) / 0.25), a = 1.0 + i * 2.2, rr = 0.07 * (1 - i * 0.12); b.position.copy(RC).addScaledVector(uu, rr * Math.cos(a) * 0.8).addScaledVector(w, rr * Math.sin(a) * 0.8); b.position.y -= sag * (0.78 - 0.1 * i); b.scale.setScalar(Math.max(0.001, k)); b.visible = k > 0.01; });
     };
+    P.whole.traverse((o) => { if (o.isMesh) o.userData.solid = false; });   // not solid: a cloth worn on the body
     if (S.wear) wearSquash(P);
     const hood = { grip: 0, apply(ps) { const f = clamp(num(ps, P, "fill", 0)); if (f !== last) { last = f; build(f); } } };
     return hood;
