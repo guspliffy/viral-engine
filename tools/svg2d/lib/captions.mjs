@@ -3,8 +3,11 @@
 //   align(sub, heard): written words -> [word, start, end] using Whisper's heard words ([word, start, end]); matching words
 //     keep their own time, a run that differs (a spoken spelling from the "say" map, a split hyphen, a missed word) spreads
 //     over the heard run's span.
-//   captionSvg(words, u, opts): the chunk being said at u seconds into the line, word by word; 2 rows planned on the whole
-//     chunk when it is longer than `wrapAt` characters, so nothing shrinks or jumps while words appear.
+//   phrases(words, text, cap): hand-set subtitle phrases ("a|b|c", | splits; default the whole line) -> [{ ws, at }].
+//   captionSvg(words, u, opts): the phrase being said at u seconds into the line, shown WHOLE from its first spoken word
+//     (Jonny 27 Nov: word-by-word fill looked messy); 2 rows split evenly when longer than `wrapAt` characters.
+// Word times must be heard on the FINAL voice files: re-run Whisper after any trim or tempo change (a 1.07 tempo on two
+// voices after measuring made the Night Marchers captions drift up to 0.9 s).
 const nz = (w) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 export function align(sub, heard) {
@@ -29,20 +32,21 @@ export function align(sub, heard) {
 }
 
 const r2 = (v) => Math.round(v * 100) / 100;
-export function captionSvg(words, u, { key = null, y = 560, x = 540, maxFs = 74, width = 940, wrapAt = 19, perChunk = 4, keyColor = "#ffc04a", stroke = "#120c24" } = {}) {
-  if (!words.length) return "";
-  const chunks = [];
-  let cur = [];
-  words.forEach((w, i) => { cur.push(w); if (/[.,?!]$/.test(w[0]) || cur.length >= perChunk || i === words.length - 1) { chunks.push(cur); cur = []; } });
-  const ch = chunks.find((c, i) => u < (chunks[i + 1] ? chunks[i + 1][0][1] : 1e9)) || chunks[chunks.length - 1];
-  const shown = ch.filter((w) => u >= w[1] - 0.04);
-  if (!shown.length) return "";
+export function phrases(words, text, cap) {
+  let k = 0;
+  return (cap ?? text).split("|").map((ph) => { const ws = words.slice(k, k + ph.trim().split(/\s+/).length); k += ws.length; return { ws, at: ws[0]?.[1] ?? 0 }; }).filter((p) => p.ws.length);
+}
+export function captionSvg(phr, u, { key = null, y = 560, x = 540, maxFs = 74, width = 940, wrapAt = 19, keyColor = "#ffc04a", stroke = "#120c24" } = {}) {
+  let pi = -1;
+  for (let i = 0; i < phr.length; i++) if (u >= phr[i].at - 0.04) pi = i;
+  if (pi < 0) return "";
+  const ch = phr[pi].ws;
   const col = (w) => (key && key.test(w[0].replace(/[^a-zʻō0-9]/gi, "")) ? keyColor : "#ffffff");
   const span = (ws) => ws.map((w) => `<tspan fill="${col(w)}">${w[0].replace(/&/g, "&amp;").replace(/</g, "&lt;")}</tspan>`).join(" ");
   const len = (ws) => ws.reduce((a, w) => a + w[0].length + 1, -1);
   let k = ch.length;
   if (len(ch) > wrapAt && ch.length > 1) { let best = 1e9; for (let i = 1; i < ch.length; i++) { const d = Math.abs(len(ch.slice(0, i)) - len(ch.slice(i))); if (d < best) { best = d; k = i; } } }
-  const plan = k < ch.length ? [ch.slice(0, k), ch.slice(k)] : [ch];
-  const fs = Math.min(maxFs, Math.round(width / Math.max(1, Math.max(...plan.map(len)) * 0.6)));
-  return [shown.slice(0, k), shown.slice(k)].map((r, i) => (r.length ? `<text x="${x}" y="${r2(y + (i - (plan.length - 1) / 2) * fs * 1.08)}" text-anchor="middle" font-family="Inter" font-weight="900" font-size="${fs}" stroke="${stroke}" stroke-width="${Math.round(fs * 0.19)}" stroke-linejoin="round" paint-order="stroke" letter-spacing="-1">${span(r)}</text>` : "")).join("");
+  const rows = k < ch.length ? [ch.slice(0, k), ch.slice(k)] : [ch];
+  const fs = Math.min(maxFs, Math.round(width / Math.max(1, Math.max(...rows.map(len)) * 0.6)));
+  return rows.map((r, i) => `<text x="${x}" y="${r2(y + (i - (rows.length - 1) / 2) * fs * 1.08)}" text-anchor="middle" font-family="Inter" font-weight="900" font-size="${fs}" stroke="${stroke}" stroke-width="${Math.round(fs * 0.19)}" stroke-linejoin="round" paint-order="stroke" letter-spacing="-1">${span(r)}</text>`).join("");
 }
