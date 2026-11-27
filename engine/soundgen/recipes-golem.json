@@ -1,0 +1,242 @@
+{
+ "_note": "Music beds for the lesson-legend The Golem of Prague (27 Nov 2026), from Codex Sol's direction on high (project files videos/folklore-legend/golem/sol-music/answer-summary.md): gut-strung Renaissance lute + bass viol + damped calfskin frame drum, Prague c.1600, D Dorian, golem motif D3-Eb3-D3. Silences (Until one Friday, slip pulled out, ending) are made in the edit. The psalm through the window = solo viol phrase (no generated prayer voice).",
+ "sfx": [
+  {
+   "id": "golem-step",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.4
+   ],
+   "duration": 10,
+   "tags": [
+    "footstep",
+    "giant",
+    "heavy",
+    "stone",
+    "clay"
+   ],
+   "prompts": [
+    "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+    "massive stone statue walking, heavy thumping footsteps, low rumble, close, no music"
+   ],
+   "seeds": [
+    511,
+    512,
+    513
+   ],
+   "gain": 0.8,
+   "label": "one heavy giant footstep on cobblestones"
+  },
+  {
+   "id": "golem-door-split",
+   "kind": "oneshot",
+   "len": [
+    0.6,
+    2.0
+   ],
+   "duration": 10,
+   "tags": [
+    "door",
+    "wood",
+    "break",
+    "smash"
+   ],
+   "prompts": [
+    "a heavy wooden door smashed and split apart, cracking splintering wood, one impact, no music",
+    "old oak door bursting into splinters, loud wood crack, no music"
+   ],
+   "seeds": [
+    521,
+    522,
+    523
+   ],
+   "gain": 0.8,
+   "label": "a wooden door smashed into splinters"
+  },
+  {
+   "id": "golem-cart-crash",
+   "kind": "oneshot",
+   "len": [
+    0.8,
+    2.5
+   ],
+   "duration": 10,
+   "tags": [
+    "cart",
+    "crash",
+    "wood",
+    "wheel"
+   ],
+   "prompts": [
+    "a wooden hand cart thrown and crashing onto cobblestones, wood breaking, a wheel rolling, no music",
+    "wooden cart smashing to pieces on stone street, no music"
+   ],
+   "seeds": [
+    531,
+    532,
+    533
+   ],
+   "gain": 0.75,
+   "label": "a wooden cart crashing onto a stone street"
+  },
+  {
+   "id": "golem-crumble",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    4.0
+   ],
+   "duration": 10,
+   "tags": [
+    "crumble",
+    "clay",
+    "collapse",
+    "rubble"
+   ],
+   "prompts": [
+    "a large clay statue crumbling and collapsing into a pile, chunks of wet earth falling, dust settling, no music",
+    "dirt and clay collapsing heavily, falling clods, then quiet trickle, no music"
+   ],
+   "seeds": [
+    541,
+    542,
+    543
+   ],
+   "gain": 0.8,
+   "label": "a big clay figure collapsing into a pile of earth"
+  },
+  {
+   "id": "golem-clay-squelch",
+   "kind": "split",
+   "len": [
+    0.3,
+    1.2
+   ],
+   "duration": 10,
+   "tags": [
+    "clay",
+    "mud",
+    "hands",
+    "squelch"
+   ],
+   "prompts": [
+    "hands shaping wet clay, soft squelches and pats of mud, close up, no music",
+    "sculptor pressing and slapping wet clay with hands, close, no music"
+   ],
+   "seeds": [
+    551,
+    552
+   ],
+   "gain": 0.5,
+   "label": "hands squeezing wet clay"
+  },
+  {
+   "id": "golem-attic-thud",
+   "kind": "oneshot",
+   "len": [
+    0.4,
+    1.4
+   ],
+   "duration": 10,
+   "tags": [
+    "thud",
+    "floor",
+    "wood",
+    "attic"
+   ],
+   "prompts": [
+    "one single heavy footstep on old wooden floorboards above, deep muffled thud, creak, quiet room, no music",
+    "a heavy thump on an attic floor overhead, one hit, wooden creak, no music"
+   ],
+   "seeds": [
+    561,
+    562,
+    563
+   ],
+   "gain": 0.85,
+   "label": "one heavy footstep on attic floorboards overhead"
+  }
+ ],
+ "music": [
+  {
+   "id": "golem-a-dusk",
+   "bpm": 56,
+   "bars": 6,
+   "prompts": [
+    "24-second seamless loop, slow, D minor, solo bass viol holding a low D pedal with soft bow, one sparse Renaissance lute pluck, dry intimate early-music recording, eerie dusk"
+   ],
+   "seeds": [
+    411,
+    833
+   ],
+   "mood": "danger"
+  },
+  {
+   "id": "golem-b-clay",
+   "bpm": 56,
+   "bars": 6,
+   "prompts": [
+    "24-second seamless loop, 56 BPM, D dorian, sparse gut-string Renaissance lute over an open D and A drone on bass viol, misty dawn, wonder, Prague 1600 early music"
+   ],
+   "seeds": [
+    412,
+    834
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "golem-c-guard",
+   "bpm": 84,
+   "bars": 8,
+   "prompts": [
+    "22-second seamless loop, 84 BPM, D dorian, low steady Renaissance lute walking bass pattern, soft bass viol, warm lamplit night street, gentle early music"
+   ],
+   "seeds": [
+    413,
+    835
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "golem-d-rampage",
+   "bpm": 112,
+   "bars": 8,
+   "prompts": [
+    "18-second seamless loop, 112 BPM, D minor, rough aggressive bass viol strokes near the bridge, hand-damped calfskin frame drum heavy pulse, D and E-flat clashing, dark early-music horror"
+   ],
+   "seeds": [
+    414,
+    836
+   ],
+   "mood": "danger"
+  },
+  {
+   "id": "golem-e-attic",
+   "bpm": 50,
+   "bars": 5,
+   "prompts": [
+    "24-second seamless loop, very slow, faint bass viol harmonics, long silences, dusty empty attic, haunting, sparse"
+   ],
+   "seeds": [
+    415,
+    837
+   ],
+   "mood": "danger"
+  },
+  {
+   "id": "golem-f-psalm",
+   "bpm": 60,
+   "bars": 6,
+   "prompts": [
+    "24-second solo viol playing a slow, simple, prayerful chant-like melody in D minor, legato, reverent, distant room"
+   ],
+   "seeds": [
+    416,
+    838
+   ],
+   "mood": "sad"
+  }
+ ],
+ "negative": "synth pads, electronic, trailer boom, chiptune, pizzicato comedy, tavern, klezmer clarinet, vocals, choir, singing, sound effects, bright bells, heavy reverb"
+}
