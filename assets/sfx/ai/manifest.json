@@ -1536,7 +1536,7 @@
      "clap": 0.039,
      "snrDb": 69.6,
      "loudnessLUFS": -17,
-     "note": "trimmed to its two hits (0-1.4 s) by hand: dö ... döm"
+     "note": "trimmed to its two hits (0-1.4 s) by hand: d\u00f6 ... d\u00f6m"
     }
    ]
   },
