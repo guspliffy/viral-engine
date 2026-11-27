@@ -872,6 +872,480 @@
    ],
    "madeBy": "engine/soundgen/score.py from recipes-zombies.json + score-zombies.json",
    "pickedBy": "Claude 12 Nov 2026 (no ears): best CLAP margin per part against cartoon, game and pop music; for Survive it 04 zombies only (cut to its seconds)"
+  },
+  {
+   "id": "nm-caution",
+   "kind": "music",
+   "files": [
+    "nm-caution/nm-caution-01.ogg",
+    "nm-caution/nm-caution-02.ogg",
+    "nm-caution/nm-caution-03.ogg",
+    "nm-caution/nm-caution-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 63.9,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 64,
+   "loopable": true,
+   "durationSec": 12.434,
+   "prompt": [
+    "64 BPM, D minor. Close-recorded Hawaiian slack-key acoustic guitar in D Wahine, sparse thumbed D and A and one high D. Sustained cello D, muted viola F natural. Watchful, long rests. No percussion, no vocals. Close-recorded, small dry room.",
+    "64 BPM, D minor. Fingerpicked acoustic guitar, low D and A with a high D, soft bowed cello and viola. Long rests. No percussion, no vocals. Close-recorded, small dry room."
+   ],
+   "seed": [
+    1011,
+    1012,
+    1011,
+    1012
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "nm-caution/nm-caution-01.ogg",
+     "seed": 1011,
+     "durationSec": 14.942,
+     "bars": 4,
+     "bpm": 64.2,
+     "beatSpread": 0.017,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-caution/nm-caution-02.ogg",
+     "seed": 1012,
+     "durationSec": 7.535,
+     "bars": 2,
+     "bpm": 63.7,
+     "beatSpread": 0.019,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-caution/nm-caution-03.ogg",
+     "seed": 1011,
+     "durationSec": 9.927,
+     "bars": 2,
+     "bpm": 48.4,
+     "beatSpread": 0.016,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-caution/nm-caution-04.ogg",
+     "seed": 1012,
+     "durationSec": 15.0,
+     "bars": 4,
+     "bpm": 64.0,
+     "beatSpread": 0.019,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "nm-deadpan",
+   "kind": "music",
+   "files": [
+    "nm-deadpan/nm-deadpan-01.ogg",
+    "nm-deadpan/nm-deadpan-02.ogg",
+    "nm-deadpan/nm-deadpan-03.ogg",
+    "nm-deadpan/nm-deadpan-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 66.7,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 64,
+   "loopable": false,
+   "durationSec": 7.291,
+   "prompt": [
+    "64 BPM, D minor. Quiet cello drone and one short palm-muted Hawaiian slack-key guitar figure on D and A. Dry, deadpan, generous space for whispers. No percussion, no vocals. Close-recorded, small dry room.",
+    "64 BPM, D minor. Soft bowed cello and one muted fingerpicked acoustic guitar reply. No percussion, no vocals. Close-recorded, small dry room."
+   ],
+   "seed": [
+    1013,
+    1014,
+    1013,
+    1014
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "nm-deadpan/nm-deadpan-01.ogg",
+     "seed": 1013,
+     "durationSec": 7.129,
+     "bars": 2,
+     "bpm": 67.3,
+     "beatSpread": 0.14,
+     "steadyBeat": false,
+     "clap": -0.012,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-deadpan/nm-deadpan-02.ogg",
+     "seed": 1014,
+     "durationSec": 5.933,
+     "bars": 2,
+     "bpm": 80.9,
+     "beatSpread": 0.066,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.1
+    },
+    {
+     "file": "nm-deadpan/nm-deadpan-03.ogg",
+     "seed": 1013,
+     "durationSec": 7.454,
+     "bars": 2,
+     "bpm": 64.4,
+     "beatSpread": 0.008,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-deadpan/nm-deadpan-04.ogg",
+     "seed": 1014,
+     "durationSec": 14.512,
+     "bars": 4,
+     "bpm": 66.1,
+     "beatSpread": 0.065,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "nm-warning",
+   "kind": "music",
+   "files": [
+    "nm-warning/nm-warning-01.ogg",
+    "nm-warning/nm-warning-02.ogg",
+    "nm-warning/nm-warning-03.ogg",
+    "nm-warning/nm-warning-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 83.7,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 64,
+   "loopable": false,
+   "durationSec": 11.471,
+   "prompt": [
+    "Sparse acoustic suspense, 64 BPM, 4/4, D minor. Solo muted viola, long A and D notes with wide rests, delicate bow changes, pianissimo. No low bass, no brass. Close-recorded acoustic chamber strings, small dry room. No percussion, no voices, no synths, no effects.",
+    "Solo muted viola, very quiet, long sustained A and D with wide silences between, 64 BPM, D minor, intimate and tense, pianissimo. Close-recorded acoustic chamber strings, small dry room. No percussion, no voices, no synths, no effects."
+   ],
+   "seed": [
+    915,
+    916,
+    915,
+    916
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "nm-warning/nm-warning-01.ogg",
+     "seed": 915,
+     "durationSec": 14.71,
+     "bars": 4,
+     "bpm": 65.3,
+     "beatSpread": 0.071,
+     "steadyBeat": false,
+     "clap": -0.176,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-warning/nm-warning-02.ogg",
+     "seed": 916,
+     "durationSec": 5.387,
+     "bars": 2,
+     "bpm": 89.1,
+     "beatSpread": 0.072,
+     "steadyBeat": false,
+     "clap": -0.176,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-warning/nm-warning-03.ogg",
+     "seed": 915,
+     "durationSec": 11.564,
+     "bars": 4,
+     "bpm": 83.0,
+     "beatSpread": 0.047,
+     "steadyBeat": true,
+     "clap": -0.146,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-warning/nm-warning-04.ogg",
+     "seed": 916,
+     "durationSec": 11.378,
+     "bars": 4,
+     "bpm": 84.4,
+     "beatSpread": 0.064,
+     "steadyBeat": false,
+     "clap": -0.258,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "nm-fern",
+   "kind": "music",
+   "files": [
+    "nm-fern/nm-fern-01.ogg",
+    "nm-fern/nm-fern-02.ogg",
+    "nm-fern/nm-fern-03.ogg",
+    "nm-fern/nm-fern-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 67.5,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 64,
+   "loopable": false,
+   "durationSec": 12.643,
+   "prompt": [
+    "64 BPM, D minor. Muted violin and viola sustain D and A. One soft thumbed D on Hawaiian slack-key guitar, then decay. Understated, close-miked. No percussion, no vocals. Close-recorded, small dry room.",
+    "64 BPM, D minor. Soft bowed strings on D and A, one quiet fingerpicked acoustic guitar note. No percussion, no vocals. Close-recorded, small dry room."
+   ],
+   "seed": [
+    1017,
+    1018,
+    1017,
+    1018
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "nm-fern/nm-fern-01.ogg",
+     "seed": 1017,
+     "durationSec": 13.619,
+     "bars": 4,
+     "bpm": 70.5,
+     "beatSpread": 0.029,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-fern/nm-fern-02.ogg",
+     "seed": 1018,
+     "durationSec": 9.079,
+     "bars": 2,
+     "bpm": 52.9,
+     "beatSpread": 0.104,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-fern/nm-fern-03.ogg",
+     "seed": 1017,
+     "durationSec": 11.668,
+     "bars": 4,
+     "bpm": 82.3,
+     "beatSpread": 0.173,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-fern/nm-fern-04.ogg",
+     "seed": 1018,
+     "durationSec": 14.861,
+     "bars": 4,
+     "bpm": 64.6,
+     "beatSpread": 0.106,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -17.2
+    }
+   ]
+  },
+  {
+   "id": "nm-pass",
+   "kind": "music",
+   "files": [
+    "nm-pass/nm-pass-01.ogg",
+    "nm-pass/nm-pass-02.ogg",
+    "nm-pass/nm-pass-03.ogg",
+    "nm-pass/nm-pass-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 67.2,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 64,
+   "loopable": false,
+   "durationSec": 11.465,
+   "prompt": [
+    "Acoustic string suspense, 64 BPM, 4/4, D minor. Muted viola F against soft violin E in the middle register. Long overlapping bows, slight crescendo. No pulse, no bass, no brass. Close-recorded acoustic chamber strings, small dry room. No percussion, no voices, no synths, no effects.",
+    "Two close strings, muted viola on F and violin on E, a tight held interval, long overlapping bows swelling slightly, 64 BPM, D minor, tense and restrained, no pulse. Close-recorded acoustic chamber strings, small dry room. No percussion, no voices, no synths, no effects."
+   ],
+   "seed": [
+    919,
+    920,
+    919,
+    920
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "nm-pass/nm-pass-01.ogg",
+     "seed": 919,
+     "durationSec": 12.005,
+     "bars": 2,
+     "bpm": 40.0,
+     "beatSpread": 0.004,
+     "steadyBeat": true,
+     "clap": -0.2,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-pass/nm-pass-02.ogg",
+     "seed": 920,
+     "durationSec": 9.149,
+     "bars": 2,
+     "bpm": 52.5,
+     "beatSpread": 0.049,
+     "steadyBeat": true,
+     "clap": -0.21,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-pass/nm-pass-03.ogg",
+     "seed": 919,
+     "durationSec": 11.227,
+     "bars": 4,
+     "bpm": 85.5,
+     "beatSpread": 0.046,
+     "steadyBeat": true,
+     "clap": -0.03,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-pass/nm-pass-04.ogg",
+     "seed": 920,
+     "durationSec": 11.703,
+     "bars": 4,
+     "bpm": 82.0,
+     "beatSpread": 0.075,
+     "steadyBeat": false,
+     "clap": -0.056,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "nm-claimed",
+   "kind": "music",
+   "files": [
+    "nm-claimed/nm-claimed-01.ogg",
+    "nm-claimed/nm-claimed-02.ogg",
+    "nm-claimed/nm-claimed-03.ogg",
+    "nm-claimed/nm-claimed-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 65.2,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 64,
+   "loopable": false,
+   "durationSec": 13.154,
+   "prompt": [
+    "64 BPM, D major. Soft cello, viola and violin under close Hawaiian slack-key guitar in D Wahine. Thumb alternates low D and A as a tender upper phrase opens onto F-sharp. Let notes ring. No percussion, no vocals. Close-recorded, small dry room.",
+    "64 BPM, D major. Fingerpicked acoustic guitar with alternating low D and A, ringing F-sharp melody, and soft bowed strings. No percussion, no vocals. Close-recorded, small dry room."
+   ],
+   "seed": [
+    1021,
+    1022,
+    1021,
+    1022
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "nm-claimed/nm-claimed-01.ogg",
+     "seed": 1021,
+     "durationSec": 7.349,
+     "bars": 2,
+     "bpm": 65.3,
+     "beatSpread": 0.039,
+     "steadyBeat": true,
+     "clap": -0.078,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-claimed/nm-claimed-02.ogg",
+     "seed": 1022,
+     "durationSec": 11.575,
+     "bars": 4,
+     "bpm": 82.9,
+     "beatSpread": 0.059,
+     "steadyBeat": true,
+     "clap": -0.058,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-claimed/nm-claimed-03.ogg",
+     "seed": 1021,
+     "durationSec": 14.988,
+     "bars": 4,
+     "bpm": 64.0,
+     "beatSpread": 0.008,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "nm-claimed/nm-claimed-04.ogg",
+     "seed": 1022,
+     "durationSec": 14.733,
+     "bars": 4,
+     "bpm": 65.2,
+     "beatSpread": 0.074,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    }
+   ]
   }
  ]
 }
