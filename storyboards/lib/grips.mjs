@@ -97,6 +97,7 @@ const SIZE = {
   button: { len: 0.064, r: 0.004 },                // props-diner.js big button standing on its edge: pinched at its rim (thin hold, from ~0.9)
   fry: { len: 0.1, r: 0.006 },                     // props-diner.js one fry standing on its end: the thin pinch near its top
   paycard: { w: 0.054, h: 0.086, t: 0.003 },       // props-diner.js bank card: the phone hold, its face away from the holder
+  bankcard: { w: 0.086, h: 0.054, t: 0.003 },      // props-checkout-goods.js blue bank card (country vs country 01), landscape
   coffeecup: { r: 0.045, h: 0.115 },               // props-coffee.js takeaway cup (the cocoacup's size): the mug hold round the sleeve
   iounote: { w: 0.16, h: 0.16, t: 0.002 },         // props-coffee.js sticky note: the phone hold (its writing is on the back: it faces whoever he shows it to)
   feltpen: { len: 0.13, r: 0.009 },                // props-coffee.js marker, its felt tip at the bottom: the thin pinch high on the body
@@ -104,6 +105,10 @@ const SIZE = {
   fork: { len: 0.25, r: 0.006 },                   // props-roast.js dinner fork standing on its tines: the thin pinch on its handle
   tablespoon: { len: 0.3, r: 0.007 },              // props-steak.js big spoon standing on its bowl's tip: the thin pinch on its handle
   corncob: { w: 0.24, h: 0.092, d: 0.092 },        // props-steak.js corn on the cob lying along x: both gloves on its two ends (box hold)
+  sharedarm: { h: 0.72 },            // props-armrest.js: rest hold, a glove or a forearm on the console top
+  butterknife: { len: 0.2, r: 0.006 },   // props-armrest.js: upright on its blade tip: thin pinch at 0.6 x 0.2 = y 0.12, on the handle
+  fakearm: { r: 0.07, h: 0.2 },      // props-armrest.js: upright, hand end up: mug hold round the sleeve, fist at 0.66 x 0.2 = y 0.13
+  crowbar: { r: 0.02, h: 0.636 },    // props-armrest.js: upright, hook up: mug hold, fist at 0.66 x 0.636 = y 0.42; the other glove on ARMREST_GRIPS.crowbar.high
   moneybag: { w: 0.3, h: 0.34, d: 0.26 },          // props-heist.js sack: both gloves hug its sides (box hold; widest at 0.16 up)
   policetorch: { r: 0.028, h: 0.2 },               // props-heist.js torch's body: a fist round it (mug hold; build it upright with spec up: true, tip it 90 to point it)
   producecrate: { w: 0.5, h: 0.3, d: 0.36 },       // props-heistset.js the SMALL crate (spec w 0.5, d 0.36, h 0.3): both gloves on its two short ends (box hold)
@@ -202,6 +207,12 @@ const SIZE = {
   drumsticks: { r: 0.008, h: 0 },
   // props-foodhome.js (Kid vs Dad 02): wrapburger = box hold, both palms on the paper (origin bottom centre, 0.24 across, 0.155 tall; the design's y 0.05 = height 0.32, gap 0.03)
   wrapburger: { w: 0.24, h: 0.155, d: 0.24 },
+  // props-checkout-goods.js (Country vs Country 01 checkout): cashroll = mug hold (fist at 0.66 x 0.11 = y 0.073, over the rubber band); eggcarton = box hold (palms on the two ends at
+  // 0.55 x 0.075; the clip's flat-palm carry is an arm pose under GRIPS.eggcarton.palm); grape = thin pinch on the stem (len 0.1533 puts the DEFAULT pinch, from 0.6, at y 0.092 = the 0.015 stem; the grape hangs under the hand); groceryarmful = box hold (as kindlingarmful)
+  cashroll: { r: 0.045, h: 0.11 },
+  eggcarton: { w: 0.26, h: 0.075, d: 0.11 },
+  grape: { len: 0.1533, r: 0.005 },
+  groceryarmful: { w: 0.52, h: 0.36, d: 0.24 },
   // props-gum.js (Kid vs Dad 06): gumstick = thin pinch on the foil sleeve (from: 0.25 = y 0.0275, under the paper band); potlid = the shield, held rigid in the right mitt by GUM_GRIPS.potlid.back (built facing +z, origin the rim plane's centre);
   // xrayfilm = box hold, both palms on the side edges at y 0.253 (the reviewtablet hold; the picture on -z)
   gumstick: { len: 0.11, r: 0.005 },

@@ -331,7 +331,7 @@ for (const b of BEATS) {
 }
 export const DUR = Math.round(t * FPS) / FPS;
 export const GAIN = 1;
-export const NOFADE = true;   // the end is a hard cut
+export const FADE = 0;   // the end is a hard cut (no audio fade)
 GLOW0 = by("L03").lineAt + by("L03").d - 0.22; GLOW1 = by("L04").lineAt + 0.22;
 export const TIMELINE = TL;
 

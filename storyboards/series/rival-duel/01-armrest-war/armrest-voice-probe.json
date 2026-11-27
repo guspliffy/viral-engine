@@ -1,0 +1,334 @@
+{
+ "id": "armrest-voice-probe",
+ "title": "Rival duel 01 armrest war voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   62,
+   62
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0.2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "att",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 62,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Never. Touch. The red button.",
+     "tone": "whisper",
+     "style": "deadly serious whisper, slow, leaning in close",
+     "voice": "mash",
+     "dur": 2.5,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "What does it do?",
+     "tone": "question",
+     "style": "nervous, curious, a little scared",
+     "voice": "spud-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 3.7
+    },
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Nobody who pressed it... came back.",
+     "tone": "whisper",
+     "style": "mysterious whisper, a pause before came back",
+     "voice": "mash",
+     "dur": 2.9,
+     "caption": false,
+     "at": 6.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Mine.",
+     "tone": "calm",
+     "style": "smug, slow, sliding his arm over, eyes half closed",
+     "voice": "wedge-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 10.7
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "That armrest is MINE.",
+     "tone": "angry",
+     "style": "offended, through his teeth",
+     "voice": "spud-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 12.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Hnnngh!",
+     "tone": "angry",
+     "style": "straining, pushing",
+     "voice": "spud-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 15.7
+    },
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Too. Dangerous.",
+     "tone": "whisper",
+     "style": "deadpan, flat, appearing out of nowhere",
+     "voice": "mash",
+     "dur": 1.3,
+     "caption": false,
+     "at": 17.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Whole arm.",
+     "tone": "happy",
+     "style": "smug, victorious",
+     "voice": "spud-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 19.9
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Whole arm. And chin.",
+     "tone": "calm",
+     "style": "calm, smug, chin coming down",
+     "voice": "wedge-x115",
+     "take": 3,
+     "dur": 2.1,
+     "caption": false,
+     "at": 22.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I fly a lot.",
+     "tone": "calm",
+     "style": "relaxed, knowing",
+     "voice": "wedge-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 25.3
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Oops.",
+     "tone": "happy",
+     "style": "fake innocent, sly",
+     "voice": "spud-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 28.4
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Whoa, whoa, whoa!",
+     "tone": "scared",
+     "style": "slipping, panicking",
+     "voice": "wedge-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 30.3
+    },
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Too. Dangerous.",
+     "tone": "whisper",
+     "style": "deadpan, flat, right in their faces",
+     "voice": "mash",
+     "dur": 1.3,
+     "caption": false,
+     "at": 33
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I know this plane better than you.",
+     "tone": "calm",
+     "style": "smug, slow, pulling on a sleep mask",
+     "voice": "wedge-x115",
+     "dur": 3.3,
+     "caption": false,
+     "at": 35.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Zzz.",
+     "tone": "calm",
+     "style": "asleep",
+     "voice": "wedge-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 39.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Not on my flight.",
+     "tone": "angry",
+     "style": "low, dramatic, an action hero",
+     "voice": "spud-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 41.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Hey! Hnnngh!",
+     "tone": "angry",
+     "style": "waking up, pulling back hard",
+     "voice": "wedge-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 44.6
+    },
+    {
+     "who": "att",
+     "macro": "say",
+     "line": "Too. DANGEROUS!",
+     "tone": "scared",
+     "style": "finally losing her calm, loud",
+     "voice": "mash",
+     "take": 2,
+     "dur": 1.3,
+     "caption": false,
+     "at": 46.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Nobody comes back, huh?",
+     "tone": "calm",
+     "style": "quiet, cold, a decision made",
+     "voice": "spud-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 49.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...Mine.",
+     "tone": "happy",
+     "style": "blissful sigh, eyes closed",
+     "voice": "spud-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 52.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Ladies and gentlemen... this is your captain.",
+     "tone": "calm",
+     "style": "cabin announcement, calm, wind roaring behind him",
+     "voice": "wedge-pa",
+     "dur": 3.3,
+     "caption": false,
+     "at": 54.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I was in seat 14B.",
+     "tone": "calm",
+     "style": "flat, a beat of silence before it",
+     "voice": "wedge-pa",
+     "dur": 2.5,
+     "caption": false,
+     "at": 58.5
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Rival duel 01 armrest war: makes and measures every take. att stands in as the attendant (Mash body)."
+}

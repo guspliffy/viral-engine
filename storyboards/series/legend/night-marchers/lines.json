@@ -1,0 +1,183 @@
+{
+ "_about": "Legend: the Night Marchers (huaka'i po), Hawaii. Jonny 26 Nov 21:54 Berlin picked H2 (phone lens) + E1 (ancestor claims him). Speakers N narrator, G grandmother, K kid, M the ancestor in the march (never shown). say = spoken spelling for the reader when the subtitle spelling differs.",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-01/grandma-1.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-06/kid-2.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction",
+   "_picked": "Jonny 26 Nov 19:15 Berlin: voice-test-legend-06 kid 2",
+   "steps": 25,
+   "cfg": 3.0
+  },
+  "M": {
+   "ref": null,
+   "style": "a very old man, deep, calm and slow, ancient and gentle but absolute, quiet, speaks like a chief, no accent imitation",
+   "_note": "the ancestor in the march; ref to pick by ear"
+  }
+ },
+ "say": {
+  "L04": "In Hawaii, they're called hoo-ah-kah-ee poh. The night marchers. Ghost warriors who guard their chiefs, and still walk the paths they walked when they were alive.",
+  "L11": "Some say tee plants around a home make the marchers walk around it.",
+  "L12": "Grandma... do we have tee plants?"
+ },
+ "lines": [
+  [
+   "L01",
+   "G",
+   "Never look at them.",
+   "urgent whisper, stern, her hand over his phone (Sol r1: opens on \"Never\"; the read was trimmed, full take L01.full.wav)"
+  ],
+  [
+   "L02",
+   "K",
+   "Look at who?",
+   "curious, puzzled"
+  ],
+  [
+   "L03",
+   "G",
+   "Down. Face in the grass. Eyes shut.",
+   "fast, low, urgent"
+  ],
+  [
+   "L04",
+   "N",
+   "In Hawaii, they're called huakaʻi pō. The night marchers. Ghost warriors who guard their chiefs, and still walk the paths they walked when they were alive.",
+   "intrigued, mysterious, slow storyteller"
+  ],
+  [
+   "L05",
+   "K",
+   "Why are they coming here?",
+   "whispering, nervous"
+  ],
+  [
+   "L06",
+   "G",
+   "Because we're on their path.",
+   "grim, low"
+  ],
+  [
+   "L07",
+   "K",
+   "Who camps on a ghost road?",
+   "whispered disbelief"
+  ],
+  [
+   "L08",
+   "G",
+   "Someone who didn't ask first.",
+   "dry, stern"
+  ],
+  [
+   "L09",
+   "N",
+   "For generations, people on these islands have told the same story. Drums in the dark. A conch shell. And torches, where no one should be.",
+   "slow, dark"
+  ],
+  [
+   "L10",
+   "G",
+   "Not a sound. Whatever happens.",
+   "tight whisper"
+  ],
+  [
+   "L11",
+   "N",
+   "Some say ti plants around a home make the marchers walk around it.",
+   ""
+  ],
+  [
+   "L12",
+   "K",
+   "Grandma... do we have ti plants?",
+   "hopeful whisper"
+  ],
+  [
+   "L13",
+   "G",
+   "We have a fern.",
+   "small, guilty"
+  ],
+  [
+   "L14",
+   "K",
+   "That's plastic!",
+   "whisper-shout, outraged"
+  ],
+  [
+   "L15",
+   "K",
+   "What happens if you look?",
+   "very quiet, scared"
+  ],
+  [
+   "L16",
+   "G",
+   "They say... you never go home.",
+   "slow, grim"
+  ],
+  [
+   "L17",
+   "N",
+   "Only one thing can save someone who looks. If one of the marchers is their ancestor... that ancestor can claim them.",
+   "slow, quiet, building"
+  ],
+  [
+   "L18",
+   "K",
+   "Ah... ah... choo!",
+   "a real sneeze he tries to hold in"
+  ],
+  [
+   "L19",
+   "M",
+   "Leave him. He is mine.",
+   "deep, calm, absolute, slow"
+  ],
+  [
+   "L20",
+   "K",
+   "Who was that?",
+   "breathless whisper"
+  ],
+  [
+   "L21",
+   "G",
+   "Your great-great-grandfather. You have his ears.",
+   "warm, a little proud"
+  ],
+  [
+   "L22",
+   "K",
+   "I'm Hawaiian?",
+   "stunned"
+  ],
+  [
+   "L23",
+   "G",
+   "Why do you think we came here?",
+   "dry, warm"
+  ]
+ ],
+ "cap": {
+  "L03": "Down.|Face in the grass.|Eyes shut.",
+  "L04": "In Hawaii,|they're called huakaʻi pō.|The night marchers.|Ghost warriors|who guard their chiefs,|and still walk the paths|they walked when they were alive.",
+  "L09": "For generations,|people on these islands|have told the same story.|Drums in the dark.|A conch shell.|And torches,|where no one should be.",
+  "L10": "Not a sound.|Whatever happens.",
+  "L11": "Some say ti plants|around a home|make the marchers|walk around it.",
+  "L12": "Grandma...|do we have ti plants?",
+  "L16": "They say...|you never go home.",
+  "L17": "Only one thing can save|someone who looks.|If one of the marchers|is their ancestor...|that ancestor can claim them.",
+  "L19": "Leave him.|He is mine.",
+  "L21": "Your great-great-grandfather.|You have his ears."
+ },
+ "_cap": "subtitle phrases (| splits); a phrase shows whole from its first spoken word; lines not listed show whole"
+}

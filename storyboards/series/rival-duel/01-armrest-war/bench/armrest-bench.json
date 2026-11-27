@@ -1,0 +1,665 @@
+{
+ "id": "armrest-bench",
+ "title": "Armrest war prop bench",
+ "idea": "Prop bench for props-armrest.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#8e98a4",
+  "floor": "#6f7680",
+  "para": 0,
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "prop bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "sa",
+   "kind": "sharedarm",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "sa2",
+   "kind": "sharedarm",
+   "x": 3,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "fa",
+   "kind": "fakearm",
+   "x": 1.2,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "fa2",
+   "kind": "fakearm",
+   "x": 3,
+   "y": 0.785,
+   "z": -0.22,
+   "tip": 90
+  },
+  {
+   "id": "bk",
+   "kind": "butterknife",
+   "x": 4.2,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "cb",
+   "kind": "crowbar",
+   "x": 5.6,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "sa-default",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.36,
+     1.32
+    ],
+    "look": [
+     0,
+     0.76,
+     0.17
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 0,
+      "press": 0,
+      "butter": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sa2",
+     "set": {
+      "guard": 0,
+      "press": 0,
+      "butter": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 0,
+      "press": 0,
+      "butter": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sa-guard1",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.36,
+     1.32
+    ],
+    "look": [
+     0,
+     0.76,
+     0.17
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 1,
+      "press": 0,
+      "butter": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sa-press1",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.36,
+     1.32
+    ],
+    "look": [
+     0,
+     0.76,
+     0.17
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 0,
+      "press": 1,
+      "butter": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sa-press1-guard1",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.36,
+     1.32
+    ],
+    "look": [
+     0,
+     0.76,
+     0.17
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 1,
+      "press": 1,
+      "butter": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sa-press05-guard1",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.36,
+     1.32
+    ],
+    "look": [
+     0,
+     0.76,
+     0.17
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 1,
+      "press": 0.5,
+      "butter": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sa-butter05",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.36,
+     1.32
+    ],
+    "look": [
+     0,
+     0.76,
+     0.17
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 0,
+      "press": 0,
+      "butter": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sa-butter1",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.36,
+     1.32
+    ],
+    "look": [
+     0,
+     0.76,
+     0.17
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 0,
+      "press": 0,
+      "butter": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sa-butter1-guard1",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.36,
+     1.32
+    ],
+    "look": [
+     0,
+     0.76,
+     0.17
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 1,
+      "press": 0,
+      "butter": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sa-C2",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.1,
+     3.3
+    ],
+    "look": [
+     0,
+     0.92,
+     0
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 0,
+      "press": 0,
+      "butter": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sa-side",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.4,
+     0.95,
+     0.15
+    ],
+    "look": [
+     0,
+     0.62,
+     0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa",
+     "set": {
+      "guard": 1,
+      "press": 0,
+      "butter": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "fakearm-front",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.2,
+     0.2,
+     1.191
+    ],
+    "look": [
+     1.2,
+     0.2,
+     0
+    ],
+    "fov": 26
+   },
+   "do": []
+  },
+  {
+   "name": "fakearm-q",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.966,
+     0.2,
+     0.912
+    ],
+    "look": [
+     1.2,
+     0.2,
+     0
+    ],
+    "fov": 26
+   },
+   "do": []
+  },
+  {
+   "name": "fakearm-lying-C1",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     1.36,
+     1.32
+    ],
+    "look": [
+     3,
+     0.76,
+     0.17
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sa2",
+     "set": {
+      "guard": 0,
+      "press": 0,
+      "butter": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "fakearm-lying-top",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.1,
+     1.6,
+     0.35
+    ],
+    "look": [
+     3,
+     0.74,
+     -0.05
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "fakearm-lying-rear",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.5,
+     1,
+     -1.1
+    ],
+    "look": [
+     3,
+     0.8,
+     -0.22
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "butterknife-front",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.2,
+     0.1,
+     0.612
+    ],
+    "look": [
+     4.2,
+     0.1,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "butterknife-q",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.669,
+     0.1,
+     0.393
+    ],
+    "look": [
+     4.2,
+     0.1,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "crowbar-front",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.6,
+     0.45,
+     2.588
+    ],
+    "look": [
+     5.6,
+     0.45,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "crowbar-side",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     8.188,
+     0.45,
+     0
+    ],
+    "look": [
+     5.6,
+     0.45,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "crowbar-q",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     7.582,
+     0.45,
+     1.663
+    ],
+    "look": [
+     5.6,
+     0.45,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "crowbar-hook",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.373,
+     0.8,
+     0.137
+    ],
+    "look": [
+     5.6,
+     0.8,
+     -0.07
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "crowbar-chisel",
+   "at": 21,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     6.007,
+     0.06,
+     0.245
+    ],
+    "look": [
+     5.6,
+     0.06,
+     0.01
+    ],
+    "fov": 24
+   },
+   "do": []
+  }
+ ],
+ "notes": "Prop bench for engine/page/props-armrest.js (no reviews)."
+}

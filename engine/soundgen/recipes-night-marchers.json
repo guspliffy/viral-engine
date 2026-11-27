@@ -1,0 +1,90 @@
+{
+ "_note": "Legend: Night Marchers (26 Nov 2026): string-trio score designed by Codex gpt-6.2-sol on high (Jonny 26 Nov 21:17 Berlin: ask Sol what music fits; answer in project files videos/folklore-legend/night-marchers/music/SOL-MUSIC-ANSWER.md). Drums, conch and chant are diegetic sfx, never in the music. Hawaiian colour (Jonny 26 Nov 23:22: music matches country + scene): Sol high answer2 = slack-key guitar (D Wahine) in cues caution/deadpan/fern/claimed; warning + pass stay strings only.",
+ "sfx": [],
+ "music": [
+  {
+   "id": "nm-caution",
+   "bpm": 64,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "64 BPM, D minor. Close-recorded Hawaiian slack-key acoustic guitar in D Wahine, sparse thumbed D and A and one high D. Sustained cello D, muted viola F natural. Watchful, long rests. No percussion, no vocals. Close-recorded, small dry room.",
+    "64 BPM, D minor. Fingerpicked acoustic guitar, low D and A with a high D, soft bowed cello and viola. Long rests. No percussion, no vocals. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    1011,
+    1012
+   ]
+  },
+  {
+   "id": "nm-deadpan",
+   "bpm": 64,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "64 BPM, D minor. Quiet cello drone and one short palm-muted Hawaiian slack-key guitar figure on D and A. Dry, deadpan, generous space for whispers. No percussion, no vocals. Close-recorded, small dry room.",
+    "64 BPM, D minor. Soft bowed cello and one muted fingerpicked acoustic guitar reply. No percussion, no vocals. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    1013,
+    1014
+   ]
+  },
+  {
+   "id": "nm-warning",
+   "bpm": 64,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "Sparse acoustic suspense, 64 BPM, 4/4, D minor. Solo muted viola, long A and D notes with wide rests, delicate bow changes, pianissimo. No low bass, no brass. Close-recorded acoustic chamber strings, small dry room. No percussion, no voices, no synths, no effects.",
+    "Solo muted viola, very quiet, long sustained A and D with wide silences between, 64 BPM, D minor, intimate and tense, pianissimo. Close-recorded acoustic chamber strings, small dry room. No percussion, no voices, no synths, no effects."
+   ],
+   "seeds": [
+    915,
+    916
+   ]
+  },
+  {
+   "id": "nm-fern",
+   "bpm": 64,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "64 BPM, D minor. Muted violin and viola sustain D and A. One soft thumbed D on Hawaiian slack-key guitar, then decay. Understated, close-miked. No percussion, no vocals. Close-recorded, small dry room.",
+    "64 BPM, D minor. Soft bowed strings on D and A, one quiet fingerpicked acoustic guitar note. No percussion, no vocals. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    1017,
+    1018
+   ]
+  },
+  {
+   "id": "nm-pass",
+   "bpm": 64,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "Acoustic string suspense, 64 BPM, 4/4, D minor. Muted viola F against soft violin E in the middle register. Long overlapping bows, slight crescendo. No pulse, no bass, no brass. Close-recorded acoustic chamber strings, small dry room. No percussion, no voices, no synths, no effects.",
+    "Two close strings, muted viola on F and violin on E, a tight held interval, long overlapping bows swelling slightly, 64 BPM, D minor, tense and restrained, no pulse. Close-recorded acoustic chamber strings, small dry room. No percussion, no voices, no synths, no effects."
+   ],
+   "seeds": [
+    919,
+    920
+   ]
+  },
+  {
+   "id": "nm-claimed",
+   "bpm": 64,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "64 BPM, D major. Soft cello, viola and violin under close Hawaiian slack-key guitar in D Wahine. Thumb alternates low D and A as a tender upper phrase opens onto F-sharp. Let notes ring. No percussion, no vocals. Close-recorded, small dry room.",
+    "64 BPM, D major. Fingerpicked acoustic guitar with alternating low D and A, ringing F-sharp melody, and soft bowed strings. No percussion, no vocals. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    1021,
+    1022
+   ]
+  }
+ ]
+}

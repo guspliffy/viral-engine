@@ -1,0 +1,418 @@
+{
+ "id": "cvc01-voice-probe",
+ "title": "Country vs Country 01 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   76.6,
+   76.6
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spudus",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "retiree",
+   "character": "potatobrawl/chip-old",
+   "at": [
+    1.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 76.6,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     7
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Don't. Stop. Packing.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient cashier, a slight German accent, never blinking, every word a command",
+     "voice": "wedge-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Nobody survives this line.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient cashier, a slight German accent, never blinking, flat, a threat",
+     "voice": "wedge-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 2.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Survives... WHAT?",
+     "tone": "question",
+     "style": "panicked, a card in his teeth, arms full",
+     "voice": "spud-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 6
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Paper or plastic?",
+     "tone": "calm",
+     "style": "slow, cheerful, chatty American bagger, all the time in the world, warm",
+     "voice": "mash-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 8.3
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "For each grape?",
+     "tone": "question",
+     "style": "slow, cheerful, chatty American bagger, all the time in the world, holding one grape up, delighted",
+     "voice": "mash-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 11
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Hhhhhhh.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, impatient, a long loud sigh through the nose",
+     "voice": "retiree-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 13.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Faster.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient cashier, a slight German accent, never blinking",
+     "voice": "wedge-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 15.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Not the eggs!",
+     "tone": "excited",
+     "style": "desperate, catching",
+     "voice": "spud-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 17.5
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "So... how's your mom?",
+     "tone": "calm",
+     "style": "slow, cheerful, chatty American bagger, all the time in the world, leaning on the counter, genuinely curious",
+     "voice": "mash-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 20.2
+    },
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "Please. Just. Bag.",
+     "tone": "calm",
+     "style": "tired, polite, through his teeth",
+     "voice": "spud-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 23.3
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Hhhhhhhhh. Too slow.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, impatient, sighing, tapping his watch",
+     "voice": "retiree-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 26
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "A card. Pah.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, impatient, disgusted, shaking his head",
+     "voice": "retiree-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 28.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Use your feet.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient cashier, a slight German accent, never blinking, deadpan, scanner sparking",
+     "voice": "wedge-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 31.4
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "TOO. SLOW.",
+     "tone": "excited",
+     "style": "old, grumpy, raspy, impatient, outraged",
+     "voice": "retiree-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 34.1
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Need help to your car, hon?",
+     "tone": "calm",
+     "style": "slow, cheerful, chatty American bagger, all the time in the world, sweet, behind a mountain of bags",
+     "voice": "mash-x115",
+     "dur": 2.9,
+     "caption": false,
+     "at": 36.4
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Is that... paper money?",
+     "tone": "question",
+     "style": "slow, cheerful, chatty American bagger, all the time in the world, amazed, as if it were a fossil",
+     "voice": "mash-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 40.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Twelve forty.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient cashier, a slight German accent, never blinking",
+     "voice": "wedge-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 43.4
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Three hundred twelve forty!",
+     "tone": "excited",
+     "style": "slow, cheerful, chatty American bagger, all the time in the world, proud, beaming",
+     "voice": "mash-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 45.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Cash. Only.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient cashier, a slight German accent, never blinking, cold, staring at the card",
+     "voice": "wedge-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 48.8
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Oh, hon... Card only.",
+     "tone": "calm",
+     "style": "slow, cheerful, chatty American bagger, all the time in the world, pitying, gentle",
+     "voice": "mash-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 51.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I just want to go home.",
+     "tone": "calm",
+     "style": "small, defeated, arms full",
+     "voice": "spud-x115",
+     "dur": 2.9,
+     "caption": false,
+     "at": 54.2
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Move.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, impatient, pushing past",
+     "voice": "retiree-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 58.1
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "One cent. Two cent. Three cent...",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, impatient, very slow, counting coins one by one",
+     "voice": "retiree-x115",
+     "dur": 2.9,
+     "caption": false,
+     "at": 60
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Take your time.",
+     "tone": "calm",
+     "style": "suddenly warm, smiling, patient, a slight German accent",
+     "voice": "wedge-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 63.9
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "And grape number two!",
+     "tone": "excited",
+     "style": "slow, cheerful, chatty American bagger, all the time in the world, delighted, holding up the next grape",
+     "voice": "mash-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 66.6
+    },
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "It's money.",
+     "tone": "calm",
+     "style": "flat, tired, holding up the cash",
+     "voice": "spud-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 69.7
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Cute.",
+     "tone": "calm",
+     "style": "slow, cheerful, chatty American bagger, all the time in the world, pitying smile",
+     "voice": "mash-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 72
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "What. Is. This?",
+     "tone": "calm",
+     "style": "clipped, cold, efficient cashier, a slight German accent, never blinking, cold, staring at the card as if it were dirty",
+     "voice": "wedge-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 73.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Country vs Country 01: makes and measures every take."
+}

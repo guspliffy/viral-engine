@@ -1,6 +1,7 @@
 """Read an episode's lines with VoxCPM2 (legend channel, 26 Nov 2026), checked by Whisper, then tempo x1.15.
   engine/voice/.venv-vox/bin/python tools/svg2d/read-lines.py <lines.json> <out_dir> [ids...]
--> <out_dir>/<id>.wav (44.1 kHz mono, -16 LUFS) + <id>.words.json [[word, start, end], ...] (after the tempo change)
+-> <out_dir>/<id>.wav (44.1 kHz mono, -16 LUFS, plus the voice's "gain_db": the legend kid takes +3.5, Jonny 26 Nov "the kids voice could be louder" in 3 videos) + <id>.words.json [[word, start, end], ...] (after the tempo change)
+A line may have a spoken spelling in the spec's "say" map (the subtitle keeps the written words).
 A voice may set "pitch" (semitones, rubberband) for a younger read of the same voice, and "af" (an ffmpeg filter
 chain run before the tempo, e.g. a brightening EQ). Every take is measured by qa/voicebright.py: MUFFLED = fix first.
 Deterministic: each line's seed is fixed; a take Whisper hears wrong is retried with the next seed (up to 4)."""
@@ -22,20 +23,21 @@ def hear(w):
     return [[x.word.strip(), x.start, x.end] for s in segs for x in s.words]
 for lid, who, text, tone in spec["lines"]:
     if only and lid not in only: continue
+    said = spec.get("say", {}).get(lid, text)   # spoken spelling (e.g. Hawaiian words) when it differs from the subtitle
     v = spec["voices"][who]; style = ", ".join(s for s in [v.get("style", ""), tone] if s)
     best = None
     for k in range(4):
         seed = 1000 + int(lid[1:]) * 7 + k * 101
         torch.manual_seed(seed); np.random.seed(seed)
-        w = np.asarray(m.generate(text=f"({style}){text}", reference_wav_path=v["ref"], inference_timesteps=v.get("steps", 10), cfg_value=v.get("cfg", 2.0)), np.float32)
+        w = np.asarray(m.generate(text=f"({style}){said}", reference_wav_path=v["ref"], inference_timesteps=v.get("steps", 10), cfg_value=v.get("cfg", 2.0)), np.float32)
         words = hear(w)
-        want, got = norm(text), norm(" ".join(x[0] for x in words))
+        want, got = norm(said), norm(" ".join(x[0] for x in words))
         miss = len(set(want) ^ set(got))
         if best is None or miss < best[0]: best = (miss, w, words, seed)
         if miss <= 1 and abs(len(want) - len(got)) <= 1: break
     miss, w, words, seed = best
     raw = f"{out}/{lid}.raw.wav"; sf.write(raw, w, sr)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", (v["af"] + "," if v.get("af") else "") + (f"rubberband=pitch={2 ** (v['pitch'] / 12):.5f}," if v.get("pitch") else "") + f"atempo={TEMPO},loudnorm=I=-16:TP=-2,silenceremove=start_periods=1:start_threshold=-50dB",
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", raw, "-af", (v["af"] + "," if v.get("af") else "") + (f"rubberband=pitch={2 ** (v['pitch'] / 12):.5f}," if v.get("pitch") else "") + f"atempo={TEMPO},loudnorm=I=-16:TP=-2," + (f"volume={v['gain_db']}dB,alimiter=limit=0.95," if v.get("gain_db") else "") + "silenceremove=start_periods=1:start_threshold=-50dB",
                     "-ar", "44100", "-ac", "1", f"{out}/{lid}.wav"], check=True)
     os.remove(raw)
     # word times after the tempo change and the trimmed lead-in

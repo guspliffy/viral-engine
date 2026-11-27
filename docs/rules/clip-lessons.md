@@ -10,6 +10,9 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
   EVERY character in EVERY shot: feet on something? whole body inside the room (heads vs ceiling, cloth, walls)? every
   worn or held prop on the right body part? hands ON what they hold? Then a close still per contact and a 15 fps
   strip of every grab, release, raise and hand-on-table. Look at every character, not only what you changed.
+- Code-drawn (svg2d) clips: export `probe(t)` from the scene and run `node tools/svg2d/framecheck.mjs <scene.mjs>`
+  (seconds) before stills or Sol: faces cut by the edge, captions on faces, props jumping or switching hands, finger
+  counts going back. Sol's round 2 on The Monkey's Paw (16 glitches) had 4 it would have caught.
 - A reported glitch is DESCRIBED back first (timestamp, what moves wrong, why), then fixed.
 - Look at a full-size crop of every hero prop (an empty glass passed two reviews at sheet size).
 - Draft 1 already carries the drama, the commentator and the real music: the producer judges the first video, not the
@@ -47,6 +50,9 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
 - A hand INTO a jar, pot or box from above: a potato's arm root sits ~0.54 m over its feet, so stand the body high
   enough that the root is ~0.25 m over the rim (KvD 05: stepstool x1.25), and use an open grip (`relaxed`): a fist
   (`hold`) pulls the elbow guide under the hand, and the arm comes up through the glass (Sol caught it, Jonny saw it).
+- A prop placed or a hidden character moved for the next shot goes on `cut(t)` or earlier while hidden, never a frame
+  before the cut: at 30 fps `cut(t) - 0.04` is drawn in the old shot (armrest war: knife and fake arm popped in, Sol r2).
+- A release `to` at a parked spot (y -40) aims the hand there for `back` s; release off frame with `back: 0.01`.
 
 ## Bodies, sets and moves
 
@@ -54,6 +60,9 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
   `top` ignores pitch, so judge stills. Bodies 0.35 m+ off set posts (`qa/clear.mjs` checks uprights listed in
   `engine/shared/obstacles.js`; list a new set's posts there). Line-ups need ~1 m between friends.
 - Sitting: check seat height in a still, bodies ON the cushion. Keep a seat's check window to the sitting itself.
+- Seat rows: a camera behind the row ahead shows a seat back, not the scene (armrest war: z past 3.45 blanked 2 shots
+  for a draft round; no check sees props yet). Seated rivals: one forearm each on a shared armrest, never both arms.
+- Widening a shot can add check fails: clip checks count what the camera sees. Re-run preflight after any framing fix.
 - A character taken off a carrier (`ride` null) keeps its height: give the first `move` after it `y: 0`. Never give
   `y` to a `move` while a drop or fly runs. A 0.01 `move` with y at t 0 hides the cast 3 frames: use dur 0.
 - Placing someone on a cut: move/turn dur 0.01 with `ease: "linear", sync: true`, at t - 0.02 (never earlier); keep an
@@ -64,6 +73,7 @@ Grip rules by number: `docs/rules/characters-grips.md`. Hands and timing: "Hands
   behind reads as hanging: film a leap side-on, at full speed.
 - Blinks: keep `open` >= 0.3 and 9 frames linear each way, or the strobe check fails in the first second.
 - A caption ends with its beat: start narration inside the shot it should show over.
+- Code-drawn (svg2d) clips: subtitles come from `tools/svg2d/lib/captions.mjs` (`align` written words to words heard on the FINAL voice files, re-measured after any trim or tempo change; hand-set `phrases` shown whole from the first spoken word, never word by word).
 - A line said in an open-mouthed face (`shocked` 0.95, `terrified` 0.8) freezes the mouth: the face's open beats the
   talk. Close it to ~0.1 for the line (`expr` with `set: { open: 0.1 }`). An expression name the engine lacks (`worried`)
   silently keeps the last one: check `engine/page/face.js` (egypt-myth 01).
