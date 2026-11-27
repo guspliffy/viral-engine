@@ -119,8 +119,8 @@ function square(c, t, o = {}) {
   return sky + vg.back + doorGlow(c, o.doors ?? 0) + GR.stack(items) + GR.mist(c, t, [14]) + GR.grade() + cr.light + (o.over || "");
 }
 const CROWD = () => [
-  { kind: 0, X: -2.3, Z: 6.4, armUp: 1, shout: 1, angry: 1 }, { kind: 1, X: -1.45, Z: 6.9, armUp: 0.9, shout: 0.6, dir: 1 }, { kind: 2, X: -0.6, Z: 7.3, armUp: 0.2 },
-  { kind: 3, X: 0.55, Z: 7.0, armUp: 0.75, dir: -1, shout: 0.4 }, { kind: 4, X: 1.3, Z: 6.3, armUp: 1, dir: -1, shout: 1, angry: 1 }, { kind: 5, X: 3.0, Z: 6.6, armUp: 0.6, dir: -1 },
+  { kind: 0, X: -1.5, Z: 6.4, armUp: 1, shout: 1, angry: 1 }, { kind: 1, X: -1.2, Z: 6.9, armUp: 0.9, shout: 0.6, dir: 1 }, { kind: 2, X: -0.6, Z: 7.3, armUp: 0.2 },
+  { kind: 3, X: 0.55, Z: 7.0, armUp: 0.75, dir: -1, shout: 0.4 }, { kind: 4, X: 1.3, Z: 6.3, armUp: 1, dir: -1, shout: 1, angry: 1 }, { kind: 5, X: 1.9, Z: 6.6, armUp: 0.6, dir: -1 },
 ];
 
 // kid on a dark slope, shouting at the lit village far below; his crook stands planted beside him (it never vanishes)
@@ -285,14 +285,14 @@ shot("13c", "L13", () => WD("L13", "but") + 0.3, (u, x) => {
   const m = MOOD(0.6), c = { x: -1.2, y: 1.04, z: lerp(2.9, 2.4, ease(u / 1.9)), h0: 960 };
   const k = kidCrook(c, { X: -1.2, Z: 4.0, fx: -0.55, worry: 0.3, shock: 0, blink: bl(u + 3) }, u);
   const gl = L.P(c, -2.5, 1.1, 5.2), glint = `<g transform="translate(${n(gl.x)},${n(gl.y)})"><ellipse rx="${n(gl.s * 0.06)}" ry="${n(gl.s * 0.025)}" fill="#fffbd0"/><ellipse rx="${n(gl.s * 0.14)}" ry="${n(gl.s * 0.06)}" fill="#ffe21a" opacity="0.28" style="mix-blend-mode:screen"/></g>`;
-  const eyes = eyesT(c, [{ X: -2.4, Y: 1.1, Z: 5.2, size: 1.8, open: clamp(u / 0.4) }], u);
+  const eyes = eyesT(c, [{ X: -2.0, Y: 1.1, Z: 5.2, size: 1.8, open: clamp(u / 0.4) }], u);
   return hill(c, u, { mood: m, items: [{ Z: 4.0, svg: k.svg }], moon: false, over: eyes });
 });
 // 14  L14 the kid screams down the hill, voice cracks; a push in on the third cry
 shot("14", "L14", () => LN("L14").at - 0.04, (u, x) => {
   const third = wordAt(LINE.L14, "wolf") + 0, last = LINE.L14.words[LINE.L14.words.length - 1][1];
   const z = tr([[0, 3.0], [Math.max(0.1, last - 0.1 - (x.lu - u)), 3.0], [Math.max(0.2, last + 0.35 - (x.lu - u)), 2.1]], u);
-  return shoutDown(u, { talk: talkAt(x.ln, x.lu), mood: 0.9, X: 0.65, Z: z, treeX: 3.4, moon: false, eyes: [{ X: 3.1, Y: 1.5, Z: 3.55, size: 1.8 }], worry: 1 });
+  return shoutDown(u, { talk: talkAt(x.ln, x.lu), mood: 0.9, X: 0.65, Z: z, treeX: 3.4, moon: false, eyes: [{ X: 3.1, Y: 1.5, Z: 3.55, size: 2.8, blink: blinkAmt(x.lu, [0.4, 1.6, 2.4]) }], worry: 1 });
 });
 // 15  L15 the village goes dark: lit roofs, then a push in on three windows going out in a visible order, the last on the final "one"; the dark window sits until the plea
 const WIN3 = [5, 6, 7];            // the middle row, left to right: they go out at "one", "by", "one"
@@ -313,10 +313,10 @@ shot("15b", "L15", () => WD("L15", "lights") - 0.2, (u, x) => {
 shot("16a", "L16", () => LN("L16").at - 0.05, (u, x) => {
   const m = MOOD(1), c = { x: -1.0, y: 1.1, z: 2.3, h0: 940 };
   const k = K_(c, { X: -1.1, Z: 4.0, fx: -0.6, shock: 1, talk: talkAt(x.ln, x.lu), reachL: 1, worry: 1, hop: Math.abs(Math.sin(u * 7)) * 3 }, u);
-  const cr = GR.crook(c, { at: k.sleeve, s: k.p.s, rot: 18 + 9 * Math.sin(u * 6), grip: 74, len: 140 });
+  const cr = GR.crook(c, { at: k.sleeve, s: k.p.s, rot: 18 + 4 * Math.sin(u * 5), grip: 74, len: 140 });
   return hill(c, u, { mood: m, items: [{ Z: 4.0, svg: k.svg + cr }], moon: false });
 });
-shot("16b", "L16", () => LN("L16").at + 0.62, (u, x) => {
+shot("16b", "L16", () => LN("L16").end + 0.3, (u, x) => {
   const m = MOOD(1), c = { x: 0.2, y: 1.6, z: 0.0 + u * 0.03, h0: 1010 };
   return hill(c, u, { mood: m, moon: false, over: eyesT(c, [oe(1, { size: 3.4 }), oe(0, { size: 3.6 })], u) });
 });
@@ -325,7 +325,7 @@ shot("17", "L17", () => LN("L17").at, (u, x) => {
   const m = MOOD(1), c = { x: -0.7, y: 1.5, z: 0.5 + u * 0.08, h0: 1010 };
   const k = kidCrook(c, { X: -1.2, Z: 4.0, fx: 0.4, worry: 1, blink: bl(u, 0.2) }, u);
   const w = wordAt(LINE.L17, "more"), e = wordAt(LINE.L17, "eyes");
-  const pairs = [oe(1, { size: 4.0 }), oe(0, { size: 4.2 }), oe(3, { size: 4.4 }), oe(2, { size: 4.2, open: clamp((x.lu - w) / 0.25) }), oe(4, { size: 4.8, open: clamp((x.lu - e) / 0.25) })];
+  const pairs = [oe(1, { size: 3.4 }), oe(0, { size: 3.6 }), oe(3, { size: 3.8 }), oe(2, { size: 4.8, open: clamp((x.lu - w) / 0.2), blink: blinkAmt(x.lu, [w + 0.45]) }), oe(4, { size: 5.6, open: clamp((x.lu - e) / 0.2), blink: blinkAmt(x.lu, [e + 0.45]) })];
   return hill(c, u, { mood: m, items: [{ Z: 4.0, svg: k.svg }, ...sheepAt(c, u, PENFLOCK(u, 1, { huddle: true }))], over: eyesT(c, pairs, u), moon: false });
 });
 // 18  L18 kid close whispering Grandma's rule; a warm blurred MEMORY of her and her candle on "SEE its teeth"
@@ -351,9 +351,10 @@ shot("19", "L19", () => LN("L19").at - 0.05, (u, x) => {
 shot("20a", "L20", () => LN("L20").at - 0.05, (u, x) => {
   const m = MOOD(0.7), c = { x: -0.25, y: 1.0, z: 2.2, h0: 1000 };
   const k = kidCrook(c, { X: -0.2, Z: 4.0, fx: -0.6, reachL: tr([[0, 0.5], [0.35, 1]], u), worry: 0.2, blink: 0 }, u, false);
-  return hill(c, u, { mood: m, items: [{ Z: 4.0, svg: k.svg }], moon: false, hs: { gateOpen: 0 } });
+  const lean = GR.crook(c, { X: 0.15, Y: 0, Z: 4.05, rot: 12, grip: 0, len: 150 });       // G10: the crook stays in view, leaning beside him
+  return hill(c, u, { mood: m, items: [{ Z: 4.0, svg: k.svg + lean }], moon: false, hs: { gateOpen: 0 } });
 });
-const gateU = (u) => ease(clamp((u - 0.1) / 0.85));
+const gateU = (u) => ease(clamp((u - 0.3) / 0.7));
 shot("20b", "L20", () => LN("L20").at + 0.5, (u, x) => {
   const m = MOOD(0.7), c = { x: -0.9 + 0.1 * u, y: 1.05, z: 0.9, h0: 960 };
   const k = kidCrook(c, { X: -0.15, Z: 4.0, fx: -0.6, reachL: tr([[0, 1], [0.6, 0.3]], u), worry: 0.2 }, u, { rot: 6 });
@@ -383,8 +384,8 @@ function chase(U, x) {
   const door = clamp((x.t - (LINE.L23.at + wordAt(LINE.L23, "every") + 0.5)) * FPS / 6);
   const f = door;
   const windows = Array.from({ length: 15 }, (_, i) => clamp(f * 2 - (i % 5) * 0.12));
-  const skyM = lerp(0.35, -0.15, ease(clamp((x.t - (LINE.L23.at + wordAt(LINE.L23, "every") + 0.4)) / 1.0)));
-  const mood = lerp(0.35, -0.9, f);
+  const skyM = lerp(0.35, 0.1, ease(clamp((x.t - (LINE.L23.at + wordAt(LINE.L23, "every") + 0.4)) / 1.0)));
+  const mood = lerp(0.35, -0.9, ease(clamp((x.t - (LINE.L23.at + wordAt(LINE.L23, "every") + 0.5)) / 0.7)));
   return square(c, t, { mood, skyMood: skyM, windows, doors: f, lamp: f, extra: [...sheepAt(c, t, sheep), { Z: 3.5, svg: wf.svg }], over: wf.eyes, cast: f > 0.6 ? [{ kind: 1, X: -0.8, Z: 6.4, armUp: 0.4, dir: 1 }, { kind: 4, X: 2.6, Z: 6.5, armUp: 0.5, dir: -1 }] : [] });
 }
 shot("22", "L22", () => LN("L22").at - 0.05, (u, x) => chase(x.t - LN("L22").at + 0.0, x));
@@ -393,20 +394,20 @@ shot("24", "L24", () => LN("L23").end + 0.05, (u, x) => {
   const m = -0.9, c = { x: 0.2, y: 1.3, z: 0.6, h0: 1020 };
   const sh = talkAt(LINE.L24, x.t - LINE.L24.at);
   const wf = wolfFace(GR.wolf(c, { X: -0.75, Z: 3.7, dir: 1, pose: GR.wolfPose("crouch", "teeth", 0.3), jaw: 0.3, phase: 0.2, size: 1.0 }, x.t));
-  const sq = square(c, x.t, { mood: m, cast: [{ kind: 4, X: 1.0, Z: 3.9, dir: -1, fx: -0.6, armUp: 1, shout: 0.12 + 0.88 * sh, angry: 1 }, { kind: 1, X: 2.6, Z: 6.4, armUp: 0.3, dir: -1 }, { kind: 2, X: 0.1, Z: 7.0, armUp: 0.2, dir: -1 }, { kind: 3, X: -1.8, Z: 6.6, armUp: 0.2, dir: 1 }], extra: [{ Z: 3.7, svg: wf.svg }], over: wf.eyes });
+  const sq = square(c, x.t, { mood: m, cast: [{ kind: 0, X: 1.0, Z: 3.9, dir: -1, fx: -1, armUp: 1, shout: 0.12 + 0.88 * sh, angry: 1 }, { kind: 1, X: 2.1, Z: 6.4, armUp: 0.3, dir: -1 }, { kind: 2, X: 0.1, Z: 7.0, armUp: 0.2, dir: -1 }, { kind: 3, X: -1.5, Z: 6.6, armUp: 0.2, dir: 1 }], extra: [{ Z: 3.7, svg: wf.svg }], over: wf.eyes });
   return sq;
 });
 // 25  L25 a short wide: the wolf in front of the villagers (they raise sticks), it bolts; then the jaw close on "teeth"
 shot("25a", "L25", () => LN("L25").at - 0.05, (u, x) => {
   const m = -0.9, c = { x: 0.35, y: 1.3, z: 0.4 + u * 0.05, h0: 1100 };
-  const run = ease(clamp((u - 1.35) / 0.55)), X = -0.3 + run * 3.4;
-  const pose = run <= 0 ? GR.wolfPose("crouch", "teeth", ease(clamp(u / 0.35))) : GR.wolfPose("teeth", "runAway", clamp(run * 1.6));
+  const run = ease(clamp((u - 1.35) / 0.55)), X = -0.6 + run * 1.0;
+  const pose = run <= 0 ? GR.wolfPose("crouch", "teeth", ease(clamp(u / 0.8))) : GR.wolfPose("teeth", "runAway", clamp(run * 1.6));
   const wf = wolfFace(GR.wolf(c, { X, Z: 3.9, dir: 1, pose, jaw: run > 0 ? undefined : 0.55 + 0.08 * Math.sin(u * 16), phase: X / 1.7, size: 1.1, blink: blinkAmt(u, [0.9]) }, x.t));
   return square(c, x.t, { mood: m, cast: CROWD().map((v, i) => ({ ...v, armUp: Math.max(0.7, v.armUp ?? 0), shout: 0.5 })), extra: [{ Z: 3.9, svg: wf.svg }], over: wf.eyes });
 });
 shot("25b", "L25", () => WD("L25", "teeth") - 0.22, (u, x) => {
   GR.mood(-0.9);
-  const c = { x: 0.1, y: 1.0, z: 2.0 + u * 0.04, h0: 1020 };
+  const c = { x: 0.5, y: 1.0, z: 1.95 + u * 0.04, h0: 1020 };           // G23: the whole muzzle in frame with room
   const wf = GR.wolf(c, { X: -0.2, Z: 3.7, dir: 1, pose: "teeth", jaw: 0.75 + 0.08 * Math.sin(u * 14), phase: 0, size: 1.15, blink: 0 }, x.t);
   wolfFace(wf);
   const vg = GR.village(c, x.t, { windows: new Array(15).fill(1), lamp: 1 });
@@ -450,7 +451,8 @@ SHOTS.forEach((s, i) => { s.end = i + 1 < SHOTS.length ? SHOTS[i + 1].at : DUR; 
 for (const s of SHOTS) if (s.end - s.at < 0.2) throw new Error("shot too short " + s.id);
 export const TIMELINE = SHOTS;
 // the line being spoken at t: it shows from its first word until its last word has been said (+0.3 s), never cut early by the next
-const holdEnd = (i) => Math.min(i + 1 < ORDER.length ? LINE[ORDER[i + 1]].at - 0.02 : 1e9, LINE[ORDER[i]].end + 0.3);
+const cutAfter = (t) => { const q = SHOTS.find((z) => z.at >= t - 1e-6); return q ? q.at : 1e9; };           // a caption never rides into a shot that begins after its line ended
+const holdEnd = (i) => Math.min(i + 1 < ORDER.length ? LINE[ORDER[i + 1]].at - 0.02 : 1e9, LINE[ORDER[i]].end + 0.3, cutAfter(LINE[ORDER[i]].end));
 const lineAtTime = (t) => { let k = null; ORDER.forEach((id, i) => { const ln = LINE[id]; if (t >= ln.at - 0.04 && t < holdEnd(i)) k = ln; }); return k; };
 
 // ---------------------------------------------------------------- captions: upper third, centre ~580, off every face and pair of eyes
@@ -496,6 +498,19 @@ export function parts(time) {
   const b = bodyAt(time), fcs = FACES.slice();
   const title = time < 2.75 ? titleCard(time, { style: TITLE, teaser: "T1" }) : "";
   const dbg = process.env.DEBUGFACES ? fcs.map((f) => `<circle cx="${n(f.x)}" cy="${n(f.y)}" r="${n(f.r)}" fill="none" stroke="#0f0" stroke-width="3"/>`).join("") : "";
-  return { pic: frame(b.body) + title + dbg, cap: captions(time), shot: b.shot, faces: fcs };
+  return { pic: frame(b.body) + "<!--T-->" + title + dbg, cap: captions(time), shot: b.shot, faces: fcs };
+}
+// the picture with no banner (for stills such as the cover)
+export function partsNoTitle(time) { const q = parts(time); const i = q.pic.indexOf("<!--T-->"); return i < 0 ? q.pic : q.pic.slice(0, i); }
+// framecheck hooks: plain data at time t (screen px)
+export const LINES = ORDER.map((id) => ({ id, t0: LINE[id].at, t1: LINE[id].end }));
+export function probe(time) {
+  const p = parts(time), ln = lineAtTime(time);
+  let caption = null, captionLine = null;
+  if (SUBS.on && ln && p.cap) {
+    const u = time - ln.at; let pi = -1; for (let i = 0; i < ln.phrases.length; i++) if (u >= ln.phrases[i].at - 0.04) pi = i;
+    if (pi >= 0) { const b = capBox(ln.phrases[pi], capY(ln, pi, ln.phrases[pi])); caption = { x0: b.x0, y0: b.y0, x1: b.x1, y1: b.y1 }; captionLine = ln.id; }
+  }
+  return { shot: p.shot, faces: p.faces.map((f, i) => ({ id: "f" + i, x: f.x, y: f.y, r: f.r })), props: [], caption, captionLine };
 }
 export function draw(time) { const p = parts(time); return p.pic + (SUBS.on ? p.cap : "") + "</svg>"; }
