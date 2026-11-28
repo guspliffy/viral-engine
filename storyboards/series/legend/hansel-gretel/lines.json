@@ -1,0 +1,217 @@
+{
+ "_about": "Legend: Hansel and Gretel (Grimm KHM 15, Hesse, 1812). Jonny 27 Nov 23:32 Berlin picked H1 (gingerbread rule + 'if she smells ME?') + E1 (Gretel baits the baiter, 'I'm turning' with a full mouth). Niche-findings build: glowing house + red eyes frame 0, kid host = Hansel, one history line (L11), re-hooks L07/L11/L18/L22. Captions upper third, word by word. Speakers N narrator, G grandmother, K kid (Hansel), R Gretel, W witch. Grimm's four weeks in the cage compressed to one night.",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-01/grandma-1.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-06/kid-2.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and cheeky, speaks clearly with crisp diction",
+   "steps": 25,
+   "cfg": 3.0,
+   "af": "highpass=f=110,equalizer=f=650:t=q:w=1.2:g=-5,treble=g=12:f=2200,equalizer=f=5000:t=q:w=1:g=4"
+  },
+  "R": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-01/kid-2.wav",
+   "style": "a nine-year-old girl from a film, natural child actress, clearly a girl, bright high young voice, clever and brave, speaks clearly",
+   "steps": 25,
+   "cfg": 3.0
+  },
+  "W": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-01/grandma-2.wav",
+   "style": "a thin old witch, sugary sing-song sweetness over something hungry, creaky high voice, slow, nothing like a kind grandmother",
+   "steps": 25,
+   "cfg": 3.0
+  }
+ },
+ "say": {
+  "L11": "The Brothers Grimm, eighteen twelve. Their first version is darker than the one you know."
+ },
+ "lines": [
+  [
+   "L01",
+   "G",
+   "If you smell gingerbread at night... turn around.",
+   "urgent low whisper, off screen, over the tiny glowing house and the red eyes opening in a sugar window; Sol 27 Nov: shortened ('in the forest' dropped, the picture shows the forest)"
+  ],
+  [
+   "L02",
+   "K",
+   "...And if she smells ME?",
+   "small, scared, sniffing, already close to the door"
+  ],
+  [
+   "L03",
+   "N",
+   "Nine o'clock. Their father left them by a fire, deep in the forest. And this time, he wasn't coming back.",
+   "intrigued, mysterious, slow storyteller"
+  ],
+  [
+   "L04",
+   "N",
+   "Last night, white pebbles led them home. Tonight, Hansel only had bread.",
+   "storyteller, a little ominous"
+  ],
+  [
+   "L05",
+   "N",
+   "And the birds were hungry too.",
+   "dry, ominous"
+  ],
+  [
+   "L06",
+   "R",
+   "Hansel... the crumbs are gone.",
+   "scared whisper"
+  ],
+  [
+   "L07",
+   "N",
+   "Midnight. Something sweet drifted through the trees.",
+   "mysterious, slow, tempting"
+  ],
+  [
+   "L08",
+   "R",
+   "Do you smell that?",
+   "curious, uneasy"
+  ],
+  [
+   "L09",
+   "R",
+   "Grandma said turn around.",
+   "worried, firm"
+  ],
+  [
+   "L10",
+   "K",
+   "Grandma's not hungry.",
+   "cheeky, stubborn, hungry"
+  ],
+  [
+   "L11",
+   "N",
+   "The Brothers Grimm, 1812. Their first version is darker than the one you know.",
+   "intrigued storyteller, a secret; over the walk toward the house, no stop (Sol: don't delay the house)"
+  ],
+  [
+   "L12",
+   "N",
+   "Walls of bread. A roof of cake. Windows of clear sugar.",
+   "slow, tempting, almost hungry"
+  ],
+  [
+   "L13",
+   "W",
+   "Nibble, nibble, little mouse... who is nibbling at my house?",
+   "sing-song, sugary, from inside the house, slow"
+  ],
+  [
+   "L14",
+   "K",
+   "...The wind?",
+   "caught, mouth full, tiny voice"
+  ],
+  [
+   "L15",
+   "W",
+   "Come in, my sweet ones. There are pancakes.",
+   "very sweet, warm, too kind"
+  ],
+  [
+   "L16",
+   "N",
+   "Three in the morning.",
+   "quiet, ominous"
+  ],
+  [
+   "L17",
+   "N",
+   "Witches have red eyes. They can't see far. But they smell you... like animals do.",
+   "slow, chilling, a secret"
+  ],
+  [
+   "L18",
+   "N",
+   "He smelled her house. She smelled him first.",
+   "chilling, quiet"
+  ],
+  [
+   "L19",
+   "W",
+   "Stick out your finger.",
+   "sweet voice gone, cold and hungry"
+  ],
+  [
+   "L20",
+   "N",
+   "Hansel held out a chicken bone. Her eyes couldn't tell the difference.",
+   "tense storyteller"
+  ],
+  [
+   "L21",
+   "W",
+   "Still thin.",
+   "annoyed, hungry"
+  ],
+  [
+   "L22",
+   "N",
+   "But a bone only works until she gets hungry.",
+   "ominous, teasing"
+  ],
+  [
+   "L23",
+   "W",
+   "Fat or thin, I eat him at dawn. Girl! Light the oven.",
+   "impatient, hungry, sharp"
+  ],
+  [
+   "L24",
+   "W",
+   "Crawl in. See if it's hot.",
+   "sweet again, fake kind"
+  ],
+  [
+   "L25",
+   "R",
+   "I don't know how... Show me?",
+   "small, sweet, helpless (she is pretending)"
+  ],
+  [
+   "L26",
+   "N",
+   "She lured them with sweets. Gretel lured her with one sweet little question.",
+   "satisfied storyteller, a little smile"
+  ],
+  [
+   "L27",
+   "N",
+   "By sunrise, they were running home, pockets full of her pearls.",
+   "relieved, brisk"
+  ],
+  [
+   "L28",
+   "K",
+   "Gretel... gingerbread.",
+   "sniffing, tempted, mouth already full"
+  ],
+  [
+   "L29",
+   "R",
+   "Turn around.",
+   "firm, deadpan"
+  ],
+  [
+   "L30",
+   "K",
+   "...I'm turning.",
+   "mouth full, chewing, guilty"
+  ]
+ ]
+}

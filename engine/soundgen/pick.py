@@ -186,6 +186,8 @@ def sfx(rec, raw, outdir, clap, report):
             rows.append(dict(file=name, take=c["take"], prompt=c["prompt"], seed=c["seed"], startSec=round(c["start"] / SR, 3),
                              durationSec=round(len(x) / SR, 3), clap=round(c["clap"], 3), snrDb=round(c["snr"], 1),
                              loudnessLUFS=lufs(x)))
+        if not rows:   # no cut kept: writing it would put NaN (median of nothing) and an empty file list in the manifest
+            print(f"{rid}: {len(cands)} cuts -> kept 0, NOT written (re-generate with other prompts or seeds)"); continue
         report[rid] = dict(candidates=len(cands), picked=rows,
                            clapMedianAll=round(float(np.median([c["clap"] for c in cands])), 3))
         print(f"{rid}: {len(cands)} cuts -> kept {len(files)}  clap {[r['clap'] for r in rows]}")
