@@ -178,6 +178,12 @@ Opus 5.5 on xhigh before); the line to compare with is the first row.
   description now takes its recipe label (family "unsorted", listed as a warning); pick.py skips a sound with no kept
   cut. Should keep catalog failures after a sound pick at 0. Proof: before, SyntaxError then "no description for 9
   ids"; after, 51 named sounds, 110 families, 552 files, 9 warned; no render changes.
+- `pick.py` labels a new sound by itself (28 Nov, from Legend The Kelpie; waits for Jonny's word): every new legend
+  recipe crashed `engine/soundgen/pick.py` with a KeyError because its sfx had no CLAP "label" (wolf and Kelpie both
+  worked around it with a hand-labelled copy). A missing label now falls back to the first prompt's opening clause,
+  with a printed line naming the id. Should keep pick.py crashes on a new recipe at 0. Proof: the Kelpie recipe
+  without labels: before, KeyError 'loch-lap'; after, 11 labels from the prompts; built-in ids keep their LABELS
+  entry; no change for recipes that carry labels.
 
 ## Rows
 
