@@ -1,0 +1,743 @@
+{
+ "id": "vehicles-bench",
+ "title": "Vehicles bench",
+ "idea": "Props bench for Country vs Country 02 (citybus, pickup), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#a9d4f2",
+  "floor": "#6b7078",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "shadow": {
+   "size": 20
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   1,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   2,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   3,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   4,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   5,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   6,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   7,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   8,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   9,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   10,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ],
+  [
+   11,
+   {
+    "s": 1.16,
+    "w": 0.35,
+    "c": 1
+   }
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "wedge",
+   "mash"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -3.7800000000000002,
+    -2.1499999999999995
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    14.6,
+    0.1
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 5.2
+  }
+ ],
+ "props": [
+  {
+   "id": "busde",
+   "kind": "citybus",
+   "x": -4.2,
+   "y": 0,
+   "z": -4.1,
+   "rot": 0,
+   "look": "de",
+   "open": 1
+  },
+  {
+   "id": "busus",
+   "kind": "citybus",
+   "x": -4.2,
+   "y": 0,
+   "z": 14,
+   "rot": 0,
+   "look": "us",
+   "open": 0
+  },
+  {
+   "id": "pk",
+   "kind": "pickup",
+   "x": 14.2,
+   "y": 0,
+   "z": -0.1,
+   "rot": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -5.9,
+     1.3,
+     1.6
+    ],
+    "look": [
+     -3.78,
+     1.38,
+     -2.15
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "ride",
+     "prop": "busde",
+     "off": [
+      0.42,
+      0.54,
+      1.95
+     ],
+     "yaw": 0,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "pk",
+     "off": [
+      0.4,
+      0.3,
+      0.2
+     ],
+     "yaw": 0,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.273,
+       0.322,
+       0.453
+      ]
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.273,
+       0.322,
+       0.453
+      ]
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.112,
+       0.393,
+       0.404
+      ]
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.32,
+       0.64,
+       0.3
+      ]
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 1,
+      "len": 0,
+      "blink": 0,
+      "bend": 0,
+      "bump": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "busus",
+     "set": {
+      "open": 0,
+      "len": 0,
+      "blink": 0,
+      "bend": 0,
+      "bump": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pk",
+     "set": {
+      "open": 0,
+      "len": 0,
+      "blink": 0,
+      "bend": 0,
+      "bump": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 1,
+      "len": 0,
+      "blink": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "bus cam 05, doors open (Wedge, the watch hand rests on the wheel)"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -5.9,
+     1.3,
+     1.6
+    ],
+    "look": [
+     -3.78,
+     1.38,
+     -2.15
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 0,
+      "len": 0,
+      "blink": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "bus cam 05, doors shut"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -13,
+     1.05,
+     0.6
+    ],
+    "look": [
+     -5.31,
+     1.46,
+     -1.61
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 1,
+      "len": 0,
+      "blink": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "bus cam 16 (door side from the forecourt), doors open"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -13,
+     1.05,
+     0.6
+    ],
+    "look": [
+     -5.31,
+     1.46,
+     -1.61
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 0,
+      "len": 1,
+      "blink": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "bus cam 16, doors shut, indicator on, rolled 1 m"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.4,
+     1.5,
+     0.9
+    ],
+    "look": [
+     -4,
+     1.2,
+     -2
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 0,
+      "len": 0,
+      "blink": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "bus front 3/4 from the driver's side (wheel, dash, route display)"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -6.6,
+     1.45,
+     -3.3
+    ],
+    "look": [
+     -3.8,
+     1.1,
+     -1.9
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 1,
+      "len": 0,
+      "blink": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "bus through the open door: Wedge, hands, wheel, seat"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -8.2,
+     1.3,
+     -0.9
+    ],
+    "look": [
+     -5.1,
+     1,
+     -2.2
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "busde",
+     "set": {
+      "open": 0.5,
+      "len": 0,
+      "blink": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "bus door close-up (step, leaves, doors half open)"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -8.5,
+     1.5,
+     11
+    ],
+    "look": [
+     -4.2,
+     1,
+     14
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "bus US look, 3/4 from the door side"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     19.8,
+     0.95,
+     -2.8
+    ],
+    "look": [
+     12.5,
+     1.51,
+     1.4
+    ],
+    "fov": 32
+   },
+   "do": [],
+   "kind": "pickup cam 03 (Mash waves, 6 m out)"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     14.6,
+     1.05,
+     4.9
+    ],
+    "look": [
+     14.6,
+     1.2,
+     0.2
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "pickup cam 19, through the windscreen"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     17,
+     1.2,
+     4.6
+    ],
+    "look": [
+     14.2,
+     0.8,
+     0.5
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pk",
+     "set": {
+      "bend": -20,
+      "bump": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "pickup front 3/4 (grille, lamps, wheels turned 20 deg)"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     11.2,
+     1.7,
+     -5
+    ],
+    "look": [
+     14.2,
+     0.8,
+     -0.5
+    ],
+    "fov": 38
+   },
+   "do": [],
+   "kind": "pickup rear 3/4 (bed, tailgate, plate)"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wedge",
+   "with": "busde",
+   "from": 0,
+   "to": 12,
+   "reason": "bench: Wedge sits on the bus's driver seat inside its shell (the episode's ride window)"
+  },
+  {
+   "who": "mash",
+   "with": "pk",
+   "from": 0,
+   "to": 12,
+   "reason": "bench: Mash sits on the pickup's bench seat in its open cab (the episode's ride window)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/country-vs-country/02-traffic-light/bench/make-bench-vehicles.mjs (props bench, no reviews)."
+}

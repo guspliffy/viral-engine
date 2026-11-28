@@ -1,0 +1,503 @@
+{
+ "id": "kid-bench",
+ "title": "Kid bench (raincoat)",
+ "idea": "Character bench for Country vs Country 02: the kid in the red raincoat beside Spud, and Wedge's watch; not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#a9d4f2",
+  "floor": "none",
+  "light": "sun",
+  "para": 0,
+  "aperture": 0,
+  "shadow": {
+   "size": 8
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   1,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   2,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   3,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   4,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   5,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   6,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   7,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "kid"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.6,
+    0
+   ],
+   "y": 0.1,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "kid",
+   "character": "potatobrawl/tot-kid",
+   "at": [
+    -0.6,
+    0
+   ],
+   "y": 0.1,
+   "face": 0,
+   "expr": "annoyed",
+   "follow": 0.3,
+   "seed": 2.1
+  },
+  {
+   "id": "wedge",
+   "character": "../storyboards/series/country-vs-country/02-traffic-light/bench/wedge-watch",
+   "at": [
+    0,
+    0
+   ],
+   "y": 0.1,
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 3.1
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "shsky",
+   "time": "a",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "floor",
+   "kind": "flagway",
+   "w": 8,
+   "d": 8,
+   "h": 0.1,
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.65,
+     8.5
+    ],
+    "look": [
+     0,
+     0.55,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "front: Spud 1.02 and the kid 0.60, 1.2 m apart"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5,
+     1.2,
+     6.5
+    ],
+    "look": [
+     0,
+     0.5,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "3/4 from Spud's side"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.56,
+     1.7
+    ],
+    "look": [
+     -0.6,
+     0.46,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "kid face close-up"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.5,
+     0.58,
+     1.3
+    ],
+    "look": [
+     -0.6,
+     0.46,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "kid 3/4 close-up (rim, cheek, hood point)"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.28,
+     1.7
+    ],
+    "look": [
+     -0.6,
+     0.5,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "kid from a low camera"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.6,
+     0.62,
+     -1.6
+    ],
+    "look": [
+     -0.6,
+     0.4,
+     0
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "kid from behind (hood point, hem)"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.5,
+     0.5,
+     0.2
+    ],
+    "look": [
+     -0.6,
+     0.4,
+     0
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.05,
+       0.6,
+       0.46
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.5
+    }
+   ],
+   "kind": "kid from her side (sleeve, cuff, glove)"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.1,
+     0.95,
+     3.2
+    ],
+    "look": [
+     0.05,
+     0.8,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "kid",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    }
+   ],
+   "kind": "Wedge with the watch on (left wrist at chest)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/country-vs-country/02-traffic-light/bench/make-bench-kid.mjs (character bench, no reviews)."
+}
