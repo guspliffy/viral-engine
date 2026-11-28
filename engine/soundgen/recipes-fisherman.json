@@ -1,0 +1,330 @@
+{
+ "_note": "Legend: The Fisherman and his Wife (27 Nov 2026). Score from Codex gpt-6.2-sol high (project files videos/folklore-legend/fisherman/sol-music/answer-summary.md): Schifferklavier button accordion = the coast and the kid's rhyme, plain fiddle, cello/viola for dread, recorded strings + low brass for the storm; motif D F# E D darkens one step per sea colour (D major, Dorian, D minor, Phrygian, + A-flat); hard silences at the eye opening, the black sea, the vanishing, before the punchline.",
+ "sfx": [
+  {
+   "id": "baltic-surf",
+   "kind": "oneshot",
+   "len": [
+    6,
+    10
+   ],
+   "duration": 10,
+   "prompts": [
+    "calm Baltic sea shore, small gentle waves lapping on a sandy beach, evening, field recording, no music",
+    "gentle surf washing over sand, quiet shore ambience, natural recording"
+   ],
+   "seeds": [
+    3101,
+    3102,
+    3103
+   ],
+   "tags": [
+    "surf",
+    "waves",
+    "shore"
+   ],
+   "gain": 0.35,
+   "label": "gentle sea waves lapping on a sandy beach"
+  },
+  {
+   "id": "gulls",
+   "kind": "oneshot",
+   "len": [
+    2,
+    6
+   ],
+   "duration": 10,
+   "prompts": [
+    "a few seagulls calling over a sea shore, distant, natural field recording",
+    "seagull cries over the beach, two or three birds, outdoor"
+   ],
+   "seeds": [
+    3111,
+    3112,
+    3113
+   ],
+   "tags": [
+    "gull",
+    "seagull",
+    "birds"
+   ],
+   "gain": 0.3,
+   "label": "seagulls calling over the sea"
+  },
+  {
+   "id": "jetty-creak",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "old wooden jetty planks creaking under footsteps, close, natural",
+    "wooden pier boards creaking and groaning, single creaks"
+   ],
+   "seeds": [
+    3121,
+    3122,
+    3123
+   ],
+   "tags": [
+    "creak",
+    "wood",
+    "jetty"
+   ],
+   "gain": 0.4,
+   "label": "a single creak of an old wooden plank"
+  },
+  {
+   "id": "rod-reel",
+   "kind": "oneshot",
+   "len": [
+    1,
+    3
+   ],
+   "duration": 10,
+   "prompts": [
+    "a fishing rod bending hard and a reel clicking fast as a fish pulls the line, close",
+    "fishing reel ratchet spinning, line pulled out, rod creaks, close recording"
+   ],
+   "seeds": [
+    3131,
+    3132,
+    3133
+   ],
+   "tags": [
+    "fishing",
+    "reel",
+    "rod"
+   ],
+   "gain": 0.45,
+   "label": "a fishing reel clicking as line is pulled"
+  },
+  {
+   "id": "fish-splash",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "a big flat fish splashing out of the water, single splash, close",
+    "a fish slapping the water surface and diving, wet splash"
+   ],
+   "seeds": [
+    3141,
+    3142,
+    3143
+   ],
+   "tags": [
+    "splash",
+    "fish",
+    "water"
+   ],
+   "gain": 0.45,
+   "label": "a single splash of a fish in water"
+  },
+  {
+   "id": "wave-crash",
+   "kind": "oneshot",
+   "len": [
+    2,
+    6
+   ],
+   "duration": 10,
+   "prompts": [
+    "a gigantic storm wave crashing down onto a wooden pier, roaring water, huge impact, natural recording",
+    "enormous ocean waves breaking in a storm, thunderous crash and spray"
+   ],
+   "seeds": [
+    3151,
+    3152,
+    3153
+   ],
+   "tags": [
+    "wave",
+    "crash",
+    "storm"
+   ],
+   "gain": 0.5,
+   "label": "a huge ocean wave crashing"
+  },
+  {
+   "id": "church-bell-far",
+   "kind": "oneshot",
+   "len": [
+    2,
+    6
+   ],
+   "duration": 10,
+   "prompts": [
+    "one distant church bell tolling once across the water, evening, far away, natural",
+    "a single far church bell strike echoing over a sea shore, outdoor"
+   ],
+   "seeds": [
+    3161,
+    3162,
+    3163
+   ],
+   "tags": [
+    "bell",
+    "church",
+    "distant"
+   ],
+   "gain": 0.35,
+   "label": "a single distant church bell strike"
+  },
+  {
+   "id": "ladle-pot",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "a wooden ladle stirring soup in an iron pot, soft clink and slosh, close",
+    "stirring a pot of soup with a spoon, gentle clinks, kitchen"
+   ],
+   "seeds": [
+    3171,
+    3172,
+    3173
+   ],
+   "tags": [
+    "ladle",
+    "pot",
+    "stir"
+   ],
+   "gain": 0.35,
+   "label": "a spoon stirring soup in a metal pot"
+  },
+  {
+   "id": "magic-shift",
+   "kind": "oneshot",
+   "len": [
+    1,
+    3
+   ],
+   "duration": 10,
+   "prompts": [
+    "a deep rumbling low whoosh as a building suddenly changes, stone grinding and wind rushing, natural sounds, no music",
+    "a heavy low rushing sound with rumbling stones, sudden transformation, no music"
+   ],
+   "seeds": [
+    3181,
+    3182,
+    3183
+   ],
+   "tags": [
+    "rumble",
+    "whoosh",
+    "shift"
+   ],
+   "gain": 0.4,
+   "label": "a deep low rumbling whoosh"
+  }
+ ],
+ "music": [
+  {
+   "id": "fw-dread",
+   "bpm": 54,
+   "bars": 2,
+   "mood": "myth",
+   "prompts": [
+    "54 BPM, D Phrygian. One sustained dry solo cello low D pedal, a low trombone swelling softly on A-flat against it, ominous, sparse, cold sea at night. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "54 BPM, D Phrygian. Low bowed cello drone on D with a faint dark low brass A-flat rub, still, menacing, lots of air. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2201,
+    2202
+   ]
+  },
+  {
+   "id": "fw-green",
+   "bpm": 96,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "96 BPM, D major. A small north German button accordion (Schifferklavier), single reed, audible bellows, humming a simple four-note folk tune D F-sharp E D over a fiddle holding an open fifth D-A, gentle Low German sea-shore folk song, warm evening. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "96 BPM, D major. Solo diatonic button accordion and a plain lightly bowed fiddle, simple North Sea coastal folk melody, intimate, two players, warm. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2211,
+    2212
+   ]
+  },
+  {
+   "id": "fw-grey",
+   "bpm": 96,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "96 BPM, D Dorian. Bare solo fiddle playing a simple folk phrase with a flattened third F natural and a passing B natural over a held accordion D, thinner, first chill, uneasy. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "96 BPM, D Dorian. A lone fiddle and a quiet held accordion note, sparse coastal folk tune turning uneasy, cooler. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2221,
+    2222
+   ]
+  },
+  {
+   "id": "fw-blue",
+   "bpm": 48,
+   "bars": 2,
+   "mood": "myth",
+   "prompts": [
+    "48 BPM, D minor. A solo cello holding a low B-flat against a quiet accordion drone D-A, thick, heavy, slow, murky sea, unsettling. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "48 BPM, D minor. Slow low cello B-flat and an accordion drone on D and A, heavy, dark, oppressive, very sparse. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2231,
+    2232
+   ]
+  },
+  {
+   "id": "fw-black",
+   "bpm": 48,
+   "bars": 2,
+   "mood": "myth",
+   "prompts": [
+    "48 BPM, D Phrygian. A single low cello D, a quiet viola sliding into E-flat and holding the rub, dread, near silence, black sea. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "48 BPM, D Phrygian. Solo low cello D with a tense quiet viola semitone E-flat above, suspense, very sparse, cold. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2241,
+    2242
+   ]
+  },
+  {
+   "id": "fw-storm",
+   "bpm": 108,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "108 BPM, D Phrygian with A-flat. Recorded orchestral strings in staggered agitated bow strokes rising, bass trombone and tuba cresting together, huge sea storm, like Britten's Peter Grimes storm interlude, real orchestra. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "108 BPM, D minor. Full recorded symphony orchestra storm, churning string tremolos and runs, heavy low brass swells, dramatic, waves rising, cinematic but acoustic. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2251,
+    2252
+   ]
+  },
+  {
+   "id": "fw-breath",
+   "bpm": 72,
+   "bars": 2,
+   "mood": "myth",
+   "prompts": [
+    "72 BPM, D major. One soft button accordion breath, a gentle held D to F-sharp, calm, quiet, morning-after peace by the sea, very sparse. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "72 BPM, D major. A single quiet accordion chord swelling and fading, calm sea, gentle, intimate. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2261,
+    2262
+   ]
+  }
+ ]
+}

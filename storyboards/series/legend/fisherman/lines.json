@@ -1,0 +1,169 @@
+{
+ "_about": "Legend: The Fisherman and his Wife (Grimm KHM 19), lines for H1+E1 (Jonny picked 27 Nov 23:31 Berlin). Our kid wishes himself, one evening on the Baltic shore; the sea's colour is the counter. Speakers: N narrator, G grandmother, K kid, F flounder.",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "engine/voice/targets/legend-grandma-ref.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "engine/voice/targets/legend-kid-ref.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction",
+   "steps": 25,
+   "cfg": 3.0,
+   "af": "highpass=f=110,equalizer=f=650:t=q:w=1.2:g=-5,treble=g=12:f=2200,equalizer=f=5000:t=q:w=1:g=4",
+   "_af": "ep1 kid brightening chain, applied up front (wolf video: 7 of 28 K takes MUFFLED without it)"
+  },
+  "F": {
+   "ref": "engine/voice/targets/teo-ref.wav",
+   "style": "an enchanted prince living as a flat fish, smooth and polite, faintly amused, a little cold underneath, calm",
+   "_note": "ref to confirm by ear"
+  }
+ },
+ "lines": [
+  [
+   "L01",
+   "K",
+   "Why is the sea black?",
+   "scared, shouting over wind"
+  ],
+  [
+   "L02",
+   "G",
+   "Because you didn't stop at one.",
+   "low, grim"
+  ],
+  [
+   "L03",
+   "N",
+   "Six hours earlier, the Baltic was green. And the fish he caught could talk.",
+   ""
+  ],
+  [
+   "L04",
+   "F",
+   "Let me go. I'm not a fish. I'm a prince.",
+   "polite, smooth"
+  ],
+  [
+   "L05",
+   "G",
+   "Wish once. Then throw it back.",
+   "sharp, stern"
+  ],
+  [
+   "L06",
+   "K",
+   "One wish. A real house for Grandma.",
+   "proud, kind"
+  ],
+  [
+   "L07",
+   "N",
+   "The hut became a cottage. And the sea turned grey.",
+   ""
+  ],
+  [
+   "L08",
+   "G",
+   "Grey. That's one.",
+   "quiet, watching the water"
+  ],
+  [
+   "L09",
+   "N",
+   "In the Grimms' 1812 version, the couple lived in a pot.",
+   ""
+  ],
+  [
+   "L10",
+   "K",
+   "Flounder, flounder, in the sea! I want a castle!",
+   "excited, calling out over the water"
+  ],
+  [
+   "L11",
+   "N",
+   "Dark blue. Thick. And it started to smell.",
+   "slow"
+  ],
+  [
+   "L12",
+   "G",
+   "I've seen the sea this colour once before.",
+   "very quiet"
+  ],
+  [
+   "L13",
+   "K",
+   "Then you know it's fine!",
+   "cheerful, not listening"
+  ],
+  [
+   "L14",
+   "K",
+   "Make me king of the whole coast!",
+   "shouting, greedy"
+  ],
+  [
+   "L15",
+   "N",
+   "And the sea turned black.",
+   "low"
+  ],
+  [
+   "L16",
+   "F",
+   "One more, and I can't give it back.",
+   "cold, not smiling any more"
+  ],
+  [
+   "L17",
+   "G",
+   "Stop. Now.",
+   "urgent, firm"
+  ],
+  [
+   "L18",
+   "K",
+   "Just one more. Make the sun come up when I say!",
+   "shouting into the storm"
+  ],
+  [
+   "L19",
+   "N",
+   "The waves stood up like church towers.",
+   "dread"
+  ],
+  [
+   "L20",
+   "F",
+   "Go home. It's all gone.",
+   "flat, final"
+  ],
+  [
+   "L21",
+   "N",
+   "Castle. Crown. Cottage. Gone. Just the old hut. And a green sea.",
+   "slow, quiet"
+  ],
+  [
+   "L22",
+   "K",
+   "Why didn't you warn me better?",
+   "upset, small"
+  ],
+  [
+   "L23",
+   "G",
+   "Child... why do you think I live in a pot?",
+   "deadpan, dry"
+  ]
+ ],
+ "say": {
+  "L09": "In the Grimms' eighteen twelve version, the couple lived in a pot."
+ }
+}
