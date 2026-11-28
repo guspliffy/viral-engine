@@ -228,6 +228,11 @@ const SIZE = {
   // (origin = the end, along +x; pass { from: 0 }; len 0.02 puts the default from 0.6 at 1.2 cm, inside the 0.035 width)
   eyechart: { w: 0.30, h: 0.42, t: 0.01 },
   smallruler: { len: 0.02, r: 0.002 },
+  // props-jokes-fridge.js (Kid vs Dad 08): instacam = one fist on its grip bar (mug hold, default angle 75: TURN 180, bar axis x -0.16 in the prop's frame, y 0.05..0.15, r 0.018; r 0.15 puts the glove centre 0.061 from the bar,
+  // fist at 0.66 x 0.155 = y 0.102) or both palms on the ends (box hold, 0.26 body; the bar stands 0.018 proud of the +x end: pass { gap } if the right palm meets it);
+  // kidsneakers (props-jokes-real.js) = the pair, box hold, both palms on the two outer sides (origin bottom centre, 0.20 across both shoes, 0.15 long, 0.075 high)
+  instacam: { w: 0.26, h: 0.155, d: 0.15, r: 0.15, cx: 0.025 },
+  kidsneakers: { w: 0.20, h: 0.075, d: 0.15 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
@@ -235,7 +240,7 @@ const size = (spec) => { const s = SIZE[spec.kind]; if (!s) throw new Error(`gri
 
 // the turn each kind adds to rot = yaw + 180: a mug's handle (+x) goes to the holder's left and back toward the body,
 // away from the right hand and from a camera in front
-const TURN = { campmug: -125, teamug: -125, kboot: -90, smug: -125 };
+const TURN = { campmug: -125, teamug: -125, kboot: -90, smug: -125, instacam: 180 };   // instacam: the lens looks away from the holder (grip bar on -x, props-jokes-fridge.js)
 // the crisp cast's glove size (hands.size): a grip shape's sizes are in the glove's own units
 const HAND = 1.7;
 

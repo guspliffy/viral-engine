@@ -1,0 +1,531 @@
+{
+ "id": "t3-bench",
+ "title": "T3 bench: moonview and plateshards",
+ "idea": "Prop bench for Kid vs Dad 08 T3, not a clip",
+ "tool": "prop bench for Kid vs Dad 08 T3 (moonview, plateshards): stills only, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "cleanStart": true,
+ "set": {
+  "type": "plain",
+  "night": true,
+  "color": "#2a3050",
+  "floor": "none",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "bloom": "emissive"
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 1.12,
+    "w": 0.5,
+    "c": 1,
+    "lift": 0.03
+   }
+  ],
+  [
+   1,
+   {
+    "s": 0.85,
+    "w": -0.6,
+    "c": 1.05,
+    "lift": -0.02,
+    "tint": "#c8d4ff"
+   }
+  ],
+  [
+   5,
+   {
+    "s": 1.12,
+    "w": 0.5,
+    "c": 1,
+    "lift": 0.03
+   }
+  ]
+ ],
+ "fx": [
+  {
+   "do": "lights",
+   "at": 0,
+   "to": 1,
+   "lamp": 1,
+   "dur": 0
+  },
+  {
+   "do": "lights",
+   "at": 1,
+   "to": 0.15,
+   "lamp": 0.08,
+   "dur": 0
+  },
+  {
+   "do": "lights",
+   "at": 5,
+   "to": 1,
+   "lamp": 1,
+   "dur": 0
+  }
+ ],
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   4,
+   40
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    0.25,
+    -0.6
+   ],
+   "face": 10,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.1
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    0.95,
+    -0.95
+   ],
+   "face": -15,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "room",
+   "kind": "kitchenroom",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fridge": false,
+   "lamp": 1,
+   "time": 2.75
+  },
+  {
+   "id": "fridge",
+   "kind": "openfridge",
+   "x": 1.35,
+   "y": 0,
+   "z": -1.78,
+   "rot": 0,
+   "scale": 0.75,
+   "open": 0,
+   "lit": 0
+  },
+  {
+   "id": "table",
+   "kind": "kitchentable",
+   "x": -1.25,
+   "y": 0,
+   "z": 0.15,
+   "w": 1.1,
+   "d": 0.6,
+   "h": 0.42
+  },
+  {
+   "id": "chair",
+   "kind": "chair",
+   "x": -1.25,
+   "y": 0,
+   "z": 0.78,
+   "rot": 180
+  },
+  {
+   "id": "plate0",
+   "kind": "plate",
+   "x": -1.62,
+   "y": 0.42,
+   "z": 0.16999999999999998
+  },
+  {
+   "id": "plate1",
+   "kind": "plate",
+   "x": -1.25,
+   "y": 0.42,
+   "z": 0.16999999999999998
+  },
+  {
+   "id": "plate2",
+   "kind": "plate",
+   "x": -0.88,
+   "y": 0.42,
+   "z": 0.16999999999999998
+  },
+  {
+   "id": "cup0",
+   "kind": "teacup",
+   "saucer": false,
+   "x": -1.5,
+   "y": 0.42,
+   "z": 0.48
+  },
+  {
+   "id": "cup1",
+   "kind": "teacup",
+   "saucer": false,
+   "x": -1.12,
+   "y": 0.42,
+   "z": 0.48
+  },
+  {
+   "id": "cup2",
+   "kind": "teacup",
+   "saucer": false,
+   "x": -0.84,
+   "y": 0.42,
+   "z": 0.48
+  },
+  {
+   "id": "moonlamp",
+   "kind": "moonlamp",
+   "x": 0.3,
+   "y": 2.4,
+   "z": 1,
+   "range": 8
+  },
+  {
+   "id": "moon",
+   "kind": "moonview",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "sh0",
+   "kind": "plateshards",
+   "x": -0.55,
+   "y": 0,
+   "z": 1.3,
+   "v": 0
+  },
+  {
+   "id": "sh1",
+   "kind": "plateshards",
+   "x": 0.55,
+   "y": 0,
+   "z": 1.3,
+   "v": 1
+  },
+  {
+   "id": "whole",
+   "kind": "plate",
+   "x": 0,
+   "y": 0,
+   "z": 1.3
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.45,
+     1.55,
+     3.9
+    ],
+    "look": [
+     0.45,
+     1.75,
+     -2
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "moonlamp",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh0",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh1",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh0",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh1",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "0.5 evening, moonview off (control)"
+  },
+  {
+   "name": "s1",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.45,
+     1.55,
+     3.9
+    ],
+    "look": [
+     0.45,
+     1.75,
+     -2
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moonlamp",
+     "set": {
+      "on": 0.9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "1.5 moon state, moonview OFF"
+  },
+  {
+   "name": "s2",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.45,
+     1.55,
+     3.9
+    ],
+    "look": [
+     0.45,
+     1.75,
+     -2
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "2.5 moon state, moonview ON"
+  },
+  {
+   "name": "s3",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.05,
+     2.6
+    ],
+    "look": [
+     0,
+     2.05,
+     -2.3
+    ],
+    "fov": 34
+   },
+   "do": [],
+   "kind": "3.5 the card straight on"
+  },
+  {
+   "name": "s4",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     1.5,
+     1.2
+    ],
+    "look": [
+     0.1,
+     0,
+     -1.4
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "4.5 the floor patch, moon ON, from the right"
+  },
+  {
+   "name": "s5",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.55,
+     0.95,
+     2
+    ],
+    "look": [
+     -0.55,
+     0,
+     1.3
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "moon",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "moonlamp",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "5.5 plateshards v 0"
+  },
+  {
+   "name": "s6",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.55,
+     0.95,
+     2
+    ],
+    "look": [
+     0.55,
+     0,
+     1.3
+    ],
+    "fov": 34
+   },
+   "do": [],
+   "kind": "6.5 plateshards v 1"
+  },
+  {
+   "name": "s7",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     3.6
+    ],
+    "look": [
+     0,
+     0,
+     1.2
+    ],
+    "fov": 56
+   },
+   "do": [],
+   "kind": "7.5 both heaps and a whole plate"
+  },
+  {
+   "name": "s8",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.75,
+     0.28,
+     2.2
+    ],
+    "look": [
+     0.4,
+     0.03,
+     1.3
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "8.5 heap v 1 and the plate, low and close"
+  }
+ ],
+ "notes": "Generated by storyboards/series/kid-vs-dad/08-dad-jokes-true/bench/t3-bench.mjs (T3 bench, no reviews)."
+}

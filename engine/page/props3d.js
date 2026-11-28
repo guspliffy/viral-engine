@@ -102,6 +102,9 @@ import { MONALISA_KINDS, MONALISA_GRIPS } from "./props-monalisa.js";
 import { EATERY_KINDS, EATERY_GRIPS } from "./props-eatery.js";   // kid vs dad 04 waiter jokes: roundtable, hoopchair, dinecarpet
 import { WAITER_KINDS, WAITER_GRIPS } from "./props-waiter.js";   // kid vs dad 04 waiter jokes: tallmenu, servetray, mealplate, tipbill
 import { EATERYDOOR_KINDS } from "./props-eatery-door.js";   // kid vs dad 04 waiter jokes: kitchendoor (T2 bench-local line; the director registers)
+import { JOKESFRIDGE_KINDS, JOKESFRIDGE_STATE } from "./props-jokes-fridge.js";   // kid vs dad 08 dad jokes come true: jokeladder, jokephoto, instacam
+import { JOKESREAL_KINDS } from "./props-jokes-real.js";   // kid vs dad 08: hotcorner, beardflood, tatosandwich, kidsocks, kidsneakers
+import { JOKESMOON_KINDS } from "./props-jokes-moon.js";   // kid vs dad 08: moonview, plateshards
 import { GRAVROOM_KINDS } from "./props-gravroom.js";   // fact what-if 02 gravity: room props (sofa, TV, tunnel, haze)
 import { GRAVCITY_KINDS } from "./props-gravcity.js";   // fact what-if 02 gravity: street, tower, city
 import { GRAVSKY_KINDS } from "./props-gravsky.js";  // fact what-if 02 gravity: sky, Moon, satellites, clouds   // fact story 01 Mona Lisa: painting, hooks, trunk, newspaper, day pad
@@ -1555,7 +1558,7 @@ Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
 Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS, ZFIGHT_KINDS, ZROOF_KINDS, ZSTAIRS_KINDS, ZWAIT_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS, ZFIGHT_GRIPS, ZROOF_GRIPS, ZSTAIRS_GRIPS, ZWAIT_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
-const KIT_STATE = { ...ARMREST_STATE, ...ARMREST_FX_STATE, ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE , ...NORSE_SPEAR_STATE, ...NORSE_RAVEN_STATE, ...NORSE_HEAD_STATE, ...NORSE_CAVE_STATE, ...NORSE_WELL_STATE, ...NORSE_TREE_STATE, ...NORSE_WIND_STATE, ...NORSE_ITEMS_STATE, ...NORSE_CLASS_STATE, ...KRAMPUS_LANE_STATE, ...KRAMPUS_BEAST_STATE, ...KRAMPUS_NICK_STATE, ...KRAMPUS_BOOTS_STATE, ...KRAMPUS_RUN_STATE, ...KRAMPUS_CAT_STATE, ...ALARM_ROOSTER_STATE, ...ALARM_HUT_STATE, ...CART_STREET_STATE, ...CART_GOODS_STATE, ...CART_CHAIR_STATE };
+const KIT_STATE = { ...ARMREST_STATE, ...ARMREST_FX_STATE, ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...HEART_MONSTER_STATE, ...HEART_SCALE_STATE, ...HEART_SOUL_STATE, ...HEART_JUICE_STATE, ...HEART_HALL_STATE, ...HEART_HEART_STATE, ...HEART_CASE_STATE, ...NORSE_SPEAR_STATE, ...NORSE_RAVEN_STATE, ...NORSE_HEAD_STATE, ...NORSE_CAVE_STATE, ...NORSE_WELL_STATE, ...NORSE_TREE_STATE, ...NORSE_WIND_STATE, ...NORSE_ITEMS_STATE, ...NORSE_CLASS_STATE, ...KRAMPUS_LANE_STATE, ...KRAMPUS_BEAST_STATE, ...KRAMPUS_NICK_STATE, ...KRAMPUS_BOOTS_STATE, ...KRAMPUS_RUN_STATE, ...KRAMPUS_CAT_STATE, ...ALARM_ROOSTER_STATE, ...ALARM_HUT_STATE, ...JOKESFRIDGE_STATE, ...CART_STREET_STATE, ...CART_GOODS_STATE, ...CART_CHAIR_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, CASINO_KINDS, MIND_KINDS, NIGHTCITY_KINDS, NEONSTREET_KINDS);   // there's a catch 06 (props-casino.js, props-mind.js, props-nightcity.js)
@@ -1620,6 +1623,7 @@ Object.assign(KINDS, MONALISA_KINDS); Object.assign(GRIPS, MONALISA_GRIPS);   //
 Object.assign(KINDS, WAITER_KINDS); Object.assign(GRIPS, WAITER_GRIPS);   // kid vs dad 04 waiter jokes (props-waiter.js)
 Object.assign(KINDS, EATERY_KINDS); Object.assign(GRIPS, EATERY_GRIPS);   // kid vs dad 04 waiter jokes (props-eatery.js)
 Object.assign(KINDS, EATERYDOOR_KINDS);   // kid vs dad 04 waiter jokes (props-eatery-door.js)
+Object.assign(KINDS, JOKESFRIDGE_KINDS, JOKESREAL_KINDS, JOKESMOON_KINDS);   // kid vs dad 08 dad jokes come true (props-jokes-*.js)
 Object.assign(KINDS, GRAVROOM_KINDS, GRAVCITY_KINDS, GRAVSKY_KINDS, GRAVRUIN_KINDS, GRAVSTRIKE_KINDS, GRAVALPS_KINDS, GRAVMOON_KINDS);   // fact what-if 02 gravity (props-gravroom.js, props-gravcity.js, props-gravsky.js)
 Object.assign(KINDS, SPINROOM_KINDS, SPINSKY_KINDS, SPINANDES_KINDS, SPINSTREET_KINDS, SPINSPACE_KINDS);   // fact what-if 03 spin
 Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS, SPREE_KINDS, TOW_KINDS, HARBOUR_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)
