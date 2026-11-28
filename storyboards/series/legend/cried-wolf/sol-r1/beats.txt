@@ -1,0 +1,65 @@
+0.00-2.90  G  Shout wolf only when you SEE its teeth.
+3.02-4.48  K  And if I already shouted twice?
+4.65-9.61  N  Nine o'clock that night. The boy was bored. By two, he'd wish he'd kept his mouth shut.
+9.92-11.28  K  WOLF! WOLF!
+11.64-13.90  N  The whole village ran up the hill with sticks.
+14.14-14.59  V  Where is it?!
+14.69-16.38  K  ...Got you.
+16.53-21.81  N  Nobody looked at the olive trees. Something in there was watching. And counting.
+22.37-24.48  N  Eleven o'clock. He did it again.
+24.78-25.54  K  WOLF!
+25.58-29.23  N  Fewer came. Angrier. His grandmother came last.
+29.70-33.02  G  Twice now. You've used up your voice.
+34.00-37.93  N  Two in the morning. Something howled in the olive trees.
+39.00-45.48  N  The Greeks told this story two and a half thousand years ago. It always ends the same way. But this boy was about to try something new.
+45.93-48.43  K  WOLF! For real this time! WOLF!
+48.62-52.91  N  Down in the village, the lights went out. One... by one.
+53.55-53.86  K  Please!
+56.20-59.43  N  Nobody came. And now there were more eyes.
+60.17-62.06  K  Only when they SEE its teeth...
+62.70-65.27  K  They won't believe my voice. So they'll have to see it.
+65.51-66.37  N  He opened the gate.
+66.49-68.91  N  And drove every sheep he had straight down into the village.
+69.21-73.40  N  The flock came bleating through the square... and the wolf came right behind them.
+73.11-75.04  N  Every door opened at once.
+75.96-76.43  V  WOLF!
+76.40-79.13  N  This time, everyone saw the teeth.
+79.43-81.93  G  So. Now they believe you?
+82.43-84.36  K  Now I'm the boy who brought a wolf to town.
+
+SHOTS (start-end s, shot id, line):
+0.00-2.90  1  L01
+2.90-4.65  2  L02
+4.65-7.51  3a  L03
+7.51-9.72  3b  L03
+9.72-11.49  4  L04
+11.49-13.54  5  L05
+13.54-14.64  6  L06
+14.64-16.48  7  L07
+16.48-18.37  8a  L30
+18.37-22.27  8b  L30
+22.27-24.58  9a  L08
+24.58-25.48  9b  L09
+25.48-27.88  10a  L10
+27.88-29.60  10b  L10
+29.60-32.29  11a  L11
+32.29-33.70  11b  L11
+33.70-38.70  12  L12
+38.70-41.45  13a  L13
+41.45-43.85  13b  L13
+43.85-45.78  13c  L13
+45.78-48.47  14  L14
+48.47-53.45  15  L15
+53.45-56.10  16  L16
+56.10-60.07  17  L17
+60.07-62.60  18  L18
+62.60-65.41  19  L19
+65.41-66.39  20  L20
+66.39-69.11  21  L21
+69.11-71.73  22a  L22
+71.73-73.01  22b  L22
+73.01-75.86  23  L23
+75.86-76.25  24  L24
+76.25-79.33  25  L25
+79.33-82.33  26  L26
+82.33-84.63  27  L27
