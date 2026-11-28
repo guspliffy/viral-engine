@@ -226,6 +226,11 @@ const SIZE = {
   // (origin = the end, along +x; pass { from: 0 }; len 0.02 puts the default from 0.6 at 1.2 cm, inside the 0.035 width)
   eyechart: { w: 0.30, h: 0.42, t: 0.01 },
   smallruler: { len: 0.02, r: 0.002 },
+  // props-jokes-fridge.js (Kid vs Dad 08): instacam = one fist on its grip bar (mug hold, default angle 75: TURN 180, bar axis x -0.16 in the prop's frame, y 0.05..0.15, r 0.018; r 0.15 puts the glove centre 0.061 from the bar,
+  // fist at 0.66 x 0.155 = y 0.102) or both palms on the ends (box hold, 0.26 body; the bar stands 0.018 proud of the +x end: pass { gap } if the right palm meets it);
+  // kidsneakers (props-jokes-real.js) = the pair, box hold, both palms on the two outer sides (origin bottom centre, 0.20 across both shoes, 0.15 long, 0.075 high)
+  instacam: { w: 0.26, h: 0.155, d: 0.15, r: 0.15, cx: 0.025 },
+  kidsneakers: { w: 0.20, h: 0.075, d: 0.15 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
@@ -233,7 +238,7 @@ const size = (spec) => { const s = SIZE[spec.kind]; if (!s) throw new Error(`gri
 
 // the turn each kind adds to rot = yaw + 180: a mug's handle (+x) goes to the holder's left and back toward the body,
 // away from the right hand and from a camera in front
-const TURN = { campmug: -125, teamug: -125, kboot: -90, smug: -125 };
+const TURN = { campmug: -125, teamug: -125, kboot: -90, smug: -125, instacam: 180 };   // instacam: the lens looks away from the holder (grip bar on -x, props-jokes-fridge.js)
 // the crisp cast's glove size (hands.size): a grip shape's sizes are in the glove's own units
 const HAND = 1.7;
 
@@ -343,7 +348,9 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
 }
 
 // a point in the hold frame (holder at +z, right hand at +x; metres in the world) -> the prop's own frame
-const toProp = (spec, p) => rotY(p, -(TURN[spec.kind] ?? 0)).map((v) => r3(v / (spec.scale ?? 1)));
+// spec.scale 0 = a prop hidden until its moment (the house way to stage one): its holds use scale 1, never a 0 that
+// turned every grip into [null, null, null] and flipped wrists without a word (shopping cart, 28 Nov 2026)
+const toProp = (spec, p) => rotY(p, -(TURN[spec.kind] ?? 0)).map((v) => r3(v / (spec.scale || 1)));
 // a direction in the hold frame -> the world (arm pose `off` is in the world), for the prop's rot at the start
 const toWorld = (spec, p) => rotY(p, (spec.rot ?? 0) - (TURN[spec.kind] ?? 0)).map(r3);
 
@@ -351,7 +358,7 @@ const toWorld = (spec, p) => rotY(p, (spec.rot ?? 0) - (TURN[spec.kind] ?? 0)).m
 // the fingers round the far side; the handle turned away from the hand and the camera (the teacup test, 25 Oct: a
 // glove closed on a small handle reads as a lump stuck to the cup). It stays level until a sip.
 export function mug(c, who, spec, { side = "R", angle = 75, gap = 0.05, height = 0.66 } = {}) {
-  const { r, h } = size(spec), k = spec.scale ?? 1, sx = side === "R" ? 1 : -1;
+  const { r, h } = size(spec), k = spec.scale || 1, sx = side === "R" ? 1 : -1;
   const at = [sx * Math.sin(rad(angle)) * (r * k + gap), height * h * k, Math.cos(rad(angle)) * (r * k + gap)];
   const away = toWorld(spec, rotY([0, 0.02, 0.07], sx * angle));
   const grip = toProp(spec, at);
@@ -364,14 +371,14 @@ export function mug(c, who, spec, { side = "R", angle = 75, gap = 0.05, height =
 // inside the bowl it pushed; grip library v1: fingers through the bowl and the table). push(): one hand flat on its
 // far side, for a slide along a table.
 export function bowl(c, who, spec, { gap = 0.07, height = 0.8, angle = 85 } = {}) {
-  const { rim, wall } = size(spec), k = spec.scale ?? 1, y = height * rim * k, d = wallAt(wall, height * rim) * k + gap;
+  const { rim, wall } = size(spec), k = spec.scale || 1, y = height * rim * k, d = wallAt(wall, height * rim) * k + gap;
   const at = (sx) => [sx * Math.sin(rad(angle)) * d, y, Math.cos(rad(angle)) * d];
   const hands = {};
   for (const [s, sx] of [["R", 1], ["L", -1]]) hands[s] = { grip: toProp(spec, at(sx)), palm: true, away: toWorld(spec, [sx * 0.06, 0.08, 0.03]) };
   return holder(c, who, spec, { hands, shape: "carry", ready: "relaxed", grab: toProp(spec, [0, y, Math.cos(rad(angle)) * d]) });
 }
 export function bowlPush(c, who, spec, { side = "R", gap = 0.05, height = 0.6, angle = 70 } = {}) {
-  const { rim, wall } = size(spec), k = spec.scale ?? 1, sx = side === "R" ? 1 : -1, d = wallAt(wall, height * rim) * k + gap;
+  const { rim, wall } = size(spec), k = spec.scale || 1, sx = side === "R" ? 1 : -1, d = wallAt(wall, height * rim) * k + gap;
   const grip = toProp(spec, [sx * Math.sin(rad(angle)) * d, height * rim * k, Math.cos(rad(angle)) * d]);
   return holder(c, who, spec, { hands: { [side]: { grip, palm: true, away: toWorld(spec, [sx * 0.07, 0.04, 0.03]) } }, shape: "relaxed", grab: grip });
 }
@@ -379,7 +386,7 @@ export function bowlPush(c, who, spec, { side = "R", gap = 0.05, height = 0.6, a
 // BOX (parcel, gift): both palms flat on the two ends, at half height, fingers open up the ends, the box between them
 // (Package 29 Oct). Lifted to the chest it stays square to the holder; a body turn turns it with rot.
 export function box(c, who, spec, { gap = 0.045, height = 0.55 } = {}) {
-  const { w, h } = size(spec), k = spec.scale ?? 1, y = height * h * k, cx = (SIZE[spec.kind].cx ?? 0) * k;
+  const { w, h } = size(spec), k = spec.scale || 1, y = height * h * k, cx = (SIZE[spec.kind].cx ?? 0) * k;
   const hands = {};
   for (const [s, sx] of [["R", 1], ["L", -1]]) hands[s] = { grip: toProp(spec, [cx + sx * (w / 2 * k + gap), y, 0]), palm: true, away: toWorld(spec, [sx * 0.08, 0.02, 0.03]) };
   return holder(c, who, spec, { hands, shape: "press", ready: "open", grab: toProp(spec, [cx, y, 0]) });
@@ -393,7 +400,7 @@ export function box(c, who, spec, { gap = 0.045, height = 0.55 } = {}) {
 // stays on the arm. roll: degrees the hand turns about the shaft to show the thumb to the camera. from: where on the
 // shaft the pinch is (0 bottom .. 1 top).
 export function thin(c, who, spec, { side = "R", from = 0.6, roll = 20, lean = 30, readyRoll = roll - 40 } = {}) {
-  const { len, r } = size(spec), k = spec.scale ?? 1, sx = side === "R" ? 1 : -1;
+  const { len, r } = size(spec), k = spec.scale || 1, sx = side === "R" ? 1 : -1;
   const grip = toProp(spec, [0, from * len * k, 0]);
   const set = { roll, lean, thin: r3((r * k) / HAND) };
   const hands = { [side]: { grip, away: toWorld(spec, [sx * 0.07, 0.07, 0.04]) } };
@@ -407,7 +414,7 @@ export function thin(c, who, spec, { side = "R", from = 0.6, roll = 20, lean = 3
 // edge: which edge the hand closes on, in the hold frame ("R": +x; default the hand's own side). A pass takes the
 // edge nearest the taker, which for a taker on the giver's right is the hold frame's other edge (make-holds.mjs pass)
 export function phone(c, who, spec, { side = "R", edge: closeOn = side, gap = 0.035, height = 0.42, flat = (spec.tip ?? 0) <= -60 } = {}) {
-  const { w, h, t: th } = size(spec), k = spec.scale ?? 1, sx = closeOn === "R" ? 1 : -1;
+  const { w, h, t: th } = size(spec), k = spec.scale || 1, sx = closeOn === "R" ? 1 : -1;
   const hold = toProp(spec, [sx * (w / 2 * k + gap), height * h * k, -0.01]);
   const away = toWorld(spec, [sx * 0.06, 0.02, 0.04]);
   if (!flat) return holder(c, who, spec, { hands: { [side]: { grip: hold, palm: true, away } }, shape: "hold", grab: hold });
@@ -459,7 +466,7 @@ export function staff(c, who, { side = "L", rest = [0.24, 0.36, 0.08] } = {}) {
 // into the table with the grip on its top): lift is that, in metres of the world, for the crisp/sheet gloves.
 //   grips.rest(c, "rea", "R", TABLE, [0.45, 0.3], 1.0)     // x and z on the prop (its own frame), the top from SIZE or h
 export function rest(c, who, side, spec, [x, z], t, { dur = 0.35, ease = "settle", top = spec.h ?? SIZE[spec.kind]?.h ?? 0, lift = 0.055, palm = true } = {}) {
-  const k = spec.scale ?? 1, y = r3(top + lift / k);
+  const k = spec.scale || 1, y = r3(top + lift / k);
   c.arm(t, who, side, { prop: spec.id, grip: [x, y, z], ...(palm && { palm: [x, r3(top - 1), z] }) }, dur, ease);
   return r3(t + dur);
 }
