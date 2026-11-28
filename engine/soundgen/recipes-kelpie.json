@@ -23,7 +23,8 @@
     "lap",
     "shore"
    ],
-   "gain": 0.4
+   "gain": 0.4,
+   "label": "gentle water lapping on a lake shore at night"
   },
   {
    "id": "water-drip",
@@ -45,7 +46,8 @@
     "drip",
     "water"
    ],
-   "gain": 0.45
+   "gain": 0.45,
+   "label": "a single water drop dripping into water"
   },
   {
    "id": "horse-snort",
@@ -67,7 +69,8 @@
     "horse",
     "snort"
    ],
-   "gain": 0.45
+   "gain": 0.45,
+   "label": "a horse snorting through its nose"
   },
   {
    "id": "hoof-water",
@@ -91,7 +94,8 @@
     "splash",
     "water"
    ],
-   "gain": 0.5
+   "gain": 0.5,
+   "label": "a horse hoof step splashing in shallow water"
   },
   {
    "id": "sticky-stretch",
@@ -114,7 +118,8 @@
     "sticky",
     "squelch"
    ],
-   "gain": 0.5
+   "gain": 0.5,
+   "label": "a wet sticky squelch of something pulling apart"
   },
   {
    "id": "splash-in",
@@ -135,7 +140,8 @@
    "tags": [
     "splash"
    ],
-   "gain": 0.5
+   "gain": 0.5,
+   "label": "a single splash of someone dropping into shallow water"
   },
   {
    "id": "underwater",
@@ -157,7 +163,8 @@
     "underwater",
     "bubbles"
    ],
-   "gain": 0.45
+   "gain": 0.45,
+   "label": "muffled underwater ambience with bubbles"
   },
   {
    "id": "bridle-rings",
@@ -180,7 +187,8 @@
     "rings",
     "jingle"
    ],
-   "gain": 0.4
+   "gain": 0.4,
+   "label": "small metal rings jingling and clinking"
   },
   {
    "id": "bridle-rip",
@@ -204,7 +212,8 @@
     "snap",
     "tear"
    ],
-   "gain": 0.55
+   "gain": 0.55,
+   "label": "a braided rope or weed ripping and tearing off"
   },
   {
    "id": "peat-fire",
@@ -226,7 +235,8 @@
     "fire",
     "crackle"
    ],
-   "gain": 0.35
+   "gain": 0.35,
+   "label": "a quiet crackling fireplace"
   },
   {
    "id": "night-wind",
@@ -249,7 +259,8 @@
     "moor",
     "night"
    ],
-   "gain": 0.35
+   "gain": 0.35,
+   "label": "soft night wind blowing over a lake"
   }
  ],
  "music": [
