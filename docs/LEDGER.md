@@ -186,7 +186,7 @@ Opus 5.5 on xhigh before); the line to compare with is the first row.
   description now takes its recipe label (family "unsorted", listed as a warning); pick.py skips a sound with no kept
   cut. Should keep catalog failures after a sound pick at 0. Proof: before, SyntaxError then "no description for 9
   ids"; after, 51 named sounds, 110 families, 552 files, 9 warned; no render changes.
-- Subtitles clamp to the house size (28 Nov, from Legend Pandora's jar; waits for Jonny's word): the Boy Who Cried
+- Subtitles clamp to the house size (28 Nov, from Legend Pandora's jar; Jonny's "add them", #369): the Boy Who Cried
   Wolf caption-size trial (104 px) was copied into the next svg2d board and reached Jonny ("the subtitles are too
   big"). `tools/svg2d/lib/captions.mjs` captionSvg now clamps maxFs above `HOUSE_FS` (74) with one warning unless the
   board passes `trial: true`. Should keep caption-size notes at 0. Proof: `tools/svg2d/caption-size-selftest.mjs`
