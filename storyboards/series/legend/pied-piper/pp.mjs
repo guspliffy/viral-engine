@@ -6,8 +6,8 @@ import { readFileSync, existsSync, writeFileSync, mkdirSync, readdirSync } from 
 import { execFileSync } from "node:child_process";
 import * as L from "../../../../tools/svg2d/lib/legend.mjs";
 import * as HM from "../../../../tools/svg2d/lib/legend-hamelin.mjs";
-import { titleSvg } from "../../../../tools/svg2d/lib/legend-hamelin-title.mjs";   // opening title (trial, Jonny 27 Nov picked C banner = "motley"); TITLE=<style> tries another, TITLE=none drops it
-const TITLE = process.env.TITLE || "motley";
+import { titleSvg } from "../../../../tools/svg2d/lib/legend-hamelin-title.mjs";   // opening title (trial 27 Nov, C banner = "motley"; off since 28 Nov)
+const TITLE = process.env.TITLE || "none";   // 28 Nov: Jonny dropped opening banners on legends (banner videos did worse); TITLE=motley brings it back
 const { lerp, clamp, tr, ease, hash, blinkAmt, n } = L;
 
 export const W = 1080, H = 1920, FPS = 30;
