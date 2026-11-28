@@ -417,7 +417,7 @@ const lineAtTime = (t) => { let k = null; ORDER.forEach((id, i) => { const ln = 
 
 // ---------------------------------------------------------------- captions: upper third, centre ~540, off every face and the kelpie's eye
 const CAPY = [540, 500, 580, 460, 620, 660, 700, 740, 780];
-const OPT = { key: KEY, keyColor: "#ffc04a", maxFs: 100, width: 980, wrapAt: 15, reveal: true };
+const OPT = { key: KEY, keyColor: "#ffc04a", maxFs: 74, width: 940, wrapAt: 19, reveal: true };
 function capBox(ph, y) {
   const ws = ph.ws.map((q) => q[0]), len = (a) => a.join(" ").length;
   let k = ws.length;
