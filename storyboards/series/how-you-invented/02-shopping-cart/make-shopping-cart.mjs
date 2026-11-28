@@ -44,7 +44,7 @@ const SHOTS = [
   ["C08b the reverse", 32.0, push([60.25, 2.82, -11.12], [60.00, 3.65, -13.64], 46, { pos: [60.25, 0.89, -3.36], look: [60.00, 1.72, -5.88] }, 1.2, "linear")],
   ["C09 the hay cart", 33.2, push([60.25, 1.30, 6.40], [60.05, 1.15, 1.10], 50, { pos: [60.22, 1.28, 5.90] }, 4.4)],
   ["C10a the brake (insert)", 37.6, push([2.60, 0.50, 5.95], [1.47, 0.16, 4.50], 36, { fov: 33 }, 1.9)],
-  ["C10b the flip", 39.5, push([0.80, 1.35, 6.40], [1.25, 0.70, 3.60], 44, { pos: [0.85, 1.25, 3.40], look: [1.25, 0.75, 0.55] }, 1.4)],
+  ["C10b the flip", 39.5, push([0.95, 1.70, 8.20], [1.25, 0.70, 3.60], 44, { pos: [0.85, 1.25, 3.40], look: [1.25, 0.75, 0.55] }, 1.4)],
   ["C11 the theft", 44.2, push([1.10, 1.60, 5.15], [-0.05, 0.97, -0.72], 56, { fov: 52 }, 6.6)],
   ["C12a the row", 50.8, push([2.05, 1.50, 6.60], [-2.20, 0.60, 1.20], 46, { pos: [1.95, 1.45, 6.20], look: [-0.10, 0.40, 2.20] }, 1.6)],
   ["C12b the lock", 53.2, push([1.85, 1.10, 5.90], [0.55, 0.55, 3.50], 42, { fov: 38 }, 3.8)],
@@ -225,7 +225,7 @@ place(before("C06"), "spud", [-3.60, 2.55], 20); A(before("C06"), "spud", "lean"
 expr(before("C06"), "spud", "shocked", { open: 0.1 }, 0.01);
 sfx(19.32, "thud", { gain: 1.0, reason: "the basket lands on his boot" });
 for (const k of [21.75, 22.15, 22.55]) sfx(k, "step", { gain: 0.45, reason: "you hop on one foot" });
-A(19.4, "spud", "squash", { amount: 0.04, dur: 0.2 }); face(19.5, "spud", { lid: 0.75 }, 0.15);
+A(19.4, "spud", "squash", { amount: 0.04, dur: 0.2 }); face(before("C06"), "spud", { lid: 0, open: 0 }, 0.01); face(19.5, "spud", { lid: 0.75 }, 0.15);
 arms(19.45, "spud", { o: [0.10, 0.30, 0.30] }, 0.2);
 A(19.55, "spud", "hop", { count: 5, height: 0.12, dur: 2.0, quiet: true });
 for (let k = 0; k < 5; k++) sfx(r3(19.95 + k * 0.4), "land", { gain: 0.35, reason: "a hop on one boot" });
@@ -249,7 +249,7 @@ A(before("C07b"), "mash", "ride", { prop: "front", off: [1.03, 0.30, 0.29], sit:
 arms(before("C07b"), "spud", { o: [-0.21, 0.364, 0.32] }, 0.01); expr(before("C07b"), "spud", "smug", null, 0.01);
 A(25.6, "spud", "move", { to: [-1.94, 2.79], dur: 2.8, ease: "linear" });
 roll("cart", 25.6, 28.4, (t) => { const u = (t - 25.6) / 2.8; return [r3(-2.75 + 1.30 * u), 0, r3(2.50 + 0.47 * u)]; });
-face(26.4, "spud", { lid: 1 }, 0.15); A(26.4, "spud", "lean", { to: -6, dur: 0.3 });
+face(before("C07a"), "spud", { lid: 0 }, 0.01); face(26.4, "spud", { lid: 1 }, 0.15); face(28.6, "spud", { lid: 0 }, 0.15);   // face() lids persist: open them again (Sol r1 #36/#41: eyes stayed shut to the end) A(26.4, "spud", "lean", { to: -6, dur: 0.3 });
 P(27.6, "cart", { jolt: 1 }, 0.3); look(25.6, "mash", [-0.5, 0], 2.8);
 sfx(25.7, "plank-rattle", { gain: 0.35, dur: 2.7, reason: "wooden wheels rattle on the cobbles" });
 see(25.7, 28.9, ["spud.face", "cart"], "so you give it wheels");
