@@ -37,7 +37,7 @@ import { writeWav } from "../engine/audio.mjs";
 import os from "node:os";
 import { GATE } from "./gate.mjs";
 import { motionResults, storyNotes } from "./motion.mjs";
-import { visibility, frontResults, eyesResults, cardResults } from "./framing.mjs";
+import { visibility, frontResults, eyesResults, cardResults, speakerCutResults } from "./framing.mjs";
 import { cameraLint, signCut } from "./camera.mjs";
 import { panelResults } from "./panelfit.mjs";
 import { lockMusic } from "../engine/music.mjs";
@@ -94,6 +94,7 @@ export async function preflight(sb, lay, { quick = false, sbFile = null } = {}) 
   for (const r of captionResults(sb, lay)) add(r, "captions");
   for (const r of frontResults(sb, lay)) add(r, "framing");
   for (const r of eyesResults(sb, lay)) add(r, "framing");
+  for (const r of speakerCutResults(sb, lay)) add(r, "framing");
   for (const r of cardResults(sb, lay)) add(r, "framing");
   const chars = loadCharacters(sb);
   for (const r of visibility(sb, lay, chars).results) add(r, "framing");

@@ -41,7 +41,8 @@ import { COAST } from "./set-coast.js";   // the storm's named points (MOUTH, CA
 //   flowerbox   a window box 0.90 x 0.20 deep x 0.20 tall (spec.w, d, h) in terracotta #c27a52 with a green mound #4f8a3c and
 //               spec.n (26) flowers, pinks #e86a9a and #f2a3c0 with a cream eye, and leaves trailing over the front edge. The
 //               flowers reach 0.15 over the rim. spec.seed (1) sets which are where. Origin: bottom centre, front +z (hang it on
-//               a wall face at z 0.10 from the wall). Solid.
+//               a wall face at z 0.10 from the wall). Solid. spec.flower (off): one blossom colour for the box, e.g. "#d8352b" (the second tone is
+//               18 % lighter, the eyes gold #f2c230); CVC 02's W1 box.
 //   poster      a wall poster 1.20 wide x 1.80 tall (spec.w, h), 2 cm thick: a white yacht with two sails and a pennant-free mast
 //               on a #3f8fd0 sea with pale wave dashes, a pale sky and a small sun, a cream border. No text. Origin: bottom
 //               centre of its face, front +z. spec.seed (1) moves the wave dashes. Solid (thin).
@@ -506,7 +507,9 @@ export const HAPPY_KINDS = {
   flowerbox(P) {
     const S = P.spec, W = S.w ?? 0.9, D = S.d ?? 0.2, H = S.h ?? 0.2, N = S.n ?? 26, seed = S.seed ?? 1;
     const clay = mat("#c27a52", { roughness: 0.85 }), rim = mat("#d89268", { roughness: 0.85 }), green = mat("#4f8a3c", { roughness: 0.8 }), leafM = mat("#5da048", { roughness: 0.8 });
-    const pinkA = mat("#e86a9a", { roughness: 0.6 }), pinkB = mat("#f2a3c0", { roughness: 0.6 }), eye = mat("#f7e7b8", { roughness: 0.6 });
+    // spec.flower (opt-in, CVC 02): one blossom colour for the whole box (the second tone is 18 % lighter) with gold eyes #f2c230
+    const fc = S.flower, fcB = fc ? "#" + new THREE.Color(fc).lerp(new THREE.Color("#ffffff"), 0.18).getHexString() : null;
+    const pinkA = mat(fc ?? "#e86a9a", { roughness: 0.6 }), pinkB = mat(fcB ?? "#f2a3c0", { roughness: 0.6 }), eye = mat(fc ? "#f2c230" : "#f7e7b8", { roughness: 0.6 });
     mesh(box(W, H - 0.02, D, 0, (H - 0.02) / 2, 0), clay, P.whole);
     mesh(box(W + 0.02, 0.03, D + 0.02, 0, H - 0.01, 0), rim, P.whole);
     mesh(box(W - 0.03, 0.012, 0.01, 0, 0.1, D / 2 + 0.001), rim, P.whole);                                              // a painted band on the front
