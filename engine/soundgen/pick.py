@@ -161,6 +161,15 @@ def sfx(rec, raw, outdir, clap, report):
                 y = mono(f)
                 for st, en, snr in events(y, kind, lo, hi):
                     cands.append(dict(take=f"p{pi}-s{seed}", prompt=prompt, seed=seed, start=st, end=en, snr=snr, x=y[st:en]))
+        if not cands and hi >= 5:   # an ambience bed (surf, rain): no single event to cut, keep whole takes
+            for pi, prompt in enumerate(r["prompts"]):
+                for seed in r["seeds"]:
+                    f = os.path.join(raw, rid, f"p{pi}-s{seed}.wav")
+                    if os.path.exists(f):
+                        y = mono(f)
+                        cands.append(dict(take=f"p{pi}-s{seed}", prompt=prompt, seed=seed, start=0, end=len(y), snr=0.0, x=y))
+            if cands:
+                print(f"{rid}: no single events, kept whole takes (ambience)")
         if not cands:
             print(f"{rid}: no usable events"); continue
         ps = clap.probs([c["x"] for c in cands], label, extra)
@@ -251,6 +260,35 @@ def music(rec, raw, outdir, clap, report):
                 files.append(name)
                 rows.append(dict(file=name, seed=seed, durationSec=round(n / SR, 3), bars=got, bpm=round(tempo, 1),
                                  beatSpread=round(steady, 3), steadyBeat=tempo_ok, clap=round(p, 3), loudnessLUFS=round(meter.integrated_loudness(loop), 1)))
+        if not rows:   # beatless cue (a drone, a held chord): no beat grid to cut a loop on, keep whole takes
+            takes = []
+            for pi, prompt in enumerate(r["prompts"]):
+                for seed in r["seeds"]:
+                    f = os.path.join(raw, rid, f"p{pi}-s{seed}.wav")
+                    if os.path.exists(f):
+                        y, _ = librosa.load(f, sr=SR, mono=False)
+                        takes.append((seed, prompt, y.T if y.ndim == 2 else np.stack([y, y], 1)))
+            if not takes:
+                print(f"{rid}: no takes, skipped"); continue
+            ps = clap.probs([y.mean(1)[: 10 * SR] for _, _, y in takes], r["prompts"][0].split(",")[0],
+                            [b["prompts"][0].split(",")[0] for b in rec["music"] if b["id"] != rid] + ["silence", "people talking", "static noise"])
+            for i in np.argsort(ps)[::-1][:2]:
+                seed, prompt, y = takes[i]
+                f = int(0.02 * SR); y = y.copy(); y[:f] *= np.linspace(0, 1, f)[:, None]; y[-f:] *= np.linspace(1, 0, f)[:, None]
+                y = y * 10 ** ((-16 - meter.integrated_loudness(y)) / 20)
+                pk = np.abs(y).max()
+                if pk > 10 ** (-1.5 / 20):
+                    y *= 10 ** (-1.5 / 20) / pk
+                name = f"{rid}/{rid}-{len(files) + 1:02d}.ogg"
+                os.makedirs(os.path.join(outdir, rid), exist_ok=True)
+                with tempfile.NamedTemporaryFile(suffix=".wav") as t:
+                    sf.write(t.name, y, SR, subtype="PCM_16")
+                    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", t.name, "-c:a", "libvorbis", "-q:a", "6",
+                                    os.path.join(outdir, name)], check=True)
+                files.append(name)
+                rows.append(dict(file=name, seed=seed, durationSec=round(len(y) / SR, 3), bars=0, bpm=float(bpm), beatSpread=None,
+                                 steadyBeat=False, clap=round(float(ps[i]), 3), loudnessLUFS=round(meter.integrated_loudness(y), 1)))
+            print(f"{rid}: no beat grid in any take, kept {len(rows)} whole takes (not loopable)")
         report[rid] = dict(picked=rows)
         print(f"{rid}: {[(q['bpm'], q['bars'], q['beatSpread'], q['clap']) for q in rows]}")
         beds.append(dict(id=rid, kind="music", files=files, tags=[r["mood"]], mood=r["mood"], bpm=round(float(np.median([q["bpm"] for q in rows])), 1), bars=min(q["bars"] for q in rows), key=None, askedBpm=bpm,
