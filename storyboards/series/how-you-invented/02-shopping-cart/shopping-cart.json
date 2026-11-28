@@ -135,7 +135,8 @@
    "kind": "hillstreet",
    "x": 0,
    "y": 0,
-   "z": 0
+   "z": 0,
+   "staged": "the street set itself (its origin sits high above the foot of the hill)"
   },
   {
    "id": "foot",
@@ -208,7 +209,8 @@
    "drop": 0,
    "x": 0,
    "y": 0,
-   "z": 0
+   "z": 0,
+   "staged": "the orange flies through the air into Mash's glove"
   },
   {
    "id": "coinC",
@@ -228,7 +230,8 @@
    "x": 0,
    "y": 0,
    "z": 0,
-   "scale": 0
+   "scale": 0,
+   "staged": "your coin falls through the air into Mash's glove"
   },
   {
    "id": "tower",
@@ -286,7 +289,8 @@
     -2.95,
     2.55
    ],
-   "scale": 0
+   "scale": 0,
+   "staged": "the basket drops when its handle snaps"
   },
   {
    "id": "bask2",
@@ -2151,6 +2155,7 @@
       -3.4,
       2.95
      ],
+     "y": -0.3,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -2176,6 +2181,20 @@
      "do": "arm",
      "side": "R",
      "pose": "rest",
+     "dur": 0.01,
+     "at": 3.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.1,
+       0.1
+      ]
+     },
      "dur": 0.01,
      "at": 3.58
     },
@@ -2345,14 +2364,14 @@
      "side": "L",
      "pose": {
       "o": [
+       0.65,
        0.55,
-       0.45,
-       0.05
+       0.15
       ]
      },
-     "dur": 0.15,
+     "dur": 0.3,
      "ease": "out",
-     "at": 0.9
+     "at": 0.75
     },
     {
      "who": "spud",
@@ -2390,9 +2409,9 @@
      "side": "L",
      "pose": {
       "o": [
+       0.65,
        0.55,
-       0.45,
-       0.05
+       0.15
       ]
      },
      "dur": 0.25,
@@ -2405,9 +2424,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.48,
-       0.45,
-       0.05
+       0.58,
+       0.55,
+       0.15
       ]
      },
      "dur": 0.25,
@@ -2436,9 +2455,9 @@
      "side": "L",
      "pose": {
       "o": [
+       0.65,
        0.55,
-       0.45,
-       0.05
+       0.15
       ]
      },
      "dur": 0.25,
@@ -2461,9 +2480,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.48,
-       0.45,
-       0.05
+       0.58,
+       0.55,
+       0.15
       ]
      },
      "dur": 0.25,
@@ -2476,9 +2495,9 @@
      "side": "L",
      "pose": {
       "o": [
+       0.65,
        0.55,
-       0.45,
-       0.05
+       0.15
       ]
      },
      "dur": 0.25,
@@ -2566,6 +2585,7 @@
       -3.6,
       2.55
      ],
+     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -4479,7 +4499,7 @@
       59.55,
       1
      ],
-     "y": 0.35,
+     "y": 0.9,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -4528,6 +4548,7 @@
       61,
       1.45
      ],
+     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -6380,7 +6401,7 @@
      "set": {
       "roll": -20,
       "lean": 30,
-      "thin": 0,
+      "thin": 0.003,
       "close": 0,
       "curl": 0.7,
       "index": 0.5
@@ -6395,9 +6416,9 @@
      "pose": {
       "prop": "coinS",
       "grip": [
-       null,
-       null,
-       null
+       0,
+       -0.085,
+       0
       ],
       "point": "pinch",
       "off": [
@@ -6417,9 +6438,9 @@
      "pose": {
       "prop": "coinS",
       "grip": [
-       null,
-       null,
-       null
+       0,
+       -0.085,
+       0
       ],
       "point": "pinch"
      },
@@ -6435,7 +6456,7 @@
      "set": {
       "roll": 20,
       "lean": 30,
-      "thin": 0
+      "thin": 0.003
      },
      "dur": 0.12,
      "at": 6.588
@@ -6481,9 +6502,9 @@
      "prop": "coinS",
      "hand": "R",
      "grip": [
-      null,
-      null,
-      null
+      0,
+      -0.085,
+      0
      ],
      "dur": 0,
      "pose": null,
@@ -6532,28 +6553,28 @@
    "len": 3.8,
    "shot": {
     "pos": [
-     1.55,
-     1.05,
-     5.6
+     1.85,
+     1.1,
+     5.9
     ],
     "look": [
-     0.62,
+     0.55,
      0.55,
      3.5
     ],
-    "fov": 34,
+    "fov": 42,
     "to": {
      "pos": [
-      1.55,
-      1.05,
-      5.6
+      1.85,
+      1.1,
+      5.9
      ],
      "look": [
-      0.62,
+      0.55,
       0.55,
       3.5
      ],
-     "fov": 31
+     "fov": 38
     },
     "dur": 3.8,
     "ease": "inOut"
@@ -6566,9 +6587,9 @@
      "pose": {
       "prop": "coinS",
       "grip": [
-       null,
-       null,
-       null
+       0,
+       -0.085,
+       0
       ],
       "point": "pinch",
       "at": [
@@ -6588,9 +6609,9 @@
      "pose": {
       "prop": "coinS",
       "grip": [
-       null,
-       null,
-       null
+       0,
+       -0.085,
+       0
       ],
       "point": "pinch",
       "at": [
@@ -6632,9 +6653,9 @@
      "pose": {
       "prop": "coinS",
       "grip": [
-       null,
-       null,
-       null
+       0,
+       -0.085,
+       0
       ],
       "point": "pinch",
       "at": [
@@ -6677,7 +6698,7 @@
      "set": {
       "roll": -20,
       "lean": 30,
-      "thin": 0,
+      "thin": 0.003,
       "close": 0,
       "curl": 0.7,
       "index": 0.5
@@ -6755,6 +6776,7 @@
       0.95,
       3.28
      ],
+     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -6766,13 +6788,6 @@
      "to": 180,
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.78
-    },
-    {
-     "who": "mash",
-     "do": "expr",
-     "expr": "angry",
-     "dur": 0.01,
      "at": 3.78
     },
     {
@@ -6828,9 +6843,9 @@
      "pose": {
       "prop": "coinS",
       "grip": [
-       null,
-       null,
-       null
+       0,
+       -0.085,
+       0
       ],
       "point": "pinch",
       "off": [
@@ -7531,6 +7546,7 @@
       0.38,
       4.2
      ],
+     "y": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -8343,6 +8359,18 @@
     "arm-in-prop"
    ],
    "reason": "his glove pats the rail, the coin goes into the lock"
+  },
+  {
+   "who": "spud",
+   "with": "top",
+   "from": 11,
+   "to": 15.2,
+   "checks": [
+    "shell",
+    "arm-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "buried under the heap: he sits sunk below the cobbles so only his leaf and one glove show (DESIGN 3, C04)"
   },
   {
    "who": "spud",

@@ -47,7 +47,7 @@ const SHOTS = [
   ["C10b the flip", 39.5, push([0.80, 1.35, 6.40], [1.25, 0.70, 3.60], 44, { pos: [0.85, 1.25, 3.40], look: [1.25, 0.75, 0.55] }, 1.4)],
   ["C11 the theft", 44.2, push([0.95, 1.60, 5.15], [-0.14, 0.97, -0.72], 56, { fov: 52 }, 6.6)],
   ["C12a the row", 50.8, push([2.05, 1.50, 6.60], [-2.20, 0.60, 1.20], 46, { pos: [1.95, 1.45, 6.20], look: [0.45, 0.40, 2.20] }, 1.6)],
-  ["C12b the lock", 53.2, push([1.55, 1.05, 5.60], [0.62, 0.55, 3.50], 34, { fov: 31 }, 3.8)],
+  ["C12b the lock", 53.2, push([1.85, 1.10, 5.90], [0.55, 0.55, 3.50], 42, { fov: 38 }, 3.8)],
   ["C13 no coin", 57.0, push([2.30, 1.30, 1.20], [1.05, 0.72, 3.00], 42, { pos: [2.20, 1.28, 1.40] }, 4.4)],
   ["C14 the coin up", 61.4, push([-0.25, 0.88, 6.45], [-0.50, 0.88, 4.10], 34, { fov: 32 }, 2.7)],
   ["C15a the last catch", 64.1, push([0.05, 0.40, 6.55], [0.05, 0.70, 4.30], 40, { pos: [0.05, 0.40, 6.25] }, 1.0)],
@@ -86,17 +86,17 @@ const ORANGE = { id: "orange", kind: "snackfruit", fruit: "orange", bite: 0, x: 
 const APPLE = { id: "apple", kind: "snackfruit", fruit: "apple", bite: 0, x: -3.50, y: 0.70, z: 2.80, scale: 0 };
 const COINS = { id: "coinS", kind: "coin", scale: 0, shine: 0, x: -0.25, y: 1.02, z: 4.30, staged: "in Spud's glove" };
 const props = [
-  { id: "top", kind: "hillstreet", x: 0, y: 0, z: 0 },
+  { id: "top", kind: "hillstreet", x: 0, y: 0, z: 0, staged: "the street set itself (its origin sits high above the foot of the hill)" },
   { id: "foot", kind: "hillstreet", x: 61.85, y: 5.32, z: -23.35, rot: 180, scale: 0, staged: "the same street seen from its foot, only in C08b and C09" },
   { id: "front", kind: "grocerfront", x: -2.75, y: 0, z: 0.90 },
   { id: "stall", kind: "woodcounter", x: 0.05, y: 0, z: 1.70, rot: 40 },
   { id: "hayT", kind: "haycart", x: 2.65, y: -5.32, z: -24.35, staged: "far below at the foot of the hill (C08a)" },
   { id: "hayF", kind: "haycart", x: 59.20, y: 0, z: 1.00, scale: 0, dent: 0, burst: -1, rock: 0 },
   { id: "pile", kind: "foodpile", x: -2.35, y: 0.30, z: 1.16, grow: 0, staged: "on the bench's left half" },
-  { id: "orangeC", kind: "catchdrop", item: "orange", from: [-3.70, 0.72, 1.95], to: [-3.22, 0.38, 1.70], hop: 0.06, drop: 0, x: 0, y: 0, z: 0 },
-  { id: "coinC", kind: "catchdrop", item: "coin", from: [-0.25, 1.12, 4.30], to: [-0.18, 0.14, 4.35], drop: 0, x: 0, y: 0, z: 0, scale: 0 },
+  { id: "orangeC", kind: "catchdrop", item: "orange", from: [-3.70, 0.72, 1.95], to: [-3.22, 0.38, 1.70], hop: 0.06, drop: 0, x: 0, y: 0, z: 0, staged: "the orange flies through the air into Mash's glove" },
+  { id: "coinC", kind: "catchdrop", item: "coin", from: [-0.25, 1.12, 4.30], to: [-0.18, 0.14, 4.35], drop: 0, x: 0, y: 0, z: 0, scale: 0, staged: "your coin falls through the air into Mash's glove" },
   TOWER0, ORANGE, APPLE, COINS,
-  { id: "bask", kind: "wickerbasket", x: -3.09, y: 0, z: 2.91, rot: 0, fill: 1, snap: 0, spill: 0, spillTo: [-2.95, 2.55], scale: 0 },
+  { id: "bask", kind: "wickerbasket", x: -3.09, y: 0, z: 2.91, rot: 0, fill: 1, snap: 0, spill: 0, spillTo: [-2.95, 2.55], scale: 0, staged: "the basket drops when its handle snaps" },
   { id: "bask2", kind: "wickerbasket", stub: 1, fill: 1, x: -2.75, y: 0.34, z: 2.50, rot: 70, scale: 0, staged: "set onto the chair's seat (C07a)" },
   { id: "cart", kind: "chaircart", brake: true, stepZ: -0.52, basket: 0, fill: 1, x: -2.75, y: 0, z: 2.25, rot: 70, scale: 0 },
   { id: "cartF", kind: "chaircart", stepZ: -0.52, basket: 1, fill: 0.2, x: 58.6, y: 0.24, z: 2.2, rot: 30, tilt: 90, scale: 0, staged: "on its side against the hay cart's wheel" },
@@ -187,11 +187,11 @@ see(7.5, 10.9, ["spud.face", "tower"], "the stack grows taller than him and sway
 
 // ================================================================ C04 11.0-15.2: "...You carry nothing." the heap
 P(before("C04"), "tower", { y: 0, x: -3.45, z: 2.70, rot: 0 });
-A(before("C04"), "spud", "noblink", { dur: 0 }); place(before("C04"), "spud", [-3.40, 2.95], 0); A(before("C04"), "spud", "crouch", { to: 0.35, dur: 0.01 });
+A(before("C04"), "spud", "noblink", { dur: 0 }); place(before("C04"), "spud", [-3.40, 2.95], 0, -0.30); A(before("C04"), "spud", "crouch", { to: 0.35, dur: 0.01 });
 A(11.0, "spud", "droop", { to: 0.3, dur: 0.01 }); A(11.6, "spud", "droop", { to: 0, dur: 0.15, ease: "back" });
-c.arm(before("C04"), "spud", "R", "rest", 0.01);
-c.arm(11.9, "spud", "L", { o: [0.55, 0.45, 0.05] }, 0.15, "out"); grip(11.9, "spud", "L", "open");
-for (const [t, k] of [[12.05, 0.55], [12.3, 0.48], [12.55, 0.55], [12.8, 0.48], [13.05, 0.55]]) c.arm(t, "spud", "L", { o: [k, 0.45, 0.05] }, 0.25, "inOut");
+c.arm(before("C04"), "spud", "R", "rest", 0.01); c.arm(before("C04"), "spud", "L", { o: [0.50, 0.10, 0.10] }, 0.01);
+c.arm(11.75, "spud", "L", { o: [0.65, 0.55, 0.15] }, 0.3, "out"); grip(11.9, "spud", "L", "open");
+for (const [t, k] of [[12.05, 0.65], [12.3, 0.58], [12.55, 0.65], [12.8, 0.58], [13.05, 0.65]]) c.arm(t, "spud", "L", { o: [k, 0.55, 0.15] }, 0.25, "inOut");
 A(before("C04"), "mash", "ride", { prop: "tower", off: [-0.05, 0.50, -0.10], sit: true, yaw: 8, dur: 0.01 });
 expr(before("C04"), "mash", "serene", null, 0.01); pileTo(before("C04"), 2);
 P(before("C04"), "apple", { scale: 1 });
@@ -203,7 +203,7 @@ see(11.2, 15.1, ["mash.face", "tower"], "you carry nothing: Mash on top of your 
 // ================================================================ C05 15.2-19.3: "A basket. Everything in one place." the snap
 ha.release(before("C05"), { rest: false, back: 0.01 }); P(before("C05"), "apple", { scale: 0 }); P(before("C05"), "tower", { scale: 0 });
 A(before("C05"), "mash", "ride", { prop: null }); place(before("C05"), "mash", [-2.75, 2.25], -30, 0); A(before("C05"), "mash", "hide", {});
-A(before("C05"), "spud", "crouch", { to: 0, dur: 0.01 }); place(before("C05"), "spud", [-3.60, 2.55], 55);
+A(before("C05"), "spud", "crouch", { to: 0, dur: 0.01 }); place(before("C05"), "spud", [-3.60, 2.55], 55, 0);
 expr(before("C05"), "spud", "eager", null, 0.01); c.arm(before("C05"), "spud", "L", "rest", 0.01);
 P(before("C05"), "bask", { scale: 1 });
 for (const [s, dx] of [["R", 0.03], ["L", -0.03]]) c.arm(15.6, "spud", s, { prop: "bask", grip: [dx, 0.42, 0] }, 0.4, "inOut");
@@ -279,12 +279,12 @@ see(32.05, 33.15, ["spud.face"], "his scream on the way down");
 // ================================================================ C09 33.2-37.6: the hay cart, the food rains into Mash's hood
 A(before("C09"), "spud", "ride", { prop: null }); P(before("C09"), "rain", { scale: 0 });
 P(before("C09"), "cart", { scale: 0 }); P(before("C09"), "cartF", { scale: 1 }); P(33.2, "cartF", { spin: 1.5 }, 1.3, "out");
-place(before("C09"), "spud", [59.55, 1.00], 0, 0.35); A(before("C09"), "spud", "pitch", { to: 180, dur: 0.01 });
+place(before("C09"), "spud", [59.55, 1.00], 0, 0.9); A(before("C09"), "spud", "pitch", { to: 180, dur: 0.01 });
 P(33.2, "hayF", { dent: 1 }, 0.05, "out"); P(33.2, "hayF", { burst: 1.3 }, 1.3, "linear"); P(33.2, "hayF", { rock: 1 }); P(33.3, "hayF", { rock: 0 }, 1.2, "out");
 sfx(33.2, "cloth", { gain: 0.8, reason: "he lands head first in the hay" }); sfx(33.22, "thud", { gain: 1.0, reason: "the hay cart rocks" });
 arms(before("C09"), "spud", "up", 0.01); for (let k = 0; k < 4; k++) A(r3(33.3 + k * 0.28), "spud", "lean", { to: k % 2 ? 6 : -6, dur: 0.14 });
 A(34.5, "spud", "lean", { to: 0, dur: 0.3 });
-A(before("C09"), "mash", "show", {}); place(before("C09"), "mash", [61.00, 1.45], -30); expr(before("C09"), "mash", "delighted", null, 0.01); look(before("C09"), "mash", [0, 0.8], 0.01);
+A(before("C09"), "mash", "show", {}); place(before("C09"), "mash", [61.00, 1.45], -30, 0); expr(before("C09"), "mash", "delighted", null, 0.01); look(before("C09"), "mash", [0, 0.8], 0.01);
 P(before("C09"), "sack", { scale: 1 });
 c.arm(before("C09"), "mash", "R", { x: [-0.55, 0.182, 0.284] }, 0.01); c.arm(before("C09"), "mash", "L", "hips", 0.01);
 P(before("C09"), "rainD", { scale: 1 }); P(33.8, "rainD", { rain: 3.4 }, 3.4, "linear"); P(34.6, "sack", { fill: 1 }, 2.4, "linear");
@@ -340,7 +340,7 @@ pileTo(before("C12a"), 5);
 for (let n = 1; n <= 5; n++) { P(before("C12a"), `r${n}`, { scale: 1 }); P(before("C12a"), `ch${n}`, { scale: 1 }); }
 place(before("C12a"), "spud", [0.22, 3.50], 30); expr(before("C12a"), "spud", "eager", null, 0.01);
 P(before("C12a"), "coinS", { scale: 0.6 });
-const hc = grips.thin(c, "spud", COINS, { side: "R" });
+const hc = grips.thin(c, "spud", { ...COINS, scale: 0.6 }, { side: "R" });
 const COIN_HAND = [0.45, 0.45, 3.86];
 P(before("C12a"), "coinS", { x: COIN_HAND[0], y: COIN_HAND[1], z: COIN_HAND[2] }); hc.take(before("C12a"), { reach: 0.005, settle: 0.005 });
 c.arm(52.2, "spud", "L", { prop: "r5", grip: [-0.17, 0.56, -0.20] }, 0.25, "out"); c.arm(52.7, "spud", "L", "rest", 0.3);
@@ -354,7 +354,7 @@ see(51.0, 56.9, ["ch5", "spud.face"], "the coin opens the lock");
 hc.release(56.95, { rest: false, back: 0.01, to: [0.60, 0.40, 3.80] }); P(before("C13"), "coinS", { scale: 0 });
 P(before("C13"), "r5", { x: -1.25, z: 4.20 }); P(before("C13"), "ch5", { scale: 0 });
 place(before("C13"), "spud", [-0.60, 4.10], 150); arms(56.985, "spud", "hips", 0.01); expr(before("C13"), "spud", "smug", null, 0.01);
-A(before("C13"), "mash", "show", {}); place(before("C13"), "mash", [0.95, 3.28], 180); expr(before("C13"), "mash", "angry", null, 0.01);
+A(before("C13"), "mash", "show", {}); place(before("C13"), "mash", [0.95, 3.28], 180, 0);   // y 0: he left the cart far down the hill expr(before("C13"), "mash", "angry", null, 0.01);
 c.arm(before("C13"), "mash", "R", { prop: "r4", grip: [-0.17, 0.56, -0.20] }, 0.01); c.arm(before("C13"), "mash", "L", { prop: "r4", grip: [0.17, 0.56, -0.20] }, 0.01);
 for (let k = 0; k < 3; k++) {
   const t = r3(57.2 + k * 0.55);
@@ -380,7 +380,7 @@ P(63.80, "coinC", { drop: 0.30 }, 0.30, "linear"); grip(63.8, "spud", "L", "open
 see(61.5, 64.0, ["spud.face", "coinS"], "the proud coin, then it slips");
 
 // ================================================================ C15a 64.1-65.1 / C15b 65.1-65.5 / C15c 65.5-66.1: Mash: "Drop it... and it's MINE."
-A(before("C15a"), "mash", "show", {}); place(before("C15a"), "mash", [0.38, 4.20], -35);
+A(before("C15a"), "mash", "show", {}); place(before("C15a"), "mash", [0.38, 4.20], -35, 0);
 A(before("C15a"), "mash", "crouch", { to: 0.35, dur: 0.01 }); A(before("C15a"), "mash", "lean", { to: 20, dur: 0.01 }); expr(before("C15a"), "mash", "smug", { lid: 0.42 }, 0.01);
 c.arm(before("C15a"), "mash", "L", { prop: "coinC", grip: [-0.18, 0.14, 4.35] }, 0.01); grip(before("C15a"), "mash", "L", "cup", 0.01);
 P(64.1, "coinC", { drop: 0.447 }, 0.147, "linear"); grip(64.21, "mash", "L", "hold", 0.05); sfx(64.25, "ai/fingertip-catch", { gain: 0.9, reason: "Mash catches your coin" });
@@ -428,6 +428,7 @@ const SB = {
     { who: "mash", with: "front", from: 25.6, to: 29.0, checks: ["clipping", "shell"], reason: "he sits on the bench, part of the shop front" },
     { who: "mash", with: "r4", from: 57.0, to: 61.4, checks: ["hand-in-prop", "arm-in-prop"], reason: "both gloves on chair 4's rail as he tugs" },
     { who: "spud", with: "r5", from: 50.8, to: 57.0, checks: ["hand-in-prop", "arm-in-prop"], reason: "his glove pats the rail, the coin goes into the lock" },
+    { who: "spud", with: "top", from: 11.0, to: 15.2, checks: ["shell", "arm-in-prop", "hand-in-prop"], reason: "buried under the heap: he sits sunk below the cobbles so only his leaf and one glove show (DESIGN 3, C04)" },
     { who: "spud", with: "apple", from: 11.0, to: 15.2, checks: ["clipping", "shell"], reason: "the apple Mash eats on the heap sits over the buried Spud" },
     { who: "mash", with: "spud", from: 11.0, to: 15.2, checks: ["character-overlap", "reach"], maxReach: 0.25, reason: "Mash sits on the heap right over the buried Spud (DESIGN 3, C04)" },
     { who: "spud", with: "hayF", from: 33.2, to: 37.6, checks: ["hand-in-prop", "arm-in-prop"], reason: "upside down in the hay: his arms are buried in it" },
