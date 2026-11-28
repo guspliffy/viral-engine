@@ -3701,6 +3701,490 @@
     "speaker"
    ]
   },
+  "ai/night-insects": {
+   "family": "unsorted",
+   "says": "quiet tropical night on a grassy hillside, soft crickets chirping, light wind in tall grass, distant, outdoor field recording, no music, no voices (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/night-insects/night-insects-01.wav"
+   ],
+   "gain": 0.18,
+   "tags": [
+    "night",
+    "crickets",
+    "insects",
+    "grass",
+    "ambience",
+    "loop"
+   ]
+  },
+  "ai/march-drums": {
+   "family": "unsorted",
+   "says": "deep large hand drums with skin heads beating a slow steady marching rhythm far away across a valley at night, echoing, outdoors, no other instruments, no voices (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/march-drums/march-drums-01.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "drums",
+    "march",
+    "distant",
+    "night",
+    "loop"
+   ]
+  },
+  "ai/torch-flame": {
+   "family": "unsorted",
+   "says": "several burning hand torches close by outdoors, soft flame flutter in the wind and small wood crackles, no roar, no music, no voices (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/torch-flame/torch-flame-01.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "torch",
+    "flame",
+    "fire",
+    "crackle",
+    "loop"
+   ]
+  },
+  "ai/conch-call": {
+   "family": "unsorted",
+   "says": "a single long blast on a conch shell horn, deep hollow mournful tone, far away across a valley at night, echo, outdoors, no music, no voices (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/conch-call/conch-call-01.wav",
+    "ai/conch-call/conch-call-02.wav",
+    "ai/conch-call/conch-call-03.wav",
+    "ai/conch-call/conch-call-04.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "conch",
+    "shell",
+    "horn",
+    "call",
+    "distant"
+   ]
+  },
+  "ai/rooster-crow": {
+   "family": "animal",
+   "says": "an AI rooster crow, 2.1-2.6 s (measured: a loud tonal call, main pitch 735-1700 Hz, no low end, peak at 0.35 s, many short syllables)",
+   "source": "ai",
+   "files": [
+    "ai/rooster-crow/rooster-crow-01.wav",
+    "ai/rooster-crow/rooster-crow-02.wav",
+    "ai/rooster-crow/rooster-crow-03.wav",
+    "ai/rooster-crow/rooster-crow-04.wav"
+   ],
+   "gain": 0.7,
+   "tags": [
+    "rooster",
+    "crow",
+    "cock-a-doodle-doo",
+    "farm"
+   ]
+  },
+  "ai/snore": {
+   "family": "body",
+   "says": "an AI snore, 2.0-2.4 s (measured: a rough low drone at 83-90 Hz, most of its energy under 200 Hz, a few breathy pulses); it may read as a growl, Jonny's ears decide",
+   "source": "ai",
+   "files": [
+    "ai/snore/snore-01.wav",
+    "ai/snore/snore-02.wav",
+    "ai/snore/snore-03.wav",
+    "ai/snore/snore-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "snore",
+    "sleep",
+    "snoring"
+   ]
+  },
+  "ai/dog-bark": {
+   "family": "animal",
+   "says": "an AI dog barking in the distance, 1.4 s (measured: 4-7 short tonal hits at 550-670 Hz, no low end); weak CLAP score, it may not read as a dog: keep it low or drop it",
+   "source": "ai",
+   "files": [
+    "ai/dog-bark/dog-bark-01.wav",
+    "ai/dog-bark/dog-bark-02.wav",
+    "ai/dog-bark/dog-bark-03.wav",
+    "ai/dog-bark/dog-bark-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "dog",
+    "bark",
+    "village",
+    "night"
+   ]
+  },
+  "ai/shutters": {
+   "family": "door",
+   "says": "AI wooden shutters banging open, 1.1-1.2 s (measured: two bright knocks, centroid about 4.2 kHz, the loud one near the end)",
+   "source": "ai",
+   "files": [
+    "ai/shutters/shutters-01.wav",
+    "ai/shutters/shutters-02.wav",
+    "ai/shutters/shutters-03.wav",
+    "ai/shutters/shutters-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "shutters",
+    "wooden",
+    "window",
+    "bang"
+   ]
+  },
+  "ai/fly-buzz": {
+   "family": "animal",
+   "says": "an AI house-fly buzz, 1.3-1.5 s (measured: a steady 165-170 Hz hum with bright hiss on top, one swell peaking near its end); not heard by Claude, keep it low",
+   "source": "ai",
+   "files": [
+    "ai/fly-buzz/fly-buzz-01.wav",
+    "ai/fly-buzz/fly-buzz-02.wav",
+    "ai/fly-buzz/fly-buzz-03.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "fly",
+    "buzz",
+    "insect"
+   ]
+  },
+  "ai/golem-step": {
+   "family": "steps",
+   "says": "one very heavy giant footstep on cobblestones: a deep thud with a crunch of wet clay (AI, Golem of Prague)",
+   "source": "ai",
+   "files": [
+    "ai/golem-step/golem-step-01.wav"
+   ],
+   "gain": 0.8,
+   "tags": [
+    "footstep",
+    "giant",
+    "heavy",
+    "stone",
+    "clay"
+   ]
+  },
+  "ai/golem-door-split": {
+   "family": "hit",
+   "says": "a heavy wooden door smashed and split: one loud cracking, splintering wood impact (AI, Golem)",
+   "source": "ai",
+   "files": [
+    "ai/golem-door-split/golem-door-split-01.wav"
+   ],
+   "gain": 0.8,
+   "tags": [
+    "door",
+    "wood",
+    "break",
+    "smash"
+   ]
+  },
+  "ai/golem-cart-crash": {
+   "family": "hit",
+   "says": "a wooden hand cart crashing onto a stone street: wood breaking, a wheel rolling off (AI, Golem)",
+   "source": "ai",
+   "files": [
+    "ai/golem-cart-crash/golem-cart-crash-01.wav"
+   ],
+   "gain": 0.75,
+   "tags": [
+    "cart",
+    "crash",
+    "wood",
+    "wheel"
+   ]
+  },
+  "ai/golem-crumble": {
+   "family": "hit",
+   "says": "a big clay figure collapsing into a pile: falling clods of wet earth, then a dry trickle (AI, Golem)",
+   "source": "ai",
+   "files": [
+    "ai/golem-crumble/golem-crumble-01.wav"
+   ],
+   "gain": 0.8,
+   "tags": [
+    "crumble",
+    "clay",
+    "collapse",
+    "rubble"
+   ]
+  },
+  "ai/golem-clay-squelch": {
+   "family": "handling",
+   "says": "hands squeezing and patting wet clay: soft squelches, close (AI, Golem)",
+   "source": "ai",
+   "files": [
+    "ai/golem-clay-squelch/golem-clay-squelch-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "clay",
+    "mud",
+    "hands",
+    "squelch"
+   ]
+  },
+  "ai/golem-attic-thud": {
+   "family": "hit",
+   "says": "one heavy footstep on old floorboards overhead: a deep muffled thud with a creak (AI, Golem ending)",
+   "source": "ai",
+   "files": [
+    "ai/golem-attic-thud/golem-attic-thud-01.wav"
+   ],
+   "gain": 0.85,
+   "tags": [
+    "thud",
+    "floor",
+    "wood",
+    "attic"
+   ]
+  },
+  "ai/whistle-note": {
+   "family": "unsorted",
+   "says": "one soft low note on a wooden whistle (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/whistle-note/whistle-note-01.wav",
+    "ai/whistle-note/whistle-note-02.wav",
+    "ai/whistle-note/whistle-note-03.wav",
+    "ai/whistle-note/whistle-note-04.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "whistle",
+    "pipe",
+    "flute",
+    "note"
+   ]
+  },
+  "ai/rats-scurry": {
+   "family": "unsorted",
+   "says": "a swarm of rats scurrying and squeaking (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/rats-scurry/rats-scurry-01.wav",
+    "ai/rats-scurry/rats-scurry-02.wav",
+    "ai/rats-scurry/rats-scurry-03.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "rats",
+    "mice",
+    "scurry",
+    "squeak"
+   ]
+  },
+  "ai/church-bell-far": {
+   "family": "unsorted",
+   "says": "a church bell ringing far away (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [],
+   "gain": 0.25,
+   "tags": [
+    "bell",
+    "church",
+    "distant"
+   ]
+  },
+  "ai/fog-air": {
+   "family": "unsorted",
+   "says": "a soft night wind on a hill (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/fog-air/fog-air-01.wav",
+    "ai/fog-air/fog-air-02.wav"
+   ],
+   "gain": 0.08,
+   "tags": [
+    "wind",
+    "fog",
+    "air",
+    "night"
+   ]
+  },
+  "ai/men-laugh": {
+   "family": "unsorted",
+   "says": "a group of men laughing (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/men-laugh/men-laugh-01.wav",
+    "ai/men-laugh/men-laugh-02.wav",
+    "ai/men-laugh/men-laugh-03.wav",
+    "ai/men-laugh/men-laugh-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "laugh",
+    "men",
+    "crowd"
+   ]
+  },
+  "ai/campfire-crackle": {
+   "family": "unsorted",
+   "says": "a small campfire crackling (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/campfire-crackle/campfire-crackle-01.wav",
+    "ai/campfire-crackle/campfire-crackle-02.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "fire",
+    "campfire",
+    "crackle"
+   ]
+  },
+  "ai/birds-peck": {
+   "family": "unsorted",
+   "says": "small birds pecking crumbs (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/birds-peck/birds-peck-01.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "birds",
+    "peck",
+    "chirp"
+   ]
+  },
+  "ai/owl-hoot": {
+   "family": "unsorted",
+   "says": "an owl hooting in the night forest (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/owl-hoot/owl-hoot-01.wav",
+    "ai/owl-hoot/owl-hoot-02.wav",
+    "ai/owl-hoot/owl-hoot-03.wav",
+    "ai/owl-hoot/owl-hoot-04.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "owl",
+    "hoot",
+    "night"
+   ]
+  },
+  "ai/sniff": {
+   "family": "unsorted",
+   "says": "a person sniffing through the nose (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/sniff/sniff-01.wav",
+    "ai/sniff/sniff-02.wav",
+    "ai/sniff/sniff-03.wav",
+    "ai/sniff/sniff-04.wav",
+    "ai/sniff/sniff-05.wav",
+    "ai/sniff/sniff-06.wav",
+    "ai/sniff/sniff-07.wav",
+    "ai/sniff/sniff-08.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "sniff",
+    "nose",
+    "smell"
+   ]
+  },
+  "ai/wood-door-creak": {
+   "family": "unsorted",
+   "says": "a wooden door creaking open (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/wood-door-creak/wood-door-creak-01.wav",
+    "ai/wood-door-creak/wood-door-creak-02.wav",
+    "ai/wood-door-creak/wood-door-creak-03.wav",
+    "ai/wood-door-creak/wood-door-creak-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "door",
+    "creak",
+    "wood"
+   ]
+  },
+  "ai/cage-rattle": {
+   "family": "unsorted",
+   "says": "wooden cage bars rattling (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/cage-rattle/cage-rattle-01.wav",
+    "ai/cage-rattle/cage-rattle-02.wav",
+    "ai/cage-rattle/cage-rattle-03.wav",
+    "ai/cage-rattle/cage-rattle-04.wav",
+    "ai/cage-rattle/cage-rattle-05.wav",
+    "ai/cage-rattle/cage-rattle-06.wav",
+    "ai/cage-rattle/cage-rattle-07.wav",
+    "ai/cage-rattle/cage-rattle-08.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "cage",
+    "wood",
+    "rattle",
+    "bars"
+   ]
+  },
+  "ai/oven-roar": {
+   "family": "unsorted",
+   "says": "a big oven fire roaring (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/oven-roar/oven-roar-01.wav",
+    "ai/oven-roar/oven-roar-02.wav",
+    "ai/oven-roar/oven-roar-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "fire",
+    "oven",
+    "roar",
+    "whoosh"
+   ]
+  },
+  "ai/iron-slam": {
+   "family": "unsorted",
+   "says": "a heavy iron oven door slamming shut (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/iron-slam/iron-slam-01.wav",
+    "ai/iron-slam/iron-slam-02.wav",
+    "ai/iron-slam/iron-slam-03.wav",
+    "ai/iron-slam/iron-slam-04.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "iron",
+    "door",
+    "slam",
+    "clang"
+   ]
+  },
+  "ai/pearls-rattle": {
+   "family": "unsorted",
+   "says": "pearls rattling in a pocket (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/pearls-rattle/pearls-rattle-01.wav",
+    "ai/pearls-rattle/pearls-rattle-02.wav",
+    "ai/pearls-rattle/pearls-rattle-03.wav",
+    "ai/pearls-rattle/pearls-rattle-04.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "pearls",
+    "jewels",
+    "rattle"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
@@ -3832,93 +4316,6 @@
    ],
    "gain": 0.45,
    "anchor": "hit"
-  },
-  "ai/rooster-crow": {
-   "family": "animal",
-   "says": "an AI rooster crow, 2.1-2.6 s (measured: a loud tonal call, main pitch 735-1700 Hz, no low end, peak at 0.35 s, many short syllables)",
-   "source": "ai",
-   "files": [
-    "ai/rooster-crow/rooster-crow-01.wav",
-    "ai/rooster-crow/rooster-crow-02.wav",
-    "ai/rooster-crow/rooster-crow-03.wav",
-    "ai/rooster-crow/rooster-crow-04.wav"
-   ],
-   "gain": 0.7,
-   "tags": [
-    "rooster",
-    "crow",
-    "cock-a-doodle-doo",
-    "farm"
-   ]
-  },
-  "ai/snore": {
-   "family": "body",
-   "says": "an AI snore, 2.0-2.4 s (measured: a rough low drone at 83-90 Hz, most of its energy under 200 Hz, a few breathy pulses); it may read as a growl, Jonny's ears decide",
-   "source": "ai",
-   "files": [
-    "ai/snore/snore-01.wav",
-    "ai/snore/snore-02.wav",
-    "ai/snore/snore-03.wav",
-    "ai/snore/snore-04.wav"
-   ],
-   "gain": 0.5,
-   "tags": [
-    "snore",
-    "sleep",
-    "snoring"
-   ]
-  },
-  "ai/dog-bark": {
-   "family": "animal",
-   "says": "an AI dog barking in the distance, 1.4 s (measured: 4-7 short tonal hits at 550-670 Hz, no low end); weak CLAP score, it may not read as a dog: keep it low or drop it",
-   "source": "ai",
-   "files": [
-    "ai/dog-bark/dog-bark-01.wav",
-    "ai/dog-bark/dog-bark-02.wav",
-    "ai/dog-bark/dog-bark-03.wav",
-    "ai/dog-bark/dog-bark-04.wav"
-   ],
-   "gain": 0.4,
-   "tags": [
-    "dog",
-    "bark",
-    "village",
-    "night"
-   ]
-  },
-  "ai/shutters": {
-   "family": "door",
-   "says": "AI wooden shutters banging open, 1.1-1.2 s (measured: two bright knocks, centroid about 4.2 kHz, the loud one near the end)",
-   "source": "ai",
-   "files": [
-    "ai/shutters/shutters-01.wav",
-    "ai/shutters/shutters-02.wav",
-    "ai/shutters/shutters-03.wav",
-    "ai/shutters/shutters-04.wav"
-   ],
-   "gain": 0.5,
-   "tags": [
-    "shutters",
-    "wooden",
-    "window",
-    "bang"
-   ]
-  },
-  "ai/fly-buzz": {
-   "family": "animal",
-   "says": "an AI house-fly buzz, 1.3-1.5 s (measured: a steady 165-170 Hz hum with bright hiss on top, one swell peaking near its end); not heard by Claude, keep it low",
-   "source": "ai",
-   "files": [
-    "ai/fly-buzz/fly-buzz-01.wav",
-    "ai/fly-buzz/fly-buzz-02.wav",
-    "ai/fly-buzz/fly-buzz-03.wav"
-   ],
-   "gain": 0.35,
-   "tags": [
-    "fly",
-    "buzz",
-    "insect"
-   ]
   }
  }
 }

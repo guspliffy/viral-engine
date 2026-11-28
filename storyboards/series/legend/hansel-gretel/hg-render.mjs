@@ -1,0 +1,39 @@
+// Picture export in one pass (same frames, the subtitle layer only where a caption shows), then the mix and the mux:
+//   node storyboards/series/legend/hansel-gretel/hg-render.mjs [--out-dir <dir>] [--from s --to s] [--final]
+//   writes <dir>/pic-subs.mp4 and <dir>/pic-nosubs.mp4 (silent; the banner stays in both); with --final also runs hg-mix.mjs
+//   and muxes <dir>/hg-draft2.mp4 + hg-draft2-nosubs.mp4 (default dir out/legend-hansel/draft2; copy the two to the delivery folder).
+import { createRequire } from "node:module";
+import { spawn, execFileSync } from "node:child_process";
+import { resolve } from "node:path";
+import { mkdirSync } from "node:fs";
+const require = createRequire(resolve("tools/svg2d/render.mjs"));
+const { chromium } = require("playwright");
+const S = await import("./hg.mjs");
+const rest = process.argv.slice(2);
+const opt = (k, d) => { const i = rest.indexOf(k); return i >= 0 ? rest[i + 1] : d; };
+const dir = opt("--out-dir", "out/legend-hansel/draft2"); mkdirSync(dir, { recursive: true });
+const f0 = Math.round(+opt("--from", 0) * S.FPS), f1 = Math.min(Math.round(S.DUR * S.FPS), Math.round(+opt("--to", 1e9) * S.FPS));
+if (S.MISSING.length && rest.includes("--final")) { console.error("voices missing:", S.MISSING.join(",")); process.exit(2); }
+const browser = await chromium.launch(), page = await browser.newPage({ viewport: { width: S.W, height: S.H } });
+await page.setContent(`<html><head>${S.HEAD}</head><body style="margin:0;overflow:hidden;background:#000"><div id="r"></div></body></html>`);
+await page.evaluate(() => document.fonts.ready);
+const shot = async (svg) => { await page.evaluate((s) => { document.getElementById("r").innerHTML = s; }, svg); return page.screenshot({ type: "png", clip: { x: 0, y: 0, width: S.W, height: S.H } }); };
+const enc = (o) => spawn("ffmpeg", ["-v", "error", "-y", "-f", "image2pipe", "-framerate", String(S.FPS), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p", o], { stdio: ["pipe", "inherit", "inherit"] });
+const A = enc(`${dir}/pic-subs.mp4`), B = enc(`${dir}/pic-nosubs.mp4`), put = async (p, b) => { if (!p.stdin.write(b)) await new Promise((r) => p.stdin.once("drain", r)); };
+const t0 = Date.now();
+for (let f = f0; f < f1; f++) {
+  const p = S.parts(f / S.FPS), bufB = await shot(p.pic + "</svg>");
+  await put(B, bufB);
+  await put(A, p.cap ? await shot(p.pic + p.cap + "</svg>") : bufB);
+  if (f % 300 === 0) console.log("frame", f, "/", f1, ((Date.now() - t0) / 1000).toFixed(0) + "s");
+}
+A.stdin.end(); B.stdin.end();
+await Promise.all([A, B].map((p) => new Promise((r) => p.on("close", r))));
+await browser.close();
+console.log("pictures done", ((Date.now() - t0) / 1000).toFixed(0) + "s");
+if (rest.includes("--final")) {
+  execFileSync("node", ["storyboards/series/legend/hansel-gretel/hg-mix.mjs", `${dir}/mix.wav`], { stdio: "inherit" });
+  for (const [pic, out] of [["pic-subs", "hg-draft2"], ["pic-nosubs", "hg-draft2-nosubs"]])
+    execFileSync("ffmpeg", ["-v", "error", "-y", "-i", `${dir}/${pic}.mp4`, "-i", `${dir}/mix.wav`, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-t", S.DUR.toFixed(2), "-movflags", "+faststart", `${dir}/${out}.mp4`], { stdio: "inherit" });
+  console.log("muxed", `${dir}/hg-draft2.mp4`, `${dir}/hg-draft2-nosubs.mp4`);
+}
