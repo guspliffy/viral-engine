@@ -1,0 +1,416 @@
+{
+ "id": "cvc02-voice-probe",
+ "title": "Country vs Country 02 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   69.6,
+   69.6
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -3.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spudus",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -1.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "retiree",
+   "character": "potatobrawl/retiree",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    1.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "button",
+   "character": "potatobrawl/spud",
+   "at": [
+    2.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 69.6,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     7
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "DON'T. You. DARE.",
+     "tone": "excited",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, every word a command",
+     "voice": "retiree-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Who's even WATCHING?!",
+     "tone": "question",
+     "style": "startled, one foot in the air, looking around an empty street",
+     "voice": "spud-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 2.9
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Red means STAND. Forever.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, deadly serious",
+     "voice": "retiree-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 5.6
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Bus leaves in one minute.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient German bus driver, a slight German accent, never blinking, flat",
+     "voice": "wedge-x115",
+     "dur": 2.5,
+     "caption": false,
+     "at": 8.7
+    },
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "Come on... come on.",
+     "tone": "calm",
+     "style": "impatient, pressing a crosswalk button",
+     "voice": "spud-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 12.2
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Right on red, hon!",
+     "tone": "excited",
+     "style": "slow, cheerful, chatty American, all the time in the world, waving from a pickup truck window as he turns",
+     "voice": "mash-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 15.3
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Think. Of. The children.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, slow, a lecture",
+     "voice": "retiree-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 18.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "There ARE no children!",
+     "tone": "excited",
+     "style": "arms spread at the empty street",
+     "voice": "spud-x115",
+     "dur": 2.1,
+     "caption": false,
+     "at": 21.5
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...Where did YOU come from?",
+     "tone": "question",
+     "style": "small, staring down at a tiny child",
+     "voice": "spud-x115",
+     "dur": 2.5,
+     "caption": false,
+     "at": 24.6
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Morning!",
+     "tone": "excited",
+     "style": "relaxed, mouth full of burger, strolling across the road",
+     "voice": "chip-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 28.1
+    },
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "It's RED!",
+     "tone": "excited",
+     "style": "shocked, pointing at the light",
+     "voice": "spud-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 30
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "It's a suggestion.",
+     "tone": "calm",
+     "style": "shrugging, chewing",
+     "voice": "chip-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 32.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Thirty seconds.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient German bus driver, a slight German accent, never blinking, tapping his watch",
+     "voice": "wedge-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 35
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Okay. Nobody's looking...",
+     "tone": "calm",
+     "style": "whispering, leaning over the kerb",
+     "voice": "spud-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 37.3
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "I SEE you.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, low, from behind binoculars",
+     "voice": "retiree-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 40
+    },
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "Come ON!",
+     "tone": "excited",
+     "style": "hammering a crosswalk button with both fists",
+     "voice": "spud-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 42.7
+    },
+    {
+     "who": "button",
+     "macro": "say",
+     "line": "Wait.",
+     "tone": "calm",
+     "style": "flat robotic crosswalk speaker",
+     "voice": "button",
+     "dur": 0.9,
+     "caption": false,
+     "at": 45
+    },
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "I AM waiting!",
+     "tone": "excited",
+     "style": "yelling at the button",
+     "voice": "spud-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 46.9
+    },
+    {
+     "who": "button",
+     "macro": "say",
+     "line": "Wait.",
+     "tone": "calm",
+     "style": "flat robotic crosswalk speaker",
+     "voice": "button",
+     "dur": 0.9,
+     "caption": false,
+     "at": 49.6
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Five. Euros.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, holding up five fingers",
+     "voice": "retiree-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 51.5
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Go ahead, hon!",
+     "tone": "calm",
+     "style": "slow, cheerful, chatty American, all the time in the world, stopping the truck, waving him across",
+     "voice": "mash-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 53.8
+    },
+    {
+     "who": "spudus",
+     "macro": "say",
+     "line": "...Huh. Made it.",
+     "tone": "calm",
+     "style": "surprised, stepping onto the bus",
+     "voice": "spud-x115",
+     "dur": 1.7,
+     "caption": false,
+     "at": 56.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Ten seconds.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient German bus driver, a slight German accent, never blinking",
+     "voice": "wedge-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 59.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Come on, come on, come on...",
+     "tone": "calm",
+     "style": "whispering, foot hovering, staring at the red man",
+     "voice": "spud-x115",
+     "dur": 2.9,
+     "caption": false,
+     "at": 61.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Too late.",
+     "tone": "calm",
+     "style": "clipped, cold, efficient German bus driver, a slight German accent, never blinking, doors hiss shut as the light turns green",
+     "voice": "wedge-x115",
+     "dur": 1.3,
+     "caption": false,
+     "at": 65.4
+    },
+    {
+     "who": "retiree",
+     "macro": "say",
+     "line": "Good.",
+     "tone": "calm",
+     "style": "old, grumpy, raspy, outraged German pensioner leaning out of a window, suddenly proud, slow-clapping with the whole street",
+     "voice": "retiree-x115",
+     "dur": 0.9,
+     "caption": false,
+     "at": 67.7
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Country vs Country 02: makes and measures every take."
+}

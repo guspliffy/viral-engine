@@ -41,6 +41,7 @@ import { clamp } from "./util.js";
 //                 from the pole (x -0.22..0, y 0.115..0.255). de: bands `#1d1c22` / `#d8262b` / `#f2c230`. us: 7 red `#c8312f` + 6 white `#f7f4ea` stripes,
 //                 canton 0.088 x 0.075 `#2b3f8a` with 9 white dots at the TOP-LEFT (the free end: the flag reads as the American one, as on the sheet).
 //                 Place it at world (-1.70, 0.66, -0.62) (de) and (2.70, 0.66, 0.98) (us). Not solid.
+//                 Opt-in `poleH` (country vs country 02): the pole's top in world metres (spec.scale divides it out); the cloth hangs from the top.
 
 const DEG = Math.PI / 180;
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -324,9 +325,11 @@ function candyrack(P) {
 function miniflag(P) {
   const S = P.spec, o = P.whole, us = S.flag === "us";
   const steel = mat("#c9ced6", { roughness: 0.4, metalness: 0.4 });
-  mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.26, 8), steel, o, 0, 0.13, 0).castShadow = false;
-  mesh(new THREE.SphereGeometry(0.007, 8, 6), steel, o, 0, 0.265, 0).castShadow = false;
-  const X0 = -0.22, Y1 = 0.255, W = 0.22, Hf = 0.14, zOff = (m) => { m.polygonOffset = true; m.polygonOffsetFactor = -2; m.polygonOffsetUnits = -2; return m; };
+  // opt-in `poleH` (country vs country 02): the pole's top in WORLD metres (divided by spec.scale); the cloth hangs from the top. Unset: 0.26 as before
+  const PH = S.poleH ? S.poleH / (S.scale ?? 1) : 0.26;
+  mesh(new THREE.CylinderGeometry(0.004, 0.004, PH, 8), steel, o, 0, PH / 2, 0).castShadow = false;
+  mesh(new THREE.SphereGeometry(0.007, 8, 6), steel, o, 0, PH + 0.005, 0).castShadow = false;
+  const X0 = -0.22, Y1 = PH - 0.005, W = 0.22, Hf = 0.14, zOff = (m) => { m.polygonOffset = true; m.polygonOffsetFactor = -2; m.polygonOffsetUnits = -2; return m; };
   const piece = (w, h, color, x, y, z = 0, th = 0.004) => { const m = box(w, h, th, zOff(quiet(mat(color, { roughness: 0.8 }))), o, x, y, z); m.castShadow = false; return m; };
   if (!us) {
     ["#1d1c22", "#d8262b", "#f2c230"].forEach((c, i) => piece(W, Hf / 3, c, X0 + W / 2, Y1 - Hf / 3 * (i + 0.5)));
