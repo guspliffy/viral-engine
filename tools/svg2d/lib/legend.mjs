@@ -349,6 +349,7 @@ export function kid(c, st, t) {
   let mouth;
   if (shock > 0.4 && !(st.talk > 0.12)) mouth = `<path d="M${n(ex - 1.8)},${n(hy + 8)} Q${n(ex)},${n(hy + 5.8)} ${n(ex + 1.8)},${n(hy + 8)} Q${n(ex)},${n(hy + 11.5)} ${n(ex - 1.8)},${n(hy + 8)} Z" fill="#5a1f30"/>`;
   else if (st.grin > 0.5 && !(st.talk > 0.12)) mouth = `<path d="M${n(ex - 2.6)},${n(hy + 7.4)} Q${n(ex)},${n(hy + 10)} ${n(ex + 2.6)},${n(hy + 7)}" stroke="#6a2a38" stroke-width="0.9" fill="none" stroke-linecap="round"/>`;
+  else if (st.smile > 0.2 && !(st.talk > 0.12)) mouth = `<path d="M${n(ex - 2.2)},${n(hy + 7.6)} Q${n(ex)},${n(hy + 7.6 + 2.2 * st.smile)} ${n(ex + 2.2)},${n(hy + 7.3)}" stroke="#6a2a38" stroke-width="0.9" fill="none" stroke-linecap="round"/>`;   // st.smile: a small kind smile (off by default)
   else mouth = talkMouth(ex, hy + 8, 2.1, st.talk || 0);
   const browY = shock > 0.4 ? hy - 9.2 : hy - 7.6, worry = st.worry || 0;
   const fringe = [-9, -5, -1, 3, 7].map((x, i) => `<path d="M${n(hx + x + fx * 2)},${n(hy - 14)} Q${n(hx + x + fx * 2 + 3 * (fx < 0 ? -1 : 1))},${n(hy - 8)} ${n(hx + x + fx * 4 + (fx < 0 ? -3.5 : 3.5))},${n(hy - 3.5 - (i % 2) * 2.5)} L${n(hx + x + fx * 2 + 3)},${n(hy - 12)} Z" fill="${hairC}"/>`).join("");

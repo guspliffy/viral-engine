@@ -46,7 +46,7 @@ const wordAt = (ln, w) => { const x = ln.words.find((q) => nw(q[0]) === w) || ln
 
 // order and the breath between lines (seconds after the previous line's last sound): 0.15-0.35 inside a scene, 0.4-0.6 on a scene change
 export const ORDER = SPEC.lines.map((l) => l[0]);
-const GAP = { L02: 0.2, L03: 0.5, L04: 0.25, L05: 0.3, L06: 0.3, L07: 0.45, L08: 0.3, L09: 0.5, L10: 0.5, L11: 0.3, L12: 0.35, L13: 0.3, L14: 0.2, L15: 0.35, L16: 0.62, L17: 0.35, L18: 0.3, L19: 0.35, L20: 0.3, L21: 0.5, L22: 0.5, L23: 0.3 };
+const GAP = { L02: 0.2, L03: 0.35, L04: 0.25, L05: 0.3, L06: 0.3, L07: 0.45, L08: 0.3, L09: 0.35, L10: 0.3, L11: 0.3, L12: 0.35, L13: 0.3, L14: 0.2, L15: 0.35, L16: 0.62, L17: 0.35, L18: 0.3, L19: 0.35, L20: 0.3, L21: 0.5, L22: 0.5, L23: 0.3 };
 { let prev = null; for (const id of ORDER) { const ln = LINE[id]; ln.at = prev ? prev.end + GAP[id] : 0; ln.end = ln.at + ln.len; prev = ln; } }
 for (let i = 1; i < ORDER.length; i++) if (LINE[ORDER[i]].at < LINE[ORDER[i - 1]].end) throw new Error("voices overlap at " + ORDER[i]);
 export const DUR = +(LINE.L23.at + LINE.L23.len + 0.05).toFixed(2);   // hard cut on "pot": the picture and the sound end together, right after the word's last sound
@@ -69,12 +69,15 @@ const frame = (inner, flat) => `<svg xmlns="http://www.w3.org/2000/svg" width="$
 const talkAt = (ln, lu) => clamp(ln.env[Math.round(lu * FPS)] ?? 0);
 const bl = (t, seed = 0) => blinkAmt(t, [0.6 + seed, 2.1 + seed * 1.7, 3.9 + seed, 5.5 + seed * 0.6, 7.7 + seed, 9.2 + seed * 1.3]);
 const E = (u0, u1, u) => ease(clamp((u - u0) / Math.max(1e-6, u1 - u0)));
-// the whole set, like BAL.coast() but with a size for the home (the "pop away" in shot 21)
+// grey-and-slate for the first count (Sol R1 B11): the sea drains to slate, the sky keeps its grade
+const SLATE = { sea0: "#46525e", sea1: "#5a6a78", sea2: "#7a8c9a", sea3: "#a0b0bc" };
+function slate(m) { const k = m <= 1 ? m : clamp(2 - m); if (k < 0.01) return; for (const q in SLATE) BAL.M[q] = L.mix(BAL.M[q], SLATE[q], 0.85 * k); }
+// the whole set, like BAL.coast() but with a size for the home (the "pop away" in shot 21), `under` (drawn behind the jetty: the flounder's foam never crosses the deck) and noJetty
 function coast2(c, t, m, o = {}) {
-  BAL.mood(m);
+  BAL.mood(m); slate(m);
   const hm = BAL.home(c, { stage: o.stage || 0, light: o.light, smoke: o.smoke, size: o.size }, t), jt = BAL.jetty(c, t);
   const st = clamp(m - 3), tw = o.towers ?? st, r = o.rain ?? st;
-  const back = BAL.sky(c, t, o) + BAL.sea(c, t, o) + BAL.towers(c, t, { amt: tw }) + BAL.shore(c, t, o) + (o.noHome ? "" : hm.svg) + (o.drift === false ? "" : BAL.driftwood(c, { ...B.drift, rot: -4, seed: 3 })) + jt.svg;
+  const back = BAL.sky(c, t, o) + BAL.sea(c, t, o) + BAL.towers(c, t, { amt: tw }) + BAL.shore(c, t, o) + (o.noHome ? "" : hm.svg) + (o.drift === false ? "" : BAL.driftwood(c, { ...B.drift, rot: -4, seed: 3 })) + (o.under || "") + (o.noJetty ? "" : jt.svg);
   return { back, front: BAL.near(c, t) + (r > 0.02 ? BAL.rain(t, r) : ""), home: hm };
 }
 const compose = (s, cast, post = "") => s.back + cast + BAL.grade() + post + s.front;
@@ -84,19 +87,46 @@ const jettyKid = (c, t, st) => kidAt(BAL.deckCam(c), { ...B.kid, fx: -0.7, reach
 const rodOf = (kd, o = {}) => BAL.rod(BAL.kidHand(kd, o.reachL ?? 1), kd.p.s / 100, { ang: -44, len: 138, line: 40, ...o });
 const keeperAt = (c, X, Z, t, o = {}) => keepAt(c, { X, Z, fx: 0.55, stern: 0.8, flame: 1, open: 1, ...o }, t);
 
-// ---------------------------------------------------------------- the shots
+// the gold crown on the kid's head: seeded at the palace reveal, stays until the word "Crown" (Sol R1 B24). a = size 0..1
+const crownOn = (kd, a) => {
+  if (!kd.p || a < 0.02) return "";
+  const s = kd.p.s, k = s * 0.0092 * a;
+  return `<g transform="translate(${n(kd.p.x - 0.03 * s)},${n(kd.p.y - 1.27 * s - (1 - a) * 0.3 * s)}) scale(${n(k * 100) / 100}) rotate(-6)"><path d="M-14,0 L-17,-14 L-8,-6 L0,-18 L8,-6 L17,-14 L14,0 Z" fill="#ffd838" stroke="#7a4a00" stroke-width="1.6" stroke-linejoin="round"/><path d="M-14,0 Q0,3 14,0" stroke="#c8861c" stroke-width="1.6" fill="none"/><circle cx="0" cy="-19" r="1.8" fill="#fff3a0"/><circle cx="-17" cy="-15" r="1.5" fill="#fff3a0"/><circle cx="17" cy="-15" r="1.5" fill="#fff3a0"/></g>`;
+};
+// one path through the scene for the kid: points [t, X, Z]; returns { X, Z, run } with the walk cycle tied to the distance walked
+const walkPath = (pts, t) => {
+  if (t <= pts[0][0]) return { X: pts[0][1], Z: pts[0][2], run: null };
+  let dist = 0;
+  for (let i = 1; i < pts.length; i++) {
+    const a = pts[i - 1], b = pts[i], seg = Math.hypot(b[1] - a[1], b[2] - a[2]);
+    if (t <= b[0]) { const u = (t - a[0]) / (b[0] - a[0]); return { X: lerp(a[1], b[1], u), Z: lerp(a[2], b[2], u), run: ((dist + seg * u) / 1.1) % 1 }; }
+    dist += seg;
+  }
+  const e = pts[pts.length - 1]; return { X: e[1], Z: e[2], run: null };
+};
+// a raised arm for Grandma's rule finger: from the sleeve, the forearm up, one short finger. up 0 = at rest
+function raisedArm(g, up) {
+  const p = g.p, k = p.s / 100, sh = L.toScreen(p, 0, -14, -94), el = (a, b) => ({ x: lerp(a[0], b[0], up), y: lerp(a[1], b[1], up) });
+  const e = el([-20, -78], [-40, -88]), h = el([-18, -68], [-36, -114]), E2 = L.toScreen(p, 0, e.x, e.y), H = L.toScreen(p, 0, h.x, h.y);
+  const d = `M${n(sh.x)},${n(sh.y)} Q${n(E2.x)},${n(E2.y)} ${n(H.x)},${n(H.y)}`;
+  const fin = up > 0.3 ? `<path d="M${n(H.x)},${n(H.y - 3 * k)} l${n(-0.5 * k)},${n(-9 * k * up)}" stroke="${INK}" stroke-width="${n(4.6 * k)}" stroke-linecap="round"/><path d="M${n(H.x)},${n(H.y - 3 * k)} l${n(-0.5 * k)},${n(-9 * k * up)}" stroke="#e6bf9e" stroke-width="${n(3 * k)}" stroke-linecap="round"/>` : "";
+  return `<path d="${d}" stroke="${INK}" stroke-width="${n(12.2 * k)}" stroke-linecap="round" fill="none"/><path d="${d}" stroke="#2b2f6b" stroke-width="${n(11 * k)}" stroke-linecap="round" fill="none"/><circle cx="${n(H.x)}" cy="${n(H.y)}" r="${n(4.6 * k)}" fill="#e6bf9e" stroke="${INK}" stroke-width="${n(0.8 * k)}"/>${fin}`;
+}
+// ---------------------------------------------------------------- the shots (draft 2: Sol round 1 applied, see SOL-R1.md)
 const SHOTS = [];
 const shot = (id, line, off, fn, o = {}) => SHOTS.push({ id, line, off, fn, ...o });
+const W2 = () => LN("L10").at + LN("L10").words[1][1];          // the second "Flounder!"
+const KIDJ = { X: 1.62, Z: 11.3 };                                 // the kid on the jetty, close cameras
 
-// 1  FRAME 0: the gold eye opens under black storm water, slow push-in; cut on "black?"
+// 1  FRAME 0: the eye (the flounder's colours and red spots round it) is closed at frame 0, opens on the next frame, slow push-in; cut on "black?"
 shot("1", "L01", () => 0, (u) => {
   BAL.mood(4);
   return FLAT(BAL.eyeShot(u, { open: u <= 0 ? 0 : clamp(0.25 + 0.75 * E(0, 0.5, u)), r: lerp(268, 330, u / 2.0), cx: 540, cy: 1290, look: [0.15 * Math.sin(u * 1.3), -0.1] }));
 });
-// 1b  the kid, tiny on the jetty in the storm, the tower waves behind
+// 1b  the kid NEARER, on the jetty in front of the curling black water, the tower waves behind (Sol A4/B2/B3)
 shot("1b", "L01", () => WD("L01", "black") - 0.02, (u, x) => {
-  const c = { x: 2.9, y: 2.0, z: lerp(1.5, 2.3, u / 2.4), h0: 1000 }, s = coast2(c, x.t, 4, { light: 0.5, bolt: flick(u, [0.35, 0.6]), boltX: 860, towers: 1, rain: 1 });
-  const kd = kidAt(BAL.deckCam(c), { ...B.kid, fx: -0.5, shock: 1, reachL: 0.6, lean: 7 + 2 * Math.sin(u * 5), talk: talkAt(x.ln, x.lu), blink: 0 }, x.t);
+  const c = { x: 1.3, y: 1.5, z: lerp(8.0, 8.5, u / 1.5), h0: 1010 }, s = coast2(c, x.t, 4, { light: 0.5, bolt: flick(u, [0.25]), boltX: 860, towers: 1, rain: 1 });
+  const kd = kidAt(BAL.deckCam(c), { ...KIDJ, fx: -0.5, shock: 1, reachL: 0.3, lean: 5 + 2 * Math.sin(u * 5), talk: talkAt(x.ln, x.lu), blink: 0 }, x.t);
   return s.back + BAL.grade() + kd.svg + s.front;
 });
 // 2  Grandma close at the hut door, the lamp swinging, the candle jar nearly out
@@ -106,67 +136,76 @@ shot("2", "L02", () => LN("L02").at - 0.1, (u, x) => {
   const sw = 2.2 * Math.sin(u * 2.9), pv = L.P(c, -0.5, 0, 5.75);
   return compose(s, "", `<g transform="rotate(${n(sw)} ${n(pv.x)} ${n(pv.y)})">${g.svg}${g.arm}</g>`);
 });
-// 2b  GLIMPSE: five blurred frames of the tower waves over the jetty, then a hard cut to calm
-shot("2b", "L03", () => LN("L03").at - 5 / FPS - 0.02, (u, x) => {
-  const c = { x: 2.9, y: 2.0, z: 1.7 + u * 0.4, h0: 1000 }, s = coast2(c, x.t, 4, { light: 0.5, bolt: 0.8, boltX: 700, towers: 1, rain: 1 });
-  const kd = kidAt(BAL.deckCam(c), { ...B.kid, fx: -0.5, shock: 1, reachL: 0.6, lean: 7, blink: 0 }, x.t);
-  return `<g filter="url(#gb2)">${s.back + BAL.grade() + kd.svg + s.front}</g><rect width="${W}" height="${H}" fill="#02030a" opacity="0.18"/>`;
-}, { short: true });
-// 3  6 p.m.: wide shore, evening sun, the kid fishing on the jetty; on "could talk" the rod bends hard
+// 3  6 p.m.: wide shore, evening sun, the kid fishing on the jetty (the blurred flash is gone); the cut to the bending rod comes on "And the fish" (Sol A6)
 shot("3", "L03", () => LN("L03").at - 0.02, (u, x) => {
-  const c = { x: 0, y: 3.0, z: lerp(0.6, 1.5, u / 4.3), h0: 760 }, s = coast2(c, x.t, 0, { light: 0 });
+  const c = { x: 0, y: 3.0, z: lerp(0.6, 1.5, u / 3.0), h0: 760 }, s = coast2(c, x.t, 0, { light: 0 });
   const kd = jettyKid(c, x.t, { reachL: 1, blink: bl(u) }), r = rodOf(kd, { ang: -50, line: 70, swing: 3 * Math.sin(u * 1.4) });
   const g = keeperAt(c, B.keeper.X, B.keeper.Z, x.t, { stern: 0.3, blink: bl(u, 0.3) });
   return compose(s, r.svg + kd.svg + g.svg + g.arm);
 });
-shot("3b", "L03", () => WD("L03", "could") - 0.05, (u, x) => {
-  const c = { x: 1.2, y: 1.5, z: lerp(8.0, 8.4, u / 2), h0: 1010 }, s = coast2(c, x.t, 0, { sun: [200, 940, 90], glitter: 200 });
-  const kd = kidAt(BAL.deckCam(c), { X: 1.62, Z: 11.3, fx: -0.75, reachL: 1, shock: 0.6, worry: 0.3, lean: -4 + 1.5 * Math.sin(u * 22), blink: 0 }, x.t);
-  const r = BAL.rod(BAL.kidHand(kd, 1), kd.p.s / 100, { ang: -50 + 6 * E(0, 0.3, u), len: 138, bend: lerp(0.15, 0.75, E(0, 0.35, u)), line: 46, swing: 6 * Math.sin(u * 30) });
+shot("3b", "L03", () => WD("L03", "fish") - 0.3, (u, x) => {
+  const c = { x: 1.2, y: 1.5, z: lerp(8.0, 8.5, u / 2), h0: 1010 }, s = coast2(c, x.t, 0, { sun: [200, 940, 90], glitter: 200 });
+  const kd = kidAt(BAL.deckCam(c), { ...KIDJ, fx: -0.75, reachL: 1, shock: 0.6, worry: 0.3, lean: -4 + 1.5 * Math.sin(u * 22), blink: 0 }, x.t);
+  const r = BAL.rod(BAL.kidHand(kd, 1), kd.p.s / 100, { ang: -50 + 6 * E(0.2, 0.5, u), len: 138, bend: lerp(0.15, 0.75, E(0.2, 0.6, u)), line: 46, swing: 6 * Math.sin(u * 30) });
+  // the fish breaks the surface on "could talk": it comes up on the line
+  const rise = clamp((x.t - (WD("L03", "could") - 0.1)) / 0.45), fish = rise > 0 ? BAL.flounderOnLine({ x: r.end.x, y: r.end.y + (1 - ease(rise)) * 420 }, 360, { open: 0.3 * rise, mood: 1, swing: 4 * Math.sin(u * 7), look: [0.6, 0.4], t: x.t }).svg : "";
+  return compose(s, fish + r.svg + kd.svg);
+});
+// 4  the flounder rises side-on beside the kid, its mouth talks; the kid jolts back, still holding the rod; slow push toward its snout. Foam is drawn behind the deck (B5)
+shot("4", "L04", () => LN("L04").at - 0.04, (u, x) => {
+  const c = { x: 0.7, y: 0.9, z: lerp(7.2, 8.2, u / 2.7), h0: 1130 }; BAL.mood(0);
+  const p = L.P(c, 0.45, 0, 11.0), out = 0.2 + 0.7 * E(0, 0.5, u), len = 340;
+  const fr = BAL.flounderRise(p.x, p.y, len, { mood: 1, open: talkAt(x.ln, x.lu), out, t: x.t });
+  regFish(p.x, p.y + len * (0.3 - out * 0.5), len, 62, false);
+  const s = coast2(c, x.t, 0, { sun: [200, 900, 90], glitter: 200, under: fr });
+  const jolt = E(0, 0.18, u) * (1 - 0.6 * E(0.3, 1.2, u));
+  const kd = kidAt(BAL.deckCam(c), { ...KIDJ, fx: -0.85, reachL: 1, shock: 1, worry: 0.8, lean: -9 * jolt, talk: 0, blink: bl(u) }, x.t);
+  const r = rodOf(kd, { ang: -42, len: 138, line: 60, bend: 0.4, swing: -12 });
   return compose(s, r.svg + kd.svg);
 });
-// 4  the flounder rises side-on in front of the kid, its mouth talks; the kid jolts back
-shot("4", "L04", () => LN("L04").at - 0.04, (u, x) => {
-  const c = { x: 0.7, y: 0.9, z: 7.2, h0: 1130 }, s = coast2(c, x.t, 0, { sun: [200, 900, 90], glitter: 200 });
-  const jolt = E(0, 0.18, u) * (1 - 0.6 * E(0.3, 1.2, u));
-  const kd = kidAt(BAL.deckCam(c), { X: 1.62, Z: 11.3, fx: -0.85, reachL: 0.55, shock: 1, worry: 0.8, lean: -9 * jolt, talk: 0, blink: bl(u) }, x.t);
-  const p = L.P(c, 0.8, 0, 11.0), out = 0.2 + 0.7 * E(0, 0.5, u), len = 520;
-  const fr = BAL.flounderRise(p.x, p.y, len, { mood: 1, open: talkAt(x.ln, x.lu), swing: 0, out, flip: false, t: x.t });
-  regFish(p.x, p.y + len * (0.3 - out * 0.5), len, 62, false);
-  return compose(s, kd.svg + fr);
-});
-// 5  Grandma at the hut door (door camera), one finger raised: the rule shot
+// 5  Grandma at the hut door (door camera), one short finger raised from a bent arm: the rule shot
 shot("5", "L05", () => LN("L05").at - 0.04, (u, x) => {
   const c = { ...CAM.door, z: lerp(2.2, 2.7, u / 2.8) }, s = coast2(c, x.t, 0, { sun: [900, 900, 80], glitter: 900, light: 1 });
-  const up = E(0.45, 0.75, u);
+  const up = E(0.45, 0.8, u);
   const g = keeperAt(c, -0.5, 5.75, x.t, { fx: 0.6, stern: 1, talk: talkAt(x.ln, x.lu), blink: bl(u) });
-  const hp = L.toScreen(g.p, 0, -18, -68), k = g.p.s / 100, fy = hp.y - up * 30 * k;
-  const finger = up > 0.02 ? `<path d="M${n(hp.x)},${n(hp.y - 3 * k)} L${n(hp.x - 2 * k)},${n(fy)}" stroke="${INK}" stroke-width="${n(5.2 * k)}" stroke-linecap="round"/><path d="M${n(hp.x)},${n(hp.y - 3 * k)} L${n(hp.x - 2 * k)},${n(fy)}" stroke="#e6bf9e" stroke-width="${n(3.8 * k)}" stroke-linecap="round"/>` : "";
-  return compose(s, g.svg + g.arm + finger);
+  return compose(s, g.svg + raisedArm(g, up));
 });
-// 6  the kid close with the fish in his hands, proud
+// 6  the kid close with the fish in his hands, proud, a kind smile; then (6b) at the waterline his hands open and the fish slips into the water
 shot("6", "L06", () => LN("L06").at - 0.05, (u, x) => {
   const c = { x: 0, y: 1.0, z: lerp(2.2, 2.55, u / 2.2), h0: 1010 }, s = coast2(c, x.t, 0, { sun: [800, 900, 84], glitter: 800 });
-  const kd = kidAt(c, { X: -0.52, Z: 4.4, fx: 0.3, grin: 1, reachL: 0.15, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.4) }, x.t);
+  const kd = kidAt(c, { X: -0.52, Z: 4.4, fx: 0.3, smile: 1, worry: 0.25, reachL: 0.15, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.4) }, x.t);
   const f = BAL.flounderHeld(kd, 250, { open: 0, mood: 1, t: x.t });
   return compose(s, kd.svg + f.svg);
 });
-// 7  wide: the hut cross-fades to the cottage on "cottage"; on "grey" the sea goes 0 -> 1
-shot("7", "L07", () => LN("L07").at - 0.05, (u, x) => {
-  const tt = x.t, stage = E(WD("L07", "cottage") - 0.1, WD("L07", "cottage") + 0.5, tt), m = E(WD("L07", "grey") - 0.55, WD("L07", "grey") + 0.45, tt);
-  const c = { x: 0.1, y: 3.0, z: lerp(0.9, 0.2, u / 3), h0: 760 }, s = coast2(c, tt, m, { stage, light: stage });
-  const kd = jettyKid(c, tt, { reachL: 1, blink: bl(u) }), r = rodOf(kd, { ang: -50, line: 70, bend: 0.1 });
-  const g = keeperAt(c, B.keeper.X, B.keeper.Z, tt, { stern: 0.4, blink: bl(u, 0.3), flame: 1 });
-  return compose(s, r.svg + kd.svg + g.svg + g.arm);
+shot("6b", "L06", () => WD("L06", "grandma") - 0.1, (u, x) => {
+  const c = { x: 1.6, y: 1.0, z: 4.6, h0: 1020 }, s = coast2(c, x.t, 0, { sun: [800, 900, 84], glitter: 800, drift: false });
+  const kd = kidAt(c, { X: 1.6, Z: 7.6, fx: -0.2, smile: 1, worry: 0.25, reachL: 0.15, blink: bl(u, 0.2) }, x.t), w = L.P(c, 1.9, 0, 8.7), fall = clamp((u - 0.3) / 0.3);
+  const hold = BAL.flounderHeld(kd, 250, { open: 0, mood: 1, t: x.t });
+  let cast = "";
+  if (u < 0.3) cast = kd.svg + hold.svg;
+  else {
+    const fx = lerp(hold.x, w.x, ease(fall)), fy = lerp(hold.y, w.y, fall * fall), q = clamp((u - 0.6) / 0.9);
+    let rip = ""; for (let i = 0; i < 3; i++) { const r = (30 + q * 150 + i * 38) * (u > 0.6 ? 1 : 0), op = u > 0.6 ? 0.8 * (1 - q) * (1 - i * 0.25) : 0; rip += `<ellipse cx="${n(w.x)}" cy="${n(w.y)}" rx="${n(r)}" ry="${n(r * 0.22)}" fill="none" stroke="${BAL.M.foam}" stroke-width="4" opacity="${n(op)}"/>`; }
+    const fish = fall < 1 ? BAL.flounder(fx, fy, lerp(250, 200, fall), { rot: -6 + 70 * fall, mood: 1, t: x.t }) : `<g opacity="${n(1 - clamp((u - 0.6) / 0.5))}">${BAL.flounderUnder(w.x, w.y + 6, 170, { rot: 80, depth: 0.5, t: x.t })}</g>`;
+    cast = (fall < 1 ? rip + kd.svg + fish : rip + fish + kd.svg);
+  }
+  return compose(s, cast);
 });
-// 8  Grandma close, looking at the water, the candle flame shrinks once
+// 7  wide: the hut cross-fades to the cottage on "cottage" (fast, on one footprint); on "grey" the sea drains to slate
+shot("7", "L07", () => LN("L07").at - 0.05, (u, x) => {
+  const tt = x.t, stage = E(WD("L07", "cottage") - 0.05, WD("L07", "cottage") + 0.3, tt), m = E(WD("L07", "grey") - 0.45, WD("L07", "grey") + 0.4, tt);
+  const c = { x: 0.1, y: 3.0, z: lerp(0.9, 0.2, u / 3), h0: 760 }, s = coast2(c, tt, m, { stage, light: stage });
+  const kd = jettyKid(c, tt, { reachL: 0.2, blink: bl(u), smile: 0.6 });
+  const g = keeperAt(c, B.keeper.X, B.keeper.Z, tt, { stern: 0.4, blink: bl(u, 0.3), flame: 1 });
+  return compose(s, kd.svg + g.svg + g.arm);
+});
+// 8  Grandma close beside the grey sea, looking at the water, the candle flame shrinks once (the cottage roof stays below the caption)
 shot("8", "L08", () => LN("L08").at - 0.05, (u, x) => {
-  const c = { ...CAM.door, z: lerp(2.6, 3.0, u / 2) }, s = coast2(c, x.t, 1, { stage: 1, light: 1 });
+  const c = { ...CAM.door, z: lerp(2.6, 3.0, u / 2), h0: 1190 }, s = coast2(c, x.t, 1, { stage: 1, light: 1 });
   const fl = lerp(1, 0.8, E(0.55, 0.9, u)) + (u > 0.55 && u < 0.7 ? -0.15 : 0);
   const g = keeperAt(c, -0.5, 5.75, x.t, { fx: 0.75, stern: 0.6, flame: fl, talk: talkAt(x.ln, x.lu), blink: bl(u), look: 0.4 });
   return compose(s, g.svg + g.arm);
 });
-
 // 9  the 1812 chapbook page: a woodcut of the old couple in a round pot-like hut (marks only, nothing to read)
 function chapbook(zoom, cx, cy, t) {
   const ink = "#241810", paper = "#e8d6a8", paperD = "#cdb27a", s = [];
@@ -199,151 +238,165 @@ function chapbook(zoom, cx, cy, t) {
   s.push(lines(190, 890, 1470, 7, 3) + lines(190, 890, 380, 17, 2));
   return `<g transform="translate(540,960) scale(${n(zoom * 100) / 100}) translate(${-cx},${-cy})">${s.join("")}</g><rect width="${W}" height="${H}" fill="#000" opacity="0.12"/>`;
 }
-shot("9a", "L09", () => LN("L09").at - 0.05, (u, x) => { BAL.mood(0); return FLAT(chapbook(lerp(1.0, 1.1, u / 3.5), 540, 930, x.t)); });
-shot("9b", "L09", () => WD("L09", "couple") - 0.06, (u, x) => { BAL.mood(0); return FLAT(chapbook(lerp(1.6, 1.85, u / 3), 640 - lerp(0, 30, u / 3), 1100, x.t)); });
+shot("9a", "L09", () => LN("L09").at - 0.05, (u, x) => { BAL.mood(0); return FLAT(chapbook(lerp(1.0, 1.1, u / 2.4), 540, 930, x.t)); });
+shot("9b", "L09", () => WD("L09", "pot") - 0.45, (u, x) => { BAL.mood(0); return FLAT(chapbook(lerp(1.9, 2.7, E(0, 0.9, u)), 630, 1070, x.t)); });
 
-// 10  the kid at the end of the jetty, hands cupped, calling over the water; the flounder surfaces
+// 10  the kid at the end of the jetty, hands cupped, calling (no rod); a ripple beside the pier between the two "Flounder!"; a two-shot with the fish clear of the reeds
+const C10 = { x: 1.2, y: 1.5, z: 9.4, h0: 1010 }, K10 = { X: 1.62, Z: 13.7 };
 shot("10", "L10", () => LN("L10").at - 0.05, (u, x) => {
-  const c = { x: 1.2, y: 1.5, z: lerp(8.0, 9.4, u / 3.7), h0: 1010 }, s = coast2(c, x.t, 1, { stage: 1, light: 1 });
-  const kd = kidAt(BAL.deckCam(c), { X: 1.62, Z: 12.7, fx: -0.85, hand2face: 1, lean: -2, talk: talkAt(x.ln, x.lu), shock: 0.3, blink: bl(u, 0.2) }, x.t);
-  const p = L.P(c, 0.3, 0, 13.2), up = E(2.3, 3.4, u), out = 0.05 + 0.85 * up, len = 480 * lerp(0.7, 1, up);
-  const fr = up > 0.02 ? BAL.flounderRise(p.x, p.y, len, { mood: 1, open: 0.2, out, t: x.t }) : "";
-  if (up > 0.2) regFish(p.x, p.y + len * (0.3 - out * 0.5), len, 62, false);
-  return compose(s, kd.svg + fr);
+  const c = { x: 1.2, y: 1.5, z: lerp(10.6, 11.0, u / 1.2), h0: 1010 }, s = coast2(c, x.t, 1, { stage: 1, light: 1 });
+  const kd = kidAt(BAL.deckCam(c), { ...K10, fx: -0.85, hand2face: 1, lean: -2, talk: talkAt(x.ln, x.lu), shock: 0.3, smile: 0.0, blink: bl(u, 0.2) }, x.t);
+  return compose(s, kd.svg);
 });
-// 11  wide: cottage -> castle, sea 1 -> 2 on "Dark blue"; CLOSE on thick oily swells; the kid wrinkles his nose on "smell"
+shot("10b", "L10", () => W2() - 0.5, (u, x) => {   // the ripple beside the pier: a swell, a ring, the fish's back just under the surface
+  const c = { x: 1.2, y: 0.8, z: 9.6, h0: 900 }, s = coast2(c, x.t, 1, { stage: 1, light: 1 });
+  const w = L.P(c, 0.5, 0, 14.6), q = clamp(u / 0.5);
+  let rip = ""; for (let i = 0; i < 3; i++) { const r = (20 + q * 90 + i * 30) * 1, op = 0.85 * (1 - q * 0.6) * (1 - i * 0.25); rip += `<ellipse cx="${n(w.x)}" cy="${n(w.y)}" rx="${n(r)}" ry="${n(r * 0.2)}" fill="none" stroke="${BAL.M.foam}" stroke-width="4" opacity="${n(op)}"/>`; }
+  return compose(s, rip + BAL.flounderUnder(w.x, w.y, 150, { rot: 12, depth: 0.7, t: x.t }));
+});
+shot("10c", "L10", () => W2() - 0.05, (u, x) => {
+  const c = { ...C10 }; BAL.mood(1);
+  const p = L.P(c, 0.7, 0, 16.8), up = E(0.1, 0.9, u), out = 0.05 + 0.85 * up, len = 320;
+  const fr = BAL.flounderRise(p.x, p.y, len, { mood: 1, open: 0.2 + 0.5 * talkAt(x.ln, x.lu), out, t: x.t });
+  if (up > 0.3) regFish(p.x, p.y + len * (0.3 - out * 0.5), len, 62, false);
+  const s = coast2(c, x.t, 1, { stage: 1, light: 1, under: fr });
+  const kd = kidAt(BAL.deckCam(c), { ...K10, fx: -0.85, hand2face: 0.8, lean: -2, talk: talkAt(x.ln, x.lu), shock: 0.3, blink: bl(u, 0.2) }, x.t);
+  return compose(s, kd.svg);
+});
+// 11  wide: cottage -> castle on "Dark blue" (fast, one footprint), sea 1 -> 2; a low surface insert on "Thick"; the kid recoils on "smell"
 shot("11a", "L11", () => LN("L11").at - 0.05, (u, x) => {
-  const tt = x.t, stage = 1 + E(0.15, 0.85, u), m = 1 + E(0.2, 1.3, u);
+  const tt = x.t, stage = 1 + E(0.12, 0.45, u), m = 1 + E(0.1, 1.0, u);
   const c = { x: 0, y: 3.0, z: lerp(0.4, 1.0, u / 1.3), h0: 760 }, s = coast2(c, tt, m, { stage, light: 1 });
   const kd = jettyKid(c, tt, { reachL: 0.3, blink: bl(u) }), g = keeperAt(c, B.keeper.X, B.keeper.Z, tt, { flame: 0.8, blink: bl(u, 0.3) });
   return compose(s, kd.svg + g.svg + g.arm);
 });
-shot("11b", "L11", () => WD("L11", "thick") - 0.05, (u, x) => {
-  const c = { x: 1.0, y: 0.75, z: lerp(5.0, 5.8, u / 1.4), h0: 880 }, s = coast2(c, x.t, 2, { stage: 2, light: 1, drift: false });
+shot("11b", "L11", () => WD("L11", "thick") - 0.05, (u, x) => {   // slow broad streaks, a dragged reflection: no posts
+  const c = { x: 1.0, y: 0.38, z: lerp(7.4, 8.2, u / 1.3), h0: 800 }, s = coast2(c, x.t, 2, { stage: 2, light: 1, drift: false, noJetty: true, noHome: true });
   return compose(s, "");
 });
 shot("11c", "L11", () => WD("L11", "and") - 0.05, (u, x) => {
-  const c = { x: 1.2, y: 1.5, z: lerp(8.0, 8.5, u / 1.6), h0: 1010 }, s = coast2(c, x.t, 2, { stage: 2, light: 1 });
-  const kd = kidAt(BAL.deckCam(c), { X: 1.62, Z: 11.3, fx: -0.8, worry: 1, shock: 0.4, hand2face: 0.55 * E(0.5, 1.0, u), lean: 2, blink: bl(u, 0.3) }, x.t);
+  const c = { x: 1.2, y: 1.5, z: lerp(9.0, 9.8, u / 1.6), h0: 1010 }, s = coast2(c, x.t, 2, { stage: 2, light: 1 });
+  const sm = clamp((x.t - (WD("L11", "smell") - 0.05)) / 0.3);
+  const kd = kidAt(BAL.deckCam(c), { ...KIDJ, Z: 12.2, fx: -0.8, worry: 1, shock: 0.4, hand2face: 0.7 * sm, lean: 2 - 7 * sm * (1 - 0.5 * sm), blink: bl(u, 0.3) }, x.t);
   return compose(s, kd.svg);
 });
-// 12  Grandma close, very quiet, the candle shrinks
+// 12  Grandma, closer than the castle wide, very quiet, a gentle push on "once before", the candle shrinks
 shot("12", "L12", () => LN("L12").at - 0.05, (u, x) => {
-  const c = { ...CAM.door, z: lerp(2.7, 3.1, u / 3.2) }, s = coast2(c, x.t, 2, { stage: 2, light: 1 });
+  const c = { ...CAM.door, z: lerp(3.3, 4.0, u / 3.0) }, s = coast2(c, x.t, 2, { stage: 2, light: 1 });
   const fl = lerp(0.8, 0.6, E(1.6, 2.3, u));
   const g = keeperAt(c, -0.5, 5.75, x.t, { fx: 0.7, stern: 0.7, flame: fl, talk: talkAt(x.ln, x.lu) * 0.7, blink: bl(u), look: 0.3 });
   return compose(s, g.svg + g.arm);
 });
-// 13  the kid close, cheerful, not listening: fast
+// 13  the kid close, a confident grin, not listening: fast
 shot("13", "L13", () => LN("L13").at - 0.05, (u, x) => {
   const c = { x: 0, y: 1.0, z: lerp(2.2, 2.5, u / 1.4), h0: 1010 }, s = coast2(c, x.t, 2, { stage: 2, light: 1 });
-  const kd = kidAt(c, { X: -0.52, Z: 4.4, fx: 0.4, grin: 1, reachL: 0.2, talk: talkAt(x.ln, x.lu), lean: 2 * Math.sin(u * 7), blink: bl(u, 0.1) }, x.t);
+  const kd = kidAt(c, { X: -0.52, Z: 4.4, fx: 0.4, grin: 1, worry: -0.35, reachL: 0.2, talk: talkAt(x.ln, x.lu), lean: 2 * Math.sin(u * 7), blink: bl(u, 0.1) }, x.t);
   return compose(s, kd.svg);
 });
-// 14  the kid shouting at the water, arms wide; castle -> palace
+// 14  the kid close, shouting, arms wide, the stone castle behind him through "coast!"; the palace (and his crown) appear in the gap after the word
 shot("14", "L14", () => LN("L14").at - 0.05, (u, x) => {
-  const c = { ...CAM.two, z: lerp(1.0, 1.5, u / 1.6) }, s = coast2(c, x.t, 2, { stage: 2 + E(0.1, 0.9, u), light: 1 });
-  const kd = kidAt(c, { X: 0.95, Z: 5.3, fx: 0.7, reachL: 1, shock: 0.8, talk: talkAt(x.ln, x.lu), lean: -3 * Math.sin(u * 6), blink: 0 }, x.t);
-  return compose(s, kd.svg);
+  const tt = x.t, rv = E(LN("L14").end - 0.05, LN("L14").end + 0.3, tt);
+  const c = { x: 0.4, y: 1.25, z: lerp(2.1, 2.6, u / 1.8), h0: 1040 }, s = coast2(c, tt, 2, { stage: 2 + rv, light: 1 });
+  const kd = kidAt(c, { X: 0.95, Z: 5.3, fx: 0.7, reachL: 1, shock: 0.8, worry: -0.5, talk: talkAt(x.ln, x.lu), lean: -3 * Math.sin(u * 6), blink: 0 }, tt);
+  return compose(s, kd.svg + crownOn(kd, E(LN("L14").end + 0.1, LN("L14").end + 0.4, tt)));
 });
-// 15  wide: the sea goes black, lightning far off; 0.4 s silence follows "black"
+// 15  wide: the sea goes black, lightning far off; 0.4 s silence follows "black"; the kid (crowned) still on the sand
 shot("15", "L15", () => LN("L15").at - 0.05, (u, x) => {
   const tt = x.t, m = 2 + E(WD("L15", "turned") - 0.1, WD("L15", "black") + 0.25, tt);
   const c = { x: 0, y: 3.0, z: lerp(0.5, 0.0, u / 2), h0: 760 }, s = coast2(c, tt, m, { stage: 3, light: 1, bolt: flick(u, [0.75, 1.15]), boltX: 820 });
-  const kd = jettyKid(c, tt, { reachL: 0.4, shock: 0.5, blink: 0 }), g = keeperAt(c, B.keeper.X, B.keeper.Z, tt, { flame: 0.6, blink: bl(u, 0.3) });
-  return s.back + g.svg + g.arm + BAL.grade() + kd.svg + s.front;
+  const kd = kidAt(c, { X: 0.95, Z: 5.3, fx: 0.7, shock: 0.5, worry: 0.2, blink: 0 }, tt), g = keeperAt(c, B.keeper.X, B.keeper.Z, tt, { flame: 0.6, blink: bl(u, 0.3) });
+  return s.back + g.svg + g.arm + BAL.grade() + kd.svg + crownOn(kd, 1) + s.front;
 });
-// 16  the flounder close, cold, not smiling, half lids
+// 16  the flounder close, cold, half lids, a thin pale rim against the black; it looks at the palace (left) while it says it. "it" = the gains
 shot("16", "L16", () => LN("L16").at - 0.2, (u, x) => {
-  const c = { x: 1.0, y: 0.7, z: 5.2, h0: 800 }, s = coast2(c, x.t, 3, { stage: 3, light: 1, drift: false, noHome: true, bolt: flick(u, [1.0]), boltX: 300 });
-  const p = L.P(c, 1.0, 0, 11.0), len = lerp(600, 680, u / 2.2), out = 0.85, fx = p.x - 40, fy = p.y + 160;
-  const fr = BAL.flounderRise(fx, fy, len, { mood: 0, open: talkAt(x.ln, x.lu), out, t: x.t, crown: 0.6, look: [0, 0.2] });
+  const c = { x: -0.5, y: 0.9, z: 5.2, h0: 800 }; BAL.mood(3);
+  const p = L.P(c, 0.7, 0, 11.0), len = lerp(620, 700, u / 2.2), out = 0.85, fx = p.x, fy = p.y + 170, look = [-1, 0.15 + 0.1 * Math.sin(u * 2)];
+  const fish = (o) => BAL.flounderRise(fx, fy, len, { mood: 0, open: talkAt(x.ln, x.lu), out, t: x.t, crown: 0.6, look, foamK: 0.5, ...o });
+  const rim = `<g transform="translate(-7,-7)" style="filter:brightness(2.6) saturate(0.35) hue-rotate(185deg)" opacity="0.55">${fish({ open: 0 })}</g>`;
   regFish(fx, fy + len * (0.3 - out * 0.5), len, 62, false);
-  return compose(s, fr);
+  const s = coast2(c, x.t, 3, { stage: 3, light: 1, drift: false, bolt: flick(u, [1.0]), boltX: 300 });
+  return compose(s, rim + fish({}));
 });
-// 17  Grandma close, urgent, the candle almost out
+// 17  Grandma closer, urgent, the candle gutters hardest on "Now"
 shot("17", "L17", () => LN("L17").at - 0.05, (u, x) => {
-  const c = { ...CAM.door, z: lerp(2.8, 3.2, u / 1.5) }, s = coast2(c, x.t, 3, { stage: 3, light: 1, bolt: flick(u, [0.6]), boltX: 300 });
-  const g = keeperAt(c, -0.5, 5.75, x.t, { fx: 0.65, stern: 1, flame: lerp(0.6, 0.3, E(0, 0.5, u)) + 0.03 * Math.sin(u * 19), talk: talkAt(x.ln, x.lu), blink: 0 });
+  const c = { ...CAM.door, z: lerp(2.9, 3.6, u / 1.5) }, s = coast2(c, x.t, 3, { stage: 3, light: 1, bolt: flick(u, [0.6]), boltX: 300 });
+  const fl = lerp(0.6, 0.3, E(0, 0.5, u)) + 0.09 * Math.sin(u * 23) - 0.16 * Math.max(0, Math.sin(clamp((x.lu - LN("L17").words[1][1]) / 0.5) * Math.PI));
+  const g = keeperAt(c, -0.5, 5.75, x.t, { fx: 0.65, stern: 1, flame: Math.max(0.1, fl), talk: talkAt(x.ln, x.lu), blink: 0 });
   return compose(s, g.svg + g.arm);
 });
-// 18  the kid close in the rain shouting into the storm, then wide: the storm rises 3 -> 4
+// 18  one sustained build: the kid defiant close in the rain with a low swell behind (18a), pulling back as it grows (18b), then the tower wave rise (19)
+const TW18 = (t) => lerp(0.1, 0.42, clamp((t - LN("L18").at) / (WD("L18", "say") - LN("L18").at)));
 shot("18a", "L18", () => LN("L18").at - 0.05, (u, x) => {
-  const c = { x: 1.2, y: 1.5, z: lerp(8.0, 8.6, u / 1.5), h0: 1010 }, s = coast2(c, x.t, 3.5, { stage: 3, light: 1, rain: 0.8, bolt: flick(u, [0.4]), boltX: 800 });
-  const kd = kidAt(BAL.deckCam(c), { X: 1.62, Z: 11.3, fx: -0.8, reachL: 0.8, shock: 1, talk: talkAt(x.ln, x.lu), lean: 4, blink: 0 }, x.t);
-  return s.back + BAL.grade() + kd.svg + s.front;
+  const c = { x: 1.2, y: 1.5, z: lerp(8.0, 8.5, u / 1.6), h0: 1010 }, s = coast2(c, x.t, 3.3, { stage: 3, light: 1, rain: 0.8, towers: TW18(x.t), bolt: flick(u, [0.4]), boltX: 800 });
+  const kd = kidAt(BAL.deckCam(c), { ...KIDJ, fx: -0.8, reachL: 0.8, shock: 0.8, worry: -1, talk: talkAt(x.ln, x.lu), lean: 4, blink: 0 }, x.t);
+  return s.back + BAL.grade() + kd.svg + crownOn(kd, 1) + s.front;
 });
 shot("18b", "L18", () => WD("L18", "make") - 0.05, (u, x) => {
-  const m = 3 + E(0.1, 2.0, u), c = { x: 2.2, y: 2.0, z: lerp(1.2, 2.0, u / 2.2), h0: 1000 }, s = coast2(c, x.t, m, { stage: 3, light: 1, bolt: flick(u, [1.3, 1.9]), boltX: 760 });
-  const kd = kidAt(BAL.deckCam(c), { ...B.kid, fx: -0.6, reachL: 1, shock: 1, talk: talkAt(x.ln, x.lu), lean: 5, blink: 0 }, x.t);
-  return s.back + BAL.grade() + kd.svg + s.front;
+  const m = 3.3 + 0.7 * E(0.1, 2.1, u), c = { x: 1.3, y: 1.6, z: lerp(8.5, 6.6, E(0, 2.2, u)), h0: 1010 }, s = coast2(c, x.t, m, { stage: 3, light: 1, towers: TW18(x.t), bolt: flick(u, [1.3, 1.9]), boltX: 760 });
+  const kd = kidAt(BAL.deckCam(c), { ...KIDJ, fx: -0.7, reachL: 1, shock: 0.8, worry: -1, talk: talkAt(x.ln, x.lu), lean: 5, blink: 0 }, x.t);
+  return s.back + BAL.grade() + kd.svg + crownOn(kd, 1) + s.front;
 });
-// 19  the tower waves stand up over the jetty, the kid tiny, lightning: the biggest moment
+// 19  the tower waves stand up over the jetty, the kid tiny and crowned, lightning: peak on "towers"; a wing of the palace at left
 shot("19", "L19", () => LN("L19").at - 0.05, (u, x) => {
-  const up = E(0.4, 2.4, u), c = { x: 2.9, y: 2.0, z: lerp(1.5, 2.4, u / 3.0), h0: 1000 }, s = coast2(c, x.t, 4, { light: 0.5, towers: up, rain: 1, bolt: flick(u, [1.3, 2.35], 0.6), boltX: 880 });
-  const kd = kidAt(BAL.deckCam(c), { ...B.kid, fx: -0.5, shock: 1, reachL: 0.4, lean: 6 + 2 * Math.sin(u * 4), blink: 0 }, x.t);
-  return s.back + BAL.grade() + kd.svg + s.front;
+  const up = 0.42 + 0.58 * E(0.3, 2.45, u), c = { x: 1.6, y: 2.0, z: lerp(1.5, 2.4, u / 3.0), h0: 1000 }, s = coast2(c, x.t, 4, { stage: 3, light: 0.5, towers: up, rain: 1, bolt: flick(u, [1.3, 2.35], 0.6), boltX: 880 });
+  const kd = kidAt(BAL.deckCam(c), { ...KIDJ, Z: 11.4, fx: -0.5, shock: 1, reachL: 0.4, lean: 6 + 2 * Math.sin(u * 4), blink: 0 }, x.t);
+  return s.back + BAL.grade() + kd.svg + crownOn(kd, 1) + s.front;
 });
-// 20  the flounder rises in front of the wave wall, flat voice; it sinks
+// 20  the flounder, closer and at water level, in front of the wave wall: eyes and mouth stay above the foam through its last word, then it dips in the gap
 shot("20", "L20", () => LN("L20").at - 0.05, (u, x) => {
-  const c = { x: 1.8, y: 1.1, z: 3.6, h0: 900 }, s = coast2(c, x.t, 4, { light: 0.5, towers: 1, rain: 1, bolt: flick(u, [0.2]), boltX: 600 });
-  const p = L.P(c, 1.8, 0, 11.5), len = 560, out = 0.1 + 0.8 * E(0, 0.45, u) - 0.85 * E(1.25, 1.9, u);
-  const fr = BAL.flounderRise(p.x, p.y, len, { mood: 0, open: talkAt(x.ln, x.lu), out, t: x.t, crown: 0.4 });
+  const c = { x: 1.8, y: 1.1, z: 3.6, h0: 900 }; BAL.mood(4);
+  const p = L.P(c, 1.8, 0, 11.5), len = 700, tEnd = LN("L20").end, out = 0.1 + 0.62 * E(0, 0.45, u) - 0.6 * E(tEnd - 0.02 - (x.t - u), tEnd + 0.2 - (x.t - u), u);
+  const fr = BAL.flounderRise(p.x, p.y, len, { mood: 0, open: talkAt(x.ln, x.lu), out, t: x.t, crown: 0.4, foamK: 0.45 });
   if (out > 0.15) regFish(p.x, p.y + len * (0.3 - out * 0.5), len, 62, false);
+  const s = coast2(c, x.t, 4, { stage: 3, light: 0.5, towers: 1, rain: 1, bolt: flick(u, [0.2]), boltX: 600, under: "" });
   return s.back + BAL.grade() + fr + s.front;
 });
-// 21  one word, one picture: palace -> castle -> crown (the kid's hand empty) -> cottage, each popping away; then the old hut; the sea calms to green
-const pop = (u0, dur, u) => { const q = clamp((u - u0) / dur); return q <= 0 ? 1 : q >= 1 ? 0 : Math.max(0, 1 - ease(q) ** 0.8 * 1.25) * (1 + 0.1 * Math.sin(q * 6)); };
-const puff = (x, y, r, q) => q <= 0 || q >= 1 ? "" : Array.from({ length: 9 }, (_, i) => { const a = i / 9 * Math.PI * 2 + 0.3, d = r * (0.3 + 1.2 * q); return `<circle cx="${n(x + Math.cos(a) * d)}" cy="${n(y + Math.sin(a) * d * 0.8)}" r="${n(r * 0.16 * (1 - q) + 2)}" fill="#fff6d0" opacity="${n(0.9 * (1 - q))}"/>`; }).join("");
-const L21 = () => ({ castle: WD("L21", "castle"), crown: WD("L21", "crown"), cottage: WD("L21", "cottage"), gone: WD("L21", "gone"), just: WD("L21", "just"), green: WD("L21", "green") });
-const popSize = (tt, a, b) => (tt < a ? 1 : pop(a, b - a, tt));
-shot("21a", "L21", () => LN("L21").at - 0.05, (u, x) => {   // "Castle." (the palace shrinks to the castle, which pops away)
-  const T = L21(), tt = x.t, sz = popSize(tt, T.crown - 0.35, T.crown - 0.05), st = 3 - E(0, 0.3, tt - LN("L21").at);
-  const c = { x: 0, y: 2.4, z: lerp(0.4, 0.9, u / 1.2), h0: 800 }, s = coast2(c, tt, 4, { stage: st, size: Math.max(0.01, sz), light: 0.5, towers: 0.8, rain: 1 });
-  const kd = jettyKid(c, tt, { reachL: 0.2, shock: 0.5, blink: 0 });
-  const hp = L.P(c, B.home.X, 0.8, B.home.Z);
-  return s.back + BAL.grade() + kd.svg + puff(hp.x, hp.y, 260, (tt - (T.crown - 0.35)) / 0.3) + s.front;
+// 21  the vanishing, one footprint: palace -> castle (just after "gone"), castle pops on "Castle", "Crown" lifts off his head, cottage pops, a held empty site on "Gone", then the old hut; the palette runs back through blue and grey to green as the kid walks down the jetty
+const pop = (u0, dur, u) => { const q = clamp((u - u0) / dur); return q <= 0 ? 1 : q >= 1 ? 0 : Math.max(0, 1 - ease(q) ** 0.8 * 1.25); };
+const L21 = () => ({ castle: WD("L21", "castle"), crown: WD("L21", "crown"), cottage: WD("L21", "cottage"), gone: WD("L21", "gone"), just: WD("L21", "just"), hut: WD("L21", "hut"), green: WD("L21", "green") });
+const C21 = { x: 0, y: 2.4, z: 0.8, h0: 800 };
+shot("21a", "L21", () => LN("L21").at - 0.3, (u, x) => {   // palace -> castle in the gap, the castle pops away on "Castle"
+  const T = L21(), tt = x.t, st = 3 - E(LN("L20").end + 0.02, LN("L20").end + 0.27, tt), sz = tt < T.crown - 0.4 ? 1 : pop(T.crown - 0.4, 0.3, tt);
+  const s = coast2(C21, tt, 4, { stage: st, size: Math.max(0.01, sz), light: 0.5, towers: 0.8, rain: 1 });
+  const kd = jettyKid(C21, tt, { reachL: 0.2, shock: 0.5, blink: 0 });
+  return s.back + BAL.grade() + kd.svg + crownOn(kd, 1) + s.front;
 });
-shot("21b", "L21", () => WD("L21", "crown") - 0.05, (u, x) => {   // "Crown." the crown in the kid's hand pops away: the hand is empty
-  const T = L21(), tt = x.t, c = { x: 1.2, y: 1.5, z: 8.0, h0: 1010 }, s = coast2(c, tt, 4, { stage: 3, light: 0.5, towers: 0.8, rain: 1, noHome: true, drift: false });
-  const kd = kidAt(BAL.deckCam(c), { X: 1.62, Z: 11.3, fx: -0.8, reachL: 1, shock: 0.6, worry: 0.5, blink: 0 }, tt), hp = BAL.kidHand(kd, 1), k = kd.p.s / 100;
-  const sz = tt < T.cottage - 0.3 ? 1 : pop(T.cottage - 0.3, 0.25, tt);
-  const crown = sz > 0.02 ? `<g transform="translate(${n(hp.x)},${n(hp.y - 14 * k)}) scale(${n(k * 1.8 * sz * 100) / 100})"><path d="M-14,0 L-17,-14 L-8,-6 L0,-18 L8,-6 L17,-14 L14,0 Z" fill="#ffd838" stroke="#7a4a00" stroke-width="1.4" stroke-linejoin="round"/><path d="M-14,0 Q0,3 14,0" stroke="#c8861c" stroke-width="1.6" fill="none"/><circle cx="0" cy="-19" r="1.8" fill="#fff3a0"/><circle cx="-17" cy="-15" r="1.5" fill="#fff3a0"/><circle cx="17" cy="-15" r="1.5" fill="#fff3a0"/></g>` : "";
-  return s.back + BAL.grade() + kd.svg + crown + puff(hp.x, hp.y - 14 * k, 120, (tt - (T.cottage - 0.3)) / 0.25) + s.front;
+shot("21b", "L21", () => WD("L21", "crown") - 0.05, (u, x) => {   // "Crown." the crown lifts off his head and pops away; his hand is empty
+  const T = L21(), tt = x.t, c = { x: 1.2, y: 1.5, z: 8.2, h0: 1010 }, s = coast2(c, tt, 4, { stage: 3, light: 0.5, towers: 0.8, rain: 1, noHome: true, drift: false });
+  const kd = kidAt(BAL.deckCam(c), { ...KIDJ, fx: -0.8, reachL: 0.5, shock: 0.6, worry: 0.6, blink: 0 }, tt);
+  return s.back + BAL.grade() + kd.svg + crownOn(kd, pop(T.crown + 0.15, 0.5, tt)) + s.front;
 });
-shot("21c", "L21", () => WD("L21", "cottage") - 0.05, (u, x) => {   // "Cottage." the cottage pops away
-  const T = L21(), tt = x.t, sz = popSize(tt, T.gone - 0.32, T.gone - 0.05);
-  const c = { x: 0, y: 2.4, z: lerp(0.6, 1.1, u / 1.2), h0: 800 }, s = coast2(c, tt, 4, { stage: 1, size: Math.max(0.01, sz), light: 0.5, towers: 0.8, rain: 1 });
-  const kd = jettyKid(c, tt, { reachL: 0.1, shock: 0.5, blink: 0 }), hp = L.P(c, B.home.X, 0.6, B.home.Z);
-  return s.back + BAL.grade() + kd.svg + puff(hp.x, hp.y, 220, (tt - (T.gone - 0.32)) / 0.27) + s.front;
+shot("21c", "L21", () => WD("L21", "cottage") - 0.05, (u, x) => {   // "Cottage." the cottage pops away on the same footprint
+  const T = L21(), tt = x.t, sz = tt < T.gone - 0.35 ? 1 : pop(T.gone - 0.35, 0.3, tt);
+  const s = coast2(C21, tt, 4, { stage: 1, size: Math.max(0.01, sz), light: 0.5, towers: 0.8, rain: 1, noHome: sz < 0.02 });
+  const kd = jettyKid(C21, tt, { reachL: 0.1, shock: 0.5, blink: 0 });
+  return s.back + BAL.grade() + kd.svg + s.front;
 });
-shot("21d", "L21", () => WD("L21", "gone") - 0.05, (u, x) => {   // "Gone. Just the old hut." sudden quiet: the old hut appears, the sea starts to calm
-  const T = L21(), tt = x.t, m = 4 * (1 - E(T.gone + 0.05, T.green + 0.35, tt)), pp = E(T.gone, T.gone + 0.3, tt);
-  const c = { x: 0, y: 2.0, z: lerp(0.9, 1.7, u / 3.8), h0: 840 }, s = coast2(c, tt, m, { stage: 0, size: 0.2 + 0.8 * pp, light: 1, rain: clamp(m - 3), towers: clamp(m - 3) });
-  const kd = jettyKid(c, tt, { reachL: 0, shock: 0, worry: 0.8, blink: bl(u) }), g = keeperAt(c, B.keeper.X, B.keeper.Z, tt, { flame: 1, stern: 0.4, blink: bl(u, 0.3) });
-  return compose(s, kd.svg + g.svg + g.arm);
+const WALK21 = () => { const T = L21(); return [[T.just, 1.5, 11.4], [T.just + 1.1, 1.5, 7.8], [T.green + 0.7, 0.95, 5.3]]; };
+shot("21d", "L21", () => WD("L21", "gone") - 0.05, (u, x) => {   // "Gone." the empty site, held; "Just the old hut." the hut stands up; the sea starts back
+  const T = L21(), tt = x.t, m = 4 * (1 - E(T.just, T.green + 0.2, tt)), hz = clamp((tt - (T.hut - 0.3)) / 0.45), sz = hz < 1 ? 0.15 + 0.85 * ease(hz) * (1 + 0.08 * Math.sin(hz * 3.1)) : 1;
+  const s = coast2(C21, tt, m, { stage: 0, size: sz, noHome: hz <= 0, light: 1, drift: false, rain: clamp(m - 3), towers: clamp(m - 3) });
+  const w = walkPath(WALK21(), tt), kd = jettyKid(C21, tt, { X: w.X, Z: w.Z, run: w.run, reachL: 0, shock: 0, worry: 0.8, blink: bl(u) });
+  const g = keeperAt(C21, B.keeper.X, B.keeper.Z, tt, { flame: lerp(0.5, 0.8, hz), stern: 0.4, blink: bl(u, 0.3) });
+  return compose(s, kd.svg + (hz > 0 ? g.svg + g.arm : ""));
 });
-shot("21e", "L21", () => WD("L21", "green") - 0.05, (u, x) => {   // "And a green sea."
-  const c = { ...CAM.two, z: lerp(0.8, 1.4, u / 1.5) }, s = coast2(c, x.t, 0, { stage: 0, light: 1, sun: [800, 990, 84], glitter: 800, drift: false });
-  const kd = kidAt(c, { X: 0.95, Z: 5.3, fx: -0.7, worry: 0.8, blink: bl(u) }, x.t), g = keeperAt(c, 0.3, 5.45, x.t, { fx: 0.7, stern: 0.2, blink: bl(u, 0.5) });
+shot("21e", "L21", () => WD("L21", "green") - 0.05, (u, x) => {   // "And a green sea." the first fully green frame; the kid arrives beside Grandma
+  const T = L21(), c = { ...CAM.two, z: lerp(0.8, 1.4, u / 1.5) }, s = coast2(c, x.t, 0, { stage: 0, light: 1, sun: [800, 990, 84], glitter: 800, drift: false });
+  const w = walkPath(WALK21(), x.t), kd = kidAt(c, { X: w.X, Z: w.Z, run: w.run, fx: -0.7, worry: 0.8, blink: bl(u) }, x.t), g = keeperAt(c, 0.3, 5.45, x.t, { fx: 0.7, stern: 0.2, flame: lerp(0.8, 1, E(0, 1.5, u)), blink: bl(u, 0.5) });
   return compose(s, g.svg + g.arm + kd.svg);
 });
-// 22  the kid close by the hut, wet, small
+// 22  the kid close by the hut, small and sad (he is dry: the reset is magic)
 shot("22", "L22", () => LN("L22").at - 0.05, (u, x) => {
   const c = { x: -0.3, y: 1.0, z: lerp(2.5, 2.8, u / 1.8), h0: 1010 }, s = coast2(c, x.t, 0, { stage: 0, light: 1, sun: [200, 900, 84], glitter: 200 });
-  const kd = kidAt(c, { X: -0.52, Z: 4.4, fx: 0.4, worry: 1, lean: -2, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.2) }, x.t);
-  let drips = ""; for (let i = 0; i < 5; i++) { const ph = (u * 0.8 + hash(i) * 1.7) % 1.4, dx = kd.p.x + (hash(i + 4) - 0.5) * 0.45 * kd.p.s, dy = kd.p.y - 1.05 * kd.p.s + ph * 0.5 * kd.p.s; drips += `<path d="M${n(dx)},${n(dy)} q4,10 0,16 q-4,-6 0,-16 Z" fill="#9ad0ff" opacity="${n(0.8 * (1 - ph / 1.4))}"/>`; }
-  return compose(s, kd.svg + drips);
+  const kd = kidAt(c, { X: -0.52, Z: 4.4, fx: 0.4, worry: 1, lean: -3, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.2) }, x.t);
+  return compose(s, kd.svg);
 });
-// 23  Grandma stirring a pot of soup at the hut door, deadpan, the pot-shaped hut behind her: HARD CUT on "pot"
+// 23  medium on Grandma beside the hut's round roof and curved door, deadpan; on "pot" she glances at the hut. HARD CUT right after the last sound of "pot"
 shot("23", "L23", () => LN("L23").at - 0.05, (u, x) => {
-  const c = { x: -0.8, y: 1.15, z: lerp(1.8, 2.1, u / 3.7), h0: 1040 }, s = coast2(c, x.t, 0, { stage: 0, light: 1, smoke: 1, sun: [900, 960, 80], glitter: 900 });
-  const g = keeperAt(c, -0.3, 5.75, x.t, { fx: 0.3, stern: 0.2, flame: 1, talk: talkAt(x.ln, x.lu) * 0.8, blink: bl(u, 0.4) });
-  const k = g.p.s / 100, hp = L.toScreen(g.p, 0, -18, -68), cx = hp.x - 40 * k, cy = hp.y + 22 * k, sw = Math.sin(u * 4.4);
-  const potSvg = `<ellipse cx="${n(cx)}" cy="${n(cy + 42 * k)}" rx="${n(34 * k)}" ry="${n(6 * k)}" fill="#120c24" opacity="0.35"/><path d="M${n(cx - 30 * k)},${n(cy - 6 * k)} Q${n(cx - 36 * k)},${n(cy + 34 * k)} ${n(cx - 16 * k)},${n(cy + 42 * k)} L${n(cx + 16 * k)},${n(cy + 42 * k)} Q${n(cx + 36 * k)},${n(cy + 34 * k)} ${n(cx + 30 * k)},${n(cy - 6 * k)} Z" fill="#2a2630" stroke="${INK}" stroke-width="${n(1.3 * k)}"/><ellipse cx="${n(cx)}" cy="${n(cy - 6 * k)}" rx="${n(30 * k)}" ry="${n(6.5 * k)}" fill="#c2552a" stroke="${INK}" stroke-width="${n(1.3 * k)}"/><ellipse cx="${n(cx + sw * 6 * k)}" cy="${n(cy - 6 * k)}" rx="${n(14 * k)}" ry="${n(3 * k)}" fill="none" stroke="#f0a070" stroke-width="${n(1.6 * k)}" opacity="0.8"/><path d="M${n(cx - 32 * k)},${n(cy + 2 * k)} q${n(-9 * k)},0 ${n(-8 * k)},${n(8 * k)} M${n(cx + 32 * k)},${n(cy + 2 * k)} q${n(9 * k)},0 ${n(8 * k)},${n(8 * k)}" stroke="${INK}" stroke-width="${n(2.4 * k)}" fill="none" stroke-linecap="round"/>`;
-  const lad = `<path d="M${n(hp.x)},${n(hp.y)} L${n(cx + sw * 8 * k)},${n(cy - 4 * k)}" stroke="${INK}" stroke-width="${n(3.6 * k)}" stroke-linecap="round"/><path d="M${n(hp.x)},${n(hp.y)} L${n(cx + sw * 8 * k)},${n(cy - 4 * k)}" stroke="#9a6a34" stroke-width="${n(2.2 * k)}" stroke-linecap="round"/>`;
-  let steam = ""; for (let i = 0; i < 4; i++) { const ph = (u * 0.45 + i * 0.25) % 1; steam += `<circle cx="${n(cx + Math.sin(ph * 6 + i) * 10 * k)}" cy="${n(cy - 10 * k - ph * 80 * k)}" r="${n((6 + 10 * ph) * k)}" fill="#fff6e8" opacity="${n(0.5 * (1 - ph))}"/>`; }
-  return compose(s, g.svg + g.arm + potSvg + lad + steam);
+  const c = { x: -0.75, y: 1.1, z: lerp(2.5, 2.9, u / 3.7), h0: 1010 }, s = coast2(c, x.t, 0, { stage: 0, light: 1, smoke: 1, sun: [900, 960, 80], glitter: 900 });
+  const potT = WD("L23", "pot"), gl = E(potT - 0.15, potT + 0.12, x.t);
+  const g = keeperAt(c, -0.3, 5.75, x.t, { fx: lerp(0.35, -0.9, gl), stern: 0.2, flame: 1, talk: talkAt(x.ln, x.lu) * 0.8, blink: bl(u, 0.4), look: lerp(0, -0.9, gl) });
+  return compose(s, g.svg + g.arm);
 });
 
 // ---------------------------------------------------------------- timeline
@@ -359,6 +412,7 @@ const lineAtTime = (t) => { let k = null; ORDER.forEach((id, i) => { const ln = 
 const CAPY = [580, 540, 620, 660, 700, 500, 740, 780, 820];
 const OPT = { key: KEY, keyColor: "#ff3b3b", reveal: true };           // normal legend size (urashima): maxFs 74, width 940, wrap at 19
 const BANNER_OUT = 3.45;
+const CAPFIX = { L08: 330 };      // L08: the roof of the cottage fills the usual spot: this caption sits in the sky above it
 function capBox(ph, y) {
   const ws = ph.ws.map((q) => q[0]), len = (a) => a.join(" ").length, wrapAt = 19, maxFs = 74, width = 940;
   let k = ws.length;
@@ -371,7 +425,7 @@ const hit = (b, f) => { const dx = Math.max(b.x0 - f.x, 0, f.x - b.x1), dy = Mat
 const facesAt = (t) => { FACES = []; bodyAt(t); const f = FACES; FACES = []; return f; };
 const CAPCACHE = new Map();
 function capY(ln, pi, ph) {
-  const key = ln.id + ":" + pi;
+  const key = ln.id + ":" + pi; if (CAPFIX[ln.id]) return CAPFIX[ln.id];
   if (CAPCACHE.has(key)) return CAPCACHE.get(key);
   const t0 = ln.at + ph.at, t1 = pi + 1 < ln.phrases.length ? ln.at + ln.phrases[pi + 1].at : ln.end + 0.3;
   const fs = [t0 + 0.05, (t0 + t1) / 2, t1 - 0.08].map((t) => facesAt(Math.min(t, DUR - 0.01))).flat();

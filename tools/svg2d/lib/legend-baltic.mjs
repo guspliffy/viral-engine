@@ -185,14 +185,20 @@ function tower(x, y, h, dir, seed, t) {
   for (let i = 0; i < 9; i++) { const u = 0.58 + i * 0.05, q = at(Lr, Math.min(1, u)), q2 = at(Rr, 1 - Math.min(1, u)); s += flat(ring(q.x, q.y, h * (0.012 + 0.012 * hash(seed + i)), seed + i, 0.25, 8), M.foam) + (i > 2 ? flat(ring(q2.x, q2.y, h * (0.01 + 0.01 * hash(seed + i + 9)), seed + i + 9, 0.25, 8), M.foam) : ""); }
   s += flat(blob([{ x: tip.x - h * 0.035, y: tip.y + h * 0.05 }, { x: tip.x - h * 0.012, y: tip.y - h * 0.01 }, { x: tip.x + dir * h * 0.012, y: tip.y - h * 0.045 }, { x: tip.x + h * 0.03, y: tip.y + h * 0.02 }, { x: tip.x + dir * h * 0.05, y: tip.y + h * 0.1 }, { x: tip.x, y: tip.y + h * 0.07 }]), M.foam);
   for (let i = 0; i < 10; i++) { const ph = (hash(seed + i * 3.1) + t * 0.35) % 1, fx = tip.x + dir * h * (0.03 + 0.25 * hash(seed + i + 40)) * ph, fy = tip.y + h * (0.55 * ph * ph - 0.08 * ph) + jit(seed + i + 50, h * 0.03); s += flat(ring(fx, fy, Math.max(1.5, h * 0.007 * (1 + hash(seed + i))), seed + i, 0.3, 6), M.foam, `opacity="${n(0.9 - ph * 0.6)}"`); }
-  s += flat(blob([{ x: x - h * 0.36, y: y + h * 0.03 }, { x: x - h * 0.1, y: y - h * 0.035 }, { x: x + h * 0.3, y: y - h * 0.01 }, { x: x + h * 0.38, y: y + h * 0.06 }, { x: x, y: y + h * 0.08 }]), M.foam, `opacity="0.9"`);
+  // the base: no flat pale oval. The wall's own water colour swallows the foot, and the foam trails off along the surface to both sides, thinning out
+  s += flat(blob([{ x: x - h * 0.5, y: y + h * 0.05 }, { x: x - h * 0.2, y: y - h * 0.06 }, { x: x + h * 0.22, y: y - h * 0.06 }, { x: x + h * 0.5, y: y + h * 0.05 }, { x, y: y + h * 0.09 }]), mix(M.sea1, "#0a1258", 0.6), `opacity="0.9"`);
+  for (let i = 0; i < 14; i++) { const sd = i % 2 ? 1 : -1, u = (Math.floor(i / 2) + 0.5) / 7, fx = x + sd * h * (0.12 + 0.55 * u) + jit(seed + i, h * 0.02), fy = y + h * (0.02 + 0.015 * Math.sin(t * 1.4 + i)) + jit(seed + i + 30, h * 0.012);
+    s += flat(ring(fx, fy, Math.max(2, h * (0.03 - 0.02 * u) * (0.7 + hash(seed + i))), seed + i, 0.3, 7, 0.45), M.foam, `opacity="${n(0.85 - 0.75 * u)}"`); }
+  for (const sd of [-1, 1]) s += ln(`M${n(x + sd * h * 0.1)},${n(y + h * 0.015)} q${n(sd * h * 0.25)},${n(-h * 0.012)} ${n(sd * h * 0.5)},${n(h * 0.008)}`, M.foam, Math.max(2, h * 0.012), `opacity="0.6"`);
+  // the crest curls forward: a hook of foam leaning over from the point
+  s += flat(blob([{ x: tip.x, y: tip.y - h * 0.02 }, { x: tip.x + dir * h * 0.07, y: tip.y - h * 0.05 }, { x: tip.x + dir * h * 0.13, y: tip.y + h * 0.0 }, { x: tip.x + dir * h * 0.12, y: tip.y + h * 0.07 }, { x: tip.x + dir * h * 0.09, y: tip.y + h * 0.03 }, { x: tip.x + dir * h * 0.04, y: tip.y + h * 0.015 }]), M.foam);
   return s;
 }
 const TOWERS = [{ X: 3.5, Z: 62, h: 30, d: -1 }, { X: -15, Z: 60, h: 27, d: 1 }, { X: -12.6, Z: 42, h: 26, d: 1 }, { X: 5.2, Z: 38, h: 22, d: -1 }, { X: -3.4, Z: 33, h: 21, d: 1 }, { X: 9.3, Z: 29, h: 16, d: -1 }];
 export function towers(c, t, o = {}) {
   const amt = o.amt ?? 1; if (amt < 0.02) return "";
   const hy = horizon(c), wall = wline(hy - 190 * amt, 77, 70 * amt, 96, t * 1.1);     // the wall of water behind them
-  return band(wall, "#0a1258") + ln("M" + wall.map(pt).join(" L"), M.foam, 5, `opacity="0.85"`) + wall.map((q, i) => i % 2 ? flat(ring(q.x, q.y, 9 + 9 * hash(i + 78), i, 0.3, 7, 0.6), M.foam) : "").join("") + TOWERS.slice(0, o.n ?? 6).map((w, i) => { const p = P(c, w.X + c.x, 0, w.Z), up = clamp(amt * 1.3 - i * 0.05); return tower(p.x, p.y + 4, w.h * p.s * up * (1 + 0.04 * Math.sin(t * 1.1 + i)), w.d, i + 3, t); }).join("");
+  return band(wall, mix(M.sea1, "#0a1258", clamp(amt * 2))) + ln("M" + wall.map(pt).join(" L"), M.foam, 5, `opacity="${n(0.85 * clamp(amt * 2))}"`) + wall.map((q, i) => i % 2 ? flat(ring(q.x, q.y, 9 + 9 * hash(i + 78), i, 0.3, 7, 0.6), M.foam) : "").join("") + TOWERS.slice(0, o.n ?? 6).map((w, i) => { const p = P(c, w.X + c.x, 0, w.Z), up = clamp(amt * 1.3 - i * 0.05); return tower(p.x, p.y + 4, w.h * p.s * up * (1 + 0.04 * Math.sin(t * 1.1 + i)), w.d, i + 3, t); }).join("");
 }
 
 // ---------------------------------------------------------------- shore: sand, dunes, grass, driftwood
@@ -473,9 +479,10 @@ export function flounderUnder(x, y, len, o = {}) {
 export function flounderRise(x, y, len, o = {}) {
   const out = o.out ?? 0.5, id = "fr" + (UID++), rot = 62 + (o.swing || 0), cy = y + len * (0.3 - out * 0.5), t = o.t || 0;
   let s = `<clipPath id="${id}"><rect x="${n(x - len)}" y="${n(y - len * 1.5)}" width="${n(len * 2)}" height="${n(len * 1.5)}"/></clipPath><g clip-path="url(#${id})">${flounder(x, cy, len, { ...o, rot })}</g>`;
-  s += flat(blob(Array.from({ length: 14 }, (_, i) => { const a = i / 14 * Math.PI * 2; return { x: x + Math.cos(a) * len * (0.42 + jit(i + 99, 0.05)), y: y + Math.sin(a) * len * 0.06 + Math.sin(t * 3 + i) * 1.5 }; })), M.foam);
-  s += ln(`M${n(x - len * 0.62)},${n(y + len * 0.05)} q${n(len * 0.3)},${n(len * 0.06)} ${n(len * 0.62)},${n(len * 0.02)} q${n(len * 0.3)},${n(-len * 0.02)} ${n(len * 0.6)},${n(-len * 0.03)}`, M.seaL, Math.max(2, len * 0.014), `opacity="0.8"`);
-  for (let i = 0; i < 8; i++) s += flat(ring(x + jit(i + 110, len * 0.45), y - len * 0.03 - hash(i + 111) * len * 0.1, Math.max(2, len * (0.012 + 0.014 * hash(i))), i, 0.3, 7), M.foam);
+  const fk = o.foamK ?? 1;
+  s += flat(blob(Array.from({ length: 14 }, (_, i) => { const a = i / 14 * Math.PI * 2; return { x: x + Math.cos(a) * len * (0.42 + jit(i + 99, 0.05)), y: y + Math.sin(a) * len * 0.06 + Math.sin(t * 3 + i) * 1.5 }; })), M.foam, `opacity="${n(fk)}"`);
+  s += ln(`M${n(x - len * 0.62)},${n(y + len * 0.05)} q${n(len * 0.3)},${n(len * 0.06)} ${n(len * 0.62)},${n(len * 0.02)} q${n(len * 0.3)},${n(-len * 0.02)} ${n(len * 0.6)},${n(-len * 0.03)}`, M.seaL, Math.max(2, len * 0.014), `opacity="${n(0.8 * fk)}"`);
+  for (let i = 0; i < 8; i++) s += flat(ring(x + jit(i + 110, len * 0.45), y - len * 0.03 - hash(i + 111) * len * 0.1, Math.max(2, len * (0.012 + 0.014 * hash(i))), i, 0.3, 7), M.foam, `opacity="${n(fk)}"`);
   return s;
 }
 // FRAME 0. The huge gold eye opening under black storm water. o: { open 0..1, look [dx, dy], cx, cy, r }
@@ -487,10 +494,10 @@ export function eyeShot(t, o = {}) {
   [[330, 60, 3, "#04051a"], [395, 44, 4, "#02020a"]].forEach(([y, am, sd, col], i) => { const a = wline(y, sd, am, 78, t * 1.6 + i); s += band(a, col) + ln("M" + a.map(pt).join(" L"), i ? "#2436e0" : "#3c50ff", 3, `opacity="0.7"`); a.forEach((p, j) => { if (j % 3 === i) s += flat(ring(p.x, p.y - 4, 10 + 8 * hash(j + sd), j, 0.3, 7, 0.5), "#e4ffe6", `opacity="0.85"`); }); });
   for (let i = 0; i < 30; i++) { const y = 470 + i * 50 + jit(i + 130, 14), x = hash(i + 131) * W + Math.sin(t * 0.7 + i) * 24, w = 90 + 220 * hash(i + 132); s += ln(`M${n(x - w)},${n(y)} q${n(w * 0.5)},${n(-9)} ${n(w)},0 q${n(w * 0.5)},${n(9)} ${n(w)},0`, i % 3 ? "#0c0c2e" : "#1a1c6a", 4 + 5 * hash(i + 133), `opacity="0.9"`); }
   // the flounder's back, barely there: a flat dark shape with dull spots
-  s += flat(ring(cx + 60, cy + 50, r * 2.25, 141, 0.05, 20, 0.86), "#0c1410") + flat(ring(cx + 60, cy + 50, r * 2.02, 143, 0.05, 20, 0.84), "#131c14");
+  s += flat(ring(cx + 60, cy + 50, r * 2.25, 141, 0.05, 20, 0.86), "#3a1a0e") + flat(ring(cx + 60, cy + 50, r * 2.02, 143, 0.05, 20, 0.84), "#4a2410");
   for (let i = 0; i < 16; i++) { const a = hash(i + 150) * Math.PI * 2, rr = r * (1.25 + 0.7 * hash(i + 151)); s += flat(ring(cx + 60 + Math.cos(a) * rr, cy + 50 + Math.sin(a) * rr * 0.84, 16 + 26 * hash(i + 152), i + 153, 0.2, 9), i % 3 ? "#1c2a1a" : "#40200e"); }
   // socket bump, lids, then the eye cut to the lid opening
-  s += flat(ring(cx, cy, r * 1.2, 161, 0.03, 22), "#070b08") + ln(ring(cx, cy, r * 1.2, 161, 0.03, 22), "#22301e", 5);
+  s += flat(ring(cx, cy, r * 1.2, 161, 0.03, 22), "#2a140a") + ln(ring(cx, cy, r * 1.2, 161, 0.03, 22), "#7a3a16", 5);
   const hh = r * 2.25 * open, lens = `M${n(cx - r * 1.12)},${n(cy)} Q${n(cx)},${n(cy - hh)} ${n(cx + r * 1.12)},${n(cy + 8)} Q${n(cx + 10)},${n(cy + hh * 0.96)} ${n(cx - r * 1.12)},${n(cy)} Z`;
   let e = flat(ring(cx, cy, r, 163, 0.012, 30), "#ffbe0a") + flat(ring(cx, cy, r * 0.8, 165, 0.03, 24), "#ffdc2a") + flat(ring(cx, cy, r * 0.56, 167, 0.05, 20), "#fff07a");
   for (let i = 0; i < 44; i++) { const a = i / 44 * Math.PI * 2 + jit(i + 170, 0.05), r0 = r * (0.44 + 0.1 * hash(i + 171)), r1 = r * (0.8 + 0.17 * hash(i + 172)), w = 3 + 7 * hash(i + 173); e += ln(`M${n(cx + Math.cos(a) * r0)},${n(cy + Math.sin(a) * r0)} L${n(cx + Math.cos(a + jit(i + 174, 0.04)) * r1)},${n(cy + Math.sin(a) * r1)}`, i % 3 === 0 ? "#fffbd0" : i % 3 === 1 ? "#d87a00" : "#ff9a0a", w, `opacity="0.8"`); }
