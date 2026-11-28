@@ -1,7 +1,7 @@
 // Picture export in one pass (same frames, the subtitle layer only where a caption shows), then the mix and the mux:
 //   node storyboards/series/legend/hansel-gretel/hg-render.mjs [--out-dir <dir>] [--from s --to s] [--final]
 //   writes <dir>/pic-subs.mp4 and <dir>/pic-nosubs.mp4 (silent; the banner stays in both); with --final also runs hg-mix.mjs
-//   and muxes <dir>/hg-draft1.mp4 + hg-draft1-nosubs.mp4 (default dir out/legend-hansel/draft1; copy the two to the delivery folder).
+//   and muxes <dir>/hg-draft2.mp4 + hg-draft2-nosubs.mp4 (default dir out/legend-hansel/draft2; copy the two to the delivery folder).
 import { createRequire } from "node:module";
 import { spawn, execFileSync } from "node:child_process";
 import { resolve } from "node:path";
@@ -11,7 +11,7 @@ const { chromium } = require("playwright");
 const S = await import("./hg.mjs");
 const rest = process.argv.slice(2);
 const opt = (k, d) => { const i = rest.indexOf(k); return i >= 0 ? rest[i + 1] : d; };
-const dir = opt("--out-dir", "out/legend-hansel/draft1"); mkdirSync(dir, { recursive: true });
+const dir = opt("--out-dir", "out/legend-hansel/draft2"); mkdirSync(dir, { recursive: true });
 const f0 = Math.round(+opt("--from", 0) * S.FPS), f1 = Math.min(Math.round(S.DUR * S.FPS), Math.round(+opt("--to", 1e9) * S.FPS));
 if (S.MISSING.length && rest.includes("--final")) { console.error("voices missing:", S.MISSING.join(",")); process.exit(2); }
 const browser = await chromium.launch(), page = await browser.newPage({ viewport: { width: S.W, height: S.H } });
@@ -33,7 +33,7 @@ await browser.close();
 console.log("pictures done", ((Date.now() - t0) / 1000).toFixed(0) + "s");
 if (rest.includes("--final")) {
   execFileSync("node", ["storyboards/series/legend/hansel-gretel/hg-mix.mjs", `${dir}/mix.wav`], { stdio: "inherit" });
-  for (const [pic, out] of [["pic-subs", "hg-draft1"], ["pic-nosubs", "hg-draft1-nosubs"]])
+  for (const [pic, out] of [["pic-subs", "hg-draft2"], ["pic-nosubs", "hg-draft2-nosubs"]])
     execFileSync("ffmpeg", ["-v", "error", "-y", "-i", `${dir}/${pic}.mp4`, "-i", `${dir}/mix.wav`, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-t", S.DUR.toFixed(2), "-movflags", "+faststart", `${dir}/${out}.mp4`], { stdio: "inherit" });
-  console.log("muxed", `${dir}/hg-draft1.mp4`, `${dir}/hg-draft1-nosubs.mp4`);
+  console.log("muxed", `${dir}/hg-draft2.mp4`, `${dir}/hg-draft2-nosubs.mp4`);
 }

@@ -11,7 +11,7 @@ import { align, phrases, captionSvg } from "../../../../tools/svg2d/lib/captions
 const { lerp, clamp, tr, ease, blinkAmt, n, P, hash } = L;
 
 export const W = 1080, H = 1920, FPS = 30;
-export const VO = process.env.HG_VO || "out/legend-hansel/vo";
+export const VO = process.env.HG_VO || "out/legend-hansel/vo-cut";   // round 2: the cut takes (hg-cut.mjs); L05 and L26 are dropped
 const SPEC = JSON.parse(readFileSync("storyboards/series/legend/hansel-gretel/lines.json", "utf8"));
 const KEY = /gingerbread|smell|turn|around|red|eyes|bone|oven|hungry/i;
 const CAPY = 580;
@@ -29,7 +29,7 @@ const CAP = {
   L08: "Do you|smell that?",
   L09: "Grandma said|turn around.",
   L10: "Grandma's not|hungry.",
-  L11: "The Brothers Grimm,|1812.|Their first version|is darker than|the one you know.",
+  L11: "The Brothers Grimm,|1812.",
   L12: "Walls of bread.|A roof of cake.|Windows of|clear sugar.",
   L13: "Nibble, nibble,|little mouse...|who is nibbling|at my house?",
   L14: "...The wind?",
@@ -38,7 +38,7 @@ const CAP = {
   L17: "Witches have|red eyes.|They can't|see far.|But they smell you...|like animals do.",
   L18: "He smelled|her house.|She smelled|him first.",
   L19: "Stick out|your finger.",
-  L20: "Hansel held out|a chicken bone.|Her eyes couldn't|tell the difference.",
+  L20: "Hansel held out|a chicken bone.",
   L21: "Still thin.",
   L22: "But a bone only|works until|she gets hungry.",
   L23: "Fat or thin,|I eat him|at dawn.|Girl! Light|the oven.",
@@ -57,7 +57,10 @@ function readWav(p) {
   while (o < b.length - 8) { const id = b.toString("ascii", o, o + 4), sz = b.readUInt32LE(o + 4); if (id === "fmt ") sr = b.readUInt32LE(o + 12); if (id === "data") { data = b.subarray(o + 8, o + 8 + sz); break; } o += 8 + sz + (sz & 1); }
   return { sr, s: new Int16Array(data.buffer.slice(data.byteOffset, data.byteOffset + (data.length & ~1))) };
 }
-export const LINE = Object.fromEntries(SPEC.lines.map(([id, who, text]) => [id, { id, who, text }]));
+const DROP = ["L05", "L26"];                      // Sol R1 / director D2: dropped whole
+export const LINE = Object.fromEntries(SPEC.lines.filter(([id]) => !DROP.includes(id)).map(([id, who, text]) => [id, { id, who, text }]));
+LINE.L11.text = "The Brothers Grimm, 1812.";   // the second sentence is cut from the take
+LINE.L20.text = "Hansel held out a chicken bone.";
 export const MISSING = [];
 for (const ln of Object.values(LINE)) {
   const wp = `${VO}/${ln.id}.wav`, jp = `${VO}/${ln.id}.words.json`, W0 = ln.text.split(/\s+/);
@@ -80,10 +83,10 @@ const wordAt = (ln, w) => { const x = ln.words.find((q) => nzw(q[0]) === w) || l
 const wordEnd = (ln, w) => { const x = ln.words.find((q) => nzw(q[0]) === w) || ln.words.find((q) => nzw(q[0]).startsWith(w)); if (!x) throw new Error("no word " + w + " in " + ln.id); return x[2]; };
 
 // order and the breath between lines (seconds after the previous line's last sound); a line's own tail is never cut
-export const ORDER = Array.from({ length: 30 }, (_, i) => "L" + String(i + 1).padStart(2, "0"));
-const GAP = { L02: 0.1, L03: 0.3, L04: 0.3, L05: 0.12, L06: 0.2, L07: 0.3, L08: 0.28, L09: 0.12, L10: 0.22, L11: 0.3, L12: 0.2, L13: 0.55, L14: 0.2, L15: 0.1, L16: 0.7, L17: 0.45, L18: 0.5, L19: 0.85, L20: 0.18, L21: 0.15, L22: 0.7, L23: 0.1, L24: 0.35, L25: 0.14, L26: 1.7, L27: 0.5, L28: 0.4, L29: 0.45, L30: 0.5 };
+export const ORDER = Array.from({ length: 30 }, (_, i) => "L" + String(i + 1).padStart(2, "0")).filter((id) => !DROP.includes(id));
+const GAP = { L02: 0.1, L03: 0.13, L04: 0.13, L06: 0.93, L07: 0.12, L08: 0.16, L09: 0.12, L10: 0.22, L11: 0.3, L12: 0.2, L13: 0.47, L14: 0.2, L15: 0.1, L16: 0.2, L17: 0.2, L18: 0.23, L19: 0.3, L20: 0.18, L21: 0.15, L22: 0.17, L23: 0.1, L24: 0.17, L25: 0.14, L27: 3.35, L28: 0.17, L29: 0.25, L30: 0.3 };   // Sol R1 A1-A13 (L06: 0.83 s bird insert; L27: 0.2 hold + 1.6 shove + 1.5 rescue)
 { let T = 0, prev = null; for (const id of ORDER) { const ln = LINE[id]; ln.at = prev ? T + GAP[id] : 0; ln.end = ln.at + ln.off; T = ln.end; prev = ln; } }
-export const DUR = +(LINE.L30.at + wordEnd(LINE.L30, "turning") + 0.2).toFixed(2);
+export const DUR = +(LINE.L30.at + LINE.L30.off + 0.15).toFixed(2);   // D3: through the real last sound + 0.15 s
 export const TL_LINES = ORDER.map((id) => LINE[id]);
 const w = (id, p) => LINE[id].at + wordAt(LINE[id], p);        // absolute time of a word
 export const CUE = {                                            // times the mix needs
@@ -110,20 +113,38 @@ function blobLight(x, y, r, col, a, seed = 0) {
   });
   return s;
 }
-// Hansel: L.kid + Grandma's candle jar in his left hand (the lib kid carries a bell there; the jar hangs over it). fl = flame 0..1 (the fear meter)
-function K(c, st, t, fl = 1) {
-  const kd = L.kid(c, st, t);
-  if (!kd.p) return { svg: "", light: "", kd, hand: null };
-  const h = HS.kidHand(c, st), k = kd.p.s / 100 * 0.8, f = Math.max(0, fl) * (1 + 0.05 * Math.sin(t * 21) + 0.04 * Math.sin(t * 33 + 1));
-  const jx = h.x, jy = h.y + 4 * k;           // the jar hangs from his fist on a wire loop
-  let j = `<g class="ol" transform="translate(${n(jx)},${n(jy)}) scale(${(k).toFixed(4)})">
-    <path d="M0,0 Q-5,-9 0,-14 Q5,-9 0,0" stroke="#3a2a2a" stroke-width="0.8" fill="none"/>
+// walk-cycle frequency (Hz) that plants the feet at ground speed v (m/s): L.kid steps ~0.44 m per Hz, HS.gretel ~0.7 m per Hz when running
+const kidF = (v) => v / 0.44, gretF = (v) => v / 0.7;
+// the candle jar (Grandma's): hanging from a wire loop (jx, jy = the fist) or standing (stand = true: jx, jy = its base). k = px per cm, f = flame 0..1
+function jarSvg(jx, jy, k, f, stand = false) {
+  return `<g class="ol" transform="translate(${n(jx)},${n(jy - (stand ? 27 * k : 0))}) scale(${k.toFixed(4)})">
+    ${stand ? "" : `<path d="M0,0 Q-5,-9 0,-14 Q5,-9 0,0" stroke="#3a2a2a" stroke-width="0.8" fill="none"/>`}
     <path d="M-6.5,6 L6.5,6 L6,9 L-6,9 Z" fill="#3a2a2a"/>
     <path d="M-6,9 Q-7.5,16 -6,24 Q0,27 6,24 Q7.5,16 6,9 Z" fill="#cfe6ff" opacity="0.5" stroke="#e9f3ff" stroke-width="0.8"/>
     <path d="M-1.6,24 L1.6,24 L1.6,17 L-1.6,17 Z" fill="#fff4e0"/>
     ${f > 0.04 ? `<path d="M0,${n(17 - 10 * f)} Q${n(3.4 * f)},${n(15.5 - 3 * f)} 0,15.5 Q${n(-3.4 * f)},${n(15.5 - 3 * f)} 0,${n(17 - 10 * f)} Z" fill="#ffd36a" stroke="#ff9a3a" stroke-width="0.5"/>` : `<path d="M-0.6,16.5 q0.6,-3 1.2,-5" stroke="#8a8a8a" stroke-width="0.7" fill="none" opacity="0.6"/>`}</g>`;
-  const light = f > 0.04 ? blobLight(jx, jy + 17 * k, (14 + 30 * f) * k, "#ffb860", 0.06 + 0.07 * f, 5) : "";
-  return { svg: kd.svg + j, light, kd, hand: h };
+}
+// the sugar piece (D6): one corner of the clear-sugar window pane, ~9 cm, the same prop from the bite to the last shot. p = { x, y, s }, o { rot, k, bitten 0..1 }
+function sugarPiece(p, o = {}) {
+  const b = o.bitten || 0, k = p.s / 100 * (o.k ?? 1) * 1.15, pts = b > 0.3 ? "-5,-4 2,-6 4,-1 1,1 3,4 -2,5 -6,1" : "-5,-4 4,-6 6,3 -2,5 -6,1";
+  return `<g transform="translate(${n(p.x)},${n(p.y)}) rotate(${n(o.rot || 0)}) scale(${k.toFixed(4)})"><polygon points="${pts}" fill="#ffe7a6" stroke="#c98a3e" stroke-width="0.9" stroke-linejoin="round"/><polygon points="-3,-2.5 2,-4 3,-0.5 -2,1" fill="#fff8dc"/><path d="M-4,-3 L3,-5" stroke="#ffffff" stroke-width="0.9" opacity="0.85"/></g>`;
+}
+// screen point of L.kid's RIGHT hand (the fist at his side; hand2face brings it to the mouth), same numbers as legend.mjs kid()
+function kidRH(c, st) {
+  const p = P(c, st.X, 0, st.Z), S = 0.8, DY = 78 * (1 - 0.74), HSC = 1.32, fx = st.fx ?? -0.8, h = st.hand2face || 0, hx = fx * 1.5, ex = hx + fx * 4.5, hy = -138;
+  return L.toScreen(p, st.lean || 0, lerp(17 + (st.tug || 0) * 3.5, (ex + 6) * HSC, h) * S, (lerp(-76, -127 + (hy + 7 + 127) * HSC, h) + DY - (st.hop || 0)) * S);
+}
+// Hansel: L.kid + the candle jar (o.jar "hand" = in his left fist (the lib kid has a bell there; the jar hangs over it), "none", or [X, Z] = standing on the ground there; D4: set down at bedtime)
+// o.piece = { hand "R"|"L", rot, k, bitten } the sugar piece in a hand. fl = flame 0..1
+function K(c, st, t, fl = 1, o = {}) {
+  const kd = L.kid(c, st, t);
+  if (!kd.p) return { svg: "", light: "", kd, hand: null };
+  const h = HS.kidHand(c, st), k = kd.p.s / 100 * 0.8, f = Math.max(0, fl) * (1 + 0.05 * Math.sin(t * 21) + 0.04 * Math.sin(t * 33 + 1)), jar = o.jar ?? "hand";
+  let svg = kd.svg, light = "";
+  if (jar === "hand") { svg += jarSvg(h.x, h.y + 4 * k, k, f); if (f > 0.04) light = blobLight(h.x, h.y + 4 * k + 17 * k, (14 + 30 * f) * k, "#ffb860", 0.06 + 0.07 * f, 5); }
+  else if (Array.isArray(jar)) { const q = P(c, jar[0], 0, jar[1]), kk = q.s / 100 * 0.8; svg += jarSvg(q.x, q.y, kk, f, true); if (f > 0.04) light = blobLight(q.x, q.y - 12 * kk, (14 + 30 * f) * kk, "#ffb860", 0.06 + 0.07 * f, 5); }
+  if (o.piece) { const hp = o.piece.hand === "L" ? h : kidRH(c, st); svg += sugarPiece({ x: hp.x, y: hp.y, s: kd.p.s }, { rot: o.piece.rot ?? -14, k: o.piece.k ?? 1, bitten: o.piece.bitten }); }
+  return { svg, light, kd, hand: h };
 }
 // the father, seen from behind: a dark figure (no new design), walking away. X, Z feet; ph walk phase; dir 1 = going right
 function father(c, X, Z, ph, dark = "#050a08") {
@@ -147,15 +168,51 @@ function sleeper(at, s, who, breath = 0) {
     <path d="M-3,-1 Q0,1 3,-1" stroke="#9a4a52" stroke-width="1.2" fill="none" stroke-linecap="round"/>
     <ellipse cx="-12" cy="-3" rx="4" ry="2.2" fill="#f58a8a" opacity="0.45" stroke="none"/><ellipse cx="12" cy="-3" rx="4" ry="2.2" fill="#f58a8a" opacity="0.45" stroke="none"/></g>`;
 }
-// the forest at night: back + (house) + mid + front trees, grade, then the lit cast and the light layers
+// the forest at night: back + (house) + mid + front trees, grade, the house light, then o.over (painted on the house), then the lit cast OPAQUE on top of every light layer (B2), then o.light
 function fscene(c, t, o = {}) {
   const mood = o.mood ?? 0; HS.night(mood);
   const f = HS.forest(c, t, mood, { split: o.split, clear: o.clear, shafts: o.shafts, fog: o.fog, moon: o.moon, path: o.path });
   const h = o.house ? HS.house(c, o.house, t) : null;
-  return f.back + (o.water || "") + (h ? h.svg : "") + (o.mid || "") + f.front + HS.grade(mood, o.grade ?? 1) + (o.cast || "") + (h ? h.light : "") + (o.light || "");
+  return f.back + (o.water || "") + (h ? h.svg : "") + (o.mid || "") + f.front + HS.grade(mood, o.grade ?? 1) + (h ? h.light : "") + (o.over || "") + (o.cast || "") + (o.light || "");
 }
 const dk = (a) => `<rect width="${W}" height="${H}" fill="#0a0a1c" opacity="${a}" style="mix-blend-mode:multiply"/>`;
 const pathPts = (c, k, z0, z1, seed) => HS.trail(k, z0, z1, seed);
+
+
+// ---------------------------------------------------------------- shared set pieces
+const jit = (seed, amp = 1) => (hash(seed) * 2 - 1) * amp;
+const aw = (id, p) => wordAt(LINE[id], p);                       // seconds into a line
+// the stable cage with a real gate (the lib cage has none): lib back + my front. door 0 closed .. 1 swung open (toward the camera)
+function cage2(c, st, door = 0) {
+  const w = st.w ?? 1.3, d = st.d ?? 1.0, h = st.h ?? 1.5, X = st.X, z0 = st.Z, wood = "#8a5c34", woodS = "#5e3c20", woodL = "#b07e4a", ink = `stroke="${L.INK}" stroke-width="2" stroke-linejoin="round"`;
+  const lib = HS.cage(c, st), nb = Math.round(w / 0.19), th = ease(door) * 95 * Math.PI / 180, hinge = X - w / 2 + 3.5 * w / nb;
+  const Pq = (X2, Y, Z) => P(c, X2, Y, Math.max(c.z + 0.3, Z));
+  const bar = (x, z, sd, col) => { const a = Pq(x, 0.08, z), b = Pq(x, h, z), r = 0.032 * a.s, j = jit(sd, r * 0.5); return `<path d="M${n(a.x - r)},${n(a.y)} L${n(a.x - r + j)},${n((a.y + b.y) / 2)} L${n(b.x - r * 0.9)},${n(b.y)} L${n(b.x + r * 0.9)},${n(b.y)} L${n(a.x + r + j)},${n((a.y + b.y) / 2)} L${n(a.x + r)},${n(a.y)} Z" fill="${col}" ${ink}/><path d="M${n(a.x + r * 0.3)},${n(a.y)} L${n(a.x + r * 0.3 + j)},${n((a.y + b.y) / 2)} L${n(b.x + r * 0.3)},${n(b.y)}" stroke="${woodL}" stroke-width="${n(r * 0.4)}" fill="none" opacity="0.7"/>`; };
+  const rail = (y, xa, za, xb, zb, col) => `<polygon points="${[Pq(xa, y, za), Pq(xb, y, zb), Pq(xb, y + 0.1, zb), Pq(xa, y + 0.1, za)].map((q) => `${n(q.x)},${n(q.y)}`).join(" ")}" fill="${col}" ${ink}/>`;
+  const slab = `<polygon points="${[Pq(X - w / 2 - 0.05, h + 0.1, z0), Pq(X + w / 2 + 0.05, h + 0.1, z0), Pq(X + w / 2 + 0.05, h + 0.1, z0 + d), Pq(X - w / 2 - 0.05, h + 0.1, z0 + d)].map((q) => `${n(q.x)},${n(q.y)}`).join(" ")}" fill="${woodS}" ${ink}/>`;
+  let front = slab;
+  for (let i = 0; i <= 3; i++) front += bar(X - w / 2 + i * w / nb, z0, i * 7 + 2, wood);
+  front += rail(h, X - w / 2 - 0.05, z0, X + w / 2 + 0.05, z0, wood) + rail(0, X - w / 2 - 0.05, z0, hinge, z0, wood);
+  const L2 = X + w / 2 + 0.05 - hinge, ex = hinge + L2 * Math.cos(th), ez = z0 - L2 * Math.sin(th);
+  if (door < 0.05) front += rail(0, hinge, z0, X + w / 2 + 0.05, z0, wood);
+  for (let i = 4; i <= nb; i++) { const dx = X - w / 2 + i * w / nb - hinge; front += bar(hinge + dx * Math.cos(th), z0 - dx * Math.sin(th), i * 7 + 2, wood); }
+  if (door >= 0.05) front += rail(h - 0.1, hinge, z0, ex, ez, wood) + rail(0.0, hinge, z0, ex, ez, wood);
+  const ldx = X + w * 0.28 - hinge, lk = Pq(hinge + ldx * Math.cos(th), h * 0.55, z0 - ldx * Math.sin(th)), r = 0.06 * lk.s;
+  front += `<rect x="${n(lk.x - r)}" y="${n(lk.y)}" width="${n(r * 2)}" height="${n(r * 1.6)}" rx="${n(r * 0.2)}" fill="#4a4a56" ${ink}/><circle cx="${n(lk.x)}" cy="${n(lk.y + r * 0.7)}" r="${n(r * 0.25)}" fill="#0c0c12"/>`;
+  return { back: lib.back, front, lock: { x: lk.x, y: lk.y + r * 0.7 } };
+}
+// the sugar window: the pane of the right window of a house (HS.HOUSE.win), screen corners
+const paneCorner = (c, hs, which = "br") => { const b = P(c, hs.X, 0, hs.Z), s = b.s, G = HS.HOUSE, x = G.win.x + (which.endsWith("r") ? 1 : -1) * G.win.w / 2, y = G.win.y + (which.startsWith("t") ? G.win.h : 0); return { x: b.x + x * s, y: b.y - y * s, s }; };
+// the broken corner of the pane: a dark jagged notch (the piece Hansel took)
+function notch(c, hs, k = 1) {
+  const q = paneCorner(c, hs, "br"), s = q.s * 0.42 * k;
+  return `<polygon points="${n(q.x + 4)},${n(q.y + 4)} ${n(q.x - s * 0.55)},${n(q.y + 4)} ${n(q.x - s * 0.4)},${n(q.y - s * 0.12)} ${n(q.x - s * 0.15)},${n(q.y - s * 0.22)} ${n(q.x - s * 0.05)},${n(q.y - s * 0.5)} ${n(q.x + 4)},${n(q.y - s * 0.62)}" fill="#1e0e10" stroke="#fff6e6" stroke-width="2.5" stroke-linejoin="round"/>`;
+}
+const sniffHouse = (u, x) => {          // Hansel close at the house, sniffing; the red eyes in the RIGHT window (B1: one window for the whole opening)
+  const c = { x: 0.55, y: 1.0, z: 1.9 + u * 0.1, h0: 1000 }, hs = { X: 0.15, Z: 5.2 };
+  const k = K(c, { X: 0.45, Z: 3.4, fx: 0.4, worry: 0.9, talk: x.ln ? talkAt(x.ln, x.lu) : 0, blink: bl(u), lean: 2 + sw(u, 2.5, 1.5) }, u, 1);
+  return fscene(c, u, { mood: 0, clear: { X: hs.X, Z: hs.Z, r: 3.2 }, split: 2.2, house: { ...hs, eyes: 1, eyesWin: "R", eyeK: 1.7, look: tr([[0, 0.3], [1, -0.2]], u), glow: 1 }, cast: lit(k.svg, { a: 0.4, side: 1, rim: "#ffd08a" }), light: k.light });
+};
 
 // ---------------------------------------------------------------- the shots
 // s(u, x): u = seconds into the shot, x = { ln, lu (seconds into its line), t (global) }
@@ -168,300 +225,309 @@ function hookScene(u) {
   const hs = HS.house(c, { ...HOOK.house, eyeK: 1.9, look: tr([[0, -0.75], [1.1, -0.7], [1.6, 0.0], [3.5, 0.0]], u) }, u);
   return f.back + hs.svg + f.front + HS.grade() + hs.light;
 }
-// 1  L01 FRAME 0: the hook preset, slow push-in, the eyes turn to the camera at ~1.5 s
+// 1  L01 FRAME 0: the hook preset, slow push-in, the eyes turn to the camera at ~1.5 s (the blurred oven glimpse at 2.4 s)
 shot("1", "L01", 0, (u) => hookScene(u), { vig: 0.9 });
+// 2  L02 Hansel close, the sniff reads (A13); the eyes stay in the same window as frame 0 (B1)
+shot("2", "L02", -0.1, (u, x) => sniffHouse(u, x), { vig: 0.85 });
 
-// 2  L02 kid close at the door, sniffing, the jar in his hand; the eyes in the top window above him
-shot("2", "L02", -0.1, (u, x) => {
-  const c = { x: 0.2, y: 1.0, z: 0.4 + u * 0.12, h0: 1150 };
-  const k = K(c, { X: 0.35, Z: 2.9, fx: -0.15, worry: 0.9, talk: talkAt(x.ln, x.lu), blink: bl(u), lean: 2 + sw(u, 2.5, 1.5) }, u, 1);
-  return fscene(c, u, { mood: 0, clear: { X: 0, Z: 4.8, r: 3.2 }, split: 2.2, house: { X: 0, Z: 4.8, eyes: 1, eyesWin: "top", eyeK: 1.5, look: tr([[0, 0.3], [1, 0]], u), glow: 1 }, cast: lit(k.svg, { a: 0.4, side: 1, rim: "#ffd08a" }), light: k.light });
-}, { vig: 0.85 });
-
-// 3  L03 nine o'clock: the fire in the forest, the father's back walking away into the dark; push in on the two kids
+// 3  L03 nine o'clock: fire + the father leaving once (wide push), then the children's eyeline (father small in the dark), then their faces (A9)
 const FIREKIDS = (c, u, fx, o = {}) => {
   const k = K(c, { X: -0.4, Z: 4.4, fx, worry: o.kw ?? 0.6, blink: bl(u + 1), lean: o.kl ?? 0 }, u, 1);
   const g = HS.gretel(c, { X: 0.5, Z: 4.1, fx, worry: o.gw ?? 1, blink: bl(u + 2.3), look: o.look }, u);
   return { k, g };
 };
 shot("3a", "L03", -0.1, (u, x) => {
-  const c = { x: 0.3, y: 1.25, z: 0.4 + u * 0.1, h0: 1140 }, fire = HS.campfire(c, { X: -1.4, Z: 5.6, level: 0.9 }, u);
+  const c = { x: 0.3, y: 1.25, z: 0.4 + u * 0.14, h0: 1140 }, fire = HS.campfire(c, { X: -1.4, Z: 5.6, level: 0.9 }, u);
   const { k, g } = FIREKIDS(c, u, 0.7);
-  const fz = lerp(5.2, 11.5, ease(u / 3.0)), fxp = lerp(1.4, 3.6, ease(u / 3.0));
+  const fz = lerp(5.2, 11.5, ease(u / 3.4)), fxp = lerp(1.4, 3.6, ease(u / 3.4));
   return fscene(c, u, { mid: fire.svg, split: 3.2, cast: lit(k.svg) + lit(g.svg) + father(c, fxp, fz, u * 1.7), light: fire.light + k.light });
 }, { vig: 0.85 });
-shot("3b", "L03", () => wordAt(LINE.L03, "by") - 0.2, (u, x) => {
-  const c = { x: 0.1, y: 1.0, z: 1.5 + u * 0.12, h0: 1000 }, fire = HS.campfire(c, { X: -1.6, Z: 5.6, level: 0.9 }, u);
-  const { k, g } = FIREKIDS(c, u, 0.65, { kw: 0.8 });
-  return fscene(c, u, { mid: fire.svg, split: 3.2, cast: lit(k.svg) + lit(g.svg) + father(c, 3.1, 11.5, u * 1.3), light: fire.light + k.light });
-}, { vig: 0.85 });
-shot("3c", "L03", () => wordAt(LINE.L03, "and") - 0.15, (u, x) => {
+shot("3b", "L03", () => aw("L03", "deep") - 0.3, (u, x) => {
+  const c = { x: 1.0, y: 1.2, z: 2.2 + u * 0.22, h0: 1090 }, fire = HS.campfire(c, { X: -0.9, Z: 4.4, level: 0.7 }, u);
+  return fscene(c, u, { mid: fire.svg, split: 3.2, cast: father(c, lerp(3.4, 4.2, u / 2), lerp(12, 15.5, u / 2), u * 1.5), light: fire.light });
+}, { vig: 0.9 });
+shot("3c", "L03", () => aw("L03", "and") - 0.15, (u, x) => {
   const c = { x: -0.05, y: 0.85, z: 2.2 + u * 0.08, h0: 900 }, fire = HS.campfire(c, { X: -1.7, Z: 5.4, level: 0.8 }, u);
   const { k, g } = FIREKIDS(c, u, 0.7, { kw: 1, gw: 1, look: 0.8 });
   return fscene(c, u, { mid: fire.svg, split: 3.2, cast: lit(k.svg) + lit(g.svg), light: fire.light + k.light });
 }, { vig: 0.9 });
 
-// 4  L04 low shot: the white pebbles glint (memory), then Hansel drops the crumbs
+// 4  L04 the pebble memory (cut on "Tonight"), then Hansel drops the crumbs: each one falls from his hand and stays where it lands (B3)
 const pebs = [{ X: -0.9, Z: 3.1 }, { X: -0.2, Z: 3.7 }, { X: 0.7, Z: 3.2 }, { X: 1.2, Z: 4.0 }, { X: -1.4, Z: 4.3 }];
-shot("4a", "L04", -0.1, (u, x) => {
-  const c = { x: 0.1, y: 0.3, z: 0.4 + u * 0.12, h0: 900 };
-  return fscene(c, u, { mood: 0, split: 2.5, mid: HS.pebbles(c, [...pebs, ...HS.trail(5, 3.4, 8, 3)], u, { k: 2.4 }), shafts: 1 });
+shot("4a", "L04", -0.1, (u) => {
+  const c = { x: 0.05 + u * 0.08, y: 0.3, z: 0.4 + u * 0.1, h0: 900 };
+  return fscene(c, u, { split: 2.5, mid: HS.pebbles(c, [...pebs, ...HS.trail(5, 3.4, 8, 3)], u, { k: 2.4 }), shafts: 1 });
 }, { vig: 0.9 });
-shot("4b", "L04", () => wordAt(LINE.L04, "tonight") - 0.35, (u, x) => {
-  const kx = -0.6 + u * 0.5, c = { x: kx + 0.2, y: 0.45, z: 0.9, h0: 1290 };
-  const drop = ease(clamp(u / 1.0)), cr = Array.from({ length: 9 }, (_, i) => ({ X: -2.4 + i * 0.4, Z: 2.55 + (i % 3) * 0.1 })).filter((q) => q.X < kx - 0.25);
-  const k = K(c, { X: kx, Z: 2.6, fx: 0.75, worry: 0.7, run: u * 1.1, reachL: 0.35 * drop, blink: bl(u) }, u, 1);
-  return fscene(c, u, { split: 2.5, mid: HS.crumbs(c, cr, { k: 1.8 }), cast: lit(k.svg), light: k.light });
+shot("4b", "L04", () => aw("L04", "tonight") - 0.12, (u) => {
+  const V = 0.5, f = kidF(V), kz = 2.6, kx = (q) => -0.6 + q * V, cam = (q) => ({ x: kx(q) + 0.2, y: 0.45, z: 0.9, h0: 1290 }), c = cam(u);
+  const drops = [];
+  for (let i = 0, ti = 0.4; ti <= u; i++, ti += 0.5) {      // where the crumb leaves his hand, in world units (camera of that moment)
+    const ci = cam(ti), hand = HS.kidHand(ci, { X: kx(ti), Z: kz, run: f * ti }), feet = P(ci, kx(ti), 0, kz);
+    drops.push({ X: kx(ti) + (hand.x - feet.x) / feet.s, Y: (feet.y - hand.y) / feet.s, t: ti });
+  }
+  const landed = drops.filter((q) => u >= q.t + 0.28).map((q) => ({ X: q.X, Z: kz + 0.03 }));
+  let fall = "";
+  for (const q of drops) if (u < q.t + 0.28) { const g = (u - q.t) / 0.28, p = P(c, q.X, q.Y * (1 - g * g), kz + 0.03), r = 0.075 * p.s * 1.3; fall += `<circle cx="${n(p.x)}" cy="${n(p.y)}" r="${n(r)}" fill="#d9a85a" stroke="#5a3210" stroke-width="1.4"/>`; }
+  const k = K(c, { X: kx(u), Z: kz, fx: 0.75, worry: 0.7, run: f * u, blink: bl(u) }, u, 1);
+  return fscene(c, u, { split: 2.5, mid: HS.crumbs(c, landed, { k: 1.8 }), cast: lit(k.svg) + fall, light: k.light });
 }, { vig: 0.9 });
-
-// 5  L05 birds peck the crumbs, the crumbs vanish one by one (eaten 0 -> all)
-shot("5", "L05", -0.12, (u, x) => {
-  const c = { x: 0.2, y: 0.4, z: 0.5, h0: 930 }, tr5 = [0, 1, 2, 3, 4, 5, 6].map((i) => ({ X: 0.35 + pathX5(i), Z: 2.5 + i * 0.5 }));
-  const eaten = clamp((u - 0.25) / 1.4) * 7;
-  const bird = (X, Z, d, ph) => HS.bird(P(c, X, 0, Z), { dir: d, peck: 0.5 + 0.5 * Math.sin(u * 15 + ph), k: 1.8 });
-  const birds = bird(0.9, 3.2, -1, 0) + bird(-0.2, 3.7, 1, 2) + bird(0.3, 2.5, -1, 4) + bird(-0.8, 4.6, 1, 1) + HS.bird(P(c, 0.1, 1.9, 3.5), { fly: u * 3, k: 1.3, dir: 1 });
-  return fscene(c, u, { split: 2.2, mid: HS.crumbs(c, tr5, { eaten, k: 2.0 }) + birds });
+// 5  (L05 dropped) a 0.83 s insert: beak and crumb, each crumb gone at a beak contact, the last one at the end; ends on bare ground (B4, A6)
+shot("5", "L04", () => LINE.L04.off, (u) => {
+  const c = { x: 0.0, y: 0.3, z: 1.2, h0: 960 }, pts = [{ X: 0.35, Z: 2.8 }, { X: 0.05, Z: 2.55 }, { X: -0.3, Z: 2.3 }];
+  const eaten = tr([[0, 0], [0.1, 0], [0.27, 1], [0.33, 1], [0.5, 2], [0.55, 2], [0.72, 3]], u);
+  const peck = (a, b) => 0.5 + 0.5 * Math.sin((u - a) * 30) * (u >= a && u <= b ? 1 : 0);
+  const aX = tr([[0, 0.55], [0.28, 0.55], [0.36, 0.25], [1, 0.25]], u), aHop = u > 0.28 && u < 0.36 ? 14 : 0;
+  const A = HS.bird(P(c, aX, 0, tr([[0, 2.8], [0.28, 2.8], [0.36, 2.55], [1, 2.55]], u)), { dir: -1, peck: peck(0.08, 0.27) + peck(0.38, 0.5) - 0.5, k: 2.2, hop: aHop });
+  const bT = clamp(u / 0.42), bX = lerp(-1.1, -0.5, ease(bT)), bY = 1.1 * (1 - ease(bT)) ** 1.5;
+  const B = u < 0.42 ? HS.bird(P(c, bX, bY, 2.3), { fly: u * 3.2, k: 2.0, dir: 1 }) : HS.bird(P(c, -0.5, 0, 2.3), { dir: 1, peck: peck(0.5, 0.72), k: 2.0 });
+  return fscene(c, u, { split: 2.2, mid: HS.crumbs(c, pts, { eaten, k: 2.4 }) + A + B });
 }, { vig: 0.9 });
-const pathX5 = (i) => 0.2 * Math.sin(i * 1.3);
-
 // 6  L06 Gretel close, scared, the empty path behind her
 shot("6", "L06", -0.1, (u, x) => {
   const c = { x: 0.15, y: 0.95, z: 1.9 + u * 0.08, h0: 1050 };
   const g = HS.gretel(c, { X: 0.05, Z: 3.0, fx: 0.15, worry: 1, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.4), look: 0.5 + sw(u, 0.5, 0.4) }, u);
-  return fscene(c, u, { split: 2.5, mid: HS.crumbs(c, [], {}), cast: lit(g.svg, { a: 0.5 }) });
+  return fscene(c, u, { split: 2.5, cast: lit(g.svg, { a: 0.5 }) });
 }, { vig: 0.9 });
 
-// 7  L07 midnight: moon shafts, a faint warm glow far between the trees, the camera drifts toward it
-const GLOW = { X: 0.3, Z: 21 };
-const glowFar = (c, t, k = 1) => { const p = P(c, GLOW.X, 1.2, GLOW.Z); return blobLight(p.x, p.y, 120 * k, "#ffb050", 0.22, 9) + blobLight(p.x, p.y, 40 * k, "#ffe0a0", 0.4, 12); };
+// 7  L07 midnight: starts on warm light between the trunks, drifts until the house resolves on "Something sweet" (A10)
+const GLOW = { X: 0.3, Z: 16 };
+const glowFar = (c, k = 1, a = 1) => { const p = P(c, GLOW.X, 1.2, GLOW.Z); return blobLight(p.x, p.y, 120 * k, "#ffb050", 0.22 * a, 9) + blobLight(p.x, p.y, 40 * k, "#ffe0a0", 0.4 * a, 12); };
 shot("7", "L07", -0.1, (u, x) => {
-  const c = { x: 0.1 + u * 0.03, y: 1.3, z: 0.2 + u * 0.6, h0: 1100 };
-  return fscene(c, u, { shafts: 1.4, split: 3, light: glowFar(c, u, 1 + u * 0.1), house: { X: GLOW.X, Z: GLOW.Z, glow: 0.6 } });
+  const c = { x: 0.1 + u * 0.03, y: 1.3, z: 0.2 + u * 0.9, h0: 1100 };
+  return fscene(c, u, { shafts: 1.4, split: 3, light: glowFar(c, 1 + u * 0.1, 1), house: { X: GLOW.X, Z: GLOW.Z, glow: tr([[0, 0.05], [1.0, 0.2], [1.9, 0.9]], u) } });
 }, { vig: 0.85 });
-
-// 8  L08 Gretel sniffs and points toward the glow
+// 8  L08 Gretel sniffs and points (closer on her warning)
 shot("8", "L08", -0.1, (u, x) => {
   const c = { x: 0.2, y: 1.0, z: 1.6, h0: 1050 };
   const g = HS.gretel(c, { X: -0.2, Z: 3.1, fx: 0.55, sniff: 1, point: ease(clamp((u - 0.5) / 0.4)), worry: 0.3, talk: talkAt(x.ln, x.lu) * 0.5, blink: bl(u, 0.2) }, u);
-  return fscene(c, u, { shafts: 1.2, split: 2.5, cast: lit(g.svg, { a: 0.5 }), light: glowFar(c, u, 1.4), house: { X: 1.2, Z: 14, glow: 0.7 } });
+  return fscene(c, u, { shafts: 1.2, split: 2.5, cast: lit(g.svg, { a: 0.5 }), light: glowFar(c, 1.4), house: { X: 1.2, Z: 14, glow: 0.7 } });
 }, { vig: 0.9 });
-
-// 9  L09-L10 two-shot: Gretel worried; the kid is already walking toward the glow; the flame shrinks on "hungry"
+// 9  L09-L10 two-shot: Gretel worried; Hansel starts beside her and walks past her toward the glow; the flame shrinks on "hungry"
 shot("9", "L09", -0.1, (u, x) => {
-  const t0 = LINE.L10.at - LINE.L09.at + wordAt(LINE.L10, "hungry"), c = { x: 0.3, y: 1.0, z: 0.9 + u * 0.03, h0: 1050 }, kz = 3.3 + u * 0.55;
-  const fl = tr([[0, 1], [t0 - 0.15 - 0.05, 1], [t0 + 0.35, 0.35]], u);
+  const d10 = LINE.L10.at - LINE.L09.at, t0 = d10 + aw("L10", "hungry"), c = { x: 0.4, y: 1.0, z: 0.9 + u * 0.03, h0: 1050 };
+  const fl = tr([[0, 1], [t0 - 0.2, 1], [t0 + 0.35, 0.35]], u), V = 0.34, kx = 0.35 + u * V * 0.6, kz = 3.2 + u * V * 0.8;
   const g = HS.gretel(c, { X: -0.35, Z: 3.2, fx: 0.4, worry: 1, talk: u < LINE.L09.off ? talkAt(x.ln, x.lu) : 0, blink: bl(u, 0.3) }, u);
-  const k = K(c, { X: 0.7 + u * 0.1, Z: kz, fx: 0.75, run: u * 1.0, blink: bl(u + 1), talk: u > LINE.L10.at - LINE.L09.at ? talkAt(LINE.L10, u - (LINE.L10.at - LINE.L09.at)) : 0 }, u, fl);
-  return fscene(c, u, { shafts: 1.2, split: 2.5, cast: lit(g.svg, { a: 0.5 }) + lit(k.svg, { a: 0.5 }), light: k.light + glowFar(c, u, 1.6), house: { X: 1.6, Z: 16, glow: 0.7 } });
+  const k = K(c, { X: kx, Z: kz, fx: 0.75, run: kidF(V) * u, blink: bl(u + 1), talk: u > d10 ? talkAt(LINE.L10, u - d10) : 0 }, u, fl);
+  return fscene(c, u, { shafts: 1.2, split: 2.5, cast: lit(g.svg, { a: 0.5 }) + lit(k.svg, { a: 0.5 }), light: k.light + glowFar(c, 1.6), house: { X: 1.6, Z: 16, glow: 0.7 } });
 }, { vig: 0.9 });
+// 10  L11 ONE walking shot toward the house (the 1812 line): Hansel ahead, Gretel behind him, both steps planted, same arrangement as shot 9 (B5)
+shot("10", "L11", -0.1, (u, x) => {
+  const V = 0.8, c = { x: 0.0, y: 1.1, z: u * V, h0: 1080 };
+  const k = K(c, { X: 0.4, Z: c.z + 3.3, fx: 0.2, run: kidF(V) * u, blink: bl(u) }, u, 0.9);
+  const g = HS.gretel(c, { X: -0.45, Z: c.z + 2.6, fx: 0.2, run: gretF(V) * u + 0.5, worry: 0.6, blink: bl(u + 1) }, u);
+  return fscene(c, u, { shafts: 0.8, split: c.z + 4, cast: lit(k.svg, { a: 0.5 }) + lit(g.svg, { a: 0.5 }), house: { X: 0.15, Z: 14, glow: 1 }, clear: { X: 0.15, Z: 14, r: 3 }, light: k.light });
+}, { vig: 0.85 });
 
-// 10  L11 walking shot toward the house through the trees, no stop (the 1812 line); the house grows ahead
-const walkTo = (c, u, hz, kzOff = 2.9) => {
-  const ph = u * 1.15, kx = c.x + 0.5, k = K(c, { X: kx, Z: c.z + kzOff, fx: 0.18, run: ph, blink: bl(u) }, u, 0.9);
-  const g = HS.gretel(c, { X: kx - 0.7, Z: c.z + kzOff + 0.1, fx: 0.18, run: ph + 0.5, worry: 0.6, blink: bl(u + 1) }, u);
-  return { k, g };
+// 11  L12 the house reveal: three different crops, one per phrase: bread wall, roof icing, the sugar pane (A11)
+const HZ = 6.0;
+const houseSc = (c, u, o = {}) => fscene(c, u, { shafts: 0.5, split: 2, clear: { X: 0.15, Z: HZ, r: 3.6 }, house: { X: 0.15, Z: HZ, glow: 1, door: 0, ...(o.h || {}) }, over: o.over || "", cast: o.cast || "", light: o.light || "" });
+shot("11a", "L12", -0.15, (u) => houseSc({ x: -0.6, y: 0.9, z: 3.0 + u * 0.25, h0: 1050 }, u), { vig: 0.85 });
+shot("11b", "L12", () => aw("L12", "a") - 0.15, (u) => houseSc({ x: 0.9, y: 1.5, z: 2.6 + u * 0.2, h0: 1700 }, u), { vig: 0.85 });
+shot("11c", "L12", () => aw("L12", "windows") - 0.2, (u) => houseSc({ x: 1.23, y: 1.1, z: 3.8 + u * 0.15, h0: 1080 }, u), { vig: 0.85 });
+
+// 12  L13 Hansel breaks a corner off the sugar pane BEFORE "Nibble" (D6/B6: the pane shows the break), the piece stays in his hand through the bite (B8); then the eyes; the jar stands on the ground beside him (D4)
+const BW = { X: 0.15, Z: 5.2 };
+const bite12 = (c, u, st = {}) => {
+  const cn = paneCorner(c, BW), Zk = BW.Z - (BW.Z - c.z) / 1.4, X0 = 2.0, s0 = P(c, X0, 0, Zk).s;
+  const hand0 = HS.kidHand(c, { X: X0, Z: Zk, reachL: 1 }), X = X0 + (cn.x - hand0.x) / s0;
+  const reach = ease(clamp(u / 0.14)), gone = u > 0.16;
+  const k = K(c, { X, Z: Zk, fx: lerp(-0.25, -0.75, ease(clamp((u - 0.3) / 0.3))), reachL: reach, blink: bl(u + 3), talk: u > 0.5 ? 0.35 + 0.35 * Math.sin(u * 24) : 0, worry: 0.2, ...st }, u, 1, { jar: [X - 0.45, Zk + 0.15], piece: gone ? { hand: "L", rot: -20, bitten: u > 0.55 ? 1 : 0 } : null });
+  return { k, over: gone ? notch(c, BW) : "", X, Zk };
 };
-shot("10a", "L11", -0.1, (u, x) => {
-  const c = { x: 0.0, y: 1.1, z: 0.0 + u * 1.9, h0: 1080 };
-  const { k, g } = walkTo(c, u);
-  return fscene(c, u, { shafts: 0.8, split: c.z + 4, cast: lit(k.svg, { a: 0.5 }) + lit(g.svg, { a: 0.5 }), house: { X: 0.15, Z: 17, glow: 1 }, clear: { X: 0.15, Z: 17, r: 3 }, light: k.light });
+shot("12a", "L13", -0.19, (u) => {
+  const c = { x: 1.35, y: 0.5, z: 1.8, h0: 1000 }, b = bite12(c, u);
+  return fscene(c, u, { shafts: 0.4, split: 3, clear: { X: BW.X, Z: BW.Z, r: 3.4 }, house: { ...BW, glow: 1 }, over: b.over, cast: lit(b.k.svg, { a: 0.4, side: 1, rim: "#ffd08a" }), light: b.k.light });
 }, { vig: 0.85 });
-shot("10b", "L11", () => wordAt(LINE.L11, "their") - 0.1, (u, x) => {
-  const c = { x: -1.1 + u * 0.1, y: 0.8, z: 5.0 + u * 1.9, h0: 1000 };
-  const { k, g } = walkTo({ ...c, x: c.x + 1.1 }, u, 17, 3.3);
-  return fscene(c, u, { shafts: 0.8, split: c.z + 3.5, cast: lit(k.svg, { a: 0.5 }) + lit(g.svg, { a: 0.5 }), house: { X: 0.15, Z: 17, glow: 1 }, clear: { X: 0.15, Z: 17, r: 3 }, light: k.light });
+shot("12b", "L13", () => 0.9, (u) => {
+  const c = { x: BW.X + 1.08, y: 1.1, z: 3.6 + u * 0.18, h0: 1100 }, hs = { ...BW, glow: tr([[0, 1], [1.6, 0.55]], u), eyes: clamp((u - 0.25) / 1.4), eyesWin: "R", eyeK: 1.6, look: tr([[0, 0.5], [1.8, -0.3]], u) };
+  return fscene(c, u, { shafts: 0.4, split: 3, clear: { X: BW.X, Z: BW.Z, r: 3.4 }, house: hs, over: notch(c, BW) });
 }, { vig: 0.85 });
-
-// 11  L12 the house reveal: one detail per phrase (walls, roof, windows), pushing in
-const houseSc = (c, u, o = {}) => fscene(c, u, { shafts: 0.5, split: 2, clear: { X: 0, Z: o.hz ?? 6, r: 3.6 }, house: { X: 0, Z: o.hz ?? 6, glow: 1, door: 0, ...(o.h || {}) }, cast: o.cast || "", light: o.light || "" });
-shot("11a", "L12", -0.15, (u) => houseSc({ x: 0.1, y: 1.3, z: 0.4 + u * 0.35, h0: 1150 }, u, { hz: 6 }), { vig: 0.85 });
-shot("11b", "L12", () => wordAt(LINE.L12, "a") - 0.15, (u) => houseSc({ x: -0.2, y: 1.0, z: 1.6 + u * 0.3, h0: 1500 }, u, { hz: 6 }), { vig: 0.85 });
-shot("11c", "L12", () => wordAt(LINE.L12, "windows") - 0.2, (u) => houseSc({ x: 0.9, y: 0.95, z: 2.6 + u * 0.3, h0: 1060 }, u, { hz: 6 }), { vig: 0.85 });
-
-// 12  L13 the kid breaks off a piece (bite); the eyes open in the window behind him; the witch sings from inside
-shot("12a", "L13", -0.2, (u, x) => {
-  const c = { x: 1.7, y: 1.0, z: 1.8 + u * 0.12, h0: 1100 }, bite = ease(clamp((u - 0.7) / 0.5));
-  const k = K(c, { X: 2.0, Z: 4.0, fx: -0.2, reachL: 1, blink: bl(u), worry: 0.3 }, u, 1);
-  const hnd = HS.kidHand(c, { X: 2.0, Z: 4.0, reachL: 1 });
-  const pc = HS.piece({ x: hnd.x, y: hnd.y, s: k.kd.p.s * 0.9 }, { rot: -14, k: 0.9 });
-  return fscene(c, u, { shafts: 0.4, split: 3, clear: { X: 0, Z: 5.2, r: 3.4 }, house: { X: 0, Z: 5.2, bite, eyes: clamp((u - 1.0) / 0.4), eyesWin: "R", eyeK: 1.4, look: 0.5 }, cast: lit(k.svg, { a: 0.4, side: 1, rim: "#ffd08a" }) + (bite > 0.9 ? lit(pc, { a: 0.4, side: 1 }) : ""), light: k.light });
-}, { vig: 0.85 });
-shot("12b", "L13", () => wordAt(LINE.L13, "who") - 0.1, (u, x) => {
-  const c = { x: 1.85, y: 1.0, z: 2.5 + u * 0.15, h0: 1050 };
-  const hnd = HS.kidHand(c, { X: 2.0, Z: 4.0, fx: -0.2, talk: 0 });
-  const k = K(c, { X: 2.0, Z: 4.0, fx: -0.2, talk: 0, shock: 0.2, worry: 0.2, blink: bl(u + 3), hand2face: 0 }, u, 1);
-  return fscene(c, u, { shafts: 0.4, split: 3, clear: { X: 0, Z: 5.2, r: 3.4 }, house: { X: 0, Z: 5.2, bite: 1, eyes: 1, eyesWin: "R", eyeK: 1.4, look: tr([[0, 0.5], [1.4, -0.3]], u) }, cast: lit(k.svg, { a: 0.4, side: 1, rim: "#ffd08a" }), light: k.light });
-}, { vig: 0.85 });
-
-// 13  L14 kid close, mouth full, frozen
+// 13  L14 reaction close-up, kept through the line's last sound (A8): the piece still in his hand at his face
 shot("13", "L14", -0.15, (u, x) => {
-  const c = { x: 1.9, y: 1.0, z: 2.6 + u * 0.1, h0: 1000 };
-  const k = K(c, { X: 2.0, Z: 4.0, fx: -0.05, shock: 0.7, worry: 0.8, talk: talkAt(x.ln, x.lu) * 0.4, blink: 0 }, u, 1);
-  return fscene(c, u, { shafts: 0.4, split: 3, clear: { X: 0, Z: 5.2, r: 3.4 }, house: { X: 0, Z: 5.2, bite: 1, eyes: 1, eyesWin: "R", eyeK: 1.4 }, cast: lit(k.svg, { a: 0.4, side: 1, rim: "#ffd08a" }), light: k.light });
+  const c = { x: 1.55, y: 0.9, z: 2.9 + u * 0.08, h0: 1250 }, cn = paneCorner(c, BW), Zk = BW.Z - (BW.Z - c.z) / 1.4;
+  const hand0 = HS.kidHand(c, { X: 2.0, Z: Zk, reachL: 1 }), X = 2.0 + (cn.x - hand0.x) / P(c, 2, 0, Zk).s;
+  const k = K(c, { X, Z: Zk, fx: -0.6, reachL: 1, shock: 0.7, worry: 0.8, talk: talkAt(x.ln, x.lu) * 0.4, blink: 0 }, u, 1, { jar: "none", piece: { hand: "L", rot: -20, bitten: 1 } });
+  return fscene(c, u, { shafts: 0.4, split: 3, clear: { X: BW.X, Z: BW.Z, r: 3.4 }, house: { ...BW, bite: 1, glow: 0.55, eyes: 1, eyesWin: "R", eyeK: 1.6 }, over: notch(c, BW), cast: lit(k.svg, { a: 0.4, side: 1, rim: "#ffd08a" }), light: k.light });
 }, { vig: 0.9 });
 
-// 14  L15 the door opens, the witch sweet in the doorway, the light spills; the kids small in front
-shot("14", "L15", -0.3, (u, x) => {
-  const c = { x: 0.3, y: 1.15, z: 0.5 + u * 0.15, h0: 1100 }, hz = 5.6, door = ease(clamp(u / 0.8));
-  const wi = HS.witch(c, { X: 0.1, Z: hz - 0.25, dir: 1, sweet: 1, bend: 0.5, talk: talkAt(x.ln, x.lu), blink: bl(u) }, u);
-  const k = K(c, { X: 1.4, Z: 3.9, fx: -0.6, shock: 0.5, blink: bl(u + 2) }, u, 1), g = HS.gretel(c, { X: 0.85, Z: 3.6, fx: -0.5, worry: 1, blink: bl(u + 1) }, u);
-  const mood = 0; HS.night(mood);
-  const f = HS.forest(c, u, mood, { clear: { X: 0, Z: hz, r: 3.5 }, split: 2 }), h = HS.house(c, { X: 0, Z: hz, door, glow: 1, bite: 1 }, u);
-  return f.back + h.svg + f.front + HS.grade(0, 1) + h.panes + (door > 0.4 ? HS.lit(wi.svg, { shade: "#8a6a5a", a: 0.6, rim: "#ffd08a", side: 1 }) : "") + lit(k.svg + g.svg, { a: 0.5, rim: "#ffc070" }) + h.spill + k.light;
+// 14  L15 the door swings open, the beam grows from the opening, the witch sweet in the doorway; the kids (opaque, faces clear of the spill) take their steps to the threshold (B9-B11)
+shot("14", "L14", () => LINE.L14.off, (u, x) => {
+  const L15 = LINE.L15, uu = u, c = { x: 0.5, y: 1.15, z: 0.5 + u * 0.08, h0: 1100 }, hz = 5.6, door = ease(clamp((u - 0.1) / 1.0)), V = 0.42;
+  const wi = HS.witch(c, { X: 0.1, Z: hz - 0.25, dir: 1, sweet: 1, bend: 0.5, talk: u > 0.15 ? talkAt(L15, u - 0.15) : 0, blink: bl(u) }, u);
+  const kx = lerp(0.95, 0.4, ease(u / 3)), gx = lerp(0.4, -0.05, ease(u / 3));
+  const k = K(c, { X: kx, Z: 3.9 + u * V * 0.85, fx: -0.5, run: kidF(V) * u, blink: bl(u + 2) }, u, 1);
+  const g = HS.gretel(c, { X: gx, Z: 3.75 + u * V * 0.85, fx: -0.4, run: gretF(V) * u + 0.4, worry: 1, blink: bl(u + 1) }, u);
+  HS.night(0);
+  const f = HS.forest(c, u, 0, { clear: { X: 0.15, Z: hz, r: 3.5 }, split: 2 }), h = HS.house(c, { X: 0.15, Z: hz, door, glow: 1, bite: 1 }, u);
+  return f.back + h.svg + f.front + HS.grade(0, 1) + h.panes + (door > 0.35 ? HS.lit(wi.svg, { shade: "#8a6a5a", a: 0.6, rim: "#ffd08a", side: 1 }) : "") + h.spill + lit(k.svg + g.svg, { a: 0.5, rim: "#ffc070" }) + k.light;
 }, { vig: 0.85 });
 
-// 15  L16 the room at 3 a.m., dark: the kids asleep in the little beds
+// 15  L16 3 a.m.: both pillows in the frame, a patch of moonlight on them; the jar stands on the floor by the bed (D4/B17)
 const BEDS = HS.ROOM.beds;
 const bedHeads = (c, br) => { const a = P(c, BEDS[0].X, 0.62, 6.0), b = P(c, BEDS[1].X, 0.62, 6.0); return sleeper(a, a.s, "R", br) + sleeper(b, b.s, "K", br); };
-shot("15", "L16", -0.1, (u, x) => {
-  const c = { x: 0.2 + u * 0.05, y: 1.35, z: 0.3 + u * 0.15, h0: 1150 }, r = HS.room(c, u, { lamp: 0, dark: 0.9, oven: { fire: 0.15 } });
-  return r.back + bedHeads(c, sw(u, 0.35, 1)) + r.light + dk(0.5);
+const bedJar = (c, t) => { const q = P(c, BEDS[1].X - 0.62, 0, 5.3), kk = q.s / 100 * 0.8; return jarSvg(q.x, q.y, kk, 0.9, true) + blobLight(q.x, q.y - 12 * kk, 36 * kk * 2, "#ffb860", 0.1, 5); };
+const moonOn = (c) => { const a = P(c, 1.7, 0.7, 5.9); return blobLight(a.x, a.y, a.s * 1.25, "#9ac0ff", 0.14, 21); };
+const bedRoom = (c, u, o = {}) => { const r = HS.room(c, u, { lamp: 0, dark: 0.85, oven: { fire: 0.15 } }); return r; };
+shot("15", "L16", -0.1, (u) => {
+  const c = { x: 1.7, y: 1.25, z: 1.4 + u * 0.1, h0: 1100 }, r = bedRoom(c, u);
+  return r.back + bedHeads(c, sw(u, 0.35, 1)) + r.light + dk(0.2) + moonOn(c) + bedJar(c, u);
 }, { vig: 0.95 });
 
-// 16  L17 the witch's face close: red eyes, milky pupils, the nose sniffing over the sleeping kid. Scariest
+// 16  L17 the witch: face close with the red eyes, then one slow bedside push for the sniff, over the boy (A5; she faces him through the cut, B13)
 const witchLit = (wi, o = {}) => HS.lit(wi.svg, { shade: "#6a4a50", a: 0.6, rim: "#ff5a3a", rimA: 0.55, side: 1, ...o }) + wi.light;
-shot("16a", "L17", -0.1, (u, x) => {
+shot("16a", "L17", -0.1, (u) => {
   const c = { x: 0.7, y: 1.5, z: 2.6 + u * 0.08, h0: 1150 }, r = HS.room(c, u, { lamp: 0, dark: 0.9, oven: { fire: 0.2 } });
   const wi = HS.witch(c, { X: 0.2, Z: 3.7, dir: 1, sweet: 0, bend: 0.5, sniff: 0.4 + 0.4 * Math.sin(u * 3), eyeGlow: 1, blink: 0 }, u);
   return r.back + r.light + dk(0.5) + witchLit(wi);
 }, { vig: 0.95 });
-shot("16b", "L17", () => wordAt(LINE.L17, "they") - 0.1, (u, x) => {
-  const c = { x: 1.15, y: 1.3, z: 1.6 + u * 0.1, h0: 1100 }, r = HS.room(c, u, { lamp: 0, dark: 0.9, oven: { fire: 0.2 } });
-  const wi = HS.witch(c, { X: 1.0, Z: 4.0, dir: 1, sweet: 0, bend: 0.8, sniff: 1, reach: 0.4, eyeGlow: 1, blink: 0 }, u);
-  return r.back + bedHeads(c, sw(u, 0.35)) + r.light + dk(0.45) + witchLit(wi);
+shot("16b", "L17", () => aw("L17", "they") - 0.1, (u) => {
+  const c = { x: 1.55, y: 1.3, z: 1.6 + u * 0.12, h0: 1100 }, r = HS.room(c, u, { lamp: 0, dark: 0.9, oven: { fire: 0.2 } });
+  const wi = HS.witch(c, { X: 0.95, Z: 4.0, dir: 1, sweet: 0, bend: 0.8, sniff: 1, reach: 0.3, eyeGlow: 1, blink: 0 }, u);
+  return r.back + bedHeads(c, sw(u, 0.35)) + r.light + dk(0.45) + bedJar(c, u) + witchLit(wi);
 }, { vig: 0.95 });
-shot("16c", "L17", () => wordAt(LINE.L17, "but") - 0.1, (u, x) => {
-  const c = { x: 1.4, y: 1.1, z: 2.3 + u * 0.12, h0: 1000 }, r = HS.room(c, u, { lamp: 0, dark: 0.9, oven: { fire: 0.2 } });
-  const wi = HS.witch(c, { X: 1.45, Z: 4.5, dir: -1, sweet: 0, bend: 1, sniff: 1, eyeGlow: 1, blink: 0 }, u);
+shot("16c", "L17", () => aw("L17", "but") - 0.1, (u) => {
+  const c = { x: 1.95, y: 1.1, z: 2.2 + u * 0.12, h0: 1000 }, r = HS.room(c, u, { lamp: 0, dark: 0.9, oven: { fire: 0.2 } });
+  const wi = HS.witch(c, { X: 1.4, Z: 4.5, dir: 1, sweet: 0, bend: 1, sniff: 1, eyeGlow: 1, blink: 0 }, u);
   return r.back + bedHeads(c, sw(u, 0.35)) + r.light + dk(0.45) + witchLit(wi);
 }, { vig: 0.95 });
 
-// 17  L18 the witch grabs the kid and drags him to the stable cage; the cage rattles
-shot("17a", "L18", -0.1, (u, x) => {
-  const c = { x: 0.9, y: 1.3, z: 1.2, h0: 1100 }, r = HS.room(c, u, { lamp: 0, dark: 0.85, oven: { fire: 0.3 } });
-  const gr = ease(clamp(u / 0.4));
-  const wi = HS.witch(c, { X: 1.0, Z: 4.4, dir: 1, sweet: 0, bend: 1, reach: gr, reachX: 30, reachY: -50, eyeGlow: 1 }, u);
-  const k = L.kid(c, { X: 1.65, Z: 4.7, fx: -0.5, shock: 1, worry: 1, lean: -6 * gr }, u);
-  return r.back + BEDS.map((b, i) => i == 0 ? sleeper(P(c, b.X, 0.62, 6), P(c, b.X, 0.62, 6).s, "R") : "").join("") + r.light + HS.lit(k.svg, { shade: "#5a4a5a", a: 0.6, rim: "#ff5a3a", rimA: 0.5, side: 1 }) + witchLit(wi);
+// 17  L18 He smelled her house (Hansel's sniff, the same framing as shot 2) / She smelled him (the witch's sniff over his pillow, same screen spot), the grab on "first", the gate (A5, B14, B16)
+shot("17a", "L18", -0.1, (u, x) => sniffHouse(u + 0.3, { ln: null }), { vig: 0.85 });
+shot("17b", "L18", () => aw("L18", "she") - 0.25, (u) => {
+  const c = { x: 1.95, y: 1.1, z: 2.5, h0: 1000 }, r = HS.room(c, u, { lamp: 0, dark: 0.9, oven: { fire: 0.2 } });
+  const reach = ease(clamp((u - 0.45) / 0.35));
+  const wi = HS.witch(c, { X: 1.4, Z: 4.5, dir: 1, sweet: 0, bend: 1, sniff: 1 - reach * 0.6, reach, reachX: 34, reachY: -58, eyeGlow: 1, blink: 0 }, u);
+  return r.back + bedHeads(c, sw(u, 0.35)) + r.light + dk(0.45) + witchLit(wi);
 }, { vig: 0.95 });
-shot("17b", "L18", () => wordAt(LINE.L18, "she") - 0.2, (u, x) => {
-  const c = { x: 0.0, y: 1.1, z: 0.4 + u * 0.12, h0: 1080 }, sb = HS.stable(c, u, {}), cg = HS.cage(c, { X: 0.7, Z: 3.9, door: ease(clamp((u - 0.4) / 0.5)) });
-  const wx = lerp(-1.0, 0.0, ease(clamp(u / 1.3)));
-  const wi = HS.witch(c, { X: wx, Z: 3.8, dir: 1, sweet: 0, bend: 0.6, reach: 1, reachX: 40, reachY: -60, eyeGlow: 0.9 }, u);
-  const k = L.kid(c, { X: wx + 0.75, Z: 3.9, fx: -0.6, shock: 1, worry: 1, lean: -10 }, u);
-  return sb.back + cg.back + cg.front + sb.light + HS.lit(k.svg, { shade: "#6a6a88", a: 0.55, rim: "#9ac0ff", side: -1 }) + witchLit(wi, { shade: "#6a5a64" });
+shot("17c", "L18", () => aw("L18", "first") - 0.12, (u) => {
+  const c = { x: 1.2, y: 1.3, z: 1.4, h0: 1100 }, r = HS.room(c, u, { lamp: 0, dark: 0.85, oven: { fire: 0.3 } }), up = ease(clamp(u / 0.2));
+  const wi = HS.witch(c, { X: 1.0, Z: 4.4, dir: 1, sweet: 0, bend: 1, reach: 1, reachX: 36, reachY: -66, eyeGlow: 1 }, u);
+  const k = L.kid(c, { X: 1.6, Z: 4.6, fx: -0.5, shock: 1, worry: 1, lean: -6 * up, hop: 8 * up }, u);
+  return r.back + BEDS.map((b, i) => i === 0 ? sleeper(P(c, b.X, 0.62, 6), P(c, b.X, 0.62, 6).s, "R") : "").join("") + r.light + dk(0.4) + HS.lit(k.svg, { shade: "#5a4a5a", a: 0.6, rim: "#ff5a3a", rimA: 0.5, side: 1 }) + witchLit(wi);
+}, { vig: 0.95 });
+const CG = { X: 0.7, Z: 3.9 };
+shot("17d", "L18", () => LINE.L18.off - 0.3, (u) => {
+  const c = { x: 0.1, y: 1.1, z: 0.5 + u * 0.1, h0: 1080 }, sb = HS.stable(c, u, {}), door = 1 - ease(clamp((u - 0.55) / 0.35)), cg = cage2(c, CG, door);
+  const kx = lerp(CG.X - 1.3, CG.X + 0.05, ease(clamp(u / 0.55))), wx = lerp(CG.X - 2.0, CG.X - 1.2, ease(clamp(u / 0.55)));
+  const wi = HS.witch(c, { X: wx, Z: 3.8, dir: 1, sweet: 0, bend: 0.6, reach: 1, reachX: 40, reachY: -62, eyeGlow: 0.9 }, u);
+  const k = L.kid(c, { X: kx, Z: lerp(3.7, 4.4, ease(clamp(u / 0.55))), fx: -0.4, run: u * 1.2, shock: 1, worry: 1 }, u);
+  return sb.back + lit(HS.cage(c, CG).back, { a: 0.5, rimA: 0 }) + sb.light + HS.lit(k.svg, { shade: "#6a6a88", a: 0.55, rim: "#9ac0ff", side: -1 }) + HS.lit(cg.front, { shade: "#6a6a88", a: 0.5, rimA: 0 }) + witchLit(wi, { shade: "#6a5a64" });
 }, { vig: 0.95 });
 
-// 18  L19 close: the bars, the bony hand reaching in. 2D close-up
+// 18  L19 close: the bars; the witch's bony hand reaches in through ONE gap (hand behind the bars, fingertips in the gap), her eyes on the same side (B18, B19)
+const GAPX = [485, 665];                                    // the gap between bar 2 and bar 3 of HS.closeBars (4 bars)
 const closeUp = (u, o = {}) => {
-  const cb = HS.closeBars(u, {}), z = o.zoom ?? 1, cx = 540, cy = 960;
-  const hd = HS.bonyHand({ x: o.hx ?? 190, y: o.hy ?? 1010, s: 9, rot: o.hrot ?? -5, pinch: o.pinch ?? 1, feel: o.feel }), kf = o.fist === false ? "" : HS.kidFist({ x: o.kx ?? 985, y: o.ky ?? 1085, s: 9, rot: 3 }).svg;
-  const eyes = o.eyes === false ? "" : HS.redEyes(o.ex ?? 250, o.ey ?? 800, o.ek ?? 34, { look: o.look ?? 0.5, glow: 1 });
-  return `<g transform="translate(${cx},${cy}) scale(${z.toFixed(4)}) translate(${-cx},${-cy})">${cb.back}<rect width="${W}" height="${H}" fill="#3a2a4a" opacity="0.35"/>${eyes}${cb.bars}${kf}${hd.svg}</g>`;
+  const cb = HS.closeBars(u, {}), z = o.zoom ?? 1, cx = 540, cy = 960, hy = o.hy ?? 1010;
+  const hd = HS.bonyHand({ x: o.hx ?? 240, y: hy, s: 9, rot: o.hrot ?? -5, pinch: o.pinch ?? 0, feel: o.feel });
+  const kf = o.fist ? HS.kidFist({ x: o.kx ?? 880, y: o.ky ?? 1090, s: 9, rot: 3 }).svg : "";
+  const eyes = HS.redEyes(o.ex ?? 150, o.ey ?? 760, o.ek ?? 34, { look: o.look ?? 0.5, glow: 1 });
+  const cid = `hgc${Math.round(u * 100)}`;
+  return `<g transform="translate(${cx},${cy}) scale(${z.toFixed(4)}) translate(${-cx},${-cy})">${cb.back}<rect width="${W}" height="${H}" fill="#3a2a4a" opacity="0.35"/>${eyes}${hd.svg}${cb.bars}<clipPath id="${cid}"><rect x="${GAPX[0]}" y="0" width="${GAPX[1] - GAPX[0]}" height="${H}"/></clipPath><g clip-path="url(#${cid})">${hd.svg}</g>${kf}</g>`;
 };
-shot("18", "L19", -0.1, (u, x) => closeUp(u, { fist: false, hx: lerp(-120, 330, ease(clamp(u / 0.9))), pinch: 0, zoom: 1 + u * 0.03, look: 0.2 }), { vig: 0.9 });
-// 19  L20 close: the kid's fist holds out the bone, the hand feels it
-shot("19a", "L20", -0.1, (u, x) => closeUp(u, { fist: true, kx: lerp(1150, 985, ease(clamp(u / 0.5))), hx: 290, pinch: 1, feel: u * 1.6, zoom: 1 + u * 0.035 }), { vig: 0.9 });
-shot("19b", "L20", () => wordAt(LINE.L20, "her") - 0.1, (u, x) => closeUp(u, { fist: true, kx: 985, hx: 290, pinch: 1, feel: u * 1.2 + 3, zoom: 1.12 + u * 0.05, ek: 40, look: tr([[0, 0.5], [1.4, -0.4]], u) }), { vig: 0.9 });
-
-// 20  L21 the witch close, annoyed
+shot("18", "L19", -0.1, (u) => closeUp(u, { hx: lerp(-120, 240, ease(clamp(u / 1.0))), zoom: 1 + u * 0.03, look: 0.2 }), { vig: 0.9 });
+// 19  L20 the fist with the bone comes in; the fingertips close on it ("chicken bone." is the end of the line now, the eyes line is cut: A4)
+shot("19", "L20", -0.1, (u) => closeUp(u, { fist: true, kx: lerp(1150, 880, ease(clamp(u / 0.5))), hx: 240, pinch: ease(clamp((u - 0.7) / 0.6)), feel: u * 1.6, zoom: 1.03 + u * 0.04, ek: 36 }), { vig: 0.9 });
+// 20  L21 the witch close, annoyed ("Still thin.")
 shot("20", "L21", -0.1, (u, x) => {
   const c = { x: 0.7, y: 1.5, z: 2.4 + u * 0.08, h0: 1160 }, sb = HS.stable(c, u, {});
   const wi = HS.witch(c, { X: 0.4, Z: 3.7, dir: 1, sweet: 0, bend: 0.3, talk: talkAt(x.ln, x.lu), eyeGlow: 1, blink: bl(u, 0.5) }, u);
   return sb.back + sb.light + witchLit(wi);
 }, { vig: 0.95 });
-
-// 21  L22 wide stable, the kid in the cage, the candle jar nearly out (re-hook)
+// 21  L22 tighter on Hansel in the cage (the hunger re-hook); no jar in the cage (D4)
 shot("21", "L22", -0.1, (u, x) => {
-  const c = { x: 0.1, y: 1.3, z: 0.7 + u * 0.1, h0: 1120 }, sb = HS.stable(c, u, {}), cg = HS.cage(c, { X: 0.45, Z: 3.9 });
-  const k = K(c, { X: 0.5, Z: 4.4, fx: -0.3, worry: 1, blink: bl(u, 0.7), lean: sw(u, 0.4, 1) }, u, tr([[0, 0.3], [4, 0.12]], u));
-  return sb.back + cg.back + sb.light + HS.lit(k.svg, { shade: "#6a6a88", a: 0.5, rim: "#ffc070", side: 1 }) + HS.lit(cg.front, { shade: "#6a6a88", a: 0.5, rimA: 0 }) + k.light;
+  const c = { x: 0.35, y: 1.15, z: 1.5 + u * 0.12, h0: 1120 }, sb = HS.stable(c, u, {}), cg = cage2(c, CG, 0);
+  const k = L.kid(c, { X: CG.X + 0.05, Z: 4.4, fx: -0.3, worry: 1, blink: bl(u, 0.7), lean: sw(u, 0.4, 1) }, u);
+  return sb.back + lit(HS.cage(c, CG).back, { a: 0.5, rimA: 0 }) + sb.light + HS.lit(k.svg, { shade: "#6a6a88", a: 0.5, rim: "#ffc070", side: 1 }) + HS.lit(cg.front, { shade: "#6a6a88", a: 0.5, rimA: 0 });
 }, { vig: 0.95 });
 
-// 22  L23 the witch points at Gretel; the oven roars, the red light floods
+// 22  L23 the witch addresses Gretel; "Girl!": she points at her; "Light the oven.": Gretel lights it (a visible ignition, B20), the room goes red
 const s22 = (u, x, pointing, k0 = 0) => {
-  const f = ease(clamp((u + k0 - (wordAt(LINE.L23, "oven") - 0.2)) / 0.5));
+  const f = ease(clamp((u + k0 - (aw("L23", "oven") - 0.05)) / 0.4));
   const c = { x: 0.3, y: 1.2, z: 1.0 + (u + k0) * 0.1, h0: 1010 }, r = HS.room(c, u, { lamp: lerp(0.15, 0.25, f), red: lerp(0.15, 0.75, f), oven: { door: ease(clamp((u + k0 - 0.5) / 1.0)), fire: lerp(0.3, 1, f) }, dawn: 0.2 * f });
   const wi = HS.witch(c, { X: -0.2, Z: 3.5, dir: 1, sweet: 0, bend: 0.4, reach: pointing, reachX: 70, reachY: -84, talk: talkAt(x.ln, x.lu), eyeGlow: 1, blink: bl(u) }, u);
   const g = HS.gretel(c, { X: 0.55, Z: 3.3, fx: -0.6, small: 0.6, worry: 1, blink: bl(u) }, u);
   return r.back + r.light + dk(0.5 * (1 - f)) + HS.lit(wi.svg, { shade: "#b0523a", a: 0.7, rim: "#ffb040", side: -1, w: 6 }) + HS.lit(g.svg, { shade: "#b0523a", a: 0.65, rim: "#ff9a3a", side: -1 });
 };
 shot("22a", "L23", -0.1, (u, x) => s22(u, x, 0.0), { vig: 0.9 });
-shot("22b", "L23", () => wordAt(LINE.L23, "girl") - 0.12, (u, x) => { const k0 = wordAt(LINE.L23, "girl") - 0.12 + 0.1; return s22(u, x, ease(clamp(u / 0.35)), k0); }, { vig: 0.9 });
-
-// 23  L24 the witch at the oven mouth, the door open, sweet again
-const ovenCam = { x: -0.75, y: 1.2, z: 1.3 };
+shot("22b", "L23", () => aw("L23", "girl") - 0.12, (u, x) => { const k0 = aw("L23", "girl") - 0.12 + 0.1; return s22(u, x, ease(clamp(u / 0.35)), k0); }, { vig: 0.9 });
+shot("22c", "L23", () => aw("L23", "light") - 0.05, (u, x) => {          // the insert: Gretel at the oven strikes a flame, touches the mouth, the fire catches, the iron door is open
+  const ig = clamp((u - 0.25) / 0.2), c = { x: -0.55, y: 1.1, z: 1.7 }, r = HS.room(c, u, { lamp: 0.2, red: 0.5 + 0.4 * ig, oven: { door: 1, fire: 0.15 + 0.85 * ig }, dawn: 0.3 }), sp = r.oven.spot;
+  const g = HS.gretel(c, { X: sp.X + 0.5, Z: sp.Z, fx: -0.7, point: 1, lean: 4 * ig, worry: 0.3, blink: 0 }, u);
+  const fl = `<g transform="translate(${n(g.hand.x)},${n(g.hand.y)})"><path d="M0,0 Q${n(-9 * (1 - ig * 0.4))},-26 0,-42 Q${n(9 * (1 - ig * 0.4))},-26 0,0 Z" fill="#ffd36a" stroke="#ff9a3a" stroke-width="2"/></g>`;
+  return r.back + r.light + HS.lit(g.svg, { shade: "#b0523a", a: 0.7, rim: "#ff9a3a", side: -1 }) + (ig < 0.9 ? fl : "");
+}, { vig: 0.9 });
+// 23  L24 tighter side two-shot: the witch STANDS beside the open oven, sweet again, an arm at the mouth ("Crawl in"); the forward lean is saved for her answer (B21, A12)
 shot("23", "L24", -0.1, (u, x) => {
-  const c = { ...ovenCam, z: 1.3 + u * 0.08 }, r = HS.room(c, u, { lamp: 0.25, red: 0.75, oven: { door: 1, fire: 1 }, dawn: 0.6 }), sp = r.oven.spot;
-  const wi = HS.witch(c, { ...sp, dir: -1, sweet: 1, lean: 0.35 + 0.1 * Math.sin(u * 2), bend: 0.2, talk: talkAt(x.ln, x.lu), eyeGlow: 0.6 }, u);
-  const g = HS.gretel(c, { X: sp.X + 0.85, Z: sp.Z - 0.05, fx: -0.7, small: 1, blink: bl(u) }, u);
+  const c = { x: -0.45, y: 1.1, z: 1.9 + u * 0.06, h0: 1050 }, r = HS.room(c, u, { lamp: 0.25, red: 0.75, oven: { door: 1, fire: 1 }, dawn: 0.6 }), sp = r.oven.spot;
+  const wi = HS.witch(c, { ...sp, dir: -1, sweet: 1, lean: 0.0, bend: 0.2, reach: 0.7, reachX: 50, reachY: -95, talk: talkAt(x.ln, x.lu), eyeGlow: 0.6 }, u);
+  const g = HS.gretel(c, { X: sp.X + 0.8, Z: sp.Z - 0.05, fx: -0.7, small: 1, blink: bl(u) }, u);
   return r.back + r.light + HS.lit(wi.svg, { shade: "#b0523a", a: 0.75, rim: "#ffb040", side: -1, w: 6 }) + HS.lit(g.svg, { shade: "#b0523a", a: 0.7, rim: "#ff9a3a", side: -1 });
 }, { vig: 0.9 });
-
-// 24  L25 Gretel close, small and sweet; her eyes say she is pretending
+// 24  L25 Gretel close, the push in to her eyes on "Show me?", then 0.2 s of silence (A2)
 shot("24", "L25", -0.1, (u, x) => {
-  const c = { x: 0.1, y: 0.95, z: 1.4 + u * 0.1, h0: 1000 }, r = HS.room(c, u, { lamp: 0.25, red: 0.75, oven: { door: 1, fire: 1 }, dawn: 0.6 });
-  const g = HS.gretel(c, { X: 0.2, Z: 3.1, fx: -0.15, small: 1, worry: 0.2, talk: talkAt(x.ln, x.lu), look: tr([[0, -0.6], [0.9, -0.7], [1.3, 0.2]], u), grin: u > 1.4 ? 1 : 0, blink: bl(u, 0.9) }, u);
+  const sm = ease(clamp((u - (aw("L25", "show") - 0.3)) / 0.9)), c = { x: 0.15, y: 0.95, z: 1.4 + 0.5 * sm + u * 0.04, h0: 1000 };
+  const r = HS.room(c, u, { lamp: 0.25, red: 0.75, oven: { door: 1, fire: 1 }, dawn: 0.6 });
+  const g = HS.gretel(c, { X: 0.2, Z: 3.1, fx: -0.15, small: 1, worry: 0.2, talk: talkAt(x.ln, x.lu), look: tr([[0, -0.6], [aw("L25", "show") - 0.4, -0.7], [aw("L25", "show") - 0.1, 0.25]], u), grin: u > aw("L25", "show") + 0.5 ? 1 : 0, blink: bl(u, 0.9) }, u);
   return r.back + r.light + HS.lit(g.svg, { shade: "#b0523a", a: 0.65, rim: "#ff9a3a", side: -1 });
 }, { vig: 0.9 });
 
-// 25  (no line) the witch leans into the oven, Gretel SHOVES, the iron door slams. Fast cuts; the music is out from the shove to one beat after the slam
-const OV25 = { x: -0.75, y: 1.2, z: 1.3 };
+// 25  the shove, fast: anticipation and lean 0.5 s / the shove 0.6 s / the door and the latch 0.5 s (A2). The witch's body is one rigid piece, clipped at the oven mouth as it goes in (B22, B23)
 const ovenRoom = (c, u, o = {}) => HS.room(c, u, { lamp: 0.2, red: 0.8, oven: { door: o.door ?? 1, fire: 1 }, dawn: 0.6 });
-shot("25a", "L25", () => LINE.L25.off + 0.1, (u) => {
-  const c = { ...OV25, z: 1.3 + u * 0.1 }, r = ovenRoom(c, u), sp = r.oven.spot;
-  const wi = HS.witch(c, { ...sp, dir: -1, sweet: 0, lean: lerp(0.4, 1, ease(clamp(u / 0.5))), bend: 0.3, eyeGlow: 0.6 }, u);
-  const g = HS.gretel(c, { X: sp.X + 0.85, Z: sp.Z - 0.05, fx: -0.7, small: 1, blink: 0 }, u);
-  return r.back + r.light + HS.lit(wi.svg, { shade: "#b0523a", a: 0.75, rim: "#ffb040", side: -1, w: 6 }) + HS.lit(g.svg, { shade: "#b0523a", a: 0.7, rim: "#ff9a3a", side: -1 });
+const witchRed = (wi) => HS.lit(wi.svg, { shade: "#b0523a", a: 0.75, rim: "#ffb040", side: -1, w: 6 });
+shot("25a", "L25", () => LINE.L25.off + 0.2, (u) => {
+  const c = { x: -0.45, y: 1.1, z: 1.9 }, r = ovenRoom(c, u), sp = r.oven.spot, e = ease(clamp(u / 0.45));
+  const wi = HS.witch(c, { ...sp, dir: -1, sweet: 0, lean: lerp(0.15, 1, e), bend: 0.3, eyeGlow: 0.6 }, u);
+  const g = HS.gretel(c, { X: sp.X + lerp(0.8, 0.62, e), Z: sp.Z - 0.05, fx: -0.7, small: 1 - e, blink: 0 }, u);
+  return r.back + r.light + witchRed(wi) + HS.lit(g.svg, { shade: "#b0523a", a: 0.7, rim: "#ff9a3a", side: -1 });
 }, { vig: 0.9 });
-shot("25b", "L25", () => LINE.L25.off + 0.1 + 0.62, (u) => {
-  const sh = ease(clamp(u / 0.18)), c = { x: -0.2, y: 1.0, z: 1.8 }, r = ovenRoom(c, u), sp = r.oven.spot;
-  const wi = HS.witch(c, { ...sp, dir: -1, sweet: 0, lean: 0.7, shoved: sh, bend: 0.3, eyeGlow: 0.6 }, u);
-  const g = HS.gretel(c, { X: sp.X + lerp(0.85, 0.5, sh), Z: sp.Z - 0.05, fx: -0.7, small: 1 - sh, shove: sh }, u);
-  return r.back + r.light + HS.lit(wi.svg, { shade: "#b0523a", a: 0.75, rim: "#ffb040", side: -1, w: 6 }) + HS.lit(g.svg, { shade: "#b0523a", a: 0.7, rim: "#ff9a3a", side: -1 });
+shot("25b", "L25", () => LINE.L25.off + 0.7, (u) => {
+  const sh = ease(clamp(u / 0.2)), go = ease(clamp((u - 0.15) / 0.4)), c = { x: -0.45, y: 1.1, z: 1.9 }, r = ovenRoom(c, u), sp = r.oven.spot, m = r.oven.mouth;
+  const wi = HS.witch(c, { X: sp.X - 0.8 * go, Z: sp.Z, dir: -1, sweet: 0, lean: 1, shoved: sh, bend: 0.3, eyeGlow: 0.6 }, u);
+  const g = HS.gretel(c, { X: sp.X + 0.62 - 0.55 * go * 0.5, Z: sp.Z - 0.05, fx: -0.7, shove: sh, worry: 0.2 }, u);
+  return r.back + r.light + `<clipPath id="hgcw"><rect x="${n(m.x)}" y="0" width="${W}" height="${H}"/></clipPath><g clip-path="url(#hgcw)">${witchRed(wi)}</g>` + HS.lit(g.svg, { shade: "#b0523a", a: 0.7, rim: "#ff9a3a", side: -1 });
 }, { vig: 0.9 });
-shot("25c", "L25", () => LINE.L25.off + 0.1 + 0.62 + 0.42, (u) => {
-  const c = { x: -0.5, y: 1.1, z: 1.4 }, door = 1 - ease(clamp(u / 0.12)), r = ovenRoom(c, u, { door });
-  const sp = r.oven.spot, g = HS.gretel(c, { X: sp.X + 0.7, Z: sp.Z - 0.05, fx: -0.7, shove: 1 - clamp(u / 0.3), worry: 0.2, grin: 1 }, u);
+shot("25c", "L25", () => LINE.L25.off + 1.3, (u) => {
+  const door = 1 - ease(clamp((u - 0.1) / 0.2)), c = { x: -0.45, y: 1.1, z: 1.9 }, r = ovenRoom(c, u, { door }), sp = r.oven.spot;
+  const g = HS.gretel(c, { X: sp.X + 0.55, Z: sp.Z - 0.05, fx: -0.7, shove: 1 - clamp(u / 0.3), worry: 0.2, grin: u > 0.3 ? 1 : 0 }, u);
   return r.back + r.light + HS.lit(g.svg, { shade: "#b0523a", a: 0.7, rim: "#ff9a3a", side: -1 });
 }, { vig: 0.9 });
 
-// 26  L26 Gretel unlocks the cage, the kid steps out
-shot("26a", "L26", -0.1, (u, x) => {
-  const c = { x: 0.1, y: 1.1, z: 0.0 + u * 0.1, h0: 1080 }, sb = HS.stable(c, u, { dawn: 0.5, dark: 0.6 });
-  const door = ease(clamp((u - 0.9) / 0.6)), cg = HS.cage(c, { X: 0.55, Z: 3.9, door });
-  const g = HS.gretel(c, { X: -0.5, Z: 3.7, fx: 0.7, worry: 0.2, blink: bl(u, 0.3), point: 0, shove: 0 }, u);
-  const k = K(c, { X: lerp(0.55, 0.0, ease(clamp((u - 1.3) / 0.9))), Z: 4.4, fx: -0.2, worry: lerp(1, 0.1, door), blink: bl(u) }, u, 0.25);
-  return sb.back + cg.back + sb.light + HS.lit(k.svg, { shade: "#6a6a88", a: 0.45, rim: "#ffc070", side: 1 }) + HS.lit(cg.front, { shade: "#6a6a88", a: 0.5, rimA: 0 }) + HS.lit(g.svg, { shade: "#6a6a88", a: 0.45, rim: "#9ac0ff", side: -1 }) + k.light;
+// 26  (L26 dropped) the rescue, 1.5 s: Gretel's hand at the lock, the gate swings, Hansel steps through (B24) / she scoops the pearls into her apron pocket (D5, B26)
+const PEARL = { X: -0.9, Z: 3.3 };
+shot("26a", "L25", () => LINE.L25.off + 1.8, (u) => {
+  const c = { x: 0.1, y: 1.1, z: 0.0 + u * 0.1, h0: 1080 }, sb = HS.stable(c, u, { dawn: 0.5, dark: 0.6 }), door = ease(clamp((u - 0.25) / 0.35)), cg = cage2(c, CG, door);
+  const g = HS.gretel(c, { X: CG.X - 0.85, Z: 3.7, fx: 0.7, worry: 0.2, blink: 0, holdTo: cg.lock }, u);
+  const st = ease(clamp((u - 0.45) / 0.35)), k = L.kid(c, { X: lerp(CG.X + 0.05, CG.X - 0.65, st), Z: lerp(4.4, 3.65, st), fx: -0.4, worry: lerp(1, 0.1, st), run: st > 0 && st < 1 ? u * 1.2 : null }, u);
+  return sb.back + lit(HS.cage(c, CG).back, { a: 0.5, rimA: 0 }) + sb.light + HS.lit(k.svg, { shade: "#6a6a88", a: 0.45, rim: "#ffc070", side: 1 }) + HS.lit(cg.front, { shade: "#6a6a88", a: 0.5, rimA: 0 }) + HS.lit(g.svg, { shade: "#6a6a88", a: 0.45, rim: "#9ac0ff", side: -1 });
 }, { vig: 0.9 });
-shot("26b", "L26", () => wordAt(LINE.L26, "gretel") - 0.2, (u, x) => {
-  const c = { x: 0.1, y: 1.05, z: 0.4 + u * 0.1, h0: 1060 }, sb = HS.stable(c, u, { dawn: 0.6, dark: 0.5 }), cg = HS.cage(c, { X: 0.9, Z: 4.2, door: 1 });
-  const g = HS.gretel(c, { X: -0.2, Z: 3.7, fx: 0.4, grin: 1, blink: bl(u, 0.5) }, u);
-  const k = K(c, { X: 0.45, Z: 3.7, fx: -0.25, grin: 1, blink: bl(u, 1.1) }, u, 0.9);
-  return sb.back + cg.back + cg.front + sb.light + HS.lit(k.svg, { shade: "#6a6a88", a: 0.4, rim: "#ffc070", side: 1 }) + HS.lit(g.svg, { shade: "#6a6a88", a: 0.4, rim: "#9ac0ff", side: -1 }) + k.light;
+shot("26b", "L25", () => LINE.L25.off + 2.6, (u) => {
+  const c = { x: -0.4, y: 1.0, z: 1.2 + u * 0.1, h0: 1060 }, sb = HS.stable(c, u, { dawn: 0.6, dark: 0.5 }), scoop = ease(clamp((u - 0.1) / 0.45));
+  const g = HS.gretel(c, { X: PEARL.X + 0.4, Z: PEARL.Z, fx: -0.7, small: scoop, worry: 0, blink: 0 }, u);
+  const k = L.kid(c, { X: PEARL.X + 1.1, Z: PEARL.Z + 0.3, fx: -0.6, grin: 1, blink: bl(u) }, u);
+  const pearls = scoop < 0.95 ? HS.pearls(P(c, PEARL.X, 0, PEARL.Z), { k: 1.6 * (1 - 0.8 * scoop) }) : "";
+  return sb.back + sb.light + pearls + HS.lit(k.svg, { shade: "#6a6a88", a: 0.4, rim: "#ffc070", side: 1 }) + HS.lit(g.svg, { shade: "#6a6a88", a: 0.4, rim: "#9ac0ff", side: -1 });
 }, { vig: 0.9 });
 
-// 27  L27 dawn forest: they run holding hands (the pearls rattle)
-const runPair = (c, u, X, Z, ph, o = {}) => {
-  const kst = { X: X + 0.45, Z, run: ph, fx: 0.7, grin: 1, blink: bl(u) }, k = K(c, kst, u, 0.2);
-  const g = HS.gretel(c, { X: X - 0.3, Z: Z + 0.05, run: ph + 0.5, fx: 0.7, grin: 1, holdTo: HS.kidHand(c, kst) }, u);
+// 27  L27 dawn: they run home hand in hand (feet planted: steps keep the ground speed, the inner hands joined), the sugar piece in his hand, the pearls in her pocket (D5, D6, B25-B27)
+const pocketPearls = (g) => { if (!g.p) return ""; const q = L.toScreen(g.p, 0, 6 * 0.8, -46 * 0.8), r = g.p.s / 100 * 1.5; return [[0, 0], [-r * 1.5, r * 0.7], [r * 1.2, r * 0.9]].map(([dx, dy], i) => `<circle cx="${n(q.x + dx)}" cy="${n(q.y + dy)}" r="${n(r)}" fill="${["#f6f0ff", "#ffe9f0", "#e9f6ff"][i]}" stroke="#9a9ab0" stroke-width="1"/>`).join(""); };
+const runPair = (c, u, X, Z, V, o = {}) => {
+  const kst = { X: X + 0.4, Z, run: kidF(V) * u, fx: 0.7, grin: 1, blink: bl(u) }, k = K(c, kst, u, 0, { jar: "none", piece: { hand: "R", rot: -20 } });
+  const g = HS.gretel(c, { X, Z: Z + 0.02, run: gretF(V) * u + 0.5, fx: 0.7, grin: 1, holdTo: HS.kidHand(c, kst) }, u);
   return { k, g };
 };
 shot("27a", "L27", -0.1, (u) => {
-  const c = { x: -1.0 + u * 2.0, y: 1.2, z: 0, h0: 1130 }, ph = u * 2.2, { k, g } = runPair(c, u, -0.9 + u * 2.0 + 0.9, 4.2, ph);
-  return fscene(c, u, { mood: 1, split: 3, water: HS.water(c, u, { z0: 6.2, z1: 13 }), cast: g.svg + k.svg, mid: HS.duck(P(c, 2.2, 0, 8.4), { k: 1.8 }, u) });
+  const V = 1.0, X = -1.2 + u * V, c = { x: X + 0.6, y: 1.2, z: 0, h0: 1130 }, { k, g } = runPair(c, u, X, 4.2, V);
+  return fscene(c, u, { mood: 1, split: 3, water: HS.water(c, u, { z0: 6.2, z1: 13 }), cast: g.svg + k.svg + pocketPearls(g), mid: HS.duck(P(c, 2.2, 0, 8.4), { k: 1.8 }, u) });
 }, { vig: 0.5 });
-shot("27b", "L27", () => wordAt(LINE.L27, "pockets") - 0.25, (u) => {
-  const c = { x: 0.5 + u * 1.7, y: 0.85, z: 0, h0: 1000 }, ph = u * 2.4, { k, g } = runPair(c, u, 0.0 + u * 1.7 + 0.2, 2.8, ph);
-  return fscene(c, u, { mood: 1, split: 3, cast: g.svg + k.svg, mid: HS.pearls(P(c, 3.4, 0, 3.6), { k: 1.5 }) });
+shot("27b", "L27", () => aw("L27", "pockets") - 0.25, (u) => {
+  const V = 1.0, X = 0.4 + u * V, c = { x: X + 0.5, y: 0.85, z: 0, h0: 1000 }, { k, g } = runPair(c, u, X, 2.8, V);
+  return fscene(c, u, { mood: 1, split: 3, cast: g.svg + k.svg + pocketPearls(g) });
 }, { vig: 0.5 });
-
-// 28  L28 the kid stops, sniffs; a crumb of sugar window in his hand (a flute and a smile)
+// 28  L28 he stops and sniffs, lifts the piece to his mouth before the reverse (B28)
 shot("28", "L28", -0.1, (u, x) => {
-  const c = { x: 0.1, y: 0.95, z: 1.6 + u * 0.08, h0: 1090 }, kst = { X: 0.15, Z: 3.2, fx: 0.35, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.6), worry: 0 };
-  const k = K(c, { ...kst, reachL: 0.9 }, u, 0.2), hnd = HS.kidHand(c, { ...kst, reachL: 0.9 });
-  const pc = HS.piece({ x: hnd.x - 6, y: hnd.y - 14, s: k.kd.p.s * 0.9 }, { rot: -14, k: 0.55 });
-  return fscene(c, u, { mood: 1, split: 3, cast: k.svg + pc });
+  const c = { x: 0.1, y: 0.95, z: 1.6 + u * 0.08, h0: 1090 };
+  const k = K(c, { X: 0.15, Z: 3.2, fx: 0.35, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.6), worry: 0, hand2face: ease(clamp((x.lu - 0.3) / 0.5)), lean: 2 + sw(u, 2.2, 1.2) }, u, 0, { jar: "none", piece: { hand: "R", rot: -10, bitten: x.lu > 0.6 ? 1 : 0 } });
+  return fscene(c, u, { mood: 1, split: 3, cast: k.svg });
 }, { vig: 0.5 });
 // 29  L29 Gretel close, deadpan
 shot("29", "L29", -0.1, (u, x) => {
@@ -469,20 +535,24 @@ shot("29", "L29", -0.1, (u, x) => {
   const g = HS.gretel(c, { X: 0.0, Z: 3.3, fx: 0.0, worry: 0, talk: talkAt(x.ln, x.lu), blink: bl(u, 2.0), look: 0 }, u);
   return fscene(c, u, { mood: 1, split: 3, cast: g.svg });
 }, { vig: 0.5 });
-// 30  L30 the kid turns around, chewing, cheeks full; cut right after "turning"
+// 30  L30 he turns around chewing: the shoulders and the planted feet start the pivot (the body narrows through the turn), the head follows; picture through the last sound + 0.15 s (B29, B30)
 shot("30", "L30", -0.15, (u, x) => {
-  const c = { x: 0.0, y: 0.95, z: 1.8 + u * 0.05, h0: 1100 }, turn = ease(clamp((u - 0.15) / 0.8));
-  const chew = clamp(Math.abs(Math.sin(u * 14)) * 0.5) * (u > 0.9 ? 0.2 : 1), k = K(c, { X: 0.0, Z: 3.3, fx: lerp(0.7, -0.7, turn), talk: Math.max(chew, talkAt(x.ln, x.lu)), grin: 0, worry: 0.3 * turn, blink: bl(u, 0.7) }, u, 0.2);
-  return fscene(c, u, { mood: 1, split: 3, cast: k.svg });
+  const c = { x: 0.0, y: 0.95, z: 1.8 + u * 0.05, h0: 1100 }, tn = ease(clamp((u - 0.12) / 0.9)), sx = 1 - 0.5 * Math.sin(Math.PI * tn);
+  const chew = clamp(Math.abs(Math.sin(u * 14)) * 0.5) * (u > 1.2 ? 0.2 : 1);
+  const k = K(c, { X: 0.0, Z: 3.3, fx: lerp(0.7, -0.7, clamp(tn * 1.3)), hand2face: 0.9, talk: Math.max(chew, talkAt(x.ln, x.lu)), worry: 0.3 * tn, blink: bl(u, 0.7), lean: -3 * Math.sin(Math.PI * tn) }, u, 0, { jar: "none", piece: { hand: "R", rot: -10, bitten: 1 } });
+  const px = k.kd.p.x;
+  return fscene(c, u, { mood: 1, split: 3, cast: `<g transform="translate(${n(px)},0) scale(${sx.toFixed(3)},1) translate(${n(-px)},0)">${k.svg}</g>` });
 }, { vig: 0.5 });
 
-// ---------------------------------------------------------------- the glimpse (re-hook): the open oven in red fire light, blurred and dark, then hard back
-const GLIMPSES = [{ at: 2.4, frames: 6, blur: "gb", dark: 0.5, witch: false }, { shot: "17b", frames: 12, blur: "gb2", dark: 0.22, witch: true }];   // 2nd: ~40 s, "She smelled him first" (the director's ~40 s falls on L17/L18 in this cut)
+// ---------------------------------------------------------------- the glimpses (re-hooks): the open oven in red fire light, blurred and dark, then hard back
+// 1) 2.4 s, 6 frames, the first look.  2) the house reveal (B15: not during the smell reversal): 12 frames in the gap after "clear sugar", cropped to the glowing mouth
+const GLIMPSES = [{ at: 2.4, frames: 6, blur: "gb", dark: 0.5, zoom: 1 }, { line: "L12", off: -0.12, frames: 12, blur: "gb2", dark: 0.22, zoom: 2.3, witch: true }];
 function glimpse(t, g) {
   const u = (t - g.at) * FPS, k = u / g.frames, c = { x: -0.75, y: 1.2, z: 1.3 + u * 0.01 };
-  const r = HS.room(c, t, { lamp: 0.1, red: 0.9, oven: { door: 1, fire: 1 }, dawn: 0.2 }), sp = r.oven.spot;
+  const r = HS.room(c, t, { lamp: 0.1, red: 0.9, oven: { door: 1, fire: 1 }, dawn: 0.2 }), sp = r.oven.spot, m = r.oven.mouth;
   const wi = g.witch ? HS.lit(HS.witch(c, { ...sp, dir: -1, sweet: 0, lean: 1, bend: 0.3, eyeGlow: 0.6 }, t).svg, { shade: "#b0523a", a: 0.75, rim: "#ffb040", side: -1, w: 6 }) : "";
-  return `<g filter="url(#${g.blur})">${r.back + r.light + wi}</g><rect width="${W}" height="${H}" fill="#02030a" opacity="${(g.dark + 0.15 * Math.sin(k * Math.PI)).toFixed(2)}"/>`;
+  const zz = lerp(1, g.zoom, 1), tf = g.zoom > 1 ? `translate(${n(W / 2)},${n(H * 0.5)}) scale(${zz}) translate(${n(-m.x)},${n(-m.y)})` : "";
+  return `<g filter="url(#${g.blur})"><g transform="${tf}">${r.back + r.light + wi}</g></g><rect width="${W}" height="${H}" fill="#02030a" opacity="${(g.dark + 0.15 * Math.sin(k * Math.PI)).toFixed(2)}"/>`;
 }
 
 // ---------------------------------------------------------------- timeline
@@ -490,12 +560,13 @@ for (const s of SHOTS) {
   const ln = LINE[s.line], o = typeof s.off === "function" ? s.off() : s.off;
   s.at = Math.max(0, ln.at + o);
 }
+SHOTS.sort((a, b) => a.at - b.at);
 SHOTS.forEach((s, i) => { s.end = i + 1 < SHOTS.length ? SHOTS[i + 1].at : DUR; });
 export const TIMELINE = SHOTS;
-for (const g of GLIMPSES) if (g.shot) g.at = SHOTS.find((q) => q.id === g.shot).at;
+for (const g of GLIMPSES) if (g.line) g.at = LINE[g.line].end + g.off;
 export const BANNER_END = Math.min(3.0, SHOTS.find((s) => s.id === "2").at - 0.02);   // the lib default (0-3 s): gone before the first cut after 2.6 s
-const slamShot = SHOTS.find((s) => s.id === "25c"), shoveShot = SHOTS.find((s) => s.id === "25b");
-CUE.shove = shoveShot.at + 0.1; CUE.slam = slamShot.at + 0.05;
+const sh25b = SHOTS.find((s) => s.id === "25b"), sh25c = SHOTS.find((s) => s.id === "25c");
+CUE.shove = sh25b.at + 0.05; CUE.slam = sh25c.at + 0.28;
 const lineAtTime = (t) => { let k = null; for (const id of ORDER) { const ln = LINE[id]; if (t >= ln.at - 0.25) k = ln; } return k; };
 
 function captions(t, y) {
