@@ -1,0 +1,3055 @@
+{
+ "id": "street-bench",
+ "title": "Street bench (altbau)",
+ "idea": "Props bench for Country vs Country 02: the block of flats with its lace, eyes, windows and balcony; not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#a9d4f2",
+  "floor": "none",
+  "light": "sun",
+  "para": 0,
+  "aperture": 0,
+  "shadow": {
+   "size": 20
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   1,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   2,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   3,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   4,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   5,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   6,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   7,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   8,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   9,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   10,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ],
+  [
+   11,
+   {
+    "s": 1,
+    "w": -0.15,
+    "c": 1.04
+   }
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "flatsL"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -9.25,
+    -0.1
+   ],
+   "y": 0.1,
+   "face": 90,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "spud12",
+   "character": "potatobrawl/spud",
+   "at": [
+    -7.36,
+    -0.1
+   ],
+   "y": 0,
+   "face": 90,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "sky",
+   "kind": "shsky",
+   "time": "a",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "flatsL",
+   "staged": "the retiree's block across the road",
+   "kind": "altbau",
+   "x": -14,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "look": "rose",
+   "d": 1.2,
+   "watch": [
+    -9.25,
+    0.77,
+    -0.1
+   ],
+   "solo": "1-5",
+   "soloOpen": 0,
+   "soloBlow": 0,
+   "part": 0,
+   "peek": 0,
+   "open": 0,
+   "from": 5,
+   "skip": [
+    "1-5",
+    "1-6"
+   ]
+  },
+  {
+   "id": "flatsR",
+   "staged": "the far block behind you",
+   "kind": "altbau",
+   "x": -0.6,
+   "y": 0,
+   "z": 0,
+   "rot": -90,
+   "look": "butter",
+   "d": 0.6,
+   "back": "none",
+   "solo": "1-4",
+   "soloPart": 0,
+   "part": 0,
+   "peek": 0,
+   "open": 0,
+   "watch": [
+    -9.25,
+    0.77,
+    -0.1
+   ]
+  },
+  {
+   "id": "forecourt",
+   "kind": "flagway",
+   "w": 22,
+   "d": 5,
+   "h": 0.1,
+   "rot": 90,
+   "x": -11.5,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "kerb",
+   "kind": "kerb",
+   "x0": -11,
+   "x1": 11,
+   "h": 0.1,
+   "seed": 3,
+   "rot": 90,
+   "x": -9,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "road",
+   "kind": "street",
+   "w": 2.6,
+   "d": 22,
+   "slope": 0,
+   "rot": 90,
+   "x": -7.7,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "island",
+   "kind": "flagway",
+   "w": 22,
+   "d": 1.2,
+   "h": 0.1,
+   "rot": 90,
+   "x": -5.8,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "buslane",
+   "kind": "street",
+   "w": 2.2,
+   "d": 22,
+   "slope": 0,
+   "rot": 90,
+   "x": -4.1,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "farpave",
+   "kind": "flagway",
+   "w": 22,
+   "d": 2.4,
+   "h": 0.1,
+   "rot": 90,
+   "x": -1.8,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "w1box",
+   "staged": "the retiree's real flower box on W1's sill",
+   "kind": "flowerbox",
+   "x": -13.92,
+   "y": 1.73,
+   "z": 0.675,
+   "w": 0.9,
+   "rot": 90,
+   "flower": "#d8352b"
+  },
+  {
+   "id": "flag",
+   "staged": "on the balcony rail",
+   "kind": "miniflag",
+   "flag": "de",
+   "x": -13.45,
+   "y": 2.05,
+   "z": -0.675,
+   "scale": 2.7,
+   "tip": 35,
+   "rot": 90
+  },
+  {
+   "id": "old0",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": 2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "bun",
+   "glasses": 1,
+   "color": "#b98aa0",
+   "h": 0.88
+  },
+  {
+   "id": "old1",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": 0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#4f5a52",
+   "glasses": 1,
+   "color": "#a9856a",
+   "h": 0.83
+  },
+  {
+   "id": "old2",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -13.75,
+   "y": -60,
+   "z": -0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#5f6b78",
+   "glasses": 1,
+   "color": "#7f8f6a",
+   "h": 0.92
+  },
+  {
+   "id": "old3",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": -2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#75695a",
+   "color": "#9aa7b5",
+   "h": 0.9
+  },
+  {
+   "id": "old4",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": 2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#4f5a52",
+   "color": "#c9a66b",
+   "h": 0.92
+  },
+  {
+   "id": "old5",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": 0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "bun",
+   "glasses": 1,
+   "color": "#8c6f8a",
+   "h": 0.86
+  },
+  {
+   "id": "old6",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": -0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#6b6257",
+   "glasses": 1,
+   "color": "#d6c39c",
+   "h": 0.9
+  },
+  {
+   "id": "old7",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": -2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "tufts",
+   "glasses": 1,
+   "color": "#7a8fa0",
+   "h": 0.88
+  },
+  {
+   "id": "old8",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": 2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "bun",
+   "color": "#a8504a",
+   "h": 0.86
+  },
+  {
+   "id": "old9",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": 0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#5a4030",
+   "glasses": 1,
+   "color": "#8fa08a",
+   "h": 0.92
+  },
+  {
+   "id": "old10",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": -0.675,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hat": 3,
+   "capColor": "#75695a",
+   "color": "#b9b4aa",
+   "h": 0.9
+  },
+  {
+   "id": "old11",
+   "staged": "an old neighbour in a window (hidden until the payoff)",
+   "kind": "streetpotato",
+   "x": -14.22,
+   "y": -60,
+   "z": -2.025,
+   "rot": 90,
+   "dress": "cardigan",
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "angry": 0,
+   "feet": false,
+   "clapHz": 1,
+   "clapFrom": 0,
+   "raise": 0,
+   "lean": 0,
+   "hair": "bun",
+   "glasses": 1,
+   "color": "#c8a0a8",
+   "h": 0.88
+  },
+  {
+   "id": "watcher",
+   "staged": "behind the lace of BW",
+   "kind": "streetpotato",
+   "x": -0.22,
+   "y": -60,
+   "z": 2.025,
+   "rot": -90,
+   "h": 0.9,
+   "hat": 3,
+   "capColor": "#4f5a52",
+   "dress": "cardigan",
+   "color": "#6f6457",
+   "raise": 1,
+   "skin": "#f9b75c",
+   "brow": "#b9b4aa",
+   "feet": false
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1,
+     0.25,
+     -0.1
+    ],
+    "look": [
+     -7.36,
+     2.13,
+     -0.1
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "soloOpen": 0,
+      "soloBlow": 0,
+      "part": 0,
+      "peek": 0,
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "soloPart": 0,
+      "part": 0,
+      "peek": 0,
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "show",
+     "at": 0
+    }
+   ],
+   "kind": "cam 12, all closed"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1,
+     0.25,
+     -0.1
+    ],
+    "look": [
+     -7.36,
+     2.13,
+     -0.1
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 1,
+      "peek": 1,
+      "open": 0,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 1,
+      "peek": 1,
+      "open": 0,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "show",
+     "at": 0
+    }
+   ],
+   "kind": "cam 12, lace parted, eyes peeking"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1,
+     0.25,
+     -0.1
+    ],
+    "look": [
+     -7.36,
+     2.13,
+     -0.1
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 1,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 1,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": 1.45,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": 1.45,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": 1.45,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": 1.45,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": 2.6,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": 2.6,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": 2.6,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": 2.6,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": 3.75,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": 3.75,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": 3.75,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": 3.75,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "show",
+     "at": 0
+    }
+   ],
+   "kind": "cam 12, every window open, 12 clapping neighbours"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1,
+     0.25,
+     -0.1
+    ],
+    "look": [
+     -9.25,
+     2.66,
+     -0.1
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "cam 09, all closed"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1,
+     0.25,
+     -0.1
+    ],
+    "look": [
+     -9.25,
+     2.66,
+     -0.1
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 1,
+      "peek": 1,
+      "open": 0,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 1,
+      "peek": 1,
+      "open": 0,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "cam 09, lace parted, eyes peeking"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1,
+     0.25,
+     -0.1
+    ],
+    "look": [
+     -9.25,
+     2.66,
+     -0.1
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0.45,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0.45,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": 1.45,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": 1.45,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": 1.45,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": 1.45,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": 2.6,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": 2.6,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": 2.6,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": 2.6,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": 3.75,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": 3.75,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": 3.75,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": 3.75,
+      "lean": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "cam 09, wave half way (open 0.45)"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.2,
+     0.6,
+     0.1
+    ],
+    "look": [
+     -9.25,
+     1.33,
+     0.1
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloOpen": 1,
+      "soloBlow": 0.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "cam 01, W1 swinging open, lace blowing"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -11,
+     0.7,
+     -0.5
+    ],
+    "look": [
+     -13.9,
+     2.05,
+     0.675
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloOpen": 1,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "cam 02 low on W1 (real flowerbox)"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -6.6,
+     0.95,
+     2.6
+    ],
+    "look": [
+     -0.6,
+     2.08,
+     2.025
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloPart": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": 1.45
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "cam 07, BW lace parted, the watcher"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -10.5,
+     1.3,
+     2.8
+    ],
+    "look": [
+     -14,
+     1.8,
+     -0.2
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "balcony and door from the forecourt"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -11.5,
+     1.2,
+     -4
+    ],
+    "look": [
+     -14,
+     1,
+     -5.3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0,
+      "peek": 0,
+      "open": 0,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "ground floor, door, steps (forecourt)"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -6,
+     0.8,
+     5
+    ],
+    "look": [
+     -14,
+     4.6,
+     3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "flatsL",
+     "set": {
+      "part": 0.5,
+      "peek": 0,
+      "open": 0,
+      "soloOpen": 0,
+      "soloBlow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flatsR",
+     "set": {
+      "part": 0.5,
+      "peek": 0,
+      "open": 0,
+      "soloPart": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "watcher",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old0",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old1",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old2",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old3",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old4",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old5",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old6",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old7",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old8",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old9",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old10",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "old11",
+     "set": {
+      "y": -60,
+      "lean": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud12",
+     "do": "hide",
+     "at": 0
+    }
+   ],
+   "kind": "roof, cornice (low, near)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/country-vs-country/02-traffic-light/bench/make-bench-street.mjs (props bench, no reviews)."
+}

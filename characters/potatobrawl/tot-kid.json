@@ -1,0 +1,64 @@
+{
+  "id": "potatobrawl/tot-kid",
+  "name": "The kid in the red raincoat",
+  "franchise": "PotatoBrawl",
+  "source": "potatobrawl/tot, shrunk and re-dressed for Country vs Country 02 \"Waiting at a red light\" (storyboards/series/country-vs-country/02-traffic-light/DESIGN.md section 6). A variant file like spud-kid.json, not the cast scale key: gloves and limbs keep full size.",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.44,
+    "width": 0.46,
+    "depth": 0.4,
+    "lump": 0.02,
+    "seed": 87,
+    "taper": 0.04
+  },
+  "limbs": {
+    "color": "#8f2a22",
+    "width": 0.032,
+    "shoulder": -0.32
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1.1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.06,
+      "thick": 0.7
+    },
+    "size": 0.62
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none"
+  },
+  "costume": {
+    "type": "raincoat",
+    "coat": "#c8352b",
+    "rim": "#d8453a",
+    "toggle": "#f2c230"
+  },
+  "personality": "A tiny kid in a red raincoat, hood up, who waits at the red light beside Spud and stares at him, disapproving, without a word. Brows 12 deg down, mouth flat, lids 0.25, no blink. She never speaks.",
+  "voiceNote": "silent in the clip; no voice, no tts",
+  "hands": {
+    "type": "glove",
+    "size": 1.0,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "The kid (Country vs Country 02, panels 4, 9, 12). Body 0.46 x 0.44 x 0.40 stands 0.60 = 0.59 of Spud (hood top 0.64); face size 0.62, eye 1.10, hands 1.0; limbs #8f2a22 are her red rubber boots (the limb's end, no extra mesh); no sprout (the hood is up). Costume `raincoat` in engine/page/costumes-raincoat.js (USAGE header there)."
+}
