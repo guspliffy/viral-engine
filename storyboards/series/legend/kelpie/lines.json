@@ -1,0 +1,228 @@
+{
+ "_about": "Legend: The Kelpie (Loch Sunart), lines for H1+E1 (Jonny picked 27 Nov 23:34 Berlin). Speakers: N narrator, G grandmother, K kid, A village kid. Frame 0 = kelpie kneeling in the loch; last shot = Grandma's nine-finger hand on L28.",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "engine/voice/targets/legend-grandma-ref.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "engine/voice/targets/legend-kid-ref.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction",
+   "steps": 25,
+   "cfg": 3.0,
+   "af": "highpass=f=110,equalizer=f=650:t=q:w=1.2:g=-5,treble=g=12:f=2200,equalizer=f=5000:t=q:w=1:g=4",
+   "_af": "ep1 kid EQ, applied up front (wolf video: 7 of its kid takes read MUFFLED)",
+   "gain_db": 3.5
+  },
+  "A": {
+   "ref": "engine/voice/targets/chip-ref.wav",
+   "style": "a cheeky eleven-year-old village boy, loud, natural child actor",
+   "_note": "ref to confirm by ear"
+  }
+ },
+ "lines": [
+  [
+   "L01",
+   "G",
+   "If a horse kneels for you, don't touch it.",
+   "low, stern, urgent"
+  ],
+  [
+   "L02",
+   "K",
+   "Not even with one finger?",
+   "nervous, curious, clear and bright"
+  ],
+  [
+   "L03",
+   "G",
+   "Especially not one finger.",
+   "dry, grim"
+  ],
+  [
+   "L04",
+   "N",
+   "Loch Sunart, Scotland. Eleven at night. Three kids from the village found it waiting in the water.",
+   ""
+  ],
+  [
+   "L05",
+   "A",
+   "Dare you to ride it!",
+   "cheeky, excited, shouting across the water"
+  ],
+  [
+   "L06",
+   "N",
+   "It knelt. The first one climbed on. Then the second. Then the third.",
+   ""
+  ],
+  [
+   "L07",
+   "N",
+   "And its back grew longer with every child.",
+   "slow, eerie"
+  ],
+  [
+   "L08",
+   "K",
+   "Horses don't do that.",
+   "quiet, uneasy, slow, trailing off"
+  ],
+  [
+   "L09",
+   "G",
+   "Never touch it. And if you ever do, find the bridle.",
+   "whisper, a memory"
+  ],
+  [
+   "L10",
+   "N",
+   "But the horse turned its wet face to him. And waited.",
+   ""
+  ],
+  [
+   "L11",
+   "K",
+   "Just to be polite.",
+   "small, unsure"
+  ],
+  [
+   "L12",
+   "N",
+   "One finger. On its nose.",
+   "slow, tense"
+  ],
+  [
+   "L13",
+   "K",
+   "It's sticky. It's sticky!",
+   "rising panic"
+  ],
+  [
+   "L14",
+   "N",
+   "In Scotland they call it the kelpie, and every loch has one.",
+   "low, grim"
+  ],
+  [
+   "L15",
+   "A",
+   "I can't get off! My hands won't let go!",
+   "terrified, screaming"
+  ],
+  [
+   "L16",
+   "N",
+   "Then the kelpie turned, and walked into the loch.",
+   ""
+  ],
+  [
+   "L17",
+   "K",
+   "No, no, no, wait!",
+   "panicked"
+  ],
+  [
+   "L18",
+   "N",
+   "Water to his knees. To his chest. The kids on its back screamed.",
+   "fast, urgent"
+  ],
+  [
+   "L19",
+   "N",
+   "Under the mane, his free hand found something. Cold. Braided. Little silver rings.",
+   "hushed"
+  ],
+  [
+   "L20",
+   "K",
+   "Find the bridle.",
+   "breathless whisper"
+  ],
+  [
+   "L21",
+   "N",
+   "He pulled. Hard.",
+   "sharp"
+  ],
+  [
+   "L22",
+   "N",
+   "The kelpie froze. Then it knelt, in the water. For him.",
+   "slow, amazed"
+  ],
+  [
+   "L23",
+   "N",
+   "The kids slid off. His finger came loose.",
+   "relieved"
+  ],
+  [
+   "L24",
+   "K",
+   "Now you carry us home.",
+   "shaky but bold"
+  ],
+  [
+   "L25",
+   "N",
+   "Midnight. Grandma's door.",
+   ""
+  ],
+  [
+   "L26",
+   "G",
+   "I said never touch it!",
+   "sharp, furious"
+  ],
+  [
+   "L27",
+   "K",
+   "I didn't touch it. I own it.",
+   "proud, cheeky"
+  ],
+  [
+   "L28",
+   "G",
+   "That's what I said too.",
+   "quiet, slow, chilling"
+  ]
+ ],
+ "captions": {
+  "L01": "If a horse kneels for you,|don't touch it.",
+  "L02": "Not even|with one finger?",
+  "L03": "Especially not|one finger.",
+  "L04": "Loch Sunart, Scotland.|Eleven at night.|Three kids from the village|found it waiting|in the water.",
+  "L05": "Dare you|to ride it!",
+  "L06": "It knelt.|The first one climbed on.|Then the second.|Then the third.",
+  "L07": "And its back grew longer|with every child.",
+  "L08": "Horses|don't do that.",
+  "L09": "Never touch it.|And if you ever do,|find the bridle.",
+  "L10": "But the horse turned|its wet face to him.|And waited.",
+  "L11": "Just|to be polite.",
+  "L12": "One finger.|On its nose.",
+  "L13": "It's sticky.|It's STICKY!",
+  "L14": "In Scotland|they call it the kelpie,|and every loch|has one.",
+  "L15": "I can't get off!|My hands|won't let go!",
+  "L16": "Then the kelpie turned,|and walked|into the loch.",
+  "L17": "No, no, no,|wait!",
+  "L18": "Water to his knees.|To his chest.|The kids on its back|screamed.",
+  "L19": "Under the mane,|his free hand|found something.|Cold. Braided.|Little silver rings.",
+  "L20": "Find|the bridle.",
+  "L21": "He pulled.|Hard.",
+  "L22": "The kelpie froze.|Then it knelt,|in the water.|For him.",
+  "L23": "The kids slid off.|His finger|came loose.",
+  "L24": "Now you|carry us home.",
+  "L25": "Midnight.|Grandma's door.",
+  "L26": "I said|never touch it!",
+  "L27": "I didn't touch it.|I OWN it.",
+  "L28": "That's what|I said too."
+ },
+ "_order": "Board order (Sol r0 note): L01, L04, L02, L03, L05, then L06 on."
+}

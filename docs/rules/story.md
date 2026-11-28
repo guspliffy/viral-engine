@@ -117,6 +117,8 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **No lettering burned into the video** (Jonny, 25 Nov 2026, every video): no 0 s label, hook statement, title or
   other caption lettering of our own in the render. He adds it by hand in TikTok, and asks when a YouTube cut needs
   it. Write the text in the post pack ("Label at 0 s, add in TikTok"). The subtitles of spoken lines stay.
+  **No opening story banner either** (Jonny, 28 Nov 2026): the title-banner trial on the legend videos ended, his
+  data shows banner videos perform way worse. Legends open on the threat and the subtitles only.
 - **Build the video around its hook** (18 Nov, ON TRIAL on four videos; a rule only once finished videos prove it):
   the hook, the curiosity gap and the ending matter most, and the story is built between them. Write in this order:
   (1) a statement for the first 3 s (in the post pack, Jonny letters it in TikTok) and the caption question about the same thing, both opening ONE gap
