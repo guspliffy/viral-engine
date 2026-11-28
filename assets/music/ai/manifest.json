@@ -2460,6 +2460,480 @@
      "loudnessLUFS": -16.0
     }
    ]
+  },
+  {
+   "id": "hg-open",
+   "kind": "music",
+   "files": [
+    "hg-open/hg-open-01.ogg",
+    "hg-open/hg-open-02.ogg",
+    "hg-open/hg-open-03.ogg",
+    "hg-open/hg-open-04.ogg"
+   ],
+   "tags": [
+    "tense"
+   ],
+   "mood": "tense",
+   "bpm": 67.0,
+   "bars": 1,
+   "key": null,
+   "askedBpm": 72,
+   "loopable": false,
+   "durationSec": 6.066,
+   "prompt": [
+    "Quiet German folk horror underscore under narration, close dry zither plucking a D-A open fifth in slow 6/8, low bowed solo cello holding D, intimate live recording, night forest unease, no percussion, no synths, no vocals, no choir",
+    "Sparse acoustic underscore, intimate zither pluck on an open fifth and a low cello drone, slow cradle-song 6/8, eerie and tender, live recording, no percussion, no synths, no vocals, no choir"
+   ],
+   "seed": [
+    1501,
+    1502,
+    1501,
+    1502
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "hg-open/hg-open-01.ogg",
+     "seed": 1501,
+     "durationSec": 8.057,
+     "bars": 2,
+     "bpm": 59.6,
+     "beatSpread": 0.05,
+     "steadyBeat": true,
+     "clap": 0.08,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-open/hg-open-02.ogg",
+     "seed": 1502,
+     "durationSec": 5.689,
+     "bars": 2,
+     "bpm": 84.4,
+     "beatSpread": 0.028,
+     "steadyBeat": true,
+     "clap": 0.001,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-open/hg-open-03.ogg",
+     "seed": 1501,
+     "durationSec": 6.444,
+     "bars": 2,
+     "bpm": 74.5,
+     "beatSpread": 0.141,
+     "steadyBeat": false,
+     "clap": 0.005,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-open/hg-open-04.ogg",
+     "seed": 1502,
+     "durationSec": 5.631,
+     "bars": 1,
+     "bpm": 42.6,
+     "beatSpread": 0.068,
+     "steadyBeat": false,
+     "clap": 0.033,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "hg-forest",
+   "kind": "music",
+   "files": [
+    "hg-forest/hg-forest-01.ogg",
+    "hg-forest/hg-forest-02.ogg",
+    "hg-forest/hg-forest-03.ogg",
+    "hg-forest/hg-forest-04.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 57.2,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 72,
+   "loopable": false,
+   "durationSec": 8.388,
+   "prompt": [
+    "Sparse German forest folk underscore, dry zither broken fifths in D minor, slow 6/8 cradle-song lilt, one distant French horn note far away, cold night, live acoustic recording, no percussion, no synths, no vocals, no choir",
+    "Quiet acoustic underscore, zither in D minor slow 6/8, soft hammered dulcimer touches, a distant horn, lonely dark forest, live recording, no percussion, no synths, no vocals, no choir"
+   ],
+   "seed": [
+    1511,
+    1512,
+    1511,
+    1512
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "hg-forest/hg-forest-01.ogg",
+     "seed": 1511,
+     "durationSec": 7.686,
+     "bars": 2,
+     "bpm": 62.5,
+     "beatSpread": 0.067,
+     "steadyBeat": false,
+     "clap": -0.06,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-forest/hg-forest-02.ogg",
+     "seed": 1512,
+     "durationSec": 8.417,
+     "bars": 2,
+     "bpm": 57.0,
+     "beatSpread": 0.089,
+     "steadyBeat": false,
+     "clap": -0.057,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-forest/hg-forest-03.ogg",
+     "seed": 1511,
+     "durationSec": 8.394,
+     "bars": 2,
+     "bpm": 57.2,
+     "beatSpread": 0.093,
+     "steadyBeat": false,
+     "clap": -0.095,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-forest/hg-forest-04.ogg",
+     "seed": 1512,
+     "durationSec": 8.382,
+     "bars": 2,
+     "bpm": 57.3,
+     "beatSpread": 0.047,
+     "steadyBeat": true,
+     "clap": 0.004,
+     "loudnessLUFS": -16.9
+    }
+   ]
+  },
+  {
+   "id": "hg-sweet",
+   "kind": "music",
+   "files": [
+    "hg-sweet/hg-sweet-01.ogg",
+    "hg-sweet/hg-sweet-02.ogg",
+    "hg-sweet/hg-sweet-03.ogg",
+    "hg-sweet/hg-sweet-04.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 71.8,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 72,
+   "loopable": false,
+   "durationSec": 10.09,
+   "prompt": [
+    "Tender music-box celesta lullaby in D major, slow 6/8, over a soft zither open fifth, lovely but slightly wrong, a hair out of time, intimate, no percussion, no synths, no vocals, no choir",
+    "Sweet celesta cradle song in D major, slow 6/8, gentle zither, warm candlelit cottage, lovely with a faint unease, solo instruments, no percussion, no synths, no vocals, no choir"
+   ],
+   "seed": [
+    1521,
+    1522,
+    1521,
+    1522
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "hg-sweet/hg-sweet-01.ogg",
+     "seed": 1521,
+     "durationSec": 13.259,
+     "bars": 4,
+     "bpm": 72.4,
+     "beatSpread": 0.026,
+     "steadyBeat": true,
+     "clap": 0.041,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-sweet/hg-sweet-02.ogg",
+     "seed": 1522,
+     "durationSec": 13.468,
+     "bars": 4,
+     "bpm": 71.3,
+     "beatSpread": 0.064,
+     "steadyBeat": false,
+     "clap": 0.196,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-sweet/hg-sweet-03.ogg",
+     "seed": 1521,
+     "durationSec": 6.92,
+     "bars": 2,
+     "bpm": 69.4,
+     "beatSpread": 0.02,
+     "steadyBeat": true,
+     "clap": -0.062,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-sweet/hg-sweet-04.ogg",
+     "seed": 1522,
+     "durationSec": 6.653,
+     "bars": 2,
+     "bpm": 72.2,
+     "beatSpread": 0.003,
+     "steadyBeat": true,
+     "clap": -0.031,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "hg-hunger",
+   "kind": "music",
+   "files": [
+    "hg-hunger/hg-hunger-01.ogg",
+    "hg-hunger/hg-hunger-02.ogg",
+    "hg-hunger/hg-hunger-03.ogg",
+    "hg-hunger/hg-hunger-04.ogg"
+   ],
+   "tags": [
+    "dread"
+   ],
+   "mood": "dread",
+   "bpm": 79.5,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 72,
+   "loopable": false,
+   "durationSec": 10.379,
+   "prompt": [
+    "Recorded orchestral horror strings, cello and viola in D minor, slow 6/8 pulse, cello sliding flat, audible bow scrape, violins slowly sliding up, creeping dread, live orchestra, no percussion, no synths, no vocals, no choir",
+    "Live chamber strings horror underscore, low cello and viola D minor ostinato, detuned slides, bow noise, menacing and hungry, slow 6/8, no percussion, no synths, no vocals, no choir"
+   ],
+   "seed": [
+    1531,
+    1532,
+    1531,
+    1532
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "hg-hunger/hg-hunger-01.ogg",
+     "seed": 1531,
+     "durationSec": 11.865,
+     "bars": 4,
+     "bpm": 80.9,
+     "beatSpread": 0.079,
+     "steadyBeat": false,
+     "clap": 0.01,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-hunger/hg-hunger-02.ogg",
+     "seed": 1532,
+     "durationSec": 8.893,
+     "bars": 4,
+     "bpm": 107.9,
+     "beatSpread": 0.099,
+     "steadyBeat": false,
+     "clap": -0.011,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-hunger/hg-hunger-03.ogg",
+     "seed": 1531,
+     "durationSec": 12.295,
+     "bars": 4,
+     "bpm": 78.1,
+     "beatSpread": 0.051,
+     "steadyBeat": true,
+     "clap": -0.167,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-hunger/hg-hunger-04.ogg",
+     "seed": 1532,
+     "durationSec": 8.452,
+     "bars": 2,
+     "bpm": 56.8,
+     "beatSpread": 0.071,
+     "steadyBeat": false,
+     "clap": -0.164,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "hg-oven",
+   "kind": "music",
+   "files": [
+    "hg-oven/hg-oven-01.ogg",
+    "hg-oven/hg-oven-02.ogg",
+    "hg-oven/hg-oven-03.ogg",
+    "hg-oven/hg-oven-04.ogg"
+   ],
+   "tags": [
+    "dread"
+   ],
+   "mood": "dread",
+   "bpm": 114.8,
+   "bars": 1,
+   "key": null,
+   "askedBpm": 72,
+   "loopable": false,
+   "durationSec": 8.295,
+   "prompt": [
+    "Tense live strings, low cello pulse doubling its subdivision, D minor, building pressure, dry and close, red firelight dread, slow 6/8, no percussion, no synths, no vocals, no choir",
+    "Recorded cello and viola pulse in D minor, quickening subdivision, held tension, close live recording, no percussion, no synths, no vocals, no choir"
+   ],
+   "seed": [
+    1541,
+    1542,
+    1541,
+    1542
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "hg-oven/hg-oven-01.ogg",
+     "seed": 1541,
+     "durationSec": 4.563,
+     "bars": 1,
+     "bpm": 52.6,
+     "beatSpread": 0.142,
+     "steadyBeat": false,
+     "clap": -0.177,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-oven/hg-oven-02.ogg",
+     "seed": 1542,
+     "durationSec": 8.231,
+     "bars": 4,
+     "bpm": 116.6,
+     "beatSpread": 0.039,
+     "steadyBeat": true,
+     "clap": -0.154,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-oven/hg-oven-03.ogg",
+     "seed": 1541,
+     "durationSec": 8.359,
+     "bars": 4,
+     "bpm": 114.8,
+     "beatSpread": 0.019,
+     "steadyBeat": true,
+     "clap": 0.042,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-oven/hg-oven-04.ogg",
+     "seed": 1542,
+     "durationSec": 8.371,
+     "bars": 4,
+     "bpm": 114.7,
+     "beatSpread": 0.028,
+     "steadyBeat": true,
+     "clap": 0.041,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "hg-run",
+   "kind": "music",
+   "files": [
+    "hg-run/hg-run-01.ogg",
+    "hg-run/hg-run-02.ogg",
+    "hg-run/hg-run-03.ogg",
+    "hg-run/hg-run-04.ogg"
+   ],
+   "tags": [
+    "happy"
+   ],
+   "mood": "happy",
+   "bpm": 74.6,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 96,
+   "loopable": false,
+   "durationSec": 6.728,
+   "prompt": [
+    "Light German folk trio, bright zither, wooden flute and warm French horn in D major, lilting 6/8 at dawn, relieved running home, live acoustic recording, no percussion, no synths, no vocals, no choir",
+    "Airy acoustic folk at sunrise, zither and horn in D major, quick 6/8 lilt, wooden flute melody, warm relief, live recording, no percussion, no synths, no vocals, no choir"
+   ],
+   "seed": [
+    1551,
+    1552,
+    1551,
+    1552
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "hg-run/hg-run-01.ogg",
+     "seed": 1551,
+     "durationSec": 7.697,
+     "bars": 4,
+     "bpm": 124.7,
+     "beatSpread": 0.056,
+     "steadyBeat": true,
+     "clap": -0.114,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-run/hg-run-02.ogg",
+     "seed": 1552,
+     "durationSec": 6.931,
+     "bars": 2,
+     "bpm": 69.3,
+     "beatSpread": 0.087,
+     "steadyBeat": false,
+     "clap": 0.01,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "hg-run/hg-run-03.ogg",
+     "seed": 1551,
+     "durationSec": 6.525,
+     "bars": 2,
+     "bpm": 73.6,
+     "beatSpread": 0.021,
+     "steadyBeat": true,
+     "clap": -0.03,
+     "loudnessLUFS": -16.3
+    },
+    {
+     "file": "hg-run/hg-run-04.ogg",
+     "seed": 1552,
+     "durationSec": 6.351,
+     "bars": 2,
+     "bpm": 75.6,
+     "beatSpread": 0.054,
+     "steadyBeat": true,
+     "clap": 0.025,
+     "loudnessLUFS": -16.0
+    }
+   ]
   }
  ]
 }
