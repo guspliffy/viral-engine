@@ -71,17 +71,17 @@ one(sfxFile("owl-hoot"), 0.6, 0.4, 3.0, 0.8);
 loop(sfxFile("fog"), at("L07"), end("L12"), 0.09, 0.6, 0.6);
 one(sfxFile("oven-roar"), 2.4, 0.35, 0.6, 0.2); one(sfxFile("oven-roar", 1), LINE.L12.end - 0.12, 0.4, 1.0, 0.4);   // the two oven glimpses
 loop(sfxFile("campfire-crackle"), at("L03") - 0.1, at("L04") + 0.3, 0.3, 0.2, 0.4);
-one(sfxFile("sniff"), at("L02") + 0.75, 0.6, 1.2); one(sfxFile("sniff", 1), at("L08") + 0.25, 0.6, 1.2);
+one(sfxFile("sniff"), at("L02") + 0.75, 0.6, 1.2); one(sfxFile("sniff", 1), shotAt("8") + 0.1, 0.6, 1.2); one(sfxFile("sniff", 4), shotAt("11w") + 0.1, 0.5, 1.0);
 for (let i = 0; i < 6; i++) add(sfxFile("step", i), shotAt("4b") + 0.2 + i * 0.5, 0.35);
 add(sfxFile("flap", 0), shotAt("5") + 0.0, 0.35); add(sfxFile("flap", 3), shotAt("5") + 0.3, 0.3);
 loop(sfxFile("birds-peck"), shotAt("5") + 0.05, shotAt("5") + 0.83, 0.5, 0.05, 0.2);
 { const a = at("L10") - 0.3, b = end("L12") + 0.6; for (let t = a, i = 0; t < b; t += 0.52, i++) add(sfxFile("step", i), t, 0.3); }   // the walk to the house
-add(sfxFile("crunch", 0), shotAt("12a") + 0.17, 0.6); add(sfxFile("crunch", 1), shotAt("12a") + 0.6, 0.7);   // the break, then the bite
+add(sfxFile("crunch", 0), shotAt("12a") + 0.17, 0.6); add(sfxFile("crunch", 1), shotAt("12a") + 0.86, 0.7);   // the break, then the bite
 one(sfxFile("door-creak"), shotAt("14") + 0.05, 0.55, 2.2, 0.5);
 for (let i = 0; i < 3; i++) one(sfxFile("sniff", i + 2), w("L17", "witches") + 0.1 + i * 1.5, 0.7, 1.2);
 one(sfxFile("sniff", 5), shotAt("16c") + 0.3, 0.8, 1.4);
-one(sfxFile("sniff", 6), shotAt("17a") + 0.4, 0.6, 1.2);
-one(sfxFile("cage-rattle"), shotAt("17c") + 0.2, 0.6, 1.6); one(sfxFile("cage-rattle", 1), shotAt("17d") + 0.4, 0.7, 2.0, 0.6);
+one(sfxFile("sniff", 6), shotAt("17a") + 0.4, 0.6, 1.2); one(sfxFile("sniff", 7), shotAt("17b") + 0.05, 0.5, 1.0);
+one(sfxFile("cage-rattle"), shotAt("17c") + 0.1, 0.5, 1.2); one(sfxFile("cage-rattle", 1), shotAt("17d") + 0.45, 0.7, 2.0, 0.6);
 one(sfxFile("ignite"), shotAt("22c") + 0.3, 0.55, 1.0, 0.3);
 one(sfxFile("oven-roar", 2), CUE.oven - 0.25, 0.7, 2.6, 0.7);
 loop(sfxFile("fire"), at("L24"), CUE.shove + 0.1, 0.12, 0.4, 0.05);
