@@ -1,6 +1,6 @@
 // Legend: The Fisherman and his Wife (Grimm KHM 19), code-drawn DRAFT 1 (director's list: SHOTS.md, lines: lines.json).
 //   node storyboards/series/legend/fisherman/fw-render.mjs <out-subs.mp4> <out-nosubs.mp4> [--from s --to s]   (both exports in one pass)
-//   TITLE=A|B|C selects the opening banner (default A); only frames 0..~105 depend on it.
+//   TITLE=A|B|C adds the opening banner; default none (Jonny 28 Nov: banner videos perform worse). Only frames 0..~105 depend on it.
 // Built like cried-wolf/cw.mjs: voice-led. Every line starts when the previous line's last sound has ended (+ a gap); a shot of
 // a line never starts before the previous line is over (no voice is cut off, no two voices overlap).
 import { readFileSync } from "node:fs";
@@ -11,7 +11,7 @@ import { align, phrases, captionSvg } from "../../../../tools/svg2d/lib/captions
 const { lerp, clamp, ease, blinkAmt, n, hash, INK } = L;
 
 export const W = 1080, H = 1920, FPS = 30;
-export const TITLE = process.env.TITLE || "A";
+export const TITLE = process.env.TITLE || "none";
 const VO = "out/legend-fisher/vo", SPEC = JSON.parse(readFileSync("storyboards/series/legend/fisherman/lines.json", "utf8"));
 const KEY = /black|one|once|grey|blue|king|sun|towers|gone|pot/i;
 // subtitle phrases (| splits): short enough that a 2-row caption stays at a readable size
@@ -414,7 +414,7 @@ const lineAtTime = (t) => { let k = null; ORDER.forEach((id, i) => { const ln = 
 // ---------------------------------------------------------------- captions: upper third, centre ~580, off every face; below the banner while it is up
 const CAPY = [580, 540, 620, 660, 700, 500, 740, 780, 820];
 const OPT = { key: KEY, keyColor: "#ff3b3b", reveal: true };           // normal legend size (urashima): maxFs 74, width 940, wrap at 19
-const BANNER_OUT = 3.45;
+const BANNER_OUT = TITLE === "none" ? 0 : 3.45;
 const CAPFIX = { L08: 330 };      // L08: the roof of the cottage fills the usual spot: this caption sits in the sky above it
 function capBox(ph, y) {
   const ws = ph.ws.map((q) => q[0]), len = (a) => a.join(" ").length, wrapAt = 19, maxFs = 74, width = 940;
