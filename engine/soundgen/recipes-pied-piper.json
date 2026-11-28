@@ -1,0 +1,230 @@
+{
+ "_note": "Pied Piper legend episode (26 Nov 2026): beds follow Codex Sol's music brief (/mnt/project-files/videos/folklore-legend/pied-piper/music/music-direction-sol.md). whistle-note = one sustained note, pitched with rubberband into the motif D F G E D. Prompts revised 26 Nov 23:30 Berlin to Sol's medieval-German palette (hurdy-gurdy, Fidel, gut lute) after Jonny's country-music note.",
+ "sfx": [
+  {
+   "id": "whistle-note",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    3.5
+   ],
+   "duration": 10,
+   "tags": [
+    "whistle",
+    "pipe",
+    "flute",
+    "note"
+   ],
+   "prompts": [
+    "a soft low wooden duct flute playing one long sustained note, breathy and woody, gentle, close dry recording, solo, no other instruments, no music",
+    "a low tin whistle holding one soft note, airy breath, quiet, solo, dry room, no other instruments"
+   ],
+   "seeds": [
+    901,
+    902,
+    903
+   ],
+   "gain": 0.35,
+   "label": "one soft low note on a wooden whistle"
+  },
+  {
+   "id": "rats-scurry",
+   "kind": "oneshot",
+   "len": [
+    2.5,
+    6
+   ],
+   "duration": 10,
+   "tags": [
+    "rats",
+    "mice",
+    "scurry",
+    "squeak"
+   ],
+   "prompts": [
+    "many rats scurrying and squeaking on wooden floor and stone, swarm of small claws, close, realistic, no music",
+    "a crowd of mice and rats running over grain sacks, tiny claws and soft squeaks, realistic field recording, no music"
+   ],
+   "seeds": [
+    911,
+    912,
+    913
+   ],
+   "gain": 0.3,
+   "label": "a swarm of rats scurrying and squeaking"
+  },
+  {
+   "id": "church-bell-far",
+   "kind": "oneshot",
+   "len": [
+    3,
+    7
+   ],
+   "duration": 10,
+   "tags": [
+    "bell",
+    "church",
+    "distant"
+   ],
+   "prompts": [
+    "a single old church bell ringing slowly far away across a town at night, distant and soft, realistic, no music",
+    "distant medieval church bell tolling, faint, echo over rooftops, quiet night, no music"
+   ],
+   "seeds": [
+    921,
+    922
+   ],
+   "gain": 0.25,
+   "label": "a church bell ringing far away"
+  },
+  {
+   "id": "fog-air",
+   "kind": "oneshot",
+   "len": [
+    4,
+    8
+   ],
+   "duration": 10,
+   "tags": [
+    "wind",
+    "fog",
+    "air",
+    "night"
+   ],
+   "prompts": [
+    "soft low night wind over an empty hill, very quiet airy hush, realistic, no music",
+    "gentle cold breeze through grass at night, quiet hush, field recording, no music"
+   ],
+   "seeds": [
+    931,
+    932
+   ],
+   "gain": 0.08,
+   "label": "a soft night wind on a hill"
+  },
+  {
+   "id": "men-laugh",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    4
+   ],
+   "duration": 8,
+   "tags": [
+    "laugh",
+    "men",
+    "crowd"
+   ],
+   "prompts": [
+    "a small group of men laughing loudly and mockingly in a stone hall, realistic, no music",
+    "several older men guffawing at a joke in a tavern, realistic recording, no music"
+   ],
+   "seeds": [
+    941,
+    942
+   ],
+   "gain": 0.3,
+   "label": "a group of men laughing"
+  }
+ ],
+ "music": [
+  {
+   "id": "pp-dusk",
+   "bpm": 72,
+   "bars": 4,
+   "prompts": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, soft D-A hurdy-gurdy drone, steady and buzz-free, one spare medieval fiddle answer, warm dusk with a cold edge, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, quiet hurdy-gurdy drone on D and A with a gut-strung medieval fiddle phrase, warm and slightly uneasy, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seeds": [
+    811,
+    812
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "pp-glass",
+   "bpm": 72,
+   "bars": 4,
+   "prompts": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, D Dorian, one low medieval fiddle line shaped like plainchant, gentle F-E-D descent, short stone-room reflections, restrained wonder, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, slow plainchant-like vielle melody over a soft drone, D Dorian, stone church acoustics, mysterious wonder, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seeds": [
+    821,
+    822
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "pp-rats",
+   "bpm": 104,
+   "bars": 8,
+   "prompts": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, D Dorian with audible B natural, lightly picked medieval lute in quick 6/8, 104 BPM, sly and nimble, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, medieval German dance in 6/8, plucked gut-string lute and fiddle, D Dorian, 104 BPM, sly and mischievous, light, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seeds": [
+    831,
+    832
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "pp-cheat",
+   "bpm": 60,
+   "bars": 4,
+   "prompts": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, D minor, free time, dry low medieval fiddle against a steady hurdy-gurdy D drone, one brief E-flat rub, cold and still, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, slow cold bowed fiddle dissonance over a low drone, D minor, dread, sparse, dry close recording, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seeds": [
+    841,
+    842
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "pp-night",
+   "bpm": 60,
+   "bars": 6,
+   "prompts": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, D natural minor, 60 BPM, almost bare opening, soft medieval fiddle and low hurdy-gurdy entering gradually, tender homesickness with dread underneath, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, slow sad medieval fiddle lament over a quiet low drone, D minor, 60 BPM, tender, eerie and beautiful, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seeds": [
+    851,
+    852
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "pp-grave",
+   "bpm": 60,
+   "bars": 4,
+   "prompts": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, one low medieval fiddle D with a trace of bow grain, free time, dry and grave, long space before the note, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, a single sustained low bowed fiddle note on D, sorrowful, very quiet, dry, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seeds": [
+    861,
+    862
+   ],
+   "mood": "calm"
+  },
+  {
+   "id": "pp-warm",
+   "bpm": 72,
+   "bars": 4,
+   "prompts": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, two soft gut-lute voicings, a D-A fifth opening into D major, understated warmth, decay to silence, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, gentle solo medieval lute, D major, 72 BPM, warm and cosy, soft chords, close recording, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seeds": [
+    871,
+    872
+   ],
+   "mood": "calm"
+  }
+ ]
+}

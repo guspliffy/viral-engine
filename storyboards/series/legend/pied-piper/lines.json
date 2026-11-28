@@ -1,0 +1,174 @@
+{
+ "_about": "Legend: The Pied Piper of Hamelin (H1 whistle + E1 kid pays back, Jonny 26 Nov 23:09 Berlin). Speakers: N narrator (deep storyteller), G grandmother, K kid, M mayor, P piper. Read by tools/svg2d/read-lines.py (tempo x1.15), then G + K atempo 1.07 and kid EQ/gain as ep01.",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "engine/voice/targets/legend-grandma-ref.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "engine/voice/targets/legend-kid-ref.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction",
+   "_picked": "Jonny 26 Nov 19:15 Berlin: voice-test-legend-06 kid 2",
+   "steps": 25,
+   "cfg": 3.0
+  },
+  "M": {
+   "ref": "engine/voice/targets/viking-ref.wav",
+   "style": "a fat pompous medieval town mayor, loud, jolly, self-satisfied"
+  },
+  "P": {
+   "ref": "engine/voice/targets/wizard-ref.wav",
+   "style": "a calm soft-spoken young man, quiet, polite, slow and unsettling"
+  }
+ },
+ "lines": [
+  [
+   "L01",
+   "G",
+   "Not on this street. Not one note.",
+   "urgent whisper, stern"
+  ],
+  [
+   "L02",
+   "K",
+   "Why no music here?",
+   "curious, puzzled"
+  ],
+  [
+   "L03",
+   "N",
+   "In Hamelin, Germany, there is one street where nobody plays music. Not for five hundred years. Because of what happened here, in twelve eighty-four.",
+   ""
+  ],
+  [
+   "L04",
+   "G",
+   "The town was full of rats. In the bread. In the beds.",
+   "grim, low"
+  ],
+  [
+   "L05",
+   "N",
+   "Then a stranger came, in a coat of many colours.",
+   "slow, mysterious"
+  ],
+  [
+   "L06",
+   "P",
+   "Every rat. Gone. For a thousand coins.",
+   "calm, quiet"
+  ],
+  [
+   "L07",
+   "M",
+   "Done! You have my word!",
+   "loud, jolly, booming"
+  ],
+  [
+   "L08",
+   "N",
+   "He played one tune, and every rat in Hamelin followed him... straight into the river.",
+   ""
+  ],
+  [
+   "L09",
+   "K",
+   "So he's the hero?",
+   "asking a question with rising pitch, hopeful, curious"
+  ],
+  [
+   "L10",
+   "G",
+   "Wait.",
+   "flat, knowing"
+  ],
+  [
+   "L11",
+   "M",
+   "The rats are gone! Why would we pay?",
+   "laughing, mocking"
+  ],
+  [
+   "L12",
+   "N",
+   "The piper didn't argue. He just left.",
+   "quiet, slow"
+  ],
+  [
+   "L13",
+   "G",
+   "A man like that doesn't argue... He comes back.",
+   "low, grim, warning"
+  ],
+  [
+   "L14",
+   "N",
+   "On the twenty-sixth of June, while the grown-ups sat in church, he came back. With a new tune.",
+   ""
+  ],
+  [
+   "L15",
+   "K",
+   "What did it sound like?",
+   "whispering, nervous"
+  ],
+  [
+   "L16",
+   "G",
+   "Like someone calling you home.",
+   "soft, slow, eerie"
+  ],
+  [
+   "L17",
+   "N",
+   "One by one, the children opened their doors and followed him. Down this street. Out of the gate. Up the hill... into the fog.",
+   "slow, dark"
+  ],
+  [
+   "L18",
+   "N",
+   "A hundred and thirty children. And the fog closed behind them.",
+   "very quiet, slow"
+  ],
+  [
+   "L19",
+   "G",
+   "Only a few stayed. One too slow to keep up. One who couldn't hear the song.",
+   "sad, quiet"
+  ],
+  [
+   "L20",
+   "K",
+   "That's just a story, right?",
+   "scared, small"
+  ],
+  [
+   "L21",
+   "N",
+   "The town wrote it down. It is a hundred years since our children left. And on this street... nobody plays music. Still.",
+   "slow, grave"
+  ],
+  [
+   "L22",
+   "G",
+   "Now. The five euros you promised me.",
+   "dry stern statement, not a question, falling pitch"
+  ],
+  [
+   "L23",
+   "K",
+   "Right now?",
+   "whiny complaining question, groaning, rising pitch"
+  ],
+  [
+   "L24",
+   "G",
+   "Right now.",
+   "firm, dry"
+  ]
+ ]
+}
