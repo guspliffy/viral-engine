@@ -795,3 +795,5 @@ export function villager(c, st, t = 0) {
   const k = p.s / 100 * sc, la = lean * Math.PI / 180, lx = dir * hx, ly = hy - 2 + bob;
   return { svg: `<g transform="${place(p)} scale(${n(dir * sc * 1000) / 1000},${n(sc * 1000) / 1000})">${s}</g>`, hand: { x: p.x + k * (lx * Math.cos(la) * 1 - ly * Math.sin(la) * dir), y: p.y + k * (lx * Math.sin(la) * dir + ly * Math.cos(la)), s: p.s * sc }, p, Z: st.Z };
 }
+// the drawing kit, for the next Greek story (legend-pandora.mjs builds its room and door from the same pieces)
+export const kit = { wpoly, dabs, lightBlobs, blob, ring, crack, chip, door, shutterWin, stroke, limb2, lineD, jit, poly, pt };

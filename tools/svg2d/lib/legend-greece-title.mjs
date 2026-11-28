@@ -290,3 +290,5 @@ export function titleCard(t, o = {}) {
   const s = S.fn(t, ap, cr, o);
   return s ? `<clipPath id="tZone"><rect x="0" y="0" width="${W}" height="${TITLE_ZONE.bottom}"/></clipPath><g clip-path="url(#tZone)">${s}</g>` : "";
 }
+// the alphabet and its tools, for the next Greek title card (legend-pandora-title.mjs adds the glyphs it needs to GLYPH)
+export const LETTERING = { GLYPH, TH, TN, s_, arcP, capsLine, capsWidth, scratchLine, scratchWidth, teaserFit, rough, lump, pd, wind, meander };
