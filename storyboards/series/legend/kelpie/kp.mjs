@@ -28,18 +28,26 @@ export const DEV = process.env.KP_DEV === "1";          // dev only: stand-in ti
 export const CUTS = {};                                  // no take is trimmed
 export const LINE = Object.fromEntries(SPEC.lines.map(([id, who, text]) => [id, { id, who, text }]));
 for (const ln of Object.values(LINE)) {
-  ln.cuts = CUTS[ln.id] || [];
+  ln.cuts = [];
   if (!existsSync(`${VO}/${ln.id}.words.json`)) {
     if (!DEV) throw new Error("missing voice " + ln.id);
     const ws = ln.text.split(/\s+/), tt = ws.map((w, i) => [w, i * 0.4, i * 0.4 + 0.35]);
     ln.dur = ws.length * 0.4; ln.env = new Array(Math.ceil(ln.dur * FPS)).fill(0.4); ln.words = tt; ln.phrases = phrases(ln.words, ln.text, SPEC.captions?.[ln.id]); ln.len = ln.dur; continue;
   }
-  const { sr, s } = readWav(`${VO}/${ln.id}.wav`);
+  let { sr, s } = readWav(`${VO}/${ln.id}.wav`);
+  // long stretches of REAL silence (< -55 dBFS, >= 0.5 s, strictly between two sounds) are shortened to 0.3 s; no sound is touched
+  { const h = Math.round(sr / 100), cuts = []; let st = null, lastLoud = 0, firstLoud = null;
+    const db = []; for (let i = 0; i + h <= s.length; i += h) { let a = 0; for (let j = i; j < i + h; j++) a += (s[j] / 32768) ** 2; db.push(10 * Math.log10(a / h + 1e-18)); }
+    db.forEach((v, i) => { if (v >= -55) { lastLoud = i; if (firstLoud === null) firstLoud = i; } });
+    for (let i = 0; i <= db.length; i++) { const q = i < db.length && db[i] < -55; if (q && st === null) st = i; if (!q && st !== null) { if (i - st >= 50 && st > firstLoud && i - 1 < lastLoud) cuts.push([(st + 15) / 100, (i - 15) / 100]); st = null; } }
+    ln.cuts = cuts;
+    if (cuts.length) { const keep = []; for (let i = 0; i < s.length; i++) { const t = i / sr; if (!cuts.some(([a, b]) => t >= a && t < b)) keep.push(s[i]); } s = Int16Array.from(keep); } }
+  ln.shift = (t) => t - ln.cuts.reduce((a, [c0, c1]) => a + Math.max(0, Math.min(t, c1) - c0), 0);
   ln.dur = s.length / sr;
   const hop = Math.round(sr / FPS), env = []; let last = 0;
   for (let i = 0; i < s.length; i += hop) { let a = 0; for (let j = i; j < Math.min(s.length, i + hop); j++) a += (s[j] / 32768) ** 2; const r = Math.sqrt(a / hop); env.push(r); if (r > 0.004) last = (i + hop) / sr; }
   const mx = Math.max(...env) || 1; ln.env = env.map((v) => clamp((v / mx - 0.08) * 1.6));
-  ln.words = align(ln.text.split(/\s+/), JSON.parse(readFileSync(`${VO}/${ln.id}.words.json`, "utf8")));
+  ln.words = align(ln.text.split(/\s+/), JSON.parse(readFileSync(`${VO}/${ln.id}.words.json`, "utf8")).map(([w, a, b]) => [w, ln.shift(a), ln.shift(b)]));
   ln.phrases = phrases(ln.words, ln.text, SPEC.captions?.[ln.id]);
   ln.len = Math.max(last, ln.words[ln.words.length - 1][2]);   // the last sound, or the last word as Whisper heard it
 }
@@ -50,7 +58,7 @@ const wordEnd = (ln, w, k = 0) => { const xs = ln.words.filter((q) => nw(q[0]).s
 
 // order (Sol's note: L01, L04, L02, L03, L05, then L06 on) and the breath between lines (seconds after the previous line's last sound)
 export const ORDER = ["L01", "L04", "L02", "L03", "L05", "L06", "L07", "L08", "L09", "L10", "L11", "L12", "L13", "L14", "L15", "L16", "L17", "L18", "L19", "L20", "L21", "L22", "L23", "L24", "L25", "L26", "L27", "L28"];
-const GAP = { L04: 0.4, L02: 0.35, L03: 0.12, L05: 0.3, L06: 0.25, L07: 0.12, L08: 0.4, L09: 0.25, L10: 0.35, L11: 0.2, L12: 0.15, L13: 0.25, L14: 0.3, L15: 0.1, L16: 0.35, L17: 0.15, L18: 0.3, L19: 0.3, L20: 0.25, L21: 0.25, L22: 0.45, L23: 0.12, L24: 0.35, L25: 0.4, L26: 0.25, L27: 0.25, L28: 0.75 };
+const GAP = { L04: 0.25, L02: 0.25, L03: 0.12, L05: 0.25, L06: 0.12, L07: 0.12, L08: 0.25, L09: 0.25, L10: 0.25, L11: 0.12, L12: 0.12, L13: 0.12, L14: 0.25, L15: 0.12, L16: 0.25, L17: 0.12, L18: 0.12, L19: 0.25, L20: 0.12, L21: 0.12, L22: 0.25, L23: 0.12, L24: 0.25, L25: 0.25, L26: 0.12, L27: 0.12, L28: 0.45 };
 { let prev = null; for (const id of ORDER) { const ln = LINE[id]; ln.at = prev ? prev.end + GAP[id] : 0; ln.end = ln.at + ln.len; prev = ln; } }
 for (let i = 1; i < ORDER.length; i++) if (LINE[ORDER[i]].at < LINE[ORDER[i - 1]].end) throw new Error("voices overlap at " + ORDER[i]);
 export const DUR = +(LINE.L28.at + LINE.L28.len + 0.4).toFixed(2);   // hard end: the last sound + 0.4 s
@@ -107,11 +115,27 @@ function waterOver(y, t, a = 0.78) {
   return `<path d="${d}" fill="#0b2a4a" opacity="${a}"/><path d="${d}" fill="none" stroke="#9fc6ea" stroke-width="3" opacity="0.5"/>`;
 }
 
-// the kid floating, bell hand on a screen point (underwater reach)
-function swimKid(c, pt, u, shock = 0.6, rot = -28) {
-  const kd = K_(c, { X: 1.0, Z: 5.4, fx: -0.8, reachL: 1, shock, worry: 1, blink: 0 }, u), hand = SCO.kidHand(kd, 1, 0);
-  return `<g transform="translate(${n(pt.x - hand.x)},${n(pt.y - hand.y)}) rotate(${rot} ${n(hand.x)} ${n(hand.y)})">${kd.svg}</g>`;
+// the kid floating, bell hand on a screen point (underwater reach); the face circle follows the transform
+function swimKid(c, pt, u, shock = 0.6, rot = -28, o = {}) {
+  const kd = L.kid(c, { X: o.X ?? 1.0, Z: o.Z ?? 5.4, fx: -0.8, reachL: 1, shock, worry: 1, blink: 0, talk: o.talk ?? 0 }, u), hand = SCO.kidHand(kd, 1, 0);
+  const tx = pt.x - hand.x, ty = pt.y - hand.y, a = rot * Math.PI / 180, fx0 = kd.p.x - 0.02 * kd.p.s * 0.8, fy0 = kd.p.y - 1.1 * kd.p.s, dx = fx0 - hand.x, dy = fy0 - hand.y;
+  face(hand.x + dx * Math.cos(a) - dy * Math.sin(a) + tx, hand.y + dx * Math.sin(a) + dy * Math.cos(a) + ty, 0.17 * kd.p.s);
+  return `<g transform="translate(${n(tx)},${n(ty)}) rotate(${rot} ${n(hand.x)} ${n(hand.y)})">${kd.svg}</g>`;
 }
+// kid at the kelpie's nose (kelpie screen-left, kid right), the loch surface drawn in front of both at world height W (m)
+function wading(c, u, o = {}) {
+  const ox = o.ox ?? 0, W_ = o.W ?? 0, kX = (o.kX ?? 1.25) + ox, kZ = o.kZ ?? 4.9, rc = o.reach ?? 1;
+  const kd = K_(c, { X: kX, Z: kZ, fx: -0.8, reachL: rc, shock: o.shock ?? 0.6, worry: o.worry ?? 0.8, talk: o.talk ?? 0, blink: o.blink ?? 0, lean: o.lean ?? 0, hop: o.hop ?? 0, run: o.run ?? null }, u);
+  const hand = SCO.kidHand(kd, rc, o.lean ?? 0); hand.y -= (o.hop ?? 0) * kd.p.s / 100;
+  const hp = { X: (o.hX ?? kX - 2.0 - ox) + ox, Y: o.hY ?? -0.15, Z: o.hZ ?? 5.3, dir: 1, turn: 1, nod: o.nod ?? 30, drip: 1, water: W_, kneel: o.kneel ?? 0, len: o.len ?? 1, walk: o.walk ?? null, bridle: o.bridle ?? 1, obey: o.obey ?? 0 };
+  const h0 = SCO.kelpie(c, hp, u), snap = o.snap ?? 1;
+  const dx = snap ? hand.x - h0.nose.x : 0, dy = snap ? hand.y - h0.nose.y : 0;
+  if (h0.eye && h0.p) face(h0.eye.x + dx, h0.eye.y + dy, 0.09 * h0.p.s + 18);
+  const rd = o.riders ? riders(c, h0, 3, { stuck: 1, grin: 0, shock: 0.8, talk: 0.6 }, u) : "";
+  const wy = L.P(c, kX, W_, kZ).y;
+  return { kd, hand, h: h0, svg: `<g transform="translate(${n(dx)},${n(dy)})">${h0.svg}${rd}</g>` + kd.svg + (W_ > 0 ? waterOver(wy, u, o.wa ?? 0.55) : "") };
+}
+
 // ---------------------------------------------------------------- the shots
 const SHOTS = [];
 const shot = (id, line, off, fn, o = {}) => SHOTS.push({ id, line, off, fn, ...o });
@@ -154,11 +178,13 @@ shot("3", "L03", () => LN("L03").at - 0.05, (u) => {
   const h = KP_(c, { X: -0.55, Y: -0.15, Z: 6.4, turn: 1, nod: 10, water: 0, glint: 1, reflect: false }, u);
   return END(s.back + h.svg + s.front) + jar(1010, 1600, 5.5, tr([[0, 1], [0.8, 1], [1.1, 0.35], [1.6, 0.7], [2.5, 0.9]], u), u) ;
 });
-// 6  L05 villager 0 grinning, MED
+// 6  L05 villager 0 grinning, MED, pointing at the horse (an arm drawn over the rig's own arms)
 shot("6", "L05", () => LN("L05").at - 0.05, (u, x) => {
   SCO.mood(0); const c = { x: -1.7, y: 1.0, z: lerp(2.0, 2.4, u / 2), h0: 1000 }, s = SCO.loch(c, u, { moon: [820, 330, 62], haze: [700, 1100, 300], props: false });
-  const v = VL_(c, { ...LO.kids[0], X: -1.5, Z: 4.3, fx: 0.8, grin: 1, hands: 0, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.5), lean: -3 }, u);
-  return END(s.back + v.svg + s.front);
+  const v = VL_(c, { ...LO.kids[0], X: -1.5, Z: 4.3, fx: 0.8, grin: 1, hands: 0, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.5), lean: -3 }, u), q = v.p, k = q.s;
+  const sx = q.x + 0.1 * k, sy = q.y - 0.86 * k, hx = q.x + (0.62 + 0.04 * Math.sin(u * 6)) * k, hy = q.y - 0.99 * k;
+  const arm = `<path d="M${n(sx)},${n(sy)} L${n(hx)},${n(hy)}" stroke="#16101c" stroke-width="${n(0.15 * k)}" stroke-linecap="round"/><path d="M${n(sx)},${n(sy)} L${n(hx)},${n(hy)}" stroke="#7a5a34" stroke-width="${n(0.125 * k)}" stroke-linecap="round"/><circle cx="${n(hx)}" cy="${n(hy)}" r="${n(0.055 * k)}" fill="#f0c8a4" stroke="#16101c" stroke-width="2"/><path d="M${n(hx)},${n(hy)} L${n(hx + 0.14 * k)},${n(hy - 0.01 * k)}" stroke="#f0c8a4" stroke-width="${n(0.04 * k)}" stroke-linecap="round"/>`;
+  return END(s.back + v.svg + arm + s.front);
 });
 // 7  L06 the kelpie kneels, the kids climb on one by one (cuts on "second", "third")
 const CLIMB = (cnt, tag) => (u) => {
@@ -183,20 +209,20 @@ shot("9", "L08", () => LN("L08").at - 0.05, (u, x) => {
   const kd = K_(c, { X: 1.4, Z: 4.0, fx: -0.6, lean: -3, shock: 0.4, worry: 0.9, talk: talkAt(x.ln, x.lu), blink: bl(u) }, u);
   return END(s.back + h.svg + kd.svg + s.front);
 });
-// 10 L09 close kid eyes shut; Grandma's candle jar as a memory flicker over the frame; cuts: the jar close, the kid's eyes open
-const MEM = (u) => { const fl = 0.5 + 0.5 * Math.sin(u * 9) * Math.sin(u * 3.1); return `<rect width="${W}" height="${H}" fill="#ffb450" opacity="${n(0.09 + 0.05 * fl)}" style="mix-blend-mode:screen"/>`; };
-const KIDCLOSE = (blink, mem, push) => (u, x) => {
-  SCO.mood(0.1); const c = { x: 1.3, y: 0.95, z: lerp(2.9, 3.4, u / 3.5) + push, h0: 1000 }, s = SCO.loch(c, u, { moon: [220, 330, 64], haze: [400, 1100, 400], props: false });
-  const kd = K_(c, { X: 1.45, Z: 4.6, fx: -0.2, worry: 0.9, blink: typeof blink === "function" ? blink(u) : blink, talk: 0 }, u);
-  const fl = 0.5 + 0.5 * Math.sin(u * 9) * Math.sin(u * 3.1);
-  return END(s.back + kd.svg + s.front) + (mem ? MEM(u) + `<g opacity="0.55" style="mix-blend-mode:screen">${jar(880, 1750, 7, 0.7 + 0.3 * fl, u, false)}</g>` : "");
+// 10 L09 Grandma close, whispering, a small candle jar in her hand, cold memory tint; then our kid's eyes open
+const COLD = () => `<rect width="${W}" height="${H}" fill="#6f95d0" opacity="0.34" style="mix-blend-mode:color"/><rect width="${W}" height="${H}" fill="#0a1830" opacity="0.2"/>`;
+const GRAN = (z0, z1) => (u, x) => {
+  SCO.mood(0.05); const c = { x: 2.0, y: 1.2, z: lerp(z0, z1, clamp(u / 3)), h0: 1000 }, s = SCO.loch(c, u, { moon: [220, 330, 64], haze: [400, 1100, 400], props: false });
+  const kp = G_(c, { X: 2.4, Z: 5.2, fx: -0.6, stern: 0.3, flame: 0.4, talk: talkAt(x.ln, x.lu) * 0.7, blink: bl(u) }, u), fl = 0.7 + 0.3 * Math.sin(u * 9) * Math.sin(u * 3.1);
+  return END(s.back + kp.svg + s.front) + jar(kp.p.x - 0.22 * kp.p.s, kp.p.y - 0.55 * kp.p.s, kp.p.s / 100 * 0.9, fl, u, true) + COLD();
 };
-shot("10a", "L09", () => LN("L09").at - 0.05, KIDCLOSE(1, true, 0));
-shot("10b", "L09", () => WD("L09", "and") - 0.1, (u) => {
-  SCO.mood(0.1); const fl = 0.5 + 0.5 * Math.sin(u * 9) * Math.sin(u * 3.1);
-  return `<rect width="${W}" height="${H}" fill="#0a1226"/><rect width="${W}" height="${H}" fill="#ffb450" opacity="${n(0.12 + 0.1 * fl)}"/>` + jar(540, 1350, 22 + u * 2, 0.7 + 0.3 * fl, u, true);
+shot("10a", "L09", () => LN("L09").at - 0.05, GRAN(2.8, 3.2));
+shot("10b", "L09", () => WD("L09", "and") - 0.1, GRAN(3.3, 3.7));
+shot("10c", "L09", () => WD("L09", "find") - 0.15, (u, x) => {
+  SCO.mood(0.1); const c = { x: 1.3, y: 0.95, z: lerp(3.0, 3.3, clamp(u / 3)), h0: 1000 }, s = SCO.loch(c, u, { moon: [220, 330, 64], haze: [400, 1100, 400], props: false });
+  const kd = K_(c, { X: 1.45, Z: 4.6, fx: -0.2, worry: 0.9, blink: 1 - clamp(u / 0.5) }, u);
+  return END(s.back + kd.svg + s.front);
 });
-shot("10c", "L09", () => WD("L09", "find") - 0.15, KIDCLOSE((u) => 1 - clamp(u / 0.5), false, 0.2));
 // 11 L10 the kelpie turns its wet face to the kid, waits, drips
 shot("11", "L10", () => LN("L10").at - 0.05, (u) => {
   SCO.mood(0); const c = LO.cam.two, s = SCO.loch(c, u, { moon: [240, 300, 58] });
@@ -244,30 +270,27 @@ shot("15", "L15", () => LN("L15").at - 0.05, (u, x) => {
   const v = VL_(c, { ...h.seats[0], kind: 1, sit: 1, fx: 0.4, stuck: 1, shock: 1, talk: talkAt(x.ln, x.lu), blink: 0 }, u);
   return END(s.back + h.svg + v.svg + s.front);
 });
-// 16 L16 the kelpie turns and walks into the loch, the kid dragged by his finger
+// 16 L16 the kelpie turns and walks into the loch; the kid is dragged along at its nose, the loch rising on him
+const WC = (ox, z = -0.3) => ({ x: 0.1 + ox, y: 1.2, z, h0: 1090 });
 shot("16", "L16", () => LN("L16").at - 0.05, (u, x) => {
-  SCO.mood(0.3); const c = { x: -1.0, y: 1.25, z: 2.0, h0: 1090 }, s = SCO.loch(c, u, { moon: [860, 300, 56], haze: [560, 1130, 380] });
-  const k = clamp(x.lu / 3.5), Y = lerp(-0.2, -0.75, k), Z = lerp(6.6, 8.2, k), X = lerp(-0.75, -1.2, k);
-  const h = KP_(c, { X, Y, Z, len: 3, walk: (u * 0.45) % 1, water: 0 }, u);
-  const kd = K_(c, { X: lerp(0.9, 0.4, k), Z: lerp(4.4, 5.4, k), fx: -0.8, reachL: 1, shock: 1, worry: 1, run: (u * 1.2) % 1, lean: 12 }, u);
-  return END(s.back + h.svg + riders(c, h, 3, { stuck: 1, grin: 0, shock: 0.8, minY: -9 }, u) + kd.svg + s.front);
+  SCO.mood(0.3); const ox = 0.3 * u, c = WC(ox), s = SCO.loch(c, u, { moon: [860, 300, 56], haze: [560, 1130, 380] });
+  const w = wading(c, u, { ox, kX: 1.3, W: lerp(0.05, 0.4, clamp(x.lu / 3.2)), len: 3, riders: true, walk: (u * 0.45) % 1, run: (u * 1.1) % 1, lean: 8, shock: 1, worry: 1 });
+  return END(s.back + w.svg + s.front);
 });
-// 17 L17 close kid, the water at his chest
+// 17 L17 close kid, the water at his chest, the kelpie's nose at his finger
 shot("17", "L17", () => LN("L17").at - 0.05, (u, x) => {
-  SCO.mood(0.45); const c = { x: 1.3, y: 0.95, z: 3.0, h0: 1000 }, s = SCO.loch(c, u, { moon: [220, 330, 64], haze: [400, 1100, 400], props: false });
-  const kd = K_(c, { X: 1.45, Z: 4.6, fx: -0.5, reachL: 1, shock: 1, worry: 1, talk: talkAt(x.ln, x.lu), lean: Math.sin(u * 7) * 2, blink: 0 }, u);
-  return END(s.back + kd.svg + s.front + waterOver(1450 - u * 20, u));
+  SCO.mood(0.45); const c = { x: 1.1, y: 1.0, z: 3.0, h0: 1000 }, s = SCO.loch(c, u, { moon: [220, 330, 64], haze: [400, 1100, 400], props: false });
+  const w = wading(c, u, { kX: 1.5, kZ: 4.6, hZ: 5.0, W: 0.95, talk: talkAt(x.ln, x.lu), lean: Math.sin(u * 7) * 2, shock: 1, worry: 1 });
+  return END(s.back + w.svg + s.front);
 });
 // 18 L18 knees -> chest -> under
-const WADE = (y0, y1, dur) => (u, x) => {
-  SCO.mood(0.4); const c = { x: -1.0, y: 1.25, z: 2.0, h0: 1090 }, s = SCO.loch(c, u, { moon: [860, 300, 56], haze: [560, 1130, 380] });
-  const Y = lerp(y0, y1, ease(clamp(u / dur)));
-  const h = KP_(c, { X: -1.3, Y, Z: 8.2, len: 3, walk: (u * 0.45) % 1, water: 0 }, u);
-  const kd = K_(c, { X: -0.2, Z: 5.0, fx: -0.8, reachL: 1, shock: 1, worry: 1, run: (u * 1.2) % 1, lean: 14 }, u);
-  return END(s.back + h.svg + riders(c, h, 3, { stuck: 1, grin: 0, shock: 0.8, talk: 0.6, minY: -9 }, u) + kd.svg + s.front);
+const WADE = (w0, w1, dur) => (u, x) => {
+  SCO.mood(0.4); const c = WC(0.9 + 0.08 * u, 0.0), s = SCO.loch(c, u, { moon: [860, 300, 56], haze: [560, 1130, 380] });
+  const w = wading(c, u, { ox: 0.9 + 0.08 * u, kX: 1.3, W: lerp(w0, w1, ease(clamp(u / dur))), len: 3, riders: true, walk: (u * 0.45) % 1, run: (u * 1.2) % 1, lean: 10, shock: 1, worry: 1, talk: 0.6 });
+  return END(s.back + w.svg + s.front);
 };
-shot("18a", "L18", () => LN("L18").at - 0.05, WADE(-0.75, -0.95, 2.0));
-shot("18b", "L18", () => WD("L18", "to", 1) - 0.05, WADE(-0.95, -1.15, 1.8));
+shot("18a", "L18", () => LN("L18").at - 0.05, WADE(0.4, 0.55, 2.0));
+shot("18b", "L18", () => WD("L18", "to", 1) - 0.05, WADE(0.6, 1.0, 1.6));
 shot("18c", "L18", () => WD("L18", "kids") - 0.1, (u, x) => {
   SCO.mood(1); const c = SCO.UNDER.cam.main, s = SCO.under(c, u, { depth: 0.35 });
   const h = KP_(c, { ...SCO.UNDER.horse, pitch: 22, float: 1, walk: (u * 0.4) % 1, len: 3, shadow: false }, u);
@@ -277,7 +300,7 @@ shot("18c", "L18", () => WD("L18", "kids") - 0.1, (u, x) => {
 });
 // 19 L19 UNDER close: the free hand under the mane finds the braided bridle, the silver rings glint (three cuts, tighter each time)
 const RINGS = (z0, z1, gl0) => (u, x) => {
-  SCO.mood(1); const c = { x: -0.5, y: 2.0, z: lerp(z0, z1, clamp(u / 3)), h0: 1000 }, s = SCO.under(c, u, { depth: 0.5 });
+  SCO.mood(1); const c = { x: 0.15, y: 2.0, z: lerp(z0, z1, clamp(u / 3)), h0: 1000 }, s = SCO.under(c, u, { depth: 0.5 });
   const h = KP_(c, { ...SCO.UNDER.horse, pitch: 10, float: 1, size: 1, len: 1.2, shadow: false }, u);
   const gl = gl0 * (0.6 + 0.4 * Math.sin(u * 14));
   const hand = swimKid(c, h.ring, u, 0.8);
@@ -287,43 +310,44 @@ const RINGS = (z0, z1, gl0) => (u, x) => {
 shot("19a", "L19", () => LN("L19").at - 0.05, RINGS(2.0, 2.4, 0));
 shot("19b", "L19", () => WD("L19", "cold") - 0.1, RINGS(2.8, 3.3, 0.4));
 shot("19c", "L19", () => WD("L19", "little") - 0.1, RINGS(3.3, 3.7, 1));
-// 20 L20 close kid underwater, whisper
+// 20 L20 close kid underwater, floating at the nose, whisper
 shot("20", "L20", () => LN("L20").at - 0.05, (u, x) => {
   SCO.mood(1); const c = { x: 1.3, y: 1.0, z: 3.2, h0: 1000 }, s = SCO.under(c, u, { depth: 0.55 });
-  const kd = K_(c, { X: 1.45, Z: 5.2, fx: -0.4, reachL: 0.3, worry: 0.9, shock: 0.5, talk: talkAt(x.ln, x.lu) * 0.6, blink: bl(u + 1) }, u);
-  return END(s.back + kd.svg + SCO.bubbles(900, 1200, u, 9, 7, 80) + s.front);
+  const kd = L.kid(c, { X: 1.45, Z: 5.2, fx: -0.4, reachL: 1, worry: 0.9, shock: 0.5, talk: talkAt(x.ln, x.lu) * 0.6, blink: bl(u + 1) }, u);
+  const T = [-40 + Math.sin(u * 2) * 8, -320 + Math.sin(u * 1.4) * 10], a = -16 * Math.PI / 180, cx0 = 540, cy0 = 1250, fx0 = kd.p.x - 0.02 * kd.p.s, fy0 = kd.p.y - 1.1 * kd.p.s, dx = fx0 - cx0, dy = fy0 - cy0;
+  face(cx0 + dx * Math.cos(a) - dy * Math.sin(a) + T[0], cy0 + dx * Math.sin(a) + dy * Math.cos(a) + T[1], 0.17 * kd.p.s);
+  return END(s.back + `<g transform="translate(${n(T[0])},${n(T[1])}) rotate(-16 ${cx0} ${cy0})">${kd.svg}</g>` + SCO.bubbles(900, 1200, u, 9, 7, 80) + s.front);
 });
-// 21 L21 he pulls hard: the bridle rips off (0.3 s hard silence in the mix, then a hit)
+const CS = { x: -0.3, y: 1.15, z: 0.3, h0: 1100 };
+// 21 L21 he pulls hard underwater; then he bursts up at the surface with the torn bridle
 shot("21a", "L21", () => LN("L21").at - 0.05, (u, x) => {
-  SCO.mood(1); const c = { x: -0.5, y: 2.0, z: 2.6, h0: 1000 }, s = SCO.under(c, u, { depth: 0.5 });
+  SCO.mood(1); const c = { x: 0.1, y: 2.0, z: 2.6, h0: 1000 }, s = SCO.under(c, u, { depth: 0.5 });
   const pull = clamp(u / 0.9), h = KP_(c, { ...SCO.UNDER.horse, pitch: 10, float: 1, len: 1.2, shadow: false }, u);
   return END(s.back + `<g transform="translate(${n(Math.sin(u * 40) * 4 * pull)},${n(Math.sin(u * 33) * 3 * pull)})">${h.svg}${swimKid(c, h.ring, u, 1)}</g>` + SCO.bubbles(h.nose.x, h.nose.y - 100, u, 8, 5, 120) + s.front);
 });
 shot("21b", "L21", () => WD("L21", "hard") - 0.03, (u, x) => {
-  SCO.mood(tr([[0, 1], [0.7, 0.35]], u)); const c = LO.cam.two, s = SCO.loch(c, u, { moon: [240, 300, 58] });
-  const h = KP_(c, { X: -0.9, Y: -0.15, Z: 5.4, water: 0, bridle: 0, nod: -8 }, u);
-  const kd = K_(c, { X: 1.15, Z: 4.2, fx: -0.8, reachL: 1, grin: 0, shock: 0.5 }, u), hand = SCO.kidHand(kd, 1, 0);
-  return END(s.back + h.svg + kd.svg + SCO.bridleLoose(hand.x - 6, hand.y - 4, kd.p.s / 100 * 1.25, { rot: 8 }, u) + s.front);
+  SCO.mood(tr([[0, 0.6], [0.7, 0.3]], u)); const c = CS, s = SCO.loch(c, u, { moon: [240, 300, 58] });
+  const hop = 46 * ease(clamp(u / 0.22)) * (u < 0.6 ? 1 : 0.8), w = wading(c, u, { W: 0.75, bridle: 0, snap: 0, reach: 1, hop, lean: -8, shock: 0.6, worry: 0.3, kX: 1.1, hX: -0.9, hZ: 5.4, nod: -8, ox: 0 });
+  let sp = ""; for (let i = 0; i < 9; i++) { const a = -Math.PI / 2 + (i - 4) * 0.35, r = 30 + 160 * clamp(u * 2.2) * (0.6 + 0.4 * ((i * 37) % 5) / 5); sp += `<circle cx="${n(w.hand.x + Math.cos(a) * r)}" cy="${n(w.hand.y + 40 + Math.sin(a) * r)}" r="${n(7 - 4 * clamp(u * 1.5))}" fill="#cfe6ff" opacity="${n(0.8 * (1 - clamp(u * 1.4)))}"/>`; }
+  return END(s.back + w.svg + SCO.bridleLoose(w.hand.x - 6, w.hand.y - 4, w.kd.p.s / 100 * 1.7, { rot: 8 }, u) + sp + s.front);
 });
-// 22 L22 the kelpie freezes, then kneels in the water for him (eye dims)
+// 22 L22 the kelpie freezes, then kneels in the shallows for him, he beside it in the water (eye dims)
 shot("22a", "L22", () => LN("L22").at - 0.05, (u) => {
-  SCO.mood(0); const c = LO.cam.two, s = SCO.loch(c, u, { moon: [240, 300, 58] });
-  const h = KP_(c, { X: -0.9, Y: -0.15, Z: 5.4, water: 0, bridle: 0, kneel: 0, obey: tr([[0, 0], [1, 0.3]], u), turn: 1 }, u);
-  const kd = K_(c, { X: 1.15, Z: 4.2, fx: -0.8, reachL: 0.5, shock: 0.6 }, u);
-  return END(s.back + h.svg + kd.svg + s.front);
+  SCO.mood(0); const c = CS, s = SCO.loch(c, u, { moon: [240, 300, 58] });
+  const w = wading(c, u, { W: 0.45, bridle: 0, snap: 0, reach: 0.5, kneel: 0, obey: tr([[0, 0], [1, 0.3]], u), shock: 0.6, kX: 1.2, hX: -0.9, hZ: 5.4, nod: 8 });
+  return END(s.back + w.svg + s.front);
 });
 shot("22b", "L22", () => WD("L22", "then") - 0.05, (u) => {
-  SCO.mood(0); const c = LO.cam.two, s = SCO.loch(c, u, { moon: [240, 300, 58] });
-  const h = KP_(c, { X: -0.9, Y: -0.15, Z: 5.4, water: 0, bridle: 0, kneel: tr([[0, 0], [1.6, 1]], u), obey: tr([[0, 0.3], [1.6, 1]], u), turn: 1 }, u);
-  const kd = K_(c, { X: 1.15, Z: 4.2, fx: -0.8, reachL: 0.3, shock: 0.2, blink: bl(u) }, u);
-  return END(s.back + h.svg + kd.svg + s.front);
+  SCO.mood(0); const c = CS, s = SCO.loch(c, u, { moon: [240, 300, 58] });
+  const k = tr([[0, 0], [1.6, 1]], u), w = wading(c, u, { W: lerp(0.45, 0.3, ease(clamp(u / 1.6))), bridle: 0, snap: 0, reach: 0.3, kneel: ease(k), obey: lerp(0.3, 1, ease(k)), shock: 0.2, worry: 0.2, blink: bl(u), kX: 1.2, hX: -0.9, hZ: 5.4, nod: 8 });
+  return END(s.back + w.svg + s.front);
 });
 // 23 L23 the kids slide off into the shallows; the finger comes loose
 shot("23a", "L23", () => LN("L23").at - 0.05, (u) => {
   SCO.mood(0); const c = LO.cam.long, s = SCO.loch(c, u, { moon: [860, 300, 56], haze: [560, 1130, 380] });
-  const h = KP_(c, { ...LO.horse, X: -0.75, len: 3, kneel: 1, water: 0, obey: 1, bridle: 0 }, u);
+  const h = KP_(c, { ...LO.horse, X: -0.75, len: 3, kneel: 1, water: 0.3, obey: 1, bridle: 0 }, u);
   let kids = ""; [0, 1, 2].forEach((i) => { const a = clamp((u - i * 0.25) / 0.8), seat = h.seats[i]; kids += VL_(c, { X: lerp(seat.X, seat.X + 0.7 + i * 0.5, a), Y: lerp(seat.Y, -0.15, a), Z: lerp(seat.Z, seat.Z - 1.0 - i * 0.2, a), kind: KINDS[i], sit: a < 0.8 ? 1 : 0, fx: 0.7, grin: 0, shock: 0.3, blink: bl(u, i) }, u).svg; });
-  return END(s.back + h.svg + kids + s.front);
+  return END(s.back + h.svg + kids + waterOver(L.P(c, 0, 0.3, 5.6).y, u, 0.5) + s.front);
 });
 shot("23b", "L23", () => WD("L23", "finger") - 0.1, (u) => {
   SCO.mood(0); const c = { x: 0.62, y: 0.95, z: 5.2, h0: 960 }, s = SCO.loch(c, u, { props: false, moon: [200, 300, 70], haze: [560, 900, 420] });
@@ -331,12 +355,11 @@ shot("23b", "L23", () => WD("L23", "finger") - 0.1, (u) => {
   const fing = SCO.stuckFinger(h.nose.x, h.nose.y, 1300 / 1.4 / 100, { pull: 1 }, u);
   return END(s.back + h.svg + `<g transform="translate(${n(lerp(0, 160, ease(clamp((u - 0.4) / 0.8))))},${n(lerp(0, -60, ease(clamp((u - 0.4) / 0.8))))})">${fing}</g>`);
 });
-// 24 L24 the kid with the bridle, the kelpie bowed; then he rides it
+// 24 L24 he stands in the shallows holding the bridle, the kelpie bowed; then he rides it
 shot("24a", "L24", () => LN("L24").at - 0.05, (u, x) => {
-  SCO.mood(0); const c = LO.cam.two, s = SCO.loch(c, u, { moon: [240, 300, 58] });
-  const h = KP_(c, { X: -0.75, Y: -0.1, Z: 5.2, water: 0, bridle: 0, obey: 1, kneel: 1 }, u);
-  const kd = K_(c, { X: 1.3, Z: 4.2, fx: -0.8, reachL: 0.6, grin: 0, talk: talkAt(x.ln, x.lu), blink: bl(u) }, u), hand = SCO.kidHand(kd, 0.6, 0);
-  return END(s.back + h.svg + kd.svg + SCO.bridleLoose(hand.x - 4, hand.y - 2, kd.p.s / 100 * 1.1, { rot: 4 }, u) + s.front);
+  SCO.mood(0); const c = CS, s = SCO.loch(c, u, { moon: [240, 300, 58] });
+  const w = wading(c, u, { W: 0.22, bridle: 0, snap: 0, reach: 0.6, kneel: 1, obey: 1, shock: 0, worry: 0, talk: talkAt(x.ln, x.lu), blink: bl(u), kX: 1.2, hX: -0.85, hZ: 5.3, nod: 8, wa: 0.5 });
+  return END(s.back + w.svg + SCO.bridleLoose(w.hand.x - 4, w.hand.y - 2, w.kd.p.s / 100 * 1.1, { rot: 4 }, u) + s.front);
 });
 shot("24b", "L24", () => WD("L24", "carry") - 0.1, (u) => {
   SCO.mood(0.2); const c = LO.cam.two, s = SCO.loch(c, u, { moon: [240, 300, 58] });
@@ -365,11 +388,12 @@ shot("27", "L27", () => LN("L27").at - 0.05, (u, x) => {
   const kd = K_(r.cam, { X: r.X, Z: r.Z, fx: 0.7, reachL: 1, grin: 1, talk: talkAt(x.ln, x.lu) }, u), hand = SCO.kidHand(kd, 1, 0);
   return END(s.back + h.svg + kd.svg + SCO.riderLeg(c, h.seats[0]) + SCO.bridleLoose(hand.x, hand.y - 30, kd.p.s / 100 * 1.4, { rot: 8 }, u) + s.front);
 });
-// 28 L28 CLOSE Grandma raises her hand: nine fingers, her face calm behind it (hard cut on the last word + 0.4 s)
+// 28 L28 CLOSE: Grandma raises her hand, NINE fingers big in frame, her calm face behind it (hard cut on the last word + 0.4 s)
 shot("28", "L28", () => LN("L28").at - 0.1, (u, x) => {
   SCO.mood(2); const c = CR.cam.door, s = SCO.croft(c, u, { open: 1 });
-  const kp = G_(c, { X: 1.0, Z: 6.6, fx: -0.6, stern: 0.2, flame: 0.3, talk: talkAt(x.ln, x.lu), blink: bl(u) }, u);
-  return END(s.back + kp.svg + SCO.keeperRaise(kp, { warm: 0.7 }) + s.front);
+  const kp = G_(c, { X: 1.0, Z: 6.6, fx: -0.6, stern: 0.05, flame: 0.3, talk: talkAt(x.ln, x.lu), blink: bl(u) }, u);
+  const rise = ease(clamp((x.lu - 0.0) / 0.6)), y = lerp(2600, 1590, rise);
+  return END(s.back + kp.svg + SCO.nineHand(330 + Math.sin(u * 2) * 2, y, 52, { warm: 0.7, rot: -6, arm: 50 }) + s.front);
 });
 
 // ---------------------------------------------------------------- the glimpse (re-hook): blurred 0.5 s of the ending, a small hand gripping the wet weed bridle

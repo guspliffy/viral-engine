@@ -17,11 +17,17 @@ const at = (id) => LINE[id].at, nw = (s) => s.toLowerCase().replace(/[^a-z0-9']/
 const w = (id, p, k = 0) => { let xs = LINE[id].words.filter((q) => nw(q[0]) === p); if (xs.length <= k) xs = LINE[id].words.filter((q) => nw(q[0]).startsWith(p)); return LINE[id].at + xs[k][1]; };
 const we = (id, p, k = 0) => { let xs = LINE[id].words.filter((q) => nw(q[0]) === p); if (xs.length <= k) xs = LINE[id].words.filter((q) => nw(q[0]).startsWith(p)); return LINE[id].at + xs[k][2]; };
 // voices (kid a little up: his take is the softest)
-for (const ln of Object.values(LINE)) add(`${OUT}/vo/${ln.id}.wav`, ln.at, { K: 1.15, G: 1.0, A: 1.0, N: 1.0 }[ln.who]);
+// a take with CUTS (stretches of real silence taken out in kp.mjs) is laid down in pieces
+for (const ln of Object.values(LINE)) {
+  const g = { K: 1.15, G: 1.0, A: 1.0, N: 1.0 }[ln.who], fl = `${OUT}/vo/${ln.id}.wav`;
+  if (!ln.cuts.length) { add(fl, ln.at, g); continue; }
+  let pos = 0, out = 0; const segs = [...ln.cuts.map(([a, b]) => [a, b]), [1e9, 1e9]];
+  for (const [a, b] of segs) { add(fl, ln.at + out, g, `atrim=${pos}${a < 1e8 ? ":" + a : ""},asetpts=PTS-STARTPTS,`); out += (a < 1e8 ? a : 0) - pos; pos = b; }
+}
 // the hard silences
 const C0 = w("L12", "nose") - 0.05, C1 = C0 + 0.7;           // fingertip contact
 const P0 = w("L21", "hard") - 0.12, P1 = P0 + 0.3;           // the pull
-const END_MUSIC = at("L27") + LINE.L27.len + 0.15;           // all music out a beat before L28
+const END_MUSIC = at("L27") + LINE.L27.len + 0.1;           // all music out a beat before L28
 // music (Sol): kneel (fiddle + drone) -> wait (one held note, harp E) -> [contact: nothing] -> drag (cellos, violas) -> under (sparse low strings) -> [pull: nothing] -> obey (harp D-A) -> croft (clarsach)
 const M = (id, a, b, g, fi, fo) => loop(find(MUS, "music", id), a, b, g, fi, fo);
 M("kp-kneel", 0, at("L08") - 0.05, 0.59, 0.02, 0.5);
@@ -31,7 +37,13 @@ M("kp-under", w("L18", "kids") - 0.3, P0, 0.56, 0.5, 0.04);
 M("kp-obey", P1 + 0.1, at("L25") - 0.1, 0.53, 0.05, 0.4);
 M("kp-croft", at("L25") + 0.1, END_MUSIC, 0.5, 0.4, 0.12);
 // sfx (ambience loops are cut at the silences)
-const lap = find(SFX, "sfx", "loch-lap"), under = find(SFX, "sfx", "underwater"), fire = find(SFX, "sfx", "peat-fire"), wind = find(SFX, "sfx", "night-wind");
+// ambience loops get a seamless seam: the last 0.8 s are crossfaded into the first 0.8 s (one unit = take minus 0.8 s)
+const ambLoop = (file) => { if (!file) return null; const d = 0.8, T = +execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", file]).toString().trim(), tag = `${OUT}/amb-${file.split("/").slice(-2, -1)}`, F = ["-v", "error", "-y", "-i", file], A = "aformat=sample_fmts=s16:channel_layouts=stereo:sample_rates=44100";
+  execFileSync("ffmpeg", [...F, "-af", `atrim=0:${d},asetpts=PTS-STARTPTS,afade=t=in:d=${d},${A}`, `${tag}-h.wav`]);
+  execFileSync("ffmpeg", [...F, "-af", `atrim=${T - d}:${T},asetpts=PTS-STARTPTS,afade=t=out:d=${d},${A}`, `${tag}-t.wav`]);
+  execFileSync("ffmpeg", [...F, "-af", `atrim=${d}:${T - d},asetpts=PTS-STARTPTS,${A}`, `${tag}-m.wav`]);
+  execFileSync("ffmpeg", ["-v", "error", "-y", "-i", `${tag}-h.wav`, "-i", `${tag}-t.wav`, "-i", `${tag}-m.wav`, "-filter_complex", "[0:a][1:a]amix=inputs=2:normalize=0:duration=longest,aformat=sample_fmts=s16:channel_layouts=stereo:sample_rates=44100[x];[x][2:a]concat=n=2:v=0:a=1[o]", "-map", "[o]", `${tag}.wav`]); return `${tag}.wav`; };
+const lap = ambLoop(find(SFX, "sfx", "loch-lap")), under = ambLoop(find(SFX, "sfx", "underwater")), fire = ambLoop(find(SFX, "sfx", "peat-fire")), wind = ambLoop(find(SFX, "sfx", "night-wind"));
 loop(lap, 0, C0, 0.5, 0.05, 0.03); loop(lap, C1, w("L18", "kids") - 0.1, 0.45, 0.05, 0.3);
 loop(under, w("L18", "kids") - 0.2, P0, 0.7, 0.3, 0.03); loop(lap, P1, at("L25") - 0.05, 0.4, 0.05, 0.4);
 loop(wind, at("L04"), at("L06") + 2, 0.3, 0.4, 0.5);
