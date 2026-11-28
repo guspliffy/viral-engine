@@ -218,7 +218,7 @@
    "item": "coin",
    "from": [
     -0.25,
-    1.12,
+    1,
     4.3
    ],
    "to": [
@@ -261,8 +261,8 @@
    "fruit": "apple",
    "bite": 0,
    "x": -3.42,
-   "y": 1.12,
-   "z": 2.92,
+   "y": 1.05,
+   "z": 2.99,
    "scale": 0
   },
   {
@@ -567,7 +567,7 @@
    "from": 12.48,
    "to": 14.274,
    "text": "...You carry nothing.",
-   "pos": 250,
+   "pos": 238,
    "pop": false,
    "said": "...You carry nothing.",
    "across": true
@@ -582,8 +582,8 @@
    "across": true
   },
   {
-   "from": 20.68,
-   "to": 22.351,
+   "from": 19.43,
+   "to": 21.101,
    "text": "Including your foot.",
    "pos": 330,
    "pop": false,
@@ -666,7 +666,7 @@
    "from": 59.33,
    "to": 61.276,
    "text": "And Mash NEVER has a coin.",
-   "pos": 330,
+   "pos": 220,
    "pop": false,
    "said": "And Mash NEVER has a coin.",
    "across": true
@@ -1549,24 +1549,24 @@
    "len": 5,
    "shot": {
     "pos": [
-     -3.05,
+     -3.2,
      1.2,
      4.6
     ],
     "look": [
-     -3.15,
+     -3.35,
      0.78,
      1.3
     ],
     "fov": 44,
     "to": {
      "pos": [
-      -3.07,
+      -3.22,
       1.15,
       4.15
      ],
      "look": [
-      -3.15,
+      -3.35,
       0.78,
       1.3
      ],
@@ -1692,7 +1692,7 @@
        0.018
       ]
      },
-     "dur": 0.2,
+     "dur": 0.45,
      "ease": "out",
      "at": 2.59
     },
@@ -1722,14 +1722,6 @@
      "at": 2.6
     },
     {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.45,
-     "at": 2.75
-    },
-    {
      "do": "prop",
      "id": "pile",
      "set": {
@@ -1753,6 +1745,23 @@
      "expr": "angry",
      "dur": 0.2,
      "at": 3
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 3.04
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 3.04
     },
     {
      "who": "spud",
@@ -2089,7 +2098,7 @@
      "do": "move",
      "to": [
       -3.4,
-      2.95
+      3.12
      ],
      "y": -0.3,
      "dur": 0.01,
@@ -2238,25 +2247,25 @@
    "len": 4.2,
    "shot": {
     "pos": [
-     -3.2,
-     1.55,
-     6.3
+     -3.25,
+     1.6,
+     7.2
     ],
     "look": [
      -3.45,
-     1,
+     0.95,
      2.7
     ],
     "fov": 44,
     "to": {
      "pos": [
-      -3.25,
-      1.45,
-      5.8
+      -3.28,
+      1.55,
+      6.8
      ],
      "look": [
       -3.45,
-      1,
+      0.95,
       2.7
      ],
      "fov": 44
@@ -2821,6 +2830,16 @@
      "do": "prop",
      "id": "bask",
      "set": {
+      "tip": 45
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 4
+    },
+    {
+     "do": "prop",
+     "id": "bask",
+     "set": {
       "x": -3.05,
       "y": 0.2,
       "z": 2.95,
@@ -3018,6 +3037,16 @@
      "at": 0.2
     },
     {
+     "macro": "narrate",
+     "line": "Including your foot.",
+     "voice": "narrator-quick",
+     "dur": 1.2514,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.25
+    },
+    {
      "who": "spud",
      "do": "hop",
      "count": 5,
@@ -3098,16 +3127,6 @@
      "at": 1.45
     },
     {
-     "macro": "narrate",
-     "line": "Including your foot.",
-     "voice": "narrator-quick",
-     "dur": 1.2514,
-     "caption": false,
-     "pos": 330,
-     "gain": 4,
-     "at": 1.5
-    },
-    {
      "sfx": "land",
      "gain": 0.35,
      "reason": "a hop on one boot",
@@ -3143,6 +3162,12 @@
      "at": 2.25
     },
     {
+     "sfx": "step",
+     "gain": 0.45,
+     "reason": "you hop on one foot",
+     "at": 2.45
+    },
+    {
      "who": "spud",
      "do": "look",
      "to": [
@@ -3154,11 +3179,23 @@
      "at": 2.5
     },
     {
+     "sfx": "step",
+     "gain": 0.45,
+     "reason": "you hop on one foot",
+     "at": 2.85
+    },
+    {
      "who": "spud",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.2,
      "at": 2.9
+    },
+    {
+     "sfx": "step",
+     "gain": 0.45,
+     "reason": "you hop on one foot",
+     "at": 3.25
     },
     {
      "do": "prop",
@@ -3272,9 +3309,9 @@
      "set": {
       "y": 0.24
      },
-     "dur": 0.17,
+     "dur": 0.35,
      "ease": "settle",
-     "at": 0.4
+     "at": 0.05
     },
     {
      "sfx": "put-down",
@@ -3409,28 +3446,28 @@
    "len": 3.4,
    "shot": {
     "pos": [
-     -0.45,
-     1.45,
-     5.8
+     -0.3,
+     1.5,
+     6.3
     ],
     "look": [
-     -2.1,
+     -2.2,
      0.85,
      2.3
     ],
-    "fov": 44,
+    "fov": 46,
     "to": {
      "pos": [
-      -0.45,
-      1.45,
-      5.8
+      -0.3,
+      1.5,
+      6.3
      ],
      "look": [
       -1.85,
       0.85,
       2.4
      ],
-     "fov": 44
+     "fov": 46
     },
     "dur": 3.4,
     "ease": "inOut"
@@ -3861,15 +3898,17 @@
       -0.8
      ],
      "yaw": 0,
-     "dur": 0.2,
-     "at": 0.25
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.2
     },
     {
      "who": "spud",
      "do": "pitch",
      "to": 50,
-     "dur": 0.2,
-     "at": 0.25
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.2
     },
     {
      "who": "spud",
@@ -4945,16 +4984,6 @@
    },
    "do": [
     {
-     "do": "prop",
-     "id": "cart",
-     "set": {
-      "spin": 1.9
-     },
-     "dur": 1,
-     "ease": "linear",
-     "at": 0
-    },
-    {
      "macro": "narrate",
      "line": "Wheels need a brake.",
      "voice": "narrator-quick",
@@ -4993,16 +5022,6 @@
      "id": "cart",
      "set": {
       "brake": 1
-     },
-     "dur": 0.1,
-     "ease": "out",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "cart",
-     "set": {
-      "spin": 2.1
      },
      "dur": 0.1,
      "ease": "out",
@@ -5533,24 +5552,24 @@
    "len": 6.6,
    "shot": {
     "pos": [
-     1.25,
+     1.1,
      1.6,
      5.15
     ],
     "look": [
-     0.05,
+     -0.05,
      0.97,
      -0.72
     ],
     "fov": 56,
     "to": {
      "pos": [
-      1.25,
+      1.1,
       1.6,
       5.15
      ],
      "look": [
-      0.05,
+      -0.05,
       0.97,
       -0.72
      ],
@@ -6400,7 +6419,7 @@
       6.2
      ],
      "look": [
-      0.45,
+      -0.1,
       0.4,
       2.2
      ],
@@ -6507,14 +6526,14 @@
       ],
       "point": "pinch",
       "at": [
-       0.78,
-       0.58,
-       3.48
+       0.7,
+       0.5,
+       3.62
       ]
      },
      "dur": 0.5,
      "ease": "inOut",
-     "at": 1.4
+     "at": 1.3
     },
     {
      "who": "spud",
@@ -6534,9 +6553,9 @@
        3.48
       ]
      },
-     "dur": 0.4,
-     "ease": "in",
-     "at": 2
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.8
     },
     {
      "sfx": "put-down-metal",
@@ -6578,8 +6597,8 @@
        3.8
       ]
      },
-     "dur": 0.3,
-     "ease": "out",
+     "dur": 0.5,
+     "ease": "inOut",
      "at": 3
     },
     {
@@ -6780,28 +6799,28 @@
    "len": 4.4,
    "shot": {
     "pos": [
-     2.3,
-     1.3,
-     1.2
+     3.1,
+     1.5,
+     0.2
     ],
     "look": [
-     1.05,
-     0.72,
-     3
+     0.4,
+     0.8,
+     3.4
     ],
-    "fov": 42,
+    "fov": 44,
     "to": {
      "pos": [
-      2.2,
-      1.28,
-      1.4
+      3,
+      1.47,
+      0.35
      ],
      "look": [
-      1.05,
-      0.72,
-      3
+      0.4,
+      0.8,
+      3.4
      ],
-     "fov": 42
+     "fov": 44
     },
     "dur": 4.4,
     "ease": "inOut"
@@ -7410,17 +7429,10 @@
     },
     {
      "who": "spud",
-     "do": "face",
-     "eye": 1.2,
-     "dur": 0.1,
-     "at": 2.4
-    },
-    {
-     "who": "spud",
      "do": "look",
      "to": [
       0.2,
-      -0.8
+      -0.5
      ],
      "dur": 0.3,
      "blink": false,
@@ -7444,8 +7456,18 @@
        0.04
       ]
      },
-     "dur": 0.01,
+     "dur": 0.3,
      "ease": "out",
+     "at": 2.42
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25
+     },
+     "dur": 0.12,
      "at": 2.42
     },
     {
@@ -7526,7 +7548,7 @@
   {
    "name": "C15a the last catch",
    "at": 64.1,
-   "len": 1,
+   "len": 0.733,
    "shot": {
     "pos": [
      0.05,
@@ -7543,7 +7565,7 @@
      "pos": [
       0.05,
       0.4,
-      6.25
+      6.32
      ],
      "look": [
       0.05,
@@ -7552,7 +7574,7 @@
      ],
      "fov": 40
     },
-    "dur": 1,
+    "dur": 0.75,
     "ease": "inOut"
    },
    "do": [
@@ -7600,23 +7622,12 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.98
+     "at": 0.73
     },
     {
      "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0.98
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0.98
+     "do": "hide",
+     "at": 0.73
     },
     {
      "do": "prop",
@@ -7629,13 +7640,13 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.98
+     "at": 0.73
     }
    ]
   },
   {
    "name": "C15b his coin (insert)",
-   "at": 65.1,
+   "at": 64.833,
    "len": 0.4,
    "shot": {
     "pos": [
@@ -7674,21 +7685,42 @@
      },
      "dur": 0.1,
      "ease": "in",
-     "at": 0.05
+     "at": 0.087
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "pop": 0.9
+     },
+     "dur": 0.9,
+     "ease": "linear",
+     "at": 0.157
+    },
+    {
+     "sfx": "latch-click",
+     "gain": 0.8,
+     "reason": "Mash's coin opens the next cart",
+     "at": 0.157
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0.167
     },
     {
      "who": "mash",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 0.1
+     "at": 0.167
     },
     {
      "who": "mash",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 0.1
+     "at": 0.167
     },
     {
      "who": "mash",
@@ -7702,7 +7734,7 @@
      "sit": true,
      "yaw": 180,
      "dur": 0.01,
-     "at": 0.1
+     "at": 0.167
     },
     {
      "who": "mash",
@@ -7710,7 +7742,7 @@
      "side": "R",
      "pose": "up",
      "dur": 0.01,
-     "at": 0.1
+     "at": 0.167
     },
     {
      "who": "mash",
@@ -7718,23 +7750,17 @@
      "side": "L",
      "pose": "up",
      "dur": 0.01,
-     "at": 0.1
+     "at": 0.167
     },
     {
      "do": "prop",
-     "id": "ch4",
+     "id": "cart6",
      "set": {
-      "pop": 0.9
+      "tip": 14
      },
-     "dur": 0.9,
+     "dur": 0,
      "ease": "linear",
-     "at": 0.12
-    },
-    {
-     "sfx": "latch-click",
-     "gain": 0.8,
-     "reason": "Mash's coin opens the next cart",
-     "at": 0.12
+     "at": 0.167
     },
     {
      "do": "prop",
@@ -7744,7 +7770,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.38
+     "at": 0.397
     },
     {
      "do": "prop",
@@ -7754,7 +7780,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.38
+     "at": 0.397
     },
     {
      "do": "prop",
@@ -7765,7 +7791,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.38
+     "at": 0.397
     },
     {
      "do": "prop",
@@ -7777,7 +7803,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.38
+     "at": 0.397
     },
     {
      "do": "prop",
@@ -7790,17 +7816,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.38
-    },
-    {
-     "do": "prop",
-     "id": "cart6",
-     "set": {
-      "tip": 14
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.38
+     "at": 0.397
     },
     {
      "who": "spud",
@@ -7812,7 +7828,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 0.38
+     "at": 0.397
     },
     {
      "who": "spud",
@@ -7820,13 +7836,13 @@
      "to": -15,
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.38
+     "at": 0.397
     },
     {
      "who": "spud",
      "do": "noblink",
      "dur": 0,
-     "at": 0.38
+     "at": 0.397
     },
     {
      "who": "spud",
@@ -7836,30 +7852,14 @@
       "open": 0.3
      },
      "dur": 0.01,
-     "at": 0.38
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0.38
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0.38
+     "at": 0.397
     }
    ]
   },
   {
    "name": "C15c mine",
-   "at": 65.5,
-   "len": 0.6,
+   "at": 65.233,
+   "len": 0.867,
    "shot": {
     "pos": [
      -0.75,
@@ -7871,7 +7871,7 @@
      0.6,
      -2
     ],
-    "fov": 50,
+    "fov": 46,
     "to": {
      "pos": [
       -0.75,
@@ -7883,9 +7883,9 @@
       0.6,
       -2
      ],
-     "fov": 50
+     "fov": 46
     },
-    "dur": 0.6,
+    "dur": 0.85,
     "ease": "inOut"
    },
    "do": [
@@ -7893,12 +7893,12 @@
      "who": "spud",
      "do": "look",
      "to": [
-      0.9,
-      0
+      0.45,
+      0.05
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0
+     "at": 0.017
     },
     {
      "do": "prop",
@@ -7911,17 +7911,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.08
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "deadpan",
-     "set": {
-      "open": 0.3
-     },
-     "dur": 0.3,
-     "at": 0.1
+     "at": 0.097
     },
     {
      "do": "prop",
@@ -7934,7 +7924,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.18
+     "at": 0.197
     },
     {
      "do": "prop",
@@ -7947,7 +7937,17 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.28
+     "at": 0.297
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "brows": -0.5
+     },
+     "dur": 0.25,
+     "at": 0.317
     },
     {
      "do": "prop",
@@ -7960,7 +7960,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.38
+     "at": 0.397
     },
     {
      "do": "prop",
@@ -7973,7 +7973,33 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.48
+     "at": 0.497
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "x": 2.3,
+      "y": -1.584,
+      "z": -6.355,
+      "spin": 12.066
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.597
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "x": 2.3,
+      "y": -1.742,
+      "z": -6.986,
+      "spin": 13.792
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.697
     }
    ]
   }
@@ -8206,8 +8232,17 @@
   },
   {
    "who": "mash",
+   "from": 65.25,
+   "to": 66.1,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "tiny in the last wide (2-4 % of the frame), bumping down the cobbles in the cart"
+  },
+  {
+   "who": "mash",
    "with": "cart6",
-   "from": 65.5,
+   "from": 65,
    "to": 66.1,
    "checks": [
     "clipping",
