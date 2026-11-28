@@ -588,6 +588,8 @@ SHOTS.sort((a, b) => a.at - b.at);
 SHOTS.forEach((s, i) => { s.end = i + 1 < SHOTS.length ? SHOTS[i + 1].at : DUR; });
 export const TIMELINE = SHOTS;
 for (const g of GLIMPSES) if (g.line) g.at = LINE[g.line].end + g.off;
+// Jonny 28 Nov: no opening banner (banner videos performed worse); HG_BANNER=1 brings the Lebkuchen heart back
+export const BANNER = process.env.HG_BANNER === "1";
 export const BANNER_END = Math.min(3.0, SHOTS.find((s) => s.id === "2").at - 0.02);   // the lib default (0-3 s): gone before the first cut after 2.6 s
 const sh25b = SHOTS.find((s) => s.id === "25b"), sh25c = SHOTS.find((s) => s.id === "25c");
 CUE.shove = sh25b.at + 0.05; CUE.slam = sh25c.at + 0.28;
@@ -606,7 +608,7 @@ export function parts(time) {
   const ln = LINE[s.line], t = Math.min(time, DUR - 1e-6), u = t - s.at;
   const g = GLIMPSES.find((q) => t >= q.at - 1e-6 && t < q.at + q.frames / FPS - 1e-6);
   const body = g ? glimpse(t, g) : s.fn(u, { ln, lu: t - ln.at, t });
-  return { pic: frame(body, g ? 0.8 : s.vig ?? 0.8) + titleSvg("lebkuchen", t, { teaser: "T1", end: BANNER_END }), cap: captions(t, s.capY ?? CAPY), shot: s.id };
+  return { pic: frame(body, g ? 0.8 : s.vig ?? 0.8) + (BANNER ? titleSvg("lebkuchen", t, { teaser: "T1", end: BANNER_END }) : ""), cap: captions(t, s.capY ?? CAPY), shot: s.id };
 }
 export function draw(time) { const p = parts(time); return p.pic + (SUBS.on ? p.cap : "") + "</svg>"; }
 
