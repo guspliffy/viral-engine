@@ -75,10 +75,10 @@ function slate(m) { const k = m <= 1 ? m : clamp(2 - m); if (k < 0.01) return; f
 // the whole set, like BAL.coast() but with a size for the home (the "pop away" in shot 21), `under` (drawn behind the jetty: the flounder's foam never crosses the deck) and noJetty
 function coast2(c, t, m, o = {}) {
   BAL.mood(m); slate(m);
-  const hm = BAL.home(c, { stage: o.stage || 0, light: o.light, smoke: o.smoke, size: o.size, alpha: o.alpha }, t), jt = BAL.jetty(c, t);
+  const hm = BAL.home(c, { tufts: false, stage: o.stage || 0, light: o.light, smoke: o.smoke, size: o.size, alpha: o.alpha }, t), jt = BAL.jetty(c, t);
   const st = clamp(m - 3), tw = o.towers ?? st, r = o.rain ?? st;
-  const back = BAL.sky(c, t, o) + BAL.sea(c, t, o) + BAL.towers(c, t, { amt: tw }) + BAL.shore(c, t, o) + (o.noHome ? "" : hm.svg) + (o.drift === false ? "" : BAL.driftwood(c, { ...B.drift, rot: -4, seed: 3 })) + (o.under || "") + (o.noJetty ? "" : jt.svg);
-  return { back, front: BAL.near(c, t) + (r > 0.02 ? BAL.rain(t, r) : ""), home: hm };
+  const back = BAL.sky(c, t, o) + BAL.sea(c, t, o) + BAL.towers(c, t, { amt: tw }) + BAL.shore(c, t, { ...o, tufts: false }) + (o.noHome ? "" : hm.svg) + (o.drift === false ? "" : BAL.driftwood(c, { ...B.drift, rot: -4, seed: 3 })) + (o.under || "") + (o.noJetty ? "" : jt.svg);
+  return { back, front: (r > 0.02 ? BAL.rain(t, r) : ""), home: hm };
 }
 const compose = (s, cast, post = "") => s.back + cast + BAL.grade() + post + s.front;
 const FLAT = (svg) => "<!--flat-->" + svg;

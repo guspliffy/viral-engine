@@ -407,7 +407,7 @@ export function home(c, st = {}, t = 0) {
   const b = board(c, X, 0, Z, st.size || 1), A = STAGES[i0](b, st, t), B = fr > 0.01 ? STAGES[i0 + 1](b, st, t) : null, wd = 2.2;   // one shoreline footprint for every stage (Sol R2 B21)
   const mound = flat(blob([[-wd - 0.5, -0.06], [-wd, 0.1], [0, 0.16], [wd, 0.1], [wd + 0.6, -0.04], [0, -0.22]].map(([x, y], i) => ({ x: b.x(x + jit(i + 380, 0.08)), y: b.y(y) }))), M.sandL) + flat(blob([[-wd - 0.3, -0.1], [0, -0.02], [wd + 0.5, -0.08], [0, -0.26]].map(([x, y]) => ({ x: b.x(x), y: b.y(y) }))), M.sandS, `opacity="0.55"`);
   const who = B && fr > 0.5 ? B : A;
-  return { svg: ((st.alpha ?? 1) < 0.999 ? `<g opacity="${n(clamp(st.alpha))}">` : "") + mound + (B ? `<g opacity="${n(1 - fr)}">${A.svg}</g><g opacity="${n(fr)}">${B.svg}</g>` : A.svg) + marram(c, { X: X - wd - 0.2, Z: Z - 0.05, size: 0.9, seed: 71 }, t) + marram(c, { X: X + wd + 0.25, Z: Z - 0.1, size: 1, seed: 73 }, t) + ((st.alpha ?? 1) < 0.999 ? "</g>" : ""), door: { X: X + who.door[0], Z: Z - 0.1 }, top: who.top };
+  return { svg: ((st.alpha ?? 1) < 0.999 ? `<g opacity="${n(clamp(st.alpha))}">` : "") + mound + (B ? `<g opacity="${n(1 - fr)}">${A.svg}</g><g opacity="${n(fr)}">${B.svg}</g>` : A.svg) + (st.tufts === false ? "" : marram(c, { X: X - wd - 0.2, Z: Z - 0.05, size: 0.9, seed: 71 }, t) + marram(c, { X: X + wd + 0.25, Z: Z - 0.1, size: 1, seed: 73 }, t)) + ((st.alpha ?? 1) < 0.999 ? "</g>" : ""), door: { X: X + who.door[0], Z: Z - 0.1 }, top: who.top };
 }
 
 // ---------------------------------------------------------------- the whole set
