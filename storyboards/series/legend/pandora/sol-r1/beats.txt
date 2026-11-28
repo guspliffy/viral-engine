@@ -1,0 +1,67 @@
+LINES (start-end s, speaker, text; end = last word heard)
+0.00-3.76  N  The most dangerous gift in history... made no sound.
+3.91-5.03  K  What came out?
+5.18-8.90  P  Brother. Never take a gift from Zeus. Never.
+9.05-14.61  N  He had just stolen fire from the gods. For us. And Zeus... laughed out loud.
+14.76-18.37  N  Then he ordered a gift humans would love... right up to the end.
+18.49-23.13  N  The smith god mixed mud and water into a woman. And every god gave her something.
+23.28-28.60  N  A dress. A smile. And from Hermes... a liar's tongue.
+28.80-32.75  N  They called her Pandora. All-gifted. And one gift was a trap.
+32.90-35.08  N  Hermes walked her to the door of the other brother.
+35.48-36.70  E  Oh! For me?
+36.95-38.69  K  Wait. He forgot already?
+38.89-41.09  G  His name means afterthought.
+41.39-46.68  N  Her first night in the house. In the corner stood a jar, taller than a man. Sealed.
+46.93-48.49  E  Just... don't open that one.
+48.69-52.68  N  And here's the strangest part. Nobody ever wrote down WHY she did it.
+52.93-54.46  K  She just opened it?
+55.31-58.22  N  No crash. No scream. Not a sound.
+58.62-64.73  N  Out came sickness. Hard work. Old age. Before that night, people had none of them.
+65.03-69.78  N  Zeus had taken their voices. So they still come for you... without a sound.
+69.98-72.59  N  She slammed the lid. But one thing didn't make it out.
+72.84-75.90  N  Under the rim, one tiny light. Hope.
+76.05-77.82  K  So Hope's the good one?
+77.97-82.31  G  Two thousand seven hundred years... and nobody agrees.
+82.91-84.70  G  That one stays in.
+
+SHOTS (start-end s, shot id, line):
+0.00-3.86  1  L01
+3.86-5.16  2  L02
+5.16-9.02  3  L03
+9.02-12.60  4a  L04
+12.60-13.98  4b  L04
+13.98-14.72  4c  L04
+14.72-17.14  5a  L05
+17.14-18.45  5b  L05
+18.45-21.48  6a  L06
+21.48-23.24  6b  L06
+23.24-24.57  7a  L07
+24.57-25.64  7b  L07
+25.64-28.76  7c  L07
+28.76-31.41  8a  L08
+31.41-32.85  8b  L08
+32.85-35.11  9  L09
+35.11-36.90  10  L10
+36.90-38.84  11a  L11
+38.84-41.34  11b  L12
+41.34-43.17  12a  L13
+43.17-46.88  12b  L13
+46.88-48.64  13  L14
+48.64-50.63  14a  L15
+50.63-52.88  14b  L15
+52.88-54.56  15  L16
+54.56-57.23  16a  L17
+57.23-58.58  16b  L17
+58.58-59.23  17a  L18
+59.23-60.13  17b  L18
+60.13-61.26  17c  L18
+61.26-62.60  17d  L18
+62.60-64.98  17e  L18
+64.98-66.89  18a  L19
+66.89-69.94  18b  L19
+69.94-71.22  19a  L20
+71.22-72.79  19b  L20
+72.79-76.00  20  L21
+76.00-77.92  21  L22
+77.92-82.34  22  L23
+82.34-84.75  23  L24
