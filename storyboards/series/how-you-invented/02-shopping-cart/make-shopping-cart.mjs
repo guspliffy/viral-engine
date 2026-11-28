@@ -45,7 +45,7 @@ const SHOTS = [
   ["C09 the hay cart", 33.2, push([60.25, 1.30, 6.40], [60.05, 1.15, 1.10], 50, { pos: [60.22, 1.28, 5.90] }, 4.4)],
   ["C10a the brake (insert)", 37.6, push([2.60, 0.50, 5.95], [1.47, 0.16, 4.50], 36, { fov: 33 }, 1.9)],
   ["C10b the flip", 39.5, push([0.80, 1.35, 6.40], [1.25, 0.70, 3.60], 44, { pos: [0.85, 1.25, 3.40], look: [1.25, 0.75, 0.55] }, 1.4)],
-  ["C11 the theft", 44.2, push([0.95, 1.60, 5.15], [-0.14, 0.97, -0.72], 56, { fov: 52 }, 6.6)],
+  ["C11 the theft", 44.2, push([1.25, 1.60, 5.15], [0.05, 0.97, -0.72], 56, { fov: 52 }, 6.6)],
   ["C12a the row", 50.8, push([2.05, 1.50, 6.60], [-2.20, 0.60, 1.20], 46, { pos: [1.95, 1.45, 6.20], look: [0.45, 0.40, 2.20] }, 1.6)],
   ["C12b the lock", 53.2, push([1.85, 1.10, 5.90], [0.55, 0.55, 3.50], 42, { fov: 38 }, 3.8)],
   ["C13 no coin", 57.0, push([2.30, 1.30, 1.20], [1.05, 0.72, 3.00], 42, { pos: [2.20, 1.28, 1.40] }, 4.4)],
@@ -83,7 +83,7 @@ const FOOT = (x, y, z) => [r3(61.85 - x), r3(y + 5.32), r3(-23.35 - z)];   // a 
 const ROW = (n) => [0.95, r3(0.75 + 0.62 * (n - 1))];
 const TOWER0 = { id: "tower", kind: "foodtower", n: 14, sway: 0, fall: 0, hole: 0.10, ...grips.placeFor("foodtower", [-3.55, 0.16, 1.90], 15) };
 const ORANGE = { id: "orange", kind: "snackfruit", fruit: "orange", bite: 0, x: -3.22, y: 0.34, z: 1.70, scale: 0 };
-const APPLE = { id: "apple", kind: "snackfruit", fruit: "apple", bite: 0, x: -3.50, y: 0.70, z: 2.80, scale: 0 };
+const APPLE = { id: "apple", kind: "snackfruit", fruit: "apple", bite: 0, x: -3.42, y: 1.12, z: 2.92, scale: 0 };
 const COINS = { id: "coinS", kind: "coin", scale: 0, shine: 0, x: -0.25, y: 1.02, z: 4.30, staged: "in Spud's glove" };
 const props = [
   { id: "top", kind: "hillstreet", x: 0, y: 0, z: 0, staged: "the street set itself (its origin sits high above the foot of the hill)" },
@@ -145,30 +145,31 @@ ht.carry(0.02, armfulAt(-3.85, 1.55, 15), 0.48, "out");
 for (const [t, a] of [[0.5, 5], [0.75, -5], [1.0, 5], [1.25, -5], [1.5, 0]]) A(t, "spud", "lean", { to: a, dur: 0.25, ease: "inOut" });
 expr(0.45, "spud", "shocked", { open: 0.1 }, 0.1); look(0.45, "spud", [0.5, 0.1], 0.1);
 A(0, "mash", "crouch", { to: 0.15, dur: 0 }); A(0, "mash", "lean", { to: 15, dur: 0 });
-c.arm(0, "mash", "R", { prop: "orangeC", grip: [-3.22, 0.38, 1.70] }, 0.01); grip(0, "mash", "R", "cup", 0.01);
-P(0, "orangeC", { drop: 0.40 }, 0.40, "linear"); grip(0.36, "mash", "R", "hold", 0.06);
+c.arm(0, "mash", "R", { prop: "orangeC", grip: [-3.22, 0.38, 1.70] }, 0.01); grip(0, "mash", "R", "open", 0.01);   // open, not cup: cup turns the palm up and flipped the wrist on the catch
+P(0, "orangeC", { drop: 0.40 }, 0.40, "linear"); grip(0.38, "mash", "R", "hold", 0.25);
 sfx(0.40, "ai/fingertip-catch", { gain: 0.8, reason: "Mash's glove snaps shut on the orange" });
 expr(0.4, "mash", "smug", { lid: 0.42 }, 0.15);
-A(0.6, "mash", "crouch", { to: 0, dur: 0.4 }); A(0.6, "mash", "lean", { to: 0, dur: 0.4 }); c.arm(0.6, "mash", "R", { o: [0.25, 0.40, 0.25] }, 0.4, "out");
-P(0.6, "orangeC", { scale: 0 }); P(0.6, "orange", { scale: 1 });   // the catch prop becomes the held fruit (same spot, same frame)
-const hf = grips.mug(c, "mash", ORANGE, { side: "R" });
-hf.take(0.6, { reach: 0.005, settle: 0.005 });
+// he holds the catch pose to the cut (standing up dragged the pinned hand)
+
+P(before("C02"), "orangeC", { scale: 0 }); P(before("C02"), "orange", { scale: 1 });   // the catch prop becomes the held fruit (same spot, same frame)
+const hf = grips.mug(c, "mash", { ...ORANGE, scale: 1 }, { side: "R" });
+hf.take(before("C02"), { reach: 0.005, settle: 0.005 });   // the hold starts on the cut: no wrist turn on screen
 for (const k of [1.55, 1.95, 2.3]) sfx(k, "step", { gain: 0.35, reason: "your stagger under the armful" });
 see(0.1, 2.3, ["mash.face", "spud.face", "orangeC"], "the catch: Drop it... and it's MINE");
 
 // ================================================================ C02 2.4-7.4: "Mash is the WORST friend in the village. How do you beat him?"
 place(before("C02"), "spud", [-3.62, 2.05], 40); ht.carry(before("C02"), armfulAt(-3.62, 2.05, 40), 0.01);
-place(before("C02"), "mash", [-2.95, 1.37], -25);
+place(before("C02"), "mash", [-2.95, 1.37], -25); A(before("C02"), "mash", "crouch", { to: 0, dur: 0.01 }); A(before("C02"), "mash", "lean", { to: 0, dur: 0.01 });
 expr(before("C02"), "spud", "annoyed", { brows: -0.4 }, 0.01); look(before("C02"), "spud", [0.6, 0.15], 0.01);
-hf.carry(before("C02"), [-3.05, 0.50, 1.62], 0.01);
-hf.carry(2.7, [-3.04, 0.62, 1.60], 0.3, "inOut");   // to his mouth
+hf.carry(before("C02"), [-3.05, 0.50, 1.62], 0.01, "inOut", { rot: false });
+hf.carry(2.45, [-3.04, 0.62, 1.60], 0.55, "inOut", { rot: false });   // to his mouth
 A(3.0, "mash", "squash", { amount: 0.03, dur: 0.15 });
 P(3.0, "orange", { bite: 1 }, 0.1); sfx(3.0, "ai/pot-bite", { gain: 0.6, reason: "Mash bites the whole orange" });
-for (let t = 3.2; t < 4.9; t = r3(t + 0.5)) { A(t, "mash", "squash", { amount: 0.03, dur: 0.25 }); A(r3(t + 0.25), "mash", "squash", { amount: 0, dur: 0.25 }); }
+A(3.2, "mash", "squash", { amount: 0, dur: 0.25 });   // one chomp (a chewing loop shook the held orange)
 face(3.0, "mash", { lid: 0.5 }, 0.3);
-hf.release(4.95, { rest: false, back: 0.01 }); P(5.0, "orange", { scale: 0 }); c.arm(5.0, "mash", "L", { o: [0.45, 0.35, 0.10] }, 0.2, "out"); c.arm(5.25, "mash", "L", "rest", 0.4);
+hf.release(4.95, { rest: false, back: 0.2 }); P(5.0, "orange", { scale: 0 }); c.arm(5.0, "mash", "L", { o: [0.45, 0.35, 0.10] }, 0.2, "out"); c.arm(5.25, "mash", "L", "rest", 0.4);
 pileTo(5.2, 1); expr(5.4, "spud", "angry", null, 0.2);
-c.arm(5.0, "mash", "R", "rest", 0.4);
+c.arm(5.15, "mash", "R", "rest", 0.45);
 see(2.6, 7.3, ["mash.face", "spud.face", "pile"], "the worst friend: how do you beat him?");
 
 // ================================================================ C03 7.4-11.0: "You carry more." the tower
@@ -195,9 +196,9 @@ for (const [t, k] of [[12.05, 0.65], [12.3, 0.58], [12.55, 0.65], [12.8, 0.58], 
 A(before("C04"), "mash", "ride", { prop: "tower", off: [-0.05, 0.50, -0.10], sit: true, yaw: 8, dur: 0.01 });
 expr(before("C04"), "mash", "serene", null, 0.01); pileTo(before("C04"), 2);
 P(before("C04"), "apple", { scale: 1 });
-const ha = grips.mug(c, "mash", APPLE, { side: "R" });
+const ha = grips.mug(c, "mash", { ...APPLE, scale: 1 }, { side: "R", gap: 0.035 });
 ha.take(before("C04"), { reach: 0.005, settle: 0.005 });
-ha.carry(12.0, [-3.42, 1.12, 2.92], 0.3, "inOut"); P(12.3, "apple", { bite: 1 }, 0.1); sfx(12.3, "ai/crunch", { gain: 0.5, reason: "Mash bites the apple on top of the heap" });
+ P(12.3, "apple", { bite: 1 }, 0.1); sfx(12.3, "ai/crunch", { gain: 0.5, reason: "Mash bites the apple on top of the heap" });
 see(11.2, 15.1, ["mash.face", "tower"], "you carry nothing: Mash on top of your heap");
 
 // ================================================================ C05 15.2-19.3: "A basket. Everything in one place." the snap
@@ -228,7 +229,7 @@ arms(19.45, "spud", { o: [0.10, 0.30, 0.30] }, 0.2);
 A(19.55, "spud", "hop", { count: 5, height: 0.12, dur: 2.0, quiet: true });
 for (let k = 0; k < 5; k++) sfx(r3(19.95 + k * 0.4), "land", { gain: 0.35, reason: "a hop on one boot" });
 A(before("C06"), "mash", "show", {}); arms(before("C06"), "mash", "rest", 0.01); place(before("C06"), "mash", [-2.75, 2.25], -30); expr(before("C06"), "mash", "delighted", null, 0.01);
-A(20.4, "mash", "crouch", { to: 0.30, dur: 0.4 }); for (const s of ["R", "L"]) { c.arm(20.4, "mash", s, { prop: "top", grip: [s === "R" ? -3.02 : -2.86, 0.09, 2.58] }, 0.4); grip(20.6, "mash", s, "cup"); }
+A(20.4, "mash", "crouch", { to: 0.30, dur: 0.4 }); for (const s of ["R", "L"]) { c.arm(20.2, "mash", s, { prop: "top", grip: [s === "R" ? -3.02 : -2.86, 0.09, 2.58] }, 0.6); grip(20.3, "mash", s, "open", 0.35); }
 A(21.4, "mash", "crouch", { to: 0, dur: 0.4 }); arms(21.4, "mash", "rest", 0.4);
 pileTo(23.2, 3); look(21.8, "spud", [0.6, 0], 0.2); expr(22.2, "spud", "annoyed", null, 0.2);
 see(19.4, 23.9, ["spud.face", "mash.face", "bask"], "the foot and the scoop");
@@ -324,7 +325,7 @@ A(before("C11"), "spud", "ride", { prop: null }); A(before("C11"), "spud", "pitc
 arms(before("C11"), "spud", "rest", 0.01); expr(before("C11"), "spud", "happy", null, 0.01);
 c.arm(45.0, "spud", "R", { o: [0.15, 0.55, 0.45] }, 0.3, "out"); c.arm(46.6, "spud", "R", "rest", 0.3);
 A(before("C11"), "boss", "show", {}); expr(before("C11"), "boss", "kind", null, 0.01);
-c.arm(45.1, "boss", "R", { o: [0.20, 0.45, 0.40] }, 0.3, "out"); expr(47.6, "boss", "shocked", null, 0.15); c.arm(47.6, "boss", "L", "point", 0.25, "out");
+c.arm(45.1, "boss", "R", { o: [0.20, 0.45, 0.40] }, 0.3, "out"); expr(47.6, "boss", "shocked", null, 0.15); c.arm(47.5, "boss", "L", "point", 0.45, "out");
 P(before("C11"), "cart", { x: 1.20, y: 0, z: 1.45, rot: 180, tip: 0, spin: 0, brake: 0, fill: 1 });
 A(before("C11"), "mash", "show", {}); A(before("C11"), "mash", "ride", { prop: "cart", off: [0, 0.32, 0.02], sit: true, yaw: 180, dur: 0.01 });
 expr(before("C11"), "mash", "happy", null, 0.01); c.arm(before("C11"), "mash", "L", "rest", 0.01);
@@ -382,16 +383,16 @@ see(61.5, 64.0, ["spud.face", "coinS"], "the proud coin, then it slips");
 // ================================================================ C15a 64.1-65.1 / C15b 65.1-65.5 / C15c 65.5-66.1: Mash: "Drop it... and it's MINE."
 A(before("C15a"), "mash", "show", {}); place(before("C15a"), "mash", [0.38, 4.20], -35, 0);
 A(before("C15a"), "mash", "crouch", { to: 0.35, dur: 0.01 }); A(before("C15a"), "mash", "lean", { to: 20, dur: 0.01 }); expr(before("C15a"), "mash", "smug", { lid: 0.42 }, 0.01);
-c.arm(before("C15a"), "mash", "L", { prop: "coinC", grip: [-0.18, 0.14, 4.35] }, 0.01); grip(before("C15a"), "mash", "L", "cup", 0.01);
-P(64.1, "coinC", { drop: 0.447 }, 0.147, "linear"); grip(64.21, "mash", "L", "hold", 0.05); sfx(64.25, "ai/fingertip-catch", { gain: 0.9, reason: "Mash catches your coin" });
+c.arm(before("C15a"), "mash", "L", { prop: "coinC", grip: [-0.18, 0.14, 4.35] }, 0.01); grip(before("C15a"), "mash", "L", "open", 0.01);
+P(64.1, "coinC", { drop: 0.447 }, 0.147, "linear"); grip(64.18, "mash", "L", "hold", 0.2); sfx(64.25, "ai/fingertip-catch", { gain: 0.9, reason: "Mash catches your coin" });
 // C15b: his coin goes into chair 4's slot, the chain pops
 P(before("C15b"), "coinC", { scale: 0 }); arms(before("C15b"), "mash", "rest", 0.01); P(before("C15b"), "coinM", { scale: 0.6, x: 0.78, y: 0.62, z: 2.86 });
 P(65.15, "coinM", { y: 0.52 }, 0.1, "in"); P(65.22, "ch4", { pop: 0.9 }, 0.9, "linear"); sfx(65.22, "latch-click", { gain: 0.8, reason: "Mash's coin opens the next cart" });
 // C15c: Mash rolls away in chair 4, waving; your face drops
 P(before("C15c"), "coinM", { scale: 0 }); P(before("C15c"), "r4", { scale: 0 }); P(before("C15c"), "cart6", { scale: 1, fill: 0 });
-A(before("C15c"), "mash", "crouch", { to: 0, dur: 0.01 }); A(before("C15c"), "mash", "lean", { to: 0, dur: 0.01 });
-A(before("C15c"), "mash", "ride", { prop: "cart6", off: [0, 0.32, 0.02], sit: true, yaw: 180, dur: 0.01 });
-c.arm(before("C15c"), "mash", "R", "up", 0.01); c.arm(before("C15c"), "mash", "L", "wave", 0.01);
+A(65.2, "mash", "crouch", { to: 0, dur: 0.01 }); A(65.2, "mash", "lean", { to: 0, dur: 0.01 });   // set during the insert (he is out of its frame): no pose jump after the cut
+A(65.2, "mash", "ride", { prop: "cart6", off: [0, 0.32, 0.02], sit: true, yaw: 180, dur: 0.01 });
+c.arm(65.2, "mash", "R", "up", 0.01); c.arm(65.2, "mash", "L", "up", 0.01);
 roll("cart6", 65.48, 66.1, (t) => { const s = 2 + 6.5 * (t - 65.48), z = r3(-s * C14); return [2.30, slopeY(z), z]; }, { every: 0.1 }); P(before("C15c"), "cart6", { tip: 14 });
 place(before("C15c"), "spud", [-0.60, 4.10], -15); A(before("C15c"), "spud", "noblink", { dur: 0 }); expr(before("C15c"), "spud", "shocked", { open: 0.3 }, 0.01);
 expr(65.6, "spud", "deadpan", { open: 0.3 }, 0.3); look(65.5, "spud", [0.9, 0], 0.01); arms(before("C15c"), "spud", "rest", 0.01);

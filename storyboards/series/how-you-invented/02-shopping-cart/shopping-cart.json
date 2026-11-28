@@ -260,9 +260,9 @@
    "kind": "snackfruit",
    "fruit": "apple",
    "bite": 0,
-   "x": -3.5,
-   "y": 0.7,
-   "z": 2.8,
+   "x": -3.42,
+   "y": 1.12,
+   "z": 2.92,
    "scale": 0
   },
   {
@@ -1077,7 +1077,7 @@
      "who": "mash",
      "do": "grip",
      "side": "R",
-     "shape": "cup",
+     "shape": "open",
      "dur": 0.01,
      "at": 0
     },
@@ -1227,8 +1227,8 @@
      "do": "grip",
      "side": "R",
      "shape": "hold",
-     "dur": 0.06,
-     "at": 0.36
+     "dur": 0.25,
+     "at": 0.38
     },
     {
      "sfx": "ai/fingertip-catch",
@@ -1274,124 +1274,6 @@
      "dur": 0.25,
      "ease": "inOut",
      "at": 0.5
-    },
-    {
-     "who": "mash",
-     "do": "crouch",
-     "to": 0,
-     "dur": 0.4,
-     "at": 0.6
-    },
-    {
-     "who": "mash",
-     "do": "lean",
-     "to": 0,
-     "dur": 0.4,
-     "at": 0.6
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.25,
-       0.4,
-       0.25
-      ]
-     },
-     "dur": 0.4,
-     "ease": "out",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "orangeC",
-     "set": {
-      "scale": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "orange",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "who": "mash",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.005,
-     "at": 0.6
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "orange",
-      "grip": [
-       null,
-       null,
-       null
-      ],
-      "palm": "wrap",
-      "off": [
-       0.068,
-       0.02,
-       0.018
-      ]
-     },
-     "dur": 0.005,
-     "ease": "inOut",
-     "at": 0.6
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "orange",
-      "grip": [
-       null,
-       null,
-       null
-      ],
-      "palm": "wrap"
-     },
-     "dur": 0.005,
-     "ease": "settle",
-     "at": 0.605
-    },
-    {
-     "who": "mash",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 0.608
-    },
-    {
-     "who": "mash",
-     "do": "grab",
-     "prop": "orange",
-     "hand": "R",
-     "grip": [
-      null,
-      null,
-      null
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0.67
     },
     {
      "who": "spud",
@@ -1442,6 +1324,56 @@
      "gain": 0.35,
      "reason": "your stagger under the armful",
      "at": 2.3
+    },
+    {
+     "do": "prop",
+     "id": "orangeC",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "orange",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.005,
+     "at": 2.38
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "orange",
+      "grip": [
+       0.092,
+       0.059,
+       0.025
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 2.38
     },
     {
      "who": "spud",
@@ -1528,6 +1460,20 @@
      "at": 2.38
     },
     {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
      "who": "spud",
      "do": "expr",
      "expr": "annoyed",
@@ -1555,9 +1501,9 @@
      "pose": {
       "prop": "orange",
       "grip": [
-       null,
-       null,
-       null
+       0.092,
+       0.059,
+       0.025
       ],
       "palm": "wrap",
       "at": [
@@ -1569,6 +1515,31 @@
      "dur": 0.01,
      "ease": "inOut",
      "at": 2.38
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "orange",
+      "grip": [
+       0.092,
+       0.059,
+       0.025
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.005,
+     "ease": "settle",
+     "at": 2.385
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.388
     }
    ]
   },
@@ -1606,14 +1577,18 @@
    },
    "do": [
     {
-     "macro": "narrate",
-     "line": "Mash is the WORST friend in the village. How do you beat him?",
-     "voice": "narrator-quick",
-     "dur": 4.1193,
-     "caption": false,
-     "pos": 330,
-     "gain": 4,
-     "at": 0.2
+     "who": "mash",
+     "do": "grab",
+     "prop": "orange",
+     "hand": "R",
+     "grip": [
+      0.092,
+      0.059,
+      0.025
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.05
     },
     {
      "who": "mash",
@@ -1622,9 +1597,9 @@
      "pose": {
       "prop": "orange",
       "grip": [
-       null,
-       null,
-       null
+       0.092,
+       0.059,
+       0.025
       ],
       "palm": "wrap",
       "at": [
@@ -1633,9 +1608,19 @@
        1.6
       ]
      },
-     "dur": 0.3,
+     "dur": 0.55,
      "ease": "inOut",
-     "at": 0.3
+     "at": 0.05
+    },
+    {
+     "macro": "narrate",
+     "line": "Mash is the WORST friend in the village. How do you beat him?",
+     "voice": "narrator-quick",
+     "dur": 4.1193,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.2
     },
     {
      "who": "mash",
@@ -1670,58 +1655,9 @@
     {
      "who": "mash",
      "do": "squash",
-     "amount": 0.03,
+     "amount": 0,
      "dur": 0.25,
      "at": 0.8
-    },
-    {
-     "who": "mash",
-     "do": "squash",
-     "amount": 0,
-     "dur": 0.25,
-     "at": 1.05
-    },
-    {
-     "who": "mash",
-     "do": "squash",
-     "amount": 0.03,
-     "dur": 0.25,
-     "at": 1.3
-    },
-    {
-     "who": "mash",
-     "do": "squash",
-     "amount": 0,
-     "dur": 0.25,
-     "at": 1.55
-    },
-    {
-     "who": "mash",
-     "do": "squash",
-     "amount": 0.03,
-     "dur": 0.25,
-     "at": 1.8
-    },
-    {
-     "who": "mash",
-     "do": "squash",
-     "amount": 0,
-     "dur": 0.25,
-     "at": 2.05
-    },
-    {
-     "who": "mash",
-     "do": "squash",
-     "amount": 0.03,
-     "dur": 0.25,
-     "at": 2.3
-    },
-    {
-     "who": "mash",
-     "do": "squash",
-     "amount": 0,
-     "dur": 0.25,
-     "at": 2.55
     },
     {
      "who": "mash",
@@ -1745,9 +1681,9 @@
      "pose": {
       "prop": "orange",
       "grip": [
-       null,
-       null,
-       null
+       0.092,
+       0.059,
+       0.025
       ],
       "palm": "wrap",
       "off": [
@@ -1756,7 +1692,7 @@
        0.018
       ]
      },
-     "dur": 0.01,
+     "dur": 0.2,
      "ease": "out",
      "at": 2.59
     },
@@ -1790,8 +1726,8 @@
      "do": "arm",
      "side": "R",
      "pose": "rest",
-     "dur": 0.4,
-     "at": 2.6
+     "dur": 0.45,
+     "at": 2.75
     },
     {
      "do": "prop",
@@ -2254,9 +2190,9 @@
      "pose": {
       "prop": "apple",
       "grip": [
-       null,
-       null,
-       null
+       0.077,
+       0.059,
+       0.021
       ],
       "palm": "wrap",
       "off": [
@@ -2276,9 +2212,9 @@
      "pose": {
       "prop": "apple",
       "grip": [
-       null,
-       null,
-       null
+       0.077,
+       0.059,
+       0.021
       ],
       "palm": "wrap"
      },
@@ -2342,9 +2278,9 @@
      "prop": "apple",
      "hand": "R",
      "grip": [
-      null,
-      null,
-      null
+      0.077,
+      0.059,
+      0.021
      ],
      "dur": 0,
      "pose": null,
@@ -2380,28 +2316,6 @@
      "shape": "open",
      "dur": 0.1,
      "at": 0.9
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "apple",
-      "grip": [
-       null,
-       null,
-       null
-      ],
-      "palm": "wrap",
-      "at": [
-       -3.42,
-       1.12,
-       2.92
-      ]
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 1
     },
     {
      "who": "spud",
@@ -2666,9 +2580,9 @@
      "pose": {
       "prop": "apple",
       "grip": [
-       null,
-       null,
-       null
+       0.077,
+       0.059,
+       0.021
       ],
       "palm": "wrap",
       "off": [
@@ -3119,19 +3033,6 @@
      "at": 0.65
     },
     {
-     "sfx": "land",
-     "gain": 0.35,
-     "reason": "a hop on one boot",
-     "at": 1.05
-    },
-    {
-     "who": "mash",
-     "do": "crouch",
-     "to": 0.3,
-     "dur": 0.4,
-     "at": 1.1
-    },
-    {
      "who": "mash",
      "do": "arm",
      "side": "R",
@@ -3143,8 +3044,8 @@
        2.58
       ]
      },
-     "dur": 0.4,
-     "at": 1.1
+     "dur": 0.6,
+     "at": 0.9
     },
     {
      "who": "mash",
@@ -3158,24 +3059,37 @@
        2.58
       ]
      },
-     "dur": 0.4,
-     "at": 1.1
+     "dur": 0.6,
+     "at": 0.9
     },
     {
      "who": "mash",
      "do": "grip",
      "side": "R",
-     "shape": "cup",
-     "dur": 0.1,
-     "at": 1.3
+     "shape": "open",
+     "dur": 0.35,
+     "at": 1
     },
     {
      "who": "mash",
      "do": "grip",
      "side": "L",
-     "shape": "cup",
-     "dur": 0.1,
-     "at": 1.3
+     "shape": "open",
+     "dur": 0.35,
+     "at": 1
+    },
+    {
+     "sfx": "land",
+     "gain": 0.35,
+     "reason": "a hop on one boot",
+     "at": 1.05
+    },
+    {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0.3,
+     "dur": 0.4,
+     "at": 1.1
     },
     {
      "sfx": "land",
@@ -5619,24 +5533,24 @@
    "len": 6.6,
    "shot": {
     "pos": [
-     0.95,
+     1.25,
      1.6,
      5.15
     ],
     "look": [
-     -0.14,
+     0.05,
      0.97,
      -0.72
     ],
     "fov": 56,
     "to": {
      "pos": [
-      0.95,
+      1.25,
       1.6,
       5.15
      ],
      "look": [
-      -0.14,
+      0.05,
       0.97,
       -0.72
      ],
@@ -5965,18 +5879,18 @@
     },
     {
      "who": "boss",
-     "do": "expr",
-     "expr": "shocked",
-     "dur": 0.15,
-     "at": 3.4
-    },
-    {
-     "who": "boss",
      "do": "arm",
      "side": "L",
      "pose": "point",
-     "dur": 0.25,
+     "dur": 0.45,
      "ease": "out",
+     "at": 3.3
+    },
+    {
+     "who": "boss",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
      "at": 3.4
     },
     {
@@ -7603,7 +7517,7 @@
      "who": "mash",
      "do": "grip",
      "side": "L",
-     "shape": "cup",
+     "shape": "open",
      "dur": 0.01,
      "at": 2.68
     }
@@ -7657,8 +7571,8 @@
      "do": "grip",
      "side": "L",
      "shape": "hold",
-     "dur": 0.05,
-     "at": 0.11
+     "dur": 0.2,
+     "at": 0.08
     },
     {
      "sfx": "ai/fingertip-catch",
@@ -7763,6 +7677,50 @@
      "at": 0.05
     },
     {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "cart6",
+     "off": [
+      0,
+      0.32,
+      0.02
+     ],
+     "sit": true,
+     "yaw": 180,
+     "dur": 0.01,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.01,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.01,
+     "at": 0.1
+    },
+    {
      "do": "prop",
      "id": "ch4",
      "set": {
@@ -7807,50 +7765,6 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.38
-    },
-    {
-     "who": "mash",
-     "do": "crouch",
-     "to": 0,
-     "dur": 0.01,
-     "at": 0.38
-    },
-    {
-     "who": "mash",
-     "do": "lean",
-     "to": 0,
-     "dur": 0.01,
-     "at": 0.38
-    },
-    {
-     "who": "mash",
-     "do": "ride",
-     "prop": "cart6",
-     "off": [
-      0,
-      0.32,
-      0.02
-     ],
-     "sit": true,
-     "yaw": 180,
-     "dur": 0.01,
-     "at": 0.38
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.01,
-     "at": 0.38
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "L",
-     "pose": "wave",
-     "dur": 0.01,
      "at": 0.38
     },
     {
