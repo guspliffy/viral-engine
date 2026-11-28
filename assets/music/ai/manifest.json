@@ -2934,6 +2934,460 @@
      "loudnessLUFS": -16.0
     }
    ]
+  },
+  {
+   "id": "cw-eyes",
+   "kind": "music",
+   "files": [
+    "cw-eyes/cw-eyes-01.ogg",
+    "cw-eyes/cw-eyes-02.ogg",
+    "cw-eyes/cw-eyes-03.ogg",
+    "cw-eyes/cw-eyes-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 65.0,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 58,
+   "loopable": false,
+   "durationSec": 7.523,
+   "prompt": [
+    "58 BPM, E minor. One sustained close-recorded solo cello low E3, a bowed G creeping in high and quiet, ominous, sparse. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "58 BPM, E minor. Low bowed cello drone on E with a faint high viola G, dark, still, lots of air. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seed": [
+    2101,
+    2102,
+    2101,
+    2102
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "cw-eyes/cw-eyes-01.ogg",
+     "seed": 2101,
+     "durationSec": 8.533,
+     "bars": 2,
+     "bpm": 56.2,
+     "beatSpread": 0.076,
+     "steadyBeat": false,
+     "clap": -0.143,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-eyes/cw-eyes-02.ogg",
+     "seed": 2102,
+     "durationSec": 5.933,
+     "bars": 2,
+     "bpm": 80.9,
+     "beatSpread": 0.008,
+     "steadyBeat": true,
+     "clap": -0.218,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-eyes/cw-eyes-03.ogg",
+     "seed": 2101,
+     "durationSec": 9.334,
+     "bars": 2,
+     "bpm": 51.4,
+     "beatSpread": 0.064,
+     "steadyBeat": false,
+     "clap": -0.175,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-eyes/cw-eyes-04.ogg",
+     "seed": 2102,
+     "durationSec": 6.513,
+     "bars": 2,
+     "bpm": 73.7,
+     "beatSpread": 0.049,
+     "steadyBeat": true,
+     "clap": -0.218,
+     "loudnessLUFS": -16.0
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "cw-prank",
+   "kind": "music",
+   "files": [
+    "cw-prank/cw-prank-01.ogg",
+    "cw-prank/cw-prank-02.ogg",
+    "cw-prank/cw-prank-03.ogg",
+    "cw-prank/cw-prank-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 116.0,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 116,
+   "loopable": true,
+   "durationSec": 8.272,
+   "prompt": [
+    "116 BPM, E major. Greek shepherd's flute (floyera) playing a cheeky four-note tune E F# G# E over a muted Greek laouto plucked pulse, playful but small, two players. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "116 BPM, E major. Wooden shepherd flute and a muted plucked lute playing a short mischievous folk figure, light, rustic. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seed": [
+    2111,
+    2112,
+    2111,
+    2112
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "cw-prank/cw-prank-01.ogg",
+     "seed": 2111,
+     "durationSec": 8.266,
+     "bars": 4,
+     "bpm": 116.1,
+     "beatSpread": 0.024,
+     "steadyBeat": true,
+     "clap": -0.019,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-prank/cw-prank-02.ogg",
+     "seed": 2112,
+     "durationSec": 8.266,
+     "bars": 4,
+     "bpm": 116.1,
+     "beatSpread": 0.029,
+     "steadyBeat": true,
+     "clap": -0.054,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-prank/cw-prank-03.ogg",
+     "seed": 2111,
+     "durationSec": 8.278,
+     "bars": 4,
+     "bpm": 116.0,
+     "beatSpread": 0.004,
+     "steadyBeat": true,
+     "clap": -0.046,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-prank/cw-prank-04.ogg",
+     "seed": 2112,
+     "durationSec": 8.278,
+     "bars": 4,
+     "bpm": 116.0,
+     "beatSpread": 0.014,
+     "steadyBeat": true,
+     "clap": -0.107,
+     "loudnessLUFS": -16.7
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "cw-guilt",
+   "kind": "music",
+   "files": [
+    "cw-guilt/cw-guilt-01.ogg",
+    "cw-guilt/cw-guilt-02.ogg",
+    "cw-guilt/cw-guilt-03.ogg",
+    "cw-guilt/cw-guilt-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 115.5,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 116,
+   "loopable": false,
+   "durationSec": 8.307,
+   "prompt": [
+    "116 BPM, E minor. Low Cretan lyra bowed phrase over a damped laouto pulse thinning out, guilty, quiet, rustic Greek folk. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "116 BPM, E minor. Bowed folk fiddle low and soft over a muted plucked lute, sparse, sad, thinning. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seed": [
+    2121,
+    2122,
+    2121,
+    2122
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "cw-guilt/cw-guilt-01.ogg",
+     "seed": 2121,
+     "durationSec": 8.313,
+     "bars": 4,
+     "bpm": 115.5,
+     "beatSpread": 0.063,
+     "steadyBeat": false,
+     "clap": -0.039,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-guilt/cw-guilt-02.ogg",
+     "seed": 2122,
+     "durationSec": 8.29,
+     "bars": 4,
+     "bpm": 115.8,
+     "beatSpread": 0.022,
+     "steadyBeat": true,
+     "clap": -0.097,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-guilt/cw-guilt-03.ogg",
+     "seed": 2121,
+     "durationSec": 8.313,
+     "bars": 4,
+     "bpm": 115.5,
+     "beatSpread": 0.017,
+     "steadyBeat": true,
+     "clap": -0.054,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-guilt/cw-guilt-04.ogg",
+     "seed": 2122,
+     "durationSec": 8.301,
+     "bars": 4,
+     "bpm": 115.6,
+     "beatSpread": 0.017,
+     "steadyBeat": true,
+     "clap": -0.027,
+     "loudnessLUFS": -18.5
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "cw-dread",
+   "kind": "music",
+   "files": [
+    "cw-dread/cw-dread-01.ogg",
+    "cw-dread/cw-dread-02.ogg",
+    "cw-dread/cw-dread-03.ogg",
+    "cw-dread/cw-dread-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 66.5,
+   "bars": 1,
+   "key": null,
+   "askedBpm": 58,
+   "loopable": false,
+   "durationSec": 10.211,
+   "prompt": [
+    "58 BPM, E minor. Live orchestral strings: cello playing slow half notes E3 F#3 G3 E3 over a low bass E, thin sul ponticello viola tremolo, a slow semitone violin slide, horror film, acoustic. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "58 BPM, E minor. Dark orchestral string cluster, slow cello melody, tremolo violas, sliding violins, tense horror, acoustic recording. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seed": [
+    2131,
+    2132,
+    2131,
+    2132
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "cw-dread/cw-dread-01.ogg",
+     "seed": 2131,
+     "durationSec": 15.047,
+     "bars": 4,
+     "bpm": 63.8,
+     "beatSpread": 0.089,
+     "steadyBeat": false,
+     "clap": -0.176,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-dread/cw-dread-02.ogg",
+     "seed": 2132,
+     "durationSec": 4.516,
+     "bars": 1,
+     "bpm": 53.1,
+     "beatSpread": 0.056,
+     "steadyBeat": true,
+     "clap": -0.216,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-dread/cw-dread-03.ogg",
+     "seed": 2131,
+     "durationSec": 6.56,
+     "bars": 2,
+     "bpm": 73.2,
+     "beatSpread": 0.083,
+     "steadyBeat": false,
+     "clap": -0.171,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-dread/cw-dread-04.ogg",
+     "seed": 2132,
+     "durationSec": 13.862,
+     "bars": 4,
+     "bpm": 69.3,
+     "beatSpread": 0.051,
+     "steadyBeat": true,
+     "clap": -0.032,
+     "loudnessLUFS": -16.0
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "cw-chase",
+   "kind": "music",
+   "files": [
+    "cw-chase/cw-chase-01.ogg",
+    "cw-chase/cw-chase-02.ogg",
+    "cw-chase/cw-chase-03.ogg",
+    "cw-chase/cw-chase-04.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 132.2,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 132,
+   "loopable": true,
+   "durationSec": 7.262,
+   "prompt": [
+    "132 BPM, E minor. Driving Greek laouto eighth notes with short accented orchestral cello and viola strokes, urgent chase, rustic and cinematic. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "132 BPM, E minor. Fast plucked lute ostinato and stabbing low strings, rising tension, chase scene, acoustic. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seed": [
+    2141,
+    2142,
+    2141,
+    2142
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "cw-chase/cw-chase-01.ogg",
+     "seed": 2141,
+     "durationSec": 7.326,
+     "bars": 4,
+     "bpm": 131.0,
+     "beatSpread": 0.02,
+     "steadyBeat": true,
+     "clap": 0.086,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-chase/cw-chase-02.ogg",
+     "seed": 2142,
+     "durationSec": 7.233,
+     "bars": 4,
+     "bpm": 132.7,
+     "beatSpread": 0.028,
+     "steadyBeat": true,
+     "clap": 0.107,
+     "loudnessLUFS": -16.1
+    },
+    {
+     "file": "cw-chase/cw-chase-03.ogg",
+     "seed": 2141,
+     "durationSec": 7.291,
+     "bars": 4,
+     "bpm": 131.7,
+     "beatSpread": 0.017,
+     "steadyBeat": true,
+     "clap": 0.081,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-chase/cw-chase-04.ogg",
+     "seed": 2142,
+     "durationSec": 7.233,
+     "bars": 4,
+     "bpm": 132.7,
+     "beatSpread": 0.025,
+     "steadyBeat": true,
+     "clap": 0.093,
+     "loudnessLUFS": -16.5
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "cw-lamplight",
+   "kind": "music",
+   "files": [
+    "cw-lamplight/cw-lamplight-01.ogg",
+    "cw-lamplight/cw-lamplight-02.ogg"
+   ],
+   "tags": [
+    "myth"
+   ],
+   "mood": "myth",
+   "bpm": 54.5,
+   "bars": 1,
+   "key": null,
+   "askedBpm": 72,
+   "loopable": false,
+   "durationSec": 4.435,
+   "prompt": [
+    "72 BPM, E major. Solo Cretan lyra soft E and B double stop, then one warm laouto E major chord, relief, warm, quiet Greek folk. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "72 BPM, E major. Gentle bowed folk fiddle open fifth and a warm plucked lute chord, calm relief, small and quiet. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seed": [
+    2151,
+    2151
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "cw-lamplight/cw-lamplight-01.ogg",
+     "seed": 2151,
+     "durationSec": 4.818,
+     "bars": 1,
+     "bpm": 49.8,
+     "beatSpread": 0.053,
+     "steadyBeat": true,
+     "clap": -0.078,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "cw-lamplight/cw-lamplight-02.ogg",
+     "seed": 2151,
+     "durationSec": 4.052,
+     "bars": 1,
+     "bpm": 59.2,
+     "beatSpread": 0.075,
+     "steadyBeat": false,
+     "clap": -0.105,
+     "loudnessLUFS": -16.0
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
   }
  ]
 }
