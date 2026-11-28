@@ -145,12 +145,25 @@ class Clap:
         return out
 
 
+def cut_label(r):
+    """The CLAP label for one sfx recipe entry: its own "label", else the built-in LABELS entry, else (28 Nov 2026,
+    from the Kelpie and wolf legends, where a new recipe without labels crashed here with a KeyError and was worked
+    around with a hand-labelled copy) the first prompt's opening clause, with a warning so the label can be written."""
+    if r.get("label"):
+        return r["label"]
+    if r["id"] in LABELS:
+        return LABELS[r["id"]]
+    label = r["prompts"][0].split(",")[0].strip()
+    print(f"pick: {r['id']} has no CLAP label; using its first prompt: \"{label}\" (add \"label\" to the recipe)")
+    return label
+
+
 def sfx(rec, raw, outdir, clap, report):
     sounds = []
-    labels = list(LABELS.values()) + [r["label"] for r in rec["sfx"] if r.get("label")]
+    labels = list(LABELS.values()) + [cut_label(r) for r in rec["sfx"] if r.get("label") or r["id"] not in LABELS]
     for r in rec["sfx"]:
         rid, kind, (lo, hi) = r["id"], r["kind"], r["len"]
-        label = r.get("label") or LABELS[rid]   # a recipe file of its own can carry its CLAP label
+        label = cut_label(r)   # a recipe file of its own can carry its CLAP label
         extra = [l for l in labels if l != label and not (rid.startswith("step-") and "footstep" in l)] + DISTRACTORS
         cands = []
         for pi, prompt in enumerate(r["prompts"]):
