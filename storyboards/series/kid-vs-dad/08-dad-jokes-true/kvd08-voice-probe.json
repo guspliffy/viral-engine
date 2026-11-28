@@ -1,0 +1,399 @@
+{
+ "id": "kvd08-voice-probe",
+ "title": "Kid vs Dad 08 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   92.5,
+   92.5
+  ]
+ },
+ "cast": [
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -0.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 92.5,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Tato! Tonight I rank my greatest jokes. Nothing beats them.",
+     "tone": "excited",
+     "style": "a proud showman, camera raised like a trophy, booming",
+     "voice": "dad",
+     "dur": 4.5,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Problem. His jokes come true.",
+     "tone": "whisper",
+     "style": "a seven-year-old to the camera, dead serious, deadpan",
+     "voice": "tato",
+     "dur": 2.5,
+     "caption": false,
+     "at": 5.7
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad, I'm cold.",
+     "tone": "sad",
+     "style": "small, shivering, hugging himself",
+     "voice": "tato",
+     "dur": 1.7,
+     "caption": false,
+     "at": 9.2
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Go stand in the corner. It's ninety degrees.",
+     "tone": "happy",
+     "style": "delighted with himself, pointing grandly, a classic dad joke",
+     "voice": "dad",
+     "dur": 3.7,
+     "caption": false,
+     "at": 11.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Hot. Hot. Hot!",
+     "tone": "angry",
+     "style": "hopping in a glowing hot corner, steaming, rising panic",
+     "voice": "tato",
+     "dur": 1.7,
+     "caption": false,
+     "at": 16.6
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Top spot!",
+     "tone": "excited",
+     "style": "snapping the photo, slapping it on the fridge, triumphant",
+     "voice": "dad",
+     "dur": 1.3,
+     "caption": false,
+     "at": 19.3
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Bottom.",
+     "tone": "calm",
+     "style": "flat, moving the photo down, unimpressed",
+     "voice": "tato",
+     "dur": 0.9,
+     "caption": false,
+     "at": 21.6
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad, can you put my shoes on?",
+     "tone": "question",
+     "style": "polite, holding out his small red sneakers",
+     "voice": "tato",
+     "dur": 3.3,
+     "caption": false,
+     "at": 23.5
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Sure. But they won't fit me.",
+     "tone": "happy",
+     "style": "grinning, already squeezing his big foot in",
+     "voice": "dad",
+     "dur": 2.9,
+     "caption": false,
+     "at": 27.8
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Perfect fit!",
+     "tone": "excited",
+     "style": "waddling, wobbling, arms out for balance, very proud",
+     "voice": "dad",
+     "dur": 1.3,
+     "caption": false,
+     "at": 31.7
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Those are my shoes.",
+     "tone": "calm",
+     "style": "flat, standing in his socks",
+     "voice": "tato",
+     "dur": 2.1,
+     "caption": false,
+     "at": 34
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Lower.",
+     "tone": "calm",
+     "style": "flatter, moving it down without looking",
+     "voice": "tato",
+     "dur": 0.9,
+     "caption": false,
+     "at": 37.1
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "I used to hate facial hair...",
+     "tone": "calm",
+     "style": "slow, dramatic, a long build-up, stroking his chin",
+     "voice": "dad",
+     "dur": 2.9,
+     "caption": false,
+     "at": 39
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. Don't.",
+     "tone": "sad",
+     "style": "begging quietly, already backing away",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 42.9
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "But then it grew on me!",
+     "tone": "excited",
+     "style": "the big reveal, arms wide",
+     "voice": "dad",
+     "dur": 2.9,
+     "caption": false,
+     "at": 45.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I can't feel my legs.",
+     "tone": "calm",
+     "style": "deadpan, tangled to his waist in a sea of beard",
+     "voice": "tato",
+     "dur": 2.5,
+     "caption": false,
+     "at": 49.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I'm hungry. Can you make me a sandwich?",
+     "tone": "question",
+     "style": "tired, small, sitting at the table",
+     "voice": "tato",
+     "dur": 3.7,
+     "caption": false,
+     "at": 52.6
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Poof! You're a sandwich.",
+     "tone": "happy",
+     "style": "a magician, wiggling his fingers, delighted",
+     "voice": "dad",
+     "dur": 2.1,
+     "caption": false,
+     "at": 57.3
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I hate this house.",
+     "tone": "calm",
+     "style": "between two slices of bread, a lettuce leaf on his head, totally flat",
+     "voice": "tato",
+     "dur": 2.1,
+     "caption": false,
+     "at": 60.4
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Still lower.",
+     "tone": "calm",
+     "style": "shuffling to the fridge in the bread, flat",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 63.5
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Fine. My best one. A restaurant on the moon.",
+     "tone": "calm",
+     "style": "low, serious, a drumroll voice, leaning in",
+     "voice": "dad",
+     "dur": 4.1,
+     "caption": false,
+     "at": 65.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "No. No no no.",
+     "tone": "sad",
+     "style": "panicking quietly, grabbing the table",
+     "voice": "tato",
+     "dur": 2.1,
+     "caption": false,
+     "at": 70.9
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Great food. No atmosphere!",
+     "tone": "excited",
+     "style": "the punchline, arms up",
+     "voice": "dad",
+     "dur": 2.1,
+     "caption": false,
+     "at": 74
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad. Where's the gravity?",
+     "tone": "question",
+     "style": "floating upside down, calm and done",
+     "voice": "tato",
+     "dur": 2.1,
+     "caption": false,
+     "at": 77.1
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Top spot! Nothing beats the moon!",
+     "tone": "excited",
+     "style": "floating, pressing the photo under the gold magnet, ecstatic",
+     "voice": "dad",
+     "dur": 2.9,
+     "caption": false,
+     "at": 80.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Dad...",
+     "tone": "calm",
+     "style": "flat on his face on the floor, muffled, slow",
+     "voice": "tato",
+     "dur": 0.9,
+     "caption": false,
+     "at": 84.1
+    },
+    {
+     "who": "dad",
+     "macro": "say",
+     "line": "Yes?",
+     "tone": "happy",
+     "style": "smug, hands on hips, the winner",
+     "voice": "dad",
+     "dur": 0.9,
+     "caption": false,
+     "at": 86
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "You're toast.",
+     "tone": "calm",
+     "style": "deadpan, slowly raising his head",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 87.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Top spot.",
+     "tone": "calm",
+     "style": "smug, quiet, slapping the photo under the gold magnet, the last word",
+     "voice": "tato",
+     "dur": 1.3,
+     "caption": false,
+     "at": 90.2
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Kid vs Dad 08 dad jokes come true: makes and measures every take."
+}
