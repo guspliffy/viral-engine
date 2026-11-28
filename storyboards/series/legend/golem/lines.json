@@ -1,0 +1,38 @@
+{
+ "_about": "Lesson-legend: The Golem of Prague (legend attached to Rabbi Judah Loew, d. 1609). H1 iron rungs + E1 song sung twice (Jonny 27 Nov 08:12 Berlin). TRIAL: opening title caption 'THE GOLEM ...it only rests on Friday nights' 0.25-2.6 s (exception to the no-lettering rule, this video only). Speakers: N narrator, G grandmother, K kid, R Rabbi Loew, W townswoman. Read by VoxCPM2 (tempo x1.15) then the usual post (G/K 1.07, kid EQ).",
+ "say": {
+  "L04": "Prague, around sixteen hundred. The legend says the Jewish Town had enemies, and nobody to protect it.",
+  "L20": "In nineteen twenty, a reporter climbed up there. He found only dust."
+ },
+ "voices": {
+  "N": {"ref": "engine/voice/targets/reaper-ref.wav", "style": "intrigued, mysterious, slow storyteller"},
+  "G": {"ref": "engine/voice/targets/legend-grandma-ref.wav", "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"},
+  "K": {"ref": "engine/voice/targets/legend-kid-ref.wav", "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and quietly worried, speaks clearly with crisp diction", "steps": 25, "cfg": 3.0},
+  "R": {"ref": "engine/voice/targets/wizard-ref.wav", "style": "a wise old rabbi in sixteenth-century Prague, deep, kind but grave, slow and firm, speaking a rule"},
+  "W": {"ref": "engine/voice/targets/legend-woman-ref.wav", "style": "a woman bursting into a synagogue, out of breath, terrified, shouting"}
+ },
+ "lines": [
+  ["L01", "G", "Get DOWN! Nobody goes up there.", "sharp, urgent, stern"],
+  ["L02", "K", "What's up there?", "curious, a bit cheeky"],
+  ["L03", "G", "Something made of mud... that still knows the way down.", "quiet, slow, serious"],
+  ["L04", "N", "Prague, around 1600. The legend says the Jewish Town had enemies, and nobody to protect it.", ""],
+  ["L05", "N", "So Rabbi Loew went down to the river... and shaped a giant out of clay.", ""],
+  ["L06", "N", "He wrote a holy name on a slip of paper, and put it in the giant's mouth. It opened its eyes.", ""],
+  ["L07", "R", "Every Friday before sunset, I take the word out. On the Sabbath, even you rest.", "firm, calm, a rule"],
+  ["L08", "N", "The golem guarded the streets all night. It fetched the water...", ""],
+  ["L09", "K", "So... a bodyguard?", "amused"],
+  ["L10", "G", "A very literal one.", "dry"],
+  ["L11", "N", "And every Friday, for years, the rabbi remembered.", ""],
+  ["L12", "K", "So nothing happened.", "relieved, a bit bored"],
+  ["L13", "G", "Until one Friday.", "low, slow"],
+  ["L14", "N", "The sun went down. The Sabbath song had already begun... and the word was still in its mouth.", "tense"],
+  ["L15", "W", "Rabbi! The giant!", "screaming, terrified"],
+  ["L16", "N", "It tore through the streets. Doors split. Carts flew. And it grew, with every step.", "fast, urgent"],
+  ["L17", "N", "The rabbi ran out, mid-song. He reached up into its mouth, and pulled out the word.", "urgent, then slow"],
+  ["L18", "N", "The giant fell apart... into a pile of clay.", "quiet"],
+  ["L19", "N", "They carried the clay up to the attic. And took the stairs away.", ""],
+  ["L20", "N", "In 1920, a reporter climbed up there. He found only dust.", ""],
+  ["L21", "K", "So it's just dust now.", "relieved"],
+  ["L22", "G", "Then why do they still sing that song twice? Every Friday.", "quiet, knowing"]
+ ]
+}
