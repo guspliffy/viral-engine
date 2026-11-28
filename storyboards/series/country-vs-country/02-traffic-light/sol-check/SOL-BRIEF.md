@@ -1,4 +1,4 @@
-# Sol check, round 1: "Waiting at a red light: Germany vs America" (draft 2, 59.5 s, vertical 9:16)
+# Sol check, round 1: "Waiting at a red light: Germany vs America" (draft 3, 59.5 s, vertical 9:16)
 
 You have TWO jobs on this draft of a short animated comedy sketch:
 A. find BUGS, GLITCHES and LOGIC ISSUES;
@@ -32,7 +32,7 @@ watch. THE KID = a tiny potato in a red raincoat with the hood up, never blinks,
 the lace across the street with binoculars. THE PICKUP DRIVER (USA) = tall potato in a grey hoodie. THE JAYWALKER (USA) =
 small potato in a yellow hoodie with a burger. At the end: rows of old potatoes in every window of the block.
 
-Story chain (draft 2 times):
+Story chain (draft 3 times):
 1. 0.0-2.1 [DE wide] Empty street, red man, you at the kerb; a window bangs open, the retiree: "DON'T. You. DARE."
    (2.2 s: every lace curtain on the block twitches once: a flash of the ending.)
 2. 2.1-3.3 [you close] "Who's even WATCHING?!"
@@ -56,8 +56,6 @@ Story chain (draft 2 times):
 18. 52.2-56 [driver "Too late.", the light turns GREEN, you step off, the bus doors close and it pulls away]
 19. 56-59.5 [retiree "Good.", then the whole block] Every window opens, rows of old potatoes lean out and slow-clap, the kid
     claps too; you stand alone on the crossing. END.
-
-Already known and fixed, do not report: the dark room behind the retiree's window flickers pink (14.7, 19.1, 41.9, 42.2, 56.6 s).
 
 ## What to send back
 

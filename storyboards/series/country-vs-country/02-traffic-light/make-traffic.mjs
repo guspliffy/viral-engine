@@ -145,12 +145,12 @@ const WHEEL = { o: [-0.273, 0.322, 0.453] };
 const CAM = {
   1: { pos: [-2.2, 0.60, 0.10], look: [-9.25, 1.33, 0.10], fov: 34, push: [-2.5, 0.60, 0.10] },
   2: { pos: [-11.0, 0.70, -0.5], look: [-13.9, 2.05, 0.675], fov: 34, push: [-11.15, 0.70, -0.45] },
-  3: { pos: [19.8, 0.95, -2.8], look: [12.5, 1.51, 1.4], fov: 32, push: [19.5, 0.95, -2.65] },
+  3: { pos: [21.0, 1.00, -3.2], look: [12.8, 1.40, 1.4], fov: 32, push: [20.7, 1.00, -3.05] },   // draft 2: you were cut by the left edge
   4: { pos: [-3.6, 0.60, 0.25], look: [-9.25, 1.26, 0.25], fov: 34, push: [-3.9, 0.60, 0.25] },
   5: { pos: [-5.9, 1.30, 1.6], look: [-3.78, 1.38, -2.15], fov: 34, push: [-5.75, 1.30, 1.35] },
-  6: { pos: [19.8, 0.95, -2.8], look: [12.3, 1.45, 1.2], fov: 32, push: [19.5, 0.95, -2.65] },
+  6: { pos: [21.0, 1.00, -3.2], look: [12.6, 1.35, 1.2], fov: 32, push: [20.7, 1.00, -3.05] },   // draft 2: only your arm showed at the left edge
   7: { pos: [-6.6, 0.95, 2.6], look: [-0.6, 2.08, 2.025], fov: 28, push: [-6.2, 0.95, 2.55] },
-  8: { pos: [17.5, 0.72, -3.6], look: [16.5, 0.89, -0.10], fov: 30, push: [17.45, 0.72, -3.3] },
+  8: { pos: [15.0, 0.85, -3.2], look: [16.55, 0.95, -0.10], fov: 30, push: [15.15, 0.85, -2.95] },   // draft 2: from behind, your face never showed while you hammer
   9: { pos: [-1.0, 0.25, -0.10], look: [-9.25, 2.66, -0.10], fov: 38, push: [-1.3, 0.25, -0.10] },
   10: { pos: [10.6, 1.05, -10.5], look: [10.6, 0.92, 0], fov: 44, push: [10.6, 1.05, -9.9] },
   11: { pos: [-3.2, 0.60, 0.28], look: [-9.25, 1.31, 0.28], fov: 34, push: [-3.5, 0.60, 0.28] },
@@ -158,12 +158,13 @@ const CAM = {
   13: { pos: [-5.2, 0.72, 1.2], look: [-9.25, 1.00, -0.10], fov: 26, push: [-4.95, 0.72, 1.12] },
   14: { pos: [-8.9, 1.55, -1.3], look: [-13.9, 2.07, 0.675], fov: 24, push: [-9.2, 1.55, -1.18] },
   15: { pos: [14.0, 0.72, -3.4], look: [16.78, 1.00, -0.10], fov: 26, push: [14.2, 0.72, -3.15] },
-  16: { pos: [-13.0, 1.05, 0.6], look: [-5.31, 1.46, -1.61], fov: 34, push: [-12.7, 1.05, 0.5] },
+  16: { pos: [-13.6, 1.50, 1.4], look: [-5.30, 1.30, -1.80], fov: 34, push: [-13.35, 1.50, 1.25] },   // draft 2: your back filled half the frame
   17: { pos: [15.6, 0.60, -1.9], look: [12.2, 0.72, 1.5], fov: 26, push: [15.35, 0.60, -1.65] },
-  18: { pos: [5.9, 1.00, -5.4], look: [7.1, 1.00, -1.2], fov: 32, push: [5.95, 1.00, -5.1] },
+  18: { pos: [5.0, 1.05, -7.2], look: [7.4, 1.00, -1.6], fov: 32, push: [5.1, 1.05, -6.9] },   // draft 2: you walked out of the left edge
   19: { pos: [12.0, 1.30, -2.0], look: [12.0, 1.18, 3.05], fov: 30, push: [12.0, 1.30, -1.7] },   // draft 1: his face was cut by the right edge   // T2: at y 1.0 only his forehead showed over the hood,
+  20: { pos: [17.5, 0.72, -3.6], look: [16.5, 0.89, -0.10], fov: 30, push: [17.45, 0.72, -3.3] },
 };
-const US_CAMS = new Set([3, 6, 8, 10, 15, 17, 18, 19]);
+const US_CAMS = new Set([3, 6, 8, 10, 15, 17, 18, 19, 20]);
 const GRADE = { de: { s: 1.00, w: -0.15, c: 1.04 }, us: { s: 1.16, w: 0.35, c: 1.00 } };
 const shots = [], grade = [];
 const shot = (name, t, k, kind) => {
@@ -262,8 +263,8 @@ t = say(10, r3(S11 + 0.1));   // It's RED!
 const S12 = shot("chip", r3(t + 0.06), 17);
 arm(S12, "chip", "R", "shrug", 0.2);
 t = say(11, r3(S12 + 0.1));   // It's a suggestion.
-A(r3(t + 0.1), "chip", "move", { to: US.CJ1, dur: 6.4, ease: "linear" });
 t = say(28, r3(t + 0.35));   // Nobody walks here, man.
+A(r3(t - 0.5), "chip", "move", { to: US.CJ1, dur: 6.4, ease: "linear" });   // draft 2: he walked out of frame mid-line
 t = r3(t + 0.25);
 see(S11, t, ["chip.face", "spudus.face"], "red is a suggestion here");
 
@@ -292,7 +293,7 @@ see(S16, t, ["spudus.face", "pole"], "you hammer the button; it says: Wait.");
 const S17 = shot("hero-us-2", r3(t + 0.08), 15);
 A(S17, "spudus", "turn", { to: -150, dur: 0.01 });
 t = say(17, r3(S17 + 0.08));   // I AM waiting!
-const S18 = shot("us-fists-2", r3(t + 0.06), 8);
+const S18 = shot("us-fists-2", r3(t + 0.06), 20);   // draft 2 view: over your shoulder, so the talking button is clear
 A(S18, "spudus", "turn", { to: -110, dur: 0.01 }); expr(S18, "spudus", "deadpan", 0.01);
 P(r3(S18 + 0.2), "pole", { talk: 1 }, 0.03); t = say(18, r3(S18 + 0.2)); P(t, "pole", { talk: 0 }, 0.05);   // Wait.
 t = r3(t + 0.3);
