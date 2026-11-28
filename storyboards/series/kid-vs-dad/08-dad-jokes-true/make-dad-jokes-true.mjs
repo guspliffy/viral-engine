@@ -116,8 +116,8 @@ const toSlot = (t, id, b) => { P(onCut(t), id, { ...slot(b), y: r3(slot(b).y + 0
 
 // cameras (DESIGN 1 where given; every shot pushes a little)
 const MASTER = { pos: [0.65, 1.05, 3.60], look: [0.80, 0.80, -1.20], fov: 46 };
-const TOPI = { pos: [0.40, 1.15, 0.55], look: [1.15, 1.10, -1.45], fov: 44 };   // draft 1: the old insert showed only an arm over the photo
-const MOONTOP = { pos: [0.85, 1.45, 1.70], look: [1.10, 1.45, -1.30], fov: 52 };
+const TOPI = { pos: [1.90, 1.15, 1.30], look: [1.00, 0.95, -1.30], fov: 44 };   // draft 3: from behind Dad his back filled half the frame   // draft 1: the old insert showed only an arm over the photo
+const MOONTOP = { pos: [1.00, 1.30, 3.00], look: [0.95, 1.15, -1.20], fov: 48 };   // draft 3: closer lost his face and the photo
 const LADDER = { pos: [1.35, 0.875, 1.20], look: [1.35, 0.875, -1.50], fov: 30 };
 const CORNERC = { pos: [-4.30, 0.62, -0.03], look: [-5.08, 0.42, -1.98], fov: 40 };
 const SNEAKC = { pos: [0.65, 0.32, 1.45], look: [0.25, 0.28, -0.40], fov: 50 };   // the feet in the tiny sneakers fill the frame
@@ -171,7 +171,7 @@ e = say(1, C1 + 0.1);
 // RE-HOOK (Jonny 27 Nov: hook loops + re-hooks): a 0.4 s flash-forward under "come TRUE": the winning photo (toast Dad) already under
 // the gold magnet, gone on the next cut, so the viewer waits to learn how it gets there
 const CF = r3(e - 0.4);
-toTop(CF, "ph6"); shot("flash forward", CF, push(TOPI, 0.02, 0.45));
+toTop(CF, "ph6"); shot("flash forward", CF, push({ pos: [1.35, 1.34, 0.10], look: [1.35, 1.30, -1.50], fov: 28 }, 0.02, 0.45));   // straight on the photo (the side insert also caught Tato)
 
 // ---------------------------------------------------------------- 5-16 s JOKE 1: the corner
 const C2 = r3(e + 0.2);
@@ -212,7 +212,7 @@ const snap = (C, i, line) => {
   sfx(r3(C + 0.02), "click", { gain: 0.5, reason: "the instant camera's shutter" });
   expr(C, "dad", FACE.showman, 0.01); look(C, "dad", [-0.5, 0.2], 0.01);
   slapTop(C, `ph${i}`, C + 0.38);
-  arm(r3(C + 0.15), "dad", "L", palmOn(`ph${i}`), 0.25, "out"); grip(r3(C + 0.15), "dad", "L", "flat"); arm(r3(C + 0.75), "dad", "L", { o: [0.12, 0.80, 0.30] }, 0.25); arm(r3(C + 1.0), "dad", "L", "rest", 0.3);   // back off the door, then down
+  arm(r3(C + 0.15), "dad", "L", palmOn(`ph${i}`), 0.25, "out"); grip(r3(C + 0.15), "dad", "L", "flat"); arm(r3(C + 0.75), "dad", "L", { o: [0.12, 0.80, 0.30] }, 0.25); arm(r3(C + 1.0), "dad", "L", "rest", 0.3);   // the slap (a fast palm turn reads as the swing), back off the door, then down   // back off the door, same palm side, and hold it there (the photo shows)
   sfx(r3(C + 0.38), "slap", { gain: 0.45 });
   shot(`top spot ${i}`, C, push(TOPI, 0.05, DUR[line] + 0.7));
   return say(line, C + 0.3);
@@ -353,8 +353,8 @@ expr(C20, "spud", FACE.flatter, 0.01);
 e = say(27, C20 + 0.1);
 // Dad floats to the top spot, head down, palm on the moon photo
 const C21 = r3(e + 0.15);
-place(C21, "dad", DAD_TOP, DAD_TOP_YAW, 1.05); A(onCut(C21), "dad", "pitch", { to: 180, dur: 0.01 }); camOn(C21, DAD_TOP, DAD_TOP_YAW);
-P(onCut(C21), "camD", { flash: 1, eject: 1 }, 0); P(r3(C21 + 0.07), "camD", { flash: 0.25 }, 0.25); P(r3(C21 + 0.35), "camD", { eject: 0 }, 0.01);
+// draft 3: head down with a body lift stretched a leg to the floor and hid his face; now he floats upright, feet tucked
+place(C21, "dad", DAD_TOP, DAD_TOP_YAW); A(onCut(C21), "dad", "fly", { to: { x: DAD_TOP[0], y: 0.45, z: DAD_TOP[1] }, dur: 0.01 }); arm(onCut(C21), "dad", "R", { o: [0.45, 0.55, 0.15] }, 0.01);   // no camera up here (held at his feet it pulled the arm to the floor)
 fx.push({ do: "flash", at: r3(C21 + 0.02), dur: 0.1, peak: 0.4 });
 sfx(r3(C21 + 0.02), "click", { gain: 0.5 });
 toTop(C21, "ph5");
@@ -377,7 +377,7 @@ A(onCut(C22), "spud", "flat", { to: 0.4, dur: 0.01 });   // flat on his belly on
 expr(C22, "spud", { eye: 0.3, tilt: 0.1, curve: -0.2 }, 0.01);
 A(onCut(C22), "dad", "pitch", { to: 0, dur: 0.01 }); place(C22, "dad", DAD_M, DAD_M_YAW, 0);
 arm(onCut(C22), "dad", "L", { o: [0.30, 0.42, 0.15] }, 0.01); arm(onCut(C22), "dad", "R", { o: [0.30, 0.42, 0.15] }, 0.01);   // fists on his belt
-grip(onCut(C22), "dad", "L", "fist", 0.01); grip(onCut(C22), "dad", "R", "fist", 0.01); camOff(C22, "dad", "camD");
+grip(onCut(C22), "dad", "L", "fist", 0.01); grip(onCut(C22), "dad", "R", "fist", 0.01);
 arm(onCut(C22), "spud", "L", { o: [0.38, 0.22, 0.12] }, 0.01); arm(onCut(C22), "spud", "R", { o: [0.38, 0.22, 0.12] }, 0.01);   // arms out beside him, flat on the floor
 expr(C22, "dad", FACE.proud, 0.01); look(C22, "dad", [0.3, -0.3], 0.01);
 shot("crash", C22, push(MASTER, 0.04, DUR[29] + DUR[30] + 1.0));
@@ -390,11 +390,13 @@ expr(C23, "spud", FACE.flat, 0.01); look(C23, "spud", [-0.2, 0.3], 0.01); A(onCu
 A(r3(C23 + 0.1), "spud", "flat", { to: 0.35, dur: 0.6 });   // slowly raising his head
 e = say(31, C23 + 0.25);
 const C24 = r3(e + 0.1);
-fx.push({ do: "poof", who: "dad", at: onCut(C24), dur: 0.7, puffs: 26, sparks: 0, color: "#fff4dc" });
+fx.push({ do: "poof", who: "dadT", at: onCut(C24), dur: 0.7, puffs: 26, sparks: 0, color: "#fff4dc" });
 sfx(onCut(C24), "poof", { gain: 0.5 });
 const TT = r3(C24 + 0.1);
 A(TT, "dad", "hide"); A(TT, "dad", "move", { to: [9, 6], dur: 0.01, steps: 0, sync: true });
-A(TT, "dadT", "show"); A(TT, "dadT", "move", { to: DAD_M, dur: 0.01, steps: 0, sync: true }); A(TT, "dadT", "turn", { to: 20, dur: 0.01, sync: true });
+// toast Dad waits on Dad's mark (hidden) from the cut: the poof follows him, and draft 3 had 2 empty frames while he travelled in
+A(onCut(C24), "dadT", "move", { to: DAD_M, dur: 0.01, steps: 0, sync: true }); A(onCut(C24), "dadT", "turn", { to: 20, dur: 0.01, sync: true });
+A(TT, "dadT", "show");
 expr(TT, "dadT", FACE.shocked, 0.01); look(TT, "dadT", [0, 0], 0.01);
 A(onCut(C24), "spud", "flat", { to: 0, dur: 0.01 }); place(C24, "spud", [0.95, 0.15], -25);
 P(onCut(C24), "camT", grips.placeFor("instacam", [0.95, 0, 0.15], -25), 0);
@@ -415,6 +417,7 @@ arm(onCut(C25), "spud", "L", { o: [0.12, 0.70, 0.25] }, 0.01); arm(onCut(C25), "
 arm(r3(C25 + 0.15), "spud", "L", palmOn("ph6"), 0.2, "out"); grip(r3(C25 + 0.15), "spud", "L", "flat"); arm(r3(C25 + 0.7), "spud", "L", { o: [0.10, 0.85, 0.35] }, 0.3);   // his LEFT side is to the door
 sfx(r3(C25 + 0.3), "slap", { gain: 0.45 });
 expr(C25, "spud", FACE.smug, 0.01); look(C25, "spud", [0.3, 0.1], 0.01);
+A(r3(C25 + 0.75), "spud", "turn", { to: 20, dur: 0.3 }); look(r3(C25 + 0.75), "spud", [0, 0], 0.2);   // the payoff face to us (draft 3: 71 degrees off)
 shot("top spot toast", C25, push(TOPI, 0.05, DUR[32] + 1.0), "payoff");
 e = say(32, C25 + 0.45);
 const END = r3(e + 0.4);   // end on the punchline (Jonny 20 Nov)
