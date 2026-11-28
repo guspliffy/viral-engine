@@ -399,6 +399,7 @@ export function kid(c, st, t) {
     <path d="M${n(hx - 7)},${n(hy - 12.5)} Q${n(hx - 1)},${n(hy - 16.8)} ${n(hx + 6)},${n(hy - 12)}" stroke="#5b5280" stroke-width="1.6" fill="none" opacity="0.55" stroke-linecap="round"/>
     <path d="M${n(hx - 8)},${n(hy - 10)} Q${n(hx - 4)},${n(hy - 15)} ${n(hx + 1)},${n(hy - 15.8)} M${n(hx + 3)},${n(hy - 15.5)} Q${n(hx + 7)},${n(hy - 13)} ${n(hx + 9)},${n(hy - 8)}" stroke="#3a3354" stroke-width="0.5" fill="none"/>
     ${mouth}
+    ${(st.crown || 0) > 0.02 ? `<g transform="translate(${n(hx + fx * 1.2)},${n(hy - 15.2 - (1 - st.crown) * 9)}) scale(${n(0.5 * st.crown)}) rotate(${n(fx * -6)})"><path d="M-14,2 L-17,-14 L-8,-6 L0,-18 L8,-6 L17,-14 L14,2 Z" fill="#ffd838" stroke="#7a4a00" stroke-width="1.8" stroke-linejoin="round"/><path d="M-14,0 Q0,3 14,0" stroke="#c8861c" stroke-width="1.6" fill="none"/><circle cx="0" cy="-19" r="2" fill="#fff3a0"/><circle cx="-17" cy="-15" r="1.8" fill="#fff3a0"/><circle cx="17" cy="-15" r="1.8" fill="#fff3a0"/></g>` : ""}
     </g>
     ${h2f > 0.02 ? armR : ""}
     ${limb([[-12.5, -120], eL, wL], 7.5, jac)}

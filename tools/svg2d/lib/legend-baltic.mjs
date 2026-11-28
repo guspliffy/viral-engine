@@ -172,33 +172,33 @@ export function sea(c, t, o = {}) {
 // one wave standing up: a wall of water rising to a point like a spire, leaning in, foam pouring down its face
 function tower(x, y, h, dir, seed, t) {
   const sw = Math.sin(t * 0.9 + seed) * 0.025 + 0.085, mp = (q) => ({ x: x + dir * (q[0] + sw * q[1] * q[1] + jit(seed * 7 + q[1] * 9, 0.008)) * h, y: y + q[1] * h });
-  const Lr = [[-0.27, 0.04], [-0.22, -0.22], [-0.165, -0.46], [-0.115, -0.68], [-0.07, -0.84], [-0.02, -0.95], [0.05, -1.04]].map(mp), Rr = [[0.05, -1.04], [0.085, -0.93], [0.075, -0.85], [0.1, -0.68], [0.15, -0.45], [0.21, -0.22], [0.29, 0.04]].map(mp), tip = Lr[6];
+  // a flared foot (it spreads into the water sheet), concave flanks, the point leaning forward
+  const Lr = [[-0.78, 0.06], [-0.5, 0.0], [-0.34, -0.1], [-0.24, -0.28], [-0.17, -0.5], [-0.11, -0.7], [-0.06, -0.86], [-0.01, -0.96], [0.05, -1.04]].map(mp);
+  const Rr = [[0.05, -1.04], [0.09, -0.95], [0.08, -0.85], [0.11, -0.68], [0.17, -0.48], [0.25, -0.28], [0.37, -0.12], [0.56, -0.02], [0.82, 0.06]].map(mp), tip = Lr[Lr.length - 1];
   const at = (a, u) => { const k = u * (a.length - 1), i = Math.min(a.length - 2, Math.floor(k)); return { x: lerp(a[i].x, a[i + 1].x, k - i), y: lerp(a[i].y, a[i + 1].y, k - i) }; };
   const mid = (u, v) => { const a = at(Lr, u), b2 = at(Rr, 1 - u); return { x: lerp(a.x, b2.x, v), y: lerp(a.y, b2.y, v) }; };
-  let s = `<path d="${curve(Lr)} ${curve(Rr).replace("M", "L")} Z" fill="#101a72"/>`;
-  s += `<path d="${curve([0, 0.2, 0.4, 0.6, 0.8, 1].map((u) => mid(u, 0.56)))} ${curve(Rr).replace("M", "L")} Z" fill="#070b3c"/>` + ln(curve(Lr), "#5a74ff", Math.max(2.5, h * 0.012));
-  // foam pouring down the face from the point, like the ribs of a spire
-  [0.14, 0.3, 0.46, 0.64, 0.82].forEach((v, i) => { const low = 0.34 + 0.3 * hash(seed + i * 3) + 0.05 * Math.sin(t * 1.2 + i), a = [1, 0.92, 0.8, 0.66, low].map((u) => mid(u, lerp(0.5, v, clamp((1 - u) * 3.2)))), w = h * (0.012 + 0.012 * hash(seed + i));
-    s += `<path d="${curve(a.map((q) => ({ x: q.x - w * (0.2 + (tip.y - q.y) / (tip.y - a[4].y)), y: q.y })))} ${curve(a.map((q) => ({ x: q.x + w * (0.2 + (tip.y - q.y) / (tip.y - a[4].y)), y: q.y })).reverse()).replace("M", "L")} Z" fill="${M.foam}" opacity="${v > 0.56 ? 0.7 : 0.95}"/>`;
-    s += flat(ring(a[4].x, a[4].y, w * 1.5, seed + i, 0.3, 7), M.foam); });
-  // foam lumps sitting on both edges of the upper third and a ragged cap on the point
-  for (let i = 0; i < 9; i++) { const u = 0.58 + i * 0.05, q = at(Lr, Math.min(1, u)), q2 = at(Rr, 1 - Math.min(1, u)); s += flat(ring(q.x, q.y, h * (0.012 + 0.012 * hash(seed + i)), seed + i, 0.25, 8), M.foam) + (i > 2 ? flat(ring(q2.x, q2.y, h * (0.01 + 0.01 * hash(seed + i + 9)), seed + i + 9, 0.25, 8), M.foam) : ""); }
-  s += flat(blob([{ x: tip.x - h * 0.035, y: tip.y + h * 0.05 }, { x: tip.x - h * 0.012, y: tip.y - h * 0.01 }, { x: tip.x + dir * h * 0.012, y: tip.y - h * 0.045 }, { x: tip.x + h * 0.03, y: tip.y + h * 0.02 }, { x: tip.x + dir * h * 0.05, y: tip.y + h * 0.1 }, { x: tip.x, y: tip.y + h * 0.07 }]), M.foam);
-  for (let i = 0; i < 10; i++) { const ph = (hash(seed + i * 3.1) + t * 0.35) % 1, fx = tip.x + dir * h * (0.03 + 0.25 * hash(seed + i + 40)) * ph, fy = tip.y + h * (0.55 * ph * ph - 0.08 * ph) + jit(seed + i + 50, h * 0.03); s += flat(ring(fx, fy, Math.max(1.5, h * 0.007 * (1 + hash(seed + i))), seed + i, 0.3, 6), M.foam, `opacity="${n(0.9 - ph * 0.6)}"`); }
-  // the base: no flat pale oval. The wall's own water colour swallows the foot, and the foam trails off along the surface to both sides, thinning out
-  s += flat(blob([{ x: x - h * 0.5, y: y + h * 0.05 }, { x: x - h * 0.2, y: y - h * 0.06 }, { x: x + h * 0.22, y: y - h * 0.06 }, { x: x + h * 0.5, y: y + h * 0.05 }, { x, y: y + h * 0.09 }]), mix(M.sea1, "#0a1258", 0.6), `opacity="0.9"`);
-  for (let i = 0; i < 14; i++) { const sd = i % 2 ? 1 : -1, u = (Math.floor(i / 2) + 0.5) / 7, fx = x + sd * h * (0.12 + 0.55 * u) + jit(seed + i, h * 0.02), fy = y + h * (0.02 + 0.015 * Math.sin(t * 1.4 + i)) + jit(seed + i + 30, h * 0.012);
-    s += flat(ring(fx, fy, Math.max(2, h * (0.03 - 0.02 * u) * (0.7 + hash(seed + i))), seed + i, 0.3, 7, 0.45), M.foam, `opacity="${n(0.85 - 0.75 * u)}"`); }
-  for (const sd of [-1, 1]) s += ln(`M${n(x + sd * h * 0.1)},${n(y + h * 0.015)} q${n(sd * h * 0.25)},${n(-h * 0.012)} ${n(sd * h * 0.5)},${n(h * 0.008)}`, M.foam, Math.max(2, h * 0.012), `opacity="0.6"`);
+  const water = mix(M.sea1, "#0a1258", 0.6), gid = "tw" + (UID++);
+  let s = `<defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3cc0"/><stop offset="0.62" stop-color="#1a2690"/><stop offset="1" stop-color="${water}"/></linearGradient></defs><path d="${curve(Lr)} ${curve(Rr).replace("M", "L")} Z" fill="url(#${gid})"/>`;
+  s += `<path d="${curve([0, 0.2, 0.4, 0.6, 0.8, 1].map((u) => mid(u, 0.56)))} ${curve(Rr).replace("M", "L")} Z" fill="#070b3c" opacity="0.85"/>` + ln(curve(Lr.slice(2)), "#5a74ff", Math.max(2.5, h * 0.012));
+  // foam pouring down the face from the point, like the ribs of a spire, ending in trails that run back into the surface
+  [0.14, 0.3, 0.46, 0.64, 0.82].forEach((v, i) => { const low = 0.3 + 0.3 * hash(seed + i * 3) + 0.05 * Math.sin(t * 1.2 + i), a = [1, 0.92, 0.8, 0.66, low].map((u) => mid(u, lerp(0.5, v, clamp((1 - u) * 3.2)))), w = h * (0.005 + 0.005 * hash(seed + i));
+    s += `<path d="${curve(a.map((q) => ({ x: q.x - w * (0.2 + (tip.y - q.y) / (tip.y - a[4].y)), y: q.y })))} ${curve(a.map((q) => ({ x: q.x + w * (0.2 + (tip.y - q.y) / (tip.y - a[4].y)), y: q.y })).reverse()).replace("M", "L")} Z" fill="${M.foam}" opacity="${v > 0.56 ? 0.5 : 0.8}"/>`;
+    s += ln(`M${n(a[4].x)},${n(a[4].y)} q${n(dir * h * 0.05)},${n(h * 0.05)} ${n(dir * h * (0.1 + 0.08 * hash(seed + i + 5)))},${n(y - a[4].y + h * 0.01)}`, M.foam, Math.max(1, w * 0.8), `opacity="0.45"`); });
+  // foam swept forward along the crest: a ribbon down the leading edge
+  const lead = (dir > 0 ? Rr : Lr), edge = dir > 0 ? [0.55, 0.62, 0.7, 0.78, 0.85, 0.92, 1].map((u) => at(Rr, 1 - u)) : [0.55, 0.62, 0.7, 0.78, 0.85, 0.92, 1].map((u) => at(Lr, u));
+  s += ln(curve(edge), M.foam, Math.max(2, h * 0.01), `opacity="0.85"`);
+  // the foot: water colour swallows the base, foam trails thin out along the surface to both sides (smooth strokes, no dots)
+  s += flat(blob([{ x: x - h * 0.9, y: y + h * 0.06 }, { x: x - h * 0.4, y: y - h * 0.05 }, { x: x + h * 0.4, y: y - h * 0.05 }, { x: x + h * 0.95, y: y + h * 0.06 }, { x, y: y + h * 0.1 }]), water, `opacity="0.92"`);
+  for (const sd of [-1, 1]) for (let i = 0; i < 3; i++) s += ln(`M${n(x + sd * h * (0.08 + 0.05 * i))},${n(y + h * (0.012 + 0.012 * i))} q${n(sd * h * 0.3)},${n(-h * 0.01 + jit(seed + i, h * 0.01))} ${n(sd * h * (0.55 + 0.12 * i))},${n(h * 0.004)}`, M.foam, Math.max(1.5, h * (0.014 - 0.003 * i)), `opacity="${n(0.6 - 0.15 * i)}"`);
   // the crest curls forward: a hook of foam leaning over from the point
-  s += flat(blob([{ x: tip.x, y: tip.y - h * 0.02 }, { x: tip.x + dir * h * 0.07, y: tip.y - h * 0.05 }, { x: tip.x + dir * h * 0.13, y: tip.y + h * 0.0 }, { x: tip.x + dir * h * 0.12, y: tip.y + h * 0.07 }, { x: tip.x + dir * h * 0.09, y: tip.y + h * 0.03 }, { x: tip.x + dir * h * 0.04, y: tip.y + h * 0.015 }]), M.foam);
+  s += flat(blob([{ x: tip.x, y: tip.y - h * 0.02 }, { x: tip.x + dir * h * 0.035, y: tip.y - h * 0.03 }, { x: tip.x + dir * h * 0.07, y: tip.y + h * 0.0 }, { x: tip.x + dir * h * 0.06, y: tip.y + h * 0.04 }, { x: tip.x + dir * h * 0.045, y: tip.y + h * 0.02 }, { x: tip.x + dir * h * 0.02, y: tip.y + h * 0.01 }]), M.foam);
   return s;
 }
 const TOWERS = [{ X: 3.5, Z: 62, h: 30, d: -1 }, { X: -15, Z: 60, h: 27, d: 1 }, { X: -12.6, Z: 42, h: 26, d: 1 }, { X: 5.2, Z: 38, h: 22, d: -1 }, { X: -3.4, Z: 33, h: 21, d: 1 }, { X: 9.3, Z: 29, h: 16, d: -1 }];
 export function towers(c, t, o = {}) {
   const amt = o.amt ?? 1; if (amt < 0.02) return "";
   const hy = horizon(c), wall = wline(hy - 190 * amt, 77, 70 * amt, 96, t * 1.1);     // the wall of water behind them
-  return band(wall, mix(M.sea1, "#0a1258", clamp(amt * 2))) + ln("M" + wall.map(pt).join(" L"), M.foam, 5, `opacity="${n(0.85 * clamp(amt * 2))}"`) + wall.map((q, i) => i % 2 ? flat(ring(q.x, q.y, 9 + 9 * hash(i + 78), i, 0.3, 7, 0.6), M.foam) : "").join("") + TOWERS.slice(0, o.n ?? 6).map((w, i) => { const p = P(c, w.X + c.x, 0, w.Z), up = clamp(amt * 1.3 - i * 0.05); return tower(p.x, p.y + 4, w.h * p.s * up * (1 + 0.04 * Math.sin(t * 1.1 + i)), w.d, i + 3, t); }).join("");
+  return band(wall, mix(M.sea1, "#0a1258", clamp(amt * 2))) + ln("M" + wall.map(pt).join(" L"), M.foam, 3, `opacity="${n(0.35 * clamp(amt * 2))}"`) + TOWERS.slice(0, o.n ?? 6).map((w, i) => { const p = P(c, w.X + c.x, 0, w.Z), up = clamp(amt * 1.3 - i * 0.05); return tower(p.x, p.y + 4, w.h * p.s * up * (1 + 0.04 * Math.sin(t * 1.1 + i)), w.d, i + 3, t); }).join("");
 }
 
 // ---------------------------------------------------------------- shore: sand, dunes, grass, driftwood
@@ -288,12 +288,11 @@ function hut(b, st, t) {
   const lw = b.lw, tar = tc("#2c2434", 0.6), tarD = tc("#120d18", 0.5), tarL = tc("#6a5c82", 0.5), scuff = tc("#7a5238", 0.6), lit = st.light ?? 0.8;
   const dome = Array.from({ length: 15 }, (_, i) => { const a = i / 14 * Math.PI, sx = Math.cos(a); return [1.1 * sx * (1 + (sx < 0 ? 0.03 : 0)), 0.82 + (sx < 0 ? 0.84 : 0.9) * Math.sin(a) ** 0.72 + jit(i + 400, 0.012)]; });
   // the driftwood bough leaning on the wall (the handle), with a net and cork floats hung on it
-  const arch = [[0.98, 1.36], [1.4, 1.34], [1.72, 1.0], [1.74, 0.5], [1.6, 0.0]].map(([x, y]) => ({ x: b.x(x), y: b.y(y) }));
+  const arch = [[0.92, 1.42], [1.36, 1.4], [1.62, 1.08], [1.58, 0.66], [1.1, 0.5]].map(([x, y]) => ({ x: b.x(x), y: b.y(y) }));
   let net = ""; for (let i = 0; i < 7; i++) net += ln(`M${b.pt(1.16 + i * 0.07, 1.26 - i * 0.02)} L${b.pt(1.2 + i * 0.075 + jit(i + 420, 0.03), 0.12 + jit(i + 425, 0.06))}`, tc("#c8a05a"), lw * 0.7, `opacity="0.85"`);
   for (let i = 0; i < 6; i++) net += ln(`M${b.pt(1.13, 1.12 - i * 0.18)} Q${b.pt(1.4, 1.04 - i * 0.18 + jit(i + 430, 0.04))} ${b.pt(1.66, 1.1 - i * 0.19)}`, tc("#c8a05a"), lw * 0.7, `opacity="0.85"`);
   [[1.3, 1.1], [1.5, 0.82], [1.36, 0.5]].forEach(([x, y], i) => { net += shp(ring(b.x(x), b.y(y), b.k * 0.055, i + 440, 0.12, 9, 0.8), tc(i % 2 ? "#e8964a" : "#d8b070"), lw * 0.8); });
-  let s = net + ln(curve(arch), INK, b.k * 0.115) + ln(curve(arch), M.drift, b.k * 0.09) + ln(curve(arch.map((p) => ({ x: p.x + b.k * 0.015, y: p.y + b.k * 0.012 }))), M.driftS, b.k * 0.022, `opacity="0.8"`);
-  s += shp(hd(b, [[1.5, 1.22], [1.62, 1.42], [1.67, 1.4], [1.58, 1.18]], 451, 0.006, 0.1), M.drift, lw);
+  let s = net + ln(curve(arch), INK, b.k * 0.135) + ln(curve(arch), tar, b.k * 0.105) + ln(curve(arch.map((p) => ({ x: p.x - b.k * 0.012, y: p.y - b.k * 0.014 }))), tarL, b.k * 0.022, `opacity="0.8"`);   // one silhouette with the hut: both ends in the body, the same tar-wood
   // the footing: a turf-and-stone bank that flares out like a rim
   s += shp(hd(b, [[-1.38, 0], [-1.32, 0.15], [-1.12, 0.25], [1.12, 0.24], [1.3, 0.15], [1.36, 0]], 401, 0.012, 0.16), tc("#3c3246", 0.6), lw);
   // wall and dome
@@ -404,10 +403,10 @@ const STAGES = [hut, cottage, castle, palace];
 export function home(c, st = {}, t = 0) {
   const stage = clamp((st.stage || 0) / 3) * 3, i0 = Math.floor(stage), fr = stage - i0, X = st.X ?? BALTIC.home.X, Z = st.Z ?? BALTIC.home.Z;
   if (Z - c.z < NEAR + 0.3) return { svg: "", door: null, top: 0 };
-  const b = board(c, X, 0, Z, st.size || 1), A = STAGES[i0](b, st, t), B = fr > 0.01 ? STAGES[i0 + 1](b, st, t) : null, wd = [1.5, 2.0, 2.5, 2.7][Math.round(stage)];
+  const b = board(c, X, 0, Z, st.size || 1), A = STAGES[i0](b, st, t), B = fr > 0.01 ? STAGES[i0 + 1](b, st, t) : null, wd = 2.2;   // one shoreline footprint for every stage (Sol R2 B21)
   const mound = flat(blob([[-wd - 0.5, -0.06], [-wd, 0.1], [0, 0.16], [wd, 0.1], [wd + 0.6, -0.04], [0, -0.22]].map(([x, y], i) => ({ x: b.x(x + jit(i + 380, 0.08)), y: b.y(y) }))), M.sandL) + flat(blob([[-wd - 0.3, -0.1], [0, -0.02], [wd + 0.5, -0.08], [0, -0.26]].map(([x, y]) => ({ x: b.x(x), y: b.y(y) }))), M.sandS, `opacity="0.55"`);
   const who = B && fr > 0.5 ? B : A;
-  return { svg: mound + (B ? `<g opacity="${n(1 - fr)}">${A.svg}</g><g opacity="${n(fr)}">${B.svg}</g>` : A.svg) + marram(c, { X: X - wd - 0.2, Z: Z - 0.05, size: 0.9, seed: 71 }, t) + marram(c, { X: X + wd + 0.25, Z: Z - 0.1, size: 1, seed: 73 }, t), door: { X: X + who.door[0], Z: Z - 0.1 }, top: who.top };
+  return { svg: ((st.alpha ?? 1) < 0.999 ? `<g opacity="${n(clamp(st.alpha))}">` : "") + mound + (B ? `<g opacity="${n(1 - fr)}">${A.svg}</g><g opacity="${n(fr)}">${B.svg}</g>` : A.svg) + marram(c, { X: X - wd - 0.2, Z: Z - 0.05, size: 0.9, seed: 71 }, t) + marram(c, { X: X + wd + 0.25, Z: Z - 0.1, size: 1, seed: 73 }, t) + ((st.alpha ?? 1) < 0.999 ? "</g>" : ""), door: { X: X + who.door[0], Z: Z - 0.1 }, top: who.top };
 }
 
 // ---------------------------------------------------------------- the whole set
