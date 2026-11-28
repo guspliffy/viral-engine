@@ -5,13 +5,13 @@ import { readFileSync } from "node:fs";
 import * as L from "../../../../tools/svg2d/lib/legend.mjs";
 import * as GR from "../../../../tools/svg2d/lib/legend-greece.mjs";
 import * as PD from "../../../../tools/svg2d/lib/legend-pandora.mjs";
-import { titleCard } from "../../../../tools/svg2d/lib/legend-pandora-title.mjs";
 import { captionSvg } from "../../../../tools/svg2d/lib/captions.mjs";
 import { LINE, ORDER, DUR, FPS, wordAt, wordEnd } from "./pd-voice.mjs";
 export { LINE, ORDER, DUR, FPS };
 const { lerp, clamp, tr, ease, blinkAmt, n } = L;
 export const W = 1080, H = 1920;
-export const TITLE = "jar";
+// No opening banner (Jonny 28 Nov: videos with a banner perform worse). Banner styles stay in tools/svg2d/lib/legend-pandora-title.mjs.
+export const TITLE = null;
 const KEY = /sound|never|zeus|trap|jar|why|hope|voices/i;
 export const HEAD = `<style>@font-face { font-family: Inter; font-weight: 900; src: url(data:font/otf;base64,${readFileSync("assets/fonts/Inter-Black.otf").toString("base64")}); }</style>`;
 export const TL_LINES = ORDER.map((id) => LINE[id]);
@@ -451,7 +451,7 @@ function capY(ln, pi, ph) {
   const sample = []; for (let t = t0 + 0.05; t < t1 - 0.05; t += 0.25) sample.push(t); sample.push(t1 - 0.08);
   const fs = sample.map((t) => facesAt(Math.min(t, DUR - 0.01))).flat();
   let best = null, bs = 1e9;
-  for (const y of CAPY) { const b = capBox(ph, y); if (t0 < 5.2 && b.y0 < 550) continue; const bad = fs.filter((f) => hit(b, f)).length; if (!bad) { best = y; break; } if (bad < bs) { bs = bad; best = y; } }
+  for (const y of CAPY) { const b = capBox(ph, y); const bad = fs.filter((f) => hit(b, f)).length; if (!bad) { best = y; break; } if (bad < bs) { bs = bad; best = y; } }
   CAPCACHE.set(key, { y: best, bad: bs === 1e9 ? 0 : bs }); return CAPCACHE.get(key);
 }
 export const capReport = () => [...CAPCACHE.entries()].filter(([, v]) => v.bad).map(([k, v]) => k + " bad=" + v.bad + " y=" + v.y);
@@ -469,12 +469,11 @@ function bodyAt(time) {
   const g = GLIMPSES.find((q) => t >= q.at - 1e-6 && t < q.at + q.frames / FPS - 1e-6);
   return { body: g ? glimpse(t, g) : s.fn(u, { ln, lu: t - ln.at, t }), shot: s.id };
 }
-// the picture at time t: { pic: svg without the subtitles (banner included), cap: the subtitle svg (or "") }
+// the picture at time t: { pic: svg without the subtitles (no banner), cap: the subtitle svg (or "") }
 export function parts(time) {
   FACES = [];
   const b = bodyAt(time), fcs = FACES.slice();
-  const title = time < 2.75 ? titleCard(time, { style: TITLE, teaser: "T1" }) : "";
   const dbg = process.env.DEBUGFACES ? fcs.map((f) => `<circle cx="${n(f.x)}" cy="${n(f.y)}" r="${n(f.r)}" fill="none" stroke="#0f0" stroke-width="3"/>`).join("") : "";
-  return { pic: frame(b.body) + title + dbg, cap: captions(time), shot: b.shot, faces: fcs };
+  return { pic: frame(b.body) + dbg, cap: captions(time), shot: b.shot, faces: fcs };
 }
 export function draw(time) { const p = parts(time); return p.pic + (SUBS.on ? p.cap : "") + "</svg>"; }
