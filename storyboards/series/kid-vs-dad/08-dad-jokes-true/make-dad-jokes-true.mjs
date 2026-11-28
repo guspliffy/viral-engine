@@ -425,7 +425,7 @@ const END = r3(e + 0.4);   // end on the punchline (Jonny 20 Nov)
 
 const beats = c.beats(shots, END);
 write(import.meta.url, {
-  id: "dad-jokes-true", title: "Kid vs Dad 08: Dad's jokes come true (rough draft)",
+  id: "dad-jokes-true", title: "Kid vs Dad 08: Dad's jokes come true",
   idea: "Kid vs Dad 08: Dad ranks his greatest dad jokes on the fridge door, but every joke comes true on Tato (a red-hot corner, Dad in Tato's tiny shoes, a beard carpet, Tato as a sandwich, the kitchen on the moon); Tato moves each photo to the bottom, then wins the top spot with his own joke: 'You're toast.'",
   fps: 30, look: "anime-pro", profile: "short", loop: false,
   captionBand: [200, 1230], captionStyle: "kinetic", castLook: "sheet", cleanStart: true,
