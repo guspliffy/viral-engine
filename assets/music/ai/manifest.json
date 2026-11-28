@@ -1601,6 +1601,865 @@
      "loudnessLUFS": -16.0
     }
    ]
+  },
+  {
+   "id": "golem-a-dusk",
+   "kind": "music",
+   "files": [
+    "golem-a-dusk/golem-a-dusk-01.ogg"
+   ],
+   "tags": [
+    "danger"
+   ],
+   "mood": "danger",
+   "bpm": 59.7,
+   "bars": 3,
+   "key": null,
+   "askedBpm": 56,
+   "loopable": false,
+   "durationSec": 18.024,
+   "prompt": [
+    "24-second seamless loop, slow, D minor, solo bass viol holding a low D pedal with soft bow, one sparse Renaissance lute pluck, dry intimate early-music recording, eerie dusk"
+   ],
+   "seed": [
+    411,
+    833
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-a-dusk/golem-a-dusk-01.ogg",
+     "seed": 411,
+     "durationSec": 18.251,
+     "bars": 6,
+     "bpm": 78.9,
+     "beatSpread": 0.01,
+     "steadyBeat": true,
+     "clap": -0.275,
+     "loudnessLUFS": -16.7
+    },
+    {
+     "file": "golem-a-dusk/golem-a-dusk-02.ogg",
+     "seed": 833,
+     "durationSec": 17.798,
+     "bars": 3,
+     "bpm": 40.5,
+     "beatSpread": 0.107,
+     "steadyBeat": false,
+     "clap": -0.129,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-b-clay",
+   "kind": "music",
+   "files": [
+    "golem-b-clay/golem-b-clay-01.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 48.6,
+   "bars": 3,
+   "key": null,
+   "askedBpm": 56,
+   "loopable": false,
+   "durationSec": 21.601,
+   "prompt": [
+    "24-second seamless loop, 56 BPM, D dorian, sparse gut-string Renaissance lute over an open D and A drone on bass viol, misty dawn, wonder, Prague 1600 early music"
+   ],
+   "seed": [
+    412,
+    834
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-b-clay/golem-b-clay-01.ogg",
+     "seed": 412,
+     "durationSec": 25.925,
+     "bars": 6,
+     "bpm": 55.5,
+     "beatSpread": 0.065,
+     "steadyBeat": false,
+     "clap": -0.106,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "golem-b-clay/golem-b-clay-02.ogg",
+     "seed": 834,
+     "durationSec": 17.276,
+     "bars": 3,
+     "bpm": 41.7,
+     "beatSpread": 0.137,
+     "steadyBeat": false,
+     "clap": -0.06,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-c-guard",
+   "kind": "music",
+   "files": [
+    "golem-c-guard/golem-c-guard-01.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 84.0,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 84,
+   "loopable": true,
+   "durationSec": 11.425,
+   "prompt": [
+    "22-second seamless loop, 84 BPM, D dorian, low steady Renaissance lute walking bass pattern, soft bass viol, warm lamplit night street, gentle early music"
+   ],
+   "seed": [
+    413,
+    835
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-c-guard/golem-c-guard-01.ogg",
+     "seed": 413,
+     "durationSec": 11.413,
+     "bars": 4,
+     "bpm": 84.1,
+     "beatSpread": 0.019,
+     "steadyBeat": true,
+     "clap": -0.071,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "golem-c-guard/golem-c-guard-02.ogg",
+     "seed": 835,
+     "durationSec": 11.436,
+     "bars": 4,
+     "bpm": 83.9,
+     "beatSpread": 0.014,
+     "steadyBeat": true,
+     "clap": -0.191,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-d-rampage",
+   "kind": "music",
+   "files": [
+    "golem-d-rampage/golem-d-rampage-01.ogg"
+   ],
+   "tags": [
+    "danger"
+   ],
+   "mood": "danger",
+   "bpm": 112.0,
+   "bars": 8,
+   "key": null,
+   "askedBpm": 112,
+   "loopable": true,
+   "durationSec": 17.148,
+   "prompt": [
+    "18-second seamless loop, 112 BPM, D minor, rough aggressive bass viol strokes near the bridge, hand-damped calfskin frame drum heavy pulse, D and E-flat clashing, dark early-music horror"
+   ],
+   "seed": [
+    414,
+    836
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-d-rampage/golem-d-rampage-01.ogg",
+     "seed": 414,
+     "durationSec": 17.148,
+     "bars": 8,
+     "bpm": 112.0,
+     "beatSpread": 0.018,
+     "steadyBeat": true,
+     "clap": -0.072,
+     "loudnessLUFS": -16.5
+    },
+    {
+     "file": "golem-d-rampage/golem-d-rampage-02.ogg",
+     "seed": 836,
+     "durationSec": 17.148,
+     "bars": 8,
+     "bpm": 112.0,
+     "beatSpread": 0.023,
+     "steadyBeat": true,
+     "clap": -0.193,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-e-attic",
+   "kind": "music",
+   "files": [
+    "golem-e-attic/golem-e-attic-01.ogg"
+   ],
+   "tags": [
+    "danger"
+   ],
+   "mood": "danger",
+   "bpm": 20.0,
+   "bars": 1,
+   "key": null,
+   "askedBpm": 50,
+   "loopable": true,
+   "durationSec": 11.999,
+   "prompt": [
+    "24-second seamless loop, very slow, faint bass viol harmonics, long silences, dusty empty attic, haunting, sparse"
+   ],
+   "seed": [
+    415,
+    837
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-e-attic/golem-e-attic-01.ogg",
+     "seed": 415,
+     "durationSec": 11.993,
+     "bars": 1,
+     "bpm": 20.0,
+     "beatSpread": 0.001,
+     "steadyBeat": true,
+     "clap": -0.252,
+     "loudnessLUFS": -16.2
+    },
+    {
+     "file": "golem-e-attic/golem-e-attic-02.ogg",
+     "seed": 837,
+     "durationSec": 12.005,
+     "bars": 1,
+     "bpm": 20.0,
+     "beatSpread": 0.002,
+     "steadyBeat": true,
+     "clap": -0.281,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "golem-f-psalm",
+   "kind": "music",
+   "files": [
+    "golem-f-psalm/golem-f-psalm-01.ogg"
+   ],
+   "tags": [
+    "sad"
+   ],
+   "mood": "sad",
+   "bpm": 70.3,
+   "bars": 3,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": false,
+   "durationSec": 14.913,
+   "prompt": [
+    "24-second solo viol playing a slow, simple, prayerful chant-like melody in D minor, legato, reverent, distant room"
+   ],
+   "seed": [
+    416,
+    838
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "golem-f-psalm/golem-f-psalm-01.ogg",
+     "seed": 416,
+     "durationSec": 17.647,
+     "bars": 6,
+     "bpm": 81.6,
+     "beatSpread": 0.075,
+     "steadyBeat": false,
+     "clap": 0.273,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "golem-f-psalm/golem-f-psalm-02.ogg",
+     "seed": 838,
+     "durationSec": 12.179,
+     "bars": 3,
+     "bpm": 59.1,
+     "beatSpread": 0.045,
+     "steadyBeat": true,
+     "clap": 0.27,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "pp-dusk",
+   "kind": "music",
+   "files": [
+    "pp-dusk/pp-dusk-01.ogg",
+    "pp-dusk/pp-dusk-02.ogg",
+    "pp-dusk/pp-dusk-03.ogg",
+    "pp-dusk/pp-dusk-04.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 93.2,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 72,
+   "loopable": false,
+   "durationSec": 10.46,
+   "prompt": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, soft D-A hurdy-gurdy drone, steady and buzz-free, one spare medieval fiddle answer, warm dusk with a cold edge, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, quiet hurdy-gurdy drone on D and A with a gut-strung medieval fiddle phrase, warm and slightly uneasy, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seed": [
+    811,
+    812,
+    811,
+    812
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "pp-dusk/pp-dusk-01.ogg",
+     "seed": 811,
+     "durationSec": 9.195,
+     "bars": 4,
+     "bpm": 104.4,
+     "beatSpread": 0.02,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-dusk/pp-dusk-02.ogg",
+     "seed": 812,
+     "durationSec": 9.172,
+     "bars": 4,
+     "bpm": 104.7,
+     "beatSpread": 0.055,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-dusk/pp-dusk-03.ogg",
+     "seed": 811,
+     "durationSec": 11.726,
+     "bars": 4,
+     "bpm": 81.9,
+     "beatSpread": 0.145,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-dusk/pp-dusk-04.ogg",
+     "seed": 812,
+     "durationSec": 12.144,
+     "bars": 4,
+     "bpm": 79.1,
+     "beatSpread": 0.062,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "pp-glass",
+   "kind": "music",
+   "files": [
+    "pp-glass/pp-glass-01.ogg",
+    "pp-glass/pp-glass-02.ogg",
+    "pp-glass/pp-glass-03.ogg",
+    "pp-glass/pp-glass-04.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 64.5,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 72,
+   "loopable": false,
+   "durationSec": 7.489,
+   "prompt": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, D Dorian, one low medieval fiddle line shaped like plainchant, gentle F-E-D descent, short stone-room reflections, restrained wonder, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, slow plainchant-like vielle melody over a soft drone, D Dorian, stone church acoustics, mysterious wonder, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seed": [
+    821,
+    822,
+    821,
+    822
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "pp-glass/pp-glass-01.ogg",
+     "seed": 821,
+     "durationSec": 8.162,
+     "bars": 2,
+     "bpm": 58.8,
+     "beatSpread": 0.074,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.4
+    },
+    {
+     "file": "pp-glass/pp-glass-02.ogg",
+     "seed": 822,
+     "durationSec": 8.092,
+     "bars": 2,
+     "bpm": 59.3,
+     "beatSpread": 0.034,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-glass/pp-glass-03.ogg",
+     "seed": 821,
+     "durationSec": 6.885,
+     "bars": 2,
+     "bpm": 69.7,
+     "beatSpread": 0.05,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -18.1
+    },
+    {
+     "file": "pp-glass/pp-glass-04.ogg",
+     "seed": 822,
+     "durationSec": 6.885,
+     "bars": 2,
+     "bpm": 69.7,
+     "beatSpread": 0.054,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -18.3
+    }
+   ]
+  },
+  {
+   "id": "pp-rats",
+   "kind": "music",
+   "files": [
+    "pp-rats/pp-rats-01.ogg",
+    "pp-rats/pp-rats-02.ogg",
+    "pp-rats/pp-rats-03.ogg",
+    "pp-rats/pp-rats-04.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 103.7,
+   "bars": 8,
+   "key": null,
+   "askedBpm": 104,
+   "loopable": true,
+   "durationSec": 18.518,
+   "prompt": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, D Dorian with audible B natural, lightly picked medieval lute in quick 6/8, 104 BPM, sly and nimble, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, medieval German dance in 6/8, plucked gut-string lute and fiddle, D Dorian, 104 BPM, sly and mischievous, light, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seed": [
+    831,
+    832,
+    831,
+    832
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "pp-rats/pp-rats-01.ogg",
+     "seed": 831,
+     "durationSec": 18.495,
+     "bars": 8,
+     "bpm": 103.8,
+     "beatSpread": 0.047,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-rats/pp-rats-02.ogg",
+     "seed": 832,
+     "durationSec": 18.506,
+     "bars": 8,
+     "bpm": 103.7,
+     "beatSpread": 0.034,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-rats/pp-rats-03.ogg",
+     "seed": 831,
+     "durationSec": 18.704,
+     "bars": 8,
+     "bpm": 102.7,
+     "beatSpread": 0.043,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-rats/pp-rats-04.ogg",
+     "seed": 832,
+     "durationSec": 18.53,
+     "bars": 8,
+     "bpm": 103.6,
+     "beatSpread": 0.03,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "pp-cheat",
+   "kind": "music",
+   "files": [
+    "pp-cheat/pp-cheat-01.ogg",
+    "pp-cheat/pp-cheat-02.ogg",
+    "pp-cheat/pp-cheat-03.ogg",
+    "pp-cheat/pp-cheat-04.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 67.8,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": false,
+   "durationSec": 14.332,
+   "prompt": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, D minor, free time, dry low medieval fiddle against a steady hurdy-gurdy D drone, one brief E-flat rub, cold and still, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, slow cold bowed fiddle dissonance over a low drone, D minor, dread, sparse, dry close recording, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seed": [
+    841,
+    842,
+    841,
+    842
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "pp-cheat/pp-cheat-01.ogg",
+     "seed": 841,
+     "durationSec": 15.929,
+     "bars": 4,
+     "bpm": 60.3,
+     "beatSpread": 0.082,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-cheat/pp-cheat-02.ogg",
+     "seed": 842,
+     "durationSec": 16.068,
+     "bars": 4,
+     "bpm": 59.7,
+     "beatSpread": 0.07,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-cheat/pp-cheat-03.ogg",
+     "seed": 841,
+     "durationSec": 11.656,
+     "bars": 4,
+     "bpm": 82.4,
+     "beatSpread": 0.065,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-cheat/pp-cheat-04.ogg",
+     "seed": 842,
+     "durationSec": 12.736,
+     "bars": 4,
+     "bpm": 75.4,
+     "beatSpread": 0.095,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.7
+    }
+   ]
+  },
+  {
+   "id": "pp-night",
+   "kind": "music",
+   "files": [
+    "pp-night/pp-night-01.ogg",
+    "pp-night/pp-night-02.ogg",
+    "pp-night/pp-night-03.ogg",
+    "pp-night/pp-night-04.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 61.5,
+   "bars": 1,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": false,
+   "durationSec": 16.556,
+   "prompt": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, D natural minor, 60 BPM, almost bare opening, soft medieval fiddle and low hurdy-gurdy entering gradually, tender homesickness with dread underneath, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, slow sad medieval fiddle lament over a quiet low drone, D minor, 60 BPM, tender, eerie and beautiful, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seed": [
+    851,
+    852,
+    851,
+    852
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "pp-night/pp-night-01.ogg",
+     "seed": 851,
+     "durationSec": 13.514,
+     "bars": 3,
+     "bpm": 53.3,
+     "beatSpread": 0.037,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -18.8
+    },
+    {
+     "file": "pp-night/pp-night-02.ogg",
+     "seed": 852,
+     "durationSec": 19.598,
+     "bars": 3,
+     "bpm": 36.7,
+     "beatSpread": 0.091,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.8
+    },
+    {
+     "file": "pp-night/pp-night-03.ogg",
+     "seed": 851,
+     "durationSec": 20.643,
+     "bars": 6,
+     "bpm": 69.8,
+     "beatSpread": 0.113,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-night/pp-night-04.ogg",
+     "seed": 852,
+     "durationSec": 3.274,
+     "bars": 1,
+     "bpm": 73.3,
+     "beatSpread": 0.085,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "pp-grave",
+   "kind": "music",
+   "files": [
+    "pp-grave/pp-grave-01.ogg",
+    "pp-grave/pp-grave-02.ogg",
+    "pp-grave/pp-grave-03.ogg",
+    "pp-grave/pp-grave-04.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 54.5,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 60,
+   "loopable": false,
+   "durationSec": 16.201,
+   "prompt": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, one low medieval fiddle D with a trace of bow grain, free time, dry and grave, long space before the note, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, a single sustained low bowed fiddle note on D, sorrowful, very quiet, dry, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seed": [
+    861,
+    862,
+    861,
+    862
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "pp-grave/pp-grave-01.ogg",
+     "seed": 861,
+     "durationSec": 17.38,
+     "bars": 4,
+     "bpm": 55.2,
+     "beatSpread": 0.081,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-grave/pp-grave-02.ogg",
+     "seed": 862,
+     "durationSec": 15.023,
+     "bars": 4,
+     "bpm": 63.9,
+     "beatSpread": 0.122,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -18.4
+    },
+    {
+     "file": "pp-grave/pp-grave-03.ogg",
+     "seed": 861,
+     "durationSec": 19.087,
+     "bars": 4,
+     "bpm": 50.3,
+     "beatSpread": 0.098,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-grave/pp-grave-04.ogg",
+     "seed": 862,
+     "durationSec": 8.916,
+     "bars": 2,
+     "bpm": 53.8,
+     "beatSpread": 0.085,
+     "steadyBeat": false,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "pp-warm",
+   "kind": "music",
+   "files": [
+    "pp-warm/pp-warm-01.ogg",
+    "pp-warm/pp-warm-02.ogg",
+    "pp-warm/pp-warm-03.ogg",
+    "pp-warm/pp-warm-04.ogg"
+   ],
+   "tags": [
+    "calm"
+   ],
+   "mood": "calm",
+   "bpm": 81.1,
+   "bars": 2,
+   "key": null,
+   "askedBpm": 72,
+   "loopable": true,
+   "durationSec": 8.046,
+   "prompt": [
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, two soft gut-lute voicings, a D-A fifth opening into D major, understated warmth, decay to silence, no percussion, no synths, no vocals, no lead pipe",
+    "Quiet medieval German acoustic underscore under narration, intimate live-recording sound, gentle solo medieval lute, D major, 72 BPM, warm and cosy, soft chords, close recording, no percussion, no synths, no vocals, no lead pipe"
+   ],
+   "seed": [
+    871,
+    872,
+    871,
+    872
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "pp-warm/pp-warm-01.ogg",
+     "seed": 871,
+     "durationSec": 5.341,
+     "bars": 2,
+     "bpm": 89.9,
+     "beatSpread": 0.056,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.5
+    },
+    {
+     "file": "pp-warm/pp-warm-02.ogg",
+     "seed": 872,
+     "durationSec": 7.059,
+     "bars": 2,
+     "bpm": 68.0,
+     "beatSpread": 0.045,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-warm/pp-warm-03.ogg",
+     "seed": 871,
+     "durationSec": 9.033,
+     "bars": 4,
+     "bpm": 106.3,
+     "beatSpread": 0.058,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    },
+    {
+     "file": "pp-warm/pp-warm-04.ogg",
+     "seed": 872,
+     "durationSec": 13.305,
+     "bars": 4,
+     "bpm": 72.2,
+     "beatSpread": 0.02,
+     "steadyBeat": true,
+     "clap": 0.0,
+     "loudnessLUFS": -16.0
+    }
+   ]
   }
  ]
 }

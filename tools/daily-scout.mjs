@@ -65,12 +65,15 @@ export function mergeHistory(hist, seen, date) {
 // views within 3 days. Cheap action: premise + rough board. Animate needs the full rising read.
 const storyboard = (t) => [t, t.yt].some((x) => x && (x.fast?.last.C || 0) >= 2 && (x.newcomers || []).some((h) => h.ageDays != null && h.ageDays <= 3));
 // Stage of a format, rising first (Jonny 26 Nov: get into trends that are just rising, never onto dying ones)
-export const stage = (t) => { const w = [t.word, t.yt?.word || "", t.gap?.word || "", /^DEVELOPING/.test(t.channels?.word || "") || /^DEVELOPING/.test(t.yt?.channels?.word || "") ? "HEATING" : "", t.fast?.word === "HEATING UP" ? "HEATING" : "", t.yt?.fast?.word === "HEATING UP" ? "HEATING" : ""].join(" ");
+// A platform gap ("ROOM ON YOUTUBE") is room, not a rise: it gets its own stage, never "Animate" (27 Nov: heaven/hell had
+// too little data on both sides and showed "Animate" only because of the gap).
+export const stage = (t) => { const w = [t.word, t.yt?.word || "", /^DEVELOPING/.test(t.channels?.word || "") || /^DEVELOPING/.test(t.yt?.channels?.word || "") ? "HEATING" : "", t.fast?.word === "HEATING UP" ? "HEATING" : "", t.yt?.fast?.word === "HEATING UP" ? "HEATING" : ""].join(" ");
   const cooling = t.fast?.word === "COOLING";
-  return /RISING|HEATING|NEW|ROOM/.test(w) && !/CROWD|FADING/.test(t.word) && !cooling && !t.fragile ? [0, "up", "Animate: just rising, get in now"]
+  return /RISING|HEATING|NEW/.test(w) && !/CROWD|FADING/.test(t.word) && !cooling && !t.fragile ? [0, "up", "Animate: just rising, get in now"]
     : storyboard(t) && !/CROWD|FADING/.test(t.word) && !cooling ? [1, "up", "Storyboard: early lead, 2+ accounts in 3 days and a first-timer hit"]
-    : /RISING|HEATING|NEW|ROOM/.test(w) && t.fragile && !/CROWD|FADING/.test(t.word) ? [1, "flat", `Lead: the rise depends on one account (@${t.fragile})`]
-    : /RISING|HEATING|NEW|ROOM/.test(w) ? [1, "flat", "Rising on one side, crowded on the other"]
+    : /RISING|HEATING|NEW/.test(w) && t.fragile && !/CROWD|FADING/.test(t.word) ? [1, "flat", `Lead: the rise depends on one account (@${t.fragile})`]
+    : /RISING|HEATING|NEW/.test(w) ? [1, "flat", "Rising on one side, crowded on the other"]
+    : /ROOM/.test(t.gap?.word || "") ? [2, "flat", `${/TIKTOK/.test(t.gap.word) ? "Room on TikTok" : "Room on YouTube"}: pays on one platform, few make it on the other`]
     : /CROWD/.test(w) ? [3, "down", "Crowded: late, skip unless we have a new angle"]
     : /FADING/.test(w) ? [4, "down", "Dying: skip"] : [2, "flat", "Steady"]; };
 const stageWord = (t) => stage(t)[2];
