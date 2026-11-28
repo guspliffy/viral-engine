@@ -1,0 +1,4362 @@
+{
+ "id": "bench-goods",
+ "title": "How you invented 02: food props bench",
+ "idea": "Props bench (engine/page/props-cart-goods.js), not a clip",
+ "tool": "prop bench for the food props (How you invented 02), never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "frame": "tall",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0ef",
+  "floor": "#a89c84",
+  "para": 0,
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "mash"
+  ],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    0.5
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.2,
+    0.5
+   ],
+   "face": -30,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "tw",
+   "kind": "foodtower",
+   "n": 14,
+   "x": 0,
+   "y": 0.26,
+   "z": 1,
+   "rot": 180
+  },
+  {
+   "id": "tw2",
+   "kind": "foodtower",
+   "n": 64,
+   "x": 0,
+   "y": 0,
+   "z": 0.4,
+   "rot": 0,
+   "scale": 0
+  },
+  {
+   "id": "bench",
+   "kind": "stoneblock",
+   "w": 1.3,
+   "h": 0.3,
+   "d": 0.4,
+   "x": 0.4,
+   "y": 0,
+   "z": 0.2,
+   "seed": 3,
+   "scale": 0
+  },
+  {
+   "id": "pile",
+   "kind": "foodpile",
+   "grow": 0,
+   "x": 0.05,
+   "y": 0.3,
+   "z": 0.2,
+   "scale": 0
+  },
+  {
+   "id": "cd1",
+   "kind": "catchdrop",
+   "item": "orange",
+   "from": [
+    0.44999999999999996,
+    0.72,
+    1.23
+   ],
+   "to": [
+    0.9299999999999999,
+    0.38,
+    0.98
+   ],
+   "hop": 0.06,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0
+  },
+  {
+   "id": "cd2",
+   "kind": "catchdrop",
+   "item": "coin",
+   "from": [
+    0.57,
+    1.12,
+    0.6
+   ],
+   "to": [
+    0.6399999999999999,
+    0.14,
+    0.65
+   ],
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0
+  },
+  {
+   "id": "hs",
+   "kind": "hoodsack",
+   "wear": "mash",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 0,
+   "scale": 0
+  },
+  {
+   "id": "fr",
+   "kind": "foodrain",
+   "mode": "down",
+   "to": [
+    0.664,
+    0.41,
+    0.329
+   ],
+   "r": 0.1,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0
+  },
+  {
+   "id": "bk",
+   "kind": "wickerbasket",
+   "x": 0,
+   "y": 0,
+   "z": 0.95,
+   "fill": 1,
+   "scale": 0
+  },
+  {
+   "id": "bk2",
+   "kind": "wickerbasket",
+   "stub": 1,
+   "x": -0.4,
+   "y": 0,
+   "z": 0.95,
+   "fill": 0.5,
+   "rot": 25,
+   "scale": 0
+  },
+  {
+   "id": "bk3",
+   "kind": "wickerbasket",
+   "x": -0.4,
+   "y": 0.2,
+   "z": 1,
+   "rot": 90,
+   "tip": 90,
+   "fill": 1,
+   "spillTo": [
+    -0.3,
+    0.55
+   ],
+   "floorY": 0,
+   "scale": 0
+  },
+  {
+   "id": "sf1",
+   "kind": "snackfruit",
+   "fruit": "orange",
+   "x": 0.5,
+   "y": 0,
+   "z": 0.9,
+   "scale": 0
+  },
+  {
+   "id": "sf2",
+   "kind": "snackfruit",
+   "fruit": "apple",
+   "x": 0.62,
+   "y": 0,
+   "z": 0.9,
+   "scale": 0
+  },
+  {
+   "id": "sf3",
+   "kind": "snackfruit",
+   "fruit": "orange",
+   "bite": 1,
+   "x": 0.38,
+   "y": 0,
+   "z": 0.9,
+   "scale": 0
+  },
+  {
+   "id": "cartbox",
+   "kind": "stoneblock",
+   "w": 0.9,
+   "h": 0.1,
+   "d": 0.6,
+   "x": 0,
+   "y": 0.15,
+   "z": 0,
+   "seed": 7,
+   "scale": 0
+  },
+  {
+   "id": "fr2",
+   "kind": "foodrain",
+   "mode": "up",
+   "from": [
+    0,
+    0.6,
+    0
+   ],
+   "back": [
+    0,
+    0,
+    -1
+   ],
+   "accel": 2.4,
+   "x": 0,
+   "y": 0.15,
+   "z": 0.1,
+   "rot": 180,
+   "scale": 0
+  },
+  {
+   "id": "ramp",
+   "kind": "stoneblock",
+   "w": 0.1,
+   "h": 0.1,
+   "d": 0.1,
+   "x": 5,
+   "y": 0,
+   "z": 5,
+   "seed": 1,
+   "scale": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "Z1 front",
+   "at": 0,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     3.4
+    ],
+    "look": [
+     0,
+     0.62,
+     0.7
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tw",
+      "grip": [
+       0.275,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tw",
+      "grip": [
+       -0.275,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tw",
+      "grip": [
+       0.275,
+       0.198,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tw",
+      "grip": [
+       -0.275,
+       0.198,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.62
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.62
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "tw",
+     "hand": "both",
+     "grip": [
+      0,
+      0.198,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.76
+    }
+   ]
+  },
+  {
+   "name": "n14 held, front",
+   "at": 1.6,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     3.4
+    ],
+    "look": [
+     0,
+     0.62,
+     0.7
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "n14 held, side",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -2.6,
+     0.85,
+     1
+    ],
+    "look": [
+     0,
+     0.5,
+     0.9
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "n": 64
+     },
+     "dur": 1.2,
+     "ease": "linear",
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "n 14 to 64 at 0.5 growing",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.9,
+     1.3,
+     5.2
+    ],
+    "look": [
+     0.1,
+     0.95,
+     0.6
+    ],
+    "fov": 50
+   },
+   "do": []
+  },
+  {
+   "name": "n64 held, wide",
+   "at": 4.4,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     0.3,
+     1.1,
+     5.8
+    ],
+    "look": [
+     0.15,
+     1.05,
+     0.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "sway": 8
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "n64 sway 8",
+   "at": 5.1,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     0.3,
+     1.1,
+     5.8
+    ],
+    "look": [
+     0.15,
+     1.05,
+     0.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "sway": 14
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "name": "n64 sway 14",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     1.1,
+     5.8
+    ],
+    "look": [
+     0.15,
+     1.05,
+     0.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "sway": 0
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "name": "Z1 sway strip",
+   "at": 7,
+   "len": 3,
+   "shot": {
+    "pos": [
+     0.3,
+     1.1,
+     5.8
+    ],
+    "look": [
+     0.15,
+     1.05,
+     0.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "sway": 6
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "sway": -8
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "sway": 14
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "tw",
+     "dur": 0,
+     "to": [
+      0,
+      0.26,
+      1
+     ],
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tw",
+      "grip": [
+       0.275,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.74
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tw",
+      "grip": [
+       -0.275,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.74
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 1.94
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.94
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 1.94
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.94
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "n": 64,
+      "sway": 14,
+      "fall": 0,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.6,
+      0.5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.98
+    }
+   ]
+  },
+  {
+   "name": "Z2 fall",
+   "at": 10,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     0.9,
+     1.3,
+     5.2
+    ],
+    "look": [
+     0.1,
+     0.95,
+     0.6
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "fall": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "fall": 1.6
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0,
+      0.5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.74
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.74
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0,
+     "at": 0.74
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "open": 0.1,
+     "dur": 0.01,
+     "at": 0.74
+    }
+   ]
+  },
+  {
+   "name": "Z2 heap close",
+   "at": 12.3,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.6,
+     1.35,
+     3.6
+    ],
+    "look": [
+     0.1,
+     0.35,
+     0.5
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "Z2 heap side",
+   "at": 12.9,
+   "len": 7.1,
+   "shot": {
+    "pos": [
+     3,
+     0.9,
+     0.5
+    ],
+    "look": [
+     0,
+     0.35,
+     0.5
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.08
+    },
+    {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0.15,
+     "dur": 0,
+     "at": 7.08
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 15,
+     "dur": 0,
+     "at": 7.08
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cd1",
+      "grip": [
+       0.9299999999999999,
+       0.38,
+       0.98
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 7.08
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "dur": 0.05,
+     "at": 7.08
+    }
+   ]
+  },
+  {
+   "name": "Z3 orange",
+   "at": 20,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0.35,
+     0.8,
+     3
+    ],
+    "look": [
+     0.9,
+     0.5,
+     0.8
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "drop": 0.5
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0.676
+    }
+   ]
+  },
+  {
+   "name": "Z3 orange close",
+   "at": 21.2,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0.55,
+     0.55,
+     1.9
+    ],
+    "look": [
+     0.93,
+     0.38,
+     0.98
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cd2",
+      "grip": [
+       0.6399999999999999,
+       0.14,
+       0.65
+      ]
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "dur": 0.05,
+     "at": 1.78
+    }
+   ]
+  },
+  {
+   "name": "Z3 coin",
+   "at": 23,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0.35,
+     0.8,
+     3
+    ],
+    "look": [
+     0.9,
+     0.5,
+     0.8
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "drop": 0.55
+     },
+     "dur": 0.55,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0.727
+    }
+   ]
+  },
+  {
+   "name": "Z3 coin close",
+   "at": 24.2,
+   "len": 5.8,
+   "shot": {
+    "pos": [
+     0.35,
+     0.3,
+     1.5
+    ],
+    "look": [
+     0.64,
+     0.14,
+     0.65
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0,
+     "at": 5.78
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0,
+     "at": 5.78
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0,
+      0.5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.78
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 5.78
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 5.78
+    }
+   ]
+  },
+  {
+   "name": "basket fill 0, empty",
+   "at": 30,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     0.75,
+     2.6
+    ],
+    "look": [
+     0,
+     0.3,
+     0.95
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "basket fill 1",
+   "at": 31,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     0.75,
+     2.6
+    ],
+    "look": [
+     0,
+     0.3,
+     0.95
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "fill": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "basket fill 0.5",
+   "at": 32,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     0.75,
+     2.6
+    ],
+    "look": [
+     0,
+     0.3,
+     0.95
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "fill": 0,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "basket weave close (crop)",
+   "at": 33,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.22,
+     1.55
+    ],
+    "look": [
+     0,
+     0.1,
+     0.95
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "fill": 1,
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bk",
+      "grip": [
+       -0.025,
+       0.42,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bk",
+      "grip": [
+       0.025,
+       0.42,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "basket lift: gloves on the arch",
+   "at": 34,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     0.75,
+     2.6
+    ],
+    "look": [
+     0,
+     0.3,
+     0.95
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "y": 0.12
+     },
+     "dur": 0.8,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bk",
+      "grip": [
+       -0.025,
+       0.42,
+       0
+      ]
+     },
+     "dur": 0.8,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bk",
+      "grip": [
+       0.025,
+       0.42,
+       0
+      ]
+     },
+     "dur": 0.8,
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "name": "Z4 snap (strip, 30 fps)",
+   "at": 35,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     0.25,
+     3.2
+    ],
+    "look": [
+     0,
+     0.45,
+     0.95
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3.2,
+      1.5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.12
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.12
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.45,
+       0.1
+      ]
+     },
+     "dur": 0.1,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.45,
+       0.1
+      ]
+     },
+     "dur": 0.1,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "snap": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "snap": 1
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "y": 0.12
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "fill": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "basket stub 1 (after round 2)",
+   "at": 36,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     0.75,
+     2.6
+    ],
+    "look": [
+     0,
+     0.3,
+     0.95
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "Z4b spill",
+   "at": 37,
+   "len": 13,
+   "shot": {
+    "pos": [
+     0.5,
+     1.5,
+     3
+    ],
+    "look": [
+     0.1,
+     0,
+     0.8
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "spill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "spill": 2
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 12.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.55,
+       0.182,
+       0.284
+      ]
+     },
+     "dur": 0.01,
+     "at": 12.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.55,
+       0.253,
+       -0.044
+      ]
+     },
+     "dur": 0.01,
+     "at": 12.98
+    }
+   ]
+  },
+  {
+   "name": "Z5 hood",
+   "at": 50,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.3,
+     0.9,
+     3.2
+    ],
+    "look": [
+     0.8999999999999999,
+     0.55,
+     0.5
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "Z5 hood f1",
+   "at": 51,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.3,
+     0.9,
+     3.2
+    ],
+    "look": [
+     0.8999999999999999,
+     0.55,
+     0.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "Z5 hood side",
+   "at": 52,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.8,
+     0.9,
+     0.3
+    ],
+    "look": [
+     0.8999999999999999,
+     0.55,
+     0.5
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "Z5 hood back",
+   "at": 53,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.2,
+     0.9,
+     -1.9
+    ],
+    "look": [
+     0.8999999999999999,
+     0.55,
+     0.5
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "Z5 c09 lens",
+   "at": 54,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.6,
+     1.3,
+     5.45
+    ],
+    "look": [
+     0.3999999999999999,
+     1.15,
+     0.15000000000000002
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 1,
+      "rain": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "Z5 rain (C09 lens)",
+   "at": 55,
+   "len": 4,
+   "shot": {
+    "pos": [
+     0.6,
+     1.3,
+     5.45
+    ],
+    "look": [
+     0.3999999999999999,
+     1.15,
+     0.15000000000000002
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "fill": 1
+     },
+     "dur": 3.2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "rain": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "rain": 3.4
+     },
+     "dur": 3.4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "rain": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.98
+    }
+   ]
+  },
+  {
+   "name": "Z5 rain front",
+   "at": 59,
+   "len": 3,
+   "shot": {
+    "pos": [
+     1.3,
+     0.9,
+     3.2
+    ],
+    "look": [
+     0.8999999999999999,
+     0.55,
+     0.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "rain": 1.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "rain": 3.5
+     },
+     "dur": 2.4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    }
+   ]
+  },
+  {
+   "name": "Z5b rain up",
+   "at": 62,
+   "len": 8,
+   "shot": {
+    "pos": [
+     2.6,
+     1,
+     2.8
+    ],
+    "look": [
+     0,
+     0.8,
+     0
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "fly": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "fly": 3.4
+     },
+     "dur": 3.4,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3.2,
+      1.5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.97
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 7.97
+    },
+    {
+     "who": "mash",
+     "do": "sit",
+     "seat": "bench",
+     "rot": 0,
+     "height": 0.3,
+     "along": 0.33,
+     "dur": 0,
+     "hands": "lap",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 7.98
+    }
+   ]
+  },
+  {
+   "name": "pile grow 0",
+   "at": 70,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.35,
+     0.95,
+     4.2
+    ],
+    "look": [
+     0.35,
+     0.55,
+     0.2
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "pile grow 1",
+   "at": 71,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.35,
+     0.95,
+     4.2
+    ],
+    "look": [
+     0.35,
+     0.55,
+     0.2
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "pile grow 2",
+   "at": 72,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.35,
+     0.95,
+     4.2
+    ],
+    "look": [
+     0.35,
+     0.55,
+     0.2
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "pile grow 3",
+   "at": 73,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.35,
+     0.95,
+     4.2
+    ],
+    "look": [
+     0.35,
+     0.55,
+     0.2
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "pile grow 4",
+   "at": 74,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.35,
+     0.95,
+     4.2
+    ],
+    "look": [
+     0.35,
+     0.55,
+     0.2
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "pile grow 5",
+   "at": 75,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.35,
+     0.95,
+     4.2
+    ],
+    "look": [
+     0.35,
+     0.55,
+     0.2
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "pile grow 5 close",
+   "at": 76,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     0.75,
+     1.9
+    ],
+    "look": [
+     0.05,
+     0.5,
+     0.2
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "pile grow 5 from the side",
+   "at": 77,
+   "len": 3,
+   "shot": {
+    "pos": [
+     3,
+     0.9,
+     0.5
+    ],
+    "look": [
+     0,
+     0.35,
+     0.5
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "stand",
+     "dur": 0,
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3.2,
+      1.5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "tw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "tw2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cd1",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cd2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "hs",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fr",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fu",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bk",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bk2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "bk3",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cartbox",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "fr2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "ramp",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "bite": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "bite": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    }
+   ]
+  },
+  {
+   "name": "snackfruit orange bite 0, apple bite 0, orange bite 1",
+   "at": 80,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     0.3,
+     2.4
+    ],
+    "look": [
+     0.5,
+     0.05,
+     0.9
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "bite": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "bite": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "bite": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "snackfruit bite 0.5",
+   "at": 81,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     0.3,
+     2.4
+    ],
+    "look": [
+     0.5,
+     0.05,
+     0.9
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sf1",
+     "set": {
+      "bite": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf2",
+     "set": {
+      "bite": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "sf3",
+     "set": {
+      "bite": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "snackfruit bite 1",
+   "at": 82,
+   "len": 3,
+   "shot": {
+    "pos": [
+     0.5,
+     0.3,
+     2.4
+    ],
+    "look": [
+     0.5,
+     0.05,
+     0.9
+    ],
+    "fov": 28
+   },
+   "do": []
+  }
+ ],
+ "allowClip": [],
+ "notes": "Generated by bench-goods.mjs (props bench, no reviews)."
+}

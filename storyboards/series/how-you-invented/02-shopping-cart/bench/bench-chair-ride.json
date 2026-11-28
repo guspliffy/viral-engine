@@ -1,0 +1,1243 @@
+{
+ "id": "bench-chair-ride",
+ "title": "Chair cart bench: riders",
+ "idea": "Props bench for how-you-invented 02 (the chair cart, task C), not a clip",
+ "tool": "prop bench for the chair cart and its chain (How you invented 02), never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0ef",
+  "floor": "#cdbb98",
+  "para": 0,
+  "lighting": 2,
+  "ink": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "frame": "tall",
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1,
+    -1
+   ],
+   "face": 0,
+   "expr": "calm",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.4,
+    0.8
+   ],
+   "face": 180,
+   "expr": "happy",
+   "follow": 0,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "cart",
+   "kind": "chaircart",
+   "lock": false,
+   "brake": true,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "stepZ": -0.52
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     3.8
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 0,
+      "brake": 0,
+      "jolt": 0,
+      "fill": 0,
+      "basket": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.1,
+      -0.52
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "Spud behind the rail, FRONT lens y 1.25 at 3.8 m (mouth over the heap), fill 1"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.952,
+     0.843,
+     -2.816
+    ],
+    "look": [
+     0,
+     0.55,
+     -0.2
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "Spud behind the rail, close from behind-left"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.165,
+     0.771,
+     -0.2
+    ],
+    "look": [
+     0,
+     0.55,
+     -0.2
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "Spud behind the rail, side from +x"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.371,
+     2.864
+    ],
+    "look": [
+     0,
+     0.55,
+     -0.2
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "Spud behind the rail from the front (what the film sees: heap hides?)"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.875,
+     -2.207
+    ],
+    "look": [
+     0,
+     0.47,
+     -0.3
+    ],
+    "fov": 26
+   },
+   "do": [],
+   "kind": "Spud, rail closeup: gloves on RL / RR"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.732,
+     0.26,
+     -0.4
+    ],
+    "look": [
+     0,
+     0.2,
+     -0.4
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.42,
+      -0.8
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 50,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "Spud, the step: boots on it, side from +x low"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.723,
+     0.76,
+     -0.4
+    ],
+    "look": [
+     0,
+     0.5,
+     -0.4
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "drag pose of panel 8: off [0,0.42,-0.80], pitch 50, from +x"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.269,
+     0.89,
+     -3.888
+    ],
+    "look": [
+     0,
+     0.5,
+     -0.4
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.1,
+      -0.52
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "drag pose of panel 8 from behind (the lens C08b is ahead)"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.468,
+     0.912,
+     -0.1
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.525,
+      -0.285
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 45,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "flip f 0: off [0,0.1,-0.52] pitch 0, from +x"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.468,
+     0.912,
+     -0.1
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.78,
+      -0.144
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 72,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "flip f 0.25: off [0,0.525,-0.285] pitch 45, from +x"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.468,
+     0.912,
+     -0.1
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.95,
+      -0.05
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 90,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "flip f 0.4: off [0,0.78,-0.144] pitch 72, from +x"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.468,
+     0.912,
+     -0.1
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.84,
+      -0.034
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 108,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "flip f 0.5: off [0,0.95,-0.05] pitch 90, from +x"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.468,
+     0.912,
+     -0.1
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.675,
+      -0.01
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 135,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "flip f 0.6: off [0,0.84,-0.034] pitch 108, from +x"
+  },
+  {
+   "name": "s14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.468,
+     0.912,
+     -0.1
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.51,
+      0.014
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 162,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "flip f 0.75: off [0,0.675,-0.01] pitch 135, from +x"
+  },
+  {
+   "name": "s15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.468,
+     0.912,
+     -0.1
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.4,
+      0.03
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 180,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "flip f 0.9: off [0,0.51,0.014] pitch 162, from +x"
+  },
+  {
+   "name": "s16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.468,
+     0.912,
+     -0.1
+    ],
+    "look": [
+     0,
+     0.6,
+     -0.1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.4,
+      0.03
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 180,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "flip f 1: off [0,0.4,0.03] pitch 180, from +x"
+  },
+  {
+   "name": "s17",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.306,
+     1.093,
+     -3.498
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "fill": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "flip end (pitch 180, off [0,0.40,0.03]) from behind: his face (the lens C10b)"
+  },
+  {
+   "name": "s18",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.537,
+     0.847,
+     0
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": null,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.2,
+      0.8
+     ],
+     "dur": 0,
+     "y": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.32,
+      0.02
+     ],
+     "yaw": 180,
+     "sit": true,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "flip end from +x, fill 0.8"
+  },
+  {
+   "name": "s19",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.306,
+     1.293,
+     -3.498
+    ],
+    "look": [
+     0,
+     0.8,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "Mash backwards in the basket (tip 0), from behind (eyes and mouth over the rail)"
+  },
+  {
+   "name": "s20",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.537,
+     1.047,
+     0
+    ],
+    "look": [
+     0,
+     0.8,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "Mash in the basket from +x"
+  },
+  {
+   "name": "s21",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.9,
+     -3.2
+    ],
+    "look": [
+     0,
+     0.8,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [],
+   "kind": "Mash from the rail side, low lens y 0.9 at 3.2 m"
+  }
+ ],
+ "notes": "Generated by storyboards/series/how-you-invented/02-shopping-cart/bench/bench-chair.mjs (props bench, no reviews).",
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "cart",
+   "from": 0,
+   "to": 21,
+   "reason": "Spud rides behind the rail and flips into the basket (a body in an enclosing prop)",
+   "checks": [
+    "clipping",
+    "shell",
+    "costume-in-prop"
+   ],
+   "max": 0.6
+  },
+  {
+   "who": "mash",
+   "with": "cart",
+   "from": 0,
+   "to": 21,
+   "reason": "Mash sits in the basket (a body in an enclosing prop)",
+   "checks": [
+    "clipping",
+    "shell",
+    "costume-in-prop"
+   ],
+   "max": 0.6
+  }
+ ]
+}
