@@ -99,6 +99,7 @@ const sounds = {};
 for (const [id, s] of Object.entries(named)) sounds[id] = { ...s, ...(s.files ? { source: "kenney" } : {}) };
 for (const [id, s] of Object.entries(families)) sounds[id] = { ...s, gain: 0.35 };
 
+const PROMPT = {};   // a manifest sound's first generation prompt: the fallback description below
 // other sources bring their own manifest: assets/sfx/<source>/manifest.json = { source: {name, url, license, ...},
 // sounds: [{ id, files: [paths relative to that folder], gain?, tags?, ... }] } -> ids "<source>/<id>"
 for (const dir of fs.readdirSync(HERE).filter((d) => fs.existsSync(path.join(HERE, d, "manifest.json")))) {
@@ -108,6 +109,7 @@ for (const dir of fs.readdirSync(HERE).filter((d) => fs.existsSync(path.join(HER
     const files = (s.files || [s.file]).filter(Boolean).map((f) => `${dir}/${f}`);
     for (const f of files) if (!fs.existsSync(path.join(HERE, f))) throw new Error(`${dir}/manifest.json: missing ${f}`);
     sounds[`${dir}/${s.id}`] = { source: dir, files, gain: s.gain ?? 0.35, ...(s.tags ? { tags: s.tags } : {}) };
+    if (s.prompt) PROMPT[`${dir}/${s.id}`] = [].concat(s.prompt)[0];
   }
 }
 // Jonny's picks by ear from the AI sound test (2026-10-28, /mnt/project-files/audio/ai-sound-test-01/): these named
@@ -125,6 +127,20 @@ Object.assign(sounds, {
 // the whitelist (whitelist.json, hand-edited): every sound gets its family, what it really sounds like, and the scenes
 // it is kept to. A sound without a description stops the build: measure it (engine/sfx/measure.mjs) and describe it.
 const WL = JSON.parse(fs.readFileSync(path.join(HERE, "whitelist.json"), "utf8")).sounds;
+// A new soundgen sound (ai/<id>) the whitelist does not know yet takes its recipe's CLAP label as its description
+// (engine/soundgen/recipes-*.json "label", else the first prompt in its manifest) with family "unsorted", and is listed as a warning,
+// so a fresh sound pick never stops the build. Any other sound without a description still stops it.
+const LABEL = {};
+const RECIPES = path.join(HERE, "..", "..", "engine", "soundgen");
+for (const f of fs.existsSync(RECIPES) ? fs.readdirSync(RECIPES).filter((f) => /^recipes.*\.json$/.test(f)) : []) {
+  const r = JSON.parse(fs.readFileSync(path.join(RECIPES, f), "utf8"));
+  for (const x of [...(r.sfx || []), ...(r.music || [])]) LABEL[x.id] ??= x.label || (x.prompts || [])[0];
+}
+const unsorted = [];
+for (const id of Object.keys(sounds).filter((id) => !WL[id]?.says && id.startsWith("ai/") && (LABEL[id.slice(3)] || PROMPT[id]))) {
+  WL[id] = { family: "unsorted", says: `${LABEL[id.slice(3)] || PROMPT[id]} (soundgen label, not yet measured)` }; unsorted.push(id);
+}
+if (unsorted.length) console.warn(`whitelist.json: ${unsorted.length} new ai sounds described by their recipe label (measure + describe them): ${unsorted.join(", ")}`);
 const missing = Object.keys(sounds).filter((id) => !WL[id]?.says);
 if (missing.length) throw new Error(`whitelist.json has no description for: ${missing.join(", ")}`);
 for (const [id, s] of Object.entries(sounds)) { const { family, says, scenes } = WL[id]; sounds[id] = { family, says, ...(scenes ? { scenes } : {}), ...s }; }
