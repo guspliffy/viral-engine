@@ -32,30 +32,35 @@ for (const ln of Object.values(LINE)) {
 }
 const M = (id, a, b, g, fi, fo) => loop("mus", find("music", id), a, b, g, fi, fo);
 const lift = sh("16a");                                                   // the lid starts to lift: music is gone for L17
-// music
-M("pd-hush", 0, at("L03"), 0.5, 0.02, 0.3);
-M("pd-myth", at("L03"), end("L10") + 0.2, 0.4, 0.3, 0.5);
-M("pd-forge", at("L06") - 0.1, end("L07") + 0.1, 0.3, 0.3, 0.3);
+// music (Sol r1 part C, director calls): room tone + trace cello to 12.6 s, myth from "stolen fire", forge only in the forge, hard silence at the lift
+// (score AND ambience, through "Not a sound." and the gap after), thin strings under the consequences and out on "without a sound",
+// nothing on the slam or "one thing", hope from the first amber glint, thin at Grandma's hand
+const slap0 = at("L24") - 0.06, glint = LINE.L21.at + LINE.L21.words[5][1] - 0.05, wo = w("L19", "without");
+M("pd-hush", 0, 12.6, 0.4, 0.02, 1.2);
+M("pd-myth", w("L04", "fire") - 0.3, end("L10") + 0.2, 0.4, 0.8, 0.5);
+M("pd-forge", sh("6a") - 0.05, sh("7a") + 0.05, 0.3, 0.3, 0.3);
 M("pd-lyre", at("L11") - 0.1, end("L12") + 0.3, 0.4, 0.2, 0.4);
 M("pd-dread", at("L13"), lift - 0.04, 0.4, 0.5, 0.06);
-M("pd-dread", at("L18") - 0.05, end("L20") + 0.1, 0.25, 0.25, 0.4);
-M("pd-hope", at("L21") - 0.1, DUR, 0.45, 0.3, 0.12);
-// room tone and the lamp: quiet beds; room tone alone under L17
-loop("sfx", find("sfx", "night-room", "bed"), 0, at("L03"), 0.35, 0.05, 0.3);
-loop("sfx", find("sfx", "night-room", "bed"), end("L10"), at("L21"), 0.3, 0.4, 0.3);
+M("pd-dread", at("L18") - 0.05, wo - 0.05, 0.22, 0.5, 0.25);
+M("pd-hope", glint, slap0, 0.32, 0.6, 0.25);
+M("pd-hope", slap0 - 0.1, DUR, 0.15, 0.25, 0.1);
+// room tone and the lamp: quiet beds; NOTHING from the lift to the start of L18
+loop("sfx", find("sfx", "night-room", "bed"), 0, 12.6, 0.35, 0.05, 1.0);
+loop("sfx", find("sfx", "night-room", "bed"), end("L10"), lift - 0.04, 0.3, 0.4, 0.05);
 loop("sfx", find("sfx", "oil-lamp", "bed"), at("L13"), lift - 0.04, 0.2, 0.4, 0.05);
-loop("sfx", find("sfx", "oil-lamp", "bed"), at("L18"), at("L20"), 0.16, 0.2, 0.4);
+loop("sfx", find("sfx", "night-room", "bed"), at("L18") - 0.05, at("L21"), 0.28, 0.4, 0.4);
+loop("sfx", find("sfx", "oil-lamp", "bed"), at("L18"), wo, 0.14, 0.2, 0.3);
 // sfx (the evils themselves are silent)
 const th = find("sfx", "thunder-crack", 0);
-one("sfx", th, w("L04", "laughed") - 0.05, 0.9, 3.5, 1.0); one("sfx", find("sfx", "thunder-crack", 1) || th, sh("5b") + 0.02, 0.7, 2.6, 0.8);
-loop("sfx", find("sfx", "forge-fire"), at("L06") - 0.1, end("L07") + 0.2, 0.5, 0.3, 0.4);
+one("sfx", th, w("L04", "laughed") - 0.05, 0.9, 3.5, 1.0); one("sfx", find("sfx", "thunder-crack", 1) || th, sh("5a") + 0.6, 0.45, 2.2, 0.8);
+loop("sfx", find("sfx", "forge-fire"), sh("6a") - 0.05, sh("7a") + 0.1, 0.5, 0.3, 0.4);
 for (const [i, p] of ["mixed", "mud", "water", "woman"].entries()) one("sfx", find("sfx", "clay-squish", i), w("L06", p) - 0.02, 0.8, 0.9, 0.2);
-one("sfx", find("sfx", "door-open"), sh("10") + 0.05, 0.85, 2.0, 0.4);
+one("sfx", find("sfx", "door-open"), sh("10a") - 0.5, 0.85, 2.0, 0.4);
 one("sfx", find("sfx", "lid-scrape"), lift + 0.15, 0.9, Math.min(0.78, at("L17") - lift - 0.17), 0.12);
 one("sfx", find("sfx", "cough"), sh("17b") + 0.12, 0.9, 1.0, 0.2);
 one("sfx", find("sfx", "lid-slam"), sh("19a") + 0.38, 1.0, 1.2, 0.3);
-one("sfx", find("sfx", "jar-tap", 0), at("L24") - 0.06 + 0.15 - 0.02, 1.0, 0.7, 0.1);
-one("sfx", find("sfx", "lid-slam", 0), at("L24") - 0.06 + 0.15 - 0.02, 0.25, 0.5, 0.1);
+one("sfx", find("sfx", "jar-tap", 0), slap0 + 0.13, 1.0, 0.7, 0.1);
+one("sfx", find("sfx", "lid-slam", 0), slap0 + 0.13, 0.25, 0.5, 0.1);
 // bus: voices, music ducked under the voices (sidechain), sfx; loudness at the end
 const sum = (b, name) => (bus[b].length ? `${bus[b].map((k) => `[a${k}]`).join("")}amix=inputs=${bus[b].length}:normalize=0[${name}]` : `anullsrc=r=44100:cl=mono,atrim=0:${DUR}[${name}]`);
 const graph = [...filt, sum("vo", "vo"), sum("mus", "mus"), sum("sfx", "sfx"), "[vo]asplit=2[vo1][vo2]", "[mus][vo1]sidechaincompress=threshold=0.03:ratio=5:attack=30:release=400[musd]",

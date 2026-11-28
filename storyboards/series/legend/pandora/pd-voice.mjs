@@ -53,8 +53,8 @@ for (const ln of Object.values(LINE)) {
 
 // order and the breath between lines (seconds after the previous line's last sound)
 export const ORDER = Object.keys(LINE);
-const GAP = { L02: 0.15, L03: 0.15, L04: 0.15, L05: 0.15, L06: 0.12, L07: 0.15, L08: 0.2, L09: 0.15, L10: 0.4, L11: 0.25, L12: 0.2, L13: 0.3, L14: 0.25, L15: 0.2, L16: 0.25, L17: 0.85, L18: 0.4, L19: 0.3, L20: 0.2, L21: 0.25, L22: 0.15, L23: 0.15, L24: 0.6 };
+const GAP = { L02: 0.15, L03: 0.15, L04: 0.15, L05: 0.15, L06: 0.12, L07: 0.15, L08: 0.2, L09: 0.15, L10: 0.27, L11: 0.25, L12: 0.2, L13: 0.3, L14: 0.25, L15: 0.2, L16: 0.25, L17: 0.85, L18: 0.4, L19: 0.3, L20: 0.2, L21: 0.25, L22: 0.15, L23: 0.15, L24: 0.45 };
 { let prev = null; for (const id of ORDER) { const ln = LINE[id]; ln.at = prev ? prev.end + GAP[id] : 0; ln.end = ln.at + ln.len; prev = ln; } }
 export const wordAt = (ln, w) => { const x = ln.words.find((q) => q[0].toLowerCase().replace(/[^a-z0-9']/g, "") === w) || ln.words.find((q) => q[0].toLowerCase().replace(/[^a-z0-9']/g, "").startsWith(w)); if (!x) throw new Error("no word " + w + " in " + ln.id); return x[1]; };
 export const wordEnd = (ln, w) => ln.words.find((q) => q[0].toLowerCase().replace(/[^a-z0-9']/g, "").startsWith(w))[2];
-export const DUR = +(LINE.L24.at + LINE.L24.len + 0.05).toFixed(2);
+export const DUR = +(LINE.L24.at + LINE.L24.len + 0.17).toFixed(2);   // ~0.25 s hold on the shut jar after "in"
