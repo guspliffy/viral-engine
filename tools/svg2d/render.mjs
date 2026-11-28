@@ -2,11 +2,14 @@
 // headless Chromium rasterises it, ffmpeg encodes. Deterministic: the scene is a pure function of t.
 //   node tools/svg2d/render.mjs <scene.mjs> <out.mp4> [--stills 0.5,2.5,4.8 --dir <dir>] [--from s --to s]
 // A scene may export HEAD (html for the page head, e.g. an embedded font) and prepare(outPath) -> the sound mix path.
+// Gate (27 Nov): a full render first runs framecheck on the scene's probe(t). A scene with no probe(t), or a FAIL,
+// stops here before any frame is drawn; --force "<reason>" renders anyway and prints the reason. Stills skip the gate.
 import { createRequire } from "node:module";
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve, basename } from "node:path";
 import { pathToFileURL } from "node:url";
+import { checkScene, report } from "./framecheck.mjs";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
@@ -15,6 +18,16 @@ const opt = (k) => { const i = rest.indexOf(k); return i >= 0 ? rest[i + 1] : nu
 const S = await import(pathToFileURL(resolve(scenePath)).href);
 const { W = 1080, H = 1920, FPS = 30, DUR, GAIN = 0.5 } = S;
 let MUSIC = S.MUSIC; const FADE = S.FADE ?? 0.4;   // a scene may export FADE = 0 for a hard audio end
+
+if (!opt("--stills")) {
+  const force = rest.includes("--force") ? (opt("--force") || "").trim() : null;
+  if (force === "" || force?.startsWith("--")) { console.log("render: --force needs a written reason, e.g. --force \"crowd walkers enter at the edge on purpose\""); process.exit(2); }
+  let why = null;
+  if (typeof S.probe !== "function") why = `${scenePath} exports no probe(t): framecheck cannot see faces or captions (export probe(t), see tools/svg2d/framecheck.mjs)`;
+  else { const r = report(checkScene(S), scenePath); console.log(r.text); if (r.fail) why = "framecheck FAIL (list above)"; }
+  if (why && force == null) { console.log(`render: STOP, ${why}. Fix it, or add --force "<reason>".`); process.exit(1); }
+  if (why) console.log(`render: --force "${force}" over: ${why}`);
+}
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: W, height: H } });

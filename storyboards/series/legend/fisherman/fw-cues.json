@@ -1,0 +1,37 @@
+{
+ "_about": "Sound cues for fw-mix.mjs (draft 2). A cue names a stem by id (resolved in out/legend-fisher/{music|sfx}/manifest.json, else the first out/legend-fisher/<dir>/<id>*.wav) or a direct repo path in file. at / to: seconds, or an anchor 'L15:black' (line id : word start), 'L15' (line start), 'END', each with an optional +/-offset. gain is linear. loop repeats between at and to; trim = seconds of the file to use; fi/fo fades; take = which take of the id (default 0; the take used is noted in 'take'). duck: true puts the cue on the bus that is lowered 7 dB under every voice line (music always; wind and surf also). A missing file is skipped with a warning. Music plan after Sol's answer (sol-music/answer-summary.md); take non-alt = out/legend-fisher/music/<id>.wav (the picker's choice, not the -alt file); a numeric take = files[take] of the id in sfx/manifest.json (0 = the picker's first file, -01.wav); music longer than its 10 s take is looped with a 0.5 s crossfade: hard silences at frame 0 to 0.20 s, 0.5 s on 'black', a hard mute at the vanishing, nothing after the kid's last question.",
+ "music": [
+  { "id": "fw-music-dread", "dir": "music", "take": "non-alt", "at": 0.2, "to": "L03", "gain": 0.55, "loop": true, "fi": 0.05, "fo": 0.25, "duck": true, "note": "cello D, silent until 0.20 s (the eye opens on frame 1)" },
+  { "id": "fw-music-green", "dir": "music", "take": "non-alt", "at": "L03", "to": "L07:grey", "gain": 0.55, "loop": true, "fi": 0.3, "fo": 0.3, "duck": true, "note": "accordion tune over the fiddle fifth, 6 p.m." },
+  { "id": "fw-music-grey", "dir": "music", "take": "non-alt", "at": "L07:grey-0.2", "to": "L10", "gain": 0.5, "loop": true, "fi": 0.4, "fo": 0.2, "duck": true, "note": "bare fiddle: space round Grey. That's one." },
+  { "id": "fw-music-green", "dir": "music", "take": "non-alt", "at": "L10", "to": "L10:castle", "gain": 0.5, "loop": true, "fi": 0.1, "fo": 0.05, "duck": true, "note": "the kid's rhyme on the accordion; the reed is pulled on 'castle'" },
+  { "id": "fw-music-blue", "dir": "music", "take": "non-alt", "at": "L11:dark", "to": "L15:black", "gain": 0.55, "loop": true, "fi": 0.4, "fo": 0.04, "duck": true, "note": "cello B-flat on dark blue; stops dead on 'black' (0.5 s mute)" },
+  { "id": "fw-music-black", "dir": "music", "take": "non-alt", "at": "L15:black+0.55", "to": "L18", "gain": 0.55, "loop": true, "fi": 0.15, "fo": 0.2, "duck": true, "note": "cello D, viola into E-flat under the warning through 'Stop. Now.'" },
+  { "id": "fw-music-storm", "dir": "music", "take": "non-alt", "at": "L18:say", "to": "L20:gone+0.55", "gain": 0.65, "loop": true, "fi": 0.5, "fo": 0.03, "duck": true, "note": "strings swell after 'say', brass crest with the towers, HARD MUTE at the vanishing" },
+  { "id": "fw-music-breath", "dir": "music", "take": "non-alt", "at": "L21:green-0.15", "gain": 0.6, "trim": 3.5, "fo": 0.8, "duck": false, "note": "one soft accordion breath when green returns; nothing after the kid's last question" }
+ ],
+ "sfx": [
+  { "id": "baltic-surf", "dir": "sfx", "take": 0, "at": "L03-0.05", "to": "L15:black+0.05", "gain": 0.6, "loop": true, "fi": 0.3, "fo": 0.1, "duck": true, "note": "calm shore bed through the evening and the colour changes" },
+  { "id": "baltic-surf", "dir": "sfx", "take": 0, "at": "L21:hut", "to": "END", "gain": 0.7, "loop": true, "fi": 0.3, "fo": 0.01, "duck": true, "note": "sudden quiet: surf only, to the hard cut" },
+  { "file": "assets/sfx/ai/storm-lake/storm-lake-01.wav", "at": 0, "to": "L03-0.02", "gain": 0.5, "loop": true, "fi": 0.02, "fo": 0.05, "duck": true, "note": "hook weather: storm surf (existing asset)" },
+  { "file": "assets/sfx/ai/storm-lake/storm-lake-03.wav", "at": "L16", "to": "L21:gone", "gain": 0.5, "loop": true, "fi": 0.2, "fo": 0.05, "duck": true, "note": "black and storm weather (existing asset)" },
+  { "file": "assets/sfx/nature/wind-1.ogg", "at": "L07:grey-0.4", "to": "L15:black+0.05", "gain": 0.5, "loop": true, "fi": 1.0, "fo": 0.1, "duck": true, "note": "wind comes up with the grey (existing asset), ducked under voices" },
+  { "file": "assets/sfx/ai/thunder/thunder-01.wav", "at": 0.9, "gain": 0.25, "trim": 4.0, "fo": 1.5 },
+  { "file": "assets/sfx/ai/thunder/thunder-02.wav", "at": "L15:black+0.05", "gain": 0.3, "trim": 5.0, "fo": 1.5 },
+  { "file": "assets/sfx/ai/thunder/thunder-03.wav", "at": "L19:stood-0.3", "gain": 0.5, "trim": 5.0, "fo": 1.5 },
+  { "id": "gulls", "dir": "sfx", "take": 0, "at": "L03", "to": "L07:grey", "gain": 0.35, "loop": true, "fi": 0.3, "fo": 0.8, "duck": true },
+  { "id": "church-bell-far", "dir": "sfx", "take": 0, "at": "L03+0.05", "gain": 0.45, "trim": 4.0, "fo": 1.5, "note": "one far bell at the 6 p.m. reveal" },
+  { "id": "jetty-creak", "dir": "sfx", "take": 0, "at": "L03:fish-0.3", "gain": 0.4, "trim": 1.5, "fo": 0.3 },
+  { "id": "rod-reel", "dir": "sfx", "take": 0, "at": "L03:caught-0.1", "gain": 0.5, "trim": 1.8, "fo": 0.3 },
+  { "id": "fish-splash", "dir": "sfx", "take": 0, "at": "L03:could-0.1", "gain": 0.6, "trim": 1.5, "fo": 0.3, "note": "the fish breaks the surface" },
+  { "id": "fish-splash", "dir": "sfx", "take": 0, "at": "L06:grandma+0.35", "gain": 0.45, "trim": 1.2, "fo": 0.3, "note": "the release" },
+  { "id": "fish-splash", "dir": "sfx", "take": 0, "at": "L10:flounder+1.0", "gain": 0.4, "trim": 1.0, "fo": 0.3, "note": "the ripple beside the pier" },
+  { "id": "wave-crash", "dir": "sfx", "take": 0, "at": "L19:waves", "gain": 0.7, "trim": 3.5, "fo": 1.0, "note": "the waves stand up" },
+  { "id": "magic-shift", "dir": "sfx", "take": 0, "at": "L07:cottage-0.05", "gain": 0.5, "trim": 1.6, "fo": 0.4 },
+  { "id": "magic-shift", "dir": "sfx", "take": 0, "at": "L11:dark", "gain": 0.5, "trim": 1.6, "fo": 0.4 },
+  { "id": "magic-shift", "dir": "sfx", "take": 0, "at": "L14", "gain": 0.3, "trim": 0.4, "fo": 0.1, "note": "palace reveal (starts after the last word)" },
+  { "id": "magic-shift", "dir": "sfx", "take": 0, "at": "L21:castle-0.05", "gain": 0.45, "trim": 0.8, "fo": 0.2 },
+  { "id": "magic-shift", "dir": "sfx", "take": 0, "at": "L21:crown", "gain": 0.45, "trim": 0.8, "fo": 0.2 },
+  { "id": "magic-shift", "dir": "sfx", "take": 0, "at": "L21:cottage", "gain": 0.45, "trim": 0.8, "fo": 0.2 }
+ ]
+}
