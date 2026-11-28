@@ -29,7 +29,9 @@ OPENER: A or B · STAKE LINE: "<the first narrator line>"
   legend tag (`#japaneselegend` on Legend ep 1).
 - **Poll**: the question + 2 options matching line 2, pinned right after posting.
 - **Playlist** per series; **slot** 07-09 or 22-24 Berlin.
-- **Cover** = the video's biggest (10x) frame with no text on it.
+- **Cover** = the video's biggest (10x) moment with no text on it. **Every thumbnail and cover is painted in Codex**
+  (producer, 28 Nov 2026), never cut from a render frame: a prompt plus 2-3 clean, captions-off frames as references
+  (recipe in `docs/rules/images.md`), then the house lettering on top; deliver the clean picture too.
 - After 1 hour the producer checks TikTok Studio for a "not eligible for For You" notice and the AI label.
 - Post every video on TikTok, Instagram Reels and YouTube Shorts (the same file); a long film goes to YouTube as a
   16:9 video over 3:00 with its thumbnail as a separate upload, and its vertical parts to TikTok.
