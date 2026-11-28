@@ -1,0 +1,8 @@
+Make ONE image with the built-in image tool. The built-in image tool IS the gpt-image-2 tool; call it as it is, no model field. Set referenced_image_paths to the full paths of the three reference images given with -i (they are frames from the finished video: keep these exact characters, colours, costumes and the night kitchen). Pass everything below the line PROMPT START to the image tool character for character. Save the result as kvd08-thumb.png in this folder.
+
+PROMPT START
+Vertical 9:16 YouTube Shorts thumbnail, a frame from a 3D anime-cel cartoon, bright and punchy, very readable at phone size.
+A cosy kitchen at night: big window with a full moon, wooden cabinets, a pale pink fridge. On the fridge door, ONE big shiny gold round magnet near the top, and a row of small instant-camera photos lower down.
+On the left, big and close to the camera, DAD has turned into a giant slice of golden-brown toast: the toast slice is his whole body, with his big round eyes, pink cheeks and thick dark walrus moustache on the toast, white socks with blue stripes and white sneakers below it, mouth open in total shock.
+On the right, in front, the KID (a small golden potato with one green leaf on top, a teal knit sweater) holds up a small white instant camera with both hands, aiming it at the toast dad, a bright white camera flash bursting from it, the kid's face smug and deadpan with a tiny satisfied smile.
+Faces large, strong expressions, clean simple shapes, warm kitchen light, slight low angle. Keep the top third of the frame calm and plain (the dark blue night window and the moon), with no characters there, because lettering goes on it later. Absolutely no text, letters, numbers, signs or logos anywhere in the image.
