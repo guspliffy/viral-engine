@@ -157,7 +157,7 @@ export function sea(c, t, o = {}) {
     if (Z < shoreZ(X) + 0.9) continue;
     const len = Math.max(7, (0.25 + 0.5 * hash(id + 9)) * p.s * (1 + 0.5 * oil)), h = Math.max(1.4, 0.05 * p.s * chop), w = Math.max(1.2, Math.min(4 + 3 * oil, (0.022 + 0.03 * oil) * p.s)), lit = id % 3 === 0;
     s += ln(`M${n(p.x - len)},${n(p.y)} q${n(len * 0.5)},${n(-h)} ${n(len)},0 q${n(len * 0.5)},${n(h)} ${n(len)},0`, lit ? M.seaL : M.seaInk, w, `opacity="${lit ? 0.8 : 0.5}"`);
-    if (st > 0.1 && id % 4 === 1) s += flat(ring(p.x, p.y - h, Math.max(2, 0.07 * p.s), id, 0.3, 7, 0.45), M.foam, `opacity="${n(0.85 * st)}"`);
+    if (false && st > 0.1 && id % 4 === 1) s += flat(ring(p.x, p.y - h, Math.max(2, 0.07 * p.s), id, 0.3, 7, 0.45), M.foam, `opacity="${n(0.85 * st)}"`);
   }
   if (oil > 0.05) {      // thick water: slow fat swells, big lenses of light, a rainbow skin
     for (let i = 0; i < 7; i++) { const Z = SHORE + 1.6 + i * i * 1.5, p = P(c, c.x, 0, Z), a = wline(p.y + Math.sin(t * 0.5 + i * 1.3) * p.s * 0.05, 240 + i, Math.max(3, p.s * 0.05), 160, t * 0.4 + i), th = Math.max(5, p.s * 0.2);
@@ -273,6 +273,7 @@ export function jetty(c, t = 0) {
     const d = 0.2 + 0.07 * hash(i + 300), Zb = Math.max(z0, Z - d); if (i === 9) { Z = Zb - 0.03; continue; }
     const o1 = jit(i + 310, 0.05), o2 = jit(i + 320, 0.05), sk = i === 17 ? 0.05 : 0, a = Q(xl - 0.05 + o1, J.Y, Z), b2 = Q(xr + 0.05 + o2, J.Y + sk, Z), c2 = Q(xr + 0.05 + o2, J.Y + sk, Zb), d2 = Q(xl - 0.05 + o1, J.Y, Zb), col = [M.wood, M.woodL, mix(M.wood, M.woodS, 0.45), mix(M.wood, M.woodL, 0.5)][Math.floor(hash(i + 330) * 4)];
     s += shp(`M${pt(a)} L${pt(b2)} L${pt(c2)} L${pt(d2)} Z`, col, Math.max(0.6, a.s * 0.006));
+    if (wStorm() > 0.3) s += ln(`M${pt(a)} L${pt(b2)}`, "#9db0f0", Math.max(0.8, a.s * 0.007), `opacity="${n(0.4 * clamp(wStorm()))}"`);   // a thin light edge on each step in the storm (Sol R2 B13)
     if (a.s > 60) { for (let j = 0; j < 2; j++) { const v = 0.3 + 0.4 * j + jit(i + j, 0.1); s += ln(`M${n(lerp(a.x, d2.x, v) + 6)},${n(lerp(a.y, d2.y, v))} Q${n((a.x + b2.x) / 2)},${n(lerp(a.y, d2.y, v) + jit(i * 3 + j, 2))} ${n(lerp(b2.x, c2.x, v) - 8)},${n(lerp(b2.y, c2.y, v))}`, M.woodS, Math.max(0.7, a.s * 0.005), `opacity="0.7"`); }
       s += `<circle cx="${n(lerp(a.x, b2.x, 0.08))}" cy="${n((a.y + d2.y) / 2)}" r="${n(a.s * 0.008)}" fill="${M.woodS}"/><circle cx="${n(lerp(a.x, b2.x, 0.92))}" cy="${n((b2.y + c2.y) / 2)}" r="${n(a.s * 0.008)}" fill="${M.woodS}"/>`; }
     Z = Zb - 0.025;

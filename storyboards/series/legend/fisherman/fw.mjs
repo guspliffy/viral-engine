@@ -93,6 +93,9 @@ const crownOn = (kd, a) => {
   const s = kd.p.s, k = s * 0.0092 * a;
   return `<g transform="translate(${n(kd.p.x - 0.03 * s)},${n(kd.p.y - 1.27 * s - (1 - a) * 0.3 * s)}) scale(${n(k * 100) / 100}) rotate(-6)"><path d="M-14,0 L-17,-14 L-8,-6 L0,-18 L8,-6 L17,-14 L14,0 Z" fill="#ffd838" stroke="#7a4a00" stroke-width="1.6" stroke-linejoin="round"/><path d="M-14,0 Q0,3 14,0" stroke="#c8861c" stroke-width="1.6" fill="none"/><circle cx="0" cy="-19" r="1.8" fill="#fff3a0"/><circle cx="-17" cy="-15" r="1.5" fill="#fff3a0"/><circle cx="17" cy="-15" r="1.5" fill="#fff3a0"/></g>`;
 };
+// a thin cold rim + faint lift on the kid's face in the black shots (the water stays black)
+const faceLift = (kd, fx = -0.8) => { if (!kd.p) return ""; const s = kd.p.s, cx = kd.p.x + fx * 0.02 * s, cy = kd.p.y - 1.13 * s;
+  return `<ellipse cx="${n(cx)}" cy="${n(cy)}" rx="${n(0.085 * s)}" ry="${n(0.1 * s)}" fill="#9fb4ff" opacity="0.14"/><path d="M${n(cx - 0.088 * s)},${n(cy + 0.02 * s)} A${n(0.09 * s)},${n(0.105 * s)} 0 0 1 ${n(cx + 0.02 * s)},${n(cy - 0.105 * s)}" stroke="#d6e0ff" stroke-width="${n(Math.max(1, 0.011 * s))}" fill="none" opacity="0.6" stroke-linecap="round"/>`; };
 // one path through the scene for the kid: points [t, X, Z]; returns { X, Z, run } with the walk cycle tied to the distance walked
 const walkPath = (pts, t) => {
   if (t <= pts[0][0]) return { X: pts[0][1], Z: pts[0][2], run: null };
@@ -282,7 +285,7 @@ shot("11c", "L11", () => WD("L11", "and") - 0.05, (u, x) => {
 });
 // 12  Grandma, closer than the castle wide, very quiet, a gentle push on "once before", the candle shrinks
 shot("12", "L12", () => LN("L12").at - 0.05, (u, x) => {
-  const c = { ...CAM.door, z: lerp(3.3, 4.0, u / 3.0) }, s = coast2(c, x.t, 2, { stage: 2, light: 1 });
+  const c = { ...CAM.door, x: CAM.door.x + 0.3 * E(0.4, 3.0, u), z: lerp(3.3, 4.0, u / 3.0) }, s = coast2(c, x.t, 2, { stage: 2, light: 1 });
   const fl = lerp(0.8, 0.6, E(1.6, 2.3, u));
   const g = keeperAt(c, -0.5, 5.75, x.t, { fx: 0.7, stern: 0.7, flame: fl, talk: talkAt(x.ln, x.lu) * 0.7, blink: bl(u), look: 0.3 });
   return compose(s, g.svg + g.arm);
@@ -312,14 +315,14 @@ shot("16", "L16", () => LN("L16").at - 0.2, (u, x) => {
   const c = { x: -0.5, y: 0.9, z: 5.2, h0: 800 }; BAL.mood(3);
   const p = L.P(c, 0.7, 0, 11.0), len = lerp(620, 700, u / 2.2), out = 0.85, fx = p.x, fy = p.y + 170, look = [-1, 0.15 + 0.1 * Math.sin(u * 2)];
   const fish = (o) => BAL.flounderRise(fx, fy, len, { mood: 0, open: talkAt(x.ln, x.lu), out, t: x.t, crown: 0.6, look, foamK: 0.5, ...o });
-  const rim = `<g transform="translate(-7,-7)" style="filter:brightness(2.6) saturate(0.35) hue-rotate(185deg)" opacity="0.55">${fish({ open: 0 })}</g>`;
+  const rim = `<g transform="translate(-7,-7)" style="filter:brightness(2.6) saturate(0.35) hue-rotate(185deg)" opacity="0.75">${fish({ open: 0 })}</g>`;
   regFish(fx, fy + len * (0.3 - out * 0.5), len, 62, false);
   const s = coast2(c, x.t, 3, { stage: 3, light: 1, drift: false, bolt: flick(u, [1.0]), boltX: 300 });
   return compose(s, rim + fish({}));
 });
 // 17  Grandma closer, urgent, the candle gutters hardest on "Now"
 shot("17", "L17", () => LN("L17").at - 0.05, (u, x) => {
-  const c = { ...CAM.door, z: lerp(2.9, 3.6, u / 1.5) }, s = coast2(c, x.t, 3, { stage: 3, light: 1, bolt: flick(u, [0.6]), boltX: 300 });
+  const c = { ...CAM.door, x: CAM.door.x + 0.3 * E(0, 1.5, u), z: lerp(2.9, 3.6, u / 1.5) }, s = coast2(c, x.t, 3, { stage: 3, light: 1, bolt: flick(u, [0.6]), boltX: 300 });
   const fl = lerp(0.6, 0.3, E(0, 0.5, u)) + 0.09 * Math.sin(u * 23) - 0.16 * Math.max(0, Math.sin(clamp((x.lu - LN("L17").words[1][1]) / 0.5) * Math.PI));
   const g = keeperAt(c, -0.5, 5.75, x.t, { fx: 0.65, stern: 1, flame: Math.max(0.1, fl), talk: talkAt(x.ln, x.lu), blink: 0 });
   return compose(s, g.svg + g.arm);
@@ -329,18 +332,18 @@ const TW18 = (t) => lerp(0.05, 0.22, clamp((t - LN("L18").at) / (WD("L18", "say"
 shot("18a", "L18", () => LN("L18").at - 0.05, (u, x) => {
   const c = { x: 1.2, y: 1.5, z: lerp(8.0, 8.5, u / 1.6), h0: 1010 }, s = coast2(c, x.t, 3.3, { stage: 3, light: 1, rain: 0.8, towers: TW18(x.t), bolt: flick(u, [0.4]), boltX: 800 });
   const kd = kidAt(BAL.deckCam(c), { crown: 1, ...KIDJ, fx: -0.8, reachL: 0.8, shock: 0.8, worry: -1, talk: talkAt(x.ln, x.lu), lean: 4, blink: 0 }, x.t);
-  return s.back + BAL.grade() + kd.svg + s.front;
+  return s.back + BAL.grade() + kd.svg + faceLift(kd, -0.7) + s.front;
 });
 shot("18b", "L18", () => WD("L18", "make") - 0.05, (u, x) => {
   const m = 3.3 + 0.7 * E(0.1, 2.1, u), c = { x: 1.3, y: 1.6, z: lerp(8.5, 6.6, E(0, 2.2, u)), h0: 1010 }, s = coast2(c, x.t, m, { stage: 3, light: 1, towers: TW18(x.t), bolt: flick(u, [1.3, 1.9]), boltX: 760 });
   const kd = kidAt(BAL.deckCam(c), { crown: 1, ...KIDJ, fx: -0.7, reachL: 1, shock: 0.8, worry: -1, talk: talkAt(x.ln, x.lu), lean: 5, blink: 0 }, x.t);
-  return s.back + BAL.grade() + kd.svg + s.front;
+  return s.back + BAL.grade() + kd.svg + faceLift(kd, -0.7) + s.front;
 });
 // 19  the tower waves stand up over the jetty, the kid tiny and crowned, lightning: peak on "towers"; a wing of the palace at left
 shot("19", "L19", () => LN("L19").at - 0.05, (u, x) => {
   const up = 0.22 + 0.78 * E(WD("L19", "stood") - 0.1, WD("L19", "towers") + 0.2, x.t), c = { x: 1.6, y: 2.0, z: lerp(1.5, 2.4, u / 3.0), h0: 1000 }, s = coast2(c, x.t, 4, { stage: 3, light: 0.5, towers: up, rain: 1, bolt: flick(u, [1.3, 2.35], 0.6), boltX: 880 });
   const kd = kidAt(BAL.deckCam(c), { crown: 1, ...KIDJ, Z: 11.4, fx: -0.5, shock: 1, reachL: 0.4, lean: 6 + 2 * Math.sin(u * 4), blink: 0 }, x.t);
-  return s.back + BAL.grade() + kd.svg + s.front;
+  return s.back + BAL.grade() + kd.svg + faceLift(kd, -0.7) + s.front;
 });
 // 20  the flounder, closer and at water level, in front of the wave wall: eyes and mouth stay above the foam through its last word, then it dips in the gap
 shot("20", "L20", () => LN("L20").at - 0.05, (u, x) => {
@@ -388,12 +391,12 @@ shot("21e", "L21", () => WD("L21", "green") + 0.3, (u, x) => {   // "And a green
 // 22  the kid close by the hut, small and sad (he is dry: the reset is magic)
 shot("22", "L22", () => LN("L22").at - 0.05, (u, x) => {
   const c = { x: -0.3, y: 1.0, z: lerp(2.5, 2.8, u / 1.8), h0: 1010 }, s = coast2(c, x.t, 0, { stage: 0, light: 1, sun: [200, 900, 84], glitter: 200 });
-  const kd = kidAt(c, { X: -0.52, Z: 4.4, fx: 0.4, worry: 1, lean: -3, talk: talkAt(x.ln, x.lu), blink: bl(u, 0.2) }, x.t);
+  const kd = kidAt(c, { X: -0.52, Z: 4.4, fx: 0.4, worry: 1, sad: 0.7, hdrop: 2.5, lean: -3, talk: talkAt(x.ln, x.lu) * 0.6, blink: bl(u, 0.2) }, x.t);
   return compose(s, kd.svg);
 });
 // 23  medium on Grandma beside the hut's round roof and curved door, deadpan; on "pot" she glances at the hut. HARD CUT right after the last sound of "pot"
 shot("23", "L23", () => LN("L23").at - 0.05, (u, x) => {
-  const c = { x: -0.75, y: 1.1, z: lerp(2.5, 2.9, u / 3.7), h0: 1010 }, s = coast2(c, x.t, 0, { stage: 0, light: 1, smoke: 1, sun: [900, 960, 80], glitter: 900 });
+  const c = { x: -0.55, y: 1.15, z: lerp(3.5, 3.9, u / 3.7), h0: 1010 }, s = coast2(c, x.t, 0, { stage: 0, light: 1, smoke: 1, sun: [900, 960, 80], glitter: 900 });
   const potT = WD("L23", "pot"), gl = E(potT - 0.15, potT + 0.12, x.t);
   const g = keeperAt(c, -0.3, 5.75, x.t, { fx: lerp(0.35, -0.9, gl), stern: 0.2, flame: 1, talk: talkAt(x.ln, x.lu) * 0.8, blink: bl(u, 0.4), look: lerp(0, -0.9, gl) });
   return compose(s, g.svg + g.arm);
