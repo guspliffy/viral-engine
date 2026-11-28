@@ -1,0 +1,1093 @@
+{
+ "tool": "a builder bench for the fridge ladder, photos and instant camera (Kid vs Dad 08 T1), never a video",
+ "id": "t1-bench-fridge",
+ "title": "T1 bench: jokeladder, jokephoto, instacam",
+ "idea": "Prop bench for props-jokes-fridge.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "night": true,
+  "floor": "none",
+  "light": "dusk",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "bloom": "emissive",
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 1.12,
+    "w": 0.5,
+    "c": 1,
+    "lift": 0.03,
+    "tint": "#ffffff"
+   }
+  ]
+ ],
+ "fx": [
+  {
+   "do": "lights",
+   "at": 0,
+   "to": 1,
+   "lamp": 1,
+   "dur": 0.01
+  }
+ ],
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   4,
+   40
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "prop test"
+ },
+ "cast": [
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    20,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.1
+  },
+  {
+   "id": "tato",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    22.4,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.9
+  }
+ ],
+ "props": [
+  {
+   "id": "kitchen",
+   "kind": "kitchenroom",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fridge": false,
+   "lamp": 1,
+   "time": 2.75
+  },
+  {
+   "id": "fridge",
+   "kind": "openfridge",
+   "x": 1.35,
+   "y": 0,
+   "z": -1.78,
+   "rot": 0,
+   "scale": 0.75,
+   "open": 0,
+   "lit": 0,
+   "note": false,
+   "handleY": [
+    1,
+    1.5
+   ]
+  },
+  {
+   "id": "ladder",
+   "kind": "jokeladder",
+   "x": 1.35,
+   "y": 0.36,
+   "z": -1.499,
+   "rot": 0
+  },
+  {
+   "id": "b1",
+   "kind": "jokephoto",
+   "pic": "corner",
+   "x": 1.586,
+   "y": 0.62,
+   "z": -1.4965,
+   "rot": 0,
+   "roll": 4
+  },
+  {
+   "id": "b2",
+   "kind": "jokephoto",
+   "pic": "sneakers",
+   "x": 1.429,
+   "y": 0.62,
+   "z": -1.4965,
+   "rot": 0,
+   "roll": -3
+  },
+  {
+   "id": "b3",
+   "kind": "jokephoto",
+   "pic": "beard",
+   "x": 1.272,
+   "y": 0.62,
+   "z": -1.4965,
+   "rot": 0,
+   "roll": 2
+  },
+  {
+   "id": "b4",
+   "kind": "jokephoto",
+   "pic": "sandwich",
+   "x": 1.115,
+   "y": 0.62,
+   "z": -1.4965,
+   "rot": 0,
+   "roll": -5
+  },
+  {
+   "id": "ptM",
+   "kind": "jokephoto",
+   "pic": "moon",
+   "x": 1.35,
+   "y": 1.233,
+   "z": -1.4965,
+   "rot": 0,
+   "roll": -2
+  },
+  {
+   "id": "ptT",
+   "kind": "jokephoto",
+   "pic": "toast",
+   "x": 1.35,
+   "y": 1.233,
+   "z": -1.4965,
+   "rot": 0,
+   "roll": 3,
+   "scale": 0.001
+  },
+  {
+   "id": "ptC",
+   "kind": "jokephoto",
+   "pic": "corner",
+   "x": 1.35,
+   "y": 1.233,
+   "z": -1.4965,
+   "rot": 0,
+   "roll": -2,
+   "scale": 0.001
+  },
+  {
+   "id": "big0",
+   "kind": "jokephoto",
+   "pic": "corner",
+   "x": 29.76,
+   "y": 1.5,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sm0",
+   "kind": "jokephoto",
+   "pic": "corner",
+   "x": 39.4,
+   "y": 1.4,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "big1",
+   "kind": "jokephoto",
+   "pic": "sneakers",
+   "x": 29.92,
+   "y": 1.5,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sm1",
+   "kind": "jokephoto",
+   "pic": "sneakers",
+   "x": 39.6,
+   "y": 1.4,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "big2",
+   "kind": "jokephoto",
+   "pic": "beard",
+   "x": 30.08,
+   "y": 1.5,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sm2",
+   "kind": "jokephoto",
+   "pic": "beard",
+   "x": 39.8,
+   "y": 1.4,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "big3",
+   "kind": "jokephoto",
+   "pic": "sandwich",
+   "x": 30.24,
+   "y": 1.5,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sm3",
+   "kind": "jokephoto",
+   "pic": "sandwich",
+   "x": 40,
+   "y": 1.4,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "big4",
+   "kind": "jokephoto",
+   "pic": "moon",
+   "x": 29.84,
+   "y": 1.28,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sm4",
+   "kind": "jokephoto",
+   "pic": "moon",
+   "x": 40.2,
+   "y": 1.4,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "big5",
+   "kind": "jokephoto",
+   "pic": "toast",
+   "x": 30,
+   "y": 1.28,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sm5",
+   "kind": "jokephoto",
+   "pic": "toast",
+   "x": 40.4,
+   "y": 1.4,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "big6",
+   "kind": "jokephoto",
+   "pic": "blank",
+   "x": 30.16,
+   "y": 1.28,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "sm6",
+   "kind": "jokephoto",
+   "pic": "blank",
+   "x": 40.6,
+   "y": 1.4,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "camD",
+   "kind": "instacam",
+   "x": 19.9,
+   "y": 0.34,
+   "z": 0.62,
+   "rot": 360,
+   "eject": 0,
+   "flash": 0
+  },
+  {
+   "id": "camT",
+   "kind": "instacam",
+   "x": 22.4,
+   "y": 0.25,
+   "z": 0.42,
+   "rot": 360,
+   "eject": 0,
+   "flash": 0
+  },
+  {
+   "id": "cam0",
+   "kind": "instacam",
+   "x": 50,
+   "y": 0.9,
+   "z": 0,
+   "rot": -30,
+   "eject": 0.6,
+   "flash": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.35,
+     0.875,
+     1.2
+    ],
+    "look": [
+     1.35,
+     0.875,
+     -1.5
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "camD",
+      "grip": [
+       -0.193,
+       0.102,
+       -0.052
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "tato",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "camT",
+      "grip": [
+       -0.2,
+       0.085,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "tato",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tato",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "camT",
+      "grip": [
+       0.15,
+       0.085,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "camD",
+      "grip": [
+       -0.193,
+       0.102,
+       -0.052
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "tato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "camT",
+      "grip": [
+       -0.2,
+       0.085,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "tato",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "camT",
+      "grip": [
+       0.15,
+       0.085,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "dad",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "tato",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "tato",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "dad",
+     "do": "grab",
+     "prop": "camD",
+     "hand": "R",
+     "grip": [
+      -0.193,
+      0.102,
+      -0.052
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "tato",
+     "do": "grab",
+     "prop": "camT",
+     "hand": "both",
+     "grip": [
+      -0.025,
+      0.085,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "ptM",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "ptT",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "0.5 camera 09, top moon"
+  },
+  {
+   "name": "s1",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.35,
+     0.875,
+     1.2
+    ],
+    "look": [
+     1.35,
+     0.875,
+     -1.5
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ptT",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "ptC",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "1.5 camera 09, top toast"
+  },
+  {
+   "name": "s2",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.95,
+     1.25,
+     -0.2
+    ],
+    "look": [
+     1.38,
+     1.27,
+     -1.5
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ptC",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "ptT",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "2.5 camera 05, top corner"
+  },
+  {
+   "name": "s3",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.95,
+     1.25,
+     -0.2
+    ],
+    "look": [
+     1.38,
+     1.27,
+     -1.5
+    ],
+    "fov": 34
+   },
+   "do": [],
+   "kind": "3.5 camera 05, top toast"
+  },
+  {
+   "name": "s4",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     30,
+     1.39,
+     1.366
+    ],
+    "look": [
+     30,
+     1.39,
+     0
+    ],
+    "fov": 46
+   },
+   "do": [],
+   "kind": "4.5 7 pictures at 240 px"
+  },
+  {
+   "name": "s5",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     1.4,
+     5.13
+    ],
+    "look": [
+     40,
+     1.4,
+     0
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "camD",
+     "set": {
+      "eject": 0,
+      "flash": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "5.5 7 pictures at 64 px"
+  },
+  {
+   "name": "s6",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     19.7,
+     0.6,
+     1.7
+    ],
+    "look": [
+     19.9,
+     0.45,
+     0.62
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "camD",
+     "set": {
+      "eject": 0.5,
+      "flash": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "6.5 Dad, mug hold, eject 0"
+  },
+  {
+   "name": "s7",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     19.7,
+     0.6,
+     1.7
+    ],
+    "look": [
+     19.9,
+     0.45,
+     0.62
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "camD",
+     "set": {
+      "eject": 1,
+      "flash": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "7.5 Dad, mug hold, eject 0.5"
+  },
+  {
+   "name": "s8",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     19.7,
+     0.6,
+     1.7
+    ],
+    "look": [
+     19.9,
+     0.45,
+     0.62
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "camD",
+     "set": {
+      "eject": 0.5,
+      "flash": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "8.5 Dad, mug hold, eject 1"
+  },
+  {
+   "name": "s9",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     19.7,
+     0.6,
+     1.7
+    ],
+    "look": [
+     19.9,
+     0.45,
+     0.62
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "camD",
+     "set": {
+      "eject": 0.5,
+      "flash": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "9.5 Dad, flash 1 (eject 0.5)"
+  },
+  {
+   "name": "s10",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     18.5,
+     0.6,
+     0.75
+    ],
+    "look": [
+     19.9,
+     0.45,
+     0.62
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "camT",
+     "set": {
+      "eject": 0,
+      "flash": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "10.5 Dad, from his right side"
+  },
+  {
+   "name": "s11",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     22.3,
+     0.75,
+     1.55
+    ],
+    "look": [
+     22.4,
+     0.33,
+     0.42
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "camT",
+     "set": {
+      "eject": 0.5,
+      "flash": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "11.5 Tato, box hold, eject 0"
+  },
+  {
+   "name": "s12",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     22.3,
+     0.75,
+     1.55
+    ],
+    "look": [
+     22.4,
+     0.33,
+     0.42
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "camT",
+     "set": {
+      "eject": 1,
+      "flash": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "12.5 Tato, box hold, eject 0.5"
+  },
+  {
+   "name": "s13",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     22.3,
+     0.75,
+     1.55
+    ],
+    "look": [
+     22.4,
+     0.33,
+     0.42
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "camT",
+     "set": {
+      "eject": 0.5,
+      "flash": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "13.5 Tato, box hold, eject 1"
+  },
+  {
+   "name": "s14",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     22.3,
+     0.75,
+     1.55
+    ],
+    "look": [
+     22.4,
+     0.33,
+     0.42
+    ],
+    "fov": 48
+   },
+   "do": [],
+   "kind": "14.5 Tato, flash 1 (eject 0.5)"
+  },
+  {
+   "name": "s15",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     49.7,
+     1.15,
+     0.9
+    ],
+    "look": [
+     50,
+     1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cam0",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "15.5 camera alone, 3/4, flash 0"
+  },
+  {
+   "name": "s16",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     49.7,
+     1.15,
+     0.9
+    ],
+    "look": [
+     50,
+     1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "16.5 camera alone, 3/4, flash 1"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "dad",
+   "with": "camD",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: the camera is held"
+  },
+  {
+   "who": "tato",
+   "with": "camT",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: the camera is held"
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/kid-vs-dad/08-dad-jokes-true/bench/t1-bench-fridge.mjs (T1)."
+}

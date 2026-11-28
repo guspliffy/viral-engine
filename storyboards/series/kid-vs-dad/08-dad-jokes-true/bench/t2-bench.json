@@ -1,0 +1,1980 @@
+{
+ "tool": "a builder bench for hotcorner, beardflood, tatosandwich, kidsocks, kidsneakers (Kid vs Dad 08 T2), never a video",
+ "id": "t2-bench",
+ "title": "T2 bench: corner, beard, sandwich, socks",
+ "idea": "Prop bench for props-jokes-real.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "set": {
+  "type": "plain",
+  "night": true,
+  "floor": "none",
+  "light": "dusk",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "bloom": "emissive",
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 1.12,
+    "w": 0.5,
+    "c": 1,
+    "lift": 0.03,
+    "tint": "#ffffff"
+   }
+  ]
+ ],
+ "fx": [
+  {
+   "do": "lights",
+   "at": 0,
+   "to": 1,
+   "lamp": 1,
+   "dur": 0.01
+  }
+ ],
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   4,
+   40
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "prop test"
+ },
+ "cast": [
+  {
+   "id": "tC",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -5,
+    -1.82
+   ],
+   "face": 20,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "dad",
+   "character": "potatobrawl/dad",
+   "at": [
+    0,
+    -0.85
+   ],
+   "face": 55,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 1.1
+  },
+  {
+   "id": "tB",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    1.8,
+    0.41
+   ],
+   "face": -60,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.8
+  },
+  {
+   "id": "tS",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    3.4,
+    0.2
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.7
+  },
+  {
+   "id": "tF",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    0.665,
+    -1.08
+   ],
+   "face": 35,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.6
+  },
+  {
+   "id": "tK",
+   "character": "potatobrawl/spud-kid",
+   "at": [
+    -3,
+    0.2
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 2.5
+  }
+ ],
+ "props": [
+  {
+   "id": "kitchen",
+   "kind": "kitchenroom",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fridge": false,
+   "lamp": 1,
+   "time": 2.75
+  },
+  {
+   "id": "hot",
+   "kind": "hotcorner",
+   "x": -5.5,
+   "y": 0,
+   "z": -2.3,
+   "rot": 0
+  },
+  {
+   "id": "wisp0",
+   "kind": "smokewisp",
+   "wear": "tC",
+   "x": -0.19,
+   "y": 0.47,
+   "z": 0.04,
+   "rgb": "255,250,240",
+   "alpha": 0.5,
+   "h": 0.42,
+   "size": 0.045,
+   "n": 7
+  },
+  {
+   "id": "wisp1",
+   "kind": "smokewisp",
+   "wear": "tC",
+   "x": 0.19,
+   "y": 0.47,
+   "z": 0.04,
+   "rgb": "255,250,240",
+   "alpha": 0.5,
+   "h": 0.42,
+   "size": 0.045,
+   "n": 7
+  },
+  {
+   "id": "wisp2",
+   "kind": "smokewisp",
+   "wear": "tC",
+   "x": 0.05,
+   "y": 0.4,
+   "z": -0.16,
+   "rgb": "255,250,240",
+   "alpha": 0.5,
+   "h": 0.42,
+   "size": 0.045,
+   "n": 7
+  },
+  {
+   "id": "flush0",
+   "kind": "blotch",
+   "wear": "tC",
+   "x": -0.115,
+   "y": 0.4,
+   "z": 0.2,
+   "color": "#ff5a3c",
+   "size": 0.07,
+   "alpha": 0.5,
+   "scale": 0.001
+  },
+  {
+   "id": "flush1",
+   "kind": "blotch",
+   "wear": "tC",
+   "x": 0.115,
+   "y": 0.4,
+   "z": 0.2,
+   "color": "#ff5a3c",
+   "size": 0.07,
+   "alpha": 0.5,
+   "scale": 0.001
+  },
+  {
+   "id": "beard",
+   "kind": "beardflood",
+   "x": 0,
+   "y": 0,
+   "z": -0.85,
+   "rot": 55,
+   "reach": 2.2,
+   "waist": 0.36,
+   "grow": 0
+  },
+  {
+   "id": "sw1",
+   "kind": "tatosandwich",
+   "wear": "tS",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "sw2",
+   "kind": "tatosandwich",
+   "wear": "tF",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "fridge",
+   "kind": "openfridge",
+   "x": 1.35,
+   "y": 0,
+   "z": -1.78,
+   "rot": 0,
+   "scale": 0.75,
+   "open": 0,
+   "lit": 0,
+   "note": false,
+   "handleY": [
+    1,
+    1.5
+   ]
+  },
+  {
+   "id": "b4",
+   "kind": "jokephoto",
+   "pic": "sandwich",
+   "x": 1.115,
+   "y": 0.62,
+   "z": -1.4965,
+   "rot": 0,
+   "roll": -5
+  },
+  {
+   "id": "socks",
+   "kind": "kidsocks",
+   "wear": "tK",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "snk",
+   "kind": "kidsneakers",
+   "x": -3,
+   "y": 0.3,
+   "z": 0.62,
+   "rot": 180
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.3,
+     0.62,
+     -0.03
+    ],
+    "look": [
+     -5.08,
+     0.42,
+     -1.98
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sw1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sw2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "socks",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "snk",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hot",
+     "set": {
+      "heat": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flush0",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "flush1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hot",
+     "set": {
+      "heat": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "tC",
+     "do": "expr",
+     "set": {
+      "eye": 0.7,
+      "tilt": 0.35,
+      "curve": -0.5,
+      "open": 0.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tC",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "expr",
+     "set": {
+      "eye": 0.2,
+      "curve": 0.6
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "expr",
+     "set": {
+      "eye": 1.2,
+      "pupil": 0.7,
+      "tilt": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.55,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.55,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.15,
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.15,
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "expr",
+     "set": {
+      "eye": 0.6,
+      "tilt": -0.05,
+      "pupil": 0.8
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "still",
+     "dur": 20,
+     "idle": 0.1,
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "snk",
+      "grip": [
+       0.145,
+       0.041,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "snk",
+      "grip": [
+       -0.145,
+       0.041,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       -0.03
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "snk",
+      "grip": [
+       0.145,
+       0.041,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "tK",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "snk",
+      "grip": [
+       -0.145,
+       0.041,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "tK",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "tK",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "tK",
+     "do": "grab",
+     "prop": "snk",
+     "hand": "both",
+     "grip": [
+      0,
+      0.041,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "hot",
+     "set": {
+      "heat": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "flush0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "flush1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "0.5 camera 04, heat 0"
+  },
+  {
+   "name": "s1",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.3,
+     0.62,
+     -0.03
+    ],
+    "look": [
+     -5.08,
+     0.42,
+     -1.98
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tC",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "hot",
+     "set": {
+      "heat": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "flush0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "flush1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "1.5 camera 04, heat 0.3, wisps"
+  },
+  {
+   "name": "s2",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.3,
+     0.62,
+     -0.03
+    ],
+    "look": [
+     -5.08,
+     0.42,
+     -1.98
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hot",
+     "set": {
+      "heat": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "flush0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "flush1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "2.5 camera 04, heat 1, wisps"
+  },
+  {
+   "name": "s3",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3.2,
+     1.5,
+     1.6
+    ],
+    "look": [
+     -5.2,
+     0.55,
+     -1.8
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wisp0",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp1",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wisp2",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "flush0",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "flush1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "beard",
+     "set": {
+      "grow": 0.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "3.5 the corner wide, heat 1"
+  },
+  {
+   "name": "s4",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.95,
+     1.35,
+     6.3
+    ],
+    "look": [
+     0.95,
+     0.35,
+     -0.1
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beard",
+     "set": {
+      "grow": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "4.5 beard grow 0.2"
+  },
+  {
+   "name": "s5",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.95,
+     1.35,
+     6.3
+    ],
+    "look": [
+     0.95,
+     0.35,
+     -0.1
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beard",
+     "set": {
+      "grow": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "5.5 beard grow 0.5"
+  },
+  {
+   "name": "s6",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.95,
+     1.35,
+     6.3
+    ],
+    "look": [
+     0.95,
+     0.35,
+     -0.1
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beard",
+     "set": {
+      "grow": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "6.5 beard grow 0.8"
+  },
+  {
+   "name": "s7",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.95,
+     1.35,
+     6.3
+    ],
+    "look": [
+     0.95,
+     0.35,
+     -0.1
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beard",
+     "set": {
+      "grow": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "7.5 beard grow 1"
+  },
+  {
+   "name": "s8",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.1,
+     0.55,
+     3.3
+    ],
+    "look": [
+     1.8,
+     0.35,
+     0.41
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sw1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "beard",
+     "set": {
+      "grow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "8.5 beard grow 1, Tato in the mound"
+  },
+  {
+   "name": "s9",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.4,
+     0.62,
+     3.7
+    ],
+    "look": [
+     3.4,
+     0.45,
+     0.2
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "at": 0.99
+    }
+   ],
+   "kind": "9.5 sandwich front"
+  },
+  {
+   "name": "s10",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.4,
+     0.62,
+     3.7
+    ],
+    "look": [
+     3.4,
+     0.45,
+     0.2
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "at": 0.99
+    }
+   ],
+   "kind": "10.5 sandwich 20 degrees"
+  },
+  {
+   "name": "s11",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.4,
+     0.62,
+     3.7
+    ],
+    "look": [
+     3.4,
+     0.45,
+     0.2
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sw1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "sw2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "who": "tF",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "b4",
+      "grip": [
+       0,
+       0,
+       0.055
+      ],
+      "palm": [
+       0,
+       0,
+       -1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.99
+    }
+   ],
+   "kind": "11.5 sandwich side"
+  },
+  {
+   "name": "s12",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.9,
+     0.85,
+     2.3
+    ],
+    "look": [
+     0.9,
+     0.55,
+     -1.2
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sw2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "socks",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "snk",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "12.5 sandwich at b4"
+  },
+  {
+   "name": "s13",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3,
+     0.45,
+     2.5
+    ],
+    "look": [
+     -3,
+     0.3,
+     0.3
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "turn",
+     "to": 35,
+     "dur": 0.01,
+     "at": 0.99
+    }
+   ],
+   "kind": "13.5 kidsocks + kidsneakers front"
+  },
+  {
+   "name": "s14",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.2,
+     0.4,
+     1.9
+    ],
+    "look": [
+     -3,
+     0.25,
+     0.4
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "at": 0.99
+    }
+   ],
+   "kind": "14.5 kidsocks 3/4"
+  },
+  {
+   "name": "s15",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.5,
+     0.16,
+     0.9
+    ],
+    "look": [
+     -3,
+     0.1,
+     0.2
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "tC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dad",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tF",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "tK",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "socks",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "snk",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.99
+    }
+   ],
+   "kind": "15.5 kidsocks feet, side, low"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "tS",
+   "with": "sw1",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: worn"
+  },
+  {
+   "who": "tF",
+   "with": "sw2",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: worn"
+  },
+  {
+   "who": "tK",
+   "with": "socks",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: worn"
+  },
+  {
+   "who": "tK",
+   "with": "snk",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: held"
+  },
+  {
+   "who": "tB",
+   "with": "beard",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: standing in the mound"
+  },
+  {
+   "who": "dad",
+   "with": "beard",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: his beard"
+  },
+  {
+   "who": "tF",
+   "with": "b4",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: palm on the photo"
+  },
+  {
+   "who": "tC",
+   "with": "hot",
+   "from": 0,
+   "to": 30,
+   "reason": "bench: in the corner"
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/kid-vs-dad/08-dad-jokes-true/bench/t2-bench.mjs (T2)."
+}
