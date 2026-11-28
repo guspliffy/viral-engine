@@ -169,6 +169,14 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   caption, and takes a bare number as the gain. Should keep rounds lost to silently dropped actions at 0. Proof: run
   over all 425 generators: only make-zombies-v2.mjs throws (its broom release at NaN was never in that video); no
   render changes.
+- `speaker-cut` (28 Nov, from Country vs Country 02 traffic light; waits for Jonny's word): in draft 2 the one speaking
+  stood half in frame with the face past the side edge in three shots ("Come on... come on", "...Huh. Made it.", Chip's
+  "Nobody walks here, man."); the "visible" notes named them among 20 beat-wide notes, so they were found by eye and
+  cost a draft round. `qa/framing.mjs speakerCutResults`, run by preflight: whoever has a line, with 15 % of the body
+  box in frame and the eyes outside it for 0.3 s, warns `speaker-cut` (a voice from off screen is left alone). Should
+  keep draft rounds lost to a cut-off speaker at 0. Proof: on the draft 2 layout it names exactly those three (spudus
+  11.2-12.5 + 46.3-47.8 s, chip 26.0-26.7 s) plus Mash 13.2-13.5 s; on draft 3 only Mash 12.9-13.2 s (left in);
+  selftest passes; no render changes.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
