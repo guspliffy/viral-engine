@@ -7,6 +7,7 @@ import { skipAge } from "./costumes-skipage.js";
 import { devilKit } from "./costumes-devil.js";
 import { dadKit } from "./costumes-dad.js";   // Kid vs Dad: the new Dad (polo, belly, belt, holster, cargo shorts, socks and sandals, moustache, three leaves)
 import { angelKit } from "./costumes-angel.js";
+import { raincoatKit, wedgeWatch } from "./costumes-raincoat.js";   // Country vs Country 02: the kid's raincoat (hood up) and Wedge's opt-in wrist watch
 import { vestExtras, reporterHelmet } from "./costumes-reporter.js";   // the reporter: padded vest keys + helmet on the teller (USAGE header there)
 import { headset } from "./costumes-crew.js";   // Mash's worker headset (costume.headset; USAGE header there; Kid vs Dad 02)
 import { blanket } from "./costumes-blanket.js";   // Chip's shock blanket (costume.blanket, key slip; kid vs dad 01)
@@ -912,7 +913,11 @@ const KIT = {
   devil: (C, ch) => devilKit(C, ch),   // potato desk 09: the Devil's resort shirt, badge, chit horns, root tail (costumes-devil.js)
   dad: (C, ch) => dadKit(C, ch),   // kid vs dad 03: Dad B (costumes-dad.js; DAD-DESIGN.md)
   angel: (C, ch) => angelKit(C, ch),   // potato desk heaven steps: the Angel's wrap robe, rope belt, wings, halo, gold glasses (costumes-angel.js)
-  wedge: (C, ch) => { const sl = bomber(C, ch, { color: "#c34732", seed: 12.6, front: -0.3, back: 0.3, vee: 0.6, hem: -1.12, r0: 0.09, r1: 0.066, phase: 0.3 }); shades(C, ch, { size: 2.0, x: 0.04, tip: -0.42, fwd: 0.1, up: -0.035 }); return sl; },
+  wedge: (C, ch) => {   // costume.watch (true | "L" | "R", default off): the retiree's wrist watch, the bomber's cuff then ends 0.115 before the hand (costumes-raincoat.js USAGE); without it nothing changes
+    const sl = bomber(C.watch ? { ...C, cuffGap: C.cuffGap ?? 0.115 } : C, ch, { color: "#c34732", seed: 12.6, front: -0.3, back: 0.3, vee: 0.6, hem: -1.12, r0: 0.09, r1: 0.066, phase: 0.3 }); shades(C, ch, { size: 2.0, x: 0.04, tip: -0.42, fwd: 0.1, up: -0.035 });
+    return C.watch ? { sl, apply: wedgeWatch(C, ch) } : sl;
+  },
+  raincoat: (C, ch) => raincoatKit(C, ch),   // Country vs Country 02: the kid's red raincoat, hood up (costumes-raincoat.js; characters/potatobrawl/tot-kid.json)
 };
 export const EVERYDAY = Object.keys(KIT);
 export function everyday(C, ch, out) {

@@ -1,0 +1,116 @@
+{
+  "id": "potatobrawl/dad-toast",
+  "name": "Dad as toast (Kid vs Dad 08)",
+  "franchise": "PotatoBrawl",
+  "tts": "dad",
+  "source": "storyboards/series/kid-vs-dad/08-dad-jokes-true/DESIGN.md section 10: dad.json with a slab body and costume.toast (engine/page/costumes-dad.js). storyboards/series/kid-vs-dad/03-square-eyes/DAD-DESIGN.md (the new Dad, Dad B, picked by Jonny 25 Nov 2026); target: references/cast/dad-reference-sheet-2026-11-25.png",
+  "rig": "potato",
+  "body": {
+    "color": "#e3a857",
+    "height": 0.98,
+    "width": 0.86,
+    "depth": 0.2,
+    "lump": 0,
+    "seed": 71,
+    "taper": -0.06,
+    "square": 6,
+    "keepSkin": true
+  },
+  "legs": {
+    "height": 0.2,
+    "width": 0.046,
+    "hipX": 0.13,
+    "footX": 0.14
+  },
+  "limbs": {
+    "color": "#f4f1e8",
+    "width": 0.034,
+    "shoulder": -0.3
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "brow": "#4e2f1a",
+    "size": 0.9,
+    "neutral": {
+      "tilt": 0.03,
+      "curve": 0.4,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.01,
+      "thick": 1.0
+    },
+    "final": {
+      "size": 0.99,
+      "eye": {
+        "flick": 0,
+        "lash": 1.2
+      },
+      "browShape": {
+        "thick": 1.0,
+        "arch": 0.01,
+        "taper": 0.4,
+        "tip": 0.007,
+        "inner": 0.14,
+        "outer": 0.66,
+        "clear": 0.012
+      },
+      "layout": {
+        "eyeU": 0.39,
+        "eyeV": 0.62,
+        "browV": 1.02,
+        "mouthV": -0.13,
+        "mouthW": 0.2,
+        "cheekU": 0.74,
+        "cheekV": 0.22
+      }
+    }
+  },
+  "sprout": {
+    "color": "#8fb03a",
+    "placement": "none",
+    "leaves": 3
+  },
+  "costume": {
+    "type": "dad",
+    "toast": true,
+    "armSkin": "#f9b75c",
+    "socks": "#f4f1e8",
+    "rings": "#34507f",
+    "sandal": "#5a3a22",
+    "strap": "#7a4b2a",
+    "moustache": "#6a3f24",
+    "leaf": "#8fb03a",
+    "buckle": "#dba935",
+    "hands": "#f6dcae"
+  },
+  "hands": {
+    "type": "glove",
+    "size": 1.3,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "personality": "Tato's dad, never named. States every house rule as a law of nature and breaks it himself. Habit (a proposal): he hitches his belt before a ruling.",
+  "voice": {
+    "pitch": 96,
+    "rate": 2.8,
+    "formant": 0.98,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 139
+  },
+  "voiceNote": "placeholder. Jonny picks Dad's own voice by ear; first try `wizard`: warm, mid-low, calm, very sure",
+  "notes": "browV 1.14 -> 1.02 (the only face number changed): on a slab the face's elevation maps to a height by tan, not sin, so the brows would sit 0.05 higher than Dad's, under the crust; 1.02 puts them where his are (b 0.775 against 0.771). Toast Dad: same height and width as dad.json so the eye height (0.842), the arm roots (y 0.74, x +-0.40) and every mark stay; depth 0.20. No polo, collar, sleeves, shorts, belt or holster (costume.toast). Sizes: DAD-DESIGN.md section 2 (crown 1.18, leaf tops 1.25 standing; Tato's crown 0.69 = level with the top of Dad's moustache). Body width stays at or under 0.86 (a hand jumps in a turn above that; fallback 0.84, 0.82). No hat, no glasses, nothing over the eyes: the eye zone (b 0.496 to 0.86, |x| up to 0.25) stays clear in every pose. Moustache hangs off face.place and does not move with speech. Spec: storyboards/series/kid-vs-dad/03-square-eyes/DAD-DESIGN.md."
+}

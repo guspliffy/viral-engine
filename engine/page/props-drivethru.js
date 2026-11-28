@@ -40,6 +40,8 @@ import { mat, mesh, canvasTex } from "./props-trend.js";
 //   trafficlight  origin the foot of its post, face toward +z. Post r 0.06 to y 1.75, head 0.42 x 1.04 x 0.26 centred 2.05
 //                 up, three lenses r 0.13 at +0.33 / 0 / -0.33 under 0.10 visors. Key `go` (default spec.go ?? 0): under 0.33
 //                 red, 0.33..0.66 amber, over 0.66 green; steps, no blend; the lit lens has a halo r 0.34 (opacity 0.5).
+//                 Opt-in (country vs country 02): `hang: true` = no post, a 0.19 hanger, ORIGIN the hanger's top, head centre 0.71 below it;
+//                 `housing` = the head's colour (default #23252b).
 //   trafficcone   origin the middle of its base on the ground; 0.75 tall, base 0.46 square, orange #f26a1b with two white
 //                 bands, one scuff, one tyre mark. SOLID. Spec: none.
 //   speakerpost   origin the ground under it, grille toward +z (turn it with rot to face the lane); body 0.30 x 0.22 wide and
@@ -483,16 +485,22 @@ export const DRIVETHRU_KINDS = {
   },
 
   trafficlight(P) {
-    const g = P.whole, ink = mat("#23252b", { roughness: 0.5 });
-    lit(g, new THREE.CylinderGeometry(0.06, 0.06, 1.75, 12), mat("#2f3238", { roughness: 0.5 }), 0, 0.875, 0);
+    // opt-in keys (country vs country 02): spec.hang true = no post, a 0.19 hanger, ORIGIN the hanger's top (the head hangs below it);
+    // spec.housing = the head's colour. Both off: the head is unchanged.
+    const hang = !!P.spec.hang, yc = hang ? -0.19 - 0.52 : 2.05;
+    const g = P.whole, ink = mat("#23252b", { roughness: 0.5 }), headM = P.spec.housing ? mat(P.spec.housing, { roughness: 0.5 }) : ink;
+    if (hang) {
+      lit(g, new THREE.CylinderGeometry(0.02, 0.02, 0.19, 8), ink, 0, -0.095, 0);
+      lit(g, new THREE.CylinderGeometry(0.05, 0.05, 0.02, 10), ink, 0, 0.0, 0);
+    } else lit(g, new THREE.CylinderGeometry(0.06, 0.06, 1.75, 12), mat("#2f3238", { roughness: 0.5 }), 0, 0.875, 0);
     const hd = new THREE.ExtrudeGeometry(rr(0.42, 1.04, 0.05), { depth: 0.26, bevelEnabled: false }); hd.translate(0, 0, -0.13);
-    lit(g, hd, ink, 0, 2.05, 0);
+    lit(g, hd, headM, 0, yc, 0);
     const OFF = ["#4a1d1b", "#4a3a14", "#143d22"], ON = ["#ff3b2f", "#ffb52e", "#35e06a"], lens = [], halos = [], halo = radial(GLOW);
     [0.33, 0, -0.33].forEach((dy, i) => {
       const m = bas(OFF[i]); lens.push(m);
-      put(g, new THREE.CircleGeometry(0.13, 20), m, 0, 2.05 + dy, 0.135);
-      const vis = lit(g, new THREE.CylinderGeometry(0.15, 0.15, 0.1, 16, 1, true, Math.PI / 2, Math.PI), ink, 0, 2.05 + dy, 0.185); vis.rotation.x = Math.PI / 2; vis.material = ink.clone(); vis.material.side = DS;
-      halos.push(glow(g, halo, ON[i], 0.5, 0.68, 0, 2.05 + dy, 0.17));
+      put(g, new THREE.CircleGeometry(0.13, 20), m, 0, yc + dy, 0.135);
+      const vis = lit(g, new THREE.CylinderGeometry(0.15, 0.15, 0.1, 16, 1, true, Math.PI / 2, Math.PI), ink, 0, yc + dy, 0.185); vis.rotation.x = Math.PI / 2; vis.material = ink.clone(); vis.material.side = DS;
+      halos.push(glow(g, halo, ON[i], 0.5, 0.68, 0, yc + dy, 0.17));
     });
     finish(g);
     return { grip: 0, apply(ps) {

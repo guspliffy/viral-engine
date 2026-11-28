@@ -27,6 +27,9 @@ import { buildKitchenRoom } from "./set-kitchen.js";
 //                Flicker is the director's: lit 1, 0 for two frames, 1 ...
 //     spec.bright (default 0.7) scales the cavity colours at lit 1 (the unlit cavity colours blow out under the night kitchen's warm
 //                grade at 1.0); the food has its own glow, scaled with lit the same way.
+//     spec.note (default true)  false leaves out the blank yellow note (Kid vs Dad 08 puts the gold magnet in its spot).
+//     spec.handleY (default [0.55, 1.15])  [y0, y1], the door bar's span in the kind's own metres (before spec.scale); the stand-offs
+//                sit 0.03 inside each end and the `handle` anchor keeps its place in the bar. 08 uses [1.00, 1.50] at scale 0.75.
 //   Not held, not solid for hands (the fridge is a set piece): Chip's glove rests on the handle by a rest pin.
 //   Cling film: the see-through disc is DROPPED (the design allows it): the 4 white streaks (opaque, on the mound) and the crinkled
 //   skirt with its 16 folds and 2 loose corners carry it. Counter mask: the kitchen set's counter runs behind the stock fridge's place
@@ -173,13 +176,14 @@ export const FRIDGE_KINDS = {
     box(DW, DH, DT, body, dx, 0.48 + DH / 2, 0, door);
     box(DW - 0.02, DH - 0.02, 0.004, mat("#dcd8cc", { roughness: 0.5 }), dx, 0.48 + DH / 2, -DT / 2 - 0.0021, door);   // the inside liner (faces -z when shut)
     // the bar handle on the outside: r 0.014, y 0.55..1.15, 0.05 proud, 0.09 from the free edge
-    const hx = -DW + 0.09, hbar = mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.6, 12), steel, door, hx, 0.85, DT / 2 + 0.05); hbar.name = "fridge-handle";
-    for (const y of [0.58, 1.12]) { const st = mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.05, 8), steel, door, hx, y, DT / 2 + 0.025); st.rotation.x = Math.PI / 2; }
+    const [hy0, hy1] = P.spec.handleY ?? [0.55, 1.15];
+    const hx = -DW + 0.09, hbar = mesh(new THREE.CylinderGeometry(0.014, 0.014, hy1 - hy0, 12), steel, door, hx, (hy0 + hy1) / 2, DT / 2 + 0.05); hbar.name = "fridge-handle";
+    for (const y of [hy0 + 0.03, hy1 - 0.03]) { const st = mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.05, 8), steel, door, hx, y, DT / 2 + 0.025); st.rotation.x = Math.PI / 2; }
     // the kit's blank yellow note, 0.16 square at (x 0.12, y 1.55) of the fridge: the door's middle is at x 0
-    const note = box(0.16, 0.16, 0.002, mat("#ffe27a", { roughness: 0.9 }), 0.12 - HX, 1.55, DT / 2 + 0.0011, door); note.rotation.z = rad(-3); note.userData.noOutline = true; note.material.userData.noOutline = true;
+    if (P.spec.note !== false) { const note = box(0.16, 0.16, 0.002, mat("#ffe27a", { roughness: 0.9 }), 0.12 - HX, 1.55, DT / 2 + 0.0011, door); note.rotation.z = rad(-3); note.userData.noOutline = true; note.material.userData.noOutline = true; }
 
     return {
-      grip: 0, anchors: { handle: (() => { const o = new THREE.Object3D(); o.position.set(hx, 0.75, DT / 2 + 0.05); door.add(o); return o; })() },
+      grip: 0, anchors: { handle: (() => { const o = new THREE.Object3D(); o.position.set(hx, hy0 + (hy1 - hy0) / 3, DT / 2 + 0.05); door.add(o); return o; })() },
       apply(ps) {
         const open = clamp(ps.open ?? P.spec.open ?? 0), lit = clamp(ps.lit ?? P.spec.lit ?? 0), k = (P.spec.bright ?? 0.7) * (0.25 + 0.75 * lit);
         door.rotation.y = rad(105) * open;
