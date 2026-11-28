@@ -1,7 +1,7 @@
 // Legend: The Kelpie (Loch Sunart, Scotland), code-drawn ROUGH DRAFT 1 (shot list: SHOTS.md, lines: lines.json, music: Sol's answer.md).
 //   node storyboards/series/legend/kelpie/kp-render.mjs <out-subs.mp4> <out-nosubs.mp4> [--from s --to s]   (both exports in one pass)
-//   TITLE=<style> picks the opening banner when tools/svg2d/lib/legend-scotland-title.mjs exists (default style = its default);
-//   TITLE=none or a missing lib = no banner. Only frames 0..~75 depend on it: see kp-head.sh.
+//   No opening banner (Jonny 28 Nov: banner videos perform worse). TITLE=<style> (stone|weed|bridle) brings back the
+//   tools/svg2d/lib/legend-scotland-title.mjs banner for a test. Only frames 0..~75 depend on it: see kp-head.sh.
 // Voice-led like cw.mjs: every line starts when the previous line's last sound has ended (+ a gap); no voice is cut off.
 import { readFileSync, existsSync } from "node:fs";
 import * as L from "../../../../tools/svg2d/lib/legend.mjs";
@@ -10,7 +10,7 @@ import { align, phrases, captionSvg } from "../../../../tools/svg2d/lib/captions
 const { lerp, clamp, tr, ease, blinkAmt, n } = L;
 
 export const W = 1080, H = 1920, FPS = 30;
-export const TITLE = process.env.TITLE || "";
+export const TITLE = process.env.TITLE || "none";
 const VO = "out/legend-kelpie/vo", SPEC = JSON.parse(readFileSync("storyboards/series/legend/kelpie/lines.json", "utf8"));
 const TITLE_LIB = "tools/svg2d/lib/legend-scotland-title.mjs";
 let titleCard = null;
@@ -477,7 +477,7 @@ function capY(ln, pi, ph) {
   const t0 = ln.at + ph.at, t1 = pi + 1 < ln.phrases.length ? ln.at + ln.phrases[pi + 1].at : ln.end + 0.3;
   const fs = [t0 + 0.05, (t0 + t1) / 2, t1 - 0.08].map((t) => facesAt(Math.min(t, DUR - 0.01))).flat();
   let best = null, bs = 1e9;
-  for (const y of CAPY) { const b = capBox(ph, y); if (t0 < 2.75 && b.y0 < 514) continue; const bad = fs.filter((f) => hit(b, f)).length; if (!bad) { best = y; break; } if (bad < bs) { bs = bad; best = y; } }
+  for (const y of CAPY) { const b = capBox(ph, y); if (titleCard && t0 < 2.75 && b.y0 < 514) continue; const bad = fs.filter((f) => hit(b, f)).length; if (!bad) { best = y; break; } if (bad < bs) { bs = bad; best = y; } }
   CAPCACHE.set(key, best); return best;
 }
 function captions(t) {
@@ -498,7 +498,7 @@ function bodyAt(time) {
 export function parts(time) {
   FACES = [];
   const b = bodyAt(time), fcs = FACES.slice();
-  const title = titleCard && time < 2.75 ? titleCard(time, TITLE ? { style: TITLE } : {}) : "";
+  const title = titleCard && time < 2.75 ? titleCard(time, { style: TITLE }) : "";
   const dbg = process.env.DEBUGFACES ? fcs.map((f) => `<circle cx="${n(f.x)}" cy="${n(f.y)}" r="${n(f.r)}" fill="none" stroke="#0f0" stroke-width="3"/>`).join("") : "";
   return { pic: frame(b.body) + title + dbg, cap: captions(time), shot: b.shot, faces: fcs };
 }
