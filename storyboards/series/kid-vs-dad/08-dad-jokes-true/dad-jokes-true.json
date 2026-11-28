@@ -91,20 +91,20 @@
   {
    "do": "flash",
    "at": 14.77,
-   "dur": 0.1,
-   "peak": 0.5
+   "dur": 0.2,
+   "peak": 0.25
   },
   {
    "do": "flash",
    "at": 24.01,
-   "dur": 0.1,
-   "peak": 0.5
+   "dur": 0.2,
+   "peak": 0.25
   },
   {
    "do": "flash",
    "at": 35.75,
-   "dur": 0.1,
-   "peak": 0.5
+   "dur": 0.2,
+   "peak": 0.25
   },
   {
    "do": "poof",
@@ -118,8 +118,8 @@
   {
    "do": "flash",
    "at": 44.72,
-   "dur": 0.1,
-   "peak": 0.5
+   "dur": 0.2,
+   "peak": 0.25
   },
   {
    "do": "lights",
@@ -131,8 +131,8 @@
   {
    "do": "flash",
    "at": 57.34,
-   "dur": 0.1,
-   "peak": 0.4
+   "dur": 0.2,
+   "peak": 0.25
   },
   {
    "do": "lights",
@@ -1912,6 +1912,12 @@
     },
     {
      "who": "dad",
+     "do": "noblink",
+     "dur": 1.2,
+     "at": 2.58
+    },
+    {
+     "who": "dad",
      "do": "expr",
      "set": {
       "eye": 1.2,
@@ -3157,6 +3163,12 @@
     },
     {
      "who": "dad",
+     "do": "noblink",
+     "dur": 1.2,
+     "at": 2.881
+    },
+    {
+     "who": "dad",
      "do": "expr",
      "set": {
       "eye": 1.2,
@@ -4192,6 +4204,12 @@
     },
     {
      "who": "dad",
+     "do": "noblink",
+     "dur": 1.2,
+     "at": 2.114
+    },
+    {
+     "who": "dad",
      "do": "expr",
      "set": {
       "eye": 1.2,
@@ -5047,6 +5065,12 @@
      },
      "dur": 0,
      "ease": "inOut",
+     "at": 1.547
+    },
+    {
+     "who": "dad",
+     "do": "noblink",
+     "dur": 1.2,
      "at": 1.547
     },
     {
@@ -7168,6 +7192,12 @@
      ],
      "dur": 0.01,
      "blink": false,
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 2.5,
      "at": 1.48
     }
    ]

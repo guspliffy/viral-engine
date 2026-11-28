@@ -208,7 +208,8 @@ const snap = (C, i, line) => {
   place(C, "dad", DAD_TOP, DAD_TOP_YAW); place(C, "spud", [-0.30, -1.00], 100);   // out of the top-spot insert, clear of the table
   camOn(C, DAD_TOP, DAD_TOP_YAW); arm(onCut(C), "dad", "L", "rest", 0.01);
   P(onCut(C), "camD", { flash: 1, eject: 1 }, 0); P(r3(C + 0.07), "camD", { flash: 0.25 }, 0.25); P(r3(C + 0.35), "camD", { eject: 0 }, 0.01);
-  fx.push({ do: "flash", at: r3(C + 0.02), dur: 0.1, peak: 0.5 });
+  fx.push({ do: "flash", at: r3(C + 0.02), dur: 0.2, peak: 0.25 });   // draft 4: facing the window the 0.5 flash read as a pop + strobe
+  A(onCut(C), "dad", "noblink", { dur: 1.2 });
   sfx(r3(C + 0.02), "click", { gain: 0.5, reason: "the instant camera's shutter" });
   expr(C, "dad", FACE.showman, 0.01); look(C, "dad", [-0.5, 0.2], 0.01);
   slapTop(C, `ph${i}`, C + 0.38);
@@ -355,7 +356,7 @@ e = say(27, C20 + 0.1);
 const C21 = r3(e + 0.15);
 // draft 3: head down with a body lift stretched a leg to the floor and hid his face; now he floats upright, feet tucked
 place(C21, "dad", DAD_TOP, DAD_TOP_YAW); A(onCut(C21), "dad", "fly", { to: { x: DAD_TOP[0], y: 0.45, z: DAD_TOP[1] }, dur: 0.01 }); arm(onCut(C21), "dad", "R", { o: [0.45, 0.55, 0.15] }, 0.01);   // no camera up here (held at his feet it pulled the arm to the floor)
-fx.push({ do: "flash", at: r3(C21 + 0.02), dur: 0.1, peak: 0.4 });
+fx.push({ do: "flash", at: r3(C21 + 0.02), dur: 0.2, peak: 0.25 });
 sfx(r3(C21 + 0.02), "click", { gain: 0.5 });
 toTop(C21, "ph5");
 arm(onCut(C21), "dad", "L", palmOn("ph5"), 0.01); grip(onCut(C21), "dad", "L", "flat", 0.01);   // already pressing it on the cut (a reach while upside down jumped)
@@ -416,7 +417,7 @@ toTop(C25, "ph6");
 arm(onCut(C25), "spud", "L", { o: [0.12, 0.70, 0.25] }, 0.01); arm(onCut(C25), "spud", "R", "rest", 0.01);
 arm(r3(C25 + 0.15), "spud", "L", palmOn("ph6"), 0.2, "out"); grip(r3(C25 + 0.15), "spud", "L", "flat"); arm(r3(C25 + 0.7), "spud", "L", { o: [0.10, 0.85, 0.35] }, 0.3);   // his LEFT side is to the door
 sfx(r3(C25 + 0.3), "slap", { gain: 0.45 });
-expr(C25, "spud", FACE.smug, 0.01); look(C25, "spud", [0.3, 0.1], 0.01);
+expr(C25, "spud", FACE.smug, 0.01); look(C25, "spud", [0.3, 0.1], 0.01); A(onCut(C25), "spud", "noblink", { dur: 2.5 });
 A(r3(C25 + 0.75), "spud", "turn", { to: 20, dur: 0.3 }); look(r3(C25 + 0.75), "spud", [0, 0], 0.2);   // the payoff face to us (draft 3: 71 degrees off)
 shot("top spot toast", C25, push(TOPI, 0.05, DUR[32] + 1.0), "payoff");
 e = say(32, C25 + 0.45);
