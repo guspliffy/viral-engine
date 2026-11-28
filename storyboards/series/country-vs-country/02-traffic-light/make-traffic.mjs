@@ -39,7 +39,7 @@ const cast = [
   { id: "spud", character: "potatobrawl/spud", at: DE.K, y: PV, face: 90, expr: "shocked", follow: 0.3, seed: 1.3 },
   { id: "spudus", character: "potatobrawl/spud", at: US.HU, y: PV, face: -90, expr: "focused", follow: 0.3, seed: 1.9 },
   { id: "retiree", character: "potatobrawl/retiree", at: DE.RW, y: 1.66, face: 90, expr: "angry", follow: 0.3, seed: 4.4 },
-  { id: "wedge", character: "potatobrawl/wedge", at: [-3.78, -2.45], face: 0, expr: "deadpan", follow: 0.2, seed: 3.1 },
+  { id: "wedge", character: "potatobrawl/wedge-driver", at: [-3.78, -2.45], face: 0, expr: "deadpan", follow: 0.2, seed: 3.1 },
   { id: "mash", character: "potatobrawl/mash", at: [14.55, 4.0], face: 180, expr: "happy", follow: 0.3, seed: 5.2 },
   { id: "chip", character: "potatobrawl/chip", at: US.CJ0, face: 110, expr: "happy", follow: 0.3, seed: 6.6 },
   { id: "kid", character: "potatobrawl/tot-kid", at: DE.T, y: PV, face: 100, expr: "stern", follow: 0.1, seed: 8.1 },
@@ -78,7 +78,7 @@ const props = [
   { id: "tree1", staged: "on the far pavement", kind: "tree", ...at3(-1.8, PV, 6.2), scale: 1.3 },
   { id: "tree2", staged: "on the far pavement", kind: "tree", ...at3(-1.8, PV, -6.6), scale: 1.3 },
   { id: "flagde", staged: "hangs from the balcony", kind: "miniflag", flag: "de", ...at3(-13.45, 2.05, -0.675), scale: 2.7, tip: 35, rot: 90 },
-  { id: "w1box", staged: "the retiree's flower box", kind: "flowerbox", ...at3(-13.92, 1.73, 0.675), w: 0.90, rot: 90, flower: "#d8352b" },
+  // W1's flower box cut (DESIGN §9 cut list): it hid his face in cam 02 and took his clapping hands (layout 28 Nov)
   { id: "watcher", staged: "behind the lace across the street", kind: "streetpotato", ...at3(-0.22, 1.45, 2.025), rot: -90, h: 0.90, hat: 3, capColor: "#4f5a52",
     dress: "cardigan", color: "#6f6457", raise: 1, clapHz: 0, feet: false, skin: "#f9b75c", brow: "#b9b4aa" },
   { id: "binos", staged: "held up by the watcher", kind: "binoculars", ...at3(-0.40, 1.99, 2.025), rot: -90, glint: 0 },
@@ -161,7 +161,7 @@ const CAM = {
   16: { pos: [-13.0, 1.05, 0.6], look: [-5.31, 1.46, -1.61], fov: 34, push: [-12.7, 1.05, 0.5] },
   17: { pos: [15.6, 0.60, -1.9], look: [12.2, 0.72, 1.5], fov: 26, push: [15.35, 0.60, -1.65] },
   18: { pos: [5.9, 1.00, -5.4], look: [7.1, 1.00, -1.2], fov: 32, push: [5.95, 1.00, -5.1] },
-  19: { pos: [11.2, 1.25, -2.6], look: [12.45, 1.25, 2.4], fov: 30, push: [11.3, 1.25, -2.3] },   // T2: at y 1.0 only his forehead showed over the hood,
+  19: { pos: [12.0, 1.30, -2.0], look: [12.0, 1.18, 3.05], fov: 30, push: [12.0, 1.30, -1.7] },   // draft 1: his face was cut by the right edge   // T2: at y 1.0 only his forehead showed over the hood,
 };
 const US_CAMS = new Set([3, 6, 8, 10, 15, 17, 18, 19]);
 const GRADE = { de: { s: 1.00, w: -0.15, c: 1.04 }, us: { s: 1.16, w: 0.35, c: 1.00 } };

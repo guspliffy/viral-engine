@@ -272,8 +272,9 @@ function altbau(P) {
   }
 
   // ---- the hollow rooms behind the front wall (dark, seen only through the openings), a floor plate behind each solo window
-  const inner = new THREE.Mesh(new THREE.BoxGeometry(2 * HALF - 0.02, 4.9, D - T), quiet(new THREE.MeshBasicMaterial({ color: "#2a2a33", side: THREE.BackSide })));
-  inner.position.set(0, 2.45, -(D + T) / 2); inner.castShadow = false; inner.receiveShadow = false; inner.userData.solid = false; inner.userData.steam = true; SO.add(inner);
+  // the box stops 3 cm short of the back wall: their faces were coplanar at z -D and the wall z-fought through the dark room
+  const inner = new THREE.Mesh(new THREE.BoxGeometry(2 * HALF - 0.02, 4.9, D - T - 0.03), quiet(new THREE.MeshBasicMaterial({ color: "#2a2a33", side: THREE.BackSide })));
+  inner.position.set(0, 2.45, -(D + T - 0.03) / 2); inner.castShadow = false; inner.receiveShadow = false; inner.userData.solid = false; inner.userData.steam = true; SO.add(inner);
   if (!noBack) Sd.box(2 * HALF, 4.9, 0.08, 0, 2.45, -D - 0.04, wall);
   if (solo) { const sw = wins.find((w) => w.id === solo.id); if (sw) Sd.box(1.10, 0.05, 0.75, sw.x, sw.f - 0.025, -0.575, "#7a6a58"); }
 
