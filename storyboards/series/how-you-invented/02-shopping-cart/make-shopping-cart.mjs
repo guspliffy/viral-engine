@@ -191,8 +191,8 @@ P(before("C04"), "tower", { y: 0, x: -3.45, z: 2.70, rot: 0 });
 A(before("C04"), "spud", "noblink", { dur: 0 }); place(before("C04"), "spud", [-3.40, 3.12], 0, -0.30); A(before("C04"), "spud", "crouch", { to: 0.35, dur: 0.01 });
 A(11.0, "spud", "droop", { to: 0.3, dur: 0.01 }); A(11.6, "spud", "droop", { to: 0, dur: 0.15, ease: "back" });
 c.arm(before("C04"), "spud", "R", "rest", 0.01); c.arm(before("C04"), "spud", "L", { o: [0.50, 0.10, 0.10] }, 0.01);
-c.arm(11.75, "spud", "L", { o: [0.65, 0.55, 0.15] }, 0.3, "out"); grip(11.9, "spud", "L", "open");
-for (const [t, k] of [[12.05, 0.65], [12.3, 0.58], [12.55, 0.65], [12.8, 0.58], [13.05, 0.65]]) c.arm(t, "spud", "L", { o: [k, 0.55, 0.15] }, 0.25, "inOut");
+c.arm(11.75, "spud", "L", { o: [0.42, 0.55, 0.15] }, 0.3, "out"); grip(11.9, "spud", "L", "open");
+for (const [t, k] of [[12.05, 0.42], [12.3, 0.36], [12.55, 0.42], [12.8, 0.36], [13.05, 0.42]]) c.arm(t, "spud", "L", { o: [k, 0.55, 0.15] }, 0.25, "inOut");
 A(before("C04"), "mash", "ride", { prop: "tower", off: [-0.05, 0.50, -0.10], sit: true, yaw: 8, dur: 0.01 });
 expr(before("C04"), "mash", "serene", null, 0.01); pileTo(before("C04"), 2);
 P(before("C04"), "apple", { scale: 1 });
@@ -209,13 +209,13 @@ expr(before("C05"), "spud", "eager", null, 0.01); c.arm(before("C05"), "spud", "
 P(before("C05"), "bask", { scale: 1 });
 for (const [s, dx] of [["R", 0.03], ["L", -0.03]]) c.arm(15.6, "spud", s, { prop: "bask", grip: [dx, 0.42, 0] }, 0.4, "inOut");
 grip(15.9, "spud", "R", "fist"); grip(15.9, "spud", "L", "fist");
-P(16.6, "bask", { y: 0.12 }, 1.2, "inOut"); A(16.6, "spud", "lean", { to: -12, dur: 1.0 }); A(16.6, "spud", "squash", { amount: -0.06, dur: 0.6 });
+P(16.6, "bask", { y: 0.28 }, 1.2, "inOut"); A(16.6, "spud", "lean", { to: -12, dur: 1.0 }); A(16.6, "spud", "squash", { amount: -0.06, dur: 0.6 });
 face(16.8, "spud", { lid: 0.7, open: 0.2 }, 0.3);
 for (let t = 17.8; t < 19.05; t = r3(t + 0.125)) A(t, "spud", "lean", { to: t * 8 % 2 < 1 ? -11 : -13, dur: 0.06 });
 sfx(18.3, "creak", { gain: 0.5, reason: "the willow handle creaks under the load" });
 P(19.10, "bask", { snap: 1 }, 1.0, "linear"); sfx(19.12, "ai/branch-snap", { gain: 0.8, reason: "the basket's handle snaps" });
-P(19.18, "bask", { y: 0 }, 0.1, "in"); P(19.2, "bask", { tip: 45 }, 0.1, "in");
-for (const s of ["R", "L"]) c.arm(19.18, "spud", s, { o: [0.30, 0.55, 0.20] }, 0.12, "out");
+P(19.12, "bask", { y: 0.06 }, 0.1, "in");   // drops onto his toe before the cut (Sol r2 #1) P(19.2, "bask", { tip: 45 }, 0.1, "in");
+for (const s of ["R", "L"]) c.arm(19.08, "spud", s, { o: [0.30, 0.55, 0.20] }, 0.18, "out");   // gloves fly up with the snapped handle
 see(15.3, 19.2, ["spud.face", "bask"], "the heave and the snap");
 
 // ================================================================ C06 19.3-24.0: "Including your foot." the hops
@@ -316,9 +316,9 @@ P(40.9, "cart", { brake: 1 }, 0.067, "out"); P(40.95, "cart", { tip: -6 }, 0.12,
 sfx(40.9, "screech", { gain: 0.7, reason: "he stamps on the brake: dead stop" });
 A(40.93, "spud", "ride", { prop: "cart", off: [0, 0.95, -0.15], yaw: 0, dur: 0.16, ease: "linear" }); A(40.93, "spud", "pitch", { to: 90, dur: 0.16, ease: "linear" });
 A(41.09, "spud", "ride", { prop: "cart", off: [0, 0.40, 0.03], yaw: 0, dur: 0.16, ease: "linear" }); A(41.09, "spud", "pitch", { to: 180, dur: 0.16, ease: "linear" });
-arms(41.0, "spud", { o: [0.45, 0.55, 0.05] }, 0.15); sfx(41.25, "cloth", { gain: 0.6, reason: "he lands upside down in the basket" });
+arms(41.0, "spud", { o: [0.28, 0.45, 0.15] }, 0.2);   // elbows in so a glove stays in frame (Sol r2 #11) sfx(41.25, "cloth", { gain: 0.6, reason: "he lands upside down in the basket" });
 expr(41.3, "spud", "dizzy", null, 0.1); A(41.3, "spud", "squash", { amount: 0.06, dur: 0.1 }); A(41.45, "spud", "squash", { amount: 0, dur: 0.2 });
-c.arm(42.3, "spud", "L", { o: [0.38, 0.80, 0.10] }, 0.25, "out"); grip(42.3, "spud", "L", "thumb");
+c.arm(42.3, "spud", "L", { o: [0.22, 0.62, 0.30] }, 0.3, "out"); grip(42.3, "spud", "L", "thumb");
 see(40.8, 44.1, ["spud.face", "cart"], "the dead stop and the flip: it works");
 
 // ================================================================ C11 44.2-50.8: "Mash doesn't steal snacks anymore." "He steals the whole cart."
@@ -342,18 +342,18 @@ pileTo(before("C12a"), 5);
 for (let n = 1; n <= 5; n++) { P(before("C12a"), `r${n}`, { scale: 1 }); P(before("C12a"), `ch${n}`, { scale: 1 }); }
 place(before("C12a"), "spud", [0.22, 3.50], 30); expr(before("C12a"), "spud", "eager", null, 0.01);
 P(before("C12a"), "coinS", { scale: 0.6 });
-const hc = grips.thin(c, "spud", { ...COINS, scale: 0.6 }, { side: "R" });
+const hc = grips.thin(c, "spud", { ...COINS, scale: 0.6 }, { side: "L" });   // the slot is on his left: the R hand crossed his mouth (Sol r1 #31, r2 #6)
 const COIN_HAND = [0.45, 0.45, 3.86];
 P(before("C12a"), "coinS", { x: COIN_HAND[0], y: COIN_HAND[1], z: COIN_HAND[2] }); hc.take(before("C12a"), { reach: 0.005, settle: 0.005 });
-c.arm(52.2, "spud", "L", { prop: "r5", grip: [-0.17, 0.56, -0.20] }, 0.25, "out"); c.arm(52.7, "spud", "L", "rest", 0.3);
-hc.carry(54.5, [0.70, 0.50, 3.62], 0.5, "inOut"); hc.carry(55.0, [0.78, 0.52, 3.48], 0.6, "inOut");
+
+hc.carry(54.3, [0.58, 0.40, 3.78], 0.4, "inOut"); hc.carry(54.7, [0.76, 0.50, 3.56], 0.45, "inOut"); hc.carry(55.15, [0.78, 0.47, 3.48], 0.45, "in");   // low, outward path, then into the slot (Sol r2 #2, #6)
 sfx(55.6, "put-down-metal", { gain: 0.8, reason: "the coin slides into the lock" });
 P(55.75, `ch5`, { pop: 2.0 }, 2.0, "linear"); sfx(55.75, "latch-click", { gain: 1.0, reason: "the lock lets the chain go" });
 hc.carry(56.2, [0.60, 0.40, 3.80], 0.5, "inOut"); expr(56.3, "spud", "happy", { curve: 0.6 }, 0.15);
 see(51.0, 56.9, ["ch5", "spud.face"], "the coin opens the lock");
 
 // ================================================================ C13 57.0-61.4: "And Mash NEVER has a coin." tugs and the empty pocket
-hc.release(56.95, { rest: false, back: 0.01, to: [0.60, 0.40, 3.80] }); P(before("C13"), "coinS", { scale: 0 });
+hc.release(56.88, { rest: false, back: 0.01, to: [0.60, 0.40, 3.80] }); P(before("C13"), "coinS", { scale: 0 });   // released before the hips pose at 56.985, which then wins (a later release pinned the hand to the coin across the cut)
 P(before("C13"), "r5", { x: -1.25, z: 4.20 }); P(before("C13"), "ch5", { scale: 0 });
 place(before("C13"), "spud", [-0.60, 4.10], 150); arms(56.985, "spud", "hips", 0.01); expr(before("C13"), "spud", "smug", null, 0.01);
 A(before("C13"), "mash", "show", {}); place(before("C13"), "mash", [0.95, 3.28], 180, 0);   // y 0: he left the cart far down the hill expr(before("C13"), "mash", "angry", null, 0.01);
