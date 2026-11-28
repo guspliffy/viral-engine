@@ -1,6 +1,6 @@
 // Legend: The Boy Who Cried Wolf (Aesop, Greece), code-drawn DRAFT 2 (director's list: SHOTS.md + SOL-R1.md, lines: lines.json).
 //   node storyboards/series/legend/cried-wolf/cw-render.mjs <out-subs.mp4> <out-nosubs.mp4> [--from s --to s]   (both exports in one pass)
-//   TITLE=vase|marble|shepherd selects the opening banner (default vase); only frames 0..~90 depend on it: see cw-head.sh.
+//   TITLE=none|vase|marble|shepherd selects the opening banner (default none: Jonny 28 Nov, banner videos perform worse); only frames 0..~90 depend on it: see cw-head.sh.
 // Voice-led: every line starts when the previous line's last word/sound has ended (+ a gap); a shot of a line never starts
 // before the previous line is over (no voice is cut off, no two voices overlap).
 import { readFileSync } from "node:fs";
@@ -11,7 +11,7 @@ import { align, phrases, captionSvg } from "../../../../tools/svg2d/lib/captions
 const { lerp, clamp, tr, ease, blinkAmt, n } = L;
 
 export const W = 1080, H = 1920, FPS = 30;
-export const TITLE = process.env.TITLE || "vase";
+export const TITLE = process.env.TITLE || "none";
 const VO = "out/legend-wolf/vo", SPEC = JSON.parse(readFileSync("storyboards/series/legend/cried-wolf/lines.json", "utf8"));
 const KEY = /wolf|teeth|see|eyes|voice/i;
 export const HEAD = `<style>@font-face { font-family: Inter; font-weight: 900; src: url(data:font/otf;base64,${readFileSync("assets/fonts/Inter-Black.otf").toString("base64")}); }</style>`;
@@ -475,7 +475,7 @@ function capY(ln, pi, ph) {
   const t0 = ln.at + ph.at, t1 = pi + 1 < ln.phrases.length ? ln.at + ln.phrases[pi + 1].at : ln.end + 0.3;
   const fs = [t0 + 0.05, (t0 + t1) / 2, t1 - 0.08].map((t) => facesAt(Math.min(t, DUR - 0.01))).flat();
   let best = null, bs = 1e9;
-  for (const y of CAPY) { const b = capBox(ph, y); if (t0 < 2.75 && b.y0 < 545) continue; const bad = fs.filter((f) => hit(b, f)).length; if (!bad) { best = y; break; } if (bad < bs) { bs = bad; best = y; } }
+  for (const y of CAPY) { const b = capBox(ph, y); if (TITLE !== "none" && t0 < 2.75 && b.y0 < 545) continue; const bad = fs.filter((f) => hit(b, f)).length; if (!bad) { best = y; break; } if (bad < bs) { bs = bad; best = y; } }
   CAPCACHE.set(key, best); return best;
 }
 function captions(t) {
@@ -496,7 +496,7 @@ function bodyAt(time) {
 export function parts(time) {
   FACES = [];
   const b = bodyAt(time), fcs = FACES.slice();
-  const title = time < 2.75 ? titleCard(time, { style: TITLE, teaser: "T1" }) : "";
+  const title = TITLE !== "none" && time < 2.75 ? titleCard(time, { style: TITLE, teaser: "T1" }) : "";
   const dbg = process.env.DEBUGFACES ? fcs.map((f) => `<circle cx="${n(f.x)}" cy="${n(f.y)}" r="${n(f.r)}" fill="none" stroke="#0f0" stroke-width="3"/>`).join("") : "";
   return { pic: frame(b.body) + "<!--T-->" + title + dbg, cap: captions(time), shot: b.shot, faces: fcs };
 }
