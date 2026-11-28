@@ -1,0 +1,284 @@
+{
+ "_note": "Legend: The Boy Who Cried Wolf (27 Nov 2026). Score from Codex gpt-6.2-sol high (project files videos/folklore-legend/cried-wolf/sol-music/answer-summary.md): floyera = boy, muted laouto = motion, Cretan lyra = Grandma + the turn, live strings for dread; motif E F# G# E; hard silences under the howl, the lights going out, before the villager's WOLF! and before the kid's last line. Sheep bells are scene sfx.",
+ "sfx": [
+  {
+   "id": "wolf-howl",
+   "kind": "oneshot",
+   "len": [
+    2.5,
+    6
+   ],
+   "duration": 10,
+   "prompts": [
+    "a single lone wolf howling at night far up on a rocky hill, long rising and falling howl, eerie, natural recording",
+    "one wolf howl at night in the distance, mournful, echo across a valley, field recording"
+   ],
+   "seeds": [
+    3001,
+    3002,
+    3003
+   ],
+   "tags": [
+    "wolf",
+    "howl",
+    "night"
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "wolf-snarl",
+   "kind": "oneshot",
+   "len": [
+    0.8,
+    2.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "a wolf snarling and growling close up, bared teeth, aggressive low growl, natural animal recording",
+    "angry wolf growl and snarl, close, menacing, field recording"
+   ],
+   "seeds": [
+    3011,
+    3012,
+    3013
+   ],
+   "tags": [
+    "wolf",
+    "growl",
+    "snarl"
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "sheep-bleat",
+   "kind": "split",
+   "len": [
+    0.4,
+    1.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "a few sheep bleating close up, single baa calls, natural farm recording",
+    "sheep baaing one at a time, close, outdoor field recording"
+   ],
+   "seeds": [
+    3021,
+    3022,
+    3023
+   ],
+   "tags": [
+    "sheep",
+    "bleat",
+    "baa"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "sheep-bells",
+   "kind": "oneshot",
+   "len": [
+    3,
+    8
+   ],
+   "duration": 10,
+   "prompts": [
+    "a flock of sheep running with many small metal neck bells clanking, hooves on dry stony ground, Greek mountain, field recording",
+    "goat and sheep bells jingling and clanking as a herd moves fast over rocks, outdoor"
+   ],
+   "seeds": [
+    3031,
+    3032,
+    3033
+   ],
+   "tags": [
+    "sheep",
+    "bells",
+    "flock",
+    "herd"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "chapel-bell",
+   "kind": "split",
+   "len": [
+    1,
+    4
+   ],
+   "duration": 10,
+   "prompts": [
+    "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+    "small church bell ringing urgently, alarm, bronze bell, outdoor, village"
+   ],
+   "seeds": [
+    3041,
+    3042,
+    3043
+   ],
+   "tags": [
+    "bell",
+    "chapel",
+    "alarm"
+   ],
+   "gain": 0.45
+  },
+  {
+   "id": "village-rush",
+   "kind": "oneshot",
+   "len": [
+    3,
+    8
+   ],
+   "duration": 10,
+   "prompts": [
+    "a group of village men running up a stony hill path at night, footsteps, heavy breathing, wooden sticks knocking, no words",
+    "a crowd of people running on gravel and stones, panting, sticks clattering, outdoor night, no speech"
+   ],
+   "seeds": [
+    3051,
+    3052,
+    3053
+   ],
+   "tags": [
+    "crowd",
+    "run",
+    "village"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "wooden-gate",
+   "kind": "oneshot",
+   "len": [
+    0.8,
+    2.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "an old wooden sheep pen gate creaking open on rusty hinges, outdoor",
+    "old wooden farm gate squeaking open, rusty hinge creak, close"
+   ],
+   "seeds": [
+    3061,
+    3062,
+    3063
+   ],
+   "tags": [
+    "gate",
+    "creak",
+    "wood"
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "cicadas-night",
+   "kind": "oneshot",
+   "len": [
+    6,
+    9.5
+   ],
+   "duration": 10,
+   "prompts": [
+    "night crickets and cicadas in olive trees on a warm Greek hillside, steady soft ambience, no wind",
+    "warm Mediterranean night ambience, crickets chirping in dry grass, calm, field recording"
+   ],
+   "seeds": [
+    3071,
+    3072,
+    3073
+   ],
+   "tags": [
+    "night",
+    "crickets",
+    "ambience"
+   ],
+   "gain": 0.06
+  }
+ ],
+ "music": [
+  {
+   "id": "cw-eyes",
+   "bpm": 58,
+   "bars": 2,
+   "mood": "myth",
+   "prompts": [
+    "58 BPM, E minor. One sustained close-recorded solo cello low E3, a bowed G creeping in high and quiet, ominous, sparse. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "58 BPM, E minor. Low bowed cello drone on E with a faint high viola G, dark, still, lots of air. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2101,
+    2102
+   ]
+  },
+  {
+   "id": "cw-prank",
+   "bpm": 116,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "116 BPM, E major. Greek shepherd's flute (floyera) playing a cheeky four-note tune E F# G# E over a muted Greek laouto plucked pulse, playful but small, two players. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "116 BPM, E major. Wooden shepherd flute and a muted plucked lute playing a short mischievous folk figure, light, rustic. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2111,
+    2112
+   ]
+  },
+  {
+   "id": "cw-guilt",
+   "bpm": 116,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "116 BPM, E minor. Low Cretan lyra bowed phrase over a damped laouto pulse thinning out, guilty, quiet, rustic Greek folk. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "116 BPM, E minor. Bowed folk fiddle low and soft over a muted plucked lute, sparse, sad, thinning. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2121,
+    2122
+   ]
+  },
+  {
+   "id": "cw-dread",
+   "bpm": 58,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "58 BPM, E minor. Live orchestral strings: cello playing slow half notes E3 F#3 G3 E3 over a low bass E, thin sul ponticello viola tremolo, a slow semitone violin slide, horror film, acoustic. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "58 BPM, E minor. Dark orchestral string cluster, slow cello melody, tremolo violas, sliding violins, tense horror, acoustic recording. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2131,
+    2132
+   ]
+  },
+  {
+   "id": "cw-chase",
+   "bpm": 132,
+   "bars": 4,
+   "mood": "myth",
+   "prompts": [
+    "132 BPM, E minor. Driving Greek laouto eighth notes with short accented orchestral cello and viola strokes, urgent chase, rustic and cinematic. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "132 BPM, E minor. Fast plucked lute ostinato and stabbing low strings, rising tension, chase scene, acoustic. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2141,
+    2142
+   ]
+  },
+  {
+   "id": "cw-lamplight",
+   "bpm": 72,
+   "bars": 2,
+   "mood": "myth",
+   "prompts": [
+    "72 BPM, E major. Solo Cretan lyra soft E and B double stop, then one warm laouto E major chord, relief, warm, quiet Greek folk. No synth, no vocals, no percussion kit. Close-recorded, small dry room.",
+    "72 BPM, E major. Gentle bowed folk fiddle open fifth and a warm plucked lute chord, calm relief, small and quiet. No synth, no vocals, no percussion kit. Close-recorded, small dry room."
+   ],
+   "seeds": [
+    2151,
+    2152
+   ]
+  }
+ ]
+}

@@ -322,6 +322,36 @@ export function eyesResults(sb, lay) {
   return out;
 }
 
+// A speaker cut by the frame's edge (country vs country 02, 28 Nov 2026: in two shots the one speaking stood half in
+// frame with the face past the side edge, "Come on... come on" and "...Huh. Made it."; the "visible" notes listed it among
+// 20 beat-wide notes, so it was found by eye on the draft and cost a draft round). From the layout: whoever has a line
+// (talk, say) whose body box is partly in frame (SPEAKER.body of its area or more) while the eyes are outside the frame
+// (SPEAKER.margin in from the side edges) for SPEAKER.hold s or more warns "speaker-cut". A voice from off screen (the
+// body wholly out) and a face that is in frame are left alone. Waived by an allowClip window naming "speaker-cut".
+export const SPEAKER = { body: 0.15, margin: 0.02, hold: 0.3 };
+export function speakerCutResults(sb, lay) {
+  const S = lay?.samples || [], W = lay?.width || 1080, H = lay?.height || 1920, out = [];
+  const lines = (sb?.actions || []).filter((a) => a.do === "talk" || a.do === "say");
+  const speaking = (id, s) => lines.some((a) => a.who === id && s >= a.at && s <= a.at + (a.dur ?? 1));
+  const step = S.length > 1 ? S[1].t - S[0].t : 0.1, ids = [...new Set(lines.map((a) => a.who))];
+  for (const id of ids) {
+    const spans = []; let a = null;
+    S.forEach((smp, i) => {
+      const x = (smp.actors || []).find((q) => q.id === id), s = storyAt(sb, smp.t);
+      let cut = false;
+      if (x && x.box && x.eyesPx && speaking(id, s) && !windowFor(sb, "speaker-cut", id, smp.t)) {
+        const [bx, by, bw, bh] = x.box, iw = Math.max(0, Math.min(bx + bw, W) - Math.max(bx, 0)), ih = Math.max(0, Math.min(by + bh, H) - Math.max(by, 0));
+        const share = bw > 0 && bh > 0 ? (iw * ih) / (bw * bh) : 0, ex = x.eyesPx[0], m = W * SPEAKER.margin;
+        cut = share >= SPEAKER.body && (ex < m || ex > W - m);
+      }
+      if (cut && a == null) a = smp.t;
+      if ((!cut || i === S.length - 1) && a != null) { const b = cut ? smp.t + step : smp.t; if (b - a >= SPEAKER.hold - 1e-6) spans.push([a, b]); a = null; }
+    });
+    if (spans.length) out.push({ group: "technical", level: "warn", check: "speaker-cut", msg: `${id} speaks with the face past the frame's side edge while the body is in frame at ${spans.map(([p, q]) => `${p.toFixed(1)}-${q.toFixed(1)}s`).join(", ")}: frame the face (qa/camfit.mjs --at <s>), or take the body wholly out for a voice from off screen` });
+  }
+  return out;
+}
+
 // A face or a prop in play under the HUD or a card (Kid vs Dad 06 gum, 25 Nov 2026: Sol found the news bar over Tato's
 // mouth, the egg timer's dial and the spoon at his lips in two rounds; the caption checks skip cards on purpose). From
 // the layout: a face in frame whose eyes or mouth sit under a card box (the HUD bars, rule and vote cards), or a prop in

@@ -36,7 +36,13 @@ export function phrases(words, text, cap) {
   let k = 0;
   return (cap ?? text).split("|").map((ph) => { const ws = words.slice(k, k + ph.trim().split(/\s+/).length); k += ws.length; return { ws, at: ws[0]?.[1] ?? 0 }; }).filter((p) => p.ws.length);
 }
-export function captionSvg(phr, u, { key = null, y = 560, x = 540, maxFs = 74, width = 940, wrapAt = 19, keyColor = "#ffc04a", stroke = "#120c24", reveal = false } = {}) {
+// HOUSE SIZE (Jonny 28 Nov, Pandora draft 1: "the subtitles are too big"): subtitles are at most 74 px. The Boy Who Cried
+// Wolf caption trial used 104 px and that number was copied into the next board unnoticed. A bigger maxFs is clamped to
+// HOUSE_FS with one warning, unless the board passes trial: true for a size trial Jonny asked for.
+export const HOUSE_FS = 74;
+let warned = false;
+export function captionSvg(phr, u, { key = null, y = 560, x = 540, maxFs = HOUSE_FS, width = 940, wrapAt = 19, keyColor = "#ffc04a", stroke = "#120c24", reveal = false, trial = false } = {}) {
+  if (maxFs > HOUSE_FS && !trial) { if (!warned) { console.warn(`captions: maxFs ${maxFs} > house size ${HOUSE_FS}, clamped (pass trial: true only for a caption-size trial Jonny asked for)`); warned = true; } maxFs = HOUSE_FS; }
   // reveal (Jonny 27 Nov, Urashima): each word appears as it is spoken, in the layout of the whole phrase (nothing moves)
   let pi = -1;
   for (let i = 0; i < phr.length; i++) if (u >= phr[i].at - 0.04) pi = i;
