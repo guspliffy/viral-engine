@@ -1,0 +1,26 @@
+# How you invented 02 "The shopping cart": 15-panel storyboard. Refs (in order): alarm-clock-panels-v2.png (look + episode 1), spud-reference-sheet-2026-11-11.png, mash-reference-sheet-2026-11-12.png
+PROMPT START
+Use case: illustration-story. Create ONE finished full-colour fifteen-panel storyboard contact sheet for a 70-second vertical animated comedy sketch for all ages: gentle cartoon slapstick, nobody is ever hurt, every fall lands soft and funny. Image size 1536x1024 landscape. EXACTLY FIFTEEN panels in five columns and three rows (row 1 = 01-05, row 2 = 06-10, row 3 = 11-15). Every cell is a vertical phone frame (portrait), thin charcoal gutters, a small panel-number badge in each cell's top corner showing its own number, no title or header. Match the look of the first attached reference exactly (it is episode 1 of the same series): soft cel-shaded 3D cartoon with hand-drawn line texture, warm daylight, the whole frame fully sharp, no depth of field, no motion blur. Characters must match the references exactly in shape, size and clothes. Hands have exactly three fingers and a thumb. Every character is a potato: no humans. No speech bubbles, no captions, no words, no letters, no numbers anywhere except the panel badges, no shop signs with text. No comic impact marks, no speed lines, no floating symbols.
+
+THE SET: a small old village long ago, before shopping carts existed, on a steep hill, bright sunny morning. At the TOP of the hill: a little wooden grocer's shop with an open wooden door, a striped cloth awning, crates of oranges and apples outside, and a wooden bench beside the door. From the shop a steep cobbled street runs straight DOWNHILL between crooked plaster houses; at the BOTTOM of the hill stands a wooden farm cart full of soft yellow hay. Vary the camera from panel to panel (tight close-up, wide down the hill, low angle from the cobbles, high angle from a roof, over-the-shoulder), never the same framing twice in a row.
+
+YOU = SPUD: the golden potato from the Spud reference: teal knit sweater, one green leaf on top. Determined, inventive, more and more annoyed.
+MASH: the tall narrow potato from the Mash reference, same hoodie and headphones. Lazy, smug, always grinning, always eating. He leans by the shop door.
+THE STOLEN PILE: on the wooden bench beside the door lies Mash's pile of stolen food; it grows bigger in every panel where the bench is visible.
+
+PANELS:
+01 | Spud steps out of the shop door, arms full, a stack of oranges, apples, bread and tins up to his chin. The top orange falls; Mash, leaning by the door, catches it in one hand just above the cobbles, smug grin.
+02 | Close-up: Mash bites the whole orange, cheeks bulging; on the bench beside him a small pile of orange peel. Spud glares at him over his armful.
+03 | Low angle: Spud wobbling under a tower of tins and fruit stacked far taller than himself, the tower leaning, Spud on tiptoe; Mash watching, chewing.
+04 | The tower has collapsed into a big heap of tins and fruit on the cobbles; only Spud's green leaf and one waving hand stick out of the heap; Mash sits comfortably on top of the heap eating an apple.
+05 | Spud lifts a big woven wicker shopping basket heaped with food, arms stretched long, straining; the basket's handle is snapping in the middle.
+06 | The basket has dropped on Spud's foot; he hops on the other foot holding his toes, cheeks puffed, eyes squeezed; apples roll across the cobbles to Mash, who scoops them up. The bench pile is bigger.
+07 | Spud proudly sets the full basket on a wooden chair with four small wooden wheels nailed under its legs (the first shopping cart) and pushes it by the chair back past Mash, nose in the air.
+08 | Wide, high angle down the steep hill: the wheeled chair races downhill, Spud holding on to its back with his feet flying off the ground, food flying up out of the basket; the hay cart far below.
+09 | At the bottom of the hill: Spud has landed head first in the soft hay cart, only his legs and shoes sticking up; food rains down from the sky into Mash's open hoodie hood, which he holds out like a sack.
+10 | Back at the top: the wheeled chair now has a simple wooden stick brake, a lever with a block that presses on a wheel. Spud stamps on it; the chair stops dead and Spud flips over the chair back head first into the basket, legs up, giving a dazed thumbs up.
+11 | Spud stands inside the shop door paying the grocer, his back turned; behind him outside, Mash sits in the wheeled chair, waving happily as he rolls away down the hill with the whole thing. The bench pile is huge.
+12 | Outside the shop: a neat row of wheeled chairs stands nose to tail, linked by short metal chains, each chain ending in a small metal box lock with a coin slot. Spud pushes a shiny coin into the slot of the first one; its chain pops free. Spud grins.
+13 | Mash pulls at a chained chair with both hands, leaning back, it does not budge; then he pats his empty hoodie pocket, which turns out flat and empty.
+14 | Close-up: Spud holds his shiny coin up high, proud; the coin slips out of his fingers and falls.
+15 | Mash catches the falling coin in one hand just above the cobbles, the same smug grin as panel 01, and rolls away down the hill in an unlocked wheeled chair, waving; Spud's face drops in disbelief.

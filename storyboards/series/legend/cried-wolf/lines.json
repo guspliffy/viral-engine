@@ -1,0 +1,219 @@
+{
+ "_about": "Legend: The Boy Who Cried Wolf (Aesop, Greece). Jonny 27 Nov 21:10 Berlin picked H1 (teeth rule) + E1 (kid drives the flock into the square). Niche-findings build: wolf eyes frame 0, kid = hero of one night, one history line (L13) after the wolf's first move. Speakers N narrator, G grandmother, K kid, V village man. CAPTION TRIAL (his OK 21:10): big, low-middle, 2-4 words, key words red (wolf, teeth, see, eyes, voice); TikTok export without subtitles.",
+ "voices": {
+  "N": {
+   "ref": "engine/voice/targets/reaper-ref.wav",
+   "style": "intrigued, mysterious, slow storyteller"
+  },
+  "G": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-01/grandma-1.wav",
+   "style": "an old woman in her eighties, warm but stern, low slightly raspy voice, slow and calm"
+  },
+  "K": {
+   "ref": "/mnt/project-files/audio/voice-test-legend-06/kid-2.wav",
+   "style": "a twelve-year-old boy from a film, natural child actor, clearly a boy, voice not broken yet, curious and cheeky, speaks clearly with crisp diction",
+   "steps": 25,
+   "cfg": 3.0
+  },
+  "V": {
+   "ref": "engine/voice/targets/viking-ref.wav",
+   "style": "a gruff village man in his forties, out of breath, loud, no accent imitation"
+  }
+ },
+ "say": {},
+ "lines": [
+  [
+   "L01",
+   "G",
+   "Shout wolf only when you SEE its teeth.",
+   "urgent low whisper, off screen, over the wolf's eyes in the dark; the howl SFX + the hill carry 'sense + place' (Sol 27 Nov: the long version was too wordy for 3 s)"
+  ],
+  [
+   "L02",
+   "K",
+   "And if I already shouted twice?",
+   "small, guilty, nervous"
+  ],
+  [
+   "L03",
+   "N",
+   "Nine o'clock that night. The boy was bored. By two, he'd wish he'd kept his mouth shut.",
+   "quick storyteller, a smile in the voice, last sentence darker (RE-HOOK 1 at ~5 s)"
+  ],
+  [
+   "L04",
+   "K",
+   "WOLF! WOLF!",
+   "shouting, fake panic, trying not to laugh"
+  ],
+  [
+   "L05",
+   "N",
+   "The whole village ran up the hill with sticks.",
+   "fast, building"
+  ],
+  [
+   "L06",
+   "V",
+   "Where is it?!",
+   "angry, out of breath, a village man"
+  ],
+  [
+   "L07",
+   "K",
+   "...Got you.",
+   "cheeky, grinning"
+  ],
+  [
+   "L30",
+   "N",
+   "Nobody looked at the olive trees. Something in there was watching. And counting.",
+   "low, slow, a chill (RE-HOOK 2: the wolf's eyes are visible in the trees behind the villagers, the viewer sees what they don't)"
+  ],
+  [
+   "L08",
+   "N",
+   "Eleven o'clock. He did it again.",
+   "dry"
+  ],
+  [
+   "L09",
+   "K",
+   "WOLF!",
+   "shouting, fake panic"
+  ],
+  [
+   "L10",
+   "N",
+   "Fewer came. Angrier. His grandmother came last.",
+   "slower, heavier"
+  ],
+  [
+   "L11",
+   "G",
+   "Twice now. You've used up your voice.",
+   "quiet, stern, disappointed, not angry"
+  ],
+  [
+   "L12",
+   "N",
+   "Two in the morning. Something howled in the olive trees.",
+   "low, slow, dread"
+  ],
+  [
+   "L13",
+   "N",
+   "The Greeks told this story two and a half thousand years ago. It always ends the same way. But this boy was about to try something new.",
+   "mysterious, last sentence quicker (RE-HOOK 3 at ~30 s, teases the twist)"
+  ],
+  [
+   "L14",
+   "K",
+   "WOLF! For real this time! WOLF!",
+   "real terror, shouting, voice cracks"
+  ],
+  [
+   "L15",
+   "N",
+   "Down in the village, the lights went out. One... by one.",
+   "quiet, cold"
+  ],
+  [
+   "L16",
+   "K",
+   "Please!",
+   "desperate, ringing the bell"
+  ],
+  [
+   "L17",
+   "N",
+   "Nobody came. And now there were more eyes.",
+   "whisper, dread"
+  ],
+  [
+   "L18",
+   "K",
+   "Only when they SEE its teeth...",
+   "whispering to himself, thinking fast"
+  ],
+  [
+   "L19",
+   "K",
+   "They won't believe my voice. So they'll have to see it.",
+   "determined, scared but brave"
+  ],
+  [
+   "L20",
+   "N",
+   "He opened the gate.",
+   "short, tense"
+  ],
+  [
+   "L21",
+   "N",
+   "And drove every sheep he had straight down into the village.",
+   "fast, rising"
+  ],
+  [
+   "L22",
+   "N",
+   "The flock came bleating through the square... and the wolf came right behind them.",
+   "fast, the scariest moment"
+  ],
+  [
+   "L23",
+   "N",
+   "Every door opened at once.",
+   "punchy"
+  ],
+  [
+   "L24",
+   "V",
+   "WOLF!",
+   "shouting, terrified, a village man"
+  ],
+  [
+   "L25",
+   "N",
+   "This time, everyone saw the teeth.",
+   "calm release, warm"
+  ],
+  [
+   "L26",
+   "G",
+   "So. Now they believe you?",
+   "dry, one eyebrow up"
+  ],
+  [
+   "L27",
+   "K",
+   "Now I'm the boy who brought a wolf to town.",
+   "proud, deadpan, a little cheeky"
+  ]
+ ],
+ "cap": {
+  "L01": "Shout wolf|only when you SEE|its teeth.",
+  "L02": "And if I already|shouted twice?",
+  "L03": "Nine o'clock that night.|The boy was bored.|By two, he'd wish|he'd kept his mouth shut.",
+  "L05": "The whole village|ran up the hill|with sticks.",
+  "L10": "Fewer came.|Angrier.|His grandmother|came last.",
+  "L11": "Twice now.|You've used up|your voice.",
+  "L12": "Two in the morning.|Something howled|in the olive trees.",
+  "L13": "The Greeks told this story|two and a half|thousand years ago.|It always ends|the same way.|But this boy|was about to try|something new.",
+  "L14": "WOLF!|For real this time!|WOLF!",
+  "L15": "Down in the village,|the lights went out.|One... by one.",
+  "L17": "Nobody came.|And now|there were more eyes.",
+  "L18": "Only when they|SEE its teeth...",
+  "L19": "They won't believe|my voice.|So they'll have to|see it.",
+  "L21": "And drove every sheep|he had straight down|into the village.",
+  "L22": "The flock came bleating|through the square...|and the wolf came|right behind them.",
+  "L23": "Every door|opened at once.",
+  "L25": "This time,|everyone saw|the teeth.",
+  "L26": "So.|Now they believe you?",
+  "L27": "Now I'm the boy|who brought a wolf|to town.",
+  "L30": "Nobody looked|at the olive trees.|Something in there|was watching.|And counting."
+ },
+ "_cap": "subtitle phrases (| splits); each word shows from its spoken start in the fixed layout of its phrase; key words red",
+ "_keywords": "wolf|teeth|see|eyes|voice",
+ "_rehooks": "Jonny 27 Nov 21:12 Berlin: keep viewers curious during the story with hook loops / re-hooks. RE-HOOK 1 L03 (~5 s, the 5-10 s drop), 2 L30 (bomb under the table: wolf eyes in the trees behind the villagers during the fake alarms, a pair blinks on each fake alarm = 'counting'), 3 L13 (~30 s, teases the twist), glimpse: 6-frame blurred flash of the lamplit square + teeth at ~2.5 s (ending shown less each return, clear at the end). No section may feel like an ending."
+}

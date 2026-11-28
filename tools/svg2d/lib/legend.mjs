@@ -349,9 +349,11 @@ export function kid(c, st, t) {
   let mouth;
   if (shock > 0.4 && !(st.talk > 0.12)) mouth = `<path d="M${n(ex - 1.8)},${n(hy + 8)} Q${n(ex)},${n(hy + 5.8)} ${n(ex + 1.8)},${n(hy + 8)} Q${n(ex)},${n(hy + 11.5)} ${n(ex - 1.8)},${n(hy + 8)} Z" fill="#5a1f30"/>`;
   else if (st.grin > 0.5 && !(st.talk > 0.12)) mouth = `<path d="M${n(ex - 2.6)},${n(hy + 7.4)} Q${n(ex)},${n(hy + 10)} ${n(ex + 2.6)},${n(hy + 7)}" stroke="#6a2a38" stroke-width="0.9" fill="none" stroke-linecap="round"/>`;
+  else if (st.smile > 0.2 && !(st.talk > 0.12)) mouth = `<path d="M${n(ex - 2.2)},${n(hy + 7.6)} Q${n(ex)},${n(hy + 7.6 + 2.2 * st.smile)} ${n(ex + 2.2)},${n(hy + 7.3)}" stroke="#6a2a38" stroke-width="0.9" fill="none" stroke-linecap="round"/>`;   // st.smile: a small kind smile (off by default)
   else mouth = talkMouth(ex, hy + 8, 2.1, st.talk || 0);
-  const browY = shock > 0.4 ? hy - 9.2 : hy - 7.6, worry = st.worry || 0;
-  const fringe = [-9, -5, -1, 3, 7].map((x, i) => `<path d="M${n(hx + x + fx * 2)},${n(hy - 14)} Q${n(hx + x + fx * 2 + 3 * (fx < 0 ? -1 : 1))},${n(hy - 8)} ${n(hx + x + fx * 4 + (fx < 0 ? -3.5 : 3.5))},${n(hy - 3.5 - (i % 2) * 2.5)} L${n(hx + x + fx * 2 + 3)},${n(hy - 12)} Z" fill="${hairC}"/>`).join("");
+  if (st.sad > 0.2) mouth += `<path d="M${n(ex - 3.2)},${n(hy + 9.6)} Q${n(ex)},${n(hy + 9.6 - 2.2 * st.sad)} ${n(ex + 3.2)},${n(hy + 9.6)}" stroke="#6a2a38" stroke-width="0.9" fill="none" stroke-linecap="round"/>`;   // st.sad: downturned lip line under the talking mouth
+  const browY = shock > 0.4 ? hy - 9.2 : hy - 7.6 + (st.sad > 0.2 ? 1.2 : 0), worry = st.worry || 0;
+  const fringe = [-9, -5, -1, 3, 7].map((x, i) => `<path d="M${n(hx + x + fx * 2)},${n(hy - 14)} Q${n(hx + x + fx * 2 + 3 * (fx < 0 ? -1 : 1))},${n(hy - 8)} ${n(hx + x + fx * 4 + (fx < 0 ? -3.5 : 3.5))},${n(hy - 3.5 - (i % 2) * 2.5 - (st.sad > 0.2 ? 3 : 0))} L${n(hx + x + fx * 2 + 3)},${n(hy - 12)} Z" fill="${hairC}"/>`).join("");
   const legs = run == null
     ? `<path d="M1.5,-78 L9,-78 L8.5,-8 L3,-8 Z" fill="#d9cba9"/><path d="M-9,-78 L-1.5,-78 L-3,-8 L-8.5,-8 Z" fill="#ece0c4"/>
        <path d="M-7,-46 Q-5,-43 -3,-46 M4.5,-50 Q6.5,-47 8,-50" stroke="#bfae8a" stroke-width="0.6" fill="none"/>
@@ -383,14 +385,14 @@ export function kid(c, st, t) {
     <path d="M-12.5,-124 L-9,-123.5 L-10.6,-96 L-14,-96.5 Z M12.5,-124 L9,-123.5 L10.6,-96 L14,-96.5 Z" fill="#2b1d22"/><path d="M-13.2,-104 L-9.8,-103.6 M13.2,-104 L9.8,-103.6" stroke="#c9a24a" stroke-width="1.3"/>
     <path d="M-12,-88 L-4.5,-86.5 M4.5,-86.5 L12,-88" stroke="#a8284a" stroke-width="0.9" fill="none"/>
     <path d="M${n(-2 + fx * 3)},-127 L${n(0 + fx * 3)},-127 L${n(0 + fx * 3)},-121.5 L${n(-2 + fx * 3)},-121.5 Z" fill="#d8d3dc"/>
-    <g transform="translate(0,-127) scale(${HS}) translate(0,127)">
+    <g transform="translate(0,${n((st.hdrop || 0))}) translate(0,-127) scale(${HS}) translate(0,127)">
     ${Math.abs(fx) > 0.3 ? `<path d="M${n(hx - fx * 9.6)},${n(hy - 3)} q${n(-fx * 4)},-0.5 ${n(-fx * 3.4)},4.5 q${n(fx * 0.4)},3 ${n(fx * 3.4)},2.6 Z" fill="${skin}"/><path d="M${n(hx - fx * 10.6)},${n(hy - 1)} q${n(-fx * 1.4)},0.6 ${n(-fx * 0.8)},2.4" stroke="#c48a74" stroke-width="0.5" fill="none"/>` : ""}
     <path d="${headPath(hx, hy, 10.6, 11.4, fx, 1.06)}" fill="${skin}"/>
     <path d="M${n(hx - 6)},${n(hy + 9)} Q${n(hx)},${n(hy + 12.5)} ${n(hx + 6)},${n(hy + 9)}" stroke="#e2b89c" stroke-width="1.2" fill="none" opacity="0.7"/>
     <path d="M${n(hx - 10.8)},${n(hy + 1)} Q${n(hx - 12.5)},${n(hy - 16)} ${n(hx - 2)},${n(hy - 17.5)} Q${n(hx + 9)},${n(hy - 19)} ${n(hx + 11.2)},${n(hy - 6)} L${n(hx + 10.4)},${n(hy + 1)} Q${n(hx + 8 - fx * 3)},${n(hy - 8)} ${n(hx - fx * 3)},${n(hy - 10)} Q${n(hx - 8 - fx * 3)},${n(hy - 8)} ${n(hx - 10.8)},${n(hy + 1)} Z" fill="${hairC}"/>
     ${fringe}
     <path d="M${n(hx - 5)},${n(hy - 15.5)} Q${n(hx + 1)},${n(hy - 17)} ${n(hx + 6)},${n(hy - 14)}" stroke="#463e66" stroke-width="1.1" fill="none"/>
-    <path d="M${n(ex - 7)},${n(browY + (shock > 0.4 ? 0.6 : 0) + worry * 1.2)} L${n(ex - 2.2)},${n(browY - worry * 1.2)} M${n(ex + 2.2)},${n(browY - worry * 1.2)} L${n(ex + 7)},${n(browY + (shock > 0.4 ? 0.6 : 0) + worry * 1.2)}" stroke="${hairC}" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M${n(ex - 7)},${n(browY + (shock > 0.4 ? 0.6 : 0) + worry * 1.2)} L${n(ex - 2.2)},${n(browY - worry * 1.2)} M${n(ex + 2.2)},${n(browY - worry * 1.2)} L${n(ex + 7)},${n(browY + (shock > 0.4 ? 0.6 : 0) + worry * 1.2)}" stroke="${st.sad > 0.2 ? "#7a5a6e" : hairC}" stroke-width="${st.sad > 0.2 ? 1.5 : 1.1}" stroke-linecap="round"/>
     ${eye(ex - 4.3, hy - 1.5, fx < -0.3 ? 2.3 : 2.8, 2.9, st.look ?? fx, open, -1)}${eye(ex + 4.3, hy - 1.5, fx > 0.3 ? 2.3 : 2.8, 2.9, st.look ?? fx, open, 1)}
     <path d="M${n(ex + fx * 1.5)},${n(hy + 1.5)} q${n(fx * 1.2)},2.2 ${n(-fx * 0.6)},3" stroke="#c48a74" stroke-width="0.8" fill="none" stroke-linecap="round"/>
     <ellipse cx="${n(ex - 6.5)}" cy="${n(hy + 4.5)}" rx="2" ry="1.1" fill="#f08a96" opacity="0.45" stroke="none"/><ellipse cx="${n(ex + 6.5)}" cy="${n(hy + 4.5)}" rx="2" ry="1.1" fill="#f08a96" opacity="0.45" stroke="none"/>
@@ -398,6 +400,7 @@ export function kid(c, st, t) {
     <path d="M${n(hx - 7)},${n(hy - 12.5)} Q${n(hx - 1)},${n(hy - 16.8)} ${n(hx + 6)},${n(hy - 12)}" stroke="#5b5280" stroke-width="1.6" fill="none" opacity="0.55" stroke-linecap="round"/>
     <path d="M${n(hx - 8)},${n(hy - 10)} Q${n(hx - 4)},${n(hy - 15)} ${n(hx + 1)},${n(hy - 15.8)} M${n(hx + 3)},${n(hy - 15.5)} Q${n(hx + 7)},${n(hy - 13)} ${n(hx + 9)},${n(hy - 8)}" stroke="#3a3354" stroke-width="0.5" fill="none"/>
     ${mouth}
+    ${(st.crown || 0) > 0.02 ? `<g transform="translate(${n(hx + fx * 1.2)},${n(hy - 15.2 - (1 - st.crown) * 9)}) scale(${n(0.5 * st.crown)}) rotate(${n(fx * -6)})"><path d="M-14,2 L-17,-14 L-8,-6 L0,-18 L8,-6 L17,-14 L14,2 Z" fill="#ffd838" stroke="#7a4a00" stroke-width="1.8" stroke-linejoin="round"/><path d="M-14,0 Q0,3 14,0" stroke="#c8861c" stroke-width="1.6" fill="none"/><circle cx="0" cy="-19" r="2" fill="#fff3a0"/><circle cx="-17" cy="-15" r="1.8" fill="#fff3a0"/><circle cx="17" cy="-15" r="1.8" fill="#fff3a0"/></g>` : ""}
     </g>
     ${h2f > 0.02 ? armR : ""}
     ${limb([[-12.5, -120], eL, wL], 7.5, jac)}
