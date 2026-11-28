@@ -18,6 +18,8 @@ code or comment on code structure.
   ..." rules) are not up for notes. If you think the brief is wrong somewhere, say so in one line after the notes.
 - **Numbers, not adjectives**: seconds or frames (30 fps), px at 1080x1920, metres in the set, hex colours, the
   engine's action and fx names. Example: `2.4 s: Wizard's face under the caption, raise camera 0.2 m`.
+  An arm point `{ o: [out, up, fwd] }` is mirrored per side: `out` is POSITIVE away from the body for BOTH arms
+  (Kid vs Dad 08, 28 Nov 2026: a design gave the right arm `o: [-0.55, ...]`, which drives the hand into the chest).
 - **BOARD.md** (only when asked, `docs/templates/BOARD.md`): you write the sections you are given and nothing else.
   Replace superseded sections instead of appending.
 - You can't hear: never judge sound or predict views.

@@ -222,6 +222,9 @@ import { HAPPY_KINDS } from "./props-happy.js";   // happiness 01: limo, ambulan
 import { COUPE_KINDS } from "./props-coupe.js";
 import { SPREE_KINDS } from "./props-spree.js";   // happiness 01 redo: check, bag mountain, sun disc, side-cast bits
 import { CHECKOUT_SET_KINDS, CHECKOUT_SET_GRIPS } from "./props-checkout-set.js";   // country vs country 01: halls, lanes, racks, flags
+import { CVC_STREET_KINDS, CVC_STREET_GRIPS } from "./props-cvc-street.js";   // country vs country 02: block of flats
+import { CVC_VEHICLE_KINDS, CVC_VEHICLE_GRIPS } from "./props-cvc-vehicles.js";   // country vs country 02: bus, pickup
+import { CVC_SIGNAL_KINDS, CVC_SIGNAL_GRIPS } from "./props-cvc-signals.js";   // country vs country 02: lights, button, road, signs
 import { CHECKOUT_GOODS_KINDS, CHECKOUT_GOODS_GRIPS } from "./props-checkout-goods.js";   // country vs country 01: goods, bags, coins
 import { TOW_KINDS } from "./props-tow.js";   // happiness 01 redo: tow truck, coat heap
 import { HARBOUR_KINDS } from "./props-harbour.js";   // happiness 01 redo: pier, yacht   // happiness 01: the gold coupe (a prop, not a rig)
@@ -1621,6 +1624,7 @@ Object.assign(KINDS, GRAVROOM_KINDS, GRAVCITY_KINDS, GRAVSKY_KINDS, GRAVRUIN_KIN
 Object.assign(KINDS, SPINROOM_KINDS, SPINSKY_KINDS, SPINANDES_KINDS, SPINSTREET_KINDS, SPINSPACE_KINDS);   // fact what-if 03 spin
 Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS, SPREE_KINDS, TOW_KINDS, HARBOUR_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)
 Object.assign(KINDS, CHECKOUT_SET_KINDS, CHECKOUT_GOODS_KINDS); Object.assign(GRIPS, CHECKOUT_SET_GRIPS, CHECKOUT_GOODS_GRIPS);   // country vs country 01
+Object.assign(KINDS, CVC_STREET_KINDS, CVC_VEHICLE_KINDS, CVC_SIGNAL_KINDS); Object.assign(GRIPS, CVC_STREET_GRIPS, CVC_VEHICLE_GRIPS, CVC_SIGNAL_GRIPS);   // country vs country 02
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
