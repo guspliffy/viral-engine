@@ -3,6 +3,7 @@
 // Voice-led: the timeline of the lines lives in pd-voice.mjs (tails and long silences trimmed, word times corrected).
 import { readFileSync } from "node:fs";
 import * as L from "../../../../tools/svg2d/lib/legend.mjs";
+import * as GR from "../../../../tools/svg2d/lib/legend-greece.mjs";
 import * as PD from "../../../../tools/svg2d/lib/legend-pandora.mjs";
 import { titleCard } from "../../../../tools/svg2d/lib/legend-pandora-title.mjs";
 import { captionSvg } from "../../../../tools/svg2d/lib/captions.mjs";
@@ -111,7 +112,11 @@ shot("4b", "L04", () => WD("L04", "and") - 0.1, (u, x) => {
 });
 shot("4c", "L04", () => WD("L04", "out") - 0.08, (u, x) => zeusAt(u, lerp(1.2, 1.35, u / 1.2), 1, 0.55 + 0.4 * Math.abs(Math.sin(u * 6)), 120));
 // 5  L05 Zeus close, a cold grin; then lightning on "right up to the end"
-shot("5a", "L05", lineStart("L05", 0.04), (u) => zeusAt(u, lerp(1.35, 1.5, u / 2.4), 0, 0.3 + 0.1 * Math.sin(u * 3), 120, 0.3));
+shot("5a", "L05", lineStart("L05", 0.04), (u) => {      // a different angle: his eye, huge, with the lightning flickering in the cloud
+  PD.mood(0.3);
+  const k = lerp(3.0, 3.5, u / 2.4); face(712, 980, 190);
+  return `<g transform="translate(0,160)">${onScreen(712, 818, k, PD.stormSky({ x: 0, y: 0, z: 0 }, u, { laugh: 0, flash: 0.35 + 0.5 * Math.abs(Math.sin(u * 5.3)) * (Math.sin(u * 2.1) > 0 ? 1 : 0.3), look: 0.5 * Math.sin(u * 1.3) }))}</g>`;
+});
 shot("5b", "L05", () => WD("L05", "right") - 0.08, (u) => zeusAt(u, lerp(1.5, 1.7, u / 1.2), 0.05, 0.6 + 0.4 * Math.abs(Math.sin(u * 9)), 140, 0.4));
 // 6  L06 the forge: hands shape the mud into a woman
 shot("6a", "L06", lineStart("L06", 0.04), (u) => {
@@ -169,28 +174,29 @@ shot("9", "L09", lineStart("L09", 0.05), (u, x) => {
 // 10  L10 Epimetheus opens the door, delighted
 shot("10", "L10", () => LN("L09").end + 0.03, (u, x) => {
   PD.mood(-0.2);
-  const c = { x: 0, y: 1.3, z: lerp(0.7, 1.2, u / 1.9), h0: 1180 };
+  const c = { x: -0.45, y: 1.3, z: lerp(0.5, 0.9, u / 1.9), h0: 1180 };
   const d = PD.doorFront(c, u, { open: ease(seg(u, 0.1, 0.6)), dusk: lerp(1, 0.6, u / 2) , inside: 1 });
   const ep = epi(c, { X: PD.DOOR.X + 0.05, Y: 0.12, Z: 5.9, pose: PD.epimetheusPose("stand", "delighted", ease(seg(u, 0.35, 0.8))), dir: -1, talk: talkAt(x.ln, x.lu) }, u);
-  const pa = pan(c, { X: -0.75, Z: 4.9, pose: "stand" }, u), he = her(c, { X: -1.5, Z: 4.7, pose: "present" }, u);
+  const pa = pan(c, { X: -0.7, Z: 4.9, pose: "stand" }, u), he = her(c, { X: -1.3, Z: 4.7, pose: "present" }, u);
   return d.back + PD.stack([...d.items, ep, pa, he]) + PD.grade() + d.light;
 });
-// 11  the kid and Grandma by the candle jar: the first host shot
-const street = (c, t) => `<g filter="url(#haze)">${L.sky(c, t, "night")}${L.far(c, "night")}</g>${L.ground(c, t, "night")}${L.houses(c, t, -1, "night")}${L.houses(c, t, 1, "night")}`;
+// 11  the kid and Grandma by the candle jar: a Greek village square at night (legend-greece village, lamplit)
 const hosts = (c, t, x, o = {}) => {
-  const k = K_(c, { X: o.kx ?? -0.5, Z: o.kz ?? 3.1, fx: 0.55, worry: o.worry ?? 0, shock: o.shock ?? 0, talk: o.ktalk ?? 0, blink: bl(t, 0.3), lean: o.klean ?? 0 }, t);
-  const g = G_(c, { X: o.gx ?? 0.5, Z: o.gz ?? 3.2, fx: -0.7, stern: 0, open: 0, flame: 0.9, talk: o.gtalk ?? 0, blink: bl(t, 1.1) }, t);
-  return { k, g, svg: street(c, t) + g.svg + k.svg };
+  PD.mood(-0.9);
+  const k = K_(c, { X: o.kx ?? -0.45, Z: o.kz ?? 3.1, fx: 0.55, worry: o.worry ?? 0, shock: o.shock ?? 0, talk: o.ktalk ?? 0, blink: bl(t, 0.3), lean: o.klean ?? 0 }, t);
+  const g = G_(c, { X: o.gx ?? 0.45, Z: o.gz ?? 3.2, fx: -0.7, stern: 0, open: 0, flame: 0.9, talk: o.gtalk ?? 0, blink: bl(t, 1.1) }, t);
+  const sky = PD.sky(c, t, { moon: [860, 190, 44] }), vg = GR.village(c, t, { bellSwing: 0, ropePull: 0, windows: new Array(15).fill(1), lamp: 1 });
+  return { k, g, svg: sky + vg.back + PD.stack([...vg.items, { Z: o.gz ?? 3.2, svg: g.svg }, { Z: o.kz ?? 3.1, svg: k.svg }]) + GR.mist(c, t, [14]) + PD.grade() };
 };
 const lamp = (g) => (g.jar ? `<circle cx="${n(g.jar.x)}" cy="${n(g.jar.y)}" r="${n(g.p.s * 0.9)}" fill="url(#flame)" opacity="0.28" style="mix-blend-mode:screen"/>` : "");
 shot("11a", "L11", lineStart("L11", 0.05), (u, x) => {
-  const c = { x: 0, y: 1.1, z: lerp(0.9, 1.25, u / 2.0), h0: 1160 };
-  const h = hosts(c, u, x, { ktalk: talkAt(LN("L11"), x.t - LN("L11").at), worry: 0.3, shock: 0.5 * talkAt(LN("L11"), x.t - LN("L11").at) });
+  const c = { x: 0, y: 1.0, z: lerp(1.45, 1.7, u / 2.0), h0: 1250 };
+  const h = hosts(c, u, x, { ktalk: talkAt(LN("L11"), x.t - LN("L11").at), worry: 0.3, kx: -0.32, gx: 0.3, shock: 0.5 * talkAt(LN("L11"), x.t - LN("L11").at) });
   return h.svg + lamp(h.g);
 });
 shot("11b", "L12", lineStart("L12", 0.05), (u, x) => {
-  const c = { x: 0.35, y: 1.15, z: lerp(1.3, 1.6, u / 2.2), h0: 1180 };
-  const h = hosts(c, u, x, { gtalk: talkAt(LN("L12"), x.t - LN("L12").at), worry: 0.1 });
+  const c = { x: 0.03, y: 1.0, z: lerp(1.8, 2.05, u / 2.2), h0: 1330 };
+  const h = hosts(c, u, x, { gtalk: talkAt(LN("L12"), x.t - LN("L12").at), worry: 0.1, kx: -0.3, gx: 0.35 });
   return h.svg + lamp(h.g);
 });
 // 12  L13 the house at night: Pandora's first night; then the jar in the corner, a push to the wax seal
@@ -317,21 +323,21 @@ shot("19b", "L20", () => WD("L20", "but") - 0.06, (u) => {
 });
 // 20  L21 under the rim, one tiny warm light: Hope
 shot("20", "L21", lineStart("L21", 0.05), (u, x) => {
-  const warm = ease(seg(x.lu, 2.4, 3.1));
-  PD.mood(lerp(0.6, -0.6, warm));
-  const c = { x: 0.9, y: 1.86, z: lerp(3.3, 3.75, u / 3.1), h0: 1060 }, hope = ease(seg(x.lu, 1.3, 2.2));
-  const r = PD.room(c, u, { lamp: 0, jar: { broken: true, hope } });
-  return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(lerp(0.25, 0.12, warm)) + r.light;
+  PD.mood(0.6);
+  const k = ease(seg(u, 0.1, 3.0)), c = { x: lerp(1.0, 0.95, k), y: 1.9, z: lerp(3.5, 4.1, k), h0: 1050 }, hope = ease(seg(x.lu, 1.3, 2.2));
+  const r = PD.room(c, u, { lamp: 0, moon: 0.4, jar: { broken: true, hope } });
+  const ch = r.jar.chip;
+  return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(0.35) + r.light + (ch ? PD.hopeLight(ch, ch.s * (1.5 + 0.8 * hope), u, hope) : "");
 });
 // 21-22  the kid close by Grandma's candle jar; Grandma close, a small smile
 shot("21", "L22", lineStart("L22", 0.05), (u, x) => {
-  const c = { x: -0.45, y: 1.05, z: lerp(1.6, 1.85, u / 1.9), h0: 1260 };
-  const h = hosts(c, u, x, { kx: -0.5, kz: 3.0, gx: 0.45, gz: 3.1, ktalk: talkAt(LN("L22"), x.t - LN("L22").at), worry: 0.5 });
+  const c = { x: -0.28, y: 1.0, z: lerp(1.9, 2.15, u / 1.9), h0: 1330 };
+  const h = hosts(c, u, x, { kx: -0.28, kz: 3.0, gx: 1.6, gz: 3.1, ktalk: talkAt(LN("L22"), x.t - LN("L22").at), worry: 0.5 });
   return h.svg + lamp(h.g);
 });
 shot("22", "L23", lineStart("L23", 0.05), (u, x) => {
-  const c = { x: 0.55, y: 1.2, z: lerp(1.65, 2.0, u / 4.4), h0: 1260 };
-  const h = hosts(c, u, x, { kx: -0.5, kz: 3.3, gx: 0.5, gz: 3.0, gtalk: talkAt(LN("L23"), x.t - LN("L23").at) });
+  const c = { x: 0.52, y: 1.0, z: lerp(1.6, 1.85, u / 4.4), h0: 1440 };
+  const h = hosts(c, u, x, { kx: -1.9, kz: 3.0, gx: 0.38, gz: 3.0, gtalk: talkAt(LN("L23"), x.t - LN("L23").at) });
   return h.svg + lamp(h.g);
 });
 // 23  L24 the kid's hand reaches for the candle jar lid; Grandma's hand slaps it shut; cut right after "in"
@@ -380,7 +386,7 @@ function capY(ln, pi, ph) {
   const sample = []; for (let t = t0 + 0.05; t < t1 - 0.05; t += 0.25) sample.push(t); sample.push(t1 - 0.08);
   const fs = sample.map((t) => facesAt(Math.min(t, DUR - 0.01))).flat();
   let best = null, bs = 1e9;
-  for (const y of CAPY) { const b = capBox(ph, y); if (t0 < 2.75 && b.y0 < 514) continue; const bad = fs.filter((f) => hit(b, f)).length; if (!bad) { best = y; break; } if (bad < bs) { bs = bad; best = y; } }
+  for (const y of CAPY) { const b = capBox(ph, y); if (t0 < 5.2 && b.y0 < 550) continue; const bad = fs.filter((f) => hit(b, f)).length; if (!bad) { best = y; break; } if (bad < bs) { bs = bad; best = y; } }
   CAPCACHE.set(key, { y: best, bad: bs === 1e9 ? 0 : bs }); return CAPCACHE.get(key);
 }
 export const capReport = () => [...CAPCACHE.entries()].filter(([, v]) => v.bad).map(([k, v]) => k + " bad=" + v.bad + " y=" + v.y);
