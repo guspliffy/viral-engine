@@ -1,0 +1,8429 @@
+{
+ "id": "shopping-cart",
+ "title": "How you invented the shopping cart",
+ "idea": "How you invented X 02: Mash's rule 'Drop it... and it's MINE'. You try to get your shopping home: a tower of tins buries you, the basket handle snaps on your foot, the basket on a wheeled chair races down the hill into a hay cart, a brake flips you into the basket, Mash steals the whole cart, so you chain the carts with coin locks. Your coin slips, Mash catches it: 'Drop it... and it's MINE.'",
+ "format": "How you invented X (vertical, ~66 s)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionLead": 0.12,
+ "captionBand": [
+  210,
+  640
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0ef",
+  "floor": "none",
+  "para": 0,
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "tint": "#fff1d6",
+    "s": 1.05
+   }
+  ]
+ ],
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "from": 0,
+  "gain": 0.45,
+  "lowCut": 120,
+  "until": 50.8,
+  "then": {
+   "file": "ai/hero-bed/hero-bed-01.ogg",
+   "from": 50.8,
+   "gain": 0.4
+  }
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "guard": true
+ },
+ "creative": {
+  "length": [
+   66.1,
+   66.1
+  ]
+ },
+ "hook": {
+  "show": [
+   "mash",
+   "spud",
+   "orangeC"
+  ],
+  "hint": 0,
+  "what": "you stagger out of the shop with your arms full, an orange falls, Mash catches it mid-air: 'Drop it... and it's MINE.'"
+ },
+ "fx": [
+  {
+   "do": "shake",
+   "at": 33.2,
+   "dur": 0.2,
+   "amp": 0.03
+  }
+ ],
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -3.9,
+    1.45
+   ],
+   "face": 15,
+   "expr": "shocked",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -2.95,
+    1.37
+   ],
+   "face": -35,
+   "expr": "smug",
+   "follow": 0,
+   "seed": 1.1
+  },
+  {
+   "id": "boss",
+   "character": "always-orders-potatoes/viking",
+   "at": [
+    -0.53,
+    1.4
+   ],
+   "face": 40,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "top",
+   "kind": "hillstreet",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "foot",
+   "kind": "hillstreet",
+   "x": 61.85,
+   "y": 5.32,
+   "z": -23.35,
+   "rot": 180,
+   "scale": 0,
+   "staged": "the same street seen from its foot, only in C08b and C09"
+  },
+  {
+   "id": "front",
+   "kind": "grocerfront",
+   "x": -2.75,
+   "y": 0,
+   "z": 0.9
+  },
+  {
+   "id": "stall",
+   "kind": "woodcounter",
+   "x": 0.05,
+   "y": 0,
+   "z": 1.7,
+   "rot": 40
+  },
+  {
+   "id": "hayT",
+   "kind": "haycart",
+   "x": 2.65,
+   "y": -5.32,
+   "z": -24.35,
+   "staged": "far below at the foot of the hill (C08a)"
+  },
+  {
+   "id": "hayF",
+   "kind": "haycart",
+   "x": 59.2,
+   "y": 0,
+   "z": 1,
+   "scale": 0,
+   "dent": 0,
+   "burst": -1,
+   "rock": 0
+  },
+  {
+   "id": "pile",
+   "kind": "foodpile",
+   "x": -2.35,
+   "y": 0.3,
+   "z": 1.16,
+   "grow": 0,
+   "staged": "on the bench's left half"
+  },
+  {
+   "id": "orangeC",
+   "kind": "catchdrop",
+   "item": "orange",
+   "from": [
+    -3.7,
+    0.72,
+    1.95
+   ],
+   "to": [
+    -3.22,
+    0.38,
+    1.7
+   ],
+   "hop": 0.06,
+   "drop": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "coinC",
+   "kind": "catchdrop",
+   "item": "coin",
+   "from": [
+    -0.25,
+    1.12,
+    4.3
+   ],
+   "to": [
+    -0.18,
+    0.14,
+    4.35
+   ],
+   "drop": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0
+  },
+  {
+   "id": "tower",
+   "kind": "foodtower",
+   "n": 14,
+   "sway": 0,
+   "fall": 0,
+   "hole": 0.1,
+   "x": -3.55,
+   "y": 0.16,
+   "z": 1.9,
+   "rot": 195
+  },
+  {
+   "id": "orange",
+   "kind": "snackfruit",
+   "fruit": "orange",
+   "bite": 0,
+   "x": -3.22,
+   "y": 0.34,
+   "z": 1.7,
+   "scale": 0
+  },
+  {
+   "id": "apple",
+   "kind": "snackfruit",
+   "fruit": "apple",
+   "bite": 0,
+   "x": -3.5,
+   "y": 0.7,
+   "z": 2.8,
+   "scale": 0
+  },
+  {
+   "id": "coinS",
+   "kind": "coin",
+   "scale": 0,
+   "shine": 0,
+   "x": -0.25,
+   "y": 1.02,
+   "z": 4.3,
+   "staged": "in Spud's glove"
+  },
+  {
+   "id": "bask",
+   "kind": "wickerbasket",
+   "x": -3.09,
+   "y": 0,
+   "z": 2.91,
+   "rot": 0,
+   "fill": 1,
+   "snap": 0,
+   "spill": 0,
+   "spillTo": [
+    -2.95,
+    2.55
+   ],
+   "scale": 0
+  },
+  {
+   "id": "bask2",
+   "kind": "wickerbasket",
+   "stub": 1,
+   "fill": 1,
+   "x": -2.75,
+   "y": 0.34,
+   "z": 2.5,
+   "rot": 70,
+   "scale": 0,
+   "staged": "set onto the chair's seat (C07a)"
+  },
+  {
+   "id": "cart",
+   "kind": "chaircart",
+   "brake": true,
+   "stepZ": -0.52,
+   "basket": 0,
+   "fill": 1,
+   "x": -2.75,
+   "y": 0,
+   "z": 2.25,
+   "rot": 70,
+   "scale": 0
+  },
+  {
+   "id": "cartF",
+   "kind": "chaircart",
+   "stepZ": -0.52,
+   "basket": 1,
+   "fill": 0.2,
+   "x": 58.6,
+   "y": 0.24,
+   "z": 2.2,
+   "rot": 30,
+   "tilt": 90,
+   "scale": 0,
+   "staged": "on its side against the hay cart's wheel"
+  },
+  {
+   "id": "rain",
+   "kind": "foodrain",
+   "mode": "up",
+   "ride": [
+    "cart",
+    "seat"
+   ],
+   "fly": 0,
+   "scale": 0
+  },
+  {
+   "id": "rainD",
+   "kind": "foodrain",
+   "mode": "down",
+   "to": [
+    60.464,
+    0.41,
+    1.279
+   ],
+   "rain": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0
+  },
+  {
+   "id": "sack",
+   "kind": "hoodsack",
+   "wear": "mash",
+   "fill": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0
+  },
+  {
+   "id": "r1",
+   "kind": "chaircart",
+   "lock": true,
+   "brake": true,
+   "stepZ": -0.52,
+   "fill": 0,
+   "x": 0.95,
+   "y": 0,
+   "z": 0.75,
+   "rot": 180,
+   "scale": 0
+  },
+  {
+   "id": "r2",
+   "kind": "chaircart",
+   "lock": true,
+   "brake": true,
+   "stepZ": -0.52,
+   "fill": 0,
+   "x": 0.95,
+   "y": 0,
+   "z": 1.37,
+   "rot": 180,
+   "scale": 0
+  },
+  {
+   "id": "r3",
+   "kind": "chaircart",
+   "lock": true,
+   "brake": true,
+   "stepZ": -0.52,
+   "fill": 0,
+   "x": 0.95,
+   "y": 0,
+   "z": 1.99,
+   "rot": 180,
+   "scale": 0
+  },
+  {
+   "id": "r4",
+   "kind": "chaircart",
+   "lock": true,
+   "brake": true,
+   "stepZ": -0.52,
+   "fill": 0,
+   "x": 0.95,
+   "y": 0,
+   "z": 2.61,
+   "rot": 180,
+   "scale": 0
+  },
+  {
+   "id": "r5",
+   "kind": "chaircart",
+   "lock": true,
+   "brake": true,
+   "stepZ": -0.52,
+   "fill": 0,
+   "x": 0.95,
+   "y": 0,
+   "z": 3.23,
+   "rot": 180,
+   "scale": 0
+  },
+  {
+   "id": "ch1",
+   "kind": "lockchain",
+   "chair": 1,
+   "sag": 0.03,
+   "ring": true,
+   "pop": 0,
+   "taut": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0,
+   "staged": "hangs between two chairs (no ground support)"
+  },
+  {
+   "id": "ch2",
+   "kind": "lockchain",
+   "chair": 2,
+   "sag": 0.03,
+   "ring": false,
+   "pop": 0,
+   "taut": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0,
+   "staged": "hangs between two chairs (no ground support)"
+  },
+  {
+   "id": "ch3",
+   "kind": "lockchain",
+   "chair": 3,
+   "sag": 0.03,
+   "ring": false,
+   "pop": 0,
+   "taut": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0,
+   "staged": "hangs between two chairs (no ground support)"
+  },
+  {
+   "id": "ch4",
+   "kind": "lockchain",
+   "chair": 4,
+   "sag": 0.03,
+   "ring": false,
+   "pop": 0,
+   "taut": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0,
+   "staged": "hangs between two chairs (no ground support)"
+  },
+  {
+   "id": "ch5",
+   "kind": "lockchain",
+   "chair": 5,
+   "sag": 0.03,
+   "ring": false,
+   "pop": 0,
+   "taut": 0,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0,
+   "staged": "hangs between two chairs (no ground support)"
+  },
+  {
+   "id": "cart6",
+   "kind": "chaircart",
+   "lock": true,
+   "stepZ": -0.52,
+   "fill": 0,
+   "x": 2.3,
+   "y": 0,
+   "z": 0.4,
+   "rot": 180,
+   "scale": 0,
+   "staged": "Mash's cart (chair 4) on the hill"
+  },
+  {
+   "id": "coinM",
+   "kind": "coin",
+   "scale": 0,
+   "shine": 0,
+   "x": 0.78,
+   "y": 0.62,
+   "z": 2.86,
+   "staged": "the coin going into chair 4's slot"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1.792,
+   "text": "Drop it... and it's MINE.",
+   "pos": 330,
+   "pop": false,
+   "said": "Drop it... and it's MINE.",
+   "across": true
+  },
+  {
+   "from": 2.48,
+   "to": 5.015,
+   "text": "Mash is the WORST friend in the village.",
+   "pos": 330,
+   "pop": false,
+   "said": "Mash is the WORST friend in the village.",
+   "across": true
+  },
+  {
+   "from": 5.015,
+   "to": 7.019,
+   "text": "How do you beat him?",
+   "pos": 330,
+   "pop": false,
+   "said": "How do you beat him?",
+   "across": true
+  },
+  {
+   "from": 7.48,
+   "to": 9.117,
+   "text": "You carry more.",
+   "pos": 330,
+   "pop": false,
+   "said": "You carry more.",
+   "across": true
+  },
+  {
+   "from": 12.48,
+   "to": 14.274,
+   "text": "...You carry nothing.",
+   "pos": 250,
+   "pop": false,
+   "said": "...You carry nothing.",
+   "across": true
+  },
+  {
+   "from": 15.28,
+   "to": 18.522,
+   "text": "A basket. Everything in one place.",
+   "pos": 330,
+   "pop": false,
+   "said": "A basket. Everything in one place.",
+   "across": true
+  },
+  {
+   "from": 20.68,
+   "to": 22.351,
+   "text": "Including your foot.",
+   "pos": 330,
+   "pop": false,
+   "said": "Including your foot.",
+   "across": true
+  },
+  {
+   "from": 25.68,
+   "to": 27.787,
+   "text": "So you give it wheels.",
+   "pos": 330,
+   "pop": false,
+   "said": "So you give it wheels.",
+   "across": true
+  },
+  {
+   "from": 29.48,
+   "to": 31.251,
+   "text": "The village is on a hill.",
+   "pos": 330,
+   "pop": false,
+   "said": "The village is on a hill.",
+   "across": true
+  },
+  {
+   "from": 37.63,
+   "to": 39.724,
+   "text": "Wheels need a brake.",
+   "pos": 330,
+   "pop": false,
+   "said": "Wheels need a brake.",
+   "across": true
+  },
+  {
+   "from": 41.28,
+   "to": 44.26,
+   "text": "It works... for about four seconds.",
+   "pos": 330,
+   "pop": false,
+   "said": "It works... for about four seconds.",
+   "across": true
+  },
+  {
+   "from": 44.28,
+   "to": 47.064,
+   "text": "Mash doesn't steal snacks anymore.",
+   "pos": 330,
+   "pop": false,
+   "said": "Mash doesn't steal snacks anymore.",
+   "across": true
+  },
+  {
+   "from": 47.28,
+   "to": 49.828,
+   "text": "He steals the whole cart.",
+   "pos": 330,
+   "pop": false,
+   "said": "He steals the whole cart.",
+   "across": true
+  },
+  {
+   "from": 50.88,
+   "to": 53.339,
+   "text": "So you lock them up.",
+   "pos": 330,
+   "pop": false,
+   "said": "So you lock them up.",
+   "across": true
+  },
+  {
+   "from": 53.339,
+   "to": 56.217,
+   "text": "Only a coin opens one.",
+   "pos": 330,
+   "pop": false,
+   "said": "Only a coin opens one.",
+   "across": true
+  },
+  {
+   "from": 59.33,
+   "to": 61.276,
+   "text": "And Mash NEVER has a coin.",
+   "pos": 330,
+   "pop": false,
+   "said": "And Mash NEVER has a coin.",
+   "across": true
+  },
+  {
+   "from": 61.58,
+   "to": 63.874,
+   "text": "You've invented the shopping cart.",
+   "pos": 330,
+   "pop": false,
+   "said": "You've invented the shopping cart.",
+   "across": true
+  },
+  {
+   "from": 64.23,
+   "to": 65.96,
+   "text": "Drop it... and it's MINE.",
+   "pos": 330,
+   "pop": false,
+   "said": "Drop it... and it's MINE.",
+   "across": true
+  }
+ ],
+ "beats": [
+  {
+   "name": "C01 the catch",
+   "at": 0,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -3.35,
+     1.35,
+     5.6
+    ],
+    "look": [
+     -3.5,
+     0.62,
+     1.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -3.33,
+      1.25,
+      5.1
+     ],
+     "look": [
+      -3.5,
+      0.62,
+      1.2
+     ],
+     "fov": 40
+    },
+    "dur": 2.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 0,
+      "brake": 0,
+      "jolt": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cartF",
+     "set": {
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hayF",
+     "set": {
+      "dent": 0,
+      "burst": -1,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "sway": 0,
+      "fall": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bask",
+     "set": {
+      "snap": 0,
+      "spill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "orangeC",
+     "set": {
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "coinC",
+     "set": {
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "brake": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "brake": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "brake": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r4",
+     "set": {
+      "brake": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "r5",
+     "set": {
+      "brake": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ch1",
+     "set": {
+      "pop": 0,
+      "taut": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ch2",
+     "set": {
+      "pop": 0,
+      "taut": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ch3",
+     "set": {
+      "pop": 0,
+      "taut": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "pop": 0,
+      "taut": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ch5",
+     "set": {
+      "pop": 0,
+      "taut": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "fly": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rainD",
+     "set": {
+      "rain": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sack",
+     "set": {
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "boss",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "noblink",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "x": -3.791,
+      "y": 0.16,
+      "z": 1.856,
+      "rot": 195
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.005,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.085,
+       0.02,
+       -0.008
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.005,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       -0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.07,
+       0.02,
+       -0.05
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0.15,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 15,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "orangeC",
+      "grip": [
+       -3.22,
+       0.38,
+       1.7
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "orangeC",
+     "set": {
+      "drop": 0.4
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       0.27,
+       0.198,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.005,
+     "ease": "settle",
+     "at": 0.005
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       -0.27,
+       0.198,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.005,
+     "ease": "settle",
+     "at": 0.005
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.008
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.008
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -3.85,
+      1.55
+     ],
+     "dur": 0.48,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -3.741,
+       0.16,
+       1.956
+      ]
+     },
+     "dur": 0.48,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       -0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -3.741,
+       0.16,
+       1.956
+      ]
+     },
+     "dur": 0.48,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Drop it... and it's MINE.",
+     "tone": "smug",
+     "voice": "mash-x115",
+     "style": "smug, lazy, mouth half full, enjoying it",
+     "dur": 1.4415,
+     "caption": false,
+     "gain": 7,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "tower",
+     "hand": "both",
+     "grip": [
+      0,
+      0.198,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.07
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.06,
+     "at": 0.36
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.8,
+     "reason": "Mash's glove snaps shut on the orange",
+     "at": 0.4
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "lid": 0.42
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.1,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 5,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.6
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0.6
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.4,
+       0.25
+      ]
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "orangeC",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "orange",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.005,
+     "at": 0.6
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "orange",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "orange",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.005,
+     "ease": "settle",
+     "at": 0.605
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.608
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "orange",
+     "hand": "R",
+     "grip": [
+      null,
+      null,
+      null
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.67
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -5,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 5,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -5,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "sfx": "step",
+     "gain": 0.35,
+     "reason": "your stagger under the armful",
+     "at": 1.55
+    },
+    {
+     "sfx": "step",
+     "gain": 0.35,
+     "reason": "your stagger under the armful",
+     "at": 1.95
+    },
+    {
+     "sfx": "step",
+     "gain": 0.35,
+     "reason": "your stagger under the armful",
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -3.62,
+      2.05
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -3.35,
+       0.16,
+       2.372
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       -0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -3.35,
+       0.16,
+       2.372
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -2.95,
+      1.37
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "brows": -0.4
+     },
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.38
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "orange",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "palm": "wrap",
+      "at": [
+       -3.05,
+       0.5,
+       1.62
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    }
+   ]
+  },
+  {
+   "name": "C02 the worst friend",
+   "at": 2.4,
+   "len": 5,
+   "shot": {
+    "pos": [
+     -3.05,
+     1.2,
+     4.6
+    ],
+    "look": [
+     -3.15,
+     0.78,
+     1.3
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -3.07,
+      1.15,
+      4.15
+     ],
+     "look": [
+      -3.15,
+      0.78,
+      1.3
+     ],
+     "fov": 44
+    },
+    "dur": 5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Mash is the WORST friend in the village. How do you beat him?",
+     "voice": "narrator-quick",
+     "dur": 4.1193,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "orange",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "palm": "wrap",
+      "at": [
+       -3.04,
+       0.62,
+       1.6
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.15,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "orange",
+     "set": {
+      "bite": 1
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/pot-bite",
+     "gain": 0.6,
+     "reason": "Mash bites the whole orange",
+     "at": 0.6
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.3,
+     "at": 0.6
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.25,
+     "at": 0.8
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 1.05
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 1.55
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.25,
+     "at": 1.8
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 2.05
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.25,
+     "at": 2.3
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.25,
+     "at": 2.55
+    },
+    {
+     "who": "mash",
+     "do": "release",
+     "prop": "orange",
+     "dur": 0,
+     "at": 2.55
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 2.55
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "orange",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 2.59
+    },
+    {
+     "do": "prop",
+     "id": "orange",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.6
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.45,
+       0.35,
+       0.1
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 2.6
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 1
+     },
+     "dur": 0.13,
+     "ease": "linear",
+     "at": 2.8
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 2.85
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 3
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -3.55,
+      2.65
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -3.477,
+       0.16,
+       3.064
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       -0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -3.477,
+       0.16,
+       3.064
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.01,
+     "at": 4.98
+    }
+   ]
+  },
+  {
+   "name": "C03 the tower",
+   "at": 7.4,
+   "len": 3.6,
+   "shot": {
+    "pos": [
+     -3.1,
+     0.45,
+     5.6
+    ],
+    "look": [
+     -3.15,
+     1.25,
+     2.2
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -3.1,
+      0.42,
+      5.2
+     ],
+     "look": [
+      -3.15,
+      1.25,
+      2.2
+     ],
+     "fov": 50
+    },
+    "dur": 3.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "n": 64
+     },
+     "dur": 1.2,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "You carry more.",
+     "voice": "narrator-quick",
+     "dur": 1.2173,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.6
+     ],
+     "dur": 1,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "sway": 6
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "sway": -8
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.45,
+     "reason": "the tower of tins creaks as it sways",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "sway": 14
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.5,
+     "reason": "it leans further",
+     "at": 2.8
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "sway": 14
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.1,
+     "at": 3.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      0.9
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 3.1
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "tower",
+     "dur": 0,
+     "to": [
+      -3.477,
+      0.16,
+      3.064
+     ],
+     "at": 3.28
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 3.28
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "fall": 1.5
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 3.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.085,
+       0.02,
+       -0.008
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 3.32
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tower",
+      "grip": [
+       -0.27,
+       0.198,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.07,
+       0.02,
+       -0.05
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 3.32
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.6,
+     "reason": "the first tins hit the cobbles",
+     "at": 3.32
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.6,
+     "reason": "the tower comes down",
+     "at": 3.45
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "y": 0,
+      "x": -3.45,
+      "z": 2.7,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.58
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0,
+     "at": 3.58
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -3.4,
+      2.95
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.58
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.01,
+     "at": 3.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 3.58
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "tower",
+     "off": [
+      -0.05,
+      0.5,
+      -0.1
+     ],
+     "sit": true,
+     "yaw": 8,
+     "dur": 0.01,
+     "at": 3.58
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "serene",
+     "dur": 0.01,
+     "at": 3.58
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 2
+     },
+     "dur": 0.13,
+     "ease": "linear",
+     "at": 3.58
+    },
+    {
+     "do": "prop",
+     "id": "apple",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.58
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.005,
+     "at": 3.58
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "apple",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 3.58
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "apple",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.005,
+     "ease": "settle",
+     "at": 3.585
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 3.588
+    }
+   ]
+  },
+  {
+   "name": "C04 the heap",
+   "at": 11,
+   "len": 4.2,
+   "shot": {
+    "pos": [
+     -3.2,
+     1.55,
+     6.3
+    ],
+    "look": [
+     -3.45,
+     1,
+     2.7
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -3.25,
+      1.45,
+      5.8
+     ],
+     "look": [
+      -3.45,
+      1,
+      2.7
+     ],
+     "fov": 44
+    },
+    "dur": 4.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 0.3,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "apple",
+     "hand": "R",
+     "grip": [
+      null,
+      null,
+      null
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 0,
+     "dur": 0.15,
+     "ease": "back",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.55,
+       0.45,
+       0.05
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.9
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "apple",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "palm": "wrap",
+      "at": [
+       -3.42,
+       1.12,
+       2.92
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.55,
+       0.45,
+       0.05
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.48,
+       0.45,
+       0.05
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "apple",
+     "set": {
+      "bite": 1
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.3
+    },
+    {
+     "sfx": "ai/crunch",
+     "gain": 0.5,
+     "reason": "Mash bites the apple on top of the heap",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.55,
+       0.45,
+       0.05
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "macro": "narrate",
+     "line": "...You carry nothing.",
+     "voice": "narrator-quick",
+     "dur": 1.3741,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.48,
+       0.45,
+       0.05
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.55,
+       0.45,
+       0.05
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.05
+    },
+    {
+     "who": "mash",
+     "do": "release",
+     "prop": "apple",
+     "dur": 0,
+     "at": 4.18
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 4.18
+    },
+    {
+     "do": "prop",
+     "id": "apple",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.18
+    },
+    {
+     "do": "prop",
+     "id": "tower",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.18
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": null,
+     "at": 4.18
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -2.75,
+      2.25
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.18
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 4.18
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 4.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -3.6,
+      2.55
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 55,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.18
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.01,
+     "at": 4.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.18
+    },
+    {
+     "do": "prop",
+     "id": "bask",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.18
+    }
+   ]
+  },
+  {
+   "name": "C05 the basket",
+   "at": 15.2,
+   "len": 4.1,
+   "shot": {
+    "pos": [
+     -3.25,
+     1.05,
+     5.7
+    ],
+    "look": [
+     -3.4,
+     0.6,
+     2.7
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -3.25,
+      1.05,
+      5.7
+     ],
+     "look": [
+      -3.4,
+      0.6,
+      2.7
+     ],
+     "fov": 38
+    },
+    "dur": 4.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "apple",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "macro": "narrate",
+     "line": "A basket. Everything in one place.",
+     "voice": "narrator-quick",
+     "dur": 2.8218,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bask",
+      "grip": [
+       0.03,
+       0.42,
+       0
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bask",
+      "grip": [
+       -0.03,
+       0.42,
+       0
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "bask",
+     "set": {
+      "y": 0.12
+     },
+     "dur": 1.2,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -12,
+     "dur": 1,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.06,
+     "dur": 0.6,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.7,
+     "open": 0.2,
+     "dur": 0.3,
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -11,
+     "dur": 0.06,
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -13,
+     "dur": 0.06,
+     "at": 2.725
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -11,
+     "dur": 0.06,
+     "at": 2.85
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -13,
+     "dur": 0.06,
+     "at": 2.975
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -11,
+     "dur": 0.06,
+     "at": 3.1
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.5,
+     "reason": "the willow handle creaks under the load",
+     "at": 3.1
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -13,
+     "dur": 0.06,
+     "at": 3.225
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -11,
+     "dur": 0.06,
+     "at": 3.35
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -13,
+     "dur": 0.06,
+     "at": 3.475
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -11,
+     "dur": 0.06,
+     "at": 3.6
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -13,
+     "dur": 0.06,
+     "at": 3.725
+    },
+    {
+     "do": "prop",
+     "id": "bask",
+     "set": {
+      "snap": 1
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 3.9
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.8,
+     "reason": "the basket's handle snaps",
+     "at": 3.92
+    },
+    {
+     "do": "prop",
+     "id": "bask",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 3.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 3.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 3.98
+    },
+    {
+     "do": "prop",
+     "id": "bask",
+     "set": {
+      "x": -3.05,
+      "y": 0.2,
+      "z": 2.95,
+      "rot": 90,
+      "tip": 90,
+      "spill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.08
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -3.6,
+      2.55
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.08
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.08
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 4.08
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.01,
+     "at": 4.08
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.01,
+     "at": 4.08
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 4.08
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.08
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.08
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -2.75,
+      2.25
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.08
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.08
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 4.08
+    }
+   ]
+  },
+  {
+   "name": "C06 the foot",
+   "at": 19.3,
+   "len": 4.7,
+   "shot": {
+    "pos": [
+     -2.75,
+     1.45,
+     6.6
+    ],
+    "look": [
+     -2.95,
+     0.55,
+     2.3
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      -2.8,
+      1.35,
+      6.1
+     ],
+     "look": [
+      -2.95,
+      0.55,
+      2.3
+     ],
+     "fov": 48
+    },
+    "dur": 4.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "thud",
+     "gain": 1,
+     "reason": "the basket lands on his boot",
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "bask",
+     "set": {
+      "spill": 2
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.75,
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "count": 5,
+     "height": 0.12,
+     "dur": 2,
+     "quiet": true,
+     "at": 0.25
+    },
+    {
+     "sfx": "land",
+     "gain": 0.35,
+     "reason": "a hop on one boot",
+     "at": 0.65
+    },
+    {
+     "sfx": "land",
+     "gain": 0.35,
+     "reason": "a hop on one boot",
+     "at": 1.05
+    },
+    {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0.3,
+     "dur": 0.4,
+     "at": 1.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "top",
+      "grip": [
+       -3.02,
+       0.09,
+       2.58
+      ]
+     },
+     "dur": 0.4,
+     "at": 1.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "top",
+      "grip": [
+       -2.86,
+       0.09,
+       2.58
+      ]
+     },
+     "dur": 0.4,
+     "at": 1.1
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "dur": 0.1,
+     "at": 1.3
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.1,
+     "at": 1.3
+    },
+    {
+     "sfx": "land",
+     "gain": 0.35,
+     "reason": "a hop on one boot",
+     "at": 1.45
+    },
+    {
+     "macro": "narrate",
+     "line": "Including your foot.",
+     "voice": "narrator-quick",
+     "dur": 1.2514,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 1.5
+    },
+    {
+     "sfx": "land",
+     "gain": 0.35,
+     "reason": "a hop on one boot",
+     "at": 1.85
+    },
+    {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.4,
+     "at": 2.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 2.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 2.1
+    },
+    {
+     "sfx": "land",
+     "gain": 0.35,
+     "reason": "a hop on one boot",
+     "at": 2.25
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 2.9
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 3
+     },
+     "dur": 0.13,
+     "ease": "linear",
+     "at": 3.9
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 4.68
+    },
+    {
+     "do": "prop",
+     "id": "bask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.68
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "scale": 1,
+      "x": -2.75,
+      "y": 0,
+      "z": 2.5,
+      "rot": 70,
+      "basket": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.68
+    },
+    {
+     "do": "prop",
+     "id": "bask2",
+     "set": {
+      "scale": 1,
+      "y": 0.34
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.68
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -3.24,
+      2.32
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.68
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.68
+    }
+   ]
+  },
+  {
+   "name": "C07a the wheels (insert)",
+   "at": 24,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -2.2,
+     0.4,
+     4.7
+    ],
+    "look": [
+     -3.02,
+     0.24,
+     2.45
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -2.2,
+      0.4,
+      4.7
+     ],
+     "look": [
+      -3.02,
+      0.24,
+      2.45
+     ],
+     "fov": 31
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bask2",
+     "set": {
+      "y": 0.24
+     },
+     "dur": 0.17,
+     "ease": "settle",
+     "at": 0.4
+    },
+    {
+     "sfx": "put-down",
+     "gain": 0.5,
+     "reason": "the basket settles on the chair's seat",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 1.5
+     },
+     "dur": 0.7,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.3,
+     "dur": 0.6,
+     "reason": "a wooden wheel spins",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "bask2",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "basket": 1,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 1.58
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -1.72,
+      1.19
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "front",
+     "off": [
+      1.03,
+      0.3,
+      0.29
+     ],
+     "sit": true,
+     "yaw": 20,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.01,
+     "at": 1.58
+    }
+   ]
+  },
+  {
+   "name": "C07b the push",
+   "at": 25.6,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     -0.45,
+     1.45,
+     5.8
+    ],
+    "look": [
+     -2.1,
+     0.85,
+     2.3
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -0.45,
+      1.45,
+      5.8
+     ],
+     "look": [
+      -1.85,
+      0.85,
+      2.4
+     ],
+     "fov": 44
+    },
+    "dur": 3.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.94,
+      2.79
+     ],
+     "dur": 2.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -2.75,
+      "y": 0,
+      "z": 2.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -2.657,
+      "y": 0,
+      "z": 2.534,
+      "spin": 0.263
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.5,
+      0
+     ],
+     "dur": 2.8,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.35,
+     "dur": 2.7,
+     "reason": "wooden wheels rattle on the cobbles",
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "So you give it wheels.",
+     "voice": "narrator-quick",
+     "dur": 1.6866,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -2.564,
+      "y": 0,
+      "z": 2.567,
+      "spin": 0.524
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -2.471,
+      "y": 0,
+      "z": 2.601,
+      "spin": 0.787
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -2.379,
+      "y": 0,
+      "z": 2.634,
+      "spin": 1.046
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -2.286,
+      "y": 0,
+      "z": 2.668,
+      "spin": 1.309
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.15,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -2.193,
+      "y": 0,
+      "z": 2.701,
+      "spin": 1.571
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -2.1,
+      "y": 0,
+      "z": 2.735,
+      "spin": 1.833
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -2.007,
+      "y": 0,
+      "z": 2.769,
+      "spin": 2.096
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -1.914,
+      "y": 0,
+      "z": 2.802,
+      "spin": 2.358
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -1.821,
+      "y": 0,
+      "z": 2.836,
+      "spin": 2.62
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -1.729,
+      "y": 0,
+      "z": 2.869,
+      "spin": 2.88
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "jolt": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -1.636,
+      "y": 0,
+      "z": 2.903,
+      "spin": 3.142
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -1.543,
+      "y": 0,
+      "z": 2.936,
+      "spin": 3.404
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": -1.45,
+      "y": 0,
+      "z": 2.97,
+      "spin": 3.667
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2.6
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": null,
+     "at": 3.38
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": 0,
+      "z": 0.45,
+      "rot": 180,
+      "tip": 0,
+      "spin": 0,
+      "jolt": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.1,
+      -0.52
+     ],
+     "yaw": 0,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.38
+    }
+   ]
+  },
+  {
+   "name": "C08a the hill",
+   "at": 29,
+   "len": 3,
+   "shot": {
+    "pos": [
+     2.35,
+     3.6,
+     4.2
+    ],
+    "look": [
+     1.85,
+     -2.2,
+     -9
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      2.35,
+      3.6,
+      4.2
+     ],
+     "look": [
+      1.85,
+      -2.2,
+      -9
+     ],
+     "fov": 50
+    },
+    "dur": 3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": 0,
+      "z": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": 0,
+      "z": 0.385,
+      "spin": 0.172
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "tip": 14
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.1
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.6,
+     "dur": 2.9,
+     "reason": "the cart races down the cobbles",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": 0,
+      "z": 0.282,
+      "spin": 0.446
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.42,
+      -0.8
+     ],
+     "yaw": 0,
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 50,
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.1,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": 0,
+      "z": 0.139,
+      "spin": 0.825
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.01,
+      "z": -0.041,
+      "spin": 1.303
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "macro": "narrate",
+     "line": "The village is on a hill.",
+     "voice": "narrator-quick",
+     "dur": 1.3514,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.064,
+      "z": -0.255,
+      "spin": 1.889
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "fly": 2.4
+     },
+     "dur": 2.4,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.126,
+      "z": -0.507,
+      "spin": 2.577
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.198,
+      "z": -0.796,
+      "spin": 3.367
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.28,
+      "z": -1.124,
+      "spin": 4.264
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.371,
+      "z": -1.49,
+      "spin": 5.264
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.472,
+      "z": -1.893,
+      "spin": 6.366
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 1.35
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.582,
+      "z": -2.334,
+      "spin": 7.572
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.701,
+      "z": -2.813,
+      "spin": 8.881
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.83,
+      "z": -3.33,
+      "spin": 10.294
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -0.969,
+      "z": -3.885,
+      "spin": 11.812
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 1.95
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -1.116,
+      "z": -4.477,
+      "spin": 13.43
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 2.1
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -1.273,
+      "z": -5.108,
+      "spin": 15.155
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 2.25
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -1.44,
+      "z": -5.776,
+      "spin": 16.981
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -1.616,
+      "z": -6.482,
+      "spin": 18.911
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 2.55
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -1.801,
+      "z": -7.226,
+      "spin": 20.945
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 2.7
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.85,
+      "y": -1.996,
+      "z": -8.008,
+      "spin": 23.082
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 2.85
+    },
+    {
+     "do": "prop",
+     "id": "foot",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "hayF",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "tip": 14,
+      "rot": 0,
+      "x": 60,
+      "y": 2.9,
+      "z": -13.644
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 50,
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "fly": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    }
+   ]
+  },
+  {
+   "name": "C08b the reverse",
+   "at": 32,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     60.25,
+     2.82,
+     -11.12
+    ],
+    "look": [
+     60,
+     3.65,
+     -13.64
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      60.25,
+      0.89,
+      -3.36
+     ],
+     "look": [
+      60,
+      1.72,
+      -5.88
+     ],
+     "fov": 46
+    },
+    "dur": 1.2,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 2.9,
+      "z": -13.644
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 2.703,
+      "z": -12.854,
+      "spin": 2.16
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "fly": 1.8
+     },
+     "dur": 1.2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 2.507,
+      "z": -12.065,
+      "spin": 4.316
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 2.31,
+      "z": -11.275,
+      "spin": 6.476
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.24
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 2.113,
+      "z": -10.486,
+      "spin": 8.633
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.36
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 1.916,
+      "z": -9.697,
+      "spin": 10.79
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 1.719,
+      "z": -8.907,
+      "spin": 12.95
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 1.523,
+      "z": -8.118,
+      "spin": 15.106
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.72
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 1.326,
+      "z": -7.328,
+      "spin": 17.266
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.84
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 60,
+      "y": 1.129,
+      "z": -6.539,
+      "spin": 19.423
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.96
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": null,
+     "at": 1.18
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "do": "prop",
+     "id": "cartF",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      59.55,
+      1
+     ],
+     "y": 0.35,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 180,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 1.18
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      61,
+      1.45
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.18
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.18
+    },
+    {
+     "do": "prop",
+     "id": "sack",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.55,
+       0.182,
+       0.284
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "do": "prop",
+     "id": "rainD",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.18
+    }
+   ]
+  },
+  {
+   "name": "C09 the hay cart",
+   "at": 33.2,
+   "len": 4.4,
+   "shot": {
+    "pos": [
+     60.25,
+     1.3,
+     6.4
+    ],
+    "look": [
+     60.05,
+     1.15,
+     1.1
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      60.22,
+      1.28,
+      5.9
+     ],
+     "look": [
+      60.05,
+      1.15,
+      1.1
+     ],
+     "fov": 50
+    },
+    "dur": 4.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cartF",
+     "set": {
+      "spin": 1.5
+     },
+     "dur": 1.3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hayF",
+     "set": {
+      "dent": 1
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hayF",
+     "set": {
+      "burst": 1.3
+     },
+     "dur": 1.3,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hayF",
+     "set": {
+      "rock": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.8,
+     "reason": "he lands head first in the hay",
+     "at": 0
+    },
+    {
+     "sfx": "thud",
+     "gain": 1,
+     "reason": "the hay cart rocks",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "hayF",
+     "set": {
+      "rock": 0
+     },
+     "dur": 1.2,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.14,
+     "at": 0.1
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.35,
+     "dur": 1.2,
+     "reason": "the wheel of the toppled chair spins on",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.14,
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "rainD",
+     "set": {
+      "rain": 3.4
+     },
+     "dur": 3.4,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.14,
+     "at": 0.66
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.4,
+     "reason": "hay settles round him",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.14,
+     "at": 0.94
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "sack",
+     "set": {
+      "fill": 1
+     },
+     "dur": 2.4,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 1.4
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.4,
+     "reason": "the first apple drops into Mash's hood",
+     "at": 1.4
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 1.5
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 1.9
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 2
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 2.4
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 2.5
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 2.9
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 3
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.08,
+     "at": 3.4
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.15,
+     "at": 3.5
+    },
+    {
+     "do": "prop",
+     "id": "foot",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "do": "prop",
+     "id": "hayF",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "do": "prop",
+     "id": "cartF",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "do": "prop",
+     "id": "rainD",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "do": "prop",
+     "id": "sack",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 4.38
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -1.72,
+      1.19
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 4
+     },
+     "dur": 0.13,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "scale": 1,
+      "x": 1.25,
+      "y": 0,
+      "z": 4.2,
+      "rot": 180,
+      "tip": 0,
+      "spin": 0,
+      "brake": 0,
+      "basket": 1,
+      "fill": 0.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.62,
+      4.8
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 115,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.38
+    }
+   ]
+  },
+  {
+   "name": "C10a the brake (insert)",
+   "at": 37.6,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     2.6,
+     0.5,
+     5.95
+    ],
+    "look": [
+     1.47,
+     0.16,
+     4.5
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      2.6,
+      0.5,
+      5.95
+     ],
+     "look": [
+      1.47,
+      0.16,
+      4.5
+     ],
+     "fov": 33
+    },
+    "dur": 1.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 1.9
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Wheels need a brake.",
+     "voice": "narrator-quick",
+     "dur": 1.6744,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cart",
+      "grip": [
+       0.24,
+       0.33,
+       -0.5
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "brake": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "spin": 2.1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.4,
+     "reason": "the brake block bites the wheel",
+     "at": 1.02
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "brake": 0,
+      "spin": 0,
+      "z": 4.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.1,
+      -0.52
+     ],
+     "yaw": 0,
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.21,
+       0.364,
+       0.32
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -5,
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.01,
+     "at": 1.88
+    }
+   ]
+  },
+  {
+   "name": "C10b the flip",
+   "at": 39.5,
+   "len": 4.7,
+   "shot": {
+    "pos": [
+     0.8,
+     1.35,
+     6.4
+    ],
+    "look": [
+     1.25,
+     0.7,
+     3.6
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.85,
+      1.25,
+      3.4
+     ],
+     "look": [
+      1.25,
+      0.75,
+      0.55
+     ],
+     "fov": 44
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.25,
+      "y": 0,
+      "z": 4.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.25,
+      "y": 0,
+      "z": 4.02,
+      "spin": 1.538
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.25,
+      "y": 0,
+      "z": 3.44,
+      "spin": 3.077
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.25,
+      "y": 0,
+      "z": 2.86,
+      "spin": 4.615
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.25,
+      "y": 0,
+      "z": 2.28,
+      "spin": 6.154
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.25,
+      "y": 0,
+      "z": 1.7,
+      "spin": 7.692
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.25,
+      "y": 0,
+      "z": 1.12,
+      "spin": 9.231
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.25,
+      "y": 0,
+      "z": 0.54,
+      "spin": 10.769
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "brake": 1
+     },
+     "dur": 0.067,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.7,
+     "reason": "he stamps on the brake: dead stop",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.95,
+      -0.15
+     ],
+     "yaw": 0,
+     "dur": 0.16,
+     "ease": "linear",
+     "at": 1.43
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 90,
+     "dur": 0.16,
+     "ease": "linear",
+     "at": 1.43
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "tip": -6
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "jolt": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.45,
+       0.55,
+       0.05
+      ]
+     },
+     "dur": 0.15,
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.45,
+       0.55,
+       0.05
+      ]
+     },
+     "dur": 0.15,
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 1.57
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.4,
+      0.03
+     ],
+     "yaw": 0,
+     "dur": 0.16,
+     "ease": "linear",
+     "at": 1.59
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 180,
+     "dur": 0.16,
+     "ease": "linear",
+     "at": 1.59
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.6,
+     "reason": "he lands upside down in the basket",
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "dizzy",
+     "dur": 0.1,
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.1,
+     "at": 1.8
+    },
+    {
+     "macro": "narrate",
+     "line": "It works... for about four seconds.",
+     "voice": "narrator-quick",
+     "dur": 2.7682,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "at": 1.95
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.38,
+       0.8,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.8
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "thumb",
+     "dur": 0.1,
+     "at": 2.8
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": null,
+     "at": 4.68
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 4.68
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.5,
+      2.27
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.68
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -140,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.68
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.01,
+     "at": 4.68
+    },
+    {
+     "who": "boss",
+     "do": "show",
+     "at": 4.68
+    },
+    {
+     "who": "boss",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 4.68
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": 0,
+      "z": 1.45,
+      "rot": 180,
+      "tip": 0,
+      "spin": 0,
+      "brake": 0,
+      "fill": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.68
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 4.68
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "cart",
+     "off": [
+      0,
+      0.32,
+      0.02
+     ],
+     "sit": true,
+     "yaw": 180,
+     "dur": 0.01,
+     "at": 4.68
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.01,
+     "at": 4.68
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.68
+    }
+   ]
+  },
+  {
+   "name": "C11 the theft",
+   "at": 44.2,
+   "len": 6.6,
+   "shot": {
+    "pos": [
+     0.95,
+     1.6,
+     5.15
+    ],
+    "look": [
+     -0.14,
+     0.97,
+     -0.72
+    ],
+    "fov": 56,
+    "to": {
+     "pos": [
+      0.95,
+      1.6,
+      5.15
+     ],
+     "look": [
+      -0.14,
+      0.97,
+      -0.72
+     ],
+     "fov": 52
+    },
+    "dur": 6.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": 0,
+      "z": 1.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": 0,
+      "z": 1.16,
+      "spin": 0.769
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.4,
+     "dur": 6.4,
+     "reason": "the cart rolls off with Mash in it",
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Mash doesn't steal snacks anymore.",
+     "voice": "narrator-quick",
+     "take": 2,
+     "dur": 2.3644,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": 0,
+      "z": 0.87,
+      "spin": 1.538
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": 0,
+      "z": 0.58,
+      "spin": 2.308
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": 0,
+      "z": 0.29,
+      "spin": 3.077
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.55,
+       0.45
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": 0,
+      "z": 0,
+      "spin": 3.846
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.8
+    },
+    {
+     "who": "boss",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.4
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "tip": 14
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.004,
+      "z": -0.017,
+      "spin": 3.892
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.017,
+      "z": -0.07,
+      "spin": 4.037
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.3,
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.039,
+      "z": -0.157,
+      "spin": 4.275
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.07,
+      "z": -0.279,
+      "spin": 4.609
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.109,
+      "z": -0.437,
+      "spin": 5.041
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.157,
+      "z": -0.629,
+      "spin": 5.566
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.213,
+      "z": -0.856,
+      "spin": 6.186
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.279,
+      "z": -1.118,
+      "spin": 6.903
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.353,
+      "z": -1.415,
+      "spin": 7.715
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.436,
+      "z": -1.747,
+      "spin": 8.622
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 2.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.527,
+      "z": -2.113,
+      "spin": 9.623
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 3
+    },
+    {
+     "macro": "narrate",
+     "line": "He steals the whole cart.",
+     "voice": "narrator-quick",
+     "dur": 2.1282,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 3.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.627,
+      "z": -2.515,
+      "spin": 10.721
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 3.2
+    },
+    {
+     "who": "boss",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 3.4
+    },
+    {
+     "who": "boss",
+     "do": "arm",
+     "side": "L",
+     "pose": "point",
+     "dur": 0.25,
+     "ease": "out",
+     "at": 3.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.736,
+      "z": -2.952,
+      "spin": 11.916
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 3.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.853,
+      "z": -3.423,
+      "spin": 13.203
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 3.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -0.98,
+      "z": -3.93,
+      "spin": 14.59
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 3.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -1.115,
+      "z": -4.471,
+      "spin": 16.069
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -1.258,
+      "z": -5.047,
+      "spin": 17.643
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 4.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -1.411,
+      "z": -5.659,
+      "spin": 19.316
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 4.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -1.572,
+      "z": -6.305,
+      "spin": 21.082
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 4.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -1.742,
+      "z": -6.986,
+      "spin": 22.944
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 4.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -1.92,
+      "z": -7.702,
+      "spin": 24.901
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 5
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -2.107,
+      "z": -8.453,
+      "spin": 26.954
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 5.2
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -2.303,
+      "z": -9.239,
+      "spin": 29.103
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 5.4
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -2.508,
+      "z": -10.06,
+      "spin": 31.347
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 5.6
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 5.7
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.12,
+     "at": 5.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 5.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 5.7
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -2.721,
+      "z": -10.916,
+      "spin": 33.687
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 5.8
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -2.943,
+      "z": -11.807,
+      "spin": 36.123
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "x": 1.2,
+      "y": -3.174,
+      "z": -12.732,
+      "spin": 38.652
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 6.2
+    },
+    {
+     "who": "boss",
+     "do": "hide",
+     "at": 6.58
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": null,
+     "at": 6.58
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "grow": 5
+     },
+     "dur": 0.13,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "ch1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "ch2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "r3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "ch3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "r4",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "r5",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "ch5",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.22,
+      3.5
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.01,
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "coinS",
+     "set": {
+      "scale": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "coinS",
+     "set": {
+      "x": 0.45,
+      "y": 0.45,
+      "z": 3.86
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.005,
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coinS",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "point": "pinch",
+      "off": [
+       0.07,
+       0.07,
+       0.04
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coinS",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.005,
+     "ease": "out",
+     "at": 6.585
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0
+     },
+     "dur": 0.12,
+     "at": 6.588
+    }
+   ]
+  },
+  {
+   "name": "C12a the row",
+   "at": 50.8,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     2.05,
+     1.5,
+     6.6
+    ],
+    "look": [
+     -2.2,
+     0.6,
+     1.2
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      1.95,
+      1.45,
+      6.2
+     ],
+     "look": [
+      0.45,
+      0.4,
+      2.2
+     ],
+     "fov": 46
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "coinS",
+     "hand": "R",
+     "grip": [
+      null,
+      null,
+      null
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.05
+    },
+    {
+     "macro": "narrate",
+     "line": "So you lock them up. Only a coin opens one.",
+     "voice": "narrator-quick",
+     "dur": 4.9172,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "r5",
+      "grip": [
+       -0.17,
+       0.56,
+       -0.2
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 1.9
+    }
+   ]
+  },
+  {
+   "name": "C12b the lock",
+   "at": 53.2,
+   "len": 3.8,
+   "shot": {
+    "pos": [
+     1.55,
+     1.05,
+     5.6
+    ],
+    "look": [
+     0.62,
+     0.55,
+     3.5
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      1.55,
+      1.05,
+      5.6
+     ],
+     "look": [
+      0.62,
+      0.55,
+      3.5
+     ],
+     "fov": 31
+    },
+    "dur": 3.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coinS",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "point": "pinch",
+      "at": [
+       0.78,
+       0.58,
+       3.48
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coinS",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "point": "pinch",
+      "at": [
+       0.78,
+       0.52,
+       3.48
+      ]
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 2
+    },
+    {
+     "sfx": "put-down-metal",
+     "gain": 0.8,
+     "reason": "the coin slides into the lock",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "ch5",
+     "set": {
+      "pop": 2
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 2.55
+    },
+    {
+     "sfx": "latch-click",
+     "gain": 1,
+     "reason": "the lock lets the chain go",
+     "at": 2.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coinS",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "point": "pinch",
+      "at": [
+       0.6,
+       0.4,
+       3.8
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.15,
+     "at": 3.1
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "coinS",
+     "dur": 0,
+     "to": [
+      0.6,
+      0.4,
+      3.8
+     ],
+     "at": 3.75
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.15,
+     "at": 3.75
+    },
+    {
+     "do": "prop",
+     "id": "coinS",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.78
+    },
+    {
+     "do": "prop",
+     "id": "r5",
+     "set": {
+      "x": -1.25,
+      "z": 4.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.78
+    },
+    {
+     "do": "prop",
+     "id": "ch5",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.78
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.6,
+      4.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 150,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.78
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.01,
+     "at": 3.78
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 3.78
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0.95,
+      3.28
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.78
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.78
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.01,
+     "at": 3.78
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "r4",
+      "grip": [
+       -0.17,
+       0.56,
+       -0.2
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.78
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "r4",
+      "grip": [
+       0.17,
+       0.56,
+       -0.2
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 3.785
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 3.785
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coinS",
+      "grip": [
+       null,
+       null,
+       null
+      ],
+      "point": "pinch",
+      "off": [
+       0.07,
+       0.07,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 3.79
+    }
+   ]
+  },
+  {
+   "name": "C13 no coin",
+   "at": 57,
+   "len": 4.4,
+   "shot": {
+    "pos": [
+     2.3,
+     1.3,
+     1.2
+    ],
+    "look": [
+     1.05,
+     0.72,
+     3
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      2.2,
+      1.28,
+      1.4
+     ],
+     "look": [
+      1.05,
+      0.72,
+      3
+     ],
+     "fov": 42
+    },
+    "dur": 4.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": -14,
+     "dur": 0.17,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "taut": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "r4",
+     "set": {
+      "z": 2.64
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 0.75,
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "sfx": "kenney/metal-latch",
+     "gain": 0.4,
+     "reason": "the chain snaps straight",
+     "at": 0.28
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.23,
+     "ease": "inOut",
+     "at": 0.37
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "taut": 0
+     },
+     "dur": 0.23,
+     "ease": "linear",
+     "at": 0.37
+    },
+    {
+     "do": "prop",
+     "id": "r4",
+     "set": {
+      "z": 2.61
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.37
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": -14,
+     "dur": 0.17,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "taut": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "r4",
+     "set": {
+      "z": 2.64
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.75
+    },
+    {
+     "sfx": "kenney/metal-latch",
+     "gain": 0.4,
+     "reason": "the chain snaps straight",
+     "at": 0.83
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.23,
+     "ease": "inOut",
+     "at": 0.92
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "taut": 0
+     },
+     "dur": 0.23,
+     "ease": "linear",
+     "at": 0.92
+    },
+    {
+     "do": "prop",
+     "id": "r4",
+     "set": {
+      "z": 2.61
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.92
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": -14,
+     "dur": 0.17,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "taut": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "r4",
+     "set": {
+      "z": 2.64
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.3
+    },
+    {
+     "sfx": "kenney/metal-latch",
+     "gain": 0.4,
+     "reason": "the chain snaps straight",
+     "at": 1.38
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.23,
+     "ease": "inOut",
+     "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "taut": 0
+     },
+     "dur": 0.23,
+     "ease": "linear",
+     "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "r4",
+     "set": {
+      "z": 2.61
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 1.47
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 2
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.3,
+       0.2
+      ]
+     },
+     "dur": 0.12,
+     "at": 2.4
+    },
+    {
+     "macro": "narrate",
+     "line": "And Mash NEVER has a coin.",
+     "voice": "narrator-quick",
+     "dur": 1.5261,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 2.45
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.32,
+       0.36,
+       0.22
+      ]
+     },
+     "dur": 0.12,
+     "at": 2.52
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.3,
+       0.2
+      ]
+     },
+     "dur": 0.12,
+     "at": 2.7
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.32,
+       0.36,
+       0.22
+      ]
+     },
+     "dur": 0.12,
+     "at": 2.82
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.3,
+       0.2
+      ]
+     },
+     "dur": 0.12,
+     "at": 3
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.32,
+       0.36,
+       0.22
+      ]
+     },
+     "dur": 0.12,
+     "at": 3.12
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.4
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 3.6
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 4.38
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.38
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.6,
+      4.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0,
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 4.38
+    },
+    {
+     "do": "prop",
+     "id": "coinS",
+     "set": {
+      "scale": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "do": "prop",
+     "id": "coinS",
+     "set": {
+      "x": -0.25,
+      "y": 1.02,
+      "z": 4.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.003,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.005,
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "coinS",
+      "grip": [
+       0,
+       -0.085,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       0.04
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "coinS",
+      "grip": [
+       0,
+       -0.085,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.005,
+     "ease": "out",
+     "at": 4.385
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.003
+     },
+     "dur": 0.12,
+     "at": 4.388
+    }
+   ]
+  },
+  {
+   "name": "C14 the coin up",
+   "at": 61.4,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     -0.25,
+     0.88,
+     6.45
+    ],
+    "look": [
+     -0.5,
+     0.88,
+     4.1
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -0.25,
+      0.88,
+      6.45
+     ],
+     "look": [
+      -0.5,
+      0.88,
+      4.1
+     ],
+     "fov": 32
+    },
+    "dur": 2.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "coinS",
+     "hand": "L",
+     "grip": [
+      0,
+      -0.085,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.05
+    },
+    {
+     "macro": "narrate",
+     "line": "You've invented the shopping cart.",
+     "voice": "narrator-quick",
+     "dur": 1.8735,
+     "caption": false,
+     "pos": 330,
+     "gain": 4,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "coinS",
+     "dur": 0,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.003,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.15,
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "coinS",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "coinC",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "coinC",
+     "set": {
+      "drop": 0.3
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "eye": 1.2,
+     "dur": 0.1,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.8
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "coinS",
+      "grip": [
+       0,
+       -0.085,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 2.42
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 2.68
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0.38,
+      4.2
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.68
+    },
+    {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.01,
+     "at": 2.68
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 20,
+     "dur": 0.01,
+     "at": 2.68
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "lid": 0.42
+     },
+     "dur": 0.01,
+     "at": 2.68
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "coinC",
+      "grip": [
+       -0.18,
+       0.14,
+       4.35
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.68
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.01,
+     "at": 2.68
+    }
+   ]
+  },
+  {
+   "name": "C15a the last catch",
+   "at": 64.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     0.4,
+     6.55
+    ],
+    "look": [
+     0.05,
+     0.7,
+     4.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.05,
+      0.4,
+      6.25
+     ],
+     "look": [
+      0.05,
+      0.7,
+      4.3
+     ],
+     "fov": 40
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "coinC",
+     "set": {
+      "drop": 0.447
+     },
+     "dur": 0.147,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.05,
+     "at": 0.11
+    },
+    {
+     "sfx": "ai/fingertip-catch",
+     "gain": 0.9,
+     "reason": "Mash catches your coin",
+     "at": 0.15
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Drop it... and it's MINE.",
+     "tone": "smug",
+     "voice": "mash-x115",
+     "style": "smug, lazy, mouth half full, enjoying it",
+     "dur": 1.4415,
+     "caption": false,
+     "gain": 7,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "coinC",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "coinM",
+     "set": {
+      "scale": 0.6,
+      "x": 0.78,
+      "y": 0.62,
+      "z": 2.86
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "C15b his coin (insert)",
+   "at": 65.1,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     1.45,
+     0.95,
+     4.6
+    ],
+    "look": [
+     0.78,
+     0.52,
+     2.9
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      1.45,
+      0.95,
+      4.6
+     ],
+     "look": [
+      0.78,
+      0.52,
+      2.9
+     ],
+     "fov": 32
+    },
+    "dur": 0.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "coinM",
+     "set": {
+      "y": 0.52
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "ch4",
+     "set": {
+      "pop": 0.9
+     },
+     "dur": 0.9,
+     "ease": "linear",
+     "at": 0.12
+    },
+    {
+     "sfx": "latch-click",
+     "gain": 0.8,
+     "reason": "Mash's coin opens the next cart",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "coinM",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "r4",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "scale": 1,
+      "fill": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "who": "mash",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.38
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.38
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "cart6",
+     "off": [
+      0,
+      0.32,
+      0.02
+     ],
+     "sit": true,
+     "yaw": 180,
+     "dur": 0.01,
+     "at": 0.38
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.01,
+     "at": 0.38
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "wave",
+     "dur": 0.01,
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "x": 2.3,
+      "y": -0.484,
+      "z": -1.941
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "x": 2.3,
+      "y": -0.641,
+      "z": -2.571,
+      "spin": 1.722
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "tip": 14
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.6,
+      4.1
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -15,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0,
+     "at": 0.38
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.01,
+     "at": 0.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.38
+    }
+   ]
+  },
+  {
+   "name": "C15c mine",
+   "at": 65.5,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     -0.75,
+     1.7,
+     7.3
+    ],
+    "look": [
+     1,
+     0.6,
+     -2
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.75,
+      1.7,
+      7.3
+     ],
+     "look": [
+      1,
+      0.6,
+      -2
+     ],
+     "fov": 50
+    },
+    "dur": 0.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "x": 2.3,
+      "y": -0.798,
+      "z": -3.202,
+      "spin": 3.447
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.08
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "x": 2.3,
+      "y": -0.956,
+      "z": -3.833,
+      "spin": 5.172
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "x": 2.3,
+      "y": -1.113,
+      "z": -4.463,
+      "spin": 6.895
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "x": 2.3,
+      "y": -1.27,
+      "z": -5.094,
+      "spin": 8.619
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "cart6",
+     "set": {
+      "x": 2.3,
+      "y": -1.427,
+      "z": -5.725,
+      "spin": 10.344
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.48
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0.1,
+   "to": 2.3,
+   "see": [
+    "mash.face",
+    "spud.face",
+    "orangeC"
+   ],
+   "why": "the catch: Drop it... and it's MINE"
+  },
+  {
+   "from": 2.6,
+   "to": 7.3,
+   "see": [
+    "mash.face",
+    "spud.face",
+    "pile"
+   ],
+   "why": "the worst friend: how do you beat him?"
+  },
+  {
+   "from": 7.5,
+   "to": 10.9,
+   "see": [
+    "spud.face",
+    "tower"
+   ],
+   "why": "the stack grows taller than him and sways"
+  },
+  {
+   "from": 11.2,
+   "to": 15.1,
+   "see": [
+    "mash.face",
+    "tower"
+   ],
+   "why": "you carry nothing: Mash on top of your heap"
+  },
+  {
+   "from": 15.3,
+   "to": 19.2,
+   "see": [
+    "spud.face",
+    "bask"
+   ],
+   "why": "the heave and the snap"
+  },
+  {
+   "from": 19.4,
+   "to": 23.9,
+   "see": [
+    "spud.face",
+    "mash.face",
+    "bask"
+   ],
+   "why": "the foot and the scoop"
+  },
+  {
+   "from": 25.7,
+   "to": 28.9,
+   "see": [
+    "spud.face",
+    "cart"
+   ],
+   "why": "so you give it wheels"
+  },
+  {
+   "from": 29.2,
+   "to": 31.9,
+   "see": [
+    "cart",
+    "top"
+   ],
+   "why": "the street falls away: the village is on a hill"
+  },
+  {
+   "from": 32.05,
+   "to": 33.15,
+   "see": [
+    "spud.face"
+   ],
+   "why": "his scream on the way down"
+  },
+  {
+   "from": 33.3,
+   "to": 37.5,
+   "see": [
+    "mash.face",
+    "sack",
+    "hayF"
+   ],
+   "why": "you in the hay, your food in Mash's hood"
+  },
+  {
+   "from": 40.8,
+   "to": 44.1,
+   "see": [
+    "spud.face",
+    "cart"
+   ],
+   "why": "the dead stop and the flip: it works"
+  },
+  {
+   "from": 44.3,
+   "to": 50.7,
+   "see": [
+    "boss.face",
+    "mash.face",
+    "spud"
+   ],
+   "why": "the theft behind your back"
+  },
+  {
+   "from": 51,
+   "to": 56.9,
+   "see": [
+    "ch5",
+    "spud.face"
+   ],
+   "why": "the coin opens the lock"
+  },
+  {
+   "from": 57.1,
+   "to": 61.3,
+   "see": [
+    "mash.face",
+    "ch4"
+   ],
+   "why": "Mash can't get a cart: he never has a coin"
+  },
+  {
+   "from": 61.5,
+   "to": 64,
+   "see": [
+    "spud.face",
+    "coinS"
+   ],
+   "why": "the proud coin, then it slips"
+  },
+  {
+   "from": 64.15,
+   "to": 66.05,
+   "see": [
+    "mash.face",
+    "coinC"
+   ],
+   "why": "Drop it... and it's MINE: the flip"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "tower",
+   "from": 0,
+   "to": 11,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop",
+    "clipping",
+    "shell"
+   ],
+   "reason": "the box hold: both gloves on the ends of the armful, the stack growing out of his arms"
+  },
+  {
+   "who": "spud",
+   "with": "tower",
+   "from": 11,
+   "to": 15.2,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop",
+    "arm-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "he is buried under the heap: only his leaf and one waving glove stick out (DESIGN 3, C04)"
+  },
+  {
+   "who": "mash",
+   "with": "tower",
+   "from": 11,
+   "to": 15.2,
+   "checks": [
+    "clipping",
+    "shell",
+    "costume-in-prop"
+   ],
+   "reason": "Mash sits sunk 0.12 into the top of the heap"
+  },
+  {
+   "who": "spud",
+   "with": "bask",
+   "from": 15.2,
+   "to": 19.5,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "both fists round the basket's arch handle"
+  },
+  {
+   "who": "spud",
+   "with": "cart",
+   "from": 25.6,
+   "to": 44.2,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop",
+    "clipping",
+    "shell"
+   ],
+   "reason": "gloves on the rail; he rides behind it, then flips into its basket"
+  },
+  {
+   "who": "mash",
+   "with": "cart",
+   "from": 44.2,
+   "to": 50.8,
+   "checks": [
+    "clipping",
+    "shell",
+    "costume-in-prop"
+   ],
+   "reason": "Mash sits backwards in the cart's basket"
+  },
+  {
+   "who": "mash",
+   "with": "cart6",
+   "from": 65.5,
+   "to": 66.1,
+   "checks": [
+    "clipping",
+    "shell",
+    "costume-in-prop"
+   ],
+   "reason": "Mash sits backwards in the cart's basket"
+  },
+  {
+   "who": "spud",
+   "with": "hayF",
+   "from": 33.2,
+   "to": 37.6,
+   "checks": [
+    "clipping",
+    "shell",
+    "costume-in-prop"
+   ],
+   "reason": "he lands head first in the hay: buried to the waist"
+  },
+  {
+   "who": "mash",
+   "with": "sack",
+   "from": 33.2,
+   "to": 37.6,
+   "checks": [
+    "clipping",
+    "shell",
+    "costume-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "his own hood held out as a sack (a worn prop)"
+  },
+  {
+   "who": "mash",
+   "with": "front",
+   "from": 25.6,
+   "to": 29,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "he sits on the bench, part of the shop front"
+  },
+  {
+   "who": "mash",
+   "with": "r4",
+   "from": 57,
+   "to": 61.4,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "both gloves on chair 4's rail as he tugs"
+  },
+  {
+   "who": "spud",
+   "with": "r5",
+   "from": 50.8,
+   "to": 57,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "his glove pats the rail, the coin goes into the lock"
+  },
+  {
+   "who": "spud",
+   "with": "apple",
+   "from": 11,
+   "to": 15.2,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "the apple Mash eats on the heap sits over the buried Spud"
+  },
+  {
+   "who": "mash",
+   "with": "spud",
+   "from": 11,
+   "to": 15.2,
+   "checks": [
+    "character-overlap",
+    "reach"
+   ],
+   "maxReach": 0.25,
+   "reason": "Mash sits on the heap right over the buried Spud (DESIGN 3, C04)"
+  },
+  {
+   "who": "spud",
+   "with": "hayF",
+   "from": 33.2,
+   "to": 37.6,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "upside down in the hay: his arms are buried in it"
+  },
+  {
+   "who": "spud",
+   "with": "foot",
+   "from": 33.2,
+   "to": 37.6,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "upside down in the hay cart: his hanging gloves brush the street under it"
+  },
+  {
+   "who": "spud",
+   "with": "tower",
+   "from": 7.4,
+   "to": 11,
+   "checks": [
+    "face-hidden"
+   ],
+   "reason": "panel 03: the stack rises out of his arms in front of him from a low lens; his eyes come back as it sways"
+  },
+  {
+   "who": "mash",
+   "with": "orange",
+   "from": 0.6,
+   "to": 5,
+   "checks": [
+    "hand-in-prop",
+    "clipping"
+   ],
+   "reason": "he eats the orange whole (mug hold at his mouth)"
+  },
+  {
+   "who": "mash",
+   "with": "apple",
+   "from": 11,
+   "to": 15.2,
+   "checks": [
+    "hand-in-prop",
+    "clipping"
+   ],
+   "reason": "he bites the apple"
+  }
+ ],
+ "captionOverBody": {
+  "reason": "the tower in C03 and Mash's crown in C04 and C13 reach into the caption band: the line sits over a crown or the stack, never on an eye"
+ },
+ "notes": "Generated by storyboards/series/how-you-invented/02-shopping-cart/make-shopping-cart.mjs."
+}
