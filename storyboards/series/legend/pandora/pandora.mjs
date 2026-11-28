@@ -44,7 +44,7 @@ function aimed(c, st, t, which, target, off = [0, 0]) {
   const pose = typeof st.pose === "object" ? st.pose : PD.PANDORA[st.pose || "stand"];
   let cur = st[key] ?? pose[key] ?? PD.PANDORA.stand[key];
   const dir = st.dir ?? 1;
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 9; i++) {
     const r = PD.pandora(c, { ...st, [key]: cur }, t), h = which === "N" ? r.handN : r.handF; if (!h || !r.p) break;
     const k = r.p.s / 100 * (168 / 172), ex = target.x + off[0] - h.x, ey = target.y + off[1] - h.y;
     cur = [cur[0] + ex / (k * dir), cur[1] + ey / k];
@@ -70,31 +70,31 @@ const wordStart = (id, w, d = 0.05) => () => WD(id, w) - d;
 // 1  L01 frame 0: the silent crack, push-in from t=0, the first shapes slide out
 shot("1", "L01", () => 0, (u) => {
   PD.mood(0.85);
-  const c = { ...PD.CAM.jarCU, z: lerp(2.8, 3.55, u / 3.9) }, r = PD.room(c, u, { lamp: 0, jar: { crack: 1 } });
+  const c = { ...PD.CAM.jarCU, z: lerp(2.8, 3.55, u / 3.9) }, r = PD.room(c, u, { lamp: 0, jar: { crack: 1, gapLight: 0.5 } });
   return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(0.32) + r.light + PD.swarm(c, u + 3, { at: r.jar.mouth, count: 8, spread: 24, aim: -70, out: lerp(0.5, 0.95, u / 3.8), reach: 0.95, seed: 4, size: 0.8, kinds: ["smoke", "moth", "smoke"] });
 });
 // 2  L02 the tightest crop on the crack, a wisp passes the lens
 shot("2", "L02", lineStart("L02", 0.05), (u) => {
   PD.mood(0.9);
-  const c = { x: 0.95, y: 1.92, z: lerp(4.45, 4.7, u / 1.3), h0: 1180 }, r = PD.room(c, u, { lamp: 0, stool: JARSTOOL, jar: { crack: 1 } });
+  const c = { x: 0.95, y: 1.92, z: lerp(4.45, 4.7, u / 1.3), h0: 1180 }, r = PD.room(c, u, { lamp: 0, stool: JARSTOOL, jar: { crack: 1, gapLight: 0.5 } });
   const wx = lerp(-380, 1500, ease(seg(u, 0.1, 1.1))), wy = lerp(1180, 930, seg(u, 0.1, 1.1));
   return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(0.22) + r.light + PD.swarm(c, u + 5, { at: r.jar.mouth, count: 5, spread: 18, aim: -60, out: lerp(0.5, 0.9, u / 1.4), reach: 0.9, seed: 7, size: 1.3, kinds: ["smoke", "moth"] })
     + PD.evil({}, { at: { x: wx, y: wy }, s: 100, kind: "smoke", size: 9, dir: -8 + 10 * Math.sin(u * 3), seed: 5 }, u + 2);
 });
 // 3  L03 the brothers together for "Brother", then a punch-in on Prometheus on the first "Never" (face big enough to read)
 const doorScene = (c, u, o, pst, est, extra = []) => {
-  const d = PD.doorFront(c, u, o), e = epi(c, est, u), pr = prom(c, pst, u);
+  const d = PD.doorFront(c, u, { jarPeek: false, ...o }), e = epi(c, est, u), pr = prom(c, pst, u);
   const fn = PD.fennel(c, { at: pr.handF, s: pr.handF.s * 0.8, rot: -14, ember: 1, grip: 20, len: 96 }, u);
   return d.back + PD.stack([...d.items, e, { Z: pst.Z, svg: fn.svg + pr.svg }, ...extra]) + PD.grade() + d.light + fn.light;
 };
 const PST = (x, o = {}) => ({ X: -0.75, Z: 5.5, pose: "grip", hN: [50, -122], talk: talkAt(x.ln, x.lu), brow: -1, ...o });
 const EST = { X: PD.DOOR.X + 0.1, Y: 0.12, Z: 5.85, pose: "gripped", dir: -1 };
 shot("3a", "L03", lineStart("L03", 0.02), (u, x) => { PD.mood(0.3); return doorScene({ x: 0.1, y: 1.35, z: lerp(1.9, 2.3, u / 1.0), h0: 1150 }, u, { open: 1 }, PST(x), EST); });
-shot("3b", "L03", () => WI("L03", 1) - 0.05, (u, x) => { PD.mood(0.3); return doorScene({ x: lerp(-0.4, -0.5, u / 3), y: 1.5, z: lerp(3.5, 4.0, u / 3), h0: 1000 }, u, { open: 1 }, PST(x), EST); });
+shot("3b", "L03", () => WI("L03", 1) - 0.05, (u, x) => { PD.mood(0.3); return doorScene({ x: -0.22, y: 1.5, z: lerp(3.0, 3.35, u / 4), h0: 1050 }, u, { open: 1 }, PST(x), EST); });
 // 4a  L04 "fire": the torch and the burnt hand, close, on its own dark ground (not the door of shot 3)
 shot("4a", "L04", () => WD("L04", "fire") - 0.1, (u) => {
   PD.mood(0.2);
-  const c0 = { x: -0.5, y: 1.4, z: 4.0, h0: 1000 };
+  const c0 = { x: -0.5, y: 1.4, z: 4.55, h0: 1000 };
   let r = PD.prometheus(c0, { X: -0.75, Z: 5.5, pose: "warn", dir: 1, hN: [30, -118], talk: 0 }, u);
   const c = { ...c0, x: c0.x + (r.handN.x - 540) / r.p.s, h0: c0.h0 + (1250 - r.handN.y) };
   const pr = prom(c, { X: -0.75, Z: 5.5, pose: "warn", dir: 1, hN: [30, -118], talk: 0 }, u);
@@ -123,9 +123,15 @@ shot("6a", "L06", () => WI("L05", 8) - 0.08, (u, x) => {
   PD.mood(-1);
   const T = FG() - (WI("L05", 8) - 0.08);              // seconds until the figure is finished
   const form = tr([[0, 0.04], [T * 0.4, 0.2], [T * 0.62, 0.4], [T * 0.8, 0.75], [T, 1]], u);
-  const swap = (u > T * 0.56 && u < T * 0.68) || (u > T * 0.74 && u < T * 0.86) ? 1 : 0.55 + 0.35 * Math.sin(u * 5);
+  const swap = 0.7 + 0.2 * Math.sin(u * 3);
   const f = PD.forge({ x: 0 }, u, { form, press: swap, wet: ease(seg(u, 0.2, T * 0.7)) });
   return onScreen(540, 1000, lerp(1, 1.1, u / T), f.svg + PD.grade() + f.light);
+});
+shot("6c", "L06", () => WI("L06", 13) - 0.1, (u) => {          // "gave her something": the first gift image comes down over her
+  PD.mood(-1);
+  const f = PD.forge({ x: 0.3 }, u, { form: 1, press: 0.2 });
+  const e = ease(seg(u, 0.1, 1.2));
+  return onScreen(560, 600, 1.4, f.svg + PD.grade() + f.light) + PD.gift("dress", { at: { x: 570, y: lerp(60, 330, e) }, s: 330, u: e }, u);
 });
 shot("6b", "L06", () => FG() - 0.02, (u) => {
   PD.mood(-1);
@@ -136,7 +142,7 @@ shot("6b", "L06", () => FG() - 0.02, (u) => {
 shot("7a", "L07", lineStart("L07", 0.04), (u) => {
   PD.mood(-0.4);
   const c = { x: 0, y: 1.2, z: lerp(2.7, 2.95, u / 1.3), h0: 1330 };
-  const a = pan(c, { X: 0, Z: 4, clay: 1, dress: false, pose: { fx: 0.3 }, look: 0, blink: 1 }, u), e = ease(seg(u, 0.05, 0.75));
+  const a = pan(c, { X: 0, Z: 4, clay: 1, dress: false, pose: { fx: 0.3 }, look: 0, blink: 1 }, u), e = ease(seg(u, 0.05, 0.6));
   const sh = a.p.y - 1.40 * a.p.s;
   return `<rect width="${W}" height="${H}" fill="#3a1c7a"/><rect y="${L.P(c, 0, 0, 5).y}" width="${W}" height="${H}" fill="#2a1260"/>` + a.svg + PD.gift("dress", { at: { x: a.p.x + 2, y: sh + 28 - (1 - e) * 110 }, s: a.p.s * 0.98, u: e }, u);
 });
@@ -148,7 +154,7 @@ shot("7b", "L07", () => WD("L07", "smile") - 0.12, (u) => {
 });
 shot("7c", "L07", () => WI("L07", 4) - 0.1, (u) => {          // "And from Hermes...": his hand and sly face, nothing of her
   PD.mood(-0.4);
-  const c = { x: 0.1, y: 1.45, z: lerp(2.9, 3.2, u / 1.4), h0: 1300 };
+  const c = { x: 0.3, y: 1.35, z: lerp(3.2, 3.5, u / 1.4), h0: 1250 };
   const h = her(c, { X: 0, Z: 4, pose: "present", dir: 1 }, u);
   return `<rect width="${W}" height="${H}" fill="#1c2a6a"/>` + h.svg;
 });
@@ -171,7 +177,7 @@ shot("8b", "L08", () => WI("L08", 4) - 0.05, (u) => {
   const a = pan(c, pandoraSt(u, { look: 0.3 }), u);
   return `<rect width="${W}" height="${H}" fill="#4a2a7a"/><rect y="${L.P(c, 0, 0, 5).y}" width="${W}" height="${H}" fill="#d8763a" opacity="0.6"/>` + a.svg + PD.grade();
 });
-shot("8c", "L08", () => WI("L08", 5) - 0.06, (u) => {
+shot("8c", "L08", () => WI("L08", 10) - 0.02, (u) => {
   PD.mood(0.55);
   const c = { x: PD.DOOR.X, y: 1.3, z: lerp(0.4, 1.5, u / 1.4), h0: 1180 }, d = PD.doorFront(c, u, { open: 0, inside: 0, dusk: 0, moon: [860, 250, 46] });
   return d.back + PD.stack(d.items) + PD.grade() + PD.blackout(0.3) + d.light;
@@ -179,7 +185,7 @@ shot("8c", "L08", () => WI("L08", 5) - 0.06, (u) => {
 // 9  L09 Hermes walks her up to the door at dusk (mid-stride, closer), the leaf starts to swing at the end
 shot("9", "L09", lineStart("L09", 0.05), (u, x) => {
   PD.mood(-0.6);
-  const c = { ...PD.CAM.door, x: -1.0, y: 1.35, z: lerp(1.3, 1.9, u / 2.2), h0: 1060 };
+  const c = { ...PD.CAM.door, x: -1.0, y: 1.35, z: lerp(1.3, 1.9, u / 2.2), h0: 1140 };
   const d = PD.doorFront(c, u, { open: 0.5 * ease(seg(u, 1.7, 2.2)), dusk: 1, inside: 0.6 });
   const ph = u * 0.9, xp = lerp(-1.75, -0.6, seg(u, 0, 2.2));
   const pa = pan(c, { X: xp, Z: 4.9, pose: "walk", walk: ph, dir: 1 }, u), he = her(c, { X: xp - 0.55, Z: 4.7, pose: "walk", walk: ph + 0.2, dir: 1 }, u);
@@ -188,10 +194,10 @@ shot("9", "L09", lineStart("L09", 0.05), (u, x) => {
 // 10  L10 the door swings the rest of the way, Epimetheus is there; then a close on his delight
 shot("10a", "L10", () => LN("L09").end + 0.02, (u, x) => {
   PD.mood(-0.6);
-  const c = { x: -0.45, y: 1.3, z: 0.9, h0: 1180 };
-  const d = PD.doorFront(c, u, { open: lerp(0.5, 1, ease(seg(u, 0, 0.2))), dusk: 1, inside: 1 });
+  const c = { ...PD.CAM.door, x: -1.0, y: 1.35, z: lerp(1.9, 1.7, u / 0.2), h0: 1140 };
+  const d = PD.doorFront(c, u, { open: lerp(0.5, 1, ease(seg(u, 0, 0.2))), dusk: 1, inside: 0.6 + 0.4 * seg(u, 0, 0.2) });
   const ep = epi(c, { X: PD.DOOR.X + 0.05, Y: 0.12, Z: 5.9, pose: PD.epimetheusPose("stand", "delighted", ease(seg(u, 0.1, 0.25))), dir: -1 }, u);
-  const pa = pan(c, { X: -0.7, Z: 4.9, pose: "stand" }, u), he = her(c, { X: -1.3, Z: 4.7, pose: "present" }, u);
+  const pa = pan(c, { X: -0.6, Z: 4.9, pose: "stand" }, u), he = her(c, { X: -1.15, Z: 4.7, pose: "present" }, u);
   return d.back + PD.stack([...d.items, ep, pa, he]) + PD.grade() + d.light;
 });
 shot("10b", "L10", lineStart("L10", 0.05), (u, x) => {
@@ -204,10 +210,10 @@ shot("10b", "L10", lineStart("L10", 0.05), (u, x) => {
 // 11  the kid and Grandma by the candle jar: a Greek village square at night (legend-greece village, lamplit)
 const hosts = (c, t, x, o = {}) => {
   PD.mood(-0.9);
-  const k = K_(c, { X: o.kx ?? -0.45, Z: o.kz ?? 3.1, fx: 0.55, worry: o.worry ?? 0, shock: o.shock ?? 0, talk: o.ktalk ?? 0, blink: bl(t, 0.3), lean: o.klean ?? 0 }, t);
+  const k = K_(c, { X: o.kx ?? -0.45, Z: o.kz ?? 3.1, fx: 0.55, ...(o.klook != null ? { look: o.klook } : {}), worry: o.worry ?? 0, shock: o.shock ?? 0, talk: o.ktalk ?? 0, blink: bl(t, 0.3), lean: o.klean ?? 0 }, t);
   const g = G_(c, { X: o.gx ?? 0.45, Z: o.gz ?? 3.2, fx: -0.7, stern: 0, open: 0, flame: 0.9, talk: o.gtalk ?? 0, blink: bl(t, 1.1) }, t);
   const sky = PD.sky(c, t, { moon: [860, 190, 44] }), vg = GR.village(c, t, { bellSwing: 0, ropePull: 0, windows: new Array(15).fill(1), lamp: 1 });
-  return { k, g, svg: sky + vg.back + PD.stack([...vg.items, { Z: o.gz ?? 3.2, svg: g.svg }, { Z: o.kz ?? 3.1, svg: k.svg }]) + GR.mist(c, t, [14]) + PD.grade() };
+  return { k, g, svg: sky + vg.back + PD.stack([...vg.items, { Z: o.gz ?? 3.2, svg: g.svg }, { Z: o.kz ?? 3.1, svg: k.svg }]) + GR.mist(c, t, [14]) + PD.grade() + (g.jar ? PD.heroJar({ x: g.jar.x, y: g.jar.y + g.p.s * 0.02 }, g.p.s * 0.3, t, 0.95) : "") };
 };
 const lamp = (g) => (g.jar ? `<circle cx="${n(g.jar.x)}" cy="${n(g.jar.y)}" r="${n(g.p.s * 0.9)}" fill="url(#flame)" opacity="0.28" style="mix-blend-mode:screen"/>` : "");
 shot("11a", "L11", lineStart("L11", 0.05), (u, x) => {
@@ -225,7 +231,7 @@ const RS = (o) => ({ stool: JARSTOOL, ...o });                 // the stool stan
 shot("12a", "L13", lineStart("L13", 0.05), (u) => {
   PD.mood(0.35);
   const c = { ...PD.CAM.room, z: lerp(0.55, 0.9, u / 1.9) };
-  const pa = pan(c, { X: -0.1, Z: 4.9, pose: "stand", look: 0.5, blink: bl(u) }, u), ep = epi(c, { X: -1.15, Z: 5.5, pose: "stand", dir: 1 }, u);
+  const pa = pan(c, { X: -0.1, Z: 4.9, pose: "stand", look: 0.5, blink: bl(u) }, u), ep = epi(c, { X: -0.7, Z: 5.3, pose: "stand", dir: 1 }, u);
   return roomShot(c, u, RS({ lamp: 0.55, cast: [pa, ep] }));
 });
 shot("12b", "L13", () => WI("L13", 6) - 0.1, (u) => {          // "In the corner stood a jar": a slow push on the corner
@@ -247,22 +253,22 @@ shot("12d", "L13", () => WI("L13", 16) - 0.1, (u) => {          // "Sealed.": th
 // 13  L14 his warning, lit medium; Pandora stays in the room; he leaves through the door
 shot("13", "L14", lineStart("L14", 0.05), (u, x) => {
   PD.mood(0.3);
-  const c = { x: -0.5, y: 1.45, z: lerp(2.8, 3.1, u / 1.7), h0: 1230 }, go = seg(u, 0.85, 1.7);
-  const pose = { ...PD.epimetheusPose("yawn", "wave", ease(seg(u, 0.4, 0.8))), hN: [lerp(10, 34, ease(seg(u, 0.4, 0.8))), lerp(-150, -128, ease(seg(u, 0.4, 0.8)))], aN: lerp(-76, -20, ease(seg(u, 0.4, 0.8))) };
-  const ep = epi(c, { X: lerp(-0.7, -1.5, go), Z: lerp(5.3, 6.2, go), pose, dir: go > 0.01 ? -1 : 1, walk: go > 0.01 && go < 1 ? go * 3.2 : null, talk: talkAt(x.ln, x.lu) * 0.7 }, u);
+  const c = { x: -0.5, y: 1.45, z: lerp(2.8, 3.1, u / 1.7), h0: 1230 }, go = seg(u, 0.75, 1.7);
+  const pose = { ...PD.epimetheusPose("yawn", "wave", ease(seg(u, 0.4, 0.8))), hN: [lerp(10, 40, ease(seg(u, 0.4, 0.8))), lerp(-150, -104, ease(seg(u, 0.4, 0.8)))], aN: lerp(-76, -20, ease(seg(u, 0.4, 0.8))) };
+  const ep = epi(c, { X: lerp(-0.7, -1.9, go), Z: lerp(5.3, 6.3, go), pose, dir: go > 0.01 ? -1 : 1, walk: go > 0.01 && go < 1 ? go * 3.2 : null, talk: talkAt(x.ln, x.lu) * 0.7 }, u);
   const pa = pan(c, { X: -0.05, Z: 4.8, pose: "stand", look: -0.5, blink: bl(u, 0.7), dir: -1 }, u);
   return roomShot(c, u, RS({ lamp: 0.55, cast: [ep, pa] }));
 });
 // 14  L15 Pandora in profile, looking at the jar; the 12-frame glimpse on WHY; then her hand poised
 shot("14a", "L15", lineStart("L15", 0.05), (u) => {
   PD.mood(0.55);
-  const c = { x: 0.65, y: 1.5, z: lerp(2.0, 2.5, u / 2.0), h0: 1180 };
+  const c = { x: 0.65, y: 1.5, z: lerp(2.1, 3.1, ease(u / 3.2)), h0: 1180 };
   const pa = pan(c, { X: -0.1, Z: 4.7, pose: "stand", dir: 1, fx: 0.9, look: 0.9, blink: bl(u, 0.5) }, u);
   return roomShot(c, u, RS({ lamp: 0.2, black: 0.1, cast: [pa] }));
 });
 shot("14b", "L15", () => WI("L15", 9) + 0.28, (u) => {          // after the glimpse: back on her, her hand poised
   PD.mood(0.6);
-  const c = { x: 0.7, y: 1.55, z: lerp(2.4, 2.9, u / 1.6), h0: 1120 };
+  const c = { x: 0.7, y: 1.55, z: lerp(3.1, 3.3, u / 1.6), h0: 1120 };
   const pa = pan(c, { X: 0.05, Z: 4.9, pose: PD.pandoraPose("stand", "reach", 0.55), dir: 1, fx: 0.9, look: 0.9, blink: bl(u, 0.9) }, u);
   return roomShot(c, u, RS({ lamp: 0.15, black: 0.15, cast: [pa] }));
 });
@@ -273,7 +279,8 @@ shot("15a", "L16", lineStart("L16", 0.05), (u) => {
   PD.mood(0.8);
   const c = { ...CAMLID, z: lerp(1.5, 1.9, u / 1.0) }, jr = PD.pithos(c, { crack: 0, broken: false }, u);
   const up = ease(seg(u, 0, 0.6));
-  const st0 = { X: lerp(-0.1, ONSTOOL.X, up), Y: 0.45 * up, Z: lerp(4.9, ONSTOOL.Z, up), pose: PD.pandoraPose("stand", "reach", ease(seg(u, 0.3, 0.95))), look: 0.3, blink: bl(u), walk: up > 0 && up < 1 ? up * 1.4 : null };
+  const stepX = ease(seg(u, 0, 0.4)), stepY = ease(seg(u, 0.32, 0.62));
+  const st0 = { X: lerp(0.05, ONSTOOL.X, stepX), Y: 0.45 * stepY, Z: lerp(4.9, ONSTOOL.Z, stepX), pose: PD.pandoraPose("stand", "reach", lerp(0.55, 1, ease(seg(u, 0.3, 0.95)))), look: 0.3, blink: bl(u), walk: stepX > 0 && stepX < 1 ? stepX * 1.4 : null };
   const st = ease(seg(u, 0.3, 0.95)) > 0.7 ? aimed(c, { ...st0, pose: PD.PANDORA.reach }, u, "N", jr.knob, [0, 6]) : st0;
   return roomShot(c, u, RS({ lamp: 0.3, cast: [pan(c, st, u)] }));
 });
@@ -285,30 +292,30 @@ shot("15b", "L16", () => WI("L16", 2) - 0.15, (u) => {
 });
 // 16  L17 the lid lifts in silence; the seal breaks; the empty black mouth for a few frames; then the first wisp
 const LIDUP = (u) => ease(seg(u, 0.15, 0.95));
-shot("16a", "L17", () => LN("L16").end + 0.1, (u) => {
+shot("16a", "L17", () => LN("L16").end + 0.1, (u, x) => {
   PD.mood(0.9);
-  const c = { ...CAMLID, z: lerp(2.3, 2.0, u / 2.2) }, lid = LIDUP(u) * 0.7, jr = PD.pithos(c, { lid, gapLight: 0.3 }, u);
+  const c = { ...CAMLID, z: lerp(2.3, 2.0, u / 2.2) }, lid = LIDUP(u) * 0.42, jr = PD.pithos(c, { lid, gapLight: 0.3 }, u);
   const st = aimed(c, { ...ONSTOOL, pose: PD.PANDORA.lift, look: 0.3, blink: bl(u + 1) }, u, "N", jr.knob, [0, 4]);
   const st2 = aimed(c, st, u, "F", jr.knob, [14, 4]);
   const pa = pan(c, st2, u);
   const r = PD.room(c, u, { lamp: 0.3, stool: JARSTOOL, jar: { lid, gapLight: 0.3 } });
-  return r.back + PD.stack([...r.items, pa]) + PD.grade() + r.light + PD.swarm(c, u + 2, { at: r.jar.mouth, count: 10, spread: 50, aim: -18, out: seg(u, 1.25, 2.4) * 0.6, reach: 2.0, seed: 2 });
+  return r.back + PD.stack([...r.items, pa]) + PD.grade() + r.light + PD.swarm(c, x.t + 2, { at: r.jar.mouth, count: 10, spread: 50, aim: -18, out: seg(u, 1.45, 2.6) * 0.6, reach: 2.0, seed: 2 });
 });
-shot("16b", "L17", () => WD("L17", "not") - 0.2, (u) => {
+shot("16b", "L17", () => WD("L17", "not") - 0.2, (u, x) => {
   PD.mood(1);
-  const c = { x: 1.0, y: 1.6, z: lerp(3.1, 3.5, u / 1.7), h0: 640 }, r = PD.room(c, u, RS({ lamp: 0.2, jar: { lid: 0.85, gapLight: 0.3 } }));
-  return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(0.15) + r.light + PD.swarm(c, u + 2, { at: r.jar.mouth, count: 16, spread: 55, aim: -12, out: lerp(0.4, 0.9, u / 1.7), reach: 2.2, seed: 3 });
+  const c = { x: 1.0, y: 1.6, z: lerp(3.1, 3.5, u / 1.7), h0: 640 }, r = PD.room(c, u, RS({ lamp: 0.2, jar: { lid: 0.85, gapLight: 0.3, noLid: true } }));
+  return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(0.15) + r.light + PD.swarm(c, x.t + 2, { at: r.jar.mouth, count: 10, spread: 50, aim: -18, out: lerp(0.6, 0.95, u / 1.7), reach: 2.0, seed: 2 });
 });
 // 17  L18 three evils = three people: the farmer coughs, a man buckles under a load, a man ages; then the people together
 const L18 = LN("L18"), w18 = (w) => WD("L18", w);
-const pour = (u, o = {}) => {
+const pour = (u, o = {}) => {   // o.t = absolute time (the wisps keep their paths from the lift)
   PD.mood(1);
-  const c = o.c || { x: 0.9, y: 1.5, z: lerp(2.0, 2.5, u / 2), h0: 820 }, r = PD.room(c, u, RS({ lamp: 0.15, jar: { lid: 1, gapLight: 0.3 } }));
-  return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(0.18) + r.light + PD.swarm(c, u + (o.off ?? 4), { at: r.jar.mouth, count: o.count ?? 20, spread: 70, aim: o.aim ?? -14, out: 0.95, reach: o.reach ?? 2.6, seed: o.seed ?? 6, kinds: o.kinds, size: o.size ?? 1 });
+  const c = o.c || { x: 0.9, y: 1.5, z: lerp(2.0, 2.5, u / 2), h0: 820 }, r = PD.room(c, u, RS({ lamp: 0.15, jar: { lid: 1, gapLight: 0.3, noLid: true } }));
+  return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(0.18) + r.light + PD.swarm(c, (o.t ?? u) + 2, { at: r.jar.mouth, count: o.count ?? 22, spread: 60, aim: o.aim ?? -16, out: 0.95, reach: o.reach ?? 2.4, seed: o.seed ?? 2, kinds: o.kinds, size: o.size ?? 1 });
 };
-shot("17a", "L18", () => L18.at - 0.04, (u) => pour(u, { kinds: ["sick", "moth", "smoke"], seed: 6 }));
+shot("17a", "L18", () => L18.at - 0.04, (u, x) => pour(u, { t: x.t }));
 const insertBack = (c) => `<rect width="${W}" height="${H}" fill="${PD.M.wall}"/><rect y="${L.P(c, 0, 0, 5).y}" width="${W}" height="${H}" fill="${PD.M.pave}"/>`;
-shot("17b", "L18", () => w18("sickness") + 0.1, (u) => {
+shot("17b", "L18", () => w18("sickness"), (u) => {
   PD.mood(0.45);
   const c = { x: 0, y: 1.25, z: lerp(1.7, 2.1, u / 1.2), h0: 1050 }, cough = ease(seg(u, 0.15, 0.4));
   const f = man(c, { X: 0, Z: 4, kind: "farmer", cough }, u);
@@ -317,10 +324,10 @@ shot("17b", "L18", () => w18("sickness") + 0.1, (u) => {
 shot("17c", "L18", () => w18("hard") - 0.08, (u) => {          // a man buckling under a load he cannot see
   PD.mood(0.45);
   const c = { x: 0, y: 1.2, z: lerp(1.8, 2.2, u / 1.3), h0: 1050 }, b = ease(seg(u, 0.1, 0.9));
-  const f = man(c, { X: 0, Z: 4, kind: "farmer", pose: { bend: 8 + 30 * b, crouch: 8 * b, tilt: 6 * b, hN: [-6, -70 - 10 * b], aN: 80, hF: [10, -72], aF: 80 } }, u);
-  return insertBack(c) + f.svg + PD.grade() + PD.evil(c, { at: { x: f.head.x - 40, y: f.head.y - 60 + 40 * b }, s: f.p.s, kind: "toil", size: 0.85, dir: -4, seed: 4 }, u);
+  const f = man(c, { X: 0, Z: 4, kind: "old", grey: 0, pose: { bend: 8 + 30 * b, crouch: 8 * b, tilt: 6 * b, hN: [-6, -70 - 10 * b], aN: 80, hF: [10, -72], aF: 80 } }, u);
+  return insertBack(c) + PD.evil(c, { at: { x: f.head.x + 10, y: f.head.y + 0.55 * f.p.s * 0.6 + 30 * b }, s: f.p.s, kind: "toil", size: 0.7, dir: -4, seed: 4 }, u) + f.svg + PD.grade();
 });
-shot("17d", "L18", () => w18("old") + 0.05, (u) => {
+shot("17d", "L18", () => w18("old"), (u) => {
   PD.mood(0.45);
   const c = { x: 0, y: 1.25, z: lerp(1.7, 2.1, u / 1.4), h0: 1050 }, grey = ease(seg(u, 0.2, 0.95));
   const o = man(c, { X: 0, Z: 4, kind: "old", grey }, u);
@@ -330,33 +337,42 @@ shot("17e", "L18", () => w18("before") - 0.08, (u) => {          // "people had 
   PD.mood(0.45);
   const c = { x: 0, y: 1.2, z: lerp(1.0, 1.5, u / 2.4), h0: 1000 };
   const a = man(c, { X: -0.8, Z: 4, kind: "farmer", cough: 0.25 * seg(u, 1.2, 2.2) }, u), b = man(c, { X: 0, Z: 4.2, kind: "old", grey: 0 }, u), d = man(c, { X: 0.8, Z: 4, kind: "farmer", dir: -1 }, u);
-  return insertBack(c) + a.svg + b.svg + d.svg + PD.grade() + PD.evil(c, { at: { x: 150 + u * 40, y: 330 }, s: a.p.s, kind: "sick", size: 1.1, dir: 10, seed: 3 }, u) + PD.evil(c, { at: { x: 900 - u * 40, y: 300 }, s: a.p.s, kind: "age", size: 1.0, dir: 140, seed: 5 }, u);
+  return insertBack(c) + a.svg + b.svg + d.svg + PD.grade();
 });
 // 18  L19 "taken their voices": a silhouette whose mouth moves with no sound; one wisp followed into the courtyard light
+// one escaped evil seen in profile: ink-black smoke with a head-like lobe and a lower edge that opens and shuts, no sound
+const voiceShape = (cx, cy, k, open, t) => {
+  const sw = (i) => Math.sin(t * 1.4 + i * 0.9) * 10 * k;
+  const head = `M${n(cx + 120 * k)},${n(cy - 20 * k)} Q${n(cx + 110 * k)},${n(cy - 150 * k)} ${n(cx - 10 * k)},${n(cy - 165 * k)} Q${n(cx - 150 * k)},${n(cy - 160 * k)} ${n(cx - 190 * k)},${n(cy - 40 * k)} Q${n(cx - 200 * k)},${n(cy + 20 * k)} ${n(cx - 120 * k)},${n(cy + 40 * k)} L${n(cx + 60 * k)},${n(cy + 28 * k)} Q${n(cx + 100 * k)},${n(cy + 20 * k)} ${n(cx + 120 * k)},${n(cy - 20 * k)} Z`;
+  const jaw = `M${n(cx + 100 * k)},${n(cy + 22 * k)} L${n(cx - 110 * k)},${n(cy + 38 * k)} Q${n(cx - 90 * k)},${n(cy + (110 + 70 * open) * k)} ${n(cx + 30 * k)},${n(cy + (96 + 80 * open) * k)} Q${n(cx + 100 * k)},${n(cy + (72 + 60 * open) * k)} ${n(cx + 100 * k)},${n(cy + 22 * k)} Z`;
+  let tail = ""; for (let i = 0; i < 4; i++) tail += `<path d="M${n(cx - 150 * k)},${n(cy - 60 * k + i * 34 * k)} Q${n(cx - 330 * k)},${n(cy - 90 * k + i * 50 * k + sw(i))} ${n(cx - 520 * k)},${n(cy - 20 * k + i * 70 * k + sw(i + 2))} Q${n(cx - 340 * k)},${n(cy - 40 * k + i * 44 * k)} ${n(cx - 150 * k)},${n(cy - 20 * k + i * 34 * k)} Z"/>`;
+  return `<g fill="#05060f" stroke="#05060f" stroke-width="3" stroke-linejoin="round">${tail}<path d="${jaw}"/><path d="${head}"/></g><path d="M${n(cx + 118 * k)},${n(cy - 30 * k)} Q${n(cx + 100 * k)},${n(cy - 140 * k)} ${n(cx - 10 * k)},${n(cy - 160 * k)}" fill="none" stroke="#dfe9ff" stroke-width="3" opacity="0.8"/><path d="M${n(cx + 100 * k)},${n(cy + 24 * k)} L${n(cx - 110 * k)},${n(cy + 38 * k)}" stroke="#dfe9ff" stroke-width="2" opacity="${n(0.6 * open)}"/>`;
+};
 shot("18a", "L19", lineStart("L19", 0.05), (u, x) => {
   PD.mood(0.45);
   const c = { x: 0, y: 1.3, z: lerp(2.0, 2.5, u / 1.9), h0: 1000 }, talk = clamp(0.5 + 0.5 * Math.sin(u * 13)) * seg(u, 0.35, 0.5);
-  const f = man(c, { X: 0, Z: 4, kind: "farmer", talk }, u);
-  const bg = `<rect width="${W}" height="${H}" fill="#2a1a52"/><circle cx="540" cy="${n(f.head.y)}" r="560" fill="#ffc35a" opacity="0.5"/><circle cx="540" cy="${n(f.head.y)}" r="330" fill="#ffd98a" opacity="0.6"/>`;
-  return bg + `<g style="filter:brightness(0)">${f.svg}</g>` + PD.grade();
+  const hy = 1000, kk = lerp(1.0, 1.15, u / 2.0);
+  const bg = `<rect width="${W}" height="${H}" fill="#2a1a52"/><circle cx="540" cy="${hy}" r="560" fill="#ffc35a" opacity="0.5"/><circle cx="540" cy="${hy}" r="330" fill="#ffd98a" opacity="0.6"/>`;
+  face(540, hy - 40, 190);
+  return bg + voiceShape(640, hy, kk, talk, x.t) + PD.grade();
 });
 shot("18b", "L19", () => WD("L19", "so") - 0.1, (u, x) => {
   PD.mood(1);
   const cx = lerp(0, 0.9, ease(seg(u, 0.2, 3.0)));
-  const c = { x: cx, y: 1.3, z: 0.4, h0: 1180 }, d = PD.doorFront(c, u, { open: 1, inside: 0.5 });
+  const c = { x: cx, y: 1.3, z: 0.4, h0: 1180 }, d = PD.doorFront(c, u, { open: 1, inside: 0.5, jarPeek: false });
   const door = L.P(c, PD.DOOR.X, 1.0, PD.DOOR.Z);
   const hero = L.P(c, PD.DOOR.X + lerp(0, 1.6, ease(seg(u, 0.1, 3.0))), lerp(1.0, 1.5, seg(u, 0.1, 3.0)), PD.DOOR.Z + lerp(0, 0.6, seg(u, 0.1, 3.0)));
   const swarm = PD.swarm(c, u + 3, { at: { x: door.x, y: door.y, s: door.s }, count: 7, spread: 40, aim: 5, out: 0.9, reach: 2.4, seed: 5 });
-  const u2 = x.t - (WD("L19", "you") - 0.2), lens = ease(seg(u2, 0, 0.7), "in");
-  const one = lens > 0.01 ? PD.evil({}, { at: { x: lerp(300, 540, lens), y: lerp(1050, 980, lens) }, s: 100, kind: "moth", size: lerp(1.8, 8, lens), dir: lerp(-80, -90, lens), seed: 8 }, u) : "";
+  const u2 = x.t - (WD("L19", "you") - 0.2), lens = ease(seg(u2, 0, 1.1), "in");
+  const one = lens > 0.01 ? PD.evil({}, { at: { x: lerp(300, 540, lens), y: lerp(1050, 980, lens) }, s: 100, kind: "moth", size: 1.8 * Math.pow(4.4, lens), dir: lerp(-80, -90, lens), seed: 8 }, u) : "";
   return d.back + PD.stack(d.items) + PD.grade() + d.light + swarm + PD.evil(c, { at: { x: hero.x, y: hero.y }, s: hero.s, kind: "moth", size: 1.0, dir: -20, seed: 11 }, u) + one;
 });
 // 19  L20 she drives the lid down (a few frames held, seated); then the locked rim for "But one thing"
 shot("19a", "L20", lineStart("L20", 0.04), (u, x) => {
   PD.mood(0.6);
   const c = { ...CAMLID, z: lerp(1.5, 1.8, u / 1.4) };
-  const s0 = seg(u, 0.1, 0.42), slam = seg(u, 0.5, 1.2);
-  const lid = (1 - ease(s0)) * 0.7, js = { lid, crack: 0, broken: true, slam: lid > 0 ? 0 : slam, gapLight: 0.2 }, jr = PD.pithos(c, js, u);
+  const s0 = seg(u, 0.08, 0.36), slam = seg(u, 0.36, 1.0);
+  const lid = (1 - ease(s0)) * 0.42, js = { lid, crack: 0, broken: true, slam: lid > 0 ? 0 : slam, gapLight: 0.2 }, jr = PD.pithos(c, js, u);
   const base = { ...ONSTOOL, look: 0.3, blink: 0 };
   let st = aimed(c, { ...base, pose: PD.pandoraPose("lift", "slam", ease(s0)) }, u, "N", jr.knob, [0, 5]);
   st = aimed(c, st, u, "F", jr.knob, [14, 5]);
@@ -367,24 +383,24 @@ const RIM = (u, hope, k) => {
   const c = { x: lerp(1.0, 0.95, k), y: 1.9, z: lerp(3.5, 4.1, k), h0: 1050 };
   const r = PD.room(c, u, RS({ lamp: 0, moon: 0.4, jar: { broken: true, hope, gapLight: 0.1 } }));
   const ch = r.jar.chip;
-  return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(0.4) + r.light + (ch && hope > 0.02 ? PD.hopeLight(ch, ch.s * (0.7 + 0.5 * hope), u, hope) : "");
+  return r.back + PD.stack(r.items) + PD.grade() + PD.blackout(0.4) + r.light + (ch && hope > 0.02 ? `<ellipse cx="${n(ch.x)}" cy="${n(ch.y - 0.03 * ch.s)}" rx="${n(ch.s * 0.22 * hope)}" ry="${n(ch.s * 0.12 * hope)}" fill="url(#flame)" opacity="${n(0.55 * hope)}" style="mix-blend-mode:screen"/>` : "");
 };
-shot("19b", "L20", () => WD("L20", "but") - 0.06, (u) => { PD.mood(0.6); return RIM(u, 0, 0.35 * seg(u, 0, 2.1)); });
+shot("19b", "L20", () => LN("L20").at - 0.04 + 0.36 + 0.16, (u) => { PD.mood(0.6); return RIM(u, 0, 0.5); });
 // 20  L21 a dark seam until "light"; a small amber glint; "Hope." is the one warm thing
 shot("20", "L21", lineStart("L21", 0.05), (u, x) => {
   PD.mood(0.6);
   const w = LN("L21").words, hope = ease(seg(x.lu, w[5][1] - 0.05, w[6][1] + 0.5)) * 0.9;
-  return RIM(u, hope, 0.35 + 0.65 * ease(seg(u, 0, 3.1)));
+  return RIM(u, hope, 0.5);
 });
 // 21-22  the kid close by Grandma's candle jar; Grandma close, a small smile
 shot("21", "L22", lineStart("L22", 0.05), (u, x) => {
   const c = { x: -0.28, y: 1.0, z: lerp(1.9, 2.15, u / 1.9), h0: 1330 };
-  const h = hosts(c, u, x, { kx: -0.28, kz: 3.0, gx: 1.6, gz: 3.1, ktalk: talkAt(LN("L22"), x.t - LN("L22").at), worry: 0.5 });
+  const h = hosts(c, u, x, { kx: -0.28, kz: 3.0, gx: 1.6, gz: 3.1, ktalk: talkAt(LN("L22"), x.t - LN("L22").at), worry: 0.5, klook: lerp(0.1, 1, ease(seg(u, 0.25, 0.5)) * (1 - ease(seg(u, 1.0, 1.35)))) });
   const g = 0.9 * ease(seg(u, 0.05, 0.3)) * (1 - ease(seg(u, 0.7, 1.2)));
   return h.svg + lamp(h.g) + (g > 0.02 ? PD.hopeLight({ x: 880, y: 760 }, 190, u, g) : "");
 });
 shot("22", "L23", lineStart("L23", 0.05), (u, x) => {
-  const lu0 = x.t - LN("L23").at, drift = ease(seg(lu0, 1.5, 2.2)) * (1 - ease(seg(lu0, 2.7, 3.3)));   // the pause: from her face to the staff and the candle jar
+  const lu0 = x.t - LN("L23").at, drift = ease(seg(lu0, 1.2, 1.8)) * (1 - ease(seg(lu0, 2.2, 2.85)));   // the pause: from her face to the staff and the candle jar
   const c = { x: 0.52 + 0.45 * drift, y: 1.0 + 0.5 * drift, z: lerp(1.6, 1.85, u / 4.4), h0: 1440 };
   const h = hosts(c, u, x, { kx: -1.9, kz: 3.0, gx: 0.38, gz: 3.0, gtalk: talkAt(LN("L23"), x.t - LN("L23").at) });
   return h.svg + lamp(h.g);

@@ -165,7 +165,7 @@ export function pithos(c, st = {}, t = 0) {
   s += `<path d="${blob(ring(base.x, base.y + 0.02 * k, 0.66 * k, seed + 60, 13, 0.06, 0.13).map((p) => (p.y < base.y ? xy(p.x, base.y - (base.y - p.y) * 0.5) : p)))}" fill="${C.earth2}" stroke="${INK}" stroke-width="1.1"/>`;
   for (let i = 0; i < 8; i++) { const px = base.x + jit(seed + i * 2.7, 0.66 * k), py = base.y + (0.03 + 0.07 * hash(seed + i * 1.9)) * k; s += `<path d="${blob(ring(px, py, (0.016 + 0.022 * hash(seed + i)) * k, seed + i, 6, 0.3, 0.7))}" fill="${i % 3 ? C.earthS : C.earth}" stroke="${INK}" stroke-width="0.7"/>`; }
   // --- the lid: a heavy clay disc with a knob. Pivot = its right edge; crack lifts the left edge, lid carries it off.
-  const R = 0.47, th = 0.11, dome = 0.17, piv = el(HT, R, 0), rotD = ck * 4.2 + lid * 23 + (slam > 0 && slam < 1 ? Math.sin(slam * 9) * (1 - slam) * 1.3 : 0), off = [(-0.16 * lid) * k, (-0.48 * lid - 0.03 * ease(lid)) * k];
+  const R = 0.47, th = 0.11, dome = 0.17, piv = el(HT, R, 0), rotD = ck * 4.2 + lid * 23 + (slam > 0 && slam < 1 ? Math.sin(slam * 9) * (1 - slam) * 0.35 : 0), off = [(-0.16 * lid) * k, (-0.48 * lid - 0.03 * ease(lid)) * k];
   const eL = eT, R_ = R * k, lp = (x, y) => { const [rx, ry] = rot2(x - R_, y, rotD); return xy(piv.x + off[0] + rx, piv.y + off[1] + ry); };   // lid local: x from the centre, y up negative
   const und = Array.from({ length: 21 }, (_, i) => { const an = i / 20 * Math.PI * 2; return lp(Math.cos(an) * R_, Math.sin(an) * R_ * eL); });
   const dm = [lp(-R_, 0), lp(-R_ * 1.01, -th * k * 0.5), lp(-R_ * 0.98, -th * k), lp(-R_ * 0.66, -(th + dome * 0.62) * k), lp(-R_ * 0.25, -(th + dome) * k), lp(-0.085 * k, -(th + dome + 0.015) * k), lp(-0.075 * k, -(th + dome + 0.07) * k), lp(-0.11 * k, -(th + dome + 0.115) * k), lp(-0.1 * k, -(th + dome + 0.16) * k), lp(0.03 * k, -(th + dome + 0.172) * k), lp(0.115 * k, -(th + dome + 0.15) * k), lp(0.105 * k, -(th + dome + 0.1) * k), lp(0.07 * k, -(th + dome + 0.065) * k), lp(0.09 * k, -(th + dome + 0.01) * k), lp(R_ * 0.3, -(th + dome * 0.96) * k), lp(R_ * 0.7, -(th + dome * 0.55) * k), lp(R_ * 0.99, -th * k), lp(R_ * 1.01, -th * k * 0.45), lp(R_, 0)];
@@ -179,6 +179,7 @@ export function pithos(c, st = {}, t = 0) {
   lidS += `<path d="${lineD([lp(-R_ * 0.78, -(th + dome * 0.42) * k), lp(-R_ * 0.5, -(th + dome * 0.74) * k), lp(-R_ * 0.3, -(th + dome * 0.86) * k)])}" stroke="${C.clayL}" stroke-width="${n(Math.max(1.4, 0.014 * k))}" fill="none" stroke-linecap="round" opacity="0.8"/>`;
   lidS += `<path d="${lineD([lp(R_ * 0.52, -(th + dome * 0.9) * k), lp(R_ * 0.6, -(th + dome * 0.5) * k), lp(R_ * 0.56, -th * k * 0.4)])} M${pt(lp(-R_ * 0.2, -th * k * 0.9))} L${pt(lp(-R_ * 0.26, -(th + dome * 0.5) * k))}" stroke="${C.clayD}" stroke-width="1.1" fill="none"/>`;   // hairline cracks in the lid
   lidS += `<path d="${lineD([lp(-R_ * 0.62, 0.004 * k), lp(-R_ * 0.56, -th * k * 0.6), lp(-R_ * 0.47, -th * k * 0.3), lp(-R_ * 0.42, 0.004 * k)], true)}" fill="${C.clayD}"/>`;   // a chip out of the lid's edge
+  if (!(ck > 0.01 || lid > 0.01)) lidS += stroke(lineD(lidFront), INK, Math.max(1.6, 0.011 * k));   // closed: one dark contact line, nothing open
   const knob = lp(0.01 * k, -(th + dome + 0.1) * k);
   // --- cord and wax seal
   const cordW = Math.max(2.2, 0.024 * k), LgL = lugMid(-1), LgR = lugMid(1);
@@ -203,6 +204,7 @@ export function pithos(c, st = {}, t = 0) {
   const gapL = lp(-R_, 0), rimL = el(HT, R, 180), open = ck > 0.01 || lid > 0.01;
   const wedge = [rimL, ...arc(HT, R, 180, 0, 10).slice(1, -1).map((p) => xy(p.x, Math.min(p.y, top.y + Math.abs(eT) * R_ * 0.5))), el(HT, R, 0), lp(R_, 0), ...und.slice(0, 11).map((p) => p).reverse().slice(0, 0), lp(0, 0), gapL];
   if (open) gap = `<path d="${lineD(lid > 0.3 ? arc(HT, 0.4, 0, 360, 18) : wedge, true)}" fill="${VOID}"/>`;
+  if (st.noLid) { lidS = ""; cordS = ""; }
   s += gap + sealS + lidS + cordS;
   if (open && gl > 0) {
     const g0 = xy(lerp(rimL.x, gapL.x, 0.5), lerp(rimL.y, gapL.y, 0.5)), gh = Math.hypot(gapL.x - rimL.x, gapL.y - rimL.y), cold = "#9fc2ff", hot = "#f2f7ff", fk = 0.9 + 0.1 * hash(Math.floor(t * 8) * 3.7 + 2);
@@ -210,7 +212,7 @@ export function pithos(c, st = {}, t = 0) {
       // a thin blade of cold light in the wedge, and hand-cut spill on the lip and the lid's underside
       const blade = [xy(rimL.x - 2, rimL.y - 1), xy(lerp(rimL.x, piv.x, 0.45), lerp(rimL.y, piv.y, 0.45) - 1), xy(lerp(rimL.x, piv.x, 0.8), piv.y - 1), xy(lerp(gapL.x, piv.x, 0.45), lerp(gapL.y, piv.y, 0.45) + 1), xy(gapL.x - 2, gapL.y + 1)];
       overlay += lightBlobs({ x: g0.x + 0.1 * k, y: g0.y, s: k }, [0.62, 0.34, 0.16], cold, [0.1 * gl * ck * fk, 0.16 * gl * ck * fk, 0.26 * gl * ck], seed + 90, 0.6);
-      overlay += `<path d="${lineD(blade, true)}" fill="${hot}" opacity="${n(gl)}"/>`;
+      overlay += `<path d="${lineD(blade, true)}" fill="${cold}" opacity="${n(0.55 * gl)}"/><path d="${lineD(blade.map((p, i) => (i === 0 || i === 4 ? p : xy(lerp(p.x, g0.x, 0.28), lerp(p.y, g0.y, 0.28)))), true)}" fill="${hot}" opacity="${n(0.55 * gl)}"/>`;
       overlay += `<path d="${lineD([rimL, ...arc(HT, R * 0.99, 180, 100, 6), xy(lerp(rimL.x, piv.x, 0.4), piv.y + 0.03 * k), xy(rimL.x + 0.02 * k, rimL.y + 0.05 * k)], true)}" fill="${cold}" opacity="${n(0.75 * gl * ck)}" style="mix-blend-mode:screen"/>`;
       overlay += `<path d="${lineD([gapL, lp(-R_ * 1.01, -th * k * 0.6), lp(-R_ * 0.6, -th * k * 0.3), lp(-R_ * 0.1, 0)], true)}" fill="${cold}" opacity="${n(0.6 * gl * ck)}" style="mix-blend-mode:screen"/>`;
       for (let i = 0; i < 4; i++) { const an = (168 + i * 9 + jit(seed + i * 5, 3)) * Math.PI / 180, len = (0.5 + 0.5 * hash(seed + i * 3)) * k * (0.9 + 0.1 * fk), w = (0.02 + 0.03 * hash(seed + i)) * k; overlay += `<path d="M${n(g0.x)},${n(g0.y - gh * 0.3)} L${n(g0.x + Math.cos(an) * len)},${n(g0.y - Math.sin(an) * len * 0.5 - w)} L${n(g0.x + Math.cos(an) * len * 0.96)},${n(g0.y - Math.sin(an) * len * 0.5 + w)} L${n(g0.x)},${n(g0.y + gh * 0.3)} Z" fill="${cold}" opacity="${n((0.1 + 0.08 * hash(seed + i * 7)) * gl * ck)}" style="mix-blend-mode:screen"/>`; }
@@ -627,7 +629,7 @@ export function swarm(c, t, st = {}) {
     const drift = t * (0.03 + 0.04 * hash(seed + i * 5.1)) * slow, pr = Math.min(1.25, ease(u, "out") * (0.35 + 0.65 * hash(seed + i * 3.9)) + drift), R = reach * pr * slow;
     const curl = Math.sin(pr * 3 + i) * 0.35 * R * 0.3, x = a.x + Math.cos(ang) * R - Math.sin(ang) * curl + Math.sin(t * 0.6 + i * 1.7) * 0.05 * a.s, y = a.y + Math.sin(ang) * R * (kind === "toil" ? 0.35 : 1) + Math.cos(ang) * curl + (kind === "toil" ? 0.5 * a.s * pr : 0) + Math.cos(t * 0.5 + i * 2.3) * 0.04 * a.s;
     const head = Math.atan2(Math.sin(ang) * (kind === "toil" ? 0.2 : 1) + Math.cos(pr * 3 + i) * 0.3, Math.cos(ang)) * 180 / Math.PI;
-    list.push({ pr, svg: evil(c, { at: { x, y }, s: a.s, kind, seed: seed * 3 + i, size: (0.55 + 0.75 * hash(seed + i * 6.7)) * (0.35 + 0.65 * clamp(u * 1.6)) * (st.size ?? 1), dir: head, squeeze: 1 - clamp(u * 2.2), edge: 0.5 + 0.5 * clamp(1.2 - pr) }, t) });
+    list.push({ pr, svg: evil(c, { at: { x, y }, s: a.s, kind, seed: seed * 3 + i, size: (0.55 + 0.75 * hash(seed + i * 6.7)) * (0.35 + 0.65 * clamp(u * 1.6)) * (st.size ?? 1), dir: head, squeeze: 1 - clamp(u * 2.2), edge: 0.85 + 0.15 * clamp(1.2 - pr) }, t) });
   }
   return list.sort((p, q) => q.pr - p.pr).map((o) => o.svg).join("");
 }
@@ -876,7 +878,7 @@ export function candleJarCU(t, st = {}) {
   s += `<path d="M1100,260 Q820,250 690,330 Q590,400 ${cx + 6},470" stroke="${INK}" stroke-width="52" fill="none" stroke-linecap="round"/><path d="M1100,260 Q820,250 690,330 Q590,400 ${cx + 6},470" stroke="#6f4528" stroke-width="42" fill="none" stroke-linecap="round"/><path d="M1100,248 Q820,238 700,312" stroke="#8a5a37" stroke-width="10" fill="none" stroke-linecap="round"/>`;
   for (let i = 0; i < 5; i++) s += `<path d="M${n(1000 - i * 70 + jit(i, 14))},${n(262 + i * 5)} q-30,${n(4 + jit(i + 2, 4))} -52,${n(12)}" stroke="#4e2f1d" stroke-width="4" fill="none" stroke-linecap="round"/>`;
   const sway = Math.sin(t * 1.3) * 3 + jolt * 0.5;
-  s += `<g transform="rotate(${n(sway * 0.2)} ${cx} 470) translate(0,${n(Math.abs(jolt) * 0.8)})"><path d="M${cx + 6},470 L${cx},${top - 96}" stroke="${INK}" stroke-width="9"/><path d="M${cx + 6},470 L${cx},${top - 96}" stroke="#8a8090" stroke-width="4"/>`;
+  s += `<g transform="rotate(${n(sway * 0.2)} ${cx} 470) translate(0,${n(Math.abs(jolt) * 0.8)})">${[-1, 1].map((sg) => `<path d="M${cx + 6},470 L${n(cx + sg * jw * 0.86)},${top + 6}" stroke="${INK}" stroke-width="9"/><path d="M${cx + 6},470 L${n(cx + sg * jw * 0.86)},${top + 6}" stroke="#8a8090" stroke-width="4"/><circle cx="${n(cx + sg * jw * 0.86)}" cy="${top + 8}" r="11" fill="#8a8090" stroke="${INK}" stroke-width="5"/>`).join("")}`;
   // glass
   const gl = `M${cx - jw * 0.82},${top} Q${cx - jw * 1.06},${top + jh * 0.5} ${cx - jw * 0.86},${top + jh * 0.93} Q${cx},${top + jh * 1.05} ${cx + jw * 0.86},${top + jh * 0.93} Q${cx + jw * 1.06},${top + jh * 0.5} ${cx + jw * 0.82},${top} Z`;
   s += lightBlobs({ x: cx, y: top + jh * 0.46, s: 100 }, [6.2, 3.9, 2.5], HOPE.glow, [0.09 * fk, 0.14 * fk, 0.2 * fk], 17 + Math.floor(t * 6) % 3);
@@ -896,7 +898,7 @@ export function candleJarCU(t, st = {}) {
   s += `<g transform="rotate(${n(lidUp * 8)} ${cx + jw * 0.92} ${top + 8}) translate(0,${n(hit * 0 + (slap > 0.5 ? (1 - after) * 5 : 0))})">`;
   if (lidUp > 0.02) s += `<path d="M${cx - jw * 0.9},${top + 10} Q${cx},${top + 26} ${cx + jw * 0.9},${top + 10} L${cx + jw * 0.84},${top + 30} L${cx - jw * 0.84},${top + 30} Z" fill="${HOPE.flame}" opacity="${n(lidUp * 0.85)}"/>`;
   s += `<path d="${lidD}" fill="#3a2a2a" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/><path d="M${cx + jw * 0.3},${top - 86} L${cx + jw * 0.6},${top - 84} Q${cx + jw * 0.88},${top - 80} ${cx + jw * 0.9},${top - 60} L${cx + jw * 0.92},${top + 8} Q${cx + jw * 0.6},${top + 16} ${cx + jw * 0.36},${top + 19} Z" fill="#241a1c"/><path d="M${cx - jw * 0.9},${top - 22} Q${cx},${top - 6} ${cx + jw * 0.9},${top - 22}" stroke="#5a4646" stroke-width="5" fill="none"/><path d="M${cx - jw * 0.8},${top - 62} Q${cx - jw * 0.5},${top - 72} ${cx - jw * 0.2},${top - 72}" stroke="#7a6666" stroke-width="7" fill="none" stroke-linecap="round"/><path d="${blob(ring(cx - jw * 0.36, top - 40, 22, 4, 7, 0.2, 0.6))}" fill="#2a1e20"/><path d="${blob(ring(cx + jw * 0.5, top - 34, 14, 6, 7, 0.2, 0.6))}" fill="#1c1416"/><path d="${blob(ring(cx - jw * 0.7, top - 6, 9, 8, 6, 0.3))}" fill="#a85a30"/><path d="${blob(ring(cx + jw * 0.12, top - 52, 6, 9, 6, 0.3))}" fill="#a85a30"/>`;
-  s += `<circle cx="${cx}" cy="${top - 112}" r="15" fill="none" stroke="${INK}" stroke-width="11"/><circle cx="${cx}" cy="${top - 112}" r="15" fill="none" stroke="#8a8090" stroke-width="5"/></g></g>`;
+  s += `<circle cx="${cx}" cy="${top - 108}" r="11" fill="#3a2a2a" stroke="${INK}" stroke-width="5"/></g></g>`;
   // --- the kid's hand: up from the lower left, fingers to the lid's edge; it jumps away at the slap
   const kS = 15, kT = { x: cx - jw * 0.92 - 108, y: top + 86 }, kFrom = { x: -80, y: 1560 }, flee = ease(clamp((slap - 0.42) / 0.3), "out");
   const kw = { x: lerp(lerp(kFrom.x, kT.x, ease(reach, "out")), kT.x - 210, flee), y: lerp(lerp(kFrom.y, kT.y, ease(reach, "out")), kT.y + 150, flee) - lidUp * 14 }, kAng = lerp(-52, -34, reach) - flee * 22;
@@ -907,7 +909,7 @@ export function candleJarCU(t, st = {}) {
   kid += stroke(`M${n(lerp(kElb.x, kw.x, 0.9))},${n(lerp(kElb.y, kw.y, 0.9))} L${n(kw.x - 6)},${n(kw.y + 8)}`, INK, 8.9 * kS + 10, `stroke-linecap="butt"`) + stroke(`M${n(lerp(kElb.x, kw.x, 0.9))},${n(lerp(kElb.y, kw.y, 0.9))} L${n(kw.x - 6)},${n(kw.y + 8)}`, "#a8284a", 8.9 * kS, `stroke-linecap="butt"`);
   kid += hand(kw.x, kw.y, kAng, kShape, { skin: "#f3cdb0", shade: "#e2b89c", nail: "#fff0e4" }, kS, 1, { detail: true, lw: 0.34, w: 2.5 });
   // --- Grandma's hand: down from the upper right, flat on the lid
-  const gS = 19, gT = { x: cx + jw * 0.98, y: top - 138 }, gFrom = { x: 1080, y: 210 }, gw = { x: lerp(gFrom.x + 260, gT.x, hit), y: lerp(gFrom.y - 240, gT.y, hit) + (slap > 0.5 ? Math.sin(after * 9) * (1 - after) * 10 : 0) }, gAng = lerp(150, 176, hit);
+  const gS = 19, gT = { x: cx + jw * 0.98, y: top - 112 }, gFrom = { x: 1080, y: 210 }, gw = { x: lerp(gFrom.x + 260, gT.x, hit), y: lerp(gFrom.y - 240, gT.y, hit) + (slap > 0.5 ? Math.sin(after * 9) * (1 - after) * 10 : 0) }, gAng = lerp(150, 176, hit);
   const gElb = { x: gw.x + 520, y: gw.y - 250 + hit * 60 }, gd = `M${n(gElb.x)},${n(gElb.y)} L${n(gw.x + 30)},${n(gw.y - 12)}`;
   let gran = "";
   if (slap > 0.01) {
@@ -921,4 +923,24 @@ export function candleJarCU(t, st = {}) {
     if (slap > 0.5 && after < 0.6) for (let i = 0; i < 6; i++) { const a0 = (-160 + i * 28 + jit(i, 6)) * Math.PI / 180, r0 = 250 + after * 110, r1 = r0 + 50 * (1 - after); gran += `<path d="M${n(cx + Math.cos(a0) * r0)},${n(top - 60 + Math.sin(a0) * r0 * 0.5)} L${n(cx + Math.cos(a0) * r1)},${n(top - 60 + Math.sin(a0) * r1 * 0.5)}" stroke="#fff3d2" stroke-width="${n(9 * (1 - after))}" stroke-linecap="round"/>`; }
   }
   return s + kid + gran;
+}
+
+// the hero candle jar on a staff: the same glass, tin cap, cream candle and Hope-coloured flame as the ending, drawn small.
+// a = centre of the glass (px), h = glass height (px). The bail is fixed to the neck; the cap sits under it.
+export function heroJar(a, h, t, fl = 0.9) {
+  const k = h / 630, cx = 560, top = 760, jw = 215, jh = 600, cy0 = top + jh * 0.9, cw = 62, chh = 250;
+  const fk = fl * (1 + 0.06 * Math.sin(t * 21) + 0.04 * Math.sin(t * 33 + 1)) * (0.88 + 0.12 * hash(Math.floor(t * 12) * 5.3 + 0.7));
+  const gl = `M${cx - jw * 0.82},${top} Q${cx - jw * 1.06},${top + jh * 0.5} ${cx - jw * 0.86},${top + jh * 0.93} Q${cx},${top + jh * 1.05} ${cx + jw * 0.86},${top + jh * 0.93} Q${cx + jw * 1.06},${top + jh * 0.5} ${cx + jw * 0.82},${top} Z`;
+  let s = `<g transform="translate(${n(a.x)},${n(a.y)}) scale(${k.toFixed(4)}) translate(${-cx},${-(top + 315)})">`;
+  for (const sg of [-1, 1]) s += `<path d="M${cx},${top - 190} L${n(cx + sg * jw * 0.86)},${top + 6}" stroke="${INK}" stroke-width="12"/><path d="M${cx},${top - 190} L${n(cx + sg * jw * 0.86)},${top + 6}" stroke="#8a8090" stroke-width="6"/>`;
+  s += `<path d="${gl}" fill="#1c1a48"/>` + lightBlobs({ x: cx, y: top + jh * 0.46, s: 100 }, [4.6, 3, 1.8], HOPE.glow, [0.16 * fk, 0.22 * fk, 0.3 * fk], 17) + `<path d="${gl}" fill="#cfe6ff" opacity="0.2"/><path d="${blob(ring(cx, top + jh * 0.5, jw * 0.72, 9, 12, 0.06, 1.2))}" fill="${HOPE.glow}" opacity="${n(0.35 * fk)}"/>`;
+  s += `<path d="M${cx - cw},${cy0} L${cx - cw + 3},${cy0 - chh} Q${cx},${cy0 - chh - 16} ${cx + cw - 2},${cy0 - chh + 4} L${cx + cw},${cy0} Q${cx},${cy0 + 16} ${cx - cw},${cy0} Z" fill="#fff4e0" stroke="${INK}" stroke-width="6" stroke-linejoin="round"/>`;
+  for (const [dx, len, wd] of [[-40, 92, 15], [24, 126, 14]]) s += `<path d="M${cx + dx - wd / 2},${cy0 - chh + 2} L${cx + dx - wd / 2},${cy0 - chh + len} Q${cx + dx},${cy0 - chh + len + wd * 1.3} ${cx + dx + wd / 2},${cy0 - chh + len} L${cx + dx + wd / 2},${cy0 - chh + 2} Z" fill="#fffaf0" stroke="#d8c09a" stroke-width="3"/>`;
+  s += `<path d="M${cx},${cy0 - chh - 4} q-4,-18 3,-34" stroke="#1a1218" stroke-width="7" fill="none" stroke-linecap="round"/>`;
+  const fy = cy0 - chh - 34, fh = 190 * fk, fw = 54 * fk, lean = Math.sin(t * 7) * 8;
+  s += `<path d="M${n(cx + 3 + lean)},${n(fy - fh)} Q${n(cx + 3 + fw)},${n(fy - fh * 0.3)} ${cx + 3},${fy + 10} Q${n(cx + 3 - fw)},${n(fy - fh * 0.3)} ${n(cx + 3 + lean)},${n(fy - fh)} Z" fill="${HOPE.flame}" stroke="${HOPE.edge}" stroke-width="6" stroke-linejoin="round"/>`;
+  s += `<path d="${gl}" fill="none" stroke="#e9f3ff" stroke-width="9" stroke-linejoin="round"/><path d="M${cx - jw * 0.74},${top + 60} Q${cx - jw * 0.92},${top + jh * 0.45} ${cx - jw * 0.78},${top + jh * 0.76}" stroke="#ffffff" stroke-width="15" fill="none" stroke-linecap="round" opacity="0.55"/>`;
+  const lidD = `M${cx - jw * 0.92},${top + 8} L${cx - jw * 0.9},${top - 62} Q${cx - jw * 0.86},${top - 80} ${cx - jw * 0.6},${top - 84} L${cx - 26},${top - 88} L${cx - 22},${top - 104} L${cx + 22},${top - 104} L${cx + 26},${top - 88} L${cx + jw * 0.6},${top - 84} Q${cx + jw * 0.88},${top - 80} ${cx + jw * 0.9},${top - 60} L${cx + jw * 0.92},${top + 8} Q${cx},${top + 24} ${cx - jw * 0.92},${top + 8} Z`;
+  s += `<path d="${lidD}" fill="#3a2a2a" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/><path d="M${cx - jw * 0.9},${top - 22} Q${cx},${top - 6} ${cx + jw * 0.9},${top - 20}" stroke="#241a1c" stroke-width="10" fill="none"/>`;
+  return s + `</g>`;
 }
