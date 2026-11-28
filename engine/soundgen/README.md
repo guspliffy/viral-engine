@@ -31,7 +31,9 @@ joins them at the story's seconds with crossfades; the storyboard plays it with
    44.1 kHz. Music beds are cut on their own detected beats (first beat to the beat 4 x bars later; the model
    treats the asked BPM as a hint, e.g. "sneaky 104 BPM" came out at 120), and the audio after the cut is
    crossfaded (0.25 s) into the head, so the loop seam is continuous. `bpm` in the manifest is the measured tempo,
-   `loopable` means the beat was steady (beat-to-beat spread under 6 %). Stored as Ogg Vorbis at -16 LUFS.
+   `loopable` means the beat was steady (beat-to-beat spread under 6 %). A cue with no beat in any take (a drone, a
+   held chord) keeps its 2 best whole takes (`loopable: false`, `bars: 0`), and an ambience `oneshot` (len max 5 s or
+   more) with no single event keeps whole takes, instead of stopping the run. Stored as Ogg Vorbis at -16 LUFS.
 4. **Ranking without ears**: Claude can't hear, so every cut is scored by CLAP (`laion/larger_clap_general`, Apache
    2.0): similarity to its label ("a single knock on a wooden door") minus similarity to the closest distractor
    (other sounds, music, speech, noise, wind...). The best cuts across seeds win (at most 2-3 per take, for variety).
