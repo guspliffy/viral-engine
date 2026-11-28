@@ -1,0 +1,830 @@
+{
+ "id": "bench-street-hay",
+ "title": "Hill street bench: the hay cart",
+ "idea": "Props bench for how-you-invented 02 (the hill street, task A), not a clip",
+ "tool": "prop bench for the hill street (How you invented 02), never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0ef",
+  "floor": "none",
+  "para": 0,
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "tint": "#fff1d6",
+    "s": 1.05
+   }
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "frame": "tall",
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    55,
+    4
+   ],
+   "face": 0,
+   "expr": "dizzy",
+   "follow": 0,
+   "seed": 2.9
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    56.5,
+    4
+   ],
+   "face": -30,
+   "expr": "delighted",
+   "follow": 0,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "foot",
+   "kind": "hillstreet",
+   "x": 61.85,
+   "y": 5.32,
+   "z": -23.35,
+   "rot": 180
+  },
+  {
+   "id": "hay2",
+   "kind": "haycart",
+   "x": 59.2,
+   "y": 0,
+   "z": 1,
+   "dent": 0,
+   "burst": -1,
+   "rock": 0
+  },
+  {
+   "id": "tr2",
+   "kind": "tree",
+   "x": 63.4,
+   "y": 0,
+   "z": -0.6
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "h1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.2,
+     1.6,
+     4.6
+    ],
+    "look": [
+     59.4,
+     0.85,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 0,
+      "burst": -1,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 0,
+      "burst": -1,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "dent 0, burst -1"
+  },
+  {
+   "name": "h2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     61.6,
+     1,
+     1
+    ],
+    "look": [
+     59.2,
+     0.9,
+     1
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "dent 0, side"
+  },
+  {
+   "name": "h3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.5,
+     3.4,
+     2.4
+    ],
+    "look": [
+     59.3,
+     0.9,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "dent 0, top"
+  },
+  {
+   "name": "h4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.2,
+     1.6,
+     4.6
+    ],
+    "look": [
+     59.4,
+     0.85,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "dent 1, front"
+  },
+  {
+   "name": "h5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     61.6,
+     1,
+     1
+    ],
+    "look": [
+     59.2,
+     0.9,
+     1
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "dent 1, side"
+  },
+  {
+   "name": "h6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.5,
+     3.4,
+     2.4
+    ],
+    "look": [
+     59.3,
+     0.9,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 0.1,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "dent 1, top"
+  },
+  {
+   "name": "h7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.2,
+     1.6,
+     4.6
+    ],
+    "look": [
+     59.4,
+     0.85,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 0.25,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "burst 0.1"
+  },
+  {
+   "name": "h8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.2,
+     1.6,
+     4.6
+    ],
+    "look": [
+     59.4,
+     0.85,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 0.4,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "burst 0.25"
+  },
+  {
+   "name": "h9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.2,
+     1.6,
+     4.6
+    ],
+    "look": [
+     59.4,
+     0.85,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 0.6,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "burst 0.4"
+  },
+  {
+   "name": "h10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.2,
+     1.6,
+     4.6
+    ],
+    "look": [
+     59.4,
+     0.85,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 0.8,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "burst 0.6"
+  },
+  {
+   "name": "h11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.2,
+     1.6,
+     4.6
+    ],
+    "look": [
+     59.4,
+     0.85,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 1.1,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "burst 0.8"
+  },
+  {
+   "name": "h12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.2,
+     1.6,
+     4.6
+    ],
+    "look": [
+     59.4,
+     0.85,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 1.6,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "burst 1.1"
+  },
+  {
+   "name": "h13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.2,
+     1.6,
+     4.6
+    ],
+    "look": [
+     59.4,
+     0.85,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 1.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "burst 1.6"
+  },
+  {
+   "name": "h14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.5,
+     3.4,
+     2.4
+    ],
+    "look": [
+     59.3,
+     0.9,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 0.125,
+      "rock": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "burst 1.6 top (landed)"
+  },
+  {
+   "name": "h15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     61.6,
+     1,
+     1
+    ],
+    "look": [
+     59.2,
+     0.9,
+     1
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 0.375,
+      "rock": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "rock 1 at burst 0.125"
+  },
+  {
+   "name": "h16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     61.6,
+     1,
+     1
+    ],
+    "look": [
+     59.2,
+     0.9,
+     1
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 1.6,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      60.85,
+      1.45
+     ],
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -30,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "hay2",
+     "off": [
+      0.35,
+      0.44,
+      0
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 180,
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0,
+     "at": 0.98
+    }
+   ],
+   "kind": "rock 1 at burst 0.375"
+  },
+  {
+   "name": "h17",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     60.25,
+     1.3,
+     6.4
+    ],
+    "look": [
+     60.05,
+     1.15,
+     1.1
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 1.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "Spud in the dent, front (C09 lens)"
+  },
+  {
+   "name": "h18",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     61.6,
+     1,
+     1
+    ],
+    "look": [
+     59.2,
+     0.9,
+     1
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 1.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "Spud in the dent, side"
+  },
+  {
+   "name": "h19",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.5,
+     3.4,
+     2.4
+    ],
+    "look": [
+     59.3,
+     0.9,
+     1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 1,
+      "burst": 1.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.98
+    }
+   ],
+   "kind": "Spud in the dent, top"
+  },
+  {
+   "name": "h20",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     59.55,
+     0.9,
+     3
+    ],
+    "look": [
+     59.55,
+     1.1,
+     1
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "Spud, front low"
+  }
+ ],
+ "notes": "Generated by storyboards/series/how-you-invented/02-shopping-cart/bench/bench-street.mjs (props bench, no reviews).",
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "hay2",
+   "from": 16,
+   "to": 20,
+   "reason": "lies in the hay"
+  }
+ ]
+}

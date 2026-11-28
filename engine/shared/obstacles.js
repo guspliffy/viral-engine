@@ -22,6 +22,8 @@ export const KIND_POSTS = {
   gardenshed: shedWalls(),
   // props-alarm-hut.js alarmhut (how you invented 01, DESIGN 1): the two door jambs of the back-wall door (origin = world origin)
   alarmhut: [[-1.125, 0, -1.8, 0.06, 1.9], [0.025, 0, -1.8, 0.06, 1.9]],
+  // props-cart-street.js grocerfront (how you invented 02, DESIGN 1 + 2.2), its own frame (placed at -2.75, 0, 0.90): door jambs, awning posts, annex corner post
+  grocerfront: [[-1.70, 0, 0, 0.05, 1.72], [-0.60, 0, 0, 0.05, 1.72], [-2.85, 0, 1.05, 0.05, 2.05], [0.05, 0, 1.05, 0.05, 2.05], [3.05, 0, 0, 0.06, 2.35]],
 };
 
 // the posts of one storyboard prop in world coordinates: [{ x, y, z, r, h }]

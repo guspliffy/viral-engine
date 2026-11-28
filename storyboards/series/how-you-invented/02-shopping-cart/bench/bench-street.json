@@ -1,0 +1,805 @@
+{
+ "id": "bench-street",
+ "title": "Hill street bench: props",
+ "idea": "Props bench for how-you-invented 02 (the hill street, task A), not a clip",
+ "tool": "prop bench for the hill street (How you invented 02), never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fd0ef",
+  "floor": "none",
+  "para": 0,
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "tint": "#fff1d6",
+    "s": 1.05
+   }
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "frame": "tall",
+ "cast": [],
+ "props": [
+  {
+   "id": "top",
+   "kind": "hillstreet",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "foot",
+   "kind": "hillstreet",
+   "x": 61.85,
+   "y": 5.32,
+   "z": -23.35,
+   "rot": 180
+  },
+  {
+   "id": "shop",
+   "kind": "grocerfront",
+   "x": -2.75,
+   "y": 0,
+   "z": 0.9
+  },
+  {
+   "id": "hay1",
+   "kind": "haycart",
+   "x": 2.65,
+   "y": -5.32,
+   "z": -24.35,
+   "dent": 0,
+   "burst": -1,
+   "rock": 0
+  },
+  {
+   "id": "hay2",
+   "kind": "haycart",
+   "x": 59.2,
+   "y": 0,
+   "z": 1,
+   "dent": 0,
+   "burst": -1,
+   "rock": 0
+  },
+  {
+   "id": "cnt",
+   "kind": "woodcounter",
+   "w": 1.1,
+   "h": 0.62,
+   "d": 0.4,
+   "x": 0.05,
+   "y": 0,
+   "z": 1.7,
+   "rot": 40
+  },
+  {
+   "id": "ap1",
+   "kind": "producecrate",
+   "w": 0.5,
+   "d": 0.36,
+   "h": 0.3,
+   "fill": "apples",
+   "x": -5.05,
+   "y": 0,
+   "z": 1.25,
+   "rot": 8
+  },
+  {
+   "id": "ap2",
+   "kind": "producecrate",
+   "w": 0.5,
+   "d": 0.36,
+   "h": 0.3,
+   "fill": "apples",
+   "x": -4.85,
+   "y": 0.3,
+   "z": 1.22,
+   "rot": -6
+  },
+  {
+   "id": "fb1",
+   "kind": "flowerbox",
+   "w": 0.7,
+   "x": -2,
+   "y": 0.97,
+   "z": 1
+  },
+  {
+   "id": "tr1",
+   "kind": "tree",
+   "x": -6.6,
+   "y": 0,
+   "z": 3.2
+  },
+  {
+   "id": "tr2",
+   "kind": "tree",
+   "x": 63.4,
+   "y": 0,
+   "z": -0.6
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3.35,
+     1.35,
+     5.6
+    ],
+    "look": [
+     -3.5,
+     0.62,
+     1.2
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hay1",
+     "set": {
+      "dent": 0,
+      "burst": -1,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hay2",
+     "set": {
+      "dent": 0,
+      "burst": -1,
+      "rock": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "C01 the door and the awning"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.75,
+     1.45,
+     6.6
+    ],
+    "look": [
+     -2.95,
+     0.55,
+     2.3
+    ],
+    "fov": 48
+   },
+   "do": [],
+   "kind": "C06 the bench, forecourt"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.35,
+     3.6,
+     4.2
+    ],
+    "look": [
+     1.85,
+     -2.2,
+     -9
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "C08a down the street (instance 1)"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     60.25,
+     2.82,
+     -11.12
+    ],
+    "look": [
+     60,
+     3.65,
+     -13.64
+    ],
+    "fov": 46
+   },
+   "do": [],
+   "kind": "C08b first frame (instance 2)"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     60.25,
+     0.89,
+     -3.36
+    ],
+    "look": [
+     60,
+     1.72,
+     -5.88
+    ],
+    "fov": 46
+   },
+   "do": [],
+   "kind": "C08b last frame (instance 2)"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     60.25,
+     1.3,
+     6.4
+    ],
+    "look": [
+     60.05,
+     1.15,
+     1.1
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "C09 the hay cart (instance 2)"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.95,
+     1.6,
+     5.15
+    ],
+    "look": [
+     -0.14,
+     0.97,
+     -0.72
+    ],
+    "fov": 56
+   },
+   "do": [],
+   "kind": "C11 the counter and the street"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.3,
+     1.3,
+     1.2
+    ],
+    "look": [
+     1.05,
+     0.72,
+     3
+    ],
+    "fov": 42
+   },
+   "do": [],
+   "kind": "C13 from the hill side"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.75,
+     1.7,
+     7.3
+    ],
+    "look": [
+     1,
+     0.6,
+     -2
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "C15c down the street, low"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.05,
+     1.5,
+     6.6
+    ],
+    "look": [
+     -2.2,
+     0.6,
+     1.2
+    ],
+    "fov": 46
+   },
+   "do": [],
+   "kind": "C12a the forecourt, wide"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3.05,
+     1.2,
+     4.6
+    ],
+    "look": [
+     -3.15,
+     0.78,
+     1.3
+    ],
+    "fov": 44
+   },
+   "do": [],
+   "kind": "C02"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3.2,
+     1.55,
+     6.3
+    ],
+    "look": [
+     -3.45,
+     1,
+     2.7
+    ],
+    "fov": 44
+   },
+   "do": [],
+   "kind": "C04"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.8,
+     1.35,
+     6.4
+    ],
+    "look": [
+     1.25,
+     0.7,
+     3.6
+    ],
+    "fov": 44
+   },
+   "do": [],
+   "kind": "C10b"
+  },
+  {
+   "name": "s14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.2,
+     1.7,
+     6.8
+    ],
+    "look": [
+     -2.6,
+     1.3,
+     0.9
+    ],
+    "fov": 55
+   },
+   "do": [],
+   "kind": "shop, wide"
+  },
+  {
+   "name": "s15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3.9,
+     1.25,
+     3.2
+    ],
+    "look": [
+     -3.9,
+     1.1,
+     -1
+    ],
+    "fov": 38
+   },
+   "do": [],
+   "kind": "door inside, front"
+  },
+  {
+   "name": "s16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3,
+     1.2,
+     2.6
+    ],
+    "look": [
+     -4.4,
+     1.2,
+     -0.9
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "door inside, from the right"
+  },
+  {
+   "name": "s17",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1,
+     0.5,
+     4.2
+    ],
+    "look": [
+     -2.8,
+     2.2,
+     1
+    ],
+    "fov": 55
+   },
+   "do": [],
+   "kind": "the awning from below"
+  },
+  {
+   "name": "s18",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.6,
+     1.5,
+     4.2
+    ],
+    "look": [
+     -1.3,
+     1.2,
+     0.9
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "the annex, window and bench"
+  },
+  {
+   "name": "s19",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     1,
+     2.8
+    ],
+    "look": [
+     0.35,
+     0.5,
+     0.9
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "the corner post and the iron ring"
+  },
+  {
+   "name": "s20",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.2,
+     1.7,
+     1.6
+    ],
+    "look": [
+     0.3,
+     1.3,
+     -2.8
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "the annex side wall"
+  },
+  {
+   "name": "s21",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.85,
+     0.7,
+     1.5
+    ],
+    "look": [
+     1.85,
+     0.2,
+     -6
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "the street, low, from the lip"
+  },
+  {
+   "name": "s22",
+   "at": 21,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.9,
+     1,
+     3.2
+    ],
+    "look": [
+     1.85,
+     -0.4,
+     -1.5
+    ],
+    "fov": 55
+   },
+   "do": [],
+   "kind": "the lip, from the forecourt"
+  },
+  {
+   "name": "s23",
+   "at": 22,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.2,
+     2.2,
+     7.2
+    ],
+    "look": [
+     3.15,
+     2,
+     1
+    ],
+    "fov": 55
+   },
+   "do": [],
+   "kind": "the east row"
+  },
+  {
+   "name": "s24",
+   "at": 23,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.5,
+     2.2,
+     8.8
+    ],
+    "look": [
+     -1,
+     1.2,
+     1
+    ],
+    "fov": 62
+   },
+   "do": [],
+   "kind": "the forecourt from the south"
+  },
+  {
+   "name": "s25",
+   "at": 24,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1,
+     1.8,
+     0.8
+    ],
+    "look": [
+     -3,
+     1.4,
+     6
+    ],
+    "fov": 62
+   },
+   "do": [],
+   "kind": "the forecourt toward the south row"
+  },
+  {
+   "name": "s26",
+   "at": 25,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.65,
+     1.8,
+     -17
+    ],
+    "look": [
+     2.65,
+     -4.8,
+     -26
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "the yard from above (instance 1)"
+  },
+  {
+   "name": "s27",
+   "at": 26,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.85,
+     -2.6,
+     -16
+    ],
+    "look": [
+     2.7,
+     -4.8,
+     -28
+    ],
+    "fov": 55
+   },
+   "do": [],
+   "kind": "the yard from the street end"
+  },
+  {
+   "name": "s28",
+   "at": 27,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.6,
+     6,
+     0.5
+    ],
+    "look": [
+     2,
+     -2,
+     -40
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "the valley"
+  },
+  {
+   "name": "s29",
+   "at": 28,
+   "len": 1,
+   "shot": {
+    "pos": [
+     60,
+     1.2,
+     3
+    ],
+    "look": [
+     60,
+     4,
+     -18
+    ],
+    "fov": 55
+   },
+   "do": [],
+   "kind": "instance 2: the street climbs"
+  },
+  {
+   "name": "s30",
+   "at": 29,
+   "len": 1,
+   "shot": {
+    "pos": [
+     60,
+     3.5,
+     -13
+    ],
+    "look": [
+     60,
+     6,
+     -26
+    ],
+    "fov": 55
+   },
+   "do": [],
+   "kind": "instance 2: the top end"
+  },
+  {
+   "name": "s31",
+   "at": 30,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.6,
+     -3.5,
+     -16
+    ],
+    "look": [
+     2.65,
+     -4.4,
+     -24.35
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "hay cart (instance 1) from the street"
+  }
+ ],
+ "notes": "Generated by storyboards/series/how-you-invented/02-shopping-cart/bench/bench-street.mjs (props bench, no reviews)."
+}
