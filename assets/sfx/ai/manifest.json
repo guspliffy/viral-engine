@@ -1536,7 +1536,7 @@
      "clap": 0.039,
      "snrDb": 69.6,
      "loudnessLUFS": -17,
-     "note": "trimmed to its two hits (0-1.4 s) by hand: dö ... döm"
+     "note": "trimmed to its two hits (0-1.4 s) by hand: d\u00f6 ... d\u00f6m"
     }
    ]
   },
@@ -5633,6 +5633,2194 @@
      "loudnessLUFS": -21.9
     }
    ]
+  },
+  {
+   "id": "golem-step",
+   "kind": "sfx",
+   "files": [
+    "golem-step/golem-step-01.wav"
+   ],
+   "gain": 0.8,
+   "tags": [
+    "footstep",
+    "giant",
+    "heavy",
+    "stone",
+    "clay"
+   ],
+   "durationSec": 0.423,
+   "prompt": [
+    "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+    "massive stone statue walking, heavy thumping footsteps, low rumble, close, no music"
+   ],
+   "seed": [
+    512,
+    512,
+    512,
+    511,
+    513,
+    511,
+    513,
+    513
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-step/golem-step-01.wav",
+     "take": "p0-s512",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 512,
+     "startSec": 0.226,
+     "durationSec": 0.406,
+     "clap": 0.038,
+     "snrDb": 73.0,
+     "loudnessLUFS": -25.8
+    },
+    {
+     "file": "golem-step/golem-step-02.wav",
+     "take": "p0-s512",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 512,
+     "startSec": 1.557,
+     "durationSec": 0.41,
+     "clap": 0.035,
+     "snrDb": 71.0,
+     "loudnessLUFS": -26.6
+    },
+    {
+     "file": "golem-step/golem-step-03.wav",
+     "take": "p0-s512",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 512,
+     "startSec": 3.03,
+     "durationSec": 0.421,
+     "clap": 0.007,
+     "snrDb": 71.0,
+     "loudnessLUFS": -27.5
+    },
+    {
+     "file": "golem-step/golem-step-04.wav",
+     "take": "p1-s511",
+     "prompt": "massive stone statue walking, heavy thumping footsteps, low rumble, close, no music",
+     "seed": 511,
+     "startSec": 1.106,
+     "durationSec": 0.401,
+     "clap": -0.001,
+     "snrDb": 64.2,
+     "loudnessLUFS": -22.6
+    },
+    {
+     "file": "golem-step/golem-step-05.wav",
+     "take": "p0-s513",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 513,
+     "startSec": 4.369,
+     "durationSec": 0.425,
+     "clap": -0.031,
+     "snrDb": 90.7,
+     "loudnessLUFS": -20.9
+    },
+    {
+     "file": "golem-step/golem-step-06.wav",
+     "take": "p0-s511",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 511,
+     "startSec": 3.942,
+     "durationSec": 0.462,
+     "clap": -0.036,
+     "snrDb": 88.3,
+     "loudnessLUFS": -24.5
+    },
+    {
+     "file": "golem-step/golem-step-07.wav",
+     "take": "p0-s513",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 513,
+     "startSec": 2.242,
+     "durationSec": 0.46,
+     "clap": -0.038,
+     "snrDb": 90.6,
+     "loudnessLUFS": -21.1
+    },
+    {
+     "file": "golem-step/golem-step-08.wav",
+     "take": "p0-s513",
+     "prompt": "slow very heavy giant footsteps on cobblestones, deep thud with crunch of wet clay, each step separate, no music",
+     "seed": 513,
+     "startSec": 0.335,
+     "durationSec": 0.472,
+     "clap": -0.038,
+     "snrDb": 86.5,
+     "loudnessLUFS": -21.1
+    }
+   ]
+  },
+  {
+   "id": "golem-door-split",
+   "kind": "sfx",
+   "files": [
+    "golem-door-split/golem-door-split-01.wav"
+   ],
+   "gain": 0.8,
+   "tags": [
+    "door",
+    "wood",
+    "break",
+    "smash"
+   ],
+   "durationSec": 1.48,
+   "prompt": [
+    "a heavy wooden door smashed and split apart, cracking splintering wood, one impact, no music",
+    "old oak door bursting into splinters, loud wood crack, no music"
+   ],
+   "seed": [
+    521,
+    522,
+    521,
+    521
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -21.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-door-split/golem-door-split-01.wav",
+     "take": "p1-s521",
+     "prompt": "old oak door bursting into splinters, loud wood crack, no music",
+     "seed": 521,
+     "startSec": 4.394,
+     "durationSec": 2.0,
+     "clap": 0.129,
+     "snrDb": 57.2,
+     "loudnessLUFS": -22.3
+    },
+    {
+     "file": "golem-door-split/golem-door-split-02.wav",
+     "take": "p0-s522",
+     "prompt": "a heavy wooden door smashed and split apart, cracking splintering wood, one impact, no music",
+     "seed": 522,
+     "startSec": 5.05,
+     "durationSec": 0.961,
+     "clap": 0.093,
+     "snrDb": 70.0,
+     "loudnessLUFS": -18.7
+    },
+    {
+     "file": "golem-door-split/golem-door-split-03.wav",
+     "take": "p0-s521",
+     "prompt": "a heavy wooden door smashed and split apart, cracking splintering wood, one impact, no music",
+     "seed": 521,
+     "startSec": 1.718,
+     "durationSec": 0.661,
+     "clap": 0.019,
+     "snrDb": 69.6,
+     "loudnessLUFS": -23.6
+    },
+    {
+     "file": "golem-door-split/golem-door-split-04.wav",
+     "take": "p1-s521",
+     "prompt": "old oak door bursting into splinters, loud wood crack, no music",
+     "seed": 521,
+     "startSec": 0.192,
+     "durationSec": 2.0,
+     "clap": 0.007,
+     "snrDb": 56.9,
+     "loudnessLUFS": -20.2
+    }
+   ]
+  },
+  {
+   "id": "golem-cart-crash",
+   "kind": "sfx",
+   "files": [
+    "golem-cart-crash/golem-cart-crash-01.wav"
+   ],
+   "gain": 0.75,
+   "tags": [
+    "cart",
+    "crash",
+    "wood",
+    "wheel"
+   ],
+   "durationSec": 1.646,
+   "prompt": [
+    "a wooden hand cart thrown and crashing onto cobblestones, wood breaking, a wheel rolling, no music",
+    "wooden cart smashing to pieces on stone street, no music"
+   ],
+   "seed": [
+    533,
+    533,
+    532,
+    532
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -22.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-cart-crash/golem-cart-crash-01.wav",
+     "take": "p0-s533",
+     "prompt": "a wooden hand cart thrown and crashing onto cobblestones, wood breaking, a wheel rolling, no music",
+     "seed": 533,
+     "startSec": 0.643,
+     "durationSec": 2.5,
+     "clap": -0.039,
+     "snrDb": 63.6,
+     "loudnessLUFS": -27.7
+    },
+    {
+     "file": "golem-cart-crash/golem-cart-crash-02.wav",
+     "take": "p1-s533",
+     "prompt": "wooden cart smashing to pieces on stone street, no music",
+     "seed": 533,
+     "startSec": 2.627,
+     "durationSec": 1.477,
+     "clap": -0.041,
+     "snrDb": 33.7,
+     "loudnessLUFS": -21.8
+    },
+    {
+     "file": "golem-cart-crash/golem-cart-crash-03.wav",
+     "take": "p1-s532",
+     "prompt": "wooden cart smashing to pieces on stone street, no music",
+     "seed": 532,
+     "startSec": 2.223,
+     "durationSec": 1.019,
+     "clap": -0.048,
+     "snrDb": 35.6,
+     "loudnessLUFS": -22.7
+    },
+    {
+     "file": "golem-cart-crash/golem-cart-crash-04.wav",
+     "take": "p1-s532",
+     "prompt": "wooden cart smashing to pieces on stone street, no music",
+     "seed": 532,
+     "startSec": 0.253,
+     "durationSec": 1.814,
+     "clap": -0.036,
+     "snrDb": 18.7,
+     "loudnessLUFS": -17.9
+    }
+   ]
+  },
+  {
+   "id": "golem-crumble",
+   "kind": "sfx",
+   "files": [
+    "golem-crumble/golem-crumble-01.wav"
+   ],
+   "gain": 0.8,
+   "tags": [
+    "crumble",
+    "clay",
+    "collapse",
+    "rubble"
+   ],
+   "durationSec": 2.325,
+   "prompt": [
+    "a large clay statue crumbling and collapsing into a pile, chunks of wet earth falling, dust settling, no music",
+    "dirt and clay collapsing heavily, falling clods, then quiet trickle, no music"
+   ],
+   "seed": [
+    541,
+    541,
+    542,
+    542
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -25.5,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-crumble/golem-crumble-01.wav",
+     "take": "p1-s541",
+     "prompt": "dirt and clay collapsing heavily, falling clods, then quiet trickle, no music",
+     "seed": 541,
+     "startSec": 0.718,
+     "durationSec": 1.714,
+     "clap": 0.194,
+     "snrDb": 87.5,
+     "loudnessLUFS": -32.9
+    },
+    {
+     "file": "golem-crumble/golem-crumble-02.wav",
+     "take": "p1-s541",
+     "prompt": "dirt and clay collapsing heavily, falling clods, then quiet trickle, no music",
+     "seed": 541,
+     "startSec": 4.126,
+     "durationSec": 2.181,
+     "clap": 0.177,
+     "snrDb": 79.3,
+     "loudnessLUFS": -28.1
+    },
+    {
+     "file": "golem-crumble/golem-crumble-03.wav",
+     "take": "p1-s542",
+     "prompt": "dirt and clay collapsing heavily, falling clods, then quiet trickle, no music",
+     "seed": 542,
+     "startSec": 3.684,
+     "durationSec": 2.47,
+     "clap": 0.086,
+     "snrDb": 46.2,
+     "loudnessLUFS": -22.0
+    },
+    {
+     "file": "golem-crumble/golem-crumble-04.wav",
+     "take": "p0-s542",
+     "prompt": "a large clay statue crumbling and collapsing into a pile, chunks of wet earth falling, dust settling, no music",
+     "seed": 542,
+     "startSec": 0.676,
+     "durationSec": 4.0,
+     "clap": 0.051,
+     "snrDb": 56.1,
+     "loudnessLUFS": -22.8
+    }
+   ]
+  },
+  {
+   "id": "golem-clay-squelch",
+   "kind": "sfx",
+   "files": [
+    "golem-clay-squelch/golem-clay-squelch-01.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "clay",
+    "mud",
+    "hands",
+    "squelch"
+   ],
+   "durationSec": 0.453,
+   "prompt": [
+    "hands shaping wet clay, soft squelches and pats of mud, close up, no music",
+    "sculptor pressing and slapping wet clay with hands, close, no music"
+   ],
+   "seed": [
+    551,
+    552,
+    551,
+    551,
+    551,
+    552,
+    552,
+    551
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -24.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-01.wav",
+     "take": "p0-s551",
+     "prompt": "hands shaping wet clay, soft squelches and pats of mud, close up, no music",
+     "seed": 551,
+     "startSec": 4.011,
+     "durationSec": 0.578,
+     "clap": 0.1,
+     "snrDb": 36.5,
+     "loudnessLUFS": -22.0
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-02.wav",
+     "take": "p1-s552",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 552,
+     "startSec": 8.525,
+     "durationSec": 0.372,
+     "clap": 0.023,
+     "snrDb": 33.4,
+     "loudnessLUFS": -24.1
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-03.wav",
+     "take": "p0-s551",
+     "prompt": "hands shaping wet clay, soft squelches and pats of mud, close up, no music",
+     "seed": 551,
+     "startSec": 1.132,
+     "durationSec": 0.456,
+     "clap": 0.015,
+     "snrDb": 41.2,
+     "loudnessLUFS": -24.2
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-04.wav",
+     "take": "p0-s551",
+     "prompt": "hands shaping wet clay, soft squelches and pats of mud, close up, no music",
+     "seed": 551,
+     "startSec": 5.411,
+     "durationSec": 0.449,
+     "clap": -0.008,
+     "snrDb": 42.9,
+     "loudnessLUFS": -19.6
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-05.wav",
+     "take": "p1-s551",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 551,
+     "startSec": 1.067,
+     "durationSec": 0.649,
+     "clap": -0.222,
+     "snrDb": 39.1,
+     "loudnessLUFS": -25.5
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-06.wav",
+     "take": "p1-s552",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 552,
+     "startSec": 5.647,
+     "durationSec": 0.536,
+     "clap": -0.228,
+     "snrDb": 37.9,
+     "loudnessLUFS": -29.5
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-07.wav",
+     "take": "p1-s552",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 552,
+     "startSec": 0.648,
+     "durationSec": 0.309,
+     "clap": -0.261,
+     "snrDb": 49.3,
+     "loudnessLUFS": -23.7
+    },
+    {
+     "file": "golem-clay-squelch/golem-clay-squelch-08.wav",
+     "take": "p1-s551",
+     "prompt": "sculptor pressing and slapping wet clay with hands, close, no music",
+     "seed": 551,
+     "startSec": 8.795,
+     "durationSec": 0.412,
+     "clap": -0.274,
+     "snrDb": 36.9,
+     "loudnessLUFS": -26.6
+    }
+   ]
+  },
+  {
+   "id": "golem-attic-thud",
+   "kind": "sfx",
+   "files": [
+    "golem-attic-thud/golem-attic-thud-01.wav"
+   ],
+   "gain": 0.85,
+   "tags": [
+    "thud",
+    "floor",
+    "wood",
+    "attic"
+   ],
+   "durationSec": 0.464,
+   "prompt": [
+    "one single heavy footstep on old wooden floorboards above, deep muffled thud, creak, quiet room, no music",
+    "a heavy thump on an attic floor overhead, one hit, wooden creak, no music"
+   ],
+   "seed": [
+    563,
+    563,
+    561,
+    561
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "golem-attic-thud/golem-attic-thud-01.wav",
+     "take": "p1-s563",
+     "prompt": "a heavy thump on an attic floor overhead, one hit, wooden creak, no music",
+     "seed": 563,
+     "startSec": 0.148,
+     "durationSec": 0.487,
+     "clap": 0.097,
+     "snrDb": 60.5,
+     "loudnessLUFS": -19.0
+    },
+    {
+     "file": "golem-attic-thud/golem-attic-thud-02.wav",
+     "take": "p1-s563",
+     "prompt": "a heavy thump on an attic floor overhead, one hit, wooden creak, no music",
+     "seed": 563,
+     "startSec": 2.501,
+     "durationSec": 0.425,
+     "clap": 0.094,
+     "snrDb": 59.7,
+     "loudnessLUFS": -18.1
+    },
+    {
+     "file": "golem-attic-thud/golem-attic-thud-03.wav",
+     "take": "p0-s561",
+     "prompt": "one single heavy footstep on old wooden floorboards above, deep muffled thud, creak, quiet room, no music",
+     "seed": 561,
+     "startSec": 3.248,
+     "durationSec": 1.03,
+     "clap": 0.072,
+     "snrDb": 65.7,
+     "loudnessLUFS": -21.1
+    },
+    {
+     "file": "golem-attic-thud/golem-attic-thud-04.wav",
+     "take": "p0-s561",
+     "prompt": "one single heavy footstep on old wooden floorboards above, deep muffled thud, creak, quiet room, no music",
+     "seed": 561,
+     "startSec": 4.59,
+     "durationSec": 0.44,
+     "clap": 0.07,
+     "snrDb": 56.8,
+     "loudnessLUFS": -21.5
+    }
+   ]
+  },
+  {
+   "id": "whistle-note",
+   "kind": "sfx",
+   "files": [
+    "whistle-note/whistle-note-01.wav",
+    "whistle-note/whistle-note-02.wav",
+    "whistle-note/whistle-note-03.wav",
+    "whistle-note/whistle-note-04.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "whistle",
+    "pipe",
+    "flute",
+    "note"
+   ],
+   "durationSec": 3.03,
+   "prompt": [
+    "a soft low wooden duct flute playing one long sustained note, breathy and woody, gentle, close dry recording, solo, no other instruments, no music",
+    "a low tin whistle holding one soft note, airy breath, quiet, solo, dry room, no other instruments"
+   ],
+   "seed": [
+    902,
+    901,
+    901,
+    902
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -7.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "whistle-note/whistle-note-01.wav",
+     "take": "p1-s902",
+     "prompt": "a low tin whistle holding one soft note, airy breath, quiet, solo, dry room, no other instruments",
+     "seed": 902,
+     "startSec": 7.637,
+     "durationSec": 1.81,
+     "clap": -0.043,
+     "snrDb": 59.4,
+     "loudnessLUFS": -5.8
+    },
+    {
+     "file": "whistle-note/whistle-note-02.wav",
+     "take": "p0-s901",
+     "prompt": "a soft low wooden duct flute playing one long sustained note, breathy and woody, gentle, close dry recording, solo, no other instruments, no music",
+     "seed": 901,
+     "startSec": 2.809,
+     "durationSec": 3.5,
+     "clap": -0.061,
+     "snrDb": 81.3,
+     "loudnessLUFS": -15.0
+    },
+    {
+     "file": "whistle-note/whistle-note-03.wav",
+     "take": "p1-s901",
+     "prompt": "a low tin whistle holding one soft note, airy breath, quiet, solo, dry room, no other instruments",
+     "seed": 901,
+     "startSec": 0.643,
+     "durationSec": 3.5,
+     "clap": -0.066,
+     "snrDb": 46.0,
+     "loudnessLUFS": -8.0
+    },
+    {
+     "file": "whistle-note/whistle-note-04.wav",
+     "take": "p1-s902",
+     "prompt": "a low tin whistle holding one soft note, airy breath, quiet, solo, dry room, no other instruments",
+     "seed": 902,
+     "startSec": 0.524,
+     "durationSec": 2.561,
+     "clap": -0.079,
+     "snrDb": 62.4,
+     "loudnessLUFS": -6.1
+    }
+   ]
+  },
+  {
+   "id": "rats-scurry",
+   "kind": "sfx",
+   "files": [
+    "rats-scurry/rats-scurry-01.wav",
+    "rats-scurry/rats-scurry-02.wav",
+    "rats-scurry/rats-scurry-03.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "rats",
+    "mice",
+    "scurry",
+    "squeak"
+   ],
+   "durationSec": 3.103,
+   "prompt": [
+    "many rats scurrying and squeaking on wooden floor and stone, swarm of small claws, close, realistic, no music",
+    "a crowd of mice and rats running over grain sacks, tiny claws and soft squeaks, realistic field recording, no music"
+   ],
+   "seed": [
+    912,
+    913,
+    913
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "rats-scurry/rats-scurry-01.wav",
+     "take": "p0-s912",
+     "prompt": "many rats scurrying and squeaking on wooden floor and stone, swarm of small claws, close, realistic, no music",
+     "seed": 912,
+     "startSec": 4.179,
+     "durationSec": 3.103,
+     "clap": 0.147,
+     "snrDb": 68.4,
+     "loudnessLUFS": -25.3
+    },
+    {
+     "file": "rats-scurry/rats-scurry-02.wav",
+     "take": "p0-s913",
+     "prompt": "many rats scurrying and squeaking on wooden floor and stone, swarm of small claws, close, realistic, no music",
+     "seed": 913,
+     "startSec": 1.125,
+     "durationSec": 2.598,
+     "clap": 0.111,
+     "snrDb": 58.2,
+     "loudnessLUFS": -21.5
+    },
+    {
+     "file": "rats-scurry/rats-scurry-03.wav",
+     "take": "p1-s913",
+     "prompt": "a crowd of mice and rats running over grain sacks, tiny claws and soft squeaks, realistic field recording, no music",
+     "seed": 913,
+     "startSec": 4.145,
+     "durationSec": 5.233,
+     "clap": 0.089,
+     "snrDb": 38.8,
+     "loudnessLUFS": -23.4
+    }
+   ]
+  },
+  {
+   "id": "church-bell-far",
+   "kind": "sfx",
+   "files": [],
+   "gain": 0.25,
+   "tags": [
+    "bell",
+    "church",
+    "distant"
+   ],
+   "durationSec": null,
+   "prompt": [
+    "a single old church bell ringing slowly far away across a town at night, distant and soft, realistic, no music",
+    "distant medieval church bell tolling, faint, echo over rooftops, quiet night, no music"
+   ],
+   "seed": [],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": 0.0,
+   "replaces": null,
+   "takes": []
+  },
+  {
+   "id": "fog-air",
+   "kind": "sfx",
+   "files": [
+    "fog-air/fog-air-01.wav",
+    "fog-air/fog-air-02.wav"
+   ],
+   "gain": 0.08,
+   "tags": [
+    "wind",
+    "fog",
+    "air",
+    "night"
+   ],
+   "durationSec": 8.0,
+   "prompt": [
+    "soft low night wind over an empty hill, very quiet airy hush, realistic, no music",
+    "gentle cold breeze through grass at night, quiet hush, field recording, no music"
+   ],
+   "seed": [
+    931,
+    932
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -15.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "fog-air/fog-air-01.wav",
+     "take": "p0-s931",
+     "prompt": "soft low night wind over an empty hill, very quiet airy hush, realistic, no music",
+     "seed": 931,
+     "startSec": 1.097,
+     "durationSec": 8.0,
+     "clap": -0.145,
+     "snrDb": 27.3,
+     "loudnessLUFS": -14.9
+    },
+    {
+     "file": "fog-air/fog-air-02.wav",
+     "take": "p0-s932",
+     "prompt": "soft low night wind over an empty hill, very quiet airy hush, realistic, no music",
+     "seed": 932,
+     "startSec": 1.009,
+     "durationSec": 8.0,
+     "clap": -0.166,
+     "snrDb": 60.2,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "men-laugh",
+   "kind": "sfx",
+   "files": [
+    "men-laugh/men-laugh-01.wav",
+    "men-laugh/men-laugh-02.wav",
+    "men-laugh/men-laugh-03.wav",
+    "men-laugh/men-laugh-04.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "laugh",
+    "men",
+    "crowd"
+   ],
+   "durationSec": 4.0,
+   "prompt": [
+    "a small group of men laughing loudly and mockingly in a stone hall, realistic, no music",
+    "several older men guffawing at a joke in a tavern, realistic recording, no music"
+   ],
+   "seed": [
+    941,
+    941,
+    942,
+    942
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -15.7,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "men-laugh/men-laugh-01.wav",
+     "take": "p1-s941",
+     "prompt": "several older men guffawing at a joke in a tavern, realistic recording, no music",
+     "seed": 941,
+     "startSec": 0.982,
+     "durationSec": 4.0,
+     "clap": -0.085,
+     "snrDb": 66.7,
+     "loudnessLUFS": -16.8
+    },
+    {
+     "file": "men-laugh/men-laugh-02.wav",
+     "take": "p0-s941",
+     "prompt": "a small group of men laughing loudly and mockingly in a stone hall, realistic, no music",
+     "seed": 941,
+     "startSec": 0.068,
+     "durationSec": 4.0,
+     "clap": -0.09,
+     "snrDb": 46.8,
+     "loudnessLUFS": -15.2
+    },
+    {
+     "file": "men-laugh/men-laugh-03.wav",
+     "take": "p0-s942",
+     "prompt": "a small group of men laughing loudly and mockingly in a stone hall, realistic, no music",
+     "seed": 942,
+     "startSec": 0.124,
+     "durationSec": 4.0,
+     "clap": -0.114,
+     "snrDb": 80.1,
+     "loudnessLUFS": -14.6
+    },
+    {
+     "file": "men-laugh/men-laugh-04.wav",
+     "take": "p1-s942",
+     "prompt": "several older men guffawing at a joke in a tavern, realistic recording, no music",
+     "seed": 942,
+     "startSec": 2.909,
+     "durationSec": 3.537,
+     "clap": -0.138,
+     "snrDb": 71.8,
+     "loudnessLUFS": -16.2
+    }
+   ]
+  },
+  {
+   "id": "campfire-crackle",
+   "kind": "sfx",
+   "files": [
+    "campfire-crackle/campfire-crackle-01.wav",
+    "campfire-crackle/campfire-crackle-02.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "fire",
+    "campfire",
+    "crackle"
+   ],
+   "durationSec": 3.647,
+   "prompt": [
+    "a small campfire crackling and popping in a quiet forest at night, close, realistic field recording, no music",
+    "small wood fire crackling, soft pops and hiss, outdoors at night, realistic, no music"
+   ],
+   "seed": [
+    1603,
+    1601
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -28.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "campfire-crackle/campfire-crackle-01.wav",
+     "take": "p1-s1603",
+     "prompt": "small wood fire crackling, soft pops and hiss, outdoors at night, realistic, no music",
+     "seed": 1603,
+     "startSec": 5.565,
+     "durationSec": 3.891,
+     "clap": 0.135,
+     "snrDb": 39.5,
+     "loudnessLUFS": -33.2
+    },
+    {
+     "file": "campfire-crackle/campfire-crackle-02.wav",
+     "take": "p1-s1601",
+     "prompt": "small wood fire crackling, soft pops and hiss, outdoors at night, realistic, no music",
+     "seed": 1601,
+     "startSec": 3.881,
+     "durationSec": 3.402,
+     "clap": 0.059,
+     "snrDb": 25.6,
+     "loudnessLUFS": -23.1
+    }
+   ]
+  },
+  {
+   "id": "birds-peck",
+   "kind": "sfx",
+   "files": [
+    "birds-peck/birds-peck-01.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "birds",
+    "peck",
+    "chirp"
+   ],
+   "durationSec": 2.203,
+   "prompt": [
+    "small songbirds pecking crumbs on a forest floor, tiny pecks and soft chirps, flutter, realistic field recording, no music",
+    "a few small birds pecking at bread crumbs on the ground, quick pecks, small chirps, realistic, no music"
+   ],
+   "seed": [
+    1611
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -15.5,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "birds-peck/birds-peck-01.wav",
+     "take": "p0-s1611",
+     "prompt": "small songbirds pecking crumbs on a forest floor, tiny pecks and soft chirps, flutter, realistic field recording, no music",
+     "seed": 1611,
+     "startSec": 7.497,
+     "durationSec": 2.203,
+     "clap": -0.138,
+     "snrDb": 34.9,
+     "loudnessLUFS": -15.5
+    }
+   ]
+  },
+  {
+   "id": "owl-hoot",
+   "kind": "sfx",
+   "files": [
+    "owl-hoot/owl-hoot-01.wav",
+    "owl-hoot/owl-hoot-02.wav",
+    "owl-hoot/owl-hoot-03.wav",
+    "owl-hoot/owl-hoot-04.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "owl",
+    "hoot",
+    "night"
+   ],
+   "durationSec": 2.934,
+   "prompt": [
+    "a tawny owl hooting once in a dark forest at night, distant, realistic field recording, no music",
+    "a single owl hoot far away in a night forest, realistic, no music"
+   ],
+   "seed": [
+    1621,
+    1621,
+    1622,
+    1623
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -12.7,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "owl-hoot/owl-hoot-01.wav",
+     "take": "p1-s1621",
+     "prompt": "a single owl hoot far away in a night forest, realistic, no music",
+     "seed": 1621,
+     "startSec": 1.253,
+     "durationSec": 4.0,
+     "clap": 0.192,
+     "snrDb": 63.0,
+     "loudnessLUFS": -10.9
+    },
+    {
+     "file": "owl-hoot/owl-hoot-02.wav",
+     "take": "p0-s1621",
+     "prompt": "a tawny owl hooting once in a dark forest at night, distant, realistic field recording, no music",
+     "seed": 1621,
+     "startSec": 0.833,
+     "durationSec": 4.0,
+     "clap": 0.075,
+     "snrDb": 59.2,
+     "loudnessLUFS": -13.3
+    },
+    {
+     "file": "owl-hoot/owl-hoot-03.wav",
+     "take": "p0-s1622",
+     "prompt": "a tawny owl hooting once in a dark forest at night, distant, realistic field recording, no music",
+     "seed": 1622,
+     "startSec": 2.116,
+     "durationSec": 1.869,
+     "clap": 0.074,
+     "snrDb": 30.4,
+     "loudnessLUFS": -12.1
+    },
+    {
+     "file": "owl-hoot/owl-hoot-04.wav",
+     "take": "p0-s1623",
+     "prompt": "a tawny owl hooting once in a dark forest at night, distant, realistic field recording, no music",
+     "seed": 1623,
+     "startSec": 4.026,
+     "durationSec": 1.643,
+     "clap": 0.03,
+     "snrDb": 41.0,
+     "loudnessLUFS": -16.1
+    }
+   ]
+  },
+  {
+   "id": "sniff",
+   "kind": "sfx",
+   "files": [
+    "sniff/sniff-01.wav",
+    "sniff/sniff-02.wav",
+    "sniff/sniff-03.wav",
+    "sniff/sniff-04.wav",
+    "sniff/sniff-05.wav",
+    "sniff/sniff-06.wav",
+    "sniff/sniff-07.wav",
+    "sniff/sniff-08.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "sniff",
+    "nose",
+    "smell"
+   ],
+   "durationSec": 0.504,
+   "prompt": [
+    "a person sniffing the air deeply through the nose twice, close, dry recording, no music",
+    "an old woman sniffing loudly through her nose, smelling the air, close, realistic, no music"
+   ],
+   "seed": [
+    1632,
+    1632,
+    1632,
+    1631,
+    1631,
+    1631,
+    1633,
+    1631
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -12.9,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "sniff/sniff-01.wav",
+     "take": "p0-s1632",
+     "prompt": "a person sniffing the air deeply through the nose twice, close, dry recording, no music",
+     "seed": 1632,
+     "startSec": 4.891,
+     "durationSec": 0.517,
+     "clap": 0.327,
+     "snrDb": 34.9,
+     "loudnessLUFS": -13.5
+    },
+    {
+     "file": "sniff/sniff-02.wav",
+     "take": "p0-s1632",
+     "prompt": "a person sniffing the air deeply through the nose twice, close, dry recording, no music",
+     "seed": 1632,
+     "startSec": 2.982,
+     "durationSec": 0.461,
+     "clap": 0.288,
+     "snrDb": 40.8,
+     "loudnessLUFS": -14.0
+    },
+    {
+     "file": "sniff/sniff-03.wav",
+     "take": "p0-s1632",
+     "prompt": "a person sniffing the air deeply through the nose twice, close, dry recording, no music",
+     "seed": 1632,
+     "startSec": 1.901,
+     "durationSec": 0.412,
+     "clap": 0.292,
+     "snrDb": 31.9,
+     "loudnessLUFS": -14.2
+    },
+    {
+     "file": "sniff/sniff-04.wav",
+     "take": "p0-s1631",
+     "prompt": "a person sniffing the air deeply through the nose twice, close, dry recording, no music",
+     "seed": 1631,
+     "startSec": 3.738,
+     "durationSec": 0.491,
+     "clap": 0.229,
+     "snrDb": 40.0,
+     "loudnessLUFS": -10.3
+    },
+    {
+     "file": "sniff/sniff-05.wav",
+     "take": "p0-s1631",
+     "prompt": "a person sniffing the air deeply through the nose twice, close, dry recording, no music",
+     "seed": 1631,
+     "startSec": 1.724,
+     "durationSec": 0.459,
+     "clap": 0.162,
+     "snrDb": 38.0,
+     "loudnessLUFS": -12.0
+    },
+    {
+     "file": "sniff/sniff-06.wav",
+     "take": "p0-s1631",
+     "prompt": "a person sniffing the air deeply through the nose twice, close, dry recording, no music",
+     "seed": 1631,
+     "startSec": 7.874,
+     "durationSec": 0.612,
+     "clap": 0.15,
+     "snrDb": 39.7,
+     "loudnessLUFS": -12.3
+    },
+    {
+     "file": "sniff/sniff-07.wav",
+     "take": "p0-s1633",
+     "prompt": "a person sniffing the air deeply through the nose twice, close, dry recording, no music",
+     "seed": 1633,
+     "startSec": 3.95,
+     "durationSec": 0.633,
+     "clap": 0.099,
+     "snrDb": 38.5,
+     "loudnessLUFS": -13.8
+    },
+    {
+     "file": "sniff/sniff-08.wav",
+     "take": "p1-s1631",
+     "prompt": "an old woman sniffing loudly through her nose, smelling the air, close, realistic, no music",
+     "seed": 1631,
+     "startSec": 1.411,
+     "durationSec": 0.517,
+     "clap": 0.103,
+     "snrDb": 33.8,
+     "loudnessLUFS": -12.4
+    }
+   ]
+  },
+  {
+   "id": "wood-door-creak",
+   "kind": "sfx",
+   "files": [
+    "wood-door-creak/wood-door-creak-01.wav",
+    "wood-door-creak/wood-door-creak-02.wav",
+    "wood-door-creak/wood-door-creak-03.wav",
+    "wood-door-creak/wood-door-creak-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "door",
+    "creak",
+    "wood"
+   ],
+   "durationSec": 4.0,
+   "prompt": [
+    "an old wooden cottage door creaking slowly open, close, realistic, no music",
+    "a small wooden door slowly creaking open on old hinges, realistic, no music"
+   ],
+   "seed": [
+    1642,
+    1641,
+    1643,
+    1643
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "wood-door-creak/wood-door-creak-01.wav",
+     "take": "p0-s1642",
+     "prompt": "an old wooden cottage door creaking slowly open, close, realistic, no music",
+     "seed": 1642,
+     "startSec": 4.818,
+     "durationSec": 4.0,
+     "clap": 0.285,
+     "snrDb": 67.3,
+     "loudnessLUFS": -27.0
+    },
+    {
+     "file": "wood-door-creak/wood-door-creak-02.wav",
+     "take": "p0-s1641",
+     "prompt": "an old wooden cottage door creaking slowly open, close, realistic, no music",
+     "seed": 1641,
+     "startSec": 0.132,
+     "durationSec": 4.0,
+     "clap": 0.245,
+     "snrDb": 53.8,
+     "loudnessLUFS": -19.1
+    },
+    {
+     "file": "wood-door-creak/wood-door-creak-03.wav",
+     "take": "p0-s1643",
+     "prompt": "an old wooden cottage door creaking slowly open, close, realistic, no music",
+     "seed": 1643,
+     "startSec": 0.195,
+     "durationSec": 2.463,
+     "clap": 0.213,
+     "snrDb": 53.4,
+     "loudnessLUFS": -19.3
+    },
+    {
+     "file": "wood-door-creak/wood-door-creak-04.wav",
+     "take": "p0-s1643",
+     "prompt": "an old wooden cottage door creaking slowly open, close, realistic, no music",
+     "seed": 1643,
+     "startSec": 3.946,
+     "durationSec": 4.0,
+     "clap": 0.156,
+     "snrDb": 58.7,
+     "loudnessLUFS": -26.8
+    }
+   ]
+  },
+  {
+   "id": "cage-rattle",
+   "kind": "sfx",
+   "files": [
+    "cage-rattle/cage-rattle-01.wav",
+    "cage-rattle/cage-rattle-02.wav",
+    "cage-rattle/cage-rattle-03.wav",
+    "cage-rattle/cage-rattle-04.wav",
+    "cage-rattle/cage-rattle-05.wav",
+    "cage-rattle/cage-rattle-06.wav",
+    "cage-rattle/cage-rattle-07.wav",
+    "cage-rattle/cage-rattle-08.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "cage",
+    "wood",
+    "rattle",
+    "bars"
+   ],
+   "durationSec": 1.883,
+   "prompt": [
+    "hands shaking old wooden cage bars, wood knocking and rattling, close, realistic, no music",
+    "a wooden cage door slammed shut and rattled, wooden bars clatter, realistic, no music"
+   ],
+   "seed": [
+    1653,
+    1651,
+    1651,
+    1652,
+    1652,
+    1651,
+    1652,
+    1653
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.5,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "cage-rattle/cage-rattle-01.wav",
+     "take": "p0-s1653",
+     "prompt": "hands shaking old wooden cage bars, wood knocking and rattling, close, realistic, no music",
+     "seed": 1653,
+     "startSec": 6.535,
+     "durationSec": 1.209,
+     "clap": 0.08,
+     "snrDb": 52.6,
+     "loudnessLUFS": -21.0
+    },
+    {
+     "file": "cage-rattle/cage-rattle-02.wav",
+     "take": "p1-s1651",
+     "prompt": "a wooden cage door slammed shut and rattled, wooden bars clatter, realistic, no music",
+     "seed": 1651,
+     "startSec": 0.544,
+     "durationSec": 1.897,
+     "clap": 0.069,
+     "snrDb": 70.5,
+     "loudnessLUFS": -18.0
+    },
+    {
+     "file": "cage-rattle/cage-rattle-03.wav",
+     "take": "p0-s1651",
+     "prompt": "hands shaking old wooden cage bars, wood knocking and rattling, close, realistic, no music",
+     "seed": 1651,
+     "startSec": 0.443,
+     "durationSec": 2.135,
+     "clap": 0.038,
+     "snrDb": 54.3,
+     "loudnessLUFS": -23.8
+    },
+    {
+     "file": "cage-rattle/cage-rattle-04.wav",
+     "take": "p0-s1652",
+     "prompt": "hands shaking old wooden cage bars, wood knocking and rattling, close, realistic, no music",
+     "seed": 1652,
+     "startSec": 6.752,
+     "durationSec": 1.456,
+     "clap": 0.026,
+     "snrDb": 59.7,
+     "loudnessLUFS": -21.9
+    },
+    {
+     "file": "cage-rattle/cage-rattle-05.wav",
+     "take": "p1-s1652",
+     "prompt": "a wooden cage door slammed shut and rattled, wooden bars clatter, realistic, no music",
+     "seed": 1652,
+     "startSec": 6.646,
+     "durationSec": 1.008,
+     "clap": -0.015,
+     "snrDb": 60.6,
+     "loudnessLUFS": -18.8
+    },
+    {
+     "file": "cage-rattle/cage-rattle-06.wav",
+     "take": "p1-s1651",
+     "prompt": "a wooden cage door slammed shut and rattled, wooden bars clatter, realistic, no music",
+     "seed": 1651,
+     "startSec": 6.189,
+     "durationSec": 1.975,
+     "clap": -0.022,
+     "snrDb": 70.6,
+     "loudnessLUFS": -17.8
+    },
+    {
+     "file": "cage-rattle/cage-rattle-07.wav",
+     "take": "p1-s1652",
+     "prompt": "a wooden cage door slammed shut and rattled, wooden bars clatter, realistic, no music",
+     "seed": 1652,
+     "startSec": 0.32,
+     "durationSec": 2.112,
+     "clap": -0.037,
+     "snrDb": 61.6,
+     "loudnessLUFS": -16.4
+    },
+    {
+     "file": "cage-rattle/cage-rattle-08.wav",
+     "take": "p1-s1653",
+     "prompt": "a wooden cage door slammed shut and rattled, wooden bars clatter, realistic, no music",
+     "seed": 1653,
+     "startSec": 5.109,
+     "durationSec": 1.868,
+     "clap": -0.074,
+     "snrDb": 55.3,
+     "loudnessLUFS": -20.1
+    }
+   ]
+  },
+  {
+   "id": "oven-roar",
+   "kind": "sfx",
+   "files": [
+    "oven-roar/oven-roar-01.wav",
+    "oven-roar/oven-roar-02.wav",
+    "oven-roar/oven-roar-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "fire",
+    "oven",
+    "roar",
+    "whoosh"
+   ],
+   "durationSec": 6.0,
+   "prompt": [
+    "a big wood-fired iron oven roaring as the fire catches, deep whoosh of flames, realistic, no music",
+    "fire flaring up inside a large brick oven, roaring flames, realistic, no music"
+   ],
+   "seed": [
+    1662,
+    1661,
+    1663
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -14.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "oven-roar/oven-roar-01.wav",
+     "take": "p1-s1662",
+     "prompt": "fire flaring up inside a large brick oven, roaring flames, realistic, no music",
+     "seed": 1662,
+     "startSec": 0.142,
+     "durationSec": 6.0,
+     "clap": 0.119,
+     "snrDb": 25.4,
+     "loudnessLUFS": -14.8
+    },
+    {
+     "file": "oven-roar/oven-roar-02.wav",
+     "take": "p1-s1661",
+     "prompt": "fire flaring up inside a large brick oven, roaring flames, realistic, no music",
+     "seed": 1661,
+     "startSec": 0.171,
+     "durationSec": 6.0,
+     "clap": 0.036,
+     "snrDb": 37.7,
+     "loudnessLUFS": -13.8
+    },
+    {
+     "file": "oven-roar/oven-roar-03.wav",
+     "take": "p1-s1663",
+     "prompt": "fire flaring up inside a large brick oven, roaring flames, realistic, no music",
+     "seed": 1663,
+     "startSec": 0.044,
+     "durationSec": 6.0,
+     "clap": 0.022,
+     "snrDb": 44.6,
+     "loudnessLUFS": -14.1
+    }
+   ]
+  },
+  {
+   "id": "iron-slam",
+   "kind": "sfx",
+   "files": [
+    "iron-slam/iron-slam-01.wav",
+    "iron-slam/iron-slam-02.wav",
+    "iron-slam/iron-slam-03.wav",
+    "iron-slam/iron-slam-04.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "iron",
+    "door",
+    "slam",
+    "clang"
+   ],
+   "durationSec": 0.966,
+   "prompt": [
+    "a heavy iron oven door slammed shut with a loud metallic clang and latch, realistic, no music",
+    "a cast iron door slamming shut, heavy clang and bolt, close, realistic, no music"
+   ],
+   "seed": [
+    1673,
+    1672,
+    1672,
+    1671
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "iron-slam/iron-slam-01.wav",
+     "take": "p0-s1673",
+     "prompt": "a heavy iron oven door slammed shut with a loud metallic clang and latch, realistic, no music",
+     "seed": 1673,
+     "startSec": 5.596,
+     "durationSec": 0.877,
+     "clap": 0.208,
+     "snrDb": 67.2,
+     "loudnessLUFS": -21.5
+    },
+    {
+     "file": "iron-slam/iron-slam-02.wav",
+     "take": "p0-s1672",
+     "prompt": "a heavy iron oven door slammed shut with a loud metallic clang and latch, realistic, no music",
+     "seed": 1672,
+     "startSec": 6.557,
+     "durationSec": 0.742,
+     "clap": 0.19,
+     "snrDb": 70.4,
+     "loudnessLUFS": -18.5
+    },
+    {
+     "file": "iron-slam/iron-slam-03.wav",
+     "take": "p0-s1672",
+     "prompt": "a heavy iron oven door slammed shut with a loud metallic clang and latch, realistic, no music",
+     "seed": 1672,
+     "startSec": 0.863,
+     "durationSec": 1.055,
+     "clap": 0.169,
+     "snrDb": 69.6,
+     "loudnessLUFS": -22.5
+    },
+    {
+     "file": "iron-slam/iron-slam-04.wav",
+     "take": "p0-s1671",
+     "prompt": "a heavy iron oven door slammed shut with a loud metallic clang and latch, realistic, no music",
+     "seed": 1671,
+     "startSec": 6.14,
+     "durationSec": 1.464,
+     "clap": 0.135,
+     "snrDb": 80.0,
+     "loudnessLUFS": -18.4
+    }
+   ]
+  },
+  {
+   "id": "pearls-rattle",
+   "kind": "sfx",
+   "files": [
+    "pearls-rattle/pearls-rattle-01.wav",
+    "pearls-rattle/pearls-rattle-02.wav",
+    "pearls-rattle/pearls-rattle-03.wav",
+    "pearls-rattle/pearls-rattle-04.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "pearls",
+    "jewels",
+    "rattle"
+   ],
+   "durationSec": 1.804,
+   "prompt": [
+    "a handful of pearls and small jewels rattling in a cloth pocket while running, realistic, no music",
+    "small glass beads and pearls clinking together, close, realistic, no music"
+   ],
+   "seed": [
+    1683,
+    1683,
+    1682,
+    1681
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -21.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "pearls-rattle/pearls-rattle-01.wav",
+     "take": "p1-s1683",
+     "prompt": "small glass beads and pearls clinking together, close, realistic, no music",
+     "seed": 1683,
+     "startSec": 6.908,
+     "durationSec": 1.051,
+     "clap": 0.041,
+     "snrDb": 40.9,
+     "loudnessLUFS": -17.6
+    },
+    {
+     "file": "pearls-rattle/pearls-rattle-02.wav",
+     "take": "p1-s1683",
+     "prompt": "small glass beads and pearls clinking together, close, realistic, no music",
+     "seed": 1683,
+     "startSec": 0.087,
+     "durationSec": 1.645,
+     "clap": 0.03,
+     "snrDb": 41.1,
+     "loudnessLUFS": -21.7
+    },
+    {
+     "file": "pearls-rattle/pearls-rattle-03.wav",
+     "take": "p1-s1682",
+     "prompt": "small glass beads and pearls clinking together, close, realistic, no music",
+     "seed": 1682,
+     "startSec": 0.49,
+     "durationSec": 3.0,
+     "clap": -0.009,
+     "snrDb": 52.4,
+     "loudnessLUFS": -23.5
+    },
+    {
+     "file": "pearls-rattle/pearls-rattle-04.wav",
+     "take": "p1-s1681",
+     "prompt": "small glass beads and pearls clinking together, close, realistic, no music",
+     "seed": 1681,
+     "startSec": 7.016,
+     "durationSec": 1.962,
+     "clap": -0.027,
+     "snrDb": 40.8,
+     "loudnessLUFS": -20.8
+    }
+   ]
+  },
+  {
+   "id": "wolf-howl",
+   "kind": "sfx",
+   "files": [
+    "wolf-howl/wolf-howl-01.wav",
+    "wolf-howl/wolf-howl-02.wav",
+    "wolf-howl/wolf-howl-03.wav",
+    "wolf-howl/wolf-howl-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "wolf",
+    "howl",
+    "night"
+   ],
+   "durationSec": 6.0,
+   "prompt": [
+    "a single lone wolf howling at night far up on a rocky hill, long rising and falling howl, eerie, natural recording",
+    "one wolf howl at night in the distance, mournful, echo across a valley, field recording"
+   ],
+   "seed": [
+    3003,
+    3002,
+    3001,
+    3003
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -11.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "wolf-howl/wolf-howl-01.wav",
+     "take": "p1-s3003",
+     "prompt": "one wolf howl at night in the distance, mournful, echo across a valley, field recording",
+     "seed": 3003,
+     "startSec": 0.128,
+     "durationSec": 6.0,
+     "clap": -0.015,
+     "snrDb": 42.3,
+     "loudnessLUFS": -8.8
+    },
+    {
+     "file": "wolf-howl/wolf-howl-02.wav",
+     "take": "p1-s3002",
+     "prompt": "one wolf howl at night in the distance, mournful, echo across a valley, field recording",
+     "seed": 3002,
+     "startSec": 0.439,
+     "durationSec": 6.0,
+     "clap": -0.016,
+     "snrDb": 45.5,
+     "loudnessLUFS": -12.6
+    },
+    {
+     "file": "wolf-howl/wolf-howl-03.wav",
+     "take": "p0-s3001",
+     "prompt": "a single lone wolf howling at night far up on a rocky hill, long rising and falling howl, eerie, natural recording",
+     "seed": 3001,
+     "startSec": 0.229,
+     "durationSec": 6.0,
+     "clap": -0.021,
+     "snrDb": 44.8,
+     "loudnessLUFS": -9.4
+    },
+    {
+     "file": "wolf-howl/wolf-howl-04.wav",
+     "take": "p0-s3003",
+     "prompt": "a single lone wolf howling at night far up on a rocky hill, long rising and falling howl, eerie, natural recording",
+     "seed": 3003,
+     "startSec": 0.401,
+     "durationSec": 6.0,
+     "clap": -0.024,
+     "snrDb": 41.3,
+     "loudnessLUFS": -13.1
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "wolf-snarl",
+   "kind": "sfx",
+   "files": [
+    "wolf-snarl/wolf-snarl-01.wav",
+    "wolf-snarl/wolf-snarl-02.wav",
+    "wolf-snarl/wolf-snarl-03.wav",
+    "wolf-snarl/wolf-snarl-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "wolf",
+    "growl",
+    "snarl"
+   ],
+   "durationSec": 2.465,
+   "prompt": [
+    "a wolf snarling and growling close up, bared teeth, aggressive low growl, natural animal recording",
+    "angry wolf growl and snarl, close, menacing, field recording"
+   ],
+   "seed": [
+    3013,
+    3011,
+    3012,
+    3011
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -15.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "wolf-snarl/wolf-snarl-01.wav",
+     "take": "p1-s3013",
+     "prompt": "angry wolf growl and snarl, close, menacing, field recording",
+     "seed": 3013,
+     "startSec": 6.113,
+     "durationSec": 0.865,
+     "clap": 0.293,
+     "snrDb": 38.2,
+     "loudnessLUFS": -14.4
+    },
+    {
+     "file": "wolf-snarl/wolf-snarl-02.wav",
+     "take": "p1-s3011",
+     "prompt": "angry wolf growl and snarl, close, menacing, field recording",
+     "seed": 3011,
+     "startSec": 0.904,
+     "durationSec": 2.5,
+     "clap": 0.246,
+     "snrDb": 56.7,
+     "loudnessLUFS": -13.8
+    },
+    {
+     "file": "wolf-snarl/wolf-snarl-03.wav",
+     "take": "p1-s3012",
+     "prompt": "angry wolf growl and snarl, close, menacing, field recording",
+     "seed": 3012,
+     "startSec": 3.294,
+     "durationSec": 2.429,
+     "clap": 0.242,
+     "snrDb": 49.7,
+     "loudnessLUFS": -16.9
+    },
+    {
+     "file": "wolf-snarl/wolf-snarl-04.wav",
+     "take": "p0-s3011",
+     "prompt": "a wolf snarling and growling close up, bared teeth, aggressive low growl, natural animal recording",
+     "seed": 3011,
+     "startSec": 0.206,
+     "durationSec": 2.5,
+     "clap": 0.207,
+     "snrDb": 39.6,
+     "loudnessLUFS": -17.9
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "sheep-bleat",
+   "kind": "sfx",
+   "files": [
+    "sheep-bleat/sheep-bleat-01.wav",
+    "sheep-bleat/sheep-bleat-02.wav",
+    "sheep-bleat/sheep-bleat-03.wav",
+    "sheep-bleat/sheep-bleat-04.wav",
+    "sheep-bleat/sheep-bleat-05.wav",
+    "sheep-bleat/sheep-bleat-06.wav",
+    "sheep-bleat/sheep-bleat-07.wav",
+    "sheep-bleat/sheep-bleat-08.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "sheep",
+    "bleat",
+    "baa"
+   ],
+   "durationSec": 1.012,
+   "prompt": [
+    "a few sheep bleating close up, single baa calls, natural farm recording",
+    "sheep baaing one at a time, close, outdoor field recording"
+   ],
+   "seed": [
+    3021,
+    3022,
+    3023,
+    3023,
+    3021,
+    3022,
+    3022,
+    3022
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -10.9,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "sheep-bleat/sheep-bleat-01.wav",
+     "take": "p0-s3021",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3021,
+     "startSec": 1.188,
+     "durationSec": 1.021,
+     "clap": 0.18,
+     "snrDb": 42.3,
+     "loudnessLUFS": -10.5
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-02.wav",
+     "take": "p0-s3022",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3022,
+     "startSec": 2.511,
+     "durationSec": 1.306,
+     "clap": 0.141,
+     "snrDb": 35.9,
+     "loudnessLUFS": -13.2
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-03.wav",
+     "take": "p0-s3023",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3023,
+     "startSec": 4.029,
+     "durationSec": 1.004,
+     "clap": 0.136,
+     "snrDb": 37.7,
+     "loudnessLUFS": -12.9
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-04.wav",
+     "take": "p0-s3023",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3023,
+     "startSec": 0.401,
+     "durationSec": 1.132,
+     "clap": 0.134,
+     "snrDb": 38.7,
+     "loudnessLUFS": -10.5
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-05.wav",
+     "take": "p0-s3021",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3021,
+     "startSec": 0.27,
+     "durationSec": 0.865,
+     "clap": 0.121,
+     "snrDb": 34.5,
+     "loudnessLUFS": -10.8
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-06.wav",
+     "take": "p0-s3022",
+     "prompt": "a few sheep bleating close up, single baa calls, natural farm recording",
+     "seed": 3022,
+     "startSec": 7.766,
+     "durationSec": 1.276,
+     "clap": 0.106,
+     "snrDb": 44.5,
+     "loudnessLUFS": -10.2
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-07.wav",
+     "take": "p1-s3022",
+     "prompt": "sheep baaing one at a time, close, outdoor field recording",
+     "seed": 3022,
+     "startSec": 2.543,
+     "durationSec": 0.607,
+     "clap": 0.066,
+     "snrDb": 17.3,
+     "loudnessLUFS": -11.6
+    },
+    {
+     "file": "sheep-bleat/sheep-bleat-08.wav",
+     "take": "p1-s3022",
+     "prompt": "sheep baaing one at a time, close, outdoor field recording",
+     "seed": 3022,
+     "startSec": 4.464,
+     "durationSec": 0.569,
+     "clap": 0.046,
+     "snrDb": 17.4,
+     "loudnessLUFS": -11.1
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "sheep-bells",
+   "kind": "sfx",
+   "files": [
+    "sheep-bells/sheep-bells-01.wav",
+    "sheep-bells/sheep-bells-02.wav",
+    "sheep-bells/sheep-bells-03.wav",
+    "sheep-bells/sheep-bells-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "sheep",
+    "bells",
+    "flock",
+    "herd"
+   ],
+   "durationSec": 6.325,
+   "prompt": [
+    "a flock of sheep running with many small metal neck bells clanking, hooves on dry stony ground, Greek mountain, field recording",
+    "goat and sheep bells jingling and clanking as a herd moves fast over rocks, outdoor"
+   ],
+   "seed": [
+    3031,
+    3032,
+    3033,
+    3031
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -21.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "sheep-bells/sheep-bells-01.wav",
+     "take": "p1-s3031",
+     "prompt": "goat and sheep bells jingling and clanking as a herd moves fast over rocks, outdoor",
+     "seed": 3031,
+     "startSec": 3.251,
+     "durationSec": 4.978,
+     "clap": 0.02,
+     "snrDb": 30.1,
+     "loudnessLUFS": -20.5
+    },
+    {
+     "file": "sheep-bells/sheep-bells-02.wav",
+     "take": "p1-s3032",
+     "prompt": "goat and sheep bells jingling and clanking as a herd moves fast over rocks, outdoor",
+     "seed": 3032,
+     "startSec": 0.125,
+     "durationSec": 8.0,
+     "clap": 0.013,
+     "snrDb": 34.3,
+     "loudnessLUFS": -19.8
+    },
+    {
+     "file": "sheep-bells/sheep-bells-03.wav",
+     "take": "p1-s3033",
+     "prompt": "goat and sheep bells jingling and clanking as a herd moves fast over rocks, outdoor",
+     "seed": 3033,
+     "startSec": 0.615,
+     "durationSec": 7.671,
+     "clap": -0.006,
+     "snrDb": 36.3,
+     "loudnessLUFS": -23.4
+    },
+    {
+     "file": "sheep-bells/sheep-bells-04.wav",
+     "take": "p0-s3031",
+     "prompt": "a flock of sheep running with many small metal neck bells clanking, hooves on dry stony ground, Greek mountain, field recording",
+     "seed": 3031,
+     "startSec": 2.696,
+     "durationSec": 3.085,
+     "clap": -0.069,
+     "snrDb": 34.6,
+     "loudnessLUFS": -21.8
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "chapel-bell",
+   "kind": "sfx",
+   "files": [
+    "chapel-bell/chapel-bell-01.wav",
+    "chapel-bell/chapel-bell-02.wav",
+    "chapel-bell/chapel-bell-03.wav",
+    "chapel-bell/chapel-bell-04.wav",
+    "chapel-bell/chapel-bell-05.wav",
+    "chapel-bell/chapel-bell-06.wav",
+    "chapel-bell/chapel-bell-07.wav",
+    "chapel-bell/chapel-bell-08.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "bell",
+    "chapel",
+    "alarm"
+   ],
+   "durationSec": 1.22,
+   "prompt": [
+    "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+    "small church bell ringing urgently, alarm, bronze bell, outdoor, village"
+   ],
+   "seed": [
+    3043,
+    3043,
+    3043,
+    3041,
+    3041,
+    3041,
+    3043,
+    3041
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -18.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "chapel-bell/chapel-bell-01.wav",
+     "take": "p0-s3043",
+     "prompt": "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+     "seed": 3043,
+     "startSec": 1.025,
+     "durationSec": 1.109,
+     "clap": 0.034,
+     "snrDb": 32.0,
+     "loudnessLUFS": -13.3
+    },
+    {
+     "file": "chapel-bell/chapel-bell-02.wav",
+     "take": "p0-s3043",
+     "prompt": "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+     "seed": 3043,
+     "startSec": 2.133,
+     "durationSec": 1.367,
+     "clap": 0.001,
+     "snrDb": 23.0,
+     "loudnessLUFS": -13.0
+    },
+    {
+     "file": "chapel-bell/chapel-bell-03.wav",
+     "take": "p0-s3043",
+     "prompt": "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+     "seed": 3043,
+     "startSec": 0.023,
+     "durationSec": 1.001,
+     "clap": -0.021,
+     "snrDb": 53.7,
+     "loudnessLUFS": -17.6
+    },
+    {
+     "file": "chapel-bell/chapel-bell-04.wav",
+     "take": "p1-s3041",
+     "prompt": "small church bell ringing urgently, alarm, bronze bell, outdoor, village",
+     "seed": 3041,
+     "startSec": 4.505,
+     "durationSec": 1.12,
+     "clap": -0.045,
+     "snrDb": 36.2,
+     "loudnessLUFS": -17.7
+    },
+    {
+     "file": "chapel-bell/chapel-bell-05.wav",
+     "take": "p0-s3041",
+     "prompt": "a small village chapel bell rung fast by hand with a rope, bright bronze clang, outdoor night",
+     "seed": 3041,
+     "startSec": 0.028,
+     "durationSec": 2.965,
+     "clap": -0.052,
+     "snrDb": 48.1,
+     "loudnessLUFS": -19.2
+    },
+    {
+     "file": "chapel-bell/chapel-bell-06.wav",
+     "take": "p1-s3041",
+     "prompt": "small church bell ringing urgently, alarm, bronze bell, outdoor, village",
+     "seed": 3041,
+     "startSec": 2.309,
+     "durationSec": 1.319,
+     "clap": -0.066,
+     "snrDb": 42.1,
+     "loudnessLUFS": -19.5
+    },
+    {
+     "file": "chapel-bell/chapel-bell-07.wav",
+     "take": "p1-s3043",
+     "prompt": "small church bell ringing urgently, alarm, bronze bell, outdoor, village",
+     "seed": 3043,
+     "startSec": 4.572,
+     "durationSec": 1.093,
+     "clap": -0.081,
+     "snrDb": 45.2,
+     "loudnessLUFS": -18.7
+    },
+    {
+     "file": "chapel-bell/chapel-bell-08.wav",
+     "take": "p1-s3041",
+     "prompt": "small church bell ringing urgently, alarm, bronze bell, outdoor, village",
+     "seed": 3041,
+     "startSec": 0.033,
+     "durationSec": 1.917,
+     "clap": -0.092,
+     "snrDb": 42.3,
+     "loudnessLUFS": -18.9
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "village-rush",
+   "kind": "sfx",
+   "files": [
+    "village-rush/village-rush-01.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "crowd",
+    "run",
+    "village"
+   ],
+   "durationSec": null,
+   "prompt": [
+    "a group of village men running up a stony hill path at night, footsteps, heavy breathing, wooden sticks knocking, no words",
+    "a crowd of people running on gravel and stones, panting, sticks clattering, outdoor night, no speech"
+   ],
+   "seed": [],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": 0.0,
+   "replaces": null,
+   "takes": [],
+   "note": "raw take (pick.py cut nothing), first take as used in the mix",
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "wooden-gate",
+   "kind": "sfx",
+   "files": [
+    "wooden-gate/wooden-gate-01.wav",
+    "wooden-gate/wooden-gate-02.wav",
+    "wooden-gate/wooden-gate-03.wav",
+    "wooden-gate/wooden-gate-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "gate",
+    "creak",
+    "wood"
+   ],
+   "durationSec": 1.514,
+   "prompt": [
+    "an old wooden sheep pen gate creaking open on rusty hinges, outdoor",
+    "old wooden farm gate squeaking open, rusty hinge creak, close"
+   ],
+   "seed": [
+    3063,
+    3061,
+    3063,
+    3062
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -14.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "wooden-gate/wooden-gate-01.wav",
+     "take": "p1-s3063",
+     "prompt": "old wooden farm gate squeaking open, rusty hinge creak, close",
+     "seed": 3063,
+     "startSec": 5.734,
+     "durationSec": 1.476,
+     "clap": 0.188,
+     "snrDb": 52.6,
+     "loudnessLUFS": -22.8
+    },
+    {
+     "file": "wooden-gate/wooden-gate-02.wav",
+     "take": "p1-s3061",
+     "prompt": "old wooden farm gate squeaking open, rusty hinge creak, close",
+     "seed": 3061,
+     "startSec": 0.169,
+     "durationSec": 1.189,
+     "clap": 0.173,
+     "snrDb": 45.7,
+     "loudnessLUFS": -14.9
+    },
+    {
+     "file": "wooden-gate/wooden-gate-03.wav",
+     "take": "p1-s3063",
+     "prompt": "old wooden farm gate squeaking open, rusty hinge creak, close",
+     "seed": 3063,
+     "startSec": 3.565,
+     "durationSec": 1.552,
+     "clap": 0.164,
+     "snrDb": 43.5,
+     "loudnessLUFS": -13.3
+    },
+    {
+     "file": "wooden-gate/wooden-gate-04.wav",
+     "take": "p1-s3062",
+     "prompt": "old wooden farm gate squeaking open, rusty hinge creak, close",
+     "seed": 3062,
+     "startSec": 2.304,
+     "durationSec": 2.5,
+     "clap": 0.119,
+     "snrDb": 53.1,
+     "loudnessLUFS": -11.8
+    }
+   ],
+   "used_in": "storyboards/series/legend/cried-wolf"
+  },
+  {
+   "id": "cicadas-night",
+   "kind": "sfx",
+   "files": [
+    "cicadas-night/cicadas-night-01.wav"
+   ],
+   "gain": 0.06,
+   "tags": [
+    "night",
+    "crickets",
+    "ambience"
+   ],
+   "durationSec": null,
+   "prompt": [
+    "night crickets and cicadas in olive trees on a warm Greek hillside, steady soft ambience, no wind",
+    "warm Mediterranean night ambience, crickets chirping in dry grass, calm, field recording"
+   ],
+   "seed": [],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": 0.0,
+   "replaces": null,
+   "takes": [],
+   "note": "raw take (pick.py cut nothing), first take as used in the mix",
+   "used_in": "storyboards/series/legend/cried-wolf"
   }
  ]
 }

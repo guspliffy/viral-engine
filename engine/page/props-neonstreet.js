@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { clamp } from "./util.js";
+import { clamp, lerp } from "./util.js";
 
 // "There's a catch" EP06 "read minds" (storyboards/series/what-if/06-read-minds, panel 13, task T4): the neon shopping street
 // at night, seen from pavement height, and the potato passers-by who walk it. Metres, x right, y up, z toward the main
@@ -50,6 +50,17 @@ import { clamp } from "./util.js";
 //                 default color x 0.72; a small flat collar, 3 buttons; striped sleeves and trouser legs) |
 //                 "bathrobe" (a wrap robe with a bell skirt to 0.06 m above the ground, a shawl collar crossing left over right
 //                 in spec.trim, default color x 1.18, a belt in spec.belt, default color x 0.7, with a knot and two ends 0.10 m long, a trim cuff).
+//                 WINDOW CROWD (country vs country 02, DESIGN section 5), every key off by default (today's potatoes draw exactly as before):
+//                 dress "cardigan" (an open knit cardigan in spec.color over a cream shirt V #f4ecdf with a rib hem and cuffs, a placket down each side of the V
+//                 and 5 buttons #7a5a34), hat 3 (a flat cap in spec.capColor, default "#5f6b78": a crown 0.9 of the head's width, a stiff peak 0.10 long, a button on
+//                 top; hides the leaf), hair "bun" (a grey scalp and a bun r 0.07 on top, #c9c4ba) | "tufts" (two temple tufts; both hide the leaf), glasses 1 (round
+//                 gold wire #8a6a2a, r 0.05, a bridge), brow "#b9b4aa" (the brows are always drawn in that colour, 1.4 x the angry stroke, apart from angry which takes
+//                 over as before), feet false (no shoes, legs or blob shadow: a potato in a window shows nothing through the wall),
+//                 clapHz 0 + clapFrom 0 (spec; seconds on the clip clock: from clapFrom both arms come forward to the chest, hands 0.16 apart, and meet once every
+//                 1 / clapHz s, on the frame (clock - clapFrom) * clapHz is a whole number: a pure function of the clock; clapHz 0 = no clap), raise 0..1 (both hands
+//                 to the eye line, 0.12 either side of the face, e.g. for binoculars), lean 0..1 (the engine's own key, tweens: the body tips 18 degrees forward about
+//                 the feet over a sill). clapHz and raise are NOT listed in propState: put them in the spec (a potato that will clap or raise needs `clapHz: 0` /
+//                 `raise: 0` there) and prime them with a dur-0 `set` at time 0 before tweening.
 //                 Spec skin "#e2a95c" (the golden skin; the cast under castLook "sheet" is brighter, "#f9b75c": pass that to match it).
 //                 Spec angry 0 (0..1, also a param): brows (two dark strokes, drawn only when angry > 0) tilt in 18 degrees and
 //                 drop 0.01, the smile turns to a frown (flat at 0.31, a full frown at 0.63); above 0.5 one arm (spec.angryArm
@@ -603,6 +614,13 @@ function buildPotato(P) {
     const belt = ring(1.93, 1.085, beltM, 0.03); belt.scale.z = 0.75;
     put(body, new THREE.SphereGeometry(0.044, 12, 10), beltM, 0.012, 0.345, surfZ(0, 0.345, 1.085) + 0.03).scale.set(1, 0.85, 0.7);   // the knot
     for (const sx of [-1, 1]) { const e = put(body, new RoundedBoxGeometry(0.034, 0.1, 0.012, 2, 0.005), beltM, 0.012 + sx * 0.03, 0.275, surfZ(0, 0.3, 1.085) + 0.038); e.rotation.z = sx * 0.16; }
+  } else if (dress === "cardigan") {   // an open knit cardigan over a cream shirt V (CVC 02 window crowd)
+    shell(1.64, Math.PI, 1.05, clothM); ring(2.45, 1.05, dkM, 0.026);   // the rib hem
+    const shirt = std({ color: "#ffffff", map: clothTex("#f4ecdf"), roughness: 0.6, emissive: new THREE.Color("#ffffff"), emissiveIntensity: 0.3 });
+    for (const [w, a, b] of [[0.72, 1.64, 1.86], [0.54, 1.84, 2.12], [0.38, 2.10, 2.5]]) { const sg = new THREE.SphereGeometry(1, 20, 8, Math.PI / 2 - w / 2, w, a, b - a); sg.scale(RX * 1.062, RY * 1.062, RZ * 1.062); put(body, sg, shirt, 0, CY, 0); }
+    for (const sx of [-1, 1]) { const pl = new RoundedBoxGeometry(0.03, 0.30, 0.012, 2, 0.005); const o = put(body, pl, dkM, sx * 0.1, 0.33, surfZ(sx * 0.1, 0.33, 1.07) + 0.006); o.rotation.z = sx * -0.06; }
+    const btnC = lit("#7a5a34", 0.3);
+    for (let i = 0; i < 5; i++) { const dy = 0.43 - 0.055 * i; put(body, new THREE.SphereGeometry(0.016, 8, 6), btnC, -0.1, dy, surfZ(-0.1, dy, 1.07) + 0.012); }
   } else {   // suit
     shell(1.64, Math.PI, 1.045, clothM);
     const shirt = std({ color: "#ffffff", map: clothTex("#f4f2ec"), roughness: 0.6, emissive: new THREE.Color("#ffffff"), emissiveIntensity: 0.3 });
@@ -621,14 +639,29 @@ function buildPotato(P) {
     const bl = put(body, new THREE.CircleGeometry(0.045, 14), blushM, bx, by, bz + 0.002); bl.rotation.y = sx * 0.55; bl.scale.set(1.2, 0.8, 1);
   }
   const sm = put(body, new THREE.TorusGeometry(0.04, 0.0065, 6, 14, Math.PI), std({ color: "#4a2008" }), 0, 0.54, RZ * Math.sqrt(1 - (0.06 / RY) ** 2)); sm.rotation.z = Math.PI; sm.rotation.x = -0.1;
+  if (S.glasses) {   // round gold wire, r 0.05, with a bridge
+    const gm = std({ color: "#8a6a2a", roughness: 0.35, metalness: 0.3, emissive: new THREE.Color("#8a6a2a"), emissiveIntensity: 0.25 });
+    for (const sx of [-1, 1]) { const ex = sx * 0.125, ey = 0.6, ez = RZ * Math.sqrt(Math.max(0, 1 - (ex / RX) ** 2 - ((ey - CY) / RY) ** 2)); put(body, new THREE.TorusGeometry(0.05, 0.0045, 6, 20), gm, ex, ey, ez + 0.022); }
+    const br = put(body, new THREE.CylinderGeometry(0.0045, 0.0045, 0.05, 5), gm, 0, 0.607, RZ * Math.sqrt(1 - (0.007 / RY) ** 2) + 0.02); br.rotation.z = Math.PI / 2;
+  }
   // angry (EP07 neighbours): two dark brow strokes that tilt in and drop, the smile turning to a frown (see apply); hidden at 0
   const browG = new THREE.CapsuleGeometry(0.0095, 0.062, 3, 6); browG.rotateZ(Math.PI / 2);
-  const browM = std({ color: "#2a1608", roughness: 0.4 }), brows = [-1, 1].map((sx) => { const b = put(body, browG, browM, sx * 0.125, 0.69, 0.28); b.visible = false; return [sx, b]; });
+  const browM = std({ color: "#2a1608", roughness: 0.4 }), brows = [-1, 1].map((sx) => { const b = put(body, browG, browM, sx * 0.125, 0.69, 0.28); b.visible = !!S.brow; return [sx, b]; });
+  if (S.brow) browM.color.set(S.brow);   // bushy brows (opt-in): always drawn, 1.4 x the angry stroke
   // leaf sprout, or a beanie with a pompom
-  if (!hat) {
+  if (!hat && !S.hair) {
     const leafM = std({ color: "#6cbf3a", roughness: 0.55, emissive: new THREE.Color("#2a5a10"), emissiveIntensity: 0.3 });
     const stem = put(body, new THREE.CylinderGeometry(0.01, 0.015, 0.07, 6), leafM, 0.01, 0.92, 0); stem.rotation.z = -0.15;
     for (const sx of [-1, 1]) { const lf = new THREE.SphereGeometry(0.05, 10, 8); lf.scale(1.5, 0.28, 0.8); const l = put(body, lf, leafM, sx * 0.055 + 0.01, 0.97, 0); l.rotation.z = sx * 0.55; }
+  } else if (!hat) {   // grey hair (CVC 02): a bun on a grey scalp, or two temple tufts; the leaf is hidden
+    const hairM = lit("#c9c4ba", 0.25);
+    if (S.hair === "tufts") { for (const sx of [-1, 1]) { const tf = new THREE.SphereGeometry(0.06, 10, 8); tf.scale(0.8, 1.1, 0.9); put(body, tf, hairM, sx * 0.3, 0.7, 0.0).rotation.z = sx * -0.5; } }
+    else { shell(0, 0.62, 1.03, hairM); put(body, new THREE.SphereGeometry(0.07, 12, 10), hairM, 0, 0.95, -0.03); }
+  } else if (S.hat === 3) {   // a flat cap in spec.capColor: a wide low crown, a stiff peak 0.10 long, a button on top
+    const capM = lit(S.capColor ?? "#5f6b78", 0.3), cg = new THREE.SphereGeometry(1, 24, 10, 0, TAU, 0, Math.PI / 2); cg.scale(RX * 0.9, 0.2, RZ * 0.95);
+    put(body, cg, capM, 0, 0.76, 0.015);
+    const peak = new RoundedBoxGeometry(0.3, 0.016, 0.1, 2, 0.006); put(body, peak, lit(lerpHex(S.capColor ?? "#5f6b78", "#14101c", 0.35), 0.25), 0, 0.775, RZ * 0.9 + 0.04).rotation.x = 0.18;
+    put(body, new THREE.SphereGeometry(0.02, 8, 6), capM, 0, 0.955, 0.015);
   } else if (nightcap) {   // a soft cone bent over to one side with a pompom, in spec.capColor
     const cc = S.capColor ?? "#a85a5a", capM = lit(cc, 0.3), bandM = lit(lerpHex(cc, "#fff2d0", 0.4), 0.3);
     shell(0, 0.98, 1.07, capM); ring(0.98, 1.07, bandM, 0.034);
@@ -652,6 +685,7 @@ function buildPotato(P) {
     const pv = new THREE.Group(); pv.position.set(sx * (RX * 0.92), 0.62, 0.02); body.add(pv); arms.push([sx, pv]);
     put(pv, new THREE.CapsuleGeometry(0.045, 0.14, 4, 8), armM, 0, -0.12, 0); put(pv, new THREE.SphereGeometry(0.05, 10, 8), handM, 0, -0.245, 0);
     if (dress === "bathrobe") { const cf = put(pv, new THREE.TorusGeometry(0.047, 0.014, 6, 14), trimM, 0, -0.205, 0); cf.rotation.x = Math.PI / 2; }   // the turned cuff
+    else if (dress === "cardigan") { const cf = put(pv, new THREE.TorusGeometry(0.047, 0.012, 6, 14), dkM, 0, -0.2, 0); cf.rotation.x = Math.PI / 2; }   // the rib cuff
   }
   const angryArm = S.angryArm ?? (ident % 2 ? 1 : -1);
   // legs (hip in the body, toward the foot) and dark shoes (on the ground, not bobbing)
@@ -663,10 +697,27 @@ function buildPotato(P) {
   }
   // a soft blob shadow under it (the ghost does not take part in the ground blobs)
   const sh = put(root, new THREE.CircleGeometry(0.34, 24), bas({ map: radial([[0, "rgba(0,0,0,0.55)"], [0.6, "rgba(0,0,0,0.3)"], [1, "rgba(0,0,0,0)"]], 64), transparent: true, depthWrite: false, toneMapped: false }), 0, 0.006, 0.02, -2); sh.rotation.x = -Math.PI / 2; sh.scale.set(1.15, 0.85, 1);
+  if (S.feet === false) { for (const [, lg] of legs) lg.visible = false; for (const [, sh2] of shoes) sh2.visible = false; sh.visible = false; }   // opt-in: a potato in a window shows no feet
   const phase = ident * 0.37;
   // a foot's offset in metres (forward +) and lift for a cycle phase f in 0..1: stance 0..0.5 goes back at the body's speed, then swings
   const footZ = (f) => (f < 0.5 ? STRIDE / 2 - (f / 0.5) * STRIDE : -STRIDE / 2 + ((1 - Math.cos(((f - 0.5) / 0.5) * Math.PI)) / 2) * STRIDE);
   const footY = (f) => (f < 0.5 ? 0 : 0.05 * Math.sin(((f - 0.5) / 0.5) * Math.PI));
+  // window crowd arms (opt-in clapHz / raise): both hands forward at the chest, 0.16 apart, meeting once every 1 / clapHz s; raise brings them to the eye line
+  const posable = S.clapHz != null || S.raise != null, qT = new THREE.Quaternion(), vA = new THREE.Vector3(), vD = new THREE.Vector3(0, -1, 0);
+  const armPose = (ps, tt) => {
+    if (!posable) return;
+    const hz = ps.clapHz ?? S.clapHz ?? 0, from = S.clapFrom ?? 0, rK = clamp(ps.raise ?? S.raise ?? 0);
+    const cK = hz > 0 ? sstepW(clamp((tt - from) / 0.12)) : 0, ph = hz > 0 ? ((tt - from) * hz) % 1 : 0, ph1 = ph < 0 ? ph + 1 : ph;
+    const w = Math.max(cK, rK);
+    for (const [sx, pv] of arms) {
+      if (w <= 0) { pv.position.set(sx * (RX * 0.92), 0.62, 0.02); continue; }
+      const hx = rK > 0 ? 0.05 + (0.12 - 0.05) * rK + 0.03 * Math.sin(Math.PI * ph1) * (1 - rK) * cK : 0.05 + 0.03 * Math.sin(Math.PI * ph1), hy = 0.40 + 0.2 * rK, A = 0.245, phi = 30 * Math.PI / 180;
+      vA.set(-sx * Math.sin(phi), 0, Math.cos(phi)).multiplyScalar(A);
+      qT.setFromUnitVectors(vD, vA.clone().normalize());
+      pv.position.set(lerp(sx * (RX * 0.92), sx * hx - vA.x, w), lerp(0.62, hy - vA.y, w), lerp(0.02, 0.42 - vA.z, w));
+      pv.quaternion.slerp(qT, w);
+    }
+  };
   return {
     grip: 0,
     apply(ps, t) {
@@ -674,7 +725,7 @@ function buildPotato(P) {
       if (S.auto) wk += Math.hypot((ps.x ?? 0) - (S.x ?? 0), (ps.z ?? 0) - (S.z ?? 0));
       const u = wk / (2 * STRIDE), fr = (v) => v - Math.floor(v), sway = clamp(ps.sway ?? S.sway ?? 0), tt = t ?? 0;
       const bob = 0.025 * (1 - Math.cos(2 * Math.PI * 2 * u)) / 2;   // model units: the body rises at mid-stride
-      body.position.y = LIFT + bob; body.rotation.x = 0.05; body.rotation.z = 0.035 * Math.sin(2 * Math.PI * u) + (3 * Math.PI / 180) * sway * Math.sin(tt * 1.7 + phase);
+      body.position.y = LIFT + bob; body.rotation.x = 0.05 + (ps.lean ?? S.lean ?? 0) * 18 * Math.PI / 180; body.rotation.z = 0.035 * Math.sin(2 * Math.PI * u) + (3 * Math.PI / 180) * sway * Math.sin(tt * 1.7 + phase);
       const zr = {};
       for (const [sx, shoe] of shoes) {
         const f = fr(u + (sx > 0 ? 0.5 : 0)), dz = footZ(f) / k, dy = footY(f) / k; zr[sx] = footZ(f);
@@ -685,10 +736,11 @@ function buildPotato(P) {
         lg.rotation.x = -Math.atan2(dz, dyy); lg.scale.y = Math.hypot(dz, dyy);
       }
       for (const [sx, pv] of arms) pv.rotation.set(3.2 * zr[sx], 0, sx * 0.22);
+      armPose(ps, tt);
       // angry: brows tilt in and drop, the smile turns to a frown; above 0.5 one arm rises and shakes. 0 leaves every transform as it was
       const an = clamp(ps.angry ?? S.angry ?? 0);
       if (an > 0) {
-        const a2 = clamp(an * 1.6), grow = clamp(an * 6);
+        const a2 = clamp(an * 1.6), grow = clamp(an * 6) * (S.brow ? 1.4 : 1);
         for (const [sx, br] of brows) {
           const by = 0.685 - 0.01 * an, ex = sx * 0.125;
           br.position.set(ex, by, RZ * Math.sqrt(Math.max(0, 1 - (ex / RX) ** 2 - ((by - CY) / RY) ** 2)) + 0.004);
@@ -697,7 +749,12 @@ function buildPotato(P) {
         sm.rotation.z = a2 < 0.5 ? Math.PI : 0; sm.scale.y = a2 < 0.5 ? 1 - 2 * a2 : 2 * a2 - 1; sm.position.y = 0.54 - 0.035 * a2;
         const w = clamp((an - 0.5) * 4);
         if (w > 0) for (const [sx, pv] of arms) if (sx === angryArm) { const sw = sstepW(w); pv.rotation.set(3.2 * zr[sx] * (1 - sw) - (60 * Math.PI / 180) * sw + (8 * Math.PI / 180) * sw * Math.sin(2 * Math.PI * 5 * tt), 0, sx * 0.22); }
-      } else { for (const [, br] of brows) br.visible = false; sm.rotation.z = Math.PI; sm.scale.y = 1; sm.position.y = 0.54; }
+      } else {
+        for (const [sx, br] of brows) {
+          br.visible = !!S.brow;
+          if (S.brow) { const ex = sx * 0.125; br.position.set(ex, 0.69, RZ * Math.sqrt(Math.max(0, 1 - (ex / RX) ** 2 - ((0.69 - CY) / RY) ** 2)) + 0.004); br.rotation.set(0, sx * 0.25, 0); br.scale.set(1.4, 1.4, 1.4); }
+        }
+        sm.rotation.z = Math.PI; sm.scale.y = 1; sm.position.y = 0.54; }
     },
   };
 }
