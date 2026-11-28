@@ -4027,6 +4027,164 @@
     "crowd"
    ]
   },
+  "ai/campfire-crackle": {
+   "family": "unsorted",
+   "says": "a small campfire crackling (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/campfire-crackle/campfire-crackle-01.wav",
+    "ai/campfire-crackle/campfire-crackle-02.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "fire",
+    "campfire",
+    "crackle"
+   ]
+  },
+  "ai/birds-peck": {
+   "family": "unsorted",
+   "says": "small birds pecking crumbs (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/birds-peck/birds-peck-01.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "birds",
+    "peck",
+    "chirp"
+   ]
+  },
+  "ai/owl-hoot": {
+   "family": "unsorted",
+   "says": "an owl hooting in the night forest (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/owl-hoot/owl-hoot-01.wav",
+    "ai/owl-hoot/owl-hoot-02.wav",
+    "ai/owl-hoot/owl-hoot-03.wav",
+    "ai/owl-hoot/owl-hoot-04.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "owl",
+    "hoot",
+    "night"
+   ]
+  },
+  "ai/sniff": {
+   "family": "unsorted",
+   "says": "a person sniffing through the nose (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/sniff/sniff-01.wav",
+    "ai/sniff/sniff-02.wav",
+    "ai/sniff/sniff-03.wav",
+    "ai/sniff/sniff-04.wav",
+    "ai/sniff/sniff-05.wav",
+    "ai/sniff/sniff-06.wav",
+    "ai/sniff/sniff-07.wav",
+    "ai/sniff/sniff-08.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "sniff",
+    "nose",
+    "smell"
+   ]
+  },
+  "ai/wood-door-creak": {
+   "family": "unsorted",
+   "says": "a wooden door creaking open (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/wood-door-creak/wood-door-creak-01.wav",
+    "ai/wood-door-creak/wood-door-creak-02.wav",
+    "ai/wood-door-creak/wood-door-creak-03.wav",
+    "ai/wood-door-creak/wood-door-creak-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "door",
+    "creak",
+    "wood"
+   ]
+  },
+  "ai/cage-rattle": {
+   "family": "unsorted",
+   "says": "wooden cage bars rattling (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/cage-rattle/cage-rattle-01.wav",
+    "ai/cage-rattle/cage-rattle-02.wav",
+    "ai/cage-rattle/cage-rattle-03.wav",
+    "ai/cage-rattle/cage-rattle-04.wav",
+    "ai/cage-rattle/cage-rattle-05.wav",
+    "ai/cage-rattle/cage-rattle-06.wav",
+    "ai/cage-rattle/cage-rattle-07.wav",
+    "ai/cage-rattle/cage-rattle-08.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "cage",
+    "wood",
+    "rattle",
+    "bars"
+   ]
+  },
+  "ai/oven-roar": {
+   "family": "unsorted",
+   "says": "a big oven fire roaring (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/oven-roar/oven-roar-01.wav",
+    "ai/oven-roar/oven-roar-02.wav",
+    "ai/oven-roar/oven-roar-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "fire",
+    "oven",
+    "roar",
+    "whoosh"
+   ]
+  },
+  "ai/iron-slam": {
+   "family": "unsorted",
+   "says": "a heavy iron oven door slamming shut (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/iron-slam/iron-slam-01.wav",
+    "ai/iron-slam/iron-slam-02.wav",
+    "ai/iron-slam/iron-slam-03.wav",
+    "ai/iron-slam/iron-slam-04.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "iron",
+    "door",
+    "slam",
+    "clang"
+   ]
+  },
+  "ai/pearls-rattle": {
+   "family": "unsorted",
+   "says": "pearls rattling in a pocket (soundgen label, not yet measured)",
+   "source": "ai",
+   "files": [
+    "ai/pearls-rattle/pearls-rattle-01.wav",
+    "ai/pearls-rattle/pearls-rattle-02.wav",
+    "ai/pearls-rattle/pearls-rattle-03.wav",
+    "ai/pearls-rattle/pearls-rattle-04.wav"
+   ],
+   "gain": 0.35,
+   "tags": [
+    "pearls",
+    "jewels",
+    "rattle"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
